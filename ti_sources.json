@@ -124,6 +124,19 @@
     "Checked": "2026-10-23"
   },
   {
+    "SourceName": "Researchers' posts on X (community_posts.json)",
+    "Kind": "x-posts",
+    "Site": "https://x.com/0x534c",
+    "Api": "https://cdn.syndication.twimg.com/tweet-result?id=<post id> (X's public embed endpoint) + OCR (tesseract) of the images; https://syndication.twitter.com/srv/timeline-profile/screen-name/<handle> for new posts",
+    "Auth": "none",
+    "Secret": "",
+    "Limits": "undocumented endpoints: long posts are cut at about 280 characters (the images usually carry the list), the timeline often answers HTTP 429; 15 new posts a run, each read once (cache/x-posts.json)",
+    "Terms": "public posts, read the way an embedded post on a web page reads them; the official X API is paid",
+    "Use": "Domains / IPs researchers publish only on X (Steven Lim: 17 passkey-theme domains 28 VIII 2026, 7 O-UNC-066 domains in a screenshot 9 VII 2026). Kept only when defanged in the text or carrying the incident's word, so OCR noise stays out.",
+    "Status": "active",
+    "Checked": "2026-10-23"
+  },
+  {
     "SourceName": "Microsoft Threat Intelligence (Graph host reputation)",
     "Kind": "reputation",
     "Site": "https://learn.microsoft.com/graph/api/security-hostreputation-get",

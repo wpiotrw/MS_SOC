@@ -1376,6 +1376,16 @@ Kolejność powodów na stronie: analiza → tabela IOC → lista społeczności
 
 **Posty na X** (np. Steven Lim o domenach passkey O-UNC-066) i strony detections.ai nie są czytelne dla kodu (x.com blokuje roboty, detections.ai wymaga logowania) — te same listy Steven Lim wgrywa do repozytorium, które czytamy. Kampania passkey ma od 23 X 2026 15 domen z tabeli IOC artykułu Microsoft Threat Intelligence z 9 IX 2026.
 
+### 16.5b Posty badaczy na X (od 23 X 2026, §5ff)
+
+Niektórzy badacze (Steven Lim) publikują domeny tylko na X, często na zrzucie ekranu. Kod nie może otworzyć x.com (blokada robotów), ale publiczny endpoint osadzania postów (ten, którego używają posty wklejone na strony WWW) zwraca tekst i obrazki; obrazki czyta OCR (tesseract w workflow). Długi post jest w tym endpoincie ucięty (~280 znaków) — lista zwykle jest na obrazku.
+
+- **Skąd posty:** `community_posts.json` (konta i posty, pole `words` opcjonalne), linki x.com zapisane przez rutynę w notatkach (`kqlPublished`, `posts` — reguła 5ff w `threat_todo.py`), linia czasu obserwowanego konta (endpoint często zwraca HTTP 429 — wtedy tylko dwa pierwsze źródła).
+- **Co zostaje:** domena / IP zapisane bezpiecznie w tekście albo zawierające słowo incydentu (passkey → apply-passkey.com); reszta tekstu z obrazka (serwery DNS, nazwy narzędzi) odpada.
+- **Stan 23 X 2026:** 2 posty Stevena Lima → 24 domeny kampanii passkey (17 z posta z 28 VIII, 7 domen O-UNC-066 ze zrzutu z 9 VII).
+- **Ograniczenia:** endpointy nieudokumentowane — gdy przestaną odpowiadać, źródło pokaże błąd, reszta działa; oficjalne API X jest płatne; detections.ai wymaga logowania.
+- **Dodanie posta ręcznie:** dopisz URL do `posts` w `community_posts.json` (commit uruchamia IOC watch).
+
 ### 16.6 Wyszukiwarka domen, IP i wildcardów (od 23 X 2026, §5fd)
 
 Ramka Infrastructure watch → **Look up a domain, IP or wildcard**. Przyjmuje domenę (także `evil[.]com`), adres IP, URL (bierze nazwę hosta) albo wildcard ze słowem od 4 liter (`*copilot*.com`, `%passkey%`).
@@ -1470,6 +1480,7 @@ Nadanie uprawnienia (PowerShell, konto z Cloud Application Administrator + Privi
 | 2026-10-23 | §5fd — wyszukiwarka domen / IP / URL / wildcardów: funkcja `api/lookup` (tylko rola `owner`, klucze w ustawieniach aplikacji SWA), sekcje według źródła, „In our data” dla każdego; `api_location: "api"` we wszystkich 4 wdrożeniach; workflow Lookup self-test. README 16.6. |
 | 2026-10-23 | §5fe — Threat Research czytelna: skala czcionek zakładki (treść 15 px, drugorzędne 14 px, etykiety 13 px; było 10,5–13,5 px), tytuły ramek 21 px, Infrastructure watch w 5 numerowanych sekcjach z paskiem skoków (Summary, By incident, Campaigns, Look up, Sources of this run), wskaźniki pogrupowane według incydentu, kolumna „Why it is listed”; wskaźniki z pełnych artykułów (tabele IOC) i z list IOC Stevena Lima; zdanie „Threat Research” w Overview („Today in N sentences”); pasek „In this tab” przyklejony, na telefonie w jednym wierszu. README 16.5a. |
 | 2026-10-23 | §5fe-b — `threats.py`: artykuł, który wypadł z kanału RSS przed §5eu, jest raz czytany w poszukiwaniu KQL (z budżetu stron przebiegu; artykuł passkey Microsoftu z 9 IX: 10 zapytań, wcześniej 0); marka z `WatchKeywords` w tytule (passkey, copilot…) jest słowem incydentu przy dopasowaniu KQL społeczności (incydent passkey nie miał żadnego słowa). |
+| 2026-10-23 | §5ff — domeny z postów badaczy na X: `community_posts.json`, odczyt tekstu i obrazków (OCR tesseract) przez publiczny endpoint osadzania, linki z notatek rutyny (reguła 5ff, pole `posts`), linia czasu konta; kampania passkey +24 domeny Stevena Lima; link „Open the post on X” przy wskaźniku. README 16.5b. |
 | 2026-10-22 | §5ew — Threat Research: blok „Since the previous brief” w dwóch ramkach — najpierw Microsoft 365 i Entra, potem inne incydenty z KQL; incydenty w toku (ConnectWise) zawsze na górze jako STILL ACTIVE; zgłoszone dawno, a dopiero teraz śledzone jako NEWLY TRACKED; wpisy produktowe z KQL tylko w KQL library. |
 | 2026-10-22 | §5ev — status jako filtr: liczby „new / changed / removed” w /diff/, /week/ i w całym portalu (pasek „Since the previous brief”, bloki dnia, nagłówek zakładki) są przyciskami pokazującymi tylko ten status; listy i kafelki pogrupowane według statusu z nagłówkami; pasek pokazuje do 8 wierszy każdego statusu. |
 | 2026-10-21 | §5eu — KQL z incydentów, artykułów i społeczności: `threats.py` wyciąga zapytania Kusto z artykułów (artykuł z KQL to pełny incydent, także spoza M365, np. PHP2Shell), nowe źródła (detect.fyi, kqlquery.com, blogi Sentinel i Defender XDR), repozytoria społeczności (`kql_sources.json`), jedno archiwum `site/kql/` z polem `kind`, „KQL library” w Hunting & actions i zapytania źródeł w szczegółach incydentu. |

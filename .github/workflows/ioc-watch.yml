@@ -14,6 +14,7 @@ on:
     paths:
       - 'tools/ioc_watch.py'
       - 'ti_sources.json'
+      - 'community_posts.json'
       - '.github/workflows/ioc-watch.yml'
   workflow_dispatch:
 
@@ -43,6 +44,8 @@ jobs:
           for k in VT_API_KEY ABUSECH_AUTH_KEY GREYNOISE_API_KEY; do
             if [ -n "${!k}" ]; then echo "$k: set"; else echo "$k: NOT SET"; fi
           done
+      - name: OCR for images in researchers' posts (CLAUDE.md 5ff)
+        run: sudo apt-get install -y -q tesseract-ocr >/dev/null 2>&1 || echo "tesseract not installed - post images are skipped"
       - name: Check the indicators (CLAUDE.md 5fb, 5fc)
         env:
           AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
@@ -56,7 +59,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add site/data/ioc-watch.json site/data/ioc-watch-history.json 2>/dev/null || true
+          git add site/data/ioc-watch.json site/data/ioc-watch-history.json cache/ioc-pages.json cache/x-posts.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "No change."; else
             python3 tools/stamp.py iocwatch || true; git add site/data/fresh
             git commit -m "data: IOC watch $(date -u +%F' '%H:%M) UTC"

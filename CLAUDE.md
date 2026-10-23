@@ -41790,6 +41790,7 @@ odtad CZTERNASCIE (4-17).**
     if (x.origins.indexOf("analysis") >= 0) o.push("in the analysis");
     if (x.origins.indexOf("article") >= 0) o.push("in a source article");
     if (x.origins.indexOf("ioc-list") >= 0 && x.list) o.push("community list " + x.list.file);
+    if (x.origins.indexOf("x-post") >= 0 && x.post) o.push("post on X by " + (x.post.author || "a researcher"));
     if (x.origins.indexOf("vt-pivot") >= 0 && x.pv) o.push("resolved to " + x.pv.from + " on " + dmy(x.pv.date) + " (VirusTotal passive DNS) — same server, not confirmed");
     if (x.origins.indexOf("crtsh") >= 0 && x.ct) o.push("look-alike certificate " + dmy(x.ct.notBefore) + " (word “" + x.ct.word + "”)");
     if (x.origins.indexOf("threatfox-tag") >= 0) o.push("ThreatFox tag “" + (x.tfTag || "?") + "” — the same name, not necessarily this incident");
@@ -41812,10 +41813,10 @@ odtad CZTERNASCIE (4-17).**
      ("password spray; matches a ConnectWise advisory IP"), the row of the article's IOC table ("Passkey support lure"),
      ThreatFox ("botnet command-and-control server · Unknown RAT"), a community list (Steven Lim's file and its columns),
      or how we found it (same server, look-alike certificate). */
-  var WHYK = { analysis: 0, article: 1, "ioc-list": 2, "threatfox-tag": 3, "vt-pivot": 4, crtsh: 5 };
+  var WHYK = { analysis: 0, article: 1, "ioc-list": 2, "x-post": 2, "threatfox-tag": 3, "vt-pivot": 4, crtsh: 5 };
   function whyCell(x) {
     /* the most telling reason first: our analysis, an IOC table row, a community list, ThreatFox, a sentence of an article */
-    var wr = function (w) { return w.src === "Our analysis" ? 0 : /^IOC table/.test(w.t) ? 1 : /list “/.test(w.t) ? 2 : w.src === "ThreatFox" ? 3 : 4; };
+    var wr = function (w) { return w.src === "Our analysis" ? 0 : /^IOC table/.test(w.t) ? 1 : /list “|^post on X/.test(w.t) ? 2 : w.src === "ThreatFox" ? 3 : 4; };
     var c = el("td", "s5fe-why"), W = (x.why || []).slice().sort(function (a, z) { return wr(a) - wr(z); });
     if (W.length) {
       var u = el("ul", "s5fe-wl");
@@ -41826,6 +41827,7 @@ odtad CZTERNASCIE (4-17).**
     }
     var o = iocOrigin(x); if (o && !(W.length && /^in the analysis$|^in a source article$/.test(o))) c.appendChild(el("div", "s5fe-how", o));
     if (x.list && x.list.url) { var a = aLink("Open the list (" + x.list.file + ")", x.list.url); a.className = "s5fe-how"; c.appendChild(a); }
+    if (x.post && x.post.url) { var ap = aLink("Open the post on X (" + (x.post.author || "") + ", " + dmy(x.post.date) + ")", x.post.url); ap.className = "s5fe-how"; c.appendChild(ap); }
     if (!W.length && !o) c.appendChild(el("span", "s5el-mut", "—"));
     return c;
   }
@@ -42067,7 +42069,7 @@ odtad CZTERNASCIE (4-17).**
         if (sid !== "_watch") { var ob = el("button", "s5el-btn", "Open the incident"); ob.type = "button"; ob.addEventListener("click", function () { openStory(sid); }); d.appendChild(ob); }
         var own = X.filter(function (x) { return x.origins.indexOf("analysis") >= 0 || x.origins.indexOf("article") >= 0; }), rel = X.filter(function (x) { return own.indexOf(x) < 0; });
         if (own.length) { d.appendChild(el("h4", "s5fe-h4", "Named by the incident's sources · " + own.length)); d.appendChild(iocTable(own, false)); }
-        if (rel.length) { d.appendChild(el("h4", "s5fe-h4", "Found around it — community lists, ThreatFox, same server, look-alike certificates · " + rel.length)); d.appendChild(iocTable(rel, false)); }
+        if (rel.length) { d.appendChild(el("h4", "s5fe-h4", "Found around it — researchers' lists and posts, ThreatFox, same server, look-alike certificates · " + rel.length)); d.appendChild(iocTable(rel, false)); }
         s2.appendChild(d);
       });
       /* 3. Campaigns */
@@ -47525,6 +47527,15 @@ Wlasciciel (15:06, zrzut): „wszystko mala czcionka, nie robisz podzialu na sek
 - `ti_sources.json`: wpis „SlimKQL IOC lists (Steven Lim)” (`ioc-repo`).
 - Strona (SCRIPT 17): `whyCell`, `rankIoc`, kolumna „Why it is listed”; `infraBox` = 5 sekcji `secHead` z paskiem `.s5fe-nav`, wskazniki w foldach per incydent (`.s5fe-incf`, najgorszy pierwszy); `ovThreat()` — zdanie „Threat Research” w Overview po narysowaniu zdan (nowe / zmienione incydenty od poprzedniego briefu albo 3 ostatnie, linia infrastruktury), przelicza „Today in N sentences”.
 - CSS: skala czcionek `#tab-threats` (15/14/13 px, tytuly ramek 21 px, sekcje 19 px z numerem), `.s5el-toc` przyklejony, na telefonie jeden przewijany wiersz. Pozostale zakladki — po akceptacji wlasciciela tego wzoru.
+
+### §5ff — Domeny z postow badaczy na X (tekst + OCR obrazkow) (23 X 2026)
+
+Wlasciciel (15:49): „moze sa w jego postach te domeny albo screenach, wiec mozna probowac czytac… inne narzedzia, z ktorych korzysta, sa platne i bardzo drogie”.
+
+- Sprawdzone: WebFetch x.com — robots_disallowed; przegladarka wbudowana — post z 28 VIII 2026 czytelny bez logowania (17 domen passkey), post z 9 VII 2026 ma domeny tylko na zrzucie (7 domen O-UNC-066). Publiczny endpoint osadzania `cdn.syndication.twimg.com/tweet-result?id=` zwraca tekst (dlugi post uciety ~280 znakow) i obrazki; OCR (tesseract) czyta z obrazkow wszystkie 17 + 7 domen.
+- `community_posts.json` (konta, posty z `words`), `ioc_watch.py` `x_posts()`: posty z pliku + linki x.com z notatek (`kqlPublished`, nowe pole `posts`) + linia czasu konta (`syndication.twitter.com/srv/timeline-profile`, czesto HTTP 429); domena zostaje, gdy w tekscie zapisana `[.]` albo zawiera slowo incydentu (szum OCR odpada); `X_MAX=15` nowych postow na przebieg, `cache/x-posts.json`; origin `x-post`, `post {url, date, author}`, powod „post on X <data> (read from the image) — <pierwsza linia>” (NFKC).
+- `ioc-watch.yml`: instalacja `tesseract-ocr`, commit `cache/ioc-pages.json` i `cache/x-posts.json`, reaguje na `community_posts.json`. `threat_todo.py` RULES: regula 5ff (rutyna dopisuje URL postow do `posts`, nie kopiuje domen ze snippetow). `ti_sources.json`: wpis `x-posts`.
+- Strona: link „Open the post on X”, ranga jak lista spolecznosci.
 
 ## 6. Kontrakt w stronie
 

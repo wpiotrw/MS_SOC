@@ -232,6 +232,101 @@ def ioc_repos(repos, words, add):
     return r
 
 
+POSTS, XCACHE = "community_posts.json", "cache/x-posts.json"
+X_MAX = 15                           # new posts read per run (embed JSON + images)
+
+
+def x_posts(T, words, add):
+    """CLAUDE.md 5ff (owner 23 X 2026: "maybe the domains are in his posts or screenshots - try reading them").
+    X's public embed endpoint (the one embedded posts on web pages use) gives a post's text - cut at ~280 characters
+    for a long post - and its images; the images are read with OCR (tesseract). A domain / IP is kept when it is
+    written defanged in the text, or when it carries a watched word of an incident (passkey -> apply-passkey.com),
+    so OCR noise (a name server, a tool's domain) stays out. Undocumented endpoint: when it stops answering, the
+    source says so and nothing else breaks."""
+    import shutil, subprocess, tempfile
+    cfg = load(POSTS, {})
+    cache = load(XCACHE, {})
+    acc = {a.get("handle", "").lower(): a.get("name") for a in cfg.get("accounts") or []}
+    posts = {}
+    for p_ in cfg.get("posts") or []:
+        m = re.search(r"x\.com/([^/]+)/status/(\d+)", p_.get("url") or "")
+        if m:
+            posts[m.group(2)] = dict(p_, handle=m.group(1))
+    for st in T.get("stories") or []:          # the routine's links (kqlPublished / posts) to x.com
+        n = st.get("notes") or {}
+        for u in [k.get("link") for k in n.get("kqlPublished") or []] + list(n.get("posts") or []):
+            m = re.search(r"x\.com/([^/]+)/status/(\d+)", u or "")
+            if m and m.group(2) not in posts:
+                posts[m.group(2)] = {"url": u, "handle": m.group(1), "story": st["id"], "by": "threat note"}
+    watch = [w for w in words if not w.startswith("story:")]
+    # new posts of the watched accounts: X's embedded-timeline page (also undocumented; often HTTP 429 - then only the
+    # listed posts and the threat notes' links are read)
+    tl_note = ""
+    for h in acc:
+        st_, body = http("https://syndication.twitter.com/srv/timeline-profile/screen-name/" + h, timeout=30)
+        if st_ != 200:
+            tl_note += "timeline %s: HTTP %s; " % (h, st_); continue
+        for m in re.finditer(r'"id_str":"(\d{10,})".{0,400}?"(?:full_)?text":"((?:[^"\\]|\\.)*)"', (body or b"").decode("utf-8", "replace")):
+            t_ = m.group(2).lower()
+            if m.group(1) not in posts and any(w in t_ for w in watch):
+                posts[m.group(1)] = {"url": "https://x.com/%s/status/%s" % (h, m.group(1)), "handle": h, "by": "timeline"}
+    r = {"state": "ok", "posts": len(posts), "read": 0, "iocs": 0, "ocr": bool(shutil.which("tesseract")), "note": tl_note}
+    for pid, p_ in posts.items():
+        c = cache.get(pid)
+        if not c and r["read"] < X_MAX:
+            r["read"] += 1
+            st_, body = http("https://cdn.syndication.twimg.com/tweet-result?id=%s&token=a" % pid, timeout=30)
+            if st_ != 200:
+                r["note"] += "%s: HTTP %s; " % (pid, st_); continue
+            try:
+                j = json.loads(body)
+            except Exception:
+                r["note"] += "%s: not JSON; " % pid; continue
+            ocr = ""
+            for md in j.get("mediaDetails") or []:
+                u = md.get("media_url_https")
+                if not u or not r["ocr"]:
+                    continue
+                d = tempfile.mkdtemp(prefix="xpost-")
+                st2, img = http(u + "?name=large", timeout=40)
+                if st2 != 200:
+                    continue
+                f = os.path.join(d, "i.jpg"); open(f, "wb").write(img)
+                try:
+                    ocr += "\n" + subprocess.run(["tesseract", f, "-"], capture_output=True, text=True, timeout=120).stdout
+                except Exception:
+                    pass
+            c = {"date": (j.get("created_at") or "")[:10], "text": (j.get("text") or "")[:1200], "ocr": ocr[:6000],
+                 "author": (j.get("user") or {}).get("name") or acc.get(p_["handle"].lower()) or p_["handle"]}
+            cache[pid] = c
+        if not c:
+            continue
+        txt, ocr = c.get("text") or "", c.get("ocr") or ""
+        pw = [w.lower() for w in p_.get("words") or []] or [w for w in watch if w in (txt + " " + ocr).lower()]
+        sids = set()
+        for w in pw:
+            sids |= set(words.get(w, set()))
+        if p_.get("story"):
+            sids.add(p_["story"])
+        sids.discard("_watch")
+        import unicodedata
+        first = re.sub(r"\s+", " ", unicodedata.normalize("NFKC", txt).split("\n")[0])[:90]   # 𝗩𝗶𝘀𝗵𝗶𝗻𝗴 -> Vishing
+        found = set()
+        for kind, v in extract(txt):             # defanged in the text
+            found.add((kind, v, "text"))
+        for m in re.finditer(r"(?i)\b([a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:com|net|org|io|app|live|xyz|online|site|top|info|co|cc|me|us|uk|de|ru|cn))\b", txt + "\n" + ocr):
+            h = m.group(1).lower()
+            if any(w in h for w in pw) and not BENIGN.search(regdom(h)):
+                found.add(("domain", h, "image" if h in ocr.lower() and h not in txt.lower() else "text"))
+        for kind, v, where in sorted(found):
+            for sid in (sids or {None}):
+                add(kind, v, sid, "x-post", {"post": {"url": p_["url"], "date": c.get("date"), "author": c.get("author")}},
+                    why=(c.get("author") or "X post", "post on X %s%s — %s" % (c.get("date") or "", " (read from the image)" if where == "image" else "", first)))
+            r["iocs"] += 1
+    json.dump(cache, open(XCACHE, "w"), indent=0, sort_keys=True)
+    return r
+
+
 REPO_MAX = 60                         # indicators per community file (VirusTotal can check 60 a run)
 
 COMMON_CAPS = {"AITM", "ADFS", "OAUTH", "AZURE", "ENTRA", "CISA", "CVE", "MFA", "SSPR", "DPAPI", "PHISHING", "MICROSOFT",
@@ -332,7 +427,7 @@ def main():
         if why:      # 5fe: WHY this indicator is listed - its role in the attack, in the source's words
             w0 = {"src": why[0], "t": re.sub(r"\s+", " ", why[1]).strip()[:220]}
             W = [z for z in (x.get("why") or []) if z.get("t") != w0["t"]] + [w0]
-            rank = lambda z: 0 if z["src"] == "Our analysis" else 1 if z["t"].startswith("IOC table") else 2 if "list “" in z["t"] else 3 if z["src"] == "ThreatFox" else 4
+            rank = lambda z: 0 if z["src"] == "Our analysis" else 1 if z["t"].startswith("IOC table") else 2 if ("list “" in z["t"] or z["t"].startswith("post on X")) else 3 if z["src"] == "ThreatFox" else 4
             x["why"] = sorted(W, key=rank)[:5]      # the most telling reasons survive, not the latest
         I[k] = x
     words = {}
@@ -382,6 +477,9 @@ def main():
     # a file whose name carries an incident's word (greynoise_php2shell_attacker_ips.csv -> PHP2Shell,
     # EvilTokens26Apr.csv -> EvilTokens) gives that incident its indicators, with the file as the reason
     rep["IOC lists"] = ioc_repos([s_ for s_ in srcs.values() if s_.get("Kind") == "ioc-repo"], words, add)
+
+    # ---- 1c. researchers' posts on X (community_posts.json + x.com links in the threat notes) ----
+    rep["X posts"] = x_posts(T, words, add)
 
     # ---- 2. Certificate Transparency look-alikes ----
     cut = (t0 - dt.timedelta(days=CT_DAYS)).strftime("%Y-%m-%d")

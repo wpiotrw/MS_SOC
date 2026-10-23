@@ -1,0 +1,10 @@
+{
+  "about": "Posts of community researchers whose indicators feed IOC watch (CLAUDE.md 5ff, README 16.5b). tools/ioc_watch.py reads each post through X's public embed endpoint (text and images), reads the images with OCR (tesseract) and keeps the domains / IPs that are defanged in the text or carry a watched word of an incident. Add a post: its URL in `posts` (`words` optional - the incident words it is about; otherwise found from its text). The morning routine's x.com links in kqlPublished / posts of the threat notes are read too.",
+  "accounts": [
+    {"handle": "0x534c", "name": "Steven Lim", "also": "github.com/SlimKQL (IOC lists, ti_sources.json), detections.ai (login required)"}
+  ],
+  "posts": [
+    {"url": "https://x.com/0x534c/status/2093348761041031640", "words": ["passkey"], "added": "2026-10-23", "by": "owner request 23 X 2026", "note": "New Passkey-theme Domains - 17 domains, some linked to EvilProxy / Evilginx2 by ANY.RUN"},
+    {"url": "https://x.com/0x534c/status/2075244482673701333", "words": ["passkey"], "added": "2026-10-23", "by": "owner request 23 X 2026", "note": "O-UNC-066 (Pink) passkey enrollment phishing - domains in the screenshot (Silent Push whois pivot on ns1.ddos-guard.net)"}
+  ]
+}
