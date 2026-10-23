@@ -367,6 +367,20 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
         if a["link"] not in have and a["link"] not in feed_links and (a.get("published") or a.get("firstSeen") or "")[:10] >= cut:
             if "names" not in a:   # the saved file drops `names`; a carried article needs them for the story grouping
                 a["cves"], a["storms"], a["names"] = entities(a.get("title") or "", a.get("summary") or "")
+            # 5fe (23 X 2026): an article that left its feed before 5eu existed was never read for Kusto queries (the
+            # Microsoft passkey article of 9 IX has an "Advanced hunting queries" section, the incident showed 0) - read it
+            # once, from what is left of this run's page budget
+            if not a.get("kqlChecked") and budget[0] > 0:
+                budget[0] -= 1
+                try:
+                    found = kql_extract.blocks(get(a["link"], 25).decode("utf-8", "replace"))
+                except Exception:
+                    found = []
+                a["kqlChecked"], a["kql"] = stamp, len(found)
+                src_ = next((x for x in srcs if x["Name"] == a.get("source")), {})
+                for qi, q in enumerate(found):
+                    kq.append(dict(q, pos=qi, article=aid(a["link"]), link=a["link"], articleTitle=a.get("title") or "", source=a.get("source") or "",
+                                   author=a.get("author") or "", published=(a.get("published") or "")[:10], vendor=bool(src_.get("Microsoft"))))
             arts.append(a)
     arts.sort(key=lambda a: a.get("published") or a["firstSeen"], reverse=True)
 
@@ -537,7 +551,17 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
         for w in re.findall(r"\b(?:\w*\d\w*[A-Za-z]\w*|[A-Z][a-z]+[A-Z]\w+|[A-Z]{4,})\b", st["title"]):
             if w.upper() not in COMMON_CAPS and not re.match(r"(?i)^(cve|\d)", w) and len(w) >= 4:
                 words.add(w.lower())
+        # 5fe: a watched Microsoft brand the title names (passkey, copilot - ti_sources.json WatchKeywords) is the
+        # incident's word when the title coins no name ("Passkey-themed social engineering..." had no word at all)
+        for bw in BRANDS:
+            if wb(bw, st["title"].lower()):
+                words.add(bw)
         return hard, words
+    try:
+        BRANDS = [str(w.get("word") if isinstance(w, dict) else w).lower() for x in json.load(open(os.path.join(os.path.dirname(os.path.abspath(src_path)), "ti_sources.json"), encoding="utf-8"))
+                  if str(x.get("SourceName", "")).startswith("crt.sh") for w in x.get("WatchKeywords") or []]
+    except Exception:
+        BRANDS = []
     ST = {st["id"]: (stext(st), ) + skeys(st) for st in stories}
     for st in stories:
         t, hard, words = ST[st["id"]]
