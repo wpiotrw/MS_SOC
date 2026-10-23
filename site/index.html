@@ -4851,6 +4851,23 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .s5fb-bad{color:var(--bad);border-color:var(--bad);background:color-mix(in srgb,var(--bad) 9%,transparent)}
 .s5fb-warn{color:var(--warn);border-color:var(--warn);background:color-mix(in srgb,var(--warn) 9%,transparent)}
 .s5fb-ok{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 60%,var(--border))}
+/* §5fc campaigns, §5fd lookup - phone first: cards wrap, nothing wider than the screen */
+.s5fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));gap:10px;margin:6px 0 12px}
+.s5fc-card{border:1px solid var(--border);border-radius:10px;padding:10px 12px;background:var(--surface);min-width:0}
+.s5fc-h{font-weight:700;margin-bottom:4px;overflow-wrap:anywhere}
+.s5fc-st{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.s5fc-k{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:13px;margin:4px 0}
+.s5fc-bars{width:100%;height:auto;max-height:110px;display:block;margin-top:4px}
+.s5fc-e{font-size:12.5px;margin-top:4px;overflow-wrap:anywhere}
+.s5fd-wrap{border-top:1px solid var(--border);margin-top:14px;padding-top:10px}
+.s5fd-form{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+.s5fd-form input{flex:1 1 220px;min-width:0;font:inherit;font-size:16px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text)}
+.s5fd-src{border:1px solid var(--border);border-radius:10px;margin:8px 0;padding:6px 10px;background:var(--surface)}
+.s5fd-src>summary{cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:2px 0}
+.s5fd-dl{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:4px 12px;margin:8px 0 4px;font-size:13.5px}
+.s5fd-dl dt{color:var(--muted);font-weight:600}
+.s5fd-dl dd{margin:0;white-space:pre-line;overflow-wrap:anywhere;min-width:0}
+@media (max-width:560px){.s5fd-dl{grid-template-columns:1fr}.s5fd-dl dd{margin-bottom:6px}}
 .s5fb-mut{color:var(--muted)}
 .s5fb-ul{margin:0;padding-left:16px;font-size:12.5px}
 .s5fb-links{font-size:12.5px;white-space:normal}
@@ -26942,6 +26959,8 @@ IdentityDirectoryEvents
   function iocOrigin(x) {
     var o = [];
     if (x.origins.indexOf("analysis") >= 0) o.push("in the analysis");
+    if (x.origins.indexOf("article") >= 0) o.push("in a source article");
+    if (x.origins.indexOf("vt-pivot") >= 0 && x.pv) o.push("resolved to " + x.pv.from + " on " + dmy(x.pv.date) + " (VirusTotal passive DNS) — same server, not confirmed");
     if (x.origins.indexOf("crtsh") >= 0 && x.ct) o.push("look-alike certificate " + dmy(x.ct.notBefore) + " (word “" + x.ct.word + "”)");
     if (x.origins.indexOf("threatfox-tag") >= 0) o.push("ThreatFox tag “" + (x.tfTag || "?") + "” — the same name, not necessarily this incident");
     return o.join(" · ");
@@ -26953,6 +26972,9 @@ IdentityDirectoryEvents
     if (gn.checked) f.push("GreyNoise: " + (gn.noise ? "internet scanner" : gn.riot ? "common business service" : "not a mass scanner") + (gn.cls && gn.cls !== "unknown" ? " · " + gn.cls : "") + (gn.name ? " · " + gn.name : ""));
     if (uh.checked && uh.count) f.push("URLhaus: " + uh.count + " malware URL" + (uh.count === 1 ? "" : "s") + " (" + uh.online + " online)" + (uh.threats && uh.threats.length ? " · " + uh.threats.join(", ") : ""));
     if (tf.checked && tf.count) f.push("ThreatFox: " + (tf.malware || []).join(", ") + (tf.first ? " · first " + dmy(tf.first) : ""));
+    if (vt.engines && vt.engines.length) f.push("Flagged by " + vt.engines.slice(0, 5).map(function (e) { return e.e + (e.r && e.r !== e.c ? " (" + e.r + ")" : ""); }).join(", ") + (vt.engines.length > 5 ? " +" + (vt.engines.length - 5) : ""));
+    if (x.ms && x.ms.cls) f.push("Microsoft Threat Intelligence: " + x.ms.cls + (x.ms.score != null ? " · score " + x.ms.score : ""));
+    if (x.flaggedOn) f.push("First flagged here " + dmy(x.flaggedOn));
     return f;
   }
   function iocTable(L, showStory) {
@@ -27020,9 +27042,128 @@ IdentityDirectoryEvents
     var tr = iocTrend(s.id); if (tr) c.appendChild(tr);
     /* the analysis's own indicators first; look-alike certificates and ThreatFox entries sharing the incident's word are
        candidates - related by name, not confirmed as this incident's infrastructure */
-    var own = L.filter(function (x) { return x.origins.indexOf("analysis") >= 0; }), rel = L.filter(function (x) { return x.origins.indexOf("analysis") < 0; });
+    var isOwn = function (x) { return x.origins.indexOf("analysis") >= 0 || x.origins.indexOf("article") >= 0; };
+    var own = L.filter(isOwn), rel = L.filter(function (x) { return !isOwn(x); });
     if (own.length) { c.appendChild(el("p", "s5el-sub", "Named in the analysis · " + own.length)); c.appendChild(iocTable(own, false)); }
-    if (rel.length) { c.appendChild(el("p", "s5el-sub", "Related by name — look-alike certificates and ThreatFox entries with the incident's word, not confirmed for this incident · " + rel.length)); c.appendChild(iocTable(rel, false)); }
+    if (rel.length) { c.appendChild(el("p", "s5el-sub", "Related — look-alike certificates, ThreatFox entries with the incident's word and domains on the same server (passive DNS), not confirmed for this incident · " + rel.length)); c.appendChild(iocTable(rel, false)); }
+  }
+  /* §5fc (23 X 2026, owner: "for a campaign - passkeys, copilot, PHP2Shell - diagrams and reports: how many such domains
+     appear a day, a week, which XDRs already call them fake"; "the campaigns are examples - it must scale to every new
+     incident that fits our filters"). One card per watched word: the Microsoft brands phishing kits copy (ti_sources.json
+     WatchKeywords) and the coined names of every Threat Research story, added by ioc_watch.py with no list to keep. */
+  function weekBars(obj, label) {
+    var ks = Object.keys(obj || {}).sort().slice(-8); if (!ks.length) return null;
+    var max = Math.max.apply(null, ks.map(function (k) { return obj[k]; }).concat([1]));
+    var W = 300, H = 92, bw = (W - 10) / ks.length;
+    var svg = sv("svg", { viewBox: "0 0 " + W + " " + H, "class": "s5fc-bars", role: "img", "aria-label": label });
+    ks.forEach(function (k, i) {
+      var h = Math.max(2, (H - 30) * obj[k] / max), xx = 5 + i * bw, bw2 = Math.min(bw - 6, 34);
+      svg.appendChild(sv("rect", { x: xx + (bw - bw2) / 2, y: H - 18 - h, width: bw2, height: h, rx: 3, fill: "var(--accent)" }));
+      var t = sv("text", { x: xx + bw / 2, y: H - 22 - h, "text-anchor": "middle", "class": "s5el-ax" }); t.textContent = obj[k]; svg.appendChild(t);
+      var w = sv("text", { x: xx + bw / 2, y: H - 4, "text-anchor": "middle", "class": "s5el-ax" }); w.textContent = k.replace(/^\d{4}-/, ""); svg.appendChild(w);
+    });
+    return svg;
+  }
+  function campBox(host) {
+    var C = IOW.campaigns || {}, ks = Object.keys(C);
+    if (!ks.length) return;
+    ks.sort(function (a, z) { var A = C[a], Z = C[z]; return (Z.flagged - A.flagged) || (Z.total - A.total) || a.localeCompare(z); });
+    host.appendChild(el("p", "s5el-sub", "Campaigns and watched words · " + ks.length));
+    host.appendChild(el("p", "s5el-note", "One card per word: the Microsoft brands phishing kits copy (copilot, passkey, onedrive…) and the coined name of every incident in Threat Research (PHP2Shell, EvilTokens…), added automatically. New domains come from new certificates (crt.sh) and from servers our incidents already use (VirusTotal passive DNS). “Flagged” = at least one service calls it malicious or suspicious today. crt.sh answers a part-of-name search with a partial slice, so the certificate counts are a floor, not a census."));
+    var g = el("div", "s5fc-grid"), quiet = [];
+    ks.forEach(function (w) {
+      var c = C[w];
+      if (!c.total && !Object.keys(c.volume || {}).some(function (d) { return c.volume[d]; })) { quiet.push(c.label || w); return; }   // nothing yet: one line below, not an empty card
+      var cd = el("div", "s5fc-card");
+      var piv = w.indexOf("story:") === 0;
+      cd.appendChild(el("div", "s5fc-h", piv ? "Domains on the same server as an incident's IP" : (c.label || w)));
+      var st = (c.stories || []).filter(function (x) { return x !== "_watch"; });
+      if (st.length) { var p = el("div", "s5fc-st"); st.slice(0, 3).forEach(function (sid) { var t = (IOW.titles || {})[sid] || sid; var b = el("button", "s5ez-rel", t.length > 60 ? t.slice(0, 58) + "\u2026" : t); b.type = "button"; b.addEventListener("click", function () { openStory(sid); }); p.appendChild(b); }); cd.appendChild(p); }
+      else cd.appendChild(el("div", "s5el-mut", "Watch list — no incident names it yet"));
+      var vol = c.volume || {}, vd = Object.keys(vol).sort(), v7 = 0, cut = new Date(Date.now() - 7 * 864e5).toISOString().slice(0, 10);
+      vd.forEach(function (d) { if (d >= cut) v7 += vol[d]; });
+      var k = el("div", "s5fc-k");
+      [[c.total || 0, piv ? "domains" : "kept for checks"], [c.flagged || 0, "flagged" + (c.total ? " (" + Math.round(100 * c.flagged / c.total) + "%)" : "")]].concat(piv ? [] : [[v7, "new certs · 7 days"]]).forEach(function (z) { var e = el("span", "s5fc-n"); e.appendChild(el("b", null, String(z[0]))); e.appendChild(document.createTextNode(" " + z[1])); k.appendChild(e); });
+      cd.appendChild(k);
+      var bars = weekBars(Object.keys(c.volumeWeeks || {}).length ? c.volumeWeeks : c.weeks, "New domains per week, " + (c.label || w));
+      if (bars) { cd.appendChild(bars); cd.appendChild(el("div", "s5el-mut", piv ? "domains per week (date VirusTotal saw them resolve to the IP)" : "new look-alike domains per week (certificate date)")); }
+      if (c.engines && c.engines.length) cd.appendChild(el("div", "s5fc-e", "Who flags them: " + c.engines.slice(0, 6).map(function (e) { return e[0] + " " + e[1]; }).join(" · ")));
+      if (c.total && c.vtChecked != null) cd.appendChild(el("div", "s5el-mut", "VirusTotal checked " + c.vtChecked + " of " + c.total + " (free key: 500 a day, the newest first)"));
+      g.appendChild(cd);
+    });
+    if (g.childNodes.length) host.appendChild(g);
+    if (quiet.length) host.appendChild(el("p", "s5el-mut s5fc-quiet", "Watched, nothing new yet: " + quiet.join(" · ")));
+  }
+  /* §5fd (23 X 2026, owner: "a place where I can type a domain, an IP or a wildcard and get what our sources know about
+     it, in sections by source / portal and API"). Two parts: (1) our own data (ioc-watch.json) - public, works for
+     anyone; (2) the live services through /api/lookup - a Static Web Apps function that holds the keys as application
+     settings and answers only the role "owner" (an invitation). Nothing typed here is stored. */
+  function fang(v) { return String(v || "").trim().replace(/\[\.\]/g, ".").replace(/^hxxp/i, "http"); }
+  function defang(v) { return String(v || "").replace(/^http/i, "hxxp").replace(/^((?:hxxps?:\/\/)?)([^\/?#]+)/i, function (m, p0, h) { return p0 + h.replace(/\./g, "[.]"); }); }
+  function selfLink(text, href) { var a = el("a", null, text); a.href = href; return a; }
+  function kv(dl, k, v) { if (v == null || v === "" || (v.length === 0)) return; dl.appendChild(el("dt", null, k)); var dd = el("dd"); if (v.nodeType) dd.appendChild(v); else dd.textContent = String(v); dl.appendChild(dd); }
+  function srcSection(name, r) {
+    var d = el("details", "s5fd-src"); d.open = r.state === "ok";
+    var sm = el("summary"); sm.appendChild(el("b", null, name));
+    var bad = r.stats ? r.stats.malicious : 0, tone = r.state !== "ok" ? "" : (bad >= 2 || (r.listed && r.count) || r.classification === "malicious") ? "s5fb-bad" : (bad === 1 || (r.stats && r.stats.suspicious) || r.listed) ? "s5fb-warn" : "s5fb-ok";
+    var verdict = r.state !== "ok" ? r.state + (r.note ? " — " + r.note : "") : r.notFound ? "not known" : r.stats ? r.stats.malicious + " malicious · " + r.stats.suspicious + " suspicious of " + (r.stats.malicious + r.stats.suspicious + r.stats.harmless + r.stats.undetected) : r.listed != null ? (r.listed ? "listed" + (r.count ? " · " + r.count : r.items ? " · " + r.items.length : "") : "not listed") : r.seen != null ? (r.seen ? "seen scanning" : "not a mass scanner") + (r.riot ? " · common business service" : "") : r.certificates != null ? r.certificates + " certificates · " + r.namesTotal + " names" : "";
+    sm.appendChild(zchip(verdict, "s5fb-vd " + tone)); d.appendChild(sm);
+    if (r.state !== "ok") return d;
+    var dl = el("dl", "s5fd-dl");
+    if (r.engines && r.engines.length) kv(dl, "Engines that flag it", r.engines.map(function (e) { return e.engine + " (" + (e.result || e.category) + ")"; }).join(" · "));
+    kv(dl, "Categories", (r.categories || []).join(" · "));
+    kv(dl, "Registered / first seen", r.created ? dmy(r.created) : r.firstSeen ? dmy(r.firstSeen) : null);
+    kv(dl, "Registrar / network", [r.registrar, r.owner, r.asn ? "AS" + r.asn : "", r.country].filter(Boolean).join(" · "));
+    kv(dl, "Community votes", r.votes ? r.votes.harmless + " harmless · " + r.votes.malicious + " malicious" : null);
+    if (r.reputation != null) kv(dl, "Reputation", String(r.reputation));
+    kv(dl, "Tags", (r.tags || []).join(", "));
+    if (r.resolutions && r.resolutions.length) kv(dl, "Resolved (passive DNS)", r.resolutions.map(function (z) { return defang(z.value) + " " + dmy(z.date); }).join(" · "));
+    if (r.urls && r.urls.length) kv(dl, "Malware URLs (" + (r.by || "") + ")", r.urls.slice(0, 8).map(function (u) { return defang(u.url) + " — " + u.status + (u.threat ? ", " + u.threat : "") + " · " + dmy(u.added); }).join("\n"));
+    if (r.items && r.items.length) kv(dl, "Entries (" + (r.by || "") + ")", r.items.slice(0, 10).map(function (i) { return defang(i.ioc) + " — " + (i.malware || i.threat || "") + " · confidence " + i.confidence + " · " + dmy(i.first); }).join("\n"));
+    kv(dl, "Classification", r.classification); kv(dl, "Actor / service", r.name); kv(dl, "Last seen", r.lastSeen);
+    if (r.certificates != null) { kv(dl, "First / last certificate", (r.firstCert ? dmy(r.firstCert) : "") + " / " + (r.lastCert ? dmy(r.lastCert) : "")); kv(dl, "Issuers", (r.issuers || []).join(", ")); if (r.names && r.names.length) kv(dl, "Names on the certificates", r.names.slice(0, 20).map(function (n) { return defang(n.name) + " (" + n.certs + ", last " + dmy(n.last) + ")"; }).join("\n")); }
+    if (r.note) kv(dl, "Note", r.note);
+    if (r.link) { var a = aLink("Open the " + name + " report", r.link); kv(dl, "Report", a); }
+    d.appendChild(dl);
+    return d;
+  }
+  function lookupPanel(host) {
+    var w = el("div", "s5fd-wrap"); w.id = "s5fd-lookup";
+    w.appendChild(el("p", "s5el-sub", "Look up a domain, IP or wildcard"));
+    var f = el("form", "s5fd-form"); f.setAttribute("role", "search");
+    var inp = el("input"); inp.type = "search"; inp.placeholder = "evil[.]com · 203.0.113.7 · *copilot*.com"; inp.setAttribute("aria-label", "Domain, IP, URL or wildcard"); inp.autocapitalize = "off"; inp.spellcheck = false; inp.setAttribute("autocomplete", "off");
+    var bt = el("button", "s5el-btn", "Look up"); bt.type = "submit";
+    f.appendChild(inp); f.appendChild(bt); w.appendChild(f);
+    var who = el("p", "s5el-note s5fd-who", "Our own data answers for anyone. The live services (VirusTotal, URLhaus, ThreatFox, GreyNoise, crt.sh) answer the owner only — checking sign-in…"); w.appendChild(who);
+    var out = el("div", "s5fd-out"); out.setAttribute("aria-live", "polite"); w.appendChild(out);
+    var owner = false;
+    fetch("/.auth/me", { credentials: "same-origin" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      var p = j && j.clientPrincipal; owner = !!(p && (p.userRoles || []).indexOf("owner") >= 0);
+      who.textContent = "";
+      if (owner) { who.appendChild(document.createTextNode("Signed in as the owner (" + (p.userDetails || "") + ") — the live services are on. ")); who.appendChild(selfLink("Sign out", "/.auth/logout?post_logout_redirect_uri=" + encodeURIComponent(location.pathname))); }
+      else { who.appendChild(document.createTextNode("Our own data answers for anyone. The live services answer the owner only: ")); var back = encodeURIComponent(location.pathname + "#s5fd-lookup"); who.appendChild(selfLink("sign in with GitHub", "/.auth/login/github?post_login_redirect_uri=" + back)); who.appendChild(document.createTextNode(" or ")); who.appendChild(selfLink("Microsoft", "/.auth/login/aad?post_login_redirect_uri=" + back)); who.appendChild(document.createTextNode(p ? " — this account has no owner role yet." : ".")); }
+    }).catch(function () { who.textContent = "Our own data answers here; the live services are not reachable from this copy of the page."; });
+    f.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var q = fang(inp.value).toLowerCase(); if (!q) return;
+      out.textContent = "";
+      var host0 = q.replace(/^https?:\/\//, "").split("/")[0];
+      var re = /[*%]/.test(host0) ? new RegExp("^" + host0.replace(/[.]/g, "\\.").replace(/[*%]/g, ".*") + "$") : null;
+      var mine = (IOW.indicators || []).filter(function (x) { var v = fang(x.v).toLowerCase(); return re ? re.test(v) : v === host0 || v.slice(-host0.length - 1) === "." + host0; });
+      var od = el("details", "s5fd-src"); od.open = true; var os = el("summary"); os.appendChild(el("b", null, "In our data")); os.appendChild(zchip(mine.length ? mine.length + " indicator" + (mine.length === 1 ? "" : "s") : "not watched", "s5fb-vd " + (mine.some(function (x) { return x.verdict === "malicious"; }) ? "s5fb-bad" : ""))); od.appendChild(os);
+      if (mine.length) od.appendChild(iocTable(mine, true)); else od.appendChild(el("p", "s5el-note", "None of our incidents names it and no watched word matched it."));
+      out.appendChild(od);
+      if (!owner) return;
+      var wait = el("p", "s5el-note", "Asking the services… (up to 30 s; a VirusTotal free key allows 4 lookups a minute)"); out.appendChild(wait); bt.disabled = true;
+      fetch("/api/lookup?q=" + encodeURIComponent(q), { credentials: "same-origin" }).then(function (r) { return r.json().then(function (j) { return { s: r.status, j: j }; }, function () { return { s: r.status, j: {} }; }); }).then(function (r) {
+        wait.remove(); bt.disabled = false;
+        if (r.s !== 200) { out.appendChild(el("p", "s5el-note", "Lookup: " + (r.j.error || "HTTP " + r.s))); return; }
+        out.appendChild(el("p", "s5el-mut", r.j.type + " " + defang(r.j.query) + " · " + (r.j.ms / 1000).toFixed(1) + " s · " + dmy(day(r.j.at))));
+        Object.keys(r.j.sources || {}).forEach(function (k) { out.appendChild(srcSection(k, r.j.sources[k])); });
+        Object.keys(r.j.notes || {}).forEach(function (k) { out.appendChild(el("p", "s5el-note", k + ": " + r.j.notes[k])); });
+      }).catch(function (e) { wait.remove(); bt.disabled = false; out.appendChild(el("p", "s5el-note", "Lookup failed: " + e)); });
+    });
+    host.appendChild(w);
   }
   function infraBox(host) {
     var tries = 0;
@@ -27044,6 +27185,8 @@ IdentityDirectoryEvents
       });
       b.appendChild(ul);
       if (L.length) b.appendChild(iocTable(L, true));
+      campBox(b);
+      lookupPanel(b);
       var S = IOW.sources || {}, sl = el("p", "s5el-note s5fb-src");
       sl.textContent = "Sources this run: " + Object.keys(S).map(function (k) { var v = S[k]; return k + " " + v.state + (v.checked != null ? " (" + v.checked + " checked)" : v.candidates != null ? " (" + v.candidates + " candidates)" : "") + (v.state !== "ok" && v.note ? " — " + v.note : ""); }).join(" · ");
       b.appendChild(sl);
