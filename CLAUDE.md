@@ -29962,8 +29962,11 @@ tr.s5bi-flash>td{animation:s5biflash 2.2s ease-out}
 }
 @media (max-width:760px){
   /* phone floor: 12 px for chips, badges and small labels (2 505 badges measured at 11 px on 390 px) */
-  .badge,.s12sign,.s12line span,.s12ext,.ntchip,td .mc,.ntcrit,.ntmeth,.segbtn,.s12path,.navcount,.ntlab,.pchip,p .lbl,dl.kv dt,
-  .sec-count,.fact span,.vchg,.vwhen,.ntt0,.rcat,.ntaxr span,.ntfttl,.ntft0 b,.tseg-label,.sm-t{font-size:12px!important}
+  /* §5fh (23 X 2026): the floor rises to the reading scale inside the tabs - this rule kept 51% of Graph and 25% of Roles
+     at 12 px on a phone, because !important beat every later rule; the header and the sidebar counters stay compact */
+  .navcount,.fact span,.sec-count,.tseg-label{font-size:12px!important}
+  .badge,.s12sign,.s12line span,.s12ext,.ntchip,td .mc,.ntcrit,.ntmeth,.segbtn,.s12path,.ntlab,.pchip,p .lbl,dl.kv dt,
+  .vchg,.vwhen,.ntt0,.rcat,.ntaxr span,.ntfttl,.ntft0 b,.sm-t{font-size:14px!important}
   /* tap targets */
   .seg .segbtn{min-height:32px}
   a.lnk,a.cb-link{display:inline-block;padding:5px 0}
@@ -41898,6 +41901,7 @@ odtad CZTERNASCIE (4-17).**
     c.appendChild(el("p", "s5et-note", "The domains and IP addresses of this incident — the ones the analysis names and new look-alike certificates" + (wordsHere.length ? " with the word " + wordsHere.map(function (w) { return "“" + w + "”"; }).join(", ") : "") + " — checked every day. Written defanged (evil[.]com) so nothing here is a live link; the links open the reports about them."));
     if (!L.length) { c.appendChild(el("p", "s5el-note", "No domain or IP of this incident yet: the analysis names none, and no look-alike certificate appeared in the last 30 days.")); return; }
     c.appendChild(iocCounts(L));
+    var clc = copyLists(s.id, L); if (clc) c.appendChild(clc);
     var tr = iocTrend(s.id); if (tr) c.appendChild(tr);
     /* the analysis's own indicators first; look-alike certificates and ThreatFox entries sharing the incident's word are
        candidates - related by name, not confirmed as this incident's infrastructure */
@@ -42031,6 +42035,42 @@ odtad CZTERNASCIE (4-17).**
     if (sub) h.appendChild(el("p", "s5fe-lead", sub));
     host.appendChild(h); return h;
   }
+  /* §5fh (23 X 2026, owner: "next to the detailed description, a plain list - IPs, domains, application IDs, object
+     IDs, the new addresses - to copy into Teams"). One block per incident: one value a line, each list with Copy
+     (defanged, safe to paste into a chat) and Copy plain (for a block list or a KQL datatable). */
+  function copyLists(sid, X) {
+    var st = (D && D.stories || []).filter(function (z) { return z.id === sid; })[0] || {};
+    var plain = function (v) { return String(v).replace(/\[\.\]/g, ".").replace(/^hxxp/i, "http"); };
+    var bad = function (x) { return x.verdict === "malicious" || x.verdict === "suspicious"; };
+    var own = (X || []).filter(function (x) { return (x.origins || []).some(function (o) { return o === "analysis" || o === "article" || o === "x-post" || o === "ioc-list"; }); });
+    var G = [
+      ["IP addresses — named by the sources", own.filter(function (x) { return x.type === "ip"; }).map(function (x) { return x.v; })],
+      ["Domains — named by the sources", own.filter(function (x) { return x.type !== "ip"; }).map(function (x) { return x.v; })],
+      ["Found around it and flagged (malicious / suspicious)", (X || []).filter(function (x) { return own.indexOf(x) < 0 && bad(x); }).map(function (x) { return x.v; })]
+    ];
+    var apps = (st.apps || []).filter(function (a) { return a.appId; });
+    if (apps.length) G.push(["Application (client) IDs", apps.map(function (a) { return a.appId + "  " + (a.name || ""); }), true]);
+    var note = st.appsNote || (st.notes && st.notes.appsNote) || "";
+    var guids = (note.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi) || []).filter(function (g, i, a) { return a.indexOf(g) === i && !apps.some(function (z) { return z.appId === g.toLowerCase(); }); });
+    if (guids.length) G.push(["Other IDs (tenant / object IDs from the analysis)", guids, true]);
+    G = G.filter(function (g) { return g[1].length; });
+    if (!G.length) return null;
+    var w = el("details", "s5fh-copy"); w.open = false;
+    w.appendChild(el("summary", null, "Copy lists — one value a line · " + G.map(function (g) { return g[1].length; }).reduce(function (a, b) { return a + b; }, 0) + " values"));
+    var grid = el("div", "s5fh-grid");
+    G.forEach(function (g) {
+      var c = el("div", "s5fh-card"), h = el("div", "s5fh-h"); h.appendChild(el("b", null, g[0] + " · " + g[1].length)); c.appendChild(h);
+      var txt = g[1].join("\n"), btns = el("div", "s5fh-btns");
+      btns.appendChild(zcopy(txt, g[2] ? "Copy" : "Copy (defanged)"));
+      if (!g[2]) btns.appendChild(zcopy(g[1].map(plain).join("\n"), "Copy plain"));
+      c.appendChild(btns);
+      var pre = el("pre", "s5fh-pre", txt); c.appendChild(pre);
+      grid.appendChild(c);
+    });
+    w.appendChild(grid);
+    w.appendChild(el("p", "s5el-mut", "Defanged (evil[.]com) is safe to paste into Teams or e-mail; plain is for a block list, a KQL datatable or an indicator import."));
+    return w;
+  }
   function infraBox(host) {
     var tries = 0;
     (function wait() {
@@ -42067,6 +42107,7 @@ odtad CZTERNASCIE (4-17).**
         var cs = el("span", "s5fe-cs"); ["malicious", "suspicious", "not checked yet", "no detections"].forEach(function (k) { if (cc[k]) cs.appendChild(zchip(cc[k] + " " + k, "s5fb-vd " + (VCLS[k] || ""))); });
         cs.appendChild(el("span", "s5fe-n", X.length + " total")); sm.appendChild(cs); d.appendChild(sm);
         if (sid !== "_watch") { var ob = el("button", "s5el-btn", "Open the incident"); ob.type = "button"; ob.addEventListener("click", function () { openStory(sid); }); d.appendChild(ob); }
+        var cl = copyLists(sid, X); if (cl) { cl.open = true; d.appendChild(cl); }
         var own = X.filter(function (x) { return x.origins.indexOf("analysis") >= 0 || x.origins.indexOf("article") >= 0; }), rel = X.filter(function (x) { return own.indexOf(x) < 0; });
         if (own.length) { d.appendChild(el("h4", "s5fe-h4", "Named by the incident's sources · " + own.length)); d.appendChild(iocTable(own, false)); }
         if (rel.length) { d.appendChild(el("h4", "s5fe-h4", "Found around it — researchers' lists and posts, ThreatFox, same server, look-alike certificates · " + rel.length)); d.appendChild(iocTable(rel, false)); }
@@ -44864,10 +44905,10 @@ body .tabpanel .badge.t-bad{background:transparent!important;color:var(--bad)!im
 body .tabpanel .tchip{border-color:var(--border)!important;background:transparent!important;color:var(--text)!important}
 .s5bn-n{background:transparent!important;border:1px solid var(--border)!important;color:var(--muted)!important}
 .s5bn-n:not(.zero){color:var(--text)!important}
-.s5bn-k{background:transparent!important;color:var(--muted)!important;padding:0!important;font-size:10.5px!important;font-weight:700;letter-spacing:.05em;display:inline-flex;align-items:center;gap:5px}
+.s5bn-k{background:transparent!important;color:var(--muted)!important;padding:0!important;font-size:13px!important;font-weight:700;letter-spacing:.05em;display:inline-flex;align-items:center;gap:5px}
 .s5bn-k::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--muted);flex:0 0 auto}
 .s5bn-added .s5bn-k::before{background:var(--ok)}.s5bn-changed .s5bn-k::before{background:var(--warn)}.s5bn-removed .s5bn-k::before{background:var(--bad)}
-.s5bn-ty{background:transparent!important;border:0!important;box-shadow:none!important;color:var(--muted)!important;font-weight:500!important;text-transform:none!important;letter-spacing:0!important;font-size:12px!important}
+.s5bn-ty{background:transparent!important;border:0!important;box-shadow:none!important;color:var(--muted)!important;font-weight:500!important;text-transform:none!important;letter-spacing:0!important;font-size:14px!important}
 .s5bn-id,.s5bn-tl{color:var(--text)!important;font-weight:700}
 a.s5bn-id:hover,a.s5bn-tl:hover{color:var(--accent)!important;text-decoration:underline}
 .s5bn-chs{flex-basis:100%;display:flex;flex-direction:column;gap:1px;margin:1px 0 2px 12px;padding-left:10px;border-left:2px solid var(--border);font-size:12.5px}
@@ -45620,7 +45661,7 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
 .s5ez-an{font-weight:700;font-size:14px;color:var(--text);overflow-wrap:anywhere}
 .s5ez-id{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .s5ez-id code{font-size:12.5px;padding:3px 7px;border-radius:6px;background:var(--surface);border:1px solid var(--border);overflow-wrap:anywhere}
-.s5ez-copy{padding:2px 9px!important;font-size:12px!important}
+.s5ez-copy{padding:3px 10px!important;font-size:14px!important}
 .s5ez-did{margin:0;font-size:13px;line-height:1.45;color:var(--text)}
 .s5ez-rp{display:flex;flex-wrap:wrap;gap:5px;align-items:center}.s5ez-l{font-size:11.5px;font-weight:700;color:var(--muted);margin-right:2px}
 .s5ez-chip{display:inline-block;font:inherit;font-size:11.5px;font-weight:650;padding:1px 8px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--muted);text-align:left;white-space:normal}
@@ -45706,6 +45747,13 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 #tab-threats .s5el-box{margin:22px 0}
 #tab-threats .s5el-toc{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;gap:8px}
 #tab-threats .s5el-tocb{padding:6px 12px}
+.s5fh-copy{border:1px solid var(--border);border-radius:12px;padding:8px 14px;margin:10px 0;background:var(--surface)}
+.s5fh-copy>summary{cursor:pointer;font-size:16px;font-weight:700;padding:4px 0}
+.s5fh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:10px;margin:8px 0}
+.s5fh-card{border:1px solid var(--border);border-radius:10px;padding:8px 10px;background:var(--bg);min-width:0}
+.s5fh-h{font-size:14px;margin-bottom:6px}
+.s5fh-btns{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.s5fh-pre{margin:0;max-height:220px;overflow:auto;font-size:13.5px;line-height:1.5;white-space:pre;background:var(--surface);border-radius:8px;padding:6px 8px}
 .s5fe-nav{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
 .s5fe-navb{font:inherit;font-size:14px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--accent);cursor:pointer}
 .s5fe-navb:hover{border-color:var(--accent)}
@@ -46183,6 +46231,22 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 #tab-components .s5cr-w,#tab-components .s5cz-o,#tab-components .s5ec-st,#tab-components .s5cr-dl,#tab-about .s5cz-by,#tab-overview .s5cz-by{font-size:14px}
 #tab-components .pchip,#tab-products .pchip,#tab-overview .pchip,#tab-new .pchip{font-size:13px}
 #tab-hunting pre code,#tab-hunting pre,#tab-threats pre,#tab-threats pre code{font-size:13.5px}
+/* §5fh (23 X 2026, measured at 390 px - the phone renders catalogs as cards with their own classes): Graph 51% and
+   Roles 25% of the text was the 12px badges of the card view (.ci-v16), Components 18% its release rows */
+#tab-graph .catalog .cat-item .ci-v16 .badge,#tab-roles .catalog .cat-item .ci-v16 .badge,#tab-fpa .catalog .cat-item .ci-v16 .badge{font-size:14px;line-height:1.45}
+[id^="tab-"] td .badge,[id^="tab-"] .relhead .badge{font-size:13px}
+#tab-components .vchg,#tab-components .rcat,#tab-components .s5cr-w,#tab-components .s5cz-o{font-size:14px}
+#tab-about .s5cz-tab .s5cz-by,#tab-overview .s5cz-tab .s5cz-by{font-size:14px}
+#tab-threats .s5el-rd,#tab-threats .s5el-rm{font-size:14px}
+#tab-threats .s5ei-meta{font-size:14px}
+[id^="tab-"] th.gv-main{font-size:14px}
+#tab-blogs table th.gv-main,#tab-community table th.gv-main,#tab-learn table th.gv-main{font-size:14px}
+#tab-components a.jtile.s5cr .s5cr-w,#tab-components a.jtile.s5cr .s5cr-dl,#tab-components a.jtile.s5cr .s5cz-o,#tab-components a.jtile.s5cr .s5ec-st,#tab-components .s5cr-tr .s5cr-w,#tab-components .s5cz-d .s5cz-o{font-size:14px}
+#tab-components a.jtile.s5cr .s5cr-lab{font-size:12.5px}
+#tab-about .s5cz-tab p.s5cz-by,#tab-overview .s5cz-tab p.s5cz-by{font-size:14px}
+#tab-threats .s5fe-how{font-size:14px}
+@media (max-width:760px){.tbar .seg.tseg{flex-wrap:wrap;max-width:100%}.tbar .seg.tseg .segbtn{flex:1 1 auto}} /* 5fh: the 14px floor made Hunting's segmented control run 29px past the edge */
+#tab-threats td .s5ez-chip,#tab-threats .s5fe-cs .s5ez-chip{font-size:13.5px}
 /* §5fg: section titles stand out from the text everywhere (they were 14-15px, the size of the text after the scale) */
 .tab-panel h3,[id^="tab-"] h3{font-size:18px;font-weight:700;line-height:1.3}
 .tab-panel h4,[id^="tab-"] h4{font-size:16px;font-weight:700}
@@ -46199,8 +46263,8 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .s5fg-navl{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 .s5fg-navb{font:inherit;font-size:14px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--accent);cursor:pointer}
 .s5fg-navb:hover{border-color:var(--accent)}
-@media (max-width:760px){.s5fg-nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.s5fg-nav>*{flex:none}[id^="tab-"] details.ntsec>summary{font-size:18px}}
-@media (max-width:760px){#tab-threats .s5el-toc{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}#tab-threats .s5el-toc>*{flex:none}}
+@media (max-width:760px){.s5fg-nav{position:static;flex-wrap:wrap}[id^="tab-"] details.ntsec>summary{font-size:18px}}
+@media (max-width:760px){#tab-threats .s5el-toc{position:static;flex-wrap:wrap}} /* 5fh: owner - no sideways sliding on a phone; wrapped, not sticky */
 @media (max-width:560px){.s5fe-h3{font-size:18px}.s5fe-why{min-width:0;max-width:none}#tab-threats .s5el-box>summary .s5el-bt{font-size:19px}}
 .s5fb-mut{color:var(--muted)}
 .s5fb-ul{margin:0;padding-left:16px;font-size:12.5px}
@@ -48053,6 +48117,17 @@ Wlasciciel (16:23): „tak, widok ok, mozna dzialac dalej” — wzor §5fe na r
 - Pasek „In this tab” (`.s5fg-nav`, przyklejony, na telefonie jeden przewijany wiersz) w zakladkach bez wlasnej nawigacji: Overview (karty `.s5ci-ch > h3`), Sources i Hunting (`details.ntsec`, etykieta = nazwa sekcji albo tytul przy „Section X”), About (`h3`). Pozostale zakladki maja wlasne paski (s5cd-bar, s5dq-jump, mcb-views, s5dv-vnav).
 - `tools/changes_app.html`: ta sama skala dla /diff i /week.
 - `tools/ioc_watch.py`: domeny z postow badaczy (`x-post`) w kolejce VirusTotal razem z analiza i artykulami.
+
+### §5fh — Telefon: podloga czcionki, listy do skopiowania, /diff bez przewijania w bok, rutyna zmian (23 X 2026)
+
+Wlasciciel (23:32, zrzuty z iPhone'a): portal na telefonie laduje sie wolno; pasek technologii na /diff kaze przesuwac ekran w prawo; nadal male czcionki i brak podzialu; obok szczegolowego opisu IP / aplikacji w Threat Research czysta lista do skopiowania (np. do Teams); rutyna zmian zglosila „publish.yml nadpisal diff/index.html".
+
+- Przyczyna malych liter na telefonie: regula „phone floor" w `@media (max-width:760px)` z `font-size:12px!important` (plakietki, chipy, etykiety) wygrywala z kazda regula §5fg; Graph mial 51%, Roles 25% tekstu przy 12 px (karty katalogu `.ci-v16`). Podloga podniesiona do 14 px (naglowek i licznik w pasku bocznym zostaja 12 px), `.s5bn-k` 13 px, `.s5ez-copy` 14 px, reguly o wyzszej szczegolowosci dla Components / About / Threat Research. Wynik (390 i 1500 px): 0-3% tekstu < 14 px we wszystkich zakladkach poza kodem KQL (Hunting, Threat Research, 13,5 px).
+- Paski skokow (`.s5el-toc`, `.s5fg-nav`) na telefonie zawijaja sie i nie sa przyklejone (wczesniej jeden wiersz przewijany w bok); segmentowany przelacznik `.tbar .seg.tseg` zawija sie. `mobile_check.py`: OK.
+- `tools/changes_app.html`: chipy technologii zawijane; na telefonie 4 najczestsze + lista „+N more…" (bylo: przewijanie w bok).
+- Threat Research `copyLists()`: blok „Copy lists" w kazdym incydencie (Infrastructure watch i karta Infrastructure): IP i domeny nazwane przez zrodla, oznaczone w otoczeniu, Application (client) ID, inne ID (tenant / object) z `appsNote`; jedna wartosc w linii; Copy (bezpieczne `[.]`) i Copy plain.
+- Rutyna zmian: komunikat byl falszywym alarmem — od §5eq strona rutyny trafia do `site/diff/full.html` (identyczna bajt w bajt), a `diff/index.html` to aplikacja (37 kB). Nowy prompt `claude/prompts/routine-zmiany-v2-prompt-2026-10-23-5fh.md` (krok 4 pkt 5-6: `git diff --quiet HEAD:site/diff/index.html origin/main:site/diff/full.html`).
+- Pomiar wydajnosci 23 X (zywa strona, profil iPhone 13, CPU 4x): zdania Overview 12,7 s, 62 dlugie zadania (10,5 s), 87 000 elementow, 2,5 MB transferu. Propozycja przebudowy w dokumencie sesji (Projekt).
 
 ## 6. Kontrakt w stronie
 
