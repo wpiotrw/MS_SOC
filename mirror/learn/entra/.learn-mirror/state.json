@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/entra/security-copilot/conditional-access-agent-optimization-passkeys",
+  "cursor": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-telephony-provider",
   "pages": {
     "https://learn.microsoft.com/en-us/entra/agent-id": {"etag":"\"8c5WWw6Lbw+Mz5zhpqAhQFr97bY=\"","gitCommitId":"5caf06acbac27060f18423313c5c2f62caa542e3","path":"docs/agent-id/index.md","redirectedTo":"https://learn.microsoft.com/en-us/entra/agent-id/","sourcePath":"docs/agent-id/index.yml","updatedAt":"2026-06-19T22:42:00.0000000Z"},
     "https://learn.microsoft.com/en-us/entra/agent-id/create-blueprint": {"etag":"\"+nzDodXe0CAKNy6MOMaMiy/TiZE=\"","gitCommitId":"97366337175f17ae5947dbcd87c166ed63b57ae3","path":"docs/agent-id/create-blueprint.md","sourcePath":"docs/agent-id/create-blueprint.md","updatedAt":"2026-10-14T22:34:00.0000000Z"},
@@ -391,6 +391,7 @@
     "https://learn.microsoft.com/en-us/entra/identity/users/groups-sensitivity-labels": {"etag":"\"CCtabCxL1ksHuvBJoWnET3SWBfY=\"","gitCommitId":"a4be4ac419c4e857b1c4de7dee22c9f7e0c750f9","path":"docs/identity/users/groups-sensitivity-labels.md","sourcePath":"docs/identity/users/groups-sensitivity-labels.md","updatedAt":"2026-06-15T17:40:00.0000000Z"},
     "https://learn.microsoft.com/en-us/entra/security-copilot/conditional-access-agent-optimization-passkeys": {"etag":"\"rqiie2QD+ZFCwhwYFFax4WBQv9I=\"","gitCommitId":"f0dec6ed25dcfa8650359a20b18d0c5b5bd25195","path":"docs/security-copilot/conditional-access-agent-optimization-passkeys.md","sourcePath":"docs/security-copilot/conditional-access-agent-optimization-passkeys.md","updatedAt":"2026-06-26T22:37:00.0000000Z"},
     "https://learn.microsoft.com/en-us/entra/security-copilot/conditional-access-agent-optimization-phased-rollout": {"etag":"\"a6s/n7vfFBwhUlbuSq/d+DktNg4=\"","gitCommitId":"949ccfc1c8db4cd8e5c644e07b410a6f155a130d","path":"docs/security-copilot/conditional-access-agent-optimization-phased-rollout.md","sourcePath":"docs/security-copilot/conditional-access-agent-optimization-phased-rollout.md","updatedAt":"2026-06-15T17:40:00.0000000Z"},
+    "https://learn.microsoft.com/en-us/entra/workload-id/troubleshoot-revoked-credentials": {"etag":"\"vodIOnMqqgHDF/T98F6rEHgl44M=\"","gitCommitId":"7d1976c169a3680912741cfe1ab70a9bf382ea07","path":"docs/workload-id/troubleshoot-revoked-credentials.md","sourcePath":"docs/workload-id/troubleshoot-revoked-credentials.md","updatedAt":"2026-10-22T22:36:00.0000000Z"},
     "https://learn.microsoft.com/en-us/entra/workload-id/workload-identities-set-up-flexible-federated-identity-credential": {"etag":"\"lFdBZb87/oNNFNno+70Ac+IFc2s=\"","gitCommitId":"9f7043ca1f8865189bfeebccd8cd8459042fc06d","path":"docs/workload-id/workload-identities-set-up-flexible-federated-identity-credential.md","sourcePath":"docs/workload-id/workload-identities-set-up-flexible-federated-identity-credential.md","updatedAt":"2026-09-23T07:33:00.0000000Z"}
   }
 }

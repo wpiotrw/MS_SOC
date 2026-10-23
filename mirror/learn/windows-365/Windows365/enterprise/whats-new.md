@@ -374,7 +374,7 @@ Admins can now configure more flexible naming templates for Windows 365 Flex (sh
 
 ### Context-based redirections (Public Preview)
 
-Context-based redirections are now available in public preview for Windows 365. This server-side capability enables admins to dynamically control clipboard, printer, drives, and low-level USB redirection behavior based on user identity, device compliance, and network conditions. By enforcing policies dynamically for bring-your-own-device (BYOD) scenarios, organizations can better protect sensitive data without relying on client-side controls. For more information, see [Context-based redirections in Windows 365](/en-us/windows-365/enterprise/context-based-redirections).
+Context-based redirections are now available in public preview for Windows 365. This server-side capability enables admins to dynamically control clipboard, printer, drives, and low-level USB redirection behavior based on user identity, device compliance, and network conditions. By enforcing policies dynamically for bring-your-own-device (BYOD) scenarios, organizations can better protect sensitive data without relying on client-side controls. For more information, see [Context-based redirections in Windows 365](/en-us/windows-365/enterprise/context-based-redirections?tabs=windows-365).
 
 ### GPU support for Windows 365 Flex shared Cloud PCs
 

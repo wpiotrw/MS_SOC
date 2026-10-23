@@ -246,5 +246,6 @@ https://learn.microsoft.com/en-us/entra/security-copilot/conditional-access-agen
 https://learn.microsoft.com/en-us/entra/tutorial-directory-extension-group-provisioning
 https://learn.microsoft.com/en-us/entra/tutorial-group-provisioning
 https://learn.microsoft.com/en-us/entra/tutorial-users-groups-provisioning-walkthrough
+https://learn.microsoft.com/en-us/entra/workload-id/troubleshoot-revoked-credentials
 https://learn.microsoft.com/en-us/entra/workload-id/workload-identities-set-up-flexible-federated-identity-credential
 https://learn.microsoft.com/en-us/entra/workload-identities-set-up-flexible-federated-identity-credential

@@ -18,7 +18,7 @@ manager: bpardi
 feedback_system: Standard
 feedback_product_url: https://support.microsoft.com/windows/send-feedback-to-microsoft-with-the-feedback-hub-app-f59187f8-8739-22d6-ba93-f66612949332
 description: Learn more about the Experience Area in Policy CSP.
-ms.date: 2026-09-10T00:00:00.0000000Z
+ms.date: 2026-10-14T00:00:00.0000000Z
 locale: en-us
 document_id: 6e8ecbe3-ba72-ec44-0591-7f604d50b1e3
 document_version_independent_id: 9d5ff118-d539-dd6e-ae3e-102392c22287
@@ -37,9 +37,11 @@ item_type: Content
 source_path: windows/client-management/mdm/policy-csp-experience.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/e0ffb20c-01c6-407b-a9bd-29111652a1dc
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/3904bce4-d817-48cf-85fd-b6146fca83b7
 platformId: 04c28dcf-0af9-a403-ea88-72e510dcd379
 ---

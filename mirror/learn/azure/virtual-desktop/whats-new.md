@@ -18,7 +18,7 @@ ms.service: azure-virtual-desktop
 description: Learn about new features and product updates for Azure Virtual Desktop.
 ms.topic: release-notes
 ms.custom: references_regions
-ms.date: 2026-09-24T00:00:00.0000000Z
+ms.date: 2026-10-21T00:00:00.0000000Z
 locale: en-us
 document_id: 179e0581-18c2-c983-1490-bcdcb19c3d66
 document_version_independent_id: 179e0581-18c2-c983-1490-bcdcb19c3d66
@@ -65,6 +65,10 @@ See [What's new in documentation](whats-new-documentation), where we highlight n
 ## October 2026
 
 Here's what changed in October 2026:
+
+### RemoteApp support for context-based redirections (Preview)
+
+Context-based redirections now support RemoteApp sessions in Azure Virtual Desktop in preview. You can use Microsoft Entra authentication context to control redirections in RemoteApp sessions based on your Conditional Access policies. For more information, see [Configure context-based redirections (Preview)](/en-us/windows-365/enterprise/context-based-redirections?tabs=windows-365).
 
 ### RDP Multipath and RDP Shortpath with TURN relay are now generally available in Azure Government
 
@@ -250,7 +254,7 @@ For more information, see [External identity](authentication#external-identity) 
 
 ### Context-based redirections (Public Preview)
 
-Context-based redirections are now available in public preview for Azure Virtual Desktop. This server-side capability enables admins to dynamically control clipboard, printer, drives, and low-level USB redirection behavior based on user identity, device compliance, and network conditions. By enforcing policies dynamically for bring-your-own-device (BYOD) scenarios, organizations can better protect sensitive data without relying on client-side controls. For more information, see [Context-based redirections in Azure Virtual Desktop](/en-us/azure/virtual-desktop/context-based-redirections-avd).
+Context-based redirections are now available in public preview for Azure Virtual Desktop. This server-side capability enables admins to dynamically control clipboard, printer, drives, and low-level USB redirection behavior based on user identity, device compliance, and network conditions. By enforcing policies dynamically for bring-your-own-device (BYOD) scenarios, organizations can better protect sensitive data without relying on client-side controls. For more information, see [Context-based redirections in Azure Virtual Desktop](/en-us/windows-365/enterprise/context-based-redirections?tabs=azure-virtual-desktop).
 
 ## May 2026
 

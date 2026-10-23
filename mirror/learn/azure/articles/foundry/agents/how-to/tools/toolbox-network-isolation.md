@@ -45,13 +45,13 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/agents/how-to/tools/toolbox-network-isolation.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1ae5c491-970a-4062-8301-6336e69f9026
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f2c3e52e-3667-4e8a-bf11-20b9eaccdc8c
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 41493887-cf12-ce60-027b-48a414e8b0c7
 ---
 
@@ -87,6 +87,12 @@ The following table shows how each tool's traffic flows when your project uses n
 Tools that use your VNet subnet communicate through the delegated subnet associated with the Foundry project. These tools can access resources reachable from that subnet, subject to your network security rules.
 
 For the authoritative, tool-by-tool support matrix, see [Agent tools with network isolation](../../../how-to/configure-private-link#agent-tools-with-network-isolation). For the full list of tools and their SDK and tooling support, see [Feature support](toolbox#feature-support).
+
+### File search vector stores
+
+When you enable a virtual network (VNet) for your project, recreate any existing vector stores if you don't use bring-your-own (BYO) resources.
+
+If you created a vector store while VNet was enabled, recreate it after disabling VNet to make public calls.
 
 ## Set up a network-secured project
 

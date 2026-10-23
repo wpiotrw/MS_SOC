@@ -18,7 +18,7 @@ manager: bpardi
 feedback_system: Standard
 feedback_product_url: https://support.microsoft.com/windows/send-feedback-to-microsoft-with-the-feedback-hub-app-f59187f8-8739-22d6-ba93-f66612949332
 description: Learn more about the ApplicationManagement Area in Policy CSP.
-ms.date: 2026-02-27T00:00:00.0000000Z
+ms.date: 2026-10-14T00:00:00.0000000Z
 locale: en-us
 document_id: 64ac43f2-2742-087b-1512-1dd0f4e469e4
 document_version_independent_id: f52b9d2b-c877-c18a-fd45-3a47e4c39e29
@@ -38,9 +38,11 @@ source_path: windows/client-management/mdm/policy-csp-applicationmanagement.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/cd440f3c-1b78-40a7-97ba-aa00a1d79df7
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c828f7e0-89b4-459c-9bae-d7ab1c4bd9ad
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 33ff52a9-4a31-6c77-91cb-1b8b26111b0f
 ---
 

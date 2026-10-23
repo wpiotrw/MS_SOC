@@ -46,15 +46,20 @@ source_path: Exchange/ExchangeOnline/clients-and-mobile-in-exchange-online/depre
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/cf9b82c5-b6dc-45f3-b005-b1bc5fc03bea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0c85d34e-bfd2-4466-957c-f0b61e9692df
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: a21fe27f-f46a-8cc8-6380-fedfe32c7b15
 ---
 
 # Deprecation of Exchange Web Services in Exchange Online | Microsoft Learn
 
 In 2018, we announced that [Exchange Web Services (EWS) will no longer receive functionality updates](https://techcommunity.microsoft.com/blog/exchange/upcoming-changes-to-exchange-web-services-ews-api-for-office-365/608055). In 2023, we announced that [EWS will be disabled in Exchange Online in October 2026](https://devblogs.microsoft.com/microsoft365dev/retirement-of-exchange-web-services-in-exchange-online/). See blog post [Exchange Online EWS, Your Time is Almost Up](https://techcommunity.microsoft.com/blog/exchange/exchange-online-ews-your-time-is-almost-up/4492361) for the latest updates on timeline and disablement process.
+
+| **Are you here because your Exchange Online EWS applications have stopped working? [Read this](https://techcommunity.microsoft.com/blog/exchange/exchange-online-ews-application-stopped-working-do-this-/4566215)** |
+| --- |
 
 The [Midnight Blizzard security incident](https://www.microsoft.com/security/blog/2024/01/25/midnight-blizzard-guidance-for-responders-on-nation-state-attack/) in January 2024 involved EWS and elevated the urgency of the EWS deprecation effort. The scope was also widened from third party applications to include all Microsoft applications. We're working diligently to remove EWS dependencies in all Microsoft products. For example:
 
@@ -124,6 +129,8 @@ The following EWS capabilities won't be added to Microsoft Graph. Plan migration
 - **Upcoming**:
     - Fill parity gaps to support migration for Microsoft and third party applications.
     - Remove EWS dependencies from Microsoft applications.
+        - [Outlook mail Connector for PowerBI desktop](/en-us/power-query/connectors/microsoft-exchange-graph)
+        - [Changes to the Exchange Online connector in Excel Power Query](https://support.microsoft.com/excel/power-query-exchange-connector-changes)
 - **October 2026**: EWS starts to be disabled globally for all organizations. Full details of the process can be found [here](https://aka.ms/EWSEndgame).
 - **April 2027**: EWS is fully disabled.
 
@@ -149,3 +156,4 @@ Don't wait for all parity gaps to be closed. You can be proactive by doing the f
 - [EWS Usage Reporting tool released](https://aka.ms/ewsToolsUsage)
 - [EWS Migration Tools](https://aka.ms/ewsTools)
 - [AI Assisted EWS Migration Tutorial](https://aka.ms/ewsToolsAITutorial)
+- [Understand HTTP 403 responses in Exchange Online](/en-us/exchange/client-developer/exchange-web-services/how-to-control-access-to-ews-in-exchange#understand-http-403-responses-in-exchange-online)

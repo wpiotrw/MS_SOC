@@ -18,7 +18,7 @@ manager: bpardi
 feedback_system: Standard
 feedback_product_url: https://support.microsoft.com/windows/send-feedback-to-microsoft-with-the-feedback-hub-app-f59187f8-8739-22d6-ba93-f66612949332
 description: Learn more about the WindowsAI Area in Policy CSP.
-ms.date: 2026-09-10T00:00:00.0000000Z
+ms.date: 2026-10-14T00:00:00.0000000Z
 locale: en-us
 document_id: 149b3390-13b9-90af-fc74-7d2da17c05ae
 document_version_independent_id: 149b3390-13b9-90af-fc74-7d2da17c05ae
@@ -37,8 +37,10 @@ item_type: Content
 source_path: windows/client-management/mdm/policy-csp-windowsai.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 138c007c-b8ec-ccf7-8f4e-5cae0b0ec9ba
 ---
 

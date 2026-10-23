@@ -120,3 +120,4 @@ https://learn.microsoft.com/en-us/graph/toolkit/components/chat
 https://learn.microsoft.com/en-us/graph/unified-tenant-configuration-management-concept-overview
 https://learn.microsoft.com/en-us/graph/whats-new-earlier
 https://learn.microsoft.com/en-us/graph/whats-new-overview
+https://learn.microsoft.com/en-us/graph/windowsupdates-concept-overview
