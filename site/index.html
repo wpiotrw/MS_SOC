@@ -26943,7 +26943,7 @@ IdentityDirectoryEvents
     var o = [];
     if (x.origins.indexOf("analysis") >= 0) o.push("in the analysis");
     if (x.origins.indexOf("crtsh") >= 0 && x.ct) o.push("look-alike certificate " + dmy(x.ct.notBefore) + " (word “" + x.ct.word + "”)");
-    if (x.origins.indexOf("threatfox-tag") >= 0) o.push("ThreatFox tag");
+    if (x.origins.indexOf("threatfox-tag") >= 0) o.push("ThreatFox tag “" + (x.tfTag || "?") + "” — the same name, not necessarily this incident");
     return o.join(" · ");
   }
   function iocFacts(x) {
@@ -27018,7 +27018,11 @@ IdentityDirectoryEvents
     if (!L.length) { c.appendChild(el("p", "s5el-note", "No domain or IP of this incident yet: the analysis names none, and no look-alike certificate appeared in the last 30 days.")); return; }
     c.appendChild(iocCounts(L));
     var tr = iocTrend(s.id); if (tr) c.appendChild(tr);
-    c.appendChild(iocTable(L, false));
+    /* the analysis's own indicators first; look-alike certificates and ThreatFox entries sharing the incident's word are
+       candidates - related by name, not confirmed as this incident's infrastructure */
+    var own = L.filter(function (x) { return x.origins.indexOf("analysis") >= 0; }), rel = L.filter(function (x) { return x.origins.indexOf("analysis") < 0; });
+    if (own.length) { c.appendChild(el("p", "s5el-sub", "Named in the analysis · " + own.length)); c.appendChild(iocTable(own, false)); }
+    if (rel.length) { c.appendChild(el("p", "s5el-sub", "Related by name — look-alike certificates and ThreatFox entries with the incident's word, not confirmed for this incident · " + rel.length)); c.appendChild(iocTable(rel, false)); }
   }
   function infraBox(host) {
     var tries = 0;
