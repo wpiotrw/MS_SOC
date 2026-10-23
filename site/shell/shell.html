@@ -4571,6 +4571,60 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
 .s5ew-sum{margin:4px 0 0;font-size:12.5px;line-height:1.45;color:var(--text)}
 .s5ew-last{margin:8px 14px 2px;padding:6px 10px;border:1px dashed var(--border);border-radius:8px;font-size:12.5px;font-weight:600;color:var(--muted)}
 .s5ew-all{margin-top:10px}
+/* §5ey (22 X 2026, owner: "why the double stripes again? check the whole portal"): one coloured edge only - on the
+   innermost item. A frame that holds tiles or rows with their own coloured edge (the "what changed" strip .s5bn on
+   every tab, the Threat Research groups .s5ew-grp) has an even, tinted border all round; its title carries a dot. */
+.s5bn{border:1px solid color-mix(in srgb,var(--accent) 38%,var(--border))}
+.s5ew-grp{border:1px solid color-mix(in srgb,var(--accent) 45%,var(--border));border-left-width:1px}
+.s5ew-grp.s5ew-other{border-color:color-mix(in srgb,var(--muted) 45%,var(--border))}
+.s5ew-gt::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:1px}
+.s5ew-other .s5ew-gt::before{background:var(--muted)}
+/* §5ez: applications involved, what to do by phase (our proposal apart), hunting queries by origin */
+.s5ez-apps .s5ez-apl{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:10px;margin:8px 0}
+.s5ez-app{border:1px solid var(--border);border-radius:10px;padding:10px 12px;background:var(--bg);display:flex;flex-direction:column;gap:6px;min-width:0}
+.s5ez-ah{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.s5ez-an{font-weight:700;font-size:14px;color:var(--text);overflow-wrap:anywhere}
+.s5ez-id{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.s5ez-id code{font-size:12.5px;padding:3px 7px;border-radius:6px;background:var(--surface);border:1px solid var(--border);overflow-wrap:anywhere}
+.s5ez-copy{padding:2px 9px!important;font-size:12px!important}
+.s5ez-did{margin:0;font-size:13px;line-height:1.45;color:var(--text)}
+.s5ez-rp{display:flex;flex-wrap:wrap;gap:5px;align-items:center}.s5ez-l{font-size:11.5px;font-weight:700;color:var(--muted);margin-right:2px}
+.s5ez-chip{display:inline-block;font:inherit;font-size:11.5px;font-weight:650;padding:1px 8px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--muted);text-align:left;white-space:normal}
+button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-soft)}
+.s5ez-kind{color:var(--text)}.s5ez-role{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 50%,var(--border))}.s5ez-perm{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 50%,var(--border))}
+.s5ez-af{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:auto}
+.s5ez-act{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 55%,var(--border));background:color-mix(in srgb,var(--bad) 8%,transparent)}
+.s5ez-src{font-size:12px}
+.s5ez-tools{margin-top:8px;border:1px solid var(--border);border-radius:10px;padding:6px 10px;background:var(--bg)}
+.s5ez-tools>summary{cursor:pointer;font-weight:650;font-size:13px;color:var(--accent)}
+.s5ez-todo .s5ez-say,.s5ez-todo .s5ez-our{border-radius:10px;padding:8px 12px 4px;margin-top:8px}
+.s5ez-todo .s5ez-say{border:1px solid var(--border);background:var(--bg)}
+.s5ez-todo .s5ez-our{border:1px solid color-mix(in srgb,var(--accent) 55%,var(--border));background:color-mix(in srgb,var(--accent) 9%,var(--surface))}
+.s5ez-bh{margin:2px 0 6px;font-size:13.5px;font-weight:800;color:var(--text)}
+.s5ez-our>.s5ez-bh{color:var(--accent)}
+.s5ez-ph{margin:0 0 8px}.s5ez-pht{margin:6px 0 2px;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.s5ez-phn{font-weight:800;color:var(--text)}
+.s5ez-ph-contain .s5ez-phn{color:var(--bad)}.s5ez-ph-investigate .s5ez-phn{color:var(--warn)}.s5ez-ph-harden .s5ez-phn,.s5ez-ph-detect .s5ez-phn{color:var(--ok)}
+.s5ez-steps{margin:0;padding-left:24px}.s5ez-steps li{margin:4px 0;line-height:1.5}.s5ez-st{margin-right:6px}
+.s5ez-ours{color:#fff;background:var(--accent);border-color:var(--accent)}
+.s5ez-ksum{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 8px}
+.s5ez-k-ours{color:var(--accent);border-color:var(--accent)}.s5ez-k-Microsoft{color:var(--ok);border-color:var(--ok)}.s5ez-k-community{color:var(--warn);border-color:var(--warn)}
+.s5ez-kg{margin-top:10px}.s5ez-ks{margin:-4px 0 6px;font-size:12px}
+.s5ez-more{margin-top:4px}
+.s5ez-rel{font:inherit;font-weight:650;color:var(--accent);background:none;border:0;padding:0;text-align:left;cursor:pointer;text-decoration:underline}
+.s5ez-via{display:inline-block;margin-left:6px;padding:0 7px;border-radius:999px;border:1px dashed var(--border);font-size:11.5px}
+.s5ez-kq .s5el-kql pre,.s5ez-tools .s5el-kql pre{max-height:340px;overflow:auto}
+@media (max-width:760px){.s5ez-apps .s5ez-apl{grid-template-columns:minmax(0,1fr)}.s5ez-app{padding:8px 9px}.s5ez-steps{padding-left:20px}
+ .s5ez-todo .s5ez-say,.s5ez-todo .s5ez-our{padding:6px 8px 2px}
+ #tab-threats .s5el-det{padding-left:0!important;padding-right:0!important;border-left:0!important;border-right:0!important}}
+.s5ey-why{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin:6px 0 0;font-size:11.5px;line-height:1.35}
+.s5ey-wl{color:var(--muted);font-weight:600}
+.s5ey-w{border:1px solid var(--border);border-radius:999px;padding:1px 8px;font-weight:650;color:var(--muted);white-space:normal}
+.s5ey-m365{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 55%,var(--border))}
+.s5ey-out{color:var(--text)}
+.s5ey-k{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 55%,var(--border))}
+.s5ey-k.s5ey-reason{background:color-mix(in srgb,var(--ok) 10%,transparent)}
+.s5el-c2 .s5ey-why{margin-top:4px}
 @media (max-width:760px){.s5ew-grp{margin:4px 0 12px;padding:10px 8px 10px 10px}.s5ew-grid{grid-template-columns:minmax(0,1fr)}}
 .s5el-rows{border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .s5el-rhead,.s5el-rh{display:grid;grid-template-columns:24px 112px minmax(0,1fr) 96px 96px 96px 70px;gap:10px;align-items:center;padding:8px 12px}
@@ -4704,7 +4758,6 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
 .s5el-past{color:var(--bad);font-weight:600}
 .s5el-soon{color:var(--warn);font-weight:600}
 @media (max-width:760px){.s5el-tab{font-size:12px}.s5el-tab th:nth-child(4),.s5el-tab td:nth-child(4){display:none}}
-
 </style>
 <!--SOC-SHELL part=script1-->
 <script>
@@ -7549,7 +7602,7 @@ details.s5el-box>summary::-webkit-details-marker{display:none}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Thursday 22 October 2026</b> &middot; published 06:45 Warsaw &middot; 8 October &ndash; 22 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>46</b> deadlines in 60 days<span>&middot; 43 inside 30, 1 due today or tomorrow</span></a><a class="count" href="#graph"><b>968</b> undocumented at Microsoft<span>&middot; 968 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>11</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>100</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>25</b> changes since 21 Oct<span>&middot; 9 at Microsoft, 16 in this report</span></a><a class="count" href="#chg14"><b>2782</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Friday 23 October 2026</b> &middot; published 07:45 Warsaw &middot; 9 October &ndash; 23 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>46</b> deadlines in 60 days<span>&middot; 43 inside 30, 2 due today or tomorrow</span></a><a class="count" href="#graph"><b>968</b> undocumented at Microsoft<span>&middot; 968 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>6</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>113</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>36</b> changes since 22 Oct<span>&middot; 8 at Microsoft, 28 in this report</span></a><a class="count" href="#chg14"><b>2577</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -7750,7 +7803,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 22 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 23 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
