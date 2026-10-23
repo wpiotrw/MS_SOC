@@ -1,0 +1,12 @@
+// title: CloudProcessEvents query to detect encryption before exfiltration
+// date: 2026-10-23
+// product: Sentinel
+// tables: CloudProcessEvents
+// purpose: From the article: Inside the LiteLLM 1.107.0 supply chain compromise: Credential theft through Python startup hooks
+// source: https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/
+// kind: article
+// author: Microsoft Security Research, Mahesh Mandava, Srinivasan Govindarajan, Sagar Patil and Suriyaraj Natarajan · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudProcessEvents
+| where ProcessName == 'openssl' and ProcessCurrentWorkingDirectory has_any ('/runner/','/app','/tmp/')
+    and ProcessCommandLine has_all ('pkeyutl','-encrypt','-pubin') and ProcessCommandLine contains '/tmp/.pc_'

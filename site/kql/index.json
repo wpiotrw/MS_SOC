@@ -6434,6 +6434,66 @@
   "initial": true
  },
  {
+  "file": "articles/2026-10-23-vulnerability-posture-check-is-the-device-potentially-expose.kql",
+  "title": "Vulnerability/Posture Check | Is the device potentially exposed to the affected Litellm?",
+  "date": "2026-10-23",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceTvmSoftwareVulnerabilities"
+  ],
+  "purpose": "From the article: Inside the LiteLLM 1.107.0 supply chain compromise: Credential theft through Python startup hooks",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Mahesh Mandava, Srinivasan Govindarajan, Sagar Patil and Suriyaraj Natarajan · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+  "incident": "auto-inside-the-litellm-1-107-0-supply-chain-2026-10-23"
+ },
+ {
+  "file": "articles/2026-10-23-mitigation-and-protection-guidance.kql",
+  "title": "Mitigation and protection guidance",
+  "date": "2026-10-23",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Inside the LiteLLM 1.107.0 supply chain compromise: Credential theft through Python startup hooks",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Mahesh Mandava, Srinivasan Govindarajan, Sagar Patil and Suriyaraj Natarajan · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+  "incident": "auto-inside-the-litellm-1-107-0-supply-chain-2026-10-23"
+ },
+ {
+  "file": "articles/2026-10-23-known-startup-file-hashes.kql",
+  "title": "Known startup-file hashes",
+  "date": "2026-10-23",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Inside the LiteLLM 1.107.0 supply chain compromise: Credential theft through Python startup hooks",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Mahesh Mandava, Srinivasan Govindarajan, Sagar Patil and Suriyaraj Natarajan · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+  "incident": "auto-inside-the-litellm-1-107-0-supply-chain-2026-10-23"
+ },
+ {
+  "file": "articles/2026-10-23-inline-database-collection-program.kql",
+  "title": "Inline database-collection program",
+  "date": "2026-10-23",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Inside the LiteLLM 1.107.0 supply chain compromise: Credential theft through Python startup hooks",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Mahesh Mandava, Srinivasan Govindarajan, Sagar Patil and Suriyaraj Natarajan · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+  "incident": "auto-inside-the-litellm-1-107-0-supply-chain-2026-10-23"
+ },
+ {
   "file": "articles/2026-10-23-detection-4-efi-system-partition-file-write-by.kql",
   "title": "Detection 4: EFI System Partition File Write by Non-Bootloader Process - BlackX UEFI Bootkit Installation",
   "date": "2026-10-23",
@@ -6495,6 +6555,36 @@
   "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
   "link": "https://devsecopsdadattack.com/2026-10-23-detection-engineering-brief-friday-october-23-2026/",
   "incident": "php2shell-php-rce-2026-10"
+ },
+ {
+  "file": "articles/2026-10-23-collector-like-encryption-staging.kql",
+  "title": "Collector-like encryption staging",
+  "date": "2026-10-23",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Inside the LiteLLM 1.107.0 supply chain compromise: Credential theft through Python startup hooks",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Mahesh Mandava, Srinivasan Govindarajan, Sagar Patil and Suriyaraj Natarajan · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+  "incident": "auto-inside-the-litellm-1-107-0-supply-chain-2026-10-23"
+ },
+ {
+  "file": "articles/2026-10-23-cloudprocessevents-query-to-detect-encryption-before-exfiltr.kql",
+  "title": "CloudProcessEvents query to detect encryption before exfiltration",
+  "date": "2026-10-23",
+  "product": "Sentinel",
+  "tables": [
+   "CloudProcessEvents"
+  ],
+  "purpose": "From the article: Inside the LiteLLM 1.107.0 supply chain compromise: Credential theft through Python startup hooks",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Mahesh Mandava, Srinivasan Govindarajan, Sagar Patil and Suriyaraj Natarajan · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+  "incident": "auto-inside-the-litellm-1-107-0-supply-chain-2026-10-23"
  },
  {
   "file": "incidents/2026-10-22-service-principal-sign-ins-from-the-published-ips.kql",

@@ -1,0 +1,18 @@
+// title: Known startup-file hashes
+// date: 2026-10-23
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: Inside the LiteLLM 1.107.0 supply chain compromise: Credential theft through Python startup hooks
+// source: https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/
+// kind: article
+// author: Microsoft Security Research, Mahesh Mandava, Srinivasan Govindarajan, Sagar Patil and Suriyaraj Natarajan · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceFileEvents
+| where SHA256 in~ (
+    "9dd0a3926f96a37eb86cf1ee2310d9be93139cc4ebef3ef9e2efe9531390be25",
+    "03ac2a8b752605d1d7710979c17ff18b03dd978203ba23ba97fd8ce3d6f897ea",
+    "34bef04fe88ac9d0aae0475630b1738681d15b94f233ac8aa46eacf5968305fa",
+    "b6122440d0d9cb1eb1ade9933f49214da8c31288de7710c076c2680dfa528465")
+| project Timestamp, DeviceId, DeviceName, ActionType,
+    FileName, FolderPath, SHA256, InitiatingProcessFileName,
+    InitiatingProcessId, InitiatingProcessCreationTime, ReportId
