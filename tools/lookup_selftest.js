@@ -7,7 +7,8 @@ const Q = process.argv.slice(2).length ? process.argv.slice(2) : ["copilot-cloud
   let bad = 0;
   for (const q of Q) {
     const c = {};
-    await f(c, { query: { q }, headers: { "x-ms-client-principal": who } });
+    try { await f(c, { query: { q }, headers: { "x-ms-client-principal": who } }); }
+    catch (e) { console.log(q, "THREW", e && e.stack || e); bad++; continue; }
     const b = c.res.body;
     if (c.res.status !== 200) { console.log(q, "HTTP", c.res.status, b.error); bad++; continue; }
     console.log("\n" + q + "  (" + b.type + ", " + b.ms + " ms)");
@@ -19,7 +20,8 @@ const Q = process.argv.slice(2).length ? process.argv.slice(2) : ["copilot-cloud
       if (v.seen != null) bits.push("seen " + v.seen + " class " + v.classification + " keyed " + v.keyed);
       if (v.certificates != null) bits.push("certificates " + v.certificates + " names " + v.namesTotal);
       if (v.note) bits.push("(" + v.note + ")");
-      if (v.state === "error") bad++;
+      // a service that is down (crt.sh 502, a timeout) is a warning, not a failed test - only our own code fails it
+      if (v.state === "error") console.log("::warning title=" + k + "::" + q + " - " + (v.note || "error"));
       console.log("  " + k.padEnd(11) + bits.join(" | "));
     }
   }
