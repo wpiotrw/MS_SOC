@@ -47,13 +47,15 @@ def main():
             missing.append("script%d.js not extracted" % n); continue
         new = open(f, encoding="utf-8").read().strip()
         # the LAST executable <script> whose header names "SCRIPT n" (see below) and that is
-        # under 1 MB (the data scripts at the top of the page mention script numbers in prose)
+        # under 4 MB (the data scripts at the top of the page mention script numbers in prose).
+        # 23 X 2026 (5fb): SCRIPT 17 grew past 1 000 000 characters (1 009 898) and the old 1 MB cap skipped it -
+        # "not found: SCRIPT 17 block", every refresh failed. The last match wins, so a larger cap is safe.
         best = None
         for m in re.finditer(r"<script(?![^>]*application/json)[^>]*>", h):
             end = h.find("</script>", m.end())
             if end < 0: continue
             body = h[m.end():end]
-            if len(body) > 1_000_000: continue
+            if len(body) > 4_000_000: continue
             # 5dc (10 X 2026): a block may open with a small IIFE before its header comment (the 5db
             # register normalizer did, and the refresh failed with "not found: SCRIPT 4 block"), so look
             # for the header form "SCRIPT n —" in the first 8 000 characters, then the bare form.
