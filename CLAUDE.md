@@ -47008,6 +47008,15 @@ wiec agent nie moze zmienic jego promptu - wkleja go wlasciciel. Do tego czasu z
 `rules`), a `check` od notatek z `updated` >= 2026-10-23 wymaga `phase`, `apps` (gdy notatka mowi o SPN / app
 registration) i `kqlPublished` albo `kqlSearched` - blad = notatka nie wchodzi.
 
+**§5fa (23 X 12:08, wlasciciel):** *„wszystkie te nowe zrodla i te, ktore wykorzystamy, zapisz w nowym JSON, opisz w
+README i uzywajmy ich w workflow, jak zbudujemy"*. Lista narzedzi wywiadu o zagrozeniach to `ti_sources.json` (9
+wpisow: crt.sh, VirusTotal, ThreatFox, URLhaus, GreyNoise, ANY.RUN, Silent Push, detections.ai, urlscan.io; pola
+`Kind`, `Api`, `Auth`, `Secret` = NAZWA sekretu GitHub, `Limits`, `Terms`, `Use`, `Status`, `Checked`). Wiazace dla
+przyszlego `tools/ioc_watch.py`: czyta zrodla WYLACZNIE z tego pliku (nowe zrodlo = nowy wpis, nie kod), pomija wpisy
+`Kind` `manual` / `link` i te, ktorych sekret nie jest ustawiony (z powodem w raporcie, nigdy przerwany przebieg),
+trzyma sie `Limits` (VirusTotal <= 450/dzien, 4/min), domeny na stronie tylko defanged, link do raportu, nigdy do
+domeny. Projekt prywatny Piotra Wisniewskiego (warunek VirusTotal „nie komercyjnie"). README pkt 16.
+
 ## 6. Kontrakt w stronie
 
 Kazda strona niesie komentarz `<!-- SHELL CONTRACT v1 ... -->` tuz po `<title>`. To pelna
