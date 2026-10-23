@@ -108,7 +108,7 @@ tbody tr:hover td{background:var(--accent-soft)}
  .seg{order:5;width:100%}.seg button{flex:1 1 50%;padding:6px 8px}
  .hlinks{order:4;font-size:12.5px;gap:4px 12px;width:100%}.hlinks .pr{display:none}.tbtn{padding:3px 8px;font-size:12px}
  .frow{flex-wrap:nowrap;flex-direction:column;align-items:stretch;gap:6px}.q{flex:0 0 auto}
- .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.chips::-webkit-scrollbar{display:none}.chip,.morechips{flex:0 0 auto}
+ .chips{flex-wrap:wrap}.chip,.morechips{flex:0 0 auto} /* 5fh (23 X 2026, owner on the phone: "this bar should not make me slide the screen right") - wrapped, top 4 + "more" */
  .lead{font-size:13px}
 }
 @media (max-width:600px){h1{font-size:18px}.ph h2{font-size:20px}.grid{padding:0 10px 10px}details.day>summary{padding:10px}}
@@ -326,10 +326,11 @@ body h3{font-size:18px}
     var box = document.getElementById("chips"); box.textContent = "";
     var cnt = {}; D.records.forEach(function (r) { if (inRange(r) && r.tc) cnt[r.tc] = (cnt[r.tc] || 0) + 1; });
     var keys = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a] || a.localeCompare(b); });
-    keys.slice(0, 8).forEach(function (k) { var c = el("button", "chip", k); c.type = "button"; c.appendChild(el("b", null, String(cnt[k]))); c.setAttribute("aria-pressed", S.tech === k ? "true" : "false");
+    var TOP = window.matchMedia && window.matchMedia("(max-width:700px)").matches ? 4 : 8;   /* 5fh: four on a phone, the rest in "more" */
+    keys.slice(0, TOP).forEach(function (k) { var c = el("button", "chip", k); c.type = "button"; c.appendChild(el("b", null, String(cnt[k]))); c.setAttribute("aria-pressed", S.tech === k ? "true" : "false");
       c.addEventListener("click", function () { S.tech = S.tech === k ? "" : k; refilter(); }); box.appendChild(c); });
-    if (keys.length > 8) { var s = el("select", "morechips"); s.setAttribute("aria-label", "More technologies"); s.appendChild(new Option("+" + (keys.length - 8) + " more…", ""));
-      keys.slice(8).forEach(function (k) { var o = new Option(k + " (" + cnt[k] + ")", k); if (S.tech === k) o.selected = true; s.appendChild(o); });
+    if (keys.length > TOP) { var s = el("select", "morechips"); s.setAttribute("aria-label", "More technologies"); s.appendChild(new Option("+" + (keys.length - TOP) + " more…", ""));
+      keys.slice(TOP).forEach(function (k) { var o = new Option(k + " (" + cnt[k] + ")", k); if (S.tech === k) o.selected = true; s.appendChild(o); });
       s.addEventListener("change", function () { S.tech = s.value; refilter(); }); box.appendChild(s); }
   }
   /* §5em on this page too: a filter names itself, says where its results are, and one press clears it */
