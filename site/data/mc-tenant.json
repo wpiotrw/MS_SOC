@@ -1,7 +1,7 @@
 {
  "read": "2026-10-23",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 722,
+ "count": 717,
  "note": null,
  "messages": [
   {
@@ -4550,36 +4550,6 @@
    "bodyHash": "8fd5dca6a88e38ca"
   },
   {
-   "id": "MC1289724",
-   "title": "(Updated) Microsoft Teams: Sharing recap access",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-04-23",
-   "end": "2026-10-23",
-   "modified": "2026-06-16",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated June 16, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft Teams is introducing enhanced recap sharing . Meeting organizers can grant access to meeting recordings, transcripts, AI-generated summaries, and notes when copying or sharing a recap link. This update improves how meeting content can be shared with people who were not part of the original me…",
-   "when": "Targeted Release: We will begin rolling out in late May 2026 (previously mid-May) and expect to complete by end of May 2026 (previously mid-May). General Availability (GCC): We will begin rolling out in early June 2026 and expect to complete by early June 2026 . General Availability (Worldwide): We will begin rolling out in early June 2026 and expect to complete by late June 2026 . General Availability (GCC High): We will begin rolling out in ear…",
-   "prepare": "No admin action is required. Inform users about the new sharing experience. Update internal documentation or helpdesk guidance if needed.",
-   "dates": [
-    "Updated June 16, 2026: We have updated the timeline.",
-    "Targeted Release: We will begin rolling out in late May 2026 (previously mid-May) and expect to complete by end of May 2026 (previously mid-May).",
-    "General Availability (GCC): We will begin rolling out in early June 2026 and expect to complete by early June 2026 .",
-    "General Availability (Worldwide): We will begin rolling out in early June 2026 and expect to complete by late June 2026 .",
-    "General Availability (GCC High): We will begin rolling out in early September 2026 (previously early July) and expect to complete by mid-September 2026 (previously early July)."
-   ],
-   "bodyHash": "15e42337375466a8"
-  },
-  {
    "id": "MC1289725",
    "title": "(Updated) Microsoft Teams: Delete meeting generated content in recap",
    "services": [
@@ -8153,32 +8123,6 @@
    "bodyHash": "ccff28253537e460"
   },
   {
-   "id": "MC1437678",
-   "title": "Microsoft Teams: Join by code requires owner approval for private teams",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-23",
-   "end": "2026-10-23",
-   "modified": "2026-07-23",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and Why] To improve team governance and reduce unintended access to private teams, Microsoft Teams is updating the join by code experience for private teams. With this change, join requests submitted using a code will require approval from a team owner before the user is added. This aligns the experience with join by link behavior and strengthens access control for private teams. [Rollout Sc…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide, GCC, GCC High, DoD): Rollout begins in late August 2026 and completes by late September 2026."
-   ],
-   "bodyHash": "78e52dd45d2e85c0"
-  },
-  {
    "id": "MC1437679",
    "title": "Microsoft 365 Copilot: Capture voice notes in the Microsoft 365 Copilot mobile app",
    "services": [
@@ -10797,33 +10741,6 @@
    "bodyHash": "c467bd48e2ef40b1"
   },
   {
-   "id": "MC1461160",
-   "title": "Microsoft Teams: Copilot in call recap in the Queues app",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-24",
-   "end": "2026-10-23",
-   "modified": "2026-08-24",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] We're introducing Copilot in call recap in the Queues app for recorded call queue calls. This feature helps users quickly catch up on customer conversations by generating summaries and answering questions about completed recorded calls, eliminating the need to manually review transcripts or listen to call recordings. Users can access Copilot from the Recap tab of a recorded call in …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Targeted Release: Beginning in early September 2026 and expected to complete in early September 2026.",
-    "General Availability (Worldwide): Beginning in mid-September 2026 and expected to complete by late September 2026."
-   ],
-   "bodyHash": "46967653756e377c"
-  },
-  {
    "id": "MC1461164",
    "title": "(Updated) Microsoft Teams Rooms on Android: room users can change the app language",
    "services": [
@@ -12850,33 +12767,6 @@
    "bodyHash": "6f32c9aa4eb50f11"
   },
   {
-   "id": "MC1470417",
-   "title": "(Updated) Microsoft 365 Copilot: Review PDFs using the Copilot context menu on OneDrive iOS",
-   "services": [
-    "Microsoft OneDrive",
-    "SharePoint Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-10",
-   "end": "2026-10-23",
-   "modified": "2026-10-20",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message"
-   ],
-   "summary": "Updated October 20, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. [What and why:] Microsoft 365 Copilot makes PDF reviews faster and easier on mobile. Select text in any PDF in OneDrive iOS and tap Ask Copilot to explain, summarize, translate, or ask a custom question about the selection — the same in-context Copilot experience already…",
-   "when": "General Availability (Worldwide, GCC, GCC High, DoD): We have decided not to move forward with this change at this time. [Impact on your organization:]. When this rolls out, users viewing a PDF in OneDrive iOS can select text and see Ask Copilot in the context menu. Tapping it opens Copilot with the selected text as context, so they can: Explain dense or technical passages in plain language. Summarize long sections. Translate into another languag…",
-   "prepare": null,
-   "dates": [
-    "Updated October 20, 2026: We have decided not to move forward with this change at this time."
-   ],
-   "bodyHash": "a1d0653e1b7e2722"
-  },
-  {
    "id": "MC1470424",
    "title": "(Updated) Microsoft Viva Engage: New left navigation controls for collapsing, resizing, and managing favorites",
    "services": [
@@ -14655,31 +14545,6 @@
     "General Availability (Worldwide): Rollout begins in early October 2026 and is expected to complete by late October 2026."
    ],
    "bodyHash": "ce09a372fe9f2bbc"
-  },
-  {
-   "id": "MC1478958",
-   "title": "Microsoft SharePoint Online: Select page canvas elements for Copilot-assisted editing",
-   "services": [
-    "SharePoint Online"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-24",
-   "end": "2026-10-23",
-   "modified": "2026-09-29",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] We have introduced an enhancement to Copilot in SharePoint page authoring that allows page authors to directly select specific page canvas elements before submitting a prompt to Copilot. This improvement helps authors provide more precise context for Copilot, making it easier to target edits to specific sections or web parts and improving the page editing experience. [Rollout schedu…",
-   "when": null,
-   "prepare": null,
-   "dates": [],
-   "bodyHash": "f6f3307fa803908f"
   },
   {
    "id": "MC1478965",
@@ -24333,6 +24198,41 @@
    "id": "MC1521617",
    "type": "new",
    "title": "Microsoft OneDrive: Updated placement of the Create or upload button in OneDrive for the web",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1289724",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Sharing recap access",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1437678",
+   "type": "removed",
+   "title": "Microsoft Teams: Join by code requires owner approval for private teams",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1461160",
+   "type": "removed",
+   "title": "Microsoft Teams: Copilot in call recap in the Queues app",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1470417",
+   "type": "removed",
+   "title": "(Updated) Microsoft 365 Copilot: Review PDFs using the Copilot context menu on OneDrive iOS",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1478958",
+   "type": "removed",
+   "title": "Microsoft SharePoint Online: Select page canvas elements for Copilot-assisted editing",
    "fields": {}
   }
  ]
