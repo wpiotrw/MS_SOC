@@ -314,7 +314,7 @@
     "M365 workloads"
    ],
    "status": "active",
-   "updated": "2026-10-22",
+   "updated": "2026-10-23",
    "by": "morning routine",
    "summary": "On 21 October Microsoft Threat Intelligence published its analysis of a large, AI-automated campaign by Storm-0940, which it describes as a China-state aligned actor active since 2021, using the open-source ARTEX penetration-testing framework. Microsoft says it assesses that Storm-0940 was responsible for the ConnectWise supply-chain compromise of the multi-tenant Cloud Backup application, and that the actor reached privileged cloud access in some cases less than three hours after first targeting. After taking control of ConnectWise application identities, the actor signed in to more than 2,250 downstream tenants through applications those customers had already trusted, and in some tenants moved on to Graph reconnaissance, credential additions to applications and privileged role changes, including one application that gave itself Global Administrator. Microsoft states this was not caused by a vulnerability in or compromise of Microsoft systems, and that a sign-in does not by itself prove data was accessed. The page does not say how the ConnectWise identities were first compromised.",
    "timeline": [
@@ -359,36 +359,43 @@
     {
      "text": "Keep the affected ConnectWise application connections disabled until ConnectWise gives formal restoration instructions; do not delete the enterprise applications first, preserve configuration and evidence.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "contain"
     },
     {
      "text": "Inventory the application IDs above and record the local service principal object IDs in each tenant; search by application ID, not display name.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "investigate"
     },
     {
      "text": "Preserve Entra sign-in and audit logs, Purview Audit records and Graph telemetry; review service-principal sign-ins from at least 15 Oct, extended to 1 Oct, successes and failures separately and not only the published IPs.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "investigate"
     },
     {
      "text": "Review Entra audit records for credential additions, new apps, service principals or owners, app-role assignments, consent grants, privileged role assignments and changes to authentication methods or Conditional Access; review mailbox forwarding, inbox and transport rules and delegate permissions.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "investigate"
     },
     {
      "text": "After preserving evidence, have an authorized responder remove confirmed unauthorized credentials, grants, owners, assignments and identities, revoke unneeded permissions and rotate credentials.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "eradicate"
     },
     {
      "text": "Apply least privilege to multi-tenant application permissions and consent grants; alert on credential additions, privileged role assignment and anomalous app-only activity.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "harden"
     },
     {
      "text": "An empty hunting result is not proof of no access: Microsoft says so explicitly, so check the audit trail as well.",
-     "from": "ours"
+     "from": "ours",
+     "phase": "investigate"
     }
    ],
    "kql": [
@@ -415,6 +422,129 @@
      "text": "EntraIdSpnSignInEvents table reference",
      "url": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidspnsigninevents-table",
      "date": "2026-10-22"
+    }
+   ],
+   "apps": [
+    {
+     "name": "ConnectWise Cloud Backup",
+     "appId": "506e08f9-6e9a-4da4-942b-a099a03644ae",
+     "kind": "Multi-tenant app (vendor)",
+     "did": "Identity taken over by the actor and used to sign in to customer tenants and perform Graph and directory operations; the page says it held high privileges but does not list them.",
+     "roles": [],
+     "permissions": [],
+     "action": "Keep disabled until ConnectWise issues restoration instructions - do not delete first; preserve configuration and evidence",
+     "src": "Microsoft Threat Intelligence",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/"
+    },
+    {
+     "name": "ConnectWise - MS Teams",
+     "appId": "24205314-2b89-4e07-a2a4-579e898a5640",
+     "kind": "Multi-tenant app (vendor)",
+     "did": "Named among the compromised ConnectWise apps; the page gives no app-specific activity.",
+     "roles": [],
+     "permissions": [],
+     "action": "Inventory, review sign-ins and Graph activity, rotate credentials if suspicious activity is confirmed",
+     "src": "Microsoft Threat Intelligence",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/"
+    },
+    {
+     "name": "ConnectWise - MS Graph",
+     "appId": "0de14c77-b9b0-4137-9360-34878a929827",
+     "kind": "Multi-tenant app (vendor)",
+     "did": "Named among the compromised ConnectWise apps; the page gives no app-specific activity.",
+     "roles": [],
+     "permissions": [],
+     "action": "Inventory, review sign-ins and Graph activity, rotate credentials if suspicious activity is confirmed",
+     "src": "Microsoft Threat Intelligence",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/"
+    }
+   ],
+   "appsNote": "Roles and Graph permissions per app are not printed on the page (the OAuthAppInfo hunting query returns them per tenant). The mitigation text mentions four application IDs but only three are printed; the MITRE mapping names a 'ConnectWise Management Application' that self-assigned Global Administrator, without a client ID.",
+   "kqlPublished": [
+    {
+     "title": "Microsoft advanced hunting set for the ConnectWise compromise (OAuthAppInfo; EntraIdSpnSignInEvents + GraphAPIAuditEvents; Key Vault / Storage / ARM from IOC IPs; Sentinel SigninLogs and MicrosoftGraphActivityLogs)",
+     "query": "Six queries are printed in full under 'Advanced hunting' on the linked page; the text was not retrievable verbatim by this routine - open the link for the exact queries.",
+     "by": "Microsoft Threat Intelligence",
+     "src": "Microsoft Security blog",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+     "date": "2026-10-21",
+     "vendor": true
+    }
+   ]
+  },
+  {
+   "id": "php2shell-php-rce-2026-10",
+   "title": "PHP2Shell: two critical PHP remote code execution flaws (CVE-2026-109618, CVE-2026-109619)",
+   "match": [
+    "PHP2Shell"
+   ],
+   "areas": [
+    "Vulnerabilities"
+   ],
+   "status": "active",
+   "updated": "2026-10-23",
+   "by": "morning routine",
+   "summary": "On 21 October 2026 the PHP project shipped emergency fixes for two critical flaws nicknamed PHP2Shell: CVE-2026-109618 (out-of-memory corruption) and CVE-2026-109619 (stale global state), both rated CVSS 4.0 9.2 by the sources. Every PHP installation serving web requests is affected, including PHP-FPM, mod_php, php-cgi, FrankenPHP and LiteSpeed. A working exploit exists that needs a single unauthenticated request, and Amazon recorded an exploitation attempt on 17 October, four days before disclosure. Sources disagree on in-the-wild exploitation after disclosure, so treat it as exploited. Palo Alto Networks says all PAN-OS and Panorama versions are affected with no fix yet. This is not a Microsoft product flaw; it matters to the SOC for web servers, App Service/IIS-PHP hosts and appliances in the estate.",
+   "timeline": [
+    {
+     "date": "2026-10-17",
+     "text": "Amazon MadPot honeypot records a PHP2Shell exploitation attempt.",
+     "src": "Help Net Security"
+    },
+    {
+     "date": "2026-10-21",
+     "text": "PHP releases fixes in 8.2.35, 8.3.36, 8.4.27, 8.5.12 and source backports for 7.4, 8.0, 8.1; details leaked before the planned embargo.",
+     "src": "Help Net Security"
+    },
+    {
+     "date": "2026-10-22",
+     "text": "Searchlight Cyber releases an open-source scanner; Palo Alto Networks confirms all PAN-OS and Panorama versions affected, no fix yet.",
+     "src": "Help Net Security"
+    }
+   ],
+   "rootCause": "Memory-safety flaws in the PHP engine: out-of-memory handling can interrupt PHP while request data is only partly initialised (CVE-2026-109618), and request-owned state can outlive freed memory (CVE-2026-109619).",
+   "attacker": [
+    "Unauthenticated remote code execution with a single request (per Help Net Security).",
+    "A pre-disclosure attempt from an IP tied to a commercial anonymisation service was seen by Amazon; how the exploit details were obtained is unknown."
+   ],
+   "iocs": [],
+   "remediation": [
+    {
+     "text": "Update PHP to 8.2.35, 8.3.36, 8.4.27 or 8.5.12, or install the distribution/LTS vendor backport; take offline any system that cannot be fixed immediately (UK NCSC).",
+     "from": "source",
+     "src": "Help Net Security",
+     "phase": "harden"
+    },
+    {
+     "text": "Cloudflare WAF rules for known vectors are a partial control only, not a substitute for patching.",
+     "from": "source",
+     "src": "Help Net Security",
+     "phase": "harden"
+    },
+    {
+     "text": "Inventory PHP hosts (web servers, App Service/containers, appliances) and PHP versions; scan with the Searchlight Cyber php2shell-scanner.",
+     "from": "ours",
+     "src": "Help Net Security",
+     "phase": "investigate"
+    },
+    {
+     "text": "Hunt web-server and process telemetry on PHP hosts for unexpected child processes of php-fpm/apache/php-cgi and new files in web roots since 17 October.",
+     "from": "ours",
+     "src": "Help Net Security",
+     "phase": "detect"
+    }
+   ],
+   "kqlSearched": "2026-10-23",
+   "links": [
+    {
+     "text": "Help Net Security - PHP2Shell",
+     "url": "https://helpnetsecurity.com/2026/10/21/php2shell-php-vulnerabilities-patched-cve-2026-109618-cve-2026-109619",
+     "date": "2026-10-21"
+    },
+    {
+     "text": "Detect FYI - PHP2Shell (not fetchable, HTTP 403)",
+     "url": "https://detect.fyi/php2shell-two-critical-php-vulnerabilities-cve-2026-109618-and-cve-2026-109619-are-your-3f0a0c08f6ec",
+     "date": "2026-10-21"
     }
    ]
   }
