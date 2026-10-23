@@ -28633,7 +28633,7 @@ klikniecie zakladki. (Z6) `/diff/` (`DATES_BODY` w make_diff): te same daty i ra
 porownywane dni, Page built = `publish.json`), wspolny przelacznik. `/week/` (wydruk do PDF) — bez zmian.
 
 **§5cz-b (10 X 2026, wlasciciel 12:25: „1. wyrazniejszy hiperlink do /diff/, moze w ramce; 2. po About nie ma powrotu do
-glownego okna; 3. z portalu i /diff/ usun nazwa firmy — tylko Piotr Wisniewski; 4. nie rozumiem «Page code 10/10/2026
+glownego okna; 3. z portalu i /diff/ usun nazwe firmy — tylko Piotr Wisniewski; 4. nie rozumiem «Page code 10/10/2026
 12:07 §5cz» — wyjasnienia w dymkach, ladniejsze dymki w calym portalu, kolko ze znakiem zapytania pokazuje, ze jest
 podpowiedz, info w Overview/About; 5. zolta lista w /diff/ pisana ciurkiem — profesjonalny widok z technologia, data, MC,
 opisem, kafelki jak na stronie glownej").** (B1) Ramka: niebieski przycisk „⇄ What changed since the last brief" (`diff/`),
