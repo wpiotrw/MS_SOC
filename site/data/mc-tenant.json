@@ -1,7 +1,7 @@
 {
- "read": "2026-10-22",
+ "read": "2026-10-23",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 714,
+ "count": 722,
  "note": null,
  "messages": [
   {
@@ -18853,6 +18853,211 @@
    "bodyHash": "5cd991444672b644"
   },
   {
+   "id": "MC1521604",
+   "title": "Microsoft Authenticator: Usability improvements for iOS and Android",
+   "services": [
+    "Microsoft Entra"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-22",
+   "end": "2026-12-30",
+   "modified": "2026-10-22",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We’re updating Microsoft Authenticator with several usability improvements across iOS and Android. These updates include a refreshed home experience, clearer guidance for accounts that need to be restored, improvements to restoration and sign-in flows, and additional prompts designed to help keep Authenticator working reliably. Availability and timing vary by platform. [Rollout sche…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide, GCC, GCC High, and DoD): Beginning in October 2026 and expected to complete in November 2026.",
+    "The improved restoration experience for push notifications and passwordless sign-in will be available on iOS first, with Android planned to follow in January 2027.",
+    "On Android, this update will be available in November 2026.",
+    "This improvement will be available on iOS first, with Android planned for January 2027."
+   ],
+   "bodyHash": "a60d28e1012fc342"
+  },
+  {
+   "id": "MC1521606",
+   "title": "Create project kickoff presentations with Copilot in PowerPoint",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-22",
+   "end": "2026-11-30",
+   "modified": "2026-10-22",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "[What and Why:] We are introducing a new Copilot skill in PowerPoint that helps users create formal project kickoff presentations for kickoff meetings, project launches, and new-project alignment. The skill helps teams align on project goals, roles, milestones, scope, risks, schedule, success measures, and next steps. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in mid October 2026 and expect to complete by late October 2026."
+   ],
+   "bodyHash": "543ade1fe9305bf2"
+  },
+  {
+   "id": "MC1521609",
+   "title": "Create sales pitches with Copilot in PowerPoint",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-22",
+   "end": "2026-11-30",
+   "modified": "2026-10-22",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "[What and Why:] We are introducing a new Copilot skill in PowerPoint that helps users create customer-facing sales pitch presentations. Users can use this skill for scenarios such as a first customer meeting, warm-lead product introduction, industry-specific pitch, or internal sales enablement. The skill helps users shape a commercial story around the audience, opportunity, key messages, supportin…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in mid October 2026 and expect to complete by late October 2026."
+   ],
+   "bodyHash": "01c0ce78e3fa2daa"
+  },
+  {
+   "id": "MC1521613",
+   "title": "Microsoft Teams: Streaming switchboard for NDI sources in meetings and events",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-22",
+   "end": "2026-12-13",
+   "modified": "2026-10-22",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] A new streaming switchboard in Microsoft Teams will allow event producers to more easily manage and send NDI® sources to production software during Teams meetings and events. Event producers can individually select and stream up to eight NDI sources directly from a Teams meeting or event. [Rollout schedule] General Availability (Worldwide): Beginning in early November 2026 and expec…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Beginning in early November 2026 and expected to complete by mid-November 2026."
+   ],
+   "bodyHash": "8ecd8f6faa4e844f"
+  },
+  {
+   "id": "MC1521614",
+   "title": "Microsoft Teams: Retirement of the Turn off IntelliFrame option for online participants",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-22",
+   "end": "2027-02-26",
+   "modified": "2026-10-22",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] We are retiring the ability for online participants to turn off IntelliFrame for their own view in meetings with a Microsoft Teams Room that has Cloud IntelliFrame enabled. This change provides all online participants with the same view of the room, as configured on the Teams Rooms device. Currently, online participants using Microsoft Teams desktop on Windows and Mac can right-clic…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout will begin in late November 2026 and is expected to complete by early January 2027.",
+    "General Availability (GCC, GCC High): Rollout will begin in mid-December 2026 and is expected to complete by late January 2027."
+   ],
+   "bodyHash": "612f190d238248f3"
+  },
+  {
+   "id": "MC1521615",
+   "title": "Microsoft Purview: Data Lifecycle Management increases the auto-expanding archive limit from 1.5 TB to 3 TB",
+   "services": [
+    "Microsoft Purview"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-22",
+   "end": "2027-01-08",
+   "modified": "2026-10-22",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We are increasing the maximum auto-expanding archive capacity for eligible Exchange Online archive mailboxes from 1.5 TB to 3 TB in Microsoft Purview Data Lifecycle Management. This enhancement helps organizations retain and manage larger volumes of archived email content without requiring manual archive expansion processes or support requests. Eligible mailboxes with auto-expanding…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (GCC, GCC High, DoD): Rollout will begin in mid-November 2026 and is expected to complete by early December 2026."
+   ],
+   "bodyHash": "58133343e6de35f9"
+  },
+  {
+   "id": "MC1521616",
+   "title": "Microsoft Graph APIs for Copilot cost management",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-22",
+   "end": "2026-11-22",
+   "modified": "2026-10-22",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "[What and Why:] Microsoft is introducing Microsoft Graph APIs for Copilot cost management, giving organizations a programmatic way to manage Copilot credit spending policies, monitor credit balances, and handle end-user requests for additional credits. Administrators and developers can use the APIs to retrieve tenant, user, and per-service credit balances; create, update, and delete spending polic…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): We will begin rolling out to the beta endpoint in mid-October 2026."
+   ],
+   "bodyHash": "f83b5c2b15c3ee90"
+  },
+  {
+   "id": "MC1521617",
+   "title": "Microsoft OneDrive: Updated placement of the Create or upload button in OneDrive for the web",
+   "services": [
+    "Microsoft OneDrive"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-22",
+   "end": "2027-01-08",
+   "modified": "2026-10-22",
+   "tags": [
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We are updating the Microsoft OneDrive web experience. As part of this update, the Create or upload button will move from the left navigation pane to the right side of the page, aligning the experience with SharePoint document libraries. The Create or upload button will also no longer appear in Libraries, Recycle Bin, Meetings, or Media. The available options for creating files and …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout will begin in late October 2026 and is expected to complete by early December 2026."
+   ],
+   "bodyHash": "d65de414763980df"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -24073,6 +24278,62 @@
      "2027-02-26"
     ]
    }
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1521604",
+   "type": "new",
+   "title": "Microsoft Authenticator: Usability improvements for iOS and Android",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1521606",
+   "type": "new",
+   "title": "Create project kickoff presentations with Copilot in PowerPoint",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1521609",
+   "type": "new",
+   "title": "Create sales pitches with Copilot in PowerPoint",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1521613",
+   "type": "new",
+   "title": "Microsoft Teams: Streaming switchboard for NDI sources in meetings and events",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1521614",
+   "type": "new",
+   "title": "Microsoft Teams: Retirement of the Turn off IntelliFrame option for online participants",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1521615",
+   "type": "new",
+   "title": "Microsoft Purview: Data Lifecycle Management increases the auto-expanding archive limit from 1.5 TB to 3 TB",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1521616",
+   "type": "new",
+   "title": "Microsoft Graph APIs for Copilot cost management",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-23",
+   "id": "MC1521617",
+   "type": "new",
+   "title": "Microsoft OneDrive: Updated placement of the Create or upload button in OneDrive for the web",
+   "fields": {}
   }
  ]
 }
