@@ -1,7 +1,7 @@
 {
  "read": "2026-10-24",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 721,
+ "count": 720,
  "note": null,
  "messages": [
   {
@@ -433,28 +433,6 @@
     "Rollout started in early October and is expected to complete by mid-October 2025."
    ],
    "bodyHash": "68dc1abd6c6f3572"
-  },
-  {
-   "id": "MC1179067",
-   "title": "Policy-based removal of pre-installed Microsoft Store apps",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-10-24",
-   "end": "2026-10-24",
-   "modified": "2025-10-24",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "You’re now more in control of provisioned Microsoft Store apps than ever. Starting this month, you can remove select in-box apps using straightforward policy on Windows 11 Enterprise or Windows 11 Education, version 25H2. The new policy, called Remove default Microsoft Store packages from the system , is disabled by default. Learn more about how it works, why it matters, the apps it applies to, an…",
-   "when": null,
-   "prepare": "Read",
-   "dates": [],
-   "bodyHash": "d1c39087f3bb6905"
   },
   {
    "id": "MC1179337",
@@ -24479,6 +24457,13 @@
    "id": "MC1459132",
    "type": "removed",
    "title": "Microsoft Edge: Retirement of Windows Information Protection (WIP) and Microsoft Defender Application Guard (MDAG)",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-24",
+   "id": "MC1179067",
+   "type": "removed",
+   "title": "Policy-based removal of pre-installed Microsoft Store apps",
    "fields": {}
   }
  ]
