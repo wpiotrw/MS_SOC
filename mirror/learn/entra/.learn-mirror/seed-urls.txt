@@ -145,6 +145,8 @@ https://learn.microsoft.com/en-us/entra/identity/app-provisioning/functions-for-
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/how-to-account-discovery
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/isv-automatic-provisioning-multi-tenant-apps
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/known-issues
+https://learn.microsoft.com/en-us/entra/identity/app-provisioning/manage-object-connections
+https://learn.microsoft.com/en-us/entra/identity/app-provisioning/object-connection-identifiers
 https://learn.microsoft.com/en-us/entra/identity/app-proxy/application-proxy-faq
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-methods
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-telephony-provider
@@ -199,6 +201,7 @@ https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-to-active
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-to-attribute-mapping-entra-to-active-directory
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-to-configure
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-to-configure-entra-to-active-directory
+https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-to-prerequisites
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-to-preserve-group-organizational-unit-entra-to-active-directory
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/migrate-azure-ad-connect-to-cloud-sync
 https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/migrate-connect-sync-cloud-sync-tool

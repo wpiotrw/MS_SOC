@@ -45,6 +45,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/secret-store-extens
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-akv-secrets-provider
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-argocd
 https://learn.microsoft.com/en-us/azure/azure-arc/manage-agent-proxy-settings
+https://learn.microsoft.com/en-us/azure/azure-arc/multicloud-connector/multicloud-lifecycle-management
 https://learn.microsoft.com/en-us/azure/azure-arc/network-requirements
 https://learn.microsoft.com/en-us/azure/azure-arc/overview
 https://learn.microsoft.com/en-us/azure/azure-arc/resource-bridge/overview
@@ -104,7 +105,9 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/change-cr
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/cloud-subscription
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/create-enterprise-subscription
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/direct-ea-administration
+https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/mca-online-ea-transfer
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/microsoft-entra-id-free
+https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/subscription-transfer
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/supported-payment-methods
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles
 https://learn.microsoft.com/en-us/azure/cost-management-billing/mca-check-azure-credits-balance

@@ -97,7 +97,7 @@ The following table shows a list of supported operating systems on Azure images.
 | --- | --- | --- |
 | Alma | AlmaLinux | 9 |
 | Amazon | Linux | 2 |
-| Canonical | Ubuntu Server | 16.04 - 24.x |
+| Canonical | Ubuntu Server | 16.04 - 26.x |
 | Credativ | Debian | 10.x - 13.x |
 | Microsoft | CBL-Mariner | 1 - 2 |
 | Microsoft | Azure Linux | 3 |

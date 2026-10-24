@@ -11,6 +11,7 @@ https://learn.microsoft.com/en-us/intune/app-management/deployment/add-unmanaged
 https://learn.microsoft.com/en-us/intune/app-management/deployment/enterprise-app-manag
 https://learn.microsoft.com/en-us/intune/app-management/deployment/enterprise-app-management
 https://learn.microsoft.com/en-us/intune/app-management/deployment/manage-vpp-apple
+https://learn.microsoft.com/en-us/intune/app-management/deployment/management-agent-macos
 https://learn.microsoft.com/en-us/intune/app-management/protection/data-protection-framework
 https://learn.microsoft.com/en-us/intune/app-management/protection/multiple-managed-accounts
 https://learn.microsoft.com/en-us/intune/app-management/ref-protected-apps
@@ -51,6 +52,7 @@ https://learn.microsoft.com/en-us/intune/device-configuration/templates/configur
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/configure-wired-networks
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-device-restrictions-android-enterprise
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-wifi-settings-apple
+https://learn.microsoft.com/en-us/intune/device-configuration/troubleshoot-device-profiles
 https://learn.microsoft.com/en-us/intune/device-enrollment/android/connect-managed-google-play
 https://learn.microsoft.com/en-us/intune/device-enrollment/android/ref-corporate-methods
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/manage-devices-tokens-macos
