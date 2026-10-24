@@ -1,0 +1,20 @@
+// title: Hunt for potentially compromised accounts using multiple risk signals
+// date: 2026-10-14
+// product: Entra
+// tables: EntraIdSignInEvents
+// purpose: From the article: The hidden network: Inside the phishing infrastructure ecosystem powering global cybercrime
+// source: https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/
+// kind: article
+// author: Microsoft Threat Intelligence and Microsoft Digital Crimes Unit · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EntraIdSignInEvents
+| where Timestamp > ago(30d)
+| where RiskLevelDuringSignIn in~ ("medium", "high")
+    or RiskLevelAggregated in~ ("medium", "high")
+    or RiskEventTypes_V2 != "[]"
+| summarize FirstSeen = min(Timestamp), LastSeen = max(Timestamp),
+            IPAddresses = make_set(IPAddress, 20), Countries = make_set(Country, 20),
+            Applications = make_set(Application, 20), RiskEvents = make_set(RiskEventTypes_V2, 20),
+            SignInCount = count() by AccountUpn
+| where array_length(IPAddresses) > 1 or array_length(Countries) > 1
+| order by LastSeen desc

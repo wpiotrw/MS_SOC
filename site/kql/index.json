@@ -28613,6 +28613,68 @@
   "kind": "brief"
  },
  {
+  "file": "articles/2026-10-14-microsoft-defender-xdr.kql",
+  "title": "Microsoft Defender XDR",
+  "date": "2026-10-14",
+  "product": "Entra",
+  "tables": [
+   "EntraIdSignInEvents"
+  ],
+  "purpose": "From the article: The hidden network: Inside the phishing infrastructure ecosystem powering global cybercrime",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence and Microsoft Digital Crimes Unit · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+  "incident": "auto-the-hidden-network-inside-the-phishing-i-2026-10-14"
+ },
+ {
+  "file": "articles/2026-10-14-hunt-for-potentially-compromised-accounts-using-multiple-ris.kql",
+  "title": "Hunt for potentially compromised accounts using multiple risk signals",
+  "date": "2026-10-14",
+  "product": "Entra",
+  "tables": [
+   "EntraIdSignInEvents"
+  ],
+  "purpose": "From the article: The hidden network: Inside the phishing infrastructure ecosystem powering global cybercrime",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence and Microsoft Digital Crimes Unit · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+  "incident": "auto-the-hidden-network-inside-the-phishing-i-2026-10-14"
+ },
+ {
+  "file": "articles/2026-10-14-hunt-for-phishing-url-clicks-followed-by-suspicious.kql",
+  "title": "Hunt for phishing URL clicks followed by suspicious sign-ins",
+  "date": "2026-10-14",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EntraIdSignInEvents",
+   "UrlClickEvents"
+  ],
+  "purpose": "From the article: The hidden network: Inside the phishing infrastructure ecosystem powering global cybercrime",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence and Microsoft Digital Crimes Unit · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+  "incident": "auto-the-hidden-network-inside-the-phishing-i-2026-10-14"
+ },
+ {
+  "file": "articles/2026-10-14-hunt-for-phishing-clicks-followed-by-defender-alerts.kql",
+  "title": "Hunt for phishing clicks followed by Defender alerts",
+  "date": "2026-10-14",
+  "product": "Defender for Office 365",
+  "tables": [
+   "AlertEvidence",
+   "UrlClickEvents"
+  ],
+  "purpose": "From the article: The hidden network: Inside the phishing infrastructure ecosystem powering global cybercrime",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence and Microsoft Digital Crimes Unit · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+  "incident": "auto-the-hidden-network-inside-the-phishing-i-2026-10-14"
+ },
+ {
   "file": "2026-10-13-which-devices-carry-a-registry-tag-and-how.kql",
   "title": "Which devices carry a registry tag, and how it compares with their portal and dynamic tags",
   "date": "2026-10-13",

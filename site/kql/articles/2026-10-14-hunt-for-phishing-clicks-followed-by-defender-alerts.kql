@@ -1,0 +1,24 @@
+// title: Hunt for phishing clicks followed by Defender alerts
+// date: 2026-10-14
+// product: Defender for Office 365
+// tables: AlertEvidence, UrlClickEvents
+// purpose: From the article: The hidden network: Inside the phishing infrastructure ecosystem powering global cybercrime
+// source: https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/
+// kind: article
+// author: Microsoft Threat Intelligence and Microsoft Digital Crimes Unit · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Lookback = 30d;
+let PhishClicks =
+    UrlClickEvents
+    | where Timestamp > ago(Lookback)
+    | project ClickTime = Timestamp, AccountUpn, Url, ClickAction = ActionType;
+let IdentityAlerts =
+    AlertEvidence
+    | where Timestamp > ago(Lookback)
+    | where EntityType =~ "User"
+    | project AlertTime = Timestamp, AccountUpn, AlertId, Title, Severity, DetectionSource;
+PhishClicks
+| join kind=inner IdentityAlerts on AccountUpn
+| where AlertTime between (ClickTime .. ClickTime + 24h)
+| project ClickTime, AlertTime, AccountUpn, Url, ClickAction, AlertId, Title, Severity, DetectionSource
+| order by ClickTime desc
