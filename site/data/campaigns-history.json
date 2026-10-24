@@ -190,6 +190,15 @@
 ],
 "log":[
 {
+"date":"2026-10-24",
+"id":"MC1477180",
+"what":"Microsoft revised the post",
+"before":"2026-09-23",
+"after":"2026-09-22",
+"title":"Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance",
+"link":"https://mc.merill.net/message/MC1477180"
+},
+{
 "date":"2026-10-22",
 "id":"exchange-online-ews-disablement-starts-2026-10-21",
 "what":"Entered the brief (New)",
@@ -2618,6 +2627,22 @@
 "date":"2026-10-22",
 "group":"microsoft",
 "found":"2026-10-23"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83862":{
+"title":"CVE-2026-83862 Windows Network Load Balancing Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83862",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-23",
+"group":"microsoft",
+"found":"2026-10-24"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102208":{
+"title":"CVE-2026-102208 Windows Win32 Kernel Subsystem Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102208",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-23",
+"group":"microsoft",
+"found":"2026-10-24"
 }
 },
 "final":"2026-10-15",
@@ -3138,8 +3163,7 @@
 "name":"Link preview retirement",
 "status":"No date",
 "members":[
-"MC1479516",
-"item:MC1479516"
+"MC1479516"
 ],
 "log":[
 {
@@ -3148,8 +3172,8 @@
 "what":"Title",
 "before":"Microsoft Outlook: Link preview retirement",
 "after":"(Updated) Microsoft Outlook: Link preview retirement",
-"title":"Outlook link previews are gone because the browser service that fetched them was deprecated; Microsoft now says why",
-"link":"https://deltapulse.app/item/MC1479516"
+"title":"Microsoft Outlook: Link preview retirement",
+"link":"https://mc.merill.net/message/MC1479516"
 },
 {
 "date":"2026-10-07",
@@ -3157,8 +3181,8 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
-"title":"Outlook link previews are gone because the browser service that fetched them was deprecated; Microsoft now says why",
-"link":"https://deltapulse.app/item/MC1479516"
+"title":"Microsoft Outlook: Link preview retirement",
+"link":"https://mc.merill.net/message/MC1479516"
 },
 {
 "date":"2026-10-07",
@@ -3175,8 +3199,8 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the content.",
-"title":"Outlook link previews are gone because the browser service that fetched them was deprecated; Microsoft now says why",
-"link":"https://deltapulse.app/item/MC1479516"
+"title":"Microsoft Outlook: Link preview retirement",
+"link":"https://mc.merill.net/message/MC1479516"
 },
 {
 "date":"2026-09-28",
@@ -3448,6 +3472,38 @@
 "date":"2026-10-16",
 "group":"community",
 "found":"2026-10-17"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=578066":{
+"title":"Dynamics 365 Commerce: Digital commerce - Streamline multioutlet access for B2B web storefronts",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578066",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=578061":{
+"title":"Dynamics 365 Commerce: Omnichannel commerce - Add support for multiple outlet B2B ordering via CSU",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578061",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
+},
+"https://mc.merill.net/message/RM578066":{
+"title":"RM578066: Dynamics 365 Commerce: Digital commerce - Streamline multioutlet access for B2B web storefronts",
+"link":"https://mc.merill.net/message/RM578066",
+"source":"MC - Merill",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
+},
+"https://mc.merill.net/message/RM578061":{
+"title":"RM578061: Dynamics 365 Commerce: Omnichannel commerce - Add support for multiple outlet B2B ordering via CSU",
+"link":"https://mc.merill.net/message/RM578061",
+"source":"MC - Merill",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
 }
 },
 "final":"2026-11-30",
@@ -3779,75 +3835,6 @@
 "tech":"Defender",
 "posts":[
 "MC1478463"
-]
-},
-"c-mc1392568":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-24",
-"name":"Support for Amazon Linux 2 (ARM64) retiring October 31, 2026",
-"status":"Active",
-"members":[
-"MC1392568",
-"item:MC1392568"
-],
-"log":[
-{
-"date":"2026-09-29",
-"id":"MC1392568",
-"what":"Act-by date",
-"before":"",
-"after":"2026-10-31",
-"title":"MDE support ends for Amazon Linux 2 on ARM64",
-"link":"https://mc.merill.net/message/MC1392568"
-},
-{
-"date":"2026-09-23",
-"id":"MC1392568",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated this post as a reminder.",
-"title":"MDE support ends for Amazon Linux 2 on ARM64",
-"link":"https://mc.merill.net/message/MC1392568"
-}
-],
-"milestones":{
-"MC1392568|posted":{
-"date":"2026-06-15",
-"label":"15 Jun 2026",
-"text":"Posted: Microsoft Defender for Endpoint: Support for Amazon Linux 2 (ARM64) retiring October 31, 2026"
-},
-"MC1392568|we are retiring support for microsoft defender for endpoint #0":{
-"date":"2026-10-31",
-"label":"31 Oct 2026",
-"text":"We are retiring support for Microsoft Defender for Endpoint (MDE) on Amazon Linux 2 (AL2) running on ARM64 architecture, effective October 31, 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1392568":{
-"title":"Microsoft Defender for Endpoint: Support for Amazon Linux 2 (ARM64) retiring October 31, 2026",
-"link":"https://mc.merill.net/message/MC1392568",
-"source":"Message Center",
-"id":"MC1392568",
-"date":"2026-06-15",
-"updated":"2026-09-23",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
-"title":"Added support for ARM64 Oracle 8, x86\\64 Oracle 10, and x86\\64 Debian 13.",
-"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
-"source":"Microsoft Learn · What's new · Azure Arc",
-"date":"2026-03-24",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":"2026-10-31",
-"type":"Retirement",
-"tech":"Defender",
-"posts":[
-"MC1392568"
 ]
 },
 "c-mc1474124":{
@@ -5352,14 +5339,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-21",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-22",
 "text":"August 1, 2026."
 },
@@ -5490,6 +5469,14 @@
 "now":"1 Aug 2026",
 "seen":"2026-10-24",
 "text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-24",
+"text":"August 1, 2026."
 }
 ],
 "materials":{
@@ -5592,6 +5579,84 @@
 "tech":"Azure",
 "posts":[
 "MC1293480"
+]
+},
+"c-mc1392568":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-24",
+"name":"Support for Amazon Linux 2 (ARM64) retiring October 31, 2026",
+"status":"Active",
+"members":[
+"MC1392568",
+"item:MC1392568"
+],
+"log":[
+{
+"date":"2026-10-24",
+"id":"MC1392568",
+"what":"Microsoft revised the post",
+"before":"2026-09-23",
+"after":"2026-06-15",
+"title":"MDE support ends for Amazon Linux 2 on ARM64",
+"link":"https://mc.merill.net/message/MC1392568"
+},
+{
+"date":"2026-09-29",
+"id":"MC1392568",
+"what":"Act-by date",
+"before":"",
+"after":"2026-10-31",
+"title":"MDE support ends for Amazon Linux 2 on ARM64",
+"link":"https://mc.merill.net/message/MC1392568"
+},
+{
+"date":"2026-09-23",
+"id":"MC1392568",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated this post as a reminder.",
+"title":"MDE support ends for Amazon Linux 2 on ARM64",
+"link":"https://mc.merill.net/message/MC1392568"
+}
+],
+"milestones":{
+"MC1392568|posted":{
+"date":"2026-06-15",
+"label":"15 Jun 2026",
+"text":"Posted: Microsoft Defender for Endpoint: Support for Amazon Linux 2 (ARM64) retiring October 31, 2026"
+},
+"MC1392568|we are retiring support for microsoft defender for endpoint #0":{
+"date":"2026-10-31",
+"label":"31 Oct 2026",
+"text":"We are retiring support for Microsoft Defender for Endpoint (MDE) on Amazon Linux 2 (AL2) running on ARM64 architecture, effective October 31, 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1392568":{
+"title":"Microsoft Defender for Endpoint: Support for Amazon Linux 2 (ARM64) retiring October 31, 2026",
+"link":"https://mc.merill.net/message/MC1392568",
+"source":"Message Center",
+"id":"MC1392568",
+"date":"2026-06-15",
+"updated":"2026-09-23",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
+"title":"Added support for ARM64 Oracle 8, x86\\64 Oracle 10, and x86\\64 Debian 13.",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
+"source":"Microsoft Learn · What's new · Azure Arc",
+"date":"2026-03-24",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":"2026-10-31",
+"type":"Retirement",
+"tech":"Defender",
+"posts":[
+"MC1392568"
 ]
 },
 "c-mc1235720":{
@@ -5922,22 +5987,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-22",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-10-22",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-10-23",
 "text":"early February 2026."
 },
@@ -6027,6 +6076,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-10-23",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-24",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-24",
 "text":"February 2027."
 },
 {
@@ -8912,6 +8977,46 @@
 "date":"2026-10-23",
 "group":"community",
 "found":"2026-10-23"
+},
+"https://dev.to/ayumu_kitabayashi_8e0de96/apps-para-bloquear-los-reels-de-instagram-en-iphone-sin-perder-los-mensajes-comparativa-2026-3p1i":{
+"title":"Apps para bloquear los Reels de Instagram en iPhone sin perder los mensajes (comparativa 2026)",
+"link":"https://dev.to/ayumu_kitabayashi_8e0de96/apps-para-bloquear-los-reels-de-instagram-en-iphone-sin-perder-los-mensajes-comparativa-2026-3p1i",
+"source":"NeonTiger12",
+"date":"2026-10-24",
+"group":"community",
+"found":"2026-10-24"
+},
+"https://dev.to/lei_zhang_b6e446ccf73eac3/five-calculation-and-pdf-pitfalls-in-a-browser-invoice-tool-46j4":{
+"title":"Five calculation and PDF pitfalls in a browser invoice tool",
+"link":"https://dev.to/lei_zhang_b6e446ccf73eac3/five-calculation-and-pdf-pitfalls-in-a-browser-invoice-tool-46j4",
+"source":"NeonTiger12",
+"date":"2026-10-24",
+"group":"community",
+"found":"2026-10-24"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=578069":{
+"title":"Dynamics 365 Contact Center: IVR capabilities - Equip voice agents with custom voice",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578069",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
+},
+"https://mc.merill.net/message/MC1482800":{
+"title":"MC1482800: Teams Phone Agent is rolling out to general availability on Sept 30, 2026",
+"link":"https://mc.merill.net/message/MC1482800",
+"source":"MC - Merill",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
+},
+"https://mc.merill.net/message/RM578069":{
+"title":"RM578069: Dynamics 365 Contact Center: IVR capabilities - Equip voice agents with custom voice",
+"link":"https://mc.merill.net/message/RM578069",
+"source":"MC - Merill",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
 }
 },
 "final":"2027-07-01",
@@ -8941,7 +9046,6 @@
 "MC1450133",
 "item:MC1450133",
 "MC1459133",
-"item:MC1459133",
 "MC1469555",
 "item:entra-external-idp-passkeys-system-browser-ga",
 "item:569432"
@@ -9070,7 +9174,7 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
-"title":"B2B passkeys: internal guests start in late October instead of early October and finish in late November; guests enabled for SMS or voice are still auto-enabled for all passkey types",
+"title":"Microsoft Entra ID: Passkey support for B2B users",
 "link":"https://mc.merill.net/message/MC1459133"
 },
 {
@@ -9079,7 +9183,7 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the timeline.",
-"title":"B2B passkeys: internal guests start in late October instead of early October and finish in late November; guests enabled for SMS or voice are still auto-enabled for all passkey types",
+"title":"Microsoft Entra ID: Passkey support for B2B users",
 "link":"https://mc.merill.net/message/MC1459133"
 },
 {
@@ -9398,20 +9502,20 @@
 "label":"Oct 2026",
 "text":"If your organization chooses to offer allowed password changes after secure sign-in, enable the feature through the Microsoft Entra admin experience or supporte"
 },
-"MC1450133|we will begin rolling out in late previously early and expec#0":{
+"MC1459133|beginning in late with a phased rollout as outlined below in#0":{
 "date":"2026-10-25",
 "label":"late Oct 2026",
-"text":"We will begin rolling out in late October 2026 (previously early October) and expect to complete by late November 2026 (previously mid-November)."
+"text":"Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O"
 },
 "MC1437671|microsoft gives the end of for the start of rollout not a ca#0":{
 "date":"2026-10-31",
 "label":"end of Oct 2026",
 "text":"Microsoft gives the end of October 2026 for the start of rollout, not a calendar date"
 },
-"MC1450133|we will begin rolling out in late previously early and expec#1":{
+"MC1459133|beginning in late with a phased rollout as outlined below in#2":{
 "date":"2026-11-25",
 "label":"late Nov 2026",
-"text":"We will begin rolling out in late October 2026 (previously early October) and expect to complete by late November 2026 (previously mid-November)."
+"text":"Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O"
 },
 "MC1450133|we will begin rolling out in early and expect to complete by#1":{
 "date":"2027-02-25",
@@ -9457,22 +9561,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-22",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-10-22",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-10-23",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -9562,6 +9650,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-10-23",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-24",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-24",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9882,6 +9986,38 @@
 "date":"2026-10-23",
 "group":"community",
 "found":"2026-10-23"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=578066":{
+"title":"Dynamics 365 Commerce: Digital commerce - Streamline multioutlet access for B2B web storefronts",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578066",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=578061":{
+"title":"Dynamics 365 Commerce: Omnichannel commerce - Add support for multiple outlet B2B ordering via CSU",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578061",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
+},
+"https://mc.merill.net/message/RM578066":{
+"title":"RM578066: Dynamics 365 Commerce: Digital commerce - Streamline multioutlet access for B2B web storefronts",
+"link":"https://mc.merill.net/message/RM578066",
+"source":"MC - Merill",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
+},
+"https://mc.merill.net/message/RM578061":{
+"title":"RM578061: Dynamics 365 Commerce: Omnichannel commerce - Add support for multiple outlet B2B ordering via CSU",
+"link":"https://mc.merill.net/message/RM578061",
+"source":"MC - Merill",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
 }
 },
 "final":"2027-02-25",
@@ -13328,6 +13464,156 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-24",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-83862 Windows Network Load Balancing Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83862"
+},
+{
+"day":"2026-10-24",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-102208 Windows Win32 Kernel Subsystem Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102208"
+},
+{
+"day":"2026-10-24",
+"cid":"c-mc1243549",
+"type":"material",
+"name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"group":"community",
+"title":"Dynamics 365 Commerce: Digital commerce - Streamline multioutlet access for B2B web storefronts",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578066"
+},
+{
+"day":"2026-10-24",
+"cid":"c-mc1243549",
+"type":"material",
+"name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"group":"community",
+"title":"Dynamics 365 Commerce: Omnichannel commerce - Add support for multiple outlet B2B ordering via CSU",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578061"
+},
+{
+"day":"2026-10-24",
+"cid":"c-mc1243549",
+"type":"material",
+"name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"group":"community",
+"title":"RM578066: Dynamics 365 Commerce: Digital commerce - Streamline multioutlet access for B2B web storefronts",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/RM578066"
+},
+{
+"day":"2026-10-24",
+"cid":"c-mc1243549",
+"type":"material",
+"name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"group":"community",
+"title":"RM578061: Dynamics 365 Commerce: Omnichannel commerce - Add support for multiple outlet B2B ordering via CSU",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/RM578061"
+},
+{
+"day":"2026-10-24",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Apps para bloquear los Reels de Instagram en iPhone sin perder los mensajes (comparativa 2026)",
+"source":"NeonTiger12",
+"link":"https://dev.to/ayumu_kitabayashi_8e0de96/apps-para-bloquear-los-reels-de-instagram-en-iphone-sin-perder-los-mensajes-comparativa-2026-3p1i"
+},
+{
+"day":"2026-10-24",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Five calculation and PDF pitfalls in a browser invoice tool",
+"source":"NeonTiger12",
+"link":"https://dev.to/lei_zhang_b6e446ccf73eac3/five-calculation-and-pdf-pitfalls-in-a-browser-invoice-tool-46j4"
+},
+{
+"day":"2026-10-24",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Dynamics 365 Contact Center: IVR capabilities - Equip voice agents with custom voice",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578069"
+},
+{
+"day":"2026-10-24",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"MC1482800: Teams Phone Agent is rolling out to general availability on Sept 30, 2026",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1482800"
+},
+{
+"day":"2026-10-24",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"RM578069: Dynamics 365 Contact Center: IVR capabilities - Equip voice agents with custom voice",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/RM578069"
+},
+{
+"day":"2026-10-24",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Dynamics 365 Commerce: Digital commerce - Streamline multioutlet access for B2B web storefronts",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578066"
+},
+{
+"day":"2026-10-24",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Dynamics 365 Commerce: Omnichannel commerce - Add support for multiple outlet B2B ordering via CSU",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578061"
+},
+{
+"day":"2026-10-24",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"RM578066: Dynamics 365 Commerce: Digital commerce - Streamline multioutlet access for B2B web storefronts",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/RM578066"
+},
+{
+"day":"2026-10-24",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"RM578061: Dynamics 365 Commerce: Omnichannel commerce - Add support for multiple outlet B2B ordering via CSU",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/RM578061"
 }
 ],
 "archive":{

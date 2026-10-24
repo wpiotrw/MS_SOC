@@ -1,0 +1,13 @@
+// title: Connections to the collector domain (own minimal query)
+// date: 2026-10-24
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Threat Research: LiteLLM 1.107.0 supply chain compromise: credential theft through Python startup hooks
+// source: https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where Timestamp > ago(30d)
+| where RemoteUrl has "litellm.dev"
+| project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessCommandLine, RemoteUrl, RemoteIP
