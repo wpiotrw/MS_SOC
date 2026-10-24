@@ -547,6 +547,115 @@
      "date": "2026-10-21"
     }
    ]
+  },
+  {
+   "id": "litellm-1-107-0-supply-chain-2026-10",
+   "title": "LiteLLM 1.107.0 supply chain compromise: credential theft through Python startup hooks",
+   "match": [
+    "LiteLLM",
+    "cook.pth"
+   ],
+   "areas": [
+    "Identity attacks",
+    "Vulnerabilities"
+   ],
+   "status": "active",
+   "updated": "2026-10-24",
+   "by": "morning routine",
+   "summary": "A malicious LiteLLM 1.107.0 was published to PyPI on 21 October 2026 and also shipped in official container images. It abused Python startup hooks (a .pth file and sitecustomize.py placed outside the litellm directory), so the payload ran when the Python interpreter started, even if LiteLLM was never imported. The collector gathers developer, cloud, CI/CD and AI-tool credentials, encrypts them and posts them to www[.]litellm[.]dev. Per the LiteLLM maintainers, stolen developer GitHub credentials were used to alter the release workflow; Microsoft did not determine how the attacker first got upstream access. Microsoft published detections on 22 October and its analysis on 23 October. Removing the package or a release tag is not sufficient recovery.",
+   "timeline": [
+    {
+     "date": "2026-10-21",
+     "text": "LiteLLM 1.107.0 published to PyPI and distributed through official container images.",
+     "src": "Microsoft Security Blog"
+    },
+    {
+     "date": "2026-10-22",
+     "text": "Microsoft Defender detections and vulnerability management entry TVM-2026-0003 available.",
+     "src": "Microsoft Security Blog"
+    },
+    {
+     "date": "2026-10-23",
+     "text": "Microsoft publishes its analysis, including hashes, detections and hunting queries.",
+     "src": "Microsoft Security Blog"
+    }
+   ],
+   "rootCause": "Per LiteLLM maintainers (as relayed by Microsoft): stolen developer GitHub credentials were used to alter the release workflow so it pointed at the lookalike repository Berri-AI/litellm instead of BerriAI/litellm, and a credential from another developer account satisfied a production approval step. How the attacker first obtained upstream access is not determined.",
+   "attacker": [
+    "Used Python startup hooks (MITRE T1546.018): cook.pth imports cook.py, which decodes an embedded collector (PRIVCOLLECT) and runs it in a daemon thread; sitecustomize.py adds a Unix path with a remote code loader.",
+    "Targeted developer and AI tool configs, git and package-manager credentials, dotenv and key files, AWS/Azure CLI/GCP/Kubernetes/Docker credentials, browser data, shell histories and LiteLLM proxy database fields.",
+    "Encrypted the data (AES-256-CBC, key wrapped with an embedded RSA-4096 key) and sent it by HTTP POST to /healthcheck; staging directories begin with .pc_e_.",
+    "Unix loader reads a GitHub-hosted domain.txt as a pointer to an attacker server and executes the /codepy response; when examined domain.txt was empty and no second stage was confirmed."
+   ],
+   "iocs": [
+    "Domain www[.]litellm[.]dev (exfiltration)",
+    "hxxp://www[.]litellm[.]dev/healthcheck",
+    "hxxps://raw[.]githubusercontent[.]com/letters9813/pythonclient-test/main/domain.txt (dead drop)",
+    "Files cook.pth, cook.py, sitecustomize.py; /tmp/remote_code_loader.lock; /tmp/.pc_once_72129118c59f5636c0bb; .pc_e_* directories",
+    "SHA-256 cook.py 9dd0a3926f96a37eb86cf1ee2310d9be93139cc4ebef3ef9e2efe9531390be25",
+    "SHA-256 sitecustomize.py 34bef04fe88ac9d0aae0475630b1738681d15b94f233ac8aa46eacf5968305fa",
+    "SHA-256 cook.pth 7f191632e7320705d154b85204f1ae546b543acbd7e8861229b76f5042b92bdb",
+    "Further wheel and variant hashes are listed in the Microsoft article"
+   ],
+   "remediation": [
+    {
+     "text": "Find every copy: installed environments, uv and pip caches, internal mirrors, lock files, build outputs and container images; compare against the published hashes and scope mutable container tags.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+     "phase": "investigate"
+    },
+    {
+     "text": "Investigate from a known-clean system; do not run python or pip inside a suspect environment, because site processing can trigger the payload.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+     "phase": "contain"
+    },
+    {
+     "text": "Rebuild from verified artifacts and confirm cook.pth, cook.py and sitecustomize.py are gone from the library path; deleting only the litellm directory is insufficient.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+     "phase": "eradicate"
+    },
+    {
+     "text": "Rotate credentials from a clean machine (model-provider keys, cloud and CI/CD secrets, source-control and registry tokens, SSH/GPG keys, AI coding-tool tokens, DATABASE_URL on proxy hosts) and revoke sessions, not only passwords.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+     "phase": "contain"
+    },
+    {
+     "text": "Hash-pin lock files, verify provenance, use image digests and restrict outbound access from build and AI workloads.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+     "phase": "harden"
+    },
+    {
+     "text": "Hunt in Defender XDR for connections to www.litellm.dev and the listed file hashes; review Entra sign-ins and cloud activity for identities whose secrets lived on affected hosts.",
+     "from": "ours",
+     "phase": "detect"
+    }
+   ],
+   "kql": [
+    {
+     "title": "Connections to the collector domain (own minimal query)",
+     "query": "DeviceNetworkEvents\n| where Timestamp > ago(30d)\n| where RemoteUrl has \"litellm.dev\"\n| project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessCommandLine, RemoteUrl, RemoteIP"
+    }
+   ],
+   "kqlSearched": "2026-10-24",
+   "microsoft": [
+    {
+     "what": "Microsoft Threat Intelligence analysis with Defender detections (Trojan:PyPI/LiteLlmSupplyChain.A/.B, Backdoor:PyPI/LiteLlmSupplyChain.C), Defender for Cloud alerts, TVM-2026-0003 and six hunting queries",
+     "title": "Inside the LiteLLM 1.107.0 supply chain compromise",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+     "date": "2026-10-23"
+    }
+   ],
+   "links": [
+    {
+     "text": "Microsoft Security Blog: Inside the LiteLLM 1.107.0 supply chain compromise",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+     "date": "2026-10-23"
+    }
+   ]
   }
  ]
 }
