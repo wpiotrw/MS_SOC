@@ -1,0 +1,61 @@
+// title: Detection 2: Python Process Outbound Network Connection Following Package Import - Credential Exfiltration Pattern
+// date: 2026-10-24
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Saturday, October 24, 2026
+// source: https://devsecopsdadattack.com/2026-10-24-detection-engineering-brief-saturday-october-24-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 7d;
+let correlationWindow = 3min;
+let pythonProcs = DeviceProcessEvents
+| where Timestamp > ago(lookback)
+| where FileName has_any ("python", "python3", "python.exe")
+| where ProcessCommandLine has "litellm"
+    or ProcessCommandLine has_any ("sitecustomize", "usercustomize")
+    or ProcessCommandLine has_any ("exec(", "eval(", "__import__(", "urllib.request", "urllib.urlopen")
+| project
+    ProcTimestamp = Timestamp,
+    DeviceId,
+    DeviceName,
+    AccountName,
+    ProcessCommandLine,
+    InitiatingProcessFileName,
+    ProcProcessId = ProcessId;
+let outboundNet = DeviceNetworkEvents
+| where Timestamp > ago(lookback)
+| where InitiatingProcessFileName has_any ("python", "python3", "python.exe")
+| where RemoteIP !startswith "127."
+    and RemoteIP !startswith "10."
+    and not (RemoteIP startswith "192.168.")
+    and not (RemoteIP matches regex @"^172\.(1[6-9]|2[0-9]|3[01])\.")
+| project
+    NetTimestamp = Timestamp,
+    DeviceId,
+    RemoteIP,
+    RemoteUrl,
+    RemotePort,
+    NetInitiatingProcessId = InitiatingProcessId;
+pythonProcs
+| join kind=inner outboundNet on DeviceId
+| where (NetTimestamp - ProcTimestamp) between (0min .. correlationWindow)
+| summarize
+    arg_min(ProcTimestamp, *),
+    UniqueRemoteIPs = dcount(RemoteIP),
+    RemoteIPList = make_set(RemoteIP, 10),
+    RemotePortList = make_set(RemotePort, 10)
+    by DeviceId, DeviceName, AccountName, ProcessCommandLine, InitiatingProcessFileName
+| project
+    ProcTimestamp,
+    DeviceName,
+    AccountName,
+    ProcessCommandLine,
+    InitiatingProcessFileName,
+    RemoteIP,
+    RemoteUrl,
+    RemotePort,
+    UniqueRemoteIPs,
+    RemoteIPList,
+    RemotePortList
+| sort by ProcTimestamp desc

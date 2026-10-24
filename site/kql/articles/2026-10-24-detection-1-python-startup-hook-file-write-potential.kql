@@ -1,0 +1,64 @@
+// title: Detection 1: Python Startup Hook File Write - Potential Supply Chain Persistence
+// date: 2026-10-24
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceNetworkEvents
+// purpose: From the article: Detection Engineering Brief - Saturday, October 24, 2026
+// source: https://devsecopsdadattack.com/2026-10-24-detection-engineering-brief-saturday-october-24-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 7d;
+let correlationWindow = 5min;
+let hookWrites = DeviceFileEvents
+| where Timestamp > ago(lookback)
+| where FileName in~ ("sitecustomize.py", "usercustomize.py")
+| where FolderPath has_any ("site-packages", "dist-packages")
+| where ActionType in ("FileCreated", "FileModified")
+| project
+    HookTimestamp = Timestamp,
+    DeviceId,
+    DeviceName,
+    FolderPath,
+    FileName,
+    HookInitiatingProcess = InitiatingProcessFileName,
+    HookCommandLine = InitiatingProcessCommandLine,
+    HookParentProcess = InitiatingProcessParentFileName,
+    HookProcessId = InitiatingProcessId;
+let pythonNet = DeviceNetworkEvents
+| where Timestamp > ago(lookback)
+| where InitiatingProcessFileName has_any ("python", "python3", "python.exe")
+| where RemoteIP !startswith "127."
+    and RemoteIP !startswith "10."
+    and not (RemoteIP startswith "192.168.")
+    and not (RemoteIP matches regex @"^172\.(1[6-9]|2[0-9]|3[01])\.")
+| project
+    NetTimestamp = Timestamp,
+    DeviceId,
+    RemoteIP,
+    RemoteUrl,
+    NetInitiatingProcess = InitiatingProcessFileName,
+    NetCommandLine = InitiatingProcessCommandLine;
+hookWrites
+| join kind=inner pythonNet on DeviceId
+| where (NetTimestamp - HookTimestamp) between (0min .. correlationWindow)
+| where HookInitiatingProcess !in~ ("pip", "pip3", "conda", "poetry", "uv", "pip.exe")
+| summarize
+    arg_min(HookTimestamp, *),
+    OutboundConnections = count(),
+    RemoteIPs = make_set(RemoteIP, 20)
+    by DeviceId, DeviceName, FolderPath, FileName, HookInitiatingProcess, HookCommandLine, HookParentProcess
+| project
+    HookTimestamp,
+    DeviceName,
+    FolderPath,
+    FileName,
+    HookInitiatingProcess,
+    HookCommandLine,
+    HookParentProcess,
+    NetInitiatingProcess,
+    NetCommandLine,
+    RemoteIP,
+    RemoteUrl,
+    OutboundConnections,
+    RemoteIPs
+| sort by HookTimestamp desc

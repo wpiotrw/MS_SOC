@@ -14,6 +14,81 @@
   "incident": "litellm-1-107-0-supply-chain-2026-10"
  },
  {
+  "file": "articles/2026-10-24-detection-5-metasploit-post-exploitation-staging-behavior-re.kql",
+  "title": "Detection 5: Metasploit Post-Exploitation Staging Behavior - Reverse Shell or Meterpreter Stager from Application Host",
+  "date": "2026-10-24",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, October 24, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-24-detection-engineering-brief-saturday-october-24-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-24-detection-engineering-brief-saturday-october-24-2026/"
+ },
+ {
+  "file": "articles/2026-10-24-detection-4-pre-authentication-rce-exploitation-against-open.kql",
+  "title": "Detection 4: Pre-Authentication RCE Exploitation Against OpenCTI - Anomalous Child Process from Web Application Host",
+  "date": "2026-10-24",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "CommonSecurityLog",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, October 24, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-24-detection-engineering-brief-saturday-october-24-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-24-detection-engineering-brief-saturday-october-24-2026/"
+ },
+ {
+  "file": "articles/2026-10-24-detection-3-unauthenticated-rce-exploitation-against-langflo.kql",
+  "title": "Detection 3: Unauthenticated RCE Exploitation Against Langflow - Child Process Spawn from Web Application",
+  "date": "2026-10-24",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, October 24, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-24-detection-engineering-brief-saturday-october-24-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-24-detection-engineering-brief-saturday-october-24-2026/"
+ },
+ {
+  "file": "articles/2026-10-24-detection-2-python-process-outbound-network-connection-follo.kql",
+  "title": "Detection 2: Python Process Outbound Network Connection Following Package Import - Credential Exfiltration Pattern",
+  "date": "2026-10-24",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, October 24, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-24-detection-engineering-brief-saturday-october-24-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-24-detection-engineering-brief-saturday-october-24-2026/"
+ },
+ {
+  "file": "articles/2026-10-24-detection-1-python-startup-hook-file-write-potential.kql",
+  "title": "Detection 1: Python Startup Hook File Write - Potential Supply Chain Persistence",
+  "date": "2026-10-24",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, October 24, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-24-detection-engineering-brief-saturday-october-24-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-24-detection-engineering-brief-saturday-october-24-2026/"
+ },
+ {
   "file": "community/2026-10-23-zdi-can-25373-windows-shortcut-exploit-abused-detection.kql",
   "title": "ZDI CAN 25373 Windows Shortcut Exploit Abused Detection",
   "date": "2026-10-23",
