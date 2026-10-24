@@ -1,7 +1,7 @@
 {
  "read": "2026-10-24",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 723,
+ "count": 721,
  "note": null,
  "messages": [
   {
@@ -6587,30 +6587,6 @@
    "bodyHash": "2284dc5b58d70b0a"
   },
   {
-   "id": "MC1403402",
-   "title": "Plan for Change: Intune moving to support macOS 15 and higher later this year",
-   "services": [
-    "Microsoft Intune"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-06-24",
-   "end": "2026-10-24",
-   "modified": "2026-06-24",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "Later this year, we expect macOS Golden Gate 27 to be released by Apple. Microsoft Intune, the Company Portal app and the Intune MDM agent will be moving to support macOS 15 (Sequoia) and later. Since the Company Portal app for iOS and macOS are a unified app, this change will occur shortly after the release of macOS 27. This does not affect existing enrolled devices. [How this will affect your or…",
-   "when": null,
-   "prepare": "Check your Intune reporting to see which devices or users may be affected. Go to Devices > All devices and filter by macOS. You can add in additional columns to help identify who in your organization has devices running macOS 14.x or below. Request that your users upgrade their devices to a supported OS version before this change.",
-   "dates": [],
-   "bodyHash": "23cc9634986e8a9c"
-  },
-  {
    "id": "MC1403403",
    "title": "(Updated) Microsoft Purview compliance portal: View-only role management enhancements",
    "services": [
@@ -10382,33 +10358,6 @@
     "General Availability (Worldwide): We will begin rolling out mid-September 2026 (previously early September) and expect to complete by late September 2026."
    ],
    "bodyHash": "a85d0f8d048a477a"
-  },
-  {
-   "id": "MC1459132",
-   "title": "Microsoft Edge: Retirement of Windows Information Protection (WIP) and Microsoft Defender Application Guard (MDAG)",
-   "services": [
-    "Microsoft 365 suite"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": "2026-09-24",
-   "start": "2026-08-21",
-   "end": "2026-10-24",
-   "modified": "2026-08-21",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "[What and why] We are retiring support for Windows Information Protection (WIP) and Microsoft Defender Application Guard (MDAG) in Microsoft Edge. These capabilities have already been deprecated in Windows and are no longer available in Windows 11, version 24H2. Microsoft recommends the following alternatives: For WIP scenarios, use Microsoft Purview Information Protection, Microsoft Purview Data …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Worldwide: Beginning in late September 2026 and expected to complete in late September 2026.",
-    "Plan migration activities before the rollout completes in late September 2026."
-   ],
-   "bodyHash": "18513e60a47464a4"
   },
   {
    "id": "MC1459133",
@@ -24516,6 +24465,20 @@
    "id": "MC1437544",
    "type": "removed",
    "title": "Dynamics 365 Contact Center - Information regarding the end of support for Customer Intent Agent in Voice",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-24",
+   "id": "MC1403402",
+   "type": "removed",
+   "title": "Plan for Change: Intune moving to support macOS 15 and higher later this year",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-24",
+   "id": "MC1459132",
+   "type": "removed",
+   "title": "Microsoft Edge: Retirement of Windows Information Protection (WIP) and Microsoft Defender Application Guard (MDAG)",
    "fields": {}
   }
  ]
