@@ -362,6 +362,7 @@ https://learn.microsoft.com/en-us/azure/sentinel
 https://learn.microsoft.com/en-us/azure/sentinel/anomalies-reference
 https://learn.microsoft.com/en-us/azure/sentinel/automation/create-playbooks
 https://learn.microsoft.com/en-us/azure/sentinel/automation/generate-playbook
+https://learn.microsoft.com/en-us/azure/sentinel/azure-storage-blob-connector-troubleshoot
 https://learn.microsoft.com/en-us/azure/sentinel/ci-cd-custom-content
 https://learn.microsoft.com/en-us/azure/sentinel/compare-analytics-rules-custom-detections
 https://learn.microsoft.com/en-us/azure/sentinel/configure-data-connector

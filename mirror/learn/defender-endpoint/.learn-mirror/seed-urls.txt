@@ -54,4 +54,5 @@ https://learn.microsoft.com/en-us/defender-endpoint/schedule-antivirus-scans-lin
 https://learn.microsoft.com/en-us/defender-endpoint/secure-controlled-configuration
 https://learn.microsoft.com/en-us/defender-endpoint/tamper-protection-linux-audit-mode
 https://learn.microsoft.com/en-us/defender-endpoint/troubleshoot-collect-support-log
+https://learn.microsoft.com/en-us/defender-endpoint/update-agent-mma-windows
 https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/entra/identity/hybrid/how-to-source-of-authority-auditing-monitoring",
+  "cursor": "https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-to-configure-entra-to-active-directory",
   "pages": {
     "https://learn.microsoft.com/en-us/entra/agent-id": {"etag":"\"8c5WWw6Lbw+Mz5zhpqAhQFr97bY=\"","gitCommitId":"5caf06acbac27060f18423313c5c2f62caa542e3","path":"docs/agent-id/index.md","redirectedTo":"https://learn.microsoft.com/en-us/entra/agent-id/","sourcePath":"docs/agent-id/index.yml","updatedAt":"2026-06-19T22:42:00.0000000Z"},
     "https://learn.microsoft.com/en-us/entra/agent-id/create-blueprint": {"etag":"\"+nzDodXe0CAKNy6MOMaMiy/TiZE=\"","gitCommitId":"97366337175f17ae5947dbcd87c166ed63b57ae3","path":"docs/agent-id/create-blueprint.md","sourcePath":"docs/agent-id/create-blueprint.md","updatedAt":"2026-10-14T22:34:00.0000000Z"},
