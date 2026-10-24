@@ -1,11 +1,11 @@
 {
- "generated": "2026-10-23T21:31:09Z",
+ "generated": "2026-10-24T04:37:04Z",
  "source": "tools/doc_ga.py (CLAUDE.md 5eo)",
  "sources": [
   {
    "name": "Our Learn copy (mirror/learn)",
    "state": "ok",
-   "pages": 1792,
+   "pages": 1793,
    "events": 0,
    "note": ""
   },
@@ -13,9 +13,9 @@
    "name": "Microsoft Entra documentation",
    "url": "https://github.com/MicrosoftDocs/entra-docs",
    "state": "ok",
-   "commits": 73,
+   "commits": 74,
    "events": 8,
-   "since": "2026-08-24"
+   "since": "2026-08-25"
   }
  ],
  "events": [
