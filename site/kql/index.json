@@ -6493,6 +6493,21 @@
   "incident": "auto-inside-the-litellm-1-107-0-supply-chain-2026-10-23"
  },
  {
+  "file": "articles/2026-10-23-known-startup-file-hashes-2.kql",
+  "title": "Known startup-file hashes",
+  "date": "2026-10-23",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Inside the LiteLLM 1.107.0 supply chain compromise: Credential theft through Python startup hooks",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Mahesh Mandava, Srinivasan Govindarajan, Sagar Patil and Suriyaraj Natarajan · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/",
+  "incident": "litellm-1-107-0-supply-chain-2026-10"
+ },
+ {
   "file": "articles/2026-10-23-inline-database-collection-program.kql",
   "title": "Inline database-collection program",
   "date": "2026-10-23",

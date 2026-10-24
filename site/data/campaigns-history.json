@@ -4626,7 +4626,7 @@
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-24",
 "name":"Windows Information Protection and Application Guard retire in Microsoft Edge",
-"status":"Recently closed",
+"status":"No date",
 "members":[
 "MC1459132"
 ],
@@ -4646,16 +4646,6 @@
 "date":"2026-08-21",
 "label":"21 Aug 2026",
 "text":"Posted: Windows Information Protection and Application Guard retire in Microsoft Edge"
-},
-"MC1459132|actionBy":{
-"date":"2026-09-24",
-"label":"24 Sep 2026",
-"text":"Act by this date (Message Center)"
-},
-"MC1459132|beginning in late and expected to complete in late#0":{
-"date":"2026-09-25",
-"label":"late Sep 2026",
-"text":"Beginning in late September 2026 and expected to complete in late September 2026."
 }
 },
 "moves":[],
@@ -4671,7 +4661,7 @@
 "found":"2026-10-09"
 }
 },
-"final":"2026-09-25",
+"final":null,
 "type":"Retirement",
 "tech":"Purview",
 "posts":[
@@ -4787,9 +4777,9 @@
 "name":"Intune moving to support macOS 15 and higher later this year",
 "status":"No date",
 "members":[
-"MC1403402",
 "MC1454370",
-"MC1454371"
+"MC1454371",
+"MC1403402"
 ],
 "log":[
 {
@@ -4821,11 +4811,6 @@
 }
 ],
 "milestones":{
-"MC1403402|posted":{
-"date":"2026-06-24",
-"label":"24 Jun 2026",
-"text":"Posted: Intune moving to support macOS 15 and higher later this year"
-},
 "MC1454370|posted":{
 "date":"2026-08-13",
 "label":"13 Aug 2026",
@@ -4835,6 +4820,11 @@
 "date":"2026-08-13",
 "label":"13 Aug 2026",
 "text":"Posted: Intune moving to support iOS/iPadOS 18 and higher later this year"
+},
+"MC1403402|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Intune moving to support macOS 15 and higher later this year"
 }
 },
 "moves":[],
@@ -4890,9 +4880,9 @@
 "type":"Retirement",
 "tech":"Intune",
 "posts":[
-"MC1403402",
 "MC1454370",
-"MC1454371"
+"MC1454371",
+"MC1403402"
 ]
 },
 "c-mc1452374":{
@@ -5331,14 +5321,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-21",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-22",
 "text":"August 1, 2026."
 },
@@ -5460,6 +5442,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-23",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-24",
 "text":"August 1, 2026."
 },
 {
@@ -5971,22 +5961,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-22",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-10-22",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-10-23",
 "text":"early February 2026."
 },
@@ -6076,6 +6050,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-10-23",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-24",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-24",
 "text":"February 2027."
 },
 {
@@ -9545,22 +9535,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-22",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-10-22",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-10-23",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -9650,6 +9624,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-10-23",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-24",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-24",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
