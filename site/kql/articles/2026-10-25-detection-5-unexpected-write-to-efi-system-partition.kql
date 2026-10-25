@@ -1,0 +1,48 @@
+// title: Detection 5: Unexpected Write to EFI System Partition by Non-System Process - BlackX Bootkit Staging
+// date: 2026-10-25
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: Detection Engineering Brief - Sunday, October 25, 2026
+// source: https://devsecopsdadattack.com/2026-10-25-detection-engineering-brief-sunday-october-25-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LegitimateEFIWriters = dynamic([
+    "MoUsoCoreWorker.exe",
+    "TrustedInstaller.exe",
+    "svchost.exe",
+    "bootmgr",
+    "bcdboot.exe",
+    "reagentc.exe",
+    "dismhost.exe"
+]);
+DeviceFileEvents
+| where Timestamp > ago(14d)
+| where FolderPath has_any (
+    "\\EFI\\",
+    "\\Boot\\",
+    "EFI\\Microsoft",
+    "EFI\\Boot"
+)
+| where ActionType in ("FileCreated", "FileModified", "FileRenamed")
+| where not(InitiatingProcessFileName has_any (LegitimateEFIWriters))
+| project
+    Timestamp,
+    DeviceName,
+    FolderPath,
+    FileName,
+    ActionType,
+    InitiatingProcessFileName,
+    InitiatingProcessCommandLine,
+    InitiatingProcessSHA256,
+    InitiatingProcessAccountName
+| summarize
+    EFIWriteCount = count(),
+    Files = make_set(FileName),
+    Paths = make_set(FolderPath),
+    Actions = make_set(ActionType),
+    SHA256s = make_set(InitiatingProcessSHA256),
+    FirstSeen = min(Timestamp),
+    LastSeen = max(Timestamp)
+    by DeviceName, InitiatingProcessFileName, InitiatingProcessCommandLine, InitiatingProcessAccountName
+| order by EFIWriteCount desc

@@ -1,5 +1,77 @@
 [
  {
+  "file": "articles/2026-10-25-detection-5-unexpected-write-to-efi-system-partition.kql",
+  "title": "Detection 5: Unexpected Write to EFI System Partition by Non-System Process - BlackX Bootkit Staging",
+  "date": "2026-10-25",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, October 25, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-25-detection-engineering-brief-sunday-october-25-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-25-detection-engineering-brief-sunday-october-25-2026/"
+ },
+ {
+  "file": "articles/2026-10-25-detection-4-metasploit-staging-behavior-unexpected-outbound.kql",
+  "title": "Detection 4: Metasploit Staging Behavior - Unexpected Outbound Connection from Web Service Process",
+  "date": "2026-10-25",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, October 25, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-25-detection-engineering-brief-sunday-october-25-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-25-detection-engineering-brief-sunday-october-25-2026/"
+ },
+ {
+  "file": "articles/2026-10-25-detection-3-langflow-service-spawning-unexpected-child-proce.kql",
+  "title": "Detection 3: Langflow Service Spawning Unexpected Child Process - Unauthenticated RCE via Metasploit Module",
+  "date": "2026-10-25",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, October 25, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-25-detection-engineering-brief-sunday-october-25-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-25-detection-engineering-brief-sunday-october-25-2026/"
+ },
+ {
+  "file": "articles/2026-10-25-detection-2-python-process-outbound-connection-during-packag.kql",
+  "title": "Detection 2: Python Process Outbound Connection During Package Import - Remote Code Loading",
+  "date": "2026-10-25",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, October 25, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-25-detection-engineering-brief-sunday-october-25-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-25-detection-engineering-brief-sunday-october-25-2026/"
+ },
+ {
+  "file": "articles/2026-10-25-detection-1-python-startup-hook-file-write-potential.kql",
+  "title": "Detection 1: Python Startup Hook File Write - Potential Supply Chain Credential Theft",
+  "date": "2026-10-25",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, October 25, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-25-detection-engineering-brief-sunday-october-25-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-25-detection-engineering-brief-sunday-october-25-2026/"
+ },
+ {
   "file": "incidents/2026-10-24-connections-to-the-collector-domain-own-minimal-query.kql",
   "title": "Connections to the collector domain (own minimal query)",
   "date": "2026-10-24",

@@ -1,0 +1,36 @@
+// title: Detection 4: Metasploit Staging Behavior - Unexpected Outbound Connection from Web Service Process
+// date: 2026-10-25
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: Detection Engineering Brief - Sunday, October 25, 2026
+// source: https://devsecopsdadattack.com/2026-10-25-detection-engineering-brief-sunday-october-25-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let MetasploitPorts = dynamic([4444, 4445, 5555, 8888, 9999, 1234]);
+let ServiceProcesses = dynamic(["langflow", "uvicorn", "gunicorn", "mongod", "mongos", "solr", "java", "opencti"]);
+let InboundToService = DeviceNetworkEvents
+| where Timestamp > ago(7d)
+| where ActionType == "InboundConnectionAccepted"
+| where InitiatingProcessFileName has_any (ServiceProcesses)
+| project InboundTime = Timestamp, DeviceName, ServiceProcess = InitiatingProcessFileName;
+let OutboundStaging = DeviceNetworkEvents
+| where Timestamp > ago(7d)
+| where ActionType == "ConnectionSuccess"
+| where InitiatingProcessFileName has_any (ServiceProcesses)
+| where RemotePort in (MetasploitPorts)
+| where not(ipv4_is_private(RemoteIP))
+| where RemoteIP != "127.0.0.1"
+| project OutboundTime = Timestamp, DeviceName, RemoteIP, RemotePort, OutboundInitiatingProcess = InitiatingProcessFileName;
+InboundToService
+| join kind=inner OutboundStaging on DeviceName
+| where OutboundTime between (InboundTime .. (InboundTime + 5m))
+| project
+    InboundTime,
+    OutboundTime,
+    DeviceName,
+    ServiceProcess,
+    RemoteIP,
+    RemotePort,
+    OutboundInitiatingProcess
+| order by InboundTime desc

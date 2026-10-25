@@ -1,0 +1,33 @@
+// title: Detection 3: Langflow Service Spawning Unexpected Child Process - Unauthenticated RCE via Metasploit Module
+// date: 2026-10-25
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Sunday, October 25, 2026
+// source: https://devsecopsdadattack.com/2026-10-25-detection-engineering-brief-sunday-october-25-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LangflowInbound = DeviceNetworkEvents
+| where Timestamp > ago(1d)
+| where ActionType == "InboundConnectionAccepted"
+| where InitiatingProcessFileName has_any ("langflow", "uvicorn", "gunicorn")
+| project InboundTime = Timestamp, DeviceName, RemoteIP, RemotePort;
+let SuspiciousChildren = DeviceProcessEvents
+| where Timestamp > ago(1d)
+| where InitiatingProcessFileName has_any ("langflow", "uvicorn", "gunicorn", "python", "python3", "python.exe", "python3.exe")
+| where FileName in~ ("sh", "bash", "zsh", "dash", "ash", "ksh", "tcsh", "cmd.exe", "powershell.exe", "pwsh.exe", "curl", "wget", "nc", "ncat", "perl", "ruby", "xterm")
+| project SpawnTime = Timestamp, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessId;
+LangflowInbound
+| join kind=inner SuspiciousChildren on DeviceName
+| where SpawnTime between (InboundTime .. (InboundTime + 2m))
+| project
+    InboundTime,
+    SpawnTime,
+    DeviceName,
+    RemoteIP,
+    RemotePort,
+    SpawnedProcess = FileName,
+    ProcessCommandLine,
+    InitiatingProcessFileName,
+    InitiatingProcessId
+| order by InboundTime desc
