@@ -148,9 +148,9 @@ Czasy w strefie Europe/Warsaw (w nawiasie UTC przy czasie letnim).
 |---|---|---|---|
 | co 3 h (`15 */3 * * *` UTC) | `.github/workflows/fpa-tenant.yml` — migawka tenanta (aplikacje Microsoftu, Message Center z Graph, uprawnienia Graph i role Entra widziane w tenancie) | GitHub Actions | `site/data/fpa-tenant.json`, `site/data/mc-tenant.json`, `site/data/graph-sp.json`, `site/data/graph-sp-history.json` (commit na `main` tylko przy zmianie; wdrożenie strony, gdy przybyła zmiana uprawnień lub ról) |
 | 06:00 (04:00) | scheduled task „raport poranny” — buduje artefakt briefu wg `CLAUDE.md` (kolektory, blok stanu, skrypty 4–17) | Claude (chmura) | artefakt claude.ai z briefem dnia |
-| 07:00 (05:00) | routine „raport poranny v2” — lustro artefaktu (`mirror_artifact.py --brief`) | Claude (chmura) | `site/index.html`, `site/data/<data>.json`, `site/feed.xml`, `site/data/history.json`, `site/week/index.html` |
+| 07:15 (05:15) | routine „raport poranny v2” — lustro artefaktu (`mirror_artifact.py --brief`) | Claude (chmura) | `site/index.html`, `site/data/<data>.json`, `site/feed.xml`, `site/data/history.json`, `site/week/index.html` |
 | 21:00 (19:00) | scheduled task popołudniowy — dopisuje sekcję `#pmdelta` do artefaktu i publikuje artefakt „Microsoft SOC Delta” (`make_diff.py`) | Claude (chmura) | artefakt dnia (nowa wersja) i artefakt Delta |
-| 22:00 (20:00) | routine „zmiany v2” — buduje `/diff/` (`make_diff.py` z `CLAUDE.md`) | Claude (chmura) | `site/diff/index.html`, plik stanu końcowego dnia |
+| 22:15 (20:15) | routine „zmiany v2” — buduje `/diff/` (`make_diff.py` z `CLAUDE.md`) | Claude (chmura) | `site/diff/index.html`, plik stanu końcowego dnia |
 | każdy push na `main` w `site/**` | `.github/workflows/azure-static-web-apps-orange-ground-019f30603.yml` | GitHub Actions | wdrożenie na SWA |
 | push na gałąź `claude/**` w `site/**` | `.github/workflows/publish.yml` — przenosi `site/` z gałęzi rutyny na `main` | GitHub Actions | commit na `main` → wdrożenie |
 
@@ -167,8 +167,8 @@ gantt
     Morning - brief i artefakt                  :a2, 06:00, 46m
     Afternoon delta - pmdelta i artefakt Delta  :a4, 21:00, 37m
     section Routines
-    raport poranny v2 - lustro do site          :a3, 07:00, 33m
-    zmiany v2 - strona diff                     :a5, 22:00, 8m
+    raport poranny v2 - lustro do site          :a3, 07:15, 33m
+    zmiany v2 - strona diff                     :a5, 22:15, 8m
     section Wdrożenie SWA
     po pushu routine porannej                   :a6, after a3, 3m
     po pushu routine wieczornej                 :a7, after a5, 3m
@@ -177,12 +177,12 @@ gantt
 > [!NOTE]
 > **Zmiana czasu — od 24 X 2026 bez ręcznego przestawiania.** Wszystkie cztery zadania mają harmonogram w strefie `Europe/Warsaw` (`CRON_TZ=Europe/Warsaw …`), więc czas letni i zimowy obsługuje sam harmonogram. Do 24 X 2026 obie routines były zapisane w **UTC** (`0 5 * * *`, `0 20 * * *`; utworzone przez API, a interfejs nie dawał wyboru strefy — sprawdzone 26 IX 2026), dlatego wtedy trzeba je było przestawiać dwa razy w roku. Edycja w interfejsie 24 X 2026 zapisała je ze strefą `Europe/Warsaw` — sprawdzone 25 X 2026: po zmianie czasu wszystkie cztery ruszyły o właściwej godzinie lokalnej. Godziny wpisuje się teraz jako **czas polski**.
 >
-> | Zadanie | Docelowo (czas polski) | Ustawione 25 X 2026 |
+> | Zadanie | Docelowo (czas polski) | Ustawione (sprawdzone 25 X 2026) |
 > |---|---|---|
 > | Microsoft SOC Brief — Morning (scheduled task) | 06:00 | 06:00 |
-> | [raport poranny v2](https://claude.ai/code/routines/trig_01WgAAz5UkKaKwE49VY6Y6XG) (routine) | **07:00** (po porannym briefie, ~40 min) | 09:00 — do zmiany w interfejsie |
+> | [raport poranny v2](https://claude.ai/code/routines/trig_01WgAAz5UkKaKwE49VY6Y6XG) (routine) | **07:15** (Morning kończy się ok. 06:40) | 07:15 ✔ (`CRON_TZ=Europe/Warsaw 15 7 * * *`) |
 > | Afternoon delta (scheduled task) | 21:00 | 21:00 |
-> | [zmiany v2](https://claude.ai/code/routines/trig_01Gv6tSXTD64NChhaQ2Brx8H) (routine) | **22:00** (po popołudniowym przebiegu, ~35 min) | 23:00 — do zmiany w interfejsie |
+> | [zmiany v2](https://claude.ai/code/routines/trig_01Gv6tSXTD64NChhaQ2Brx8H) (routine) | **22:15** (Afternoon delta kończy się ok. 21:35) | 22:15 ✔ (`CRON_TZ=Europe/Warsaw 15 22 * * *`) |
 >
 > Workflow GitHub mają harmonogram w UTC (`fpa-tenant.yml`, `ioc-watch.yml` itd.); zimą ruszają godzinę wcześniej wg czasu polskiego — bez wpływu na kolejność, bo nie zależą od briefu.
 
@@ -262,7 +262,7 @@ Dwa rodzaje zadań, bo mają różne możliwości: **scheduled task** (Claude, t
 | Rodzaj | scheduled task | scheduled task | routine | routine |
 | Pełna nazwa | Microsoft SOC Brief — Morning (06:00 Warsaw, codziennie) | Microsoft SOC Brief — Afternoon delta (21:00 Warsaw, codziennie) | MS SOC BRIEF - raport poranny v2 | MS SOC BRIEF - zmiany v2 |
 | ID | `trig_017actQokUqkqq9vRfReGbnS` | `trig_01TCAKZsZhEDAuydDCEG9Bmu` | `trig_01WgAAz5UkKaKwE49VY6Y6XG` | `trig_01Gv6tSXTD64NChhaQ2Brx8H` |
-| Harmonogram | `CRON_TZ=Europe/Warsaw 0 6 * * *` | `CRON_TZ=Europe/Warsaw 0 21 * * *` | `CRON_TZ=Europe/Warsaw 0 9 * * *` (25 X 2026; docelowo 07:00) | `CRON_TZ=Europe/Warsaw 0 23 * * *` (25 X 2026; docelowo 22:00) |
+| Harmonogram | `CRON_TZ=Europe/Warsaw 0 6 * * *` | `CRON_TZ=Europe/Warsaw 0 21 * * *` | `CRON_TZ=Europe/Warsaw 15 7 * * *` (od 25 X 2026) | `CRON_TZ=Europe/Warsaw 15 22 * * *` (od 25 X 2026) |
 | Model | `claude-opus-5` | `claude-opus-5` | domyślny | domyślny |
 | Zatwierdzanie działań | automatyczne (`auto`) | automatyczne (`auto`) | — (routines nie mają tego ustawienia) | — |
 | Konektory (MCP) istotne dla zadania | Microsoft Learn, KQL Search, Context7 (+ pozostałe konektory konta) | jw. | GitHub, Microsoft Learn, KQL Search, Context7, visualize | jw. |
@@ -288,7 +288,7 @@ sequenceDiagram
     autonumber
     participant M as Scheduled task Morning (06:00)
     participant A as Artefakt claude.ai<br/>Microsoft SOC Brief (data)
-    participant R as Routine raport poranny v2 (07:00)
+    participant R as Routine raport poranny v2 (07:15)
     participant G as GitHub main
     participant S as Azure SWA
     M->>G: git clone (sparse): CLAUDE.md, site/data
@@ -298,7 +298,7 @@ sequenceDiagram
     R->>R: mirror_artifact.py (kopiuje, nie przepisuje)
     R->>G: git push site/ (content: raport poranny v2)
     G->>S: workflow SWA: wdrożenie site/
-    Note over M,S: wieczorem: Afternoon delta aktualizuje artefakt (21:00), zmiany v2 liczy /diff/ (22:00) i pushuje
+    Note over M,S: wieczorem: Afternoon delta aktualizuje artefakt (21:00), zmiany v2 liczy /diff/ (22:15) i pushuje
 ```
 
 ## 4a. `CLAUDE.md` i skrypty
@@ -434,7 +434,7 @@ flowchart LR
     B --> C["site/data/fpa-tenant.json<br/>commit na main"]
     C --> D["06:00 PL Morning:<br/>collect_fpa.py czyta plik<br/>z klonu repozytorium"]
     D --> E["artefakt: zakładka First-party apps,<br/>kolumna consented here"]
-    E --> F["07:00 PL lustro → SWA"]
+    E --> F["07:15 PL lustro → SWA"]
 ```
 
 > [!TIP]
@@ -1099,9 +1099,9 @@ Ten rozdział jest odpowiednikiem zakładki **About** na stronie (od 10 X 2026, 
 | Godzina (Warszawa) | Co | Kto |
 |---|---|---|
 | 06:00 | czyta wszystkie źródła (CLAUDE.md §7), buduje brief, publikuje na claude.ai | scheduled task „Morning” |
-| 07:00 | kopiuje brief na stronę (GitHub → Azure Static Web Apps) | routine „raport poranny v2” |
+| 07:15 | kopiuje brief na stronę (GitHub → Azure Static Web Apps) | routine „raport poranny v2” |
 | 21:00 | ponownie czyta źródła | scheduled task „Afternoon delta” |
-| 22:00 | liczy stronę „co się zmieniło” (`/diff/`) | routine „zmiany v2” |
+| 22:15 | liczy stronę „co się zmieniło” (`/diff/`) | routine „zmiany v2” |
 | co 3 h | odczyt tenanta (tylko odczyt, bez sekretu — poświadczenie federacyjne GitHub OIDC): aplikacje Microsoftu i zgody, Message Center, uprawnienia Graph, definicje ról Entra | workflow `fpa-tenant.yml` |
 | 2× dziennie (05:40 i 20:40 UTC) i po każdym briefie | kampanie i archiwum KQL | workflow `campaigns.yml` |
 | 4× dziennie | nasza kopia stron Learn | workflow `learn-mirror.yml` |
@@ -1271,8 +1271,8 @@ Microsoft SOC Brief” i „Microsoft source” (strona Learn, post Message Cent
 
 | Kiedy | Kto | Co |
 |---|---|---|
-| rano, po lustrze briefu (ok. 07:00–08:30 Warszawa) | routine „raport poranny v2” — `mirror_artifact.py --brief` (`write_feed`) | wszystkie kanały ze stanu porannego |
-| po każdej publikacji (rano i wieczorem, ok. 22:00) oraz po migawce tenanta, kampaniach i Baselines | workflow `code-refresh.yml`, krok „RSS feeds and byline” (`tools/feed_refresh.py`) | kanały z najnowszego `site/data/<data>.json` — wieczorem jest to stan końcowy dnia |
+| rano, po lustrze briefu (ok. 07:15–08:30 Warszawa) | routine „raport poranny v2” — `mirror_artifact.py --brief` (`write_feed`) | wszystkie kanały ze stanu porannego |
+| po każdej publikacji (rano i wieczorem, ok. 22:15) oraz po migawce tenanta, kampaniach i Baselines | workflow `code-refresh.yml`, krok „RSS feeds and byline” (`tools/feed_refresh.py`) | kanały z najnowszego `site/data/<data>.json` — wieczorem jest to stan końcowy dnia |
 
 Łańcuch wieczorny: routine zmian publikuje gałąź `claude/**` → „Publish routine output” → „Campaign tracking” →
 „Code refresh”, który przebudowuje kanały i wdraża stronę. Zmiana promptów routines nie była potrzebna.
@@ -1486,6 +1486,7 @@ Nadanie uprawnienia (PowerShell, konto z Cloud Application Administrator + Privi
 | 2026-10-23 | §5fg — czytelność całego portalu: skala czcionek z Threat Research we wszystkich zakładkach oraz na /diff i /week (tekst poniżej 14 px: z 53–100% do 0–10% w zakładkach, /week 7%, /diff 16%); tytuły sekcji 18–21 px; pasek „In this tab” w Overview, Sources, Hunting i About; domeny z postów badaczy wcześniej w kolejce VirusTotal. Testy: Playwright 390 i 1500 px, wszystkie zakładki bez przewijania w bok, bez błędów JS. |
 | 2026-10-23 | §5fh — telefon: reguła „phone floor” (`12px !important`) podniesiona do 14 px — Graph i Roles z 51% / 25% drobnego tekstu do 0%; paski skoków zawijane zamiast przewijania w bok; /diff: chipy technologii zawijane, na telefonie 4 + „więcej”; Threat Research: „Copy lists” (IP, domeny, Application ID, inne ID — jedna wartość w linii, Copy / Copy plain); nowy prompt rutyny zmian (sprawdza `site/diff/full.html`). `mobile_check.py`: OK. |
 | 2026-10-25 | §5fi — daty wpisów „what's new”: przy nagłówku „Week of Month D, Year” (Intune) datą wpisu jest dzień z nagłówka (`msDate`), data strony zostaje w `pageDate` — wcześniej każdy wpis Intune miał 12 X 2026 (np. VPP z tygodnia 19 X). Zmiana czasu: wszystkie cztery zadania w strefie `Europe/Warsaw` od 24 X 2026 (sprawdzone 25 X: przebiegi o właściwej godzinie); pkt 1 opisany od nowa. |
+| 2026-10-25 | Godziny routines ustawione przez właściciela: raport poranny v2 **07:15**, zmiany v2 **22:15** (czas polski, `CRON_TZ=Europe/Warsaw`); sprawdzone w harmonogramie — następne przebiegi 25 X 22:15 i 26 X 07:15. Przypomnienie o zmianie czasu na 28 III 2027 usunięte — niepotrzebne. |
 | 2026-10-22 | §5ew — Threat Research: blok „Since the previous brief” w dwóch ramkach — najpierw Microsoft 365 i Entra, potem inne incydenty z KQL; incydenty w toku (ConnectWise) zawsze na górze jako STILL ACTIVE; zgłoszone dawno, a dopiero teraz śledzone jako NEWLY TRACKED; wpisy produktowe z KQL tylko w KQL library. |
 | 2026-10-22 | §5ev — status jako filtr: liczby „new / changed / removed” w /diff/, /week/ i w całym portalu (pasek „Since the previous brief”, bloki dnia, nagłówek zakładki) są przyciskami pokazującymi tylko ten status; listy i kafelki pogrupowane według statusu z nagłówkami; pasek pokazuje do 8 wierszy każdego statusu. |
 | 2026-10-21 | §5eu — KQL z incydentów, artykułów i społeczności: `threats.py` wyciąga zapytania Kusto z artykułów (artykuł z KQL to pełny incydent, także spoza M365, np. PHP2Shell), nowe źródła (detect.fyi, kqlquery.com, blogi Sentinel i Defender XDR), repozytoria społeczności (`kql_sources.json`), jedno archiwum `site/kql/` z polem `kind`, „KQL library” w Hunting & actions i zapytania źródeł w szczegółach incydentu. |
