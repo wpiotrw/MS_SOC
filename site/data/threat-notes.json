@@ -12,7 +12,7 @@
     "M365 workloads"
    ],
    "status": "active",
-   "updated": "2026-10-20",
+   "updated": "2026-10-25",
    "by": "morning routine",
    "summary": "EvilTokens is a phishing-as-a-service platform that appeared in February 2026 and abuses the OAuth device code flow. Microsoft says its campaigns compromised more than 12,000 inboxes in over 10,000 organizations. The victim is shown a real device code and sent to the genuine microsoft.com/devicelogin page, so the sign-in and MFA are done by the victim and the attacker receives the tokens without ever seeing a password. Stolen tokens were used to read and exfiltrate mail, create inbox rules and in some cases register a device to obtain a Primary Refresh Token. Microsoft's Digital Crimes Unit coordinated a disruption of the infrastructure.",
    "timeline": [
@@ -48,22 +48,26 @@
     {
      "text": "Block the device code flow with Conditional Access wherever possible; where Teams devices need it, scope the exception to the Teams device resource accounts and exclude the Device Registration Service resource.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "harden"
     },
     {
      "text": "Revoke refresh tokens with revokeSignInSessions for a suspected account and consider disabling it temporarily; access tokens can stay valid for up to an hour.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "contain"
     },
     {
      "text": "Require phishing-resistant MFA (FIDO, Authenticator with passkeys), enable sign-in risk policies and Continuous Access Evaluation, block legacy authentication.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "harden"
     },
     {
      "text": "Configure anti-phishing, Safe Links and ZAP, raise the Advanced Phishing Threshold to 2 or 3 and alert on suspicious inbox rule creation.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "detect"
     }
    ],
    "microsoft": [
@@ -80,7 +84,8 @@
      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/",
      "date": "2026-09-22"
     }
-   ]
+   ],
+   "kqlSearched": "2026-10-25"
   },
   {
    "id": "storm-3168-agentic-azure-2026-09",
@@ -94,7 +99,7 @@
     "Identity attacks"
    ],
    "status": "active",
-   "updated": "2026-10-20",
+   "updated": "2026-10-25",
    "by": "morning routine",
    "summary": "Microsoft investigated malicious Azure activity in one compromised tenant where two service principals were used: one for reconnaissance, the other for discovery, bulk deletion and credential collection. More than 150 destructive or credential-collection operations ran over 35 minutes, hitting storage accounts, a Key Vault, a Function App and an App Service plan; SQL deletions failed on an unsupported API version and some deletions were stopped by resource locks. Microsoft saw no ransom note and did not confirm data exfiltration. The actor is tracked as Storm-3168 and is associated with JADEPUFFER, which Sysdig reported in July 2026 as the first documented agentic ransomware operation.",
    "timeline": [
@@ -130,22 +135,26 @@
     {
      "text": "Treat publicly exposed credentials as compromised even after the source is edited: rotate immediately and review historical use.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "contain"
     },
     {
      "text": "Apply least privilege to service principals through Azure RBAC and prefer mechanisms that reduce long-lived credentials.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "harden"
     },
     {
      "text": "Use resource locks and deletion protection, restrict access to backup and recovery resources and monitor attempts to change their protection.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "harden"
     },
     {
      "text": "Enable the Defender for Cloud plans for Resource Manager, Storage, Key Vault, App Service and Databases.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "detect"
     }
    ],
    "microsoft": [
@@ -162,6 +171,20 @@
      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/25/storm-3168-agentic-driven-cloud-attacks-using-compromised-service-principals/",
      "date": "2026-09-25"
     }
+   ],
+   "appsNote": "Microsoft names no application and prints no client ID: it refers to two compromised service principals in one tenant and withholds the exposed client ID and tenant ID. Nothing to list in apps.",
+   "kqlSearched": "2026-10-25",
+   "apps": [
+    {
+     "name": "Two compromised service principals in one tenant (names withheld by Microsoft)",
+     "kind": "Other app in the tenant",
+     "did": "One was used for about 15.5 hours of reconnaissance; the second carried out discovery, destruction and credential theft across two subscriptions.",
+     "roles": [],
+     "permissions": [],
+     "action": "Rotate or revoke the exposed credentials and review their historical use; Microsoft gives no disable-or-delete guidance.",
+     "src": "Microsoft Security blog",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/09/25/storm-3168-agentic-driven-cloud-attacks-using-compromised-service-principals/"
+    }
    ]
   },
   {
@@ -176,7 +199,7 @@
     "Roles & privilege"
    ],
    "status": "resolved",
-   "updated": "2026-10-21",
+   "updated": "2026-10-25",
    "by": "morning routine",
    "summary": "Microsoft's Detection and Response Team described an intrusion that began with a single user account taken over through self-service password reset (SSPR). The attacker registered their own authentication methods, then used legitimate admin tools and scripts to enumerate Azure DevOps repositories, projects and pipelines. A malicious pipeline harvested Kubernetes credentials (kubeconfig files); pipeline scripts were then changed to install the Atera remote management agent and the Chisel tunnelling tool. The page attributes the activity to Storm-3068 and gives no attack dates and no IOC values. The case shows how an identity weakness spreads when development platforms, pipelines and cloud infrastructure are tightly connected.",
    "timeline": [
@@ -199,26 +222,31 @@
     {
      "text": "Monitor password reset activity for unusual patterns, such as repeated attempts or activity across multiple users.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "detect"
     },
     {
      "text": "Limit privileged accounts' exposure to self-service password reset and require phishing-resistant MFA.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "harden"
     },
     {
      "text": "Require approvals for code changes, enforce branch protection and restrict direct commits to critical branches.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "harden"
     },
     {
      "text": "Control who can create, modify or run build and deployment pipelines; apply least privilege across identities, development platforms and cloud resources.",
      "from": "source",
-     "src": "Microsoft Security blog"
+     "src": "Microsoft Security blog",
+     "phase": "harden"
     },
     {
      "text": "Review recently registered authentication methods on accounts that completed a password reset, and review Azure DevOps audit logs for new or changed pipelines.",
-     "from": "ours"
+     "from": "ours",
+     "phase": "investigate"
     }
    ],
    "microsoft": [
@@ -235,7 +263,8 @@
      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/29/beyond-source-code-a-path-to-the-keys-to-the-kingdom/",
      "date": "2026-09-29"
     }
-   ]
+   ],
+   "kqlSearched": "2026-10-25"
   },
   {
    "id": "appx-webhost-oauth-token-theft-2026-09",
@@ -249,7 +278,7 @@
     "Identity attacks"
    ],
    "status": "active",
-   "updated": "2026-10-21",
+   "updated": "2026-10-25",
    "by": "morning routine",
    "summary": "Huntress researcher Andrew Schwartz showed that a sideloaded AppX package can use Microsoft-signed AppX web hosts such as WWAHost.exe to show a genuine Microsoft sign-in, complete MFA and hand the authorization code to attacker JavaScript, which exchanges it for access and refresh tokens. It is post-compromise: it needs code execution in the user's session and Developer Mode or an enterprise sideloading policy. It was proven end to end on Windows 11 24H2 against a test tenant with MFA. Huntress names no threat actor and discloses no attacker infrastructure, so this is a technique, not an observed campaign. The Entra sign-in looks like a normal Office sign-in with no risk flags.",
    "timeline": [
@@ -275,22 +304,26 @@
     {
      "text": "Deploy the Sigma proxy rule on user agent MSAppHost/3.0 with a Microsoft domain allow-list tuned to your environment.",
      "from": "source",
-     "src": "Huntress"
+     "src": "Huntress",
+     "phase": "detect"
     },
     {
      "text": "Audit Developer Mode across the fleet and disable 'Allow all trusted apps to install' by GPO.",
      "from": "source",
-     "src": "Huntress"
+     "src": "Huntress",
+     "phase": "harden"
     },
     {
      "text": "Require compliant or managed devices for token issuance with Conditional Access and pair with Token Protection where available.",
      "from": "source",
-     "src": "Huntress"
+     "src": "Huntress",
+     "phase": "harden"
     },
     {
      "text": "Shorten refresh-token lifetimes and enable Continuous Access Evaluation.",
      "from": "source",
-     "src": "Huntress"
+     "src": "Huntress",
+     "phase": "harden"
     }
    ],
    "links": [
@@ -299,7 +332,8 @@
      "url": "https://www.huntress.com/blog/stealing-oauth-tokens-through-microsofts-front-door",
      "date": "2026-09-23"
     }
-   ]
+   ],
+   "kqlSearched": "2026-10-25"
   },
   {
    "id": "storm-0940-artex-connectwise-2026-10",
