@@ -31482,7 +31482,7 @@ odtad CZTERNASCIE (4-17).**
       function inW(d, w) { return w === "since" ? d > since && d <= today : days(d, today) >= 0 && days(d, today) < +w; }
       function list(surf, w) {
         var L = [], seen = {};
-        function add(name, what, go) { name = String(name || "").trim(); if (!name || seen[name]) return; seen[name] = 1; L.push({ name: name, what: what, go: go }); }
+        function add(name, what, go, ev) { name = String(name || "").trim(); if (!name || seen[name]) return; seen[name] = 1; L.push({ name: name, what: what, go: go, ev: ev }); }
         if (surf !== "fpa" && MS[surf]) {
           var m = MS[surf](w);
           m.perms.concat(m.eps).forEach(function (r) {
@@ -31499,10 +31499,11 @@ odtad CZTERNASCIE (4-17).**
           var gl2 = surf === "graph" && GDW && GDW.latest && /changed|consent/.test(e.change) ? GDW.latest(e.name, w === "since" ? since : "") : "";
           var what = gl2 ? gl2 : (VB[e.change] || e.change) + (e.tenant ? " · seen in our tenant " + fmt(String(e.tenant).slice(0, 10)) : "") +
             (e.text && e.change === "actions-added" ? ": " + firstSentence(e.text) : "");
-          add(e.name, what, function () { if (surf === "graph") IDW.openPerm(e.name); else IDW.openRole(e.name); });
+          add(e.name, what, function () { if (surf === "graph") IDW.openPerm(e.name); else IDW.openRole(e.name); }, e);
         });
         if (surf === "fpa") ((st.fpa || {}).chg || []).forEach(function (x) {
-          if (x && x.d && inW(x.d, w)) add(x.n || x.id, (FW[x.t] || x.t) + " · " + fmt(x.d), function () { goWin("fpa", w === "since" ? "7" : w); });
+          if (x && x.d && inW(x.d, w)) add(x.n || x.id, (FW[x.t] || x.t) + " · " + fmt(x.d), function () { goWin("fpa", w === "since" ? "7" : w); },
+            x.t === "added" ? { surface: "app", name: x.n || x.id, change: "new", day: x.d } : null);
         });
         return L;
       }
@@ -31522,10 +31523,20 @@ odtad CZTERNASCIE (4-17).**
         var box = el("span", "s5er-box" + (L.length ? " s5er-hot" : ""));
         var hd = el("button", "s5er-bh"); hd.type = "button"; hd.title = "Open What Microsoft changed in " + S[1];
         hd.appendChild(el("span", "s5er-lab", S[1])); hd.appendChild(el("span", "s5er-n", String(L.length)));
-        hd.appendChild(el("span", "s5er-sub", "since " + fmt(since) + " · " + W.length + " in " + S[3]));
+        /* §5fj: the number says what it counts in words; the longer window is its own line, not glued with a middot */
+        hd.appendChild(el("span", "s5er-sub", "new since the " + fmt(since) + " brief"));
+        hd.appendChild(el("span", "s5er-sub2", W.length ? W.length + " change" + (W.length === 1 ? "" : "s") + " in the last " + S[3] : "No change in the last " + S[3]));
         hd.addEventListener("click", function (ev) { ev.stopPropagation(); goWin(S[0], L.length && S[0] !== "fpa" ? "since" : S[2]); });
         box.appendChild(hd);
-        if (L.length) {
+        var CARD = IDW && IDW.card && IDW.describeEvent && IDW.sameChange;
+        if (L.length && CARD && L.every(function (x) { return x.ev; })) {
+          /* §5fj: drawn from the event fields - name, badge, facts, the actions as chips */
+          var ul2 = el("span", "s5er-l"), grp = IDW.sameChange(L.map(function (x) { identShown.push({ name: x.name }); var d = IDW.describeEvent(x.ev); d.go = x.go; return d; }));
+          grp.slice(0, 4).forEach(function (xs) { ul2.appendChild(IDW.card(xs)); });
+          box.appendChild(ul2);
+          if (grp.length > 4) { var mb2 = el("button", "s5er-more", "and " + grp.slice(4).reduce(function (a, g) { return a + g.length; }, 0) + " more →"); mb2.type = "button";
+            mb2.addEventListener("click", function (ev) { ev.stopPropagation(); goWin(S[0], S[0] === "fpa" ? "7" : "since"); }); box.appendChild(mb2); }
+        } else if (L.length) {
           var ul = el("span", "s5er-l");
           /* one Microsoft change often lands on several roles or permissions at once (21 X: the same three
              conditionalAccessPolicyPlans actions on three roles) - one row names them all, the change said once */
@@ -31545,13 +31556,18 @@ odtad CZTERNASCIE (4-17).**
           if (rows.length > 4) { var nMore = rows.slice(4).reduce(function (a, g) { return a + g.xs.length; }, 0);
             var mb = el("button", "s5er-more", "and " + nMore + " more →"); mb.type = "button";
             mb.addEventListener("click", function (ev) { ev.stopPropagation(); goWin(S[0], S[0] === "fpa" ? "7" : "since"); }); box.appendChild(mb); }
-        } else box.appendChild(el("span", "s5er-none", "Nothing since the " + fmt(since) + " brief."));
+        }
         /* the week, under its own label: the most important changes of 7 days on this surface that the list above does not hold */
         var shown = {}; L.forEach(function (x) { shown[x.name] = 1; });
-        var wk = week.filter(function (x) { return (x.surface || "permission") === S[4] && !shown[x.name] && x.change !== "documented"; }).slice(0, 2);
+        var wk = week.filter(function (x) { return (x.surface || "permission") === S[4] && !shown[x.name] && x.change !== "documented"; }).slice(0, 3);
         if (wk.length) {
           box.appendChild(el("span", "s5er-wh", "Most important this week"));
-          wk.forEach(function (x) {
+          /* §5fj: the same change on several roles is one card naming them all (21 X: Conditional Access Administrator
+             and Global Administrator gained the same conditionalAccessPolicyPlans actions - two identical rows before).
+             An endpoint row from Graph (no event fields) keeps its line. */
+          var wkC = CARD ? wk.filter(function (x) { return x.parts; }) : [];
+          if (wkC.length) IDW.sameChange(wkC).slice(0, 2).forEach(function (xs) { xs.forEach(function (x) { identShown.push({ name: x.name }); }); box.appendChild(IDW.card(xs, { cls: "s5fj-old" })); });
+          wk.filter(function (x) { return wkC.indexOf(x) < 0; }).slice(0, Math.max(0, 2 - wkC.length)).forEach(function (x) {
             identShown.push({ name: x.name });
             var r = el("span", "s5er-r s5er-old"), b = el("button", "s5er-nm", x.name); b.type = "button";
             b.addEventListener("click", function (ev) { ev.stopPropagation(); if (x.go) x.go(); else if (GDW && GDW.open) GDW.open(x.name); });
@@ -36980,7 +36996,12 @@ odtad CZTERNASCIE (4-17).**
         var c3 = el("div", null, prod(it.product)); c3.setAttribute("role", "cell");
         var c4 = el("div", null, it.area || ""); c4.setAttribute("role", "cell");
         var c5 = el("div", "s5ci-do"); c5.setAttribute("role", "cell");
-        if (it.action) c5.textContent = it.action.length > 150 ? it.action.slice(0, 147).replace(/\s+\S*$/, "") + "…" : it.action;
+        /* §5fj: the whole action, folded to four lines with "Show all" - a cut in mid-sentence ("read its report-only results in the…") was the defect */
+        if (it.action && it.action.length > 150) (function (box) {
+          var tx = el("div", "s5fj-clamp", it.action), tg5 = el("button", "s5fj-tog", "Show all"); tg5.type = "button";
+          tg5.addEventListener("click", function (ev) { ev.stopPropagation(); var o = tx.classList.toggle("s5fj-open"); tg5.textContent = o ? "Show less" : "Show all"; });
+          box.appendChild(tx); box.appendChild(tg5); })(c5);
+        else if (it.action) c5.textContent = it.action;
         else { c5.textContent = "Not written yet"; c5.classList.add("s5ci-miss"); }
         var c6 = el("div", "s5ci-src"); c6.setAttribute("role", "cell");
         c6.appendChild(el("span", null, [srcName(it)].concat(o.also.map(srcName)).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(" · ")));
@@ -39325,7 +39346,93 @@ odtad CZTERNASCIE (4-17).**
       x.go = function () { openApp(n === 1 ? names[0] : ""); };
     }
     if (x.tenant) x.tag += " · seen in our tenant " + x.tenant.slice(11, 16) + " UTC";
+    x.parts = parts(g, x);
     return x;
+  }
+  /* §5fj (25 X 2026, owner with a phone screenshot: "is this readable to you? the dates, the 'nothing new' and the
+     rest run together"): every change is drawn from FIELDS, never from one sentence glued with middots - the name,
+     a badge, a row of separate facts (date, what happened, seen in our tenant), the affected actions as a list of
+     short chips, and Microsoft's own words on a line of their own. */
+  function shortAct(a) { return String(a || "").trim().replace(/^microsoft\.directory\//, "").replace(/[,.;]+$/, ""); }
+  function actList(t) { return String(t || "").split(/[,;]\s*/).map(shortAct).filter(function (a) { return a && /\//.test(a); }); }
+  function cap(t) { t = String(t || ""); return t.charAt(0).toUpperCase() + t.slice(1); }
+  function parts(g, x) {
+    var e = g.head, n = g.all.length, P = { badges: [], facts: [], list: [], note: "", more: "" };
+    var day = g.all.reduce(function (a, b) { return b.day < a ? b.day : a; }, e.day);
+    if (e.surface === "permission") {
+      P.kind = "Graph permission"; P.mono = true;
+      if (e.lv) P.badges.push(["Level " + e.lv, e.lv >= 4 ? "bad" : e.lv >= 3 ? "warn" : ""]);
+      P.badges.push([e.write ? "Read-write" : "Read", e.write ? "warn" : ""]);
+      if (e.types && e.types.length) P.badges.push([cap(typesShort(e.types)), ""]);
+      P.what = cap((n > 1 ? VERBS[e.change] : VERB[e.change]) || e.change) + (e.detail ? " (" + e.detail + ")" : "") + (e.undoc ? ", not yet documented" : "");
+      if (n > 1) P.more = "and " + (n - 1) + " more " + family(e.name) + " permission" + (n === 2 ? "" : "s");
+      P.facts.push(["Date", dm(day)]);
+      if (e.change === "elsewhere") P.facts.push(["Where", (e.where || "another tenant") + ", noticed " + dm(e.noticed || day)]);
+      else if (e.tenant) P.facts.push(["Seen in our tenant", dm(e.tenant)]);
+      else P.facts.push(["Source", "the " + dm(day) + " brief"]);
+      if (e.desc) P.note = "Microsoft: \u201c" + firstSentence(e.desc, 220) + "\u201d";
+    } else if (e.surface === "role") {
+      P.kind = "Entra role";
+      if (e.priv) P.badges.push(["Privileged", "bad"]);
+      var acts = e.change === "elsewhere" ? (e.acts || []).map(shortAct) : /actions/.test(e.change) ? actList(e.text) : [];
+      P.list = acts;
+      P.what = e.change === "elsewhere" ? "Gained " + acts.length + " action" + (acts.length === 1 ? "" : "s") + " in another tenant \u2014 ours will follow"
+        : e.change === "actions-added" && acts.length ? "Gained " + acts.length + " action" + (acts.length === 1 ? "" : "s")
+        : e.change === "actions-removed" && acts.length ? "Lost " + acts.length + " action" + (acts.length === 1 ? "" : "s")
+        : cap(RVERB[e.change] || e.change);
+      if (e.change === "elsewhere") { P.badges.push(["Ahead elsewhere", "warn"]); P.facts.push(["Seen in", (e.where || "another tenant") + " since " + dm(e.day)]); P.facts.push(["Noticed", dm(e.noticed || e.day)]); }
+      else { P.facts.push(["Date", dm(e.day)]); P.facts.push(e.tenant ? ["Seen in our tenant", dm(e.tenant)] : ["Source", "the " + dm(e.day) + " brief"]); }
+      if (!acts.length && e.desc) P.note = firstSentence(e.desc, 220);
+    } else {
+      P.kind = "First-party app";
+      var names = g.all.map(function (a) { return String(a.name).trim(); });
+      P.what = n === 1 ? "New Microsoft application" : "";   /* the name already says "3 new first-party apps" */
+      P.facts.push(["First seen", dm(e.day)]);
+      if (n > 1) P.list = names; 
+      P.note = "Open " + (n === 1 ? "it" : "one") + " to see what it can obtain without consent.";
+      P.plain = true;
+    }
+    return P;
+  }
+  /* one renderer for every place that lists identity changes: the Overview boxes, the "Riskiest changes" card and
+     the "Last 3 days" block of Graph API and Roles. xs = the changes that are THE SAME change on several names. */
+  function wbr(node, t) { String(t).replace(/([.\/_])/g, "$1\u0001").split("\u0001").forEach(function (p, i) { if (i) node.appendChild(document.createElement("wbr")); node.appendChild(document.createTextNode(p)); }); return node; }
+  function chgCard(xs, opt) {
+    xs = [].concat(xs); opt = opt || {}; var x = xs[0], P = x.parts || { badges: [], facts: [], list: [] };
+    var c = el("div", "s5fj-c" + (opt.cls ? " " + opt.cls : ""));
+    var h = el("div", "s5fj-h");
+    xs.forEach(function (y) {
+      var b = wbr(el("button", "s5fj-nm" + (P.mono ? " s5fj-mono" : "")), y.name); b.type = "button"; b.title = "Open " + y.name;
+      b.addEventListener("click", function (ev) { ev.stopPropagation(); if (y.go) y.go(); else if (window.__socGD && window.__socGD.open) window.__socGD.open(y.name); });
+      h.appendChild(b);
+    });
+    (P.badges || []).forEach(function (bd) { h.appendChild(el("span", "s5fj-bd" + (bd[1] ? " s5fj-" + bd[1] : ""), bd[0])); });
+    c.appendChild(h);
+    if (P.what) c.appendChild(el("p", "s5fj-what", P.what + (P.more ? " \u2014 " + P.more : "")));
+    if ((P.facts || []).length) {
+      var f = el("dl", "s5fj-facts");
+      P.facts.forEach(function (k) { var w = el("div", "s5fj-f"); w.appendChild(el("dt", null, k[0])); w.appendChild(el("dd", null, k[1])); f.appendChild(w); });
+      c.appendChild(f);
+    }
+    if ((P.list || []).length) {
+      var MAX = opt.max || 4, ul = el("ul", "s5fj-acts" + (P.plain ? " s5fj-plain" : ""));
+      function li(a) { ul.appendChild(wbr(el("li"), a)); }
+      P.list.slice(0, MAX).forEach(li);
+      if (P.list.length > MAX) {
+        var m = el("li", "s5fj-moreli"), mb = el("button", "s5fj-moreb", "+ " + (P.list.length - MAX) + " more"); mb.type = "button";
+        mb.addEventListener("click", function (ev) { ev.stopPropagation(); m.remove(); P.list.slice(MAX).forEach(li); }); m.appendChild(mb); ul.appendChild(m);
+      }
+      c.appendChild(ul);
+    }
+    if (P.note) c.appendChild(el("p", "s5fj-note", P.note));
+    return c;
+  }
+  /* changes that are the same change (same verb, same actions, same day) drawn once with all their names */
+  function sameChange(list) {
+    var by = {}, out = [];
+    list.forEach(function (x) { var P = x.parts || {}, k = [x.surface, P.what, (P.list || []).join(","), JSON.stringify(P.facts || [])].join("|");
+      if (!by[k]) { by[k] = []; out.push(by[k]); } by[k].push(x); });
+    return out;
   }
   function rank(days, n, withEndpoints) {
     var list = groups(days).map(describe);
@@ -39444,10 +39551,9 @@ odtad CZTERNASCIE (4-17).**
       box.appendChild(el("p", "s5ed-lastl", "Last found · " + dm(ld) + " · " + gs.length + " change" + (gs.length === 1 ? "" : "s")));
     }
     var ul = el("ul", "s5ed-list");
-    gs.forEach(function (x) {
-      var li = el("li", "s5ed-row" + (x.change === "elsewhere" ? " s5ed-else" : ""));
-      var b = el("button", "s5ed-name", x.name); b.type = "button"; if (x.go) b.addEventListener("click", x.go); li.appendChild(b);
-      li.appendChild(el("span", "s5ed-tag", x.tag)); li.appendChild(el("p", "s5ed-txt", x.text));
+    sameChange(gs).forEach(function (xs) {   /* §5fj: fields, not one glued sentence; one row for the same change on several names */
+      var li = el("li", "s5ed-row" + (xs[0].change === "elsewhere" ? " s5ed-else" : ""));
+      li.appendChild(chgCard(xs, { max: 6 }));
       ul.appendChild(li);
     });
     box.appendChild(ul);
@@ -39496,12 +39602,10 @@ odtad CZTERNASCIE (4-17).**
     card.appendChild(sts);
     if (top.length) {
       card.appendChild(el("p", "s5cy-h", "Riskiest changes"));
-      top.forEach(function (x) {
-        var r = el("div", "s5cy-row"), nb = el("button", "s5ci-itb", x.name); nb.type = "button";
+      sameChange(top).forEach(function (xs) {   /* §5fj */
+        var x = xs[0], r = el("div", "s5cy-row");
         var go = x.go || function () { if (window.__socGD && window.__socGD.open) window.__socGD.open(x.name); };
-        nb.addEventListener("click", function (ev) { ev.stopPropagation(); go(); });
-        var hd = el("div", "s5cy-rh"); hd.appendChild(nb); hd.appendChild(el("span", "s5ci-pill s5ci-tech", x.tag)); r.appendChild(hd);
-        r.appendChild(el("div", "s5cy-rt", x.text)); r.addEventListener("click", go); card.appendChild(r);
+        r.appendChild(chgCard(xs)); r.addEventListener("click", go); card.appendChild(r);
       });
       /* the rest of the week, one chip per permission family or role, so nothing is hidden behind the top five */
       var shown = {}; top.forEach(function (x) { shown[x.name] = 1; });
@@ -39535,7 +39639,8 @@ odtad CZTERNASCIE (4-17).**
   else setTimeout(function () { boot(0); }, 2600);
 
   window.__socIdent = { events: function () { return data().ev; }, rank: rank, pool: pool, counts: counts, openPerm: openPerm, openRole: openRole,
-    techOfPerm: techOfPerm, tenant: function () { return TEN; } };
+    techOfPerm: techOfPerm, tenant: function () { return TEN; }, card: chgCard, sameChange: sameChange,
+    describeEvent: function (e) { return describe({ key: "", head: e, all: [e] }); } };
 })();
 /* §5es (21 X 2026, owner: "look how the Overview sentences are formatted - the Entra Connect item is not visible at
    all; check the other tabs and sections too, whether information gets lost, becomes invisible, is not structured").
@@ -43559,6 +43664,41 @@ odtad CZTERNASCIE (4-17).**
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 600); }); else setTimeout(start, 600);
 })();
+/* §5fj (25 X 2026, owner: "the dates, the 'nothing new' and the rest run together - how is anyone to find anything").
+   A meta line built as "a · b · c · d" is shown as separate chips: each fact on its own, wrapping between facts and
+   never inside one. The middots stay in the text, hidden, so search, sorting and copy read what they read before. */
+(function () {
+  var SEL = ".s5er-w, .s5el-rm, .s5el-rd, .s5ei-meta, .s5el-bs, .s5ed-tag, .s5fe-wl > li, .s5ci-src > span:first-child, .s5cu-legend";
+  function split(e) {
+    if (!e || e.__s5fj || !/ · /.test(e.textContent || "")) return;
+    e.__s5fj = true;
+    var kids = [].slice.call(e.childNodes), segs = [[]], seps = [];
+    kids.forEach(function (n) {
+      if (n.nodeType !== 3) { segs[segs.length - 1].push(n); return; }
+      var t = n.nodeValue.split(" · ");
+      t.forEach(function (piece, i) { if (i) { seps.push(1); segs.push([]); } if (piece) segs[segs.length - 1].push(document.createTextNode(piece)); });
+    });
+    if (segs.length < 2) { e.__s5fj = false; return; }
+    var fr = document.createDocumentFragment();
+    segs.forEach(function (sg, i) {
+      if (i) { var x = document.createElement("span"); x.className = "s5fj-sx"; x.textContent = " · "; fr.appendChild(x); }
+      if (!sg.length) return;
+      var c = document.createElement("span"); c.className = "s5fj-seg"; sg.forEach(function (n) { c.appendChild(n); }); fr.appendChild(c);
+    });
+    e.textContent = ""; e.appendChild(fr); e.classList.add("s5fj-segs");
+  }
+  /* only the tab on screen - the page holds ~87k elements and the hidden tabs are split when they are opened */
+  function pass(root) { try { (root ? [root] : [].filter.call(document.querySelectorAll(".tabpanel"), function (p) { return !p.hidden; }))
+    .forEach(function (r) { [].forEach.call(r.querySelectorAll(SEL), split); }); } catch (err) { if (window.console) console.error("[5fj segs]", err); } }
+  var t = null;
+  function soon() { clearTimeout(t); t = setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 1); })(function () { pass(); }); }, 400); }
+  function start() {
+    pass();
+    if (window.MutationObserver) new MutationObserver(soon).observe(document.body, { childList: true, subtree: true });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 1500); }); else setTimeout(start, 1500);
+  window.__socSegs = pass;
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -46421,6 +46561,47 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .s5el-past{color:var(--bad);font-weight:600}
 .s5el-soon{color:var(--warn);font-weight:600}
 @media (max-width:760px){.s5el-tab{font-size:12px}.s5el-tab th:nth-child(4),.s5el-tab td:nth-child(4){display:none}}
+/* §5fj (25 X 2026, owner: "is this readable? the dates, the 'nothing new' and the rest run together"): a change is
+   drawn as a card of FIELDS - name (prose font for roles and apps, code font only for permission identifiers), a
+   badge, the change in one sentence, the facts as label/value pairs, the actions as short chips, Microsoft's words */
+.s5fj-c{display:flex;flex-direction:column;gap:6px;min-width:0;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.s5er-box .s5fj-c,.s5ed-row .s5fj-c,.s5cy-row .s5fj-c{background:transparent}
+.s5ed-row .s5fj-c,.s5cy-row .s5fj-c{border:0;padding:0}
+.s5fj-h{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.s5fj-nm{font:inherit;font-size:16px;font-weight:700;line-height:1.3;color:var(--text);background:none;border:0;padding:0;text-align:left;cursor:pointer;overflow-wrap:anywhere}
+.s5fj-nm.s5fj-mono{font-family:var(--mono,monospace);font-size:15px}
+.s5fj-nm:hover,.s5fj-nm:focus-visible{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.s5fj-bd{display:inline-block;padding:2px 9px;border-radius:999px;border:1px solid var(--border);font-size:12.5px;font-weight:700;line-height:1.4;color:var(--muted);white-space:nowrap}
+.s5fj-bd.s5fj-bad{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 55%,var(--border));background:color-mix(in srgb,var(--bad) 10%,transparent)}
+.s5fj-bd.s5fj-warn{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 55%,var(--border));background:color-mix(in srgb,var(--warn) 10%,transparent)}
+.s5fj-what{margin:0;font-size:15px;font-weight:600;line-height:1.4;color:var(--text)}
+.s5fj-facts{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0}
+.s5fj-f{display:flex;flex-direction:column;min-width:0}
+.s5fj-f dt{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--faint,var(--muted))}
+.s5fj-f dd{margin:0;font-size:14.5px;color:var(--text)}
+.s5fj-acts{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.s5fj-acts li,[id^="tab-"] .s5fj-acts>li{max-width:100%;margin:0;padding:3px 8px;border-radius:6px;background:var(--bg);border:1px solid var(--border);font:13px/1.4 var(--mono,monospace);color:var(--text);overflow-wrap:break-word;list-style:none}
+.s5fj-acts.s5fj-plain li,[id^="tab-"] .s5fj-acts.s5fj-plain>li{font-family:inherit;font-size:14px}
+.s5fj-nm{overflow-wrap:break-word}
+@media (max-width:760px){#tab-deadlines .s5ci-tdl .s5ci-tr>.s5ci-do{grid-column:1/-1}
+  #tab-deadlines .s5ci-tdl .s5ci-tr>.s5ci-do::before{content:"What to do";display:block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}}
+.s5fj-acts li.s5fj-moreli{border:0;background:none;padding:0}
+.s5fj-moreb{font:inherit;font-size:14px;font-weight:600;color:var(--accent);background:none;border:0;padding:3px 4px;cursor:pointer}
+.s5fj-note{margin:0;font-size:14px;line-height:1.5;color:var(--muted)}
+.s5fj-old .s5fj-nm{font-size:15px}
+.s5er-box .s5fj-c+.s5fj-c{margin-top:2px}
+.s5er-sub2{flex:1 1 100%;font-size:13.5px;color:var(--muted)}
+#tab-overview .s5er-sub2{font-size:14px}
+#tab-overview .s5er-sub{font-size:14.5px;color:var(--text)}
+.s5fj-segs{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px}
+.s5fj-sx{display:none}
+.s5fj-seg{display:inline-block;max-width:100%;padding:1px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);line-height:1.5;overflow-wrap:anywhere}
+.s5fe-wl{list-style:none;padding-left:0}
+.s5fe-wl>li,#tab-threats .s5fe-wl>li{margin:0 0 8px;padding-left:10px;border-left:3px solid var(--border);list-style:none}
+.s5fj-clamp{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;line-clamp:4;overflow:hidden}
+.s5fj-clamp.s5fj-open{display:block;-webkit-line-clamp:unset;line-clamp:unset}
+.s5fj-tog{font:inherit;font-size:13.5px;font-weight:600;color:var(--accent);background:none;border:0;padding:2px 0;cursor:pointer}
+.s5er-nm{font-family:inherit}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
@@ -48136,6 +48317,35 @@ Wlasciciel (23:32, zrzuty z iPhone'a): portal na telefonie laduje sie wolno; pas
 ### §5fi — Data wpisu „what's new” z nagłówka tygodnia (25 X 2026)
 
 Wlasciciel (25 X): „czy sledzimy intune whats-new #unlimited-licenses-for-apple-vpp-apps… w 16 zdaniach nie bylo mowy”. Sprawdzone: 40 z 40 ostatnich wpisow strony Intune w danych (VPP: zakladka New od 23 X, Microsoft Learn od 24 X, /diff 24 X); zdania Overview — jedno na technologie, Intune mial pilniejszy termin (Play Integrity 31 X). Blad: `parse_whatsnew()` przy `## Week of October 19, 2026` zachowywal tylko miesiac, a `msDate` kazdego wpisu bral z `ms.date` strony (12 X). Teraz `head2()` oddaje dzien, wpis ma `msDate` = dzien tygodnia, `pageDate` = `ms.date`. Test: VPP 2026-10-19, Remote Help 2026-10-12, baseline 26H2 2026-10-05. Uwaga: wpisy RSS z Learn (`feed_refresh`) w oknie dostana raz nowy identyfikator (hash z daty).
+
+### §5fj — Zmiany czytelne jak karta pol, nie zlepek z kropkami (25 X 2026)
+
+Wlasciciel (zrzut z telefonu, Overview, ramki Roles i First-party apps): *„Czy to dla ciebie jest czytelne? … Zlewaja sie
+daty, informacja o braku nowosci itd."* Mial racje: wiersz byl jednym zdaniem sklejonym kropkami — „role · PRIVILEGED ·
+21/10/2026 · gained actions · seen in our tenant 21/10/2026: microsoft.directory/…, …" — nazwy rol czcionka maszynowa,
+akcje ciete w polowie slowa i obciete „…", a ta sama zmiana na dwoch rolach stala dwa razy.
+
+- **Jedna karta zmiany (`chgCard()` w module §5ed, eksport `__socIdent.card`, `sameChange`, `describeEvent`).**
+  `describe()` dopisuje `x.parts` (pola, nie zdanie): nazwa (czcionka zwykla; czcionka kodu tylko dla identyfikatora
+  uprawnienia Graph, lamana na `.`, `/`, `_` przez `<wbr>`), odznaki (Privileged, Level N, Read-write, typy), jedno
+  zdanie „co sie stalo" („Gained 3 actions"), fakty jako pary etykieta/wartosc (Date, Seen in our tenant, Source),
+  akcje jako krotkie chipy bez prefiksu `microsoft.directory/` (4, reszta pod „+ N more"), slowa Microsoftu w osobnej
+  linii. Ta sama zmiana na kilku nazwach to JEDNA karta z wszystkimi nazwami.
+- Uzywaja jej: ramki Graph API / Roles / First-party apps w zdaniach Overview, karta „Riskiest changes" (Identity surface)
+  i blok „Last 3 days" w Graph API i Roles. Stary tekst `x.text`/`x.tag` zostaje dla wyszukiwania.
+- **Naglowek ramki:** liczba + „new since the <data> brief", pod nia osobna linia „N changes in the last 14 days".
+  Zdanie „Nothing since the … brief." usuniete — powtarzalo zero.
+- **Linie metadanych „a · b · c"** (Hunting, Threat Research, Learn/Blogs/MC, Deadlines, wiersze Overview) rozbija
+  `__socSegs` (IIFE na koncu SCRIPT 17) na osobne chipy `.s5fj-seg`; kropki zostaja w tekscie ukryte (`.s5fj-sx`),
+  wiec szukanie, sortowanie i kopiowanie czytaja to samo co wczesniej. Dziala tylko na widocznej zakladce.
+- **Deadlines:** „What to do" nie jest juz ciete na 150 znakach w polowie zdania — pelny tekst zwiniety do 4 linii z
+  „Show all"; na telefonie zajmuje cala szerokosc wiersza z etykieta „What to do".
+- **Threat Research, „Why it is listed":** kazdy powod to blok z lewa kreska zamiast mieszanki punktorow i chipow.
+
+Pomiar (Playwright 390 px, ciemny motyw, wszystkie zakladki rozwiniete), przed → po: linie z >= 3 kropkami Overview 5 → 0,
+Roles 3 → 0, Hunting 27 → 0, Threat Research 55 → 2; zdania czcionka maszynowa Overview/Roles 2 → 0 (zostaje kod KQL i
+listy IOC — to kod); tekst uciety „…" Deadlines 26 → 0, Roles 3 → 0. Bez przewijania w bok (390 i 1400 px), bez bledow
+skryptu, jasny i ciemny motyw.
 
 ## 6. Kontrakt w stronie
 
