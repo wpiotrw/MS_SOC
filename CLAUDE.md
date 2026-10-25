@@ -22361,8 +22361,10 @@ def parse_whatsnew(md,area,url,repo_path):
         t=line.strip()
         m=re.match(r"^##\s+([A-Z][a-z]+)\s+(20\d\d)\s*$",t)
         if m and m.group(1).lower() in MON: return (int(m.group(2)),MON[m.group(1).lower()],"%s %s"%(m.group(1),m.group(2)))
-        m=re.match(r"^##\s+Week of\s+([A-Z][a-z]+)\s+\d{1,2},\s*(20\d\d)",t)
-        if m and m.group(1).lower() in MON: return (int(m.group(2)),MON[m.group(1).lower()],"%s %s"%(m.group(1),m.group(2)))
+        # §5fi (25 X 2026, owner: "do we track the Intune VPP item?"): the week's DAY is kept - every Intune entry
+        # carried the page's ms.date (12 X) as its date, so an item of the week of 19 X sorted with September ones
+        m=re.match(r"^##\s+Week of\s+([A-Z][a-z]+)\s+(\d{1,2}),\s*(20\d\d)",t)
+        if m and m.group(1).lower() in MON: return (int(m.group(3)),MON[m.group(1).lower()],"%s %s"%(m.group(1),m.group(3)),int(m.group(2)))
         # §5cc: four more shapes measured 29 IX 2026 — the month is not the whole heading:
         #   `## September 2026: New and generally available`   (Graph what's new)
         #   `## Version 1.68 - September 2026`                  (Azure Arc agent release notes)
@@ -22374,7 +22376,7 @@ def parse_whatsnew(md,area,url,repo_path):
             mo=int(m.group(2)); return (2000+int(m.group(1)),mo,"%s %d"%(list(MON)[mo-1].capitalize(),2000+int(m.group(1))))
         return None
     def put(title,text):
-        if title: out.append({"year":cur[0],"month":cur[1],"monthLabel":cur[2],
+        if title: out.append({"year":cur[0],"month":cur[1],"monthLabel":cur[2],"day":cur[3] if len(cur)>3 else None,
                               "title":re.sub(r"[*_`]","",title).strip(),"lines":[text] if text else []})
     listmode=False; ctbl=False
     for line in md.split("\n"):
@@ -22433,8 +22435,10 @@ def parse_whatsnew(md,area,url,repo_path):
         title=LINK.sub(lambda m:m.group(1),o["title"]); title=re.sub(r"[*_`]","",title).strip()[:170]
         if len(text)<25 and len(title)<25: continue
         crit,why,w,t0,tags=classify(title,text,area)
+        # §5fi: a dated heading ("Week of October 19, 2026") is the entry's Microsoft date; ms.date stays as pageDate
+        edate="%04d-%02d-%02d"%(o["year"],o["month"],o["day"]) if o.get("day") else msdate
         ent.append({"area":area,"year":o["year"],"month":o["month"],"monthLabel":o["monthLabel"],
-                    "title":title,"text":text[:900],"links":links[:4],"msDate":msdate,"url":url,
+                    "title":title,"text":text[:900],"links":links[:4],"msDate":edate,"pageDate":msdate,"url":url,
                     "weight":w,"tier0":t0,"criteria":crit,"tags":tags,"why":". ".join(why)+"." if why else "",
                     "blogs":[],"hasBlog":False})
     return ent,msdate
@@ -48128,6 +48132,10 @@ Wlasciciel (23:32, zrzuty z iPhone'a): portal na telefonie laduje sie wolno; pas
 - Threat Research `copyLists()`: blok „Copy lists" w kazdym incydencie (Infrastructure watch i karta Infrastructure): IP i domeny nazwane przez zrodla, oznaczone w otoczeniu, Application (client) ID, inne ID (tenant / object) z `appsNote`; jedna wartosc w linii; Copy (bezpieczne `[.]`) i Copy plain.
 - Rutyna zmian: komunikat byl falszywym alarmem — od §5eq strona rutyny trafia do `site/diff/full.html` (identyczna bajt w bajt), a `diff/index.html` to aplikacja (37 kB). Nowy prompt `claude/prompts/routine-zmiany-v2-prompt-2026-10-23-5fh.md` (krok 4 pkt 5-6: `git diff --quiet HEAD:site/diff/index.html origin/main:site/diff/full.html`).
 - Pomiar wydajnosci 23 X (zywa strona, profil iPhone 13, CPU 4x): zdania Overview 12,7 s, 62 dlugie zadania (10,5 s), 87 000 elementow, 2,5 MB transferu. Propozycja przebudowy w dokumencie sesji (Projekt).
+
+### §5fi — Data wpisu „what's new” z nagłówka tygodnia (25 X 2026)
+
+Wlasciciel (25 X): „czy sledzimy intune whats-new #unlimited-licenses-for-apple-vpp-apps… w 16 zdaniach nie bylo mowy”. Sprawdzone: 40 z 40 ostatnich wpisow strony Intune w danych (VPP: zakladka New od 23 X, Microsoft Learn od 24 X, /diff 24 X); zdania Overview — jedno na technologie, Intune mial pilniejszy termin (Play Integrity 31 X). Blad: `parse_whatsnew()` przy `## Week of October 19, 2026` zachowywal tylko miesiac, a `msDate` kazdego wpisu bral z `ms.date` strony (12 X). Teraz `head2()` oddaje dzien, wpis ma `msDate` = dzien tygodnia, `pageDate` = `ms.date`. Test: VPP 2026-10-19, Remote Help 2026-10-12, baseline 26H2 2026-10-05. Uwaga: wpisy RSS z Learn (`feed_refresh`) w oknie dostana raz nowy identyfikator (hash z daty).
 
 ## 6. Kontrakt w stronie
 

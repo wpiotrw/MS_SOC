@@ -174,15 +174,17 @@ gantt
     po pushu routine wieczornej                 :a7, after a5, 3m
 ```
 
-> [!WARNING]
-> **Zmiana czasu 25 X 2026.** Scheduled tasks mają harmonogram w strefie `Europe/Warsaw` (`CRON_TZ=Europe/Warsaw 0 6 * * *`, `… 0 21 * * *`), a obie routines w **UTC** (`0 5 * * *`, `0 20 * * *`). Latem to 07:00 i 22:00 w Warszawie, ale **od 25 X 2026 (czas zimowy) routines ruszą o 06:00 i 21:00** — w tej samej minucie co scheduled tasks, zanim artefakt dnia powstanie (poranny brief trwa ~45 min). Lustro nie znajdzie dzisiejszego artefaktu. **Zmienić może tylko właściciel, w interfejsie.** Sesja Claude nie może edytować tych routines (utworzone przez API; próba 26 IX 2026 odrzucona: „Agents can only update routines they created”), a interfejs routines nie ma wyboru strefy czasowej. Dlatego godziny przestawia się ręcznie dwa razy w roku:
+> [!NOTE]
+> **Zmiana czasu — od 24 X 2026 bez ręcznego przestawiania.** Wszystkie cztery zadania mają harmonogram w strefie `Europe/Warsaw` (`CRON_TZ=Europe/Warsaw …`), więc czas letni i zimowy obsługuje sam harmonogram. Do 24 X 2026 obie routines były zapisane w **UTC** (`0 5 * * *`, `0 20 * * *`; utworzone przez API, a interfejs nie dawał wyboru strefy — sprawdzone 26 IX 2026), dlatego wtedy trzeba je było przestawiać dwa razy w roku. Edycja w interfejsie 24 X 2026 zapisała je ze strefą `Europe/Warsaw` — sprawdzone 25 X 2026: po zmianie czasu wszystkie cztery ruszyły o właściwej godzinie lokalnej. Godziny wpisuje się teraz jako **czas polski**.
 >
-> | Kiedy | [raport poranny v2](https://claude.ai/code/routines/trig_01WgAAz5UkKaKwE49VY6Y6XG) | [zmiany v2](https://claude.ai/code/routines/trig_01Gv6tSXTD64NChhaQ2Brx8H) |
+> | Zadanie | Docelowo (czas polski) | Ustawione 25 X 2026 |
 > |---|---|---|
-> | 25 X 2026 (czas zimowy) | 05:00 → **06:00 UTC** (= 07:00 w Polsce) | 20:00 → **21:00 UTC** (= 22:00) |
-> | 28 III 2027 (czas letni) | 06:00 → **05:00 UTC** (= 07:00) | 21:00 → **20:00 UTC** (= 22:00) |
+> | Microsoft SOC Brief — Morning (scheduled task) | 06:00 | 06:00 |
+> | [raport poranny v2](https://claude.ai/code/routines/trig_01WgAAz5UkKaKwE49VY6Y6XG) (routine) | **07:00** (po porannym briefie, ~40 min) | 09:00 — do zmiany w interfejsie |
+> | Afternoon delta (scheduled task) | 21:00 | 21:00 |
+> | [zmiany v2](https://claude.ai/code/routines/trig_01Gv6tSXTD64NChhaQ2Brx8H) (routine) | **22:00** (po popołudniowym przebiegu, ~35 min) | 23:00 — do zmiany w interfejsie |
 >
-> Przypomnienia (scheduled tasks z powiadomieniem push i e-mail): 24 X 2026 08:00 (`trig_01WBLcAdqi7jH2P1EEtanwtz`) i 27 III 2027 08:00 (`trig_01B73NRpvGfX5fNQZSVYDXXX`). Jeśli interfejs pokazuje godzinę lokalną, po zmianie czasu sprawdź, czy nadal widać 07:00 i 22:00. Workflow `fpa-tenant.yml` (03:30 UTC) zimą ruszy o 04:30 — nadal przed briefem, bez zmian.
+> Workflow GitHub mają harmonogram w UTC (`fpa-tenant.yml`, `ioc-watch.yml` itd.); zimą ruszają godzinę wcześniej wg czasu polskiego — bez wpływu na kolejność, bo nie zależą od briefu.
 
 
 Zasady, które trzymają całość w ryzach (szczegóły w `CLAUDE.md`):
@@ -260,7 +262,7 @@ Dwa rodzaje zadań, bo mają różne możliwości: **scheduled task** (Claude, t
 | Rodzaj | scheduled task | scheduled task | routine | routine |
 | Pełna nazwa | Microsoft SOC Brief — Morning (06:00 Warsaw, codziennie) | Microsoft SOC Brief — Afternoon delta (21:00 Warsaw, codziennie) | MS SOC BRIEF - raport poranny v2 | MS SOC BRIEF - zmiany v2 |
 | ID | `trig_017actQokUqkqq9vRfReGbnS` | `trig_01TCAKZsZhEDAuydDCEG9Bmu` | `trig_01WgAAz5UkKaKwE49VY6Y6XG` | `trig_01Gv6tSXTD64NChhaQ2Brx8H` |
-| Harmonogram | `CRON_TZ=Europe/Warsaw 0 6 * * *` | `CRON_TZ=Europe/Warsaw 0 21 * * *` | `0 5 * * *` (UTC) | `0 20 * * *` (UTC) |
+| Harmonogram | `CRON_TZ=Europe/Warsaw 0 6 * * *` | `CRON_TZ=Europe/Warsaw 0 21 * * *` | `CRON_TZ=Europe/Warsaw 0 9 * * *` (25 X 2026; docelowo 07:00) | `CRON_TZ=Europe/Warsaw 0 23 * * *` (25 X 2026; docelowo 22:00) |
 | Model | `claude-opus-5` | `claude-opus-5` | domyślny | domyślny |
 | Zatwierdzanie działań | automatyczne (`auto`) | automatyczne (`auto`) | — (routines nie mają tego ustawienia) | — |
 | Konektory (MCP) istotne dla zadania | Microsoft Learn, KQL Search, Context7 (+ pozostałe konektory konta) | jw. | GitHub, Microsoft Learn, KQL Search, Context7, visualize | jw. |
@@ -846,7 +848,7 @@ Właściciel zaakceptował 29 IX 2026 makiety wszystkich zakładek (artefakt Des
 | Widok zakładki nie pokazuje czegoś, co było | przycisk „Show the full sections” na dole zakładki — stare sekcje są nietknięte |
 | Workflow `code-refresh` kończy się na bramce, pozycja 104 | strona z poprzedniego dnia sprawdzana po północy UTC, przed porannym przebiegiem — to data, nie kod; następny przebieg poranny zbuduje stronę na nowo |
 | Kopia Learn nie ma nowych commitów | GitHub → Actions → „Learn mirror”; brak commitu przy sukcesie = żadna strona się nie zmieniła |
-| Po 25 X 2026 strona rano nieświeża | routines w UTC ruszają godzinę wcześniej, razem z briefem — przestaw godziny w interfejsie routines (pkt 1, ostrzeżenie o zmianie czasu) |
+| Strona rano nieświeża | sprawdź godzinę routine „raport poranny v2” (czas polski, po porannym briefie — pkt 1, zmiana czasu) |
 
 ## 8. Dokumentacja i źródła
 
@@ -1483,6 +1485,7 @@ Nadanie uprawnienia (PowerShell, konto z Cloud Application Administrator + Privi
 | 2026-10-23 | §5ff — domeny z postów badaczy na X: `community_posts.json`, odczyt tekstu i obrazków (OCR tesseract) przez publiczny endpoint osadzania, linki z notatek rutyny (reguła 5ff, pole `posts`), linia czasu konta; kampania passkey +24 domeny Stevena Lima; link „Open the post on X” przy wskaźniku. README 16.5b. |
 | 2026-10-23 | §5fg — czytelność całego portalu: skala czcionek z Threat Research we wszystkich zakładkach oraz na /diff i /week (tekst poniżej 14 px: z 53–100% do 0–10% w zakładkach, /week 7%, /diff 16%); tytuły sekcji 18–21 px; pasek „In this tab” w Overview, Sources, Hunting i About; domeny z postów badaczy wcześniej w kolejce VirusTotal. Testy: Playwright 390 i 1500 px, wszystkie zakładki bez przewijania w bok, bez błędów JS. |
 | 2026-10-23 | §5fh — telefon: reguła „phone floor” (`12px !important`) podniesiona do 14 px — Graph i Roles z 51% / 25% drobnego tekstu do 0%; paski skoków zawijane zamiast przewijania w bok; /diff: chipy technologii zawijane, na telefonie 4 + „więcej”; Threat Research: „Copy lists” (IP, domeny, Application ID, inne ID — jedna wartość w linii, Copy / Copy plain); nowy prompt rutyny zmian (sprawdza `site/diff/full.html`). `mobile_check.py`: OK. |
+| 2026-10-25 | §5fi — daty wpisów „what's new”: przy nagłówku „Week of Month D, Year” (Intune) datą wpisu jest dzień z nagłówka (`msDate`), data strony zostaje w `pageDate` — wcześniej każdy wpis Intune miał 12 X 2026 (np. VPP z tygodnia 19 X). Zmiana czasu: wszystkie cztery zadania w strefie `Europe/Warsaw` od 24 X 2026 (sprawdzone 25 X: przebiegi o właściwej godzinie); pkt 1 opisany od nowa. |
 | 2026-10-22 | §5ew — Threat Research: blok „Since the previous brief” w dwóch ramkach — najpierw Microsoft 365 i Entra, potem inne incydenty z KQL; incydenty w toku (ConnectWise) zawsze na górze jako STILL ACTIVE; zgłoszone dawno, a dopiero teraz śledzone jako NEWLY TRACKED; wpisy produktowe z KQL tylko w KQL library. |
 | 2026-10-22 | §5ev — status jako filtr: liczby „new / changed / removed” w /diff/, /week/ i w całym portalu (pasek „Since the previous brief”, bloki dnia, nagłówek zakładki) są przyciskami pokazującymi tylko ten status; listy i kafelki pogrupowane według statusu z nagłówkami; pasek pokazuje do 8 wierszy każdego statusu. |
 | 2026-10-21 | §5eu — KQL z incydentów, artykułów i społeczności: `threats.py` wyciąga zapytania Kusto z artykułów (artykuł z KQL to pełny incydent, także spoza M365, np. PHP2Shell), nowe źródła (detect.fyi, kqlquery.com, blogi Sentinel i Defender XDR), repozytoria społeczności (`kql_sources.json`), jedno archiwum `site/kql/` z polem `kind`, „KQL library” w Hunting & actions i zapytania źródeł w szczegółach incydentu. |
