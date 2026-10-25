@@ -22,8 +22,12 @@ permissions:
   contents: write
   id-token: write      # 5fc: Microsoft Threat Intelligence host reputation - the GitHub OIDC token signs in the tenant app
 
+# 5fj (25 X 2026): NOT in the swa-deploy group any more. This job deploys nothing (its push uses GITHUB_TOKEN and starts
+# no workflow) and runs ~30 min (VirusTotal 4/min), so holding the group blocked every deploy behind it - and GitHub
+# keeps only ONE pending run per group: on 25 X 22:17 Warsaw both "Publish routine output" runs of the evening
+# routine were cancelled by newer pending runs while this job held the group. Own group: one IOC watch at a time.
 concurrency:
-  group: swa-deploy
+  group: ioc-watch
   cancel-in-progress: false
 
 jobs:
@@ -63,6 +67,5 @@ jobs:
           if git diff --cached --quiet; then echo "No change."; else
             python3 tools/stamp.py iocwatch || true; git add site/data/fresh
             git commit -m "data: IOC watch $(date -u +%F' '%H:%M) UTC"
-            git pull --rebase -q origin main
-            git push origin main
+            for i in 1 2 3 4 5; do git pull --rebase -q origin main && git push origin main && break; echo "push race, retry $i"; sleep $((i*10)); done
           fi
