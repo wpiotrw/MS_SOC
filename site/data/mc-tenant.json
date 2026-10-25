@@ -1,7 +1,7 @@
 {
  "read": "2026-10-25",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 719,
+ "count": 717,
  "note": null,
  "messages": [
   {
@@ -10045,33 +10045,6 @@
    "bodyHash": "57580090f285cbe8"
   },
   {
-   "id": "MC1458476",
-   "title": "Microsoft Outlook: Classic Outlook theme experience for Outlook on the web and Outlook for Windows",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-21",
-   "end": "2026-10-25",
-   "modified": "2026-08-21",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] We're introducing a new optional setting in Outlook on the web and the new Outlook for Window s that adjusts the experience to more closely resemble classic Outlook for Windows. When enabled, the setting applies coordinated changes across the Outlook experience, including visual styling, layout, typography, icons, and selected interactions. This update is designed to help users who …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Targeted Release (Worldwide): Beginning in mid-August 2026 and expected to complete in late September 2026.",
-    "General Availability (Worldwide): Beginning in late-September 2026 and expected to complete in late-October 2026."
-   ],
-   "bodyHash": "6b6fe668600b02ef"
-  },
-  {
    "id": "MC1458477",
    "title": "AI overview for SharePoint News posts in the SharePoint app for Teams",
    "services": [
@@ -12465,32 +12438,6 @@
     "Worldwide, GCC, GCC High, DoD: Beginning in early October 2026 and expected to complete by late April 2027."
    ],
    "bodyHash": "da62541cce8c523a"
-  },
-  {
-   "id": "MC1469961",
-   "title": "Microsoft Viva Glint: Copilot features are no longer available for cross-tenant guest users",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-09",
-   "end": "2026-10-25",
-   "modified": "2026-09-09",
-   "tags": [
-    "Admin impact",
-    "User impact"
-   ],
-   "summary": "[What and why] Beginning August 26, 2026, Copilot features in Microsoft Viva Glint are no longer available to Microsoft Entra cross-tenant guest users (B2B collaboration guest users). Copilot in Viva Glint relies on Microsoft Copilot large language model (LLM) services. These underlying services do not currently support cross-tenant guest users. Previously, affected users might have experienced au…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Beginning August 26, 2026, Copilot features in Microsoft Viva Glint are no longer available to Microsoft Entra cross-tenant guest users (B2B collaboration guest users).",
-    "General Availability (Worldwide): Rollout began in late August 2026 and is expected to complete in late September 2026."
-   ],
-   "bodyHash": "67f2bb9ba8166ba4"
   },
   {
    "id": "MC1469962",
@@ -24444,6 +24391,20 @@
    "id": "MC1179337",
    "type": "removed",
    "title": "An updated version of the October 2025 Scan Cab is available",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-25",
+   "id": "MC1458476",
+   "type": "removed",
+   "title": "Microsoft Outlook: Classic Outlook theme experience for Outlook on the web and Outlook for Windows",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-25",
+   "id": "MC1469961",
+   "type": "removed",
+   "title": "Microsoft Viva Glint: Copilot features are no longer available for cross-tenant guest users",
    "fields": {}
   }
  ]
