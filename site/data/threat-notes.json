@@ -690,6 +690,277 @@
      "date": "2026-10-23"
     }
    ]
+  },
+  {
+   "id": "zimbra-snmp-cve-2026-73570-2026-09",
+   "title": "Zimbra SNMP command injection (CVE-2026-73570): one crafted SMTP request gives a shell on internet-facing mail servers",
+   "match": [
+    "CVE-2026-73570",
+    "Zimbra"
+   ],
+   "areas": [
+    "Vulnerabilities"
+   ],
+   "status": "active",
+   "updated": "2026-10-26",
+   "by": "morning routine",
+   "summary": "Microsoft Threat Intelligence describes exploitation of CVE-2026-73570 in Zimbra Collaboration Suite servers that have the optional zimbra-snmp package installed and SNMP notifications enabled. A crafted SMTP request reaches SNMP notification processing, and when health monitoring fires, the swatchdog component passes the attacker's value into a snmptrap shell call, so commands run as the zimbra service account. Attackers deployed JSP webshells on every mailbox node, escalated to root through a writable log directory and a PAM hook, persisted with a fake zimlog.service unit, and pulled zimbraPreAuthKey, zimbraAuthTokenKey and two-factor secrets from LDAP. On one server mailbox backups were archived and AzCopy was run against an Azure Blob SAS URL; Microsoft does not confirm the transfer completed. Zimbra 10.1.20 (20 July 2026) fixes it.",
+   "timeline": [
+    {
+     "date": "2026-07-20",
+     "text": "Zimbra 10.1.20 released with the remediation.",
+     "src": "Microsoft Threat Intelligence"
+    },
+    {
+     "date": "2026-07-28",
+     "text": "Scanning and probing of the injection point begins (to 7 August), with out-of-band DNS, HTTP and ICMP callbacks and the User-Agent ZB73570.",
+     "src": "Microsoft Threat Intelligence"
+    },
+    {
+     "date": "2026-08-13",
+     "text": "Public disclosure of CVE-2026-73570.",
+     "src": "Microsoft Threat Intelligence"
+    },
+    {
+     "date": "2026-09-30",
+     "text": "Microsoft Threat Intelligence publishes the attack chain, detections, hunting queries and IOCs.",
+     "src": "Microsoft Threat Intelligence"
+    }
+   ],
+   "rootCause": "Insufficient sanitisation of input that reaches the snmptrap shell invocation built by swatchdog in the optional zimbra-snmp package; commands run with the privileges of the zimbra service account.",
+   "attacker": [
+    "Probed with curl, wget, ping, nslookup and id callbacks (User-Agent ZB73570).",
+    "Wrote JSP webshells into Jetty and mailboxd paths on every mailbox node, copied with rsync over the zimbra SSH identity.",
+    "Escalated to root by symlinking zmmailboxd.out to /etc/pam.d/sudo, adding a pam_exec hook and a NOPASSWD sudoers entry for zimbra.",
+    "Persisted with a timestomped zimlog.service systemd unit, cron, OpenRC, shell startup files, SSH keys and local accounts.",
+    "Read service credentials with zmlocalconfig -s and LDAP secrets (zimbraPreAuthKey, zimbraAuthTokenKey, zimbraTwoFactorAuthSecret).",
+    "Staged /opt/zimbra/final.tar.gz and invoked AzCopy with an Azure Blob SAS URL."
+   ],
+   "iocs": [
+    "117.107.25[.]243:7071 (dropper C2, de.sh)",
+    "192.255.193[.]111:9004 (miner C2)",
+    "transzimbra[.]linkpc[.]net (dropper C2)",
+    "psk1zim[.]abrdns[.]com and tls[.]psk1zim[.]abrdns[.]com (zimclient2 command channel)",
+    "wslogzimbra[.]linkpc[.]net (installer status)",
+    "45.32.30[.]235:8080 and :8081 (reverse shell, staging)",
+    "193.42.40[.]135:443 and 3.209.137[.]175:443 (C2)",
+    "SHA-256 dee5af1c0f76b45d28bafd6e60c07bb8e391d98addf81ef8f13d073acdb3c48a (de.sh)",
+    "SHA-256 6ab7de2509038edf580aef6229c1c3db17f4da8f2d7d940818faf617d1938244 (agent2.sh)",
+    "SHA-256 bf28f38122bf20d5fac969cc414daa6a890cdea872d389ca93d2092b6b7773cf (zimdown2)",
+    "SHA-256 b594a42b8f1c6f090327bb9a3361c2d3515537fb7ac8da6b9061b9a3f330e159 (zimclient2)",
+    "User-Agent ZB73570 on probe requests"
+   ],
+   "remediation": [
+    {
+     "text": "Upgrade every Zimbra Collaboration Suite instance to 10.1.20 or later.",
+     "from": "source",
+     "src": "Microsoft Threat Intelligence",
+     "phase": "harden"
+    },
+    {
+     "text": "If patching must wait: uninstall zimbra-snmp, disable SNMP notifications and restrict SNMP and SMTP to trusted hosts.",
+     "from": "source",
+     "src": "Microsoft Threat Intelligence",
+     "phase": "contain"
+    },
+    {
+     "text": "Treat a reverse-shell alert on an internet-facing mail server as a priority incident.",
+     "from": "source",
+     "src": "Microsoft Threat Intelligence",
+     "phase": "contain"
+    },
+    {
+     "text": "Check Zimbra application and servlet work directories on every mailbox node for unexpected JSP files and recent permission changes; review systemd units, PAM files and sudoers.",
+     "from": "source",
+     "src": "Microsoft Threat Intelligence",
+     "phase": "investigate"
+    },
+    {
+     "text": "Rotate every domain zimbraPreAuthKey, and treat zimbraAuthTokenKey and stored two-factor secrets as exposed on a compromised server.",
+     "from": "source",
+     "src": "Microsoft Threat Intelligence",
+     "phase": "eradicate"
+    },
+    {
+     "text": "Search beyond the 30 days of advanced hunting data in Sentinel or archived logs.",
+     "from": "source",
+     "src": "Microsoft Threat Intelligence",
+     "phase": "investigate"
+    },
+    {
+     "text": "Onboard Linux mail servers to Defender for Endpoint and confine the service account with namespace, seccomp or AppArmor controls.",
+     "from": "source",
+     "src": "Microsoft Threat Intelligence",
+     "phase": "harden"
+    },
+    {
+     "text": "Search Azure Storage logs for writes from the mail servers' public IPs, and alert when AzCopy runs on a mail server.",
+     "from": "ours",
+     "phase": "detect"
+    }
+   ],
+   "kqlSearched": "2026-10-26",
+   "microsoft": [
+    {
+     "what": "Microsoft Threat Intelligence analysis with Defender detections, seven advanced hunting queries and IOCs",
+     "title": "Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+     "date": "2026-09-30"
+    }
+   ],
+   "links": [
+    {
+     "text": "Microsoft Threat Intelligence - CVE-2026-73570",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+     "date": "2026-09-30"
+    }
+   ]
+  },
+  {
+   "id": "star-blizzard-redflick-2026-09",
+   "title": "Star Blizzard RedFlick: one click from a phishing archive to the CosmicPulse backdoor via scheduled tasks",
+   "match": [
+    "RedFlick",
+    "Star Blizzard",
+    "CosmicPulse"
+   ],
+   "areas": [
+    "Identity attacks"
+   ],
+   "status": "active",
+   "updated": "2026-10-26",
+   "by": "morning routine",
+   "summary": "Microsoft Threat Intelligence tracks RedFlick, a delivery technique used by the Russian state actor Star Blizzard from January to August 2026 against Ukrainian institutions, NGOs, think tanks, governments and financial institutions; Microsoft counts over 100 affected organizations, mostly in the US and UK. A first email without an attachment invites a reply; the follow-up carries a password-protected RAR or ZIP with the password shown as an image. Inside, an LNK disguised as a PDF runs SSH.exe with PermitLocalCommand or curl and PowerShell to fetch an MSI, which creates scheduled tasks that use control.exe to load the CosmicPulse downloader as a Control Panel applet. The post describes no OAuth, device-code or token abuse.",
+   "timeline": [
+    {
+     "date": "2026-01-01",
+     "text": "January campaign: VHDX with an LNK and BAT script that runs SSH.exe to fetch a remote MSI (activity observed from January).",
+     "src": "Microsoft Threat Intelligence"
+    },
+    {
+     "date": "2026-03-01",
+     "text": "From March, senders use accounts on compromised CPanel and WordPress sites instead of free mail services.",
+     "src": "Microsoft Threat Intelligence"
+    },
+    {
+     "date": "2026-04-01",
+     "text": "April: the MSI creates three scheduled tasks, including WebDAV loading through Control_RunDLL.",
+     "src": "Microsoft Threat Intelligence"
+    },
+    {
+     "date": "2026-07-01",
+     "text": "July: payload hidden in a downloaded PDF after the marker cAB, extracted by PowerShell.",
+     "src": "Microsoft Threat Intelligence"
+    },
+    {
+     "date": "2026-08-01",
+     "text": "August: steganography and a unique ZIP per target.",
+     "src": "Microsoft Threat Intelligence"
+    },
+    {
+     "date": "2026-09-29",
+     "text": "Microsoft Threat Intelligence publishes the analysis, detections, hunting queries and IOCs.",
+     "src": "Microsoft Threat Intelligence"
+    }
+   ],
+   "rootCause": "Social engineering: a reply-based phishing conversation followed by a password-protected archive that mail scanning cannot open, and a single user click on an LNK disguised as a PDF.",
+   "attacker": [
+    "Sent tens to hundreds of lure emails per campaign impersonating Ukrainian authorities or conference invitations, some made to look internal.",
+    "Delivered password-protected RAR/ZIP archives with the password as an image.",
+    "Ran SSH.exe with PermitLocalCommand=yes and LocalCommand=cmd.exe, or conhost and curl, to fetch an MSI.",
+    "Created scheduled tasks (Internet Quality Test Connection, Network Configuration Manager, System Health Monitor) that use control.exe to load the CosmicPulse downloader (NOROBOT / BAITSWITCH) as a CPL.",
+    "Stored an encrypted AES key under HKCU\\Software\\Classes\\.mollis and fetched a Python 3.8 bootstrapper and the CosmicPulse backdoor (YESROBOT)."
+   ],
+   "iocs": [
+    "secure-dns-hub[.]com (CosmicPulse DLL host, July to current)",
+    "cyrna[.]top (RedFlick MSI host, August)",
+    "drasw[.]club (CosmicPulse DLL host, August)",
+    "qumel[.]link and 103.160.59[.]97 (CosmicPulse DLL hosts, July)",
+    "ruten[.]observer (CosmicPulse DLL host, June-July)",
+    "guach[.]net and byveo[.]org (RedFlick PowerShell installers)",
+    "SHA-256 dd98dbc1a55afe6fd0ed2ed53a79c76f6bde15081a0060422185b74eb1799ee4 (Payment Advice Note.zip, August)",
+    "SHA-256 24b6e36a09eb2acfc2a95478ca685acb7593b1689be6a4a639fe0d222393cfa7 (USUBC_Private_Executive_Roundtable_Webex.rar, July)",
+    "Scheduled task names Internet Quality Test Connection, Network Configuration Manager, System Health Monitor",
+    "Registry key HKCU\\Software\\Classes\\.mollis"
+   ],
+   "remediation": [
+    {
+     "text": "Use phishing-resistant authentication and Conditional Access policies.",
+     "from": "source",
+     "src": "Microsoft Threat Intelligence",
+     "phase": "harden"
+    },
+    {
+     "text": "Turn on Defender for Office 365 Safe Links, Safe Attachments and zero-hour auto purge.",
+     "from": "source",
+     "src": "Microsoft Threat Intelligence",
+     "phase": "harden"
+    },
+    {
+     "text": "Run EDR in block mode with cloud-delivered and real-time protection and network protection; enable ASR rules that block untrusted executables and obfuscated scripts.",
+     "from": "source",
+     "src": "Microsoft Threat Intelligence",
+     "phase": "harden"
+    },
+    {
+     "text": "Restrict outbound SSH from networks that do not need it.",
+     "from": "source",
+     "src": "Microsoft Threat Intelligence",
+     "phase": "harden"
+    },
+    {
+     "text": "Hunt for conhost.exe launching curl and ssh.exe with PermitLocalCommand=yes, and for the three scheduled task names; block the listed domains and IPs.",
+     "from": "source",
+     "src": "Microsoft Threat Intelligence",
+     "phase": "investigate"
+    },
+    {
+     "text": "Alert on control.exe loading a CPL from a WebDAV UNC path or a user-writable folder, and quarantine password-protected archives from external senders for review.",
+     "from": "ours",
+     "phase": "detect"
+    }
+   ],
+   "kql": [
+    {
+     "title": "Scheduled tasks created by msiexec or control.exe in the last 30 days",
+     "query": "DeviceProcessEvents\n| where Timestamp > ago(30d)\n| where FileName =~ \"schtasks.exe\" and ProcessCommandLine has \"/create\"\n| where ProcessCommandLine has_any (\"Internet Quality Test Connection\", \"Network Configuration Manager\", \"System Health Monitor\")\n| project Timestamp, DeviceName, AccountName, ProcessCommandLine, InitiatingProcessFileName"
+    }
+   ],
+   "kqlPublished": [
+    {
+     "title": "Conhost.exe invokes curl",
+     "query": "DeviceProcessEvents\n| where Timestamp > ago(7d)\n| where FileName == \"conhost.exe\"\n| where ProcessCommandLine has \"curl\"\n| project Timestamp, DeviceName, AccountName, ProcessCommandLine, InitiatingProcessCommandLine, InitiatingProcessFileName, DeviceId, ProcessId, ProcessUniqueId, InitiatingProcessUniqueId",
+     "by": "Microsoft Threat Intelligence",
+     "src": "Microsoft Security Blog",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+     "date": "2026-09-29",
+     "vendor": true
+    },
+    {
+     "title": "Invoke SSH to launch local command line",
+     "query": "DeviceProcessEvents\n| where Timestamp > ago(7d)\n| where ProcessCommandLine has \"ssh.exe\"\n| where ProcessCommandLine has \"PermitLocalCommand=yes\"\n| where ProcessCommandLine has \"LocalCommand=cmd.exe\"\n| project Timestamp, DeviceName, AccountName, ProcessCommandLine, InitiatingProcessCommandLine, InitiatingProcessParentFileName, DeviceId, ProcessId, InitiatingProcessId, ReportId",
+     "by": "Microsoft Threat Intelligence",
+     "src": "Microsoft Security Blog",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+     "date": "2026-09-29",
+     "vendor": true
+    }
+   ],
+   "microsoft": [
+    {
+     "what": "Microsoft Threat Intelligence analysis with Defender detections, hunting queries and IOCs",
+     "title": "Star Blizzard refines phishing and malware delivery with the RedFlick technique",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+     "date": "2026-09-29"
+    }
+   ],
+   "links": [
+    {
+     "text": "Microsoft Threat Intelligence - Star Blizzard RedFlick",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+     "date": "2026-09-29"
+    }
+   ]
   }
  ]
 }

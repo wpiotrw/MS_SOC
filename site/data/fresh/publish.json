@@ -1,8 +1,8 @@
 {
  "key": "publish",
- "at": "2026-10-26T10:13Z",
+ "at": "2026-10-26T10:17Z",
  "workflow": "Publish routine output",
- "run": "40305694049",
- "sha": "e005e33",
+ "run": "40306200249",
+ "sha": "3c82f5e",
  "note": "claude/vibrant-pascal-bqnscv"
 }
