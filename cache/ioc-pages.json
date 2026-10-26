@@ -47,6 +47,31 @@
 ],
 "read": "2026-10-23"
 },
+"https://thehackernews.com/2026/10/microsoft-365-token-replay-attacks.html": {
+"iocs": [
+[
+"ip",
+"193.26.115.0",
+"In the text: Huntress, which observed the activity between July 14 and September 22, 2026, said it detected 497 successful Microsoft 365 sign-in events across the victim organizations from over"
+],
+[
+"ip",
+"193.26.115.221",
+"In the text: The campaign was first observed from a Romanian IP address \" 193.26.115[.]221 ,\" which, according to VirusTotal, is used by a remote access trojan called AsyncRAT."
+],
+[
+"domain",
+"rdp.sh",
+"In the text: Notably, the entity is linked to StarkRDP and rdp[.]sh , which allows paying customers to rent virtual servers."
+],
+[
+"domain",
+"exy.sh",
+"In the text: As of writing, the two platforms are operational, with the former now rebranded as exy[.]sh . \"StarkRDP has always been operating by the law and is not involved in any of these all"
+]
+],
+"read": "2026-10-26"
+},
 "https://www.bleepingcomputer.com/news/security/hackers-breach-microsoft-365-tenants-via-connectwise-supply-chain-attack/": {
 "iocs": [
 [
