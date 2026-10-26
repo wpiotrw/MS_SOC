@@ -27,7 +27,8 @@ def newest_stage(path):
     except OSError:
         return None
     best = None
-    for m in re.finditer(r"\*\*§(5[a-z]{2,3})\b", txt):
+    # 26 X 2026: stages from 5fc on are written as "### §5fc — ..." headings, not "**§5fc"; read both
+    for m in re.finditer(r"(?:\*\*|^### )§(5[a-z]{2,3})\b", txt, re.M):
         k = m.group(1)
         if best is None or (len(k), k) > (len(best), best):
             best = k

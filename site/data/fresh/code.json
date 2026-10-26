@@ -4,6 +4,6 @@
  "workflow": "Code refresh (CLAUDE.md -> published page)",
  "run": "40235453789",
  "sha": "0a9967c",
- "note": "",
- "spec": "5fb"
+ "note": "spec corrected 26 X 2026: stamp.py read only **§ stages, missed ### §5fc-5fj headings",
+ "spec": "5fj"
 }
