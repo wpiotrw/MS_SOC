@@ -1,9 +1,9 @@
 {
  "key": "code",
- "at": "2026-10-25T21:27Z",
+ "at": "2026-10-26T10:34Z",
  "workflow": "Code refresh (CLAUDE.md -> published page)",
- "run": "40235453789",
- "sha": "0a9967c",
- "note": "spec corrected 26 X 2026: stamp.py read only **§ stages, missed ### §5fc-5fj headings",
- "spec": "5fj"
+ "run": "40308423761",
+ "sha": "24f7c69",
+ "note": "",
+ "spec": "5fk"
 }

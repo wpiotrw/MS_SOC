@@ -29451,11 +29451,18 @@ IdentityDirectoryEvents
     .forEach(function (r) { [].forEach.call(r.querySelectorAll(SEL), split); }); } catch (err) { if (window.console) console.error("[5fj segs]", err); } }
   var t = null;
   function soon() { clearTimeout(t); t = setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 1); })(function () { pass(); }); }, 400); }
+  /* §5fj-b (26 X 2026, measured): a MutationObserver on the whole body woke on every node the page builds while it
+     loads and doubled the phone time to the Overview sentences (4x CPU: 21-22 s with it, 9-13 s without). The split
+     now runs only when the reader can see a change: once the page is idle, after a tab is opened and after a fold
+     opens - never during the build. */
   function start() {
-    pass();
-    if (window.MutationObserver) new MutationObserver(soon).observe(document.body, { childList: true, subtree: true });
+    soon();
+    document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest('[id^="tabbtn-"], nav.anchors .tab, .s5br-sheet button')) { setTimeout(soon, 1200); setTimeout(soon, 4000); } }, true);
+    document.addEventListener("toggle", function (ev) { if (ev.target && ev.target.open) soon(); }, true);
+    document.addEventListener("soc:woke", function () { setTimeout(soon, 800); });
   }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 1500); }); else setTimeout(start, 1500);
+  function idleStart() { (window.requestIdleCallback ? function (f) { requestIdleCallback(f, { timeout: 12000 }); } : function (f) { setTimeout(f, 8000); })(start); }
+  if (document.readyState === "complete") setTimeout(idleStart, 6000); else window.addEventListener("load", function () { setTimeout(idleStart, 6000); });
   window.__socSegs = pass;
 })();
 </script>
