@@ -133,7 +133,7 @@ Before your users can access Frontier agents, make sure that agent types are app
 1. In the [Microsoft 365 admin center](https://admin.microsoft.com), go to **Agent** &gt; **Settings** &gt; **Agent and plugin access**.
 2. Verify that **Allow agents and plugins built by Microsoft** is checked. This setting allows the use of Microsoft Frontier agents.
 
-For more information about managing access to specific agents for specific users or groups, see [Agent settings in Microsoft 365 admin center](/en-us/microsoft-365/admin/manage/agent-settings).
+For more information about managing access to specific agents for specific users or groups, see [Agent settings in Microsoft 365 admin center](/en-us/microsoft-agent-365/admin/agent-settings).
 
 For information about managing agents that show up in the Agent Store, see [Set up Agent Store in Microsoft Copilot](/en-us/microsoft-365/copilot/copilot-agent-store).
 

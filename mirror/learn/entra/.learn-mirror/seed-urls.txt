@@ -176,9 +176,12 @@ https://learn.microsoft.com/en-us/entra/identity/authentication/overview-authent
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-cloud-apps
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-conditions
+https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-policy-plans
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-session
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-enforcement-resource-exclusions
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/controls
+https://learn.microsoft.com/en-us/entra/identity/conditional-access/how-to-create-conditional-access-policy-plan
+https://learn.microsoft.com/en-us/entra/identity/conditional-access/how-to-migrate-conditional-access-policy-plan
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-target-agent-identities
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-agent-user
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-all-users-device-compliance

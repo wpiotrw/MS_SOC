@@ -380,6 +380,7 @@ https://learn.microsoft.com/en-us/azure/sentinel/datalake/sentinel-mcp-triage-to
 https://learn.microsoft.com/en-us/azure/sentinel/enable-entity-behavior-analytics
 https://learn.microsoft.com/en-us/azure/sentinel/entity-behaviors-layer
 https://learn.microsoft.com/en-us/azure/sentinel/feature-availability
+https://learn.microsoft.com/en-us/azure/sentinel/geographical-availability-data-residency
 https://learn.microsoft.com/en-us/azure/sentinel/identify-threats-with-entity-behavior-analytics
 https://learn.microsoft.com/en-us/azure/sentinel/isv/azure-government-publishing-guidelines
 https://learn.microsoft.com/en-us/azure/sentinel/isv/create-custom-connector-builder-agent

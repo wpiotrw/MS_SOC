@@ -1,18 +1,17 @@
 ---
 layout: Conceptual
-monikers:
-- o365-21vianet
-- o365-worldwide
-defaultMoniker: o365-worldwide
-versioningType: Ranged
-title: Manage plugins, skills, and MCP servers in Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-plugins-skills-mcp-servers?view=o365-worldwide
-config_moniker_range: =o365-worldwide || =o365-21vianet
+title: Manage plugins, skills, and MCP servers in Microsoft 365 admin center | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/microsoft-agent-365/admin/manage-plugins-skills-mcp-servers
+breadcrumb_path: ../breadcrumb/agent365/toc.json
+uhfHeaderId: MSDocsHeader-Agent365
 feedback_system: Standard
-feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=DocsMacCampaign
-breadcrumb_path: /microsoft-365/breadcrumb/toc.json
-recommendations: false
-uhfHeaderId: MSDocsHeader-M365-IT
+permissioned-type: public
+ms.service: agent-365
+hideScope: false
+ms.custom:
+- AdminSurgePortfolio
+- AdminTemplateSet
+ms.subservice: admin
 description: Learn how to manage plugin and skill availability, review requests, and govern MCP servers and their tools in the Microsoft 365 admin center.
 ai-usage: ai-assisted
 f1.keywords:
@@ -24,8 +23,6 @@ ms.date: 2026-10-14T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: how-to
-ms.service: microsoft-365-copilot
-ms.subservice: agent-management
 ms.localizationpriority: medium
 ms.collection:
 - Tier2
@@ -36,32 +33,26 @@ ms.collection:
 - m365copilot
 - magic-ai-copilot
 - operations-pod
-ms.custom:
-- AdminSurgePortfolio
-- AdminTemplateSet
 search.appverid:
 - BCS160
 - MET150
 - MOE150
 locale: en-us
-document_id: ce184c82-6207-9b73-74c6-eee54e6b55e1
-document_version_independent_id: ce184c82-6207-9b73-74c6-eee54e6b55e1
-original_content_git_url: https://github.com/MicrosoftDocs/microsoft-365-docs-pr/blob/live/microsoft-365/admin/manage/manage-plugins-skills-mcp-servers.md
-default_moniker: o365-worldwide
+document_id: a173292f-fd6e-5470-c667-f47bfb847e67
+document_version_independent_id: a173292f-fd6e-5470-c667-f47bfb847e67
+original_content_git_url: https://github.com/MicrosoftDocs/agent365-docs-pr/blob/live/agent365-docs/admin/manage-plugins-skills-mcp-servers.md
 site_name: Docs
-depot_name: office.Microsoft-365-docs
+depot_name: Learn.agent365
 page_type: conceptual
 toc_rel: ../toc.json
-pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/office.Microsoft-365-docs/{branchName}{pdfName}
+feedback_product_url: ''
 feedback_help_link_type: ''
 feedback_help_link_url: ''
-asset_id: admin/manage/manage-plugins-skills-mcp-servers
-moniker_range_name: 626dcefb463b053bbc5c86fb8d873ef6
-monikers:
-- o365-21vianet
-- o365-worldwide
+asset_id: admin/manage-plugins-skills-mcp-servers
+moniker_range_name: 
+monikers: []
 item_type: Content
-source_path: microsoft-365/admin/manage/manage-plugins-skills-mcp-servers.md
+source_path: agent365-docs/admin/manage-plugins-skills-mcp-servers.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
@@ -70,10 +61,10 @@ spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/02e99b71-5808-477b-9387-4c6efa24e46b
-platformId: 6ba2b184-ec22-422a-da98-d0ea8439676f
+platformId: 3ace7e56-441d-f3f6-6cf1-e3df613dd436
 ---
 
-# Manage plugins, skills, and MCP servers in Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
+# Manage plugins, skills, and MCP servers in Microsoft 365 admin center | Microsoft Learn
 
 Plugins are packaged integrations that extend agents with reusable capabilities, including skills, Model Context Protocol (MCP) servers, and connectors. Skills provide reusable instructions or workflows that help agents perform tasks consistently. For definitions of these and other tool types, see [Key concepts](agent-tools-overview#key-concepts) in the Agent Tools overview.
 

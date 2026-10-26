@@ -86,7 +86,7 @@ For information about the roles needed to view usage reports, see "Before you be
 
 ## Interpret the Microsoft Copilot Agents usage report
 
-Use the Agents usage report to see the usage of agents in your organization that your organization, Microsoft, or Third-party built. These agents include agents that an admin approves, and agents that users create through agent builder and share with users in your organization. Admins can manage agents in the same way as they manage any other app by using Copilot controls in the Microsoft 365 admin center. For more information, see [Manage agents for Microsoft Copilot in the Microsoft 365 admin center](/en-us/microsoft-365/admin/manage/manage-copilot-agents-integrated-apps).
+Use the Agents usage report to see the usage of agents in your organization that your organization, Microsoft, or Third-party built. These agents include agents that an admin approves, and agents that users create through agent builder and share with users in your organization. Admins can manage agents in the same way as they manage any other app by using Copilot controls in the Microsoft 365 admin center. For more information, see [Manage agents for Microsoft Copilot in the Microsoft 365 admin center](/en-us/microsoft-agent-365/admin/manage-copilot-agents-integrated-apps).
 
 At the top of the report, you can filter by different periods. You can view the agent report over the last 7 or 30 days.
 
@@ -102,7 +102,7 @@ An active user of an agent is a user who asks an agent a question and receives a
 - By selecting the agent from the side panel in Microsoft Copilot Chat and at-mentioning the agent in the chat experience.
 - By selecting the **Open navigation panel** button in the top corner of Microsoft Copilot in Word, Excel, or PowerPoint.
 
-To learn more about managing and enabling agents in your organization, see [Manage agents for Microsoft Copilot in the Microsoft 365 admin center](/en-us/microsoft-365/admin/manage/manage-copilot-agents-integrated-apps).
+To learn more about managing and enabling agents in your organization, see [Manage agents for Microsoft Copilot in the Microsoft 365 admin center](/en-us/microsoft-agent-365/admin/manage-copilot-agents-integrated-apps).
 
 ### Users by license type
 

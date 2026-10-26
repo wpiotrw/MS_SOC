@@ -1,18 +1,17 @@
 ---
 layout: Conceptual
-monikers:
-- o365-21vianet
-- o365-worldwide
-defaultMoniker: o365-worldwide
-versioningType: Ranged
-title: Agent settings in Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-settings?view=o365-worldwide
-config_moniker_range: =o365-worldwide || =o365-21vianet
+title: Agent settings in Microsoft 365 admin center | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/microsoft-agent-365/admin/agent-settings
+breadcrumb_path: ../breadcrumb/agent365/toc.json
+uhfHeaderId: MSDocsHeader-Agent365
 feedback_system: Standard
-feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=DocsMacCampaign
-breadcrumb_path: /microsoft-365/breadcrumb/toc.json
-recommendations: false
-uhfHeaderId: MSDocsHeader-M365-IT
+permissioned-type: public
+ms.service: agent-365
+hideScope: false
+ms.custom:
+- AdminSurgePortfolio
+- AdminTemplateSet
+ms.subservice: admin
 description: Agent settings in Microsoft 365 admin center.
 ai-usage: ai-assisted
 f1.keywords:
@@ -24,8 +23,6 @@ ms.date: 2026-09-03T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: concept-article
-ms.service: microsoft-365-copilot
-ms.subservice: agent-management
 ms.localizationpriority: medium
 ms.collection:
 - Tier2
@@ -36,44 +33,38 @@ ms.collection:
 - m365copilot
 - magic-ai-copilot
 - operations-pod
-ms.custom:
-- AdminSurgePortfolio
-- AdminTemplateSet
 search.appverid:
 - BCS160
 - MET150
 - MOE150
 locale: en-us
-document_id: 861e530c-054d-cb43-9acb-4da32b58c95f
-document_version_independent_id: 861e530c-054d-cb43-9acb-4da32b58c95f
-original_content_git_url: https://github.com/MicrosoftDocs/microsoft-365-docs-pr/blob/live/microsoft-365/admin/manage/agent-settings.md
-default_moniker: o365-worldwide
+document_id: fb964bd4-ba53-0f4a-75b1-dced459e6d86
+document_version_independent_id: fb964bd4-ba53-0f4a-75b1-dced459e6d86
+original_content_git_url: https://github.com/MicrosoftDocs/agent365-docs-pr/blob/live/agent365-docs/admin/agent-settings.md
 site_name: Docs
-depot_name: office.Microsoft-365-docs
+depot_name: Learn.agent365
 page_type: conceptual
 toc_rel: ../toc.json
-pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/office.Microsoft-365-docs/{branchName}{pdfName}
+feedback_product_url: ''
 feedback_help_link_type: ''
 feedback_help_link_url: ''
-asset_id: admin/manage/agent-settings
-moniker_range_name: 626dcefb463b053bbc5c86fb8d873ef6
-monikers:
-- o365-21vianet
-- o365-worldwide
+asset_id: admin/agent-settings
+moniker_range_name: 
+monikers: []
 item_type: Content
-source_path: microsoft-365/admin/manage/agent-settings.md
+source_path: agent365-docs/admin/agent-settings.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/96407ebd-b9e6-40db-9488-063e1af76a01
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/8af61fb5-33c5-4523-b00a-7a42d7bbe9cd
-platformId: 26f5b435-67bf-b3bd-a4af-9b29acedb811
+platformId: 67009cac-214c-46b2-19b9-c9bcb1dbcf96
 ---
 
-# Agent settings in Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
+# Agent settings in Microsoft 365 admin center | Microsoft Learn
 
 The **Agent** settings page in [Microsoft 365 admin center](https://admin.microsoft.com/) provides centralized controls for managing AI agents across your organization. These settings help administrators enforce security, compliance, and governance standards while enabling flexibility for collaboration and productivity.
 
@@ -91,7 +82,7 @@ The **Agent settings** page includes the following configuration options:
 
 These settings allow you to customize agent behavior, control access, and maintain compliance with enterprise standards.
 
-[![Screenshot of the Agent settings page in the Microsoft 365 admin center.](../../media/agents/agent-settings.png)](../../media/agents/agent-settings.png#lightbox)
+[![Screenshot of the Agent settings page in the Microsoft 365 admin center.](media/agents/agent-settings.png)](media/agents/agent-settings.png#lightbox)
 
 ## Agent management rules
 
@@ -144,13 +135,13 @@ By using the **Reassign Ownerless Agents** rule, you can:
 
 Admins can create a custom rule to block multiple ownerless agents that have no usage.
 
-[![Screenshot of rule details for blocking ownerless agents without usage in the Microsoft 365 admin center.](../../media/agents/block-ownerless-agents-without-usage.png)](../../media/agents/block-ownerless-agents-without-usage.png#lightbox)
+[![Screenshot of rule details for blocking ownerless agents without usage in the Microsoft 365 admin center.](media/agents/block-ownerless-agents-without-usage.png)](media/agents/block-ownerless-agents-without-usage.png#lightbox)
 
 #### Apply a template
 
 Use the **Apply template** action in an agent management rule to apply security policies to existing agents. This action helps you apply policies at scale after agents are published instead of applying policies to each agent individually.
 
-[![Screenshot of rule details with Apply Template selected as the action in the Microsoft 365 admin center.](../../media/agents/apply-template-rule.png)](../../media/agents/apply-template-rule.png#lightbox)
+[![Screenshot of rule details with Apply Template selected as the action in the Microsoft 365 admin center.](media/agents/apply-template-rule.png)](media/agents/apply-template-rule.png#lightbox)
 
 When you create the rule, define conditions that identify the agent instances you want to manage. The rule evaluates agents in the registry that have an agent identity. It doesn't apply to agent blueprints or AI teammates.
 
@@ -168,7 +159,7 @@ The **Apply template** action is a one-time bulk operation. It isn't a scheduled
 
 Admins can create a custom rule to reject multiple agent publish requests that are older than a specified number of days.
 
-[![Screenshot of rule details for rejecting agent publish requests older than 30 days in the Microsoft 365 admin center.](../../media/agents/reject-old-agent-publish-requests.png)](../../media/agents/reject-old-agent-publish-requests.png#lightbox)
+[![Screenshot of rule details for rejecting agent publish requests older than 30 days in the Microsoft 365 admin center.](media/agents/reject-old-agent-publish-requests.png)](media/agents/reject-old-agent-publish-requests.png#lightbox)
 
 ## Agent and plugin access
 
@@ -178,7 +169,7 @@ The **Agent and plugin access** setting controls which types of agents and plugi
 - **Allow agents and plugins built by your organization** - Enables users to install custom agents and plugins developed within your tenant.
 - **Allow agents and plugins built by external publishers** - Enables users to install non-Microsoft agents and plugins built by external developers.
 
-[![Screenshot of the Agent and plugin access page.](../../media/agents/allowed-agent-types.png)](../../media/agents/allowed-agent-types.png#lightbox)
+[![Screenshot of the Agent and plugin access page.](media/agents/allowed-agent-types.png)](media/agents/allowed-agent-types.png#lightbox)
 
 Tip
 
@@ -189,7 +180,7 @@ Tip
 
 To enhance governance and security for agents, apply a template that includes predefined security policies.
 
-For more information about templates, see [Policy templates](/en-us/microsoft-agent-365/admin/policy-template).
+For more information about templates, see [Policy templates](policy-template).
 
 ## Sharing
 
@@ -203,7 +194,7 @@ Options include:
 
 Sharing control only applies to agents built with **Microsoft Copilot Agent Builder**.
 
-[![Screenshot of Shared settings.](../../media/agents/sharing.png)](../../media/agents/sharing.png#lightbox)
+[![Screenshot of Shared settings.](media/agents/sharing.png)](media/agents/sharing.png#lightbox)
 
 ## User access
 
@@ -229,7 +220,7 @@ To manage access to Copilot agents and plugins, follow these steps:
 
     Data processed by non-Microsoft services isn't subject to Microsoft agreements. Review the terms provided by non-Microsoft agent and plugin publishers to make sure that you're familiar with the data handling and privacy practices of the agent or plugin. In addition, consult your internal policies before allowing access.
 
-    [![Screenshot of User access page.](../../media/agents/user-access.png)](../../media/agents/user-access.png#lightbox)
+    [![Screenshot of User access page.](media/agents/user-access.png)](media/agents/user-access.png#lightbox)
 4. Select **Save** to update your Copilot agent and plugin settings for your tenant.
 
 ## Agent feedback sharing

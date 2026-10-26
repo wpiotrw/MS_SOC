@@ -1,18 +1,17 @@
 ---
 layout: Conceptual
-monikers:
-- o365-21vianet
-- o365-worldwide
-defaultMoniker: o365-worldwide
-versioningType: Ranged
-title: Understand Local Agents in Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-local?view=o365-worldwide
-config_moniker_range: =o365-worldwide || =o365-21vianet
+title: Understand Local Agents in Microsoft 365 admin center | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/microsoft-agent-365/admin/agent-local
+breadcrumb_path: ../breadcrumb/agent365/toc.json
+uhfHeaderId: MSDocsHeader-Agent365
 feedback_system: Standard
-feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=DocsMacCampaign
-breadcrumb_path: /microsoft-365/breadcrumb/toc.json
-recommendations: false
-uhfHeaderId: MSDocsHeader-M365-IT
+permissioned-type: public
+ms.service: agent-365
+hideScope: false
+ms.custom:
+- AdminSurgePortfolio
+- AdminTemplateSet
+ms.subservice: admin
 description: Understand Local Agents in Microsoft 365 admin center.
 f1.keywords:
 - NOCSH
@@ -23,8 +22,6 @@ ms.date: 2026-09-04T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: concept-article
-ms.service: microsoft-365-copilot
-ms.subservice: agent-management
 ms.localizationpriority: medium
 ms.collection:
 - Tier2
@@ -34,44 +31,38 @@ ms.collection:
 - m365copilot
 - magic-ai-copilot
 - operations-pod
-ms.custom:
-- AdminSurgePortfolio
-- AdminTemplateSet
 search.appverid:
 - BCS160
 - MET150
 - MOE150
 locale: en-us
-document_id: a48f9fa4-fcaf-6a1d-b0ba-598bafbbbe2a
-document_version_independent_id: a48f9fa4-fcaf-6a1d-b0ba-598bafbbbe2a
-original_content_git_url: https://github.com/MicrosoftDocs/microsoft-365-docs-pr/blob/live/microsoft-365/admin/manage/agent-local.md
-default_moniker: o365-worldwide
+document_id: 3b151e76-2777-3243-5eaf-d90df777bec5
+document_version_independent_id: 3b151e76-2777-3243-5eaf-d90df777bec5
+original_content_git_url: https://github.com/MicrosoftDocs/agent365-docs-pr/blob/live/agent365-docs/admin/agent-local.md
 site_name: Docs
-depot_name: office.Microsoft-365-docs
+depot_name: Learn.agent365
 page_type: conceptual
 toc_rel: ../toc.json
-pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/office.Microsoft-365-docs/{branchName}{pdfName}
+feedback_product_url: ''
 feedback_help_link_type: ''
 feedback_help_link_url: ''
-asset_id: admin/manage/agent-local
-moniker_range_name: 626dcefb463b053bbc5c86fb8d873ef6
-monikers:
-- o365-21vianet
-- o365-worldwide
+asset_id: admin/agent-local
+moniker_range_name: 
+monikers: []
 item_type: Content
-source_path: microsoft-365/admin/manage/agent-local.md
+source_path: agent365-docs/admin/agent-local.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f97c0bd5-0580-4767-b5c8-219bede529e2
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/a72e95ff-4b4f-4cc1-90c6-7dcba67ff05f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c61bdaa9-b56c-4fa3-873a-58cafacba4f6
-platformId: 8f99cad9-54dd-da67-ee05-78598b51af9f
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/24dc3ccd-591a-4415-a1fe-8759afafcb12
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
+platformId: 7856af78-7852-7315-1771-2ce9ff5420b0
 ---
 
-# Understand Local Agents in Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
+# Understand Local Agents in Microsoft 365 admin center | Microsoft Learn
 
 Important
 
@@ -235,4 +226,4 @@ Blocking a Node.js–based agent blocks all agents and processes of that run typ
 
 ## Additional information
 
-- [Shadow AI in Microsoft 365 admin center](/en-us/microsoft-365/admin/manage/agent-shadow-ai)
+- [Shadow AI in Microsoft 365 admin center](agent-shadow-ai)

@@ -46,12 +46,12 @@ item_type: Content
 source_path: microsoft-365/admin/manage/agent-map.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d56bfe0c-ecd5-4d90-854f-35482bbb1314
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/02e99b71-5808-477b-9387-4c6efa24e46b
 platformId: 9ff16844-1324-5b9b-a4c3-daaba0154b8a
 ---
 
@@ -59,7 +59,7 @@ platformId: 9ff16844-1324-5b9b-a4c3-daaba0154b8a
 
 Important
 
-This feature is available within Microsoft 365 admin center based on licensed subscription. To view your licensed subscriptions in the [Microsoft 365 admin center](https://admin.cloud.microsoft/), select **Billing** &gt; **Licenses** &gt; **Subscriptions**. For more information, see [Licensing for agent management](/en-us/microsoft-365/admin/manage/agent-365-overview#licensing-for-agent-management).
+This feature is available within Microsoft 365 admin center based on your licensed subscription. To view your licensed subscriptions in the [Microsoft 365 admin center](https://admin.cloud.microsoft/), select **Billing** &gt; **Licenses** &gt; **Subscriptions**. For more information, see [Licensing for agent management](/en-us/microsoft-agent-365/admin/agent-365-overview#licensing-for-agent-management).
 
 Agent Map in the Microsoft 365 admin center gives IT and AI admins a visual way to understand and manage the agents running in their tenant. Instead of relying only on list-based views, Agent Map groups agents by the platform they were created on, making it easier to interpret large agent estates and spot adoption patterns at a glance.
 
@@ -89,7 +89,7 @@ Use the following steps to view the Agent Map:
 
 When you select the **Map** tab, the map loads agents from your tenant and displays them as icons grouped by platform and other metrics.
 
-Agent Map is available to all Microsoft Copilot administrators with an E7 (Agent 365) license. To access the Agent Map, your role must be either a **Global Administrator** or an **AI Administrator**. For more information about agent management roles, see [Agent management roles and permissions](agent-roles-perms).
+Agent Map is available to all Microsoft Copilot administrators with an E7 (Agent 365) license. To access the Agent Map, your role must be either a **Global Administrator** or an **AI Administrator**. For more information about agent management roles, see [Agent management roles and permissions](/en-us/microsoft-agent-365/admin/agent-roles-perms).
 
 ## Agent Map clusters
 
@@ -198,7 +198,7 @@ If **Conceal user, group, and site names in all reports** is enabled in your org
 
 ### Supported agent types
 
-- Any agent that sends observability data to Agent 365. For more information about Agent 365 observability support, see [Microsoft Agent 365 overview](agent-365-overview).
+- Any agent that sends observability data to Agent 365. For more information about Agent 365 observability support, see [Microsoft Agent 365 overview](/en-us/microsoft-agent-365/admin/agent-365-overview).
 - This includes first-party Microsoft agents and agents built with Microsoft Copilot Studio.
 
 ### Limitations (preview)
@@ -227,7 +227,7 @@ When you select an icon for a specific agent, you can see more details about the
 - Security
 - Activity
 
-For more information about agent details, see [Understand agent details in Microsoft 365 admin center](agent-details).
+For more information about agent details, see [Understand agent details in Microsoft 365 admin center](/en-us/microsoft-agent-365/admin/agent-details).
 
 ## Agent actions
 
@@ -241,4 +241,4 @@ Available actions are based on the state of the agent. Actions can include the f
 - **Install** - Deploys and installs the agent to the selected users.
 - **Pin for users** - The agent will be pinned in the UI (based on channel) where the agent was deployed, so that the agent can be found more easily. Based on the users or groups where the agent was deployed, you can specify who will have the agent pinned.
 
-These actions are reflected in both the Agent Map and the Registry tab. For a full list of available admin actions, see [Governance and Lifecycle actions for agents available in Microsoft 365 admin center](agent-actions).
+These actions are reflected in both the Agent Map and the Registry tab. For a full list of available admin actions, see [Governance and Lifecycle actions for agents available in Microsoft 365 admin center](/en-us/microsoft-agent-365/admin/agent-actions).

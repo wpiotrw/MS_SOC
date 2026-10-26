@@ -1,18 +1,17 @@
 ---
 layout: Conceptual
-monikers:
-- o365-21vianet
-- o365-worldwide
-defaultMoniker: o365-worldwide
-versioningType: Ranged
-title: Create agentic user instances on behalf of managers - Microsoft 365 admin | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/create-agentic-user-instances?view=o365-worldwide
-config_moniker_range: =o365-worldwide || =o365-21vianet
+title: Create agentic user instances on behalf of managers | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/microsoft-agent-365/admin/create-agentic-user-instances
+breadcrumb_path: ../breadcrumb/agent365/toc.json
+uhfHeaderId: MSDocsHeader-Agent365
 feedback_system: Standard
-feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=DocsMacCampaign
-breadcrumb_path: /microsoft-365/breadcrumb/toc.json
-recommendations: false
-uhfHeaderId: MSDocsHeader-M365-IT
+permissioned-type: public
+ms.service: agent-365
+hideScope: false
+ms.custom:
+- AdminSurgePortfolio
+- AdminTemplateSet
+ms.subservice: admin
 description: Learn how Global Admins and AI Admins can create agentic user instances from activated agent templates on behalf of managers in the Microsoft 365 admin center.
 ai-usage: ai-assisted
 f1.keywords:
@@ -24,8 +23,6 @@ ms.date: 2026-09-23T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: how-to
-ms.service: microsoft-365-copilot
-ms.subservice: agent-management
 ms.localizationpriority: medium
 ms.collection:
 - Tier2
@@ -36,44 +33,38 @@ ms.collection:
 - m365copilot
 - magic-ai-copilot
 - operations-pod
-ms.custom:
-- AdminSurgePortfolio
-- AdminTemplateSet
 search.appverid:
 - BCS160
 - MET150
 - MOE150
 locale: en-us
-document_id: b516800c-b2d6-5f23-1ae8-1c18ab9d74de
-document_version_independent_id: b516800c-b2d6-5f23-1ae8-1c18ab9d74de
-original_content_git_url: https://github.com/MicrosoftDocs/microsoft-365-docs-pr/blob/live/microsoft-365/admin/manage/create-agentic-user-instances.md
-default_moniker: o365-worldwide
+document_id: 2a64cae9-834b-2ea7-f6bf-38a026eff927
+document_version_independent_id: 2a64cae9-834b-2ea7-f6bf-38a026eff927
+original_content_git_url: https://github.com/MicrosoftDocs/agent365-docs-pr/blob/live/agent365-docs/admin/create-agentic-user-instances.md
 site_name: Docs
-depot_name: office.Microsoft-365-docs
+depot_name: Learn.agent365
 page_type: conceptual
 toc_rel: ../toc.json
-pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/office.Microsoft-365-docs/{branchName}{pdfName}
+feedback_product_url: ''
 feedback_help_link_type: ''
 feedback_help_link_url: ''
-asset_id: admin/manage/create-agentic-user-instances
-moniker_range_name: 626dcefb463b053bbc5c86fb8d873ef6
-monikers:
-- o365-21vianet
-- o365-worldwide
+asset_id: admin/create-agentic-user-instances
+moniker_range_name: 
+monikers: []
 item_type: Content
-source_path: microsoft-365/admin/manage/create-agentic-user-instances.md
+source_path: agent365-docs/admin/create-agentic-user-instances.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 - https://authoring-docs-microsoft.poolparty.biz/devrel/a3955c7b-f5ee-420d-aff5-d7119738f38b
+- https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
 - https://authoring-docs-microsoft.poolparty.biz/devrel/b31948f4-2f38-404b-ac93-c3c8c5b3ae33
-platformId: aa188198-f2ee-4002-942f-9c91fc9f42d5
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
+platformId: 0ba39fa3-10fc-046f-3f18-17a1816b22bb
 ---
 
-# Create agentic user instances on behalf of managers - Microsoft 365 admin | Microsoft Learn
+# Create agentic user instances on behalf of managers | Microsoft Learn
 
 AI-powered agents are built on templates that your organization can deploy to automate business processes. As a Global Admin or AI Admin, you can create agentic users on behalf of end users directly from the Microsoft 365 admin center, giving your organization full governance and control over agent deployment.
 
@@ -105,7 +96,7 @@ Global Admins and AI Admins are responsible for activating agents within their M
 Ensure the following prerequisites are in place before you start the instance creation flow:
 
 - You're signed in to the Microsoft 365 admin center as a Global Admin or AI Admin.
-- The agent template you want to deploy is already activated (published) in your tenant. For more information, see [Activate agents](agent-actions#activate-agents).
+- The agent template you want to deploy is already activated (published) in your tenant. For more information, see [Activate agents](agent-requests#requested-agents-pending-activate).
 - You identified the manager, the person who will be the business owner of this instance.
 - Sufficient licenses are available to assign to the new instance.
 - You confirmed the manager has an active user account in Microsoft Entra ID.
@@ -120,7 +111,7 @@ Follow these steps to create an instance, also known as an agentic user, from an
 
 ### Step 1: Go to the agent registry
 
-1. In the Microsoft 365 admin center, go to the **Agents** section and open the [Agent Registry](agent-registry). Here you see all agents that are activated for your tenant.
+1. In the Microsoft 365 admin center, go to the **Agents** section and open the [Agent Registry](agent-registry-overview). Here you see all agents that are activated for your tenant.
 2. Locate the agent you want to use. Agents with a status of **Available** are eligible for instance creation.
 3. Select the agent to open its Agent Details flyout panel.
 

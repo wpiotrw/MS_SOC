@@ -1,18 +1,17 @@
 ---
 layout: Conceptual
-monikers:
-- o365-21vianet
-- o365-worldwide
-defaultMoniker: o365-worldwide
-versioningType: Ranged
-title: Bring your own (BYO) MCP server in Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-byo-mcp-server?view=o365-worldwide
-config_moniker_range: =o365-worldwide || =o365-21vianet
+title: Bring your own (BYO) MCP server in Microsoft 365 admin center | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/microsoft-agent-365/admin/manage-byo-mcp-server
+breadcrumb_path: ../breadcrumb/agent365/toc.json
+uhfHeaderId: MSDocsHeader-Agent365
 feedback_system: Standard
-feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=DocsMacCampaign
-breadcrumb_path: /microsoft-365/breadcrumb/toc.json
-recommendations: false
-uhfHeaderId: MSDocsHeader-M365-IT
+permissioned-type: public
+ms.service: agent-365
+hideScope: false
+ms.custom:
+- AdminSurgePortfolio
+- AdminTemplateSet
+ms.subservice: admin
 description: Learn how to register, review, use, monitor, and manage your own remote MCP servers with Microsoft Agent 365 for centralized governance and observability.
 ai-usage: ai-assisted
 f1.keywords:
@@ -24,8 +23,6 @@ ms.date: 2026-09-28T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: how-to
-ms.service: microsoft-365-copilot
-ms.subservice: agent-management
 ms.localizationpriority: medium
 ms.collection:
 - Tier2
@@ -36,44 +33,36 @@ ms.collection:
 - m365copilot
 - magic-ai-copilot
 - operations-pod
-ms.custom:
-- AdminSurgePortfolio
-- AdminTemplateSet
 search.appverid:
 - BCS160
 - MET150
 - MOE150
 locale: en-us
-document_id: 920e37b4-c350-b2a8-ef05-4f1c8f907f13
-document_version_independent_id: 920e37b4-c350-b2a8-ef05-4f1c8f907f13
-original_content_git_url: https://github.com/MicrosoftDocs/microsoft-365-docs-pr/blob/live/microsoft-365/admin/manage/manage-byo-mcp-server.md
-default_moniker: o365-worldwide
+document_id: 5541e00f-9511-863c-1238-34866e8affe5
+document_version_independent_id: 5541e00f-9511-863c-1238-34866e8affe5
+original_content_git_url: https://github.com/MicrosoftDocs/agent365-docs-pr/blob/live/agent365-docs/admin/manage-byo-mcp-server.md
 site_name: Docs
-depot_name: office.Microsoft-365-docs
+depot_name: Learn.agent365
 page_type: conceptual
 toc_rel: ../toc.json
-pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/office.Microsoft-365-docs/{branchName}{pdfName}
+feedback_product_url: ''
 feedback_help_link_type: ''
 feedback_help_link_url: ''
-asset_id: admin/manage/manage-byo-mcp-server
-moniker_range_name: 626dcefb463b053bbc5c86fb8d873ef6
-monikers:
-- o365-21vianet
-- o365-worldwide
+asset_id: admin/manage-byo-mcp-server
+moniker_range_name: 
+monikers: []
 item_type: Content
-source_path: microsoft-365/admin/manage/manage-byo-mcp-server.md
+source_path: agent365-docs/admin/manage-byo-mcp-server.md
 cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/302444b9-4a43-4841-8014-3d9e4251ff15
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/bebd8809-dac1-4c22-83e2-66d98af8a94d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
-platformId: b0b104b3-2e9e-b30e-9209-8c71f58e7464
+platformId: e7e46de8-8003-24d7-98a1-d232cf6ddb9c
 ---
 
-# Bring your own (BYO) MCP server in Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
+# Bring your own (BYO) MCP server in Microsoft 365 admin center | Microsoft Learn
 
 The Bring Your Own (BYO) MCP server feature enables organizations to register their own remote Model Context Protocol (MCP) servers with Microsoft Agent 365 for centralized governance and observability.
 
@@ -126,7 +115,7 @@ Before registering a remote MCP server, make sure:
 - You have installed the Agent 365 CLI version 1.1.165-preview or later.
 - The Agent 365 service principal is provisioned in your tenant. If you can't find the service principal associated with app ID `ea9ffc3e-8a23-4a7d-836d-234d7c7565c1`, provision it by using the following resources:
 
-    - [Set up the service principal](/en-us/microsoft-agent-365/developer/tooling#set-up-service-principal).
+    - [Set up the service principal](../developer/tooling#set-up-service-principal).
     - [Learn who can provision a service principal](/en-us/cli/azure/azure-cli-sp-tutorial-1).
 - Your MCP server has a publicly accessible endpoint.
 - Your server uses one of the following supported authentication types:
@@ -138,7 +127,7 @@ Before registering a remote MCP server, make sure:
 
 ### Install the Agent 365 CLI
 
-To install the Agent 365 CLI, follow the instructions in [Install the Agent 365 CLI](/en-us/microsoft-agent-365/developer/agent-365-cli#install-the-agent-365-cli).
+To install the Agent 365 CLI, follow the instructions in [Install the Agent 365 CLI](../developer/agent-365-cli#install-the-agent-365-cli).
 
 ### Register your MCP server
 
@@ -358,7 +347,7 @@ After successful registration, submit the MCP server for admin review in the Mic
 
 ## Evaluate MCP servers
 
-You can evaluate the quality of your MCP tool definitions with the [`a365 develop-mcp evaluate`](/en-us/microsoft-agent-365/developer/reference/cli/develop-mcp#develop-mcp-evaluate) command. This command inspects your server's tool schemas and generates a report with actionable guidance for improving tool names, descriptions, and parameter schemas.
+You can evaluate the quality of your MCP tool definitions with the [`a365 develop-mcp evaluate`](../developer/reference/cli/develop-mcp#develop-mcp-evaluate) command. This command inspects your server's tool schemas and generates a report with actionable guidance for improving tool names, descriptions, and parameter schemas.
 
 The semantic checks are scored by a coding agent CLI (GitHub Copilot CLI or Claude Code) that runs *locally on your machine*, under your own account and AI subscription. This command doesn't send tool-schema data to Microsoft.
 
@@ -370,7 +359,7 @@ You don't need an admin role to run the evaluation. It runs locally against the 
 
 ### Prerequisites
 
-- Install the [Agent 365 CLI](/en-us/microsoft-agent-365/developer/agent-365-cli#install-the-agent-365-cli).
+- Install the [Agent 365 CLI](../developer/agent-365-cli#install-the-agent-365-cli).
 - For semantic (AI) scoring, one locally installed coding agent CLI:
     - **GitHub Copilot CLI**: Install with `npm install -g @github/copilot` (Node.js 18 or later). This is the standalone `copilot` binary, not the `gh copilot` GitHub CLI extension.
     - **Claude Code**: Install with `npm install -g @anthropic-ai/claude-code`, or follow [Claude Code install](https://docs.claude.com/claude-code).
@@ -430,7 +419,7 @@ Open `<server-name>_eval_report.html` from the output directory in a browser. Th
 - The **per-tool scores** with category breakdowns: tool name, tool description, parameter name, parameter description, and schema structure.
 - A **prioritized action-item list**, ordered by impact, including the concrete requirements to reach the next maturity level.
 
-[![Screenshot of the develop-mcp evaluate HTML report showing overall quality score, maturity level, key counts, and per-dimension category scores.](../../media/develop-mcp-evaluate-report.png)](../../media/develop-mcp-evaluate-report.png#lightbox)
+[![Screenshot of the develop-mcp evaluate HTML report showing overall quality score, maturity level, key counts, and per-dimension category scores.](media/develop-mcp-evaluate-report.png)](media/develop-mcp-evaluate-report.png#lightbox)
 
 ### Data handling and AI transparency
 
@@ -491,7 +480,7 @@ Note
 
 The first time you invoke the server, you might be prompted to complete a one-time connection setup. Follow the provided URL to create the required connection, such as entering your API key for an `APIKey`-based server. When you finish, return to your agent and retry the prompt. After a successful invocation, the MCP server returns the tool output.
 
-Learn how to invoke approved BYO MCP servers from Claude Code, VS Code, and GitHub Copilot CLI in the [Set up Work IQ MCP Servers for coding agents](/en-us/microsoft-agent-365/tooling-servers-overview#extend-your-agents-with-available-or-custom-mcp-servers) section of the Work IQ MCP overview.
+Learn how to invoke approved BYO MCP servers from Claude Code, VS Code, and GitHub Copilot CLI in the [Set up Work IQ MCP Servers for coding agents](../add-mcp-tools-developer-experiences#connect-mcp-servers-to-developer-clients) section of the Work IQ MCP overview.
 
 ## Monitor and observe MCP server activity
 

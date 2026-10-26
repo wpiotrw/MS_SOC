@@ -47,11 +47,9 @@ source_path: articles/foundry/agents/how-to/tools/toolbox-network-isolation.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1ae5c491-970a-4062-8301-6336e69f9026
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
-- https://authoring-docs-microsoft.poolparty.biz/devrel/f2c3e52e-3667-4e8a-bf11-20b9eaccdc8c
 platformId: 41493887-cf12-ce60-027b-48a414e8b0c7
 ---
 
@@ -64,6 +62,10 @@ When your project runs inside a virtual network (VNet) with [network isolation (
 Tool connectivity depends on where the downstream service is hosted. Some tools communicate with Azure resources that support private endpoints, some invoke services that run through the project's delegated subnet, and others depend on Microsoft-managed services that currently require public or backbone connectivity. Review how each tool behaves before you add it to a toolbox in a network-isolated environment.
 
 ## Network isolation support for tools in a toolbox
+
+Important
+
+Before you call tool endpoints outside Foundry through your virtual network, provision a valid capability host at the Foundry project level. Currently, provisioning a capability host only at the Foundry account level is insufficient. Without a [project-level capability host](../../concepts/capability-hosts#configure-capability-hosts), these calls fail with network connectivity errors, such as `name or host unknown`.
 
 Network-isolated projects work best with tools that support private endpoints or VNet subnet integration. Review the support table before building a toolbox intended for regulated or highly secured environments.
 
@@ -96,14 +98,29 @@ If you created a vector store while VNet was enabled, recreate it after disablin
 
 ## Set up a network-secured project
 
-Set up network isolation at the project level, then create your toolbox in that project. You can find the infrastructure-as-code templates in the [Foundry samples infrastructure setup repository](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-bicep) (Bicep, with a Terraform mirror). The template you choose depends on your [agent project type](../../concepts/networking-options#bring-your-own-virtual-network-requirements).
+Set up network isolation at the project level, then create your toolbox in that project. Choose a Bicep or Terraform template based on your [agent project type](../../concepts/networking-options#bring-your-own-virtual-network-requirements) and whether your downstream tools run behind a VNet.
 
 ### Configure a Basic agent project
 
 A Basic agent project uses platform-managed data resources. To place it inside your own virtual network with private endpoints and no public egress, deploy the [`11-private-network-basic-vnet`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-bicep/11-private-network-basic-vnet) template. To restrict who can call the endpoint while keeping public egress, use [`10-private-network-basic`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-bicep/10-private-network-basic).
 
+For Terraform, use [`11-private-network-basic-vnet`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-terraform/11-private-network-basic-vnet) for VNet injection or [`10-private-network-basic`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-terraform/10-private-network-basic) for a private endpoint without VNet injection.
+
 ### Configure a Standard agent project
 
 A Standard agent project brings your own data resources (Azure Cosmos DB, Azure Storage, and Azure AI Search). For full isolation with no public egress and bring-your-own data resources, deploy the [`15-private-network-standard-agent-setup`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-bicep/15-private-network-standard-agent-setup) template.
 
+For Terraform, use [`15a-private-network-standard-agent-setup`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-terraform/15a-private-network-standard-agent-setup) to create the networking resources. Use [`15b-private-network-standard-agent-setup-byovnet`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-terraform/15b-private-network-standard-agent-setup-byovnet) to integrate with an existing VNet and private DNS zones.
+
+### Configure tools behind a virtual network
+
+For a Standard agent project that accesses private MCP servers, OpenAPI tools, Azure Functions, or A2A agents, use the tools-enabled templates:
+
+- **Bicep**: [`19-private-network-agent-tools`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-bicep/19-private-network-agent-tools).
+- **Terraform**: [`19-private-network-agent-setup-with-tools`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-terraform/19-private-network-agent-setup-with-tools).
+
+These templates configure the networking infrastructure for private tools. Follow the sample instructions to deploy and connect the downstream tools.
+
 For the full template catalog and what each one provisions, see the [infrastructure setup README](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-bicep#readme). For a step-by-step walkthrough of customizing the scaffolded infrastructure, see [Set up private networking for Foundry Agent Service](../virtual-networks).
+
+To provision account-level and project-level capability hosts, see [Configure capability hosts](../../concepts/capability-hosts#configure-capability-hosts).

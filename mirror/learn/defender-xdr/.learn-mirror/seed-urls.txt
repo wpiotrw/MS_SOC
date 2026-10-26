@@ -70,6 +70,7 @@ https://learn.microsoft.com/en-us/defender-xdr/manage-rbac
 https://learn.microsoft.com/en-us/defender-xdr/microsoft-threat-actor-naming
 https://learn.microsoft.com/en-us/defender-xdr/mto-distribution-profiles
 https://learn.microsoft.com/en-us/defender-xdr/mto-urbac
+https://learn.microsoft.com/en-us/defender-xdr/onboard-isoc-workspace
 https://learn.microsoft.com/en-us/defender-xdr/phishing-triage-agent
 https://learn.microsoft.com/en-us/defender-xdr/scoping
 https://learn.microsoft.com/en-us/defender-xdr/security-alert-triage-agent

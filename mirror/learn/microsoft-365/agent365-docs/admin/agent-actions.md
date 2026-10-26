@@ -1,18 +1,17 @@
 ---
 layout: Conceptual
-monikers:
-- o365-21vianet
-- o365-worldwide
-defaultMoniker: o365-worldwide
-versioningType: Ranged
-title: Governance and Lifecycle actions for agents available in Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-actions?view=o365-worldwide
-config_moniker_range: =o365-worldwide || =o365-21vianet
+title: Governance and Lifecycle actions for agents available in Microsoft 365 admin center | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/microsoft-agent-365/admin/agent-actions
+breadcrumb_path: ../breadcrumb/agent365/toc.json
+uhfHeaderId: MSDocsHeader-Agent365
 feedback_system: Standard
-feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=DocsMacCampaign
-breadcrumb_path: /microsoft-365/breadcrumb/toc.json
-recommendations: false
-uhfHeaderId: MSDocsHeader-M365-IT
+permissioned-type: public
+ms.service: agent-365
+hideScope: false
+ms.custom:
+- AdminSurgePortfolio
+- AdminTemplateSet
+ms.subservice: admin
 description: Governance and lifecycle actions for agents available in the Microsoft 365 admin center.
 ai-usage: ai-assisted
 f1.keywords:
@@ -24,8 +23,6 @@ ms.date: 2026-09-23T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: concept-article
-ms.service: microsoft-365-copilot
-ms.subservice: agent-management
 ms.localizationpriority: medium
 ms.collection:
 - Tier2
@@ -35,46 +32,40 @@ ms.collection:
 - m365copilot
 - magic-ai-copilot
 - operations-pod
-ms.custom:
-- AdminSurgePortfolio
-- AdminTemplateSet
 search.appverid:
 - BCS160
 - MET150
 - MOE150
 locale: en-us
-document_id: 3577924f-d4a8-4878-514d-f480723f5a22
-document_version_independent_id: 3577924f-d4a8-4878-514d-f480723f5a22
-original_content_git_url: https://github.com/MicrosoftDocs/microsoft-365-docs-pr/blob/live/microsoft-365/admin/manage/agent-actions.md
-default_moniker: o365-worldwide
+document_id: 1f4252fe-92e8-c03f-cd4f-d4f1ab53fbca
+document_version_independent_id: 1f4252fe-92e8-c03f-cd4f-d4f1ab53fbca
+original_content_git_url: https://github.com/MicrosoftDocs/agent365-docs-pr/blob/live/agent365-docs/admin/agent-actions.md
 site_name: Docs
-depot_name: office.Microsoft-365-docs
+depot_name: Learn.agent365
 page_type: conceptual
 toc_rel: ../toc.json
-pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/office.Microsoft-365-docs/{branchName}{pdfName}
+feedback_product_url: ''
 feedback_help_link_type: ''
 feedback_help_link_url: ''
-asset_id: admin/manage/agent-actions
-moniker_range_name: 626dcefb463b053bbc5c86fb8d873ef6
-monikers:
-- o365-21vianet
-- o365-worldwide
+asset_id: admin/agent-actions
+moniker_range_name: 
+monikers: []
 item_type: Content
-source_path: microsoft-365/admin/manage/agent-actions.md
+source_path: agent365-docs/admin/agent-actions.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9d7be3ef-f27c-4c7f-9eba-67c3cd429995
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/feeb50f3-b677-44f9-b3a6-5f2f58182b0d
-platformId: 4cb8577b-67fa-9771-a1d6-e6f032fbdc00
+platformId: 501986be-05a9-6909-026d-0f1ffe0a0bbc
 ---
 
-# Governance and Lifecycle actions for agents available in Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
+# Governance and Lifecycle actions for agents available in Microsoft 365 admin center | Microsoft Learn
 
-The Microsoft 365 admin center provides governance and lifecycle management capabilities for agents through the [Agent Registry](agent-registry). These capabilities enable administrators to manage agent visibility, access, distribution, and retirement across the tenant.
+The Microsoft 365 admin center provides governance and lifecycle management capabilities for agents through the [Agent Registry](agent-registry-overview). These capabilities enable administrators to manage agent visibility, access, distribution, and retirement across the tenant.
 
 ## Agent actions
 
@@ -97,7 +88,7 @@ Microsoft 365 for government Community Cloud High (GCCH) and Government Communit
 
 Note
 
-For information about actions related to the agent registry list, such as **Export to Excel**, **Upload custom agent**, and **Manage pinned agents**, see [Agent registry in the Microsoft 365 admin center](agent-registry).
+For information about actions related to the agent registry list, such as **Export to Excel**, **Upload custom agent**, and **Manage pinned agents**, see [Agent registry in the Microsoft 365 admin center](agent-registry-overview).
 
 ### Install agents
 
@@ -112,7 +103,7 @@ To install an agent through the Microsoft 365 admin center, follow these steps:
 5. In the agent details pane that opens, immediately under the agent's name, select **Install**.
 6. In the **Deploy agent to selected users** pane, decide whether to install the agent to all users or to specific users or groups, and then select **Next**.
 
-    [![Screenshot showing the configuration screen to deploy an agent.](../../media/agents/deploy.png)](../../media/agents/deploy.png#lightbox)
+    [![Screenshot showing the configuration screen to deploy an agent.](media/agents/deploy.png)](media/agents/deploy.png#lightbox)
 7. In the **Review permissions** pane, review the requested permissions for the agent. If the permissions are acceptable, select **Grant admin consent**. For more information, see [Agent permissions](agent-details#agent-permissions).
 8. In the **Permissions requested** window, select **Accept** to grant the permissions to the agent, and then select **Next**.
 9. In the **Review & finish** pane, select **Finish deployment**.
@@ -167,7 +158,7 @@ After you activate an agent, it becomes available for creating instances in the 
 
 ### Admin-initiated activation
 
-Administrators can proactively activate an agent through the [Agent Registry](agent-registry) without waiting for an activation request. During activation, administrators can make the agent available to all users, specific users, or specific security groups, depending on their organization's deployment requirements.
+Administrators can proactively activate an agent through the [Agent Registry](agent-registry-overview) without waiting for an activation request. During activation, administrators can make the agent available to all users, specific users, or specific security groups, depending on their organization's deployment requirements.
 
 ### Policies predefined in the Microsoft prebuilt default template
 
@@ -208,7 +199,7 @@ To block or unblock an agent, follow these steps:
 4. In the agent details pane that opens, immediately under the agent's name, select **Block** or **Unblock**.
 5. In the **Block agent** or **Unblock agent** pane that opens, select either **Block agent** or **Unblock agent**, and then select **Save**.
 
-    [![Screenshot showing the panel to block an agent.](../../media/agents/block.png)](../../media/agents/block.png#lightbox)
+    [![Screenshot showing the panel to block an agent.](media/agents/block.png)](media/agents/block.png#lightbox)
 
 Blocking or unblocking an agent that you created by using Microsoft Copilot Agent Builder and Microsoft Copilot Studio affects its availability and functionality in Microsoft Copilot. It also affects availability and functionality in other host products, such as Microsoft Outlook, Microsoft Teams, or other Microsoft 365 applications. However, blocking an agent that you created by using SharePoint or Microsoft Foundry only impacts its availability in Microsoft Copilot Chat.
 
@@ -324,10 +315,10 @@ To add an owner, follow these steps:
     To narrow the list, use the **Platform** filter and select **Agent Builder in Microsoft 365 Copilot**.
 4. On the **Details** tab in the agent details pane, select the user link next to **Owner**.
 
-    [![Screenshot of an Agent Builder agent details pane showing the Owner link.](../../media/agents/agent-builder-owner-details.png)](../../media/agents/agent-builder-owner-details.png#lightbox)
+    [![Screenshot of an Agent Builder agent details pane showing the Owner link.](media/agents/agent-builder-owner-details.png)](media/agents/agent-builder-owner-details.png#lightbox)
 5. In the **Owners** pane, select **Add owner**.
 
-    [![Screenshot of the Owners pane showing the owner list and the Add owner and Remove owner options.](../../media/agents/agent-builder-owners-pane.png)](../../media/agents/agent-builder-owners-pane.png#lightbox)
+    [![Screenshot of the Owners pane showing the owner list and the Add owner and Remove owner options.](media/agents/agent-builder-owners-pane.png)](media/agents/agent-builder-owners-pane.png#lightbox)
 6. Search for and select a user in your organization.
 7. Select **Add** to update the owner list.
 

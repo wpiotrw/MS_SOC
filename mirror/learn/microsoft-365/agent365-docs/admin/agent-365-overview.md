@@ -1,18 +1,17 @@
 ---
 layout: Conceptual
-monikers:
-- o365-21vianet
-- o365-worldwide
-defaultMoniker: o365-worldwide
-versioningType: Ranged
-title: Agent overview in Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-365-overview?view=o365-worldwide
-config_moniker_range: =o365-worldwide || =o365-21vianet
+title: Agent overview in Microsoft 365 admin center | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/microsoft-agent-365/admin/agent-365-overview
+breadcrumb_path: ../breadcrumb/agent365/toc.json
+uhfHeaderId: MSDocsHeader-Agent365
 feedback_system: Standard
-feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=DocsMacCampaign
-breadcrumb_path: /microsoft-365/breadcrumb/toc.json
-recommendations: false
-uhfHeaderId: MSDocsHeader-M365-IT
+permissioned-type: public
+ms.service: agent-365
+hideScope: false
+ms.custom:
+- AdminSurgePortfolio
+- AdminTemplateSet
+ms.subservice: admin
 description: Track agent usage across your organization and take steps to improve impact from Microsoft 365 admin center.
 f1.keywords:
 - NOCSH
@@ -23,8 +22,6 @@ ms.date: 2026-10-20T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: concept-article
-ms.service: microsoft-365-copilot
-ms.subservice: agent-management
 ms.localizationpriority: medium
 ms.collection:
 - Tier2
@@ -35,44 +32,38 @@ ms.collection:
 - m365copilot
 - magic-ai-copilot
 - operations-pod
-ms.custom:
-- AdminSurgePortfolio
-- AdminTemplateSet
 search.appverid:
 - BCS160
 - MET150
 - MOE150
 locale: en-us
-document_id: be1836ea-262a-cc87-06b0-9df36e5cc3ac
-document_version_independent_id: be1836ea-262a-cc87-06b0-9df36e5cc3ac
-original_content_git_url: https://github.com/MicrosoftDocs/microsoft-365-docs-pr/blob/live/microsoft-365/admin/manage/agent-365-overview.md
-default_moniker: o365-worldwide
+document_id: e630c7c2-c7c8-c0e2-5493-e82c041f44d2
+document_version_independent_id: e630c7c2-c7c8-c0e2-5493-e82c041f44d2
+original_content_git_url: https://github.com/MicrosoftDocs/agent365-docs-pr/blob/live/agent365-docs/admin/agent-365-overview.md
 site_name: Docs
-depot_name: office.Microsoft-365-docs
+depot_name: Learn.agent365
 page_type: conceptual
 toc_rel: ../toc.json
-pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/office.Microsoft-365-docs/{branchName}{pdfName}
+feedback_product_url: ''
 feedback_help_link_type: ''
 feedback_help_link_url: ''
-asset_id: admin/manage/agent-365-overview
-moniker_range_name: 626dcefb463b053bbc5c86fb8d873ef6
-monikers:
-- o365-21vianet
-- o365-worldwide
+asset_id: admin/agent-365-overview
+moniker_range_name: 
+monikers: []
 item_type: Content
-source_path: microsoft-365/admin/manage/agent-365-overview.md
+source_path: agent365-docs/admin/agent-365-overview.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/302444b9-4a43-4841-8014-3d9e4251ff15
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-platformId: 8a333d24-b43f-87ce-de74-aaf9a297a119
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/bebd8809-dac1-4c22-83e2-66d98af8a94d
+platformId: d43735b7-4b15-9a66-bc4b-974944b58307
 ---
 
-# Agent overview in Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
+# Agent overview in Microsoft 365 admin center | Microsoft Learn
 
 Agents are powerful AI companions that can handle a range of interactions and tasks. An agent can resolve issues that require complex conversations and autonomously determine the best action to take based on its instructions and context. It coordinates language models, along with instructions, context, knowledge sources, articles, tools, inputs, and triggers to accomplish goals that members of your organization need to accomplish. Your organization can use agents in multiple languages across websites, mobile apps, Facebook, Microsoft Teams, and any other supported channel.
 
@@ -120,7 +111,7 @@ Before you can manage agents in the Microsoft 365 admin center, confirm the foll
 For more information, see the following resources:
 
 - Licensing for agent management
-- [Agent management roles and permissions](/en-us/microsoft-365/admin/manage/agent-roles-perms)
+- [Agent management roles and permissions](agent-roles-perms)
 
 ## Licensing for agent management
 
@@ -138,7 +129,7 @@ Note
 
 To compare Copilot Chat and Microsoft Copilot, see [License options for Microsoft Copilot](/en-us/microsoft-365/copilot/microsoft-365-copilot-licensing).
 
-For more information about Microsoft Agent 365, see [Plans and licensing for Microsoft Agent 365](/en-us/microsoft-agent-365/overview#plans-and-licensing).
+For more information about Microsoft Agent 365, see [Plans and licensing for Microsoft Agent 365](../overview#plans-and-licensing).
 
 For a full enterprise plans comparison table, [get the full comparison table (PDF)](https://www.microsoft.com/microsoft-365/enterprise/microsoft-365-plans-and-pricing#comparison-pdf).
 
@@ -151,7 +142,7 @@ You can access and view the **Agent overview** using the following steps:
 
 Important
 
-Certain features are available within Microsoft 365 admin center based on services licensed in your subscription. To view your licensed subscriptions in the [Microsoft 365 admin center](https://admin.cloud.microsoft/), select **Billing** &gt; **Licenses** &gt; **Subscriptions**. For more information, see [Licensing for agent management](/en-us/microsoft-365/admin/manage/agent-365-overview#licensing-for-agent-management).
+Certain features are available within Microsoft 365 admin center based on services licensed in your subscription. To view your licensed subscriptions in the [Microsoft 365 admin center](https://admin.cloud.microsoft/), select **Billing** &gt; **Licenses** &gt; **Subscriptions**. For more information, see [Licensing for agent management](agent-365-overview#licensing-for-agent-management).
 
 ## Agent overview summary
 
@@ -172,7 +163,7 @@ Tip
 
 A tenant is an instance of Microsoft Entra ID. Your subscription to Copilot or Agent 365 is hosted by a Microsoft Entra tenant. For more information about creating and understanding tenants, see [Set up a new Microsoft Entra tenant](/en-us/entra/identity-platform/quickstart-create-new-tenant) in the Microsoft Entra documentation.
 
-[![Screenshot showing the agent workload in Microsoft 365 admin center, which provides management controls and details for agents within your organization's tenant.](../../media/agents/agent-overview.png)](../../media/agents/agent-overview.png#lightbox)
+[![Screenshot showing the agent workload in Microsoft 365 admin center, which provides management controls and details for agents within your organization's tenant.](media/agents/agent-overview.png)](media/agents/agent-overview.png#lightbox)
 
 To ensure consistent interpretation across metrics and insights in the Agent overview, the following definitions clarify what is included in agent counts and reporting on the **Overview** dashboard:
 
@@ -230,7 +221,7 @@ Agent 365 licenses are required for data collection only for third-party agents,
     - Data collection for third-party agents starts at license activation. For related information, see [Microsoft Copilot Agents usage report](/en-us/microsoft-365/admin/activity-reports/microsoft-365-copilot-agents-new).
 - **Agent run-time**- Total hours worked by agents during the last 30 days, calculated from when a user request begins to when it is completed, and aggregated across all agent activities, such as executing tool calls and preparing responses.
     - For third-party agents, this metric begins when your organization activates Agent 365 licenses, so it will reflect fewer than 30 days of data immediately after activation. As activity accumulates, the metric will progressively reflect a fuller 30-day view.
-- **Registry sync** - The external connected platforms that were scanned. You can connect to external platforms to find and monitor agents used in your organization. Your use of external non-Microsoft products is subject to the third-party service provider's terms of use. You're responsible for complying with each provider's terms of use. For more information, see [Registry sync in the Microsoft 365 agent registry](/en-us/microsoft-agent-365/admin/agent-registry).
+- **Registry sync** - The external connected platforms that were scanned. You can connect to external platforms to find and monitor agents used in your organization. Your use of external non-Microsoft products is subject to the third-party service provider's terms of use. You're responsible for complying with each provider's terms of use. For more information, see [Registry sync in the Microsoft 365 agent registry](connected-platforms).
 
 ## Top actions for you
 

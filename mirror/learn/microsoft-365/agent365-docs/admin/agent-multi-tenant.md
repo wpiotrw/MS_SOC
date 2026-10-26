@@ -1,18 +1,17 @@
 ---
 layout: Conceptual
-monikers:
-- o365-21vianet
-- o365-worldwide
-defaultMoniker: o365-worldwide
-versioningType: Ranged
-title: Manage agents across multiple tenants in the Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-multi-tenant?view=o365-worldwide
-config_moniker_range: =o365-worldwide || =o365-21vianet
+title: Manage agents across multiple tenants in the Microsoft 365 admin center | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/microsoft-agent-365/admin/agent-multi-tenant
+breadcrumb_path: ../breadcrumb/agent365/toc.json
+uhfHeaderId: MSDocsHeader-Agent365
 feedback_system: Standard
-feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=DocsMacCampaign
-breadcrumb_path: /microsoft-365/breadcrumb/toc.json
-recommendations: false
-uhfHeaderId: MSDocsHeader-M365-IT
+permissioned-type: public
+ms.service: agent-365
+hideScope: false
+ms.custom:
+- AdminSurgePortfolio
+- AdminTemplateSet
+ms.subservice: admin
 description: Manage agents across multiple tenants in the Microsoft 365 admin center.
 f1.keywords:
 - NOCSH
@@ -23,8 +22,6 @@ ms.date: 2026-07-17T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: concept-article
-ms.service: microsoft-365-copilot
-ms.subservice: agent-management
 ms.localizationpriority: medium
 ms.collection:
 - Tier2
@@ -34,44 +31,38 @@ ms.collection:
 - m365copilot
 - magic-ai-copilot
 - operations-pod
-ms.custom:
-- AdminSurgePortfolio
-- AdminTemplateSet
 search.appverid:
 - BCS160
 - MET150
 - MOE150
 locale: en-us
-document_id: 5ebf99d5-53dd-7a56-d151-78499df3b055
-document_version_independent_id: 5ebf99d5-53dd-7a56-d151-78499df3b055
-original_content_git_url: https://github.com/MicrosoftDocs/microsoft-365-docs-pr/blob/live/microsoft-365/admin/manage/agent-multi-tenant.md
-default_moniker: o365-worldwide
+document_id: 70ffde71-7ce1-ae86-671c-08517cc7fa86
+document_version_independent_id: 70ffde71-7ce1-ae86-671c-08517cc7fa86
+original_content_git_url: https://github.com/MicrosoftDocs/agent365-docs-pr/blob/live/agent365-docs/admin/agent-multi-tenant.md
 site_name: Docs
-depot_name: office.Microsoft-365-docs
+depot_name: Learn.agent365
 page_type: conceptual
 toc_rel: ../toc.json
-pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/office.Microsoft-365-docs/{branchName}{pdfName}
+feedback_product_url: ''
 feedback_help_link_type: ''
 feedback_help_link_url: ''
-asset_id: admin/manage/agent-multi-tenant
-moniker_range_name: 626dcefb463b053bbc5c86fb8d873ef6
-monikers:
-- o365-21vianet
-- o365-worldwide
+asset_id: admin/agent-multi-tenant
+moniker_range_name: 
+monikers: []
 item_type: Content
-source_path: microsoft-365/admin/manage/agent-multi-tenant.md
+source_path: agent365-docs/admin/agent-multi-tenant.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
-platformId: 3738e8b3-ae37-95e3-bcbf-20ecde815820
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
+platformId: 9ae58485-0779-6c72-be64-292c3021cc29
 ---
 
-# Manage agents across multiple tenants in the Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
+# Manage agents across multiple tenants in the Microsoft 365 admin center | Microsoft Learn
 
 Important
 
@@ -139,14 +130,14 @@ The tenant switcher is a key benefit for partners and enterprise administrators.
 
 1. In the Microsoft 365 admin center command bar, select the tenant switcher next to the current tenant name.
 
-    [![Screenshot that shows Tenant switcher control next to the current tenant name in the Microsoft 365 admin center command bar.](../../media/agents/agent-multi-tenant-04.png)](../../media/agents/agent-multi-tenant-04.png#lightbox)
+    [![Screenshot that shows Tenant switcher control next to the current tenant name in the Microsoft 365 admin center command bar.](media/agents/agent-multi-tenant-04.png)](media/agents/agent-multi-tenant-04.png#lightbox)
 2. Search for or select the governed tenant that you want to administer.
 3. The Microsoft 365 admin center opens in the selected governed tenant by using your delegated access.
 4. Use the tenant switcher again to return to the governing tenant or move to another governed tenant.
 
 Use the tenant switcher when you need to work in one governed tenant. To return to the consolidated experience, use the tenant switcher to return to the governing tenant, and then select **All tenants**.
 
-[![Screenshot that shows Tenant switcher showing available governed tenants to move into or return to the governing tenant.](../../media/agents/agent-multi-tenant-01.png)](../../media/agents/agent-multi-tenant-01.png#lightbox)
+[![Screenshot that shows Tenant switcher showing available governed tenants to move into or return to the governing tenant.](media/agents/agent-multi-tenant-01.png)](media/agents/agent-multi-tenant-01.png#lightbox)
 
 ## Multi-tenant agent experience
 
@@ -157,7 +148,7 @@ The multi-tenant agent experience opens the consolidated agent inventory from th
 
 The **All tenants** scope is only available when the governing tenant has at least one supported tenant relationship and the signed-in administrator has a supported delegated role.
 
-[![Screenshot that shows consolidated multi-tenant Agents page opened from the All tenants scope in the Microsoft 365 admin center.](../../media/agents/agent-multi-tenant-05.png)](../../media/agents/agent-multi-tenant-05.png#lightbox)
+[![Screenshot that shows consolidated multi-tenant Agents page opened from the All tenants scope in the Microsoft 365 admin center.](media/agents/agent-multi-tenant-05.png)](media/agents/agent-multi-tenant-05.png#lightbox)
 
 ## View agents across tenants
 
@@ -180,7 +171,7 @@ After reviewing the consolidated listing, an authorized administrator can add a 
 3. Review the agent details and any permissions presented in the workflow.
 4. Complete the workflow, and then confirm that the agent appears in the **Agents** listing.
 
-[![Screenshot showing the 'Select tenants' pane.](../../media/agents/agent-multi-tenant-02.png)](../../media/agents/agent-multi-tenant-02.png#lightbox)
+[![Screenshot showing the 'Select tenants' pane.](media/agents/agent-multi-tenant-02.png)](media/agents/agent-multi-tenant-02.png#lightbox)
 
 ## Review agent details
 
@@ -190,7 +181,7 @@ Agent status is tenant-specific. A single agent can have different availability,
 2. In the details pane, select a governed tenant from the tenant list.
 3. Review the available tabs for that tenant instance, such as **Overview**, **Data & tools**, **Security & compliance**, **Permissions**, and **Activity**.
 
-[![Screenshot showing agent details across tenants.](../../media/agents/agent-multi-tenant-03.png)](../../media/agents/agent-multi-tenant-03.png#lightbox)
+[![Screenshot showing agent details across tenants.](media/agents/agent-multi-tenant-03.png)](media/agents/agent-multi-tenant-03.png#lightbox)
 
 ## Take action for a specific tenant in agent details
 

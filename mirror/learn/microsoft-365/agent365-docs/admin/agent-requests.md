@@ -1,18 +1,17 @@
 ---
 layout: Conceptual
-monikers:
-- o365-21vianet
-- o365-worldwide
-defaultMoniker: o365-worldwide
-versioningType: Ranged
-title: Agent Requests in Microsoft 365 Admin Center - Microsoft 365 admin | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/agent-requests?view=o365-worldwide
-config_moniker_range: =o365-worldwide || =o365-21vianet
+title: Agent Requests in Microsoft 365 Admin Center | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/microsoft-agent-365/admin/agent-requests
+breadcrumb_path: ../breadcrumb/agent365/toc.json
+uhfHeaderId: MSDocsHeader-Agent365
 feedback_system: Standard
-feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=DocsMacCampaign
-breadcrumb_path: /microsoft-365/breadcrumb/toc.json
-recommendations: false
-uhfHeaderId: MSDocsHeader-M365-IT
+permissioned-type: public
+ms.service: agent-365
+hideScope: false
+ms.custom:
+- AdminSurgePortfolio
+- AdminTemplateSet
+ms.subservice: admin
 description: Learn how to review, approve, update, or reject agent requests in Microsoft 365 admin center to control rollout and governance. Get started now.
 f1.keywords:
 - NOCSH
@@ -23,8 +22,6 @@ ms.date: 2026-09-02T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: concept-article
-ms.service: microsoft-365-copilot
-ms.subservice: agent-management
 ms.localizationpriority: medium
 ms.collection:
 - Tier2
@@ -35,48 +32,40 @@ ms.collection:
 - m365copilot
 - magic-ai-copilot
 - operations-pod
-ms.custom:
-- AdminSurgePortfolio
-- AdminTemplateSet
 search.appverid:
 - BCS160
 - MET150
 - MOE150
 locale: en-us
-document_id: 7e52a0a7-2323-57fc-073e-c7e2394c6cc3
-document_version_independent_id: 7e52a0a7-2323-57fc-073e-c7e2394c6cc3
-original_content_git_url: https://github.com/MicrosoftDocs/microsoft-365-docs-pr/blob/live/microsoft-365/admin/manage/agent-requests.md
-default_moniker: o365-worldwide
+document_id: e34d339e-b4a8-96e0-1119-2a7fbb2917d0
+document_version_independent_id: e34d339e-b4a8-96e0-1119-2a7fbb2917d0
+original_content_git_url: https://github.com/MicrosoftDocs/agent365-docs-pr/blob/live/agent365-docs/admin/agent-requests.md
 site_name: Docs
-depot_name: office.Microsoft-365-docs
+depot_name: Learn.agent365
 page_type: conceptual
 toc_rel: ../toc.json
-pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/office.Microsoft-365-docs/{branchName}{pdfName}
+feedback_product_url: ''
 feedback_help_link_type: ''
 feedback_help_link_url: ''
-asset_id: admin/manage/agent-requests
-moniker_range_name: 626dcefb463b053bbc5c86fb8d873ef6
-monikers:
-- o365-21vianet
-- o365-worldwide
+asset_id: admin/agent-requests
+moniker_range_name: 
+monikers: []
 item_type: Content
-source_path: microsoft-365/admin/manage/agent-requests.md
+source_path: agent365-docs/admin/agent-requests.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
-platformId: 50776fc2-14d9-d156-6734-d04ee1292dd1
+platformId: 1ecf0deb-652d-ddfa-97fc-9456400eb8ad
 ---
 
-# Agent Requests in Microsoft 365 Admin Center - Microsoft 365 admin | Microsoft Learn
+# Agent Requests in Microsoft 365 Admin Center | Microsoft Learn
 
 When a member of your organization publishes an agent to your tenant, the agent requires administrator approval before becoming available tenant-wide. Administrators can review the agent's details, such as the description, owner, data, and tools, and then publish or reject it. On publishing, administrators can also scope its audience to specific users or groups, or everyone, ensuring a controlled rollout.
 
 The **Requests** list of agents provides a view of agents that require your review and action. Members of your organization can request specific agents that need your review before an agent can be made available. For example, agents that members of your organization create by using Copilot Studio, Microsoft Foundry, or Microsoft 365 Agents Toolkit can be submitted for admin approval. When an agent is submitted for admin approval, Microsoft 365 admin center receives all metadata about an agent's definition. From the **Requests** list, you can select the agent to see the details about the agent to better understand the agent's capabilities, data sources, and custom actions before allowing the agent to be published to your organization.
 
-[![Screenshot of agent requests in Microsoft 365 admin center showing a list of agents that need admin review.](../../media/agents/agent-requests.png)](../../media/agents/agent-requests.png#lightbox)
+[![Screenshot of agent requests in Microsoft 365 admin center showing a list of agents that need admin review.](media/agents/agent-requests.png)](media/agents/agent-requests.png#lightbox)
 
 ## Agent registry filters
 
