@@ -5612,6 +5612,8 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
    read "…on 31 OctoberPlay Integrity API strong integrity enforcementno MC/RM post — Learn only" (owner, 26 X 2026) */
 .s5fl-bd{border-color:var(--accent)!important}
 .s5fl-gone{display:none!important}
+.s5fm-n{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 7px;margin:0 8px 6px 0;border:2px solid var(--accent);border-radius:999px;font:700 14px/1 var(--sans,inherit);color:var(--accent);background:var(--accent-soft,transparent);vertical-align:middle}
+.s5fm-n2{margin:10px 8px 4px 0}
 .mschg .mc-item{padding:10px 12px}
 .mschg .mc-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
 .mschg .mc-name{font-size:16px;font-weight:700;overflow-wrap:anywhere}
@@ -5622,7 +5624,7 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .s5fl-sic{font-size:20px;line-height:1;color:var(--ok)}
 .s5fl-sph{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .s5fl-skb{flex:0 0 auto;font:600 12px/1 var(--mono,monospace);padding:4px 7px;border:1px solid var(--border);border-radius:6px;color:var(--muted)}
-@media (max-width:760px){.s5fl-search{display:none}}
+@media (max-width:760px){.s5fl-search{display:flex;width:100%;margin:8px 0 2px;font-size:15px;padding:10px 12px}.s5fl-skb{display:none}}
 .s5fl-fold{flex:0 0 auto;width:26px;height:26px;margin-right:8px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--accent);font:700 16px/1 var(--sans,inherit);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;vertical-align:middle}
 .s5fl-fold:hover{border-color:var(--accent)}
 .s5dq-h.s5fl-shut{opacity:.85}
@@ -17694,9 +17696,26 @@ IdentityDirectoryEvents
       offers.sort(function (p, q) { return q.w - p.w; }).slice(0, 10).forEach(function (f) { f.x.also = f.o; used[f.o.id] = 1; });
     })();
     more.forEach(function (x) { used[x.id] = 1; line(x.tech + ":", x, ol); });
-    var N = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen"][ol.children.length] || String(ol.children.length);
-    sumH.textContent = "Today in " + N + " sentences"; sum.setAttribute("aria-label", sumH.textContent);
     dress(ol);
+    /* §5fm (26 X 2026, owner: "I see the new sentences but the count still says 14 - can you number the sentences nicely,
+       e.g. in a rounded frame?"). A technology's second link (§5fl) is a sentence of its own: every sentence gets its
+       number in a round badge, and the heading counts them all. */
+    /* one numbering for every writer of this list: sentences added later (Threat Research, Baselines, Campaigns)
+       call it too, so the numbers stay in order and the heading counts the same thing */
+    window.__socRenum = function (o) {
+      [].forEach.call(o.querySelectorAll(".s5fm-n"), function (x) { x.remove(); });
+      var n = 0;
+      [].forEach.call(o.children, function (li) {
+        var k = li.querySelector(":scope > .s5bk-k"), b1 = document.createElement("span"); b1.className = "s5fm-n"; b1.textContent = String(++n); b1.setAttribute("aria-hidden", "true");
+        li.insertBefore(b1, k || li.firstChild);
+        [].forEach.call(li.querySelectorAll(":scope > .s5dw-also"), function (a2) { var b2 = document.createElement("span"); b2.className = "s5fm-n s5fm-n2"; b2.textContent = String(++n); b2.setAttribute("aria-hidden", "true"); li.insertBefore(b2, a2); });
+      });
+      return n;
+    };
+    window.__socWords = function (n) { return ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen","twenty"][n] || String(n); };
+    var nS = window.__socRenum(ol);
+    var N = window.__socWords(nS);
+    sumH.textContent = "Today in " + N + " sentences"; sum.setAttribute("aria-label", sumH.textContent);
     if (Y) return ol;
     sum.appendChild(ol); top.appendChild(sum);
 
@@ -24626,7 +24645,7 @@ IdentityDirectoryEvents
     var sh = ol.parentNode && ol.parentNode.querySelector(".s5bk-h");
     if (sh) {
       var NW = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen","twenty"];
-      sh.textContent = "Today in " + (NW[ol.children.length] || ol.children.length) + " sentences";
+      sh.textContent = "Today in " + (window.__socRenum ? window.__socWords(window.__socRenum(ol)) : (NW[ol.children.length] || ol.children.length)) + " sentences";
       if (ol.parentNode.setAttribute) ol.parentNode.setAttribute("aria-label", sh.textContent);
     }
   }
@@ -28482,7 +28501,7 @@ IdentityDirectoryEvents
       var sh = ol.parentNode && ol.parentNode.querySelector(".s5bk-h");
       if (sh) {
         var NW = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen","twenty"];
-        sh.textContent = "Today in " + (NW[ol.children.length] || ol.children.length) + " sentences";
+        sh.textContent = "Today in " + (window.__socRenum ? window.__socWords(window.__socRenum(ol)) : (NW[ol.children.length] || ol.children.length)) + " sentences";
         if (ol.parentNode.setAttribute) ol.parentNode.setAttribute("aria-label", sh.textContent);
       }
     });
@@ -29431,7 +29450,7 @@ IdentityDirectoryEvents
     var sh = ol.parentNode && ol.parentNode.querySelector(".s5bk-h");
     if (sh) {
       var NW = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen","twenty"];
-      sh.textContent = "Today in " + (NW[ol.children.length] || ol.children.length) + " sentences";
+      sh.textContent = "Today in " + (window.__socRenum ? window.__socWords(window.__socRenum(ol)) : (NW[ol.children.length] || ol.children.length)) + " sentences";
       if (ol.parentNode.setAttribute) ol.parentNode.setAttribute("aria-label", sh.textContent);
     }
   }
