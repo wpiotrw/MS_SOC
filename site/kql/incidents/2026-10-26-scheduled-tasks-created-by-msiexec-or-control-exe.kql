@@ -1,0 +1,14 @@
+// title: Scheduled tasks created by msiexec or control.exe in the last 30 days
+// date: 2026-10-26
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Threat Research: Star Blizzard RedFlick: one click from a phishing archive to the CosmicPulse backdoor via scheduled tasks
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where FileName =~ "schtasks.exe" and ProcessCommandLine has "/create"
+| where ProcessCommandLine has_any ("Internet Quality Test Connection", "Network Configuration Manager", "System Health Monitor")
+| project Timestamp, DeviceName, AccountName, ProcessCommandLine, InitiatingProcessFileName

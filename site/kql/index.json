@@ -1,5 +1,19 @@
 [
  {
+  "file": "incidents/2026-10-26-scheduled-tasks-created-by-msiexec-or-control-exe.kql",
+  "title": "Scheduled tasks created by msiexec or control.exe in the last 30 days",
+  "date": "2026-10-26",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "Threat Research: Star Blizzard RedFlick: one click from a phishing archive to the CosmicPulse backdoor via scheduled tasks",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "star-blizzard-redflick-2026-09"
+ },
+ {
   "file": "articles/2026-10-25-detection-5-unexpected-write-to-efi-system-partition.kql",
   "title": "Detection 5: Unexpected Write to EFI System Partition by Non-System Process - BlackX Bootkit Staging",
   "date": "2026-10-25",
