@@ -43692,11 +43692,18 @@ odtad CZTERNASCIE (4-17).**
     .forEach(function (r) { [].forEach.call(r.querySelectorAll(SEL), split); }); } catch (err) { if (window.console) console.error("[5fj segs]", err); } }
   var t = null;
   function soon() { clearTimeout(t); t = setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 1); })(function () { pass(); }); }, 400); }
+  /* §5fj-b (26 X 2026, measured): a MutationObserver on the whole body woke on every node the page builds while it
+     loads and doubled the phone time to the Overview sentences (4x CPU: 21-22 s with it, 9-13 s without). The split
+     now runs only when the reader can see a change: once the page is idle, after a tab is opened and after a fold
+     opens - never during the build. */
   function start() {
-    pass();
-    if (window.MutationObserver) new MutationObserver(soon).observe(document.body, { childList: true, subtree: true });
+    soon();
+    document.addEventListener("click", function (ev) { if (ev.target && ev.target.closest && ev.target.closest('[id^="tabbtn-"], nav.anchors .tab, .s5br-sheet button')) { setTimeout(soon, 1200); setTimeout(soon, 4000); } }, true);
+    document.addEventListener("toggle", function (ev) { if (ev.target && ev.target.open) soon(); }, true);
+    document.addEventListener("soc:woke", function () { setTimeout(soon, 800); });
   }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 1500); }); else setTimeout(start, 1500);
+  function idleStart() { (window.requestIdleCallback ? function (f) { requestIdleCallback(f, { timeout: 12000 }); } : function (f) { setTimeout(f, 8000); })(start); }
+  if (document.readyState === "complete") setTimeout(idleStart, 6000); else window.addEventListener("load", function () { setTimeout(idleStart, 6000); });
   window.__socSegs = pass;
 })();
 ```
@@ -48346,6 +48353,11 @@ Pomiar (Playwright 390 px, ciemny motyw, wszystkie zakladki rozwiniete), przed �
 Roles 3 → 0, Hunting 27 → 0, Threat Research 55 → 2; zdania czcionka maszynowa Overview/Roles 2 → 0 (zostaje kod KQL i
 listy IOC — to kod); tekst uciety „…" Deadlines 26 → 0, Roles 3 → 0. Bez przewijania w bok (390 i 1400 px), bez bledow
 skryptu, jasny i ciemny motyw.
+
+**§5fj-b (26 X 2026) — regresja szybkosci naprawiona.** Rozbijanie linii „a · b · c" uruchamial MutationObserver na calym
+`body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
+21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
+rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
 
 ### §5fk — Dwie rutyny zamiast czterech zadan (26 X 2026)
 
