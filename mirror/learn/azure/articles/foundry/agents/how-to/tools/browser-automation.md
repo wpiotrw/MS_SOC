@@ -229,96 +229,23 @@ Grant the project managed identity the minimum permissions required to use the P
 4. On the **Members** tab, select the Foundry project managed identity.
 5. Select **Review + assign**.
 
-### Connect the Browser Automation tool in Foundry
+### Configure Browser Automation in Foundry
+
+Configure a Browser Automation connection in your Foundry project before you run the agent samples. The connection associates Browser Automation with your Playwright workspace and provides the connection information required by the SDK samples.
 
 1. Go to the [Foundry portal](https://ai.azure.com/nextgen) and select your project.
-2. Select **Build** &gt; **Tools**.
-3. Select **Create a toolbox**.
-4. Fill in the **Name** and **Description** for your toolbox.
-5. Under **Tools**, click on **Add**
-6. Select **Browser Automation** and click **Add tool**
-7. Enter the required fields
-    - **Connection name**: Unique name for your connection
-    - **Playwright Workspace**: Select the Playwright Workspace resource.
-    - **Auth Type**: Select the authentication type for your connection.
-8. Select **Connect**.
-9. Click on **Publish** to save the toolbox
+2. Create a Browser Automation connection to the Playwright workspace that you configured earlier.
+3. Provide the required connection details:
+    - **Connection name**: Enter a unique name for the connection.
+    - **Playwright Workspace**: Select your Playwright workspace resource.
+    - **Auth Type**: Select the authentication type for the connection.
+4. Save the connection.
 
-After the toolbox is created, you can view the **Project connection ID** on the tool's details page. Use this value as the browser automation connection ID in your code.
-
-### Add browser automation to a toolbox with the Azure Developer CLI
-
-To add browser automation to a Toolbox, use the Azure Developer CLI to create a Playwrite workspace. *This article assumes you already have a Playwright workspace resource. See the prerequisites section.*
-
-1. Create the Playwright Workspace connection.
-
-```bash
-azd ai connection create my-browser-conn \
-  --kind PlaywrightWorkspace \
-  --target https://{region}.mcp.playwright.microsoft.com/playwrightworkspaces/{workspacesId} \
-  --auth-type api-key \
-  --key "<playwright-workspaces-access-token>"
-```
-
-`--kind PlaywrightWorkspace` requires exact PascalCase.
-
-1. Define the toolbox (my-toolbox.yaml)
-
-```yaml
-description: Browser Automation toolbox
-tools:
-  - type: browser_automation
-    project_connection_id: my-browser-conn
-```
-
-1. Create the toolbox
-
-```bash
-azd ai toolbox create my-toolbox --from-file my-toolbox.yaml
-```
-
-## Browser Automation tool definitions
-
-After you run a sample, verify the tool was called by using tracing in Microsoft Foundry. For guidance on validating tool invocation, see [Best practices for using tools in Microsoft Foundry Agent Service](../../concepts/tool-best-practice).
-
-Note
-
-- The .NET SDK is currently in preview. For more information, see the [quickstart](../../../quickstarts/get-started-code).
-
-::: zone pivot="csharp"
-
-```csharp
-ProjectsAgentTool tool = new BrowserAutomationTool(
-    new BrowserAutomationToolOptions(
-        new BrowserAutomationToolConnectionParameters("<BROWSER_AUTOMATION_PROJECT_CONNECTION_ID>")
-    )
-);
-```
-
-::: zone-end
-
-::: zone pivot="typescript"
-
-```javascript
-const tools = [
-  {
-    type: "browser_automation",
-    name: "<OPTIONAL_TOOL_NAME>",
-    description: "<Optional description for the model>",
-    browser_automation: {
-      connection: {
-          project_connection_id: "<BROWSER_AUTOMATION_PROJECT_CONNECTION_ID>"
-      }
-    }
-  },
-];
-```
-
-::: zone-end
-
-::: zone pivot="python"
+The agent samples use this connection to configure the Browser Automation tool. Depending on the SDK, the sample either retrieves the connection by name or uses the project connection ID.
 
 ## Use Browser Automation Tool with agents example
+
+::: zone pivot="python"
 
 The following Python example demonstrates how to create an AI agent with browser automation capabilities. Select **Prompt Agents** to use the Azure AI Projects SDK to create a server-side prompt agent, or **Hosted Agents** to use the Agent Framework [`FoundryChatClient`](../../quickstarts/responses-api) to build an ephemeral, in-process agent.
 
@@ -502,8 +429,6 @@ For the complete hosted-agent toolbox pattern, see the [full sample](https://aka
 ::: zone-end
 
 ::: zone pivot="csharp"
-
-## Use Browser Automation Tool with agents example
 
 Before running this sample, complete the setup steps in Set up Browser Automation.
 
@@ -1034,6 +959,58 @@ Tip
 **Recommended:** For most agents, add the Browser Automation tool through a [toolbox](../../concepts/toolbox-overview) and attach the toolbox to your agent as an MCP tool. The Java SDK doesn't yet expose a toolbox creation API, so create the toolbox by using the [Python](?pivots=python), [REST API](?pivots=rest), [C#](?pivots=csharp), or [TypeScript](?pivots=typescript) example, or the [Foundry portal](toolbox), and then reference its MCP endpoint from your Java agent as an `McpTool`.
 
 ::: zone-end
+
+## Use Browser Automation with a toolbox
+
+Browser Automation is integrated with the Microsoft Foundry toolbox experience. Add Browser Automation to a toolbox to make managed browser automation available to agents through the toolbox. You can also access Browser Automation as a remote Model Context Protocol (MCP) tool powered by Playwright Workspaces.
+
+### Create a Browser Automation toolbox in Foundry
+
+1. Go to the [Foundry portal](https://ai.azure.com/nextgen) and select your project.
+2. Select **Build** &gt; **Tools**.
+3. Select **Create a toolbox**.
+4. Enter a name and description for the toolbox.
+5. Under **Tools**, select **Add**.
+6. Select **Browser Automation**, and then select **Add tool**.
+7. Provide the required connection details:
+    - **Connection name**: Enter a unique name for the connection.
+    - **Playwright Workspace**: Select your Playwright workspace resource.
+    - **Auth Type**: Select the authentication type for the connection.
+8. Select **Connect**.
+9. Select **Publish** to save the toolbox.
+
+After you create the toolbox, you can find the **Project connection ID** on the tool's details page. Some SDK samples use this value as the Browser Automation connection ID.
+
+### Add Browser Automation to a toolbox with the Azure Developer CLI
+
+To add browser automation to a toolbox, use the Azure Developer CLI to create a Playwright workspace. *This article assumes you already have a Playwright workspace resource. See the prerequisites section.*
+
+1. Create the Playwright Workspace connection.
+
+```bash
+azd ai connection create my-browser-conn \
+  --kind PlaywrightWorkspace \
+  --target https://{region}.mcp.playwright.microsoft.com/playwrightworkspaces/{workspacesId} \
+  --auth-type api-key \
+  --key "<playwright-workspaces-access-token>"
+```
+
+`--kind PlaywrightWorkspace` requires exact PascalCase.
+
+1. Define the toolbox (my-toolbox.yaml)
+
+```yaml
+description: Browser Automation toolbox
+tools:
+  - type: browser_automation
+    project_connection_id: my-browser-conn
+```
+
+1. Create the toolbox
+
+```bash
+azd ai toolbox create my-toolbox --from-file my-toolbox.yaml
+```
 
 ## Monitor browser automation sessions
 
