@@ -1,7 +1,7 @@
 {
  "read": "2026-10-26",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 717,
+ "count": 705,
  "note": null,
  "messages": [
   {
@@ -2657,34 +2657,6 @@
    "bodyHash": "fe94c6567c199af8"
   },
   {
-   "id": "MC1238432",
-   "title": "(Updated) Microsoft 365 Copilot app: Branded footer customization",
-   "services": [
-    "Microsoft 365 Copilot Chat"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-02-25",
-   "end": "2026-10-26",
-   "modified": "2026-09-17",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 17, 2026: We have updated the content. Thank you for your patience. [Introduction] We’re introducing a new co-branding capability that will allow organizations to display a branded footer at the bottom of the Chat screen in the Microsoft 365 Copilot app . This update will enable admins to add their organization’s logo to their users’ Microsoft 365 Copilot app, helping users confi…",
-   "when": "General Availability (Worldwide): We will begin rolling out August 2026 (previously mid-July) and is expected to complete by mid-September 2026 (previously end of July).",
-   "prepare": "No action will be required unless you want to enable the branded footer. Admins who want to configure this feature should: In the Microsoft 365 admin center , go to Org settings > Custom theme and open your default theme . Confirm that your organization’s logo is configured in the Logos tab. This is the same logo used for your organization’s branding in other Microsoft 365 apps. Open the Copilot Chat tab and select Add your brand to Copilot Chat …",
-   "dates": [
-    "Updated September 17, 2026: We have updated the content.",
-    "General Availability (Worldwide): We will begin rolling out August 2026 (previously mid-July) and is expected to complete by mid-September 2026 (previously end of July)."
-   ],
-   "bodyHash": "ed1143c89334b0c6"
-  },
-  {
    "id": "MC1239883",
    "title": "New Secure Boot update resources for Azure Virtual Desktop, Windows 365, and Microsoft Intune",
    "services": [
@@ -4473,36 +4445,6 @@
     "Get the April 14, 2026—KB5083769 (OS Builds 26200.8246 and 26100.8246) security update ."
    ],
    "bodyHash": "8fd5dca6a88e38ca"
-  },
-  {
-   "id": "MC1289725",
-   "title": "(Updated) Microsoft Teams: Delete meeting generated content in recap",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-04-23",
-   "end": "2026-10-26",
-   "modified": "2026-06-02",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated June 2, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Meeting organizers in Microsoft Teams can now delete meeting‑generated content—including recordings, transcripts, AI summaries, and notes—directly from the meeting recap. This capability helps organizers manage meeting artifacts after the meeting. Shared files from the meeting are not deleted. This mess…",
-   "when": "Targeted Release: We will begin rolling out in early May 2026 and expect to complete by early May 2026 . General Availability (Worldwide): We will begin rolling out in late May 2026 and expect to complete by early June 2026 . General Availability (GCC): We will begin rolling out in mid-June 2026 and expect to complete by mid-June 2026. General Availability (GCCH): We will begin rolling out in early September 2026 (previously late June) and expect…",
-   "prepare": "Inform users about this new capability. Update internal documentation and helpdesk guidance. Review meeting governance and retention guidance. Monitor usage through Teams and SharePoint analytics.",
-   "dates": [
-    "Updated June 2, 2026: We have updated the timeline.",
-    "Targeted Release: We will begin rolling out in early May 2026 and expect to complete by early May 2026 .",
-    "General Availability (Worldwide): We will begin rolling out in late May 2026 and expect to complete by early June 2026 .",
-    "General Availability (GCC): We will begin rolling out in mid-June 2026 and expect to complete by mid-June 2026.",
-    "General Availability (GCCH): We will begin rolling out in early September 2026 (previously late June) and expect to complete by late September 2026 (previously late June)."
-   ],
-   "bodyHash": "3289eb80d005d29b"
   },
   {
    "id": "MC1289726",
@@ -6957,33 +6899,6 @@
    "bodyHash": "ac98c583c6e14bc3"
   },
   {
-   "id": "MC1413302",
-   "title": "(Updated) Discussion post previews coming to Viva Engage",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-03",
-   "end": "2026-10-26",
-   "modified": "2026-09-01",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 1, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft is introducing discussion post previews in Viva Engage to help users validate their content before publishing. Users can review formatting, layout, and presentation before posting, helping improve communication quality and confidence when creating organizational communications. This messa…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 1, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Rollout begins in early September 2026 (previously end of August); expected to complete by mid-September 2026 (previously early September)."
-   ],
-   "bodyHash": "6aca3630b39ca116"
-  },
-  {
    "id": "MC1413304",
    "title": "(Updated) Viva Engage: New Recent feed in Home",
    "services": [
@@ -7335,34 +7250,6 @@
     "General Availability (Worldwide): Beginning end of October 2026 (previously early October) and expected to complete by end of November 2026 (previously end of October)."
    ],
    "bodyHash": "187ce40c10669834"
-  },
-  {
-   "id": "MC1423108",
-   "title": "(Updated) Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS",
-   "services": [
-    "Microsoft Entra"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-10",
-   "end": "2026-10-26",
-   "modified": "2026-09-01",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 1, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are improving the restore experience for device-bound passkeys in the Microsoft Authenticator app on iOS . This update provides a clearer and more guided restore flow when users move to a new device. It also improves user understanding of cross-device sign-in with passkeys. This update is design…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 1, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Mid-September 2026 (previously August)."
-   ],
-   "bodyHash": "4446f652f6058f8e"
   },
   {
    "id": "MC1423114",
@@ -7947,30 +7834,6 @@
    "bodyHash": "40966f448fa0d21d"
   },
   {
-   "id": "MC1437670",
-   "title": "Microsoft 365 Apps will be included in the Windows 365 Developer Configuration image",
-   "services": [
-    "Windows 365"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-23",
-   "end": "2026-10-26",
-   "modified": "2026-07-24",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "[What and Why:] Microsoft is updating the Windows 365 Developer Configuration image to include Microsoft 365 Apps by default. This change helps developers become productive faster by providing a more complete out-of-box experience with commonly used productivity applications already installed. Based on customer usage patterns, Microsoft is aligning the Developer Configuration image with typical de…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Rollout begins mid-August 2026, applying to new or reprovisioned Cloud PCs using the Windows 365 Developer Configuration image."
-   ],
-   "bodyHash": "7f07181fb42d8a82"
-  },
-  {
    "id": "MC1437671",
    "title": "(Updated) Microsoft Entra: Allow password change after secure sign-in with My Sign-Ins",
    "services": [
@@ -8310,34 +8173,6 @@
    "bodyHash": "c29cdbe2d6a3fce9"
   },
   {
-   "id": "MC1442612",
-   "title": "(Updated) Microsoft PowerPoint: Access your organization's brand templates in PowerPoint",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-29",
-   "end": "2026-10-26",
-   "modified": "2026-07-31",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 31, 2026: We have updated the timeline. Thank you for your patience. [What and why] To help users create presentations that are consistent with organizational branding, Microsoft is introducing access to brand templates directly from PowerPoint Backstage on Windows. This update enables users to discover and use brand templates more easily, reducing time spent searching for templates a…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated July 31, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Beginning in late August 2026 (previously early August) and expected to complete by mid-September 2026 (previously late August)."
-   ],
-   "bodyHash": "f28c30e845fc5291"
-  },
-  {
    "id": "MC1442614",
    "title": "(Updated) Microsoft Teams: Enhanced IntelliFrame with AI data channel for intelligent cameras",
    "services": [
@@ -8584,31 +8419,6 @@
     "When will this happen: The new Windows Insider experience rollout began in April 2026 and has recently fully reached all Windows Insider channels."
    ],
    "bodyHash": "86dc804700005348"
-  },
-  {
-   "id": "MC1444375",
-   "title": "Exclude Windows 365 Cloud PCs from Administrator Protection Policy",
-   "services": [
-    "Windows 365"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-31",
-   "end": "2026-10-26",
-   "modified": "2026-07-31",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "[Introduction] Microsoft is making Administrator protection available in Windows 11 in late August 2026. Administrator protection is a platform security feature in Windows 11 designed to ensure users run with the least privilege needed, elevating to admin rights only when necessary and only with the user’s explicit approval. This feature operates on the principle of least privilege, keeping users …",
-   "when": "Administrator protection will roll out in Windows 11 in late August 2026.",
-   "prepare": "Action is required only if your organization plans to enable Administrator protection. Review Administrator protection deployment plans before broad rollout. Identify Windows 365 Enterprise, Windows 365 Flex, and Windows 365 Reserve Cloud PCs managed through Intune. Create an Intune assignment filter that matches Cloud PCs using supported device model properties: device.model -contains \"Cloud PC\" or device.model -contains \"Windows 365\". Configure…",
-   "dates": [
-    "Microsoft is making Administrator protection available in Windows 11 in late August 2026.",
-    "Administrator protection will roll out in Windows 11 in late August 2026."
-   ],
-   "bodyHash": "b73a899c3bb961b0"
   },
   {
    "id": "MC1444442",
@@ -9443,31 +9253,6 @@
    "bodyHash": "c0446d3b806bdec5"
   },
   {
-   "id": "MC1454382",
-   "title": "Action required: Update Microsoft Defender for Endpoint Android App",
-   "services": [
-    "Microsoft Defender XDR"
-   ],
-   "category": "preventOrFixIssue",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-13",
-   "end": "2026-10-26",
-   "modified": "2026-08-13",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "[What and Why:] To support upcoming Microsoft Defender infrastructure changes, organizations must ensure devices are updated to Microsoft Defender for Endpoint for Android version 1.0.9107.0101 or later. Devices running older app versions may experience disruption to mobile threat protection capabilities after the infrastructure update, and administrators should communicate the update requirement …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Worldwide, GCC, GCC-High, DoD: We will begin rolling out on early August 2026 and expect to complete by mid-September 2026.",
-    "As part of an infrastructure update expected by mid-September 2026, devices running older versions of the Microsoft Defender for Endpoint Android app may experience disruption to mobile threat protection capabilities if they are not updated to a supported vers"
-   ],
-   "bodyHash": "9031c294362ebe6b"
-  },
-  {
    "id": "MC1454386",
    "title": "Simplified access to Copilot Chat on the Microsoft 365 Copilot mobile app",
    "services": [
@@ -9492,56 +9277,6 @@
     "General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out on mid-August 2026 and expect to complete by late September 2026."
    ],
    "bodyHash": "2c7847e8bc3f4c2c"
-  },
-  {
-   "id": "MC1454388",
-   "title": "Copilot Analytics Labs under Resources section",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-14",
-   "end": "2026-10-26",
-   "modified": "2026-08-14",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Copilot Analytics Labs is a new self-service hub designed to help organizations accelerate Copilot and agent analytics. The hub provides ready-to-use templates, sample code, prompts, research, and guidance to help analytics leaders, program managers, and data scientists measure adoption, usage, business impact, and return on investment (ROI) for AI initiatives. Learn more at Copilo…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Rollout begins in early August 2026.",
-    "Expected completion: Mid-August 2026."
-   ],
-   "bodyHash": "0c2ed36462b57658"
-  },
-  {
-   "id": "MC1454390",
-   "title": "Retiring Teams Shifts Connection cmdlets from Teams PowerShell Module",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-08-14",
-   "end": "2026-10-26",
-   "modified": "2026-08-14",
-   "tags": [
-    "Admin impact",
-    "Retirement"
-   ],
-   "summary": "[ What and Why:] Microsoft is removing support for Teams Shifts Connection PowerShell cmdlets in Microsoft Teams PowerShell Module 7.9.0 . Organizations that currently use these cmdlets to manage Teams Shifts connector scenarios will no longer be able to rely on them after upgrading to version 7.9.0 or later. This change affects the following cmdlets: New-CsTeamsShiftsConnection , Set-CsTeamsShift…",
-   "when": null,
-   "prepare": null,
-   "dates": [],
-   "bodyHash": "6ae4e00ab7d229f3"
   },
   {
    "id": "MC1454397",
@@ -11033,32 +10768,6 @@
    "bodyHash": "03773b02442e5ef0"
   },
   {
-   "id": "MC1462914",
-   "title": "Microsoft Agent 365: Active Users export for agent usage reporting",
-   "services": [
-    "Microsoft 365 Copilot Chat",
-    "Microsoft 365 suite"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-27",
-   "end": "2026-10-26",
-   "modified": "2026-08-27",
-   "tags": [
-    "Admin impact",
-    "New feature"
-   ],
-   "summary": "[What and Why:] We're introducing a new reporting capability in Microsoft Agent 365 that enables AI Admins and Global Admins to export an inventory of users who have actively used agents registered in their tenant's Agent 365 Registry during the previous 30 days. This report provides visibility into agent usage and can help organizations support agent licensing reviews and planning activities. [Ro…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Rolling out in late August 2026 and expected to complete by late August 2026."
-   ],
-   "bodyHash": "06c506ab3e9dd998"
-  },
-  {
    "id": "MC1462915",
    "title": "(Updated) Allow connections to copilot.cloud.microsoft before the Copilot URL redirect",
    "services": [
@@ -12516,29 +12225,6 @@
     "General Availability (Worldwide): Beginning in late October 2026 (previously mid-October) and expected to complete by late October 2026 (previously mid-October)."
    ],
    "bodyHash": "5279941f90adce1a"
-  },
-  {
-   "id": "MC1470415",
-   "title": "Microsoft 365 Copilot in PowerPoint: Guide Presentation Creation with Notes Steering and Strict Brand Adherence",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-10",
-   "end": "2026-10-26",
-   "modified": "2026-09-16",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why:] We're introducing two new Brand Kit template settings in Microsoft 365 that help organizations create more consistent, on-brand presentations with Copilot in PowerPoint. Strict brand adherence (Strict Mode) allows Brand Managers to control whether Copilot can create new layouts or must use only approved template and slide master layouts. When enabled, Copilot follows the template e…",
-   "when": null,
-   "prepare": null,
-   "dates": [],
-   "bodyHash": "36fbd8b541e69395"
   },
   {
    "id": "MC1470416",
@@ -24422,6 +24108,90 @@
    "id": "MC1525374",
    "type": "new",
    "title": "An updated version of the October 2026 Scan Cab is available",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1238432",
+   "type": "removed",
+   "title": "(Updated) Microsoft 365 Copilot app: Branded footer customization",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1289725",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Delete meeting generated content in recap",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1413302",
+   "type": "removed",
+   "title": "(Updated) Discussion post previews coming to Viva Engage",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1423108",
+   "type": "removed",
+   "title": "(Updated) Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1437670",
+   "type": "removed",
+   "title": "Microsoft 365 Apps will be included in the Windows 365 Developer Configuration image",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1442612",
+   "type": "removed",
+   "title": "(Updated) Microsoft PowerPoint: Access your organization's brand templates in PowerPoint",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1444375",
+   "type": "removed",
+   "title": "Exclude Windows 365 Cloud PCs from Administrator Protection Policy",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1454382",
+   "type": "removed",
+   "title": "Action required: Update Microsoft Defender for Endpoint Android App",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1454388",
+   "type": "removed",
+   "title": "Copilot Analytics Labs under Resources section",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1454390",
+   "type": "removed",
+   "title": "Retiring Teams Shifts Connection cmdlets from Teams PowerShell Module",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1462914",
+   "type": "removed",
+   "title": "Microsoft Agent 365: Active Users export for agent usage reporting",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1470415",
+   "type": "removed",
+   "title": "Microsoft 365 Copilot in PowerPoint: Guide Presentation Creation with Notes Steering and Strict Brand Adherence",
    "fields": {}
   }
  ]
