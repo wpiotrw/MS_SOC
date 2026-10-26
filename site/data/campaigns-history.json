@@ -1,6 +1,166 @@
 {
 "updated":"2026-10-26",
 "campaigns":{
+"c-mc1526468":{
+"firstSeen":"2026-10-26",
+"lastSeen":"2026-10-26",
+"name":"Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+"status":"Active",
+"members":[
+"MC1526468",
+"item:MC1526468"
+],
+"log":[],
+"milestones":{
+"MC1526468|ensure windows devices in affected regions have the latest w#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"Ensure Windows devices in affected regions have the latest Windows updates (including October 2026 updates)."
+},
+"MC1526468|posted":{
+"date":"2026-10-26",
+"label":"26 Oct 2026",
+"text":"Posted: Update to MC1510951: Canada 2026 time zone changes — Microsoft 365 impact and required admin actions"
+},
+"MC1526468|plan to run the exchange online powershell remediation cmdle#0":{
+"date":"2026-10-28",
+"label":"28 Oct 2026",
+"text":"Plan to run the Exchange Online PowerShell remediation cmdlet for non-recurring meetings once released (target: October 28, 2026)."
+},
+"MC1526468|on affected locations in british columbia alberta and manito#0":{
+"date":"2026-11-01",
+"label":"1 Nov 2026",
+"text":"On November 1, 2026, affected locations in British Columbia, Alberta, and Manitoba will not move clocks back and will remain on UTC-07:00, UTC-06:00, and UTC-05"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1526468":{
+"title":"Update to MC1510951: Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1526468",
+"source":"Message Center",
+"id":"MC1526468",
+"date":"2026-10-26",
+"updated":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msmessagecenter.com/MC1526468":{
+"title":"Update to MC1510951: Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+"link":"https://msmessagecenter.com/MC1526468",
+"source":"Message Center",
+"id":"MC1526468",
+"date":"2026-10-26",
+"updated":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://deltapulse.app/item/MC1526468":{
+"title":"Update to MC1510951: Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+"link":"https://deltapulse.app/item/MC1526468",
+"source":"Main list source",
+"id":"MC1526468",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+}
+},
+"final":"2026-11-01",
+"type":"Enforcement",
+"tech":"Microsoft 365",
+"posts":[
+"MC1526468"
+]
+},
+"c-mc1220762":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-26",
+"name":"MDE and XDR Advanced Hunting APIs retiring; migrate to Microsoft Graph Security API",
+"status":"Active",
+"members":[
+"MC1220762",
+"item:MC1220762"
+],
+"log":[
+{
+"date":"2026-10-26",
+"id":"MC1220762",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762"
+},
+{
+"date":"2026-10-26",
+"id":"MC1220762",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated this post as a reminder.",
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762"
+},
+{
+"date":"2026-09-29",
+"id":"MC1220762",
+"what":"Act-by date",
+"before":"",
+"after":"2027-01-31",
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762"
+},
+{
+"date":"2026-01-26",
+"id":"MC1220762",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the content.",
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762"
+}
+],
+"milestones":{
+"MC1220762|posted":{
+"date":"2026-01-22",
+"label":"22 Jan 2026",
+"text":"Posted: Retirement notice: MDE and XDR Advanced Hunting APIs retiring; migrate to Microsoft Graph Security API"
+},
+"MC1220762|#0":{
+"date":"2026-02-06",
+"label":"6 Feb 2026",
+"text":"February 6, 2026."
+},
+"MC1220762|migrate all existing api workflows to the microsoft graph se#0":{
+"date":"2027-01-31",
+"label":"31 Jan 2027",
+"text":"Migrate all existing API workflows to the Microsoft Graph Security API by January 31, 2027 ."
+},
+"MC1220762|after the mde and xdr apis will no longer function#0":{
+"date":"2027-02-01",
+"label":"1 Feb 2027",
+"text":"After February 1, 2027, the MDE and XDR APIs will no longer function."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1220762":{
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762",
+"source":"Message Center",
+"id":"MC1220762",
+"date":"2026-01-22",
+"updated":"2026-01-22",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":"2027-02-01",
+"type":"Retirement",
+"tech":"Defender",
+"posts":[
+"MC1220762"
+]
+},
 "c-mc1519861":{
 "firstSeen":"2026-10-21",
 "lastSeen":"2026-10-26",
@@ -2665,6 +2825,54 @@
 "link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-111497",
 "source":"MSRC Security Update Guide",
 "date":"2026-10-25",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83519":{
+"title":"CVE-2026-83519 Windows Error Reporting Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83519",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70054":{
+"title":"CVE-2026-70054 Windows NetBIOS Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70054",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69923":{
+"title":"CVE-2026-69923 Windows AI Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69923",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96311":{
+"title":"CVE-2026-96311 Windows Network List Service Tampering Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96311",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69926":{
+"title":"CVE-2026-69926 Desktop Window Manager Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69926",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96234":{
+"title":"CVE-2026-96234 .NET Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96234",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
 "group":"microsoft",
 "found":"2026-10-26"
 }
@@ -5341,14 +5549,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-24",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-25",
 "text":"August 1, 2026."
 },
@@ -5406,6 +5606,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-25",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-26",
 "text":"August 1, 2026."
 },
 {
@@ -5711,95 +5919,6 @@
 "MC1235720"
 ]
 },
-"c-mc1220762":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-26",
-"name":"MDE and XDR APIs retire; migrate to Graph security API",
-"status":"Active",
-"members":[
-"MC1220762",
-"item:MC1220762"
-],
-"log":[
-{
-"date":"2026-10-26",
-"id":"MC1220762",
-"what":"Microsoft edited the post text",
-"before":"",
-"after":"see the post",
-"title":"MDE and XDR APIs retire; migrate to Graph security API",
-"link":"https://mc.merill.net/message/MC1220762"
-},
-{
-"date":"2026-10-26",
-"id":"MC1220762",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated this post as a reminder.",
-"title":"MDE and XDR APIs retire; migrate to Graph security API",
-"link":"https://mc.merill.net/message/MC1220762"
-},
-{
-"date":"2026-09-29",
-"id":"MC1220762",
-"what":"Act-by date",
-"before":"",
-"after":"2027-01-31",
-"title":"MDE and XDR APIs retire; migrate to Graph security API",
-"link":"https://mc.merill.net/message/MC1220762"
-},
-{
-"date":"2026-01-26",
-"id":"MC1220762",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the content.",
-"title":"MDE and XDR APIs retire; migrate to Graph security API",
-"link":"https://mc.merill.net/message/MC1220762"
-}
-],
-"milestones":{
-"MC1220762|posted":{
-"date":"2026-01-22",
-"label":"22 Jan 2026",
-"text":"Posted: MDE and XDR APIs retire; migrate to Graph security API"
-},
-"MC1220762|#0":{
-"date":"2026-02-06",
-"label":"6 Feb 2026",
-"text":"February 6, 2026."
-},
-"MC1220762|migrate all existing api workflows to the microsoft graph se#0":{
-"date":"2027-01-31",
-"label":"31 Jan 2027",
-"text":"Migrate all existing API workflows to the Microsoft Graph Security API by January 31, 2027 ."
-},
-"MC1220762|after the mde and xdr apis will no longer function#0":{
-"date":"2027-02-01",
-"label":"1 Feb 2027",
-"text":"After February 1, 2027, the MDE and XDR APIs will no longer function."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1220762":{
-"title":"MDE and XDR APIs retire; migrate to Graph security API",
-"link":"https://mc.merill.net/message/MC1220762",
-"source":"Message Center",
-"id":"MC1220762",
-"date":"2026-01-22",
-"updated":"2026-01-22",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":"2027-02-01",
-"type":"Retirement",
-"tech":"Defender",
-"posts":[
-"MC1220762"
-]
-},
 "c-mc1188230":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-26",
@@ -5999,7 +6118,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-25",
+"seen":"2026-10-26",
 "text":"early February 2026."
 },
 {
@@ -6007,7 +6126,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-25",
+"seen":"2026-10-26",
 "text":"February 2027."
 },
 {
@@ -6496,57 +6615,6 @@
 "tech":"Windows",
 "posts":[
 "MC1172446"
-]
-},
-"c-mc1526468":{
-"firstSeen":"2026-10-26",
-"lastSeen":"2026-10-26",
-"name":"Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
-"status":"Active",
-"members":[
-"MC1526468"
-],
-"log":[],
-"milestones":{
-"MC1526468|ensure windows devices in affected regions have the latest w#0":{
-"date":"2026-10-15",
-"label":"Oct 2026",
-"text":"Ensure Windows devices in affected regions have the latest Windows updates (including October 2026 updates)."
-},
-"MC1526468|posted":{
-"date":"2026-10-26",
-"label":"26 Oct 2026",
-"text":"Posted: Update to MC1510951: Canada 2026 time zone changes — Microsoft 365 impact and required admin actions"
-},
-"MC1526468|plan to run the exchange online powershell remediation cmdle#0":{
-"date":"2026-10-28",
-"label":"28 Oct 2026",
-"text":"Plan to run the Exchange Online PowerShell remediation cmdlet for non-recurring meetings once released (target: October 28, 2026)."
-},
-"MC1526468|on affected locations in british columbia alberta and manito#0":{
-"date":"2026-11-01",
-"label":"1 Nov 2026",
-"text":"On November 1, 2026, affected locations in British Columbia, Alberta, and Manitoba will not move clocks back and will remain on UTC-07:00, UTC-06:00, and UTC-05"
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1526468":{
-"title":"Update to MC1510951: Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1526468",
-"source":"Message Center",
-"id":"MC1526468",
-"date":"2026-10-26",
-"updated":"2026-10-26",
-"group":"microsoft",
-"found":"2026-10-26"
-}
-},
-"final":"2026-11-01",
-"type":"Enforcement",
-"tech":"Microsoft 365",
-"posts":[
-"MC1526468"
 ]
 },
 "c-item-mc1454973":{
@@ -7413,6 +7481,30 @@
 "date":"2026-10-25",
 "group":"microsoft",
 "found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96234":{
+"title":"CVE-2026-96234 .NET Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96234",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://mc.merill.net/message/MC1525374":{
+"title":"MC1525374: An updated version of the October 2026 Scan Cab is available",
+"link":"https://mc.merill.net/message/MC1525374",
+"source":"MC - Merill",
+"date":"2026-10-26",
+"group":"community",
+"found":"2026-10-26"
+},
+"https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-emergency-net-patches-for-critical-brotli-flaw/":{
+"title":"Microsoft releases emergency .NET patches for critical Brotli flaw",
+"link":"https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-emergency-net-patches-for-critical-brotli-flaw/",
+"source":"BleepingComputer",
+"date":"2026-10-26",
+"group":"community",
+"found":"2026-10-26"
 }
 },
 "final":"2026-11-10",
@@ -8153,6 +8245,14 @@
 "date":"2026-10-23",
 "group":"community",
 "found":"2026-10-23"
+},
+"https://www.bleepingcomputer.com/news/artificial-intelligence/openai-launches-gpt-61-terra-with-3x-faster-ai-agents-50-percent-lower-pricing/":{
+"title":"OpenAI launches GPT-6.1 Terra with 3x faster AI agents, 50% lower pricing",
+"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/openai-launches-gpt-61-terra-with-3x-faster-ai-agents-50-percent-lower-pricing/",
+"source":"BleepingComputer",
+"date":"2026-10-26",
+"group":"community",
+"found":"2026-10-26"
 }
 },
 "final":"2026-11-15",
@@ -9116,6 +9216,14 @@
 "date":"2026-10-26",
 "group":"community",
 "found":"2026-10-26"
+},
+"https://dev.to/sunspirevalerius59/classify-text-data-using-an-embeddings-api-in-nodejs-portable-invoice-field-decisions-32i9":{
+"title":"Classify Text Data Using an Embeddings API in Node.js: Portable Invoice Field Decisions",
+"link":"https://dev.to/sunspirevalerius59/classify-text-data-using-an-embeddings-api-in-nodejs-portable-invoice-field-decisions-32i9",
+"source":"NeonTiger12",
+"date":"2026-10-26",
+"group":"community",
+"found":"2026-10-26"
 }
 },
 "final":"2027-07-01",
@@ -9671,7 +9779,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-25",
+"seen":"2026-10-26",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9679,7 +9787,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-25",
+"seen":"2026-10-26",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -13933,6 +14041,126 @@
 "tech":"Microsoft 365",
 "next":"28 Oct 2026",
 "text":"This post updates MC1510951 ((Updated) Windows updates are available for 2026 time zone changes in Canada, posted October 16, 2026)."
+},
+{
+"day":"2026-10-26",
+"cid":"c-mc1526468",
+"type":"material",
+"name":"Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+"group":"microsoft",
+"title":"Update to MC1510951: Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+"source":"Main list source",
+"link":"https://deltapulse.app/item/MC1526468"
+},
+{
+"day":"2026-10-26",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-83519 Windows Error Reporting Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83519"
+},
+{
+"day":"2026-10-26",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70054 Windows NetBIOS Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70054"
+},
+{
+"day":"2026-10-26",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69923 Windows AI Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69923"
+},
+{
+"day":"2026-10-26",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96311 Windows Network List Service Tampering Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96311"
+},
+{
+"day":"2026-10-26",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69926 Desktop Window Manager Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69926"
+},
+{
+"day":"2026-10-26",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96234 .NET Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96234"
+},
+{
+"day":"2026-10-26",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-96234 .NET Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96234"
+},
+{
+"day":"2026-10-26",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"community",
+"title":"MC1525374: An updated version of the October 2026 Scan Cab is available",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1525374"
+},
+{
+"day":"2026-10-26",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"community",
+"title":"Microsoft releases emergency .NET patches for critical Brotli flaw",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-emergency-net-patches-for-critical-brotli-flaw/"
+},
+{
+"day":"2026-10-26",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"OpenAI launches GPT-6.1 Terra with 3x faster AI agents, 50% lower pricing",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/openai-launches-gpt-61-terra-with-3x-faster-ai-agents-50-percent-lower-pricing/"
+},
+{
+"day":"2026-10-26",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Classify Text Data Using an Embeddings API in Node.js: Portable Invoice Field Decisions",
+"source":"NeonTiger12",
+"link":"https://dev.to/sunspirevalerius59/classify-text-data-using-an-embeddings-api-in-nodejs-portable-invoice-field-decisions-32i9"
 }
 ],
 "archive":{
