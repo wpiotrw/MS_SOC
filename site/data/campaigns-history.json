@@ -5349,14 +5349,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-24",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-25",
 "text":"August 1, 2026."
 },
@@ -5414,6 +5406,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-25",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-26",
 "text":"August 1, 2026."
 },
 {
@@ -5722,6 +5722,24 @@
 ],
 "log":[
 {
+"date":"2026-10-26",
+"id":"MC1220762",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762"
+},
+{
+"date":"2026-10-26",
+"id":"MC1220762",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated this post as a reminder.",
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762"
+},
+{
 "date":"2026-09-29",
 "id":"MC1220762",
 "what":"Act-by date",
@@ -5997,7 +6015,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-25",
+"seen":"2026-10-26",
 "text":"early February 2026."
 },
 {
@@ -6005,7 +6023,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-25",
+"seen":"2026-10-26",
 "text":"February 2027."
 },
 {
@@ -6478,6 +6496,57 @@
 "tech":"Windows",
 "posts":[
 "MC1172446"
+]
+},
+"c-mc1526468":{
+"firstSeen":"2026-10-26",
+"lastSeen":"2026-10-26",
+"name":"Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+"status":"Active",
+"members":[
+"MC1526468"
+],
+"log":[],
+"milestones":{
+"MC1526468|ensure windows devices in affected regions have the latest w#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"Ensure Windows devices in affected regions have the latest Windows updates (including October 2026 updates)."
+},
+"MC1526468|posted":{
+"date":"2026-10-26",
+"label":"26 Oct 2026",
+"text":"Posted: Update to MC1510951: Canada 2026 time zone changes — Microsoft 365 impact and required admin actions"
+},
+"MC1526468|plan to run the exchange online powershell remediation cmdle#0":{
+"date":"2026-10-28",
+"label":"28 Oct 2026",
+"text":"Plan to run the Exchange Online PowerShell remediation cmdlet for non-recurring meetings once released (target: October 28, 2026)."
+},
+"MC1526468|on affected locations in british columbia alberta and manito#0":{
+"date":"2026-11-01",
+"label":"1 Nov 2026",
+"text":"On November 1, 2026, affected locations in British Columbia, Alberta, and Manitoba will not move clocks back and will remain on UTC-07:00, UTC-06:00, and UTC-05"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1526468":{
+"title":"Update to MC1510951: Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1526468",
+"source":"Message Center",
+"id":"MC1526468",
+"date":"2026-10-26",
+"updated":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+}
+},
+"final":"2026-11-01",
+"type":"Enforcement",
+"tech":"Microsoft 365",
+"posts":[
+"MC1526468"
 ]
 },
 "c-item-mc1454973":{
@@ -9618,7 +9687,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-25",
+"seen":"2026-10-26",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9626,7 +9695,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-25",
+"seen":"2026-10-26",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -13854,6 +13923,16 @@
 "title":"How I keep my iPhone battery at optimal level",
 "source":"NeonTiger12",
 "link":"https://dev.to/strdr4605/how-i-keep-my-iphone-battery-at-optimal-level-4mkm"
+},
+{
+"day":"2026-10-26",
+"cid":"c-mc1526468",
+"type":"new",
+"name":"Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+"ctype":"Enforcement",
+"tech":"Microsoft 365",
+"next":"28 Oct 2026",
+"text":"This post updates MC1510951 ((Updated) Windows updates are available for 2026 time zone changes in Canada, posted October 16, 2026)."
 }
 ],
 "archive":{
