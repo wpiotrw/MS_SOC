@@ -48347,6 +48347,24 @@ Roles 3 → 0, Hunting 27 → 0, Threat Research 55 → 2; zdania czcionka maszy
 listy IOC — to kod); tekst uciety „…" Deadlines 26 → 0, Roles 3 → 0. Bez przewijania w bok (390 i 1400 px), bez bledow
 skryptu, jasny i ciemny motyw.
 
+### §5fk — Dwie rutyny zamiast czterech zadan (26 X 2026)
+
+26 X 2026 oba scheduled tasks (Morning 06:00, ponowione 07:53) zatrzymaly sie na pierwszym skrypcie: sesja
+uznala skrypty wyciete z `CLAUDE.md` (`extract_code.py`) za „Code from External" i odmowila ich uruchomienia.
+`extract_code.py` nie zmienil sie od ostatniego udanego przebiegu (25 X) — przyczyna lezy po stronie
+klasyfikatora sesji zadan (tryb automatycznego zatwierdzania, granica zaufania bez repozytorium). Rutyny
+dzialaja z repozytorium jako wlasnym zrodlem i nie byly dotkniete (22:15 25 X uruchomila `make_diff.py`).
+
+Decyzja wlasciciela: nic nie kasujemy, dokladamy dwie rutyny i wylaczamy cztery stare zadania.
+- `routines/poranny.prompt.md` (06:00) — CZESC A `routines/poranny-A-build.md` (dawny prompt Morning), potem
+  CZESC B `routines/poranny-B-publish.md` (dawny prompt raport poranny v2), w jednej sesji.
+- `routines/wieczorny.prompt.md` (21:00) — CZESC A `routines/wieczorny-A-delta.md` (dawny Afternoon delta),
+  potem CZESC B `routines/wieczorny-B-diff.md` (dawny zmiany v2).
+- Wklejany prompt jest krotki; pelne instrukcje czyta z `origin/main` przy kazdym przebiegu. Zmiana instrukcji
+  to commit w `routines/`, nie wklejanie 90 kB w ustawienia.
+- Stare prompty (dokladnie jak zapisane 26 X) — kopie w Projekcie `claude/backup/*-2026-10-26-before-routines.md`
+  i w `ClaudeBackups\Backups\ms-soc-routines-merge_20261026_082300`. W plikach repo usuniety adres e-mail.
+
 ## 6. Kontrakt w stronie
 
 Kazda strona niesie komentarz `<!-- SHELL CONTRACT v1 ... -->` tuz po `<title>`. To pelna
