@@ -147,10 +147,10 @@ Czasy w strefie Europe/Warsaw (w nawiasie UTC przy czasie letnim).
 | Kiedy | Co | Gdzie działa | Wynik |
 |---|---|---|---|
 | co 3 h (`15 */3 * * *` UTC) | `.github/workflows/fpa-tenant.yml` — migawka tenanta (aplikacje Microsoftu, Message Center z Graph, uprawnienia Graph i role Entra widziane w tenancie) | GitHub Actions | `site/data/fpa-tenant.json`, `site/data/mc-tenant.json`, `site/data/graph-sp.json`, `site/data/graph-sp-history.json` (commit na `main` tylko przy zmianie; wdrożenie strony, gdy przybyła zmiana uprawnień lub ról) |
-| 06:00 (04:00) | scheduled task „raport poranny” — buduje artefakt briefu wg `CLAUDE.md` (kolektory, blok stanu, skrypty 4–17) | Claude (chmura) | artefakt claude.ai z briefem dnia |
-| 07:15 (05:15) | routine „raport poranny v2” — lustro artefaktu (`mirror_artifact.py --brief`) | Claude (chmura) | `site/index.html`, `site/data/<data>.json`, `site/feed.xml`, `site/data/history.json`, `site/week/index.html` |
-| 21:00 (19:00) | scheduled task popołudniowy — dopisuje sekcję `#pmdelta` do artefaktu i publikuje artefakt „Microsoft SOC Delta” (`make_diff.py`) | Claude (chmura) | artefakt dnia (nowa wersja) i artefakt Delta |
-| 22:15 (20:15) | routine „zmiany v2” — buduje `/diff/` (`make_diff.py` z `CLAUDE.md`) | Claude (chmura) | `site/diff/index.html`, plik stanu końcowego dnia |
+| ~~06:00~~ | ~~scheduled task „raport poranny”~~ — **wyłączony 26 X 2026** (§5fk: sesja blokowała skrypty repo jako „Code from External”); jego praca to część A routine porannej | — | — |
+| 07:15 (05:15) | routine „raport poranny v2” (od 26 X 2026 łączona, model `claude-opus-5-5`) — część A `routines/poranny-A-build.md`: kolektory, research, artefakt briefu; część B `routines/poranny-B-publish.md`: lustro (`mirror_artifact.py --brief`) | Claude (chmura) | `site/index.html`, `site/data/<data>.json`, `site/feed.xml`, `site/data/history.json`, `site/week/index.html` |
+| ~~21:00~~ | ~~scheduled task popołudniowy~~ — **wyłączony 26 X 2026** (§5fk); jego praca to część A routine wieczornej | — | — |
+| 22:15 (20:15) | routine „zmiany v2” (od 26 X 2026 łączona) — część A `routines/wieczorny-A-delta.md`: `#pmdelta` i artefakt Delta; część B `routines/wieczorny-B-diff.md`: `/diff/` (`make_diff.py`) | Claude (chmura) | `site/diff/index.html`, plik stanu końcowego dnia |
 | każdy push na `main` w `site/**` | `.github/workflows/azure-static-web-apps-orange-ground-019f30603.yml` | GitHub Actions | wdrożenie na SWA |
 | push na gałąź `claude/**` w `site/**` | `.github/workflows/publish.yml` — przenosi `site/` z gałęzi rutyny na `main` | GitHub Actions | commit na `main` → wdrożenie |
 
@@ -1099,9 +1099,9 @@ Ten rozdział jest odpowiednikiem zakładki **About** na stronie (od 10 X 2026, 
 | Godzina (Warszawa) | Co | Kto |
 |---|---|---|
 | 06:00 | czyta wszystkie źródła (CLAUDE.md §7), buduje brief, publikuje na claude.ai | scheduled task „Morning” |
-| 07:15 | kopiuje brief na stronę (GitHub → Azure Static Web Apps) | routine „raport poranny v2” |
+| 07:15 | czyta źródła, buduje brief i kopiuje go na stronę (GitHub → Azure Static Web Apps), gotowe ok. 08:30 | routine „raport poranny v2” (łączona) |
 | 21:00 | ponownie czyta źródła | scheduled task „Afternoon delta” |
-| 22:15 | liczy stronę „co się zmieniło” (`/diff/`) | routine „zmiany v2” |
+| 22:15 | ponownie czyta źródła i liczy stronę „co się zmieniło” (`/diff/`) | routine „zmiany v2” (łączona) |
 | co 3 h | odczyt tenanta (tylko odczyt, bez sekretu — poświadczenie federacyjne GitHub OIDC): aplikacje Microsoftu i zgody, Message Center, uprawnienia Graph, definicje ról Entra | workflow `fpa-tenant.yml` |
 | 2× dziennie (05:40 i 20:40 UTC) i po każdym briefie | kampanie i archiwum KQL | workflow `campaigns.yml` |
 | 4× dziennie | nasza kopia stron Learn | workflow `learn-mirror.yml` |
@@ -1489,6 +1489,7 @@ Nadanie uprawnienia (PowerShell, konto z Cloud Application Administrator + Privi
 | 2026-10-25 | Godziny routines ustawione przez właściciela: raport poranny v2 **07:15**, zmiany v2 **22:15** (czas polski, `CRON_TZ=Europe/Warsaw`); sprawdzone w harmonogramie — następne przebiegi 25 X 22:15 i 26 X 07:15. Przypomnienie o zmianie czasu na 28 III 2027 usunięte — niepotrzebne. |
 | 2026-10-25 | §5fj — zmiany czytelne jako karta pól: ramki Graph API / Roles / First-party apps w Overview, „Riskiest changes” i „Last 3 days” pokazują nazwę, odznakę (Privileged, Level), jedno zdanie „co się stało”, fakty z etykietami (Date, Seen in our tenant), akcje jako chipy; ta sama zmiana na kilku rolach to jedna karta. Linie „a · b · c” w Hunting, Threat Research, Learn/Blogs/MC rozbite na chipy. Deadlines: pełne „What to do” z „Show all” zamiast ucięcia w pół zdania. |
 | 2026-10-26 | §5fk — scheduled tasks (Morning, Afternoon delta) zablokowane przez klasyfikator sesji („Code from External” przy `extract_code.py`). Dwie nowe rutyny: **poranny** 06:00 (budowa + publikacja) i **wieczorny** 21:00 (delta + `/diff/`); instrukcje w `routines/` w repo, wklejany prompt krótki. Cztery stare zadania wyłączone, nie usunięte. |
+| 2026-10-26 | §5fk-b — pierwsza łączona routine (10:26) uruchomiła 13 kolektorów i sama przerwała budowę („nie zmieści się”); model routines był domyślny. Właściciel ustawił `claude-opus-5-5`, w części A dopisano „zrób całą budowę w tym przebiegu”. Drugi przebieg (10:46): artefakt 26 X i publikacja `f09eed6` o 11:13 — brief z 26 X na stronie. |
 | 2026-10-22 | §5ew — Threat Research: blok „Since the previous brief” w dwóch ramkach — najpierw Microsoft 365 i Entra, potem inne incydenty z KQL; incydenty w toku (ConnectWise) zawsze na górze jako STILL ACTIVE; zgłoszone dawno, a dopiero teraz śledzone jako NEWLY TRACKED; wpisy produktowe z KQL tylko w KQL library. |
 | 2026-10-22 | §5ev — status jako filtr: liczby „new / changed / removed” w /diff/, /week/ i w całym portalu (pasek „Since the previous brief”, bloki dnia, nagłówek zakładki) są przyciskami pokazującymi tylko ten status; listy i kafelki pogrupowane według statusu z nagłówkami; pasek pokazuje do 8 wierszy każdego statusu. |
 | 2026-10-21 | §5eu — KQL z incydentów, artykułów i społeczności: `threats.py` wyciąga zapytania Kusto z artykułów (artykuł z KQL to pełny incydent, także spoza M365, np. PHP2Shell), nowe źródła (detect.fyi, kqlquery.com, blogi Sentinel i Defender XDR), repozytoria społeczności (`kql_sources.json`), jedno archiwum `site/kql/` z polem `kind`, „KQL library” w Hunting & actions i zapytania źródeł w szczegółach incydentu. |
