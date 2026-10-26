@@ -1,0 +1,23 @@
+// title: Detection 4: Unexpected Child Process Spawned by OpenCTI Service Following Pre-Auth RCE Exploitation
+// date: 2026-10-26
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Monday, October 26, 2026
+// source: https://devsecopsdadattack.com/2026-10-26-detection-engineering-brief-monday-october-26-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where InitiatingProcessFileName in~ ("node", "opencti", "java")
+| where FileName in~ ("bash", "sh", "dash", "zsh", "ksh", "cmd.exe", "powershell.exe", "pwsh", "pwsh.exe", "python", "python3", "perl", "ruby")
+| where not(ProcessCommandLine has_any ("--version", "-version", "-V"))
+| project
+    Timestamp,
+    DeviceName,
+    InitiatingProcessFileName,
+    InitiatingProcessCommandLine,
+    InitiatingProcessParentFileName,
+    InitiatingProcessAccountName,
+    FileName,
+    ProcessCommandLine,
+    ReportId

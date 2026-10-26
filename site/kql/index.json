@@ -14,6 +14,79 @@
   "incident": "star-blizzard-redflick-2026-09"
  },
  {
+  "file": "articles/2026-10-26-detection-5-php-fpm-or-web-server-spawning.kql",
+  "title": "Detection 5: PHP-FPM or Web Server Spawning Unexpected Shell Child Process - CVE-2026-109618 and CVE-2026-109619",
+  "date": "2026-10-26",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, October 26, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-26-detection-engineering-brief-monday-october-26-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-26-detection-engineering-brief-monday-october-26-2026/",
+  "incident": "php2shell-php-rce-2026-10"
+ },
+ {
+  "file": "articles/2026-10-26-detection-4-unexpected-child-process-spawned-by-opencti.kql",
+  "title": "Detection 4: Unexpected Child Process Spawned by OpenCTI Service Following Pre-Auth RCE Exploitation",
+  "date": "2026-10-26",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, October 26, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-26-detection-engineering-brief-monday-october-26-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-26-detection-engineering-brief-monday-october-26-2026/"
+ },
+ {
+  "file": "articles/2026-10-26-detection-3-pip-installation-of-compromised-litellm-version.kql",
+  "title": "Detection 3: pip Installation of Compromised LiteLLM Version 1.107.0",
+  "date": "2026-10-26",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, October 26, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-26-detection-engineering-brief-monday-october-26-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-26-detection-engineering-brief-monday-october-26-2026/",
+  "incident": "litellm-1-107-0-supply-chain-2026-10"
+ },
+ {
+  "file": "articles/2026-10-26-detection-2-outbound-network-connection-from-python-interpre.kql",
+  "title": "Detection 2: Outbound Network Connection from Python Interpreter Shortly After pip Install",
+  "date": "2026-10-26",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, October 26, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-26-detection-engineering-brief-monday-october-26-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-26-detection-engineering-brief-monday-october-26-2026/"
+ },
+ {
+  "file": "articles/2026-10-26-detection-1-python-startup-hook-file-written-by.kql",
+  "title": "Detection 1: Python Startup Hook File Written by pip or Python Process",
+  "date": "2026-10-26",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, October 26, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-26-detection-engineering-brief-monday-october-26-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-26-detection-engineering-brief-monday-october-26-2026/"
+ },
+ {
   "file": "articles/2026-10-25-detection-5-unexpected-write-to-efi-system-partition.kql",
   "title": "Detection 5: Unexpected Write to EFI System Partition by Non-System Process - BlackX Bootkit Staging",
   "date": "2026-10-25",

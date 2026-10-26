@@ -1,0 +1,46 @@
+// title: Detection 2: Outbound Network Connection from Python Interpreter Shortly After pip Install
+// date: 2026-10-26
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Monday, October 26, 2026
+// source: https://devsecopsdadattack.com/2026-10-26-detection-engineering-brief-monday-october-26-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let pip_installs = DeviceProcessEvents
+| where (InitiatingProcessFileName in~ ("pip", "pip3", "pip.exe", "pip3.exe")
+    or ProcessCommandLine has_any ("pip install", "pip3 install"))
+| where ProcessCommandLine has "install"
+| project
+    DeviceName,
+    PipTime = Timestamp,
+    PipCommandLine = ProcessCommandLine,
+    PipAccountName = InitiatingProcessAccountName;
+let python_net = DeviceNetworkEvents
+| where InitiatingProcessFileName in~ ("python", "python3", "python.exe")
+| where ActionType == "ConnectionSuccess"
+| where isnotempty(RemoteIP)
+| where not(RemoteIP matches regex @"^(10\.|172\.(1[6-9]|2[0-9]|3[01])\.|192\.168\.|127\.|::1|fd)")
+| where ipv4_is_private(RemoteIP) == false
+| project
+    DeviceName,
+    NetTime = Timestamp,
+    RemoteIP,
+    RemoteUrl,
+    PythonProcessFileName = InitiatingProcessFileName,
+    PythonAccountName = InitiatingProcessAccountName,
+    NetReportId = ReportId;
+pip_installs
+| join kind=inner python_net on DeviceName
+| where NetTime between (PipTime .. (PipTime + 5m))
+| project
+    DeviceName,
+    PipTime,
+    PipCommandLine,
+    PipAccountName,
+    NetTime,
+    RemoteIP,
+    RemoteUrl,
+    PythonProcessFileName,
+    PythonAccountName,
+    NetReportId

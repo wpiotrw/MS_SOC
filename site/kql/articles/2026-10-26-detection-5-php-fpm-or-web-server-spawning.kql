@@ -1,0 +1,32 @@
+// title: Detection 5: PHP-FPM or Web Server Spawning Unexpected Shell Child Process - CVE-2026-109618 and CVE-2026-109619
+// date: 2026-10-26
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Monday, October 26, 2026
+// source: https://devsecopsdadattack.com/2026-10-26-detection-engineering-brief-monday-october-26-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where InitiatingProcessFileName in~ (
+    "php-fpm", "php", "php8", "php7",
+    "php8.0", "php8.1", "php8.2", "php8.3",
+    "apache2", "httpd", "nginx", "lighttpd"
+)
+| where FileName in~ (
+    "bash", "sh", "dash", "zsh", "ksh",
+    "cmd.exe", "powershell.exe", "pwsh", "pwsh.exe",
+    "python", "python3", "perl", "ruby",
+    "nc", "ncat", "curl", "wget"
+)
+| where not(ProcessCommandLine has_any ("--version", "-version", "-v", "logrotate"))
+| project
+    Timestamp,
+    DeviceName,
+    InitiatingProcessFileName,
+    InitiatingProcessCommandLine,
+    InitiatingProcessParentFileName,
+    InitiatingProcessAccountName,
+    FileName,
+    ProcessCommandLine,
+    ReportId

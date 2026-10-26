@@ -1,0 +1,27 @@
+// title: Detection 3: pip Installation of Compromised LiteLLM Version 1.107.0
+// date: 2026-10-26
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Monday, October 26, 2026
+// source: https://devsecopsdadattack.com/2026-10-26-detection-engineering-brief-monday-october-26-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where ProcessCommandLine has "litellm"
+    and ProcessCommandLine has "1.107.0"
+    and (
+        InitiatingProcessFileName in~ ("pip", "pip3", "pip.exe", "pip3.exe")
+        or ProcessCommandLine has "pip install"
+        or ProcessCommandLine has "pip3 install"
+    )
+| project
+    Timestamp,
+    DeviceName,
+    ProcessCommandLine,
+    FileName,
+    InitiatingProcessFileName,
+    InitiatingProcessAccountName,
+    InitiatingProcessParentFileName,
+    InitiatingProcessParentCommandLine,
+    ReportId

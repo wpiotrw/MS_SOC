@@ -5357,14 +5357,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-24",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-25",
 "text":"August 1, 2026."
 },
@@ -5422,6 +5414,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-25",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-26",
 "text":"August 1, 2026."
 },
 {
@@ -6013,7 +6013,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-25",
+"seen":"2026-10-26",
 "text":"early February 2026."
 },
 {
@@ -6021,7 +6021,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-25",
+"seen":"2026-10-26",
 "text":"February 2027."
 },
 {
@@ -9522,11 +9522,6 @@
 "label":"9 Sep 2026",
 "text":"Posted: Microsoft Entra: Optimized passkey registration campaign experience"
 },
-"MC1423108|mid previously#0":{
-"date":"2026-09-15",
-"label":"mid Sep 2026",
-"text":"Mid-September 2026 (previously August)."
-},
 "MC1437671|if your organization chooses to offer allowed password chang#0":{
 "date":"2026-10-15",
 "label":"Oct 2026",
@@ -9639,7 +9634,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-25",
+"seen":"2026-10-26",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9647,7 +9642,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-25",
+"seen":"2026-10-26",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
