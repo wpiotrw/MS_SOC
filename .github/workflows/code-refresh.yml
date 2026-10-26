@@ -80,6 +80,15 @@ jobs:
       # CLAUDE.md 5eq (21 X 2026): /diff/ and /week/ are the "What changed" app - site/data/changes-7d.json from the
       # change register and the portal's data files; a routine's page found there is moved to diff/full.html or
       # week/print.html. Never fails the job.
+      # CLAUDE.md 5fl (26 X 2026): every Microsoft Learn link of an item lands on its section - item -> heading of the
+      # page in our own Learn copy (mirror/). Never fails the job.
+      - name: Learn section anchors
+        id: anchors
+        run: |
+          set -uo pipefail
+          python3 tools/learn_anchors.py site mirror | tee anchors.log || true
+          if grep -q 'wrote' anchors.log; then echo "changed=1" >> "$GITHUB_OUTPUT"; else echo "changed=0" >> "$GITHUB_OUTPUT"; fi
+
       - name: What changed page
         id: changes
         run: |
@@ -92,7 +101,7 @@ jobs:
         run: python3 .refresh/gate.py site/index.html site --mirror --doc CLAUDE.md
 
       - name: Commit the refreshed page
-        if: steps.swap.outputs.changed == '1' || steps.ret.outputs.changed == '1' || steps.feeds.outputs.changed == '1' || steps.msrc.outputs.changed == '1' || steps.changes.outputs.changed == '1'
+        if: steps.swap.outputs.changed == '1' || steps.ret.outputs.changed == '1' || steps.feeds.outputs.changed == '1' || steps.msrc.outputs.changed == '1' || steps.changes.outputs.changed == '1' || steps.anchors.outputs.changed == '1'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
