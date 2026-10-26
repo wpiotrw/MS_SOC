@@ -43822,9 +43822,21 @@ odtad CZTERNASCIE (4-17).**
     });
     e.textContent = ""; e.appendChild(fr); e.classList.add("s5fj-segs");
   }
+  /* §5fn (26 X 2026, owner with a phone screenshot of Baselines: "totally unreadable - a mass of rounded frames"): a
+     pill (radius 999px) whose text wraps to two or three lines turns into an oval. A pill that wraps gets a 10 px corner
+     instead; one that stays on one line keeps its shape. */
+  var OV = '[role="cell"], .s5ci-bc, .s5dv-chip, .s5dv-ver, .s5fj-seg, .badge, .s5cy-chip, .s5ci-pill, .pill, .chip';
+  function ovals(r) {
+    [].forEach.call(r.querySelectorAll(OV), function (e) {
+      if (e.__s5fn || !e.offsetParent) return; e.__s5fn = true;
+      var c = getComputedStyle(e); if (parseFloat(c.borderTopLeftRadius) < 14 || parseFloat(c.borderTopWidth) === 0) return;
+      var lh = parseFloat(c.lineHeight) || parseFloat(c.fontSize) * 1.4;
+      if (e.offsetHeight > lh * 1.8 + parseFloat(c.paddingTop) + parseFloat(c.paddingBottom)) e.style.borderRadius = "10px";
+    });
+  }
   /* only the tab on screen - the page holds ~87k elements and the hidden tabs are split when they are opened */
   function pass(root) { try { (root ? [root] : [].filter.call(document.querySelectorAll(".tabpanel"), function (p) { return !p.hidden; }))
-    .forEach(function (r) { [].forEach.call(r.querySelectorAll(SEL), split); }); } catch (err) { if (window.console) console.error("[5fj segs]", err); } }
+    .forEach(function (r) { [].forEach.call(r.querySelectorAll(SEL), split); ovals(r); }); } catch (err) { if (window.console) console.error("[5fj segs]", err); } }
   var t = null;
   function soon() { clearTimeout(t); t = setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 1); })(function () { pass(); }); }, 400); }
   /* §5fj-b (26 X 2026, measured): a MutationObserver on the whole body woke on every node the page builds while it
@@ -46742,6 +46754,16 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
    read "…on 31 OctoberPlay Integrity API strong integrity enforcementno MC/RM post — Learn only" (owner, 26 X 2026) */
 .s5fl-bd{border-color:var(--accent)!important}
 .s5fl-gone{display:none!important}
+/* §5fn: Baselines versions as a list of rows (name, then what and when), not a cloud of ovals; a new version is a tinted
+   row, not a second ring (box-shadow) around its border */
+#tab-baselines .s5dv-vers{display:flex;flex-direction:column;align-items:stretch;gap:6px}
+#tab-baselines .s5dv-ver{display:flex!important;flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:2px 12px;width:100%;box-sizing:border-box;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:8px 12px;box-shadow:none;text-align:left}
+#tab-baselines .s5dv-ver>b{font-size:15px;font-weight:700}
+#tab-baselines .s5dv-ver>span{font-size:14px;color:var(--muted)}
+#tab-baselines .s5dv-ver-t{border-left-color:#e3a33b}
+#tab-baselines .s5dv-ver-c{border-left-color:#3fb37f}
+#tab-baselines .s5dv-ver-new{background:var(--ok-soft);border-color:var(--ok)}
+.s5dv-chip{border-radius:8px}
 .s5fm-n{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 7px;margin:0 8px 6px 0;border:2px solid var(--accent);border-radius:999px;font:700 14px/1 var(--sans,inherit);color:var(--accent);background:var(--accent-soft,transparent);vertical-align:middle}
 .s5fm-n2{margin:10px 8px 4px 0}
 .mschg .mc-item{padding:10px 12px}
@@ -48516,6 +48538,19 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5fn — Koniec owali: zawijajace sie pigulki i wersje w Baselines (26 X 2026)
+
+Wlasciciel (telefon, Baselines -> Versions & history): „totalnie nieczytelne, masa zaokraglonych ramek, polaczone
+frazy". Pigulka (radius 999px), ktorej tekst zawija sie na 2-3 linie, staje sie owalem; wersje Baselines byly chmura
+takich owali, a nowa wersja miala dodatkowy pierscien (box-shadow). Lista wydan Maestera sklejala sie w
+„3.0.0-rc05preview · 25/10/2026".
+- Wersje w Baselines to lista wierszy: nazwa, pod nia „co i kiedy", kolorowy pasek z lewej (Maester / Tenable / CIS),
+  nowa wersja to zabarwiony wiersz bez drugiego pierscienia.
+- Wszedzie: pigulka, ktora sie zawija, dostaje naroznik 10 px (`ovals()` w przebiegu §5fj — tylko widoczna zakladka,
+  po bezczynnosci / otwarciu zakladki / rozwinieciu sekcji); jednoliniowa zostaje pigulka. `.s5dv-chip` 8 px.
+- Pomiar 390 px, wszystkie zakladki rozwiniete: owale 8 (Overview `.s5ci-bc`) + 9 (Deadlines, New) + 16 (Baselines)
+  -> 0. Telefon 4x CPU: 9,0 s do zdan Overview — bez regresji.
 
 ### §5fm — Numerowane zdania, pole wyszukiwania na telefonie (26 X 2026)
 
