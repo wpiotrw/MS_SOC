@@ -5608,6 +5608,27 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .s5fj-segs{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px}
 .s5fj-sx{display:none}
 .s5fj-seg{display:inline-block;max-width:100%;padding:1px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);line-height:1.5;overflow-wrap:anywhere}
+/* §5fl: Microsoft's own title and the reference under our title in a table cell were inline spans with no rule, so a cell
+   read "…on 31 OctoberPlay Integrity API strong integrity enforcementno MC/RM post — Learn only" (owner, 26 X 2026) */
+.s5fl-bd{border-color:var(--accent)!important}
+.s5fl-gone{display:none!important}
+.mschg .mc-item{padding:10px 12px}
+.mschg .mc-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.mschg .mc-name{font-size:16px;font-weight:700;overflow-wrap:anywhere}
+.mschg .mc-what{margin:6px 0 4px}
+.s5dq-h{align-items:center}
+.s5fl-search{display:flex;align-items:center;gap:10px;width:min(720px,100%);margin:10px 0 4px;padding:9px 14px;border:2px solid var(--ok);border-radius:10px;background:var(--bg);color:var(--muted);font:inherit;font-size:15px;text-align:left;cursor:text}
+.s5fl-search:hover,.s5fl-search:focus-visible{border-color:var(--accent);color:var(--text)}
+.s5fl-sic{font-size:20px;line-height:1;color:var(--ok)}
+.s5fl-sph{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s5fl-skb{flex:0 0 auto;font:600 12px/1 var(--mono,monospace);padding:4px 7px;border:1px solid var(--border);border-radius:6px;color:var(--muted)}
+@media (max-width:760px){.s5fl-search{display:none}}
+.s5fl-fold{flex:0 0 auto;width:26px;height:26px;margin-right:8px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--accent);font:700 16px/1 var(--sans,inherit);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;vertical-align:middle}
+.s5fl-fold:hover{border-color:var(--accent)}
+.s5dq-h.s5fl-shut{opacity:.85}
+td>.offt{display:block;margin-top:3px;font-size:.9em;font-weight:400;color:var(--muted)}
+td>.ref{display:inline-block;margin-top:3px}
+td>.offt+.ref{display:block}
 .s5fe-wl{list-style:none;padding-left:0}
 .s5fe-wl>li,#tab-threats .s5fe-wl>li{margin:0 0 8px;padding-left:10px;border-left:3px solid var(--border);list-style:none}
 .s5fj-clamp{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;line-clamp:4;overflow:hidden}
@@ -16264,7 +16285,15 @@ IdentityDirectoryEvents
       }
       var pn = permOf(e) || String(e.name || ""), q = perms[pn] || (perms[pn] = { name: pn, entries: [], date: "", labels: [], reach: [] });
       q.entries.push(e); if (d > q.date) q.date = d;
-      if (/gained reach/i.test(k)) q.reach.push(pathOf(e));
+      if (/gained reach/i.test(k)) {
+        /* §5fl: a sync that only moved the COUNT (name without "→ path", after/before = {endpoints: n}) put the
+           permission's own name in the "Now also calls" list (owner, 26 X: "NOW ALSO CALLS NetworkAccess.ReadWrite.All") */
+        var pth = pathOf(e);
+        if (pth === pn && e.after && typeof e.after === "object") {
+          var na = +e.after.endpoints || 0, nb = +(e.before || {}).endpoints || 0;
+          q.reachN = (q.reachN || 0) + Math.max(0, na - nb); q.counts = nb + " \u2192 " + na;
+        } else q.reach.push(pth);
+      }
       else {
         var lab = /no longer/i.test(k) ? "Removed from Graph" : /breaking/i.test(k) ? "Breaking change" :
                   /^new in service/i.test(k) ? "New (in the service, not yet in Microsoft's reference)" :
@@ -16274,10 +16303,12 @@ IdentityDirectoryEvents
     });
     var P = Object.keys(perms).map(function (k) {
       var q = perms[k];
-      if (q.reach.length) q.labels.push("Can call " + q.reach.length + " more endpoint" + (q.reach.length === 1 ? "" : "s"));
+      var nReach = q.reach.length + (q.reachN || 0);
+      if (nReach) q.labels.push("Can call " + nReach + " more endpoint" + (nReach === 1 ? "" : "s"));
       var own = q.entries.filter(function (e) { return !/gained reach/i.test(e.kind || ""); })[0];
       var main = own || q.entries[0];
-      q.text = !own ? "Now also calls " + q.reach.slice(0, 3).join(" · ") + (q.reach.length > 3 ? " · …" : "")
+      q.text = !own ? (q.reach.length ? "Now also calls " + q.reach.slice(0, 3).join(" · ") + (q.reach.length > 3 ? " · …" : "")
+                       : "Reaches " + nReach + " more endpoint" + (nReach === 1 ? "" : "s") + " than before (endpoints " + q.counts + "); Microsoft's map does not name the path")
              : (/^new/i.test(own.kind || "") ? short([ (own.permTypes || []).join(" + "), own.consent ].filter(Boolean).join(" · ") || own.after, 150)
              : short(own.after || own.before, 150));
       q.main = main; return q;
@@ -16353,14 +16384,22 @@ IdentityDirectoryEvents
         var btn = el("button", "mc-x", "+"); btn.type = "button"; btn.setAttribute("aria-expanded", "false");
         btn.setAttribute("aria-label", "Show the detail of " + r.name);
         row.appendChild(btn);
-        row.appendChild(el("span", "mc-name mono", r.name));
+        /* §5fl (26 X 2026, owner: "what changed is presented totally unreadably"): the same card as the Overview -
+           name, a badge, one sentence, labelled facts - instead of one line of capital chips */
+        row.appendChild(el("span", "mc-name" + (which === "graph" ? " mono" : ""), r.name));
         var chips = el("span", "mc-chips");
-        r.labels.forEach(function (l) { chips.appendChild(el("span", "badge mc-t-" + tone(l), l)); });
-        if (since && r.date > since) chips.appendChild(el("span", "badge mc-new", "NEW"));
+        if (since && r.date > since) chips.appendChild(el("span", "s5fj-bd s5fj-warn", "New since the last brief"));
         row.appendChild(chips);
-        row.appendChild(el("span", "mc-when dt", r.date));
         item.appendChild(row);
-        if (r.text) item.appendChild(el("p", "mc-text", r.text));
+        if (r.labels.length) item.appendChild(el("p", "s5fj-what mc-what", r.labels.join(" \u00b7 ")));
+        if (r.text) item.appendChild(el("p", "mc-text", r.text));   /* "Now also calls …" becomes the endpoint list (§5cn) */
+        var fx = el("dl", "s5fj-facts");
+        function fact(k, v) { if (!v) return; var w = el("div", "s5fj-f"); w.appendChild(el("dt", null, k)); w.appendChild(el("dd", null, v)); fx.appendChild(w); }
+        fact("Date", r.date);
+        var hn = ((r.main || {}).history || []).slice(-1)[0], cm = /(?:commit\s+|\()([0-9a-f]{7,})\b/i.exec(String((hn || {}).note || ""));
+        fact("Source", cm ? "Microsoft's permissions data, commit " + cm[1]
+          : which === "graph" ? "Microsoft's permissions reference and data" : "Microsoft's roles reference");
+        item.appendChild(fx);
         var det = el("div", "mc-det"); det.hidden = true; item.appendChild(det);
         btn.addEventListener("click", function () {
           var open = det.hidden;
@@ -17013,6 +17052,13 @@ IdentityDirectoryEvents
       if (kp) {
         var side = el("div", "s5bi-side"); if (more) side.appendChild(more); side.appendChild(b); kp.appendChild(side);
       } else top.appendChild(b);
+      /* §5fl (26 X 2026, owner: "the global search should be more visible - I barely found it, and it is a really useful
+         function"). A wide search field under the title, the first thing after the date line on a computer; it opens the
+         same search as Ctrl K. The phone keeps its Search button in the top bar. */
+      var big = el("button", "s5fl-search"); big.type = "button"; big.setAttribute("aria-label", "Search the whole portal (Ctrl+K)");
+      big.appendChild(el("span", "s5fl-sic", "\u2315")); big.appendChild(el("span", "s5fl-sph", "Search the whole portal \u2014 titles, MC numbers, permissions, roles, apps, KQL\u2026"));
+      big.appendChild(el("kbd", "s5fl-skb", "Ctrl K")); big.addEventListener("click", open);
+      var tr = top.querySelector(".title-row"); if (tr && tr.parentNode) tr.parentNode.insertBefore(big, tr.nextSibling); else top.insertBefore(big, top.firstChild);
     }
   }
 
@@ -17524,7 +17570,7 @@ IdentityDirectoryEvents
       if (r.kind === "mc" && window.__socOpenMC) { window.__socOpenMC(id); return; }
       if (r.kind === "perm" && GDW) { GDW.open(r.name); return; }
       if (r.kind === "ident" && r.go) { r.go(); return; }
-      if (!goItem(id) && r.it && r.it.url) window.open(r.it.url, "_blank", "noopener");
+      if (!goItem(id) && r.it && r.it.url) window.open(window.__socLearnAnchor ? window.__socLearnAnchor(r.it.id, r.it.url) : r.it.url, "_blank", "noopener");
     }
     function line(lead, x, host, cls) {
       var li = el("li", cls || null); li.appendChild(el("b", null, lead + " "));
@@ -17606,6 +17652,47 @@ IdentityDirectoryEvents
       pool.forEach(function (x) { if (more.length < 10 && !used[x.id] && !seenT[x.tech]) { seenT[x.tech] = 1; more.push(x); } });
     }
     more = more.slice(0, 10);
+    /* §5fl (26 X 2026, owner: "Microsoft retires CNAME auto-discovery - that never reached the sentences because
+       Google Play Integrity was more important; can a technology get two sentences?"). Yes, by weight: a technology
+       whose sentence has a second heavy item in the window gets it as the sentence's second link. Heavy = socWeight 4+,
+       tier 0, or due within 30 days; at most five technologies get a second link, the heaviest first. The window
+       items (published in the brief's 14 days) are candidates too - before this, an item neither new today nor due
+       within 14 days could never be named, whatever its weight. */
+    (function () {
+      /* NOT socWeight: socWeight (1-7) ranks the AREA (1 identity ... 7 Azure platform, §5p), so inside one technology it
+         is the same for every item and says nothing about which item matters. The weight of an item inside its
+         technology: it touches tier 0, it carries a date (the nearer, the heavier), it asks for action (retiring,
+         deprecated, plan for change, end of support, enforced, blocked, removed). Measured 26 X: CNAME auto-discovery
+         27, Play Integrity 65, "Updated Photos experience" 0 (never named). */
+      var ACT = /retir|deprecat|plan for change|end of support|ends support|breaking|enforc|block|removed|no longer|action required/i;
+      function wt(id) { var r = BYID[id], i = r && r.it; if (!i) return 0; var w0 = 0, d = i.deadline && /^\d{4}-\d\d-\d\d/.test(String(i.deadline)) ? days(today, String(i.deadline).slice(0, 10)) : -1;
+        if (i.tier0Touch) w0 += 30;
+        if (d >= 0 && d <= 30) w0 += 20; else if (d >= 0 && d <= 90) w0 += 12; else if (d >= 0 && d <= 180) w0 += 6;
+        if (ACT.test(String(i.status || "") + " " + String(i.title || ""))) w0 += 15;
+        return w0; }
+      function heavy(id) { return wt(id) >= 15; }
+      var inMore = {}; more.forEach(function (x) { inMore[x.id] = 1; if (x.also) inMore[x.also.id] = 1; });
+      var win = items.filter(function (i) { return i && i.id && !inMore[i.id] && !used[i.id] && i.published && days(String(i.published).slice(0, 10), today) <= 14; })
+        .map(function (i) { var dd = i.deadline ? days(today, String(i.deadline).slice(0, 10)) : null;
+          return { id: i.id, t0: !!i.tier0Touch, tech: techOf([i.product, i.area]), text: i.title || i.officialTitle || i.id, sub: firstSentence(i.why),
+            meta: [dd != null && dd >= 0 ? "due " + fmt(String(i.deadline).slice(0, 10)) : "", mcRef(i)].filter(Boolean).join(" · ") }; });
+      var cand = pool.concat(win).filter(function (y) { return y.tech && !inMore[y.id] && !used[y.id] && heavy(y.id); });
+      /* the same story told twice (26 X: "intune-google-play-strong-integrity" next to the Play Integrity item of the
+         sentence) is not a second item - a candidate sharing half its words with the sentence's item is skipped */
+      function kw(t) { return String(t || "").toLowerCase().match(/[a-z0-9]{4,}/g) || []; }
+      function same(a, b) { var A = kw(a), B = {}; kw(b).forEach(function (w) { B[w] = 1; }); if (!A.length) return false;
+        return A.filter(function (w) { return B[w]; }).length / A.length >= 0.5; }
+      var offers = [];
+      more.forEach(function (x) {
+        if (x.also) return;
+        var c = cand.filter(function (y) { return y.tech === x.tech && !same(y.text, x.text) && !same(x.text, y.text); })
+          .sort(function (p, q) { return wt(q.id) - wt(p.id); })[0];
+        if (c && wt(c.id) >= 15) offers.push({ x: x, o: c, w: wt(c.id) });
+      });
+      /* owner, 26 X 2026 evening: "try it and see whether it is too much" - every technology with a heavy second item
+         gets it (weight 15+: tier 0, a date inside 30 days, or an action word) */
+      offers.sort(function (p, q) { return q.w - p.w; }).slice(0, 10).forEach(function (f) { f.x.also = f.o; used[f.o.id] = 1; });
+    })();
     more.forEach(function (x) { used[x.id] = 1; line(x.tech + ":", x, ol); });
     var N = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen"][ol.children.length] || String(ol.children.length);
     sumH.textContent = "Today in " + N + " sentences"; sum.setAttribute("aria-label", sumH.textContent);
@@ -21331,6 +21418,9 @@ IdentityDirectoryEvents
       var a = el("a", "badge s5bz-sha", "commit " + ev.sha + " · " + dm(ev.date));
       a.href = repo + "/commit/" + ev.sha; a.target = "_blank"; a.rel = "noopener";
       a.title = "Microsoft's update of " + (G.file || "permissions.json") + " that made this change (v" + ev.v + ")";
+      /* §5fl: the row is a card of facts now - the commit is its Source, a link, not one more capital chip */
+      var src = [].filter.call(it.querySelectorAll(".s5fj-f"), function (f) { return /^source$/i.test((f.querySelector("dt") || {}).textContent || ""); })[0];
+      if (src) { var dd = src.querySelector("dd"); dd.textContent = ""; a.className = "s5fl-src"; a.textContent = "Microsoft's permissions data, commit " + ev.sha; dd.appendChild(a); return; }
       var when = row.querySelector(".mc-when"); if (when) row.insertBefore(a, when); else row.appendChild(a);
     });
   }
@@ -22436,8 +22526,19 @@ IdentityDirectoryEvents
     return order.map(function (k) { return { k: k, rows: G[k] }; });
   }
   function famId(idp, k) { return idp + "-" + k.replace(/[^a-z0-9]+/gi, "-").toLowerCase(); }
+  /* §5fl (26 X 2026, owner: "where we group by technology give a + to fold the group"). Every technology group of
+     New, Deadlines and Today folds with a −/+ button; the fold survives a re-render (filters redraw the list). */
+  var FOLD = {};
+  function famRows(h) { var r = [], e = h.nextElementSibling; while (e && !e.classList.contains("s5dq-h")) { r.push(e); e = e.nextElementSibling; } return r; }
+  function famSet(h, shut) { FOLD[h.id] = shut; h.classList.toggle("s5fl-shut", shut); var b = h.querySelector(".s5fl-fold");
+    if (b) { b.textContent = shut ? "+" : "\u2212"; b.setAttribute("aria-expanded", String(!shut)); b.title = (shut ? "Show" : "Hide") + " this group"; }
+    famRows(h).forEach(function (r) { r.classList.toggle("s5fl-gone", shut); }); }
   function famHead(k, n, idp) { var h = el("div", "s5dq-h"); h.id = famId(idp, k); h.setAttribute("role", "heading"); h.setAttribute("aria-level", "3");
-    h.appendChild(el("span", "s5dq-t", k)); h.appendChild(el("span", "s5dq-n", n + " item" + (n === 1 ? "" : "s"))); return h; }
+    var fb = el("button", "s5fl-fold", "\u2212"); fb.type = "button"; fb.setAttribute("aria-expanded", "true"); fb.title = "Hide this group";
+    fb.addEventListener("click", function (ev) { ev.stopPropagation(); famSet(h, !FOLD[h.id]); }); h.appendChild(fb);
+    h.appendChild(el("span", "s5dq-t", k)); h.appendChild(el("span", "s5dq-n", n + " item" + (n === 1 ? "" : "s")));
+    if (FOLD[h.id]) setTimeout(function () { famSet(h, true); }, 0);   /* the rows are appended right after the head */
+    return h; }
   function famJump(groups, idp) {
     var j = el("div", "s5dq-jump"); j.appendChild(el("span", "s5ci-lab", "Jump to"));
     groups.forEach(function (g) { var b = el("button", "s5dq-j", g.k + " · " + g.rows.length); b.type = "button";
@@ -24558,9 +24659,10 @@ IdentityDirectoryEvents
   var CARD = "section, details, .tw, .s5cu-tw, .callout, .cat-list, .apisurf, .rbpanel, .s5cn-cmpsum, .s5bn, .s5ci-picks, .s5ci-t, .mcb-list, .tabblock";
   var on = null, inn = null;
   function clear() {
-    if (on) { on.classList.remove("s5cv-on"); on = null; }
-    if (inn) { inn.classList.remove("s5cv-in"); inn = null; }
+    if (on) { on.classList.remove("s5cv-on", "s5fl-bd"); on = null; }
+    if (inn) { inn.classList.remove("s5cv-in", "s5fl-bd"); inn = null; }
   }
+  function ownBorder(e) { var c = getComputedStyle(e); return parseFloat(c.borderTopWidth) > 0 && c.borderTopStyle !== "none" && parseFloat(c.borderTopLeftRadius) >= 4; }
   function within(el, scope) { return el && scope && scope !== el && scope.contains(el) ? el : null; }
   document.addEventListener("mouseover", function (ev) {
     var t = ev.target;
@@ -24575,8 +24677,11 @@ IdentityDirectoryEvents
     var main = it || cd, sec = it ? cd : null;
     if (main === on && sec === inn) return;
     clear();
-    if (main) { main.classList.add("s5cv-on"); on = main; }
-    if (sec && sec !== main) { sec.classList.add("s5cv-in"); inn = sec; }
+    /* §5fl (26 X 2026, owner: "in some places we have doubled rounded frames"): an element that already draws its own
+       rounded border (a pill, a card) got the outline around it 2 px away - two rings. Such an element now only
+       colours its own border (.s5fl-bd); the outline stays for elements without one. */
+    if (main) { main.classList.add(ownBorder(main) ? "s5fl-bd" : "s5cv-on"); on = main; }
+    if (sec && sec !== main) { sec.classList.add(ownBorder(sec) ? "s5fl-bd" : "s5cv-in"); inn = sec; }
   }, { passive: true });
   document.documentElement.addEventListener("mouseleave", clear);
   window.addEventListener("blur", clear);
@@ -29422,6 +29527,40 @@ IdentityDirectoryEvents
     }).catch(function () {});
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 600); }); else setTimeout(start, 600);
+})();
+/* §5fl (26 X 2026, owner: "the Microsoft Learn link of the Play Integrity item opens the top of the Intune
+   in-development page - I had to scroll and did not know it was important; every Microsoft link should land on its
+   section"). tools/learn_anchors.py (code-refresh.yml) matches each item to the heading of its Learn page in our own
+   copy of Learn (mirror/) and writes /data/learn-anchors.json: an item id -> url#id:~:text=heading, and for every
+   linked page its headings. A Learn link without a section gets it the moment it is pressed (pointerdown, before the
+   browser follows it): by the item of its row, else by its own text matching a heading. Loaded once, when idle. */
+(function () {
+  var A = null, busy = false;
+  function load(cb) {
+    if (A) { if (cb) cb(); return; } if (busy || !window.fetch) return; busy = true;
+    fetch("/data/learn-anchors.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) { A = d || { items: {}, titles: {} }; busy = false; if (cb) cb(); }).catch(function () { busy = false; });
+  }
+  var STOP = /^(a|an|and|are|as|at|be|by|for|from|has|have|in|into|is|it|its|of|on|or|that|the|this|to|with|will|your|you|new|now|microsoft|update|updates|change|changes|support|defender|entra|azure|intune|office|365|windows|sentinel|purview|teams|exchange)$/;
+  function words(t) { return (String(t || "").toLowerCase().match(/[a-z0-9]+/g) || []).filter(function (w) { return w.length > 2 && !STOP.test(w); }).join(" "); }
+  function base(u) { return String(u || "").split("#")[0].split("?")[0].replace(/\/$/, "").toLowerCase().replace(/^https?:\/\/learn\.microsoft\.com\/(?:[a-z]{2}-[a-z]{2}\/)?/, "https://learn.microsoft.com/"); }
+  function fix(a) {
+    if (!A || !a || a.__s5fl) return; var href = a.getAttribute("href") || "";
+    if (!/^https?:\/\/learn\.microsoft\.com\//i.test(href) || href.indexOf("#") >= 0) return;
+    a.__s5fl = true;
+    var row = a.closest("[data-id], [data-ci-id]"), id = row ? (row.getAttribute("data-id") || row.getAttribute("data-ci-id")) : "";
+    var to = id && A.items[id];
+    if (to && base(to) === base(href)) { a.setAttribute("href", to); return; }
+    var T = A.titles[base(href)]; if (!T) return;
+    var w = words(a.textContent); if (w && T[w]) { a.setAttribute("href", href + "#" + T[w]); return; }
+    if (row) { var r = row.querySelector(".s5ci-tt, td:first-child, .ab-t"); var w2 = r && words(r.textContent); if (w2 && T[w2]) a.setAttribute("href", href + "#" + T[w2]); }
+  }
+  document.addEventListener("pointerdown", function (ev) { var a = ev.target && ev.target.closest && ev.target.closest('a[href*="learn.microsoft.com"]'); if (a) { if (A) fix(a); else load(function () { fix(a); }); } }, true);
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Enter" && document.activeElement && document.activeElement.matches && document.activeElement.matches('a[href*="learn.microsoft.com"]')) fix(document.activeElement); }, true);
+  /* the brief's own "open the item" path (Overview -> window.open of the item url) */
+  window.__socLearnAnchor = function (id, url) { return A && A.items[id] && base(A.items[id]) === base(url) ? A.items[id] : url; };
+  function idle() { (window.requestIdleCallback ? function (f) { requestIdleCallback(f, { timeout: 15000 }); } : function (f) { setTimeout(f, 10000); })(function () { load(); }); }
+  if (document.readyState === "complete") setTimeout(idle, 8000); else window.addEventListener("load", function () { setTimeout(idle, 8000); });
 })();
 /* §5fj (25 X 2026, owner: "the dates, the 'nothing new' and the rest run together - how is anyone to find anything").
    A meta line built as "a · b · c · d" is shown as separate chips: each fact on its own, wrapping between facts and
