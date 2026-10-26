@@ -1,12 +1,12 @@
 {
- "generated": "2026-10-26T04:44:36Z",
+ "generated": "2026-10-26T20:33:22Z",
  "source": "tools/doc_ga.py (CLAUDE.md 5eo)",
  "sources": [
   {
    "name": "Our Learn copy (mirror/learn)",
    "state": "ok",
-   "pages": 1803,
-   "events": 0,
+   "pages": 1804,
+   "events": 1,
    "note": ""
   },
   {
@@ -19,6 +19,17 @@
   }
  ],
  "events": [
+  {
+   "url": "https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/ai-agent-risk-assessment",
+   "title": "AI agent posture risk in Microsoft Defender",
+   "before": "AI agent posture risk in Microsoft Defender (Preview)",
+   "date": "2026-10-26",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-10-26",
+   "announced": false
+  },
   {
    "url": "https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-sap-integration",
    "title": "Microsoft Entra SAP IAG integration",

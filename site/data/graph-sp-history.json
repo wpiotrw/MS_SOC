@@ -1,7 +1,7 @@
 {
- "updated": "2026-10-26T04:42Z",
+ "updated": "2026-10-26T20:31Z",
  "baseline": "2026-10-10T08:35Z",
- "lastRead": "2026-10-26T04:42Z",
+ "lastRead": "2026-10-26T20:31Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
@@ -12,6 +12,28 @@
   "roles": 145
  },
  "events": [
+  {
+   "seen": "2026-10-26T20:31Z",
+   "day": "2026-10-26",
+   "surface": "action",
+   "name": "microsoft.directory/agentIdentities/idJagConfiguration/update",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Update the ID-JAG outbound configuration of agent identities"
+  },
+  {
+   "seen": "2026-10-26T20:31Z",
+   "day": "2026-10-26",
+   "surface": "action",
+   "name": "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Update the ID-JAG outbound configuration of agent identity blueprint principals"
+  },
   {
    "seen": "2026-10-21T17:14Z",
    "day": "2026-10-21",

@@ -1,7 +1,7 @@
 {
  "read": "2026-10-26",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 705,
+ "count": 706,
  "note": null,
  "messages": [
   {
@@ -1932,25 +1932,25 @@
    "actionBy": "2027-01-31",
    "start": "2026-01-22",
    "end": "2027-03-03",
-   "modified": "2026-01-28",
+   "modified": "2026-10-26",
    "tags": [
     "Admin impact",
     "Retirement",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated January 26, 2026: We have updated the content. Thank you for your patience. [Introduction] We’re retiring the Microsoft Defender for Endpoint (MDE) Advanced Hunting API and Microsoft Defender XDR Advanced Hunting API and transitioning customers to the Microsoft Graph Security API . This update aligns our security integrations with a unified interface and schema across Microsoft Defender pr…",
+   "summary": "Updated October 26, 2026: We have updated this post as a reminder. Thank you for your patience. [Introduction] We’re retiring the Microsoft Defender for Endpoint (MDE) Advanced Hunting API and Microsoft Defender XDR Advanced Hunting API and transitioning customers to the Microsoft Graph Security API . This update aligns our security integrations with a unified interface and schema across Microsoft…",
    "when": "Retirement start: February 6, 2026. Full retirement: February 1, 2027. After February 1, 2027, the MDE and XDR APIs will no longer function.",
    "prepare": "Migrate all existing API workflows to the Microsoft Graph Security API by January 31, 2027 . Update internal documentation, automation scripts, and integration endpoints to use the Microsoft Graph Security API. Communicate these changes to your security operations, engineering, and development teams. Review Microsoft documentation to plan your migration: Use the Microsoft Graph security API . If your organization uses custom solutions, validate t…",
    "dates": [
-    "Updated January 26, 2026: We have updated the content.",
+    "Updated October 26, 2026: We have updated this post as a reminder.",
     "Retirement start: February 6, 2026.",
     "Full retirement: February 1, 2027.",
     "After February 1, 2027, the MDE and XDR APIs will no longer function.",
     "What will happen: The MDE and XDR Advanced Hunting APIs will stop functioning after February 1, 2027 .",
     "Migrate all existing API workflows to the Microsoft Graph Security API by January 31, 2027 ."
    ],
-   "bodyHash": "91f5eed0c27d2846"
+   "bodyHash": "4b6e8026410b90cc"
   },
   {
    "id": "MC1221452",
@@ -3431,22 +3431,22 @@
    "major": true,
    "actionBy": null,
    "start": "2026-03-25",
-   "end": "2026-12-31",
-   "modified": "2026-10-15",
+   "end": "2027-02-08",
+   "modified": "2026-10-26",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated October 15, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are introducing a new priority cleanup workflow in Microsoft Purview Data Lifecycle Management that allows administrators to permanently delete (hard delete) specific OneDrive and SharePoint content types , even when retention policies or holds are in place. This capability helps reduce data expo…",
-   "when": "Public Preview: We will begin rolling out mid-August 2026 (previously mid-July) and expect to complete by mid-September 2026 (previously late July). General Availability (Worldwide) Rollout begins mid-October 2026 and is expected to complete by end of November 2026 (previously mid-November).",
+   "summary": "Updated October 26, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are introducing a new priority cleanup workflow in Microsoft Purview Data Lifecycle Management that allows administrators to permanently delete (hard delete) specific OneDrive and SharePoint content types , even when retention policies or holds are in place. This capability helps reduce data expo…",
+   "when": "Public Preview: We will begin rolling out mid-August 2026 (previously mid-July) and expect to complete by end of November 2026 (previously mid-September). General Availability (Worldwide) Rollout begins end of November 2026 (previously mid-October) and is expected to complete by early January 2027 (previously end of November 2026).",
    "prepare": "Review your organization’s data risk and retention strategy, especially for Copilot-generated content such as Teams transcripts. In Microsoft Purview, plan and configure a priority cleanup policy if permanent deletion is required for specific content types: Navigate to Microsoft Purview portal > Data Lifecycle Management > Priority cleanup . Create a new policy and select Delete data permanently in the policy settings. . Ensure appropriate eDisco…",
    "dates": [
-    "Updated October 15, 2026: We have updated the timeline.",
-    "Public Preview: We will begin rolling out mid-August 2026 (previously mid-July) and expect to complete by mid-September 2026 (previously late July).",
-    "General Availability (Worldwide) Rollout begins mid-October 2026 and is expected to complete by end of November 2026 (previously mid-November)."
+    "Updated October 26, 2026: We have updated the timeline.",
+    "Public Preview: We will begin rolling out mid-August 2026 (previously mid-July) and expect to complete by end of November 2026 (previously mid-September).",
+    "General Availability (Worldwide) Rollout begins end of November 2026 (previously mid-October) and is expected to complete by early January 2027 (previously end of November 2026)."
    ],
-   "bodyHash": "ae1f1bf65f486588"
+   "bodyHash": "08d6c0021bdc4813"
   },
   {
    "id": "MC1261595",
@@ -13101,21 +13101,21 @@
    "actionBy": null,
    "start": "2026-09-16",
    "end": "2026-11-27",
-   "modified": "2026-10-13",
+   "modified": "2026-10-26",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 13, 2026: We have updated the content. Thank you for your patience. [What and why] To improve transparency and troubleshooting for Microsoft Purview role-based access control (RBAC), we are enhancing audit logging for permission checks performed in the Microsoft Purview portal. These new audit records will provide administrators with clearer visibility into role and scoped-role aut…",
+   "summary": "Updated October 26, 2026: We have updated the content. Thank you for your patience. [What and why] To improve transparency and troubleshooting for Microsoft Purview role-based access control (RBAC), we are enhancing audit logging for permission checks performed in the Microsoft Purview portal. These new audit records will provide administrators with clearer visibility into role and scoped-role aut…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 13, 2026: We have updated the content.",
+    "Updated October 26, 2026: We have updated the content.",
     "General Availability (Worldwide): Beginning in late September 2026 and expected to complete by late October 2026."
    ],
-   "bodyHash": "51d35ff96ab33385"
+   "bodyHash": "596aebe3eada3555"
   },
   {
    "id": "MC1473156",
@@ -14836,11 +14836,11 @@
    ],
    "category": "planForChange",
    "severity": "normal",
-   "major": false,
+   "major": true,
    "actionBy": null,
    "start": "2026-09-30",
    "end": "2027-12-31",
-   "modified": "2026-10-12",
+   "modified": "2026-10-26",
    "tags": [
     "Admin impact",
     "Updated message"
@@ -14854,7 +14854,7 @@
     "Rollout completion : December 14, 2026.",
     "Review your environment(s) and perform the following actions before November 9, 2026 : Review Database, File, and Log capacity in the Power Platform admin center ."
    ],
-   "bodyHash": "c9f6439016e6fd72"
+   "bodyHash": "175382a4f63d90cb"
   },
   {
    "id": "MC1483538",
@@ -16449,7 +16449,7 @@
   },
   {
    "id": "MC1505607",
-   "title": "Outlook: Reply With a Template in Rules",
+   "title": "(Updated) Outlook: Reply With a Template in Rules",
    "services": [
     "Exchange Online"
    ],
@@ -16459,19 +16459,21 @@
    "actionBy": null,
    "start": "2026-10-12",
    "end": "2027-02-23",
-   "modified": "2026-10-12",
+   "modified": "2026-10-26",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] Users of new Outlook for Windows and Outlook on the web will be able to create inbox rules that automatically reply to incoming messages using a saved template. This helps users reduce repetitive work while providing faster, more consistent responses. This change supports personal and team productivity by automating routine email responses. This message is associated with Microsoft…",
+   "summary": "Updated October 26, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Users of new Outlook for Windows and Outlook on the web will be able to create inbox rules that automatically reply to incoming messages using a saved template. This helps users reduce repetitive work while providing faster, more consistent responses. This change supports personal and team producti…",
    "when": null,
    "prepare": null,
    "dates": [
+    "Updated October 26, 2026: We have updated the timeline.",
     "Targeted Release (Worldwide): We will begin rolling out in mid-October 2026 and expect to complete by early November 2026.",
     "General Availability (Worldwide): We will begin rolling out in early December 2026 and expect to complete by late December 2026."
    ],
-   "bodyHash": "e966bb634308c9f2"
+   "bodyHash": "4c458a02f430c41d"
   },
   {
    "id": "MC1505609",
@@ -18618,6 +18620,35 @@
     "Who is affected: IT administrators who downloaded the Scan Cab before 7:00 PM PDT on October 25, 2026, should reacquire and redeploy it if they use Scan Cab to assess updates for environments with the affected .NET, Visual Studio, or PowerShell versions listed"
    ],
    "bodyHash": "cbe1130d45bf2689"
+  },
+  {
+   "id": "MC1526468",
+   "title": "Update to MC1510951: Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "preventOrFixIssue",
+   "severity": "high",
+   "major": false,
+   "actionBy": "2026-11-01",
+   "start": "2026-10-26",
+   "end": "2027-01-31",
+   "modified": "2026-10-26",
+   "tags": [
+    "Admin impact",
+    "Updated message",
+    "User impact"
+   ],
+   "summary": "This post updates MC1510951 ((Updated) Windows updates are available for 2026 time zone changes in Canada, posted October 16, 2026). On November 1, 2026, affected locations in British Columbia, Alberta, and Manitoba will not move clocks back and will remain on UTC-07:00, UTC-06:00, and UTC-05:00 respectively. Affected locations in the Northwest Territories (including Yellowknife and Inuvik) align …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "This post updates MC1510951 ((Updated) Windows updates are available for 2026 time zone changes in Canada, posted October 16, 2026).",
+    "On November 1, 2026, affected locations in British Columbia, Alberta, and Manitoba will not move clocks back and will remain on UTC-07:00, UTC-06:00, and UTC-05:00 respectively.",
+    "Ensure Windows devices in affected regions have the latest Windows updates (including October 2026 updates).",
+    "Plan to run the Exchange Online PowerShell remediation cmdlet for non-recurring meetings once released (target: October 28, 2026)."
+   ],
+   "bodyHash": "92ad63ea7cb76460"
   },
   {
    "id": "MC676299",
@@ -24192,6 +24223,96 @@
    "id": "MC1470415",
    "type": "removed",
    "title": "Microsoft 365 Copilot in PowerPoint: Guide Presentation Creation with Notes Steering and Strict Brand Adherence",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1220762",
+   "type": "changed",
+   "title": "(Updated) Retirement notice: MDE and XDR Advanced Hunting APIs retiring; migrate to Microsoft Graph Security API",
+   "fields": {
+    "bodyHash": [
+     "91f5eed0c27d2846",
+     "4b6e8026410b90cc"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1261587",
+   "type": "changed",
+   "title": "Microsoft Purview | Data Lifecycle Management - Hard delete OneDrive and SharePoint files with priority cleanup workflow",
+   "fields": {
+    "end": [
+     "2026-12-31",
+     "2027-02-08"
+    ],
+    "bodyHash": [
+     "ae1f1bf65f486588",
+     "08d6c0021bdc4813"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1473155",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: permissions audit log improvements",
+   "fields": {
+    "bodyHash": [
+     "51d35ff96ab33385",
+     "596aebe3eada3555"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1483528",
+   "type": "changed",
+   "title": "Dynamics 365 and Power Platform– Information about storage validation for Dataverse-only tenants",
+   "fields": {
+    "major": [
+     false,
+     true
+    ],
+    "bodyHash": [
+     "c9f6439016e6fd72",
+     "175382a4f63d90cb"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1505607",
+   "type": "changed",
+   "title": "(Updated) Outlook: Reply With a Template in Rules",
+   "fields": {
+    "title": [
+     "Outlook: Reply With a Template in Rules",
+     "(Updated) Outlook: Reply With a Template in Rules"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "e966bb634308c9f2",
+     "4c458a02f430c41d"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-26",
+   "id": "MC1526468",
+   "type": "new",
+   "title": "Update to MC1510951: Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
    "fields": {}
   }
  ]
