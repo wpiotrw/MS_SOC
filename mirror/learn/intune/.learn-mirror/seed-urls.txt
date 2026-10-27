@@ -101,9 +101,14 @@ https://learn.microsoft.com/en-us/intune/device-security/microsoft-tunnel/prereq
 https://learn.microsoft.com/en-us/intune/device-security/mobile-threat-defense/enable-connector
 https://learn.microsoft.com/en-us/intune/device-security/mobile-threat-defense/trustd-mobile
 https://learn.microsoft.com/en-us/intune/device-security/security-baselines/configure-baselines
+https://learn.microsoft.com/en-us/intune/device-security/security-baselines/overview
+https://learn.microsoft.com/en-us/intune/device-security/security-baselines/ref-defender-settings
 https://learn.microsoft.com/en-us/intune/device-security/security-baselines/ref-edge-settings
 https://learn.microsoft.com/en-us/intune/device-security/security-baselines/ref-openclaw-settings
+https://learn.microsoft.com/en-us/intune/device-security/security-baselines/ref-v2-edge-settings
 https://learn.microsoft.com/en-us/intune/device-security/security-baselines/ref-v2-office-settings
+https://learn.microsoft.com/en-us/intune/device-security/security-baselines/ref-windows-365-agents-settings
+https://learn.microsoft.com/en-us/intune/device-security/security-baselines/ref-windows-365-settings
 https://learn.microsoft.com/en-us/intune/device-security/security-baselines/ref-windows-mdm-settings
 https://learn.microsoft.com/en-us/intune/device-security/security-baselines/stig-audit-baseline
 https://learn.microsoft.com/en-us/intune/device-security/security-configurations/ios-ipados-compliance

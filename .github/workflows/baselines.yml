@@ -6,6 +6,8 @@ name: Baselines tracking
 # baselines_sources.json), compares with the previous run and writes site/data/baselines.json (summary),
 # baselines-tests.json (Maester catalogue), baselines-tenable.json (Tenable items) and baselines-history.json.
 # Nothing is run against a tenant and no secret is used: GITHUB_TOKEN only raises the GitHub API rate limit.
+# 5fq (27 X 2026): tools/baselines_more.py adds CISA ScubaGear (git, baselines/*.md), Microsoft's Zero Trust Assessment
+# (git, tests) and the Intune security baselines (our Learn copy in mirror/) -> baselines-controls/-intune/-zta.json.
 # Commits only when something changed. A push made with GITHUB_TOKEN starts no other workflow, so
 # "Code refresh" deploys the site after this one (workflow_run there).
 on:
@@ -15,6 +17,7 @@ on:
     branches: [main]
     paths:
       - 'tools/baselines.py'
+      - 'tools/baselines_more.py'
       - 'baselines_sources.json'
       - '.github/workflows/baselines.yml'
   workflow_dispatch:
@@ -35,7 +38,7 @@ jobs:
         with:
           ref: main
           fetch-depth: 1
-      - name: Read Maester and Tenable
+      - name: Read CISA ScubaGear, Maester, Tenable, Zero Trust Assessment and the Intune security baselines
         timeout-minutes: 20
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -46,9 +49,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add site/data/baselines.json site/data/baselines-tests.json site/data/baselines-tenable.json site/data/baselines-history.json
+          git add site/data/baselines-controls.json site/data/baselines-intune.json site/data/baselines-zta.json site/data/baselines-more-history.json 2>/dev/null || true   # 5fq
           if git diff --cached --quiet; then echo "No change."; else
             python3 tools/stamp.py baselines || true; git add site/data/fresh   # CLAUDE.md 5cz
-            git commit -m "data: Maester and Tenable baselines $(date -u +%F' '%H:%M) UTC"
+            git commit -m "data: security baselines (CISA, Maester, Tenable, ZTA, Intune) $(date -u +%F' '%H:%M) UTC"
             git pull --rebase -q origin main
             git push origin main
           fi

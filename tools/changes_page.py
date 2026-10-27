@@ -116,7 +116,7 @@ def extras(site, state, lo, hi):
         d = str(e.get("day") or "")[:10]
         if lo <= d <= hi:
             ty = e.get("type") or ""
-            X.append({"d": d, "tab": "Baselines", "k": "added" if ty.endswith("added") or ty in ("release", "new") else "removed" if ty.endswith("removed") else "changed",
+            X.append({"d": d, "tab": "Baselines", "k": "added" if ty.endswith(("added", "-new", "-version")) or ty in ("release", "new") else "removed" if ty.endswith(("removed", "-gone")) else "changed",   # 5fq: test-new / policy-new are additions
                       "id": e.get("id") or "", "t": clip(e.get("title"), 200), "u": e.get("url") or "", "p": e.get("tech") or e.get("src") or "",
                       "w": None, "t0": False, "f": [[ty, "", ", ".join(e.get("what") or []), e.get("src") or ""]]})
     thr = load(os.path.join(site, "data", "threats.json"), {}) or {}

@@ -733,6 +733,43 @@ def build(day, seed, args, cfg, hist):
     return out, {"day": day, "generated": out["generated"], "audits": items}, {"day": day, "generated": out["generated"], "tests": tests}
 
 
+def more(out, day, seed, mtests, items):
+    """CLAUDE.md 5fq (27 X 2026): CISA ScubaGear (the source the SCuBA files of Maester and Tenable follow), the Intune
+    security baselines (Learn) and Microsoft's Zero Trust Assessment - tools/baselines_more.py; a failure there never
+    stops the Maester and Tenable part"""
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import baselines_more
+        summ, ev = baselines_more.run(day, seed=bool(seed), maester_tests=mtests.get("tests"), tenable_items=items.get("audits"))
+    except Exception as e:
+        log("more sources: not read:", e)
+        return
+    out["spec"] = "5dv+5fq"
+    out["sources"]["cisa"] = summ["cisa"]
+    out["sources"]["intune"] = summ["intune"]
+    out["sources"]["zta"] = summ["zta"]
+    out["more"] = {"techs": summ["techs"]}
+    since14 = (datetime.date.fromisoformat(day) - datetime.timedelta(days=14)).isoformat()
+    out["events"] = sorted(out["events"] + [e for e in ev if e["day"] >= since14], key=lambda e: e["day"], reverse=True)
+    out["counts"]["events14"] = len(out["events"])
+    c = summ["cisa"]
+    for f in out["frameworks"]:
+        if f["key"] == "cisa-scuba" and c.get("ok"):
+            f["cisa"] = {"n": c["policies"], "bod": c["bod"], "shall": c["shall"], "ver": c["ver"], "date": c["date"], "commit": c["commit"], "lag": c.get("lag")}
+            if c.get("lag") and c["lag"]["behind"]:
+                f["note"] = "Tenable's SCuBA files follow v%s; CISA ScubaGear is at v%s (%d release%s newer). Maester follows ScubaGear main but still uses the 1.x ids for %d of its tests." % (
+                    c["lag"]["tenable"], c["lag"]["cisa"], c["lag"]["behind"], "" if c["lag"]["behind"] == 1 else "s", c["gaps"].get("maesterOld", 0))
+    z = summ["zta"]
+    if z.get("ok"):
+        out["frameworks"].insert(3, {"key": "zta", "name": "Zero Trust Assessment (Microsoft)", "kind": "Microsoft assessment tool", "maester": {"n": 0}, "tenable": {"n": 0},
+                                     "zta": {"n": z["tests"], "ver": z["ver"], "date": z["date"]}, "note": "Microsoft's own PowerShell assessment: Identity, Devices, Data, Network, AI, SecOps"})
+    ib = [b for b in summ["intune"]["baselines"] if not b["missing"]]
+    if ib:
+        out["frameworks"].insert(4, {"key": "intune-sb", "name": "Intune security baselines (Microsoft)", "kind": "Microsoft baseline", "maester": {"n": 0}, "tenable": {"n": 0},
+                                     "intune": {"n": sum(b["n"] for b in ib), "baselines": len(ib), "newest": [b["title"] for b in ib]},
+                                     "note": "Settings and defaults of the newest version of every Intune security baseline (Learn)"})
+
+
 def main(argv):
     args, i = {}, 0
     while i < len(argv):
@@ -759,6 +796,7 @@ def main(argv):
     if not out["sources"]["maester"]["ok"] and not out["sources"]["tenable"]["ok"]:
         log("no source read; nothing written")
         return 1
+    more(out, day, seed, mtests, items)
     c1 = dump(OUT, out)
     c2 = dump(OUT_T, items) | dump(OUT_M, mtests)
     c3 = dump(HIST, hist)
