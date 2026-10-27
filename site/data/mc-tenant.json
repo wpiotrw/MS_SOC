@@ -1,7 +1,7 @@
 {
- "read": "2026-10-26",
+ "read": "2026-10-27",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 706,
+ "count": 713,
  "note": null,
  "messages": [
   {
@@ -8094,24 +8094,24 @@
    "major": false,
    "actionBy": null,
    "start": "2026-07-28",
-   "end": "2027-01-11",
-   "modified": "2026-10-13",
+   "end": "2027-02-01",
+   "modified": "2026-10-26",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 13, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are updating the entry point for Copilot in Outlook to be more visually appealing and consistent. Located next to the Outlook ribbon, the Copilot entry point makes it easier for users to discover and use Copilot as they work. In addition to chat, it also surfaces contextual, AI-powered recommenda…",
+   "summary": "Updated October 26, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are updating the entry point for Copilot in Outlook to be more visually appealing and consistent. Located next to the Outlook ribbon, the Copilot entry point makes it easier for users to discover and use Copilot as they work. In addition to chat, it also surfaces contextual, AI-powered recommenda…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 13, 2026: We have updated the timeline.",
-    "Worldwide: Beginning late October 2026 (previously mid-October) and expected to complete by mid-November 2026 (previously early November).",
-    "GCC and GCC High: Beginning mid-November 2026 (previously early November) and expected to complete by early December 2026 (previously late November).",
-    "DoD: Beginning mid-November 2026 (previously early November) and expected to complete by early December 2026 (previously late November)."
+    "Updated October 26, 2026: We have updated the timeline.",
+    "Worldwide: Beginning mid-November 2026 (previously late October) and expected to complete by late November 2026 (previously mid-November).",
+    "GCC and GCC High: Beginning early December 2026 (previously mid-November) and expected to complete by late December 2026 (previously early December).",
+    "DoD: Beginning early December 2026 (previously mid-November) and expected to complete by late December 2026 (previously early December)."
    ],
-   "bodyHash": "e8fec5285e81f2cd"
+   "bodyHash": "178821952035007f"
   },
   {
    "id": "MC1442510",
@@ -8887,22 +8887,23 @@
    "actionBy": null,
    "start": "2026-08-07",
    "end": "2027-03-29",
-   "modified": "2026-10-08",
+   "modified": "2026-10-26",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 8, 2026: We have updated the timeline. Thank you for your patience. [What and why] Users will soon be able to register a passkey as their first multifactor authentication method. Previously, people had to set up an alternate MFA method like SMS or Voice before they could add a passkey (FIDO2), Windows Hello for Business, macOS Platform SSO. That extra step pushed users toward weake…",
+   "summary": "Updated October 26, 2026: We have updated the timeline. Thank you for your patience. [What and why] Users will soon be able to register a passkey as their first multifactor authentication method. Previously, people had to set up an alternate MFA method like SMS or Voice before they could add a passkey (FIDO2), Windows Hello for Business, macOS Platform SSO. That extra step pushed users toward weak…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 8, 2026: We have updated the timeline.",
-    "General Availability (Worldwide, GCC): We will begin rolling out in late October 2026 (previously early October) and expect to complete by late November 2026 (previously mid-November).",
-    "General Availability (Worldwide, GCC): We will begin rolling out in early January 2026 and expect to complete by late February 2027."
+    "Updated October 26, 2026: We have updated the timeline.",
+    "General Availability (Worldwide, GCC): We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+    "General Availability (Worldwide, GCC): We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+    "Security Defaults MFA registration prompts will adopt this experience in January–February 2027."
    ],
-   "bodyHash": "de923a35a11fec8a"
+   "bodyHash": "319a21b72eac987b"
   },
   {
    "id": "MC1450134",
@@ -12209,22 +12210,22 @@
    "actionBy": null,
    "start": "2026-09-10",
    "end": "2026-11-30",
-   "modified": "2026-10-06",
+   "modified": "2026-10-26",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Teams is introducing additional protection for QR codes shared by external users in Teams messages. To help reduce the risk of phishing and fraud, images containing QR codes from external senders will be obscured by default. Users can choose to reveal the image before viewing or scanning th…",
+   "summary": "Updated October 26, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Teams is introducing additional protection for QR codes shared by external users in Teams messages. To help reduce the risk of phishing and fraud, images containing QR codes from external senders will be obscured by default. Users can choose to reveal the image before viewing or scanning t…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 6, 2026: We have updated the timeline.",
+    "Updated October 26, 2026: We have updated the timeline.",
     "Targeted Release: Beginning in mid-October 2026 (previously early October) and expected to complete in mid-October 2026 (previously early October).",
     "General Availability (Worldwide): Beginning in late October 2026 (previously mid-October) and expected to complete by late October 2026 (previously mid-October)."
    ],
-   "bodyHash": "5279941f90adce1a"
+   "bodyHash": "8b3c4c14a8b16075"
   },
   {
    "id": "MC1470416",
@@ -12787,7 +12788,7 @@
   },
   {
    "id": "MC1472028",
-   "title": "Outlook: Change the organizer of meetings",
+   "title": "(Updated) Outlook: Change the organizer of meetings",
    "services": [
     "Exchange Online",
     "Microsoft 365 suite"
@@ -12797,22 +12798,24 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-14",
-   "end": "2027-01-25",
-   "modified": "2026-09-14",
+   "end": "2027-02-01",
+   "modified": "2026-10-26",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] Microsoft is introducing Change organizer for eligible Outlook meetings and recurring meeting series. Users can ask another person in their organization to become the organizer, and the selected person must accept before ownership changes. This supports personal and team productivity by maintaining meeting continuity during role changes, leave, and offboarding. [Rollout Schedule:] …",
+   "summary": "Updated October 26, 2026: We have updated the content and timeline. Thank you for your patience. [What and Why:] Microsoft is introducing Change organizer for eligible Outlook meetings and recurring meeting series. Users can ask another person in their organization to become the organizer, and the selected person must accept before ownership changes. This supports personal and team productivity by…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Phase 1 supports eligible non-online meetings: Worldwide: Late September through late October 2026.",
-    "GCC: Early October through late October 2026.",
-    "GCC High: Early November through late November 2026.",
-    "DoD: Early November through late November 2026."
+    "Updated October 26, 2026: We have updated the content and timeline.",
+    "This phase supports non-online meetings: Worldwide: Early November through early December 2026.",
+    "GCC: Late November through late December 2026.",
+    "GCC High: Early December through late December 2026.",
+    "DoD: Early December through late December 2026."
    ],
-   "bodyHash": "2eec73d6fa8f45fa"
+   "bodyHash": "778afa75b7528501"
   },
   {
    "id": "MC1472429",
@@ -13299,7 +13302,7 @@
   },
   {
    "id": "MC1474106",
-   "title": "Microsoft Defender for Office 365: New MessageContents table in Advanced Hunting for Microsoft Teams messages",
+   "title": "(Updated) Microsoft Defender for Office 365: New MessageContents table in Advanced Hunting for Microsoft Teams messages",
    "services": [
     "Microsoft Defender XDR"
    ],
@@ -13308,20 +13311,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-18",
-   "end": "2026-11-14",
-   "modified": "2026-09-18",
+   "end": "2026-12-28",
+   "modified": "2026-10-26",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We're introducing a new MessageContents table in Advanced Hunting for Microsoft Teams messages. This new table helps security operations teams investigate threats in Teams by providing access to Teams message snippets and associated message metadata during threat investigations. This capability enhances security investigations by allowing authorized analysts to correlate Teams messa…",
+   "summary": "Updated October 26, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're introducing a new MessageContents table in Advanced Hunting for Microsoft Teams messages. This new table helps security operations teams investigate threats in Teams by providing access to Teams message snippets and associated message metadata during threat investigations. This capability enha…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Beginning in late September 2026 and expected to complete by mid-October 2026."
+    "Updated October 26, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in late September 2026 and expected to complete by mid-November 2026 (previously mid-October)."
    ],
-   "bodyHash": "01ced5af459dc648"
+   "bodyHash": "153464fe6e3e2c3c"
   },
   {
    "id": "MC1474107",
@@ -16342,7 +16347,7 @@
   },
   {
    "id": "MC1492959",
-   "title": "Audio Overview Updates",
+   "title": "(Updated) Audio Overview Updates",
    "services": [
     "Microsoft 365 apps",
     "Microsoft 365 suite"
@@ -16353,18 +16358,20 @@
    "actionBy": null,
    "start": "2026-10-09",
    "end": "2026-12-30",
-   "modified": "2026-10-09",
+   "modified": "2026-10-26",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] Microsoft is rolling out new capabilities in Audio Overview to make it easier to navigate longer content, support enterprise information protection, and create audio overviews from more types of content. Episodes For longer and more content-rich notebooks, Audio Overview can organize the discussion into topic-based episodes. This makes it easier for users to navigate the audio and …",
+   "summary": "Updated October 26, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft is rolling out new capabilities in Audio Overview to make it easier to navigate longer content, support enterprise information protection, and create audio overviews from more types of content. Episodes For longer and more content-rich notebooks, Audio Overview can organize the discussion…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): We will begin rolling out in late October 2026 and expect to complete by late November 2026."
+    "Updated October 26, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We will begin rolling out in early November 2026 (previously late October) and expect to complete by late November 2026."
    ],
-   "bodyHash": "7db4526e55e9e56b"
+   "bodyHash": "f879ba7dd659c9f2"
   },
   {
    "id": "MC1493186",
@@ -18649,6 +18656,189 @@
     "Plan to run the Exchange Online PowerShell remediation cmdlet for non-recurring meetings once released (target: October 28, 2026)."
    ],
    "bodyHash": "92ad63ea7cb76460"
+  },
+  {
+   "id": "MC1526651",
+   "title": "Microsoft Teams: Malicious QR code detection in messages",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-26",
+   "end": "2026-12-13",
+   "modified": "2026-10-26",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Teams is extending malicious URL protection to provide near-real-time detection of malicious destinations embedded in QR codes shared in messages. Teams will analyze QR code destinations to identify potential phishing and fraud threats and display an additional warning when malicious content is detected. [Rollout schedule] General Availability (Worldwide): Beginning in ear…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Beginning in early November 2026 and expected to complete in mid-November 2026."
+   ],
+   "bodyHash": "45abf8e3b76324e6"
+  },
+  {
+   "id": "MC1526652",
+   "title": "AI Builder credits retirement: Prepare to use Copilot Credits",
+   "services": [
+    "Microsoft Power Automate",
+    "Power Apps"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-26",
+   "end": "2026-11-26",
+   "modified": "2026-10-26",
+   "tags": [
+    "Admin impact",
+    "Feature update"
+   ],
+   "summary": "[What and Why:] Microsoft is retiring AI Builder credits and replacing them with Copilot Credits. Organizations using AI Builder must arrange Copilot Credit capacity before their existing AI Builder credit entitlements expire, or sooner if those credits are exhausted, to avoid interruptions. AI Builder features are not being retired. They will continue to be supported using Copilot Credits, bringi…",
+   "when": "November 1, 2025: Sales of AI Builder capacity add-ons ended for new customers. November 1, 2026 : AI Builder capacity add-ons reach end of life. Credits from active add-on contracts remain usable until those contracts expire. November 1, 2026 : New or renewed eligible Power Platform and Dynamics 365 licenses will no longer include seeded AI Builder credits. Seeded credits included with eligible licenses purchased or renewed before this date rema…",
+   "prepare": null,
+   "dates": [
+    "When this will happen: November 1, 2025: Sales of AI Builder capacity add-ons ended for new customers.",
+    "November 1, 2026 : AI Builder capacity add-ons reach end of life.",
+    "November 1, 2026 : New or renewed eligible Power Platform and Dynamics 365 licenses will no longer include seeded AI Builder credits.",
+    "November 1, 2026 , is not a universal cutoff for existing credits.",
+    "General Availability (Worldwide, GCC): We will begin rolling out on early November 2026 and expect to complete by early November 2026.",
+    "Admin action is required before November 1, 2026, for organizations with AI Builder capacity add-ons, and before existing credit entitlements expire to prevent disruption."
+   ],
+   "bodyHash": "5de99ec97f67466f"
+  },
+  {
+   "id": "MC1526661",
+   "title": "Microsoft 365 Apps: Cloud Update - Export Improvements",
+   "services": [
+    "Microsoft 365 apps",
+    "Microsoft 365 suite"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-26",
+   "end": "2026-11-26",
+   "modified": "2026-10-26",
+   "tags": [
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and Why:] New export improvements are coming to Cloud Update, making it easier for organizations to access and analyze device data. These enhancements will expand export capabilities across Inventory and Cloud Update device views, include additional device and update information, and allow admins to export filtered results so they can focus on the devices most relevant to their needs. [Rollo…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out on early November 2026 and expect to complete by late November 2026."
+   ],
+   "bodyHash": "3f225347dcf9fddb"
+  },
+  {
+   "id": "MC1526668",
+   "title": "Change Optics Report",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-26",
+   "end": "2026-11-26",
+   "modified": "2026-10-26",
+   "tags": [
+    "Admin impact",
+    "Feature update"
+   ],
+   "summary": "[What and Why:] Following the public preview announced in MC1301802, the Change Optics report for Exchange Online is now generally available for worldwide tenants. The report helps Exchange administrators identify email traffic that may be affected by upcoming service changes so they can investigate and remediate potential issues before enforcement occurs. Learn more: The Change Optics report is n…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "c32414ba91f76b65"
+  },
+  {
+   "id": "MC1526676",
+   "title": "Microsoft 365 admin center: Manage authoritative sources for Microsoft 365 Copilot Search",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-26",
+   "end": "2026-12-31",
+   "modified": "2026-10-26",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] This new capability enables admins the capability to manage Authoritative sources within the Copilot Search experience in the Microsoft 365 Admin Center. As part of current change admins will be able manage SharePoint Online (SPO) sites that can be deemed as authoritative content per their organization. Available only to Global admin and Global reader role. [Rollout Schedule:] Publ…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): We will begin rolling out on late September 2026 and expect to complete by late September 2026.",
+    "General Availability (Worldwide): We will begin rolling out on late September 2026 and expect to complete by late September 2026."
+   ],
+   "bodyHash": "e50838e309063c19"
+  },
+  {
+   "id": "MC1526679",
+   "title": "Microsoft Teams Default meeting template",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-26",
+   "end": "2026-12-16",
+   "modified": "2026-10-26",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Default Meeting Templates enable IT admins to automatically apply their organization’s preferred meeting options whenever users schedule a Teams meeting through Outlook or Teams calendar. This helps organizations apply meeting options (including protection meeting options) at scale, and reduce the need for organizers to manually configure meeting options. [Rollout Schedule:] Genera…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in early November 2026 and expect to complete by mid November 2026."
+   ],
+   "bodyHash": "49c2d2697aaf82ce"
+  },
+  {
+   "id": "MC1526697",
+   "title": "Dynamics 365 apps and Dataverse – Information about the 2026 time zone changes in Canada",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-26",
+   "end": "2026-11-26",
+   "modified": "2026-10-26",
+   "tags": [
+    "Admin impact",
+    "User impact"
+   ],
+   "summary": "What and why Dynamics 365 apps and Dataverse are being updated to add the new Canadian time zone definitions in support of the 2026 time zone changes in Manitoba, Alberta, and British Columbia. This is a general awareness message to support the changes and complements MC1510951 — Windows updates are available for 2026 time zone changes in Canada . Rollout schedule The Dataverse configuration updat…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "The Dataverse configuration update is being deployed through the regular release train and is scheduled to reach the Canada region by October 26, 2026."
+   ],
+   "bodyHash": "b6316ed2aa051018"
   },
   {
    "id": "MC676299",
@@ -24313,6 +24503,186 @@
    "id": "MC1526468",
    "type": "new",
    "title": "Update to MC1510951: Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-27",
+   "id": "MC1441784",
+   "type": "changed",
+   "title": "(Updated) Microsoft Copilot for Outlook: New Copilot entry point in Classic Outlook",
+   "fields": {
+    "end": [
+     "2027-01-11",
+     "2027-02-01"
+    ],
+    "bodyHash": [
+     "e8fec5285e81f2cd",
+     "178821952035007f"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-27",
+   "id": "MC1450133",
+   "type": "changed",
+   "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method",
+   "fields": {
+    "bodyHash": [
+     "de923a35a11fec8a",
+     "319a21b72eac987b"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-27",
+   "id": "MC1470410",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: QR code protection for messages from external users",
+   "fields": {
+    "bodyHash": [
+     "5279941f90adce1a",
+     "8b3c4c14a8b16075"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-27",
+   "id": "MC1472028",
+   "type": "changed",
+   "title": "(Updated) Outlook: Change the organizer of meetings",
+   "fields": {
+    "title": [
+     "Outlook: Change the organizer of meetings",
+     "(Updated) Outlook: Change the organizer of meetings"
+    ],
+    "end": [
+     "2027-01-25",
+     "2027-02-01"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "2eec73d6fa8f45fa",
+     "778afa75b7528501"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-27",
+   "id": "MC1474106",
+   "type": "changed",
+   "title": "(Updated) Microsoft Defender for Office 365: New MessageContents table in Advanced Hunting for Microsoft Teams messages",
+   "fields": {
+    "title": [
+     "Microsoft Defender for Office 365: New MessageContents table in Advanced Hunting for Microsoft Teams messages",
+     "(Updated) Microsoft Defender for Office 365: New MessageContents table in Advanced Hunting for Microsoft Teams messages"
+    ],
+    "end": [
+     "2026-11-14",
+     "2026-12-28"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "01ced5af459dc648",
+     "153464fe6e3e2c3c"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-27",
+   "id": "MC1492959",
+   "type": "changed",
+   "title": "(Updated) Audio Overview Updates",
+   "fields": {
+    "title": [
+     "Audio Overview Updates",
+     "(Updated) Audio Overview Updates"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "7db4526e55e9e56b",
+     "f879ba7dd659c9f2"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-27",
+   "id": "MC1526651",
+   "type": "new",
+   "title": "Microsoft Teams: Malicious QR code detection in messages",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-27",
+   "id": "MC1526652",
+   "type": "new",
+   "title": "AI Builder credits retirement: Prepare to use Copilot Credits",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-27",
+   "id": "MC1526661",
+   "type": "new",
+   "title": "Microsoft 365 Apps: Cloud Update - Export Improvements",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-27",
+   "id": "MC1526668",
+   "type": "new",
+   "title": "Change Optics Report",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-27",
+   "id": "MC1526676",
+   "type": "new",
+   "title": "Microsoft 365 admin center: Manage authoritative sources for Microsoft 365 Copilot Search",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-27",
+   "id": "MC1526679",
+   "type": "new",
+   "title": "Microsoft Teams Default meeting template",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-27",
+   "id": "MC1526697",
+   "type": "new",
+   "title": "Dynamics 365 apps and Dataverse – Information about the 2026 time zone changes in Canada",
    "fields": {}
   }
  ]
