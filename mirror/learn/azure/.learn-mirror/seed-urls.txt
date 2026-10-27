@@ -327,6 +327,7 @@ https://learn.microsoft.com/en-us/azure/governance/oracle-ado
 https://learn.microsoft.com/en-us/azure/governance/policy
 https://learn.microsoft.com/en-us/azure/governance/policy/concepts/assignment-structure
 https://learn.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure-basics
+https://learn.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure-policy-rule
 https://learn.microsoft.com/en-us/azure/governance/policy/concepts/initiative-definition-structure
 https://learn.microsoft.com/en-us/azure/governance/policy/how-to/migrate-from-automanage-best-practices
 https://learn.microsoft.com/en-us/azure/governance/policy/samples/cis-linux/alma-ado

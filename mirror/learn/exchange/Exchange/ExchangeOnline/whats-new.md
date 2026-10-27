@@ -3,7 +3,7 @@ layout: Conceptual
 title: What's new in the Exchange admin center in Exchange Online | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/exchange/whats-new
 Manager: serdars
-ms.subservice: ''
+ms.subservice: exo-manageability
 ms.devlang: powershell
 ROBOTS: INDEX,FOLLOW
 breadcrumb_path: /exchange/breadcrumb/toc.json
@@ -14,8 +14,8 @@ feedback_product_url: ''
 ms.localizationpriority: medium
 description: What's new in Exchange admin center
 ms.topic: overview
-author: AshaIyengar21
-ms.author: serdars
+author: Swatyario
+ms.author: adbhale
 ms.reviewer: 
 f1.keywords:
 - NOCSH

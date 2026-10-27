@@ -12,12 +12,11 @@ enable_rest_try_it: true
 rest_product: Azure
 uhfHeaderId: azure
 breadcrumb_path: ../../breadcrumb/toc.json
-ms.author: kexu
-manager: smmark
-author: kexugit
+ms.author: smmark
+author: markjulmar
 ms.topic: generated-reference
 ms.devlang: rest-api
-ms.date: 2024-05-07T00:00:00.0000000Z
+ms.date: 2026-10-23T00:00:00.0000000Z
 products:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 ms.service: microsoft-sentinel

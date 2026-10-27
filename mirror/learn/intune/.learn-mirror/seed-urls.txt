@@ -1,6 +1,7 @@
 https://learn.microsoft.com/en-us/intune
 https://learn.microsoft.com/en-us/intune/advanced-analytics
 https://learn.microsoft.com/en-us/intune/advanced-analytics/device-query-multiple-devices
+https://learn.microsoft.com/en-us/intune/advanced-analytics/ref-data-platform-schema
 https://learn.microsoft.com/en-us/intune/app-management/configuration/configure-managed-android
 https://learn.microsoft.com/en-us/intune/app-management/configuration/configure-managed-home-screen
 https://learn.microsoft.com/en-us/intune/app-management/configuration/configure-managed-ios
@@ -37,6 +38,7 @@ https://learn.microsoft.com/en-us/intune/configmgr/hotfix
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/37942646
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/38232642
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/38982839
+https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/39169655
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/39398030
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2609/2377842
 https://learn.microsoft.com/en-us/intune/copilot

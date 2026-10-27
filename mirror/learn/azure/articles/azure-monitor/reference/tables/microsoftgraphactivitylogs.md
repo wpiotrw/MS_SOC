@@ -23,7 +23,7 @@ ms.service: azure-monitor
 description: Reference for MicrosoftGraphActivityLogs table in Azure Monitor Logs.
 ms.topic: generated-reference
 ms.subservice: logs
-ms.date: 2026-07-27T00:00:00.0000000Z
+ms.date: 2026-10-27T00:00:00.0000000Z
 locale: en-us
 document_id: 68250dcd-a61e-a324-a09f-4c3ef9c18d5e
 document_version_independent_id: 025a7ec8-c348-7a22-0b6a-7cd6f4ddbf62
@@ -39,12 +39,12 @@ item_type: Content
 source_path: articles/azure-monitor/reference/tables/microsoftgraphactivitylogs.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
-- https://authoring-docs-microsoft.poolparty.biz/devrel/9949a35d-c893-4f91-bf98-ae940fc30f5f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/9949a35d-c893-4f91-bf98-ae940fc30f5f
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
-- https://authoring-docs-microsoft.poolparty.biz/devrel/21f7bb14-0703-4e59-a64b-65dd13773dd3
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://authoring-docs-microsoft.poolparty.biz/devrel/21f7bb14-0703-4e59-a64b-65dd13773dd3
 platformId: fa733dca-dc5c-41df-2bc1-8bb6286ffc70
 ---
 
@@ -78,6 +78,7 @@ Microsoft Graph Activity Logs provide details of API requests made to Microsoft 
 | \_BilledSize | real | The record size in bytes |
 | ClientAuthMethod | int | Indicates how the client was authenticated. For a public client, the value is 0. If client ID and client secret are used, the value is 1. If a client certificate was used for authentication, the value is 2. |
 | ClientRequestId | string | Optional. The client request identifier when sent. If no client request identifier is sent, the value will be equal to the operation identifier. |
+| ConditionalAccessStatus | string | The Conditional Access status recorded by Microsoft Graph for the request. Empty when no status was recorded. |
 | DeviceId | string | The identifier of the device from which the authentication request originated. |
 | DurationMs | int | The duration of the request in milliseconds. |
 | IdentityProvider | string | The identity provider that authenticated the subject of the token. |

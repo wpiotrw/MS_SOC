@@ -7,7 +7,6 @@ rest_product: Azure
 uhfHeaderId: azure
 breadcrumb_path: ../../breadcrumb/toc.json
 ms.author: pauljewell
-manager: smmark
 author: pauljewellmsft
 ms.topic: reference
 ms.devlang: rest-api
