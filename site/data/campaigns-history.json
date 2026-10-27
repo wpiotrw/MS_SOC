@@ -1,6 +1,156 @@
 {
 "updated":"2026-10-27",
 "campaigns":{
+"c-mc1481315":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-27",
+"name":"DSPM-Copilot Readiness and Data Explorer",
+"status":"Active",
+"members":[
+"571157",
+"RM571157",
+"MC1481315",
+"item:MC1481315"
+],
+"log":[
+{
+"date":"2026-10-27",
+"id":"MC1481315",
+"what":"Microsoft moved the date",
+"before":"late Nov 2026",
+"after":"late Jan 2027",
+"title":"Purview retires the DSPM classic and DSPM for AI classic experiences in late January 2027 (moved from 30 November - 31 December 2026)",
+"link":"https://deltapulse.app/item/MC1481315"
+},
+{
+"date":"2026-10-27",
+"id":"MC1481315",
+"what":"Microsoft moved the date",
+"before":"31 Dec 2026",
+"after":"end of Jan 2027",
+"title":"Purview retires the DSPM classic and DSPM for AI classic experiences in late January 2027 (moved from 30 November - 31 December 2026)",
+"link":"https://deltapulse.app/item/MC1481315"
+},
+{
+"date":"2026-10-15",
+"id":"571157",
+"what":"Microsoft revised the post",
+"before":"2026-09-24",
+"after":"2026-09-15",
+"title":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
+"link":"https://deltapulse.app/item/571157"
+},
+{
+"date":"2026-09-29",
+"id":"MC1481315",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Purview retires the DSPM classic and DSPM for AI classic experiences between 30 November and 31 December 2026",
+"title":"Purview retires the DSPM classic and DSPM for AI classic experiences between 30 November and 31 December 2026",
+"link":"https://deltapulse.app/item/MC1481315"
+},
+{
+"date":"2026-09-28",
+"id":"571157",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
+"title":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
+"link":"https://deltapulse.app/item/571157"
+}
+],
+"milestones":{
+"571157|posted":{
+"date":"2026-09-15",
+"label":"15 Sep 2026",
+"text":"Posted: Microsoft Purview: DSPM-Copilot Readiness and Data Explorer"
+},
+"MC1481315|posted":{
+"date":"2026-09-28",
+"label":"28 Sep 2026",
+"text":"Posted: Microsoft Purview: Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences"
+},
+"MC1481315|microsoft updated the post on retirement begins late previou#3":{
+"date":"2026-10-27",
+"label":"27 Oct 2026",
+"text":"Microsoft updated the post on 27 October 2026: retirement begins late January 2027 (previously late November 2026) and completes by the end of January 2027 (pre"
+},
+"MC1481315|microsoft updated the post on retirement begins late previou#1":{
+"date":"2026-11-25",
+"label":"late Nov 2026",
+"text":"Retirement begins late January 2027 (previously late November 2026) and completes by the end of January 2027 (previously 31 December 2026)"
+},
+"MC1481315|beginning microsoft will start retiring the microsoft purvie#0":{
+"date":"2026-11-30",
+"label":"30 Nov 2026",
+"text":"Beginning November 30, 2026, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experie"
+},
+"MC1481315|microsoft will retire the microsoft purview dspm classic and#0":{
+"date":"2026-12-31",
+"label":"31 Dec 2026",
+"text":"Microsoft will retire the Microsoft Purview DSPM classic and DSPM for AI classic experiences by December 31, 2026, unifying capabilities into a single current D"
+},
+"MC1481315|microsoft updated the post on retirement begins late previou#0":{
+"date":"2027-01-25",
+"label":"late Jan 2027",
+"text":"Retirement begins late January 2027 (previously late November 2026) and completes by the end of January 2027 (previously 31 December 2026)"
+},
+"MC1481315|microsoft updated the post on retirement begins late previou#2":{
+"date":"2027-01-31",
+"label":"end of Jan 2027",
+"text":"Retirement begins late January 2027 (previously late November 2026) and completes by the end of January 2027 (previously 31 December 2026)"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1481315":{
+"title":"Microsoft Purview: Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences",
+"link":"https://mc.merill.net/message/MC1481315",
+"source":"Message Center",
+"id":"MC1481315",
+"date":"2026-09-28",
+"updated":"2026-09-28",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1481315":{
+"title":"Microsoft Purview: Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences",
+"link":"https://deltapulse.app/item/MC1481315",
+"source":"Main list source",
+"id":"MC1481315",
+"date":"2026-09-28",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/571157":{
+"title":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
+"link":"https://deltapulse.app/item/571157",
+"source":"Message Center",
+"id":"571157",
+"date":"2026-09-15",
+"updated":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/RM571157":{
+"title":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
+"link":"https://mc.merill.net/message/RM571157",
+"source":"Roadmap",
+"id":"RM571157",
+"date":"2026-09-15",
+"updated":"2026-09-15",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":"2027-01-31",
+"type":"Retirement",
+"tech":"Purview",
+"posts":[
+"571157",
+"MC1481315"
+]
+},
 "c-mc1526468":{
 "firstSeen":"2026-10-26",
 "lastSeen":"2026-10-27",
@@ -2936,6 +3086,78 @@
 "date":"2026-10-26",
 "group":"microsoft",
 "found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70277":{
+"title":"CVE-2026-70277 Windows Fast FAT File System Driver Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70277",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70161":{
+"title":"CVE-2026-70161 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70161",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70007":{
+"title":"CVE-2026-70007 .NET Framework Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70007",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96225":{
+"title":"CVE-2026-96225 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96225",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-20942":{
+"title":"CVE-2026-20942 Microsoft Edge (Chromium-based) Spoofing Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-20942",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-88078":{
+"title":"CVE-2026-88078 Microsoft Edge (Chromium-based) Spoofing Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-88078",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96196":{
+"title":"CVE-2026-96196 Microsoft Edge (Chromium-based) Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96196",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69473":{
+"title":"CVE-2026-69473 Windows Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69473",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69284":{
+"title":"CVE-2026-69284 Windows DCOM Server Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69284",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
 }
 },
 "final":"2026-10-15",
@@ -3955,118 +4177,6 @@
 "tech":"Purview",
 "posts":[
 "MC1481317"
-]
-},
-"c-mc1481315":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-27",
-"name":"DSPM-Copilot Readiness and Data Explorer",
-"status":"Active",
-"members":[
-"571157",
-"RM571157",
-"MC1481315",
-"item:MC1481315"
-],
-"log":[
-{
-"date":"2026-10-15",
-"id":"571157",
-"what":"Microsoft revised the post",
-"before":"2026-09-24",
-"after":"2026-09-15",
-"title":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
-"link":"https://deltapulse.app/item/571157"
-},
-{
-"date":"2026-09-29",
-"id":"MC1481315",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"Purview retires the DSPM classic and DSPM for AI classic experiences between 30 November and 31 December 2026",
-"title":"Purview retires the DSPM classic and DSPM for AI classic experiences between 30 November and 31 December 2026",
-"link":"https://deltapulse.app/item/MC1481315"
-},
-{
-"date":"2026-09-28",
-"id":"571157",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
-"title":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
-"link":"https://deltapulse.app/item/571157"
-}
-],
-"milestones":{
-"571157|posted":{
-"date":"2026-09-15",
-"label":"15 Sep 2026",
-"text":"Posted: Microsoft Purview: DSPM-Copilot Readiness and Data Explorer"
-},
-"MC1481315|posted":{
-"date":"2026-09-28",
-"label":"28 Sep 2026",
-"text":"Posted: Microsoft Purview: Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences"
-},
-"MC1481315|beginning microsoft will start retiring the microsoft purvie#0":{
-"date":"2026-11-30",
-"label":"30 Nov 2026",
-"text":"Beginning November 30, 2026, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experie"
-},
-"MC1481315|microsoft will retire the microsoft purview dspm classic and#0":{
-"date":"2026-12-31",
-"label":"31 Dec 2026",
-"text":"Microsoft will retire the Microsoft Purview DSPM classic and DSPM for AI classic experiences by December 31, 2026, unifying capabilities into a single current D"
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1481315":{
-"title":"Microsoft Purview: Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences",
-"link":"https://mc.merill.net/message/MC1481315",
-"source":"Message Center",
-"id":"MC1481315",
-"date":"2026-09-28",
-"updated":"2026-09-28",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/MC1481315":{
-"title":"Microsoft Purview: Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences",
-"link":"https://deltapulse.app/item/MC1481315",
-"source":"Main list source",
-"id":"MC1481315",
-"date":"2026-09-28",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/571157":{
-"title":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
-"link":"https://deltapulse.app/item/571157",
-"source":"Message Center",
-"id":"571157",
-"date":"2026-09-15",
-"updated":"2026-09-24",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/RM571157":{
-"title":"Microsoft Purview: DSPM-Copilot Readiness and Data Explorer",
-"link":"https://mc.merill.net/message/RM571157",
-"source":"Roadmap",
-"id":"RM571157",
-"date":"2026-09-15",
-"updated":"2026-09-15",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":"2026-12-31",
-"type":"Retirement",
-"tech":"Purview",
-"posts":[
-"571157",
-"MC1481315"
 ]
 },
 "c-mc1478463":{
@@ -5546,14 +5656,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-25",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-26",
 "text":"August 1, 2026."
 },
@@ -5603,6 +5705,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-26",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-27",
 "text":"August 1, 2026."
 },
 {
@@ -5755,6 +5865,14 @@
 "date":"2026-10-22",
 "group":"community",
 "found":"2026-10-22"
+},
+"https://thehackernews.com/2026/10/goahead-tls-flaws-allow-revoked-client.html":{
+"title":"GoAhead TLS Flaws Allow Revoked Client Certificates and Enable Session Decryption",
+"link":"https://thehackernews.com/2026/10/goahead-tls-flaws-allow-revoked-client.html",
+"source":"Hacker News",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-27"
 }
 },
 "final":"2026-12-31",
@@ -6107,7 +6225,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-26",
+"seen":"2026-10-27",
 "text":"early February 2026."
 },
 {
@@ -6115,7 +6233,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-26",
+"seen":"2026-10-27",
 "text":"February 2027."
 },
 {
@@ -7510,6 +7628,30 @@
 "date":"2026-10-26",
 "group":"community",
 "found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70161":{
+"title":"CVE-2026-70161 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70161",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70007":{
+"title":"CVE-2026-70007 .NET Framework Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70007",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96225":{
+"title":"CVE-2026-96225 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96225",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
 }
 },
 "final":"2026-11-10",
@@ -9204,6 +9346,22 @@
 "date":"2026-10-26",
 "group":"community",
 "found":"2026-10-27"
+},
+"https://thehackernews.com/2026/10/apple-backports-fix-for-exploited.html":{
+"title":"Apple Backports Fix for Exploited CoreGraphics Flaw to Older iPhones and iPads",
+"link":"https://thehackernews.com/2026/10/apple-backports-fix-for-exploited.html",
+"source":"Hacker News",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-27"
+},
+"https://www.bleepingcomputer.com/news/apple/apple-backports-coregraphics-zero-day-patches-to-older-iphones/":{
+"title":"Apple backports CoreGraphics zero-day patches to older iPhones",
+"link":"https://www.bleepingcomputer.com/news/apple/apple-backports-coregraphics-zero-day-patches-to-older-iphones/",
+"source":"BleepingComputer",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-27"
 }
 },
 "final":"2027-07-01",
@@ -9794,7 +9952,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-26",
+"seen":"2026-10-27",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9802,7 +9960,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-26",
+"seen":"2026-10-27",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10251,6 +10409,22 @@
 "date":"2026-10-23",
 "group":"community",
 "found":"2026-10-24"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra/entra-id-federation-or-eam-for-passkey-deployment/m-p/4568161#M10510":{
+"title":"Entra ID - Federation or EAM for Passkey deployment",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/entra-id-federation-or-eam-for-passkey-deployment/m-p/4568161#M10510",
+"source":"Microsoft Entra Blog",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-27"
+},
+"https://janbakker.tech/optimizations-for-passkey-registration-experience-you-might-have-missed/":{
+"title":"Optimizations for passkey registration experience you might have missed",
+"link":"https://janbakker.tech/optimizations-for-passkey-registration-experience-you-might-have-missed/",
+"source":"JanBakker Tech - EntraID",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-27"
 }
 },
 "final":"2027-02-25",
@@ -14342,6 +14516,212 @@
 "title":"RM577177: Excel: Edit with Copilot in Excel on iPhone",
 "source":"MC - Merill",
 "link":"https://mc.merill.net/message/RM577177"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1481315",
+"type":"milestone",
+"name":"DSPM-Copilot Readiness and Data Explorer",
+"src":"MC1481315",
+"now":"27 Oct 2026",
+"text":"Microsoft updated the post on 27 October 2026: retirement begins late January 2027 (previously late November 2026) and completes by the end of January 2027 (previously 31 December 2026)"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1481315",
+"type":"milestone",
+"name":"DSPM-Copilot Readiness and Data Explorer",
+"src":"MC1481315",
+"now":"late Nov 2026",
+"text":"Retirement begins late January 2027 (previously late November 2026) and completes by the end of January 2027 (previously 31 December 2026)"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1481315",
+"type":"milestone",
+"name":"DSPM-Copilot Readiness and Data Explorer",
+"src":"MC1481315",
+"now":"late Jan 2027",
+"text":"Retirement begins late January 2027 (previously late November 2026) and completes by the end of January 2027 (previously 31 December 2026)"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1481315",
+"type":"milestone",
+"name":"DSPM-Copilot Readiness and Data Explorer",
+"src":"MC1481315",
+"now":"end of Jan 2027",
+"text":"Retirement begins late January 2027 (previously late November 2026) and completes by the end of January 2027 (previously 31 December 2026)"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70277 Windows Fast FAT File System Driver Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70277"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70161 .NET Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70161"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70007 .NET Framework Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70007"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96225 .NET Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96225"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-20942 Microsoft Edge (Chromium-based) Spoofing Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-20942"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-88078 Microsoft Edge (Chromium-based) Spoofing Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-88078"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96196 Microsoft Edge (Chromium-based) Security Feature Bypass Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96196"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69473 Windows Kernel Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69473"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69284 Windows DCOM Server Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69284"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1293480",
+"type":"material",
+"name":"Retirement of legacy TLS versions for POP and IMAP connections",
+"group":"community",
+"title":"GoAhead TLS Flaws Allow Revoked Client Certificates and Enable Session Decryption",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/10/goahead-tls-flaws-allow-revoked-client.html"
+},
+{
+"day":"2026-10-27",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-70161 .NET Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70161"
+},
+{
+"day":"2026-10-27",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-70007 .NET Framework Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70007"
+},
+{
+"day":"2026-10-27",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-96225 .NET Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96225"
+},
+{
+"day":"2026-10-27",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Apple Backports Fix for Exploited CoreGraphics Flaw to Older iPhones and iPads",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/10/apple-backports-fix-for-exploited.html"
+},
+{
+"day":"2026-10-27",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Apple backports CoreGraphics zero-day patches to older iPhones",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/apple/apple-backports-coregraphics-zero-day-patches-to-older-iphones/"
+},
+{
+"day":"2026-10-27",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Entra ID - Federation or EAM for Passkey deployment",
+"source":"Microsoft Entra Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/entra-id-federation-or-eam-for-passkey-deployment/m-p/4568161#M10510"
+},
+{
+"day":"2026-10-27",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Optimizations for passkey registration experience you might have missed",
+"source":"JanBakker Tech - EntraID",
+"link":"https://janbakker.tech/optimizations-for-passkey-registration-experience-you-might-have-missed/"
 }
 ],
 "archive":{
