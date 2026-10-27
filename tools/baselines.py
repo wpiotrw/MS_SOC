@@ -748,7 +748,7 @@ def more(out, day, seed, mtests, items):
     out["sources"]["cisa"] = summ["cisa"]
     out["sources"]["intune"] = summ["intune"]
     out["sources"]["zta"] = summ["zta"]
-    out["more"] = {"techs": summ["techs"]}
+    out["more"] = {"techs": summ["techs"], "history": summ.get("history") or {}}
     since14 = (datetime.date.fromisoformat(day) - datetime.timedelta(days=14)).isoformat()
     out["events"] = sorted(out["events"] + [e for e in ev if e["day"] >= since14], key=lambda e: e["day"], reverse=True)
     out["counts"]["events14"] = len(out["events"])

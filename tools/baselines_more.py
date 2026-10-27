@@ -393,6 +393,85 @@ def zta(hist):
     return {"tests": tests, "ver": ver, "commit": commit, "date": date}
 
 
+# ------------------------------------------------------------------------------------------- history (5fq-b, 27 X)
+# Owner: "where are the reports, the trend lines - what was added, updated, changed in which source and when?"
+# CISA: every ScubaGear release since v1.0.0 read from git (policies, BOD 25-01, SHALL, per product, added / removed
+# against the release before); ZTA: tests in the repository at every month end. Computed once per tag / month and kept.
+POL_RE = re.compile(r"^#### (MS\.[A-Z]+\.\d+\.\d+v\d+)\s*$", re.M)
+
+
+def cisa_releases(hist):
+    cache = hist.setdefault("cisaReleases", {})
+    d = os.environ.get("SCUBA_FULL_DIR") or tempfile.mkdtemp(prefix="sgf-")
+    try:
+        if not os.path.isdir(os.path.join(d, ".git")):
+            subprocess.run(["git", "clone", "-q", "--filter=blob:none", "--no-checkout", SCUBA_REPO + ".git", d], check=True, timeout=600)
+        tg = [t for t in subprocess.run(["git", "-C", d, "tag"], capture_output=True, text=True).stdout.split() if re.match(r"^v\d+\.\d+\.\d+$", t) and not t.startswith("v0.")]
+    except Exception as e:
+        log("cisa history: not read", e)
+        return sorted(cache.values(), key=lambda r: ver_key(r["tag"]))
+    for t in tg:
+        if t in cache:
+            continue
+        date = subprocess.run(["git", "-C", d, "log", "-1", "--format=%cI", t], capture_output=True, text=True).stdout.strip()[:10]
+        files = []
+        for base in ("PowerShell/ScubaGear/baselines/", "baselines/"):
+            out = subprocess.run(["git", "-C", d, "ls-tree", "--name-only", t, base], capture_output=True, text=True).stdout.split()
+            files = [f for f in out if f.endswith(".md") and not f.endswith(("removedpolicies.md", "README.md"))]
+            if files:
+                break
+        ids, bod, shall, prod = [], 0, 0, {}
+        for f in files:
+            txt = subprocess.run(["git", "-C", d, "show", "%s:%s" % (t, f)], capture_output=True, text=True, timeout=120).stdout
+            for m in POL_RE.finditer(txt):
+                ids.append(m.group(1))
+                nxt = txt[m.end(): m.end() + 1500].split("\n#### ")[0]
+                bod += 1 if "BOD_25--01" in nxt else 0
+                shall += 1 if re.search(r"Criticality:\s*SHALL", nxt) or (" SHALL" in nxt.split("\n\n")[0]) else 0
+                pk = m.group(1).split(".")[1]
+                prod[pk] = prod.get(pk, 0) + 1
+        cache[t] = {"tag": t.lstrip("v"), "date": date, "n": len(ids), "bod": bod, "shall": shall, "prod": prod, "ids": sorted(set(ids)),
+                    "url": SCUBA_REPO + "/releases/tag/" + t}
+        log("cisa history:", t, date, len(ids), "policies")
+    rows = sorted(cache.values(), key=lambda r: ver_key(r["tag"]))
+    prev = None
+    out = []
+    for r in rows:
+        x = {k: v for k, v in r.items() if k != "ids"}
+        if prev is not None:
+            a, b = set(prev["ids"]), set(r["ids"])
+            x["added"] = sorted(b - a)
+            x["removed"] = sorted(a - b)
+        prev = r
+        out.append(x)
+    return out
+
+
+def zta_monthly(hist):
+    cache = hist.setdefault("ztaMonthly", {})
+    d = os.environ.get("ZTA_FULL_DIR") or tempfile.mkdtemp(prefix="ztf-")
+    try:
+        if not os.path.isdir(os.path.join(d, ".git")):
+            subprocess.run(["git", "clone", "-q", "--filter=blob:none", "--no-checkout", ZTA_REPO + ".git", d], check=True, timeout=600)
+        lines = subprocess.run(["git", "-C", d, "log", "--first-parent", "--format=%H %cI", "HEAD"], capture_output=True, text=True).stdout.splitlines()
+    except Exception as e:
+        log("zta history: not read", e)
+        return [dict(m=k, **v) for k, v in sorted(cache.items())]
+    last = {}
+    for l in lines:                       # newest first: the first commit seen in a month is its month end
+        h, dt = l.split()
+        last.setdefault(dt[:7], (h, dt[:10]))
+    now = datetime.date.today().strftime("%Y-%m")
+    for m, (h, dt) in last.items():
+        if m in cache and m != now:
+            continue
+        names = subprocess.run(["git", "-C", d, "ls-tree", "-r", "--name-only", h, "src/powershell/tests/"], capture_output=True, text=True).stdout.split()
+        n = sum(1 for x in names if re.search(r"Test-Assessment\.\d+\.ps1$", x))
+        if n:
+            cache[m] = {"n": n, "day": dt}
+    return [dict(m=k, **v) for k, v in sorted(cache.items())]
+
+
 # --------------------------------------------------------------------------------------------- compare and events
 def words(t):
     return set(w for w in re.findall(r"[a-z0-9]+", (t or "").lower()) if len(w) > 2 and w not in ("shall", "should", "the", "and", "for", "all", "not", "are", "with", "that"))
@@ -555,6 +634,9 @@ def run(day, seed=False, maester_tests=None, tenable_items=None, tenable_audits=
     if Z:
         hist.setdefault("last", {})["zta"] = {k: Z[k] for k in ("ver", "commit", "date")}
 
+    # ---- history of the sources (5fq-b)
+    rel_c = cisa_releases(hist)
+    zmon = zta_monthly(hist)
     # ---- outputs
     for p in pols:
         p["first"] = fs.get(p["id"], day)
@@ -577,6 +659,7 @@ def run(day, seed=False, maester_tests=None, tenable_items=None, tenable_audits=
            "cisa": {"policies": pols, "removed": (C or {}).get("removed") or [], "products": (C or {}).get("products") or {},
                     "commit": (C or {}).get("commit"), "date": (C or {}).get("date"), "ver": up[-1] if up else "", "tags": up[-8:],
                     "repo": SCUBA_REPO, "bod": BOD, "gaps": gaps, "lag": lag},
+           "history": {"cisa": rel_c, "zta": zmon},
            "intune": [{k: v for k, v in b.items() if k not in ("settings", "diff")} for b in I],
            "zta": {k: v for k, v in (Z or {}).items() if k != "tests"}, "techOrder": tech_order}
     wrote = dump(OUT_C, ctl)
@@ -595,6 +678,8 @@ def run(day, seed=False, maester_tests=None, tenable_items=None, tenable_audits=
                     "updated": b.get("updated", ""), "url": b["url"], "missing": bool(b.get("missing"))} for b in I]},
         "zta": {"ok": bool(zt), "ver": (Z or {}).get("ver"), "commit": (Z or {}).get("commit"), "date": (Z or {}).get("date"), "tests": len(zt), "repo": ZTA_REPO,
                 "pillars": {k: sum(1 for t in zt if t["tech"] == k) for k in sorted({t["tech"] for t in zt})}},
+        "history": {"cisa": [{k: r[k] for k in ("tag", "date", "n", "bod", "shall", "prod", "url") if k in r} | {"added": len(r.get("added") or []), "removed": len(r.get("removed") or [])} for r in rel_c],
+                    "zta": zmon[-36:]},
         "techs": sorted(techs.values(), key=lambda x: (tech_order.index(x["tech"]) if x["tech"] in tech_order else 99, x["tech"])),
     }
     log("controls", "written" if wrote else "unchanged", "- events today", sum(1 for e in ev if e["day"] == day))
