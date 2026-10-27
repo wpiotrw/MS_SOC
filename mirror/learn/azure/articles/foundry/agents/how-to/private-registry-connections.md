@@ -309,6 +309,8 @@ The Foundry account must also include hosted-agent virtual network injection whe
 
 Create and deploy the hosted agent from the prebuilt private registry image.
 
+For Python images, configure `PYTHONNOUSERSITE: "1"` in the agent service's `env` map or the SDK definition's `environment_variables` map, as shown in the following examples. Omit this Python-specific setting for other runtimes. See [Configure Python startup](configure-hosted-agent-env-variables#configure-python-startup).
+
 # [Azure Developer CLI](#tab/deployment-azd)
 Initialize a hosted agent project with the fully qualified image and the connection name. The connection must already exist in the selected project.
 
@@ -338,6 +340,8 @@ services:
     docker:
       imagePassthrough: true
     registryConnectionId: private-registry
+    env:
+      PYTHONNOUSERSITE: "1"
     protocols:
       - protocol: responses
         version: "2.0.0"
@@ -390,6 +394,7 @@ agent = project.agents.create_version(
             )
         ],
         environment_variables={
+            "PYTHONNOUSERSITE": "1",
             "AZURE_AI_MODEL_DEPLOYMENT_NAME": os.environ[
                 "AZURE_AI_MODEL_DEPLOYMENT_NAME"
             ],

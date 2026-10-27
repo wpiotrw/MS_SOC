@@ -43,13 +43,13 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/agents/how-to/deploy-hosted-agent-terraform.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 - https://authoring-docs-microsoft.poolparty.biz/devrel/4e834929-0ce1-4c1d-9c81-fcb14721edfb
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 - https://authoring-docs-microsoft.poolparty.biz/devrel/75670257-a3f0-4627-9981-8046f99219e6
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
 platformId: 3100caba-5b57-feb5-9e21-8b3bf97b77e5
 ---
 
@@ -250,7 +250,13 @@ Create the following files in a separate Terraform configuration directory. Pass
     
     cpu    = "0.5"
     memory = "1Gi"
+    
+    environment_variables = {
+      PYTHONNOUSERSITE = "1"
+    }
     ```
+
+    The environment setting shown is for Python images. It disables user-site package loading; omit it for other runtimes. For dependency compatibility and existing deployments, see [Configure Python startup](configure-hosted-agent-env-variables#configure-python-startup).
 
     Replace every placeholder. Use an image that your Foundry project can pull; a digest doesn't configure registry permissions. Get the full `rai_policy_id` from the platform configuration or policy resource:
 

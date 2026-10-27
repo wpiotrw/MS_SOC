@@ -405,6 +405,7 @@ https://learn.microsoft.com/en-us/azure/sentinel/sap/prerequisites-for-deploying
 https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-agent-migrate
 https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-btp-security-content
 https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-btp-solution-overview
+https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-deploy-troubleshoot
 https://learn.microsoft.com/en-us/azure/sentinel/scoping
 https://learn.microsoft.com/en-us/azure/sentinel/sentinel-overview
 https://learn.microsoft.com/en-us/azure/sentinel/sentinel-solutions-catalog

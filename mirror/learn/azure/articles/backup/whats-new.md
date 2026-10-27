@@ -24,7 +24,7 @@ ms.service: azure-backup
 ms.reviewer: v-mallicka
 description: Learn about the new features in the Azure Backup service.
 ms.topic: release-notes
-ms.date: 2026-10-22T00:00:00.0000000Z
+ms.date: 2026-10-26T00:00:00.0000000Z
 ms.custom:
 - ignite-2023
 - build-2026
@@ -59,6 +59,8 @@ You can learn more about the new releases by bookmarking this page or by [subscr
 
 - October 2026
 
+    - Cross-tenant restore for Azure Backup (preview)
+    - Granular billing for Azure Backup is now generally available
     - Item-level recovery support for Premium SSD v2 and Ultra disks
     - Vaulted backup support for Azure PostgreSQL flexible server and elastic cluster (v2) (preview)
 - September 2026
@@ -141,6 +143,22 @@ You can learn more about the new releases by bookmarking this page or by [subscr
 - January 2024
 
     - Cross Region Restore support for PostgreSQL by using Azure Backup is now generally available
+
+## Cross-tenant restore for Azure Backup (preview)
+
+Azure Backup now supports cross-tenant restore, which you can use to restore vaulted backup data from a source tenant to a target tenant after you map the source and target vaults. Use it to recover from scenarios such as tenant lockout, ransomware attacks, tenant consolidation, and cross-tenant disaster recovery. A Resource Guard in the target tenant protects the mapping operation.
+
+Cross-tenant restore supports Recovery Services vault workloads (Azure VMs, Azure Files, SQL Server in Azure VM, SAP HANA in Azure VM, and SAP ASE in Azure VM) in all Azure public regions. It also supports Backup vault workloads (Azure Database for PostgreSQL - Flexible Server, Azure Blobs, Azure Cosmos DB, Azure Data Lake Storage, and AKS) in select regions. Cross-tenant restore supports alternate location restore only.
+
+For more information, see [Cross-tenant restore for Azure Backup](cross-tenant-restore-overview).
+
+## Granular billing for Azure Backup is now generally available
+
+Granular billing now supports both [Recovery Services vaults](backup-azure-recovery-services-vault-overview) and [Backup vaults](backup-vault-overview). You can view backup costs at a custom granularity level to simplify chargeback and cost reporting across teams, applications, and cost centers.
+
+You can configure granular billing by using the Azure portal, Azure PowerShell, or Azure CLI.
+
+For more information, see [Configure granular billing in Azure Backup](backup-azure-granular-billing).
 
 ## Item-level recovery support for Premium SSD v2 and Ultra disks
 

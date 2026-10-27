@@ -37,6 +37,7 @@ https://learn.microsoft.com/en-us/defender-endpoint/local-agent-discovery-overvi
 https://learn.microsoft.com/en-us/defender-endpoint/mac-resources
 https://learn.microsoft.com/en-us/defender-endpoint/mac-support-offline-security-intelligence-update
 https://learn.microsoft.com/en-us/defender-endpoint/machine-tags
+https://learn.microsoft.com/en-us/defender-endpoint/manage-gradual-rollout
 https://learn.microsoft.com/en-us/defender-endpoint/mde-linux-prerequisites
 https://learn.microsoft.com/en-us/defender-endpoint/mde-plugin-wsl
 https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-antivirus-windows

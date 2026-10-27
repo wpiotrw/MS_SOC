@@ -4,6 +4,7 @@ https://learn.microsoft.com/en-us/intune/advanced-analytics/device-query-multipl
 https://learn.microsoft.com/en-us/intune/app-management/configuration/configure-managed-android
 https://learn.microsoft.com/en-us/intune/app-management/configuration/configure-managed-home-screen
 https://learn.microsoft.com/en-us/intune/app-management/configuration/configure-managed-ios
+https://learn.microsoft.com/en-us/intune/app-management/configuration/manage-referenced-apps-aosp
 https://learn.microsoft.com/en-us/intune/app-management/deployment/add-lob-android
 https://learn.microsoft.com/en-us/intune/app-management/deployment/add-managed-google-play
 https://learn.microsoft.com/en-us/intune/app-management/deployment/add-microsoft-store
@@ -17,10 +18,14 @@ https://learn.microsoft.com/en-us/intune/app-management/protection/multiple-mana
 https://learn.microsoft.com/en-us/intune/app-management/ref-protected-apps
 https://learn.microsoft.com/en-us/intune/cloud-pki
 https://learn.microsoft.com/en-us/intune/cloud-pki/renew-ca
+https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/cmg/cost
+https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/cmg/perf-scale
+https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/cmg/setup-cloud-management-gateway
 https://learn.microsoft.com/en-us/intune/configmgr/core/get-started/2020/technical-preview-2011
 https://learn.microsoft.com/en-us/intune/configmgr/core/misc/in-console-documentation
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/changes/whats-new-version-2609
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/site-and-site-system-prerequisites
+https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/size-and-scale-numbers
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/support-for-windows-adk
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/security/enable-tls-1-2-client
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/security/enable-tls-1-2-server
@@ -51,6 +56,7 @@ https://learn.microsoft.com/en-us/intune/device-configuration/templates/apple-dd
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/configure-oemconfig-android
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/configure-wired-networks
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-device-restrictions-android-enterprise
+https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-vpn-settings-apple
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-wifi-settings-apple
 https://learn.microsoft.com/en-us/intune/device-configuration/troubleshoot-device-profiles
 https://learn.microsoft.com/en-us/intune/device-enrollment/android/connect-managed-google-play
@@ -110,6 +116,7 @@ https://learn.microsoft.com/en-us/intune/epm/manage-elevation-settings
 https://learn.microsoft.com/en-us/intune/epm/manage-support-approvals
 https://learn.microsoft.com/en-us/intune/epm/manage-system-settings
 https://learn.microsoft.com/en-us/intune/epm/overview
+https://learn.microsoft.com/en-us/intune/fundamentals/certificates/connector/overview
 https://learn.microsoft.com/en-us/intune/fundamentals/endpoints
 https://learn.microsoft.com/en-us/intune/fundamentals/filters/overview
 https://learn.microsoft.com/en-us/intune/fundamentals/filters/ref-device-properties
