@@ -961,6 +961,275 @@
      "date": "2026-09-29"
     }
    ]
+  },
+  {
+   "id": "huntress-m365-token-replay-spray-2026-10",
+   "title": "Token-replay spray against Microsoft 365: AiTM-stolen tokens replayed from 1337 Services hosting, 97 accounts at 79 organizations, attacker MFA and rogue Entra devices for persistence",
+   "match": [
+    "Token-Replay",
+    "token-replay spray",
+    "193.26.115"
+   ],
+   "areas": [
+    "Identity attacks"
+   ],
+   "status": "active",
+   "updated": "2026-10-27",
+   "by": "morning routine",
+   "summary": "Huntress (22 October 2026) describes a campaign observed from 14 July to 22 September 2026 in which tokens captured through adversary-in-the-middle phishing were replayed at scale from attacker-controlled hosts, an approach it calls token spraying. It counts more than 200,000 failed sign-ins from 193.26.115.0/24 (AS210558, 1337 Services GmbH), 497 successful Microsoft 365 sign-ins, 97 compromised accounts in 79 organizations and 48 rogue Entra devices. In at least 19 organizations the attacker removed existing MFA methods and registered its own authenticator within three hours of the first sign-in, then hid mail about payroll, deposits and bonuses with short-named inbox rules. The replayed sessions used Microsoft first-party clients (Microsoft Office, Microsoft Authentication Broker, OfficeHome) with node or bare Mozilla/5.0 user agents.",
+   "timeline": [
+    {
+     "date": "2026-07-14",
+     "text": "First activity in the campaign window Huntress measured.",
+     "src": "Huntress"
+    },
+    {
+     "date": "2026-07-21",
+     "text": "In one case an authenticator named 'iPhone 13' was activated less than 51 minutes after the session was hijacked.",
+     "src": "The Hacker News"
+    },
+    {
+     "date": "2026-09-22",
+     "text": "Last activity in the measured window.",
+     "src": "Huntress"
+    },
+    {
+     "date": "2026-10-22",
+     "text": "Huntress publishes the analysis.",
+     "src": "Huntress"
+    },
+    {
+     "date": "2026-10-26",
+     "text": "The Hacker News reports it.",
+     "src": "The Hacker News"
+    }
+   ],
+   "rootCause": "Credentials and MFA were relayed through adversary-in-the-middle phishing pages, and the resulting tokens were replayed from hosting infrastructure; Conditional Access did not require MFA or block for every client app type, and device-code flow was not restricted.",
+   "attacker": [
+    "Replayed stolen tokens from 193.26.115.0/24 and other 1337 Services addresses within minutes, across many organizations at once.",
+    "Used the Microsoft Office and Microsoft Authentication Broker clients with a node or bare Mozilla/5.0 user agent (Build A), and OfficeHome with a normal Chrome/Edge user agent (Build B).",
+    "Registered its own authenticator app after removing existing MFA methods in at least 19 organizations.",
+    "Joined 48 rogue devices to Entra ID, named DESKTOP- followed by eight hex characters.",
+    "Created inbox rules with names such as '.', 'sss', 'ss', 'iT', ',.', 's' and 'd' that deleted or moved payroll, deposit and bonus mail to RSS Feeds, RSS Subscriptions or Conversation History.",
+    "In one mailbox marked all mail read, deleted it and sent spam to hundreds of external recipients until Entra ID Protection flagged the user as high risk."
+   ],
+   "iocs": [
+    "193.26.115[.]0/24 (AS210558, 1337 Services GmbH) - replay hosts 193.26.115[.]221, 193.26.115[.]199, 193.26.115[.]16, 193.26.115[.]21, 193.26.115[.]72, 193.26.115[.]210",
+    "124.198.132[.]33, 45.83.31[.]44, 192.159.99[.]172 (other 1337 Services addresses)",
+    "185.238.2[.]195 and 2400:8d60:2::1:841d:5dd (AiTM relays)",
+    "167.148.41[.]96 (Interserver, payroll-hiding rules)",
+    "User agents: node; bare Mozilla/5.0",
+    "Rogue device names: DESKTOP-54521F46, DESKTOP-BAF88EF4, DESKTOP-CA85907C (pattern DESKTOP- + 8 hex)"
+   ],
+   "apps": [
+    {
+     "name": "Microsoft Office",
+     "appId": "d3590ed6-52b3-4102-aeff-aad2292ab01c",
+     "kind": "First-party Microsoft app",
+     "did": "Client application of the replayed sign-ins (Build A).",
+     "roles": [],
+     "permissions": [],
+     "action": "Do not disable; hunt for its sign-ins from hosting IPs with a node or bare Mozilla/5.0 user agent",
+     "src": [
+      "Huntress"
+     ],
+     "link": "https://www.huntress.com/blog/token-replay-spray"
+    },
+    {
+     "name": "Microsoft Authentication Broker",
+     "appId": "29d9ed98-a469-4536-ade2-f981bc1d605e",
+     "kind": "First-party Microsoft app",
+     "did": "Client application of replayed sign-ins (Build A), including Device Registration Service access used to join rogue devices.",
+     "roles": [],
+     "permissions": [],
+     "action": "Do not disable; hunt for its sign-ins to Device Registration Service from hosting IPs",
+     "src": [
+      "Huntress"
+     ],
+     "link": "https://www.huntress.com/blog/token-replay-spray"
+    },
+    {
+     "name": "OfficeHome",
+     "appId": "4765445b-32c6-49b0-83e6-1d93765276ca",
+     "kind": "First-party Microsoft app",
+     "did": "Client application of replayed sign-ins (Build B) with a normal browser user agent.",
+     "roles": [],
+     "permissions": [],
+     "action": "Do not disable; correlate with sign-ins from the listed ranges",
+     "src": [
+      "Huntress"
+     ],
+     "link": "https://www.huntress.com/blog/token-replay-spray"
+    }
+   ],
+   "appsNote": "Huntress names no attacker-created OAuth application; the IDs above are Microsoft's own clients the replay used. Resource IDs it lists (Microsoft Graph, Exchange Online, SharePoint Online, Device Registration Service 01cb2876-7ebd-4aa4-9cc9-d28bd4d359a9) are the targets, not attacker apps.",
+   "remediation": [
+    {
+     "text": "Revoke the user's sessions and reset the password; a reset alone leaves attacker devices, MFA methods and a valid token in place.",
+     "from": "source",
+     "src": "https://www.huntress.com/blog/token-replay-spray",
+     "phase": "contain"
+    },
+    {
+     "text": "Audit registered MFA methods for ones cleared and re-registered within minutes and remove any unrecognized authenticator.",
+     "from": "source",
+     "src": "https://www.huntress.com/blog/token-replay-spray",
+     "phase": "eradicate"
+    },
+    {
+     "text": "Audit Entra devices named DESKTOP-, Device- or Work Pc plus eight hex characters, especially ones registered from hosting IPs; confirm before deleting.",
+     "from": "source",
+     "src": "https://www.huntress.com/blog/token-replay-spray",
+     "phase": "eradicate"
+    },
+    {
+     "text": "Review inbox rules with punctuation-only or very short names, or that move mail to RSS or Conversation History folders or match payroll and banking terms.",
+     "from": "source",
+     "src": "https://www.huntress.com/blog/token-replay-spray",
+     "phase": "investigate"
+    },
+    {
+     "text": "Treat AADSTS53003 blocks as evidence of a valid stolen credential, not a successful defense.",
+     "from": "source",
+     "src": "https://www.huntress.com/blog/token-replay-spray",
+     "phase": "investigate"
+    },
+    {
+     "text": "Restrict device-code flow with a Conditional Access authentication-flows policy and require MFA or block for all users, all cloud apps and all client app types.",
+     "from": "source",
+     "src": "https://www.huntress.com/blog/token-replay-spray",
+     "phase": "harden"
+    },
+    {
+     "text": "Hunt sign-in logs for the Microsoft Office or Authentication Broker client from AS210558 or 193.26.115.0/24 with a node or bare Mozilla/5.0 user agent, and alert on MFA method registration within three hours of a sign-in from a hosting ASN.",
+     "from": "ours",
+     "phase": "detect"
+    },
+    {
+     "text": "Block standard users from consenting to applications and review newly consented enterprise applications for the affected users.",
+     "from": "source",
+     "src": "https://www.huntress.com/blog/token-replay-spray",
+     "phase": "harden"
+    }
+   ],
+   "kqlSearched": "2026-10-27",
+   "links": [
+    {
+     "text": "Huntress: token replay spray",
+     "url": "https://www.huntress.com/blog/token-replay-spray",
+     "date": "2026-10-22"
+    },
+    {
+     "text": "The Hacker News: Microsoft 365 token-replay attacks compromise 97 accounts at 79 organizations",
+     "url": "https://thehackernews.com/2026/10/microsoft-365-token-replay-attacks.html",
+     "date": "2026-10-26"
+    }
+   ]
+  },
+  {
+   "id": "teams-it-support-external-chat-stac4749-2026-10",
+   "title": "Fake IT support over Teams external chat: mail bombing, throwaway onmicrosoft.com tenants and RMM tools lead to GoGRPC, Python implants and Chaos ransomware",
+   "match": [
+    "IT Support Scams",
+    "STAC4749",
+    "GoGRPC"
+   ],
+   "areas": [
+    "M365 workloads"
+   ],
+   "status": "active",
+   "updated": "2026-10-27",
+   "by": "morning routine",
+   "summary": "Arctic Wolf Labs (26 October 2026) describes a recurring pattern across hundreds of cases: the victim's inbox is flooded with subscription mail, then an 'IT support' account from a throwaway tenant (30-40% on onmicrosoft.com fallback domains) opens a Teams external chat and talks the user into a remote session through Quick Assist, AnyDesk, ScreenConnect, TeamViewer or another RMM tool. Instead of pasting links, the attacker has the user run PowerShell that pulls an MSI from Azure Blob Storage, which unpacks a Python implant; a second MSI queries Active Directory over LDAP for every computer and user and sends the result out. Follow-on activity includes the GoGRPC backdoor, Level RMM for redundancy, lateral movement to domain controllers, exfiltration and ransomware; the activity aligns with STAC4749, linked by Sophos to Chaos ransomware.",
+   "timeline": [
+    {
+     "date": "2026-10-26",
+     "text": "Arctic Wolf Labs publishes the analysis with tenant domains and .top infrastructure.",
+     "src": "Arctic Wolf"
+    },
+    {
+     "date": "2026-10-26",
+     "text": "The Hacker News reports it.",
+     "src": "The Hacker News"
+    }
+   ],
+   "rootCause": "Teams external access open to any tenant (including trial tenants), users able to accept remote-control sessions from an unsolicited contact, and RMM tools that could be installed or run without approval.",
+   "attacker": [
+    "Mail-bombed the target with newsletter and subscription confirmations.",
+    "Opened Teams external chats from throwaway tenants with IT-themed display names (Help Desk, IT Support, IT Service Desk - Liam, HelpDesk Supervisor).",
+    "Gained hands-on-keyboard access through Quick Assist, AnyDesk, ScreenConnect, TeamViewer, Atera, Zoho Assist, NetSupport or LogMeIn.",
+    "Had the user run PowerShell that downloaded an MSI from Azure Blob Storage, dropping a Python implant (ss.py, cleaner.ps1 under AppData\\Local\\PowershellCleaner\\scripts).",
+    "Enumerated all Active Directory users and computers over LDAP and exfiltrated the results; deployed GoGRPC and Level RMM; moved to domain controllers and deployed ransomware."
+   ],
+   "iocs": [
+    "helpdeskteam365.onmicrosoft[.]com",
+    "itendpoint365.onmicrosoft[.]com",
+    "itcoreportal.onmicrosoft[.]com",
+    "itadmin922.onmicrosoft[.]com",
+    "corporateitservicellc.onmicrosoft[.]com",
+    "supportedge33.onmicrosoft[.]com, supportedge39.onmicrosoft[.]com",
+    "networkadmin797.onmicrosoft[.]com, networkadmin916.onmicrosoft[.]com",
+    "supportagentonline.onmicrosoft[.]com, threatpro.onmicrosoft[.]com, ithelpplus42.onmicrosoft[.]com, techsupport2337.onmicrosoft[.]com",
+    "update-software[.]top, infoupdate-it[.]top, soft-program[.]top, getsysmonitor[.]top, expertassist[.]top, sec-check-it[.]top, techrelay[.]top, ms-system-check[.]top, it-assistant[.]top, get-help[.]top",
+    "helpdesk-call[.]com, helpdesk-s1x[.]com, itdeskassist[.]com, helpdesk-support-us3[.]com",
+    "Files: archive6.zip, cleaner.ps1, ss.py"
+   ],
+   "remediation": [
+    {
+     "text": "Switch Teams external access from allow-all to an allow-list of specific external domains.",
+     "from": "source",
+     "src": "https://arcticwolf.com/resources/blog/threat-actors-abuse-microsoft-teams-external-chat-for-initial-access/",
+     "phase": "harden"
+    },
+    {
+     "text": "Block federation with trial tenants: Set-CsTenantFederationConfiguration -ExternalAccessWithTrialTenants \"Blocked\".",
+     "from": "source",
+     "src": "https://arcticwolf.com/resources/blog/threat-actors-abuse-microsoft-teams-external-chat-for-initial-access/",
+     "phase": "harden"
+    },
+    {
+     "text": "Block chat with unmanaged Teams accounts and stop them from starting conversations with your users.",
+     "from": "source",
+     "src": "https://arcticwolf.com/resources/blog/threat-actors-abuse-microsoft-teams-external-chat-for-initial-access/",
+     "phase": "harden"
+    },
+    {
+     "text": "Enable 'Allow my security team to manage blocked domains' and add the listed tenant domains to the Defender Tenant Allow/Block List.",
+     "from": "source",
+     "src": "https://arcticwolf.com/resources/blog/threat-actors-abuse-microsoft-teams-external-chat-for-initial-access/",
+     "phase": "contain"
+    },
+    {
+     "text": "Restrict Quick Assist to authorized IT roles and block or uninstall unsanctioned RMM tools through Defender for Endpoint or application control.",
+     "from": "source",
+     "src": "https://arcticwolf.com/resources/blog/threat-actors-abuse-microsoft-teams-external-chat-for-initial-access/",
+     "phase": "harden"
+    },
+    {
+     "text": "Require out-of-band verification for every remote-access request and tell staff how real IT contacts them.",
+     "from": "source",
+     "src": "https://arcticwolf.com/resources/blog/threat-actors-abuse-microsoft-teams-external-chat-for-initial-access/",
+     "phase": "harden"
+    },
+    {
+     "text": "Search CloudAppEvents for ChatCreated with a participant from the listed onmicrosoft.com tenants and, on hits, look on that user's device for an RMM process start followed by PowerShell, msiexec and LDAP queries.",
+     "from": "ours",
+     "phase": "investigate"
+    }
+   ],
+   "kqlSearched": "2026-10-27",
+   "links": [
+    {
+     "text": "Arctic Wolf Labs: threat actors abuse Microsoft Teams external chat for initial access",
+     "url": "https://arcticwolf.com/resources/blog/threat-actors-abuse-microsoft-teams-external-chat-for-initial-access/",
+     "date": "2026-10-26"
+    },
+    {
+     "text": "The Hacker News: attackers use Microsoft Teams IT support scams",
+     "url": "https://thehackernews.com/2026/10/attackers-use-microsoft-teams-it.html",
+     "date": "2026-10-26"
+    }
+   ]
   }
  ]
 }
