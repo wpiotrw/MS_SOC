@@ -10,7 +10,17 @@
 "MC1526468",
 "item:MC1526468"
 ],
-"log":[],
+"log":[
+{
+"date":"2026-10-26",
+"id":"MC1526468",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Canada time-zone change on 1 November: Outlook users in BC, Alberta and Manitoba must switch time zone and recheck meetings; an Exchange Online remediation cmdlet is due 28 October",
+"title":"Canada time-zone change on 1 November: Outlook users in BC, Alberta and Manitoba must switch time zone and recheck meetings; an Exchange Online remediation cmdlet is due 28 October",
+"link":"https://deltapulse.app/item/MC1526468"
+}
+],
 "milestones":{
 "MC1526468|ensure windows devices in affected regions have the latest w#0":{
 "date":"2026-10-15",
@@ -63,6 +73,32 @@
 "date":"2026-10-26",
 "group":"microsoft",
 "found":"2026-10-26"
+},
+"https://mc.merill.net/message/MC1526468":{
+"title":"Update to MC1510951: Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+"link":"https://mc.merill.net/message/MC1526468",
+"source":"Message Center",
+"id":"MC1526468",
+"date":"2026-10-26",
+"updated":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://mc.merill.net/message/MC1526712":{
+"title":"MC1526712: Power Platform – Information about the 2026 time zone changes in Canada",
+"link":"https://mc.merill.net/message/MC1526712",
+"source":"MC - Merill",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-27"
+},
+"https://mc.merill.net/message/MC1526697":{
+"title":"MC1526697: Dynamics 365 apps and Dataverse – Information about the 2026 time zone changes in Canada",
+"link":"https://mc.merill.net/message/MC1526697",
+"source":"MC - Merill",
+"date":"2026-10-26",
+"group":"community",
+"found":"2026-10-27"
 }
 },
 "final":"2026-11-01",
@@ -82,6 +118,15 @@
 "item:MC1220762"
 ],
 "log":[
+{
+"date":"2026-10-26",
+"id":"MC1220762",
+"what":"Microsoft revised the post",
+"before":"2026-01-22",
+"after":"2026-10-26",
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762"
+},
 {
 "date":"2026-10-26",
 "id":"MC1220762",
@@ -379,18 +424,18 @@
 {
 "date":"2026-10-20",
 "id":"MC1446796",
-"what":"Microsoft revised the post",
-"before":"2026-10-05",
-"after":"2026-10-20",
+"what":"Microsoft moved the date",
+"before":"15 Oct 2026",
+"after":"30 Oct 2026",
 "title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
 "link":"https://deltapulse.app/item/MC1446796"
 },
 {
 "date":"2026-10-20",
 "id":"MC1446796",
-"what":"Microsoft moved the date",
-"before":"15 Oct 2026",
-"after":"30 Oct 2026",
+"what":"Microsoft revised the post",
+"before":"2026-10-05",
+"after":"2026-10-20",
 "title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
 "link":"https://deltapulse.app/item/MC1446796"
 },
@@ -984,6 +1029,14 @@
 "date":"2026-06-26",
 "group":"microsoft",
 "found":"2026-10-22"
+},
+"https://office365itpros.com/2026/10/23/exchange-web-services-final/?utm_source=rss&utm_medium=rss&utm_campaign=exchange-web-services-final":{
+"title":"Exchange Web Services Enters the Final Mile",
+"link":"https://office365itpros.com/2026/10/23/exchange-web-services-final/?utm_source=rss&utm_medium=rss&utm_campaign=exchange-web-services-final",
+"source":"Office 365 IT Pros",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-27"
 }
 },
 "final":"2027-07-05",
@@ -2875,6 +2928,14 @@
 "date":"2026-10-26",
 "group":"microsoft",
 "found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70338":{
+"title":"CVE-2026-70338 Microsoft PowerShell Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70338",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-27"
 }
 },
 "final":"2026-10-15",
@@ -5461,14 +5522,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-24",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-25",
 "text":"August 1, 2026."
 },
@@ -5582,6 +5635,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-26",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-27",
 "text":"August 1, 2026."
 },
 {
@@ -5937,6 +5998,14 @@
 "date":"2026-10-14",
 "group":"community",
 "found":"2026-10-15"
+},
+"https://mc.merill.net/message/MC1450133":{
+"title":"MC1450133: Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method",
+"link":"https://mc.merill.net/message/MC1450133",
+"source":"MC - Merill",
+"date":"2026-10-26",
+"group":"community",
+"found":"2026-10-27"
 }
 },
 "final":"2027-11-15",
@@ -6006,22 +6075,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-25",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-10-25",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-10-26",
 "text":"early February 2026."
 },
@@ -6127,6 +6180,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-10-26",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-27",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-27",
 "text":"February 2027."
 },
 {
@@ -7856,80 +7925,6 @@
 "MC1488841"
 ]
 },
-"c-item-mdc-kspm-controller-level-scope-2026-10-05":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-27",
-"name":"Defender for Cloud moves Kubernetes misconfiguration recommendations from the container instance to the…",
-"status":"No date",
-"members":[
-"item:mdc-kspm-controller-level-scope-2026-10-05"
-],
-"log":[
-{
-"date":"2026-10-06",
-"id":"mdc-kspm-controller-level-scope-2026-10-05",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Defender for Cloud moves Kubernetes misconfiguration recommendations from the container instance to the controller, and Secure Score moves with them",
-"title":"Defender for Cloud moves Kubernetes misconfiguration recommendations from the container instance to the controller, and Secure Score moves with them",
-"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes"
-}
-],
-"milestones":{},
-"moves":[],
-"materials":{
-"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes":{
-"title":"KSPM misconfiguration recommendations moving to controller-level scope (GA)",
-"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes",
-"source":"Main list source",
-"id":"mdc-kspm-controller-level-scope-2026-10-05",
-"date":"2026-10-05",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":null,
-"type":"Rollout",
-"tech":"Defender",
-"posts":[]
-},
-"c-item-mdc-storage-on-demand-malware-scan-targeted-2026-10-05":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-27",
-"name":"Defender for Storage on-demand malware scanning can now target a single blob, file, container or path prefix",
-"status":"No date",
-"members":[
-"item:mdc-storage-on-demand-malware-scan-targeted-2026-10-05"
-],
-"log":[
-{
-"date":"2026-10-06",
-"id":"mdc-storage-on-demand-malware-scan-targeted-2026-10-05",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Defender for Storage on-demand malware scanning can now target a single blob, file, container or path prefix",
-"title":"Defender for Storage on-demand malware scanning can now target a single blob, file, container or path prefix",
-"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes"
-}
-],
-"milestones":{},
-"moves":[],
-"materials":{
-"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes":{
-"title":"On-demand malware scanning now supports scanning specific blobs, files, containers, and file shares (GA)",
-"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes",
-"source":"Main list source",
-"id":"mdc-storage-on-demand-malware-scan-targeted-2026-10-05",
-"date":"2026-10-05",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":null,
-"type":"Rollout",
-"tech":"Defender",
-"posts":[]
-},
 "c-item-win11-26h2-security-baseline-v2-2026-10-08-2":{
 "firstSeen":"2026-10-20",
 "lastSeen":"2026-10-27",
@@ -7968,6 +7963,15 @@
 "item:MC1519122"
 ],
 "log":[
+{
+"date":"2026-10-27",
+"id":"MC1506318",
+"what":"Microsoft revised the post",
+"before":"2026-10-14",
+"after":"2026-10-26",
+"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
+"link":"https://mc.merill.net/message/MC1506318"
+},
 {
 "date":"2026-10-23",
 "id":"MC1483844",
@@ -8189,6 +8193,14 @@
 "date":"2026-10-26",
 "group":"community",
 "found":"2026-10-26"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-6-1-terra-now-generally-available-in-microsoft-foundry-build/ba-p/4567769":{
+"title":"GPT-6.1 Terra now generally available in Microsoft Foundry: build agents that see and act",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-6-1-terra-now-generally-available-in-microsoft-foundry-build/ba-p/4567769",
+"source":"Azure AI Foundry Blog",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-27"
 }
 },
 "final":"2026-11-15",
@@ -9160,6 +9172,38 @@
 "date":"2026-10-26",
 "group":"community",
 "found":"2026-10-26"
+},
+"https://dev.to/ashwar_sadh_f7abe6f82c8e9/works-on-localhost-silent-from-the-phone-windows-firewall-rules-for-a-lan-app-3o9b":{
+"title":"Works on localhost, silent from the phone: Windows Firewall rules for a LAN app",
+"link":"https://dev.to/ashwar_sadh_f7abe6f82c8e9/works-on-localhost-silent-from-the-phone-windows-firewall-rules-for-a-lan-app-3o9b",
+"source":"NeonTiger12",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-27"
+},
+"https://dev.to/practicaldevblog/swift-explained-apples-language-for-iphone-mac-and-more-3glb":{
+"title":"Swift Explained: Apple's Language for iPhone, Mac, and More",
+"link":"https://dev.to/practicaldevblog/swift-explained-apples-language-for-iphone-mac-and-more-3glb",
+"source":"NeonTiger12",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-27"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=577177":{
+"title":"Excel: Edit with Copilot in Excel on iPhone",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=577177",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-26",
+"group":"community",
+"found":"2026-10-27"
+},
+"https://mc.merill.net/message/RM577177":{
+"title":"RM577177: Excel: Edit with Copilot in Excel on iPhone",
+"link":"https://mc.merill.net/message/RM577177",
+"source":"MC - Merill",
+"date":"2026-10-26",
+"group":"community",
+"found":"2026-10-27"
 }
 },
 "final":"2027-07-01",
@@ -9194,6 +9238,24 @@
 "item:569432"
 ],
 "log":[
+{
+"date":"2026-10-27",
+"id":"MC1450133",
+"what":"Status",
+"before":"Updated",
+"after":"Revised at source",
+"title":"Users can register a passkey or passwordless sign-in as their first MFA method; phase 1 now starts early November and ends early January",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
+"date":"2026-10-27",
+"id":"MC1450133",
+"what":"Microsoft revised the post",
+"before":"2026-10-08",
+"after":"2026-10-26",
+"title":"Users can register a passkey or passwordless sign-in as their first MFA method; phase 1 now starts early November and ends early January",
+"link":"https://mc.merill.net/message/MC1450133"
+},
 {
 "date":"2026-10-17",
 "id":"MC1459133",
@@ -9344,7 +9406,7 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
-"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
+"title":"Users can register a passkey or passwordless sign-in as their first MFA method; phase 1 now starts early November and ends early January",
 "link":"https://mc.merill.net/message/MC1450133"
 },
 {
@@ -9700,22 +9762,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-25",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-10-25",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-10-26",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -9821,6 +9867,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-10-26",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-27",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-27",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -14180,6 +14242,106 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1526468",
+"type":"material",
+"name":"Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+"group":"community",
+"title":"MC1526712: Power Platform – Information about the 2026 time zone changes in Canada",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1526712"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1526468",
+"type":"material",
+"name":"Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+"group":"community",
+"title":"MC1526697: Dynamics 365 apps and Dataverse – Information about the 2026 time zone changes in Canada",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1526697"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc676299",
+"type":"material",
+"name":"Exchange Web Services (EWS) retirement update",
+"group":"community",
+"title":"Exchange Web Services Enters the Final Mile",
+"source":"Office 365 IT Pros",
+"link":"https://office365itpros.com/2026/10/23/exchange-web-services-final/?utm_source=rss&utm_medium=rss&utm_campaign=exchange-web-services-final"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70338 Microsoft PowerShell Security Feature Bypass Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70338"
+},
+{
+"day":"2026-10-27",
+"cid":"c-mc1188230",
+"type":"material",
+"name":"Retirement of duplicative properties in passkey (FIDO2) authentication methods policy",
+"group":"community",
+"title":"MC1450133: Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
+"day":"2026-10-27",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"microsoft",
+"title":"GPT-6.1 Terra now generally available in Microsoft Foundry: build agents that see and act",
+"source":"Azure AI Foundry Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-6-1-terra-now-generally-available-in-microsoft-foundry-build/ba-p/4567769"
+},
+{
+"day":"2026-10-27",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Works on localhost, silent from the phone: Windows Firewall rules for a LAN app",
+"source":"NeonTiger12",
+"link":"https://dev.to/ashwar_sadh_f7abe6f82c8e9/works-on-localhost-silent-from-the-phone-windows-firewall-rules-for-a-lan-app-3o9b"
+},
+{
+"day":"2026-10-27",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Swift Explained: Apple's Language for iPhone, Mac, and More",
+"source":"NeonTiger12",
+"link":"https://dev.to/practicaldevblog/swift-explained-apples-language-for-iphone-mac-and-more-3glb"
+},
+{
+"day":"2026-10-27",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Excel: Edit with Copilot in Excel on iPhone",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=577177"
+},
+{
+"day":"2026-10-27",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"RM577177: Excel: Edit with Copilot in Excel on iPhone",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/RM577177"
 }
 ],
 "archive":{
@@ -15231,6 +15393,80 @@
 "MC1462464"
 ],
 "archivedOn":"2026-10-27"
+},
+"c-item-mdc-kspm-controller-level-scope-2026-10-05":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-27",
+"name":"Defender for Cloud moves Kubernetes misconfiguration recommendations from the container instance to the…",
+"status":"Archive",
+"members":[
+"item:mdc-kspm-controller-level-scope-2026-10-05"
+],
+"log":[
+{
+"date":"2026-10-06",
+"id":"mdc-kspm-controller-level-scope-2026-10-05",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Defender for Cloud moves Kubernetes misconfiguration recommendations from the container instance to the controller, and Secure Score moves with them",
+"title":"Defender for Cloud moves Kubernetes misconfiguration recommendations from the container instance to the controller, and Secure Score moves with them",
+"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes"
+}
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes":{
+"title":"KSPM misconfiguration recommendations moving to controller-level scope (GA)",
+"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes",
+"source":"Main list source",
+"id":"mdc-kspm-controller-level-scope-2026-10-05",
+"date":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":null,
+"type":"Rollout",
+"tech":"Defender",
+"posts":[]
+},
+"c-item-mdc-storage-on-demand-malware-scan-targeted-2026-10-05":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-27",
+"name":"Defender for Storage on-demand malware scanning can now target a single blob, file, container or path prefix",
+"status":"Archive",
+"members":[
+"item:mdc-storage-on-demand-malware-scan-targeted-2026-10-05"
+],
+"log":[
+{
+"date":"2026-10-06",
+"id":"mdc-storage-on-demand-malware-scan-targeted-2026-10-05",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Defender for Storage on-demand malware scanning can now target a single blob, file, container or path prefix",
+"title":"Defender for Storage on-demand malware scanning can now target a single blob, file, container or path prefix",
+"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes"
+}
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes":{
+"title":"On-demand malware scanning now supports scanning specific blobs, files, containers, and file shares (GA)",
+"link":"https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes",
+"source":"Main list source",
+"id":"mdc-storage-on-demand-malware-scan-targeted-2026-10-05",
+"date":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":null,
+"type":"Rollout",
+"tech":"Defender",
+"posts":[]
 }
 }
 }
