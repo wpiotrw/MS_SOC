@@ -1,7 +1,7 @@
 {
  "read": "2026-10-27",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 713,
+ "count": 714,
  "note": null,
  "messages": [
   {
@@ -18841,6 +18841,28 @@
    "bodyHash": "b6316ed2aa051018"
   },
   {
+   "id": "MC1526780",
+   "title": "New MSRC blog: Microsoft’s response to compromised eMudhra certificate authority keys",
+   "services": [
+    "Windows"
+   ],
+   "category": "preventOrFixIssue",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-27",
+   "end": "2027-01-01",
+   "modified": "2026-10-27",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "Microsoft has published a new blog post outlining our response to the compromise of eMudhra intermediate certificate authority keys, including changes to the Windows and Microsoft Edge trust lists. The Windows out-of-band updates are now available in the Microsoft Update Catalog. Administrators managing disconnected devices, or devices that don’t receive automatic certificate trust updates, can fi…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "42b6975cb65b15bd"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -24683,6 +24705,13 @@
    "id": "MC1526697",
    "type": "new",
    "title": "Dynamics 365 apps and Dataverse – Information about the 2026 time zone changes in Canada",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-27",
+   "id": "MC1526780",
+   "type": "new",
+   "title": "New MSRC blog: Microsoft’s response to compromised eMudhra certificate authority keys",
    "fields": {}
   }
  ]
