@@ -5469,14 +5469,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-24",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-25",
 "text":"August 1, 2026."
 },
@@ -5590,6 +5582,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-26",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-27",
 "text":"August 1, 2026."
 },
 {
@@ -6022,22 +6022,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-25",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-10-25",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-10-26",
 "text":"early February 2026."
 },
@@ -6143,6 +6127,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-10-26",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-27",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-27",
 "text":"February 2027."
 },
 {
@@ -9350,6 +9350,24 @@
 {
 "date":"2026-10-08",
 "id":"MC1450133",
+"what":"Microsoft moved the date",
+"before":"late Oct 2026",
+"after":"early Nov 2026",
+"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
+"date":"2026-10-08",
+"id":"MC1450133",
+"what":"Microsoft moved the date",
+"before":"late Nov 2026",
+"after":"early Jan 2027",
+"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
+"date":"2026-10-08",
+"id":"MC1450133",
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the timeline.",
@@ -9650,10 +9668,25 @@
 "label":"end of Oct 2026",
 "text":"Microsoft gives the end of October 2026 for the start of rollout, not a calendar date"
 },
+"MC1450133|we will begin rolling out in early previously late and expec#0":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026)."
+},
 "MC1459133|beginning in late with a phased rollout as outlined below in#2":{
 "date":"2026-11-25",
 "label":"late Nov 2026",
 "text":"Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O"
+},
+"MC1450133|we will begin rolling out in early previously late and expec#1":{
+"date":"2027-01-05",
+"label":"early Jan 2027",
+"text":"We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026)."
+},
+"MC1450133|security defaults mfa registration prompts will adopt this e#0":{
+"date":"2027-02-15",
+"label":"Feb 2027",
+"text":"Security Defaults MFA registration prompts will adopt this experience in January–February 2027."
 },
 "MC1450133|we will begin rolling out in early and expect to complete by#1":{
 "date":"2027-02-25",
@@ -9683,22 +9716,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-25",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-10-25",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-10-26",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -9804,6 +9821,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-10-26",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-27",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-27",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
