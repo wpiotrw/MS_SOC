@@ -9,7 +9,7 @@ f1.keywords: CSH
 ms.author: kreagle
 author: k-reagle
 manager: laurawi
-ms.date: 2026-10-05T00:00:00.0000000Z
+ms.date: 2026-10-16T00:00:00.0000000Z
 audience: Admin
 ms.topic: reference
 ms.service: purview
@@ -43,13 +43,13 @@ monikers: []
 item_type: Content
 source_path: Purview/dlp-policy-reference.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9d7be3ef-f27c-4c7f-9eba-67c3cd429995
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
-- https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/7e593268-8d01-46ef-aa78-9d1388e6a294
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/feeb50f3-b677-44f9-b3a6-5f2f58182b0d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://authoring-docs-microsoft.poolparty.biz/devrel/264d03ab-bab8-454b-a56c-0fedead7f602
 platformId: f0bfbae0-ee72-61ef-e68b-539fcbfbbd80
 ---
 
@@ -255,7 +255,7 @@ A DLP policy can find and protect items that contain sensitive information acros
 | On-premises repositories (file shares and SharePoint) | No | Repository | data-at-rest | - [Learn about the data loss prevention on-premises repositories](dlp-on-premises-scanner-learn) - [Get started with data loss prevention for on-premises repositories](dlp-on-premises-scanner-get-started#get-started-with-data-loss-prevention-for-on-premises-repositories) |
 | Fabric and Power BI | No | Workspaces | data-in-use | No |
 | Non-Microsoft connected apps (preview) | No | Cloud app instance | data-at-rest | - [Use DLP and sensitivity label policies for non-Microsoft connected apps](dlp-non-microsoft-connected-applications) - Only available in the **Custom** policy template  - Set up a [Microsoft Defender for Cloud Apps connector](/en-us/defender-cloud-apps/enable-instant-visibility-protection-and-governance-actions-for-your-apps) |
-| Microsoft 365 Copilot (preview) | No | Account or Distribution group | data-at-rest  data-in-use | - Only available in the **Custom** policy template |
+| Microsoft Copilot and Chat (preview) | [Yes (rolling out)](dlp-microsoft365-copilot-location-learn-about#admin-units) | Account or Distribution group | data-at-rest  data-in-use | - Only available in the **Custom** policy template |
 | Managed cloud apps | No | Account or Distribution group | data-in-motion | - Only available in the **Custom** policy template |
 | Unmanaged cloud apps | No | Account or Distribution group | data-in-motion | - Only available in the **Custom** policy template |
 

@@ -10,7 +10,7 @@ f1.keywords:
 ms.author: kreagle
 author: k-reagle
 manager: laurawi
-ms.date: 2026-10-05T00:00:00.0000000Z
+ms.date: 2026-10-16T00:00:00.0000000Z
 ai-usage: ai-assisted
 ms.custom: msecd-doc-authoring-1013
 ms.update-cycle: 180-days
@@ -232,4 +232,30 @@ When the rule blocks an interaction, the **Learn about access restrictions** lin
 
 ## Admin units
 
-The **Microsoft 365 Copilot and Copilot Chat** policy location doesn't support **Admin units**.
+The **Microsoft Copilot and Chat** policy location supports [administrative units](purview-admin-units). You can scope a Copilot DLP policy to a region or department and delegate policy management to administrators assigned to those units, without granting tenant-wide policy management permissions.
+
+Note
+
+Administrative unit support for this location is rolling out. The option might not yet be available in your tenant.
+
+Tip
+
+Use administrative units when regional or departmental administrators need to manage Copilot DLP policies for their own users.
+
+Before you create a scoped policy, [configure administrative units](purview-admin-units#configure-administrative-units) in Microsoft Entra ID and assign them to the appropriate Microsoft Purview role group members. Administrators still need the DLP permissions required to create and manage policies.
+
+To scope a Copilot DLP policy:
+
+1. In the [Microsoft Purview portal](https://purview.microsoft.com), go to **Data Loss Prevention** &gt; **Policies** and select **+ Create policy**.
+2. Select the **Custom** template, then **Custom policy**, and enter a name and description.
+3. On the **Admin units** page, select the administrative units for the policy.
+4. Select the **Microsoft Copilot and Chat** location and choose the users and groups to include or exclude within the selected administrative units.
+5. Configure the rule conditions and actions, review the settings, and save the policy.
+
+An administrative unit restricted administrator can select only their assigned units and manage policies within that scope. An unrestricted administrator can scope policies to administrative units or keep **Full directory** to apply a policy across the organization. Existing tenant-wide policies continue to apply; using administrative units is optional.
+
+Important
+
+Copilot DLP policy scoping is based on the user who submits the prompt, not the owner of a file or email that Copilot accesses. For example, a policy scoped to the Finance administrative unit applies to Finance users' Copilot interactions, even when they access content owned by someone outside Finance. Other applicable DLP policies continue to apply.
+
+DLP alerts and Activity explorer visibility follow the administrator's assigned administrative units and permissions. For details about policy management and investigation scope, see [Administrative unit restricted policies](dlp-policy-reference#administrative-unit-restricted-policies).
