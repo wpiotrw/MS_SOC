@@ -4390,6 +4390,7 @@ tr.s5du-tr2>td{border-bottom:2px solid var(--ok)}
 .s5dv-warnt{color:var(--warn)}
 .s5dv-fresh{display:flex;flex-wrap:wrap;gap:6px 18px;border:1px solid var(--ok);background:var(--ok-soft);border-radius:10px;padding:8px 12px;font-size:12.5px;color:var(--text)}
 .s5dv-fresh b{color:var(--ok);margin-right:4px}
+.s5dv-fresh .s5fq-sp{margin-right:6px;vertical-align:baseline}.s5dv-fresh .s5dv-frag{line-height:1.9}
 .s5dv-vnav{display:flex;flex-wrap:wrap;gap:6px}
 .s5dv-vb{font:inherit;font-size:13.5px;padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
 .s5dv-vb:hover{border-color:var(--accent)}
@@ -5619,6 +5620,21 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .s5fq-vg{flex:0 0 auto;align-self:center;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:0 2px 0 6px}
 .s5fq-vg:first-child{margin-left:0}
 .s5dv-vb.s5fq-vb1{font-size:14.5px;font-weight:600;padding:8px 16px}
+.s5fq-sp{display:inline-flex;align-items:center;padding:1px 10px;border:1.5px solid var(--sc,var(--border));border-radius:999px;background:color-mix(in srgb,var(--sc,transparent) 22%,var(--surface));color:var(--text);font-size:13px;font-weight:700;line-height:1.5;white-space:nowrap}
+.s5fq-cmp{list-style:none;margin:6px 0 10px;padding:0;display:flex;flex-direction:column;gap:10px}
+.s5fq-cmp li{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;font-size:14px}
+.s5fq-cmp li .s5dv-sm{flex-basis:100%}
+.s5dv-lagr .s5fq-sp{margin-right:6px}
+.s5fq-h3{margin:22px 0 4px;font-size:17px}
+.s5fq-vr .s5dv-lagr{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px 10px}
+.s5fq-vr .s5dv-lagr .s5dv-sm{flex-basis:100%}
+.s5fq-sr{font:inherit;display:grid;grid-template-columns:150px minmax(0,1fr) 40px;align-items:center;gap:8px;width:100%;padding:5px 0;border:0;background:none;color:var(--text);cursor:pointer;text-align:left}
+.s5fq-sr:hover .s5fq-sn{color:var(--accent)}
+.s5fq-sn{font-size:14px;font-weight:600}
+.s5fq-sb{display:flex;height:22px;border-radius:6px;overflow:hidden;min-width:24px}
+.s5fq-sb i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;font-weight:700;color:#0b0f14;min-width:16px}
+.s5fq-st2{font-size:14px;text-align:right}
+@media (max-width:640px){.s5fq-sr{grid-template-columns:100px minmax(0,1fr) 30px}}
 .s5fq-c-cisa{--sc:#3fb37f}.s5fq-c-m{--sc:var(--accent)}.s5fq-c-t{--sc:#e3a33b}.s5fq-c-z{--sc:#b48cff}.s5fq-c-i{--sc:#4cc2d6}
 .s5dv-chip.s5fq-sc{border-color:var(--sc,var(--border));color:var(--text);font-weight:600;background:color-mix(in srgb,var(--sc,transparent) 14%,var(--surface))}
 .s5dv-chip.s5fq-req{border-color:var(--bad);color:var(--bad);font-weight:700}
@@ -25969,7 +25985,7 @@ IdentityDirectoryEvents
     fpa: { by: "an automated job every 3 h (tenant snapshot) + the morning brief (public lists)", keys: ["tenant"], every: 3 },
     mc: { by: "an automated job every 3 h (our tenant's Message Center) + the morning brief", keys: ["tenant"], every: 3 },
     campaigns: { by: "an automated job twice a day (05:40 UTC and 20:40 UTC) and after every brief", keys: ["campgen", "campaigns"], every: 0 },
-    baselines: { by: "an automated job once a day (05:15 UTC): Maester's catalogue from GitHub and Tenable's audit files", keys: ["baselines"], every: 24 },   /* §5dv */
+    baselines: { by: "an automated job once a day (05:15 UTC): CISA ScubaGear, Maester and Zero Trust Assessment from GitHub, Tenable's audit files, the Intune security baselines from our Learn copy", keys: ["baselines"], every: 24 },   /* §5dv */
     hunting: { by: "the morning brief; queries archived by an automated job twice a day", keys: ["campaigns"], every: 0 },
     learn: { by: "the morning brief; our copy of the Learn pages refreshed by an automated job 4 times a day", keys: ["learn"], every: 6 }
   };
@@ -25999,7 +26015,7 @@ IdentityDirectoryEvents
     if (F.code) line("Page code", F.code.at, F.code.spec ? "§" + F.code.spec : "", undefined,
       "When the code of this page (layout, tabs, scripts) was last rebuilt from the specification. It changes the look and behaviour, not the data. " + (F.code.spec ? "§" + F.code.spec + " is the newest stage of the specification the page contains (see About → Version)." : ""));
     var nk = newest(["tenant", "graphsp", "campaigns", "campgen", "publish", "learn", "baselines"]);
-    var NAMES = { tenant: "tenant snapshot", graphsp: "Graph permissions and roles", campaigns: "campaigns", campgen: "campaigns", publish: "brief published", learn: "Learn copy", baselines: "Maester and Tenable baselines" };
+    var NAMES = { tenant: "tenant snapshot", graphsp: "Graph permissions and roles", campaigns: "campaigns", campgen: "campaigns", publish: "brief published", learn: "Learn copy", baselines: "security baselines" };
     if (nk) line("Latest data", F[nk].at, NAMES[nk], undefined,
       "The newest data an automated job wrote after the brief: the tenant snapshot (apps, Message Center, Graph permissions, roles) every 3 hours, campaigns twice a day, our copy of the Learn pages 4 times a day. Every tab says its own time under its heading.");
     /* §5cz-b (owner 10 X 12:25: "a more visible link to /diff/, maybe in a frame") */
@@ -26066,7 +26082,7 @@ IdentityDirectoryEvents
     ["Sources", "sources", "Every source the brief reads, when it was read and whether its link works."],
     ["Hunting & actions", "hunting", "KQL queries and actions for the items of the day; every query is archived in the repository."],
     ["Products", "products", "The same items grouped by product."],
-    ["Baselines", "baselines", "What Maester and Tenable test in Microsoft 365, Entra, M365 Apps and AI (CIS, CISA SCuBA, Microsoft baselines): every test with how to check and fix it, versions, trends and Maester vs Tenable — read from both catalogues once a day; no test is run."]
+    ["Security baselines", "baselines", "What to check in your tenant, technology by technology: CISA SCuBA (ScubaGear), Maester, Tenable, Microsoft's Zero Trust Assessment and the Intune security baselines — every policy and test with how to check and fix it, the differences between the sources, versions, trends — read once a day; no test is run."]
   ];
   function card(title, cls) { var c = el("section", "s5cz-card" + (cls ? " " + cls : "")); c.appendChild(el("h3", null, title)); return c; }
   function ul(items) { var u = el("ul"); items.forEach(function (x) { var li = el("li"); if (typeof x === "string") li.textContent = x; else li.appendChild(x); u.appendChild(li); }); return u; }
@@ -28996,9 +29012,9 @@ IdentityDirectoryEvents
   /* ---- the panel, synchronously ---- */
   var wrap = document.querySelector(".wrap");
   if (!wrap || document.getElementById("tab-baselines")) return;
-  var panel = el("div", "tabpanel"); panel.id = "tab-baselines"; panel.setAttribute("data-tab", "Baselines"); panel.hidden = true;
-  var sec = el("section"); sec.id = "baselines"; sec.setAttribute("data-nav", "Baselines");
-  var sh = el("div", "sec-head"); sh.appendChild(el("h2", null, "Baselines"));
+  var panel = el("div", "tabpanel"); panel.id = "tab-baselines"; panel.setAttribute("data-tab", "Security baselines"); panel.hidden = true;   /* §5fq-b: the name of the tab everywhere */
+  var sec = el("section"); sec.id = "baselines"; sec.setAttribute("data-nav", "Security baselines");
+  var sh = el("div", "sec-head"); sh.appendChild(el("h2", null, "Security baselines"));
   sh.appendChild(el("p", "sec-title", "Security baselines — CISA SCuBA, Maester, Tenable, Microsoft's Zero Trust Assessment and the Intune security baselines: what to check in your tenant, technology by technology"));
   sec.appendChild(sh);
   var body = el("div", "sec-body s5dv"); body.appendChild(el("p", "s5dv-note", "Loading the baselines…")); sec.appendChild(body);
@@ -29009,7 +29025,7 @@ IdentityDirectoryEvents
 
   var D = null, TS = null, TI = null, tsAsked = false, tiAsked = false, tiWait = [];
   /* §5fq: the three views a reader starts with come first; the earlier views stay, named for what they hold */
-  var VIEWS = [["tech", "By technology"], ["sources", "Sources & differences"], ["changes", "Changes"], ["overview", "Statistics"], ["tests", "Maester tests"], ["frameworks", "Frameworks"], ["compare", "Maester vs Tenable"], ["tenable", "Tenable audits"], ["history", "Versions & history"]];
+  var VIEWS = [["tech", "By technology"], ["sources", "Sources & differences"], ["changes", "Changes"], ["overview", "Statistics"], ["tests", "Maester tests"], ["frameworks", "Frameworks"], ["compare", "Compare: CISA · Maester · Tenable"], ["tenable", "Tenable audits"], ["history", "Versions & history"]];
   function noF() { return { suite: "", sev: "", tech: "", ai: false, q: "", mapped: false, tten: "", tq: "" }; }
   var S = { view: "tech", open: "", fam: "", item: "", tech: "" }, F = noF();
 
@@ -29229,7 +29245,7 @@ IdentityDirectoryEvents
         var t = el("article", "s5do-tile s5do-" + k[0]); t.tabIndex = 0; t.setAttribute("role", "button");
         t.appendChild(el("div", "s5do-name", e.title || e.id)); if (e.id && e.id !== e.title) t.appendChild(el("div", "s5do-id", e.id));
         var pl = el("div", "s5do-pills"); pl.appendChild(el("span", "s5do-k s5bn-k", k[0] === "added" ? "NEW" : k[0] === "removed" ? "REMOVED" : "CHANGED"));
-        pl.appendChild(el("span", "s5do-ty", k[1])); pl.appendChild(el("span", "s5do-ty", e.src + (e.tech ? " · " + e.tech : ""))); t.appendChild(pl);
+        pl.appendChild(el("span", "s5do-ty", k[1])); pl.appendChild(srcPill(e.src)); if (e.tech) pl.appendChild(el("span", "s5do-ty", e.tech)); t.appendChild(pl);
         var tx = evText(e); if (tx) t.appendChild(el("div", "s5do-chs", tx));
         var f = el("div", "s5do-foot"); f.appendChild(el("span", "s5do-open", "Open ›")); t.appendChild(f);
         t.addEventListener("click", function () { openEv(e); });
@@ -29238,7 +29254,7 @@ IdentityDirectoryEvents
         var li = el("li", "s5bn-r s5bn-" + k[0]); li.setAttribute("data-id", e.id || ""); li.setAttribute("data-kind", k[0]);
         li.appendChild(el("span", "s5bn-k", k[0] === "added" ? "NEW" : k[0] === "removed" ? "REMOVED" : "CHANGED")); li.appendChild(el("span", "s5bn-ty", k[1]));
         var a = el("a", "s5bn-tl", e.title || e.id); a.href = "#tab=baselines"; a.addEventListener("click", function (x) { x.preventDefault(); openEv(e); }); li.appendChild(a);
-        li.appendChild(el("span", "s5bn-pr", e.src + (e.tech ? " · " + e.tech : ""))); if (tx) li.appendChild(el("span", "s5bn-chs", tx));
+        li.appendChild(srcPill(e.src)); if (e.tech) li.appendChild(el("span", "s5bn-pr", e.tech)); if (tx) li.appendChild(el("span", "s5bn-chs", tx));
         ul.appendChild(li);
       });
       box.appendChild(grid); box.appendChild(ul);
@@ -29276,12 +29292,12 @@ IdentityDirectoryEvents
   function fresh() {
     var s = D.sources || {}, f = el("div", "s5dv-fresh");
     var m = s.maester || {}, t = s.tenable || {};
-    f.appendChild(frag([el("b", null, "Maester"), " catalogue at commit " + (m.commit || "—") + (m.committed ? " (" + dmy(m.committed) + ")" : "") + (m.ok ? "" : " · not read on the last run")]));
-    f.appendChild(frag([el("b", null, "Tenable"), " " + n(t.listed) + " audit files listed, " + n((D.counts || {}).tenableFiles) + " in scope" + (t.ok ? "" : " · not read on the last run")]));
+    f.appendChild(frag([srcPill("Maester"), " catalogue at commit " + (m.commit || "—") + (m.committed ? " (" + dmy(m.committed) + ")" : "") + (m.ok ? "" : " · not read on the last run")]));
+    f.appendChild(frag([srcPill("Tenable"), " " + n(t.listed) + " audit files listed, " + n((D.counts || {}).tenableFiles) + " in scope" + (t.ok ? "" : " · not read on the last run")]));
     var c5 = s.cisa || {}, z5 = s.zta || {}, i5 = (s.intune || {}).baselines || [];
-    if (c5.ver) f.appendChild(frag([el("b", null, "CISA SCuBA"), " ScubaGear " + c5.ver + " · baselines at commit " + (c5.commit || "—") + (c5.date ? " (" + dmy(c5.date) + ")" : "") + (c5.ok ? "" : " · not read on the last run")]));
-    if (z5.ver) f.appendChild(frag([el("b", null, "Zero Trust Assessment"), " module " + z5.ver + " · commit " + (z5.commit || "—") + (z5.date ? " (" + dmy(z5.date) + ")" : "")]));
-    if (i5.length) f.appendChild(frag([el("b", null, "Intune security baselines"), " " + i5.filter(function (b) { return !b.missing; }).length + " of " + i5.length + " read from our Learn copy"]));
+    if (c5.ver) f.appendChild(frag([srcPill("CISA"), " ScubaGear " + c5.ver + " · baselines at commit " + (c5.commit || "—") + (c5.date ? " (" + dmy(c5.date) + ")" : "") + (c5.ok ? "" : " · not read on the last run")]));
+    if (z5.ver) f.appendChild(frag([srcPill("Zero Trust Assessment"), " module " + z5.ver + " · commit " + (z5.commit || "—") + (z5.date ? " (" + dmy(z5.date) + ")" : "")]));
+    if (i5.length) f.appendChild(frag([srcPill("Intune security baselines"), " " + i5.filter(function (b) { return !b.missing; }).length + " of " + i5.length + " read from our Learn copy"]));
     f.appendChild(frag(["Read " + dmy(D.day) + " " + String(D.generated || "").slice(11, 16) + " UTC by GitHub Actions · we run no test: this tab shows what the tools check"]));
     return f;
   }
@@ -29299,7 +29315,7 @@ IdentityDirectoryEvents
       body.appendChild(fresh()); body.appendChild(vnav());
       var v = S.view, host = el("div", "s5dv-view s5dv-v-" + v); body.appendChild(host);
       /* the view names itself: the jump mark (§5du) and the green bar read this line */
-      var vh = el("p", "s5dv-vh"); vh.appendChild(el("span", "s5bn-t", "Baselines · " + VIEWS.filter(function (x) { return x[0] === v; })[0][1])); host.appendChild(vh);
+      var vh = el("p", "s5dv-vh"); vh.appendChild(el("span", "s5bn-t", "Security baselines · " + VIEWS.filter(function (x) { return x[0] === v; })[0][1])); host.appendChild(vh);
       if (v === "tech") vTech(host);
       else if (v === "sources") vSources(host);
       else if (v === "changes") vChanges(host);
@@ -29346,6 +29362,9 @@ IdentityDirectoryEvents
     out.sort(function (a, b) { var ia = TECH_ORDER.indexOf(a.tech), ib = TECH_ORDER.indexOf(b.tech); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || (a.tech < b.tech ? -1 : 1); });
     return out;
   }
+  /* §5fq-b (owner: "where a control comes from should be a coloured rounded frame - in the text it gets lost"):
+     the source of a change or a check is always this pill, in the source's colour */
+  function srcPill(src, lab) { var p = el("span", "s5fq-sp " + (SRC_COL[src] || "")); p.textContent = lab || (src === "CISA" ? "CISA SCuBA" : src); return p; }
   function srcChip(src, txt, title) { return chip(txt, "s5fq-sc " + (SRC_COL[src] || ""), title); }
 
   /* the card (the §5fo item card's look): one control, one test or one setting with everything needed to act on it */
@@ -29744,7 +29763,68 @@ IdentityDirectoryEvents
   }
 
   /* ---- Maester vs Tenable ---- */
+  /* §5fq-b (owner: "where is SCuBA from cisa.gov compared - Tenable vs SCuBA, Maester vs SCuBA? where are the trend
+     lines: what was added, updated, changed in which source and when?") - CISA is the reference both tools copy */
+  function cisaHistory(host, full) {
+    var H = ((D.more || {}).history || {}), R = H.cisa || [];
+    if (!R.length) return;
+    var lag = ((D.sources || {}).cisa || {}).lag;
+    var s1 = el("section", "s5dv-blk s5dv-two");
+    s1.appendChild(lineChart("CISA SCuBA — policies in every ScubaGear release", R.map(function (r) { return r.tag; }), [
+      { name: "Policies", c: "#3fb37f", v: R.map(function (r) { return r.n; }), trend: false },
+      { name: "SHALL", c: "#e3a33b", v: R.map(function (r) { return r.shall; }), trend: false },
+      { name: "Required · BOD 25-01", c: "var(--bad)", v: R.map(function (r) { return r.bod || null; }), trend: false }],
+      { note: "Read from ScubaGear's git history, release by release. 2.0.0 moved Exchange and Defender policies to the security suite and dropped duplicates (" + (R[R.length - 1].removed || 0) + " removed, " + (R[R.length - 1].added || 0) + " added); the BOD 25-01 marking exists from 2.0.0." + (lag ? " Tenable's SCuBA files follow " + lag.tenable + ", Maester follows ScubaGear's main branch." : "") }));
+    var Z = H.zta || [];
+    if (Z.length) s1.appendChild(lineChart("Zero Trust Assessment — tests in the repository, month by month", Z.map(function (r) { return my(r.m); }), [
+      { name: "ZTA tests", c: "#b48cff", v: Z.map(function (r) { return r.n; }) }], { note: "Microsoft's zerotrustassessment repository at each month end (git history). Dashed: trend line." }));
+    host.appendChild(s1);
+    if (!full) return;
+    var rows = R.slice().reverse().map(function (r) { var tr = el("tr");
+      tr.appendChild(td(link("ScubaGear " + r.tag, r.url))); tr.appendChild(td(dmy(r.date))); tr.appendChild(td(n(r.n))); tr.appendChild(td(r.bod ? n(r.bod) : "—")); tr.appendChild(td(n(r.shall)));
+      var ch = el("span"); if (r.added) ch.appendChild(el("span", "s5fq-add", "+" + r.added + " ")); if (r.removed) ch.appendChild(el("span", "s5fq-rem", "−" + r.removed)); if (!r.added && !r.removed) ch.textContent = "no policy added or removed"; tr.appendChild(td(ch));
+      var tv = lag && lag.tenable === r.tag ? "Tenable's SCuBA files" : ""; tr.appendChild(td(tv || "—")); return tr; });
+    var s2 = el("section", "s5dv-blk"); s2.appendChild(el("h3", null, "CISA ScubaGear releases — what changed and when"));
+    s2.appendChild(table(["Release", "Date", "Policies", "Required (BOD 25-01)", "SHALL", "Policies added / removed", "Who follows it"], rows)); host.appendChild(s2);
+  }
+  function cisaCompare(host) {
+    var C = getCtl(), ct = C && C.cisa || {}, g = ct.gaps, lag = ct.lag || ((D.sources || {}).cisa || {}).lag;
+    var s0 = el("section", "s5dv-blk"); s0.appendChild(el("h3", null, "CISA SCuBA — the reference — against Maester and Tenable"));
+    s0.appendChild(el("p", "s5dv-sub", "CISA writes the policies (cisa.gov, ScubaGear on GitHub); Maester and Tenable copy them into their own checks. Every current CISA policy is matched to a Maester test and a Tenable item — by id, and by text where ScubaGear 2.0 moved a policy to a new id."));
+    var vr = el("div", "s5dv-lag s5fq-vr");
+    [["CISA", "ScubaGear " + (ct.ver || ((D.sources || {}).cisa || {}).ver || "") + (((D.sources || {}).cisa || {}).date ? " · baselines " + dmy(D.sources.cisa.date) : ""), "the reference"],
+     ["Maester", (D.versions || {})["cisa-scuba"] || "", "follows ScubaGear's main branch" + (g ? " — " + n((g.maesterOld || []).length) + " tests still on 1.x ids" : "")],
+     ["Tenable", lag ? "SCuBA audit files v" + lag.tenable : "", lag && lag.behind ? lag.behind + " CISA release" + (lag.behind === 1 ? "" : "s") + " behind (" + lag.versions.join(", ") + ")" : "same release as CISA"]
+    ].forEach(function (x) { var r = el("div", "s5dv-lagr"); r.appendChild(srcPill(x[0])); r.appendChild(el("b", null, x[1])); r.appendChild(el("span", "s5dv-sm" + (/behind|1\.x/.test(x[2]) ? " s5dv-warnt" : ""), x[2])); vr.appendChild(r); });
+    s0.appendChild(vr);
+    if (!C) { s0.appendChild(el("p", "s5dv-note", "Reading CISA's policies…")); host.appendChild(s0); return; }
+    var by = {}; (ct.policies || []).forEach(function (p) { var x = by[p.tech] || (by[p.tech] = [0, 0, 0, 0]); var m = (p.maester || []).length > 0, t = (p.tenable || []).length > 0; x[m && t ? 0 : t ? 1 : m ? 2 : 3]++; });
+    var two = el("div", "s5dv-two");
+    /* one stacked bar per technology: the four parts add up to CISA's policies of that technology */
+    var SC = ["#3fb37f", "#e3a33b", "var(--accent)", "var(--bad)"], SL = ["Maester + Tenable", "Tenable only", "Maester only", "no tool"];
+    var sf = el("figure", "s5dv-fig s5fq-stk"); sf.appendChild(el("figcaption", null, "Every CISA policy, by technology — who checks it"));
+    var mx = 1; Object.keys(by).forEach(function (k) { mx = Math.max(mx, by[k][0] + by[k][1] + by[k][2] + by[k][3]); });
+    Object.keys(by).sort(function (a, b) { return TECH_ORDER.indexOf(a) - TECH_ORDER.indexOf(b); }).forEach(function (k) {
+      var x = by[k], tot = x[0] + x[1] + x[2] + x[3], r = btn("", "s5fq-sr", function () { go("tech", { tech: k }); }, "Open " + k + ": " + SL.map(function (l, i) { return l + " " + x[i]; }).join(", "));
+      r.appendChild(el("span", "s5fq-sn", k)); var bar = el("span", "s5fq-sb"); bar.style.width = (100 * tot / mx) + "%";
+      x.forEach(function (v, i) { if (!v) return; var seg = el("i", null, String(v)); seg.style.flex = v + " 1 0"; seg.style.background = SC[i]; bar.appendChild(seg); });
+      r.appendChild(bar); r.appendChild(el("b", "s5fq-st2", n(tot))); sf.appendChild(r); });
+    var lg = el("div", "s5dv-leg"); SL.forEach(function (l, i) { var x = el("span", "s5dv-lg"), sw = el("i"); sw.style.background = SC[i]; x.appendChild(sw); x.appendChild(document.createTextNode(l)); lg.appendChild(x); }); sf.appendChild(lg);
+    sf.appendChild(el("p", "s5dv-fn", "The whole bar is CISA's policies for the technology; the colours say which tool also checks them. A click opens the technology."));
+    two.appendChild(sf);
+    var fig = el("figure", "s5dv-fig"); fig.appendChild(el("figcaption", null, "Tenable vs CISA, Maester vs CISA"));
+    var ul = el("ul", "s5fq-cmp");
+    [["Tenable", n((g.both || []).length + (g.onlyTenable || []).length) + " of " + n((ct.policies || []).length) + " CISA policies have a Tenable item", (g.renamed || []).length + " of them under the old id; " + (g.tenableOld || []).length + " Tenable items check policies CISA removed or moved"],
+     ["Maester", n((g.both || []).length + (g.onlyMaester || []).length) + " of " + n((ct.policies || []).length) + " CISA policies have a Maester test", (g.maesterOld || []).length + " Maester CISA tests are on ids CISA removed"],
+     ["CISA", n((g.noTool || []).length) + " CISA policies no tool checks", "check them by hand or run ScubaGear (Sources & differences lists them)"]
+    ].forEach(function (x) { var li = el("li"); li.appendChild(srcPill(x[0])); li.appendChild(el("b", null, x[1])); li.appendChild(el("span", "s5dv-sm", x[2])); ul.appendChild(li); });
+    fig.appendChild(ul); fig.appendChild(btn("Open Sources & differences — the lists ›", "s5fo-go", function () { go("sources"); })); two.appendChild(fig);
+    s0.appendChild(two); host.appendChild(s0);
+    cisaHistory(host, false);
+  }
   function vCompare(host) {
+    cisaCompare(host);
+    host.appendChild(el("h3", "s5fq-h3", "Maester vs Tenable"));
     host.appendChild(el("p", "s5dv-sub", "Where the two catalogues overlap and where one runs ahead of the other. CIS tests are paired by the benchmark number (CIS.M365.1.1.1 ↔ 1.1.1), SCuBA tests by the policy number (CISA.MS.AAD.1.1 ↔ MS.AAD.1.1v1)."));
     var two = el("section", "s5dv-blk s5dv-two");
     var fw = (D.frameworks || []).filter(function (f) { return f.both != null; });
@@ -29948,6 +30028,11 @@ IdentityDirectoryEvents
 
   /* ---- Versions & history ---- */
   function vHistory(host) {
+    cisaHistory(host, true);
+    var ib = (((D.sources || {}).intune || {}).baselines || []).filter(function (b) { return !b.missing; });
+    if (ib.length) { var si = el("section", "s5dv-blk"); si.appendChild(el("h3", null, "Intune security baselines — newest version of each"));
+      var vs = el("div", "s5dv-vers"); ib.forEach(function (b) { var a = el("a", "s5dv-ver"); a.href = b.url; a.target = "_blank"; a.rel = "noopener"; a.appendChild(el("b", null, b.title || b.name)); a.appendChild(el("span", null, n(b.n) + " settings · Learn page updated " + dmy(b.updated))); vs.appendChild(a); });
+      si.appendChild(vs); host.appendChild(si); }
     var s1 = el("section", "s5dv-blk"); s1.appendChild(el("h3", null, "Versions — newest first")); s1.appendChild(versionFrames(true)); host.appendChild(s1);
     var rel = D.releases || [];
     if (rel.length) { var s2 = el("section", "s5dv-blk"); s2.appendChild(el("h3", null, "Maester releases")); var vs = el("div", "s5dv-vers");
@@ -29983,7 +30068,7 @@ IdentityDirectoryEvents
     var ev = (D.events || []).slice().sort(function (a, b) { return a.day < b.day ? 1 : -1; }).slice(0, 5);
     if (ev.length) ev.forEach(function (e) {
       var r = el("div", "s5cu-ovr"); r.appendChild(el("span", "s5cu-d", dmy(e.day).slice(0, 5)));
-      var mid = el("span"); mid.appendChild(btn(e.title || e.id, "s5cu-ovn", function () { openEv(e); })); mid.appendChild(el("span", "s5cu-ovw", e.src + " · " + (EVL[e.type] || ["", e.type])[1] + (evText(e) ? " · " + evText(e) : ""))); r.appendChild(mid);
+      var mid = el("span"); mid.appendChild(btn(e.title || e.id, "s5cu-ovn", function () { openEv(e); })); var ow = el("span", "s5cu-ovw"); ow.appendChild(srcPill(e.src)); ow.appendChild(document.createTextNode(" " + (EVL[e.type] || ["", e.type])[1] + (evText(e) ? " · " + evText(e) : ""))); mid.appendChild(ow); r.appendChild(mid);
       card.appendChild(r);
     });
     else card.appendChild(el("p", "s5ci-note", "No change in 14 days. Newest: " + versionText() + "."));

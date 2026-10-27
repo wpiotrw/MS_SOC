@@ -146,7 +146,7 @@ body h3{font-size:18px}
   var TABS = [["Summary", "The changes worth reading first"], ["New", "New items in the brief"], ["Deadlines", "Dated items: arrived, left, or date moved"],
     ["Message Center", "Message Center and Roadmap posts"], ["Graph API", "Graph permissions: endpoints, privilege, consent"], ["Roles", "Entra directory roles"],
     ["Component versions", "Agent and client versions"], ["First-party apps", "Microsoft's own Entra applications"], ["Campaigns", "Retirements, enforcements, rollouts"],
-    ["Baselines", "Security baselines: CISA SCuBA, Maester, Tenable, Zero Trust Assessment, Intune"], ["Threat Research", "Incidents touching Entra and Microsoft 365"], ["Microsoft Learn", "What's new entries, page edits, preview → GA"],
+    ["Security baselines", "CISA SCuBA, Maester, Tenable, Zero Trust Assessment, Intune"], ["Threat Research", "Incidents touching Entra and Microsoft 365"], ["Microsoft Learn", "What's new entries, page edits, preview → GA"],
     ["Microsoft Blogs", "Microsoft product blogs"], ["Community Articles", "Community sources"]];
   var D = null, S = { tab: "Summary", q: "", tech: "", kind: "" };
   function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
@@ -375,7 +375,7 @@ body h3{font-size:18px}
   var h0 = decodeURIComponent(location.hash || ""), mt = /tab=([^&]+)/.exec(h0); if (mt && TABS.some(function (t) { return t[0] === mt[1]; })) S.tab = mt[1];
   /* the brief's links into the old page's sections (§5bn "Everything that moved here", §5cj "#dwin") open the matching tab */
   var OLD = { mcenter: "Message Center", fpa: "First-party apps", community: "Community Articles", added: "New", dwin: "New",
-    blogsdiff: "Microsoft Blogs", docsdiff: "Microsoft Learn", graph: "Graph API", roles: "Roles", deadlines: "Deadlines", campaigns: "Campaigns", baselines: "Baselines", threats: "Threat Research" };
+    blogsdiff: "Microsoft Blogs", docsdiff: "Microsoft Learn", graph: "Graph API", roles: "Roles", deadlines: "Deadlines", campaigns: "Campaigns", baselines: "Security baselines", threats: "Threat Research" };
   if (!mt && OLD[h0.replace(/^#/, "")]) S.tab = OLD[h0.replace(/^#/, "")];
   addEventListener("hashchange", function () { var k = decodeURIComponent(location.hash || "").replace(/^#/, ""), m = /tab=([^&]+)/.exec(k);
     var t = m ? m[1] : OLD[k]; if (t && t !== S.tab && TABS.some(function (x) { return x[0] === t; }) && D) { S.tab = t; render(); } });
