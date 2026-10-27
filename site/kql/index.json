@@ -21,6 +21,131 @@
   "repo": "Microsoft Sentinel (Azure-Sentinel) - recent hunting queries and detections"
  },
  {
+  "file": "articles/2026-10-27-monitor-excluded-folders-for-new-binaries.kql",
+  "title": "Monitor Excluded Folders for New Binaries",
+  "date": "2026-10-27",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: The Blind Spot You Created on Purpose. The Real Architecture of Microsoft Defender Exclusions",
+  "source": "https://detect.fyi/the-blind-spot-you-created-on-purpose-the-real-architecture-of-microsoft-defender-exclusions-20fb35287397?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Rohitashokgowd · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/the-blind-spot-you-created-on-purpose-the-real-architecture-of-microsoft-defender-exclusions-20fb35287397?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-the-blind-spot-you-created-on-purpose-th-2026-10-27"
+ },
+ {
+  "file": "articles/2026-10-27-detection-5-metasploit-framework-execution-on-host-potential.kql",
+  "title": "Detection 5: Metasploit Framework Execution on Host - Potential Langflow Exploitation Activity",
+  "date": "2026-10-27",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, October 27, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-27-detection-engineering-brief-tuesday-october-27-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-27-detection-engineering-brief-tuesday-october-27-2026/"
+ },
+ {
+  "file": "articles/2026-10-27-detection-4-cve-2026-111497-vulnerable-node-js.kql",
+  "title": "Detection 4: CVE-2026-111497 - Vulnerable Node.js Version Inventory for Patch Gap Detection",
+  "date": "2026-10-27",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, October 27, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-27-detection-engineering-brief-tuesday-october-27-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-27-detection-engineering-brief-tuesday-october-27-2026/",
+  "cves": [
+   "CVE-2026-111497"
+  ]
+ },
+ {
+  "file": "articles/2026-10-27-detection-3-litellm-supply-chain-python-interpreter-outbound.kql",
+  "title": "Detection 3: LiteLLM Supply Chain - Python Interpreter Outbound Connection After Package Install",
+  "date": "2026-10-27",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, October 27, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-27-detection-engineering-brief-tuesday-october-27-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-27-detection-engineering-brief-tuesday-october-27-2026/",
+  "incident": "litellm-1-107-0-supply-chain-2026-10"
+ },
+ {
+  "file": "articles/2026-10-27-detection-2-litellm-supply-chain-compromised-package-version.kql",
+  "title": "Detection 2: LiteLLM Supply Chain - Compromised Package Version Installation Detected",
+  "date": "2026-10-27",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, October 27, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-27-detection-engineering-brief-tuesday-october-27-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-27-detection-engineering-brief-tuesday-october-27-2026/",
+  "incident": "litellm-1-107-0-supply-chain-2026-10"
+ },
+ {
+  "file": "articles/2026-10-27-detection-1-litellm-supply-chain-python-startup-hook.kql",
+  "title": "Detection 1: LiteLLM Supply Chain - Python Startup Hook File Written to Site-Packages",
+  "date": "2026-10-27",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, October 27, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-27-detection-engineering-brief-tuesday-october-27-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-27-detection-engineering-brief-tuesday-october-27-2026/",
+  "incident": "litellm-1-107-0-supply-chain-2026-10"
+ },
+ {
+  "file": "articles/2026-10-27-detect-exclusions-added-via-powershell-commands.kql",
+  "title": "Detect exclusions added via PowerShell commands",
+  "date": "2026-10-27",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: The Blind Spot You Created on Purpose. The Real Architecture of Microsoft Defender Exclusions",
+  "source": "https://detect.fyi/the-blind-spot-you-created-on-purpose-the-real-architecture-of-microsoft-defender-exclusions-20fb35287397?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Rohitashokgowd · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/the-blind-spot-you-created-on-purpose-the-real-architecture-of-microsoft-defender-exclusions-20fb35287397?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-the-blind-spot-you-created-on-purpose-th-2026-10-27"
+ },
+ {
+  "file": "articles/2026-10-27-auditing-exclusions-with-kql.kql",
+  "title": "Auditing Exclusions with KQL",
+  "date": "2026-10-27",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceRegistryEvents"
+  ],
+  "purpose": "From the article: The Blind Spot You Created on Purpose. The Real Architecture of Microsoft Defender Exclusions",
+  "source": "https://detect.fyi/the-blind-spot-you-created-on-purpose-the-real-architecture-of-microsoft-defender-exclusions-20fb35287397?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Rohitashokgowd · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/the-blind-spot-you-created-on-purpose-the-real-architecture-of-microsoft-defender-exclusions-20fb35287397?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-the-blind-spot-you-created-on-purpose-th-2026-10-27"
+ },
+ {
   "file": "incidents/2026-10-26-scheduled-tasks-created-by-msiexec-or-control-exe.kql",
   "title": "Scheduled tasks created by msiexec or control.exe in the last 30 days",
   "date": "2026-10-26",

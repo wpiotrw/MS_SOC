@@ -1,0 +1,15 @@
+// title: Auditing Exclusions with KQL
+// date: 2026-10-27
+// product: Defender for Endpoint
+// tables: DeviceRegistryEvents
+// purpose: From the article: The Blind Spot You Created on Purpose. The Real Architecture of Microsoft Defender Exclusions
+// source: https://detect.fyi/the-blind-spot-you-created-on-purpose-the-real-architecture-of-microsoft-defender-exclusions-20fb35287397?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Rohitashokgowd · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Detect exclusions added via Registry modification
+DeviceRegistryEvents
+| where Timestamp > ago(7d)
+| where ActionType == "RegistryValueSet"
+| where RegistryKey contains @"Windows Defender\Exclusions"
+| project Timestamp, DeviceName, RegistryKey, RegistryValueName, InitiatingProcessAccountName, InitiatingProcessFileName, InitiatingProcessCommandLine

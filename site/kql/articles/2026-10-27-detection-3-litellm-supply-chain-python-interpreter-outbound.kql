@@ -1,0 +1,40 @@
+// title: Detection 3: LiteLLM Supply Chain - Python Interpreter Outbound Connection After Package Install
+// date: 2026-10-27
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Tuesday, October 27, 2026
+// source: https://devsecopsdadattack.com/2026-10-27-detection-engineering-brief-tuesday-october-27-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 24h;
+let postInstallWindow = 10m;
+let installEvents = DeviceProcessEvents
+| where TimeGenerated >= ago(lookback)
+| where ProcessCommandLine has_any ("pip install", "pip3 install", "python -m pip install", "python3 -m pip install")
+| where ProcessCommandLine has "litellm"
+| where ProcessCommandLine has_any ("1.107.0", "litellm==1.107.0")
+| project DeviceName, InstallTime = TimeGenerated;
+DeviceNetworkEvents
+| where TimeGenerated >= ago(lookback)
+| where InitiatingProcessFileName in~ (
+    "python.exe", "python3", "python", "python3.exe",
+    "python3.9", "python3.10", "python3.11", "python3.12",
+    "python3.9.exe", "python3.10.exe", "python3.11.exe", "python3.12.exe"
+  )
+| where ActionType == "ConnectionSuccess"
+| where not(ipv4_is_private(RemoteIP))
+| where RemoteIP != "127.0.0.1" and RemoteIP != "::1"
+| join kind=inner (installEvents) on DeviceName
+| where TimeGenerated >= InstallTime and TimeGenerated <= InstallTime + postInstallWindow
+| extend MinutesAfterInstall = datetime_diff('minute', TimeGenerated, InstallTime)
+| project
+    TimeGenerated,
+    DeviceName,
+    InitiatingProcessFileName,
+    RemoteIP,
+    RemotePort,
+    RemoteUrl = iff(isnotempty(RemoteUrl), RemoteUrl, ""),
+    InstallTime,
+    MinutesAfterInstall
+| sort by TimeGenerated desc

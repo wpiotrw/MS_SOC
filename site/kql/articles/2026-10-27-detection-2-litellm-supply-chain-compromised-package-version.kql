@@ -1,0 +1,47 @@
+// title: Detection 2: LiteLLM Supply Chain - Compromised Package Version Installation Detected
+// date: 2026-10-27
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Tuesday, October 27, 2026
+// source: https://devsecopsdadattack.com/2026-10-27-detection-engineering-brief-tuesday-october-27-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 24h;
+let installEvents = DeviceProcessEvents
+| where TimeGenerated >= ago(lookback)
+| where ProcessCommandLine has_any ("pip install", "pip3 install", "python -m pip install", "python3 -m pip install")
+| where ProcessCommandLine has "litellm"
+| where ProcessCommandLine has_any ("1.107.0", "litellm==1.107.0")
+| project
+    TimeGenerated,
+    DeviceName,
+    AccountName,
+    ProcessCommandLine,
+    InitiatingProcessFileName = InitiatingProcessFileName;
+installEvents
+| join kind=leftouter (
+    DeviceFileEvents
+    | where TimeGenerated >= ago(lookback)
+    | where ActionType in ("FileCreated", "FileModified")
+    | where FileName in~ ("sitecustomize.py", "usercustomize.py")
+    | where FolderPath has "site-packages"
+    | project DeviceName, HookFile = FileName, HookPath = FolderPath, HookTime = TimeGenerated
+) on DeviceName
+| extend HookWrittenWithinWindow = iff(
+    isnotempty(HookFile) and HookTime >= TimeGenerated and HookTime <= TimeGenerated + 15m,
+    true,
+    false
+)
+| where isempty(HookFile) or HookWrittenWithinWindow == true
+| project
+    TimeGenerated,
+    DeviceName,
+    AccountName,
+    ProcessCommandLine,
+    InitiatingProcessFileName,
+    HookFile,
+    HookPath,
+    HookTime,
+    HookWrittenWithinWindow
+| sort by TimeGenerated desc

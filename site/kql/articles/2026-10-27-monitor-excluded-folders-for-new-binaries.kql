@@ -1,0 +1,23 @@
+// title: Monitor Excluded Folders for New Binaries
+// date: 2026-10-27
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: The Blind Spot You Created on Purpose. The Real Architecture of Microsoft Defender Exclusions
+// source: https://detect.fyi/the-blind-spot-you-created-on-purpose-the-real-architecture-of-microsoft-defender-exclusions-20fb35287397?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Rohitashokgowd · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ExcludedPaths = dynamic([@"C:\Program Files (x86)\Notepad++", @"C:\Tools22345"]); //Include your excluded paths
+let BaselineDays = 14d;
+let RecentDays = 7d;
+let BaselineKnownHashes = DeviceProcessEvents
+| where Timestamp between (ago(BaselineDays) .. ago(RecentDays))
+| where FolderPath has_any (ExcludedPaths)
+| where isnotempty(SHA256)
+| distinct SHA256;
+DeviceProcessEvents
+| where Timestamp > ago(RecentDays)
+| where FolderPath has_any (ExcludedPaths)
+| where isnotempty(SHA256)
+| where SHA256 !in (BaselineKnownHashes)
+| summarize FirstSeen = min(Timestamp), LastSeen = max(Timestamp), ExecutionCount = count(), ImpactedDevices = dcount(DeviceId),Devices = make_set(DeviceName, 10), SampleCommandLine = any(ProcessCommandLine) by FileName, SHA256, FolderPath

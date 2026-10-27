@@ -1,0 +1,50 @@
+// title: Detection 5: Metasploit Framework Execution on Host - Potential Langflow Exploitation Activity
+// date: 2026-10-27
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Tuesday, October 27, 2026
+// source: https://devsecopsdadattack.com/2026-10-27-detection-engineering-brief-tuesday-october-27-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 24h;
+let postExecWindow = 5m;
+let msfExec = DeviceProcessEvents
+| where TimeGenerated >= ago(lookback)
+| where FileName in~ ("msfconsole", "msfvenom", "msfdb", "msfrpc", "msfconsole.bat", "msfvenom.bat")
+    or ProcessCommandLine has_any ("msfconsole", "msfvenom", "msf5", "msf6")
+| project
+    DeviceName,
+    AccountName,
+    MsfTime = TimeGenerated,
+    FileName,
+    FolderPath,
+    ProcessCommandLine,
+    InitiatingProcessFileName;
+let postExecNet = DeviceNetworkEvents
+| where TimeGenerated >= ago(lookback)
+| where ActionType == "ConnectionSuccess"
+| where not(ipv4_is_private(RemoteIP))
+| where RemoteIP != "127.0.0.1" and RemoteIP != "::1"
+| project
+    DeviceName,
+    NetTime = TimeGenerated,
+    RemoteIP,
+    RemotePort,
+    RemoteUrl = iff(isnotempty(RemoteUrl), RemoteUrl, "");
+msfExec
+| join kind=leftouter (postExecNet) on DeviceName
+| where isempty(NetTime) or (NetTime >= MsfTime and NetTime <= MsfTime + postExecWindow)
+| project
+    MsfTime,
+    DeviceName,
+    AccountName,
+    FileName,
+    FolderPath,
+    ProcessCommandLine,
+    InitiatingProcessFileName,
+    NetTime,
+    RemoteIP,
+    RemotePort,
+    RemoteUrl
+| sort by MsfTime desc

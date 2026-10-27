@@ -1,0 +1,40 @@
+// title: Detection 1: LiteLLM Supply Chain - Python Startup Hook File Written to Site-Packages
+// date: 2026-10-27
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Tuesday, October 27, 2026
+// source: https://devsecopsdadattack.com/2026-10-27-detection-engineering-brief-tuesday-october-27-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 24h;
+let pipInstalls = DeviceProcessEvents
+| where TimeGenerated >= ago(lookback)
+| where ProcessCommandLine has_any ("pip install", "pip3 install")
+| project DeviceName, PipTime = TimeGenerated, PipCommandLine = ProcessCommandLine;
+let hookWrites = DeviceFileEvents
+| where TimeGenerated >= ago(lookback)
+| where ActionType in ("FileCreated", "FileModified")
+| where FileName in~ ("sitecustomize.py", "usercustomize.py")
+| where FolderPath has "site-packages"
+| project TimeGenerated, DeviceName, AccountName, FileName, FolderPath, ActionType, InitiatingProcessFileName, ReportId;
+hookWrites
+| join kind=leftouter (
+    pipInstalls
+) on DeviceName
+| where isempty(PipTime) or (TimeGenerated >= PipTime and TimeGenerated <= PipTime + 10m)
+| summarize
+    arg_max(TimeGenerated, *),
+    PipCommandLines = make_set(PipCommandLine, 10)
+    by DeviceName, AccountName, FileName, FolderPath, ActionType, InitiatingProcessFileName, ReportId
+| project
+    TimeGenerated,
+    DeviceName,
+    AccountName,
+    FileName,
+    FolderPath,
+    ActionType,
+    InitiatingProcessFileName,
+    PipCommandLines,
+    ReportId
+| sort by TimeGenerated desc

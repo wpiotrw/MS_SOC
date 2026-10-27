@@ -1,0 +1,16 @@
+// title: Detect exclusions added via PowerShell commands
+// date: 2026-10-27
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: The Blind Spot You Created on Purpose. The Real Architecture of Microsoft Defender Exclusions
+// source: https://detect.fyi/the-blind-spot-you-created-on-purpose-the-real-architecture-of-microsoft-defender-exclusions-20fb35287397?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Rohitashokgowd · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Detect exclusions added via PowerShell commands
+DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where FileName in~ ("powershell.exe", "pwsh.exe", "powershell_ise.exe")
+| where ProcessCommandLine has_any ("Add-MpPreference", "Set-MpPreference")
+| where ProcessCommandLine contains "Exclusion"
+| project Timestamp, DeviceName, AccountName, ProcessCommandLine, InitiatingProcessFileName
