@@ -15,9 +15,9 @@ recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
 f1.keywords:
 - NOCSH
-ms.author: kwekua
-author: kwekuako
-manager: scotv
+ms.author: guptarashi
+author: rashiguptastats-oss
+manager: dansimp
 ms.date: 2026-07-22T00:00:00.0000000Z
 audience: Admin
 ms.topic: article
@@ -96,7 +96,7 @@ With organizational messages, you can:
 - **Target the right audience** — Deliver messages to specific Microsoft Entra groups, or use advanced targeting by department, location, company, or usage behavior, such as users who haven't used copilot recently. For more information on Microsoft Entra user groups and advanced targeting options see, [Group Level Aggregate-based targeting](/en-us/microsoft-365/admin/adoption/group-level-aggregates)
 - **Control timing and frequency** — Schedule start and end dates, set how often a message reappears, or send a one-time urgent message immediately.
 - **Require approval for custom messages** — Route custom messages through an approval workflow before they reach users.
-- **Track message performance** — Review insights data for your messages including; three time-series data charts showing daily changes in the total **Messages seen**, Total **Clicks** and **Clickthrough rate** for your messages. See, Review activity reports section in this article for more details. 
+- **Track message performance** — Review insights data for your messages including; three time-series data charts showing daily changes in the total **Messages seen**, Total **Clicks**, Total **Dismisses** and **Clickthrough rate** for your messages. See, Review activity reports section in this article for more details. 
     Note
 
      Email open tracking is being removed for Organizational Messages emails worldwide. New open count metrics will no longer be available, but previously collected open count data will remain accessible.
@@ -331,6 +331,7 @@ In the **Organizational messages** page of the Microsoft 365 admin center, the t
 
 - **Total messages seen**.
 - **Total clicks**.
+- **Total dismisses**.
 - **Clickthrough rate**.
 
 However, the **Review activity** experience provides additional advanced insights. In the **Review activity** experience, you can review insights data for your messages by using the following capabilities:
@@ -347,6 +348,7 @@ To access the **Review activity** experience, follow these steps:
 
     - Three time-series data charts showing daily changes in the total **Messages seen**. Total **Messages seen** is also known as impressions.
     - Total **Clicks**.
+    - Total **Dismisses**.
     - **Clickthrough rate** for your messages.
 
 ### Export organizational message performance data
