@@ -31381,7 +31381,7 @@ odtad CZTERNASCIE (4-17).**
      jump for whoever wants the table around it. */
   var SHEET_ST = null, SHEET = null;
   function sheetItem(id) { var st = SHEET_ST || (SHEET_ST = json("soc-brief-state") || {}); return (st.items || []).filter(function (i) { return i && i.id === id; })[0] || null; }
-  function sheet(id, pref) {
+  function sheet(id, pref, alt) {
     var it = sheetItem(id); if (!it) return false;
     if (!SHEET) {
       SHEET = el("div", "s5fo-ov"); SHEET.hidden = true; SHEET.setAttribute("role", "dialog"); SHEET.setAttribute("aria-modal", "true");
@@ -31423,8 +31423,8 @@ odtad CZTERNASCIE (4-17).**
       if (href.indexOf("#") > 0) a.title = "Opens the section of the page this item is about"; links.appendChild(a);
     });
     c.appendChild(links);
-    var go = el("button", "s5fo-go", "Show it in the list \u203a"); go.type = "button";
-    go.addEventListener("click", function () { SHEET.hidden = true; goItem(id, pref, true); }); c.appendChild(go);
+    var go = el("button", "s5fo-go", alt && alt.label ? alt.label : "Show it in the list \u203a"); go.type = "button";
+    go.addEventListener("click", function () { SHEET.hidden = true; if (alt && alt.fn) alt.fn(); else goItem(id, pref, true); }); c.appendChild(go);
     SHEET.hidden = false; x.focus();
     if (window.__socDate && window.__socDate.rewrite) try { window.__socDate.rewrite(c); } catch (e) {}
     return true;
@@ -32010,7 +32010,8 @@ odtad CZTERNASCIE (4-17).**
           sumH.textContent = cur ? cur + " \u2014 " + window.__socWords(cnt[cur]) + " sentence" + (cnt[cur] === 1 ? "" : "s") + " of " + all : "Today in " + window.__socWords(all) + " sentences";
         }
         [["", "All"]].concat(techs.map(function (t) { return [t, t + " " + cnt[t]]; })).forEach(function (o) {
-          var b = el("button", "s5fo-tb", o[1]); b.type = "button"; b.setAttribute("data-t", o[0]);
+          var b = el("button", "s5fo-tb", o[0] ? o[0] : "All"); b.type = "button"; b.setAttribute("data-t", o[0]);
+          if (o[0]) { b.appendChild(el("span", "s5fp-n", String(cnt[o[0]]))); b.title = cnt[o[0]] + " sentence" + (cnt[o[0]] === 1 ? "" : "s") + " about " + o[0] + " today"; }
           b.addEventListener("click", function () { cur = o[0]; tfApply(); }); fb.appendChild(b);
         });
         sum.insertBefore(fb, sumH.nextSibling); tfApply();
@@ -36861,7 +36862,7 @@ odtad CZTERNASCIE (4-17).**
     return h; }
   function famJump(groups, idp) {
     var j = el("div", "s5dq-jump"); j.appendChild(el("span", "s5ci-lab", "Jump to"));
-    groups.forEach(function (g) { var b = el("button", "s5dq-j", g.k + " · " + g.rows.length); b.type = "button";
+    groups.forEach(function (g) { var b = el("button", "s5dq-j"); b.type = "button"; b.appendChild(document.createTextNode(g.k)); b.appendChild(el("span", "s5fp-n", String(g.rows.length)));
       b.addEventListener("click", function () { var t = document.getElementById(famId(idp, g.k)); if (t) ORIG_SIV.call(t, { block: "start", behavior: "smooth" }); }); j.appendChild(b); });
     return j;
   }
@@ -36991,8 +36992,12 @@ odtad CZTERNASCIE (4-17).**
   }
   function rowClick(row, it, tab) {
     row.setAttribute("aria-expanded", "false"); row.tabIndex = 0;
-    row.addEventListener("click", function (e) { if (e.target.closest("a, button, .s5ci-det")) return; toggleRow(row, it, tab); });
-    row.addEventListener("keydown", function (e) { if ((e.key === "Enter" || e.key === " ") && e.target === row) { e.preventDefault(); toggleRow(row, it, tab); } });
+    /* §5fp (27 X 2026, owner: "the idea of opening that separate window, as with our sentences, I like very much -
+       where else could it be used?"): a row of Today, Deadlines and New opens the item card too; the old inline
+       detail stays one button away ("Show the details in the row"). */
+    function open() { if (window.__socItemSheet && window.__socItemSheet(it.id, tab, { label: "Show the details in the row", fn: function () { toggleRow(row, it, tab); row.scrollIntoView({ block: "center" }); } })) return; toggleRow(row, it, tab); }
+    row.addEventListener("click", function (e) { if (e.target.closest("a, button, .s5ci-det")) return; open(); });
+    row.addEventListener("keydown", function (e) { if ((e.key === "Enter" || e.key === " ") && e.target === row) { e.preventDefault(); open(); } });
   }
   function searchBox(ph, onq) {
     var lab = el("label", "s5ci-q"); lab.appendChild(el("span", "s5ci-qi", "⌕"));
@@ -37001,7 +37006,10 @@ odtad CZTERNASCIE (4-17).**
     return lab;
   }
   function hit(it, q) { if (!q) return true; return (String(it.title || "") + " " + (it.officialTitle || "") + " " + it.id + " " + (it.reference || "") + " " + (it.product || "") + " " + (it.area || "") + " " + (it.status || "")).toLowerCase().indexOf(q) >= 0; }
-  function chip(txt, on, fn) { var b = el("button", "s5ci-chip", txt); b.type = "button"; b.setAttribute("aria-pressed", on ? "true" : "false"); b.addEventListener("click", fn); return b; }
+  /* §5fp: a count at the end of a chip label ("Today 2", "7 days 79") is drawn as a badge, one colour for all */
+  function chip(txt, on, fn) { var b = el("button", "s5ci-chip"), m = /^(.*?)[\s\u00b7]+(\d[\d\s,]*)$/.exec(String(txt));
+    if (m) { b.appendChild(document.createTextNode(m[1])); b.appendChild(el("span", "s5fp-n", m[2])); } else b.textContent = txt;
+    b.type = "button"; b.setAttribute("aria-pressed", on ? "true" : "false"); b.addEventListener("click", fn); return b; }
   /* §5ci-c: a number elsewhere on the page (Overview "What's new, by product", "Act on this first")
      hands a tab a list of ids through SCRIPT 11 (`__socS11.setTab`). Those rows are in the hidden
      sections; the view applies the same list and says so in a green chip, × clears it at SCRIPT 11 too. */
@@ -46837,6 +46845,20 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
    read "…on 31 OctoberPlay Integrity API strong integrity enforcementno MC/RM post — Learn only" (owner, 26 X 2026) */
 .s5fl-bd{border-color:var(--accent)!important}
 .s5fl-gone{display:none!important}
+/* §5fp: one look for every count in a chip - a round badge in the accent colour, never a bare small number */
+.s5fp-n{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:22px;margin-left:8px;padding:0 7px;border-radius:999px;background:color-mix(in srgb,var(--accent) 32%,transparent);color:var(--text);font-size:13.5px;font-weight:700;line-height:1}
+[aria-pressed="true"] > .s5fp-n{background:rgba(255,255,255,.25);color:inherit}
+.s5fo-tb,#tab-overview .s5fo-tb{font-size:15.5px;padding:6px 8px 6px 14px;display:inline-flex;align-items:center}
+.s5fo-tb[data-t=""]{padding-right:14px}
+.s5fo-tfl{font-size:13.5px}
+.s5dq-j,[id^="tab-"] .s5dq-j{display:inline-flex;align-items:center;font-size:15px;padding:4px 6px 4px 12px}
+.s5ci-chip{display:inline-flex;align-items:center}
+/* §5fp (owner, Today screenshot: "the sections of different technologies must be separated - now everything runs
+   together"): a group starts after a gap, with a tinted band and a 4 px bar, and its rows carry the same bar */
+[id^="tab-"] .s5dq-h{margin-top:22px;border-top:0;border-left:5px solid var(--accent);border-radius:10px 10px 0 0;background:var(--accent-soft,var(--surface));padding:12px 14px}
+[id^="tab-"] .s5dq-h:first-child,[id^="tab-"] .s5dq-jump + .s5dq-h,[id^="tab-"] .s5ci-picks > .s5dq-h:first-of-type{margin-top:0}
+[id^="tab-"] .s5dq-h .s5dq-t{font-size:19px}
+[id^="tab-"] .s5dq-h ~ .s5ci-tr,[id^="tab-"] .s5dq-h ~ .s5ci-it,[id^="tab-"] .s5dq-h ~ .s5ci-pick,[id^="tab-"] .s5dq-h ~ li{border-left:5px solid var(--accent-soft,var(--border))}
 .s5fo-tf{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:4px 0 12px}
 .s5fo-tfl{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-right:2px}
 .s5fo-tb{font:inherit;font-size:14px;font-weight:600;padding:5px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--text);cursor:pointer}
@@ -48647,6 +48669,20 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5fp — Liczby w chipach jako plakietki, oddzielone grupy technologii, karta z wiersza listy (27 X 2026)
+
+Wlasciciel: „obok nazwy piszesz mala cyfre i nie wiadomo, co to jest; czcionka filtra mala — liczba w zaokraglonej
+ramce, wszystkie w jednym kolorze, zeby nie robic choinki" · „w Today i innych trzeba oddzielic sekcje technologii,
+teraz wszystko sie zlewa" · „okienko jak przy zdaniach bardzo mi sie podoba — gdzie jeszcze?".
+- **Liczba w chipie = plakietka `.s5fp-n`** (okragla, jeden kolor dla wszystkich, tytul mowi, co liczy): filtr
+  technologii Overview, „Jump to" (`famJump`), chipy „Show" (`chip()` — „Today 2", „7 days 79"). Chipy 15-15,5 px.
+- **Grupy technologii oddzielone:** odstep 22 px przed grupa, naglowek na zabarwionym pasie z 5 px paskiem i
+  zaokraglona gora, wiersze grupy z tym samym paskiem po lewej (Today, Deadlines, New, a takze inne zakladki z
+  `.s5dq-h`).
+- **Wiersz Today / Deadlines / New otwiera karte pozycji** (§5fo); dawne rozwiniecie w wierszu jest przyciskiem
+  „Show the details in the row" w karcie.
+- Telefon 4x CPU bez regresji.
 
 ### §5fo — Filtr technologii w zdaniach, karta pozycji zamiast skoku do listy (27 X 2026)
 
