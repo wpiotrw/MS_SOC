@@ -31374,7 +31374,64 @@ odtad CZTERNASCIE (4-17).**
     var id = r.getAttribute("data-id"); if (id) return id;
     var ref = r.querySelector(".ref, .rname"); return ref ? ref.textContent.trim() : "";
   }
-  function goItem(id, pref) {
+  /* §5fo (27 X 2026, owner with a screenshot: "I click the Teams item and land in another list - Today - where you mark
+     the row green, but it is hard to find yourself in such a list; the MC post and the Learn link are hard to find").
+     An item opens as ONE card over the page - title, what it is, when, why it matters, what to do, the Message Center
+     number and every source link (Learn already pointed at its section, §5fl) - and "Show it in the list" keeps the old
+     jump for whoever wants the table around it. */
+  var SHEET_ST = null, SHEET = null;
+  function sheetItem(id) { var st = SHEET_ST || (SHEET_ST = json("soc-brief-state") || {}); return (st.items || []).filter(function (i) { return i && i.id === id; })[0] || null; }
+  function sheet(id, pref) {
+    var it = sheetItem(id); if (!it) return false;
+    if (!SHEET) {
+      SHEET = el("div", "s5fo-ov"); SHEET.hidden = true; SHEET.setAttribute("role", "dialog"); SHEET.setAttribute("aria-modal", "true");
+      SHEET.addEventListener("click", function (ev) { if (ev.target === SHEET) SHEET.hidden = true; });
+      document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && SHEET && !SHEET.hidden) SHEET.hidden = true; });
+      document.body.appendChild(SHEET);
+    }
+    SHEET.textContent = "";
+    var c = el("div", "s5fo-card"); SHEET.appendChild(c);
+    var x = el("button", "s5fo-x", "\u00d7"); x.type = "button"; x.setAttribute("aria-label", "Close"); x.addEventListener("click", function () { SHEET.hidden = true; }); c.appendChild(x);
+    var chips = el("div", "s5fo-chips");
+    [it.status, it.product, it.area].filter(Boolean).forEach(function (t, i) { chips.appendChild(el("span", "s5fo-chip" + (i === 0 ? " s5fo-st" : ""), t)); });
+    if (it.tier0Touch) chips.appendChild(el("span", "s5fo-chip s5fo-t0", "Tier 0"));
+    c.appendChild(chips);
+    c.appendChild(el("h2", "s5fo-t", it.title || it.officialTitle || it.id));
+    if (it.officialTitle && it.officialTitle !== it.title) c.appendChild(el("p", "s5fo-ot", "Microsoft's title: " + it.officialTitle));
+    var today = String((SHEET_ST || {}).briefDate || new Date().toISOString().slice(0, 10));
+    var f = el("dl", "s5fj-facts s5fo-facts");
+    function fact(k, v) { if (!v) return; var w = el("div", "s5fj-f"); w.appendChild(el("dt", null, k)); w.appendChild(el("dd", null, v)); f.appendChild(w); }
+    if (/^\d{4}-\d{2}-\d{2}/.test(String(it.deadline || ""))) { var n = days(today, String(it.deadline).slice(0, 10));
+      fact("Deadline", String(it.deadline).slice(0, 10) + (n === 0 ? " \u2014 today" : n > 0 ? " \u2014 in " + n + " day" + (n === 1 ? "" : "s") : " \u2014 " + (-n) + " day" + (n === -1 ? "" : "s") + " ago")); }
+    fact("Published", it.published ? String(it.published).slice(0, 10) + (it.lastChanged && it.lastChanged > it.published ? " \u00b7 revised " + String(it.lastChanged).slice(0, 10) : "") : "");
+    fact("First seen by the brief", it.firstTracked ? String(it.firstTracked).slice(0, 10) : "");
+    c.appendChild(f);
+    function block(lab, txt, cls) { if (!txt) return; var b = el("div", "s5fo-blk" + (cls ? " " + cls : "")); b.appendChild(el("p", "s5fo-lab", lab)); b.appendChild(el("p", "s5fo-txt", txt)); c.appendChild(b); }
+    block("Why it matters", it.why);
+    block("Do this", it.action, "s5fo-do");
+    block("Tier 0", it.tier0Note);
+    block("What the source says", it.fingerprint);
+    var links = el("div", "s5fo-links"); links.appendChild(el("p", "s5fo-lab", "Sources"));
+    var mc = mcRef(it);
+    if (mc) { var mb = el("button", "s5fo-lk s5fo-mc", "Message Center " + mc); mb.type = "button";
+      mb.addEventListener("click", function () { SHEET.hidden = true; if (window.__socOpenMC) window.__socOpenMC(mc); else goItem(id, "mc", true); }); links.appendChild(mb); }
+    function host(u) { var h = (String(u).match(/^https?:\/\/([^\/]+)/) || [])[1] || ""; return /learn\.microsoft/.test(h) ? "Microsoft Learn" : /techcommunity/.test(h) ? "Tech Community blog" : /deltapulse/.test(h) ? "DeltaPulse" : /merill/.test(h) ? "mc.merill.net" : /msrc/.test(h) ? "MSRC" : h.replace(/^www\./, ""); }
+    [[it.url, "s5fo-src"], [it.blogUrl, ""], [it.learnUrl, ""], [it.docUrl, ""]].forEach(function (u) {
+      if (!u[0] || links.querySelector('[data-u="' + String(u[0]).replace(/"/g, "") + '"]')) return;
+      var href = window.__socLearnAnchor ? window.__socLearnAnchor(it.id, u[0]) : u[0];
+      var a = el("a", "s5fo-lk " + u[1], host(u[0]) + " \u2197"); a.href = href; a.target = "_blank"; a.rel = "noopener"; a.setAttribute("data-u", u[0]);
+      if (href.indexOf("#") > 0) a.title = "Opens the section of the page this item is about"; links.appendChild(a);
+    });
+    c.appendChild(links);
+    var go = el("button", "s5fo-go", "Show it in the list \u203a"); go.type = "button";
+    go.addEventListener("click", function () { SHEET.hidden = true; goItem(id, pref, true); }); c.appendChild(go);
+    SHEET.hidden = false; x.focus();
+    if (window.__socDate && window.__socDate.rewrite) try { window.__socDate.rewrite(c); } catch (e) {}
+    return true;
+  }
+  window.__socItemSheet = sheet;
+  function goItem(id, pref, inList) {
+    if (!inList) try { if (sheet(id, pref)) return true; } catch (e) { if (window.console) console.error("[5fo sheet]", e); }
     var order = ["deadlines", "today", "new", "products", "mc"], fallback = null;
     /* §5do: a tile in a tab opens the entry in THAT tab first */
     if (pref && order.indexOf(pref) >= 0) order = [pref].concat(order.filter(function (x) { return x !== pref; }));
@@ -31456,6 +31513,7 @@ odtad CZTERNASCIE (4-17).**
     var panel = document.getElementById("tab-overview");
     if (!panel || (!Y && panel.querySelector(".s5bk-top"))) return;
     var st = Y ? Y.st : (json("soc-brief-state") || {}), cat = Y ? (Y.cat || {}) : (json("soc-catalog") || {});
+    if (!Y) SHEET_ST = st;
     var GDW = Y ? null : window.__socGD, IDW = Y ? null : window.__socIdent;
     var today = String(st.briefDate || new Date().toISOString().slice(0, 10));
     var items = (st.items || []).filter(function (i) { return i && i.id; });
@@ -31467,6 +31525,8 @@ odtad CZTERNASCIE (4-17).**
     var newIds = {}; (st.newToday || []).forEach(function (id) { newIds[id] = 1; });
     /* §5dw: the §5p key - tier 0 first, then the weight (Security Defaults per rule, 15 X, lost to a lighter item) */
     var fresh = items.filter(function (i) { return newIds[i.id]; }).sort(function (a, b) { return (b.tier0Touch ? 1 : 0) - (a.tier0Touch ? 1 : 0) || w(a) - w(b); });
+    /* §5fo (27 X: sentences 1 and 2 were the same eMudhra item): the biggest new item is never the most urgent one */
+    if (due7.length && fresh.length > 1 && fresh[0].id === due7[0].it.id) fresh = fresh.slice(1).concat(fresh[0]);
     var ms = msChanges(cat, today);
     var since = String((st.comparedWith || {}).date || "");
 
@@ -31913,7 +31973,7 @@ odtad CZTERNASCIE (4-17).**
          gets it (weight 15+: tier 0, a date inside 30 days, or an action word) */
       offers.sort(function (p, q) { return q.w - p.w; }).slice(0, 10).forEach(function (f) { f.x.also = f.o; used[f.o.id] = 1; });
     })();
-    more.forEach(function (x) { used[x.id] = 1; line(x.tech + ":", x, ol); });
+    more.forEach(function (x) { used[x.id] = 1; line(x.tech + ":", x, ol); if (ol.lastChild) ol.lastChild.setAttribute("data-tech", x.tech); });
     dress(ol);
     /* §5fm (26 X 2026, owner: "I see the new sentences but the count still says 14 - can you number the sentences nicely,
        e.g. in a rounded frame?"). A technology's second link (§5fl) is a sentence of its own: every sentence gets its
@@ -31933,6 +31993,29 @@ odtad CZTERNASCIE (4-17).**
     window.__socWords = function (n) { return ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen","twenty"][n] || String(n); };
     var nS = window.__socRenum(ol);
     var N = window.__socWords(nS);
+    /* §5fo (27 X 2026, owner: "can the technology sentences build a filter list, so it is easy to show only Entra, or
+       Intune?"). One chip per technology that has a sentence today, with its count; a chip shows only that
+       technology's sentences, "All" brings the rest back. Built from the same list, so it can never offer an empty one. */
+    if (!Y) {
+      var techs = [], cnt = {};
+      [].forEach.call(ol.children, function (li) { var t = li.getAttribute("data-tech"); if (!t) return; if (!cnt[t]) { cnt[t] = 0; techs.push(t); } cnt[t] += 1 + li.querySelectorAll(":scope > .s5dw-also").length; });
+      if (techs.length > 1) {
+        var fb = el("div", "s5fo-tf"); fb.setAttribute("role", "toolbar"); fb.setAttribute("aria-label", "Show the sentences of one technology");
+        fb.appendChild(el("span", "s5fo-tfl", "Show"));
+        var cur = "";
+        function tfApply() {
+          [].forEach.call(ol.children, function (li) { li.hidden = !!cur && li.getAttribute("data-tech") !== cur; });
+          [].forEach.call(fb.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", String((b.getAttribute("data-t") || "") === cur)); });
+          var all = ol.querySelectorAll(".s5fm-n").length || nS;   /* later sentences (Threat Research ...) are counted too */
+          sumH.textContent = cur ? cur + " \u2014 " + window.__socWords(cnt[cur]) + " sentence" + (cnt[cur] === 1 ? "" : "s") + " of " + all : "Today in " + window.__socWords(all) + " sentences";
+        }
+        [["", "All"]].concat(techs.map(function (t) { return [t, t + " " + cnt[t]]; })).forEach(function (o) {
+          var b = el("button", "s5fo-tb", o[1]); b.type = "button"; b.setAttribute("data-t", o[0]);
+          b.addEventListener("click", function () { cur = o[0]; tfApply(); }); fb.appendChild(b);
+        });
+        sum.insertBefore(fb, sumH.nextSibling); tfApply();
+      }
+    }
     sumH.textContent = "Today in " + N + " sentences"; sum.setAttribute("aria-label", sumH.textContent);
     if (Y) return ol;
     sum.appendChild(ol); top.appendChild(sum);
@@ -46754,6 +46837,32 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
    read "…on 31 OctoberPlay Integrity API strong integrity enforcementno MC/RM post — Learn only" (owner, 26 X 2026) */
 .s5fl-bd{border-color:var(--accent)!important}
 .s5fl-gone{display:none!important}
+.s5fo-tf{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:4px 0 12px}
+.s5fo-tfl{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+.s5fo-tb{font:inherit;font-size:14px;font-weight:600;padding:5px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--text);cursor:pointer}
+.s5fo-tb:hover{border-color:var(--accent)}
+.s5fo-tb[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent,#fff)}
+.s5fo-ov{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);display:flex;align-items:flex-start;justify-content:center;padding:6vh 16px 16px;overflow:auto}
+.s5fo-ov[hidden]{display:none}
+.s5fo-card{position:relative;width:min(760px,100%);background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:14px;padding:20px 22px 18px;box-shadow:0 18px 60px rgba(0,0,0,.45)}
+.s5fo-x{position:absolute;top:10px;right:12px;width:36px;height:36px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);font-size:22px;line-height:1;cursor:pointer}
+.s5fo-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 44px 8px 0}
+.s5fo-chip{padding:2px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:600;color:var(--muted)}
+.s5fo-st{color:var(--accent);border-color:var(--accent)}
+.s5fo-t0{color:var(--bad);border-color:var(--bad)}
+.s5fo-t{margin:0 0 6px;font-size:20px;line-height:1.35}
+.s5fo-ot{margin:0 0 10px;font-size:14px;color:var(--muted)}
+.s5fo-facts{margin:8px 0 12px}
+.s5fo-blk{margin:0 0 12px;padding:10px 12px;border-left:3px solid var(--border);background:var(--surface);border-radius:6px}
+.s5fo-do{border-left-color:var(--ok)}
+.s5fo-lab{margin:0 0 4px;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.s5fo-txt{margin:0;font-size:15px;line-height:1.55}
+.s5fo-links{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:4px 0 14px}
+.s5fo-links .s5fo-lab{flex:1 1 100%}
+.s5fo-lk{font:inherit;font-size:15px;font-weight:600;padding:7px 14px;border:1px solid var(--accent);border-radius:8px;background:transparent;color:var(--accent);text-decoration:none;cursor:pointer}
+.s5fo-lk:hover{background:var(--accent-soft,transparent)}
+.s5fo-go{font:inherit;font-size:14px;padding:6px 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);cursor:pointer}
+@media (max-width:760px){.s5fo-ov{padding:0}.s5fo-card{border-radius:0;min-height:100%;padding:16px 16px 24px}.s5fo-t{font-size:18px}}
 /* §5fn: Baselines versions as a list of rows (name, then what and when), not a cloud of ovals; a new version is a tinted
    row, not a second ring (box-shadow) around its border */
 #tab-baselines .s5dv-vers{display:flex;flex-direction:column;align-items:stretch;gap:6px}
@@ -48538,6 +48647,22 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5fo — Filtr technologii w zdaniach, karta pozycji zamiast skoku do listy (27 X 2026)
+
+Wlasciciel: „czy przy generacji zdan moze powstawac lista filtrowania per technologia (tylko Entra, tylko Intune)?"
+oraz (zrzut Today): „klikam info o Teams, jestem przenoszony na inna liste, pozycja zaznaczona na zielono, ale trudno
+sie w takiej liscie odnalezc; ciezko znalezc MC albo link do Learn". Do tego zdania 1 i 2 byly ta sama pozycja.
+- **Filtr technologii nad zdaniami:** chip na kazda technologie, ktora ma dzis zdanie (z liczba zdan), plus „All";
+  chip pokazuje tylko jej zdania, naglowek mowi „Intune — two sentences of 27". Budowany z tej samej listy (`data-tech`
+  na pozycji listy), wiec nie zaoferuje pustej technologii.
+- **Karta pozycji** (`window.__socItemSheet`, wolana z `goItem`): klikniecie pozycji gdziekolwiek, gdzie dotad byl skok
+  do listy, otwiera jedna karte nad strona — status, produkt, obszar, Tier 0, tytul i tytul Microsoftu, Deadline (z „in
+  N days"), Published / revised, Why it matters, Do this, Tier 0, What the source says, Sources (Message Center z
+  numerem, Microsoft Learn z kotwica sekcji §5fl, blog). „Show it in the list" robi dawny skok (`goItem(id, pref, true)`).
+  Esc / klik obok / × zamyka. Na telefonie karta na caly ekran.
+- **„Biggest new item" nigdy nie jest ta sama pozycja co „Most urgent"** (27 X: eMudhra dwa razy).
+- Telefon 4x CPU: 9,6-9,9 s do zdan Overview — bez regresji.
 
 ### §5fn — Koniec owali: zawijajace sie pigulki i wersje w Baselines (26 X 2026)
 
