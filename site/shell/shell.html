@@ -5380,6 +5380,39 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .s5fj-segs{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px}
 .s5fj-sx{display:none}
 .s5fj-seg{display:inline-block;max-width:100%;padding:1px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);line-height:1.5;overflow-wrap:anywhere}
+/* §5fl: Microsoft's own title and the reference under our title in a table cell were inline spans with no rule, so a cell
+   read "…on 31 OctoberPlay Integrity API strong integrity enforcementno MC/RM post — Learn only" (owner, 26 X 2026) */
+.s5fl-bd{border-color:var(--accent)!important}
+.s5fl-gone{display:none!important}
+/* §5fn: Baselines versions as a list of rows (name, then what and when), not a cloud of ovals; a new version is a tinted
+   row, not a second ring (box-shadow) around its border */
+#tab-baselines .s5dv-vers{display:flex;flex-direction:column;align-items:stretch;gap:6px}
+#tab-baselines .s5dv-ver{display:flex!important;flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:2px 12px;width:100%;box-sizing:border-box;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:8px 12px;box-shadow:none;text-align:left}
+#tab-baselines .s5dv-ver>b{font-size:15px;font-weight:700}
+#tab-baselines .s5dv-ver>span{font-size:14px;color:var(--muted)}
+#tab-baselines .s5dv-ver-t{border-left-color:#e3a33b}
+#tab-baselines .s5dv-ver-c{border-left-color:#3fb37f}
+#tab-baselines .s5dv-ver-new{background:var(--ok-soft);border-color:var(--ok)}
+.s5dv-chip{border-radius:8px}
+.s5fm-n{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 7px;margin:0 8px 6px 0;border:2px solid var(--accent);border-radius:999px;font:700 14px/1 var(--sans,inherit);color:var(--accent);background:var(--accent-soft,transparent);vertical-align:middle}
+.s5fm-n2{margin:10px 8px 4px 0}
+.mschg .mc-item{padding:10px 12px}
+.mschg .mc-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.mschg .mc-name{font-size:16px;font-weight:700;overflow-wrap:anywhere}
+.mschg .mc-what{margin:6px 0 4px}
+.s5dq-h{align-items:center}
+.s5fl-search{display:flex;align-items:center;gap:10px;width:min(720px,100%);margin:10px 0 4px;padding:9px 14px;border:2px solid var(--ok);border-radius:10px;background:var(--bg);color:var(--muted);font:inherit;font-size:15px;text-align:left;cursor:text}
+.s5fl-search:hover,.s5fl-search:focus-visible{border-color:var(--accent);color:var(--text)}
+.s5fl-sic{font-size:20px;line-height:1;color:var(--ok)}
+.s5fl-sph{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s5fl-skb{flex:0 0 auto;font:600 12px/1 var(--mono,monospace);padding:4px 7px;border:1px solid var(--border);border-radius:6px;color:var(--muted)}
+@media (max-width:760px){.s5fl-search{display:flex;width:100%;margin:8px 0 2px;font-size:15px;padding:10px 12px}.s5fl-skb{display:none}}
+.s5fl-fold{flex:0 0 auto;width:26px;height:26px;margin-right:8px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--accent);font:700 16px/1 var(--sans,inherit);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;vertical-align:middle}
+.s5fl-fold:hover{border-color:var(--accent)}
+.s5dq-h.s5fl-shut{opacity:.85}
+td>.offt{display:block;margin-top:3px;font-size:.9em;font-weight:400;color:var(--muted)}
+td>.ref{display:inline-block;margin-top:3px}
+td>.offt+.ref{display:block}
 .s5fe-wl{list-style:none;padding-left:0}
 .s5fe-wl>li,#tab-threats .s5fe-wl>li{margin:0 0 8px;padding-left:10px;border-left:3px solid var(--border);list-style:none}
 .s5fj-clamp{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;line-clamp:4;overflow:hidden}
@@ -8231,7 +8264,7 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Monday 26 October 2026</b> &middot; published 11:11 Warsaw &middot; 12 October &ndash; 26 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>43</b> deadlines in 60 days<span>&middot; 40 inside 30, 1 due today or tomorrow</span></a><a class="count" href="#graph"><b>968</b> undocumented at Microsoft<span>&middot; 968 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>8</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>105</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>9</b> changes since 25 Oct<span>&middot; 3 at Microsoft, 6 in this report</span></a><a class="count" href="#chg14"><b>1900</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Tuesday 27 October 2026</b> &middot; published 07:55 Warsaw &middot; 13 October &ndash; 27 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>44</b> deadlines in 60 days<span>&middot; 41 inside 30, 3 due today or tomorrow</span></a><a class="count" href="#graph"><b>968</b> undocumented at Microsoft<span>&middot; 968 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>6</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>110</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>34</b> changes since 26 Oct<span>&middot; 8 at Microsoft, 26 in this report</span></a><a class="count" href="#chg14"><b>1804</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -8432,7 +8465,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 26 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 27 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
