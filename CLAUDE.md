@@ -47328,6 +47328,29 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .s5fq-sb i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;font-weight:700;color:#0b0f14;min-width:16px}
 .s5fq-st2{font-size:14px;text-align:right}
 @media (max-width:640px){.s5fq-sr{grid-template-columns:100px minmax(0,1fr) 30px}}
+/* §5fr (27 X 2026, owner: "the bar of views gets lost in the background, it is hard to find and you cannot tell what can
+   be pressed - check every tab that has one"). Five looks became two, in the portal's own colours:
+   - the VIEWS of a tab (.s5cd-bar: MC, Graph, Roles, First-party apps, Components, Learn, Blogs, Community, Products;
+     .s5dv-vnav: Security baselines; .s5fg-nav: Sources, Hunting, About) - one framed bar with a tinted background and a
+     "Views" label, every view a real button, the open one filled with the accent;
+   - the FILTERS and jumps inside a view (.mcb-views, .s5dq-jump, .s5fo-tf) - pills with a visible edge on a light frame. */
+.s5cd-bar,.s5dv-vnav,.s5fg-nav{display:flex;flex-wrap:wrap;align-items:center;gap:6px 6px;padding:8px 10px;margin:8px 0 14px;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--border));border-radius:12px;background:color-mix(in srgb,var(--accent) 8%,var(--surface));box-shadow:0 1px 3px rgba(0,0,0,.18);overflow:visible}
+.s5cd-bar::before,.s5fg-nav .s5fg-navl,.s5fq-vg{font:700 12px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--text);opacity:.75;margin:0 4px 0 2px}
+.s5cd-bar::before{content:"Views";align-self:center}
+.s5cd-bar button:not(.s5cd-drawer),.s5dv-vb,.s5fg-navb{font:600 14.5px/1.2 var(--sans);color:var(--text);background:var(--bg);border:1px solid color-mix(in srgb,var(--text) 28%,transparent);border-radius:9px;padding:8px 14px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.s5cd-bar button:not(.s5cd-drawer):hover,.s5dv-vb:hover,.s5fg-navb:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 16%,var(--bg))}
+.s5cd-bar button[aria-selected="true"],.s5dv-vb.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent,var(--bg))}
+.s5cd-bar button[aria-selected="true"] .s5cd-n,.s5dv-vb.on .s5fp-n{background:rgba(255,255,255,.25);color:inherit;border-color:transparent}
+.s5cd-bar .s5cd-n{font:700 12.5px/1 var(--sans);background:color-mix(in srgb,var(--accent) 30%,transparent);border:0;border-radius:999px;padding:4px 8px;color:var(--text)}
+.s5cd-bar .s5cd-drawer{background:var(--bg);border-color:color-mix(in srgb,var(--text) 28%,transparent);font-size:14px;padding:8px 14px;border-radius:9px}
+.s5fg-nav{position:sticky;top:0;z-index:5}
+.s5dv-vnav{box-sizing:border-box;width:100%}
+.s5dv-vb.s5fq-vb1{font-size:14.5px}
+.mcb-views,.s5dq-jump,.s5fo-tf{padding:6px 8px;border:1px dashed color-mix(in srgb,var(--text) 22%,transparent);border-radius:10px;background:color-mix(in srgb,var(--text) 3%,transparent)}
+.mcb-view,.s5dq-j,.s5fo-tb{border-color:color-mix(in srgb,var(--text) 28%,transparent)}
+.mcb-view:hover,.s5dq-j:hover,.s5fo-tb:hover{background:color-mix(in srgb,var(--accent) 14%,var(--bg))}
+@media (max-width:640px){.s5cd-bar,.s5dv-vnav,.s5fg-nav{padding:6px 8px;gap:5px}.s5cd-bar::before{flex-basis:100%;margin:2px 0 2px 2px}
+ .s5cd-bar button:not(.s5cd-drawer),.s5dv-vb,.s5fg-navb{font-size:14px;padding:7px 11px}}
 .s5fq-c-cisa{--sc:#3fb37f}.s5fq-c-m{--sc:var(--accent)}.s5fq-c-t{--sc:#e3a33b}.s5fq-c-z{--sc:#b48cff}.s5fq-c-i{--sc:#4cc2d6}
 .s5dv-chip.s5fq-sc{border-color:var(--sc,var(--border));color:var(--text);font-weight:600;background:color-mix(in srgb,var(--sc,transparent) 14%,var(--surface))}
 .s5dv-chip.s5fq-req{border-color:var(--bad);color:var(--bad);font-weight:700}
@@ -49231,6 +49254,22 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5fr — Jeden wyglad paskow widokow we wszystkich zakladkach (27 X 2026)
+
+Wlasciciel (zrzut paska Security baselines): „taki pasek gubi sie w tle, ciezko go znalezc, nie wiadomo, co mozna
+nacisnac — dotyczy kazdej zakladki, sprawdz wszystkie". Inwentaryzacja 27 X (na zywo, 1280 px): piec wygladow —
+`.s5cd-bar` (MC, Graph API, Roles, First-party apps, Components, Learn, Blogs, Community, Products: podkreslone napisy bez
+ramek), `.s5dv-vnav` (Security baselines), `.s5fg-nav` (Sources, Hunting, About), `.mcb-views` (MC, Learn, Blogs,
+Community), `.s5dq-jump` (Today, Deadlines, MC, New, Campaigns, Learn, Blogs, Community), `.s5fo-tf` (Overview, Security
+baselines). Threat Research nie ma paska.
+- **Widoki zakladki** (`.s5cd-bar`, `.s5dv-vnav`, `.s5fg-nav`): pasek w ramce w kolorze akcentu z lekko podswietlonym
+  tlem, etykieta „Views" (albo „Start here" / „Details", „In this tab"), kazdy widok to przycisk z ramka, otwarty jest
+  wypelniony akcentem; licznik jak plakietka §5fp. Na telefonie zawija sie w wiersze (bez przewijania w bok).
+- **Filtry i skoki w widoku** (`.mcb-views`, `.s5dq-jump`, `.s5fo-tf`): pigulki z widoczna krawedzia w jasnej ramce
+  przerywanej — drugi, lzejszy poziom.
+- Tylko CSS (nadpisanie na koncu `appended.css`; dawne reguly zostaja — bramka K121 je sprawdza). Motyw ciemny i jasny
+  sprawdzone zrzutami; 390 px bez przewijania w bok.
 
 ### §5fq-b — Nazwa „Security baselines" wszedzie, zrodlo w kolorowej ramce, porownanie z CISA, historia wydan (27 X 2026)
 
