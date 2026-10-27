@@ -1,5 +1,26 @@
 [
  {
+  "file": "community/2026-10-27-php-worker-process-spawning-shell-recon-tool.kql",
+  "title": "PHP Worker Process Spawning Shell/Recon Tool",
+  "date": "2026-10-27",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "[Unvalidated] Identifies a shell or reconnaissance tool spawned directly under a PHP worker process (php-fpm, lsphp, or Apache mod_php, where PHP runs in-process inside the apache2/httpd worker). This is a generic PHP child-process-monitoring indicator, useful against any PHP RCE regardless of root ",
+  "source": "https://github.com/Azure/Azure-Sentinel/blob/bfae6cf37d4928d96a9fcc024851bc584f545e3a/Detections/DeviceProcessEvents/phpup2026-PHPShellSpawn.yaml",
+  "kind": "repo",
+  "author": "Microsoft and contributors",
+  "link": "https://github.com/Azure/Azure-Sentinel/blob/bfae6cf37d4928d96a9fcc024851bc584f545e3a/Detections/DeviceProcessEvents/phpup2026-PHPShellSpawn.yaml",
+  "license": "MIT",
+  "mitre": [
+   "T1059",
+   "T1059.004",
+   "T1190"
+  ],
+  "repo": "Microsoft Sentinel (Azure-Sentinel) - recent hunting queries and detections"
+ },
+ {
   "file": "incidents/2026-10-26-scheduled-tasks-created-by-msiexec-or-control-exe.kql",
   "title": "Scheduled tasks created by msiexec or control.exe in the last 30 days",
   "date": "2026-10-26",
