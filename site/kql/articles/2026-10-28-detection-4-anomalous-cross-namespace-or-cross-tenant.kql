@@ -1,0 +1,28 @@
+// title: Detection 4: Anomalous Cross-Namespace or Cross-Tenant Network Connections from Kubernetes Workload Processes
+// date: 2026-10-28
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: Detection Engineering Brief - Wednesday, October 28, 2026
+// source: https://devsecopsdadattack.com/2026-10-28-detection-engineering-brief-wednesday-october-28-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where Timestamp > ago(7d)
+| where InitiatingProcessFileName in~ (
+    "kubelet", "konnectivity-agent", "konnectivity-server",
+    "kube-proxy", "kube-apiserver"
+  )
+| where ActionType == "ConnectionSuccess"
+| where ipv4_is_private(RemoteIP)
+| summarize
+    ConnectionCount = count(),
+    RemotePorts = make_set(RemotePort),
+    LocalIPs = make_set(LocalIP),
+    Protocol = make_set(Protocol),
+    FirstSeen = min(Timestamp),
+    LastSeen = max(Timestamp)
+    by DeviceName, InitiatingProcessFileName, InitiatingProcessFolderPath,
+       InitiatingProcessCommandLine, InitiatingProcessAccountName, RemoteIP
+| where ConnectionCount > 5
+| order by ConnectionCount desc

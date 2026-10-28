@@ -1,5 +1,61 @@
 [
  {
+  "file": "articles/2026-10-28-detection-4-anomalous-cross-namespace-or-cross-tenant.kql",
+  "title": "Detection 4: Anomalous Cross-Namespace or Cross-Tenant Network Connections from Kubernetes Workload Processes",
+  "date": "2026-10-28",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, October 28, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-28-detection-engineering-brief-wednesday-october-28-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-28-detection-engineering-brief-wednesday-october-28-2026/"
+ },
+ {
+  "file": "articles/2026-10-28-detection-3-kubernetes-workload-spawning-unexpected-shell-or.kql",
+  "title": "Detection 3: Kubernetes Workload Spawning Unexpected Shell or Exec Command (Cloud Isolation Bypass RCE Indicator)",
+  "date": "2026-10-28",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, October 28, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-28-detection-engineering-brief-wednesday-october-28-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-28-detection-engineering-brief-wednesday-october-28-2026/"
+ },
+ {
+  "file": "articles/2026-10-28-detection-2-node-js-process-abnormal-exit-or.kql",
+  "title": "Detection 2: Node.js Process Abnormal Exit or Crash Correlated with Inbound Network Activity (CVE-2026-111497)",
+  "date": "2026-10-28",
+  "product": "Sentinel",
+  "tables": [
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, October 28, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-28-detection-engineering-brief-wednesday-october-28-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-28-detection-engineering-brief-wednesday-october-28-2026/"
+ },
+ {
+  "file": "articles/2026-10-28-detection-1-node-js-spawning-shell-or-unexpected.kql",
+  "title": "Detection 1: Node.js Spawning Shell or Unexpected Child Process After Brotli Decompression (CVE-2026-111497 RCE Indicator)",
+  "date": "2026-10-28",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, October 28, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-28-detection-engineering-brief-wednesday-october-28-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-28-detection-engineering-brief-wednesday-october-28-2026/"
+ },
+ {
   "file": "community/2026-10-27-php-worker-process-spawning-shell-recon-tool.kql",
   "title": "PHP Worker Process Spawning Shell/Recon Tool",
   "date": "2026-10-27",

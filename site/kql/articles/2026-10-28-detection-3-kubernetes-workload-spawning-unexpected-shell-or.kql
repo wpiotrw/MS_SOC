@@ -1,0 +1,44 @@
+// title: Detection 3: Kubernetes Workload Spawning Unexpected Shell or Exec Command (Cloud Isolation Bypass RCE Indicator)
+// date: 2026-10-28
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Wednesday, October 28, 2026
+// source: https://devsecopsdadattack.com/2026-10-28-detection-engineering-brief-wednesday-october-28-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where InitiatingProcessFileName in~ (
+    "kube-apiserver", "kubelet", "konnectivity-server",
+    "konnectivity-agent", "kube-proxy", "etcd",
+    "kube-controller-manager", "kube-scheduler"
+  )
+| where FileName in~ (
+    "bash", "sh", "zsh", "dash",
+    "cmd.exe", "powershell.exe", "pwsh.exe", "pwsh",
+    "whoami", "whoami.exe",
+    "id", "uname",
+    "curl", "curl.exe",
+    "wget", "wget.exe",
+    "python", "python3",
+    "perl",
+    "nc", "ncat", "netcat",
+    "awk", "sed", "find"
+  )
+| project
+    Timestamp,
+    DeviceName,
+    InitiatingProcessFileName,
+    InitiatingProcessFolderPath,
+    InitiatingProcessCommandLine,
+    InitiatingProcessId,
+    InitiatingProcessAccountName,
+    FileName,
+    FolderPath,
+    ProcessCommandLine,
+    ProcessId,
+    AccountName,
+    AccountDomain,
+    SHA256
+| order by Timestamp desc

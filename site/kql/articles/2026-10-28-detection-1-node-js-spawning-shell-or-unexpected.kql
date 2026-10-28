@@ -1,0 +1,42 @@
+// title: Detection 1: Node.js Spawning Shell or Unexpected Child Process After Brotli Decompression (CVE-2026-111497 RCE Indicator)
+// date: 2026-10-28
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Wednesday, October 28, 2026
+// source: https://devsecopsdadattack.com/2026-10-28-detection-engineering-brief-wednesday-october-28-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where InitiatingProcessFileName in~ (
+    "node", "node.exe", "nodejs"
+  )
+| where FileName in~ (
+    "bash", "sh", "zsh", "dash", "ksh",
+    "cmd.exe", "powershell.exe", "pwsh.exe", "pwsh",
+    "whoami", "whoami.exe",
+    "id", "uname",
+    "curl", "curl.exe",
+    "wget", "wget.exe",
+    "python", "python.exe", "python3", "python3.exe",
+    "perl", "perl.exe",
+    "ruby",
+    "nc", "ncat", "ncat.exe"
+  )
+| project
+    Timestamp,
+    DeviceName,
+    InitiatingProcessFileName,
+    InitiatingProcessFolderPath,
+    InitiatingProcessCommandLine,
+    InitiatingProcessId,
+    InitiatingProcessAccountName,
+    FileName,
+    FolderPath,
+    ProcessCommandLine,
+    ProcessId,
+    AccountName,
+    AccountDomain,
+    SHA256
+| order by Timestamp desc
