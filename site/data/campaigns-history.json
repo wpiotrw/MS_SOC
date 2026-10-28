@@ -3562,6 +3562,166 @@
 "date":"2026-10-27",
 "group":"microsoft",
 "found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62740":{
+"title":"CVE-2026-62740 Windows Imaging Component Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62740",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62877":{
+"title":"CVE-2026-62877 Windows Win32k Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62877",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-19175":{
+"title":"CVE-2026-19175 Use after free in Payments",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-19175",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78891":{
+"title":"Chromium: CVE-2026-78891 Buffer overflow in WebRTC",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78891",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78892":{
+"title":"Chromium: CVE-2026-78892 Incorrect authorization in Chromoting",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78892",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78893":{
+"title":"Chromium: CVE-2026-78893 Information leak in QUIC",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78893",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78894":{
+"title":"Chromium: CVE-2026-78894 Race condition in Payments",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78894",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78895":{
+"title":"Chromium: CVE-2026-78895 Information leak in Paint",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78895",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78896":{
+"title":"Chromium: CVE-2026-78896 Information leak in StorageAccessAPI",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78896",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78897":{
+"title":"Chromium: CVE-2026-78897 Missing authorization in BrowserTag",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78897",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78898":{
+"title":"Chromium: CVE-2026-78898 Incorrect authorization in Downloads",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78898",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78899":{
+"title":"Chromium: CVE-2026-78899 Use after free in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78899",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78900":{
+"title":"Chromium: CVE-2026-78900 Improper input validation in Media",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78900",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78901":{
+"title":"Chromium: CVE-2026-78901 Race condition in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78901",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78903":{
+"title":"Chromium: CVE-2026-78903 Incomplete cleanup in SiteIsolation",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78903",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78904":{
+"title":"Chromium: CVE-2026-78904 Type confusion in ANGLE",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78904",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78905":{
+"title":"Chromium: CVE-2026-78905 Type confusion in ANGLE",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78905",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78906":{
+"title":"Chromium: CVE-2026-78906 Race condition in ANGLE",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78906",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78907":{
+"title":"Chromium: CVE-2026-78907 Incorrect authorization in WebProtect",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78907",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78908":{
+"title":"Chromium: CVE-2026-78908 Information leak in Canvas",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78908",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
 }
 },
 "final":"2026-10-15",
@@ -5693,6 +5853,14 @@
 "date":"2026-10-14",
 "group":"community",
 "found":"2026-10-15"
+},
+"https://mc.merill.net/message/MC1384420":{
+"title":"MC1384420: Microsoft Purview | Endpoint Data Loss Prevention - Ability to protect files stored in the excluded folders in Windows",
+"link":"https://mc.merill.net/message/MC1384420",
+"source":"MC - Merill",
+"date":"2026-10-28",
+"group":"community",
+"found":"2026-10-28"
 }
 },
 "final":"2027-01-15",
@@ -5957,14 +6125,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-26",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-27",
 "text":"August 1, 2026."
 },
@@ -6038,6 +6198,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-27",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-28",
 "text":"August 1, 2026."
 },
 {
@@ -6574,7 +6742,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-27",
+"seen":"2026-10-28",
 "text":"early February 2026."
 },
 {
@@ -6582,7 +6750,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-27",
+"seen":"2026-10-28",
 "text":"February 2027."
 },
 {
@@ -9747,6 +9915,24 @@
 "date":"2026-10-27",
 "group":"community",
 "found":"2026-10-28"
+},
+"https://mc.merill.net/message/MC1465763":{
+"title":"Microsoft Entra: Prepare for Microsoft to disable unused or unsuccessful SMS first-factor sign-in",
+"link":"https://mc.merill.net/message/MC1465763",
+"source":"Message Center",
+"id":"MC1465763",
+"date":"2026-09-01",
+"updated":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://daily.entra.news/day/2026-10-28/":{
+"title":"Qualifying Entra tenants face SMS first-factor sign-in disablement through November — 28 October 2026",
+"link":"https://daily.entra.news/day/2026-10-28/",
+"source":"Daily Entra News",
+"date":"2026-10-28",
+"group":"community",
+"found":"2026-10-28"
 }
 },
 "final":"2027-07-01",
@@ -10385,7 +10571,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-27",
+"seen":"2026-10-28",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10393,7 +10579,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-27",
+"seen":"2026-10-28",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10832,6 +11018,14 @@
 "link":"https://daily.entra.news/day/2026-10-27/",
 "source":"Daily Entra News",
 "date":"2026-10-27",
+"group":"community",
+"found":"2026-10-28"
+},
+"https://www.bleepingcomputer.com/news/microsoft/microsoft-reminds-entra-id-admins-to-migrate-users-to-passkeys/":{
+"title":"Microsoft urges Entra ID admins to migrate users to passkeys",
+"link":"https://www.bleepingcomputer.com/news/microsoft/microsoft-reminds-entra-id-admins-to-migrate-users-to-passkeys/",
+"source":"BleepingComputer",
+"date":"2026-10-28",
 "group":"community",
 "found":"2026-10-28"
 }
@@ -15357,6 +15551,236 @@
 "title":"Microsoft-provided SMS and voice face February 2027 Entra retirement deadline — 27 October 2026",
 "source":"Daily Entra News",
 "link":"https://daily.entra.news/day/2026-10-27/"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-62740 Windows Imaging Component Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62740"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-62877 Windows Win32k Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62877"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-19175 Use after free in Payments",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-19175"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78891 Buffer overflow in WebRTC",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78891"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78892 Incorrect authorization in Chromoting",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78892"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78893 Information leak in QUIC",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78893"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78894 Race condition in Payments",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78894"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78895 Information leak in Paint",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78895"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78896 Information leak in StorageAccessAPI",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78896"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78897 Missing authorization in BrowserTag",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78897"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78898 Incorrect authorization in Downloads",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78898"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78899 Use after free in V8",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78899"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78900 Improper input validation in Media",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78900"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78901 Race condition in V8",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78901"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78903 Incomplete cleanup in SiteIsolation",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78903"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78904 Type confusion in ANGLE",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78904"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78905 Type confusion in ANGLE",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78905"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78906 Race condition in ANGLE",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78906"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78907 Incorrect authorization in WebProtect",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78907"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-78908 Information leak in Canvas",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78908"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1429010",
+"type":"material",
+"name":"Instances policy location in Microsoft Purview Data Loss Prevention",
+"group":"community",
+"title":"MC1384420: Microsoft Purview | Endpoint Data Loss Prevention - Ability to protect files stored in the excluded folders in Windows",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1384420"
+},
+{
+"day":"2026-10-28",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Qualifying Entra tenants face SMS first-factor sign-in disablement through November — 28 October 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-10-28/"
+},
+{
+"day":"2026-10-28",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Microsoft urges Entra ID admins to migrate users to passkeys",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/microsoft/microsoft-reminds-entra-id-admins-to-migrate-users-to-passkeys/"
 }
 ],
 "archive":{
