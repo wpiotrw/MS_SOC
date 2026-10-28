@@ -8,8 +8,8 @@ ms.suite: office
 ms.author: bjansen
 author: jansenbe
 ms.topic: article
-feedback_system: None
-feedback_product_url: ''
+feedback_system: Standard
+feedback_product_url: https://aka.ms/spdev-uservoice
 search.appverid: MET150
 ms.service: sharepoint-online
 description: Granting access via Entra ID App-Only
