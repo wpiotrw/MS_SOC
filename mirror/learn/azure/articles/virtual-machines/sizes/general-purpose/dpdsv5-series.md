@@ -1,0 +1,194 @@
+---
+layout: Conceptual
+title: Dpdsv5 size series - Azure Virtual Machines | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/general-purpose/dpdsv5-series
+breadcrumb_path: ../../../breadcrumb/azure-compute/toc.json
+feedback_help_link_url: https://learn.microsoft.com/answers/tags/94/azure-virtual-machines/
+feedback_help_link_type: get-help-at-qna
+feedback_product_url: https://feedback.azure.com/d365community/forum/ec2f1827-be25-ec11-b6e6-000d3a4f0f1c
+feedback_system: Standard
+permissioned-type: public
+recommendations: true
+recommendation_types:
+- Training
+- Certification
+uhfHeaderId: azure
+ms.suite: office
+author: mattmcinnes
+learn_banner_products:
+- azure-virtual-machines
+manager: rayoflores
+ms.reviewer: mattmcinnes
+ms.author: mattmcinnes
+ms.update-cycle: 1095-days
+description: Information on and specifications of the Dpdsv5-series sizes
+ms.service: azure-virtual-machines
+ms.subservice: sizes
+ms.topic: concept-article
+ms.date: 2026-03-10T00:00:00.0000000Z
+locale: en-us
+document_id: 1ef892cc-c828-eb37-2d0b-7b516451aed6
+document_version_independent_id: 98e32a74-b471-aba3-ddc8-41bb605739df
+original_content_git_url: https://github.com/MicrosoftDocs/azure-compute-docs-pr/blob/live/articles/virtual-machines/sizes/general-purpose/dpdsv5-series.md
+site_name: Docs
+depot_name: Learn.azure-compute
+page_type: conceptual
+toc_rel: ../../toc.json
+asset_id: virtual-machines/sizes/general-purpose/dpdsv5-series
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: articles/virtual-machines/sizes/general-purpose/dpdsv5-series.md
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2ed91286-6cf7-4b83-810d-75d0ee3b09dd
+- https://authoring-docs-microsoft.poolparty.biz/devrel/92b2ad1c-e9f4-4efc-9995-033db4d8e4a1
+spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/6735bd7e-4f7b-457d-b58c-29e6f0198677
+- https://authoring-docs-microsoft.poolparty.biz/devrel/deb7f546-d791-43c4-a74b-a8b1bcca9da4
+platformId: 6d157967-6746-34f8-72b6-0346775d8b2f
+---
+
+# Dpdsv5 size series - Azure Virtual Machines | Microsoft Learn
+
+The Dpsv5-series and Dpdsv5-series virtual machines are based on the Arm architecture, delivering outstanding price-performance for general-purpose workloads. These virtual machines feature the Ampere® Altra® Arm-based processor operating at 3.0 GHz, which provides an entire physical core for each virtual machine vCPU. These virtual machines offer a range of vCPU sizes, up to 4 GiB of memory per vCPU, and temporary storage options able to meet the requirements of scale-out and most enterprise workloads such as web and application servers, small to medium databases, caches, and more.
+
+## Host specifications
+
+| Part | Quantity^Count Units^ | Specs^SKU ID, Performance Units, etc.^ |
+| --- | --- | --- |
+| Processor | 2 - 64 vCPUs | Ampere Altra [Arm64] |
+| Memory | 8 - 208 GiB |  |
+| Local Storage | 1 Disk | 75 - 2,400 GiB 9,000 - 300,000 IOPS 125 - 4,000 MBps |
+| Remote Storage | 4 - 32 Disks | 4,000 - 80,000 IOPS 85 - 1,735 MBps Disk Types: [Premium SSD](../../disks-types#premium-ssds) |
+| Network | 2 - 8 NICs | 12,500 - 40,000 Mbps Interfaces: NetVSC, ConnectX |
+| Accelerators | None |  |
+
+For features supported by this series, see the Feature support section.
+
+## Sizes in series
+
+# [Basics](#tab/sizebasic)
+vCPUs (Qty.) and Memory for each size
+
+| Size Name | vCPUs (Qty.) | Memory (GiB) |
+| --- | --- | --- |
+| Standard\_D2pds\_v5 | 2 | 8 |
+| Standard\_D4pds\_v5 | 4 | 16 |
+| Standard\_D8pds\_v5 | 8 | 32 |
+| Standard\_D16pds\_v5 | 16 | 64 |
+| Standard\_D32pds\_v5 | 32 | 128 |
+| Standard\_D48pds\_v5 | 48 | 192 |
+| Standard\_D64pds\_v5 | 64 | 208 |
+
+#### VM Basics resources
+
+- [What are vCPUs](../../managed-disks-overview)
+- [Check vCPU quotas](../../quotas)
+
+# [Local Storage](#tab/sizestoragelocal)
+Local (temp) storage info for each size
+
+| Size Name | Temp Storage Disks (Qty.) | Temp Disk Size (GiB) | Temp Disk Random Read IOPS | Temp Disk Sequential Read Throughput (MBps) |
+| --- | --- | --- | --- | --- |
+| Standard\_D2pds\_v5 | 1 | 75 | 9,375 | 125 |
+| Standard\_D4pds\_v5 | 1 | 150 | 19,000 | 250 |
+| Standard\_D8pds\_v5 | 1 | 300 | 38,000 | 500 |
+| Standard\_D16pds\_v5 | 1 | 600 | 75,000 | 1,000 |
+| Standard\_D32pds\_v5 | 1 | 1,200 | 150,000 | 2,000 |
+| Standard\_D48pds\_v5 | 1 | 1,800 | 225,000 | 3,000 |
+| Standard\_D64pds\_v5 | 1 | 2,400 | 300,000 | 4,000 |
+
+#### Storage resources
+
+- [Introduction to Azure managed disks](../../managed-disks-overview)
+- [Azure managed disk types](../../disks-types)
+- [Share an Azure managed disk](../../disks-shared)
+
+#### Table definitions
+
+- Temp disk performance depends on many factors including block size, workload patterns of read/writes, queue depth (QD), and others. Temp disk performance specifications should be viewed as best case performance numbers, assuming 4k block sizes and QD=256 for IOPS, and 256k block sizes with QD=64 for throughput. Additionally, temp disk performance often differs between read and write operations. During steady state operations, write performance is expected to be lower than read performance.
+- Storage capacity is shown in units of GiB or 1,024^3 bytes. When you compare disks measured in GB (1,000^3 bytes) to disks measured in GiB (1,024^3) remember that capacity numbers given in GiB may appear smaller. For example, 1,023 GiB = 1,098.4 GB.
+- Disk throughput is measured in input/output operations per second (IOPS) and MBps where MBps = 10^6 bytes/sec.
+- To learn how to get the best storage performance for your VMs, see [Virtual machine and disk performance](../../disks-performance).
+
+# [Remote Storage](#tab/sizestorageremote)
+Remote (uncached) storage info for each size
+
+| Size Name | Max Remote Storage Disks (Qty.) | Uncached Premium SSD IOPS | Uncached Premium SSD Throughput (MBps) | Uncached Premium SSD Burst IOPS | Uncached Premium SSD Burst Throughput (MBps) |
+| --- | --- | --- | --- | --- | --- |
+| Standard\_D2pds\_v5 | 4 | 3,750 | 85 | 10,000 | 1,200 |
+| Standard\_D4pds\_v5 | 8 | 6,400 | 145 | 20,000 | 1,200 |
+| Standard\_D8pds\_v5 | 16 | 12,800 | 290 | 20,000 | 1,200 |
+| Standard\_D16pds\_v5 | 32 | 25,600 | 600 | 40,000 | 1,200 |
+| Standard\_D32pds\_v5 | 32 | 51,200 | 865 | 80,000 | 2,000 |
+| Standard\_D48pds\_v5 | 32 | 76,800 | 1,315 | 80,000 | 3,000 |
+| Standard\_D64pds\_v5 | 32 | 80,000 | 1,735 | 80,000 | 3,000 |
+
+#### Storage resources
+
+- [Introduction to Azure managed disks](../../managed-disks-overview)
+- [Azure managed disk types](../../disks-types)
+- [Share an Azure managed disk](../../disks-shared)
+
+#### Table definitions
+
+- Some sizes support [bursting](../../disk-bursting) to temporarily increase disk performance. Burst speeds can be maintained for up to 30 minutes at a time.
+- Storage capacity is shown in units of GiB or 1,024^3 bytes. When you compare disks measured in GB (1,000^3 bytes) to disks measured in GiB (1,024^3) remember that capacity numbers given in GiB may appear smaller. For example, 1,023 GiB = 1,098.4 GB.
+- Disk throughput is measured in input/output operations per second (IOPS) and MBps where MBps = 10^6 bytes/sec.
+- Data disks can operate in cached or uncached modes. For cached data disk operation, the host cache mode is set to ReadOnly or ReadWrite. For uncached data disk operation, the host cache mode is set to None.
+- To learn how to get the best storage performance for your VMs, see [Virtual machine and disk performance](../../disks-performance).
+
+# [Network](#tab/sizenetwork)
+Network interface info for each size
+
+| Size Name | Max NICs (Qty.) | Max Network Bandwidth (Mbps) |
+| --- | --- | --- |
+| Standard\_D2pds\_v5 | 2 | 12,500 |
+| Standard\_D4pds\_v5 | 2 | 12,500 |
+| Standard\_D8pds\_v5 | 4 | 12,500 |
+| Standard\_D16pds\_v5 | 4 | 12,500 |
+| Standard\_D32pds\_v5 | 8 | 16,000 |
+| Standard\_D48pds\_v5 | 8 | 24,000 |
+| Standard\_D64pds\_v5 | 8 | 40,000 |
+
+#### Networking resources
+
+- [Virtual networks and virtual machines in Azure](/en-us/azure/virtual-network/network-overview)
+- [Virtual machine network bandwidth](/en-us/azure/virtual-network/virtual-machine-network-throughput)
+
+#### Table definitions
+
+- Expected network bandwidth is the maximum aggregated bandwidth allocated per VM type across all NICs, for all destinations. For more information, see [Virtual machine network bandwidth](/en-us/azure/virtual-network/virtual-machine-network-throughput)
+- Upper limits aren't guaranteed. Limits offer guidance for selecting the right VM type for the intended application. Actual network performance will depend on several factors including network congestion, application loads, and network settings. For information on optimizing network throughput, see [Optimize network throughput for Azure virtual machines](/en-us/azure/virtual-network/virtual-network-optimize-network-bandwidth).
+- To achieve the expected network performance on Linux or Windows, you may need to select a specific version or optimize your VM. For more information, see [Bandwidth/Throughput testing (NTTTCP)](/en-us/azure/virtual-network/virtual-network-bandwidth-testing).
+
+# [Accelerators](#tab/sizeaccelerators)
+Accelerator (GPUs, FPGAs, etc.) info for each size
+
+Note
+
+No accelerators are present in this series.
+
+---
+
+## Feature support
+
+| Feature name | Support status |
+| --- | --- |
+| [Premium Storage](../../premium-storage-performance) | Supported |
+| [Premium Storage caching](../../premium-storage-performance) | Supported |
+| [Live Migration](../../maintenance-and-updates#live-migration) | Supported |
+| [Memory Preserving Updates](../../maintenance-and-updates) | Supported |
+| [VM Generation Support](../../generation-2) | Generation 2 |
+| [Accelerated Networking](/en-us/azure/virtual-network/create-vm-accelerated-networking-cli) | Required |
+| [Ephemeral OS Disks](../../ephemeral-os-disks) | Supported |
+| [Local temporary storage](../../overview#local-temporary-storage) | Supported |
+| [Nested Virtualization](/en-us/virtualization/hyper-v-on-windows/user-guide/nested-virtualization) | Not supported |
+
+## Other size information
+
+List of all available sizes: [Sizes](../../sizes)
+
+Pricing Calculator: [Pricing Calculator](https://azure.microsoft.com/pricing/calculator/)
+
+Information on Disk Types: [Disk Types](../../disks-types)

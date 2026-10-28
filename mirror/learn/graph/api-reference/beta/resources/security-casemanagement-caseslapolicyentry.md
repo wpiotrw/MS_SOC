@@ -19,7 +19,7 @@ recommendations: false
 breadcrumb_path: /graph/ref-breadcrumb/toc.json
 ms.service: microsoft-graph
 ms.topic: reference
-description: Represents a single SLA policy's denormalized status for a case.
+description: Represents a single SLA policy's status for a case.
 ms.date: 2026-08-26T00:00:00.0000000Z
 ms.localizationpriority: medium
 doc_type: resourcePageType
@@ -55,7 +55,7 @@ Important
 
 APIs under the `/beta` version in Microsoft Graph are subject to change. Use of these APIs in production applications is not supported. To determine whether an API is available in v1.0, use the **Version** selector.
 
-Represents a single SLA (service level agreement) policy's denormalized status for a [case](security-casemanagement-case). Returned as an entry in the **slaPolicies** collection on a case. This resource is entirely server-computed; the SLA policy engine assigns and maintains SLA policies independently of the case management API.
+Represents a single SLA (service level agreement) policy's status for a [case](security-casemanagement-case). Returned as an entry in the **slaPolicies** collection on a case. This resource is entirely server-computed; the SLA policy engine assigns and maintains SLA policies independently of the case management API.
 
 ## Properties
 

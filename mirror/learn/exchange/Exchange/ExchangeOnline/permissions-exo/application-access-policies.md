@@ -2,8 +2,8 @@
 layout: Conceptual
 title: Application Access Policies (legacy) | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/exchange/permissions-exo/application-access-policies
-Manager: serdars
-ms.subservice: ''
+Manager: dansimp
+ms.subservice: exo-roles
 ms.devlang: powershell
 ROBOTS: INDEX,FOLLOW
 breadcrumb_path: /exchange/breadcrumb/toc.json
@@ -17,8 +17,8 @@ ms.custom:
 - azure-ad-ref-level-one-done
 description: Learn about how to use Exchange's legacy granular application permissions feature
 ms.topic: article
-author: msftnelder
-ms.author: nickelder
+author: Simonv100
+ms.author: simonklan
 ms.reviewer: 
 f1.keywords:
 - NOCSH
@@ -45,11 +45,9 @@ monikers: []
 item_type: Content
 source_path: Exchange/ExchangeOnline/permissions-exo/application-access-policies.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/cf9b82c5-b6dc-45f3-b005-b1bc5fc03bea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0c85d34e-bfd2-4466-957c-f0b61e9692df
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 0ad17b43-9dc1-e97c-df60-c59914f82036
 ---
 

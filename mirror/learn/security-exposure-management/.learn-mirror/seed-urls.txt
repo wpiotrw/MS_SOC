@@ -1,4 +1,5 @@
 https://learn.microsoft.com/en-us/security-exposure-management
+https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-onboarding
 https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-overview
 https://learn.microsoft.com/en-us/security-exposure-management/armis-data-connector
 https://learn.microsoft.com/en-us/security-exposure-management/classify-critical-assets

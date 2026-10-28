@@ -16,7 +16,7 @@ ms.service: microsoft-graph
 ms.topic: whats-new
 description: Find out what's new in Microsoft Graph APIs, SDKs, documentation, and other resources.
 ms.localizationpriority: high
-ms.date: 2026-10-05T00:00:00.0000000Z
+ms.date: 2026-10-06T00:00:00.0000000Z
 locale: en-us
 document_id: 62dfb7e7-bb91-b6de-735b-97e63c2620df
 document_version_independent_id: 7ac1c0c8-1433-e6c6-84a8-cbe00071fdd7
@@ -59,7 +59,9 @@ Features in *preview* status are subject to change without notice, and might not
 
 ### Backup and recovery | Microsoft 365 backup and storage
 
-Added the [getStatisticsByPolicy](/en-us/graph/api/backupreport-getstatisticsbypolicy) method to the [backupReport](/en-us/graph/api/resources/backupreport) resource type in v1.0. Use it to retrieve policy-level protection statistics for Microsoft 365 Backup Storage.
+- Use the **policyId** property on the [restoreSessionBase](/en-us/graph/api/resources/restoresessionbase) resource to scope restore sessions to a protection policy.
+- Use the optional **policyId** parameter on the [restorePoint: search](/en-us/graph/api/restorepoint-search) method to validate protection-unit membership and improve policy-scoped routing. You can also filter the restore points collection by **protectionUnit/policyId**.
+- Added the [getStatisticsByPolicy](/en-us/graph/api/backupreport-getstatisticsbypolicy) method to the [backupReport](/en-us/graph/api/resources/backupreport) resource type in v1.0. Use it to retrieve policy-level protection statistics for Microsoft 365 Backup Storage.
 
 ### Calendars
 
@@ -74,6 +76,10 @@ Added the [getStatisticsByPolicy](/en-us/graph/api/backupreport-getstatisticsbyp
 ### Mail | Message trace
 
 Added support to identify recalled messages in message trace. Use `recalled` as a supported value of the **status** property of the [exchangeMessageTrace](/en-us/graph/api/resources/exchangemessagetrace) resource.
+
+### Security | Audit log query
+
+Added 35 members, from `PlannerCustomFieldDefinition` through `MESRawEmailContentMetadata`, to the [auditLogRecordType](/en-us/graph/api/resources/security-auditlogrecordtype) enumeration and added the matching [auditData derived types](/en-us/graph/api/resources/security-auditdata-derived-types) to represent workload-specific audit event payloads.
 
 ### Tasks and plans
 
@@ -101,7 +107,9 @@ The [Place update](/en-us/graph/api/place-update?view=graph-rest-beta&amp;preser
 
 ### Device and app management | Cloud PC
 
-Updated the date when deprecated image properties on [cloudPcDeviceImage](/en-us/graph/api/resources/cloudpcdeviceimage?view=graph-rest-beta&amp;preserve-view=true), [cloudPcSourceDeviceImage](/en-us/graph/api/resources/cloudpcsourcedeviceimage?view=graph-rest-beta&amp;preserve-view=true), and [cloudPcGalleryImage](/en-us/graph/api/resources/cloudpcgalleryimage?view=graph-rest-beta&amp;preserve-view=true) will stop returning data from January 31, 2024 to December 7, 2026. No replacement is planned for **recommendedSku**. Review the replacement property guidance in these resource topics and update affected integrations before the deadline.
+- Updated the date when deprecated image properties on [cloudPcDeviceImage](/en-us/graph/api/resources/cloudpcdeviceimage?view=graph-rest-beta&amp;preserve-view=true), [cloudPcSourceDeviceImage](/en-us/graph/api/resources/cloudpcsourcedeviceimage?view=graph-rest-beta&amp;preserve-view=true), and [cloudPcGalleryImage](/en-us/graph/api/resources/cloudpcgalleryimage?view=graph-rest-beta&amp;preserve-view=true) will stop returning data from January 31, 2024 to December 7, 2026. No replacement is planned for **recommendedSku**. Review the replacement property guidance in these resource topics and update affected integrations before the deadline.
+- Added support for extending Windows 365 Reserve access for multiple users through the [submitManagedLicenseOperation](/en-us/graph/api/cloudpcmanagedlicense-submitmanagedlicenseoperation?view=graph-rest-beta&amp;preserve-view=true) action on the [cloudPcManagedLicense](/en-us/graph/api/resources/cloudpcmanagedlicense?view=graph-rest-beta&amp;preserve-view=true) collection. Poll the submitted operation to check completion and inspect per-user results.
+- Use the [retrieveManagedLicenseOperation](/en-us/graph/api/cloudpcmanagedlicense-retrievemanagedlicenseoperation?view=graph-rest-beta&amp;preserve-view=true) operation to retrieve the status and per-user results of a submitted operation.
 
 ### Device and app management | Device updates
 
@@ -115,6 +123,11 @@ Updated the date when deprecated image properties on [cloudPcDeviceImage](/en-us
 
 Updated the [getSharePointApiUsage](/en-us/graph/api/reportroot-getsharepointapiusage?view=graph-rest-beta&amp;preserve-view=true) method to support SharePoint service prioritization reports. Use this report to retrieve total, standard, heavy, billed standard, and billed heavy API request counts by application and date.
 
+### Identity and access | Directory management
+
+- Added the [objectConnection](/en-us/graph/api/resources/synchronization-objectconnection?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods to inspect or clear cached connector data store linkage records.
+- Added the **objectConnections** relationship to the [synchronizationJob](/en-us/graph/api/resources/synchronization-synchronizationjob?view=graph-rest-beta&amp;preserve-view=true) resource to access linkage records for known object identifiers.
+
 ### Identity and access | Governance
 
 - Added the [accessDriftSummary](/en-us/graph/api/resources/accessdriftsummary?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods for identifying governed resources whose actual access differs from access-package intent. Use it to list and inspect drift summaries, retrieve drift details, and download bulk reconciliation reports. Access drift details identify whether each affected identity is a user or group through the **identityType** property of [entraDriftIdentityInfo](/en-us/graph/api/resources/entradriftidentityinfo?view=graph-rest-beta&amp;preserve-view=true).
@@ -125,6 +138,7 @@ Updated the [getSharePointApiUsage](/en-us/graph/api/reportroot-getsharepointapi
 ### Identity and access | Identity and sign-in
 
 - Added public preview support for OnPasswordUpdate custom authentication extensions. Use the [onPasswordUpdateCustomExtension](/en-us/graph/api/resources/onpasswordupdatecustomextension?view=graph-rest-beta&amp;preserve-view=true) resource to notify external systems after a self-service password reset and the [onPasswordUpdateListener](/en-us/graph/api/resources/onpasswordupdatelistener?view=graph-rest-beta&amp;preserve-view=true) resource to configure when the notification occurs.
+- Added the [conditionalAccessPolicyPlan](/en-us/graph/api/resources/conditionalaccesspolicyplan?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods for grouping shared Conditional Access conditions with scenario-specific rules. Use policy plans to consolidate common targeting conditions and manage rule-specific enforcement controls.
 
 ### Groups
 
@@ -151,6 +165,10 @@ Added the **incidentConfiguration** property to the [detectionAction](/en-us/gra
 ### Security | Audit log query
 
 Added 35 members, from `PlannerCustomFieldDefinition` through `MESRawEmailContentMetadata`, to the [auditLogRecordType](/en-us/graph/api/resources/security-auditlogrecordtype?view=graph-rest-beta&amp;preserve-view=true) enumeration and added the matching [auditData derived types](/en-us/graph/api/resources/security-auditdata-derived-types?view=graph-rest-beta&amp;preserve-view=true) to represent workload-specific audit event payloads.
+
+### Security | Case management
+
+Clarified the existing maximum length of the **message** property on the [comment](/en-us/graph/api/resources/security-casemanagement-comment?view=graph-rest-beta&amp;preserve-view=true) resource: 1,000 characters for incident cases and 5,000 characters for generic cases. These limits apply when you [create a comment activity](/en-us/graph/api/security-casemanagement-case-post-activities?view=graph-rest-beta&amp;preserve-view=true). The 5,000-character limit also applies when you [update a comment activity](/en-us/graph/api/security-casemanagement-activity-update?view=graph-rest-beta&amp;preserve-view=true) in a generic case; the update of comment activities in incident cases remains unsupported.
 
 ### Security | Data security and compliance
 
@@ -234,8 +252,8 @@ Added the **isDisabled** property to the [agentIdentityBlueprint](/en-us/graph/a
 
 ### Backup and recovery | Microsoft 365 backup and storage
 
-- Added the **policyId** property to the [restoreSessionBase](/en-us/graph/api/resources/restoresessionbase?view=graph-rest-beta&amp;preserve-view=true) resource type to scope restore sessions to a protection policy.
-- Added the optional **policyId** parameter to the [restorePoint: search](/en-us/graph/api/restorepoint-search?view=graph-rest-beta&amp;preserve-view=true) method to validate protection-unit membership and improve policy-scoped routing. You can also filter the restore points collection by `protectionUnit/policyId`.
+- Added the **policyId** property to the [restoreSessionBase](/en-us/graph/api/resources/restoresessionbase?view=graph-rest-beta&amp;preserve-view=true) resource to scope restore sessions to a protection policy.
+- Added the optional **policyId** parameter to the [restorePoint: search](/en-us/graph/api/restorepoint-search?view=graph-rest-beta&amp;preserve-view=true) method to validate protection-unit membership and improve policy-scoped routing. You can also filter the restore points collection by **protectionUnit/policyId**.
 
 ### Backup storage
 
@@ -309,6 +327,10 @@ Added the [billedAggregatedUsage](/en-us/graph/api/resources/partners-billing-bi
 ### Security | Audit log query
 
 Added the **isRecordCountLimitExceeded**, **recordCountLimit**, and **approximateReturnedRecordCount** properties to the [auditLogQuery](/en-us/graph/api/resources/security-auditlogquery?view=graph-rest-beta&amp;preserve-view=true) resource. Use these properties to determine whether a completed query exceeded the per-search record-count limit and to inspect the applicable limit and approximate returned record count.
+
+### Security | Case management
+
+Added the [slaPolicyDefinition](/en-us/graph/api/resources/security-casemanagement-slapolicydefinition?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods for managing SLA policies for each security case type. Use these APIs to configure scope, pause, and exit criteria and warning and breach timers.
 
 ### Security | Data security and compliance
 

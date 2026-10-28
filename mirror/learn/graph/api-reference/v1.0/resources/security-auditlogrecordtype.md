@@ -22,7 +22,7 @@ ms.topic: reference
 description: Represents the type of operation indicated by an audit log record.
 ms.localizationpriority: medium
 doc_type: enumPageType
-ms.date: 2026-04-01T00:00:00.0000000Z
+ms.date: 2026-10-06T00:00:00.0000000Z
 locale: en-us
 document_id: 51ce1691-646e-d93f-5143-b167ababe93e
 document_version_independent_id: 094bb699-2fb3-9269-5f84-f84b394e127b
@@ -41,13 +41,13 @@ monikers:
 item_type: Content
 source_path: api-reference/v1.0/resources/security-auditlogrecordtype.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9d7be3ef-f27c-4c7f-9eba-67c3cd429995
-- https://authoring-docs-microsoft.poolparty.biz/devrel/7428317a-e6c2-4461-ad3e-8a8ad3608734
+- https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 - https://authoring-docs-microsoft.poolparty.biz/devrel/feeb50f3-b677-44f9-b3a6-5f2f58182b0d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/e4f59707-f107-48f2-8d75-0afd91868cd7
+- https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 platformId: 40e68e3e-40fc-45ef-238e-b8dd824db009
 ---
 
@@ -336,6 +336,41 @@ Represents the type of operation indicated by an audit log record.
 | MDASH | MDASH audit log record. |
 | DefenderSecurityForAIConfiguration | DefenderSecurityForAIConfiguration audit log record. |
 | SparkCoreCustomLivePool | SparkCoreCustomLivePool audit log record. |
+| PlannerCustomFieldDefinition | PlannerCustomFieldDefinition audit log record. |
+| PlannerCustomFieldDefinitionList | PlannerCustomFieldDefinitionList audit log record. |
+| SyntheticMediaDetectionEvent | SyntheticMediaDetectionEvent audit log record. |
+| VivaGlintVivaInsightsIntegration | VivaGlintVivaInsightsIntegration audit log record. |
+| PeopleSkillsAdmin | PeopleSkillsAdmin audit log record. |
+| PeopleSkillsUser | PeopleSkillsUser audit log record. |
+| DSPMAdminActivity | DSPMAdminActivity audit log record. |
+| OnDemandExchangeClassification | OnDemandExchangeClassification audit log record. |
+| UniversalPrintSecureScan | UniversalPrintSecureScan audit log record. |
+| CloudSecurityManagement | CloudSecurityManagement audit log record. |
+| CloudSecurityConnector | CloudSecurityConnector audit log record. |
+| CloudSecurityEnablement | CloudSecurityEnablement audit log record. |
+| MCSRawEmailContentMetadata | MCSRawEmailContentMetadata audit log record. |
+| AIGuardrail | AIGuardrail audit log record. |
+| A365AIGuardrail | A365AIGuardrail audit log record. |
+| WorkIQAdminActivity | WorkIQAdminActivity audit log record. |
+| VivaGlintClientConfiguration | VivaGlintClientConfiguration audit log record. |
+| VivaGlintDataRetention | VivaGlintDataRetention audit log record. |
+| FilteringTeamsMessageFileInfo | FilteringTeamsMessageFileInfo audit log record. |
+| SharePointFileArchivePolicy | SharePointFileArchivePolicy audit log record. |
+| DefenderAutomationRule | DefenderAutomationRule audit log record. |
+| DefenderGeneratedPlaybook | DefenderGeneratedPlaybook audit log record. |
+| DefenderIntegration | DefenderIntegration audit log record. |
+| P4AIDagSitePermissionsRecord | P4AIDagSitePermissionsRecord audit log record. |
+| PlannerDependency | PlannerDependency audit log record. |
+| PlannerDependencyList | PlannerDependencyList audit log record. |
+| CSCContentMetadata | CSCContentMetadata audit log record. |
+| MicrosoftSecurityForAIConfiguration | MicrosoftSecurityForAIConfiguration audit log record. |
+| MicrosoftSecurityForAIRealTimeProtection | MicrosoftSecurityForAIRealTimeProtection audit log record. |
+| MTPContentMetadata | MTPContentMetadata audit log record. |
+| ComplianceEvaluationIncomplete | ComplianceEvaluationIncomplete audit log record. |
+| ComplianceEndpointEvaluationIncomplete | ComplianceEndpointEvaluationIncomplete audit log record. |
+| MicrosoftTeamsMoveMessages | MicrosoftTeamsMoveMessages audit log record. |
+| ECSContentMetadata | ECSContentMetadata audit log record. |
+| MESRawEmailContentMetadata | MESRawEmailContentMetadata audit log record. |
 | unknownFutureValue | Evolvable enumeration sentinel value. Don't use. |
 
 ## JSON representation

@@ -1,12 +1,12 @@
 ---
 layout: Conceptual
 monikers:
-- graph-rest-beta
-defaultMoniker: graph-rest-beta
+- graph-rest-1.0
+defaultMoniker: graph-rest-1.0
 versioningType: Ranged
-title: auditData derived types - Microsoft Graph beta | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/graph/api/resources/security-auditdata-derived-types?view=graph-rest-beta
-config_moniker_range: graph-rest-beta
+title: auditData derived types - Microsoft Graph v1.0 | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/graph/api/resources/security-auditdata-derived-types?view=graph-rest-1.0
+config_moniker_range: '>= graph-rest-1.0'
 feedback_system: Standard
 feedback_product_url: https://developer.microsoft.com/graph/support
 author: diksha27
@@ -22,12 +22,12 @@ ms.topic: reference
 description: Lists all resource types that derive from the auditData abstract type in Microsoft Graph security.
 ms.localizationpriority: medium
 doc_type: resourcePageType
-ms.date: 2026-09-29T00:00:00.0000000Z
+ms.date: 2026-10-06T00:00:00.0000000Z
 locale: en-us
-document_id: 60a9f749-db99-69fe-7c89-5c518c1863ef
+document_id: d9a57af3-e1ed-1c5d-d5a9-948171e685ab
 document_version_independent_id: 4ecd2022-9f02-0cc0-d0f8-e898d4b5d9ff
-original_content_git_url: https://github.com/microsoftgraph/microsoft-graph-docs/blob/live/api-reference/beta/resources/security-auditdata-derived-types.md
-default_moniker: graph-rest-beta
+original_content_git_url: https://github.com/microsoftgraph/microsoft-graph-docs/blob/live/api-reference/v1.0/resources/security-auditdata-derived-types.md
+default_moniker: graph-rest-1.0
 site_name: Docs
 depot_name: MSDN.microsoft-graph-ref
 page_type: conceptual
@@ -35,11 +35,11 @@ toc_rel: ../toc.json
 feedback_help_link_type: ''
 feedback_help_link_url: ''
 asset_id: api/resources/security-auditdata-derived-types
-moniker_range_name: e91460ef4e2d3d4ee85e2756c1c65925
+moniker_range_name: 107bf06837724705de50667b407c0197
 monikers:
-- graph-rest-beta
+- graph-rest-1.0
 item_type: Content
-source_path: api-reference/beta/resources/security-auditdata-derived-types.md
+source_path: api-reference/v1.0/resources/security-auditdata-derived-types.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 spProducts:
@@ -47,13 +47,9 @@ spProducts:
 platformId: b274ddb8-2146-c9d8-99ac-144821f8926b
 ---
 
-# auditData derived types - Microsoft Graph beta | Microsoft Learn
+# auditData derived types - Microsoft Graph v1.0 | Microsoft Learn
 
 Namespace: microsoft.graph.security
-
-Important
-
-APIs under the `/beta` version in Microsoft Graph are subject to change. Use of these APIs in production applications is not supported. To determine whether an API is available in v1.0, use the **Version** selector.
 
 The following resource types inherit from the [auditData](security-auditdata) abstract type. Each derived type represents audit log data for a specific Microsoft 365 service or feature, returned as the **auditData** property of an [auditLogRecord](security-auditlogrecord).
 
@@ -95,26 +91,19 @@ The following resource types inherit from the [auditData](security-auditdata) ab
 - [azfwNetworkRuleEventRecord](security-azfwnetworkruleeventrecord)
 - [azureActiveDirectoryAccountLogonAuditRecord](security-azureactivedirectoryaccountlogonauditrecord)
 - [azureActiveDirectoryAuditRecord](security-azureactivedirectoryauditrecord)
-- [azureActiveDirectoryBaseAuditRecord](security-azureactivedirectorybaseauditrecord)
 - [azureActiveDirectoryStsLogonAuditRecord](security-azureactivedirectorystslogonauditrecord)
 - [azureAISearchAuditRecord](security-azureaisearchauditrecord)
 - [campaignAuditRecord](security-campaignauditrecord)
-- [caseAuditRecord](security-caseauditrecord)
-- [caseInvestigation](security-caseinvestigation)
 - [ccraiPolicyViolationRecord](security-ccraipolicyviolationrecord)
 - [cdpClassifierHealthRecord](security-cdpclassifierhealthrecord)
 - [cdpColdCrawlStatusRecord](security-cdpcoldcrawlstatusrecord)
 - [cdpConsumptionResourceRecord](security-cdpconsumptionresourcerecord)
 - [cdpContentExplorerAggregateRecord](security-cdpcontentexploreraggregaterecord)
 - [cdpdlmaiInteractionInsightsRecord](security-cdpdlmaiinteractioninsightsrecord)
-- [cdpDlpSensitiveAuditRecord](security-cdpdlpsensitiveauditrecord)
 - [cdpDlpSensitiveEndpointAuditRecord](security-cdpdlpsensitiveendpointauditrecord)
 - [cdpLogRecord](security-cdplogrecord)
 - [cdpOcrBillingRecord](security-cdpocrbillingrecord)
 - [cdpResourceScopeChangeEventRecord](security-cdpresourcescopechangeeventrecord)
-- [cernerSMSLinkRecord](security-cernersmslinkrecord)
-- [cernerSMSSettingsUpdateRecord](security-cernersmssettingsupdaterecord)
-- [cernerSMSUnlinkRecord](security-cernersmsunlinkrecord)
 - [cloudSecurityConnector](security-cloudsecurityconnector)
 - [cloudSecurityEnablement](security-cloudsecurityenablement)
 - [cloudSecurityManagement](security-cloudsecuritymanagement)
@@ -126,9 +115,6 @@ The following resource types inherit from the [auditData](security-auditdata) ab
 - [complianceDLMSharePointAuditRecord](security-compliancedlmsharepointauditrecord)
 - [complianceDlpApplicationsAuditRecord](security-compliancedlpapplicationsauditrecord)
 - [complianceDlpApplicationsClassificationAuditRecord](security-compliancedlpapplicationsclassificationauditrecord)
-- [complianceDlpBaseAuditRecord](security-compliancedlpbaseauditrecord)
-- [complianceDlpClassificationBaseAuditRecord](security-compliancedlpclassificationbaseauditrecord)
-- [complianceDlpClassificationBaseCdpRecord](security-compliancedlpclassificationbasecdprecord)
 - [complianceDlpEndpointAuditRecord](security-compliancedlpendpointauditrecord)
 - [complianceDlpEndpointDiscoveryAuditRecord](security-compliancedlpendpointdiscoveryauditrecord)
 - [complianceDLPEnforcementAuditRecord](security-compliancedlpenforcementauditrecord)
@@ -147,7 +133,6 @@ The following resource types inherit from the [auditData](security-auditdata) ab
 - [compliancePolicyGradingSharePointAuditRecord](security-compliancepolicygradingsharepointauditrecord)
 - [complianceSettingsChangeAuditRecord](security-compliancesettingschangeauditrecord)
 - [complianceSitGradingSharePointAuditRecord](security-compliancesitgradingsharepointauditrecord)
-- [complianceSupervisionBaseAuditRecord](security-compliancesupervisionbaseauditrecord)
 - [complianceSupervisionExchangeAuditRecord](security-compliancesupervisionexchangeauditrecord)
 - [connectedAIAppInteractionAuditRecord](security-connectedaiappinteractionauditrecord)
 - [consumptionResourceAuditRecord](security-consumptionresourceauditrecord)
@@ -163,15 +148,11 @@ The following resource types inherit from the [auditData](security-auditdata) ab
 - [copilotWorkspaceSettingAuditRecord](security-copilotworkspacesettingauditrecord)
 - [coreReportingSettingsAuditRecord](security-corereportingsettingsauditrecord)
 - [cortanaBriefingAuditRecord](security-cortanabriefingauditrecord)
-- [cpsCommonPolicyAuditRecord](security-cpscommonpolicyauditrecord)
-- [cpsPolicyConfigAuditRecord](security-cpspolicyconfigauditrecord)
 - [criticalAssetManagementClassificationRecord](security-criticalassetmanagementclassificationrecord)
-- [crmBaseAuditRecord](security-crmbaseauditrecord)
 - [crmEntityOperationAuditRecord](security-crmentityoperationauditrecord)
 - [crossTenantAccessPolicyAuditRecord](security-crosstenantaccesspolicyauditrecord)
 - [cscContentMetadata](security-csccontentmetadata)
 - [customerKeyServiceEncryptionAuditRecord](security-customerkeyserviceencryptionauditrecord)
-- [dataCenterSecurityBaseAuditRecord](security-datacentersecuritybaseauditrecord)
 - [dataCenterSecurityCmdletAuditRecord](security-datacentersecuritycmdletauditrecord)
 - [dataGovernanceAuditRecord](security-datagovernanceauditrecord)
 - [dataInsightsRestApiAuditRecord](security-datainsightsrestapiauditrecord)
@@ -184,20 +165,15 @@ The following resource types inherit from the [auditData](security-auditdata) ab
 - [defenderGeneratedPlaybook](security-defendergeneratedplaybook)
 - [defenderIntegration](security-defenderintegration)
 - [defenderPreviewFeaturesRecord](security-defenderpreviewfeaturesrecord)
-- [defenderSecurityAlertBaseRecord](security-defendersecurityalertbaserecord)
 - [defenderSecurityForAIConfigurationAuditRecord](security-defendersecurityforaiconfigurationauditrecord)
-- [deleteCertificateRecord](security-deletecertificaterecord)
 - [deployFeatureActivityRecord](security-deployfeatureactivityrecord)
 - [deviceDiscoverySettingsAuthenticatedScansRecord](security-devicediscoverysettingsauthenticatedscansrecord)
 - [deviceDiscoverySettingsExclusionRecord](security-devicediscoverysettingsexclusionrecord)
 - [deviceDiscoverySettingsRecord](security-devicediscoverysettingsrecord)
-- [disableConsentRecord](security-disableconsentrecord)
 - [discoveryAuditRecord](security-discoveryauditrecord)
 - [dlpEndpointAuditRecord](security-dlpendpointauditrecord)
 - [dlpImportResultAuditRecord](security-dlpimportresultauditrecord)
-- [dlpSensitiveInformationTypeCmdletRecord](security-dlpsensitiveinformationtypecmdletrecord)
 - [dlpSensitiveInformationTypeRulePackageCmdletRecord](security-dlpsensitiveinformationtyperulepackagecmdletrecord)
-- [downloadCertificateRecord](security-downloadcertificaterecord)
 - [dragonCopilotAccessRecord](security-dragoncopilotaccessrecord)
 - [dragonCopilotAdminRecord](security-dragoncopilotadminrecord)
 - [dragonCopilotClinicalDataRecord](security-dragoncopilotclinicaldatarecord)
@@ -206,23 +182,14 @@ The following resource types inherit from the [auditData](security-auditdata) ab
 - [dynamics365BusinessCentralAuditRecord](security-dynamics365businesscentralauditrecord)
 - [ecsContentMetadata](security-ecscontentmetadata)
 - [ehrConnectorAuditBaseRecord](security-ehrconnectorauditbaserecord)
-- [enableConsentRecord](security-enableconsentrecord)
 - [eopSubmissionFeedEntityAuditRecord](security-eopsubmissionfeedentityauditrecord)
-- [epicSMSLinkRecord](security-epicsmslinkrecord)
-- [epicSMSSettingsUpdateRecord](security-epicsmssettingsupdaterecord)
-- [epicSMSUnlinkRecord](security-epicsmsunlinkrecord)
 - [exchangeAdminAuditRecord](security-exchangeadminauditrecord)
 - [exchangeAggregatedMailboxAuditRecord](security-exchangeaggregatedmailboxauditrecord)
 - [exchangeAggregatedOperationRecord](security-exchangeaggregatedoperationrecord)
-- [exchangeMailboxAuditBaseRecord](security-exchangemailboxauditbaserecord)
 - [exchangeMailboxAuditGroupRecord](security-exchangemailboxauditgrouprecord)
 - [exchangeMailboxAuditRecord](security-exchangemailboxauditrecord)
 - [fabricAuditRecord](security-fabricauditrecord)
 - [fabricPolicyRecord](security-fabricpolicyrecord)
-- [fhirBaseUrlAddRecord](security-fhirbaseurladdrecord)
-- [fhirBaseUrlApproveRecord](security-fhirbaseurlapproverecord)
-- [fhirBaseUrlDeleteRecord](security-fhirbaseurldeleterecord)
-- [fhirBaseUrlUpdateRecord](security-fhirbaseurlupdaterecord)
 - [filteringTeamsMessageFileInfo](security-filteringteamsmessagefileinfo)
 - [healthcareSignalRecord](security-healthcaresignalrecord)
 - [hostedRpaAuditRecord](security-hostedrpaauditrecord)
@@ -235,7 +202,6 @@ The following resource types inherit from the [auditData](security-auditdata) ab
 - [integratedAppsAppAdminActivityAuditRecord](security-integratedappsappadminactivityauditrecord)
 - [integratedAppsAppSettingsAdminActivityAuditRecord](security-integratedappsappsettingsadminactivityauditrecord)
 - [irmActivityAuditTrailRecord](security-irmactivityaudittrailrecord)
-- [irmSecurityAlertRecord](security-irmsecurityalertrecord)
 - [irmUserDefinedDetectionRecord](security-irmuserdefineddetectionrecord)
 - [kaizalaAuditRecord](security-kaizalaauditrecord)
 - [labelAnalyticsAggregateAuditRecord](security-labelanalyticsaggregateauditrecord)
@@ -268,7 +234,6 @@ The following resource types inherit from the [auditData](security-auditdata) ab
 - [microsoft365BackupRestoreItemAuditRecord](security-microsoft365backuprestoreitemauditrecord)
 - [microsoft365BackupRestoreTaskAuditRecord](security-microsoft365backuprestoretaskauditrecord)
 - [microsoft365CopilotScheduledPromptAuditRecord](security-microsoft365copilotscheduledpromptauditrecord)
-- [microsoftDefenderExpertsBaseAuditRecord](security-microsoftdefenderexpertsbaseauditrecord)
 - [microsoftDefenderExpertsXDRAuditRecord](security-microsoftdefenderexpertsxdrauditrecord)
 - [microsoftFlowAuditRecord](security-microsoftflowauditrecord)
 - [microsoftFormsAuditRecord](security-microsoftformsauditrecord)
@@ -293,15 +258,12 @@ The following resource types inherit from the [auditData](security-auditdata) ab
 - [microsoftTeamsShiftsAuditRecord](security-microsoftteamsshiftsauditrecord)
 - [microsoftTeamsUserConcernAuditRecord](security-microsoftteamsuserconcernauditrecord)
 - [mipAutoLabelExchangeItemAuditRecord](security-mipautolabelexchangeitemauditrecord)
-- [mipAutoLabelItemAuditRecord](security-mipautolabelitemauditrecord)
-- [mipAutoLabelPolicyAuditRecord](security-mipautolabelpolicyauditrecord)
 - [mipAutoLabelProgressFeedbackAuditRecord](security-mipautolabelprogressfeedbackauditrecord)
 - [mipAutoLabelSharePointItemAuditRecord](security-mipautolabelsharepointitemauditrecord)
 - [mipAutoLabelSharePointPolicyLocationAuditRecord](security-mipautolabelsharepointpolicylocationauditrecord)
 - [mipAutoLabelSimulationSharePointCompletionRecord](security-mipautolabelsimulationsharepointcompletionrecord)
 - [mipAutoLabelSimulationSharePointProgressRecord](security-mipautolabelsimulationsharepointprogressrecord)
 - [mipAutoLabelSimulationStatisticsRecord](security-mipautolabelsimulationstatisticsrecord)
-- [mipAutoLabelSimulationStatusRecord](security-mipautolabelsimulationstatusrecord)
 - [mipExactDataMatchAuditRecord](security-mipexactdatamatchauditrecord)
 - [mipLabelAnalyticsAuditRecord](security-miplabelanalyticsauditrecord)
 - [mipLabelAuditRecord](security-miplabelauditrecord)
@@ -327,7 +289,6 @@ The following resource types inherit from the [auditData](security-auditdata) ab
 - [onDemandSharePointClassificationAuditRecord](security-ondemandsharepointclassificationauditrecord)
 - [oneDriveAuditRecord](security-onedriveauditrecord)
 - [onPremisesFileShareScannerDlpAuditRecord](security-onpremisesfilesharescannerdlpauditrecord)
-- [onPremisesScannerDlpAuditRecord](security-onpremisesscannerdlpauditrecord)
 - [onPremisesSharePointScannerDlpAuditRecord](security-onpremisessharepointscannerdlpauditrecord)
 - [organizationalDataInM365AuditRecord](security-organizationaldatainm365auditrecord)
 - [outlookCopilotAutomationAuditRecord](security-outlookcopilotautomationauditrecord)
@@ -381,7 +342,6 @@ The following resource types inherit from the [auditData](security-auditdata) ab
 - [privacyPortalAuditRecord](security-privacyportalauditrecord)
 - [privacyRemediationActionRecord](security-privacyremediationactionrecord)
 - [privacyRemediationRecord](security-privacyremediationrecord)
-- [privacyTenantAuditHistoryRecord](security-privacytenantaudithistoryrecord)
 - [privaPrivacyAssessmentOperationRecord](security-privaprivacyassessmentoperationrecord)
 - [privaPrivacyConsentOperationRecord](security-privaprivacyconsentoperationrecord)
 - [projectAuditRecord](security-projectauditrecord)
@@ -442,12 +402,9 @@ The following resource types inherit from the [auditData](security-auditdata) ab
 - [sharePointListItemOperationAuditRecord](security-sharepointlistitemoperationauditrecord)
 - [sharePointListOperationAuditRecord](security-sharepointlistoperationauditrecord)
 - [sharePointSharingOperationAuditRecord](security-sharepointsharingoperationauditrecord)
-- [skypeForBusinessBaseAuditRecord](security-skypeforbusinessbaseauditrecord)
 - [skypeForBusinessCmdletsAuditRecord](security-skypeforbusinesscmdletsauditrecord)
 - [skypeForBusinessPSTNUsageAuditRecord](security-skypeforbusinesspstnusageauditrecord)
 - [skypeForBusinessUsersBlockedAuditRecord](security-skypeforbusinessusersblockedauditrecord)
-- [smsCreatePhoneNumberRecord](security-smscreatephonenumberrecord)
-- [smsDeletePhoneNumberRecord](security-smsdeletephonenumberrecord)
 - [sonarDetonationContentMetadata](security-sonardetonationcontentmetadata)
 - [sonarDetonationEntityAuditRecord](security-sonardetonationentityauditrecord)
 - [sonarFileDetonationEntityAuditRecord](security-sonarfiledetonationentityauditrecord)
@@ -481,13 +438,11 @@ The following resource types inherit from the [auditData](security-auditdata) ab
 - [universalPrintManagementAuditRecord](security-universalprintmanagementauditrecord)
 - [universalPrintPrintJobAuditRecord](security-universalprintprintjobauditrecord)
 - [universalPrintSecureScan](security-universalprintsecurescan)
-- [uploadCertificateRecord](security-uploadcertificaterecord)
 - [urbacAssignmentAuditRecord](security-urbacassignmentauditrecord)
 - [urbacEnableStateAuditRecord](security-urbacenablestateauditrecord)
 - [urbacRoleAuditRecord](security-urbacroleauditrecord)
 - [userTrainingAuditRecord](security-usertrainingauditrecord)
 - [usxWorkspaceOnboardingAuditRecord](security-usxworkspaceonboardingauditrecord)
-- [vfamBasePolicyAuditRecord](security-vfambasepolicyauditrecord)
 - [vfamCreatePolicyAuditRecord](security-vfamcreatepolicyauditrecord)
 - [vfamDeletePolicyAuditRecord](security-vfamdeletepolicyauditrecord)
 - [vfamUpdatePolicyAuditRecord](security-vfamupdatepolicyauditrecord)
@@ -525,3 +480,9 @@ The following resource types inherit from the [auditData](security-auditdata) ab
 - [workplaceAnalyticsAuditRecord](security-workplaceanalyticsauditrecord)
 - [yammerAuditRecord](security-yammerauditrecord)
 - [yammerUserHidingAuditRecord](security-yammeruserhidingauditrecord)
+
+---
+
+## Other Supported Versions
+
+- [graph-rest-beta](https://learn.microsoft.com/en-us/graph/api/resources/security-auditdata-derived-types?view=graph-rest-beta&accept=text/markdown)
