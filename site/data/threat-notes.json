@@ -1230,6 +1230,121 @@
      "date": "2026-10-26"
     }
    ]
+  },
+  {
+   "id": "yam-store-storm-3119-storm-2990-phishing-ecosystem-2026-10",
+   "title": "YAM Store (Storm-3119) and the Storm-2990 phishing kits: a marketplace of hijacked Microsoft 365 tenants and phishing-as-a-service, disrupted by Microsoft DCU",
+   "match": [
+    "YAM Store",
+    "Storm-3119",
+    "Storm-2990"
+   ],
+   "areas": [
+    "Identity attacks",
+    "Apps & OAuth",
+    "M365 workloads"
+   ],
+   "status": "contained",
+   "updated": "2026-10-28",
+   "by": "morning routine",
+   "summary": "Microsoft Threat Intelligence and the Digital Crimes Unit (14 October 2026) describe YAM Store, a Chinese-language initial-access marketplace tracked as Storm-3119 that sells compromised or fraudulently created Microsoft and Google environments, credentials and infrastructure, and Storm-2990, the developers of the CoGUI, Haozi and Iron Man System phishing kits sold through it. Microsoft says the kits' operators facilitated over one billion phishing emails and SMS messages to more than 75,000 organizations since January 2026. YAM Store discovers Microsoft 365 tenants, takes them over with compromised client secrets in an app-only flow, and abuses a compromised Global Administrator to provision the PnP Management Shell service principal with broad Graph and SharePoint permissions for bulk hosting. Microsoft DCU, with law enforcement and partners, disrupted the ecosystem's primary developers and infrastructure.",
+   "timeline": [
+    {
+     "date": "2026-01-01",
+     "text": "From January 2026 the kits' operators facilitate over one billion phishing emails and SMS messages to more than 75,000 organizations (Microsoft's figure; start month only).",
+     "src": "Microsoft Threat Intelligence"
+    },
+    {
+     "date": "2026-06-01",
+     "text": "Iron Man System starts being advertised through YAM Store (Microsoft gives the month only).",
+     "src": "Microsoft Threat Intelligence"
+    },
+    {
+     "date": "2026-10-14",
+     "text": "Microsoft publishes the analysis; the Digital Crimes Unit facilitated disruption of the primary developers and infrastructure with law enforcement and partners.",
+     "src": "Microsoft Threat Intelligence"
+    }
+   ],
+   "rootCause": "Compromised client secrets of applications in victim tenants (used in an application-only authentication flow) and compromised Global Administrator accounts, plus fraudulently created tenants backed by fake organizations.",
+   "attacker": [
+    "Discovered Microsoft 365 tenants and their licensing with automated Flask-based tooling run over Tor.",
+    "Used compromised client secrets in an app-only flow to reset passwords, assign education licences and grant privileged attributes silently.",
+    "Signed in as a compromised Global Administrator, provisioned the PnP Management Shell service principal and granted it broad Graph permissions (including AppCatalog.ReadWrite.All) and full SharePoint API control.",
+    "Abused SharePoint and OneDrive for bulk hosting and ran a custom DNS platform for phishing domains and certificates behind Cloudflare.",
+    "Sold phishing kits with geofencing, fake CAPTCHA gates, Telegram-bot exfiltration and WebSocket live victim interaction; downstream buyers ran credential phishing and device-code phishing."
+   ],
+   "iocs": [
+    "jewishchoice[.]org"
+   ],
+   "apps": [
+    {
+     "name": "PnP Management Shell",
+     "kind": "Multi-tenant app (vendor)",
+     "did": "Provisioned by the attacker from a compromised Global Administrator account and granted broad Graph permissions (including AppCatalog.ReadWrite.All) and full SharePoint API control to abuse SharePoint and OneDrive storage.",
+     "roles": [],
+     "permissions": [
+      "AppCatalog.ReadWrite.All"
+     ],
+     "action": "Not stated by Microsoft; review any service principal for it created without a change record (our proposal)",
+     "src": [
+      "Microsoft Threat Intelligence"
+     ],
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/"
+    }
+   ],
+   "appsNote": "Microsoft names the PnP Management Shell service principal but prints no application ID; none is given here.",
+   "remediation": [
+    {
+     "text": "Use phishing-resistant MFA through Conditional Access for privileged accounts and lock down Global Administrator roles.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+     "phase": "harden"
+    },
+    {
+     "text": "Restrict MFA and passkey registration to trusted locations and devices.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+     "phase": "harden"
+    },
+    {
+     "text": "Configure Safe Links to apply to internal recipients and review the recommended Exchange Online Protection and Defender for Office 365 settings.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+     "phase": "harden"
+    },
+    {
+     "text": "Enable network protection.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+     "phase": "detect"
+    },
+    {
+     "text": "List service principals created in the last 90 days with SharePoint or AppCatalog permissions, starting with PnP Management Shell, and confirm each has an owner and a change record.",
+     "from": "ours",
+     "phase": "investigate"
+    },
+    {
+     "text": "Rotate client secrets on applications that hold directory-write permissions and remove secrets nobody can account for.",
+     "from": "ours",
+     "phase": "eradicate"
+    }
+   ],
+   "kqlSearched": "2026-10-28",
+   "microsoft": [
+    {
+     "what": "described",
+     "title": "The hidden network: Inside the phishing infrastructure ecosystem powering global cybercrime",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+     "date": "2026-10-14"
+    }
+   ],
+   "links": [
+    {
+     "text": "Microsoft Security Blog: The hidden network - inside the phishing infrastructure ecosystem powering global cybercrime",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+     "date": "2026-10-14"
+    }
+   ]
   }
  ]
 }
