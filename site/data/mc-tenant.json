@@ -1,7 +1,7 @@
 {
- "read": "2026-10-27",
+ "read": "2026-10-28",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 714,
+ "count": 722,
  "note": null,
  "messages": [
   {
@@ -433,33 +433,6 @@
     "Rollout started in early October and is expected to complete by mid-October 2025."
    ],
    "bodyHash": "68dc1abd6c6f3572"
-  },
-  {
-   "id": "MC1180840",
-   "title": "An updated version of the October 2025 Scan Cab is available",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-10-27",
-   "end": "2026-10-27",
-   "modified": "2025-10-27",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "IMPORTANT : This notice is only relevant for environments where: Windows Server Update Services (WSUS) is used to deploy Windows security updates to Windows Server devices. Scan Cab is used to check for update compliance. The October 2025 Scan Cab was deployed before 8:54 PM PT on October 24, 2025. An updated version of the October 2025 Scan Cab was made available at 8:54 am PT on October 24, 2025…",
-   "when": null,
-   "prepare": "Administrators can re-deploy the updated Scan Cab via their usual processes. For detailed guidance, see the",
-   "dates": [
-    "The October 2025 Scan Cab was deployed before 8:54 PM PT on October 24, 2025.",
-    "An updated version of the October 2025 Scan Cab was made available at 8:54 am PT on October 24, 2025.",
-    "The new Microsoft updates for these Windows Server versions, released October 24, 2025, included additional protections to address CVE-2025-59﻿287 .",
-    "How this affects your organization: IT administrators who downloaded the Scan Cab before 8:54 PM PT on October 24, 2025, should re-acquire and re-deploy it if the Scan Cab is used to assess updates for environments where WSUS is used to deploy Windows security"
-   ],
-   "bodyHash": "7da68572efb567ed"
   },
   {
    "id": "MC1181117",
@@ -7234,22 +7207,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-07-09",
-   "end": "2026-12-31",
-   "modified": "2026-10-05",
+   "end": "2027-03-01",
+   "modified": "2026-10-27",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 5, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are improving the OneDrive sync experience on Windows desktop to provide clearer, more actionable guidance when file and folder paths exceed the supported 520-character limit. The updated experience will show exactly how many characters a path exceeds the limit and will provide a guided flow to re…",
+   "summary": "Updated October 27, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are improving the OneDrive sync experience on Windows desktop to provide clearer, more actionable guidance when file and folder paths exceed the supported 520-character limit. The updated experience will show exactly how many characters a path exceeds the limit and will provide a guided flow to r…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 5, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Beginning end of October 2026 (previously early October) and expected to complete by end of November 2026 (previously end of October)."
+    "Updated October 27, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning January 2027 (previously end of October 2026) and expected to complete by end of January 2027 (previously end of November 2026)."
    ],
-   "bodyHash": "187ce40c10669834"
+   "bodyHash": "9bdf7b8f5913b5e3"
   },
   {
    "id": "MC1423114",
@@ -8917,21 +8890,21 @@
    "actionBy": null,
    "start": "2026-08-07",
    "end": "2027-01-29",
-   "modified": "2026-10-13",
+   "modified": "2026-10-27",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 13, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Entra will soon recognize Windows Hello for Business (WHfB) and macOS Platform Single Sign-On (PSSO) as standalone multifactor authentication (MFA) factors in supported authentication scenarios. Today, WHfB and macOS PSSO can satisfy MFA requirements during primary sign-in, but users may s…",
+   "summary": "Updated October 27, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Entra will soon recognize Windows Hello for Business (WHfB) and macOS Platform Single Sign-On (PSSO) as standalone multifactor authentication (MFA) factors in supported authentication scenarios. Today, WHfB and macOS PSSO can satisfy MFA requirements during primary sign-in, but users may s…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 13, 2026: We have updated the timeline.",
-    "General Availability (Worldwide, GCC): Beginning in early October 2026 and expected to complete in mid-December 2026 (previously late November)."
+    "Updated October 27, 2026: We have updated the timeline.",
+    "General Availability (Worldwide, GCC): Beginning in early November 2026 (previously early October) and expected to complete in late December 2026 (previously mid-December)."
    ],
-   "bodyHash": "09fd88cca3dc5101"
+   "bodyHash": "48a641b277eb1c7b"
   },
   {
    "id": "MC1452374",
@@ -14141,7 +14114,7 @@
   },
   {
    "id": "MC1478975",
-   "title": "Microsoft 365 Copilot: Use Microsoft Agent 365 agents as connected agents in declarative agents",
+   "title": "(Updated) Microsoft 365 Copilot: Use Microsoft Agent 365 agents as connected agents in declarative agents",
    "services": [
     "Microsoft 365 Copilot Chat"
    ],
@@ -14150,20 +14123,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-25",
-   "end": "2026-10-30",
-   "modified": "2026-09-29",
+   "end": "2026-12-31",
+   "modified": "2026-10-27",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft is introducing support for Microsoft Agent 365 agents that implement the Agent2Agent (A2A) protocol, allowing them to be used as connected agents in declarative agents built with Microsoft 365 Agents Toolkit. This enhancement expands the types of external agent services that declarative agents can connect to. In addition to existing support for OpenAPI and Model Context Pr…",
+   "summary": "Updated October 27, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft is introducing support for Microsoft Agent 365 agents that implement the Agent2Agent (A2A) protocol, allowing them to be used as connected agents in declarative agents built with Microsoft 365 Agents Toolkit. This enhancement expands the types of external agent services that declarative ag…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Began in late August 2026 and expected to complete by late September 2026."
+    "Updated October 27, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Began in late August 2026 ."
    ],
-   "bodyHash": "3533a851a1b5317b"
+   "bodyHash": "bfcccfe1f328e805"
   },
   {
    "id": "MC1479468",
@@ -14583,22 +14558,24 @@
    "major": true,
    "actionBy": null,
    "start": "2026-09-28",
-   "end": "2027-01-31",
-   "modified": "2026-09-28",
+   "end": "2027-03-01",
+   "modified": "2026-10-27",
    "tags": [
     "Admin impact",
     "Retirement",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Beginning November 30, 2026, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences. Retirement will be completed by December 31, 2026. As part of our continued investment in Microsoft Purview Data Security Posture Management, we have unified DSPM capabilities into a single experience that helps organiz…",
+   "summary": "Updated October 27, 2026: We have updated the timeline. Thank you for your patience. [What and why] Beginning late January 2027, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences. Retirement will be completed by end of January 2027. As part of our continued investment in Microsoft Purview Data Security Posture Ma…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Beginning November 30, 2026, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences.",
-    "Retirement will be completed by December 31, 2026.",
-    "Retirement (Worldwide, GCC, GCC High, and DoD): Beginning in late November 2026 and expected to complete in late December 2026."
+    "Updated October 27, 2026: We have updated the timeline.",
+    "Beginning late January 2027, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences.",
+    "Retirement will be completed by end of January 2027.",
+    "Retirement (Worldwide, GCC, GCC High, and DoD): Beginning in late January 2027 (previously late November 2026) and expected to complete in late January 2027 (previously late December 2026)."
    ],
-   "bodyHash": "8fb4074954fbe039"
+   "bodyHash": "14e36d7e2f6a7f80"
   },
   {
    "id": "MC1481316",
@@ -16882,28 +16859,6 @@
    "bodyHash": "7d200eba943a059e"
   },
   {
-   "id": "MC1506982",
-   "title": "Updates available for Microsoft 365 Apps for all channels",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-14",
-   "end": "2026-10-28",
-   "modified": "2026-10-14",
-   "tags": [
-    "Feature update"
-   ],
-   "summary": "We've released updates to the following update channels for Microsoft 365 Apps: Current Channel Monthly Enterprise Channel Semi-Annual Enterprise Channel [When this will happen:] We'll be gradually rolling out these updates of Microsoft 365 Apps to users on those update channels starting October 13th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are conf…",
-   "when": "We'll be gradually rolling out these updates of Microsoft 365 Apps to users on those update channels starting October 13th, 2026 (PST).",
-   "prepare": "To get more details about these updates view the following release notes: Current Channel. Monthly Enterprise Channel. Semi-Annual Enterprise Channel.",
-   "dates": [],
-   "bodyHash": "f3e6e03e99ea27bc"
-  },
-  {
    "id": "MC1507520",
    "title": "(Updated) The October 2026 Scan Cab is available",
    "services": [
@@ -17456,22 +17411,22 @@
    "actionBy": null,
    "start": "2026-10-16",
    "end": "2027-10-16",
-   "modified": "2026-10-16",
+   "modified": "2026-10-27",
    "tags": [
     "Admin impact"
    ],
-   "summary": "(Updated October 16, 2026: Added guidance for managing the Alberta and British Columbia time zone changes in Outlook Time Zone Changes for Alberta and British Columbia .) What and why Windows updates are now available to support the 2026 time zone changes in Manitoba , Alberta , and British Columbia . On November 1, 2026, clocks in affected regions will not be set back by one hour. Manitoba will p…",
+   "summary": "(Updated October 16, 2026: Added guidance for managing the Alberta and British Columbia time zone changes in Outlook Time Zone Changes for Alberta and British Columbia .) (Updated October 27, 2026: Included reference and link to more guidance published in the Message center post MC1526468.) [What and why:] Windows updates are now available to support the 2026 time zone changes in Manitoba, Alberta…",
    "when": null,
    "prepare": null,
    "dates": [
     "(Updated October 16, 2026: Added guidance for managing the Alberta and British Columbia time zone changes in Outlook Time Zone Changes for Alberta and British Columbia .).",
+    "(Updated October 27, 2026: Included reference and link to more guidance published in the Message center post MC1526468.).",
     "On November 1, 2026, clocks in affected regions will not be set back by one hour.",
     "September 22, 2026: The Alberta and British Columbia changes became available in the September 2026 non-security preview update for Windows 11, versions 25H2 and 24H2.",
     "October 13, 2026: The Manitoba change became available for all supported versions of Windows.",
-    "These changes are included in the October 2026 security update.",
-    "November 1, 2026: The time zone transitions take effect at 2:00 a.m."
+    "These changes are included in the October 2026 security update."
    ],
-   "bodyHash": "8b1cad8ae592821c"
+   "bodyHash": "bfb4ca1d3e59f3d6"
   },
   {
    "id": "MC1511052",
@@ -18611,9 +18566,9 @@
    "severity": "normal",
    "major": false,
    "actionBy": null,
-   "start": "2026-10-26",
-   "end": "2027-10-26",
-   "modified": "2026-10-26",
+   "start": "2026-10-27",
+   "end": "2027-10-27",
+   "modified": "2026-10-27",
    "tags": [
     "Admin impact"
    ],
@@ -18861,6 +18816,276 @@
    "prepare": null,
    "dates": [],
    "bodyHash": "42b6975cb65b15bd"
+  },
+  {
+   "id": "MC1527979",
+   "title": "The November and December 2026 security updates require a restart for hotpatch-enabled Windows Server 2022 devices",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-27",
+   "end": "2027-10-27",
+   "modified": "2026-10-27",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why The November and December 2026 security updates for Windows Server 2022 will be released as standard updates rather than hotpatch updates. Some of the security improvements in these updates change components that cannot be updated without a restart. As a result, Windows Server 2022 devices enrolled in hotpatching will need to restart to complete installation in each month. This change…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "The November and December 2026 security updates for Windows Server 2022 will be released as standard updates rather than hotpatch updates.",
+    "November 2026: Standard update with restart required for all Windows Server 2022 devices including those that are hotpatch-enabled.",
+    "December 2026: Standard update with restart required for all Windows Server 2022 devices including those that are hotpatch-enabled.",
+    "January 2027: Planned baseline update month with restart required.",
+    "February 2027: Next hotpatch update expected.",
+    "Plan for device restarts when deploying the November and December 2026 security updates for Windows Server 2022."
+   ],
+   "bodyHash": "d0ce5bd82fdc07c4"
+  },
+  {
+   "id": "MC1528000",
+   "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication",
+   "services": [
+    "Microsoft Entra"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2027-02-01",
+   "start": "2026-10-27",
+   "end": "2027-03-03",
+   "modified": "2026-10-27",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] This is a reminder of the upcoming retirement of Microsoft-provided SMS and voice authentication in Microsoft Entra ID , previously announced in MC1426371 (July 13, 2026) and MC1434201 (GCC, July 20, 2026). Microsoft-provided SMS and voice authentication will retire starting February 1, 2027. Complete your migration before rollout begins to avoid interrupting users' sign-in experien…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "This is a reminder of the upcoming retirement of Microsoft-provided SMS and voice authentication in Microsoft Entra ID , previously announced in MC1426371 (July 13, 2026) and MC1434201 (GCC, July 20, 2026).",
+    "Microsoft-provided SMS and voice authentication will retire starting February 1, 2027.",
+    "Retirement (Worldwide and GCC): Beginning February 1, 2027 , and expected to complete in early February 2027.",
+    "Complete migration or configure CYOT before February 1, 2027, rather than waiting for the rollout to reach your tenant.",
+    "If your organization uses Microsoft-provided SMS or voice, complete these steps before February 1, 2027: Identify affected users."
+   ],
+   "bodyHash": "241db7457b9ca0e8"
+  },
+  {
+   "id": "MC1528003",
+   "title": "Microsoft Excel: Edit with Copilot in Excel on iPhone",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-27",
+   "end": "2026-11-27",
+   "modified": "2026-10-27",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Edit with Copilot makes it easier to edit and transform your Excel workbooks on your phone using natural language. Copilot can continue working on your task even when you move away from the app, so you can come back when the work is ready. Chat mode also remains available when you want to ask questions and get insights without making changes to your workbook. [Rollout Schedule:] Ge…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out late October 2026 and expect to complete by late November 2026."
+   ],
+   "bodyHash": "07967d718e784a04"
+  },
+  {
+   "id": "MC1528006",
+   "title": "Microsoft Authenticator: Improved backup and restore experience for Android",
+   "services": [
+    "Microsoft Entra"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-27",
+   "end": "2027-02-18",
+   "modified": "2026-10-27",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We’re improving the backup and restore experience in Microsoft Authenticator for Android . When setting up Authenticator on a new device, users will receive guidance tailored to whether they still have access to their previous device. They will also receive guidance on using Authenticator passkeys for cross-device sign-in. This experience is already available on iOS. To use backup a…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide, GCC, GCC High, and DoD): Beginning in mid-January 2027 and expected to complete in mid-January 2027."
+   ],
+   "bodyHash": "20658177c61edc4c"
+  },
+  {
+   "id": "MC1528007",
+   "title": "Join button will require HTTPS meeting links",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-27",
+   "end": "2027-02-28",
+   "modified": "2026-10-27",
+   "tags": [
+    "Admin impact",
+    "Feature update"
+   ],
+   "summary": "[What and Why:] We're updating the Join button experience in Outlook to use HTTPS meeting join URLs. Beginning the week of November 30, 2026, the Join button will no longer appear for meetings that contain only an HTTP join URL. [Rollout Schedule:] General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out in late November 2026 and expect to complete by late December 2026. [Im…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Beginning the week of November 30, 2026, the Join button will no longer appear for meetings that contain only an HTTP join URL.",
+    "General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out in late November 2026 and expect to complete by late December 2026."
+   ],
+   "bodyHash": "d7983b4c65b0e85c"
+  },
+  {
+   "id": "MC1528009",
+   "title": "Microsoft 365 admin center: Retirement of selected Search Analytics capabilities",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-27",
+   "end": "2027-01-15",
+   "modified": "2026-10-27",
+   "tags": [
+    "Admin impact",
+    "Retirement"
+   ],
+   "summary": "[What and why] We are retiring selected Search Analytics capabilities for the following search experiences: Microsoft/Bing Search, including Work Search Teams Search Outlook/WXP Search, including Word, Excel, and PowerPoint Windows Search Work results Microsoft365.com This retirement applies to Summary, User/Query, and Answer Analytics associated with these search experiences within Search & intel…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Worldwide, GCC: Rollout will begin in late November 2026 and is expected to complete by mid-December 2026."
+   ],
+   "bodyHash": "e2232143036d71ac"
+  },
+  {
+   "id": "MC1528011",
+   "title": "Microsoft Teams: External presenter support for event group chat",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-27",
+   "end": "2027-01-08",
+   "modified": "2026-10-27",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are adding support for external presenters in event group chat, the private chat used by organizers, co-organizers, and presenters for coordination during an event or structured meeting. This change enables presenters who are outside the tenant hosting the meeting or event to participate in the event group chat. [Rollout schedule] General Availability (Worldwide): Rollout will be…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout will begin in early November 2026 and is expected to complete by early December 2026."
+   ],
+   "bodyHash": "313eb216c655368a"
+  },
+  {
+   "id": "MC1528013",
+   "title": "Microsoft SharePoint: SharePoint Server access through the mobile apps will be retired",
+   "services": [
+    "SharePoint Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-27",
+   "end": "2026-12-27",
+   "modified": "2026-10-27",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft is retiring SharePoint Server access through the standalone SharePoint mobile apps for iOS and Android. After this change, these apps will support SharePoint Online only. [Rollout schedule] Retirement (Worldwide, GCC, GCC High, DoD): Beginning November 27, 2026 [Impact on your organization] Who is affected Organizations with users who access SharePoint Server through the S…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Retirement (Worldwide, GCC, GCC High, DoD): Beginning November 27, 2026."
+   ],
+   "bodyHash": "5654319aeb89f8fa"
+  },
+  {
+   "id": "MC1528014",
+   "title": "Microsoft Teams: Two presenters can share their screens or windows simultaneously in meetings",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-27",
+   "end": "2027-01-16",
+   "modified": "2026-10-27",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Two presenters can share a screen or window at the same time in a Teams meeting. Participants can see both shared content streams simultaneously, making it easier to compare and discuss content from different presenters. This message is associated with Microsoft 365 Roadmap ID 80239. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out in late November 20…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in late November 2026 and expect to complete by mid-December 2026."
+   ],
+   "bodyHash": "5336d321ed76cf08"
+  },
+  {
+   "id": "MC1528019",
+   "title": "Plan for Change: Update to Windows 365 User settings transition",
+   "services": [
+    "Windows 365"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-27",
+   "end": "2027-08-30",
+   "modified": "2026-10-27",
+   "tags": [
+    "Admin impact",
+    "User impact"
+   ],
+   "summary": "What and Why We're updating the transition plan for legacy Windows 365 User settings previously announced in MC1418556. This transition covers settings for local administrator access, user-initiated Cloud PC reset and restore, restore-point frequency, and disaster recovery. These settings are managed through the applicable Cloud PC configurations or Windows App settings policies under Cloud PC Set…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "After the self-transition period, Microsoft plans to automatically migrate remaining eligible User settings policies around April to June 2027.",
+    "They will not be removed or stop applying in January 2027 as previously announced.",
+    "The October and November 2026 dates previously announced in MC1418556 have changed.",
+    "Early November 2026.",
+    "Mid November 2026.",
+    "Early December 2026."
+   ],
+   "bodyHash": "b000697acdfa19a2"
   },
   {
    "id": "MC676299",
@@ -24712,6 +24937,208 @@
    "id": "MC1526780",
    "type": "new",
    "title": "New MSRC blog: Microsoft’s response to compromised eMudhra certificate authority keys",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1422063",
+   "type": "changed",
+   "title": "(Updated) OneDrive for Business: Improved Windows Desktop sync error messages for max path length",
+   "fields": {
+    "end": [
+     "2026-12-31",
+     "2027-03-01"
+    ],
+    "bodyHash": [
+     "187ce40c10669834",
+     "9bdf7b8f5913b5e3"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1450134",
+   "type": "changed",
+   "title": "(Updated) Microsoft Entra: Windows Hello for Business and macOS Platform SSO as standalone MFA factors",
+   "fields": {
+    "bodyHash": [
+     "09fd88cca3dc5101",
+     "48a641b277eb1c7b"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1478975",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365 Copilot: Use Microsoft Agent 365 agents as connected agents in declarative agents",
+   "fields": {
+    "title": [
+     "Microsoft 365 Copilot: Use Microsoft Agent 365 agents as connected agents in declarative agents",
+     "(Updated) Microsoft 365 Copilot: Use Microsoft Agent 365 agents as connected agents in declarative agents"
+    ],
+    "end": [
+     "2026-10-30",
+     "2026-12-31"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "3533a851a1b5317b",
+     "bfcccfe1f328e805"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1481315",
+   "type": "changed",
+   "title": "Microsoft Purview: Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences",
+   "fields": {
+    "end": [
+     "2027-01-31",
+     "2027-03-01"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Retirement",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Retirement",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "8fb4074954fbe039",
+     "14e36d7e2f6a7f80"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1510951",
+   "type": "changed",
+   "title": "(Updated) Windows updates are available for 2026 time zone changes in Canada",
+   "fields": {
+    "bodyHash": [
+     "8b1cad8ae592821c",
+     "bfb4ca1d3e59f3d6"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1525374",
+   "type": "changed",
+   "title": "An updated version of the October 2026 Scan Cab is available",
+   "fields": {
+    "start": [
+     "2026-10-26",
+     "2026-10-27"
+    ],
+    "end": [
+     "2027-10-26",
+     "2027-10-27"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1527979",
+   "type": "new",
+   "title": "The November and December 2026 security updates require a restart for hotpatch-enabled Windows Server 2022 devices",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1528000",
+   "type": "new",
+   "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1528003",
+   "type": "new",
+   "title": "Microsoft Excel: Edit with Copilot in Excel on iPhone",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1528006",
+   "type": "new",
+   "title": "Microsoft Authenticator: Improved backup and restore experience for Android",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1528007",
+   "type": "new",
+   "title": "Join button will require HTTPS meeting links",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1528009",
+   "type": "new",
+   "title": "Microsoft 365 admin center: Retirement of selected Search Analytics capabilities",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1528011",
+   "type": "new",
+   "title": "Microsoft Teams: External presenter support for event group chat",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1528013",
+   "type": "new",
+   "title": "Microsoft SharePoint: SharePoint Server access through the mobile apps will be retired",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1528014",
+   "type": "new",
+   "title": "Microsoft Teams: Two presenters can share their screens or windows simultaneously in meetings",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1528019",
+   "type": "new",
+   "title": "Plan for Change: Update to Windows 365 User settings transition",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1180840",
+   "type": "removed",
+   "title": "An updated version of the October 2025 Scan Cab is available",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1506982",
+   "type": "removed",
+   "title": "Updates available for Microsoft 365 Apps for all channels",
    "fields": {}
   }
  ]

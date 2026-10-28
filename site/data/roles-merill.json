@@ -1,10 +1,10 @@
 {
- "read": "2026-10-18T21:50Z",
+ "read": "2026-10-28T05:39Z",
  "source": "merill/microsoft-info (another tenant, twice a day)",
  "sourceLabel": "merill/microsoft-info (another tenant, twice a day)",
  "sourceNote": "public repository: merill/microsoft-info (another tenant, twice a day)",
  "thereRead": null,
- "ourRead": "2026-10-18T19:33Z",
+ "ourRead": "2026-10-28T05:37Z",
  "keepDays": 90,
  "counts": {
   "rolesThere": 0,
@@ -13,11 +13,54 @@
   "oursOnly": 0
  },
  "roles": {},
- "events": [],
- "permsThereOnly": [],
- "permsFirst": {},
+ "events": [
+  {
+   "day": "2026-10-28",
+   "name": "Graph permissions",
+   "change": "perms-there-only",
+   "actions": [
+    "HardDeletionSetting.ReadWrite.Enable",
+    "ResourcePolicyAssignment.Read.All",
+    "ResourcePolicyAssignment.ReadWrite.All",
+    "ResourcePolicyConfiguration.Read.All",
+    "ResourcePolicyConfiguration.ReadWrite.All",
+    "ResourcePolicyDefinition.Read.All",
+    "ResourcePolicyDefinition.ReadWrite.All",
+    "ResourcePolicyEvaluation.Read.All"
+   ]
+  }
+ ],
+ "permsThereOnly": [
+  "HardDeletionSetting.ReadWrite.Enable",
+  "ResourcePolicyAssignment.Read.All",
+  "ResourcePolicyAssignment.ReadWrite.All",
+  "ResourcePolicyConfiguration.Read.All",
+  "ResourcePolicyConfiguration.ReadWrite.All",
+  "ResourcePolicyDefinition.Read.All",
+  "ResourcePolicyDefinition.ReadWrite.All",
+  "ResourcePolicyEvaluation.Read.All"
+ ],
+ "permsFirst": {
+  "HardDeletionSetting.ReadWrite.Enable": "2026-10-28",
+  "ResourcePolicyAssignment.Read.All": "2026-10-28",
+  "ResourcePolicyAssignment.ReadWrite.All": "2026-10-28",
+  "ResourcePolicyConfiguration.Read.All": "2026-10-28",
+  "ResourcePolicyConfiguration.ReadWrite.All": "2026-10-28",
+  "ResourcePolicyDefinition.Read.All": "2026-10-28",
+  "ResourcePolicyDefinition.ReadWrite.All": "2026-10-28",
+  "ResourcePolicyEvaluation.Read.All": "2026-10-28"
+ },
  "actionsThereOnly": [],
  "actionsFirst": {},
- "permsText": {},
+ "permsText": {
+  "HardDeletionSetting.ReadWrite.Enable": "Allows the app to enable hard deletion protection settings on users, applications, groups, and service principals without a signed-in user. Requires Global Administrator or Backup Administrator role.",
+  "ResourcePolicyAssignment.Read.All": "Allows the app to read all resource policy assignments, without a signed-in user.",
+  "ResourcePolicyAssignment.ReadWrite.All": "Allows the app to read and write all resource policy assignments, without a signed-in user.",
+  "ResourcePolicyConfiguration.Read.All": "Allows the app to read the tenant-wide resource policy configuration, including the configured privileged-read app ID, without a signed-in user.",
+  "ResourcePolicyConfiguration.ReadWrite.All": "Allows the app to read and write the tenant-wide resource policy configuration, including setting the privileged-read app ID used by all fetch() calls during policy evaluation, without a signed-in user.",
+  "ResourcePolicyDefinition.Read.All": "Allows the app to read all resource policy definitions, without a signed-in user.",
+  "ResourcePolicyDefinition.ReadWrite.All": "Allows the app to read and write all resource policy definitions, without a signed-in user.",
+  "ResourcePolicyEvaluation.Read.All": "Allows the app to evaluate resource policies, without a signed-in user."
+ },
  "actionsText": {}
 }
