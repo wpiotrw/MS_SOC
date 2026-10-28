@@ -1,17 +1,105 @@
 {
- "updated": "2026-10-28T05:38Z",
+ "updated": "2026-10-28T20:24Z",
  "baseline": "2026-10-18T20:23Z",
- "lastRead": "2026-10-28T05:38Z",
+ "lastRead": "2026-10-28T20:24Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
-  "names": 1078,
-  "application": 769,
-  "delegated": 859,
+  "names": 1086,
+  "application": 777,
+  "delegated": 867,
   "rsc": 60,
   "roles": 145
  },
  "events": [
+  {
+   "seen": "2026-10-28T20:24Z",
+   "day": "2026-10-28",
+   "surface": "permission",
+   "name": "HardDeletionSetting.ReadWrite.Enable",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to enable hard deletion protection settings on users, applications, groups, and service principals without a signed-in user. Requires Global Administrator or Backup Administrator role."
+  },
+  {
+   "seen": "2026-10-28T20:24Z",
+   "day": "2026-10-28",
+   "surface": "permission",
+   "name": "ResourcePolicyAssignment.Read.All",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to read all resource policy assignments, without a signed-in user."
+  },
+  {
+   "seen": "2026-10-28T20:24Z",
+   "day": "2026-10-28",
+   "surface": "permission",
+   "name": "ResourcePolicyAssignment.ReadWrite.All",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to read and write all resource policy assignments, without a signed-in user."
+  },
+  {
+   "seen": "2026-10-28T20:24Z",
+   "day": "2026-10-28",
+   "surface": "permission",
+   "name": "ResourcePolicyConfiguration.Read.All",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to read the tenant-wide resource policy configuration, including the configured privileged-read app ID, without a signed-in user."
+  },
+  {
+   "seen": "2026-10-28T20:24Z",
+   "day": "2026-10-28",
+   "surface": "permission",
+   "name": "ResourcePolicyConfiguration.ReadWrite.All",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to read and write the tenant-wide resource policy configuration, including setting the privileged-read app ID used by all fetch() calls during policy evaluation, without a signed-in user."
+  },
+  {
+   "seen": "2026-10-28T20:24Z",
+   "day": "2026-10-28",
+   "surface": "permission",
+   "name": "ResourcePolicyDefinition.Read.All",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to read all resource policy definitions, without a signed-in user."
+  },
+  {
+   "seen": "2026-10-28T20:24Z",
+   "day": "2026-10-28",
+   "surface": "permission",
+   "name": "ResourcePolicyDefinition.ReadWrite.All",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to read and write all resource policy definitions, without a signed-in user."
+  },
+  {
+   "seen": "2026-10-28T20:24Z",
+   "day": "2026-10-28",
+   "surface": "permission",
+   "name": "ResourcePolicyEvaluation.Read.All",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to evaluate resource policies, without a signed-in user."
+  },
   {
    "seen": "2026-10-27T08:57Z",
    "day": "2026-10-27",

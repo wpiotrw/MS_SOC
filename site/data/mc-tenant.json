@@ -1,7 +1,7 @@
 {
  "read": "2026-10-28",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 719,
+ "count": 720,
  "note": null,
  "messages": [
   {
@@ -131,22 +131,22 @@
    "major": false,
    "actionBy": null,
    "start": "2025-05-07",
-   "end": "2027-03-01",
-   "modified": "2026-09-01",
+   "end": "2027-07-05",
+   "modified": "2026-10-28",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated September 1, 2026: We have updated the timeline below. Thank you for your patience. To help you manage metered consumption costs for Microsoft 365 Copilot Chat, we will introduce a new Message consumption usage report in the Microsoft 365 admin center. The new report will give you visibility into billed messages associated with your Microsoft 365 Copilot pay-as-you-go billing policies and …",
-   "when": "Public Preview: Available now. General Availability (Worldwide): We will begin rolling out in early January 2027 (previously September 2026) and expect to complete by end of January 2027 (previously end of September 2026).",
+   "summary": "Updated October 28, 2026: We have updated the timeline below. Thank you for your patience. To help you manage metered consumption costs for Microsoft 365 Copilot Chat, we will introduce a new Message consumption usage report in the Microsoft 365 admin center. The new report will give you visibility into billed messages associated with your Microsoft 365 Copilot pay-as-you-go billing policies and i…",
+   "when": "Public Preview: Available now. General Availability (Worldwide): We will begin rolling out in end of April 2027 (previously early January) and expect to complete by end of May 2027 (previously end of January).",
    "prepare": "This rollout will happen automatically by the specified date with no admin action required before the rollout. You may want to notify any admins that manage agents on the integrated apps page about this feature.",
    "dates": [
-    "Updated September 1, 2026: We have updated the timeline below.",
+    "Updated October 28, 2026: We have updated the timeline below.",
     "Usage information from prior to May 3, 2025, will not be available in the report.",
-    "General Availability (Worldwide): We will begin rolling out in early January 2027 (previously September 2026) and expect to complete by end of January 2027 (previously end of September 2026)."
+    "General Availability (Worldwide): We will begin rolling out in end of April 2027 (previously early January) and expect to complete by end of May 2027 (previously end of January)."
    ],
-   "bodyHash": "fb878144a3fbcc9d"
+   "bodyHash": "38b6ea5ebcf459ce"
   },
   {
    "id": "MC1093912",
@@ -433,33 +433,6 @@
     "Rollout started in early October and is expected to complete by mid-October 2025."
    ],
    "bodyHash": "68dc1abd6c6f3572"
-  },
-  {
-   "id": "MC1181117",
-   "title": "The October 2025 Windows non-security preview update is now available for Windows 11, version 23H2",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-10-28",
-   "end": "2026-10-28",
-   "modified": "2025-10-28",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "The October 2025 non-security preview update is now available for Windows 11, version 23H2. The non-security preview update will be available soon for Windows 11, versions 25H2 and 24H2. Information about the contents of this update is available from the release notes, which are accessible from the Windows 11 update history page. To learn more about the different types of monthly quality updates, …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "The October 2025 non-security preview update is now available for Windows 11, version 23H2.",
-    "IMPORTANT Because of minimal operations during the Western holidays and the upcoming new year, there will be no December 2025 non-security preview update.",
-    "There will be a monthly security update for December 2025.",
-    "Normal monthly servicing for both security and non-security preview updates will resume in January 2026."
-   ],
-   "bodyHash": "70091c6b0ebcdccb"
   },
   {
    "id": "MC1181171",
@@ -5766,22 +5739,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-06-08",
-   "end": "2027-02-01",
-   "modified": "2026-09-14",
+   "end": "2027-04-26",
+   "modified": "2026-10-28",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 14, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Purview Endpoint Data Loss Prevention (DLP) is introducing the ability to protect sensitive files even when they reside in commonly excluded Windows folders such as AppData directories and temporary folders. Previously, files stored in these excluded paths were not subjected to Endpoint…",
+   "summary": "Updated October 28, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Purview Endpoint Data Loss Prevention (DLP) is introducing the ability to protect sensitive files even when they reside in commonly excluded Windows folders such as AppData directories and temporary folders. Previously, files stored in these excluded paths were not subjected to Endpoint D…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 14, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): We will begin rolling out in mid-December 2026 (previously mid-September) and expect to complete by end of December 2026 (previously end of September)."
+    "Updated October 28, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We will begin rolling out in late February 2027 (previously mid-December) and expect to complete by mid-March 2027 (previously end of December)."
    ],
-   "bodyHash": "eb5e7967607b6889"
+   "bodyHash": "1066761b48923aff"
   },
   {
    "id": "MC1385471",
@@ -8547,23 +8520,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-03",
-   "end": "2026-12-31",
-   "modified": "2026-10-06",
+   "end": "2027-01-25",
+   "modified": "2026-10-28",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 6, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're introducing targeted audience surveys in the Copilot dashboard . This feature enables authorized users to launch Microsoft Viva Pulse surveys for predefined Copilot user populations without creating or maintaining recipient lists. Survey audiences are dynamically based on Copilot dashboard data…",
+   "summary": "Updated October 28, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're introducing targeted audience surveys in the Copilot dashboard . This feature enables authorized users to launch Microsoft Viva Pulse surveys for predefined Copilot user populations without creating or maintaining recipient lists. Survey audiences are dynamically based on Copilot dashboard dat…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 6, 2026: We have updated the timeline.",
+    "Updated October 28, 2026: We have updated the timeline.",
     "Public Preview: Beginning mid-August 2026 and expected to complete by late September 2026.",
-    "General Availability (Worldwide): Beginning late October 2026 (previously late September) and expected to complete by mid-November 2026 (previously late September)."
+    "General Availability (Worldwide): Beginning late November 2026 (previously late October) and expected to complete by mid-December 2026 (previously mid-November)."
    ],
-   "bodyHash": "0e5f61877b8bcd46"
+   "bodyHash": "95b2b55c354c5f4f"
   },
   {
    "id": "MC1447673",
@@ -14498,7 +14471,7 @@
   },
   {
    "id": "MC1481313",
-   "title": "Microsoft Purview | DLM: Legacy Teams retention policies that cover Copilot will be treated as Teams-only",
+   "title": "(Updated) Microsoft Purview | DLM: Legacy Teams retention policies that cover Copilot will be treated as Teams-only",
    "services": [
     "Microsoft Purview"
    ],
@@ -14507,19 +14480,21 @@
    "major": true,
    "actionBy": null,
    "start": "2026-09-28",
-   "end": "2026-12-15",
-   "modified": "2026-09-28",
+   "end": "2027-03-08",
+   "modified": "2026-10-28",
    "tags": [
     "Admin impact",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Purview is updating how legacy Microsoft Teams retention policies are applied. Some existing retention policies that are scoped to Teams currently also apply to Microsoft 365 Copilot interactions. Beginning with this rollout, these legacy policies will be treated as Teams-only policies and will no longer implicitly apply to Copilot workloads. [Rollout schedule] Worldwide: …",
+   "summary": "Updated October 27, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Purview is updating how legacy Microsoft Teams retention policies are applied. Some existing retention policies that are scoped to Teams currently also apply to Microsoft 365 Copilot interactions. Beginning with this rollout, these legacy policies will be treated as Teams-only policies and…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Worldwide: Beginning in late October 2026 and expected to complete by mid-November 2026."
+    "Updated October 27, 2026: We have updated the timeline.",
+    "Worldwide: Beginning in mid-January 2027 (previously late October 2026) and expected to complete by end of January 2027 (previously mid-November)."
    ],
-   "bodyHash": "bc2a5b29561e1dac"
+   "bodyHash": "c756cc8cda2a3565"
   },
   {
    "id": "MC1481315",
@@ -15712,7 +15687,7 @@
   },
   {
    "id": "MC1490906",
-   "title": "Microsoft Teams: Analytics for desk utilization in Teams Pro Management portal",
+   "title": "(Updated) Microsoft Teams: Analytics for desk utilization in Teams Pro Management portal",
    "services": [
     "Microsoft Teams"
    ],
@@ -15721,19 +15696,21 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-07",
-   "end": "2027-01-15",
-   "modified": "2026-10-07",
+   "end": "2027-02-22",
+   "modified": "2026-10-28",
    "tags": [
     "Admin impact",
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[What and Why:] We’re expanding analytics in the Microsoft Teams Pro Management portal to include utilization insights for bookable desks. IT admins will be able to better understand how desk spaces are being used across their organization, with insights into desk utilization, reservations, occupancy, and peak usage patterns. Desk-specific filters, including location and desk mode, will help admin…",
+   "summary": "Updated October 28, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We’re expanding analytics in the Microsoft Teams Pro Management portal to include utilization insights for bookable desks. IT admins will be able to better understand how desk spaces are being used across their organization, with insights into desk utilization, reservations, occupancy, and peak usa…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): We will begin rolling out on early November 2026 and expect to complete by mid December 2026."
+    "Updated October 28, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We will begin rolling out on early December 2026 (previously early November) and expect to complete by mid-January 2027 (previously mid-December 2026)."
    ],
-   "bodyHash": "c1bfa6cadfa8688e"
+   "bodyHash": "0e7757c3c600e4ad"
   },
   {
    "id": "MC1490909",
@@ -18459,7 +18436,7 @@
   },
   {
    "id": "MC1523090",
-   "title": "Microsoft Teams: Initiate side conversations within the meeting chat window",
+   "title": "(Updated) Microsoft Teams: Initiate side conversations within the meeting chat window",
    "services": [
     "Microsoft Teams"
    ],
@@ -18469,18 +18446,20 @@
    "actionBy": null,
    "start": "2026-10-23",
    "end": "2027-03-15",
-   "modified": "2026-10-23",
+   "modified": "2026-10-28",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] Microsoft Teams will enable meeting participants to start and continue one-to-one or small-group conversations directly from the meeting chat experience. Users can create a side conversation without leaving the meeting context, helping them coordinate, ask questions, share information, and collaborate in parallel while keeping the main meeting discussion focused. [Rollout Schedule:…",
+   "summary": "Updated October 28, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Teams will enable meeting participants to start and continue one-to-one or small-group conversations directly from the meeting chat experience. Users can create a side conversation without leaving the meeting context, helping them coordinate, ask questions, share information, and collabor…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out in early January 2027 and expect to complete in early January 2027."
+    "Updated October 28, 2026: We have updated the timeline.",
+    "General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out in early January 2027 and expect to complete in late January 2027."
    ],
-   "bodyHash": "b8c8945cfc469dd8"
+   "bodyHash": "a009a0d72cb20b21"
   },
   {
    "id": "MC1525374",
@@ -19012,6 +18991,54 @@
     "Early December 2026."
    ],
    "bodyHash": "b000697acdfa19a2"
+  },
+  {
+   "id": "MC1528937",
+   "title": "Dynamics 365 Contact Center – Boost contact center efficiency with Real Time Streaming Analytics",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-28",
+   "end": "2026-12-31",
+   "modified": "2026-10-28",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "We are introducing Real-Time Streaming Analytics in the new Contact Center supervisor workspace application, providing supervisors with near real-time visibility into Dynamics 365 Contact Center performance without requiring dashboard refreshes. This feature will be generally available starting Oct 30th with a phased rollout across all regions through November 9, 2026. How does this affect me? Thi…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "This feature will be generally available starting Oct 30th with a phased rollout across all regions through November 9, 2026."
+   ],
+   "bodyHash": "b7b8bb777567e638"
+  },
+  {
+   "id": "MC1529014",
+   "title": "The October 2026 Windows non-security preview update is now available",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-28",
+   "end": "2027-10-28",
+   "modified": "2026-10-28",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "The October 2026 non-security preview update is now available for Windows 11, versions 26H2, 26H1, and 25H2. Information about the contents of this update is available in the release notes, which are accessible from the Windows 11 update history page. To learn more about the different types of monthly quality updates, see Understanding Windows monthly updates . Highlights for the Windows 11, versi…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "The October 2026 non-security preview update is now available for Windows 11, versions 26H2, 26H1, and 25H2."
+   ],
+   "bodyHash": "3380511409f8dd35"
   },
   {
    "id": "MC676299",
@@ -25086,6 +25113,164 @@
    "id": "MC1489928",
    "type": "removed",
    "title": "Microsoft Brand Kit: Duplicate an existing Brand Kit",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1069563",
+   "type": "changed",
+   "title": "Microsoft 365 admin center: Usage reports to manage metered consumption costs for Microsoft 365 Copilot Chat (preview)",
+   "fields": {
+    "end": [
+     "2027-03-01",
+     "2027-07-05"
+    ],
+    "bodyHash": [
+     "fb878144a3fbcc9d",
+     "38b6ea5ebcf459ce"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1384420",
+   "type": "changed",
+   "title": "Microsoft Purview | Endpoint Data Loss Prevention - Ability to protect files stored in the excluded folders in Windows",
+   "fields": {
+    "end": [
+     "2027-02-01",
+     "2027-04-26"
+    ],
+    "bodyHash": [
+     "eb5e7967607b6889",
+     "1066761b48923aff"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1446805",
+   "type": "changed",
+   "title": "(Updated) Microsoft Viva: Targeted audience surveys in the Copilot dashboard",
+   "fields": {
+    "end": [
+     "2026-12-31",
+     "2027-01-25"
+    ],
+    "bodyHash": [
+     "0e5f61877b8bcd46",
+     "95b2b55c354c5f4f"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1481313",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | DLM: Legacy Teams retention policies that cover Copilot will be treated as Teams-only",
+   "fields": {
+    "title": [
+     "Microsoft Purview | DLM: Legacy Teams retention policies that cover Copilot will be treated as Teams-only",
+     "(Updated) Microsoft Purview | DLM: Legacy Teams retention policies that cover Copilot will be treated as Teams-only"
+    ],
+    "end": [
+     "2026-12-15",
+     "2027-03-08"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "bc2a5b29561e1dac",
+     "c756cc8cda2a3565"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1490906",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Analytics for desk utilization in Teams Pro Management portal",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Analytics for desk utilization in Teams Pro Management portal",
+     "(Updated) Microsoft Teams: Analytics for desk utilization in Teams Pro Management portal"
+    ],
+    "end": [
+     "2027-01-15",
+     "2027-02-22"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "c1bfa6cadfa8688e",
+     "0e7757c3c600e4ad"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1523090",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Initiate side conversations within the meeting chat window",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Initiate side conversations within the meeting chat window",
+     "(Updated) Microsoft Teams: Initiate side conversations within the meeting chat window"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "b8c8945cfc469dd8",
+     "a009a0d72cb20b21"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1528937",
+   "type": "new",
+   "title": "Dynamics 365 Contact Center – Boost contact center efficiency with Real Time Streaming Analytics",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1529014",
+   "type": "new",
+   "title": "The October 2026 Windows non-security preview update is now available",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-28",
+   "id": "MC1181117",
+   "type": "removed",
+   "title": "The October 2025 Windows non-security preview update is now available for Windows 11, version 23H2",
    "fields": {}
   }
  ]
