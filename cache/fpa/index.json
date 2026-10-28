@@ -1,10 +1,10 @@
 {
  "merill": {
-  "sha256": "741ce7aa8c960e47fda87ca93bcf1b84c7681bef559571fea185f2a68abeda4c",
-  "bytes": 840156,
-  "changed": "2026-10-24T10:59Z",
+  "sha256": "625a6198713893d568ca077491850a067876cd9125f99ac2e1edb841def6019b",
+  "bytes": 841600,
+  "changed": "2026-10-28T12:51Z",
   "url": "https://raw.githubusercontent.com/merill/microsoft-info/main/_info/MicrosoftApps.json",
-  "fetched": "2026-10-28T05:41Z",
+  "fetched": "2026-10-28T12:51Z",
   "ok": true,
   "note": ""
  },
@@ -13,7 +13,7 @@
   "bytes": 2850287,
   "changed": "2026-10-09T16:00Z",
   "url": "https://raw.githubusercontent.com/dirkjanm/ROADtools/master/roadtx/roadtools/roadtx/firstpartyscopes.json",
-  "fetched": "2026-10-28T05:41Z",
+  "fetched": "2026-10-28T12:51Z",
   "ok": true,
   "note": ""
  },
@@ -22,16 +22,16 @@
   "bytes": 647846,
   "changed": "2026-10-09T16:00Z",
   "url": "https://raw.githubusercontent.com/zh54321/GraphPreConsentExplorer/main/lists/GraphPreConsent.json",
-  "fetched": "2026-10-28T05:41Z",
+  "fetched": "2026-10-28T12:51Z",
   "ok": true,
   "note": ""
  },
  "kg": {
-  "sha256": "c3078b4f7554ae6b1855f166d621b86db54cc704a69138bf5e7391e9ff3f935f",
-  "bytes": 335632,
-  "changed": "2026-10-09T16:00Z",
+  "sha256": "dc03b90efbb30080be15ad7078f8455217076fd6c316213665571f45a02bab30",
+  "bytes": 336261,
+  "changed": "2026-10-28T12:51Z",
   "url": "https://raw.githubusercontent.com/MicrosoftDocs/entra-docs/main/.docutune/dictionaries/known-guids.json",
-  "fetched": "2026-10-28T05:41Z",
+  "fetched": "2026-10-28T12:51Z",
   "ok": true,
   "note": ""
  }
