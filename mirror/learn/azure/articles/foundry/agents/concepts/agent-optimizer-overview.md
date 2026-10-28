@@ -23,7 +23,7 @@ ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Improve prompt and hosted agents by evaluating behavior and generating better instructions, skills, tools, and model configurations.
-ms.date: 2026-08-07T00:00:00.0000000Z
+ms.date: 2026-10-26T00:00:00.0000000Z
 ms.topic: overview
 ms.subservice: foundry-agent-service
 ms.custom: references_regions, doc-kit-assisted
@@ -64,10 +64,12 @@ The optimizer uses the same evaluation-driven improvement loop for both agent ty
 
 | Agent type | What the optimizer can improve | How you start a run |
 | --- | --- | --- |
-| **Prompt agent** | Instructions, function-calling tool descriptions, and model selection | Use the optimization wizard in the Foundry portal. No code changes are required. |
+| **Prompt agent** | Instructions, function-calling tool descriptions, and model selection | Use the optimization wizard in the Foundry portal for agents without the Microsoft Copilot harness. No code changes are required. |
 | **Hosted agent** | Instructions, skills, function-calling tool descriptions, and model selection | Use Foundry Toolkit, which scaffolds optimization support automatically, or make the agent optimizer-ready and use the Azure Developer CLI. |
 
 ### Prompt agents
+
+The portal optimization workflow currently supports prompt agents that don't use the Copilot harness.
 
 For a prompt agent, the optimizer evaluates a selected agent version and generates alternative instructions. It can also improve descriptions for function-calling tools and compare the prompt across multiple candidate model deployments.
 

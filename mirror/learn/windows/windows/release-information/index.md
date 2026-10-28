@@ -15,7 +15,7 @@ ms.service: windows
 ms.topic: hub-page
 author: WindowsCommunications
 ms.author: direek
-ms.date: 2026-10-27T00:00:00.0000000Z
+ms.date: 2026-10-28T00:00:00.0000000Z
 ms.localizationpriority: medium
 locale: en-us
 document_id: 3105e4c0-7e83-7f42-7f1a-e0504b23afc9
@@ -81,9 +81,9 @@ Overview
 
 ### Message center
 
+- [The October 2026 Windows non-security preview update is now available](https://support.microsoft.com/help/5127936)
 - [New MSRC blog: Microsoft’s response to compromised eMudhra certificate authority keys](https://www.microsoft.com/msrc/blog/2026/10/microsoft-response-to-compromised-emudhra-certificate-authority-keys)
 - [Quick machine recovery is now supported on Windows Server 2025](/en-us/windows/configuration/quick-machine-recovery/?tabs=csp)
-- [(Updated) Windows updates are available for 2026 time zone changes in Canada](https://techcommunity.microsoft.com/category/windows/blog/dstblog)
 - [See more](/en-us/windows/release-information/windows-message-center)
 
 ### Windows 11, version 26H2

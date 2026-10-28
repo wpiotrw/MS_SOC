@@ -30,21 +30,15 @@ source_path: Windows365/enterprise/windows365-power-platform-connector.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1ae5c491-970a-4062-8301-6336e69f9026
-- https://authoring-docs-microsoft.poolparty.biz/devrel/e6f942e8-55a7-4c86-b8e3-7456508ea850
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f2c3e52e-3667-4e8a-bf11-20b9eaccdc8c
-- https://authoring-docs-microsoft.poolparty.biz/devrel/f1834696-48d6-470d-966b-6ee418881596
 platformId: 97e5b13b-503c-d8fc-3cec-52bc766441f4
 ---
 
 # Windows 365 Power Platform connector (preview) | Microsoft Learn
 
-Note
-
-The Windows 365 Power Platform connector is currently in Public Preview. Visit [this page](/en-us/windows-365/public-preview) to learn more about previews in Windows 365.
-
- With prebuilt actions and triggers for Windows 365 built on top of Graph, IT and operations teams can use the connector to: 
+With prebuilt actions and triggers for Windows 365 built on top of Graph, IT and operations teams can use the connector to: 
 
 - Build Cloud PC workflows using Power Automate and Azure Logic Apps, such as sending emails to users when Cloud PCs are provisioned
 - Build Copilot Studio agents to provide guided responses to common questions based on configured knowledge sources
@@ -55,7 +49,7 @@ Power Automate and Azure Logic Apps are a great fit when you want to turn an eve
 
 **Example: Send an email to a user once a Cloud PC has been provisioned**
 
-![Diagram that shows an example of how to build a workflow to send users an email once a Cloud PC has been provisioned.](media/windows365-power-platform-connector/w365-power-platform-workflow.png)
+![Screenshot that shows a Power Automate email flow.](media/windows365-power-platform-connector/pa-email-flow.jpg)
 
 **Permissions needed:**
 
@@ -68,16 +62,41 @@ The user that wants to set up the flow must have one of the following roles:
 
 **How to build this capability in Power Automate:**
 
-1. Log in to Power Automate and click New and choose Automated cloud flow. Name your flow.
-2. Select the When a Cloud PC is created or updated trigger. The trigger will then be added to your new workflow.
-3. Select When a Cloud PC is created in the dropdown menu of the trigger.
-4. Select the Get Cloud PC action and add the dynamic Cloud PC ID returned from the trigger.
-5. Click the + symbol and add the Get user profile (V2) action, then add the User principal name dynamic field from the Get a Cloud PC action above it.
-6. Click the + symbol and add the Send an email (V2) action.
-7. Add the User principal name from the Get a Cloud PC action to the To line.
-8. Add the appropriate subject to the email. Here, you can also include the Display name from the Get user profile (V2) action.
-9. Add the appropriate body content for your organization, including how your organization’s users can access their Cloud PCs and where to get support.
-10. Click Save in the top right to save your flow.
+**Create the flow**
+
+- Sign in to Power Automate and select **Create**.
+- Select **Automated cloud flow**.
+- Enter a **Flow name**, for example *Email user when Cloud PC is completed*.
+- Search the triggers for **Windows 365**.
+- Select **When a Cloud PC is created**, then select **Create**.
+
+**Get the Cloud PC details**
+
+- Under the trigger, select **+** and search for **Get a Cloud PC**.
+- Select **Get a Cloud PC** (Windows 365).
+- In **Cloud PC ID**, select the **dynamic content** (lightning bolt) icon and choose **cloudPCId** under *When a Cloud PC is created*.
+- Power Automate puts the action inside a **For each** loop on its own. This is expected.
+
+**Get the user's profile**
+
+- Inside the **For each** loop, select **+** under **Get a Cloud PC**.
+- Search for and add **Get user profile (V2)**.
+- In **User (UPN)**, choose **User principal name** under *Get a Cloud PC*.
+
+**Send the email**
+
+- Inside the loop, select **+** under **Get user profile (V2)**.
+- Search for and add **Send an email (V2)**.
+- **To:** select the **gear icon** to the right of the field, then select **Use dynamic content**.
+
+Note
+
+By default, the **To** field only searches your directory for people, so dynamic content doesn't show up there. Selecting **Use dynamic content** first turns the field into a regular email address field.
+
+- In **To**, select the **dynamic content** (lightning bolt) icon and choose **User Principal Name** under *Get user profile (V2)*.
+- **Subject:** enter a subject, for example *Your Cloud PC is ready!*
+- **Body:** add your welcome text, how to connect, and where to get support.
+- Select **Save**
 
 Note
 

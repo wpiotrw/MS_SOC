@@ -144,6 +144,7 @@ Choose the agent type and development approach before you configure **Browser Au
 | Choose | Use this option when | Next step |
 | --- | --- | --- |
 | **Prompt agent** | You want the fastest path to a browser-enabled agent. Define instructions, a model, and tools in Foundry, and let Foundry run the agent. | Follow the Prompt agent sample. |
+| **Prompt agent with Microsoft Copilot harness** | You want a Prompt Agent with a Foundry-managed harness and isolated execution environment, without deploying or operating the harness code yourself. | See Use Browser Automation with the Copilot harness. |
 | **Hosted agent with Microsoft Agent Framework** | You need custom agent code but want a recommended starting framework and Foundry-managed hosting, scaling, identity, and observability. | Follow the Hosted agent quickstart. Select **Agent Framework** when you create the sample. |
 | **Hosted agent with your own framework** | You already use a framework such as LangGraph, OpenAI Agents SDK, Semantic Kernel, or custom code, and need to retain your existing orchestration logic. | Create a Hosted agent, then connect to the Browser Automation toolbox by using your framework's MCP client. |
 
@@ -242,6 +243,16 @@ Configure a Browser Automation connection in your Foundry project before you run
 4. Save the connection.
 
 The agent samples use this connection to configure the Browser Automation tool. Depending on the SDK, the sample either retrieves the connection by name or uses the project connection ID.
+
+### Use browser automation with the Copilot harness
+
+ The Copilot harness is a harness option for Prompt Agents. You create a Prompt Agent and invoke it through the Responses API, while Microsoft Foundry operates the harness and its isolated execution environment. Use this option when you want Foundry to manage the harness infrastructure for your Prompt Agent while giving the agent access to the Browser Automation Tool. To use the Browser Automation Tool with the Copilot harness: 
+
+1. Create a Prompt Agent and select the Copilot harness.
+2. Create or use an existing Playwright workspace and configure the Browser Automation connection.
+3. Add Browser Automation Tool to the agent through a toolbox.
+4. Save the agent configuration and start a new chat session.
+5. Give the agent a browser-based task and verify that it uses Browser Automation Tool to complete the task. For example, you can ask the agent to navigate to a website, find specific information, interact with page elements, or complete a multistep browser workflow.
 
 ## Use Browser Automation Tool with agents example
 

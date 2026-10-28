@@ -123,7 +123,7 @@ For the authoritative metric and rate, see the [Copilot Credits Guide](https://c
 
 ### Do Power Apps Premium users consume Copilot Credits?
 
-No. Users with a Power Apps Premium license don't consume Copilot Credits when they run apps. Their API calls count toward the daily [Power Platform request limits](/en-us/power-platform/admin/api-request-limits-allocations) for their license, and usage above those limits is billed through Copilot Credits. Specialized services, such as Work IQ APIs, are still charged at their own rates.
+Users with a Power Apps Premium license don't consume Copilot Credits when they run apps. Their API calls count toward the daily [Power Platform request limits](/en-us/power-platform/admin/api-request-limits-allocations) for their license, and usage above those limits is billed through Copilot Credits. Specialized services, such as Work IQ APIs, are still charged at their own rates.
 
 ### Can users run apps with Power Apps use rights included in Microsoft 365 or Dynamics 365?
 
