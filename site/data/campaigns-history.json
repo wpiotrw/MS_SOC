@@ -1,6 +1,362 @@
 {
 "updated":"2026-10-28",
 "campaigns":{
+"c-mc1528013":{
+"firstSeen":"2026-10-28",
+"lastSeen":"2026-10-28",
+"name":"SharePoint Server access through the mobile apps will be retired",
+"status":"Active",
+"members":[
+"MC1528013",
+"item:MC1528013"
+],
+"log":[
+{
+"date":"2026-10-28",
+"id":"MC1528013",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"SharePoint mobile apps for iOS and Android stop reaching SharePoint Server on 27 November 2026 and support SharePoint Online only",
+"title":"SharePoint mobile apps for iOS and Android stop reaching SharePoint Server on 27 November 2026 and support SharePoint Online only",
+"link":"https://mc.merill.net/message/MC1528013"
+}
+],
+"milestones":{
+"MC1528013|posted":{
+"date":"2026-10-27",
+"label":"27 Oct 2026",
+"text":"Posted: Microsoft SharePoint: SharePoint Server access through the mobile apps will be retired"
+},
+"MC1528013|microsoft states#0":{
+"date":"2026-11-27",
+"label":"27 Nov 2026",
+"text":"Microsoft states 27 November 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528013":{
+"title":"Microsoft SharePoint: SharePoint Server access through the mobile apps will be retired",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528013",
+"source":"Message Center",
+"id":"MC1528013",
+"date":"2026-10-27",
+"updated":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://mc.merill.net/message/MC1528013":{
+"title":"Microsoft SharePoint: SharePoint Server access through the mobile apps will be retired",
+"link":"https://mc.merill.net/message/MC1528013",
+"source":"Message Center",
+"id":"MC1528013",
+"date":"2026-10-27",
+"updated":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-28"
+}
+},
+"final":"2026-11-27",
+"type":"Retirement",
+"tech":"SharePoint",
+"posts":[
+"MC1528013"
+]
+},
+"c-mc1528009":{
+"firstSeen":"2026-10-28",
+"lastSeen":"2026-10-28",
+"name":"Retirement of selected Search Analytics capabilities",
+"status":"Active",
+"members":[
+"MC1528009"
+],
+"log":[
+{
+"date":"2026-10-28",
+"id":"MC1528009",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Microsoft 365 admin center: Retirement of selected Search Analytics capabilities",
+"title":"Microsoft 365 admin center: Retirement of selected Search Analytics capabilities",
+"link":"https://mc.merill.net/message/MC1528009"
+}
+],
+"milestones":{
+"MC1528009|posted":{
+"date":"2026-10-27",
+"label":"27 Oct 2026",
+"text":"Posted: Microsoft 365 admin center: Retirement of selected Search Analytics capabilities"
+},
+"MC1528009|rollout will begin in late and is expected to complete by mi#0":{
+"date":"2026-11-25",
+"label":"late Nov 2026",
+"text":"Rollout will begin in late November 2026 and is expected to complete by mid-December 2026."
+},
+"MC1528009|rollout will begin in late and is expected to complete by mi#1":{
+"date":"2026-12-15",
+"label":"mid Dec 2026",
+"text":"Rollout will begin in late November 2026 and is expected to complete by mid-December 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528009":{
+"title":"Microsoft 365 admin center: Retirement of selected Search Analytics capabilities",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528009",
+"source":"Message Center",
+"id":"MC1528009",
+"date":"2026-10-27",
+"updated":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://mc.merill.net/message/MC1528009":{
+"title":"Microsoft 365 admin center: Retirement of selected Search Analytics capabilities",
+"link":"https://mc.merill.net/message/MC1528009",
+"source":"Message Center",
+"id":"MC1528009",
+"date":"2026-10-27",
+"updated":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-28"
+}
+},
+"final":"2026-12-15",
+"type":"Retirement",
+"tech":"Microsoft 365",
+"posts":[
+"MC1528009"
+]
+},
+"c-mc1528007":{
+"firstSeen":"2026-10-28",
+"lastSeen":"2026-10-28",
+"name":"Join button will require HTTPS meeting links",
+"status":"Active",
+"members":[
+"MC1528007",
+"item:MC1528007"
+],
+"log":[
+{
+"date":"2026-10-28",
+"id":"MC1528007",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Outlook's Join button stops appearing for meetings whose join URL is HTTP-only, from the week of 30 November 2026",
+"title":"Outlook's Join button stops appearing for meetings whose join URL is HTTP-only, from the week of 30 November 2026",
+"link":"https://mc.merill.net/message/MC1528007"
+}
+],
+"milestones":{
+"MC1528007|posted":{
+"date":"2026-10-27",
+"label":"27 Oct 2026",
+"text":"Posted: Join button will require HTTPS meeting links"
+},
+"MC1528007|general availability worldwide gcc gcc high dod we will begi#0":{
+"date":"2026-11-25",
+"label":"late Nov 2026",
+"text":"We will begin rolling out in late November 2026 and expect to complete by late December 2026."
+},
+"MC1528007|beginning the week of the join button will no longer appear #0":{
+"date":"2026-11-30",
+"label":"30 Nov 2026",
+"text":"Beginning the week of November 30, 2026, the Join button will no longer appear for meetings that contain only an HTTP join URL."
+},
+"MC1528007|general availability worldwide gcc gcc high dod we will begi#1":{
+"date":"2026-12-25",
+"label":"late Dec 2026",
+"text":"We will begin rolling out in late November 2026 and expect to complete by late December 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528007":{
+"title":"Join button will require HTTPS meeting links",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528007",
+"source":"Message Center",
+"id":"MC1528007",
+"date":"2026-10-27",
+"updated":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
+"title":"Managed Win32 app content now requires HTTPS delivery",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"date":"2026-06-15",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://mc.merill.net/message/MC1528007":{
+"title":"Join button will require HTTPS meeting links",
+"link":"https://mc.merill.net/message/MC1528007",
+"source":"Message Center",
+"id":"MC1528007",
+"date":"2026-10-27",
+"updated":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-28"
+}
+},
+"final":"2026-12-25",
+"type":"Enforcement",
+"tech":"Exchange",
+"posts":[
+"MC1528007"
+]
+},
+"c-item-mc1519855":{
+"firstSeen":"2026-10-22",
+"lastSeen":"2026-10-28",
+"name":"Choose your own telephony provider for SMS and voice authentication",
+"status":"Active",
+"members":[
+"MC1519855",
+"item:MC1519855",
+"MC1528000",
+"item:MC1528000"
+],
+"log":[
+{
+"date":"2026-10-28",
+"id":"MC1528000",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Reminder: Microsoft-provided SMS and voice authentication retires from 1 February 2027; users with only SMS or voice get one last use, then must register a passkey",
+"title":"Reminder: Microsoft-provided SMS and voice authentication retires from 1 February 2027; users with only SMS or voice get one last use, then must register a passkey",
+"link":"https://mc.merill.net/message/MC1528000"
+},
+{
+"date":"2026-10-22",
+"id":"MC1519855",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"link":"https://deltapulse.app/item/MC1519855"
+}
+],
+"milestones":{
+"MC1519855|posted":{
+"date":"2026-10-21",
+"label":"21 Oct 2026",
+"text":"Posted: Microsoft Entra: Choose your own telephony provider for SMS and voice authentication"
+},
+"MC1528000|posted":{
+"date":"2026-10-27",
+"label":"27 Oct 2026",
+"text":"Posted: Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
+},
+"MC1519855|starting microsoft entra id allows organizations to choose a#0":{
+"date":"2026-10-30",
+"label":"30 Oct 2026",
+"text":"Starting October 30, 2026, Microsoft Entra ID allows organizations to choose a supported third-party telephony provider for SMS and voice authentication via Mic"
+},
+"MC1519855|microsoft provided sms voice authentication retires by excep#0":{
+"date":"2027-02-01",
+"label":"1 Feb 2027",
+"text":"Microsoft-provided SMS/voice authentication retires by February 1, 2027, except for some users until July 1, 2027."
+},
+"MC1519855|microsoft provided sms voice authentication retires by excep#1":{
+"date":"2027-07-01",
+"label":"1 Jul 2027",
+"text":"Microsoft-provided SMS/voice authentication retires by February 1, 2027, except for some users until July 1, 2027."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1519855":{
+"title":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1519855",
+"source":"Message Center",
+"id":"MC1519855",
+"date":"2026-10-21",
+"updated":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://deltapulse.app/item/MC1519855":{
+"title":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+"link":"https://deltapulse.app/item/MC1519855",
+"source":"Main list source",
+"id":"MC1519855",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://azure.microsoft.com/updates?id=577273":{
+"title":"Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
+"link":"https://azure.microsoft.com/updates?id=577273",
+"source":"Azure Updates",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
+"title":"General Availability - Enabling Email and SMS OTP MFA in Entra External ID Native Authentication",
+"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Entra",
+"date":"2026-06-26",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://mc.merill.net/message/AZ577273":{
+"title":"AZ577273: Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
+"link":"https://mc.merill.net/message/AZ577273",
+"source":"MC - Merill",
+"date":"2026-10-21",
+"group":"community",
+"found":"2026-10-22"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500":{
+"title":"Free, offline tool: see each user's real passkey policy in Entra ID and who SMS retirement blocks",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500",
+"source":"Microsoft Entra Blog",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-23"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528000":{
+"title":"Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528000",
+"source":"Message Center",
+"id":"MC1528000",
+"date":"2026-10-27",
+"updated":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://mc.merill.net/message/MC1528000":{
+"title":"Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1528000",
+"source":"Message Center",
+"id":"MC1528000",
+"date":"2026-10-27",
+"updated":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://daily.entra.news/day/2026-10-27/":{
+"title":"Microsoft-provided SMS and voice face February 2027 Entra retirement deadline — 27 October 2026",
+"link":"https://daily.entra.news/day/2026-10-27/",
+"source":"Daily Entra News",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-28"
+}
+},
+"final":"2027-07-01",
+"type":"Retirement",
+"tech":"Entra",
+"posts":[
+"MC1519855",
+"MC1528000"
+]
+},
 "c-mc1481315":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-28",
@@ -28,6 +384,24 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
+"title":"Purview retires the DSPM classic and DSPM for AI classic experiences in late January 2027 (moved from 30 November - 31 December 2026)",
+"link":"https://deltapulse.app/item/MC1481315"
+},
+{
+"date":"2026-10-27",
+"id":"MC1481315",
+"what":"Deadline",
+"before":"2026-12-31",
+"after":"2027-01-31",
+"title":"Purview retires the DSPM classic and DSPM for AI classic experiences in late January 2027 (moved from 30 November - 31 December 2026)",
+"link":"https://deltapulse.app/item/MC1481315"
+},
+{
+"date":"2026-10-27",
+"id":"MC1481315",
+"what":"Microsoft revised the post",
+"before":"2026-09-28",
+"after":"2026-10-27",
 "title":"Purview retires the DSPM classic and DSPM for AI classic experiences in late January 2027 (moved from 30 November - 31 December 2026)",
 "link":"https://deltapulse.app/item/MC1481315"
 },
@@ -3180,6 +3554,14 @@
 "date":"2026-10-27",
 "group":"microsoft",
 "found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62765":{
+"title":"CVE-2026-62765 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62765",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-28"
 }
 },
 "final":"2026-10-15",
@@ -4306,126 +4688,6 @@
 "tech":"Copilot",
 "posts":[
 "MC1474124"
-]
-},
-"c-item-mc1519855":{
-"firstSeen":"2026-10-22",
-"lastSeen":"2026-10-28",
-"name":"Choose your own telephony provider for SMS and voice authentication",
-"status":"Active",
-"members":[
-"MC1519855",
-"item:MC1519855",
-"MC1528000"
-],
-"log":[
-{
-"date":"2026-10-22",
-"id":"MC1519855",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
-"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
-"link":"https://deltapulse.app/item/MC1519855"
-}
-],
-"milestones":{
-"MC1519855|posted":{
-"date":"2026-10-21",
-"label":"21 Oct 2026",
-"text":"Posted: Microsoft Entra: Choose your own telephony provider for SMS and voice authentication"
-},
-"MC1528000|posted":{
-"date":"2026-10-27",
-"label":"27 Oct 2026",
-"text":"Posted: Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
-},
-"MC1519855|starting microsoft entra id allows organizations to choose a#0":{
-"date":"2026-10-30",
-"label":"30 Oct 2026",
-"text":"Starting October 30, 2026, Microsoft Entra ID allows organizations to choose a supported third-party telephony provider for SMS and voice authentication via Mic"
-},
-"MC1528000|microsoft provided sms and voice authentication will retire #0":{
-"date":"2027-02-01",
-"label":"1 Feb 2027",
-"text":"Microsoft-provided SMS and voice authentication will retire starting February 1, 2027."
-},
-"MC1519855|microsoft provided sms voice authentication retires by excep#1":{
-"date":"2027-07-01",
-"label":"1 Jul 2027",
-"text":"Microsoft-provided SMS/voice authentication retires by February 1, 2027, except for some users until July 1, 2027."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1519855":{
-"title":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
-"link":"https://mc.merill.net/message/MC1519855",
-"source":"Message Center",
-"id":"MC1519855",
-"date":"2026-10-21",
-"updated":"2026-10-21",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://deltapulse.app/item/MC1519855":{
-"title":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
-"link":"https://deltapulse.app/item/MC1519855",
-"source":"Main list source",
-"id":"MC1519855",
-"date":"2026-10-21",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://azure.microsoft.com/updates?id=577273":{
-"title":"Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
-"link":"https://azure.microsoft.com/updates?id=577273",
-"source":"Azure Updates",
-"date":"2026-10-21",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
-"title":"General Availability - Enabling Email and SMS OTP MFA in Entra External ID Native Authentication",
-"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
-"source":"Microsoft Learn · What's new · Entra",
-"date":"2026-06-26",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://mc.merill.net/message/AZ577273":{
-"title":"AZ577273: Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
-"link":"https://mc.merill.net/message/AZ577273",
-"source":"MC - Merill",
-"date":"2026-10-21",
-"group":"community",
-"found":"2026-10-22"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500":{
-"title":"Free, offline tool: see each user's real passkey policy in Entra ID and who SMS retirement blocks",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500",
-"source":"Microsoft Entra Blog",
-"date":"2026-10-23",
-"group":"community",
-"found":"2026-10-23"
-},
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528000":{
-"title":"Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528000",
-"source":"Message Center",
-"id":"MC1528000",
-"date":"2026-10-27",
-"updated":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-28"
-}
-},
-"final":"2027-07-01",
-"type":"Retirement",
-"tech":"Entra",
-"posts":[
-"MC1519855",
-"MC1528000"
 ]
 },
 "c-mc1278920":{
@@ -5663,14 +5925,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-25",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-26",
 "text":"August 1, 2026."
 },
@@ -5800,6 +6054,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-27",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-28",
 "text":"August 1, 2026."
 },
 {
@@ -6360,7 +6622,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-27",
+"seen":"2026-10-28",
 "text":"early February 2026."
 },
 {
@@ -6368,7 +6630,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-27",
+"seen":"2026-10-28",
 "text":"February 2027."
 },
 {
@@ -6777,152 +7039,6 @@
 "tech":"Windows",
 "posts":[
 "MC1172446"
-]
-},
-"c-mc1528007":{
-"firstSeen":"2026-10-28",
-"lastSeen":"2026-10-28",
-"name":"Join button will require HTTPS meeting links",
-"status":"Active",
-"members":[
-"MC1528007"
-],
-"log":[],
-"milestones":{
-"MC1528007|posted":{
-"date":"2026-10-27",
-"label":"27 Oct 2026",
-"text":"Posted: Join button will require HTTPS meeting links"
-},
-"MC1528007|general availability worldwide gcc gcc high dod we will begi#0":{
-"date":"2026-11-25",
-"label":"late Nov 2026",
-"text":"We will begin rolling out in late November 2026 and expect to complete by late December 2026."
-},
-"MC1528007|beginning the week of the join button will no longer appear #0":{
-"date":"2026-11-30",
-"label":"30 Nov 2026",
-"text":"Beginning the week of November 30, 2026, the Join button will no longer appear for meetings that contain only an HTTP join URL."
-},
-"MC1528007|general availability worldwide gcc gcc high dod we will begi#1":{
-"date":"2026-12-25",
-"label":"late Dec 2026",
-"text":"We will begin rolling out in late November 2026 and expect to complete by late December 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528007":{
-"title":"Join button will require HTTPS meeting links",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528007",
-"source":"Message Center",
-"id":"MC1528007",
-"date":"2026-10-27",
-"updated":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
-"title":"Managed Win32 app content now requires HTTPS delivery",
-"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
-"source":"Microsoft Learn · What's new · Microsoft Intune",
-"date":"2026-06-15",
-"group":"microsoft",
-"found":"2026-10-28"
-}
-},
-"final":"2026-12-25",
-"type":"Enforcement",
-"tech":"Exchange",
-"posts":[
-"MC1528007"
-]
-},
-"c-mc1528009":{
-"firstSeen":"2026-10-28",
-"lastSeen":"2026-10-28",
-"name":"Retirement of selected Search Analytics capabilities",
-"status":"Active",
-"members":[
-"MC1528009"
-],
-"log":[],
-"milestones":{
-"MC1528009|posted":{
-"date":"2026-10-27",
-"label":"27 Oct 2026",
-"text":"Posted: Microsoft 365 admin center: Retirement of selected Search Analytics capabilities"
-},
-"MC1528009|rollout will begin in late and is expected to complete by mi#0":{
-"date":"2026-11-25",
-"label":"late Nov 2026",
-"text":"Rollout will begin in late November 2026 and is expected to complete by mid-December 2026."
-},
-"MC1528009|rollout will begin in late and is expected to complete by mi#1":{
-"date":"2026-12-15",
-"label":"mid Dec 2026",
-"text":"Rollout will begin in late November 2026 and is expected to complete by mid-December 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528009":{
-"title":"Microsoft 365 admin center: Retirement of selected Search Analytics capabilities",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528009",
-"source":"Message Center",
-"id":"MC1528009",
-"date":"2026-10-27",
-"updated":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-28"
-}
-},
-"final":"2026-12-15",
-"type":"Retirement",
-"tech":"Microsoft 365",
-"posts":[
-"MC1528009"
-]
-},
-"c-mc1528013":{
-"firstSeen":"2026-10-28",
-"lastSeen":"2026-10-28",
-"name":"SharePoint Server access through the mobile apps will be retired",
-"status":"Active",
-"members":[
-"MC1528013"
-],
-"log":[],
-"milestones":{
-"MC1528013|posted":{
-"date":"2026-10-27",
-"label":"27 Oct 2026",
-"text":"Posted: Microsoft SharePoint: SharePoint Server access through the mobile apps will be retired"
-},
-"MC1528013|beginning#0":{
-"date":"2026-11-27",
-"label":"27 Nov 2026",
-"text":"Beginning November 27, 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528013":{
-"title":"Microsoft SharePoint: SharePoint Server access through the mobile apps will be retired",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528013",
-"source":"Message Center",
-"id":"MC1528013",
-"date":"2026-10-27",
-"updated":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-28"
-}
-},
-"final":"2026-11-27",
-"type":"Retirement",
-"tech":"SharePoint",
-"posts":[
-"MC1528013"
 ]
 },
 "c-item-mc1454973":{
@@ -7638,6 +7754,24 @@
 "what":"Message Center end date",
 "before":"2027-10-26",
 "after":"2027-10-27",
+"title":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
+"link":"https://deltapulse.app/item/MC1525374"
+},
+{
+"date":"2026-10-27",
+"id":"MC1525374",
+"what":"Microsoft revised the post",
+"before":"2026-10-26",
+"after":"2026-10-27",
+"title":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
+"link":"https://deltapulse.app/item/MC1525374"
+},
+{
+"date":"2026-10-27",
+"id":"MC1525374",
+"what":"Published",
+"before":"2026-10-26",
+"after":"2026-10-27",
 "title":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
 "link":"https://deltapulse.app/item/MC1525374"
 },
@@ -8546,6 +8680,30 @@
 "date":"2026-10-26",
 "group":"microsoft",
 "found":"2026-10-27"
+},
+"https://dev.to/tadnaen/gpt-61-terra-what-the-new-pricing-and-benchmarks-actually-tell-developers-pan":{
+"title":"GPT-6.1 Terra: what the new pricing and benchmarks actually tell developers",
+"link":"https://dev.to/tadnaen/gpt-61-terra-what-the-new-pricing-and-benchmarks-actually-tell-developers-pan",
+"source":"NeonTiger12",
+"date":"2026-10-28",
+"group":"community",
+"found":"2026-10-28"
+},
+"https://dev.to/sahil_singh_a8df2b8858ef5/how-to-move-a-long-claude-chat-to-chatgpt-without-re-explaining-everything-2m9c":{
+"title":"How to move a long Claude chat to ChatGPT without re-explaining everything",
+"link":"https://dev.to/sahil_singh_a8df2b8858ef5/how-to-move-a-long-claude-chat-to-chatgpt-without-re-explaining-everything-2m9c",
+"source":"NeonTiger12",
+"date":"2026-10-28",
+"group":"community",
+"found":"2026-10-28"
+},
+"https://www.bleepingcomputer.com/news/artificial-intelligence/openais-gpt-61-terra-is-safer-overall-but-shows-more-destructive-action-flags-in-tests/":{
+"title":"OpenAI's GPT-6.1 Terra is safer overall, but shows more destructive-action flags in tests",
+"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/openais-gpt-61-terra-is-safer-overall-but-shows-more-destructive-action-flags-in-tests/",
+"source":"BleepingComputer",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-28"
 }
 },
 "final":"2026-11-15",
@@ -9565,6 +9723,30 @@
 "date":"2026-10-27",
 "group":"community",
 "found":"2026-10-27"
+},
+"https://mc.merill.net/message/MC1528003":{
+"title":"MC1528003: Microsoft Excel: Edit with Copilot in Excel on iPhone",
+"link":"https://mc.merill.net/message/MC1528003",
+"source":"MC - Merill",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-28"
+},
+"https://mc.merill.net/message/MC1528000":{
+"title":"MC1528000: Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1528000",
+"source":"MC - Merill",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-28"
+},
+"https://daily.entra.news/day/2026-10-27/":{
+"title":"Microsoft-provided SMS and voice face February 2027 Entra retirement deadline — 27 October 2026",
+"link":"https://daily.entra.news/day/2026-10-27/",
+"source":"Daily Entra News",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-28"
 }
 },
 "final":"2027-07-01",
@@ -10251,7 +10433,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-27",
+"seen":"2026-10-28",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10259,7 +10441,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-27",
+"seen":"2026-10-28",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10628,6 +10810,30 @@
 "date":"2026-10-27",
 "group":"community",
 "found":"2026-10-27"
+},
+"https://mc.merill.net/message/MC1528006":{
+"title":"MC1528006: Microsoft Authenticator: Improved backup and restore experience for Android",
+"link":"https://mc.merill.net/message/MC1528006",
+"source":"MC - Merill",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-28"
+},
+"https://mc.merill.net/message/MC1528000":{
+"title":"MC1528000: Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1528000",
+"source":"MC - Merill",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-28"
+},
+"https://daily.entra.news/day/2026-10-27/":{
+"title":"Microsoft-provided SMS and voice face February 2027 Entra retirement deadline — 27 October 2026",
+"link":"https://daily.entra.news/day/2026-10-27/",
+"source":"Daily Entra News",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-28"
 }
 },
 "final":"2027-02-25",
@@ -15023,6 +15229,134 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1528013",
+"type":"milestone",
+"name":"SharePoint Server access through the mobile apps will be retired",
+"src":"MC1528013",
+"now":"27 Nov 2026",
+"text":"Microsoft states 27 November 2026."
+},
+{
+"day":"2026-10-28",
+"cid":"c-item-mc1519855",
+"type":"milestone",
+"name":"Choose your own telephony provider for SMS and voice authentication",
+"src":"MC1519855",
+"now":"1 Feb 2027",
+"text":"Microsoft-provided SMS/voice authentication retires by February 1, 2027, except for some users until July 1, 2027."
+},
+{
+"day":"2026-10-28",
+"cid":"c-item-mc1519855",
+"type":"material",
+"name":"Choose your own telephony provider for SMS and voice authentication",
+"group":"community",
+"title":"Microsoft-provided SMS and voice face February 2027 Entra retirement deadline — 27 October 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-10-27/"
+},
+{
+"day":"2026-10-28",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-62765 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62765"
+},
+{
+"day":"2026-10-28",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"GPT-6.1 Terra: what the new pricing and benchmarks actually tell developers",
+"source":"NeonTiger12",
+"link":"https://dev.to/tadnaen/gpt-61-terra-what-the-new-pricing-and-benchmarks-actually-tell-developers-pan"
+},
+{
+"day":"2026-10-28",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"How to move a long Claude chat to ChatGPT without re-explaining everything",
+"source":"NeonTiger12",
+"link":"https://dev.to/sahil_singh_a8df2b8858ef5/how-to-move-a-long-claude-chat-to-chatgpt-without-re-explaining-everything-2m9c"
+},
+{
+"day":"2026-10-28",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"OpenAI's GPT-6.1 Terra is safer overall, but shows more destructive-action flags in tests",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/openais-gpt-61-terra-is-safer-overall-but-shows-more-destructive-action-flags-in-tests/"
+},
+{
+"day":"2026-10-28",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"MC1528003: Microsoft Excel: Edit with Copilot in Excel on iPhone",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1528003"
+},
+{
+"day":"2026-10-28",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"MC1528000: Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1528000"
+},
+{
+"day":"2026-10-28",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Microsoft-provided SMS and voice face February 2027 Entra retirement deadline — 27 October 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-10-27/"
+},
+{
+"day":"2026-10-28",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"MC1528006: Microsoft Authenticator: Improved backup and restore experience for Android",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1528006"
+},
+{
+"day":"2026-10-28",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"MC1528000: Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1528000"
+},
+{
+"day":"2026-10-28",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Microsoft-provided SMS and voice face February 2027 Entra retirement deadline — 27 October 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-10-27/"
 }
 ],
 "archive":{
