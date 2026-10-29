@@ -81,9 +81,9 @@ Overview
 
 ### Message center
 
+- [Policy-based in-box app removal extended to multi-session environments](/en-us/windows/configuration/policy-based-inbox-app-removal/policy-based-inbox-app-removal)
 - [The October 2026 Windows non-security preview update is now available](https://support.microsoft.com/help/5127936)
 - [New MSRC blog: Microsoft’s response to compromised eMudhra certificate authority keys](https://www.microsoft.com/msrc/blog/2026/10/microsoft-response-to-compromised-emudhra-certificate-authority-keys)
-- [Quick machine recovery is now supported on Windows Server 2025](/en-us/windows/configuration/quick-machine-recovery/?tabs=csp)
 - [See more](/en-us/windows/release-information/windows-message-center)
 
 ### Windows 11, version 26H2

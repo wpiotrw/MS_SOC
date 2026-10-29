@@ -24,7 +24,7 @@ ms.service: azure-backup
 ms.reviewer: v-mallicka
 description: Learn about the new features in the Azure Backup service.
 ms.topic: release-notes
-ms.date: 2026-10-26T00:00:00.0000000Z
+ms.date: 2026-10-27T00:00:00.0000000Z
 ms.custom:
 - ignite-2023
 - build-2026
@@ -44,8 +44,10 @@ item_type: Content
 source_path: articles/backup/whats-new.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: dba3d424-db38-28d1-b895-111ed8690c6f
 ---
 
@@ -59,6 +61,7 @@ You can learn more about the new releases by bookmarking this page or by [subscr
 
 - October 2026
 
+    - Selective disk restore for Azure VMs (preview)
     - Cross-tenant restore for Azure Backup (preview)
     - Granular billing for Azure Backup is now generally available
     - Item-level recovery support for Premium SSD v2 and Ultra disks
@@ -143,6 +146,14 @@ You can learn more about the new releases by bookmarking this page or by [subscr
 - January 2024
 
     - Cross Region Restore support for PostgreSQL by using Azure Backup is now generally available
+
+## Selective disk restore for Azure VMs (preview)
+
+Azure Backup now supports selective disk restore for Azure virtual machines (preview). You can choose which disks to restore from a recovery point without enabling selective disk backup. This capability lets you recover only the disks you need instead of restoring all the backed-up disks.
+
+Selective disk restore supports creating a new VM (alternate-location restore), replacing selected disks on an existing VM (original-location restore), and restoring selected disks without creating a VM. The OS disk is required when you create a new VM, but you can exclude it when replacing existing disks or restoring as disks. Use **Restore VM (Preview)** in the Azure portal to select disks and track the restore through **Backup jobs**.
+
+For more information, see [Selective disk restore](selective-disk-backup-restore#selective-disk-restore).
 
 ## Cross-tenant restore for Azure Backup (preview)
 

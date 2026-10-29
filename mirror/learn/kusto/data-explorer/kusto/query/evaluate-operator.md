@@ -105,6 +105,7 @@ The following plugins are supported:
 - [basket plugin](basket-plugin)
 - [cosmosdb-sql-request plugin](cosmosdb-plugin)
 - [dax_request plugin](dax-request-plugin)
+- [gql_request plugin](gql-request-plugin)
 - [dcount-intersect plugin](dcount-intersect-plugin)
 - [diffpatterns plugin](diffpatterns-plugin)
 - [diffpatterns-text plugin](diffpatterns-text-plugin)

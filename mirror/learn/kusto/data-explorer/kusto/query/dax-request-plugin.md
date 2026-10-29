@@ -43,9 +43,11 @@ source_path: data-explorer/kusto/query/dax-request-plugin.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/d3197845-b4ce-44c6-a237-cd4be160e76c
 - https://authoring-docs-microsoft.poolparty.biz/devrel/26e1a60c-4ce1-41de-b2d1-e5f3b7e68e6e
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/e7cd09c2-9e9a-4f0d-b160-c15783f45b1f
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/aea905fb-0a9d-4d46-b30f-e9cbaf772d1b
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad3bd485-5ca9-4865-afde-baec02586899
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1d337399-0ca4-4b4c-acef-8df37820e018
 platformId: dd7e55e5-231e-3e3a-2b7e-07f75a91038e
 ---
 
@@ -54,6 +56,10 @@ platformId: dd7e55e5-231e-3e3a-2b7e-07f75a91038e
 The `dax_request` plugin runs a Data Analysis Expressions (DAX) query against a Power BI semantic model and returns the results as a table. Process the returned table with standard Kusto Query Language (KQL) operators. Invoke the plugin with the [evaluate operator](evaluate-operator).
 
 The plugin uses the Power BI [Execute DAX Queries API](/en-us/power-bi/developer/execute-dax-queries-arrow/overview), which returns results in Apache Arrow format. The plugin preserves supported column types when it converts the response to a KQL table.
+
+Note
+
+The `dax_request` plugin is in preview.
 
 ## Prerequisites
 
@@ -76,8 +82,9 @@ Learn more about syntax conventions in the [Syntax conventions for reference doc
 | DaxQuery | `string` | Yes | The DAX query to execute against the semantic model. |
 | OutputSchema | - | - | The names and types of the expected output columns. Use the syntax `(`*ColumnName*`:`*ColumnType* [`,` ...]`)`. |
 
-> 
-> ![NOTE] Specifying *OutputSchema* is recommended. It lets Kusto determine the plugin’s output columns and types without sending the DAX query to Power BI during schema discovery. The Power BI request is instead deferred to query execution, alongside the rest of the KQL query. The plugin returns an error if the returned schema is incompatible with the declared schema.
+Note
+
+Specifying *OutputSchema* is recommended. It lets Kusto determine the plugin’s output columns and types without sending the DAX query to Power BI during schema discovery. The Power BI request is instead deferred to query execution, alongside the rest of the KQL query. The plugin returns an error if the returned schema is incompatible with the declared schema.
 
 ## Connection string
 

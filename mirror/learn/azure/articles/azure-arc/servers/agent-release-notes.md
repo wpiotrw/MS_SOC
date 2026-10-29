@@ -51,7 +51,7 @@ platformId: cd12107b-7017-8732-b1c3-2ab63e80212d
 
 Warning
 
-Only Connected Machine agent versions released within the last year are officially supported by the product group. All customers should update to an agent version within this window or [enable automatic agent upgrades (preview)](automatic-agent-upgrade). Microsoft recommends staying up to date with the latest agent version whenever possible.
+Only Connected Machine agent versions released within the last year are officially supported by the product group. All customers should update to an agent version within this window or [enable automatic agent upgrades](automatic-agent-upgrade). Microsoft recommends staying up to date with the latest agent version whenever possible.
 
 The Azure Connected Machine agent receives improvements on an ongoing basis. To stay up to date with the most recent developments, this article provides you with information about:
 

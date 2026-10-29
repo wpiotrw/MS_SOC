@@ -14,7 +14,7 @@ manager: bpardi
 feedback_system: Standard
 feedback_product_url: https://support.microsoft.com/windows/send-feedback-to-microsoft-with-the-feedback-hub-app-f59187f8-8739-22d6-ba93-f66612949332
 description: Learn how to configure devices to use Windows settings backup and restore.
-ms.date: 2026-10-15T00:00:00.0000000Z
+ms.date: 2026-10-29T00:00:00.0000000Z
 ms.topic: overview
 ms.author: shnaran
 author: shilpasawhney-beep
@@ -45,24 +45,24 @@ platformId: 13080a43-37c3-7c66-5345-168068be2efc
 
 # Windows settings backup and restore Overview | Microsoft Learn
 
-Windows settings backup and restore is an enterprise-grade feature designed to streamline device transitions by securely preserving user settings and Microsoft Store app configurations. Whether upgrading from Windows 10 or refreshing PCs, it delivers a consistent user experience and enhances business continuity through robust backup and rapid recovery capabilities.
+Windows settings backup and restore is an enterprise-grade feature that streamlines device transitions by securely preserving user settings and Microsoft Store app configurations. Whether you're upgrading from Windows 10 or refreshing PCs, it delivers a consistent user experience and enhances business continuity through robust backup and rapid recovery capabilities.
 
 Note
 
-Windows Backup for Organizations is now **Windows settings backup and restore**. You’ll start seeing the new name, Windows settings backup and restore, as we update documentation and policy surfaces. During this transition, some references might still use **Windows Backup for Organizations**.
+Windows Backup for Organizations is now **Windows settings backup and restore**. You'll start seeing the new name, Windows settings backup and restore, as we update documentation and policy surfaces. During this transition, some references might still use **Windows Backup for Organizations**.
 
 Note
 
-Starting with Windows 11, version 26H2, Windows settings backup will be **enabled by default** for eligible devices. Any existing administrator-configured policy (enabled or disabled) will continue to be honored. This change establishes backup as a baseline capability, helping user environments stay protected without requiring setup. Settings and Microsoft Store app list are preserved, so users can move to a new device and resume work quickly. This change applies only to backup policies; admins must still configure restore policies. For more details, see [Windows settings backup becoming a new resilience baseline](https://aka.ms/NewResilienceBaseline).
+Starting with Windows 11, version 26H2, Windows settings backup is **enabled by default** for eligible devices. Any existing administrator-configured policy (enabled or disabled) continues to be honored. This change establishes backup as a baseline capability, helping user environments stay protected without requiring setup. The feature preserves the settings and Microsoft Store app list, so users can move to a new device and resume work quickly. This change applies only to backup policies; admins must still configure restore policies. For more details, see [Windows settings backup becoming a new resilience baseline](https://aka.ms/NewResilienceBaseline).
 
 Note
 
-**Starting July 2026**, **Enterprise State Roaming** (ESR) management has moved to Windows settings backup and restore. For more information, see [Enterprise State Roaming](catalog-esr).
+Starting July 2026, **Enterprise State Roaming** (ESR) management is part of Windows settings backup and restore. For more information, see [Enterprise State Roaming](catalog-esr).
 
 Objectives of Windows settings backup and restore:
 
-- Help organizations accelerate PC refresh cycle or the transition to Windows 11 or deploying AI-powered PCs.
-- Allow organizations to transition to a cloud-first approach for managing devices and user settings.
+- Help organizations accelerate PC refresh cycle, transition to Windows 11, or deployment of AI-powered PCs.
+- Help organizations transition to a cloud-first approach for managing devices and user settings.
 
 ## System requirements
 
@@ -98,24 +98,24 @@ The restore feature is available during OOBE on devices that meet the following 
 
 Tip
 
-If devices are running a build older than July 2025, ensure the [**Install Windows quality updates** policy](https://aka.ms/W11QualityUpdates/OOBE) is enabled. This allows devices to receive the latest quality updates and use the restore feature.
+If devices are running a build older than July 2025, ensure that you enable the [**Install Windows quality updates** policy](https://aka.ms/W11QualityUpdates/OOBE). This setting allows devices to receive the latest quality updates and use the restore feature.
 
 ### Restore requirements during first sign-in
 
 - Windows 11, version 24H2 build [26100.7922](https://support.microsoft.com/en-us/topic/february-24-2026-kb5077241-os-builds-26200-7922-and-26100-7922-preview-b8cc7bc8-d640-4f18-9437-3ee59298b970) or later
 - Windows 11, version 25H2 build [26200.7922](https://support.microsoft.com/en-us/topic/february-24-2026-kb5077241-os-builds-26200-7922-and-26100-7922-preview-b8cc7bc8-d640-4f18-9437-3ee59298b970) or later
-- The device has already completed enrollment
-- The user signs-in for the first time after enrollment
-- The user has at least one backup profile
-- Must be **Microsoft Entra joined or Microsoft Entra Hybrid joined**
+- The device already completed enrollment.
+- The user signs in for the first time after enrollment.
+- The user has at least one backup profile.
+- The device is **Microsoft Entra joined or Microsoft Entra Hybrid joined**.
 
 Tip
 
-If devices are running a build older than March 2026, ensure the **[Install Windows quality updates policy](https://aka.ms/W11QualityUpdates/OOBE)** is enabled. This allows devices to receive the latest quality updates during out-of-box experience and use the restore feature.
+If devices are running a build older than March 2026, ensure that you enable the **[Install Windows quality updates policy](https://aka.ms/W11QualityUpdates/OOBE)**. This setting allows devices to receive the latest quality updates during the out-of-box experience (OOBE) and use the restore feature.
 
 ### Cloud and regional availability
 
-This feature is not currently available for GCCH/Sovereign clouds or China.
+This feature is currently unavailable for GCCH and Sovereign clouds or China.
 
 ## How it works
 
@@ -126,31 +126,31 @@ Windows settings backup and restore is an opt-in feature and is disabled by defa
 The backup and restore process is designed to be seamless and user-friendly. The following steps outline the backup process:
 
 1. An administrator configures the policy settings for backup.
-2. The backup scheduled task runs every eight days automatically, during which the user settings, preferences, and the list of installed Microsoft Store apps are backed up.
-3. Alternatively, users can initiate a backup manually by searching for the Windows Backup app in the Windows search box, and selecting **Back up**.
+2. The backup scheduled task runs every eight days automatically. It backs up the user settings, preferences, and the list of installed Microsoft Store apps.
+3. Alternatively, users can initiate a backup manually by searching for the Windows Backup app in the Windows search box and selecting **Back up**.
 
 [![Screenshot of the Windows backup app showing a backup of user settings in progress.](images/windows-backup.png)](images/windows-backup.png#lightbox)
 
 ### Restore process
 
-The restore process for a device can be initiated at the time of device enrollment during the out-of-box experience (OOBE) or during first sign-in after the device has completed enrollment when a user signs in with their Microsoft Entra ID account. The following steps outline the restore process:
+You can initiate the restore process for a device in two ways. One way is at the time of device enrollment during the out-of-box experience (OOBE). The other way is during first sign-in after the device completes enrollment and when a user signs in with their Microsoft Entra ID account. The following steps outline the restore process:
 
-1. An administrator enables the restore policy setting, which is disabled by default via Group Policy or MDM.
-2. The user signs in during OOBE or first sign-in with the same work or school account (Entra ID) that was used during the backup flow.
+1. An administrator enables the restore policy setting. This policy is disabled by default via Group Policy or mobile device management (MDM).
+2. The user signs in during OOBE or first sign-in with the same work or school account (Entra ID) that they used during the backup flow.
 
-1. After the sign in screen, the restore page appears. The user can choose to restore a backup profile from a previous device or to configure the device as new.
+1. After the sign-in screen, the restore page appears. The user can choose to restore a backup profile from a previous device or to configure the device as new.
 
 [![Screenshot of the Windows 11 OOBE showing the option to pick a PC to restore user settings from.](images/oobe-restore-select.png)](images/oobe-restore-select.png#lightbox)
 
-1. To restore settings and Microsoft store apps (if any) from a previous device, the user selects the device and then selects **Continue**.
+1. To restore settings and Microsoft Store apps (if any) from a previous device, the user selects the device and then selects **Continue**.
 
 [![Screenshot of the Windows 11 OOBE showing the restore spinning wheel.](images/oobe-restore.png)](images/oobe-restore.png#lightbox)
 
-1. The device completes the setup process and any previously backed-up user settings and Microsoft Store apps are automatically restored.
+1. The device completes the setup process. This process automatically restores any previously backed-up user settings and Microsoft Store apps.
 
 ## Configure Windows settings backup and restore
 
-Windows settings backup and restore must be configured before it can be used. The configuration process involves setting up backup and restore policies for devices to enable the feature.
+Configure Windows settings backup and restore before using it. The configuration process involves setting up backup and restore policies for devices to enable the feature.
 
 ### Backup configuration
 
@@ -183,17 +183,17 @@ Group policies can be [linked](/en-us/previous-versions/windows/it-pro/windows-s
 
 ---
 
-Once the backup policy is applied to the device, the backup occurs automatically every eight days.
+After you apply the backup policy to the device, the backup runs automatically every eight days.
 
 Note
 
-You can control which settings are backed up by configuring the backup policy settings. For more information, see [Windows Backup for Organizations policy settings](policy-settings).
+You can control which settings to back up by configuring the backup policy settings. For more information, see [Windows Backup for Organizations policy settings](policy-settings).
 
 **Additional configuration checks**
 
-To ensure Windows settings backup works as expected, the following policies must not be set to ***Disabled***.
+To ensure that Windows settings backup works as expected, don't set the following policies to **Disabled**.
 
-These policies may be configured through Group Policy (GP) or MDM (such as Microsoft Intune), depending on how devices are managed in your organization.
+You can configure these policies through Group Policy (GP) or MDM (such as Microsoft Intune), depending on how you manage devices for your organization.
 
 **1. Policy names:**
 
@@ -213,18 +213,18 @@ iii) UploadUserActivities
 
 **Location:**[Connectivity Policy CSP](/en-us/windows/client-management/mdm/policy-csp-connectivity)
 
-These policies must not be set to Disabled. If any of these policies are disabled, Windows Backup will not occur.
+Don't set these policies to **Disabled**. If you disable any of these policies, Windows Backup doesn't apply.
 
 ### Restore configuration
 
-By default, the restore option is disabled. For Microsoft Entra joined devices and Microsoft Entra Hybrid joined devices enrolled in Intune, you can use Intune policies to manage Windows Backup for Organizations:
+By default, the restore option is disabled. For Microsoft Entra joined devices and Microsoft Entra Hybrid joined devices enrolled in Intune, use Intune policies to manage Windows Backup for Organizations.
 
-There are ***two*** different ways to enable and configure Restore policy in Intune:
+There are *two* different ways to enable and configure the restore policy in Intune:
 
 ##### Option 1: Enrollment policy
 
-- Is a **tenant-wide** **policy *only* applied at device enrollment** and ensures the policy is available on the machine in time for the **OOBE restore experience**. Any changes to the enrollment policy configuration don't apply to devices already enrolled in Intune. This tenant-wide policy is applied before standard MDM policy configurations take effect.
-- It applies to ***all devices*** getting enrolled in Intune.
+- It's a **tenant-wide policy, *only* applied at device enrollment**. It helps ensure that the policy is available on the machine in time for the **OOBE restore experience**. Any changes to the enrollment policy configuration don't apply to devices already enrolled in Intune. This tenant-wide policy takes effect before standard MDM policy configurations.
+- It applies to *all* devices that you enroll in Intune.
 
 The following instructions provide details about how to configure your devices. Select the option that best suits your needs.
 
@@ -241,7 +241,7 @@ Note
 Restore setting configuration in enrollment requires Intune Service administrator or Global administrator roles.
 
 # [CSP](#tab/csp)
-You can configure devices with the [WindowsBackupAndRestore CSP](/en-us/windows/client-management/mdm/windowsbackupandrestore-csp). To enable the restore option during OOBE device enrollment, you can use the following OMA-URI:
+You can configure devices with the [WindowsBackupAndRestore CSP](/en-us/windows/client-management/mdm/windowsbackupandrestore-csp). To enable the restore option during OOBE device enrollment, use the following OMA-URI:
 
 | Setting |
 | --- |
@@ -258,7 +258,7 @@ This policy isn't available in GPO.
 
 ##### Option 2: Policy applied after device enrollment
 
-- A device configuration policy that is applied ***after*** device enrollment. Any changes to the policy are applied to the devices during regular policy refresh intervals.
+- This device configuration policy is applied *after* device enrollment. Any changes to the policy are applied to the devices during regular policy refresh intervals.
 
 The following instructions provide details about how to configure your devices. Select the option that best suits your needs.
 
@@ -272,7 +272,7 @@ To configure devices with Microsoft Intune, [create a Settings catalog policy](/
 Assign the policy to a group that contains as members the devices or users that you want to configure.
 
 # [CSP](#tab/csp)
-You can configure devices with the [WindowsBackupAndRestore CSP](/en-us/windows/client-management/mdm/windowsbackupandrestore-csp). To enable the restore option during regular policy refresh intervals, you can use the following OMA-URI:
+You can configure devices with the [WindowsBackupAndRestore CSP](/en-us/windows/client-management/mdm/windowsbackupandrestore-csp). To enable the restore option during regular policy refresh intervals, use the following OMA-URI:
 
 | Setting |
 | --- |
@@ -291,45 +291,86 @@ Group policies can be [linked](/en-us/previous-versions/windows/it-pro/windows-s
 
 ## Policy conflicts from multiple policy sources
 
-Windows settings backup and restore can be configured by GPO or CSP, but not a combination of both. Avoid mixing GPO and CSP policy settings for Windows Backup for Organizations, as it can lead to unexpected results.
+Configure Windows settings backup and restore by using either GPO or CSP, but not a combination of both. Avoid mixing GPO and CSP policy settings for Windows settings backup and restore, as it can lead to unexpected results.
 
 ## Conditional Access policy interference
 
-If [conditional access](/en-us/entra/identity/conditional-access/) is enabled for cloud applications, it might prevent the Microsoft Entra user from obtaining an access token, resulting in the following error.
+If you enable [conditional access](/en-us/entra/identity/conditional-access/) for cloud applications, it might prevent the Microsoft Entra user from obtaining an access token. This condition results in the following error.
 
 | Error title | Error description |
 | --- | --- |
-| You don't have access to this | Your sign-in was successful but you don't have the permissions to access this resource. |
-| You can't get there from here | This application contains sensitive information and can only be accessed from: Devices or client applications that meet Contoso engagement compliance policy. If this is a personal device, you can choose to let Contoso manage your device by going to **Settings** &gt; **Accounts** &gt; **Access work or school** and clicking on **Connect**. When you're done come back and try again. |
+| You don't have access to this. | Your sign-in was successful but you don't have the permissions to access this resource. |
+| You can't get there from here. | This application contains sensitive information and can only be accessed from: Devices or client applications that meet Contoso engagement compliance policy. If this is a personal device, you can choose to let Contoso manage your device by going to **Settings** &gt; **Accounts** &gt; **Access work or school** and selecting **Connect**. When you're done come back and try again. |
 
-To fix this error, you'll need to create a custom policy that allows the Microsoft service (app id: `d32c68ad-72d2-4acb-a0c7-46bb2cf93873`) to enable the restore flow to proceed. Verify that the app id is listed in the custom policy before you proceed further.
+To fix this error, create a custom policy that allows the Microsoft service (app ID: `d32c68ad-72d2-4acb-a0c7-46bb2cf93873`) to enable the restore flow to proceed. Verify that the app ID is listed in the custom policy before you proceed further.
 
 ## PRMFA/Hyper-V virtual machine authentication
 
 A user might encounter a Phishing-Resistant Multifactor Authentication (PRMFA) prompt during OOBE for the restore experience app (`74d197dc-b84d-4d43-a1b2-b5bf3bb91c11`) under the following circumstances:
 
-- Your organization enforces PRMFA through an Entra ID [authentication strength](/en-us/entra/identity/authentication/concept-authentication-strengths) policy.
-- You have excluded the Microsoft Intune apps (`0000000a-0000-0000-c000-000000000000` and `d4ebce55-015a-49b5-a083-c84d1797ae8c`) from that policy.
+- Your organization enforces PRMFA through a Microsoft Entra ID [authentication strength](/en-us/entra/identity/authentication/concept-authentication-strengths) policy.
+- You exclude the Microsoft Intune apps (`0000000a-0000-0000-c000-000000000000` and `d4ebce55-015a-49b5-a083-c84d1797ae8c`) from that policy.
 - User enrolls a device during OOBE without using a strong authentication method.
 
 Tip
 
-In VM scenarios (e.g., Hyper‑V), PRMFA is difficult to perform during OOBE, consider Temporary Access Pass (TAP) for authentication.
+In virtual machine (VM) scenarios such as Hyper-V, it's difficult to perform PRMFA during OOBE. Consider Temporary Access Pass (TAP) for authentication.
 
 ## User experience
 
-Once the feature is enabled, users can manage their backup settings directly through Settings by navigating to **Accounts** &gt; **Windows backup**.
+After you enable the feature, users can manage their backup settings directly through **Settings** by going to **Accounts** &gt; **Windows backup**.
 
-- To disable backup of preferences, the user can turn off the **Remember my preferences** toggle.
-- To disable backup of the list of installed Microsoft Store apps, the user can turn off the **Remember my apps** toggle.
+- To stop backing up preferences, users can turn off the **Remember my preferences** toggle.
+- To stop backing up the list of installed Microsoft Store apps, users can turn off the **Remember my apps** toggle.
 
 Note
 
-These toggles control both Windows settings backup and restore and Enterprise State Roaming, and they're only actionable if IT Admins enabled either backup or roaming: if none of these are enabled by IT Admins, the toggles are grayed out and not actionable.
+These toggles control both Windows settings backup and restore and Enterprise State Roaming. They're only actionable if IT admins enabled either backup or roaming. If IT admins doesn't enable any of these controls, the toggles are grayed out and not actionable.
 
-The settings category toggles under **Remember my preferences** can be used to control which settings are included in backups.
+Use the settings category toggles under **Remember my preferences** to control which settings to include in backups.
 
-Administrators can prevent users from modifying the Windows backup options using [policy settings](policy-settings).
+Prevent users from modifying the Windows backup options by using [policy settings](policy-settings).
+
+## Introducing restore summary in Windows settings backup and restore
+
+Starting with Windows 11, version 24H2, users can view a restore summary after completing the restore process through Windows settings backup and restore. The restore summary provides an on-device view of the content restored from the selected backup profile. It helps users understand what was recovered and quickly resume work on their new device. This experience is available after completing the restore process during device setup (OOBE) or first sign-in.
+
+The restore summary includes:
+
+- Personalization settings that were restored from the user's backup profile.
+- The Microsoft Store app list associated with the backup profile and restored to the device.
+
+Note
+
+> 
+> Restore summary is designed to provide visibility into the restore experience. The summary primarily lists restored user-customized personalization settings and Microsoft Store app list. In some cases, the summary also displays settings that retain their default values (not customized by the user). This behavior is by design.
+
+By making restore outcomes visible, restore summary helps users confirm that their settings and Microsoft Store app list are restored successfully. By reducing post-setup verification, users can get back to work faster, bringing greater clarity to the recovery experience, and accelerating time to productivity.
+
+## View restore summary
+
+After a restore process ends on a new device, users can review a summary of the content restored from their selected backup profile.
+
+To view restore summary:
+
+1. During device setup (OOBE) or first sign-in, select a backup profile.
+2. Allow restore and any remaining setup steps to complete so you reach the Windows desktop.
+3. When restore is complete, the restore summary notification appears on the device.
+
+    [![Screenshot of a popup notification message inviting users to review the restore summary.](media/index/restore-notification.png)](media/index/restore-notification.png#lightbox)
+
+    Alternatively, users can directly view restore summary by visiting **Settings** &gt; **Accounts** &gt; **Windows backup**.
+
+    [![Screenshot of a new restore summary option available from Windows backup settings.](media/index/windows-backup-settings.png)](media/index/windows-backup-settings.png#lightbox)
+4. From the notification, select **View** or from Settings, select the link icon next to **Restore summary** to open the restore summary and review the restored content.
+
+    [![Screenshot of the restore summary report appearing in the web browser.](media/index/restore-summary.png)](media/index/restore-summary.png#lightbox)
+
+## Restore summary availability
+
+Restore summary becomes available approximately one hour after a successful restore process. You can access it from the Windows notification or directly from the Settings page for a limited period of seven days following device setup.
+
+Once the visibility period expires, you can no longer view the restore summary.
 
 ## Turn off Windows settings backup and delete user data
 
@@ -362,13 +403,9 @@ Group policies can be [linked](/en-us/previous-versions/windows/it-pro/windows-s
 
 ---
 
-Once the backup policy is disabled, the schedule backup doesn't run anymore.
+When you disable the backup policy, the scheduled backup stops running.
 
-The data that is already backed up can be viewed/deleted from the organization tenant's data store.
-
-To view, export, and delete data:
-
-The data that is already backed up can be viewed, exported, or deleted using the Microsoft Graph beta APIs directly, or with the PowerShell scripts that wrap them.
+You can view, export, or delete the backed up data from the organization tenant's data store. Use the Microsoft Graph beta APIs directly or the PowerShell scripts that wrap them.
 
 **Option 1: Microsoft Graph APIs**
 
@@ -378,10 +415,12 @@ The data that is already backed up can be viewed, exported, or deleted using the
 
 **Option 2: PowerShell scripts (simpler alternative)**
 
-For an easier experience, use the PowerShell scripts that wrap the same APIs. They let administrators view, export, and delete a user's Windows settings backup data without calling Graph directly. Available on [GitHub](https://github.com/microsoft/windows-backup-admin-scripts) and the [PowerShell Gallery](https://www.powershellgallery.com/packages/WindowsBackupAdmin/1.0.0).
+For an easier experience, use the PowerShell scripts that wrap the same APIs. They let you view, export, and delete a user's Windows settings backup data without calling Graph directly. Available on [GitHub](https://github.com/microsoft/windows-backup-admin-scripts) and the [PowerShell Gallery](https://www.powershellgallery.com/packages/WindowsBackupAdmin/1.0.0).
 
-• Install the module (one time): Install-Module WindowsBackupAdmin -Scope CurrentUser • View and export a user's backup data: Get-WindowsBackup -UserId user@contoso.com • Delete a user's backup data: Remove-WindowsBackup -UserId user@contoso.com
+- Install the module (one time): Install-Module WindowsBackupAdmin -Scope CurrentUser
+- View and export a user's backup data: Get-WindowsBackup -UserId user@contoso.com
+- Delete a user's backup data: Remove-WindowsBackup -UserId user@contoso.com
 
 ### ![](../images/icons/feedback.svg) Provide feedback
 
-If you encounter any issues or have feedback, whether it's to report a bug or share suggestions, you can submit this [form](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvGGr0GRqy180BHbR5hPS1INazpFmbOc5GnaZbRUNEY5TTIyU0VQSFNIWk1FMEtLT1ZMQjRYRy4u&amp;route=shorturl). Our team reviews submissions weekly, and the more details you provide, the faster we can act. If we need more information, we follow up via email.
+To report a bug or share suggestions, submit this [form](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvGGr0GRqy180BHbR5hPS1INazpFmbOc5GnaZbRUNEY5TTIyU0VQSFNIWk1FMEtLT1ZMQjRYRy4u&amp;route=shorturl). Our team reviews submissions weekly, and the more details you provide, the faster we can act. If we need more information, we follow up via email.

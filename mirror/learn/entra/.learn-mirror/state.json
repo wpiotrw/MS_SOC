@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-staged-rollout",
+  "cursor": "https://learn.microsoft.com/en-us/entra/fundamentals/id-governance/tenant-governance/configuration-management",
   "pages": {
     "https://learn.microsoft.com/en-us/entra/agent-id": {"etag":"\"V1UNstrBaPvfMViNwECJFQ8kqFA=\"","gitCommitId":"f991e390f7c7f326a5ecc1cbdd982919b27b48a1","path":"docs/agent-id/index.md","redirectedTo":"https://learn.microsoft.com/en-us/entra/agent-id/","sourcePath":"docs/agent-id/index.yml","updatedAt":"2026-10-28T17:35:00.0000000Z"},
     "https://learn.microsoft.com/en-us/entra/agent-id/create-blueprint": {"etag":"\"at9ZHioswlLkl/KwW3DmnuqVY7Y=\"","gitCommitId":"97366337175f17ae5947dbcd87c166ed63b57ae3","path":"docs/agent-id/create-blueprint.md","sourcePath":"docs/agent-id/create-blueprint.md","updatedAt":"2026-10-14T22:34:00.0000000Z"},
