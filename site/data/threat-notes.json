@@ -1345,6 +1345,103 @@
      "date": "2026-10-14"
     }
    ]
+  },
+  {
+   "id": "msp360-screenconnect-rmm-phishing-2026-07",
+   "title": "Masqueraded MSP360 RMM installer (v2.5.0.67) used to plant ConnectWise ScreenConnect through phishing lures",
+   "match": [
+    "MSP360",
+    "RogueMSP"
+   ],
+   "areas": [
+    "Identity attacks",
+    "M365 workloads"
+   ],
+   "status": "active",
+   "updated": "2026-10-29",
+   "by": "morning routine",
+   "summary": "Microsoft Defender Experts observed phishing campaigns in July 2026, across multiple industries, that delivered a signed but masqueraded MSP360 RMM installer (v2.5.0.67) behind lures such as e-card and RSVP invitations, Zoom and Adobe Reader installers, document signing, job offers and delivery notices. Once a user ran it and approved UAC, the agent installed as two Windows services, opened UDP 48678 inbound and launched PowerShell that downloaded and silently installed ConnectWise ScreenConnect as a second remote-access channel. The actor then used ScreenConnect's RunFile feature to drop tools named to look like Windows, Defender or Phone Link components for credential theft, collection and hiding the session. Microsoft saw no exploitation of ScreenConnect itself and does not attribute the activity; it says the installer's signing certificate has since been revoked.",
+   "timeline": [
+    {
+     "date": "2026-07-01",
+     "text": "Defender Experts observe the phishing campaigns distributing the masqueraded MSP360 v2.5.0.67 installer; a separate July activity uses FaronicsDeployAgent.exe the same way (Microsoft gives the month only).",
+     "src": "Microsoft Threat Intelligence"
+    },
+    {
+     "date": "2026-09-29",
+     "text": "Microsoft publishes the analysis with detections, hunting queries and indicators.",
+     "src": "Microsoft Threat Intelligence"
+    }
+   ],
+   "rootCause": "Users ran a signed remote-management installer delivered by phishing and approved its UAC prompt; legitimately obtained RMM software then gave the actor persistent, trusted remote access.",
+   "attacker": [
+    "Hosted payloads on attacker domains, compromised sites, Amazon S3, Cloudflare R2, Dropbox, GitLab and Supabase.",
+    "Installed the MSP360 agent to C:\\Program Files\\RMM Agent\\ as services RMM.Agent.exe and RMM.Agent.Launcher.exe, with Run keys and an inbound firewall rule on UDP 48678.",
+    "Ran PowerShell from RMM.Agent.exe to fetch ClientSetup.msi with Invoke-WebRequest and install ScreenConnect with msiexec /qn.",
+    "Used ScreenConnect RunFile to execute tools from Documents\\ScreenConnect\\Temp, including WebBrowserPassView.exe, DefenderControl.exe, WindowsSecurity_Password.exe and SCHider.exe."
+   ],
+   "iocs": [
+    "108ef7e628d7a20bd6241a5b57149e27a6061f467123eb64061975559f8f73dc",
+    "adswre[.]cfd",
+    "trews[.]cfd",
+    "adsaw[.]cfd",
+    "swedcorry[.]stefneyv[.]com",
+    "ojsuyw[.]niyari[.]org",
+    "bunstar[.]harej[.]si",
+    "sdfghj[.]rd-team[.]ru"
+   ],
+   "remediation": [
+    {
+     "text": "Hunt for the MSP360 installer hash and for unapproved RMM installations; where found, reset the passwords of the accounts used to install the RMM services and investigate further if a system-level account was used.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+     "phase": "investigate"
+    },
+    {
+     "text": "Block unapproved IT management tools with Application Control for Windows or AppLocker publisher rules, and use the Defender for Endpoint block-certificate action for signed installers.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+     "phase": "harden"
+    },
+    {
+     "text": "Enable cloud-delivered protection and the ASR rules 'Use advanced protection against ransomware' and 'Block process creations originating from PsExec and WMI commands'.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+     "phase": "harden"
+    },
+    {
+     "text": "Enforce MFA on the RMM platforms you approve.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+     "phase": "harden"
+    },
+    {
+     "text": "Isolate a device that runs RMM.Agent.exe or a ScreenConnect client you did not deploy, uninstall both and remove the UDP 48678 firewall rule before reconnecting it.",
+     "from": "ours",
+     "phase": "contain"
+    },
+    {
+     "text": "Alert on new services or Run keys for remote-access tools outside your approved RMM list, and on processes started from \\ScreenConnect\\Temp\\.",
+     "from": "ours",
+     "phase": "detect"
+    }
+   ],
+   "kqlSearched": "2026-10-29",
+   "microsoft": [
+    {
+     "what": "described",
+     "title": "Phishing Abuses RMM Tools for Persistent Access",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+     "date": "2026-09-29"
+    }
+   ],
+   "links": [
+    {
+     "text": "Microsoft Security Blog - Phishing Abuses RMM Tools for Persistent Access",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
+     "date": "2026-09-29"
+    }
+   ]
   }
  ]
 }
