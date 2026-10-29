@@ -43,13 +43,13 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/agents/how-to/manage-task-state.md
 cmProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/062d60c9-ee0f-402e-a046-b4e67c3572d6
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 spProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/17d3b3f6-a66e-4c69-9774-14a73c38e669
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
 platformId: 726bad1f-22ae-9cf4-f89c-eb9e6c6268bb
 ---
 
@@ -106,6 +106,64 @@ Key behaviors:
 - **Store name = scope.** Names can contain `/`; use it as a hierarchy separator and choose a stable scheme up front.
 - **Optimistic concurrency.** Use `if_match=item.etag` for mutable items such as progress markers. Use `create_item()` for append-only checkpoints so a competing write doesn't overwrite an existing value.
 - **Limits.** An item value can contain up to 1 MB of serialized JSON. A store name can contain 1 through 128 characters, and an item can have up to 16 tags.
+
+## Inspect state stores with the CLI
+
+Use `azd ai agent state-stores` to inspect stores created by your agent and maintain items in a shared store. The CLI doesn't create stores.
+
+Before running the CLI commands:
+
+- Install the [Azure Developer CLI Foundry extensions](install-cli-foundry-extensions) and sign in with `azd auth login`.
+- Run from an initialized azd project with a deployed agent, or pass an HTTPS protocol URL with `--agent-endpoint`. Don't combine that flag with `--environment`.
+- Use `--agent-name` to select an agent in a multi-agent project.
+
+Important
+
+Items in user-isolated stores require a hosted agent call ID. The CLI can't access those items, and `--user-identity` isn't a workaround. Access them from the hosted runtime.
+
+List stores, inspect their metadata, and select a shared store:
+
+```bash
+azd ai agent state-stores list
+azd ai agent state-stores show <store-name>
+azd ai agent state-stores select <store-name>
+azd ai agent state-stores items list
+```
+
+Selection is saved per project endpoint and agent, independently of protocol or deployed version. Pass `--store <store-name>` to an item command to override it without changing the saved selection.
+
+### Inspect and update shared items
+
+Inspect an item and its ETag before changing it:
+
+```bash
+azd ai agent state-stores items show <item-key>
+```
+
+Save the replacement JSON object in a file, then submit it:
+
+```bash
+azd ai agent state-stores items set <item-key> \
+  --value-file ./checkpoint.json --tag workflow=nightly
+```
+
+`--value-file` accepts `-` for standard input. Alternatively, pass the object with `--value`. Supply the value object itself, not a REST request envelope. The raw JSON must be at most 1 MiB, including whitespace.
+
+Setting an item replaces its entire value and tags. Omitting `--tag` clears existing tags. Repeat `--tag key=value` for up to 16 tags, with keys up to 64 characters and values up to 256 characters.
+
+For optimistic concurrency, pass `--if-match` with the ETag returned by `show`. Preserve the ETag's quotation marks when passing it through your shell. A stale ETag fails the write rather than overwriting another caller's changes.
+
+### Page through stores and items
+
+Both list commands support `--limit` from 1 to 100, `--order asc` or `desc`, and `--after`. The default limit is 20 and order is descending. Copy the response's `last_id` cursor unchanged into `--after`; it isn't an item key and mustn't be decoded or reconstructed.
+
+### Delete a shared item
+
+Deletion is permanent. Use `--if-match` to protect against concurrent changes, and provide explicit consent with `--yes` in unattended scripts:
+
+```bash
+azd ai agent state-stores items delete <item-key> --yes --no-prompt
+```
 
 ## Back a framework checkpointer
 

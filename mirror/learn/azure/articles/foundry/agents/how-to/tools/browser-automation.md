@@ -27,7 +27,7 @@ description: Automate web browsing tasks with the Browser Automation tool in Mic
 services: cognitive-services
 ms.subservice: foundry-agent-service
 ms.topic: how-to
-ms.date: 2026-10-06T00:00:00.0000000Z
+ms.date: 2026-10-29T00:00:00.0000000Z
 reviewer: lindazqli
 ms.reviewer: zhuoqunli
 ms.custom: azure-ai-agents, dev-focus, pilot-ai-workflow-jan-2026, doc-kit-assisted
@@ -246,13 +246,19 @@ The agent samples use this connection to configure the Browser Automation tool. 
 
 ### Use browser automation with the Copilot harness
 
- The Copilot harness is a harness option for Prompt Agents. You create a Prompt Agent and invoke it through the Responses API, while Microsoft Foundry operates the harness and its isolated execution environment. Use this option when you want Foundry to manage the harness infrastructure for your Prompt Agent while giving the agent access to the Browser Automation Tool. To use the Browser Automation Tool with the Copilot harness: 
+The Copilot harness is a harness option for Prompt Agents. You create a Prompt Agent and invoke it through the Responses API, while Microsoft Foundry operates the harness and its isolated execution environment. Use this option when you want Foundry to manage the harness infrastructure for your Prompt Agent while giving the agent access to the Browser Automation Tool.
+
+To use the Browser Automation Tool with the Copilot harness:
 
 1. Create a Prompt Agent and select the Copilot harness.
 2. Create or use an existing Playwright workspace and configure the Browser Automation connection.
 3. Add Browser Automation Tool to the agent through a toolbox.
 4. Save the agent configuration and start a new chat session.
-5. Give the agent a browser-based task and verify that it uses Browser Automation Tool to complete the task. For example, you can ask the agent to navigate to a website, find specific information, interact with page elements, or complete a multistep browser workflow.
+5. Give the agent a browser-based task and verify that it uses Browser Automation Tool to complete the task.
+
+For example, you can ask the agent to navigate to a website, find specific information, interact with page elements, or complete a multistep browser workflow.
+
+For a complete Azure Developer CLI project that creates the agent, Playwright workspace, connections, and toolbox, see the [Browser Automation Blog Research sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/cli/prompt-agents/microsoft-copilot-harness/browser-automation-blog-research).
 
 ## Use Browser Automation Tool with agents example
 

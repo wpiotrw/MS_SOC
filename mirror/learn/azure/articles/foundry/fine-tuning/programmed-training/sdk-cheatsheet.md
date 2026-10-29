@@ -1,7 +1,7 @@
 ---
 layout: Conceptual
-title: SDK cheatsheet for interactive training (preview) in Microsoft Foundry - Microsoft Foundry | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/fine-tuning/interactive-post-training/sdk-cheatsheet
+title: SDK cheatsheet for Programmed Training (preview) in Microsoft Foundry - Microsoft Foundry | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/fine-tuning/programmed-training/sdk-cheatsheet
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
 feedback_help_link_type: get-help-at-qna
@@ -22,7 +22,7 @@ ms.author: sajagtap
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
-description: Use Python examples for interactive-training sessions, SFT and RL data, optimizer updates, sampling, checkpoints, and asynchronous operations.
+description: Use Python examples for Programmed Training sessions, SFT and RL data, optimizer updates, sampling, checkpoints, and asynchronous operations.
 ms.reviewer: chrhoder
 ms.subservice: foundry-model-inference
 ms.topic: reference
@@ -32,16 +32,16 @@ ai-usage: ai-assisted
 locale: en-us
 document_id: b788e23a-a7c9-0f64-8c89-e7a8f0535b85
 document_version_independent_id: 6bcd0e7c-2b91-d559-0f59-689b18317a18
-original_content_git_url: https://github.com/MicrosoftDocs/azure-ai-docs-pr/blob/live/articles/foundry/fine-tuning/interactive-post-training/sdk-cheatsheet.md
+original_content_git_url: https://github.com/MicrosoftDocs/azure-ai-docs-pr/blob/live/articles/foundry/fine-tuning/programmed-training/sdk-cheatsheet.md
 site_name: Docs
 depot_name: Learn.azure-ai
 page_type: conceptual
 toc_rel: ../../toc.json
-asset_id: foundry/fine-tuning/interactive-post-training/sdk-cheatsheet
+asset_id: foundry/fine-tuning/programmed-training/sdk-cheatsheet
 moniker_range_name: 
 monikers: []
 item_type: Content
-source_path: articles/foundry/fine-tuning/interactive-post-training/sdk-cheatsheet.md
+source_path: articles/foundry/fine-tuning/programmed-training/sdk-cheatsheet.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 - https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
@@ -53,11 +53,11 @@ spProducts:
 platformId: 558b4833-bbb5-eeaf-64d1-1006dac099ce
 ---
 
-# SDK cheatsheet for interactive training (preview) in Microsoft Foundry - Microsoft Foundry | Microsoft Learn
+# SDK cheatsheet for Programmed Training (preview) in Microsoft Foundry - Microsoft Foundry | Microsoft Learn
 
 Important
 
-Interactive training requires explicit access approval. Request access through the [preview sign-up form](https://aka.ms/foundry-interactive-training-signup) and wait for approval before creating a training session.
+Programmed Training requires explicit access approval. Request access through the [preview sign-up form](https://aka.ms/foundry-interactive-training-signup) and wait for approval before creating a training session.
 
 Use this cheatsheet to map your training loop to the Python SDK's functions and parameters in Microsoft Foundry. The examples focus on the synchronous `FineTuningSession` convenience API. Asynchronous clients and cookbook wrappers use different interfaces and completion patterns.
 

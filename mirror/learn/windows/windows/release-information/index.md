@@ -59,10 +59,10 @@ Get started
 Deploy
 [Secure Boot client playbook for certificates expiring in 2026](https://techcommunity.microsoft.com/blog/windows-itpro-blog/secure-boot-playbook-for-certificates-expiring-in-2026/4469235)
 
-![](/en-us/media/hubs/shared/icon-reference.svg?branch=main)
+![](/en-us/media/hubs/shared/icon-deploy.svg?branch=main)
 
-Reference
-[Windows 11 Roadmap: new and upcoming features](https://aka.ms/WindowsRoadmap)
+Deploy
+[Windows device recovery scenarios and solutions](https://techcommunity.microsoft.com/blog/windows-itpro-blog/windows-device-recovery-in-2026-a-guide-for-it-pros/4541207)
 
 ![](/en-us/media/hubs/shared/icon-whats-new.svg?branch=main)
 
