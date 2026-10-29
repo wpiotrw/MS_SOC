@@ -1,5 +1,20 @@
 [
  {
+  "file": "articles/2026-10-29-detection-1-netamloader-suspicious-loader-process-chain-on.kql",
+  "title": "Detection 1: NetamLoader - Suspicious Loader Process Chain on Windows 10",
+  "date": "2026-10-29",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceImageLoadEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, October 29, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-29-detection-engineering-brief-thursday-october-29-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-29-detection-engineering-brief-thursday-october-29-2026/"
+ },
+ {
   "file": "articles/2026-10-28-detection-4-anomalous-cross-namespace-or-cross-tenant.kql",
   "title": "Detection 4: Anomalous Cross-Namespace or Cross-Tenant Network Connections from Kubernetes Workload Processes",
   "date": "2026-10-28",

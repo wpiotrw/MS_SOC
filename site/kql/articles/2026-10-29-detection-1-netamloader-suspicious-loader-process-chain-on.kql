@@ -1,0 +1,79 @@
+// title: Detection 1: NetamLoader - Suspicious Loader Process Chain on Windows 10
+// date: 2026-10-29
+// product: Defender for Endpoint
+// tables: DeviceImageLoadEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Thursday, October 29, 2026
+// source: https://devsecopsdadattack.com/2026-10-29-detection-engineering-brief-thursday-october-29-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookbackWindow = 7d;
+let ChainWindowSeconds = 120;
+let TrustedParents = dynamic([
+    "explorer.exe", "svchost.exe", "services.exe",
+    "wininit.exe", "winlogon.exe", "lsass.exe",
+    "msiexec.exe", "taskhostw.exe", "sihost.exe",
+    "runtimebroker.exe", "searchhost.exe"
+]);
+let TrustedPathPrefixes = dynamic([
+    @"c:\windows\\",
+    @"c:\program files\\",
+    @"c:\program files (x86)\\"
+]);
+let SuspiciousLoaderProcesses =
+    DeviceProcessEvents
+    | where Timestamp > ago(LookbackWindow)
+    | where ProcessIntegrityLevel in~ ("low", "medium", "untrusted")
+    | where not(
+        FolderPath has_any (TrustedPathPrefixes)
+      )
+    | where not(
+        InitiatingProcessFileName in~ (TrustedParents)
+      )
+    | summarize
+        arg_min(Timestamp, *)
+        by DeviceName, FileName, FolderPath, SHA256, InitiatingProcessFileName
+    | project
+        DeviceName,
+        ParentProcess          = InitiatingProcessFileName,
+        ParentCmdLine          = InitiatingProcessCommandLine,
+        ChildProcess           = FileName,
+        ChildCmdLine           = ProcessCommandLine,
+        ChildFolderPath        = FolderPath,
+        ChildSHA256            = SHA256,
+        ProcessIntegrityLevel,
+        Timestamp;
+let UnsignedImageLoads =
+    DeviceImageLoadEvents
+    | where Timestamp > ago(LookbackWindow)
+    | where IsSigned != true
+    | where not(
+        FolderPath has_any (TrustedPathPrefixes)
+      )
+    | project
+        DeviceName,
+        LoadedImage            = FileName,
+        ImageFolderPath        = FolderPath,
+        ImageSHA256            = SHA256,
+        InitiatingProcessFileName,
+        ImageTimestamp         = Timestamp;
+SuspiciousLoaderProcesses
+| join kind=inner UnsignedImageLoads
+    on DeviceName,
+       $left.ChildProcess == $right.InitiatingProcessFileName
+| where datetime_diff('second', ImageTimestamp, Timestamp) between (0 .. ChainWindowSeconds)
+| project
+    Timestamp,
+    DeviceName,
+    ParentProcess,
+    ParentCmdLine,
+    ChildProcess,
+    ChildCmdLine,
+    ChildFolderPath,
+    ChildSHA256,
+    ProcessIntegrityLevel,
+    LoadedImage,
+    ImageFolderPath,
+    ImageSHA256,
+    ImageTimestamp
+| order by Timestamp desc
