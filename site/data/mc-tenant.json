@@ -1,7 +1,7 @@
 {
  "read": "2026-10-29",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 725,
+ "count": 729,
  "note": null,
  "messages": [
   {
@@ -17635,6 +17635,33 @@
    "bodyHash": "a30b89fb317418a1"
   },
   {
+   "id": "MC1518029",
+   "title": "Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice authentication",
+   "services": [
+    "Microsoft Entra"
+   ],
+   "category": "preventOrFixIssue",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-20",
+   "end": "2026-11-30",
+   "modified": "2026-10-29",
+   "tags": [
+    "Admin impact",
+    "Updated message",
+    "User impact"
+   ],
+   "summary": "Updated October 26, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Entra ID is adding safeguards to reduce automated abuse of telephony-based authentication. SMS and voice authentication options are not being removed. Some users who use SMS or voice for first-factor sign-in may be asked to complete a risk-based anti-bot verification step (CAPTCHA) before …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Updated October 26, 2026: We have updated the timeline.",
+    "Rollout began in mid-October 2026 and is ongoing."
+   ],
+   "bodyHash": "044f42e2143ff0ef"
+  },
+  {
    "id": "MC1518030",
    "title": "Updated Photos experience on Windows 11",
    "services": [
@@ -18834,7 +18861,7 @@
   },
   {
    "id": "MC1528011",
-   "title": "Microsoft Teams: External presenter support for event group chat",
+   "title": "(Updated) Microsoft Teams: External presenter support for event group chat",
    "services": [
     "Microsoft Teams"
    ],
@@ -18843,21 +18870,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-27",
-   "end": "2027-01-08",
-   "modified": "2026-10-27",
+   "end": "2027-02-15",
+   "modified": "2026-10-29",
    "tags": [
     "Admin impact",
     "Feature update",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We are adding support for external presenters in event group chat, the private chat used by organizers, co-organizers, and presenters for coordination during an event or structured meeting. This change enables presenters who are outside the tenant hosting the meeting or event to participate in the event group chat. [Rollout schedule] General Availability (Worldwide): Rollout will be…",
+   "summary": "Updated October 29, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are adding support for external presenters in event group chat, the private chat used by organizers, co-organizers, and presenters for coordination during an event or structured meeting. This change enables presenters who are outside the tenant hosting the meeting or event to participate in the e…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Rollout will begin in early November 2026 and is expected to complete by early December 2026."
+    "Updated October 29, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Rollout will begin in early December 2026 (previously early November) and is expected to complete by early January 2027 (previously early December 2026)."
    ],
-   "bodyHash": "313eb216c655368a"
+   "bodyHash": "3ca9f4c1f1d8d8cc"
   },
   {
    "id": "MC1528013",
@@ -19165,6 +19194,84 @@
    "prepare": "To get more details about this update view the following release notes: Current Channel.",
    "dates": [],
    "bodyHash": "0c284a6acde890f4"
+  },
+  {
+   "id": "MC1530443",
+   "title": "Policy-based in-box app removal extended to multi-session environments",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-29",
+   "end": "2027-10-29",
+   "modified": "2026-10-29",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why: Policy-based app removal now supports multi-session environments. Use it to manage the removal of supported in-box apps on devices running Windows 11 Enterprise and Education, version 24H2 and later. This capability applies to preinstalled Microsoft Store apps and other MSIX/APPX-packaged apps. Rollout schedule: October 2025: The policy \"Remove default Microsoft Store packages from t…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Rollout schedule: October 2025: The policy \"Remove default Microsoft Store packages from the system\" became available.",
+    "April 2026: The policy began including a dynamic app removal list.",
+    "October 2026: The policy is available for use in multi-session environments."
+   ],
+   "bodyHash": "28d82ea30a91c3d3"
+  },
+  {
+   "id": "MC1530595",
+   "title": "Microsoft Copilot Feedback UX update",
+   "services": [
+    "Microsoft 365 Copilot Chat"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-29",
+   "end": "2026-12-28",
+   "modified": "2026-10-29",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] We’re updating the thumbs-down feedback experience in Microsoft Copilot to make it easier for users to provide specific, actionable feedback. Today, many thumbs-down responses are submitted without comments, providing sentiment but limited information about the issue. When users select thumbs down, they’ll be able to select one or more feedback categories and optionally provide add…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in late October 2026 and expect to complete by late October 2026."
+   ],
+   "bodyHash": "55912afc17de36fb"
+  },
+  {
+   "id": "MC1530609",
+   "title": "Engage plugin for Copilot Cowork and Autopilot: General availability",
+   "services": [
+    "Microsoft Viva"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-29",
+   "end": "2027-01-15",
+   "modified": "2026-10-29",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] We are introducing the Engage plugin for Copilot Cowork and Autopilot, with general availability targeted for November 16, 2026. The plugin brings Engage conversations and actions into Copilot workflows. Users can catch up on community discussions, find relevant information, understand employee questions and feedback, and draft or publish updates without switching to Engage. [Rollo…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "We are introducing the Engage plugin for Copilot Cowork and Autopilot, with general availability targeted for November 16, 2026.",
+    "General Availability (Worldwide): We will begin rolling out in mid-November 2026 and expect to complete by mid-November 2026."
+   ],
+   "bodyHash": "db8a2e7e560ba3a5"
   },
   {
    "id": "MC676299",
@@ -25306,6 +25413,69 @@
    "id": "MC1483886",
    "type": "removed",
    "title": "Microsoft PowerPoint: Temporary removal of the Brand pane",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-29",
+   "id": "MC1518029",
+   "type": "new",
+   "title": "Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice authentication",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-29",
+   "id": "MC1528011",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: External presenter support for event group chat",
+   "fields": {
+    "title": [
+     "Microsoft Teams: External presenter support for event group chat",
+     "(Updated) Microsoft Teams: External presenter support for event group chat"
+    ],
+    "end": [
+     "2027-01-08",
+     "2027-02-15"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "313eb216c655368a",
+     "3ca9f4c1f1d8d8cc"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-29",
+   "id": "MC1530443",
+   "type": "new",
+   "title": "Policy-based in-box app removal extended to multi-session environments",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-29",
+   "id": "MC1530595",
+   "type": "new",
+   "title": "Microsoft Copilot Feedback UX update",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-29",
+   "id": "MC1530609",
+   "type": "new",
+   "title": "Engage plugin for Copilot Cowork and Autopilot: General availability",
    "fields": {}
   }
  ]
