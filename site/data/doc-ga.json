@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-28T20:26:57Z",
+ "generated": "2026-10-29T00:58:20Z",
  "source": "tools/doc_ga.py (CLAUDE.md 5eo)",
  "sources": [
   {
@@ -13,12 +13,26 @@
    "name": "Microsoft Entra documentation",
    "url": "https://github.com/MicrosoftDocs/entra-docs",
    "state": "ok",
-   "commits": 66,
-   "events": 8,
-   "since": "2026-08-29"
+   "commits": 69,
+   "events": 9,
+   "since": "2026-08-30"
   }
  ],
  "events": [
+  {
+   "url": "https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-to-active-directory-object-enforcement",
+   "title": "Configure AD user and group enforcement in Microsoft Entra Cloud Sync",
+   "before": "Configure AD user and group enforcement in Microsoft Entra Cloud Sync (preview)",
+   "date": "2026-10-28",
+   "how": [
+    "repo"
+   ],
+   "repo": "Microsoft Entra documentation",
+   "commit": "https://github.com/MicrosoftDocs/entra-docs/commit/b138da0256b352922c67faec05e1ff1d7b1b7643",
+   "commitMsg": "Update how-to-active-directory-object-enforcement.md (#14706)",
+   "evidence": "Microsoft's commit of 2026-10-28 removed the preview label from the page heading",
+   "announced": false
+  },
   {
    "url": "https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/ai-agent-risk-assessment",
    "title": "AI agent posture risk in Microsoft Defender",

@@ -1,7 +1,7 @@
 {
- "read": "2026-10-28",
+ "read": "2026-10-29",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 720,
+ "count": 726,
  "note": null,
  "messages": [
   {
@@ -433,33 +433,6 @@
     "Rollout started in early October and is expected to complete by mid-October 2025."
    ],
    "bodyHash": "68dc1abd6c6f3572"
-  },
-  {
-   "id": "MC1181171",
-   "title": "The October 2025 Windows non-security preview update is now available",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-10-28",
-   "end": "2026-10-28",
-   "modified": "2025-10-28",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "The October 2025 non-security preview update is now available for Windows 11, versions 25H2 and 24H2. Information about the contents of this update is available from the release notes, which are accessible from the Windows 11 update history page. To learn more about the different types of monthly quality updates, see Windows monthly updates explained . Looking to explore upcoming features and impr…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "The October 2025 non-security preview update is now available for Windows 11, versions 25H2 and 24H2.",
-    "IMPORTANT Because of minimal operations during the Western holidays and the upcoming new year, there will be no December 2025 non-security preview update.",
-    "There will be a monthly security update for December 2025.",
-    "Normal monthly servicing for both security and non-security preview updates will resume in January 2026."
-   ],
-   "bodyHash": "99c0fd8099e1b1ec"
   },
   {
    "id": "MC1181209",
@@ -14924,22 +14897,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-30",
-   "end": "2026-12-28",
-   "modified": "2026-10-09",
+   "end": "2027-01-25",
+   "modified": "2026-10-28",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated October 9, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Defender for Office 365 is introducing new email submissions data in Advanced Hunting in Microsoft Defender. The new submissions tables provide security operations teams with greater visibility into email submission activity and results, enabling analysts to query submission activity along…",
+   "summary": "Updated October 28, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Defender for Office 365 is introducing new email submissions data in Advanced Hunting in Microsoft Defender. The new submissions tables provide security operations teams with greater visibility into email submission activity and results, enabling analysts to query submission activity alon…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 9, 2026: We have updated the timeline.",
-    "Public Preview (Worldwide): We will begin rolling out in early October 2026 and expect to complete by early October 2026.",
-    "General Availability (Worldwide): We will begin rolling out late October 2026 (previously early October) and expect to complete by mid-November 2026 (previously early October)."
+    "Updated October 28, 2026: We have updated the timeline.",
+    "Public Preview (Worldwide): We will begin rolling out in mid-November 2026 (previously early October 2026 and expect to complete by early December 2026 (previously early October).",
+    "General Availability (Worldwide): We will begin rolling out late November 2026 (previously late October) and expect to complete by mid-December 2026 (previously mid-November)."
    ],
-   "bodyHash": "ef36da3e924c590a"
+   "bodyHash": "96a62c5bfc416bea"
   },
   {
    "id": "MC1484010",
@@ -19041,6 +19014,183 @@
    "bodyHash": "3380511409f8dd35"
   },
   {
+   "id": "MC1529467",
+   "title": "Microsoft Windows: Updates to address compromised eMudhra certificate authority keys",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-28",
+   "end": "2026-11-28",
+   "modified": "2026-10-28",
+   "tags": [
+    "Admin impact",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft is responding to an issue involving eight eMudhra intermediate certificate authority (CA) private keys, six associated with TLS and two with code signing. Because these keys could be recovered, they could potentially be used to create certificates or sign content that appeared to come from a trusted CA. The issue arose in eMudhra's certificate hierarchy and was not a compr…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning in late October 2026 and expected to complete by late October 2026."
+   ],
+   "bodyHash": "b606a8c6bb2041ef"
+  },
+  {
+   "id": "MC1529472",
+   "title": "Frontier expands to include public previews in Microsoft Teams, new Outlook for Windows, OneDrive, and SharePoint",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-28",
+   "end": "2026-12-31",
+   "modified": "2026-10-28",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Frontier now covers more of Microsoft 365. Starting in November 2026, users enrolled in Frontier will start getting eligible public preview features in Microsoft Teams, new Outlook for Windows, OneDrive, and SharePoint, in addition to Copilot. Instead of looking in different places for previews, admins use one program and one setting to give the users they choose early access acros…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Starting in November 2026, users enrolled in Frontier will start getting eligible public preview features in Microsoft Teams, new Outlook for Windows, OneDrive, and SharePoint, in addition to Copilot.",
+    "November 2026: Users enrolled in Frontier will start getting eligible public preview features in Microsoft Teams, new Outlook for Windows, OneDrive, and SharePoint, in addition to Copilot.",
+    "In November 2026, admins can also manage Frontier, Standard release, and Deferred release together in one place in the Microsoft 365 admin center.",
+    "Targeted release users aren't enrolled automatically, and Targeted release retires in January 2027.",
+    "In November 2026, you can manage Frontier, Standard release, and Deferred release together in the unified release preferences experience, or continue to manage Frontier through Copilot settings."
+   ],
+   "bodyHash": "28066f57753d7f14"
+  },
+  {
+   "id": "MC1529476",
+   "title": "Microsoft PowerPoint: Draft proposal response Copilot skill",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-28",
+   "end": "2026-12-04",
+   "modified": "2026-10-28",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing a new Copilot skill in PowerPoint, Draft proposal response, that helps users create customer-specific proposal or bid presentation drafts in response to explicit requirements or RFPs. [Rollout schedule] General Availability (Worldwide): Rollout will begin in late October 2026 and is expected to complete by early November 2026. [Impact on your organization] Who is …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout will begin in late October 2026 and is expected to complete by early November 2026."
+   ],
+   "bodyHash": "c60ad5e4cf394b2a"
+  },
+  {
+   "id": "MC1529477",
+   "title": "Microsoft PowerPoint: Review sales pipeline Copilot skill",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-28",
+   "end": "2026-12-04",
+   "modified": "2026-10-28",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing a new Copilot skill in PowerPoint, Review sales pipeline, that helps users create or refresh internal pipeline and forecast review presentations focused on opportunity movement, risks, and next actions. [Rollout schedule] General Availability (Worldwide): Rollout will begin in late October 2026 and is expected to complete by early November 2026. [Impact on your or…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout will begin in late October 2026 and is expected to complete by early November 2026."
+   ],
+   "bodyHash": "f895849a9ae6a7fe"
+  },
+  {
+   "id": "MC1529480",
+   "title": "Microsoft PowerPoint: Prepare customer review deck Copilot skill",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-28",
+   "end": "2026-12-04",
+   "modified": "2026-10-28",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing a new Copilot skill in PowerPoint, Prepare customer review deck, that helps users create recurring customer-facing business review (QBR) presentations focused on goals, outcomes, adoption, risks, commitments, and next steps. [Rollout schedule] General Availability (Worldwide): Rollout will begin in late October 2026 and is expected to complete by early November 20…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout will begin in late October 2026 and is expected to complete by early November 2026."
+   ],
+   "bodyHash": "6d99fbf1676ddca7"
+  },
+  {
+   "id": "MC1529481",
+   "title": "Microsoft PowerPoint: Summarize sales for leaders Copilot skill",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-28",
+   "end": "2026-12-04",
+   "modified": "2026-10-28",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing a new Copilot skill in PowerPoint, Summarize sales for leaders, that helps users create senior-leadership presentations summarizing sales performance, outlook, risks, and decisions. [Rollout schedule] General Availability (Worldwide): Rollout will begin in late October 2026 and is expected to complete by early November 2026. [Impact on your organization] Who is af…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout will begin in late October 2026 and is expected to complete by early November 2026."
+   ],
+   "bodyHash": "899309b3b99df5bf"
+  },
+  {
+   "id": "MC1529501",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-28",
+   "end": "2026-11-11",
+   "modified": "2026-10-28",
+   "tags": [
+    "Feature update"
+   ],
+   "summary": "We've released updates to the following update channel for Microsoft 365 Apps: Current Channel [When this will happen:] We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting October 28th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are configured to automatically update from the Office Content Delivery…",
+   "when": "We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting October 28th, 2026 (PST).",
+   "prepare": "To get more details about this update view the following release notes: Current Channel.",
+   "dates": [],
+   "bodyHash": "0c284a6acde890f4"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -19359,176 +19509,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-09-28",
-   "id": "MC1072889",
-   "type": "removed",
-   "title": "(Updated) SharePoint Alerts retirement",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1230892",
-   "type": "removed",
-   "title": "(Updated) Microsoft 365 Copilot: Updated handling of entity inserts in the Copilot Chat input box",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1248393",
-   "type": "removed",
-   "title": "(Updated) Outlook Mobile: Follow a meeting option",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1392567",
-   "type": "removed",
-   "title": "(Updated) Microsoft Planner: Start date and due date are no longer constrained",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1400824",
-   "type": "removed",
-   "title": "(Updated) Microsoft Entra: Self-service password reset CAPTCHA protection updated",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1400830",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: Room optimization mode relocated to context-dependent option",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1409102",
-   "type": "removed",
-   "title": "Enabling group support for M365 Copilot Release preferences experience",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1422074",
-   "type": "removed",
-   "title": "(Updated) OpenAI models will soon be available as a subprocessor in Microsoft 365 Copilot",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1423118",
-   "type": "removed",
-   "title": "(Updated) OneDrive for the web: Document library views now available in OneDrive",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1443511",
-   "type": "removed",
-   "title": "Microsoft Teams: Manage auto attendant shared voicemails in the Queues app",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1448372",
-   "type": "removed",
-   "title": "SharePoint Pages: Command bar menu and page state indicator updates",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1455017",
-   "type": "removed",
-   "title": "New Defender for Identity health alert for missing domain controller network traffic",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1456781",
-   "type": "removed",
-   "title": "Public preview: Manage agents across multiple tenants from the Microsoft 365 admin center",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1472592",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview: Auto-expanding archive capacity increases to 3 TB for eligible mailboxes",
-   "fields": {
-    "title": [
-     "Microsoft Purview: Auto-expanding archive capacity increases to 3 TB for eligible mailboxes",
-     "(Updated) Microsoft Purview: Auto-expanding archive capacity increases to 3 TB for eligible mailboxes"
-    ],
-    "tags": [
-     [
-      "Admin impact",
-      "Feature update",
-      "User impact"
-     ],
-     [
-      "Admin impact",
-      "Feature update",
-      "Updated message",
-      "User impact"
-     ]
-    ],
-    "bodyHash": [
-     "1e3351b5b84d5c01",
-     "7fd46c956e39535e"
-    ]
-   }
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1479512",
-   "type": "changed",
-   "title": "(Updated) Microsoft Teams: Updates to Teams Events licensing for business, frontline, and education customers",
-   "fields": {
-    "title": [
-     "Microsoft Teams: Updates to Teams Events licensing for business, frontline, and education customers",
-     "(Updated) Microsoft Teams: Updates to Teams Events licensing for business, frontline, and education customers"
-    ],
-    "tags": [
-     [
-      "Admin impact",
-      "Feature update",
-      "User impact"
-     ],
-     [
-      "Admin impact",
-      "Feature update",
-      "Updated message",
-      "User impact"
-     ]
-    ],
-    "bodyHash": [
-     "9ce733388ec5d57d",
-     "1f12bde7be8bad5b"
-    ]
-   }
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1480869",
-   "type": "new",
-   "title": "Microsoft 365 settings enabled by default for newly created Engage communities",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1480870",
-   "type": "new",
-   "title": "New SharePoint Mobile Experience on iOS and Android",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-28",
-   "id": "MC1480873",
-   "type": "new",
-   "title": "Connected Platforms - Agent 365 extends observability to third-party agents",
-   "fields": {}
-  },
   {
    "date": "2026-09-29",
    "id": "MC1441784",
@@ -25271,6 +25251,78 @@
    "id": "MC1181117",
    "type": "removed",
    "title": "The October 2025 Windows non-security preview update is now available for Windows 11, version 23H2",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-29",
+   "id": "MC1484009",
+   "type": "changed",
+   "title": "(Updated) Microsoft Defender for Office 365: New email submissions data in Advanced Hunting",
+   "fields": {
+    "end": [
+     "2026-12-28",
+     "2027-01-25"
+    ],
+    "bodyHash": [
+     "ef36da3e924c590a",
+     "96a62c5bfc416bea"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-29",
+   "id": "MC1529467",
+   "type": "new",
+   "title": "Microsoft Windows: Updates to address compromised eMudhra certificate authority keys",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-29",
+   "id": "MC1529472",
+   "type": "new",
+   "title": "Frontier expands to include public previews in Microsoft Teams, new Outlook for Windows, OneDrive, and SharePoint",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-29",
+   "id": "MC1529476",
+   "type": "new",
+   "title": "Microsoft PowerPoint: Draft proposal response Copilot skill",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-29",
+   "id": "MC1529477",
+   "type": "new",
+   "title": "Microsoft PowerPoint: Review sales pipeline Copilot skill",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-29",
+   "id": "MC1529480",
+   "type": "new",
+   "title": "Microsoft PowerPoint: Prepare customer review deck Copilot skill",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-29",
+   "id": "MC1529481",
+   "type": "new",
+   "title": "Microsoft PowerPoint: Summarize sales for leaders Copilot skill",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-29",
+   "id": "MC1529501",
+   "type": "new",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-29",
+   "id": "MC1181171",
+   "type": "removed",
+   "title": "The October 2025 Windows non-security preview update is now available",
    "fields": {}
   }
  ]
