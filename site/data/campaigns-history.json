@@ -1,6 +1,150 @@
 {
 "updated":"2026-10-29",
 "campaigns":{
+"c-mc1488834":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-29",
+"name":"MemberOf rule operator retires",
+"status":"Active",
+"members":[
+"MC1448379",
+"item:MC1448379",
+"MC1488834",
+"MC1488839",
+"item:MC1488834",
+"item:MC1488839",
+"MC1529463",
+"item:MC1529463"
+],
+"log":[
+{
+"date":"2026-10-29",
+"id":"MC1529463",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Final reminder: the MemberOf rule operator stops processing on 3 November 2026 in dynamic groups, dynamic administrative units and entitlement auto-assignment policies",
+"title":"Final reminder: the MemberOf rule operator stops processing on 3 November 2026 in dynamic groups, dynamic administrative units and entitlement auto-assignment policies",
+"link":"https://mc.merill.net/message/MC1529463"
+},
+{
+"date":"2026-10-19",
+"id":"MC1488834",
+"what":"Act-by date",
+"before":"",
+"after":"2026-11-03",
+"title":"Final reminder: the MemberOf rule operator stops processing on 3 November, and dynamic groups built on it freeze in their last state",
+"link":"https://mc.merill.net/message/MC1488834"
+},
+{
+"date":"2026-10-06",
+"id":"MC1488839",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"MemberOf rule operator: tenants with Entra ID Governance keep their existing configurations until 31 March 2027, while the 3 November retirement stands for everyone else",
+"title":"MemberOf rule operator: tenants with Entra ID Governance keep their existing configurations until 31 March 2027, while the 3 November retirement stands for everyone else",
+"link":"https://msmessagecenter.com/MC1488839"
+},
+{
+"date":"2026-10-06",
+"id":"MC1488834",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Final reminder: the MemberOf rule operator stops processing on 3 November, and dynamic groups built on it freeze in their last state",
+"title":"Final reminder: the MemberOf rule operator stops processing on 3 November, and dynamic groups built on it freeze in their last state",
+"link":"https://mc.merill.net/message/MC1488834"
+}
+],
+"milestones":{
+"MC1448379|posted":{
+"date":"2026-08-05",
+"label":"5 Aug 2026",
+"text":"Posted: MemberOf rule operator retires"
+},
+"MC1488834|posted":{
+"date":"2026-10-05",
+"label":"5 Oct 2026",
+"text":"Posted: Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
+},
+"MC1488839|posted":{
+"date":"2026-10-05",
+"label":"5 Oct 2026",
+"text":"Posted: Microsoft Entra ID: Support for existing MemberOf rule operator configurations extended through March 31, 2027"
+},
+"MC1529463|posted":{
+"date":"2026-10-28",
+"label":"28 Oct 2026",
+"text":"Posted: Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
+},
+"MC1488834|deadline":{
+"date":"2026-11-03",
+"label":"3 Nov 2026",
+"text":"Final reminder: the MemberOf rule operator stops processing on 3 November, and dynamic groups built on it freeze in their last state"
+},
+"MC1488839|action required by read on the message page it applies to or#0":{
+"date":"2027-03-31",
+"label":"31 Mar 2027",
+"text":"Action required by 31 March 2027, read on the message page; it applies to organizations with Microsoft Entra ID Governance."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1488834":{
+"title":"Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026",
+"link":"https://mc.merill.net/message/MC1488834",
+"source":"Message Center",
+"id":"MC1488834",
+"date":"2026-10-05",
+"updated":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1448379":{
+"title":"MemberOf rule operator retires",
+"link":"https://mc.merill.net/message/MC1448379",
+"source":"Main list source",
+"id":"MC1448379",
+"date":"2026-08-05",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msmessagecenter.com/MC1488839":{
+"title":"Microsoft Entra ID: Support for existing MemberOf rule operator configurations extended through March 31, 2027",
+"link":"https://msmessagecenter.com/MC1488839",
+"source":"Main list source",
+"id":"MC1488839",
+"date":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1509128":{
+"title":"MC1509128: App-V server support extended through October 9, 2029",
+"link":"https://mc.merill.net/message/MC1509128",
+"source":"MC - Merill",
+"date":"2026-10-15",
+"group":"community",
+"found":"2026-10-16"
+},
+"https://mc.merill.net/message/MC1529463":{
+"title":"Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026",
+"link":"https://mc.merill.net/message/MC1529463",
+"source":"Message Center",
+"id":"MC1529463",
+"date":"2026-10-28",
+"updated":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-29"
+}
+},
+"final":"2027-03-31",
+"type":"Retirement",
+"tech":"Entra",
+"posts":[
+"MC1448379",
+"MC1488834",
+"MC1488839",
+"MC1529463"
+]
+},
 "c-mc1528013":{
 "firstSeen":"2026-10-28",
 "lastSeen":"2026-10-29",
@@ -764,24 +908,6 @@
 {
 "date":"2026-10-22",
 "id":"MC1519861",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"Outlook: Copilot Prioritize feature will be retired",
-"title":"Outlook: Copilot Prioritize feature will be retired",
-"link":"https://mc.merill.net/message/MC1519861"
-},
-{
-"date":"2026-10-22",
-"id":"MC1519861",
-"what":"Microsoft revised the post",
-"before":"2026-10-21",
-"after":"2026-10-22",
-"title":"Outlook: Copilot Prioritize feature will be retired",
-"link":"https://mc.merill.net/message/MC1519861"
-},
-{
-"date":"2026-10-22",
-"id":"MC1519861",
 "what":"Title",
 "before":"Outlook: Copilot Prioritize feature will be retired",
 "after":"(Updated) Outlook: Copilot Prioritize feature will be retired",
@@ -812,6 +938,24 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the timeline and content.",
+"title":"Outlook: Copilot Prioritize feature will be retired",
+"link":"https://mc.merill.net/message/MC1519861"
+},
+{
+"date":"2026-10-22",
+"id":"MC1519861",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Outlook: Copilot Prioritize feature will be retired",
+"title":"Outlook: Copilot Prioritize feature will be retired",
+"link":"https://mc.merill.net/message/MC1519861"
+},
+{
+"date":"2026-10-22",
+"id":"MC1519861",
+"what":"Microsoft revised the post",
+"before":"2026-10-21",
+"after":"2026-10-22",
 "title":"Outlook: Copilot Prioritize feature will be retired",
 "link":"https://mc.merill.net/message/MC1519861"
 }
@@ -3968,8 +4112,7 @@
 "name":"Retiring legacy sign-in implementation on Windows",
 "status":"Active",
 "members":[
-"MC1490911",
-"item:MC1490911"
+"MC1490911"
 ],
 "log":[
 {
@@ -4325,123 +4468,6 @@
 "tech":"Exchange",
 "posts":[
 "MC1479516"
-]
-},
-"c-mc1488834":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-29",
-"name":"MemberOf rule operator retires",
-"status":"Active",
-"members":[
-"MC1448379",
-"item:MC1448379",
-"MC1488834",
-"MC1488839",
-"item:MC1488834",
-"item:MC1488839"
-],
-"log":[
-{
-"date":"2026-10-19",
-"id":"MC1488834",
-"what":"Act-by date",
-"before":"",
-"after":"2026-11-03",
-"title":"Final reminder: the MemberOf rule operator stops processing on 3 November, and dynamic groups built on it freeze in their last state",
-"link":"https://mc.merill.net/message/MC1488834"
-},
-{
-"date":"2026-10-06",
-"id":"MC1488839",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"MemberOf rule operator: tenants with Entra ID Governance keep their existing configurations until 31 March 2027, while the 3 November retirement stands for everyone else",
-"title":"MemberOf rule operator: tenants with Entra ID Governance keep their existing configurations until 31 March 2027, while the 3 November retirement stands for everyone else",
-"link":"https://msmessagecenter.com/MC1488839"
-},
-{
-"date":"2026-10-06",
-"id":"MC1488834",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"Final reminder: the MemberOf rule operator stops processing on 3 November, and dynamic groups built on it freeze in their last state",
-"title":"Final reminder: the MemberOf rule operator stops processing on 3 November, and dynamic groups built on it freeze in their last state",
-"link":"https://mc.merill.net/message/MC1488834"
-}
-],
-"milestones":{
-"MC1448379|posted":{
-"date":"2026-08-05",
-"label":"5 Aug 2026",
-"text":"Posted: MemberOf rule operator retires"
-},
-"MC1488834|posted":{
-"date":"2026-10-05",
-"label":"5 Oct 2026",
-"text":"Posted: Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
-},
-"MC1488839|posted":{
-"date":"2026-10-05",
-"label":"5 Oct 2026",
-"text":"Posted: Microsoft Entra ID: Support for existing MemberOf rule operator configurations extended through March 31, 2027"
-},
-"MC1488834|deadline":{
-"date":"2026-11-03",
-"label":"3 Nov 2026",
-"text":"Final reminder: the MemberOf rule operator stops processing on 3 November, and dynamic groups built on it freeze in their last state"
-},
-"MC1488839|action required by read on the message page it applies to or#0":{
-"date":"2027-03-31",
-"label":"31 Mar 2027",
-"text":"Action required by 31 March 2027, read on the message page; it applies to organizations with Microsoft Entra ID Governance."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1488834":{
-"title":"Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026",
-"link":"https://mc.merill.net/message/MC1488834",
-"source":"Message Center",
-"id":"MC1488834",
-"date":"2026-10-05",
-"updated":"2026-10-05",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1448379":{
-"title":"MemberOf rule operator retires",
-"link":"https://mc.merill.net/message/MC1448379",
-"source":"Main list source",
-"id":"MC1448379",
-"date":"2026-08-05",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msmessagecenter.com/MC1488839":{
-"title":"Microsoft Entra ID: Support for existing MemberOf rule operator configurations extended through March 31, 2027",
-"link":"https://msmessagecenter.com/MC1488839",
-"source":"Main list source",
-"id":"MC1488839",
-"date":"2026-10-05",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1509128":{
-"title":"MC1509128: App-V server support extended through October 9, 2029",
-"link":"https://mc.merill.net/message/MC1509128",
-"source":"MC - Merill",
-"date":"2026-10-15",
-"group":"community",
-"found":"2026-10-16"
-}
-},
-"final":"2027-03-31",
-"type":"Retirement",
-"tech":"Entra",
-"posts":[
-"MC1448379",
-"MC1488834",
-"MC1488839"
 ]
 },
 "c-mc1243549":{
@@ -4820,9 +4846,29 @@
 "name":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
 "status":"No date",
 "members":[
-"MC1474124"
+"MC1474124",
+"item:MC1474124"
 ],
-"log":[],
+"log":[
+{
+"date":"2026-10-29",
+"id":"MC1474124",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
+"title":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
+"link":"https://deltapulse.app/item/MC1474124"
+},
+{
+"date":"2026-10-29",
+"id":"MC1474124",
+"what":"Microsoft revised the post",
+"before":"2026-09-18",
+"after":"2026-10-28",
+"title":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
+"link":"https://deltapulse.app/item/MC1474124"
+}
+],
 "milestones":{
 "MC1474124|posted":{
 "date":"2026-09-18",
@@ -6101,14 +6147,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-26",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-27",
 "text":"August 1, 2026."
 },
@@ -6222,6 +6260,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-28",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-29",
 "text":"August 1, 2026."
 },
 {
@@ -6694,22 +6740,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-27",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-10-27",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-10-28",
 "text":"early February 2026."
 },
@@ -6783,6 +6813,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-10-28",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-29",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-29",
 "text":"February 2027."
 },
 {
@@ -9212,12 +9258,31 @@
 "item:MC1426371",
 "item:entra-sms-voice-full-retirement",
 "MC1465763",
+"item:MC1465763",
 "MC1474104",
 "item:MC1474104",
 "item:entra-telephony-provider-configuration-2026-10-30",
 "MC1519855"
 ],
 "log":[
+{
+"date":"2026-10-28",
+"id":"MC1465763",
+"what":"Microsoft revised the post",
+"before":"2026-09-01",
+"after":"2026-10-28",
+"title":"Entra switches off unused or failing SMS first-factor sign-in tenant by tenant; the rollout now runs to the end of November 2026",
+"link":"https://deltapulse.app/item/MC1465763"
+},
+{
+"date":"2026-10-28",
+"id":"MC1465763",
+"what":"Microsoft moved the date",
+"before":"late Sep 2026",
+"after":"end of Nov 2026",
+"title":"Entra switches off unused or failing SMS first-factor sign-in tenant by tenant; the rollout now runs to the end of November 2026",
+"link":"https://deltapulse.app/item/MC1465763"
+},
 {
 "date":"2026-10-22",
 "id":"MC1519855",
@@ -9284,6 +9349,11 @@
 "label":"1 Sep 2026",
 "text":"Posted: Microsoft Entra: Prepare for Microsoft to disable unused or unsuccessful SMS first-factor sign-in"
 },
+"MC1465763|microsoft states the worldwide rollout began mid and is expe#0":{
+"date":"2026-09-15",
+"label":"mid Sep 2026",
+"text":"Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)"
+},
 "MC1474104|posted":{
 "date":"2026-09-18",
 "label":"18 Sep 2026",
@@ -9298,6 +9368,11 @@
 "date":"2026-10-30",
 "label":"30 Oct 2026",
 "text":"Starting October 30, 2026, Microsoft Entra ID allows organizations to choose a supported third-party telephony provider for SMS and voice authentication via Mic"
+},
+"MC1465763|microsoft states the worldwide rollout began mid and is expe#1":{
+"date":"2026-11-30",
+"label":"end of Nov 2026",
+"text":"Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)"
 },
 "MC1519855|microsoft provided sms voice authentication retires by excep#0":{
 "date":"2027-02-01",
@@ -9933,6 +10008,14 @@
 "date":"2026-10-28",
 "group":"community",
 "found":"2026-10-28"
+},
+"https://dev.to/ayumu_kitabayashi_8e0de96/hiding-youtube-shorts-on-an-ipad-and-an-iphone-what-works-on-each-device-2026-559e":{
+"title":"Hiding YouTube Shorts on an iPad and an iPhone: what works on each device (2026)",
+"link":"https://dev.to/ayumu_kitabayashi_8e0de96/hiding-youtube-shorts-on-an-ipad-and-an-iphone-what-works-on-each-device-2026-559e",
+"source":"NeonTiger12",
+"date":"2026-10-29",
+"group":"community",
+"found":"2026-10-29"
 }
 },
 "final":"2027-07-01",
@@ -10523,22 +10606,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-27",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-10-27",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-10-28",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -10612,6 +10679,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-10-28",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-29",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-29",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -15838,6 +15921,25 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-29",
+"cid":"c-sms-voice-retirement",
+"type":"milestone",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"src":"MC1465763",
+"now":"end of Nov 2026",
+"text":"Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)"
+},
+{
+"day":"2026-10-29",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Hiding YouTube Shorts on an iPad and an iPhone: what works on each device (2026)",
+"source":"NeonTiger12",
+"link":"https://dev.to/ayumu_kitabayashi_8e0de96/hiding-youtube-shorts-on-an-ipad-and-an-iphone-what-works-on-each-device-2026-559e"
 }
 ],
 "archive":{
