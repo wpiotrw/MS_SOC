@@ -29635,7 +29635,8 @@
   "source": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/",
   "kind": "article",
   "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
-  "link": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/"
+  "link": "https://devsecopsdadattack.com/2026-10-05-KQL-Detection-of-the-Week-The-Activity-Log-Is-Not-The-Activity/",
+  "incident": "msp360-screenconnect-rmm-phishing-2026-07"
  },
  {
   "file": "articles/2026-10-05-validate-before-you-deploy.kql",
@@ -29780,7 +29781,8 @@
   "source": "https://devsecopsdadattack.com/2026-10-04-detection-engineering-brief-sunday-october-4-2026/",
   "kind": "article",
   "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
-  "link": "https://devsecopsdadattack.com/2026-10-04-detection-engineering-brief-sunday-october-4-2026/"
+  "link": "https://devsecopsdadattack.com/2026-10-04-detection-engineering-brief-sunday-october-4-2026/",
+  "incident": "msp360-screenconnect-rmm-phishing-2026-07"
  },
  {
   "file": "articles/2026-10-04-detection-3-bpfdoor-shell-script-written-and-executed.kql",
@@ -29937,7 +29939,8 @@
   "source": "https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/",
   "kind": "article",
   "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
-  "link": "https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/"
+  "link": "https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/",
+  "incident": "msp360-screenconnect-rmm-phishing-2026-07"
  },
  {
   "file": "articles/2026-10-02-detection-2-unauthorized-screenconnect-client-installation-o.kql",
@@ -29952,7 +29955,8 @@
   "source": "https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/",
   "kind": "article",
   "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
-  "link": "https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/"
+  "link": "https://devsecopsdadattack.com/2026-10-02-detection-engineering-brief-friday-october-2-2026/",
+  "incident": "msp360-screenconnect-rmm-phishing-2026-07"
  },
  {
   "file": "articles/2026-10-02-detection-1-cisco-sd-wan-manager-api-auth.kql",
@@ -30024,7 +30028,8 @@
   "source": "https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/",
   "kind": "article",
   "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
-  "link": "https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/"
+  "link": "https://devsecopsdadattack.com/2026-10-01-detection-engineering-brief-thursday-october-1-2026/",
+  "incident": "msp360-screenconnect-rmm-phishing-2026-07"
  },
  {
   "file": "articles/2026-10-01-detection-1-zimbra-command-injection-shell-spawned-from.kql",
@@ -30205,7 +30210,8 @@
   "source": "https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/",
   "kind": "article",
   "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
-  "link": "https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/"
+  "link": "https://devsecopsdadattack.com/2026-09-30-detection-engineering-brief-wednesday-september-30-2026/",
+  "incident": "msp360-screenconnect-rmm-phishing-2026-07"
  },
  {
   "file": "articles/2026-09-30-confirmed-shell-mediated-zimbra-snmp-command-injection.kql",
