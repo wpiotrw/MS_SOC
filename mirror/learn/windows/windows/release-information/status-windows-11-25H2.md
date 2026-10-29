@@ -21,7 +21,7 @@ ms.sitesec: library
 ms.localizationpriority: medium
 ms.author: direek
 author: WindowsCommunications
-ms.date: 2026-10-28T00:00:00.0000000Z
+ms.date: 2026-10-29T00:00:00.0000000Z
 locale: en-us
 document_id: 23a22fef-6025-c344-f03d-d8b2b87db03f
 document_version_independent_id: 23a22fef-6025-c344-f03d-d8b2b87db03f
@@ -74,7 +74,7 @@ See open issues, content updated in the last 30 days, and information on [safegu
 
 | Summary | Originating update | Status | Last updated |
 | --- | --- | --- | --- |
-| **Remote Desktop connections might fail for non-admin users with error 0xC000000D**This issue affects non-admin users connecting through Remote Desktop with Administrator protection enabled. | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Resolved[KB5127936](https://support.microsoft.com/help/5127936) | 2026-10-28 09:40 PT |
+| **Remote Desktop connections might fail for non-admin users with error 0xC000000D**This issue affects non-admin users connecting through Remote Desktop with Administrator protection enabled. | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Resolved[KB5127936](https://support.microsoft.com/help/5127936) | 2026-10-28 21:41 PT |
 | **Devices might experience a black screen or desktop loading issues after sign-in**Microsoft has received reports of this issue occurring in some virtual desktop environments. | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved[KB5127648](https://support.microsoft.com/help/5127648) | 2026-10-13 10:13 PT |
 | **Applications which require AC-3 audio decoding might close unexpectedly**This issue is more likely to occur in legacy applications, and unlikely for many modern applications. | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Resolved[KB5127648](https://support.microsoft.com/help/5127648) | 2026-10-13 10:13 PT |
 | **Domain-joined devices might lose their secure trust relationship with the domain**Some Credential Guard protected machine accounts might be unable to sign in interactively will valid domain credentials. | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5124010](https://support.microsoft.com/help/5124010) | 2026-10-08 17:44 PT |
@@ -89,7 +89,7 @@ See open issues, content updated in the last 30 days, and information on [safegu
 
 | **Status** | **Originating update** | **History** |
 | --- | --- | --- |
- Resolved [KB5127936](https://support.microsoft.com/help/5127936) | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Resolved: 2026-10-28, 10:00 PTOpened: 2026-10-27, 16:05 PT |
+ Resolved [KB5127936](https://support.microsoft.com/help/5127936) | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Resolved: 2026-10-28, 10:00 PTOpened: 2026-10-13, 09:43 PT |
 
 After installing the September 2026 non-security preview update ([KB5124010](https://support.microsoft.com/help/5124010)), or later updates, non-admin users might be unable to establish Remote Desktop connections to remote devices that have [Administrator protection](/en-us/windows/security/application-security/application-control/administrator-protection/?tabs=intune) enabled. Attempts to connect might fail with error 0xC000000D and display the message, “The token that was passed to the function is invalid.” This issue primarily affects enterprise-managed remote devices used as Remote Desktop hosts with Administrator protection enabled, regardless of [how the feature was enabled](/en-us/windows/security/application-security/application-control/administrator-protection/?tabs=intune#configuration).
 
@@ -100,8 +100,6 @@ After installing the September 2026 non-security preview update ([KB5124010](htt
 If you install an update released October 28, 2026 ([KB5127936](https://support.microsoft.com/help/5127936)) or later, you do not need to use a workaround for this issue. If you are using an update released before this date, and have this issue, you have the option to apply the following workaround:
 
 IT administrators can mitigate this issue on devices affected by the Remote Desktop connection failure by using their existing policy management method to temporarily turn off Administrator protection. Reset the *User Account Control Type Of Admin Approval Mode* policy in Microsoft Intune or Group Policy. For more information, see [Administrator protection on Windows 11](https://techcommunity.microsoft.com/blog/windows-itpro-blog/administrator-protection-on-windows-11/4303482).
-
-**Next steps:** We are working to address this issue in a future Windows update and will provide more information when it is available.
 
 **Affected platforms:**
 

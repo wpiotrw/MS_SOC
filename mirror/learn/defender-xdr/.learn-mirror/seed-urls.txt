@@ -5,10 +5,12 @@ https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-agentsinfo-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-aiagentsinfo-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-behaviorentities-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-behaviorinfo-table
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-callactivityevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-campaigninfo-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudauditevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-clouddnsevents-table
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudkeyvaultevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudpolicyenforcementevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudprocessevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-custom-functions
@@ -17,6 +19,7 @@ https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicetvmsoftwarevulnerabilities-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-disruptionandresponseevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailattachmentinfo-table
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailpostdeliveryevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidsigninevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidspnsigninevents-table

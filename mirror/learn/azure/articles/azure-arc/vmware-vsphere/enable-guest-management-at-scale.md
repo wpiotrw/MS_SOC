@@ -41,9 +41,11 @@ source_path: articles/azure-arc/vmware-vsphere/enable-guest-management-at-scale.
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/beac614b-f66d-40ed-a947-3996de709333
+- https://authoring-docs-microsoft.poolparty.biz/devrel/4e834929-0ce1-4c1d-9c81-fcb14721edfb
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9da05372-4706-43ec-a899-f436adab380d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/75670257-a3f0-4627-9981-8046f99219e6
 platformId: 10d1d624-18ca-b34b-18e6-921a39e7d1ef
 ---
 
@@ -170,7 +172,7 @@ You can install Arc agents directly on machines without relying on VMware tools 
     - The following command scans all the Arc for Server machines that belong to the vCenter in the specified subscription. It links the machines with that vCenter.
 
         ```azurecli
-        az connectedvmware vm create-from-machines --subscription contoso-sub --vcenter-id /subscriptions/aaaa0a0a-bb1b-cc2c-dd3d-eeeeee4e4e4e/resourceGroups/allhands-demo/providers/microsoft.connectedvmwarevsphere/VCenters/ContosovCentervcenters/contoso-vcenter
+        az connectedvmware vm create-from-machines --subscription contoso-sub --vcenter-id /subscriptions/aaaaaaaa-0000-1111-2222-bbbbbbbbbbbb/resourceGroups/allhands-demo/providers/microsoft.connectedvmwarevsphere/VCenters/ContosovCentervcenters/contoso-vcenter
         ```
     - The following command scans all the Arc for Server machines that belong to the vCenter in the specified resource group. It links the machines with that vCenter.
 

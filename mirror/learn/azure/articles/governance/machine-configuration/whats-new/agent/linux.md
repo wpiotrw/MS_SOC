@@ -65,6 +65,19 @@ To review the release notes for Windows (`Microsoft.GuestConfiguration.Configura
 
 The following sections of this article detail the notes for each release of the agent. The heading for each section includes the specific version for that release and the date for the release.
 
+## Version 1.26.121 - October 2026
+
+### Updated
+
+- Updated OpenSSL from version 3.6.4 to 3.6.5.
+- Updated bundled PowerShell from version 7.4.19 to 7.4.20.
+
+### Fixed
+
+- Hardened package extraction for ZIP entries with excessively long filenames.
+- Prevented command injection when validating package signatures.
+- Prevented command injection through security baseline pre-installation settings.
+
 ## Version 1.26.119 - September 2026
 
 ### Updated

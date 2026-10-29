@@ -200,6 +200,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/migrate-classic-defen
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/on-demand-malware-scanning
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/onboard-machines-with-defender-for-endpoint
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/permissions-management
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/policy-reference
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/posture-for-serverless-containers
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/recommendations-reference-compute
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/recommendations-reference-container
@@ -242,6 +243,7 @@ https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/autopilot-overvi
 https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/long-running-agent-reference
 https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/long-running-agent-resilience
 https://learn.microsoft.com/en-us/azure/foundry/agents/conce…
+https://learn.microsoft.com/en-us/azure/foundry/agents/conc…
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/add-human-in-the-loop
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/configure-voice-agent
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/deploy-hosted-agent-production

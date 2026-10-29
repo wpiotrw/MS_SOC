@@ -80,7 +80,7 @@ Monthly updates include security updates, quality updates, and the latest cumula
 | Delivery method | Windows client Enterprise | Windows client multi-session | Windows Server |
 | --- | --- | --- | --- |
 | Windows Update | Recommended | Not recommended | Supported |
-| Windows Autopatch (WUfB) | Recommended | Not recommended | Not supported |
+| Windows Autopatch (WUfB) | Recommended | Not supported | Not supported |
 | Configuration Manager | Supported | Supported | Supported |
 | Azure Update Manager | Not supported | Not supported | Recommended |
 | Automatic guest patching | Not supported | Not supported | Recommended |
@@ -94,7 +94,7 @@ Hotpatching applies eligible monthly security updates without requiring a reboot
 | Operating system | Hotpatch support |
 | --- | --- |
 | Windows client Enterprise | Supported on Windows 11 Enterprise, version 24H2 or later, with VBS enabled. |
-| Windows client multi-session | Supported. |
+| Windows client multi-session | Not supported. |
 | Windows Server | Supported on Azure Edition only. |
 
 ## Feature updates
@@ -104,7 +104,7 @@ Feature updates, including enablement package (eKB) updates, introduce new Windo
 | Delivery method | Windows client Enterprise | Windows client multi-session | Windows Server |
 | --- | --- | --- | --- |
 | Windows Update | Recommended | Not recommended | Not supported |
-| Windows Autopatch (WUfB) | Recommended | Not recommended | Not supported |
+| Windows Autopatch (WUfB) | Recommended | Not supported | Not supported |
 | Configuration Manager | Supported | Supported | Supported |
 | Windows Server Update Services (WSUS) | Not supported | Not recommended | Not recommended |
 | Session host update | Not supported | Recommended | Not recommended |
