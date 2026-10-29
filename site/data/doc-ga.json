@@ -1,11 +1,11 @@
 {
- "generated": "2026-10-29T00:58:20Z",
+ "generated": "2026-10-29T09:57:54Z",
  "source": "tools/doc_ga.py (CLAUDE.md 5eo)",
  "sources": [
   {
    "name": "Our Learn copy (mirror/learn)",
    "state": "ok",
-   "pages": 1849,
+   "pages": 1855,
    "events": 0,
    "note": ""
   },
