@@ -2,6 +2,7 @@ https://learn.microsoft.com/en-us/entra
 https://learn.microsoft.com/en-us/entra/agent-id
 https://learn.microsoft.com/en-us/entra/agent-id/create-blueprint
 https://learn.microsoft.com/en-us/entra/agent-id/disable-agent-identities
+https://learn.microsoft.com/en-us/entra/agent-id/govern-agent-access-azure-postgresql
 https://learn.microsoft.com/en-us/entra/agent-id/secure-mcp-server-with-entra-id
 https://learn.microsoft.com/en-us/entra/agent-id/what-is-microsoft-entra-agent-id
 https://learn.microsoft.com/en-us/entra/architecture/governance-deployment-employee-access
@@ -102,6 +103,7 @@ https://learn.microsoft.com/en-us/entra/how-to-manage-users-groups-assignment
 https://learn.microsoft.com/en-us/entra/how-to-preserve-group-organizational-unit-entra-to-active-directory
 https://learn.microsoft.com/en-us/entra/how-to-test-and-enable-provisioning-entra-to-active-directory
 https://learn.microsoft.com/en-us/entra/id-governance/agent-default-inactivity-policy
+https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview
 https://learn.microsoft.com/en-us/entra/id-governance/agent-lifecycle-policies
 https://learn.microsoft.com/en-us/entra/id-governance/agent-sponsor-tasks
 https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-access-drift
@@ -240,6 +242,7 @@ https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/deleg
 https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/my-staff-configure
 https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference
 https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/whats-new
+https://learn.microsoft.com/en-us/entra/identity/saas-apps/brivo-onair-identity-connector-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/chatwork-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/hibob-to-active-directory-user-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/sap-successfactors-inbound-provisioning-cloud-only-tutorial

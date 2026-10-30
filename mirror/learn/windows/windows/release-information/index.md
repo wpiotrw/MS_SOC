@@ -15,7 +15,7 @@ ms.service: windows
 ms.topic: hub-page
 author: WindowsCommunications
 ms.author: direek
-ms.date: 2026-10-29T00:00:00.0000000Z
+ms.date: 2026-10-30T00:00:00.0000000Z
 ms.localizationpriority: medium
 locale: en-us
 document_id: 3105e4c0-7e83-7f42-7f1a-e0504b23afc9
@@ -59,9 +59,9 @@ Get started
 Deploy
 [Secure Boot client playbook for certificates expiring in 2026](https://techcommunity.microsoft.com/blog/windows-itpro-blog/secure-boot-playbook-for-certificates-expiring-in-2026/4469235)
 
-![](/en-us/media/hubs/shared/icon-deploy.svg?branch=main)
+![](/en-us/media/hubs/shared/icon-reference.svg?branch=main)
 
-Deploy
+Reference
 [Windows device recovery scenarios and solutions](https://techcommunity.microsoft.com/blog/windows-itpro-blog/windows-device-recovery-in-2026-a-guide-for-it-pros/4541207)
 
 ![](/en-us/media/hubs/shared/icon-whats-new.svg?branch=main)
@@ -81,9 +81,9 @@ Overview
 
 ### Message center
 
+- [Interim guidance for Cuba’s 2026 daylight saving time change](https://techcommunity.microsoft.com/blog/dstblog/interim-guidance-for-cuba-dst-2026/4568608)
 - [Policy-based in-box app removal extended to multi-session environments](/en-us/windows/configuration/policy-based-inbox-app-removal/policy-based-inbox-app-removal)
 - [The October 2026 Windows non-security preview update is now available](https://support.microsoft.com/help/5127936)
-- [New MSRC blog: Microsoft’s response to compromised eMudhra certificate authority keys](https://www.microsoft.com/msrc/blog/2026/10/microsoft-response-to-compromised-emudhra-certificate-authority-keys)
 - [See more](/en-us/windows/release-information/windows-message-center)
 
 ### Windows 11, version 26H2

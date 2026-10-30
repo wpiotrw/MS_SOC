@@ -35,11 +35,11 @@ source_path: concepts/whats-new-overview.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
 platformId: 6e6097c9-5516-d241-0299-2adc10e56ea2
 ---
 
@@ -75,11 +75,21 @@ Features in *preview* status are subject to change without notice, and might not
 
 ### Identity and access | Governance
 
+- Added the **isEnabled** property to the [roleManagementCustomCalloutExtension](/en-us/graph/api/resources/rolemanagementcustomcalloutextension) resource type in v1.0. Use it to enable or disable a PIM custom extension without deleting it.
+- Added the `applicationAuthorization` and `appRoles` members to the **customExtensionResourceType** enumeration in v1.0, extending the supported values of **resourceType** on [roleManagementCustomCalloutExtension](/en-us/graph/api/resources/rolemanagementcustomcalloutextension). Use the `Prefer: include-unknown-enum-members` request header to retrieve these values.
 - Added the [groupResource](/en-us/graph/api/resources/groupresource) resource type and the **resources** relationship to the [privilegedAccessGroup](/en-us/graph/api/resources/privilegedaccessgroup) resource. Use them to list and get groups managed through Privileged Identity Management (PIM) for groups.
+
+### Identity and access | Identity and sign-in
+
+- Added the [federatedTokenValidationPolicy](/en-us/graph/api/resources/federatedtokenvalidationpolicy) resource to control which federated domains Microsoft Entra ID accepts tokens from on a per-tenant basis, as a defense-in-depth measure against token-replay and rogue-IdP scenarios.
 
 ### Mail | Message trace
 
 Added support to identify recalled messages in message trace. Use `recalled` as a supported value of the **status** property of the [exchangeMessageTrace](/en-us/graph/api/resources/exchangemessagetrace) resource.
+
+### Reports | Partner billing reports
+
+Added the [billedAggregatedUsage](/en-us/graph/api/resources/partners-billing-billedaggregatedusage) resource and related [export](/en-us/graph/api/partners-billing-billedaggregatedusage-export) method to the v1.0 endpoint. Cloud Solution Provider partners can use the **export** method to generate billed aggregated Azure usage reports for a specific invoice.
 
 ### Security | Audit log query
 
@@ -88,6 +98,14 @@ Added 35 members, from `PlannerCustomFieldDefinition` through `MESRawEmailConten
 ### Tasks and plans
 
 Added support for single-value extended properties on [todoTask](/en-us/graph/api/resources/todotask) and [todoTaskList](/en-us/graph/api/resources/todotasklist) resources, enabling apps to store and retrieve custom data for Microsoft To Do tasks and task lists.
+
+### Teamwork and communications | Calls and online meetings
+
+Added the **engagements** property to the [attendanceRecord](/en-us/graph/api/resources/attendancerecord) resource. Use it to get real-time participant interaction behaviors that are captured as part of the attendance report, including reactions, hand raises, camera toggles, and microphone mute and unmute events.
+
+### Tenants | Cross-tenant migration
+
+Added the [cross-tenant migration API](/en-us/graph/api/resources/crosstenant-migration-api-overview) and related methods to the v1.0 endpoint. Use the API to create migration jobs, validate their configuration, migrate user data between Microsoft 365 tenants, monitor migration status, and cancel migration jobs or individual user tasks.
 
 ### Tenants | Tenant governance
 
@@ -142,6 +160,8 @@ Updated the [getSharePointApiUsage](/en-us/graph/api/reportroot-getsharepointapi
 ### Identity and access | Identity and sign-in
 
 - Added public preview support for OnPasswordUpdate custom authentication extensions. Use the [onPasswordUpdateCustomExtension](/en-us/graph/api/resources/onpasswordupdatecustomextension?view=graph-rest-beta&amp;preserve-view=true) resource to notify external systems after a self-service password reset and the [onPasswordUpdateListener](/en-us/graph/api/resources/onpasswordupdatelistener?view=graph-rest-beta&amp;preserve-view=true) resource to configure when the notification occurs.
+- Added support for routing SMS and voice authentication traffic through a telecom provider integration. Configure the provider endpoint, application identifier, evaluation mode, and migration percentage through the **telecomProviderSettings** property on the [smsAuthenticationMethodConfiguration](/en-us/graph/api/resources/smsauthenticationmethodconfiguration?view=graph-rest-beta&amp;preserve-view=true) and [voiceAuthenticationMethodConfiguration](/en-us/graph/api/resources/voiceauthenticationmethodconfiguration?view=graph-rest-beta&amp;preserve-view=true) resources.
+- Added the **identityVerificationEventsConfiguration** property to the [verifiableCredentialsAuthenticationMethodConfiguration](/en-us/graph/api/resources/verifiablecredentialsauthenticationmethodconfiguration?view=graph-rest-beta&amp;preserve-view=true) resource. Use it to control tenant-wide collection and exposure of identity verification events and credential provenance information for Verified ID verification.
 - Added the [conditionalAccessPolicyPlan](/en-us/graph/api/resources/conditionalaccesspolicyplan?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods for grouping shared Conditional Access conditions with scenario-specific rules. Use policy plans to consolidate common targeting conditions and manage rule-specific enforcement controls.
 
 ### Groups
@@ -188,7 +208,9 @@ Updated the **evaluationErrorType** enumeration to use customer-facing reasons f
 
 ### Teamwork and communications | Messaging
 
-Added support for setting and unsetting custom emoji reactions on chat messages by specifying a display name (**displayName**), service-issued identifier (**reactionId**), or both. For more information, see [chatMessageReaction](/en-us/graph/api/resources/chatmessagereaction?view=graph-rest-beta&amp;preserve-view=true).
+- Added methods to [get a custom emoji or its raw image content](/en-us/graph/api/teamworkcustomemoji-get?view=graph-rest-beta&amp;preserve-view=true) and [delete a custom emoji](/en-us/graph/api/teamworkcustomemoji-delete?view=graph-rest-beta&amp;preserve-view=true) by display name.
+- Updated the [teamworkCustomEmoji](/en-us/graph/api/resources/teamworkcustomemoji?view=graph-rest-beta&amp;preserve-view=true) resource to inherit its identifier, binary content, content type, and media-stream behavior from [teamworkHostedContent](/en-us/graph/api/resources/teamworkhostedcontent?view=graph-rest-beta&amp;preserve-view=true).
+- Added support for setting and unsetting custom emoji reactions on chat messages by specifying a display name (**displayName**), service-issued identifier (**reactionId**), or both. For more information, see [chatMessageReaction](/en-us/graph/api/resources/chatmessagereaction?view=graph-rest-beta&amp;preserve-view=true).
 
 ## September 2026: New and generally available
 
@@ -279,6 +301,10 @@ Added the `unknownFutureValue` member to the **changeType** enumeration used by 
 
 ### Device and app management | Cloud PC
 
+- Added the **domainJoinCredential** property to the [cloudPcOnPremisesConnection](/en-us/graph/api/resources/cloudpconpremisesconnection?view=graph-rest-beta&amp;preserve-view=true) resource. Use it to specify Active Directory domain join credentials directly or retrieve the password from a customer-owned Azure Key Vault.
+- Added the **domainJoinCredential** parameter to the [updateAdDomainPassword](/en-us/graph/api/cloudpconpremisesconnection-updateaddomainpassword?view=graph-rest-beta&amp;preserve-view=true) action. Use it to rotate domain join credentials supplied directly or stored in Azure Key Vault.
+- Added Key Vault secret validation errors (`keyVaultSecretCheckAccessDenied`, `keyVaultSecretCheckVaultNotReachable`, `keyVaultSecretCheckNotFound`, `keyVaultSecretCheckDisabled`, `keyVaultSecretCheckExpired`, `keyVaultSecretCheckEmptyValue`, `keyVaultSecretCheckTransientServiceError`, and `keyVaultSecretCheckUnknownError`) to the [cloudPcOnPremisesConnectionHealthCheckErrorType](/en-us/graph/api/resources/cloudpconpremisesconnectionhealthcheckerrortype?view=graph-rest-beta&amp;preserve-view=true) enumeration to help applications identify and troubleshoot access, network, secret state, and service errors.
+- Deprecated the **adDomainUsername** and **adDomainPassword** properties of [cloudPcOnPremisesConnection](/en-us/graph/api/resources/cloudpconpremisesconnection?view=graph-rest-beta&amp;preserve-view=true) and the **adDomainPassword** parameter of [updateAdDomainPassword](/en-us/graph/api/cloudpconpremisesconnection-updateaddomainpassword?view=graph-rest-beta&amp;preserve-view=true). These properties and the parameter will be removed on December 31, 2026. Going forward use **domainJoinCredential** instead.
 - Added the **isDisasterRecoveryActive** property to the [cloudPC](/en-us/graph/api/resources/cloudpc?view=graph-rest-beta&amp;preserve-view=true) resource to indicate whether the Cloud PC currently runs in its disaster recovery region after a failover event.
 - Use `failoverInProgress` and `failbackInProgress` as supported values for the **status** property on the [cloudPC](/en-us/graph/api/resources/cloudpc?view=graph-rest-beta&amp;preserve-view=true) and [cloudPcStatusSummary](/en-us/graph/api/resources/cloudpcstatussummary?view=graph-rest-beta&amp;preserve-view=true) resources.
 

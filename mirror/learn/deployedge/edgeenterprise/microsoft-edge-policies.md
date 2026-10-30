@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-10-20T00:00:00.0000000Z
+ms.date: 2026-10-27T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -75,6 +75,7 @@ The following table lists all deprecated policies.
 | Policy Name | Caption |
 | --- | --- |
 | [ForceCertificatePromptsOnMultipleMatches](microsoft-edge-policies/forcecertificatepromptsonmultiplematches) | Configure whether Microsoft Edge should automatically select a certificate when there are multiple certificate matches for a site configured with "AutoSelectCertificateForUrls" (deprecated) |
+| [EdgeSafeHostingExtensionEnabled](microsoft-edge-policies/edgesafehostingextensionenabled) | Control Microsoft Edge Safe Hosting Extension (deprecated) |
 | [AllowGamesMenu](microsoft-edge-policies/allowgamesmenu) | Allow users to access the games menu (deprecated) |
 | [OneAuthAuthenticationEnforced](microsoft-edge-policies/oneauthauthenticationenforced) | OneAuth Authentication Flow Enforced for signin (deprecated) |
 | [MicrosoftOfficeMenuEnabled](microsoft-edge-policies/microsoftofficemenuenabled) | Allow users to access the Microsoft Office menu (deprecated) |
@@ -395,7 +396,7 @@ These tables list all of the browser-related group policies available in this re
 | --- | --- |
 | [BlockExternalExtensions](microsoft-edge-policies/blockexternalextensions) | Blocks external extensions from being installed |
 | [ControlDefaultStateOfAllowExtensionFromOtherStoresSettingEnabled](microsoft-edge-policies/controldefaultstateofallowextensionfromotherstoressettingenabled) | Configure default state of Allow extensions from other stores setting |
-| [EdgeSafeHostingExtensionEnabled](microsoft-edge-policies/edgesafehostingextensionenabled) | Control Microsoft Edge Safe Hosting Extension |
+| [EdgeSafeHostingExtensionEnabled](microsoft-edge-policies/edgesafehostingextensionenabled) | Control Microsoft Edge Safe Hosting Extension (deprecated) |
 | [ExtensionAllowedTypes](microsoft-edge-policies/extensionallowedtypes) | Configure allowed extension types |
 | [ExtensionDeveloperModeSettings](microsoft-edge-policies/extensiondevelopermodesettings) | Control the availability of developer mode on extensions page |
 | [ExtensionExtendedBackgroundLifetimeForPortConnectionsToUrls](microsoft-edge-policies/extensionextendedbackgroundlifetimeforportconnectionstourls) | Configure a list of origins that grant an extended background lifetime to connecting extensions. |
@@ -904,6 +905,7 @@ These tables list all of the browser-related group policies available in this re
 | [CloudManagementEnrollmentToken](microsoft-edge-policies/cloudmanagementenrollmenttoken) | The enrollment token of cloud policy |
 | [CollectionsServicesAndExportsBlockList](microsoft-edge-policies/collectionsservicesandexportsblocklist) | Block access to a specified list of services and export targets in Collections (obsolete) |
 | [CommandLineFlagSecurityWarningsEnabled](microsoft-edge-policies/commandlineflagsecuritywarningsenabled) | Enable security warnings for command-line flags |
+| [CommercialJourneysGetThingsDoneEnabled](microsoft-edge-policies/commercialjourneysgetthingsdoneenabled) | Enable Commercial Journeys (Get things done) in Microsoft Edge |
 | [ComponentUpdatesEnabled](microsoft-edge-policies/componentupdatesenabled) | Enable component updates in Microsoft Edge |
 | [ComposeInlineEnabled](microsoft-edge-policies/composeinlineenabled) | Control access to Microsoft 365 Copilot writing assistance in Microsoft Edge for Business |
 | [ConfigureDoNotTrack](microsoft-edge-policies/configuredonottrack) | Configure Do Not Track |

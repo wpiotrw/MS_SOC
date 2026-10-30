@@ -41,6 +41,7 @@ https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/38982839
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/39169655
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/39398030
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2609/2377842
+https://learn.microsoft.com/en-us/intune/configmgr/osd/deploy-use/preprovision-bitlocker-in-windows-pe
 https://learn.microsoft.com/en-us/intune/copilot
 https://learn.microsoft.com/en-us/intune/copilot/agents/change-review-agent
 https://learn.microsoft.com/en-us/intune/copilot/agents/vulnerability-remediation-agent
