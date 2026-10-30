@@ -1,0 +1,655 @@
+#!/usr/bin/env python3
+"""graph_radar.py - what Microsoft adds to Microsoft Graph before (and after) it is documented (CLAUDE.md 5fs).
+
+Owner, 30 X 2026: Jan Bakker wrote about allowPasswordChangeAfterSecureSignIn (PATCH .../authenticationMethodConfigurations/
+Password, beta) on the day it appeared - "how did he find it? can our portal and scripts find such things, not only in
+authentication methods but in every endpoint, and build the command for Graph Explorer or PowerShell?". Measured that
+evening: the property was in neither the live beta $metadata nor microsoftgraph/msgraph-metadata (sync 28 X) - not even
+its type passwordAuthenticationMethodConfiguration. It existed only in what the service RETURNS in a tenant.
+
+Two readings, both read-only:
+  1. $metadata of beta and v1.0 (public, every run): every entity, complex and enum type, property, navigation, action,
+     function, entity set and singleton; compared with the previous run -> a change list (new / removed / type changed,
+     "promoted to v1.0"). --backfill DIR: the same comparison between the weekly schema syncs of a clone of
+     github.com/microsoftgraph/msgraph-metadata (schemas/{beta,v1.0}-Prod.csdl), so the history starts weeks back.
+  2. our developer tenant (when the workflow gives a token - app "MS-SOC Dev tenant reader", federated credential): GET of
+     tenant-wide configuration objects (policies, authentication methods, organization, sync features, Intune service
+     settings). Only the NAMES of the properties the service returns are kept - never a value (the repository is
+     public) - with the JSON kind (boolean, string, number, object, array) so a command can be written. A property the
+     service returns that $metadata does not know is "undocumented"; that is how allowPasswordChangeAfterSecureSignIn
+     shows up the day the rollout reaches the tenant. A 403 is recorded per endpoint, never fails the run.
+Every change carries the path to call, the least-privileged permission from Microsoft's own permission file (the
+portal's graphMap, newest site/data/<day>.json) and a GET / PATCH command for Graph Explorer and PowerShell, and the
+Message Center posts whose words match the property's words.
+
+Writes  site/data/graph-radar.json        (the portal: Graph API > Radar, Overview sentence, /diff, /week)
+        data/graph-radar/meta-{beta,v1.0}.json.gz, tenant.json, history.json   (memory, not published)
+Usage   python3 tools/graph_radar.py [--backfill DIR] [--day YYYY-MM-DD] [--no-tenant]
+"""
+import datetime, glob, gzip, json, os, re, subprocess, sys, urllib.error, urllib.request
+import xml.etree.ElementTree as ET
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SITE = os.path.join(ROOT, "site", "data")
+MEM = os.path.join(ROOT, "data", "graph-radar")
+OUT = os.path.join(SITE, "graph-radar.json")
+META = {"beta": "https://graph.microsoft.com/beta/$metadata", "v1.0": "https://graph.microsoft.com/v1.0/$metadata"}
+EDM = "{http://docs.oasis-open.org/odata/ns/edm}"
+KEEP_DAYS = 60
+UA = "Mozilla/5.0 (MS_SOC graph radar; +https://github.com/wpiotrw/MS_SOC)"
+
+# tenant-wide configuration objects read with GET (beta). label, path, permission that opens it
+PROBE = [
+    ("Authentication methods policy", "/policies/authenticationMethodsPolicy", "Policy.Read.AuthenticationMethod"),
+    ("Authentication method: Password", "/policies/authenticationMethodsPolicy/authenticationMethodConfigurations/Password", "Policy.Read.AuthenticationMethod"),
+    ("Authorization policy", "/policies/authorizationPolicy", "Policy.Read.All"),
+    ("Authentication flows policy", "/policies/authenticationFlowsPolicy", "Policy.Read.All"),
+    ("Authentication strength policies", "/policies/authenticationStrengthPolicies", "Policy.Read.All"),
+    ("Cross-tenant access policy", "/policies/crossTenantAccessPolicy", "Policy.Read.All"),
+    ("Cross-tenant access: default", "/policies/crossTenantAccessPolicy/default", "Policy.Read.All"),
+    ("Security defaults", "/policies/identitySecurityDefaultsEnforcementPolicy", "Policy.Read.All"),
+    ("Device registration policy", "/policies/deviceRegistrationPolicy", "Policy.Read.All"),
+    ("External identities policy", "/policies/externalIdentitiesPolicy", "Policy.Read.All"),
+    ("Admin consent request policy", "/policies/adminConsentRequestPolicy", "Policy.Read.All"),
+    ("Default app management policy", "/policies/defaultAppManagementPolicy", "Policy.Read.All"),
+    ("Permission grant policies", "/policies/permissionGrantPolicies", "Policy.Read.All"),
+    ("Token lifetime policies", "/policies/tokenLifetimePolicies", "Policy.Read.All"),
+    ("Activity-based timeout policies", "/policies/activityBasedTimeoutPolicies", "Policy.Read.All"),
+    ("Feature rollout policies", "/policies/featureRolloutPolicies", "Policy.Read.All"),
+    ("Conditional Access policies", "/identity/conditionalAccess/policies", "Policy.Read.All"),
+    ("Conditional Access named locations", "/identity/conditionalAccess/namedLocations", "Policy.Read.All"),
+    ("Conditional Access templates", "/identity/conditionalAccess/templates", "Policy.Read.All"),
+    ("Organization", "/organization", "Organization.Read.All"),
+    ("Directory sync features", "/directory/onPremisesSynchronization", "OnPremDirectorySynchronization.Read.All"),
+    ("Intune: device management", "/deviceManagement", "DeviceManagementServiceConfig.Read.All"),
+    ("Intune: enrollment configurations", "/deviceManagement/deviceEnrollmentConfigurations", "DeviceManagementServiceConfig.Read.All"),
+    ("Intune: configuration policies (settings catalog)", "/deviceManagement/configurationPolicies", "DeviceManagementConfiguration.Read.All"),
+]
+
+
+def log(*a):
+    print("graph_radar:", *a, flush=True)
+
+
+def load(p, d):
+    try:
+        if p.endswith(".gz"):
+            return json.load(gzip.open(p, "rt", encoding="utf-8"))
+        return json.load(open(p, encoding="utf-8"))
+    except Exception:
+        return d
+
+
+def save(p, obj, gz=False):
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    txt = json.dumps(obj, ensure_ascii=False, separators=(",", ":"), sort_keys=gz)
+    if gz:
+        old = None
+        try:
+            old = gzip.open(p, "rt", encoding="utf-8").read()
+        except Exception:
+            pass
+        if old != txt:
+            with gzip.GzipFile(p, "wb", mtime=0) as f:
+                f.write(txt.encode("utf-8"))
+        return
+    old = open(p, encoding="utf-8").read() if os.path.exists(p) else None
+    def bare(t):
+        try:
+            o = json.loads(t); o.pop("generated", None); return json.dumps(o, sort_keys=True)
+        except Exception:
+            return t
+    if old is None or bare(old) != bare(txt):
+        open(p, "w", encoding="utf-8").write(txt)
+
+
+def get(url, headers=None, timeout=120):
+    h = {"User-Agent": UA}
+    h.update(headers or {})
+    with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=timeout) as r:
+        return r.read()
+
+
+# ------------------------------------------------------------------------------------------------- $metadata model
+def short(t):
+    t = t or ""
+    m = re.match(r"^Collection\((.+)\)$", t)
+    if m:
+        return "Collection(" + short(m.group(1)) + ")"
+    return t.replace("microsoft.graph.", "").replace("graph.", "")
+
+
+def parse(xml):
+    """$metadata -> {types: {name: {k, b, p, n, m}}, ops: {key: {k, bt, r, pa}}, roots: {name: [kind, type]}}"""
+    root = ET.fromstring(xml)
+    types, ops, roots = {}, {}, {}
+    for sch in root.iter(EDM + "Schema"):
+        ns = sch.get("Namespace") or ""
+        pre = "" if ns == "microsoft.graph" else ns.replace("microsoft.graph.", "") + "."
+        for el in sch:
+            tag = el.tag.replace(EDM, "")
+            name = pre + (el.get("Name") or "")
+            if tag in ("EntityType", "ComplexType"):
+                t = {"k": "E" if tag == "EntityType" else "C", "p": {}, "n": {}}
+                if el.get("BaseType"):
+                    t["b"] = short(el.get("BaseType"))
+                if el.get("Abstract") == "true":
+                    t["a"] = 1
+                for c in el:
+                    ct = c.tag.replace(EDM, "")
+                    if ct == "Property":
+                        t["p"][c.get("Name")] = short(c.get("Type"))
+                    elif ct == "NavigationProperty":
+                        t["n"][c.get("Name")] = short(c.get("Type")) + ("*" if c.get("ContainsTarget") == "true" else "")
+                types[name] = t
+            elif tag == "EnumType":
+                types[name] = {"k": "N", "m": [c.get("Name") for c in el if c.tag == EDM + "Member"]}
+            elif tag in ("Action", "Function"):
+                params = [c for c in el if c.tag == EDM + "Parameter"]
+                bound = el.get("IsBound") == "true"
+                bt = short(params[0].get("Type")) if bound and params else ""
+                rt = next((short(c.get("Type")) for c in el if c.tag == EDM + "ReturnType"), "")
+                key = name + "(" + bt + ")"
+                ops[key] = {"k": "A" if tag == "Action" else "F", "bt": bt, "r": rt,
+                            "pa": [c.get("Name") for c in (params[1:] if bound else params)]}
+            elif tag == "EntityContainer":
+                for c in el:
+                    ct = c.tag.replace(EDM, "")
+                    if ct in ("EntitySet", "Singleton"):
+                        roots[c.get("Name")] = ["S" if ct == "EntitySet" else "1", short(c.get("EntityType") or c.get("Type"))]
+    return {"types": types, "ops": ops, "roots": roots}
+
+
+def counts(m):
+    t = m["types"]
+    return {"entities": sum(1 for x in t.values() if x["k"] == "E"), "complex": sum(1 for x in t.values() if x["k"] == "C"),
+            "enums": sum(1 for x in t.values() if x["k"] == "N"), "properties": sum(len(x.get("p", {})) for x in t.values()),
+            "navigations": sum(len(x.get("n", {})) for x in t.values()), "actions": sum(1 for x in m["ops"].values() if x["k"] == "A"),
+            "functions": sum(1 for x in m["ops"].values() if x["k"] == "F"), "roots": len(m["roots"])}
+
+
+def all_props(m, tname, seen=None):
+    """properties of a type including its base types"""
+    seen = seen or set()
+    t = m["types"].get(tname)
+    if not t or tname in seen:
+        return {}
+    seen.add(tname)
+    out = dict(all_props(m, t.get("b"), seen)) if t.get("b") else {}
+    out.update(t.get("p", {}))
+    out.update({k: v for k, v in t.get("n", {}).items()})
+    return out
+
+
+def diff(old, new, ver, day, via):
+    """events between two models of one version"""
+    ev = []
+    ot, nt = old["types"], new["types"]
+    def e(kind, typ, name, detail="", **kw):
+        x = {"day": day, "ver": ver, "via": via, "kind": kind, "type": typ, "name": name}
+        if detail:
+            x["detail"] = detail
+        x.update(kw)
+        ev.append(x)
+    for tn, t in nt.items():
+        o = ot.get(tn)
+        if o is None:
+            e("type-new", tn, tn, {"E": "entity type", "C": "complex type", "N": "enum type"}[t["k"]],
+              props=(sorted(t.get("p", {})) or t.get("m", []))[:40], base=t.get("b", ""))
+            continue
+        if t["k"] == "N":
+            for mbr in t.get("m", []):
+                if mbr not in o.get("m", []):
+                    e("member-new", tn, mbr, "new value of " + tn)
+            for mbr in o.get("m", []):
+                if mbr not in t.get("m", []):
+                    e("member-removed", tn, mbr)
+            continue
+        for p, ty in t.get("p", {}).items():
+            if p not in o.get("p", {}):
+                e("prop-new", tn, p, ty)
+            elif o["p"][p] != ty:
+                e("prop-type", tn, p, o["p"][p] + " -> " + ty)
+        for p in o.get("p", {}):
+            if p not in t.get("p", {}):
+                e("prop-removed", tn, p, o["p"][p])
+        for p, ty in t.get("n", {}).items():
+            if p not in o.get("n", {}):
+                e("nav-new", tn, p, ty)
+        for p in o.get("n", {}):
+            if p not in t.get("n", {}):
+                e("nav-removed", tn, p)
+    for tn in ot:
+        if tn not in nt:
+            e("type-removed", tn, tn)
+    for k, op in new["ops"].items():
+        if k not in old["ops"]:
+            e("op-new", op["bt"] or "(unbound)", k.split("(")[0], ("action" if op["k"] == "A" else "function") + (" -> " + op["r"] if op["r"] else ""),
+              params=op["pa"][:12])
+    for k, op in old["ops"].items():
+        if k not in new["ops"]:
+            e("op-removed", op["bt"] or "(unbound)", k.split("(")[0])
+    for r, v in new["roots"].items():
+        if r not in old["roots"]:
+            e("root-new", v[1], r, "entity set" if v[0] == "S" else "singleton")
+    return ev
+
+
+# ------------------------------------------------------------------------------------------------ paths and permissions
+def path_index(m, depth=5, keep=8):
+    """entity type -> up to `keep` shortest URL paths from an entity set or singleton (ids as {id}); best_path() picks
+    the one Microsoft's permission file knows (an orphan entity set like /authenticationMethodConfigurations is shorter
+    than /policies/authenticationMethodsPolicy/authenticationMethodConfigurations but is not where anyone calls it)"""
+    types = m["types"]
+    derived = {}
+    for tn, t in types.items():
+        if t.get("b"):
+            derived.setdefault(t["b"], []).append(tn)
+    best = {}
+    queue = []
+    for r, (kind, t) in sorted(m["roots"].items()):
+        queue.append((t, "/" + r + ("/{id}" if kind == "S" else ""), 0))
+    seen_pairs = set()
+    while queue:
+        t, p, d = queue.pop(0)
+        lst = best.setdefault(t, [])
+        if len(lst) >= keep or (t, p) in seen_pairs or p.count("/") > 12:
+            continue
+        seen_pairs.add((t, p))
+        lst.append(p)
+        for dt in derived.get(t, []):
+            queue.append((dt, p, d))
+        if d >= depth:
+            continue
+        for nav, nt in all_navs(m, t).items():
+            coll = nt.startswith("Collection(")
+            tt = re.sub(r"^Collection\((.+)\)$", r"\1", nt.rstrip("*"))
+            queue.append((tt, p + "/" + nav + ("/{id}" if coll else ""), d + 1))
+    return best
+
+
+def best_path(cands, gp):
+    for p in cands or []:
+        if perms_for(gp, p, "GET"):
+            return p
+    return (cands or [None])[0]
+
+
+def all_navs(m, tn, seen=None):
+    seen = seen or set()
+    t = m["types"].get(tn)
+    if not t or tn in seen:
+        return {}
+    seen.add(tn)
+    out = dict(all_navs(m, t.get("b"), seen)) if t.get("b") else {}
+    out.update(t.get("n", {}))
+    return out
+
+
+def owner_entity(m, tname, cache={}):
+    """for a complex type: the entity type that holds it (directly or one complex level down)"""
+    if tname in cache:
+        return cache[tname]
+    for tn, t in m["types"].items():
+        if t["k"] != "E":
+            continue
+        for p, ty in t.get("p", {}).items():
+            if re.sub(r"^Collection\((.+)\)$", r"\1", ty) == tname:
+                cache[tname] = (tn, p)
+                return cache[tname]
+    cache[tname] = None
+    return None
+
+
+def graph_perms():
+    """Microsoft's own permission file as the portal reads it (graphMap of the newest state): path -> method -> perms"""
+    days = sorted(f for f in os.listdir(SITE) if re.match(r"^\d{4}-\d{2}-\d{2}\.json(\.gz)?$", f))
+    for f in reversed(days[-3:]):
+        st = load(os.path.join(SITE, f), {}).get("soc-brief-state") or {}
+        gm = st.get("graphMap") or {}
+        if gm.get("p") and gm.get("perms"):
+            P, M, idx = gm["p"], gm["m"], {}
+            for name, v in gm["perms"].items():
+                for part in (v.get("eps") or "").split(";"):
+                    if ":" not in part:
+                        continue
+                    mi, ps = part.split(":", 1)
+                    for rng in ps.split(","):
+                        a, _, b = rng.partition("-")
+                        if not a.isdigit():
+                            continue
+                        for x in range(int(a), int(b or a) + 1):
+                            lv = min(((s.get("l") if isinstance(s.get("l"), int) else 9) for k, s in (v.get("s") or {}).items() if k in ("Application", "DelegatedWork")), default=9)
+                            idx.setdefault(P[x], {}).setdefault(M[int(mi)], []).append((lv, name))
+            return idx
+    return {}
+
+
+def perms_for(idx, path, method):
+    if not idx or not path:
+        return []
+    pl = path.lower()
+    cand = idx.get(pl)
+    if cand is None:
+        rx = re.compile("^" + re.escape(pl).replace(re.escape("{id}"), r"[^/]+") + "$")
+        for k, v in idx.items():
+            if rx.match(k):
+                cand = v
+                break
+    if not cand or method not in cand:
+        return []
+    ranked = sorted(set(cand[method]))
+    low = ranked[0][0]
+    return [n for l, n in ranked if l == low][:3]
+
+
+def sample(ty, m):
+    """a value of the right type for a PATCH body - the reader replaces it"""
+    ty = ty or ""
+    if ty.startswith("Collection("):
+        return []
+    if ty == "Edm.Boolean":
+        return True
+    if ty in ("Edm.Int32", "Edm.Int64", "Edm.Int16", "Edm.Double", "Edm.Decimal"):
+        return 0
+    t = m["types"].get(ty) if m else None
+    if t and t["k"] == "N" and t.get("m"):
+        return t["m"][0]
+    if t and t["k"] == "C":
+        return {}
+    return "<value>"
+
+
+def command(path, tname, prop, ty, m, idx, ver="beta"):
+    if not path:
+        return None
+    base = "https://graph.microsoft.com/" + ver
+    c = {"get": base + path, "permGet": perms_for(idx, path, "GET"), "permPatch": perms_for(idx, path, "PATCH")}
+    if prop:
+        body = {"@odata.type": "#microsoft.graph." + tname, prop: sample(ty, m)}
+        c["patch"] = base + path
+        c["body"] = body
+    return c
+
+
+# ------------------------------------------------------------------------------------------------ MC posts
+def mc_index():
+    days = sorted(f for f in os.listdir(SITE) if re.match(r"^\d{4}-\d{2}-\d{2}\.json(\.gz)?$", f))
+    out = {}
+    for f in days[-2:]:
+        st = load(os.path.join(SITE, f), {}).get("soc-brief-state") or {}
+        for it in (st.get("items") or []):
+            i = str(it.get("id") or "")
+            if re.match(r"^MC\d+$", i):
+                out[i] = " ".join(str(it.get(k) or "") for k in ("officialTitle", "title", "fingerprint"))
+        for it in ((st.get("mc") or {}).get("items") if isinstance(st.get("mc"), dict) else []) or []:
+            i = str(it.get("id") or "")
+            if re.match(r"^MC\d+$", i):
+                out.setdefault(i, " ".join(str(it.get(k) or "") for k in ("title", "summary")))
+    return {k: " " + " ".join(re.findall(r"[a-z0-9]+", v.lower())) + " " for k, v in out.items()}
+
+
+STOPW = {"is", "on", "of", "the", "for", "and", "to", "in", "a", "an", "by", "id", "at", "or", "with", "type", "settings", "setting", "configuration", "enabled", "state"}
+
+
+def words(name):
+    w = [x.lower() for x in re.findall(r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])|\d+", name)]
+    return [x for x in w if x not in STOPW]
+
+
+def mc_match(idx, name):
+    """an MC post whose text holds the property's words as one phrase ("allow password change after secure sign in")"""
+    w = [x.lower() for x in re.findall(r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])|\d+", (name or "").split(".")[-1])]
+    if len([x for x in w if x not in STOPW]) < 3:
+        return []
+    ph = " " + " ".join(w) + " "
+    return sorted(k for k, txt in idx.items() if ph in txt)[:3]
+
+
+def learn_licensing():
+    """Learn page edits a criterion marked "licensing" (collect_nt.py, 5fs) - shown with the radar in the Overview
+    sentence; read from the newest published state (the routine writes nt.pages)"""
+    days = sorted(f for f in os.listdir(SITE) if re.match(r"^\d{4}-\d{2}-\d{2}\.json(\.gz)?$", f))
+    for f in reversed(days[-2:]):
+        st = load(os.path.join(SITE, f), {}).get("soc-brief-state") or {}
+        pages = (st.get("nt") or {}).get("pages") or []
+        if pages:
+            out = []
+            for pg in pages:
+                if "licensing" in (pg.get("promote") or []):
+                    lines = [l for h in pg.get("hunks") or [] for l in h.get("add") or []][:3]
+                    out.append({k: pg.get(k) for k in ("area", "name", "url", "date", "commit", "added", "removed")} | {"lines": lines})
+            return out, f[:10]
+    return [], ""
+
+
+# ------------------------------------------------------------------------------------------------ tenant
+def tenant_read(model, day):
+    if not (os.environ.get("ACTIONS_ID_TOKEN_REQUEST_URL") and os.environ.get("AZURE_CLIENT_ID") and os.environ.get("AZURE_TENANT_ID")):
+        return None, "no token in this run (the workflow signs in with the app of the developer tenant)"
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import fpa_tenant as T
+    try:
+        tok = T.token()
+    except Exception as e:
+        return None, "sign-in failed: %s" % e
+    res = []
+    for label, path, perm in PROBE:
+        url = "https://graph.microsoft.com/beta" + path
+        r = {"label": label, "path": path, "perm": perm}
+        try:
+            body = json.loads(get(url, {"Authorization": "Bearer " + tok, "ConsistencyLevel": "eventual"}, timeout=60))
+            objs = body.get("value") if isinstance(body.get("value"), list) else [body]
+            seen = {}
+            for o in objs[:200]:
+                walk(o, o.get("@odata.type") or "", "", seen, path, model)
+            r["status"] = 200
+            r["n"] = len(objs)
+            r["props"] = seen
+        except urllib.error.HTTPError as e:
+            r["status"] = e.code
+            r["note"] = "403: the app lacks %s" % perm if e.code == 403 else "HTTP %d" % e.code
+        except Exception as e:
+            r["status"] = 0
+            r["note"] = str(e)[:200]
+        res.append(r)
+    return res, ""
+
+
+def kind(v):
+    return "boolean" if isinstance(v, bool) else "number" if isinstance(v, (int, float)) else "string" if isinstance(v, str) \
+        else "array" if isinstance(v, list) else "object" if isinstance(v, dict) else "null"
+
+
+def walk(o, otype, prefix, seen, path, model, depth=0):
+    """names of the properties the service returned (with the odata type that holds them) - never a value"""
+    t = short((otype or "").lstrip("#"))
+    for k, v in o.items():
+        if k.startswith("@") or "@odata" in k:
+            continue
+        key = (t or "?") + "|" + prefix + k
+        seen[key] = kind(v)
+        if isinstance(v, dict) and depth < 2:
+            walk(v, v.get("@odata.type") or nested_type(model, t, k), prefix + k + ".", seen, path, model, depth + 1)
+        elif isinstance(v, list) and v and isinstance(v[0], dict) and depth < 2:
+            for it in v[:20]:
+                walk(it, it.get("@odata.type") or nested_type(model, t, k), prefix + k + "[].", seen, path, model, depth + 1)
+
+
+def nested_type(model, t, k):
+    ty = all_props(model, t).get(k, "")
+    return re.sub(r"^Collection\((.+)\)$", r"\1", ty.rstrip("*"))
+
+
+def undocumented(res, model):
+    out = []
+    for r in res or []:
+        for key, kd in (r.get("props") or {}).items():
+            t, _, pp = key.partition("|")
+            prop = pp.split(".")[-1].replace("[]", "")
+            owner = t
+            if "." in pp:   # nested: the type is the nested object's type when it said so, else unknown
+                pass
+            known = all_props(model, owner)
+            tdoc = owner in model["types"]
+            if prop in known:
+                continue
+            out.append({"type": owner, "prop": pp, "kind": kd, "path": r["path"], "label": r["label"], "typeDocumented": tdoc})
+    return out
+
+
+# ------------------------------------------------------------------------------------------------ backfill
+def backfill(repo, n=12):
+    """events between the weekly schema syncs of a msgraph-metadata clone (blobless is fine)"""
+    ev, last = [], {}
+    for ver, f in (("beta", "schemas/beta-Prod.csdl"), ("v1.0", "schemas/v1.0-Prod.csdl")):
+        log_ = subprocess.run(["git", "-C", repo, "log", "--format=%H %cs", "-%d" % (n + 1), "--", f], capture_output=True, text=True).stdout.split("\n")
+        commits = [l.split() for l in log_ if l.strip()][::-1]
+        prev = None
+        for h, d in commits:
+            xml = subprocess.run(["git", "-C", repo, "show", "%s:%s" % (h, f)], capture_output=True).stdout
+            try:
+                cur = parse(xml)
+            except Exception as e:
+                log("backfill: not parsed", ver, d, e)
+                continue
+            if prev is not None:
+                ev += diff(prev, cur, ver, d, "msgraph-metadata")
+            prev = cur
+        last[ver] = prev
+        log("backfill", ver, len(commits), "syncs")
+    return ev, last
+
+
+# ------------------------------------------------------------------------------------------------ main
+def main(argv):
+    day = datetime.date.today().isoformat()
+    bf, no_tenant = None, False
+    i = 0
+    while i < len(argv):
+        if argv[i] == "--day":
+            day = argv[i + 1]; i += 2; continue
+        if argv[i] == "--backfill":
+            bf = argv[i + 1]; i += 2; continue
+        if argv[i] == "--no-tenant":
+            no_tenant = True
+        i += 1
+    hist = load(os.path.join(MEM, "history.json"), {"events": [], "daily": []})
+    events = []
+    models, read = {}, {}
+    if bf:
+        bev, last = backfill(bf)
+        events += bev
+        for v, mdl in last.items():
+            if mdl and not os.path.exists(os.path.join(MEM, "meta-%s.json.gz" % v)):
+                save(os.path.join(MEM, "meta-%s.json.gz" % v), mdl, gz=True)
+    for ver, url in META.items():
+        try:
+            mdl = parse(get(url, timeout=180))
+            read[ver] = {"ok": True, "at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), **counts(mdl)}
+        except Exception as e:
+            log("metadata not read", ver, e)
+            mdl = load(os.path.join(MEM, "meta-%s.json.gz" % ver), None)
+            read[ver] = {"ok": False, "note": str(e)[:200], **(counts(mdl) if mdl else {})}
+            if not mdl:
+                continue
+        prev = load(os.path.join(MEM, "meta-%s.json.gz" % ver), None)
+        if prev and read[ver].get("ok"):
+            events += diff(prev, mdl, ver, day, "live $metadata")
+        if read[ver].get("ok"):
+            save(os.path.join(MEM, "meta-%s.json.gz" % ver), mdl, gz=True)
+        models[ver] = mdl
+    beta = models.get("beta")
+    if not beta:
+        log("no beta model - nothing written")
+        return 1
+    # promoted: new in v1.0 and already in beta
+    for e in events:
+        if e["ver"] == "v1.0" and e["kind"] in ("type-new", "prop-new", "op-new", "nav-new"):
+            t = beta["types"].get(e["type"]) or {}
+            if e["kind"] == "type-new" and e["type"] in beta["types"] or e["kind"] in ("prop-new", "nav-new") and e["name"] in all_props(beta, e["type"]):
+                e["promoted"] = 1
+    # tenant
+    tstate = load(os.path.join(MEM, "tenant.json"), {"first": {}})
+    tres, tnote = (None, "skipped (--no-tenant)") if no_tenant else tenant_read(beta, day)
+    und = undocumented(tres, beta) if tres else []
+    if tres:
+        first = tstate.setdefault("first", {})
+        baseline = not first
+        for u in und:
+            k = u["type"] + "|" + u["prop"]
+            if k not in first:
+                first[k] = day
+                if not baseline:
+                    events.append({"day": day, "ver": "beta", "via": "our developer tenant", "kind": "tenant-undocumented", "type": u["type"],
+                                   "name": u["prop"], "detail": "returned by the service, not in $metadata (" + u["kind"] + ")", "path": u["path"]})
+        for r in tres:
+            for key in (r.get("props") or {}):
+                first.setdefault("seen|" + key, day)
+        tstate["read"] = day
+        tstate["endpoints"] = [{k: r.get(k) for k in ("label", "path", "perm", "status", "n", "note")} for r in tres]
+        save(os.path.join(MEM, "tenant.json"), tstate)
+    # enrich: path, permissions, command, MC
+    pidx = path_index(beta)
+    gp = graph_perms()
+    mci = mc_index()
+    KTY = {"boolean": "Edm.Boolean", "number": "Edm.Int32", "string": "Edm.String", "array": "Collection(x)", "object": "x"}
+    for e in events:
+        tn = e.get("type") or ""
+        prop = e.get("name") if e.get("kind") in ("prop-new", "prop-type", "tenant-undocumented") else ""
+        path = e.get("path")
+        if not path:
+            t = beta["types"].get(tn) or {}
+            if t.get("k") == "C":
+                own = owner_entity(beta, tn)
+                if own:
+                    path = best_path(pidx.get(own[0]), gp)
+                    e["holder"] = own[0] + "." + own[1]
+            else:
+                path = best_path(pidx.get(tn), gp)
+        if path:
+            e["path"] = path
+        simple = prop and "." not in prop and "[]" not in prop
+        ty = all_props(beta, tn).get(prop, "") if simple else ""
+        if e.get("kind") == "tenant-undocumented":
+            ty = KTY.get((e.get("detail") or "").split("(")[-1].rstrip(")"), "")
+        # a PATCH body only when the property sits directly on the entity at that path
+        direct = simple and (beta["types"].get(tn) or {}).get("k") != "C"
+        e["cmd"] = command(path, tn, prop if direct else "", ty, beta, gp, "v1.0" if e.get("ver") == "v1.0" else "beta") if path else None
+        e["mc"] = mc_match(mci, prop or e.get("name") or "")
+    for u in und:   # the undocumented list carries its own command
+        prop = u["prop"].split(".")[-1].replace("[]", "")
+        ty = {"boolean": "Edm.Boolean", "number": "Edm.Int32", "string": "Edm.String", "array": "Collection(x)", "object": "x"}.get(u["kind"], "")
+        u["cmd"] = command(u["path"], u["type"], prop if "." not in u["prop"] and "[]" not in u["prop"] else "", ty, beta, gp)
+        u["mc"] = mc_match(mci, prop)
+        u["first"] = (tstate.get("first") or {}).get(u["type"] + "|" + u["prop"], day)
+    # history
+    seen = {(x["day"], x["ver"], x["kind"], x["type"], x["name"]) for x in hist["events"]}
+    for e in events:
+        k = (e["day"], e["ver"], e["kind"], e["type"], e["name"])
+        if k not in seen:
+            hist["events"].append(e); seen.add(k)
+    cut = (datetime.date.fromisoformat(day) - datetime.timedelta(days=KEEP_DAYS)).isoformat()
+    hist["events"] = sorted([e for e in hist["events"] if e["day"] >= cut], key=lambda e: e["day"], reverse=True)
+    hist["daily"] = [d for d in hist.get("daily", []) if d["day"] != day] + [{"day": day, "beta": read.get("beta", {}).get("properties"), "v1": read.get("v1.0", {}).get("properties"),
+                                                                              "undoc": len(und)}]
+    hist["daily"] = hist["daily"][-400:]
+    save(os.path.join(MEM, "history.json"), hist)
+    by = {}
+    for e in hist["events"]:
+        b = by.setdefault(e["day"], {"day": e["day"], "beta": 0, "v1.0": 0, "tenant": 0})
+        b["tenant" if e["kind"].startswith("tenant") else e["ver"]] += 1
+    out = {"generated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "day": day, "spec": "5fs",
+           "read": read, "tenant": {"read": bool(tres), "note": tnote, "endpoints": tstate.get("endpoints") if tres else [],
+                                    "undocumented": und[:300], "day": tstate.get("read")},
+           "events": hist["events"][:1500], "perDay": sorted(by.values(), key=lambda x: x["day"]), "daily": hist["daily"][-120:],
+           "learnLicensing": learn_licensing()[0], "learnState": learn_licensing()[1],
+           "sources": {"metadata": META, "syncs": "https://github.com/microsoftgraph/msgraph-metadata/commits/master/schemas"}}
+    save(OUT, out)
+    log("beta", read.get("beta"), "v1.0", read.get("v1.0"))
+    log("events now", len(events), "kept", len(hist["events"]), "undocumented in tenant", len(und), tnote)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

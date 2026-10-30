@@ -5097,6 +5097,42 @@ def campaign_rows(prev_d, curr_d, home):
         rows.append(("", ["New material", link, items + more, '<span class="mono">%s</span>' % esc(lst[0].get("day") or "")]))
     return rows, "%d campaigns, run %s" % (len(doc.get("campaigns") or []), esc(doc.get("day") or ""))
 
+def radar_rows(prev_d, curr_d, home):
+    """§5fs: 'Graph radar' - what tools/graph_radar.py recorded after the previous brief: types, properties, navigations,
+    actions and enum values Microsoft added to, changed in or removed from Microsoft Graph (live $metadata of beta and
+    v1.0), and properties our developer tenant returned before $metadata knew them. site/data/graph-radar.json."""
+    path = os.path.join(os.path.dirname(CAMPAIGNS_FILE), "graph-radar.json") if CAMPAIGNS_FILE else ""
+    for c in (path, os.path.join(os.getcwd(), "site", "data", "graph-radar.json")):
+        if c and os.path.exists(c):
+            path = c
+            break
+    else:
+        return None, "graph-radar.json not found next to the site"
+    try:
+        doc = json.load(open(path, encoding="utf-8"))
+    except (OSError, ValueError) as ex_:
+        return None, "graph-radar.json unreadable: %s" % ex_
+    lo, hi = norm(prev_d), norm(curr_d)
+    lab = {"type-new": "New type", "prop-new": "New property", "nav-new": "New navigation", "op-new": "New action / function",
+           "member-new": "New enum value", "root-new": "New entity set", "prop-type": "Property type changed", "type-removed": "Type removed",
+           "prop-removed": "Property removed", "nav-removed": "Navigation removed", "op-removed": "Action / function removed",
+           "member-removed": "Enum value removed", "tenant-undocumented": "Undocumented (our tenant)"}
+    evs = [e for e in (doc.get("events") or []) if (not lo or e.get("day", "") > lo) and e.get("day", "") <= (hi or "9999")]
+    evs.sort(key=lambda e: (0 if e.get("kind") == "tenant-undocumented" else 1 if e.get("promoted") else 2, e.get("ver") != "beta", e.get("type") or ""))
+    rows = []
+    for e in evs[:300]:
+        nm = esc((e.get("type") + "." if e.get("type") and e.get("type") != e.get("name") else "") + (e.get("name") or ""))
+        cmd = e.get("cmd") or {}
+        rows.append(("", [lab.get(e.get("kind"), e.get("kind")), '<span class="mono">%s</span>' % nm,
+                          esc(("Graph " + (e.get("ver") or "")) + (" · promoted to v1.0" if e.get("promoted") else "") + (" · " + e["via"] if e.get("via") else "")),
+                          ('<span class="mono">%s</span>' % esc(e["path"]) if e.get("path") else "&mdash;") + (" &middot; " + esc(", ".join(cmd.get("permGet") or [])) if cmd.get("permGet") else ""),
+                          '<span class="mono">%s</span>' % esc(e.get("day") or "")]))
+    more = len(evs) - len(rows)
+    r = doc.get("read") or {}
+    return rows, "beta %s properties, v1.0 %s, run %s%s" % ((r.get("beta") or {}).get("properties", "?"), (r.get("v1.0") or {}).get("properties", "?"),
+                                                           esc(doc.get("day") or ""), (", %d more in the Radar" % more) if more > 0 else "")
+
+
 def baseline_rows(prev_d, curr_d, home):
     """§5dv: 'Baselines: Maester and Tenable' - what tools/baselines.py recorded after the previous brief, up to and
     including this one: a new, changed or removed Maester test, a new Maester version, the benchmark version Maester
@@ -8641,6 +8677,18 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                          "Nothing moved in the security baselines: no CISA policy, no test, no new version, no audit file, no Intune baseline version."),
                    count=len(_brow)))
 
+    # --- §5fs: Graph radar - what Microsoft added to Microsoft Graph between the two briefs (site/data/graph-radar.json)
+    _rrow, _rnote = radar_rows(prev_st.get("briefDate"), curr_st.get("briefDate"), home)
+    if _rrow is not None:
+        out.append(sect("radar", "Graph radar",
+                   ('The live $metadata of Microsoft Graph (beta and v1.0) compared run by run by <span class="mono">tools/graph_radar.py</span>, '
+                    'and the properties our developer tenant returned before $metadata knew them; this section lists what moved after the %s '
+                    'brief (%s). The Radar view of the Graph API tab gives each row its GET / PATCH for Graph Explorer and PowerShell.')
+                   % (esc(prev_st.get("briefDate") or "previous"), _rnote),
+                   table(["What", "Type or property", "Source", "Path and permission", "Recorded"], _rrow,
+                         "Nothing moved in Microsoft Graph: no type, property, action or enum value added, changed or removed."),
+                   count=len(_rrow)))
+
     # --- Graph endpoints (§5ah): co uprawnienie potrafi wywolac, pole po polu
     erows = []
     for nm, what, before, after in ge_rows[:250]:
@@ -9103,7 +9151,8 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
            ("changed", "Changed", len(changed)),
            ("components", "Components", len(cadd) + len(crem) + len(cmod))] + \
           ([("campaigns", "Campaigns", len(_crow))] if _crow is not None else []) + \
-          ([("baselines", "Security baselines", len(_brow))] if _brow is not None else []) + [   # §5cu, §5dv, §5fq
+          ([("baselines", "Security baselines", len(_brow))] if _brow is not None else []) + \
+          ([("radar", "Graph radar", len(_rrow))] if _rrow is not None else []) + [   # §5cu, §5dv, §5fq, §5fs
            ("endpoints", "Endpoints", ge_add + ge_rem + ge_chg),
            ("fpa", "First-party apps", fp_add + fp_rem + fp_chg),
            ("catalog", "Catalog", len(gadd) + len(grem) + len(gmod) + len(radd) + len(rrem) + len(rmod)),
@@ -19682,6 +19731,9 @@ PROMOTE = [
  ("removed entry", r"^\s*[-*]\s*\["),          # a named entry taken off a list
  ("limit",        r"\b\d+\s*(%|GB|MB|days?|hours?|minutes?)\b|\bat least\b|\bup to\b"),
  ("security object", r"\bpermission|\brole\b|\baudit|\balert|\bdetection|\bconsent|\bcertificate|\bTLS\b|\bcredential|\bprivileg"),
+ # §5fs (30 X 2026, owner: "licences matter in our portal too - track licensing changes"): the Cross-tenant
+ # synchronization page changed who needs Entra ID Governance (entra-docs 857146d, 28 X) and no criterion caught it
+ ("licensing",    r"\blicen[cs]e|\blicensing\b|\bsubscription\b|\bSKU\b|\badd-on\b|\bpricing\b|\bbilling\b|\b(P1|P2|E3|E5|A3|A5|F1|F3|G3|G5)\b|Entra Suite|ID Governance"),
 ]
 def promote(add, rem):
     """Zwraca liste nazw kryteriow, ktore zlapaly TE zmiane. Pusta lista = wiersz
@@ -22511,7 +22563,9 @@ def build_blogs():
 # ---------------- strony: co zmienilo sie W SRODKU (5ar) ----------------
 PROMOTE=[("requirement",r"\bmust\b|\brequired\b|\bisn't supported\b|\baren't supported\b|\bnot supported\b|\bonly\b|\bcan't\b|\bcannot\b"),
  ("removed entry",r"^\s*[-*]\s*\["),("limit",r"\b\d+\s*(%|GB|MB|days?|hours?|minutes?)\b|\bat least\b|\bup to\b"),
- ("security object",r"\bpermission|\brole\b|\baudit|\balert|\bdetection|\bconsent|\bcertificate|\bTLS\b|\bcredential|\bprivileg")]
+ ("security object",r"\bpermission|\brole\b|\baudit|\balert|\bdetection|\bconsent|\bcertificate|\bTLS\b|\bcredential|\bprivileg"),
+ # §5fs (30 X 2026): licensing - the Cross-tenant synchronization edit of 28 X (Governance per synchronized user) was cut
+ ("licensing",r"\blicen[cs]e|\blicensing\b|\bsubscription\b|\bSKU\b|\badd-on\b|\bpricing\b|\bbilling\b|\b(P1|P2|E3|E5|A3|A5|F1|F3|G3|G5)\b|Entra Suite|ID Governance")]
 META=re.compile(r"^[+-]\s*(ms\.date|ms\.custom|ms\.reviewer|ai-usage|title|description|ms\.topic|author|manager):",re.I)
 
 # §5dw (15 X 2026, owner: "Security Defaults changed on Learn and I do not see it in the Learn tab"). Measured: Section D
@@ -22524,7 +22578,8 @@ REPOS_DIR=os.environ.get("SOC_REPOS") or "repos"
 # (same count added and removed, a spelling/format/link subject, TOC and includes) last.
 PAGE_FIRST=re.compile(r"security[-_ ]defaults|conditional[-_ ]access|authentication|\bmfa\b|passkey|fido|password|"
     r"privileged|\bpim\b|permissions[-_ ]reference|roles?[-_]|consent|token|certificate|federation|"
-    r"connect|cloud[-_ ]sync|device[-_ ]code|legacy|identity[-_ ]protection|risk|agent[-_ ]id|defender|purview|dlp|audit",re.I)
+    r"connect|cloud[-_ ]sync|device[-_ ]code|legacy|identity[-_ ]protection|risk|agent[-_ ]id|defender|purview|dlp|audit|"
+    r"licens|pricing|billing|subscription|cross[-_ ]tenant|multi[-_ ]tenant",re.I)   # §5fs: licensing and cross-tenant first too
 CHURN=re.compile(r"spelling|typo|format|broken link|link fix|acrolinx|freshness|metadata|toc\b|ms\.date",re.I)
 def page_rank(pg):
     """learn_changes.json page: path, date (newest commit), add, rem, commits [{h, date, subj}]"""
@@ -22547,7 +22602,11 @@ def page_diffs(probe,areas_changes):
             "head":max(x["date"] for x in rec["pages"]),"files":len(rec["pages"]),
             "tag":(rec.get("tag") or a["name"].replace("Microsoft Learn - ","")),
             "add":rec["add"],"rem":rec["rem"]})
-        for pg in sorted(rec["pages"],key=page_rank)[:14]:
+        # §5fs (30 X 2026): Entra had more than 14 edited pages on 28 X and the Cross-tenant synchronization licensing
+        # edit was the 15th - cut before its diff was read. Now up to 60 pages are read; every page a criterion
+        # promotes (requirement, limit, licensing...) or that touches tier 0 is kept, the rest up to 14 per area.
+        _area_out=[]
+        for pg in sorted(rec["pages"],key=page_rank)[:60]:
             diff=git(p,"log","--since",since,"-p","--unified=2","--pretty=format:@@%H|%cI|%s","--",pg["path"],timeout=90)
             hunks=[];add=rem=ma=mr=0;commit="";date=pg["date"]
             for blk in diff.split("\n"):
@@ -22571,7 +22630,7 @@ def page_diffs(probe,areas_changes):
             promo=[n for n,pat in PROMOTE if re.search(pat,text,re.I|re.M)]
             nm=re.sub(r"\.(md|yml)$","",pg["path"].split("/")[-1]).replace("-"," ").capitalize()
             tags=[t for t,pt in TAGS if re.search(pt,text+" "+nm,re.I)]
-            out.append({"area":a["name"].replace("Microsoft Learn - ",""),"tag":tags[0] if tags else "",
+            _area_out.append({"area":a["name"].replace("Microsoft Learn - ",""),"tag":tags[0] if tags else "",
                 "repo":repo,"path":pg["path"],"name":nm,
                 "url":(repo_to_url(pg["path"],a["url"],a.get("path") or "") or canon(a["url"])) if a.get("path") else
                       re.sub(r"/whats-new.*$","",a["url"].rstrip("/")).rstrip("/")+"/"+
@@ -22580,6 +22639,8 @@ def page_diffs(probe,areas_changes):
                 "metaAdded":ma,"metaRemoved":mr,"promote":promo,
                 "socWeight":blog_weight(tags),"tier0":bool(TIER0.search(text)),
                 "hunks":[h for h in hunks if h["add"] or h["rem"]][:4]})
+        _rest=[x for x in _area_out if not (x["promote"] or x["tier0"])]
+        out.extend([x for x in _area_out if x["promote"] or x["tier0"]]+_rest[:14])
     # §5dw: a tier-0 page first, then the newest edit, then size - the Learn tab's table and its first fourteen cards
     out.sort(key=lambda x:(0 if x["promote"] else 1,0 if x["tier0"] else 1,-int((x["date"] or "0").replace("-","")[:8] or 0),-(x["added"]+x["removed"])))
     return out,byarea
@@ -36203,7 +36264,7 @@ odtad CZTERNASCIE (4-17).**
   function allOf(sel) { return function (p) { var e = p.querySelector(sel); var m = e && (e.textContent || "").match(/All\s*([\d\s ,]+)\s*$/); return m ? m[1] : ""; }; }
   var CFG = {
     "tab-graph": {
-      views: [["find", "Find"], ["chg", "What changed"], ["call", "Check a call"], ["src", "Sources & method"]],
+      views: [["find", "Find"], ["chg", "What changed"], ["radar", "Radar"], ["call", "Check a call"], ["src", "Sources & method"]],   /* §5fs: Radar */
       sec: "#graph", flat: "details.ntsec", rest: [".catalog", "#graph > .sec-body"],
       count: function (p) { var b = p.querySelector(".catalog .catmore b"), m = b && (b.textContent || "").match(/[\d\s ,]+/); return m ? m[0] : ""; },
       map: [
@@ -44246,6 +44307,270 @@ odtad CZTERNASCIE (4-17).**
 })();
 
 
+/* §5fs (30 X 2026, owner: "Jan Bakker found allowPasswordChangeAfterSecureSignIn - could our portal and scripts find
+   such things, not only in authentication methods but in every endpoint, and build the command for Graph Explorer or
+   PowerShell? Show it nicely"). Graph API > Radar: what Microsoft added to or removed from Microsoft Graph, day by day -
+   the live $metadata of beta and v1.0 compared with the run before (history from the weekly schema syncs of
+   microsoftgraph/msgraph-metadata), and the properties our developer tenant RETURNS that $metadata does not know
+   ("undocumented" - how the password-change switch showed up). Every row opens a card: the path, the least-privileged
+   permission from Microsoft's own permission file, a GET / PATCH for Graph Explorer and for PowerShell, the MC post
+   whose words match. One sentence on Overview ("Graph radar"), with the Learn page edits marked "licensing".
+   Data: /data/graph-radar.json (tools/graph_radar.py, workflow "Graph radar"). */
+(function () {
+  "use strict";
+  if (window.__s5fs) return; window.__s5fs = 1;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || ""); }
+  function n(x) { return String(x == null ? 0 : x).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function btn(t, c, fn, title) { var b = el("button", c, t); b.type = "button"; if (title) b.title = title; b.addEventListener("click", function (e) { e.preventDefault(); fn(e); }); return b; }
+  var KIND = { "type-new": ["added", "New type"], "prop-new": ["added", "New property"], "nav-new": ["added", "New navigation"], "op-new": ["added", "New action / function"],
+    "member-new": ["added", "New enum value"], "root-new": ["added", "New entity set"], "prop-type": ["changed", "Property type changed"],
+    "type-removed": ["removed", "Type removed"], "prop-removed": ["removed", "Property removed"], "nav-removed": ["removed", "Navigation removed"],
+    "op-removed": ["removed", "Action / function removed"], "member-removed": ["removed", "Enum value removed"], "tenant-undocumented": ["added", "Returned by the service, not documented"] };
+  var D = null, F = { src: "", kind: "", q: "", days: 14 };
+
+  /* ---- commands ---- */
+  function psVal(v, ind) {
+    if (v === true) return "$true"; if (v === false) return "$false";
+    if (typeof v === "number") return String(v);
+    if (Array.isArray(v)) return "@()";
+    if (v && typeof v === "object") { var ks = Object.keys(v); if (!ks.length) return "@{}"; return "@{ " + ks.map(function (k) { return '"' + k + '" = ' + psVal(v[k]); }).join("; ") + " }"; }
+    return '"' + String(v).replace(/"/g, '`"') + '"';
+  }
+  function cmdText(c) {
+    if (!c) return null;
+    var ge = "GET " + c.get, ps = [];
+    var scope = (c.patch ? (c.permPatch || [])[0] : null) || (c.permGet || [])[0];
+    ps.push("Connect-MgGraph -Scopes \"" + (scope || "<permission>") + "\"");
+    ps.push("$uri = \"" + c.get + "\"");
+    ps.push("Invoke-MgGraphRequest -Method GET -Uri $uri");
+    if (c.patch) {
+      ge += "\n\nPATCH " + c.patch + "\nContent-Type: application/json\n\n" + JSON.stringify(c.body, null, 2);
+      var b = c.body || {}, parts = Object.keys(b).map(function (k) { return '  "' + k + '" = ' + psVal(b[k]); });
+      ps.push("$body = @{\n" + parts.join("\n") + "\n} | ConvertTo-Json -Depth 5");
+      ps.push("Invoke-MgGraphRequest -Method PATCH -Uri $uri -Body $body -ContentType \"application/json\"");
+    }
+    return { ge: ge, ps: ps.join("\n") };
+  }
+  function codeBox(title, text) {
+    var w = el("div", "s5fs-code"); var h = el("div", "s5fs-codeh"); h.appendChild(el("span", null, title));
+    var cp = btn("Copy", "s5fs-copy", function () { try { navigator.clipboard.writeText(text).then(function () { cp.textContent = "Copied"; setTimeout(function () { cp.textContent = "Copy"; }, 1500); }); } catch (e) {} });
+    h.appendChild(cp); w.appendChild(h); w.appendChild(el("pre", "s5fq-pre", text)); return w;
+  }
+
+  /* ---- the card (the §5fo look) ---- */
+  var CARD = null;
+  function card(e) {
+    if (!CARD) {
+      CARD = el("div", "s5fo-ov"); CARD.hidden = true; CARD.setAttribute("role", "dialog"); CARD.setAttribute("aria-modal", "true");
+      CARD.addEventListener("click", function (ev) { if (ev.target === CARD) CARD.hidden = true; });
+      document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && CARD && !CARD.hidden) CARD.hidden = true; });
+      document.body.appendChild(CARD);
+    }
+    CARD.textContent = "";
+    var c = el("div", "s5fo-card"); CARD.appendChild(c);
+    var x = el("button", "s5fo-x", "×"); x.type = "button"; x.setAttribute("aria-label", "Close"); x.addEventListener("click", function () { CARD.hidden = true; }); c.appendChild(x);
+    var k = KIND[e.kind] || ["changed", e.kind || "Undocumented property"];
+    var chips = el("div", "s5fo-chips");
+    chips.appendChild(el("span", "s5fq-sp " + (e.via === "our developer tenant" || e.undoc ? "s5fs-c-t" : e.ver === "v1.0" ? "s5fs-c-v1" : "s5fs-c-b"), e.undoc || e.via === "our developer tenant" ? "Our tenant" : "Graph " + e.ver));
+    chips.appendChild(el("span", "s5fo-chip", k[1]));
+    if (e.promoted) chips.appendChild(el("span", "s5fo-chip s5fo-st", "Promoted to v1.0"));
+    if (e.undoc) chips.appendChild(el("span", "s5fo-chip s5fo-t0", "Not in $metadata"));
+    c.appendChild(chips);
+    c.appendChild(el("h2", "s5fo-t", (e.type && e.type !== e.name ? e.type + "." : "") + (e.name || e.prop)));
+    c.appendChild(el("p", "s5fo-ot", e.undoc ? "Returned by " + e.label + " in our developer tenant, first seen " + dmy(e.first) + " — not in the published $metadata of beta"
+      : (e.via === "msgraph-metadata" ? "Schema sync of " : "Live $metadata, ") + dmy(e.day) + (e.detail ? " · " + e.detail : "")));
+    var f = el("dl", "s5fj-facts s5fo-facts");
+    function fact(a, b) { if (!b) return; var w = el("div", "s5fj-f"); w.appendChild(el("dt", null, a)); w.appendChild(el("dd", null, b)); f.appendChild(w); }
+    if (e.detail !== "enum type" && e.kind !== "member-new") fact("Path", e.path || "no path from a root of the API found");
+    fact("Held by", e.holder);
+    fact("Read with", ((e.cmd || {}).permGet || []).join(", "));
+    fact("Changed with", ((e.cmd || {}).permPatch || []).join(", "));
+    if (e.props && e.props.length) fact(e.detail === "enum type" ? "Values" : "Properties", e.props.join(", "));
+    if (e.params && e.params.length) fact("Parameters", e.params.join(", "));
+    if (e.base) fact("Derives from", e.base);
+    c.appendChild(f);
+    var t = cmdText(e.cmd);
+    if (t) {
+      var b1 = el("div", "s5fo-blk s5fo-do"); b1.appendChild(el("p", "s5fo-lab", "Try it — Graph Explorer (aka.ms/ge)"));
+      b1.appendChild(codeBox("Graph Explorer", t.ge)); c.appendChild(b1);
+      var b2 = el("div", "s5fo-blk"); b2.appendChild(el("p", "s5fo-lab", "Try it — PowerShell (Microsoft.Graph.Authentication)"));
+      b2.appendChild(codeBox("PowerShell", t.ps));
+      b2.appendChild(el("p", "s5fs-note", "Replace {id} with the object's id. PATCH only when the property is writable — beta changes without notice; try it in a test tenant first." +
+        (e.undoc ? " Undocumented: Microsoft has not published it yet, so its name and behaviour may still change." : ""))); c.appendChild(b2);
+    } else c.appendChild(el("p", "s5fs-note", e.detail === "enum type" || e.kind === "member-new" ? "An enum: a list of allowed values, used by properties of other types — nothing to call on its own." : "No path from an entity set or singleton of the API leads to this type within five steps — open the type in the Graph documentation."));
+    var lk = el("div", "s5fo-links"); lk.appendChild(el("p", "s5fo-lab", "Open"));
+    function a(t2, u) { var x2 = el("a", "s5fo-lk", t2 + " ↗"); x2.href = u; x2.target = "_blank"; x2.rel = "noopener"; lk.appendChild(x2); }
+    (e.mc || []).forEach(function (m) { var mb = el("button", "s5fo-lk", "Message Center " + m); mb.type = "button"; mb.addEventListener("click", function () { CARD.hidden = true; if (window.__socOpenMC) window.__socOpenMC(m); else location.hash = m; }); lk.appendChild(mb); });
+    if ((e.cmd || {}).get) a("Graph Explorer", "https://developer.microsoft.com/graph/graph-explorer");
+    a("Docs search for " + (e.name || e.prop), "https://learn.microsoft.com/search/?terms=" + encodeURIComponent((e.name || e.prop || "").split(".").pop()) + "&category=Reference");
+    if (e.via === "msgraph-metadata") a("Schema syncs (GitHub)", "https://github.com/microsoftgraph/msgraph-metadata/commits/master/schemas");
+    c.appendChild(lk);
+    CARD.hidden = false; x.focus();
+  }
+
+  /* ---- the Radar view ---- */
+  function chartDays(host) {
+    var P = (D.perDay || []).slice(-60); if (!P.length) return;
+    var fig = el("figure", "s5dv-fig s5fs-fig"); fig.appendChild(el("figcaption", null, "What Microsoft changed in Graph, by day — beta, v1.0 and our tenant"));
+    var W = 720, H = 150, L = 34, B = 22, T = 8, w = W - L - 8, h = H - T - B, max = 1;
+    P.forEach(function (d) { max = Math.max(max, d.beta + d["v1.0"] + d.tenant); });
+    var NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg"); svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("class", "s5dv-svg");
+    var slot = w / P.length, bw = Math.max(3, Math.min(16, slot * .7));
+    P.forEach(function (d, i) {
+      var y = T + h, segs = [["tenant", "#e3a33b"], ["v1.0", "#3fb37f"], ["beta", "var(--accent)"]];
+      segs.forEach(function (s) { var v = d[s[0]] || 0; if (!v) return; var hh = h * v / max; y -= hh;
+        var r = document.createElementNS(NS, "rect"); r.setAttribute("x", L + slot * i + (slot - bw) / 2); r.setAttribute("y", y); r.setAttribute("width", bw); r.setAttribute("height", hh); r.setAttribute("fill", s[1]);
+        var tt = document.createElementNS(NS, "title"); tt.textContent = dmy(d.day) + " · " + s[0] + ": " + v; r.appendChild(tt); svg.appendChild(r); });
+      if (i % Math.ceil(P.length / 8) === 0 || i === P.length - 1) { var tx = document.createElementNS(NS, "text"); tx.setAttribute("x", L + slot * i + slot / 2); tx.setAttribute("y", H - 6); tx.setAttribute("class", "s5dv-ax"); tx.setAttribute("text-anchor", "middle"); tx.textContent = dmy(d.day).slice(0, 5); svg.appendChild(tx); }
+    });
+    var ty = document.createElementNS(NS, "text"); ty.setAttribute("x", L - 6); ty.setAttribute("y", T + 10); ty.setAttribute("class", "s5dv-ax"); ty.setAttribute("text-anchor", "end"); ty.textContent = n(max); svg.appendChild(ty);
+    fig.appendChild(svg);
+    var lg = el("div", "s5dv-leg"); [["Graph beta", "var(--accent)"], ["Graph v1.0", "#3fb37f"], ["Our tenant (undocumented)", "#e3a33b"]].forEach(function (x) { var s = el("span", "s5dv-lg"), i = el("i"); i.style.background = x[1]; s.appendChild(i); s.appendChild(document.createTextNode(x[0])); lg.appendChild(s); });
+    fig.appendChild(lg);
+    fig.appendChild(el("p", "s5dv-fn", "Before our first own run (" + dmy(D.day) + ") the days are Microsoft's weekly schema syncs (msgraph-metadata) — each bar holds a week. From then on: every change the day the live $metadata shows it."));
+    host.appendChild(fig);
+  }
+  function row(e, i) {
+    var k = KIND[e.kind] || ["changed", "Undocumented property"];
+    var li = el("li", "s5fq-r s5fs-r s5fs-" + k[0]); li.tabIndex = 0; li.setAttribute("role", "button");
+    li.appendChild(el("span", "s5fm-n s5fq-num", String(i + 1)));
+    var mid = el("div", "s5fq-rm"); var top = el("div", "s5fq-rt");
+    top.appendChild(el("span", "s5fq-st", (e.type && e.type !== e.name ? e.type + "." : "") + (e.name || e.prop)));
+    mid.appendChild(top);
+    var cs = el("div", "s5fq-rc");
+    cs.appendChild(el("span", "s5fq-sp " + (e.undoc || e.kind === "tenant-undocumented" ? "s5fs-c-t" : e.ver === "v1.0" ? "s5fs-c-v1" : "s5fs-c-b"), e.undoc || e.kind === "tenant-undocumented" ? "Our tenant" : "Graph " + e.ver));
+    cs.appendChild(el("span", "s5dv-chip", k[1]));
+    if (e.promoted) cs.appendChild(el("span", "s5dv-chip s5fq-shall", "Promoted to v1.0"));
+    if (e.detail && !e.undoc) cs.appendChild(el("span", "s5dv-chip", e.detail));
+    if (e.cmd && e.cmd.get) cs.appendChild(el("span", "s5dv-chip s5fs-cmd", e.cmd.patch ? "GET · PATCH ready" : "GET ready"));
+    (e.mc || []).forEach(function (m) { cs.appendChild(el("span", "s5dv-chip s5fq-req", m)); });
+    mid.appendChild(cs);
+    if (e.path) mid.appendChild(el("div", "s5fq-path", e.path));
+    li.appendChild(mid);
+    li.addEventListener("click", function () { card(e); });
+    li.addEventListener("keydown", function (x) { if (x.key === "Enter" || x.key === " ") { x.preventDefault(); card(e); } });
+    return li;
+  }
+  function draw(sec) {
+    sec.textContent = "";
+    var h = el("div", "s5fs-head"); h.appendChild(el("h3", null, "Graph radar — what Microsoft added to Microsoft Graph"));
+    h.appendChild(el("p", "s5dv-sub", "The live $metadata of beta and v1.0 compared run by run (every type, property, navigation, action, enum value), and what our developer tenant returns that $metadata does not know yet. A row opens a card with the path, the permission and a GET / PATCH for Graph Explorer and PowerShell."));
+    sec.appendChild(h);
+    var r = D.read || {}, b = r.beta || {}, v = r["v1.0"] || {}, tn = D.tenant || {};
+    var kp = el("div", "s5dv-kpis");
+    var today = (D.events || []).filter(function (e) { return e.day === D.day; });
+    [[n(today.length), "changes today", dmy(D.day)], [n((D.events || []).filter(function (e) { return e.promoted; }).length), "promoted to v1.0", "60 days"],
+     [n((tn.undocumented || []).length), "undocumented in our tenant", tn.read ? "read " + dmy(tn.day) : "not read yet"], [n(b.properties), "beta properties", n(b.entities) + " entity types"], [n(v.properties), "v1.0 properties", n(v.entities) + " entity types"]
+    ].forEach(function (x) { var d = el("div", "s5dv-kpi"); d.appendChild(el("b", null, x[0])); d.appendChild(el("span", "s5dv-kl", x[1])); d.appendChild(el("span", "s5dv-ks", x[2])); kp.appendChild(d); });
+    sec.appendChild(kp);
+    /* undocumented first */
+    var ub = el("section", "s5fs-blk s5fs-und"); ub.appendChild(el("h4", null, "Returned by the service in our tenant, not in $metadata"));
+    if (!tn.read) {
+      ub.appendChild(el("p", "s5fq-callw", "Our developer tenant has not been read yet: " + (tn.note || "") + ". The app “MS-SOC Dev tenant reader” needs read-only permissions (Policy.Read.All, Policy.Read.AuthenticationMethod, Organization.Read.All, OnPremDirectorySynchronization.Read.All, DeviceManagementConfiguration.Read.All, DeviceManagementServiceConfig.Read.All) — tools/Grant-GraphRadarPermissions.ps1 grants them."));
+    } else {
+      var und = tn.undocumented || [];
+      if (!und.length) ub.appendChild(el("p", "s5dv-note", "Every property the tenant returned is in $metadata today."));
+      else { var ol = el("ol", "s5fq-list"); und.forEach(function (u, i) { ol.appendChild(row({ undoc: 1, type: u.type, name: u.prop, prop: u.prop, path: u.path, label: u.label, first: u.first, cmd: u.cmd, mc: u.mc, ver: "beta" }, i)); }); ub.appendChild(ol); }
+      var ep = (tn.endpoints || []).filter(function (x) { return x.status !== 200; });
+      if (ep.length) { var d = el("details", "s5fq-dl"); var s = el("summary"); s.appendChild(document.createTextNode("Endpoints not read")); s.appendChild(el("span", "s5fp-n", String(ep.length))); d.appendChild(s);
+        var ul = el("ul", "s5fq-setl"); ep.forEach(function (x) { var li = el("li"); li.appendChild(el("b", null, x.label)); li.appendChild(el("span", "s5dv-sm", x.path + " · " + (x.note || "HTTP " + x.status))); ul.appendChild(li); }); d.appendChild(ul); ub.appendChild(d); }
+    }
+    sec.appendChild(ub);
+    chartDays(sec);
+    /* the list */
+    var lb = el("section", "s5fs-blk"); lb.appendChild(el("h4", null, "Every change, newest first"));
+    var fb = el("div", "s5fo-tf");
+    var ev = D.events || [];
+    function pass(e, ignore) {
+      var cut = new Date(Date.parse(D.day + "T12:00:00Z") - F.days * 864e5).toISOString().slice(0, 10);
+      if (e.day < cut) return false;
+      if (ignore !== "src" && F.src && !(F.src === "promoted" ? e.promoted : F.src === "tenant" ? e.kind === "tenant-undocumented" : e.ver === F.src && e.kind !== "tenant-undocumented")) return false;
+      if (ignore !== "kind" && F.kind && (KIND[e.kind] || [""])[0] !== F.kind) return false;
+      if (F.q && ((e.type || "") + " " + (e.name || "") + " " + (e.path || "") + " " + (e.detail || "")).toLowerCase().indexOf(F.q.toLowerCase()) < 0) return false;
+      return true;
+    }
+    function chipRow(lab, key, opts) {
+      fb.appendChild(el("span", "s5fo-tfl", lab));
+      opts.forEach(function (o) { var cnt = ev.filter(function (e) { var s = F[key]; F[key] = o[0]; var r2 = pass(e); F[key] = s; return r2; }).length;
+        if (o[0] && !cnt) return;
+        var b2 = btn(o[1], "s5fo-tb", function () { F[key] = o[0]; draw(sec); }); b2.setAttribute("aria-pressed", String(F[key] === o[0])); b2.appendChild(el("span", "s5fp-n", n(cnt))); fb.appendChild(b2); });
+    }
+    chipRow("Days", "days", [[7, "7"], [14, "14"], [30, "30"], [60, "60"]]);
+    chipRow("Source", "src", [["", "All"], ["beta", "beta"], ["v1.0", "v1.0"], ["promoted", "Promoted to v1.0"], ["tenant", "Our tenant"]]);
+    chipRow("What", "kind", [["", "All"], ["added", "Added"], ["changed", "Changed"], ["removed", "Removed"]]);
+    lb.appendChild(fb);
+    var q = el("input", "s5fq-q"); q.type = "search"; q.placeholder = "Find a type, property or path (e.g. password, conditionalAccess, /policies)"; q.value = F.q;
+    q.addEventListener("input", function () { F.q = q.value; var k2 = q.selectionStart; draw(sec); var q2 = sec.querySelector(".s5fq-q"); if (q2) { q2.focus(); try { q2.setSelectionRange(k2, k2); } catch (x) {} } });
+    lb.appendChild(q);
+    var L = ev.filter(function (e) { return pass(e); });
+    if (!L.length) lb.appendChild(el("p", "s5dv-note", "Nothing matches."));
+    /* one fold per day (newest open): a weekly schema sync holds hundreds of rows */
+    var day = "", ol2 = null, i2 = 0, nd = 0, cntDay = {};
+    L.forEach(function (e) { cntDay[e.day] = (cntDay[e.day] || 0) + 1; });
+    L.slice(0, 400).forEach(function (e) {
+      if (e.day !== day) { day = e.day; var dd = el("details", "s5fq-dl s5fs-day"); if (nd++ === 0 || F.q) dd.open = true; var sm = el("summary");
+        sm.appendChild(document.createTextNode(dmy(day) + (e.via === "msgraph-metadata" ? " · weekly schema sync" : e.via === "our developer tenant" ? " · our tenant" : " · live $metadata"))); sm.appendChild(el("span", "s5fp-n", n(cntDay[day])));
+        dd.appendChild(sm); ol2 = el("ol", "s5fq-list"); dd.appendChild(ol2); lb.appendChild(dd); i2 = 0; }
+      ol2.appendChild(row(e, i2++));
+    });
+    if (L.length > 400) lb.appendChild(el("p", "s5dv-fn", "First 400 of " + n(L.length) + " — narrow with the filters or the search."));
+    sec.appendChild(lb);
+    sec.appendChild(el("p", "s5dv-fn", "Read " + dmy(D.day) + " " + String(D.generated || "").slice(11, 16) + " UTC by GitHub Actions (tools/graph_radar.py). Only property names are kept from the tenant, never a value."));
+  }
+  function place() {
+    var p = document.getElementById("tab-graph"), sb = p && p.querySelector("#graph > .sec-body");
+    if (!sb) return false;
+    var sec = p.querySelector(".s5fs-radar");
+    if (!sec) { sec = el("section", "s5fs-radar"); sec.setAttribute("data-s5cd-v", "radar"); sb.insertBefore(sec, sb.firstChild); }
+    draw(sec); return true;
+  }
+  function openRadar() {
+    var t = document.getElementById("tabbtn-tab-graph"); if (t) t.click();
+    setTimeout(function () { var b = document.querySelector('#tab-graph > .s5cd-bar button[data-v="radar"]'); if (b) b.click(); var s = document.querySelector(".s5fs-radar"); if (s) s.scrollIntoView({ block: "start" }); }, 350);
+  }
+  window.__socRadar = openRadar;
+
+  /* ---- Overview: one sentence ---- */
+  function sentence(k) {
+    var ol = document.querySelector("#tab-overview .s5bk-3");
+    if (!ol) { if (k < 25) setTimeout(function () { sentence(k + 1); }, 400); return; }
+    if (ol.querySelector(".s5fs-sen")) return;
+    var day = D.day, ev = D.events || [], t = ev.filter(function (e) { return e.day === day; });
+    var lic = D.learnLicensing || [], und = (D.tenant || {}).undocumented || [];
+    var li = el("li", "s5fs-sen"); li.appendChild(el("b", "s5bk-k k-tech", "Graph radar"));
+    var b = el("span", "s5bk-it s5bk-idl");
+    var newU = und.filter(function (u) { return u.first === day; }).length;
+    b.appendChild(el("span", "s5bk-itt", (t.length ? n(t.length) + " change" + (t.length === 1 ? "" : "s") + " in Microsoft Graph today" : "Nothing new in Microsoft Graph today") +
+      (newU ? " · " + newU + " undocumented propert" + (newU === 1 ? "y" : "ies") + " seen in our tenant" : "") + (lic.length ? " · " + lic.length + " Learn page" + (lic.length === 1 ? "" : "s") + " changed licensing" : "")));
+    var g = el("span", "s5bk-idg");
+    function tile(lab, num, sub, fn, win) { var x = el("button", "s5bk-idtile" + (num ? " s5bk-idhot" : "")); x.type = "button"; x.title = "Open " + lab;
+      x.appendChild(el("span", "s5bk-idl1", lab)); x.appendChild(el("span", "s5bk-idn", String(num))); x.appendChild(el("span", "s5bk-idl2", win || "today · " + dmy(day).slice(0, 5))); x.appendChild(el("span", "s5bk-idl3", sub));
+      x.addEventListener("click", function (ev2) { ev2.stopPropagation(); fn(); }); g.appendChild(x); }
+    tile("Graph beta", t.filter(function (e) { return e.ver === "beta" && e.kind !== "tenant-undocumented"; }).length, "types, properties, actions", function () { F.src = "beta"; F.days = 14; openRadar(); });
+    tile("Graph v1.0", t.filter(function (e) { return e.ver === "v1.0"; }).length, n(t.filter(function (e) { return e.promoted; }).length) + " promoted from beta", function () { F.src = "v1.0"; F.days = 14; openRadar(); });
+    tile("Our tenant", und.length, "undocumented properties", function () { F.src = "tenant"; openRadar(); }, (D.tenant || {}).read ? "read " + dmy((D.tenant || {}).day).slice(0, 5) : "not read yet");
+    tile("Learn licensing", lic.length, "page edits on licences", function () { var x = document.getElementById("tabbtn-tab-learn"); if (x) x.click(); }, "last brief");
+    b.appendChild(g); li.appendChild(b);
+    var cv = ol.querySelector(".s5dv-sen"); if (cv) ol.insertBefore(li, cv.nextSibling); else ol.appendChild(li);
+    var sh = ol.parentNode && ol.parentNode.querySelector(".s5bk-h");
+    if (sh && window.__socRenum) { sh.textContent = "Today in " + window.__socWords(window.__socRenum(ol)) + " sentences"; if (ol.parentNode.setAttribute) ol.parentNode.setAttribute("aria-label", sh.textContent); }
+  }
+
+  function start() {
+    if (!onSite() || !window.fetch) return;
+    fetch("/data/graph-radar.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      if (!d || !d.events) return; D = d;
+      sentence(0);
+      var k = 0; (function wait() { if (!place() && ++k < 40) setTimeout(wait, 500); })();
+      /* the Graph tab is built when it is opened (§5ec): place the Radar again then */
+      document.addEventListener("click", function (ev) { var t = ev.target.closest && ev.target.closest("#tabbtn-tab-graph"); if (t) { setTimeout(place, 700); setTimeout(place, 2500); } }, true);
+    }).catch(function () {});
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 900); }); else setTimeout(start, 900);
+})();
+
 /* §5dw (15 X 2026, owner: "campaigns were to be detected by us; I am not sure Security Defaults is a campaign like the
    passkey rollout - there should be an algorithm by which it and you decide whether a new campaign starts or not").
    Campaigns tab, after the list: "What may become a campaign" - tools/campaigns.py scores every Message Center post
@@ -45005,7 +45330,8 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .tabpanel[data-s5cd="pages"] [data-s5cd-v]:not([data-s5cd-v~="pages"]):not([data-s5cd-v="*"]),
 .tabpanel[data-s5cd="tbl"] [data-s5cd-v]:not([data-s5cd-v~="tbl"]):not([data-s5cd-v="*"]),
 .tabpanel[data-s5cd="deep"] [data-s5cd-v]:not([data-s5cd-v~="deep"]):not([data-s5cd-v="*"]),
-.tabpanel[data-s5cd="auth"] [data-s5cd-v]:not([data-s5cd-v~="auth"]):not([data-s5cd-v="*"]){display:none!important}
+.tabpanel[data-s5cd="auth"] [data-s5cd-v]:not([data-s5cd-v~="auth"]):not([data-s5cd-v="*"]),
+.tabpanel[data-s5cd="radar"] [data-s5cd-v]:not([data-s5cd-v~="radar"]):not([data-s5cd-v="*"]){display:none!important}
 /* a section wrapper the views replace: its own header goes, its content stays */
 .tabpanel[data-s5cd] details.s5cd-flat > summary,.tabpanel[data-s5cd] details.s5cd-flat section > .sec-head{display:none!important}
 .tabpanel[data-s5cd] details.s5cd-flat{border:0;background:none;padding:0;margin:0}
@@ -47349,6 +47675,19 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .mcb-views,.s5dq-jump,.s5fo-tf{padding:6px 8px;border:1px dashed color-mix(in srgb,var(--text) 22%,transparent);border-radius:10px;background:color-mix(in srgb,var(--text) 3%,transparent)}
 .mcb-view,.s5dq-j,.s5fo-tb{border-color:color-mix(in srgb,var(--text) 28%,transparent)}
 .mcb-view:hover,.s5dq-j:hover,.s5fo-tb:hover{background:color-mix(in srgb,var(--accent) 14%,var(--bg))}
+/* §5fs (30 X 2026): Graph API > Radar */
+.s5fs-radar{display:flex;flex-direction:column;gap:14px;margin:4px 0 18px}
+.s5fs-head h3{margin:0 0 4px;font-size:19px}
+.s5fs-blk h4{margin:4px 0 8px;font-size:16px}
+.s5fs-und{border-left:4px solid #e3a33b;padding-left:14px}
+.s5fs-c-b{--sc:var(--accent)}.s5fs-c-v1{--sc:#3fb37f}.s5fs-c-t{--sc:#e3a33b}
+.s5fs-r.s5fs-removed{border-left:3px solid var(--bad)}.s5fs-r.s5fs-added{border-left:3px solid var(--ok)}.s5fs-r.s5fs-changed{border-left:3px solid var(--warn)}
+.s5dv-chip.s5fs-cmd{border-color:var(--accent);color:var(--accent);font-weight:600}
+.s5fs-code{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:4px 0}
+.s5fs-codeh{display:flex;justify-content:space-between;align-items:center;padding:4px 8px;background:var(--surface);font-size:12.5px;font-weight:700;color:var(--muted)}
+.s5fs-code .s5fq-pre{border:0;border-radius:0;margin:0}
+.s5fs-copy{font:inherit;font-size:12.5px;padding:2px 10px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);cursor:pointer}
+.s5fs-note{font-size:13px;color:var(--muted);margin:6px 0 0}
 @media (max-width:640px){.s5cd-bar,.s5dv-vnav,.s5fg-nav{padding:6px 8px;gap:5px}.s5cd-bar::before{flex-basis:100%;margin:2px 0 2px 2px}
  .s5cd-bar button:not(.s5cd-drawer),.s5dv-vb,.s5fg-navb{font-size:14px;padding:7px 11px}}
 .s5fq-c-cisa{--sc:#3fb37f}.s5fq-c-m{--sc:var(--accent)}.s5fq-c-t{--sc:#e3a33b}.s5fq-c-z{--sc:#b48cff}.s5fq-c-i{--sc:#4cc2d6}
@@ -49254,6 +49593,38 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5fs — Graph radar, licencje w Learn, pelne spisy tresci w kopii Learn (30 X 2026)
+
+Wlasciciel: Jan Bakker opisal `allowPasswordChangeAfterSecureSignIn` (PATCH beta `.../authenticationMethodConfigurations/
+Password`) — „jak to znalazl? czy portal i skrypty potrafia wykrywac takie rzeczy, nie tylko w metodach uwierzytelniania, ale
+we wszystkich endpointach, i zbudowac komende do Graph Explorer / PowerShell?"; drugi przyklad: commit entra-docs 857146d
+(licencje Cross-tenant synchronization) — „gdzie to pokazujemy?"; „licencje tez sa wazne"; „robimy wszystko".
+- **Ustalenia 30 X:** pola nie bylo ani w zywym `$metadata` beta (brak nawet typu `passwordAuthenticationMethodConfiguration`),
+  ani w `microsoftgraph/msgraph-metadata` (sync 28 X); MC1437671 byl w portalu od 8 X. Zmiana licencji byla w naszej kopii
+  Learn od 28 X, ale zakladka Learn czytala tylko 14 stron na obszar (Entra miala wiecej) i nie miala kryterium „licencje".
+- **Graph radar** (`tools/graph_radar.py`, workflow „Graph radar", 04:50, 07:40, 16:50 UTC, potem Code refresh):
+  - zywe `$metadata` beta i v1.0 porownane z poprzednim przebiegiem: typy (entity, complex, enum), wlasciwosci, nawigacje,
+    akcje i funkcje, wartosci enumow, entity sets / singletons — nowe, zmienione, usuniete, „promoted to v1.0";
+    historia od tygodniowych synchronizacji msgraph-metadata (`--backfill`, 13 synchronizacji, od 30 VII 2026);
+  - tenant deweloperski (aplikacja „MS-SOC Dev tenant reader", poswiadczenie federacyjne): GET obiektow konfiguracji
+    calego tenanta (polityki, metody uwierzytelniania, Conditional Access, organizacja, synchronizacja, Intune) — zapisujemy
+    TYLKO nazwy pol i ich rodzaj (boolean/string/...), nigdy wartosci; pole, ktorego `$metadata` nie zna = „undocumented";
+    uprawnienia nadaje wlasciciel skryptem `tools/Grant-GraphRadarPermissions.ps1` (Policy.Read.All,
+    Policy.Read.AuthenticationMethod, Organization.Read.All, OnPremDirectorySynchronization.Read.All,
+    DeviceManagementConfiguration.Read.All, DeviceManagementServiceConfig.Read.All); bez nich 403 jest zapisywane;
+  - kazda zmiana: sciezka (najkrotsza od korzenia API, preferowana ta, ktora zna plik uprawnien Microsoftu), uprawnienie
+    najmniejsze (graphMap), GET i PATCH (`@odata.type` + pole z wartoscia przykladowa wg typu), posty MC, ktorych tekst
+    zawiera slowa pola jako fraze.
+  - Pliki: `site/data/graph-radar.json` (strona), `data/graph-radar/` (pamiec: modele gz, historia, tenant — poza site/).
+- **Strona:** Graph API → widok **Radar** (kafle, „Returned by the service in our tenant, not in $metadata", wykres dni,
+  lista z filtrami Days / Source / What i szukaniem, dzien = rozwijana sekcja, karta z komendami do skopiowania); zdanie
+  Overview „Graph radar" (beta / v1.0 / nasz tenant / Learn licensing); `/diff`: sekcja „Graph radar" i chip.
+- **Learn:** kryterium „licensing" w obu listach PROMOTE; strony licencji i cross-tenant na poczatku kolejki; czytane do 60
+  stron na obszar, strona z kryterium albo tier 0 zawsze zostaje, reszta do 14.
+- **Kopia Learn:** 12 obszarow kopiuje caly spis tresci (Entra: 16 spisow; Intune, Defender XDR / Endpoint / Office 365 /
+  Identity / Cloud Apps, Purview, Sentinel, Security Copilot, Exposure Management, Windows 365; ok. 5 900 stron). Budzet
+  5 min na grupe, reszta w kolejnym przebiegu (kursor learn-mirror), limit joba 100 min.
 
 ### §5fr — Jeden wyglad paskow widokow we wszystkich zakladkach (27 X 2026)
 

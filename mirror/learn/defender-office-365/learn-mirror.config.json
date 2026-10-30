@@ -1,6 +1,8 @@
 {
   "sitemaps": "/_sitemaps/contribute_en-us_1\\.xml$",
-  "tocs": [],
+  "tocs": [
+    "https://learn.microsoft.com/en-us/defender-office-365/toc.json"
+  ],
   "extraUrls": [],
   "include": "^https://learn\\.microsoft\\.com/en-us/defender\\-office\\-365/",
   "exclude": [],

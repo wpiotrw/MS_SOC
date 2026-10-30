@@ -2,27 +2,49 @@
   {
     "SourceName": "Microsoft Learn - Entra",
     "SourceURL": "https://learn.microsoft.com/en-us/entra/",
-    "Toc": ["https://learn.microsoft.com/en-us/entra/identity/hybrid/toc.json"]
+    "Toc": [
+      "https://learn.microsoft.com/en-us/entra/agent-id/toc.json",
+      "https://learn.microsoft.com/en-us/entra/architecture/toc.json",
+      "https://learn.microsoft.com/en-us/entra/fundamentals/toc.json",
+      "https://learn.microsoft.com/en-us/entra/global-secure-access/toc.json",
+      "https://learn.microsoft.com/en-us/entra/id-governance/toc.json",
+      "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/toc.json",
+      "https://learn.microsoft.com/en-us/entra/identity/authentication/toc.json",
+      "https://learn.microsoft.com/en-us/entra/identity/conditional-access/toc.json",
+      "https://learn.microsoft.com/en-us/entra/identity/devices/toc.json",
+      "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/toc.json",
+      "https://learn.microsoft.com/en-us/entra/identity/hybrid/toc.json",
+      "https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/toc.json",
+      "https://learn.microsoft.com/en-us/entra/identity/monitoring-health/toc.json",
+      "https://learn.microsoft.com/en-us/entra/identity/multi-tenant-organizations/toc.json",
+      "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/toc.json",
+      "https://learn.microsoft.com/en-us/entra/identity/users/toc.json"
+    ]
   },
   {
     "SourceName": "Microsoft Learn - Defender for Identity",
-    "SourceURL": "https://learn.microsoft.com/en-us/defender-for-identity/"
+    "SourceURL": "https://learn.microsoft.com/en-us/defender-for-identity/",
+    "Toc": "https://learn.microsoft.com/en-us/defender-for-identity/toc.json"
   },
   {
     "SourceName": "Microsoft Learn - Defender for Endpoint",
-    "SourceURL": "https://learn.microsoft.com/en-us/defender-endpoint/"
+    "SourceURL": "https://learn.microsoft.com/en-us/defender-endpoint/",
+    "Toc": "https://learn.microsoft.com/en-us/defender-endpoint/toc.json"
   },
   {
     "SourceName": "Microsoft Learn - Defender XDR",
-    "SourceURL": "https://learn.microsoft.com/en-us/defender-xdr/"
+    "SourceURL": "https://learn.microsoft.com/en-us/defender-xdr/",
+    "Toc": "https://learn.microsoft.com/en-us/defender-xdr/toc.json"
   },
   {
     "SourceName": "Microsoft Learn - Defender for Office 365",
-    "SourceURL": "https://learn.microsoft.com/en-us/defender-office-365/"
+    "SourceURL": "https://learn.microsoft.com/en-us/defender-office-365/",
+    "Toc": "https://learn.microsoft.com/en-us/defender-office-365/toc.json"
   },
   {
     "SourceName": "Microsoft Learn - Defender for Cloud Apps",
-    "SourceURL": "https://learn.microsoft.com/en-us/defender-cloud-apps/"
+    "SourceURL": "https://learn.microsoft.com/en-us/defender-cloud-apps/",
+    "Toc": "https://learn.microsoft.com/en-us/defender-cloud-apps/toc.json"
   },
   {
     "SourceName": "Microsoft Learn - Defender Vulnerability Management",
@@ -30,7 +52,8 @@
   },
   {
     "SourceName": "Microsoft Learn - Microsoft Sentinel",
-    "SourceURL": "https://learn.microsoft.com/en-us/azure/sentinel/"
+    "SourceURL": "https://learn.microsoft.com/en-us/azure/sentinel/",
+    "Toc": "https://learn.microsoft.com/en-us/azure/sentinel/toc.json"
   },
   {
     "SourceName": "Microsoft Learn - Unified Security Operations",
@@ -38,11 +61,13 @@
   },
   {
     "SourceName": "Microsoft Learn - Microsoft Purview",
-    "SourceURL": "https://learn.microsoft.com/en-us/purview/"
+    "SourceURL": "https://learn.microsoft.com/en-us/purview/",
+    "Toc": "https://learn.microsoft.com/en-us/purview/toc.json"
   },
   {
     "SourceName": "Microsoft Learn - Security Exposure Management",
-    "SourceURL": "https://learn.microsoft.com/en-us/security-exposure-management/"
+    "SourceURL": "https://learn.microsoft.com/en-us/security-exposure-management/",
+    "Toc": "https://learn.microsoft.com/en-us/security-exposure-management/toc.json"
   },
   {
     "SourceName": "Microsoft Learn - Microsoft Security",
@@ -54,7 +79,8 @@
   },
   {
     "SourceName": "Microsoft Learn - Microsoft Intune",
-    "SourceURL": "https://learn.microsoft.com/en-us/intune/intune-service/"
+    "SourceURL": "https://learn.microsoft.com/en-us/intune/intune-service/",
+    "Toc": "https://learn.microsoft.com/en-us/intune/toc.json"
   },
   {
     "SourceName": "Microsoft Learn - Defender for Cloud",
@@ -62,7 +88,8 @@
   },
   {
     "SourceName": "Microsoft Learn - Security Copilot",
-    "SourceURL": "https://learn.microsoft.com/en-us/copilot/security/"
+    "SourceURL": "https://learn.microsoft.com/en-us/copilot/security/",
+    "Toc": "https://learn.microsoft.com/en-us/copilot/security/toc.json"
   },
   {
     "SourceName": "Microsoft Learn - Microsoft Graph Security",
@@ -138,6 +165,7 @@
   {
     "SourceName": "Microsoft Learn - Windows 365",
     "SourceURL": "https://learn.microsoft.com/en-us/windows-365/",
-    "RequiredFrom": "2026-10-10"
+    "RequiredFrom": "2026-10-10",
+    "Toc": "https://learn.microsoft.com/en-us/windows-365/toc.json"
   }
 ]

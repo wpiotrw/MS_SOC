@@ -20,7 +20,10 @@ concurrency:
 jobs:
   mirror:
     runs-on: ubuntu-latest
-    timeout-minutes: 60   # 10 X 2026: 07:42 UTC run hit 40 min (46 groups; runs took 10-24 min) and lost its work
+    # 10 X 2026: 07:42 UTC run hit 40 min (46 groups; runs took 10-24 min) and lost its work.
+    # 30 X 2026 (CLAUDE.md 5fs): twelve areas copy their whole table of contents (~5 900 pages) - 5 min per group,
+    # a group that does not finish goes on in the next run (learn-mirror keeps its queue), job limit 100 min
+    timeout-minutes: 100
     steps:
       - uses: actions/checkout@v4
         with:
@@ -33,7 +36,7 @@ jobs:
       - name: Mirror Learn pages
         id: mirror
         run: |
-          tools/run_learn_mirror.sh 6 "$RUNNER_TEMP/mirror-message.txt" | tee "$RUNNER_TEMP/mirror.log"
+          tools/run_learn_mirror.sh 5 "$RUNNER_TEMP/mirror-message.txt" | tee "$RUNNER_TEMP/mirror.log"
           { echo '```'; cat "$RUNNER_TEMP/mirror.log"; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Commit mirror/

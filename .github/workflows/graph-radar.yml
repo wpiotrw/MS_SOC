@@ -1,0 +1,59 @@
+name: Graph radar
+
+# CLAUDE.md 5fs (30 X 2026): what Microsoft adds to Microsoft Graph - the live $metadata of beta and v1.0 compared with
+# the previous run (every type, property, navigation, action, function, entity set), and the tenant-wide configuration
+# objects of our developer tenant read with GET to find properties the service returns before $metadata knows them
+# (allowPasswordChangeAfterSecureSignIn, 30 X). Only property NAMES are kept, never a value (the repository is public).
+# Signs in with a federated credential (no secret): app "MS-SOC Dev tenant reader" of the developer tenant; its read-only
+# permissions are granted with tools/Grant-GraphRadarPermissions.ps1. Without them the tenant part records 403 and the
+# $metadata part still runs. Commits only when something changed; "Code refresh" deploys after it (workflow_run).
+on:
+  schedule:
+    - cron: "50 4,16 * * *"    # before the morning routine (06:00 Warsaw) and in the afternoon
+    - cron: "40 7 * * *"       # after the morning routine has published (Learn licensing edits from nt.pages)
+  push:
+    branches: [main]
+    paths:
+      - 'tools/graph_radar.py'
+      - '.github/workflows/graph-radar.yml'
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: write
+
+concurrency:
+  group: graph-radar
+  cancel-in-progress: false
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: History from the weekly schema syncs (first run only)
+        run: |
+          if [ ! -f data/graph-radar/history.json ]; then
+            git clone -q --filter=blob:none --no-checkout https://github.com/microsoftgraph/msgraph-metadata.git "$RUNNER_TEMP/gmeta"
+            echo "BACKFILL=--backfill $RUNNER_TEMP/gmeta" >> "$GITHUB_ENV"
+          fi
+      - name: $metadata (beta, v1.0) and the developer tenant (read-only)
+        timeout-minutes: 15
+        env:
+          AZURE_TENANT_ID: ${{ vars.DEV_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ vars.DEV_CLIENT_ID }}
+        run: python3 tools/graph_radar.py ${BACKFILL:-}
+      - name: Commit when it changed
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/graph-radar.json data/graph-radar
+          if git diff --cached --quiet; then echo "No change."; else
+            git commit -m "data: Graph radar $(date -u +%F' '%H:%M) UTC"
+            for i in 1 2 3; do git pull --rebase -q origin main && git push origin main && break; sleep 10; done
+          fi
