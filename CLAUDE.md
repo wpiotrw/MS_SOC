@@ -44385,6 +44385,7 @@ odtad CZTERNASCIE (4-17).**
     function fact(a, b) { if (!b) return; var w = el("div", "s5fj-f"); w.appendChild(el("dt", null, a)); w.appendChild(el("dd", null, b)); f.appendChild(w); }
     if (e.detail !== "enum type" && e.kind !== "member-new") fact("Path", e.path || "no path from a root of the API found");
     fact("Held by", e.holder);
+    if (e.at) fact("Where in the answer", e.at + " (" + (e.kindv || "") + ")");
     fact("Read with", ((e.cmd || {}).permGet || []).join(", "));
     fact("Changed with", ((e.cmd || {}).permPatch || []).join(", "));
     if (e.props && e.props.length) fact(e.detail === "enum type" ? "Values" : "Properties", e.props.join(", "));
@@ -44449,6 +44450,7 @@ odtad CZTERNASCIE (4-17).**
     (e.mc || []).forEach(function (m) { cs.appendChild(el("span", "s5dv-chip s5fq-req", m)); });
     mid.appendChild(cs);
     if (e.path) mid.appendChild(el("div", "s5fq-path", e.path));
+    if (e.at) mid.appendChild(el("div", "s5fs-at", "in the answer: " + e.at + " · " + (e.kindv || "")));
     li.appendChild(mid);
     li.addEventListener("click", function () { card(e); });
     li.addEventListener("keydown", function (x) { if (x.key === "Enter" || x.key === " ") { x.preventDefault(); card(e); } });
@@ -44473,7 +44475,11 @@ odtad CZTERNASCIE (4-17).**
     } else {
       var und = tn.undocumented || [];
       if (!und.length) ub.appendChild(el("p", "s5dv-note", "Every property the tenant returned is in $metadata today."));
-      else { var ol = el("ol", "s5fq-list"); und.forEach(function (u, i) { ol.appendChild(row({ undoc: 1, type: u.type, name: u.prop, prop: u.prop, path: u.path, label: u.label, first: u.first, cmd: u.cmd, mc: u.mc, ver: "beta" }, i)); }); ub.appendChild(ol); }
+      else { var ol = el("ol", "s5fq-list"); und.forEach(function (u, i) {
+        /* the name is type.property; where it sat in the answer ("authenticationMethodConfigurations[]") goes under it */
+        var leaf = String(u.prop).split(".").pop().replace("[]", ""), at = String(u.prop).slice(0, -leaf.length).replace(/\.$/, "");
+        ol.appendChild(row({ undoc: 1, type: u.type, name: leaf, prop: u.prop, at: at, path: u.itemPath || u.path, label: u.label, first: u.first, cmd: u.cmd, mc: u.mc, ver: "beta", kindv: u.kind }, i)); });
+        ub.appendChild(ol); }
       var ep = (tn.endpoints || []).filter(function (x) { return x.status !== 200; });
       if (ep.length) { var d = el("details", "s5fq-dl"); var s = el("summary"); s.appendChild(document.createTextNode("Endpoints not read")); s.appendChild(el("span", "s5fp-n", String(ep.length))); d.appendChild(s);
         var ul = el("ul", "s5fq-setl"); ep.forEach(function (x) { var li = el("li"); li.appendChild(el("b", null, x.label)); li.appendChild(el("span", "s5dv-sm", x.path + " · " + (x.note || "HTTP " + x.status))); ul.appendChild(li); }); d.appendChild(ul); ub.appendChild(d); }
@@ -47694,6 +47700,7 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .s5fs-code .s5fq-pre{border:0;border-radius:0;margin:0}
 .s5fs-copy{font:inherit;font-size:12.5px;padding:2px 10px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);cursor:pointer}
 .s5fs-note{font-size:13px;color:var(--muted);margin:6px 0 0}
+.s5fs-at{font-size:12.5px;color:var(--muted);overflow-wrap:anywhere}
 @media (max-width:640px){.s5cd-bar,.s5dv-vnav,.s5fg-nav{padding:6px 8px;gap:5px}.s5cd-bar::before{flex-basis:100%;margin:2px 0 2px 2px}
  .s5cd-bar button:not(.s5cd-drawer),.s5dv-vb,.s5fg-navb{font-size:14px;padding:7px 11px}}
 .s5fq-c-cisa{--sc:#3fb37f}.s5fq-c-m{--sc:var(--accent)}.s5fq-c-t{--sc:#e3a33b}.s5fq-c-z{--sc:#b48cff}.s5fq-c-i{--sc:#4cc2d6}
