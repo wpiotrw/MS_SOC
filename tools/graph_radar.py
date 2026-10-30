@@ -659,7 +659,32 @@ def main(argv):
     for u in und:   # the undocumented list carries its own command
         prop = u["prop"].split(".")[-1].replace("[]", "")
         ty = {"boolean": "Edm.Boolean", "number": "Edm.Int32", "string": "Edm.String", "array": "Collection(x)", "object": "x"}.get(u["kind"], "")
-        u["cmd"] = command(u["path"], u["type"], prop if "." not in u["prop"] and "[]" not in u["prop"] else "", ty, beta, gp)
+        val = sample(ty, beta) if ty else "<value>"
+        m1 = re.match(r"^(\w+)\[\]\.(\w+)$", u["prop"])
+        root_t = resolve_path(beta, u["path"])
+        if m1 and m1.group(1) in all_navs(beta, root_t):
+            # an item of a navigation collection (authenticationMethodConfigurations[]): the item has its own URL
+            p2 = u["path"] + "/" + m1.group(1) + "/{id}"
+            u["cmd"] = command(p2, u["type"], "", "", beta, gp)
+            u["cmd"]["patch"], u["cmd"]["body"] = u["cmd"]["get"], {"@odata.type": "#microsoft.graph." + u["type"], m1.group(2): val}
+            u["cmd"]["permPatch"] = perms_for(gp, p2, "PATCH") or perms_for(gp, u["path"], "PATCH")
+            u["itemPath"] = p2
+        elif "[]" not in u["prop"] and "." in u["prop"]:
+            # a property of a nested object: PATCH the root object with the nested shape
+            body = {}
+            cur = body
+            segs = u["prop"].split(".")
+            for sg in segs[:-1]:
+                cur[sg] = {}
+                cur = cur[sg]
+            cur[segs[-1]] = val
+            u["cmd"] = command(u["path"], root_t, "", "", beta, gp)
+            if u["cmd"]:
+                u["cmd"]["patch"], u["cmd"]["body"] = u["cmd"]["get"], dict({"@odata.type": "#microsoft.graph." + root_t}, **body)
+        elif "[]" not in u["prop"]:
+            u["cmd"] = command(u["path"], u["type"] if u["typeDocumented"] else root_t, prop, ty, beta, gp)
+        else:
+            u["cmd"] = command(u["path"], root_t, "", "", beta, gp)   # deeper in a list: GET only
         u["mc"] = mc_match(mci, prop)
         u["first"] = (tstate.get("first") or {}).get(u["type"] + "|" + u["prop"], day)
     # history
