@@ -5182,6 +5182,42 @@
 "MC1470881"
 ]
 },
+"c-mc1470871":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-30",
+"name":"User.ReadBasic.All will no longer allow reading user app role assignments and license details",
+"status":"No date",
+"members":[
+"MC1470871"
+],
+"log":[],
+"milestones":{
+"MC1470871|posted":{
+"date":"2026-09-11",
+"label":"11 Sep 2026",
+"text":"Posted: Microsoft Graph: User.ReadBasic.All will no longer allow reading user app role assignments and license details"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1470871":{
+"title":"Microsoft Graph: User.ReadBasic.All will no longer allow reading user app role assignments and license details",
+"link":"https://mc.merill.net/message/MC1470871",
+"source":"Message Center",
+"id":"MC1470871",
+"date":"2026-09-11",
+"updated":"2026-09-11",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":null,
+"type":"Enforcement",
+"tech":"Entra",
+"posts":[
+"MC1470871"
+]
+},
 "c-mc1465771":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-30",
@@ -6169,14 +6205,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-27",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-28",
 "text":"August 1, 2026."
 },
@@ -6258,6 +6286,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-29",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-30",
 "text":"August 1, 2026."
 },
 {
@@ -6706,22 +6742,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-28",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-10-28",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-10-29",
 "text":"early February 2026."
 },
@@ -6811,6 +6831,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-10-29",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-30",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-30",
 "text":"February 2027."
 },
 {
@@ -10485,22 +10521,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-28",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-10-28",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-10-29",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -10590,6 +10610,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-10-29",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-30",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-30",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -16966,53 +17002,6 @@
 "MC1262588",
 "MC1400824"
 ]
-},
-"c-mc1470871":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-30",
-"name":"User.ReadBasic.All will no longer allow reading user app role assignments and license details",
-"status":"Archive",
-"members":[
-"MC1470871"
-],
-"log":[],
-"milestones":{
-"MC1470871|posted":{
-"date":"2026-09-11",
-"label":"11 Sep 2026",
-"text":"Posted: Microsoft Graph: User.ReadBasic.All will no longer allow reading user app role assignments and license details"
-},
-"MC1470871|beginning in mid and expected to complete by late#0":{
-"date":"2026-09-15",
-"label":"mid Sep 2026",
-"text":"Beginning in mid-September 2026 and expected to complete by late September 2026."
-},
-"MC1470871|beginning in mid and expected to complete by late#1":{
-"date":"2026-09-25",
-"label":"late Sep 2026",
-"text":"Beginning in mid-September 2026 and expected to complete by late September 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1470871":{
-"title":"Microsoft Graph: User.ReadBasic.All will no longer allow reading user app role assignments and license details",
-"link":"https://mc.merill.net/message/MC1470871",
-"source":"Message Center",
-"id":"MC1470871",
-"date":"2026-09-11",
-"updated":"2026-09-11",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":"2026-09-25",
-"type":"Enforcement",
-"tech":"Entra",
-"posts":[
-"MC1470871"
-],
-"archivedOn":"2026-10-26"
 },
 "c-mc1462464":{
 "firstSeen":"2026-10-09",
