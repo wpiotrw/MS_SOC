@@ -1,6 +1,238 @@
 {
 "updated":"2026-10-30",
 "campaigns":{
+"c-mc1450127":{
+"firstSeen":"2026-10-22",
+"lastSeen":"2026-10-30",
+"name":"End-of-support Android devices may not be manageable through the Pro Management Portal",
+"status":"Recently closed",
+"members":[
+"MC1450127"
+],
+"log":[
+{
+"date":"2026-10-30",
+"id":"MC1450127",
+"what":"Microsoft revised the post",
+"before":"2026-10-22",
+"after":"2026-10-29",
+"title":"End-of-support Android devices may not be manageable through the Pro Management Portal",
+"link":"https://mc.merill.net/message/MC1450127"
+},
+{
+"date":"2026-10-22",
+"id":"MC1450127",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"End-of-support Android devices may not be manageable through the Pro Management Portal",
+"title":"End-of-support Android devices may not be manageable through the Pro Management Portal",
+"link":"https://mc.merill.net/message/MC1450127"
+}
+],
+"milestones":{
+"MC1450127|posted":{
+"date":"2026-08-07",
+"label":"7 Aug 2026",
+"text":"Posted: End-of-support Android devices may not be manageable through the Pro Management Portal"
+},
+"MC1450127|microsoft is transitioning teams android device management f#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"Microsoft is transitioning Teams Android device management from the Teams admin center to the Teams Rooms Pro Management Portal by October 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1450127":{
+"title":"End-of-support Android devices may not be manageable through the Pro Management Portal",
+"link":"https://mc.merill.net/message/MC1450127",
+"source":"Message Center",
+"id":"MC1450127",
+"date":"2026-08-07",
+"updated":"2026-10-22",
+"group":"microsoft",
+"found":"2026-10-22"
+}
+},
+"final":"2026-10-15",
+"type":"Retirement",
+"tech":"Teams",
+"posts":[
+"MC1450127"
+]
+},
+"c-mc1448373":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-30",
+"name":"Teams device management transition from Teams admin center to Teams Rooms Pro management portal",
+"status":"Recently closed",
+"members":[
+"MC1448373",
+"MC1469551"
+],
+"log":[
+{
+"date":"2026-10-30",
+"id":"MC1448373",
+"what":"Microsoft revised the post",
+"before":"2026-10-07",
+"after":"2026-10-29",
+"title":"Teams device management transition from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://mc.merill.net/message/MC1448373"
+},
+{
+"date":"2026-10-07",
+"id":"MC1448373",
+"what":"Microsoft revised the post",
+"before":"2026-10-01",
+"after":"2026-10-07",
+"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://mc.merill.net/message/MC1448373"
+},
+{
+"date":"2026-10-02",
+"id":"MC1469551",
+"what":"Title",
+"before":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"after":"(Updated) Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
+},
+{
+"date":"2026-10-02",
+"id":"MC1469551",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
+},
+{
+"date":"2026-10-02",
+"id":"MC1469551",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
+},
+{
+"date":"2026-10-02",
+"id":"MC1469551",
+"what":"Microsoft moved the date",
+"before":"late Sep 2026",
+"after":"late Oct 2026",
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
+},
+{
+"date":"2026-10-02",
+"id":"MC1469551",
+"what":"Microsoft revised the post",
+"before":"2026-09-09",
+"after":"2026-10-02",
+"title":"Teams admin center device state rules and health alerts: retirement slips from late September to late October",
+"link":"https://deltapulse.app/item/MC1469551"
+},
+{
+"date":"2026-10-01",
+"id":"MC1448373",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"2 weeks until Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
+"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://mc.merill.net/message/MC1448373"
+},
+{
+"date":"2026-09-28",
+"id":"MC1469551",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"title":"Teams admin center device state rules and health alerts: retirement slips from late September to late October",
+"link":"https://deltapulse.app/item/MC1469551"
+}
+],
+"milestones":{
+"MC1448373|posted":{
+"date":"2026-08-05",
+"label":"5 Aug 2026",
+"text":"Posted: Teams device management transition from Teams admin center to Teams Rooms Pro management portal"
+},
+"MC1469551|posted":{
+"date":"2026-09-09",
+"label":"9 Sep 2026",
+"text":"Posted: Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal"
+},
+"MC1448373|teams device management will transition from teams admin cen#0":{
+"date":"2026-10-15",
+"label":"Oct 2026",
+"text":"Teams device management will transition from Teams Admin Center to Teams Rooms Pro Management Portal starting October 2026, with phased rollout by device type."
+},
+"MC1469551|we will begin rolling out late previously late and expect to#0":{
+"date":"2026-10-25",
+"label":"late Oct 2026",
+"text":"We will begin rolling out late October 2026 (previously late September) and expect to complete by late October 2026 (previously late September)."
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1448373":{
+"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://deltapulse.app/item/MC1448373",
+"source":"Message Center",
+"id":"MC1448373",
+"date":"2026-08-05",
+"updated":"2026-10-07",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1469551":{
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551",
+"source":"Message Center",
+"id":"MC1469551",
+"date":"2026-09-09",
+"updated":"2026-10-02",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1469551":{
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://deltapulse.app/item/MC1469551",
+"source":"Main list source",
+"id":"MC1469551",
+"date":"2026-09-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1448373":{
+"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://mc.merill.net/message/MC1448373",
+"source":"Message Center",
+"id":"MC1448373",
+"date":"2026-08-05",
+"updated":"2026-10-07",
+"group":"microsoft",
+"found":"2026-10-12"
+},
+"https://mc.merill.net/message/MC1227622":{
+"title":"MC1227622: Transitioning Teams Android Device Management from Teams admin Center to the Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1227622",
+"source":"MC - Merill",
+"date":"2026-10-29",
+"group":"community",
+"found":"2026-10-30"
+}
+},
+"final":"2026-10-25",
+"type":"Retirement",
+"tech":"Teams",
+"posts":[
+"MC1448373",
+"MC1469551"
+]
+},
 "c-mc1488834":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-30",
@@ -143,6 +375,62 @@
 "MC1488834",
 "MC1488839",
 "MC1529463"
+]
+},
+"c-mc1474124":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-30",
+"name":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
+"status":"No date",
+"members":[
+"MC1474124",
+"item:MC1474124"
+],
+"log":[
+{
+"date":"2026-10-29",
+"id":"MC1474124",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
+"title":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
+"link":"https://deltapulse.app/item/MC1474124"
+},
+{
+"date":"2026-10-29",
+"id":"MC1474124",
+"what":"Microsoft revised the post",
+"before":"2026-09-18",
+"after":"2026-10-28",
+"title":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
+"link":"https://deltapulse.app/item/MC1474124"
+}
+],
+"milestones":{
+"MC1474124|posted":{
+"date":"2026-09-18",
+"label":"18 Sep 2026",
+"text":"Posted: A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps"
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1474124":{
+"title":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
+"link":"https://deltapulse.app/item/MC1474124",
+"source":"Message Center",
+"id":"MC1474124",
+"date":"2026-09-18",
+"updated":"2026-09-18",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":null,
+"type":"Rollout",
+"tech":"Copilot",
+"posts":[
+"MC1474124"
 ]
 },
 "c-mc1528013":{
@@ -491,6 +779,22 @@
 "date":"2026-10-27",
 "group":"community",
 "found":"2026-10-28"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/bring-your-own-telephony-to-voice-agents-via-sip/ba-p/4562702":{
+"title":"Bring Your Own Telephony to Voice Agents via SIP",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/bring-your-own-telephony-to-voice-agents-via-sip/ba-p/4562702",
+"source":"Azure AI Foundry Blog",
+"date":"2026-10-29",
+"group":"microsoft",
+"found":"2026-10-30"
+},
+"https://mc.merill.net/message/MC1518029":{
+"title":"MC1518029: Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1518029",
+"source":"MC - Merill",
+"date":"2026-10-29",
+"group":"community",
+"found":"2026-10-30"
 }
 },
 "final":"2027-07-01",
@@ -1010,57 +1314,6 @@
 "tech":"Exchange",
 "posts":[
 "MC1519861"
-]
-},
-"c-mc1450127":{
-"firstSeen":"2026-10-22",
-"lastSeen":"2026-10-30",
-"name":"End-of-support Android devices may not be manageable through the Pro Management Portal",
-"status":"Recently closed",
-"members":[
-"MC1450127"
-],
-"log":[
-{
-"date":"2026-10-22",
-"id":"MC1450127",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"End-of-support Android devices may not be manageable through the Pro Management Portal",
-"title":"End-of-support Android devices may not be manageable through the Pro Management Portal",
-"link":"https://mc.merill.net/message/MC1450127"
-}
-],
-"milestones":{
-"MC1450127|posted":{
-"date":"2026-08-07",
-"label":"7 Aug 2026",
-"text":"Posted: End-of-support Android devices may not be manageable through the Pro Management Portal"
-},
-"MC1450127|microsoft is transitioning teams android device management f#0":{
-"date":"2026-10-15",
-"label":"Oct 2026",
-"text":"Microsoft is transitioning Teams Android device management from the Teams admin center to the Teams Rooms Pro Management Portal by October 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1450127":{
-"title":"End-of-support Android devices may not be manageable through the Pro Management Portal",
-"link":"https://mc.merill.net/message/MC1450127",
-"source":"Message Center",
-"id":"MC1450127",
-"date":"2026-08-07",
-"updated":"2026-10-22",
-"group":"microsoft",
-"found":"2026-10-22"
-}
-},
-"final":"2026-10-15",
-"type":"Retirement",
-"tech":"Teams",
-"posts":[
-"MC1450127"
 ]
 },
 "c-mc676299":{
@@ -1727,6 +1980,14 @@
 "date":"2026-10-23",
 "group":"community",
 "found":"2026-10-27"
+},
+"https://dev.to/amrithesh_dev/mistrals-1-trillion-parameter-model-is-open-source-what-this-means-for-your-business-pd5":{
+"title":"Mistral’s 1‑Trillion‑Parameter Model Is Open‑Source—What This Means for Your Business",
+"link":"https://dev.to/amrithesh_dev/mistrals-1-trillion-parameter-model-is-open-source-what-this-means-for-your-business-pd5",
+"source":"NeonTiger12",
+"date":"2026-10-30",
+"group":"community",
+"found":"2026-10-30"
 }
 },
 "final":"2027-07-05",
@@ -4224,161 +4485,6 @@
 "MC1490899"
 ]
 },
-"c-mc1448373":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-30",
-"name":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
-"status":"Recently closed",
-"members":[
-"MC1448373",
-"MC1469551"
-],
-"log":[
-{
-"date":"2026-10-07",
-"id":"MC1448373",
-"what":"Microsoft revised the post",
-"before":"2026-10-01",
-"after":"2026-10-07",
-"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
-"link":"https://mc.merill.net/message/MC1448373"
-},
-{
-"date":"2026-10-02",
-"id":"MC1469551",
-"what":"Title",
-"before":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"after":"(Updated) Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"link":"https://mc.merill.net/message/MC1469551"
-},
-{
-"date":"2026-10-02",
-"id":"MC1469551",
-"what":"Microsoft edited the post text",
-"before":"",
-"after":"see the post",
-"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"link":"https://mc.merill.net/message/MC1469551"
-},
-{
-"date":"2026-10-02",
-"id":"MC1469551",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the timeline.",
-"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"link":"https://mc.merill.net/message/MC1469551"
-},
-{
-"date":"2026-10-02",
-"id":"MC1469551",
-"what":"Microsoft moved the date",
-"before":"late Sep 2026",
-"after":"late Oct 2026",
-"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"link":"https://mc.merill.net/message/MC1469551"
-},
-{
-"date":"2026-10-02",
-"id":"MC1469551",
-"what":"Microsoft revised the post",
-"before":"2026-09-09",
-"after":"2026-10-02",
-"title":"Teams admin center device state rules and health alerts: retirement slips from late September to late October",
-"link":"https://deltapulse.app/item/MC1469551"
-},
-{
-"date":"2026-10-01",
-"id":"MC1448373",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"2 weeks until Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
-"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
-"link":"https://mc.merill.net/message/MC1448373"
-},
-{
-"date":"2026-09-28",
-"id":"MC1469551",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"title":"Teams admin center device state rules and health alerts: retirement slips from late September to late October",
-"link":"https://deltapulse.app/item/MC1469551"
-}
-],
-"milestones":{
-"MC1448373|posted":{
-"date":"2026-08-05",
-"label":"5 Aug 2026",
-"text":"Posted: Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal"
-},
-"MC1469551|posted":{
-"date":"2026-09-09",
-"label":"9 Sep 2026",
-"text":"Posted: Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal"
-},
-"MC1448373|teams device management will transition from teams admin cen#0":{
-"date":"2026-10-15",
-"label":"Oct 2026",
-"text":"Teams device management will transition from Teams Admin Center to Teams Rooms Pro Management Portal starting October 2026, with phased rollout by device type."
-},
-"MC1469551|we will begin rolling out late previously late and expect to#0":{
-"date":"2026-10-25",
-"label":"late Oct 2026",
-"text":"We will begin rolling out late October 2026 (previously late September) and expect to complete by late October 2026 (previously late September)."
-}
-},
-"moves":[],
-"materials":{
-"https://deltapulse.app/item/MC1448373":{
-"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
-"link":"https://deltapulse.app/item/MC1448373",
-"source":"Message Center",
-"id":"MC1448373",
-"date":"2026-08-05",
-"updated":"2026-10-07",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1469551":{
-"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"link":"https://mc.merill.net/message/MC1469551",
-"source":"Message Center",
-"id":"MC1469551",
-"date":"2026-09-09",
-"updated":"2026-10-02",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/MC1469551":{
-"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"link":"https://deltapulse.app/item/MC1469551",
-"source":"Main list source",
-"id":"MC1469551",
-"date":"2026-09-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1448373":{
-"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
-"link":"https://mc.merill.net/message/MC1448373",
-"source":"Message Center",
-"id":"MC1448373",
-"date":"2026-08-05",
-"updated":"2026-10-07",
-"group":"microsoft",
-"found":"2026-10-12"
-}
-},
-"final":"2026-10-25",
-"type":"Retirement",
-"tech":"Teams",
-"posts":[
-"MC1448373",
-"MC1469551"
-]
-},
 "c-mc1479516":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-30",
@@ -4778,62 +4884,6 @@
 "tech":"Defender",
 "posts":[
 "MC1478463"
-]
-},
-"c-mc1474124":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-30",
-"name":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
-"status":"No date",
-"members":[
-"MC1474124",
-"item:MC1474124"
-],
-"log":[
-{
-"date":"2026-10-29",
-"id":"MC1474124",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
-"title":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
-"link":"https://deltapulse.app/item/MC1474124"
-},
-{
-"date":"2026-10-29",
-"id":"MC1474124",
-"what":"Microsoft revised the post",
-"before":"2026-09-18",
-"after":"2026-10-28",
-"title":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
-"link":"https://deltapulse.app/item/MC1474124"
-}
-],
-"milestones":{
-"MC1474124|posted":{
-"date":"2026-09-18",
-"label":"18 Sep 2026",
-"text":"Posted: A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps"
-}
-},
-"moves":[],
-"materials":{
-"https://deltapulse.app/item/MC1474124":{
-"title":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
-"link":"https://deltapulse.app/item/MC1474124",
-"source":"Message Center",
-"id":"MC1474124",
-"date":"2026-09-18",
-"updated":"2026-09-18",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":null,
-"type":"Rollout",
-"tech":"Copilot",
-"posts":[
-"MC1474124"
 ]
 },
 "c-mc1278920":{
@@ -5511,6 +5561,14 @@
 "updated":"2026-08-21",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://dev.to/javart/a-free-landing-page-template-with-zero-dependencies-htmlcssjs-only-5cli":{
+"title":"A Free Landing Page Template With Zero Dependencies (HTML/CSS/JS Only)",
+"link":"https://dev.to/javart/a-free-landing-page-template-with-zero-dependencies-htmlcssjs-only-5cli",
+"source":"NeonTiger12",
+"date":"2026-10-30",
+"group":"community",
+"found":"2026-10-30"
 }
 },
 "final":"2026-10-31",
@@ -6119,14 +6177,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-27",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-28",
 "text":"August 1, 2026."
 },
@@ -6208,6 +6258,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-29",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-30",
 "text":"August 1, 2026."
 },
 {
@@ -6664,22 +6722,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-28",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-10-28",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-10-29",
 "text":"early February 2026."
 },
@@ -6769,6 +6811,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-10-29",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-10-30",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-10-30",
 "text":"February 2027."
 },
 {
@@ -7040,8 +7098,7 @@
 "name":"Upcoming Conditional Access change: Improved enforcement for policies with resource exclusions",
 "status":"No date",
 "members":[
-"MC1223829",
-"item:entra-ca-baseline-scopes-doc-revised-2026-10-08"
+"MC1223829"
 ],
 "log":[
 {
@@ -7252,6 +7309,14 @@
 "date":"2026-08-14",
 "group":"microsoft",
 "found":"2026-10-23"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/manage-global-exclusion-policies-for-linux-across-both-av-and/ba-p/4420127":{
+"title":"Manage global exclusion policies for Linux across both AV and EDR",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/manage-global-exclusion-policies-for-linux-across-both-av-and/ba-p/4420127",
+"source":"Microsoft Defender for Endpoint Blog",
+"date":"2025-06-05",
+"group":"microsoft",
+"found":"2026-10-30"
 }
 },
 "final":"2026-10-30",
@@ -8558,33 +8623,6 @@
 "MC1488841"
 ]
 },
-"c-item-win11-26h2-security-baseline-v2-2026-10-08-2":{
-"firstSeen":"2026-10-20",
-"lastSeen":"2026-10-30",
-"name":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with…",
-"status":"Released",
-"members":[
-"item:win11-26h2-security-baseline-v2-2026-10-08"
-],
-"log":[],
-"milestones":{},
-"moves":[],
-"materials":{
-"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382":{
-"title":"Windows 11, version 26H2 security baseline",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382",
-"source":"Main list source",
-"id":"win11-26h2-security-baseline-v2-2026-10-08",
-"date":"2026-10-08",
-"group":"microsoft",
-"found":"2026-10-20"
-}
-},
-"final":null,
-"type":"Baseline",
-"tech":"Windows",
-"posts":[]
-},
 "c-item-mc1506318":{
 "firstSeen":"2026-10-14",
 "lastSeen":"2026-10-30",
@@ -8869,105 +8907,6 @@
 "MC1519122"
 ]
 },
-"c-item-mc1509789":{
-"firstSeen":"2026-10-16",
-"lastSeen":"2026-10-30",
-"name":"Browser-native XSLT will be disabled by default",
-"status":"Active",
-"members":[
-"MC1509789",
-"item:MC1509789"
-],
-"log":[
-{
-"date":"2026-10-16",
-"id":"MC1509789",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Edge 159 switches browser-native XSLT off by default from mid-December; the temporary XSLTEnabled policy goes in Edge 176",
-"title":"Edge 159 switches browser-native XSLT off by default from mid-December; the temporary XSLTEnabled policy goes in Edge 176",
-"link":"https://deltapulse.app/item/MC1509789"
-}
-],
-"milestones":{
-"MC1509789|posted":{
-"date":"2026-10-15",
-"label":"15 Oct 2026",
-"text":"Posted: Microsoft Edge: Browser-native XSLT will be disabled by default"
-},
-"MC1509789|microsoft edge will disable browser native xslt by default s#0":{
-"date":"2026-12-15",
-"label":"mid Dec 2026",
-"text":"Microsoft Edge will disable browser-native XSLT by default starting mid-December 2026 to reduce security risks."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1509789":{
-"title":"Microsoft Edge: Browser-native XSLT will be disabled by default",
-"link":"https://mc.merill.net/message/MC1509789",
-"source":"Message Center",
-"id":"MC1509789",
-"date":"2026-10-15",
-"updated":"2026-10-15",
-"group":"microsoft",
-"found":"2026-10-16"
-},
-"https://deltapulse.app/item/MC1509789":{
-"title":"Microsoft Edge: Browser-native XSLT will be disabled by default",
-"link":"https://deltapulse.app/item/MC1509789",
-"source":"Main list source",
-"id":"MC1509789",
-"date":"2026-10-15",
-"group":"microsoft",
-"found":"2026-10-16"
-}
-},
-"final":"2026-12-15",
-"type":"Retirement",
-"tech":"Microsoft 365",
-"posts":[
-"MC1509789"
-]
-},
-"c-item-mde-ai-readiness-secure-score":{
-"firstSeen":"2026-10-16",
-"lastSeen":"2026-10-30",
-"name":"Six Secure Score recommendations are grouped as an AI-Readiness device baseline, four of them new",
-"status":"No date",
-"members":[
-"item:mde-ai-readiness-secure-score",
-"item:mdvm-store-apps-va-ga-2026-10"
-],
-"log":[
-{
-"date":"2026-10-16",
-"id":"mdvm-store-apps-va-ga-2026-10",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Vulnerability assessment for Microsoft Store applications is generally available in Defender Vulnerability Management",
-"title":"Vulnerability assessment for Microsoft Store applications is generally available in Defender Vulnerability Management",
-"link":"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint"
-}
-],
-"milestones":{},
-"moves":[],
-"materials":{
-"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint":{
-"title":"New Microsoft Secure Score recommendations for AI-Readiness",
-"link":"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint",
-"source":"Main list source",
-"id":"mde-ai-readiness-secure-score",
-"date":"2026-09-24",
-"group":"microsoft",
-"found":"2026-10-16"
-}
-},
-"final":null,
-"type":"Rollout",
-"tech":"Defender",
-"posts":[]
-},
 "c-item-mc1511056":{
 "firstSeen":"2026-10-17",
 "lastSeen":"2026-10-30",
@@ -9180,6 +9119,14 @@
 "date":"2026-09-24",
 "group":"microsoft",
 "found":"2026-10-20"
+},
+"https://azure.microsoft.com/updates?id=578850":{
+"title":"[Launched] Generally Available: Large OS Disk Encryption for Azure Confidential VM migrations",
+"link":"https://azure.microsoft.com/updates?id=578850",
+"source":"Azure Updates",
+"date":"2026-10-29",
+"group":"microsoft",
+"found":"2026-10-30"
 }
 },
 "final":null,
@@ -9956,6 +9903,30 @@
 "date":"2026-10-29",
 "group":"community",
 "found":"2026-10-29"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/bring-your-own-telephony-to-voice-agents-via-sip/ba-p/4562702":{
+"title":"Bring Your Own Telephony to Voice Agents via SIP",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/bring-your-own-telephony-to-voice-agents-via-sip/ba-p/4562702",
+"source":"Azure AI Foundry Blog",
+"date":"2026-10-29",
+"group":"microsoft",
+"found":"2026-10-30"
+},
+"https://mc.merill.net/message/MC1518029":{
+"title":"MC1518029: Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1518029",
+"source":"MC - Merill",
+"date":"2026-10-29",
+"group":"community",
+"found":"2026-10-30"
+},
+"https://thehackernews.com/2026/10/telegram-android-flaw-lets-attackers.html":{
+"title":"Telegram Android Flaw Lets Attackers Run Code When Users Answer Voice Calls",
+"link":"https://thehackernews.com/2026/10/telegram-android-flaw-lets-attackers.html",
+"source":"Hacker News",
+"date":"2026-10-29",
+"group":"community",
+"found":"2026-10-30"
 }
 },
 "final":"2027-07-01",
@@ -10530,22 +10501,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-28",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-10-28",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-10-29",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -10635,6 +10590,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-10-29",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-10-30",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-10-30",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11051,6 +11022,22 @@
 "date":"2026-10-28",
 "group":"community",
 "found":"2026-10-28"
+},
+"https://mc.merill.net/message/MC1518029":{
+"title":"MC1518029: Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1518029",
+"source":"MC - Merill",
+"date":"2026-10-29",
+"group":"community",
+"found":"2026-10-30"
+},
+"https://janbakker.tech/authentication-strength-conditional-access-policy-loops-microsoft-authenticator-credential-registration-service-principal/":{
+"title":"A new workaround for authentication strength Conditional Access policy loops: Microsoft Authenticator Credential Registration service principal",
+"link":"https://janbakker.tech/authentication-strength-conditional-access-policy-loops-microsoft-authenticator-credential-registration-service-principal/",
+"source":"JanBakker Tech - EntraID",
+"date":"2026-10-29",
+"group":"community",
+"found":"2026-10-30"
 }
 },
 "final":"2027-02-25",
@@ -15930,6 +15917,116 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-10-30",
+"cid":"c-mc1448373",
+"type":"material",
+"name":"Teams device management transition from Teams admin center to Teams Rooms Pro management portal",
+"group":"community",
+"title":"MC1227622: Transitioning Teams Android Device Management from Teams admin Center to the Teams Rooms Pro Management portal",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1227622"
+},
+{
+"day":"2026-10-30",
+"cid":"c-item-mc1519855",
+"type":"material",
+"name":"Choose your own telephony provider for SMS and voice authentication",
+"group":"microsoft",
+"title":"Bring Your Own Telephony to Voice Agents via SIP",
+"source":"Azure AI Foundry Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/bring-your-own-telephony-to-voice-agents-via-sip/ba-p/4562702"
+},
+{
+"day":"2026-10-30",
+"cid":"c-item-mc1519855",
+"type":"material",
+"name":"Choose your own telephony provider for SMS and voice authentication",
+"group":"community",
+"title":"MC1518029: Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice authentication",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1518029"
+},
+{
+"day":"2026-10-30",
+"cid":"c-mc676299",
+"type":"material",
+"name":"Exchange Web Services (EWS) retirement update",
+"group":"community",
+"title":"Mistral’s 1‑Trillion‑Parameter Model Is Open‑Source—What This Means for Your Business",
+"source":"NeonTiger12",
+"link":"https://dev.to/amrithesh_dev/mistrals-1-trillion-parameter-model-is-open-source-what-this-means-for-your-business-pd5"
+},
+{
+"day":"2026-10-30",
+"cid":"c-mc1435782",
+"type":"material",
+"name":"Retirement of custom CSS positioning properties in custom branding",
+"group":"community",
+"title":"A Free Landing Page Template With Zero Dependencies (HTML/CSS/JS Only)",
+"source":"NeonTiger12",
+"link":"https://dev.to/javart/a-free-landing-page-template-with-zero-dependencies-htmlcssjs-only-5cli"
+},
+{
+"day":"2026-10-30",
+"cid":"c-item-azure-confidential-vm-large-os-disk-encryption-ga-2026-",
+"type":"material",
+"name":"Large OS Disk Encryption is generally available for Azure Confidential VM migrations",
+"group":"microsoft",
+"title":"[Launched] Generally Available: Large OS Disk Encryption for Azure Confidential VM migrations",
+"source":"Azure Updates",
+"link":"https://azure.microsoft.com/updates?id=578850"
+},
+{
+"day":"2026-10-30",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"microsoft",
+"title":"Bring Your Own Telephony to Voice Agents via SIP",
+"source":"Azure AI Foundry Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/bring-your-own-telephony-to-voice-agents-via-sip/ba-p/4562702"
+},
+{
+"day":"2026-10-30",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"MC1518029: Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice authentication",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1518029"
+},
+{
+"day":"2026-10-30",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Telegram Android Flaw Lets Attackers Run Code When Users Answer Voice Calls",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/10/telegram-android-flaw-lets-attackers.html"
+},
+{
+"day":"2026-10-30",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"MC1518029: Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice authentication",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1518029"
+},
+{
+"day":"2026-10-30",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"A new workaround for authentication strength Conditional Access policy loops: Microsoft Authenticator Credential Registration service principal",
+"source":"JanBakker Tech - EntraID",
+"link":"https://janbakker.tech/authentication-strength-conditional-access-policy-loops-microsoft-authenticator-credential-registration-service-principal/"
 }
 ],
 "archive":{
@@ -17116,6 +17213,132 @@
 "MC1483538"
 ],
 "archivedOn":"2026-10-30"
+},
+"c-item-win11-26h2-security-baseline-v2-2026-10-08-2":{
+"firstSeen":"2026-10-20",
+"lastSeen":"2026-10-30",
+"name":"Windows 11 26H2 security baseline is reissued as v2: Administrator protection is now part of it, with…",
+"status":"Archive",
+"members":[
+"item:win11-26h2-security-baseline-v2-2026-10-08"
+],
+"log":[],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382":{
+"title":"Windows 11, version 26H2 security baseline",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/windows-11-version-26h2-security-baseline/ba-p/4560382",
+"source":"Main list source",
+"id":"win11-26h2-security-baseline-v2-2026-10-08",
+"date":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-20"
+}
+},
+"final":null,
+"type":"Baseline",
+"tech":"Windows",
+"posts":[]
+},
+"c-item-mc1509789":{
+"firstSeen":"2026-10-16",
+"lastSeen":"2026-10-30",
+"name":"Browser-native XSLT will be disabled by default",
+"status":"Archive",
+"members":[
+"MC1509789",
+"item:MC1509789"
+],
+"log":[
+{
+"date":"2026-10-16",
+"id":"MC1509789",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Edge 159 switches browser-native XSLT off by default from mid-December; the temporary XSLTEnabled policy goes in Edge 176",
+"title":"Edge 159 switches browser-native XSLT off by default from mid-December; the temporary XSLTEnabled policy goes in Edge 176",
+"link":"https://deltapulse.app/item/MC1509789"
+}
+],
+"milestones":{
+"MC1509789|posted":{
+"date":"2026-10-15",
+"label":"15 Oct 2026",
+"text":"Posted: Microsoft Edge: Browser-native XSLT will be disabled by default"
+},
+"MC1509789|microsoft edge will disable browser native xslt by default s#0":{
+"date":"2026-12-15",
+"label":"mid Dec 2026",
+"text":"Microsoft Edge will disable browser-native XSLT by default starting mid-December 2026 to reduce security risks."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1509789":{
+"title":"Microsoft Edge: Browser-native XSLT will be disabled by default",
+"link":"https://mc.merill.net/message/MC1509789",
+"source":"Message Center",
+"id":"MC1509789",
+"date":"2026-10-15",
+"updated":"2026-10-15",
+"group":"microsoft",
+"found":"2026-10-16"
+},
+"https://deltapulse.app/item/MC1509789":{
+"title":"Microsoft Edge: Browser-native XSLT will be disabled by default",
+"link":"https://deltapulse.app/item/MC1509789",
+"source":"Main list source",
+"id":"MC1509789",
+"date":"2026-10-15",
+"group":"microsoft",
+"found":"2026-10-16"
+}
+},
+"final":"2026-12-15",
+"type":"Retirement",
+"tech":"Microsoft 365",
+"posts":[
+"MC1509789"
+]
+},
+"c-item-mde-ai-readiness-secure-score":{
+"firstSeen":"2026-10-16",
+"lastSeen":"2026-10-30",
+"name":"Six Secure Score recommendations are grouped as an AI-Readiness device baseline, four of them new",
+"status":"Archive",
+"members":[
+"item:mde-ai-readiness-secure-score",
+"item:mdvm-store-apps-va-ga-2026-10"
+],
+"log":[
+{
+"date":"2026-10-16",
+"id":"mdvm-store-apps-va-ga-2026-10",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Vulnerability assessment for Microsoft Store applications is generally available in Defender Vulnerability Management",
+"title":"Vulnerability assessment for Microsoft Store applications is generally available in Defender Vulnerability Management",
+"link":"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint"
+}
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint":{
+"title":"New Microsoft Secure Score recommendations for AI-Readiness",
+"link":"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint",
+"source":"Main list source",
+"id":"mde-ai-readiness-secure-score",
+"date":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-16"
+}
+},
+"final":null,
+"type":"Rollout",
+"tech":"Defender",
+"posts":[]
 }
 }
 }
