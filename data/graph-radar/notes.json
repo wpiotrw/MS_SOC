@@ -1,0 +1,345 @@
+{
+  "_about": "CLAUDE.md 5ft (30 X 2026): hand-written notes for properties the Graph radar found in our developer tenant before Microsoft's $metadata knew them. Key: type|property. basis: microsoft = Microsoft described the feature (Message Center, Learn), article = a community article names it, name = our reading of the property's name only (nothing published yet). uses: what an admin could do with it - our suggestion, never Microsoft's text. articles: checked by hand on the day in 'checked'; rel names-it = the article names this property, feature = the article describes the feature, not the property. Author: Piotr Wisniewski.",
+  "notes": {
+    "passwordAuthenticationMethodConfiguration|allowPasswordChangeAfterSecureSignIn": {
+      "title": "Password change after a secure sign-in",
+      "what": "Lets users change their password in My Sign-Ins after signing in with a strong credential (passkey, FIDO2 security key, Windows Hello for Business), without typing the current password and without SSPR. Off by default; Microsoft rolls it out worldwide in October and November 2026 (MC1437671).",
+      "uses": [
+        "Users who sign in passwordless but still keep a password for an old app or VPN can rotate it themselves, without a help desk call",
+        "Turn it on for a pilot group first - the Password method configuration is one object for the whole tenant",
+        "Pair it with an authentication strength that requires phishing-resistant MFA, so only a strong sign-in opens the password change",
+        "In a tenant review: off means users who forgot their password still go through SSPR or the help desk"
+      ],
+      "basis": "microsoft",
+      "checked": "2026-10-30",
+      "articles": [
+        {"title": "MC1437671 - Microsoft Entra: Allow password change after secure sign-in with My Sign-Ins", "url": "https://mc.merill.net/message/MC1437671", "by": "Microsoft Message Center (merill.net)", "date": "2026-07-23", "rel": "feature"},
+        {"title": "Microsoft Entra: Passwordless password change in My Sign-Ins", "url": "https://m365admin.handsontek.net/?p=22770", "by": "M365 Admin (handsontek)", "date": "", "rel": "feature"}
+      ]
+    },
+    "defaultUserRolePermissions|allowedToCreateAgentIdentityBlueprints": {
+      "title": "Users can register agent identity blueprints",
+      "what": "The switch behind 'Users can register agent identity blueprints' in Default user role permissions of the authorization policy. It is separate from 'Users can register applications', so blocking app registrations does not block blueprints. Three community articles describe it; Microsoft has not put it in $metadata yet.",
+      "uses": [
+        "Set it to false so that only admins (or apps with AgentIdentityBlueprint.Create) create agent identity blueprints - the same reason most tenants block app registrations",
+        "Add it to the tenant baseline next to allowedToCreateApps, allowedToCreateTenants and allowedToCreateSecurityGroups",
+        "Audit: read it before 04/11/2026, the date from which Jan Bakker writes that every user without a role can create blueprints unless it is off",
+        "PATCH /policies/authorizationPolicy/authorizationPolicy with Policy.ReadWrite.Authorization (beta only for now)"
+      ],
+      "basis": "article",
+      "checked": "2026-10-30",
+      "articles": [
+        {"title": "Prevent users from creating new agent identity blueprints", "url": "https://janbakker.tech/prevent-users-from-creating-new-agent-identity-blueprints/", "by": "Jan Bakker", "date": "2026-10-16", "rel": "names-it"},
+        {"title": "Microsoft Entra Lets Users Create Agent Blueprints by Default", "url": "https://lazyadmin.nl/?p=13228", "by": "Rudy Mens (LazyAdmin)", "date": "2026-10-14", "rel": "names-it"},
+        {"title": "Entra Disable User Creation of Agent Identity Blueprints", "url": "https://blog.icewolf.ch/archive/2026/10/22/entra-disable-user-creation-of-agent-identity-blueprints/", "by": "Andres Bohren", "date": "2026-10-22", "rel": "names-it"}
+      ]
+    },
+    "voiceAuthenticationMethodConfiguration|isCustomGreetingEnabled": {
+      "title": "Custom greeting in voice-call MFA",
+      "what": "Whether voice-call MFA plays the tenant's own greeting. Microsoft retired custom greetings in voice call authentication on 28/02/2026 (MC1219798): calls now play Microsoft's default recording. Most likely the switch of the retired feature, still returned by the service.",
+      "uses": [
+        "Check it is false - after the retirement a custom greeting is no longer played",
+        "Audit evidence: true shows the tenant still had custom greetings configured before the retirement",
+        "Remove the greeting from your MFA user guides and help desk scripts"
+      ],
+      "basis": "microsoft",
+      "checked": "2026-10-30",
+      "articles": [
+        {"title": "MC1219798 - Custom greetings in voice call authentication will retire on Feb 28, 2026", "url": "https://mc.merill.net/message/MC1219798", "by": "Microsoft Message Center (merill.net)", "date": "2026-01-21", "rel": "feature"}
+      ]
+    },
+    "authenticationMethodsPolicy|optOutSettings": {
+      "title": "Opt-out settings of the authentication methods policy",
+      "what": "A settings block on the authentication methods policy, empty (null) in our tenant. The name says admins can opt users or the tenant out of something the policy turns on. Nothing published yet.",
+      "uses": [
+        "Read it in a test tenant every few weeks - when it stops being null, Microsoft has started using it",
+        "Watch it together with the features Microsoft switches on for everyone (passkeys by default, Microsoft-managed settings): opt-out blocks usually arrive with them",
+        "Do not PATCH it until Microsoft documents its shape"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "x509CertificateAuthenticationMethodConfiguration|crlValidationConfiguration": {
+      "title": "CRL validation of certificate-based authentication",
+      "what": "How Entra checks certificate revocation lists (CRL) for certificate-based authentication. Microsoft documents it in Graph v1.0 (x509CertificateCrlValidationConfiguration); only the beta $metadata lacks it.",
+      "uses": [
+        "Check that CRL validation is required for your certificate authorities - an unchecked CRL accepts revoked certificates",
+        "List the exempted CAs and ask why each one is exempt",
+        "Use the v1.0 endpoint for scripts: it is documented there"
+      ],
+      "basis": "microsoft",
+      "checked": "2026-10-30",
+      "articles": [
+        {"title": "x509CertificateCrlValidationConfiguration resource type (v1.0)", "url": "https://learn.microsoft.com/graph/api/resources/x509certificatecrlvalidationconfiguration?view=graph-rest-1.0", "by": "Microsoft Learn", "date": "", "rel": "names-it"}
+      ]
+    },
+    "federatedIdentityCredentialAuthenticationMethodConfiguration|includeTargets": {
+      "title": "New authentication method: federated identity credential - who it applies to",
+      "what": "The whole method configuration 'federatedIdentityCredential' is new: it is not in $metadata at all. includeTargets is the usual 'which users and groups' list every method has. Nothing published yet.",
+      "uses": [
+        "Read which groups it targets in your tenant - a new sign-in method that appears enabled for 'all users' is worth knowing about",
+        "Watch for the MC post or Learn page that introduces the method",
+        "Compare with the other methods' includeTargets when you review the authentication methods policy"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "federatedIdentityCredentialAuthenticationMethodConfiguration|profiles": {
+      "title": "New authentication method: federated identity credential - profiles",
+      "what": "Profiles of the new, unpublished 'federatedIdentityCredential' authentication method; the name suggests several configurations of the method (for example per external identity provider). Nothing published yet.",
+      "uses": [
+        "Read it to see whether your tenant has a profile already",
+        "Keep it on the watch list with includeTargets of the same method"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "crossTenantAccessPolicy|applyDefaultsToDomainBasedOrganizations": {
+      "title": "Apply cross-tenant defaults to domain-based organizations",
+      "what": "A switch on the cross-tenant access policy. The name says the default settings would also apply to external organizations identified by domain rather than by tenant ID. Nothing published yet.",
+      "uses": [
+        "Read it before you change the default cross-tenant settings - it may widen what the defaults cover",
+        "Watch for the documentation before relying on it in B2B designs"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "crossTenantAccessPolicyInboundTrust|isCompliantNetworkAccepted": {
+      "title": "Trust a compliant network from another tenant",
+      "what": "Whether your Conditional Access accepts the 'compliant network' claim (Global Secure Access) of users from another Entra organization, like it can accept their MFA or compliant device. Microsoft describes it on the beta Learn page of crossTenantAccessPolicyInboundTrust; the $metadata lacks it.",
+      "uses": [
+        "Partners who use Global Secure Access: accept their compliant network so your 'require compliant network' policy does not block them",
+        "Review it next to isMfaAccepted and isCompliantDeviceAccepted in the default and partner configurations",
+        "Keep it false for partners you do not know well"
+      ],
+      "basis": "microsoft",
+      "checked": "2026-10-30",
+      "articles": [
+        {"title": "crossTenantAccessPolicyInboundTrust resource type (beta)", "url": "https://learn.microsoft.com/graph/api/resources/crosstenantaccesspolicyinboundtrust?view=graph-rest-beta", "by": "Microsoft Learn", "date": "", "rel": "names-it"}
+      ]
+    },
+    "crossTenantAccessPolicyConfigurationDefault|crossCloudMeetingConfiguration": {
+      "title": "Cross-cloud meetings in the default cross-tenant settings",
+      "what": "A block in the default cross-tenant access settings. The name matches Teams cross-cloud meetings (meeting people in other Microsoft 365 clouds, for example GCC High or 21Vianet), which Microsoft describes on Learn; the property itself is not named there.",
+      "uses": [
+        "Read it if you meet organizations in another Microsoft cloud - the setting may decide whether those meetings work",
+        "Compare it with the Teams cross-cloud meeting settings described on Learn"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": [
+        {"title": "Meet with people in other Microsoft 365 cloud environments", "url": "https://learn.microsoft.com/microsoftteams/cross-cloud-meetings", "by": "Microsoft Learn", "date": "", "rel": "feature"}
+      ]
+    },
+    "crossTenantAccessPolicyConfigurationDefault|protectedContentSharing": {
+      "title": "Protected content sharing in the default cross-tenant settings",
+      "what": "A block in the default cross-tenant access settings. The name points to sharing protected (encrypted, labelled) content with other organizations. Nothing published yet.",
+      "uses": [
+        "Read it when partners cannot open your encrypted mail or labelled files",
+        "Keep it on the watch list with the Purview sensitivity label settings"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "identitySecurityDefaultsEnforcementPolicy|controlTypes": {
+      "title": "Security defaults: which controls they enforce",
+      "what": "A list on the security defaults policy. The name says which controls security defaults enforce (for example MFA registration, blocking legacy authentication). Nothing published yet.",
+      "uses": [
+        "Read it in tenants that run security defaults - it may show which protections are on",
+        "Watch it: a list of controls hints that security defaults may become configurable control by control"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "identitySecurityDefaultsEnforcementPolicy|securityDefaultsUpsell": {
+      "title": "Security defaults: upsell",
+      "what": "A block on the security defaults policy. The name says it holds the prompt that moves a tenant from security defaults to Conditional Access. Nothing published yet.",
+      "uses": [
+        "No action - read it out of interest; it describes what the admin center offers, not a protection"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "appManagementApplicationConfiguration|federatedIdentityCredentials": {
+      "title": "App management policy: rules for federated identity credentials",
+      "what": "A new restriction in the tenant's app management policy (applicationRestrictions). The name says the policy can now govern federated identity credentials (workload identity federation, for example GitHub Actions or Kubernetes) on app registrations. Nothing published yet.",
+      "uses": [
+        "When documented: allow federated credentials only from issuers you trust (your GitHub organization, your clusters)",
+        "Inventory today: list apps with federated credentials and their issuers - the restriction will act on them"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "appManagementApplicationConfiguration|trustedSubjectNameAndIssuers": {
+      "title": "App management policy: trusted certificate subjects and issuers",
+      "what": "A new restriction in the app management policy. The name says certificates on app registrations could be limited to trusted subject names and issuers - a step beyond the 'trusted certificate authorities' restriction Microsoft introduced in 2023. Nothing published for this property.",
+      "uses": [
+        "When documented: accept app certificates only from your own CA and with expected subject names",
+        "Inventory today: which apps use certificates, from which issuers"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": [
+        {"title": "Introducing Trusted Certificate Authorities (public preview) in App management policy", "url": "https://devblogs.microsoft.com/identity/?p=1305", "by": "Microsoft Identity blog", "date": "2023-11-09", "rel": "feature"}
+      ]
+    },
+    "appManagementServicePrincipalConfiguration|credentials": {
+      "title": "App management policy: credentials on service principals",
+      "what": "A new restriction for service principals (enterprise applications) in the app management policy. Nothing published yet.",
+      "uses": [
+        "Inventory today: service principals that carry their own secrets or certificates - a common place for forgotten credentials",
+        "When documented: block new credentials on service principals the way the policy already can for app registrations"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "conditionalAccessPolicy|templateId": {
+      "title": "Conditional Access policy created from a template",
+      "what": "The template a Conditional Access policy was created from. Documented in Graph v1.0; only the beta $metadata lacks it.",
+      "uses": [
+        "Find the policies made from Microsoft's templates and compare them with the current template",
+        "Report how many of your policies are templates and how many are your own design"
+      ],
+      "basis": "microsoft",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "conditionalAccessPolicy|partialEnablementStrategy": {
+      "title": "Conditional Access: partial enablement",
+      "what": "A new property of a Conditional Access policy. The name says a policy could be switched on for part of its scope first - a staged rollout of the policy itself. Nothing published yet.",
+      "uses": [
+        "When documented: roll a new policy out in stages instead of report-only followed by on for everyone",
+        "Read it now to see whether Microsoft-managed policies in your tenant already use it"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "conditionalAccessConditionSet|times": {
+      "title": "Conditional Access condition: time",
+      "what": "A condition on time - the name says a policy could apply only on certain days or hours. Nothing published yet.",
+      "uses": [
+        "When documented: block or step up access outside working hours",
+        "Watch it - a time condition is a long-standing request of Conditional Access admins"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "conditionalAccessApplications|includeAgentActions": {
+      "title": "Conditional Access target: agent actions",
+      "what": "A new target in Conditional Access: actions an AI agent performs, next to apps and user actions. Microsoft documents Conditional Access for agents on Learn; this property is not named there yet.",
+      "uses": [
+        "When documented: require extra checks before an agent performs a chosen action, not only when it signs in",
+        "Plan with the agent identities you already have - list them in Entra ID > Agent ID"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": [
+        {"title": "Conditional Access for agents", "url": "https://learn.microsoft.com/entra/identity/conditional-access/agent-id", "by": "Microsoft Learn", "date": "", "rel": "feature"}
+      ]
+    },
+    "conditionalAccessSessionControls|blockSensitiveActions": {
+      "title": "Conditional Access session control: block sensitive actions",
+      "what": "A new session control. The name says a session could be allowed while sensitive actions in it stay blocked. Nothing published yet.",
+      "uses": [
+        "When documented: let unmanaged devices or agents read, but block sensitive operations",
+        "Compare with the existing session controls (app enforced restrictions, Defender for Cloud Apps)"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "conditionalAccessSessionControls|humanApproval": {
+      "title": "Conditional Access session control: human approval",
+      "what": "A new session control. The name says a person would have to approve before the session (most likely an agent's) continues. Nothing published yet.",
+      "uses": [
+        "When documented: keep a human in the loop for what AI agents do with your data",
+        "Decide now who would approve - a role, a group or the agent's sponsor"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": [
+        {"title": "Conditional Access for agents", "url": "https://learn.microsoft.com/entra/identity/conditional-access/agent-id", "by": "Microsoft Learn", "date": "", "rel": "feature"}
+      ]
+    },
+    "conditionalAccessConditionSet|purviewDataLossPreventionRules": {
+      "title": "Conditional Access condition: Purview DLP rules",
+      "what": "A new condition linking Conditional Access with Microsoft Purview data loss prevention rules. Microsoft's roadmap item RM571397 describes Purview inline DLP for Entra-managed apps in Edge for Business that integrates with a Conditional Access grant control; this property is not named there.",
+      "uses": [
+        "When documented: apply a policy when a DLP rule matches, not only by user, app or device",
+        "Talk to the Purview team now - the condition needs DLP rules to exist"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": [
+        {"title": "RM571397 - Purview DLP: upgraded inline protection for Entra-managed apps in Edge for Business", "url": "https://mc.merill.net/message/RM571397", "by": "Microsoft 365 roadmap (merill.net)", "date": "", "rel": "feature"}
+      ]
+    },
+    "conditionalAccessConditionSet|agentSessionRiskLevels": {
+      "title": "Conditional Access condition: agent session risk",
+      "what": "A risk level of an agent's session. The beta Learn page documents agentIdRiskLevels (risk of the agent identity); this one, for the session, is not documented yet.",
+      "uses": [
+        "When documented: block or limit an agent when its current session looks risky, even if the agent itself is not",
+        "Today: use the documented agent risk condition (Agent risk, preview) - Learn has step-by-step policies"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": [
+        {"title": "Secure autonomous agents with Conditional Access", "url": "https://learn.microsoft.com/entra/identity/conditional-access/policy-autonomous-agents", "by": "Microsoft Learn", "date": "", "rel": "feature"}
+      ]
+    },
+    "conditionalAccessConditionSet|clients": {
+      "title": "Conditional Access condition: clients",
+      "what": "A new condition named 'clients', found inside the details block of a Conditional Access object. Nothing published yet.",
+      "uses": [
+        "Read it to see which values Microsoft fills in - it may replace or extend client app types"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "conditionalAccessConditionSet|federatedTokens": {
+      "title": "Conditional Access condition: federated tokens",
+      "what": "A new condition. The name says a policy could apply to sign-ins that use tokens from a federated identity provider. Nothing published yet.",
+      "uses": [
+        "When documented: treat sign-ins federated from another IdP differently (for example require compliant devices)",
+        "Inventory today: which domains are still federated"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "conditionalAccessSessionControls|networkAccessSecurity": {
+      "title": "Conditional Access session control: network access security",
+      "what": "A new session control. The name points to Global Secure Access - sending the session through its security profile. Nothing published yet.",
+      "uses": [
+        "When documented: apply a Global Secure Access security profile (web filtering, threat protection) from a Conditional Access policy",
+        "Check your Global Secure Access security profiles now"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    },
+    "organization|onPremisesSyncStatus": {
+      "title": "Organization: on-premises sync status",
+      "what": "A new property of the organization object. The name says it reports the state of directory synchronization (Entra Connect or Cloud Sync) for the tenant. Nothing published yet.",
+      "uses": [
+        "When documented: one call to see whether sync runs, next to onPremisesLastSyncDateTime",
+        "Monitoring: alert when the status changes"
+      ],
+      "basis": "name",
+      "checked": "2026-10-30",
+      "articles": []
+    }
+  }
+}

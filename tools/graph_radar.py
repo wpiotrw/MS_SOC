@@ -538,6 +538,213 @@ def undocumented(res, model):
     return out
 
 
+# ------------------------------------------------------------------------------------------------ 5ft: readable findings
+# Owner, 30 X 2026: "unreadable - no description of what it could be for, no split per technology; show the permission and
+# its description better; if the internet ties a finding to an article (like Jan Bakker's), list it the way MC posts are;
+# from what you find, write possible uses in bullets". Every finding gets: a technology, a plain-English title, whether
+# Microsoft documents it anywhere (Learn reference pages from microsoft-graph-docs-contrib, v1.0 $metadata), the hand-
+# written note of data/graph-radar/notes.json (what it is, uses, checked articles), the articles of the portal's own
+# feeds whose title holds the property's words, and Microsoft's description of every permission named on its card.
+CATS = [
+    ("Conditional Access", r"conditionalAccess|namedLocation", "Who may sign in to what, from where and how - the policies that decide every sign-in."),
+    ("Authentication methods", r"authenticationMethod|authenticationStrength|authenticationFlows|authenticationCombination|passwordless|fido2|temporaryAccessPass|mfa",
+     "Which sign-in methods users may register and use (passkeys, Authenticator, SMS, voice, password, certificates)."),
+    ("Cross-tenant access", r"crossTenant|multiTenantOrganization|externalIdentitiesPolicy|b2b", "What users of other Entra organizations may do in your tenant, and your users in theirs."),
+    ("Default user permissions", r"authorizationPolicy|defaultUserRolePermissions", "What every user without an admin role may do: register apps, create groups, read other users, create agent blueprints."),
+    ("Security defaults", r"identitySecurityDefaults", "The free baseline protection for tenants without Conditional Access."),
+    ("App management & consent", r"appManagement|permissionGrant|adminConsent|tokenLifetime|tokenIssuance|claimsMapping|activityBasedTimeout|homeRealmDiscovery|oauth2|servicePrincipal|application",
+     "Rules for app registrations and enterprise apps: credentials, consent, token lifetimes."),
+    ("Agents & Copilot", r"agent|copilot|aiInteraction|^/ai|\bai[A-Z]", "AI agents and Copilot: agent identities, blueprints, interactions."),
+    ("Global Secure Access", r"networkAccess", "Microsoft's security service edge: Internet Access, Private Access, compliant network."),
+    ("Identity governance", r"identityGovernance|accessReview|entitlement|lifecycleWorkflow|customExtension|privilegedAccess|roleManagement|unifiedRole|termsOfUse",
+     "Access reviews, access packages, lifecycle workflows, PIM and roles."),
+    ("Planner, Places & productivity", r"planner|^/places|place[A-Z]|booking|todo|onenote|^/solutions", "Planner, Places (rooms, desks), Bookings, To Do, OneNote."),
+    ("Identity protection", r"riskyUser|riskyServicePrincipal|riskDetection|identityProtection|riskyAgent|risk[A-Z]|^risk", "Risky users, risky sign-ins and risky agents."),
+    ("Intune & devices", r"deviceManagement|deviceAppManagement|intune|autopilot|managedDevice|deviceRegistration|^/devices|device[A-Z]",
+     "Intune device, app and enrollment settings, device registration."),
+    ("Windows & Cloud PC", r"windows|cloudPc|virtualEndpoint", "Windows Update, Windows 365 Cloud PCs."),
+    ("Security & Defender", r"^/security|^security\.|security[A-Z]|threat|alert|incident|attackSimulation|secureScore|ediscovery", "Defender XDR: alerts, incidents, hunting, Secure Score, attack simulation."),
+    ("Purview & compliance", r"compliance|sensitivityLabel|dataLossPrevention|informationProtection|retention|records|purview",
+     "Labels, DLP, retention, eDiscovery and audit."),
+    ("Organization & sync", r"organization|onPremises|directorySync|domain|tenantRelationship|relatedTenant|^/directory", "The tenant itself: organization settings, domains, directory synchronization."),
+    ("Teams & meetings", r"\bteams?\b|team[A-Z]|chat|onlineMeeting|call[A-Z]|communications|virtualEvent|meeting", "Teams, chats, meetings, calls."),
+    ("Mail & calendar", r"mail|message|calendar|event[A-Z]|contact|outlook|inbox|exchange", "Exchange Online: mail, calendars, contacts."),
+    ("Files & SharePoint", r"drive|site|sharepoint|fileStorage|onedrive|list[A-Z]|listItem", "SharePoint sites, OneDrive, files and lists."),
+    ("Users & groups", r"^/users|^/groups|user[A-Z]|group[A-Z]|directoryObject|administrativeUnit|^user$|^group$", "Users, groups, administrative units."),
+    ("Reports & audit", r"report|auditLog|signIn|usage", "Sign-in and audit logs, usage reports."),
+]
+CAT_INFO = {c[0]: c[2] for c in CATS}
+CAT_INFO["Other"] = "Everything the other technologies do not cover."
+
+
+def category(*texts):
+    texts = [re.sub(r"^/me(?=/|$)", "", t) if t else t for t in texts]   # /me/... says nothing about the technology
+    for name, rx, _ in CATS:
+        for t in texts:
+            if t and re.search(rx, t, re.I if not rx.startswith("^") else 0):
+                return name
+    return "Other"
+
+
+def humanize(name):
+    """allowPasswordChangeAfterSecureSignIn -> Allow password change after secure sign in"""
+    w = re.findall(r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])|\d+", (name or "").split(".")[-1].replace("[]", ""))
+    if not w:
+        return name or ""
+    out = [w[0][:1].upper() + w[0][1:].lower()] + [x if x.isupper() and len(x) > 1 else x.lower() for x in w[1:]]
+    return " ".join(out)
+
+
+DOCS_RAW = "https://raw.githubusercontent.com/microsoftgraph/microsoft-graph-docs-contrib/main/api-reference/%s/resources/%s.md"
+DOCS_URL = "https://learn.microsoft.com/graph/api/resources/%s?view=graph-rest-%s"
+
+
+def docs_check(types, leaf, cache, day):
+    """the Graph reference page of the type (beta and v1.0) names the property? -> the Learn URL. Microsoft writes these
+    pages in microsoftgraph/microsoft-graph-docs-contrib; a property on the page but not in $metadata is documented
+    before the service schema says so (isCompliantNetworkAccepted, 30 X)."""
+    found = {}
+    for ver in ("beta", "v1.0"):
+        for t in [x for x in types if x]:
+            k = "%s|%s" % (ver, t.lower())
+            c = cache.get(k)
+            if not c or c.get("day") != day:
+                try:
+                    txt = get(DOCS_RAW % (ver, t.lower()), timeout=30).decode("utf-8", "replace")
+                    props = sorted(set(re.findall(r"^\|\s*([A-Za-z0-9_]+)\s*\|", txt, re.M)))
+                    c = {"day": day, "ok": True, "props": props}
+                except urllib.error.HTTPError as e:
+                    c = {"day": day, "ok": False, "code": e.code, "props": []}
+                except Exception as e:
+                    c = (cache.get(k) or {}) if cache.get(k) else {"day": day, "ok": False, "props": [], "note": str(e)[:80]}
+                cache[k] = c
+            if leaf in (c.get("props") or []):
+                found[ver] = DOCS_URL % (t.lower(), "beta" if ver == "beta" else "1.0")
+                break
+    return found
+
+
+ART_STOP = STOPW | {"allow", "allowed", "is", "has", "include", "includes", "enable", "enabled", "configuration", "configurations", "settings",
+                    "level", "levels", "details", "default", "value", "values", "list", "status", "new"}
+TYPE_GENERIC = {"authentication", "method", "methods", "configuration", "policy", "access", "conditional", "settings", "default", "set",
+                "condition", "conditions", "controls", "control", "session", "application", "applications", "management", "enforcement", "identity"}
+
+
+def stem(w):
+    w = w.lower()
+    return w[:5] if len(w) > 5 else w
+
+
+def text_stems(t):
+    return {stem(x) for x in re.findall(r"[a-z0-9]+", (t or "").lower())}
+
+
+def article_keys(typ, leaf):
+    """the stems an article title must hold to be about this property; None when the name is too generic to match"""
+    w = [x for x in words(leaf) if x not in ART_STOP and len(x) > 3]
+    if len(w) < 2:
+        return None
+    ctx = [stem(x) for x in words(typ or "") if x not in TYPE_GENERIC and x not in ART_STOP and len(x) > 3 and stem(x) not in {stem(y) for y in w}]
+    if len(w) == 2 and not ctx:
+        return None                      # two common words alone ("agent actions") match too many titles
+    return {"all": [stem(x) for x in w], "ctx": ctx if len(w) == 2 else []}
+
+
+def article_pool(days=1):
+    """titles the portal itself read: community articles, Microsoft blog posts, Learn What's new, Message Center posts"""
+    files = sorted(f for f in os.listdir(SITE) if re.match(r"^\d{4}-\d{2}-\d{2}\.json(\.gz)?$", f))[-days:]
+    pool, seen = [], set()
+    for f in files:
+        st = load(os.path.join(SITE, f), {}).get("soc-brief-state") or {}
+        for it in ((st.get("community") or {}).get("items") or []):
+            pool.append({"title": it.get("title"), "url": it.get("link"), "by": it.get("source"), "date": it.get("date"), "via": "Community Articles"})
+        nt = st.get("nt") or {}
+        for it in (nt.get("items") or []):
+            pool.append({"title": it.get("title"), "url": it.get("link"), "by": it.get("source"), "date": str(it.get("date") or it.get("published") or "")[:10], "via": "Microsoft Blogs"})
+        for it in (nt.get("recent") or []):
+            pool.append({"title": it.get("title"), "text": it.get("text"), "url": it.get("url") or it.get("link"), "by": "Microsoft Learn - What's new (" + str(it.get("area") or "") + ")",
+                         "date": "%s-%02d" % (it.get("year"), it.get("month") or 0) if it.get("year") else "", "via": "Microsoft Learn"})
+        for it in ((st.get("mc") or {}).get("entries") or []):
+            pool.append({"title": (it.get("id") or "") + " - " + (it.get("title") or ""), "text": it.get("feedSummary"), "url": it.get("link"), "by": "Microsoft Message Center",
+                         "date": it.get("published"), "via": "Message Center"})
+    out = []
+    for p in pool:
+        if p.get("url") and p.get("title") and p["url"] not in seen:
+            seen.add(p["url"])
+            p["st"] = text_stems(p["title"])    # titles only: summaries mention too much (30 X: 4 unrelated MC posts for optOutSettings)
+            out.append(p)
+    return out
+
+
+def article_hits(keys, pool):
+    if not keys:
+        return []
+    hits, ids = [], set()
+    for p in pool:
+        mid = re.match(r"^((?:MC|RM)\d+)", p.get("title") or "")
+        if mid and mid.group(1) in ids:
+            continue                     # the same post through two feeds (admin center and merill.net)
+        if all(k in p["st"] for k in keys["all"]) and (not keys["ctx"] or any(c in p["st"] for c in keys["ctx"])):
+            hits.append({k: p.get(k) for k in ("title", "url", "by", "date", "via")} | {"rel": "words"})
+            if mid:
+                ids.add(mid.group(1))
+    return hits[:6]
+
+
+def perm_info(names):
+    """Microsoft's own title and description of each permission (graph-sp.json, read from the service principal)"""
+    sp = load(os.path.join(SITE, "graph-sp.json"), {}) or {}
+    P = sp.get("perms") or {}
+    out = {}
+    for nm in sorted(set(names)):
+        p = P.get(nm) or {}
+        a, d = p.get("Application") or {}, p.get("Delegated") or {}
+        if not (a or d):
+            continue
+        out[nm] = {"title": a.get("title") or d.get("title") or "", "app": a.get("text") or "", "del": d.get("text") or "",
+                   "delConsent": d.get("consent") or "", "write": bool(re.search(r"ReadWrite|\.Manage|\.Create|\.Write|\.Send|\.Delete", nm))}
+    return out
+
+
+def enrich_findings(und, beta, v1, day, mci_titles=None):
+    """5ft: technology, documentation status, notes and articles for every undocumented property"""
+    notes = (load(os.path.join(MEM, "notes.json"), {}) or {}).get("notes") or {}
+    dcache = load(os.path.join(MEM, "docs-cache.json"), {}) or {}
+    amem = load(os.path.join(MEM, "articles.json"), None)
+    pool = article_pool(30 if amem is None else 2)
+    amem = amem or {}
+    for u in und:
+        leaf = u["prop"].split(".")[-1].replace("[]", "")
+        key = u["type"] + "|" + leaf
+        u["leaf"] = leaf
+        u["cat"] = category(u.get("path"), u.get("label"), u["type"])
+        if re.search(r"agent", leaf, re.I) and u["cat"] != "Agents & Copilot":
+            u["also"] = ["Agents & Copilot"]
+        u["human"] = humanize(leaf)
+        doc = {}
+        if v1 and (leaf in all_props(v1, u["type"]) or (u.get("declared") and leaf in all_props(v1, u["declared"]))):
+            doc["v1meta"] = 1
+        doc.update(docs_check([u["type"], u.get("declared")], leaf, dcache, day))
+        u["doc"] = doc
+        u["status"] = "v1" if doc.get("v1meta") else "learn" if (doc.get("beta") or doc.get("v1.0")) else "new"
+        n = notes.get(key)
+        if n:
+            u["note"] = n
+            if n.get("title"):
+                u["human"] = n["title"]
+        hits = article_hits(article_keys(u["type"], leaf), pool)
+        known = {a.get("url") for a in (n or {}).get("articles") or []} | {"https://mc.merill.net/message/" + m for m in u.get("mc") or []}
+        old = amem.get(key) or []
+        for h in hits:
+            if h["url"] not in known and h["url"] not in {x["url"] for x in old}:
+                h["first"] = day
+                old.append(h)
+        amem[key] = old[-8:]
+        u["auto"] = [a for a in amem[key] if a["url"] not in known]
+    save(os.path.join(MEM, "docs-cache.json"), dcache)
+    save(os.path.join(MEM, "articles.json"), amem)
+
+
 # ------------------------------------------------------------------------------------------------ backfill
 def backfill(repo, n=12):
     """events between the weekly schema syncs of a msgraph-metadata clone (blobless is fine)"""
@@ -689,6 +896,13 @@ def main(argv):
             u["cmd"] = command(u["path"], root_t, "", "", beta, gp)   # deeper in a list: GET only
         u["mc"] = mc_match(mci, prop)
         u["first"] = (tstate.get("first") or {}).get(u["type"] + "|" + u["prop"], day)
+    # 5ft: technology, documentation status, notes, articles (owner, 30 X 2026)
+    if und:
+        enrich_findings(und, beta, models.get("v1.0"), day)
+    order = {"new": 0, "learn": 1, "v1": 2}
+    und.sort(key=lambda u: (order.get(u.get("status"), 3), u.get("cat") or "", u.get("type") or "", u.get("leaf") or ""))
+    for e in events:
+        e["cat"] = category(e.get("path"), e.get("holder"), e.get("type"))
     # history
     seen = {(x["day"], x["ver"], x["kind"], x["type"], x["name"]) for x in hist["events"]}
     for e in events:
@@ -701,15 +915,23 @@ def main(argv):
                                                                               "undoc": len(und)}]
     hist["daily"] = hist["daily"][-400:]
     save(os.path.join(MEM, "history.json"), hist)
+    for e in hist["events"]:   # 5ft: events recorded before the technology existed
+        if not e.get("cat"):
+            e["cat"] = category(e.get("path"), e.get("holder"), e.get("type"))
+    pn = []
+    for x in und + hist["events"][:1500]:
+        c = x.get("cmd") or {}
+        pn += (c.get("permGet") or []) + (c.get("permPatch") or [])
     by = {}
     for e in hist["events"]:
         b = by.setdefault(e["day"], {"day": e["day"], "beta": 0, "v1.0": 0, "tenant": 0})
         b["tenant" if e["kind"].startswith("tenant") else e["ver"]] += 1
-    out = {"generated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "day": day, "spec": "5fs",
+    out = {"generated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "day": day, "spec": "5ft",
            "read": read, "tenant": {"read": bool(tres), "note": tnote, "endpoints": tstate.get("endpoints") if tres else [],
                                     "undocumented": und[:300], "day": tstate.get("read")},
            "events": hist["events"][:1500], "perDay": sorted(by.values(), key=lambda x: x["day"]), "daily": hist["daily"][-120:],
            "learnLicensing": learn_licensing()[0], "learnState": learn_licensing()[1],
+           "perms": perm_info(pn), "cats": CAT_INFO,
            "sources": {"metadata": META, "syncs": "https://github.com/microsoftgraph/msgraph-metadata/commits/master/schemas"}}
     save(OUT, out)
     log("beta", read.get("beta"), "v1.0", read.get("v1.0"))

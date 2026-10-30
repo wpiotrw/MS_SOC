@@ -13,7 +13,8 @@ What it does (code only, run by the "Code refresh" workflow after every publishe
      dates, link checks, rows leaving a rolling list, the watch list itself), the fields of one item are merged into ONE
      record (a Graph permission's endpoints, privilege level and consent in one row), plus the dated events of the
      portal's own data files that the register does not carry: first-party apps (state `fpa.chg`), campaigns
-     (campaigns.json), baselines (baselines.json), Threat Research (threats.json), preview-to-GA (doc-ga.json).
+     (campaigns.json), baselines (baselines.json), Threat Research (threats.json), preview-to-GA (doc-ga.json),
+     Graph API Radar (graph-radar.json, 5ft).
   2. site/diff/index.html and site/week/index.html - the page itself, from tools/changes_app.html (same file; /week/
      opens on "Last 7 days" and offers printing). A page a routine wrote there before (make_diff.py's full comparison,
      write_week()'s summary) is moved aside first: site/diff/full.html, site/week/print.html - both stay linked.
@@ -119,6 +120,34 @@ def extras(site, state, lo, hi):
             X.append({"d": d, "tab": "Security baselines", "k": "added" if ty.endswith(("added", "-new", "-version")) or ty in ("release", "new") else "removed" if ty.endswith(("removed", "-gone")) else "changed",   # 5fq: test-new / policy-new are additions
                       "id": e.get("id") or "", "t": clip(e.get("title"), 200), "u": e.get("url") or "", "p": e.get("tech") or e.get("src") or "",
                       "w": None, "t0": False, "f": [[ty, "", ", ".join(e.get("what") or []), e.get("src") or ""]]})
+    # 5ft (30 X 2026, owner: "Graph radar in /week too"): settings our tenant returned before $metadata knew them (one record
+    # each), and the $metadata changes grouped per day, version and type (a weekly schema sync holds hundreds of properties)
+    rad = load(os.path.join(site, "data", "graph-radar.json"), {}) or {}
+    ST5 = {"new": "undocumented", "learn": "on Learn, not in $metadata", "v1": "in v1.0, missing from beta $metadata"}
+    for u in ((rad.get("tenant") or {}).get("undocumented") or []):
+        d = str(u.get("first") or "")[:10]
+        if lo <= d <= hi:
+            nm = (u.get("type") or "") + "." + (u.get("leaf") or str(u.get("prop") or "").split(".")[-1])
+            X.append({"d": d, "tab": "Graph API Radar", "k": "added", "id": nm, "t": clip(u.get("human") or nm, 200), "u": "", "p": u.get("cat") or "Microsoft Graph",
+                      "w": None, "t0": False,
+                      "f": [["our tenant returns it · " + ST5.get(u.get("status") or "new", ""), "", nm, clip((u.get("note") or {}).get("what") or "", 300)]]})
+    KL = {"type-new": "new type", "prop-new": "new property", "nav-new": "new navigation", "op-new": "new action / function", "member-new": "new enum value",
+          "root-new": "new entity set", "prop-type": "property type changed", "type-removed": "type removed", "prop-removed": "property removed",
+          "nav-removed": "navigation removed", "op-removed": "action / function removed", "member-removed": "enum value removed"}
+    grp = {}
+    for e in rad.get("events") or []:
+        d = str(e.get("day") or "")[:10]
+        if e.get("kind") == "tenant-undocumented" or not (lo <= d <= hi):
+            continue
+        g = grp.setdefault((d, e.get("ver") or "", e.get("type") or ""), {"kinds": {}, "cat": e.get("cat") or "", "prom": False})
+        g["kinds"].setdefault(e.get("kind"), []).append(e.get("name") or "")
+        g["prom"] = g["prom"] or bool(e.get("promoted"))
+    for (d, ver, ty), g in grp.items():
+        ks = set(g["kinds"])
+        k = "added" if all(x.endswith("-new") for x in ks) else "removed" if all(x.endswith("-removed") for x in ks) else "changed"
+        X.append({"d": d, "tab": "Graph API Radar", "k": k, "id": ty, "t": clip(ty + " (Graph " + ver + (", promoted to v1.0" if g["prom"] else "") + ")", 200), "u": "",
+                  "p": g["cat"] or "Microsoft Graph", "w": None, "t0": False,
+                  "f": [[KL.get(kd, kd), "", "%d" % len(v), clip(", ".join(v[:10]) + (" …" if len(v) > 10 else ""), 300)] for kd, v in sorted(g["kinds"].items())]})
     thr = load(os.path.join(site, "data", "threats.json"), {}) or {}
     arts = {a["id"]: a for a in thr.get("articles") or []}
     for s in thr.get("stories") or []:
