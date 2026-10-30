@@ -31565,6 +31565,7 @@ odtad CZTERNASCIE (4-17).**
     c.appendChild(links);
     var go = el("button", "s5fo-go", alt && alt.label ? alt.label : "Show it in the list \u203a"); go.type = "button";
     go.addEventListener("click", function () { SHEET.hidden = true; if (alt && alt.fn) alt.fn(); else goItem(id, pref, true); }); c.appendChild(go);
+    if (window.__socCardTabs) try { window.__socCardTabs.auto(c, { steps: "Do this" }); } catch (e) {}   /* §5ft-f: the wide card with tabs */
     SHEET.hidden = false; x.focus();
     if (window.__socDate && window.__socDate.rewrite) try { window.__socDate.rewrite(c); } catch (e) {}
     return true;
@@ -43610,6 +43611,7 @@ odtad CZTERNASCIE (4-17).**
     if ((o.links || []).length) { var lk = el("div", "s5fo-links"); lk.appendChild(el("p", "s5fo-lab", "Open")); var seen = {};
       o.links.forEach(function (l) { if (!l || !l.u || seen[l.u]) return; seen[l.u] = 1; var a = el("a", "s5fo-lk", l.t + " ↗"); a.href = l.u; a.target = "_blank"; a.rel = "noopener"; lk.appendChild(a); }); c.appendChild(lk); }
     (o.go || []).forEach(function (g) { var b = el("button", "s5fo-go", g[0]); b.type = "button"; b.addEventListener("click", function () { CARD.hidden = true; g[1](); }); c.appendChild(b); });
+    if (window.__socCardTabs) try { window.__socCardTabs.auto(c, { steps: "How to check and fix" }); } catch (e) {}   /* §5ft-f */
     CARD.hidden = false; x.focus();
   }
   function whereLine(p) { var m = /(?:^|\n)\s*([A-Z][^\n]{3,140} > [^\n]{2,160})/.exec(p.how || ""); return m ? m[1].trim() : ""; }
@@ -44589,7 +44591,7 @@ odtad CZTERNASCIE (4-17).**
       panes.forEach(function (pn, i) {
         if (!pn[2].length && !pn[3]) return;
         var pane = el("div", "s5ft-pane s5ft-pane-" + pn[0]); pane.setAttribute("role", "tabpanel"); pane.hidden = i !== 0;
-        if (pn[3]) { var l = el("div", "s5ft-col"), rr = el("div", "s5ft-col"); pn[2].forEach(function (k) { l.appendChild(k); }); pn[3].forEach(function (k) { rr.appendChild(k); }); pane.appendChild(l); pane.appendChild(rr); }
+        if (pn[3]) { var l = el("div", "s5ft-col"), rr = el("div", "s5ft-col"); pn[2].forEach(function (k) { l.appendChild(k); }); pn[3].forEach(function (k) { rr.appendChild(k); }); pane.appendChild(l); pane.appendChild(rr); pane.classList.add("s5ft-two"); }
         else pn[2].forEach(function (k) { pane.appendChild(k); });
         host.appendChild(pane);
         var lab = pn[1] + (pn[0] === "perm" && nPerm ? " · " + nPerm : pn[0] === "src" ? " · " + nSrc : "");
@@ -45086,10 +45088,12 @@ odtad CZTERNASCIE (4-17).**
   }
   /* the item card (§5fo) of an MC post */
   function sheetCard() {
-    var c = document.querySelector(".s5fo-ov:not([hidden]) .s5fo-card"); if (!c || c.querySelector(".s5ft-cmd") || c.classList.contains("s5ft-card")) return;
+    var c = document.querySelector(".s5fo-ov:not([hidden]) .s5fo-card"); if (!c || c.querySelector(".s5ft-cmd, .s5ft-pane-try") || c.classList.contains("s5ft-card")) return;
     var id = ""; [].forEach.call(c.querySelectorAll("a[href*='MC'], .s5fo-lk, .s5fo-chip"), function (a) { var m = /(MC\d{5,})/.exec((a.getAttribute("href") || "") + " " + (a.textContent || "")); if (!id && m) id = m[1]; });
     if (!id) return;
-    var lk = c.querySelector(".s5fo-links"); c.insertBefore(block("mc", id), lk || null);
+    var blk = block("mc", id, true);
+    if (window.__socCardTabs && c.querySelector(":scope > .s5ft-tabs")) { if (window.__socCardTabs.add(c, "try", "Try it", [blk])) return; }
+    var lk = c.querySelector(".s5fo-links"); c.insertBefore(blk, lk || null);
   }
   /* Graph API and Roles: the detail pane of the selected entry */
   function panes() {
@@ -45204,6 +45208,7 @@ odtad CZTERNASCIE (4-17).**
     function a(t2, u) { var x2 = el("a", "s5fo-lk", t2 + " ↗"); x2.href = u; x2.target = "_blank"; x2.rel = "noopener"; lk.appendChild(x2); }
     a("Microsoft 365 URLs and IP address ranges", D.list); a("The web service (Learn)", D.source);
     k.appendChild(lk);
+    if (window.__socCardTabs) try { window.__socCardTabs.auto(k, { stepsInOverview: true }); } catch (e) {}   /* §5ft-f */
     CARD.hidden = false; CARD.scrollTop = 0; x.focus();
   }
 
@@ -45414,6 +45419,72 @@ odtad CZTERNASCIE (4-17).**
     document.addEventListener("soc:woke", function (e) { if (e && e.detail && e.detail.id === "tab-m365ep" && D && !built) render(); });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 1000); }); else setTimeout(start, 1000);
+})();
+
+/* §5ft-f (31 X 2026, owner: "the other tabs that open such separate windows on a click - give them the same view; it is
+   ok"): one helper turns any §5fo card into the wide card with tabs of Graph API Radar (§5ft-e). The head (chips, title,
+   name, where it came from) stays on top; the blocks go to tabs by what they are - Overview (what and why, the facts
+   beside it), the steps (Do this / How to check and fix), who checks it, what the source says, what changed, Try it,
+   Sources. A card with only one tab's worth of content is just made wide. */
+(function () {
+  "use strict";
+  if (window.__socCardTabs) return;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function labOf(k) { var l = k.querySelector && k.querySelector(":scope > .s5fo-lab"); return l ? (l.textContent || "") : ""; }
+  function build(c, panes) {
+    var used = []; panes.forEach(function (p) { used = used.concat(p.els, p.side || []); });
+    var bar = el("div", "s5ft-tabs"); bar.setAttribute("role", "tablist");
+    var host = el("div", "s5ft-panes"), first = true;
+    panes.forEach(function (pn) {
+      if (!pn.els.length && !(pn.side || []).length) return;
+      var pane = el("div", "s5ft-pane s5ft-pane-" + pn.key); pane.setAttribute("role", "tabpanel"); pane.hidden = !first;
+      if (pn.side && pn.side.length && pn.els.length) { var l = el("div", "s5ft-col"), r = el("div", "s5ft-col"); pn.els.forEach(function (k) { l.appendChild(k); }); pn.side.forEach(function (k) { r.appendChild(k); }); pane.appendChild(l); pane.appendChild(r); pane.classList.add("s5ft-two"); }
+      else pn.els.concat(pn.side || []).forEach(function (k) { pane.appendChild(k); });
+      host.appendChild(pane);
+      var tb = el("button", "s5ft-tab", pn.label + (pn.n ? " · " + pn.n : "")); tb.type = "button"; tb.setAttribute("role", "tab"); tb.setAttribute("aria-selected", String(first));
+      tb.addEventListener("click", function () { [].forEach.call(host.children, function (x) { x.hidden = x !== pane; }); [].forEach.call(bar.children, function (x) { x.setAttribute("aria-selected", String(x === tb)); }); });
+      bar.appendChild(tb); first = false;
+    });
+    c.appendChild(bar); c.appendChild(host); c.classList.add("s5ft-wide");
+    return c;
+  }
+  /* sort the card's own children into tabs; lab overrides the tab names */
+  function auto(c, lab) {
+    lab = lab || {};
+    var kids = [].slice.call(c.children), head = [], P = { ov: [], ovSide: [], steps: [], who: [], said: [], what: [], tr: [], src: [] };
+    kids.forEach(function (k) {
+      var cl = k.className || "", L = labOf(k);
+      if (/s5fo-x|s5fo-chips|s5fo-t\b|s5ft-t\b|s5ft-tname|s5fo-ot/.test(cl)) head.push(k);
+      else if (/s5fo-facts/.test(cl)) P.ovSide.push(k);
+      else if (/s5fo-links|s5fo-go|s5ft-src/.test(cl)) P.src.push(k);
+      else if (/s5ft-cmd|s5ft-try/.test(cl) || /^(try it|check it yourself)/i.test(L)) P.tr.push(k);
+      else if (/who checks/i.test(L)) P.who.push(k);
+      else if (/what the source says/i.test(L)) P.said.push(k);
+      else if (/s5fu-l/.test(cl)) P.what.push(k);
+      else if (!lab.stepsInOverview && (/s5fo-do/.test(cl) || /^(do this|how to|remediation|solution|tenable's solution|how to run)/i.test(L))) P.steps.push(k);
+      else P.ov.push(k);
+    });
+    var panes = [{ key: "ov", label: lab.ov || "Overview", els: P.ov, side: P.ovSide }, { key: "steps", label: lab.steps || "What to do", els: P.steps },
+      { key: "what", label: lab.what || "What changed", els: P.what }, { key: "who", label: lab.who || "Who checks it", els: P.who },
+      { key: "said", label: lab.said || "What the source says", els: P.said }, { key: "try", label: "Try it", els: P.tr },
+      { key: "src", label: lab.src || "Sources", els: P.src, n: c.querySelectorAll(".s5fo-links .s5fo-lk, .s5ft-a").length || 0 }];
+    var nonEmpty = panes.filter(function (p) { return p.els.length || (p.side || []).length; });
+    if (!P.ov.length && P.ovSide.length) { panes[0].els = P.ovSide; panes[0].side = []; }
+    if (nonEmpty.length < 2) { c.classList.add("s5ft-wide"); return c; }
+    kids.forEach(function (k) { if (head.indexOf(k) < 0) k.remove(); });
+    return build(c, panes);
+  }
+  /* a tab added after the card was built (the §5ft-b "Try it" of an MC post) */
+  function add(c, key, label, nodes) {
+    var bar = c.querySelector(":scope > .s5ft-tabs"), host = c.querySelector(":scope > .s5ft-panes"); if (!bar || !host || host.querySelector(".s5ft-pane-" + key)) return false;
+    var pane = el("div", "s5ft-pane s5ft-pane-" + key); pane.hidden = true; nodes.forEach(function (k) { pane.appendChild(k); });
+    var src = host.querySelector(".s5ft-pane-src"); host.insertBefore(pane, src || null);
+    var tb = el("button", "s5ft-tab", label); tb.type = "button"; tb.setAttribute("role", "tab"); tb.setAttribute("aria-selected", "false");
+    tb.addEventListener("click", function () { [].forEach.call(host.children, function (x) { x.hidden = x !== pane; }); [].forEach.call(bar.children, function (x) { x.setAttribute("aria-selected", String(x === tb)); }); });
+    var srcTab = [].filter.call(bar.children, function (b) { return /^Sources/.test(b.textContent); })[0]; bar.insertBefore(tb, srcTab || null);
+    return true;
+  }
+  window.__socCardTabs = { auto: auto, build: build, add: add };
 })();
 
 /* §5dw (15 X 2026, owner: "campaigns were to be detected by us; I am not sure Security Defaults is a campaign like the
@@ -48627,6 +48698,10 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 .s5fo-tb.s5ft-more{margin:4px 0 0}
 /* §5ft-e: wide card with tabs; the property's name and the titles stand out */
 .s5fo-card.s5ft-wide{width:min(1180px,100%)}
+.s5ft-wide .s5fo-t{font-size:22px;color:var(--text);padding-right:44px;overflow-wrap:anywhere}
+.s5ft-wide .s5fo-chips{margin-right:48px}
+.s5ft-wide .s5fq-pre,.s5ft-wide pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.s5ft-pane .s5fo-go{margin-top:8px}
 .s5ft-tname{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:4px 48px 6px 0}
 .s5ft-tname code{font:700 15px/1.4 var(--mono);color:var(--text);background:color-mix(in srgb,var(--accent) 14%,var(--surface));border:1.5px solid color-mix(in srgb,var(--accent) 55%,transparent);border-radius:8px;padding:5px 10px;overflow-wrap:anywhere;word-break:break-word}
 .s5ft-card .s5ft-t{font-size:22px;color:var(--text)}
@@ -48635,12 +48710,12 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 .s5ft-tab[aria-selected="true"]{background:var(--surface);border-color:var(--border);border-bottom:2px solid var(--surface);color:var(--accent)}
 .s5ft-tab:hover{color:var(--accent)}
 .s5ft-panes{padding-top:14px}
-.s5ft-pane-ov:not([hidden]){display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;align-items:start}
+.s5ft-pane.s5ft-two:not([hidden]){display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;align-items:start}
 .s5ft-pane-perm .s5ft-pblk:not([hidden]){display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:12px}
 .s5ft-pane-perm .s5ft-perms+.s5ft-perms{margin-top:0}
 .s5ft-pane-try:not([hidden]){display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:12px;align-items:start}
 .s5ft-col{min-width:0}
-@media (max-width:760px){.s5ft-pane-ov:not([hidden]),.s5ft-pane-try:not([hidden]),.s5ft-pane-perm .s5ft-pblk:not([hidden]){display:block}.s5ft-tab{padding:8px 11px;font-size:14px}.s5ft-card .s5ft-t{font-size:19px}}
+@media (max-width:760px){.s5ft-pane.s5ft-two:not([hidden]),.s5ft-pane-try:not([hidden]),.s5ft-pane-perm .s5ft-pblk:not([hidden]){display:block}.s5ft-tab{padding:8px 11px;font-size:14px}.s5ft-card .s5ft-t{font-size:19px}}
 /* rows: the title and the property's name readable at a glance */
 #tab-radar .s5ft-fh{font-size:17px;color:var(--text)}
 #tab-radar .s5ft-f .s5ft-tech,#tab-m365ep .s5ft-f .s5ft-tech{display:inline-block;font:600 13.5px/1.4 var(--mono);color:var(--text);background:color-mix(in srgb,var(--accent) 12%,transparent)!important;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent)!important;border-radius:6px;padding:2px 8px!important;margin:4px 0 2px}
@@ -50568,6 +50643,19 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5ft-f — Ten sam widok karty w calym portalu (31 X 2026)
+
+Wlasciciel: „w innych zakladkach, gdzie pokazujesz takie odrebne okna po kliknieciu, zastosuj ten sam widok — jest ok”.
+Jedna funkcja `window.__socCardTabs` (`auto`, `build`, `add`) zamienia karte §5fo w szeroka karte z zakladkami: naglowek
+zostaje, bloki trafiaja do zakladek wg tego, czym sa — Overview (co i dlaczego, fakty obok), kroki (Do this / How to check
+and fix / What to do), Who checks it, What the source says, What changed, Try it, Sources (z liczba). Karta z trescia na
+jedna zakladke jest tylko poszerzona.
+- Karta pozycji (§5fo: Overview, Today, New, Deadlines, Products…): Overview · Do this · What the source says · Try it
+  (polecenia §5ft-b dla posta MC, dodawane jako zakladka) · Sources.
+- Security baselines (CISA, Zero Trust Assessment, Intune): Overview · How to check and fix · Who checks it · Sources.
+- M365 endpoints: Overview (What to do + fakty) · What changed · Try it · Sources.
+- Graph API Radar bez zmian (§5ft-e). Pomiar 1500 px: 326-437 px wysokosci kart; 390 px — pelny ekran, jedna kolumna.
 
 ### §5ft-e — Szeroka karta radaru z zakladkami, wyrazna nazwa API, „password” w wyszukiwarce (31 X 2026)
 
