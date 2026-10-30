@@ -1,7 +1,7 @@
 {
  "read": "2026-10-30",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 713,
+ "count": 721,
  "note": null,
  "messages": [
   {
@@ -890,21 +890,20 @@
    "actionBy": null,
    "start": "2025-11-18",
    "end": "2026-11-30",
-   "modified": "2026-09-25",
+   "modified": "2026-10-30",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 25, 2026: We have updated the timeline. Thank you for your patience. [Introduction:] Microsoft Edge for Business will soon support summarization and contextual grounding with Microsoft 365 Copilot Chat. This enhancement enables users to ask Copilot questions about multiple open browser tabs, Microsoft 365 documents (such as Word, Excel, PowerPoint), and YouTube videos directly fr…",
-   "when": "General Availability (Multiple browser tabs and YouTube videos): Currently Available. General Availability (Microsoft 365 documents): Rollout is expected to begin mid-October 2026 (previously mid-September).",
+   "summary": "Updated October 30, 2026: We have updated the content. Thank you for your patience. [Introduction:] Microsoft Edge for Business will soon support summarization and contextual grounding with Microsoft 365 Copilot Chat. This enhancement enables users to ask Copilot questions about multiple open browser tabs, and YouTube videos directly from the Edge side pane. This message is associated with Microso…",
+   "when": "General Availability (Multiple browser tabs and YouTube videos): Currently Available.",
    "prepare": "This rollout will happen automatically by the specified date; no admin action is required before rollout. Ensure users who need this capability have access to Microsoft 365 Copilot. Ensure your tenant is configured to support Microsoft 365 Copilot and that eligible users meet all licensing prerequisites, including Entra ID sign-in and applicable Microsoft 365 service plans. Review your current DLP and Edge policy configurations to determine poten…",
    "dates": [
-    "Updated September 25, 2026: We have updated the timeline.",
-    "General Availability (Microsoft 365 documents): Rollout is expected to begin mid-October 2026 (previously mid-September)."
+    "Updated October 30, 2026: We have updated the content."
    ],
-   "bodyHash": "3c66bb770840f1f6"
+   "bodyHash": "06690503c9621bc2"
   },
   {
    "id": "MC1187781",
@@ -7063,23 +7062,23 @@
    "major": true,
    "actionBy": null,
    "start": "2026-07-15",
-   "end": "2027-02-12",
-   "modified": "2026-10-12",
+   "end": "2027-03-01",
+   "modified": "2026-10-30",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 12, 2026: We have updated the content. Thank you for your patience. [What and Why] Microsoft Teams is introducing AI generated meeting memory files that capture key insights from meetings (formerly archive files). These files help Microsoft 365 Copilot and Facilitator deliver more accurate context aware responses while maintaining strong privacy controls by not storing raw meeting …",
+   "summary": "Updated October 30, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Teams is introducing AI generated meeting memory files that capture key insights from meetings (formerly archive files). These files help Microsoft 365 Copilot and Facilitator deliver more accurate context aware responses while maintaining strong privacy controls by not storing raw meeting…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 12, 2026: We have updated the content.",
-    "Targeted Release: Beginning early November 2026 (previously early October) and expected to complete mid-November 2026 (previously mid-October).",
-    "General Availability (Worldwide): Beginning early December 2026 (previously mid-October) and expected to complete early January 2027 (previously late October 2026)."
+    "Updated October 30, 2026: We have updated the timeline.",
+    "Targeted Release: Beginning early January 2027 (previously early November 2026) and expected to complete mid-January 2027 (previously mid-November 2026).",
+    "General Availability (Worldwide): Beginning mid-January 2027 (previously early December 2026) and expected to complete late January 2027 (previously early January)."
    ],
-   "bodyHash": "4f9b5c170e706861"
+   "bodyHash": "5c67b4f18cda0bc1"
   },
   {
    "id": "MC1429856",
@@ -8180,23 +8179,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-06",
-   "end": "2026-11-30",
-   "modified": "2026-09-29",
+   "end": "2027-02-01",
+   "modified": "2026-10-30",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 29, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Purview is expanding Data Loss Prevention (DLP) and Information Protection auto-labeling support for non-Microsoft applications. Administrators will be able to create and manage DLP and auto-labeling policies directly in Microsoft Purview for supported non-Microsoft applications. These c…",
+   "summary": "Updated October 30, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Purview is expanding Data Loss Prevention (DLP) and Information Protection auto-labeling support for non-Microsoft applications. Administrators will be able to create and manage DLP and auto-labeling policies directly in Microsoft Purview for supported non-Microsoft applications. These cap…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 29, 2026: We have updated the timeline.",
-    "Public Preview: Beginning in early October 2026 (previously mid-August) and expected to complete in early October 2026 (previously early September).",
-    "General Availability (Worldwide): Beginning in late October 2026 (previously early September) and expected to complete in late October 2026."
+    "Updated October 30, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in late December 2026 (previously late October) and expected to complete in late December 2026 (previously late October)."
    ],
-   "bodyHash": "665cfb762b3bb411"
+   "bodyHash": "21160dbab18496f1"
   },
   {
    "id": "MC1450128",
@@ -13833,24 +13831,24 @@
    "major": true,
    "actionBy": null,
    "start": "2026-09-28",
-   "end": "2027-03-01",
-   "modified": "2026-10-27",
+   "end": "2027-05-03",
+   "modified": "2026-10-30",
    "tags": [
     "Admin impact",
     "Retirement",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 27, 2026: We have updated the timeline. Thank you for your patience. [What and why] Beginning late January 2027, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences. Retirement will be completed by end of January 2027. As part of our continued investment in Microsoft Purview Data Security Posture Ma…",
+   "summary": "Updated October 30, 2026: We have updated the timeline. Thank you for your patience. [What and why] Beginning mid-March 2027, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences. Retirement will be completed by end of March 2027. As part of our continued investment in Microsoft Purview Data Security Posture Managem…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 27, 2026: We have updated the timeline.",
-    "Beginning late January 2027, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences.",
-    "Retirement will be completed by end of January 2027.",
-    "Retirement (Worldwide, GCC, GCC High, and DoD): Beginning in late January 2027 (previously late November 2026) and expected to complete in late January 2027 (previously late December 2026)."
+    "Updated October 30, 2026: We have updated the timeline.",
+    "Beginning mid-March 2027, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences.",
+    "Retirement will be completed by end of March 2027.",
+    "Retirement (Worldwide, GCC, GCC High, and DoD): Beginning in mid-March 2027 (previously late January) and expected to complete in late March 2027 (previously late January)."
    ],
-   "bodyHash": "14e36d7e2f6a7f80"
+   "bodyHash": "a93b75a5d1c2412b"
   },
   {
    "id": "MC1481316",
@@ -17147,7 +17145,7 @@
   },
   {
    "id": "MC1519855",
-   "title": "Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+   "title": "(Updated) Microsoft Entra: Choose your own telephony provider now generally available",
    "services": [
     "Microsoft Entra"
    ],
@@ -17157,24 +17155,22 @@
    "actionBy": null,
    "start": "2026-10-21",
    "end": "2026-11-30",
-   "modified": "2026-10-21",
+   "modified": "2026-10-30",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Starting October 30, 2026, Microsoft Entra ID will make Choose Your Own Telephony Provider (CYOT) generally available. CYOT enables organizations to use a supported third-party telecommunications provider for SMS and voice authentication. Organizations select a supported provider through Microsoft Security Store and manage their commercial relationship directly with the provider. Mi…",
+   "summary": "Updated October 30, 2026: We have updated this post with additional information as the feature is now generally available. Thank you for your patience. [What and why] Choose Your Own Telephony Provider (CYOT) is now generally available in Microsoft Entra ID. With CYOT, your organization can deliver SMS and voice authentication through a supported telecom provider of its choice. You purchase the pr…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Starting October 30, 2026, Microsoft Entra ID will make Choose Your Own Telephony Provider (CYOT) generally available.",
-    "General Availability (Worldwide): Beginning October 30, 2026.",
-    "Starting October 30, 2026, organizations can choose to configure a supported telephony provider for SMS and voice authentication.",
-    "Microsoft-provided SMS and voice authentication is scheduled to be retired on February 1, 2027, for all users except Global Administrators and external users.",
-    "The retirement date for Global Administrators and external users is July 1, 2027.",
-    "Internal guest users remain subject to the February 1, 2027 retirement date."
+    "Updated October 30, 2026: We have updated this post with additional information as the feature is now generally available.",
+    "Microsoft-provided SMS and voice authentication begins retiring on February 1, 2027.",
+    "Complete your transition before February 1, 2027."
    ],
-   "bodyHash": "cb417021771a04d5"
+   "bodyHash": "91c0737b7e84ccf3"
   },
   {
    "id": "MC1519857",
@@ -18819,6 +18815,217 @@
     "Affected Windows devices might display an incorrect local time until the November 2026 security update is installed or the temporary workaround is applied."
    ],
    "bodyHash": "7a5d52ace5130f6f"
+  },
+  {
+   "id": "MC1532182",
+   "title": "Power Apps - Information regarding the end of support for record-level copresence in model-driven apps",
+   "services": [
+    "Power Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-30",
+   "end": "2026-11-30",
+   "modified": "2026-10-30",
+   "tags": [
+    "Retirement"
+   ],
+   "summary": "On November 30, 2026, record-level copresence in model-driven apps will have reached end of support. How does this affect me? Users will no longer see who else is working on the record or have access to a presence card. This change does not affect record sharing, user pictures, or status in grids and lookups. The underlying behavior when multiple users edit the same record hasn't changed: if two u…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "On November 30, 2026, record-level copresence in model-driven apps will have reached end of support.",
+    "Admins should inform their users that copresence in model-driven apps will no longer be available after November 30, 2026."
+   ],
+   "bodyHash": "0999872434ab8acf"
+  },
+  {
+   "id": "MC1532236",
+   "title": "Planned Maintenance: Windows 365 Service",
+   "services": [
+    "Windows 365"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-30",
+   "end": "2027-01-04",
+   "modified": "2026-10-30",
+   "tags": [
+    "Admin impact",
+    "User impact"
+   ],
+   "summary": "[What and why:] As previously mentioned in MC1488833, we have service maintenance planned for your Windows 365 account to improve the experience and performance in the recovery process during potential outages. Intermittent interruptions will occur for a portion of the maintenance period, starting on Saturday, November 7, 2026. This will impact your ability to manage and use your Cloud PCs in Micr…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Intermittent interruptions will occur for a portion of the maintenance period, starting on Saturday, November 7, 2026.",
+    "Start time: Saturday, November 7, 2026, 05:00 UTC.",
+    "End time: Saturday, November 7, 2026, 07:00 UTC."
+   ],
+   "bodyHash": "0e1315b80f300710"
+  },
+  {
+   "id": "MC1532241",
+   "title": "Microsoft Defender XDR: Investigate suspicious Microsoft Teams calls and meetings with advanced hunting",
+   "services": [
+    "Microsoft Defender XDR"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-30",
+   "end": "2026-12-16",
+   "modified": "2026-10-30",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] When investigating a suspicious Microsoft Teams call or meeting, your security team needs to understand what happened, who initiated the activity, and the organization associated with the initiator. The CallActivityEvents table in Microsoft Defender XDR advanced hunting provides visibility into activities performed during Teams calls and meetings in your organization. Security teams…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Beginning in early November 2026 and expected to complete by mid-November 2026."
+   ],
+   "bodyHash": "b5d9be345b7652eb"
+  },
+  {
+   "id": "MC1532242",
+   "title": "Microsoft Teams: Pinch to zoom in on shared screens",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-30",
+   "end": "2026-12-23",
+   "modified": "2026-10-30",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Get a closer look at shared content in Teams calls and meetings with pinch-to-zoom using your touchpad. Quickly zoom in to make small text and detailed visuals easier to see, then zoom back out for the full view. Existing zoom controls remain available. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out on late November 2026 and expect to complete by la…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out on late November 2026 and expect to complete by late November 2026.",
+    "Targeted Release (Worldwide): We will begin rolling out on mid November 2026 and expect to complete by mid November 2026."
+   ],
+   "bodyHash": "db8a2cbf3cef4eeb"
+  },
+  {
+   "id": "MC1532248",
+   "title": "Activity in other accounts and orgs panel improvements",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-30",
+   "end": "2026-11-30",
+   "modified": "2026-10-30",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Stay up-to-date with what's happening in your other accounts and organizations with the 'Activity in Other Accounts and Orgs' panel. Preview and open chats, channels, and other activity in other accounts and orgs from your main Teams window - no tenant switching required. [Rollout Schedule:] Public Preview (Worldwide): We will begin rolling out in mid-November 2026 and expect to co…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): We will begin rolling out in mid-November 2026 and expect to complete by late November 2026.",
+    "General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out in late January 2027 and expect to complete by early February 2027."
+   ],
+   "bodyHash": "76ec2c4fd3abc52e"
+  },
+  {
+   "id": "MC1532253",
+   "title": "Enhanced Copilot and AI controls for meetings",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-30",
+   "end": "2027-01-07",
+   "modified": "2026-10-30",
+   "tags": [
+    "Admin impact",
+    "Feature update"
+   ],
+   "summary": "[What and Why:] Microsoft Teams is updating how administrators and meeting organizers configure AI for Teams meetings. The existing Copilot meeting policy is being replaced by two more specific policies: MeetingAI - controls whether Copilot, Facilitator, Intelligent Recap, and other AI features are available in meetings. TranscriptionWithMeetingAI - controls whether transcription starts automatica…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Targeted Release (Worldwide): We will begin rolling out in mid-November 2026 and expect to complete by early December 2026.",
+    "General Availability (Worldwide): We will begin rolling out in late November 2026 and expect to complete by early December 2026."
+   ],
+   "bodyHash": "9567cc8242307c54"
+  },
+  {
+   "id": "MC1532256",
+   "title": "Microsoft Teams: Granular Conditional Access for Teams meetings",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-30",
+   "end": "2027-03-29",
+   "modified": "2026-10-30",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] Granular Conditional Access for Teams meetings enables organizations to apply more targeted access controls to help protect sensitive meetings. Administrators can use Conditional Access policies to enforce specific access requirements for selected meetings, helping ensure that participants meet organizational security requirements before joining. [Rollout Schedule:] Public Preview …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): We will begin rolling out in late November 2026 and expect to complete by late November 2026.",
+    "General Availability (Worldwide): We will begin rolling out in early January 2027 and expect to complete by late January 2027."
+   ],
+   "bodyHash": "c79121b86a8e95c8"
+  },
+  {
+   "id": "MC1532259",
+   "title": "Microsoft Teams: Retirement of Translate slides in PowerPoint Live",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-10-30",
+   "end": "2026-12-30",
+   "modified": "2026-10-30",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] Starting November 30, 2026, attendees in Microsoft Teams meetings will no longer be able to translate slides into another language in PowerPoint Live by using Change view > Translate slides . Other PowerPoint Live features for presenters and attendees are not affected. [Rollout schedule] Retirement (Worldwide): Beginning and completing in late November 2026 Translate slides will be …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Starting November 30, 2026, attendees in Microsoft Teams meetings will no longer be able to translate slides into another language in PowerPoint Live by using Change view > Translate slides .",
+    "Retirement (Worldwide): Beginning and completing in late November 2026.",
+    "Translate slides will be removed for all attendees on November 30, 2026.",
+    "Translate slides will be removed automatically for all attendees on November 30, 2026."
+   ],
+   "bodyHash": "db044871b108670d"
   },
   {
    "id": "MC676299",
@@ -25024,6 +25231,151 @@
    "id": "MC1483432",
    "type": "removed",
    "title": "Dynamics 365 Contact Center - Let representatives set next presence to handle routing of work items",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1187682",
+   "type": "changed",
+   "title": "(Updated) Microsoft Edge: Microsoft 365 Copilot will support summarization and contextual grounding",
+   "fields": {
+    "bodyHash": [
+     "3c66bb770840f1f6",
+     "06690503c9621bc2"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1429018",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Meeting memory file generation",
+   "fields": {
+    "end": [
+     "2027-02-12",
+     "2027-03-01"
+    ],
+    "bodyHash": [
+     "4f9b5c170e706861",
+     "5c67b4f18cda0bc1"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1449180",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: Data Loss Prevention and auto-labeling support for non-Microsoft applications",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2027-02-01"
+    ],
+    "bodyHash": [
+     "665cfb762b3bb411",
+     "21160dbab18496f1"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1481315",
+   "type": "changed",
+   "title": "Microsoft Purview: Retirement of Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences",
+   "fields": {
+    "end": [
+     "2027-03-01",
+     "2027-05-03"
+    ],
+    "bodyHash": [
+     "14e36d7e2f6a7f80",
+     "a93b75a5d1c2412b"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1519855",
+   "type": "changed",
+   "title": "(Updated) Microsoft Entra: Choose your own telephony provider now generally available",
+   "fields": {
+    "title": [
+     "Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+     "(Updated) Microsoft Entra: Choose your own telephony provider now generally available"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "cb417021771a04d5",
+     "91c0737b7e84ccf3"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1532182",
+   "type": "new",
+   "title": "Power Apps - Information regarding the end of support for record-level copresence in model-driven apps",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1532236",
+   "type": "new",
+   "title": "Planned Maintenance: Windows 365 Service",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1532241",
+   "type": "new",
+   "title": "Microsoft Defender XDR: Investigate suspicious Microsoft Teams calls and meetings with advanced hunting",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1532242",
+   "type": "new",
+   "title": "Microsoft Teams: Pinch to zoom in on shared screens",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1532248",
+   "type": "new",
+   "title": "Activity in other accounts and orgs panel improvements",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1532253",
+   "type": "new",
+   "title": "Enhanced Copilot and AI controls for meetings",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1532256",
+   "type": "new",
+   "title": "Microsoft Teams: Granular Conditional Access for Teams meetings",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1532259",
+   "type": "new",
+   "title": "Microsoft Teams: Retirement of Translate slides in PowerPoint Live",
    "fields": {}
   }
  ]
