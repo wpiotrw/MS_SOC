@@ -907,8 +907,36 @@ def main(argv):
     # 5ft: technology, documentation status, notes, articles (owner, 30 X 2026)
     if und:
         enrich_findings(und, beta, models.get("v1.0"), day)
+    # 5ft-c (owner, 30 X 2026: "every finding should have its dates - found, updated"): per finding the day it was first
+    # returned, the last day it was returned, the day its documentation status last changed, and a short log (status
+    # moved, new sources); a finding the tenant stops returning is listed as gone with that day
+    gone_out = []
+    if und and tres:
+        life = tstate.setdefault("life", {})
+        cur = set()
+        for u in und:
+            k = u["type"] + "|" + u["prop"]
+            cur.add(k)
+            L = life.setdefault(k, {"first": u["first"], "status": u.get("status"), "statusDay": u["first"], "log": []})
+            L.pop("gone", None)
+            if L.get("status") != u.get("status"):
+                L["log"].append({"day": day, "what": "documentation: %s -> %s" % (L.get("status"), u.get("status"))})
+                L["status"], L["statusDay"] = u.get("status"), day
+            na = len((u.get("note") or {}).get("articles") or []) + len(u.get("auto") or []) + len(u.get("mc") or [])
+            if L.get("sources") is not None and na > L["sources"]:
+                L["log"].append({"day": day, "what": "%d new source%s" % (na - L["sources"], "" if na - L["sources"] == 1 else "s")})
+            L["sources"], L["last"] = na, day
+            L["log"] = L["log"][-10:]
+            u["last"], u["statusDay"], u["log"] = day, L["statusDay"], L["log"]
+            u["updated"] = max([L["first"]] + [x["day"] for x in L["log"]])
+        for k, L in life.items():
+            if k not in cur:
+                L.setdefault("gone", day)
+                gone_out.append({"key": k, "first": L.get("first"), "last": L.get("last"), "gone": L["gone"]})
+        save(os.path.join(MEM, "tenant.json"), tstate)
     order = {"new": 0, "learn": 1, "v1": 2}
-    und.sort(key=lambda u: (order.get(u.get("status"), 3), u.get("cat") or "", u.get("type") or "", u.get("leaf") or ""))
+    und.sort(key=lambda u: (u.get("first") or "") , reverse=True)
+    und.sort(key=lambda u: (order.get(u.get("status"), 3), u.get("cat") or ""))   # stable: newest first inside a status and technology
     for e in events:
         e["cat"] = category(e.get("path"), e.get("holder"), e.get("type"))
     # history
@@ -936,7 +964,7 @@ def main(argv):
         b["tenant" if e["kind"].startswith("tenant") else e["ver"]] += 1
     out = {"generated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "day": day, "spec": "5ft",
            "read": read, "tenant": {"read": bool(tres), "note": tnote, "endpoints": tstate.get("endpoints") if tres else [],
-                                    "undocumented": und[:300], "day": tstate.get("read")},
+                                    "undocumented": und[:300], "day": tstate.get("read"), "gone": gone_out[-60:]},
            "events": hist["events"][:1500], "perDay": sorted(by.values(), key=lambda x: x["day"]), "daily": hist["daily"][-120:],
            "learnLicensing": learn_licensing()[0], "learnState": learn_licensing()[1],
            "perms": perm_info(pn), "cats": CAT_INFO,

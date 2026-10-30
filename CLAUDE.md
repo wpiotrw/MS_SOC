@@ -31139,7 +31139,7 @@ odtad CZTERNASCIE (4-17).**
   /* ---- U5: four groups ---- */
   var GROUPS = [
     ["Today", ["overview", "today", "deadlines", "mc"]],
-    ["Changes", ["new", "graph", "radar", "roles", "fpa", "components", "campaigns"]],
+    ["Changes", ["new", "graph", "radar", "m365ep", "roles", "fpa", "components", "campaigns"]],
     ["Sources", ["learn", "blogs", "community", "sources"]],
     ["Act", ["hunting", "threats", "products", "baselines"]]
   ];
@@ -33888,7 +33888,7 @@ odtad CZTERNASCIE (4-17).**
 (function () {
   "use strict";
   var GROUPS = [["Today", ["overview", "today", "deadlines", "mc"]],
-                ["Changes", ["new", "graph", "radar", "roles", "fpa", "components", "campaigns"]],
+                ["Changes", ["new", "graph", "radar", "m365ep", "roles", "fpa", "components", "campaigns"]],
                 ["Sources", ["learn", "blogs", "community", "sources"]],
                 ["Act", ["hunting", "threats", "products", "baselines"]]];
   function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
@@ -35926,7 +35926,7 @@ odtad CZTERNASCIE (4-17).**
      DOMContentLoaded, so it takes the order from this list, not from the DOM of that moment */
   var GROUPS = [
     ["Today", ["overview", "today", "deadlines", "mc"]],
-    ["Changes", ["new", "graph", "radar", "roles", "fpa", "components", "campaigns"]],
+    ["Changes", ["new", "graph", "radar", "m365ep", "roles", "fpa", "components", "campaigns"]],
     ["Sources", ["learn", "blogs", "community", "sources"]],
     ["Act", ["hunting", "threats", "products", "baselines"]]
   ];
@@ -36001,6 +36001,7 @@ odtad CZTERNASCIE (4-17).**
       case "tab-campaigns": var cpn = document.getElementById("tab-campaigns"); return cpn ? cpn.getAttribute("data-units") || "" : "";
       /* §5ft: Graph API Radar writes its own unit line once /data/graph-radar.json is read */
       case "tab-radar": var rdp = document.getElementById("tab-radar"); return rdp ? rdp.getAttribute("data-units") || "" : "";
+      case "tab-m365ep": var mep = document.getElementById("tab-m365ep"); return mep ? mep.getAttribute("data-units") || "" : "";   /* §5fu */
       case "tab-learn": n = navNum(pid); return n ? fmt(n) + " entries in the list" : "";
       case "tab-blogs": n = navNum(pid); return n ? fmt(n) + " posts in the list" : "";
       case "tab-community": n = navNum(pid); return n ? fmt(n) + " articles in the list" : "";
@@ -44395,7 +44396,7 @@ odtad CZTERNASCIE (4-17).**
   function fromUnd(u) {
     return { undoc: 1, type: u.type, name: u.leaf || String(u.prop).split(".").pop().replace("[]", ""), prop: u.prop, human: u.human, cat: u.cat, also: u.also,
       status: u.status || "new", doc: u.doc || {}, note: u.note, auto: u.auto || [], at: String(u.prop).replace(/\.?[^.]+$/, ""), path: u.itemPath || u.path, label: u.label,
-      first: u.first, cmd: u.cmd, mc: u.mc || [], ver: "beta", kindv: u.kind, declared: u.declared };
+      first: u.first, last: u.last, updated: u.updated, statusDay: u.statusDay, log: u.log || [], cmd: u.cmd, mc: u.mc || [], ver: "beta", kindv: u.kind, declared: u.declared };
   }
   function fullName(e) { return (e.type && e.type !== e.name ? e.type + "." : "") + (e.name || e.prop || ""); }
   function title(e) { return e.human || (e.undoc ? humanize(e.name) : humanize(e.name) + (e.type && e.type !== e.name ? " — " + humanize(e.type) : "")); }
@@ -44479,7 +44480,9 @@ odtad CZTERNASCIE (4-17).**
     if (e.detail !== "enum type" && e.kind !== "member-new") fact("Path", e.path || "no path from a root of the API found");
     fact("Held by", e.holder);
     if (e.at) fact("Where in the answer", e.at + " (" + (e.kindv || "") + ")");
-    if (e.undoc) fact("Documentation", STATUS[e.status || "new"][2]);
+    if (e.undoc) fact("Documentation", STATUS[e.status || "new"][2] + (e.statusDay ? " Since " + dmy(e.statusDay) + "." : ""));
+    if (e.undoc) fact("Dates", "First seen " + dmy(e.first) + (e.last ? " · last returned by our tenant " + dmy(e.last) : "") + (e.updated && e.updated !== e.first ? " · updated " + dmy(e.updated) : ""));
+    if (e.undoc && (e.log || []).length) fact("What changed", e.log.map(function (x) { return dmy(x.day) + ": " + x.what; }).join(" · "));
     if (e.props && e.props.length) fact(e.detail === "enum type" ? "Values" : "Properties", e.props.join(", "));
     if (e.params && e.params.length) fact("Parameters", e.params.join(", "));
     if (e.base) fact("Derives from", e.base);
@@ -44592,6 +44595,11 @@ odtad CZTERNASCIE (4-17).**
     var st = STATUS[e.status || "new"]; top.appendChild(el("span", "s5ft-st " + st[1], st[0])); li.appendChild(top);
     li.appendChild(el("code", "s5ft-tech", fullName(e)));
     var w = whatText(e); li.appendChild(el("p", "s5ft-fw", w.length > 260 ? w.slice(0, 257).replace(/\s+\S*$/, "") + "…" : w));
+    /* §5ft-c: every finding carries its dates (owner, 30 X) */
+    var dl = el("div", "s5ft-dates");
+    [["Found", e.first], ["Last returned", e.last], ["Updated", e.updated && e.updated !== e.first ? e.updated : ""], ["Status since", e.statusDay && e.statusDay !== e.first ? e.statusDay : ""]].forEach(function (x) {
+      if (!x[1]) return; var sp = el("span", "s5ft-dt" + (x[1] === D.day ? " s5ft-dt-today" : "")); sp.appendChild(el("b", null, x[0] + " ")); sp.appendChild(document.createTextNode(dmy(x[1]))); dl.appendChild(sp); });
+    li.appendChild(dl);
     var cs = el("div", "s5ft-fc");
     (e.also || []).forEach(function (a) { cs.appendChild(el("span", "s5dv-chip", a)); });
     (e.mc || []).forEach(function (m) { cs.appendChild(el("span", "s5dv-chip s5fq-req", m)); });
@@ -44636,13 +44644,21 @@ odtad CZTERNASCIE (4-17).**
     return sm;
   }
 
+  function qHit(e) {
+    if (!F.q) return true;
+    var c = e.cmd || {}, nt = e.note || {};
+    var hay = [title(e), fullName(e), e.path, e.cat, e.detail, e.label, whatText(e), (nt.uses || []).join(" "), (e.mc || []).join(" "),
+      (c.permGet || []).join(" "), (c.permPatch || []).join(" "), ((nt.articles || []).concat(e.auto || [])).map(function (a) { return a.title + " " + (a.by || ""); }).join(" ")].join(" ").toLowerCase();
+    return F.q.toLowerCase().split(/\s+/).every(function (w) { return !w || hay.indexOf(w) >= 0; });
+  }
+
   /* ---- view 1: our tenant ---- */
   function vTenant(host) {
     var tn = D.tenant || {}, und = (tn.undocumented || []).map(fromUnd);
     if (!tn.read) { host.appendChild(el("p", "s5fq-callw", "Our developer tenant has not been read on the last run: " + (tn.note || "") + ". The app “MS-SOC Dev tenant reader” needs read-only permissions — tools/Grant-GraphRadarPermissions.ps1 grants them.")); }
     if (!und.length) { host.appendChild(el("p", "s5dv-note", "Every property the tenant returned is in $metadata today.")); return; }
     var fb = el("div", "s5fo-tf");
-    function pass(u, ign) { return (ign === "st" || !T.st || (u.status || "new") === T.st) && (ign === "cat" || !T.cat || u.cat === T.cat || (u.also || []).indexOf(T.cat) >= 0); }
+    function pass(u, ign) { return qHit(u) && (ign === "st" || !T.st || (u.status || "new") === T.st) && (ign === "cat" || !T.cat || u.cat === T.cat || (u.also || []).indexOf(T.cat) >= 0); }
     fb.appendChild(el("span", "s5fo-tfl", "Status"));
     [["", "All"], ["new", STATUS["new"][0]], ["learn", STATUS.learn[0]], ["v1", STATUS.v1[0]]].forEach(function (o) {
       var c = und.filter(function (u) { return (!o[0] || (u.status || "new") === o[0]) && pass(u, "st"); }).length; if (o[0] && !c) return;
@@ -44653,13 +44669,24 @@ odtad CZTERNASCIE (4-17).**
     Object.keys(cats).sort().forEach(function (c) { fb.appendChild(chip(c, T.cat === c, cats[c], function () { T.cat = c; render(); })); });
     host.appendChild(fb);
     var L = und.filter(function (u) { return pass(u); });
+    if (!L.length) { host.appendChild(el("p", "s5dv-note", F.q ? "No setting of our tenant matches “" + F.q + "”." : "Nothing matches the filters.")); return; }
     var by = {}, order = [];
     L.forEach(function (u) { var c = T.cat && (u.also || []).indexOf(T.cat) >= 0 ? T.cat : u.cat || "Other"; if (!by[c]) { by[c] = []; order.push(c); } by[c].push(u); });
     order.sort(function (a, b) { return by[b].length - by[a].length || a.localeCompare(b); });
+    /* §5ft-c (owner, 30 X: "a new one is always first in its technology"): newest first seen, then newest update, then status */
+    var SO = { "new": 0, learn: 1, v1: 2 };
+    order.forEach(function (c) { by[c].sort(function (a, b) { return String(b.first || "").localeCompare(String(a.first || "")) || String(b.updated || "").localeCompare(String(a.updated || "")) || (SO[a.status] || 0) - (SO[b.status] || 0); }); });
     order.forEach(function (c) {
       var d = el("details", "s5ft-grp"); d.open = true; d.appendChild(catHead(c, by[c].length, by[c].length === 1 ? "setting" : "settings"));
       var ol = el("ol", "s5ft-fl"); by[c].forEach(function (u) { ol.appendChild(fRow(u)); }); d.appendChild(ol); host.appendChild(d);
     });
+    var gone = (D.tenant || {}).gone || [];
+    if (gone.length && !F.q) {
+      var gd = el("details", "s5ft-grp"); var gs = el("summary", "s5ft-gs"); gs.appendChild(el("span", "s5ft-gn", "No longer returned by our tenant")); gs.appendChild(el("span", "s5fp-n", n(gone.length)));
+      gs.appendChild(el("span", "s5ft-gi", "Settings the radar found before that the service stopped returning — removed, renamed, or moved into $metadata under another name.")); gd.appendChild(gs);
+      var gl = el("ul", "s5ft-ep"); gone.forEach(function (g) { var li = el("li", "bad"); li.appendChild(el("code", "s5ft-tech", g.key.replace("|", "."))); li.appendChild(el("span", "s5dv-sm", "found " + dmy(g.first) + " · last returned " + dmy(g.last) + " · gone " + dmy(g.gone))); gl.appendChild(li); });
+      gd.appendChild(gl); host.appendChild(gd);
+    }
   }
 
   /* ---- view 2: every change of $metadata ---- */
@@ -44672,7 +44699,7 @@ odtad CZTERNASCIE (4-17).**
       if (ignore !== "src" && F.src && !(F.src === "promoted" ? e.promoted : e.ver === F.src)) return false;
       if (ignore !== "kind" && F.kind && (KIND[e.kind] || [""])[0] !== F.kind) return false;
       if (ignore !== "cat" && F.cat && e.cat !== F.cat) return false;
-      if (F.q && ((e.type || "") + " " + (e.name || "") + " " + (e.path || "") + " " + (e.detail || "") + " " + humanize(e.name)).toLowerCase().indexOf(F.q.toLowerCase()) < 0) return false;
+      if (!qHit(e)) return false;
       return true;
     }
     function chipRow(lab, key, opts) {
@@ -44690,9 +44717,6 @@ odtad CZTERNASCIE (4-17).**
     fb.appendChild(chip("Technology", F.group === "cat", null, function () { F.group = "cat"; render(); }));
     fb.appendChild(chip("Day", F.group === "day", null, function () { F.group = "day"; render(); }));
     host.appendChild(fb);
-    var q = el("input", "s5fq-q"); q.type = "search"; q.placeholder = "Find a type, property or path (e.g. password, conditionalAccess, /policies)"; q.value = F.q;
-    q.addEventListener("input", function () { F.q = q.value; var k2 = q.selectionStart; render(); var q2 = body.querySelector(".s5fq-q"); if (q2) { q2.focus(); try { q2.setSelectionRange(k2, k2); } catch (x) {} } });
-    host.appendChild(q);
     var L = ev.filter(function (e) { return pass(e); });
     if (!L.length) { host.appendChild(el("p", "s5dv-note", "Nothing matches.")); return; }
     var groups = {}, order = [];
@@ -44738,16 +44762,47 @@ odtad CZTERNASCIE (4-17).**
     if (!panel) return;
     var old = panel.querySelector(":scope > .s5bn"); if (old) old.remove();
     var day = D.day, und = (D.tenant || {}).undocumented || [], ev = (D.events || []).filter(function (e) { return e.day === day && e.kind !== "tenant-undocumented"; });
-    var c = { added: und.filter(function (u) { return u.first === day; }).length, changed: 0, removed: 0 };
+    var c = { added: und.filter(function (u) { return u.first === day; }).length, changed: und.filter(function (u) { return u.first !== day && u.updated === day; }).length, removed: ((D.tenant || {}).gone || []).filter(function (g) { return g.gone === day; }).length };
     ev.forEach(function (e) { c[(KIND[e.kind] || ["changed"])[0]]++; });
     var box = el("div", "s5bn s5dv-bn"); box.setAttribute("role", "region"); box.setAttribute("aria-label", "What changed in Microsoft Graph today");
     var h = el("div", "s5bn-h"); h.appendChild(el("span", "s5bn-t", "Today, all runs · " + dmy(day)));
     [["added", "+", "new"], ["changed", "~", "changed"], ["removed", "−", "removed"]].forEach(function (k) {
       var b = el("span", "s5bn-n s5bn-" + k[0], k[1] + c[k[0]] + " " + k[2]); if (!c[k[0]]) b.classList.add("zero"); h.appendChild(b); });
     box.appendChild(h);
-    var nu = und.filter(function (u) { return u.first === day; });
-    box.appendChild(el("p", "s5bn-empty", (nu.length ? nu.length + " setting" + (nu.length === 1 ? "" : "s") + " seen in our tenant for the first time today" : "No new undocumented setting in our tenant today") +
-      " · " + n(ev.length) + " change" + (ev.length === 1 ? "" : "s") + " in Graph $metadata today."));
+    /* §5ft-c (owner, 30 X: "what you find on a day goes in its own section at the very top, in a rounded frame, like the
+       other tabs"): tiles of today's findings of our tenant (new or updated) and of today's changes in Graph */
+    var tU = und.filter(function (u) { return u.first === day || u.updated === day; }).map(fromUnd);
+    var RK = function (e) { return e.promoted ? 0 : e.kind === "type-new" ? 1 : /removed/.test(e.kind) ? 2 : e.kind === "op-new" ? 3 : 4; };
+    var tE = ev.slice().sort(function (a, b) { return RK(a) - RK(b); });
+    var items = tU.map(function (e) { return { e: e, k: e.first === day ? "added" : "changed", name: title(e), id: fullName(e), ty: e.first === day ? "Undocumented setting" : "Setting updated", src: "Our tenant", tech: e.cat, tx: whatText(e) }; })
+      .concat(tE.map(function (e) { var k = KIND[e.kind] || ["changed", "Change"]; return { e: e, k: k[0], name: humanize(e.name) + (e.type && e.type !== e.name ? " — in " + e.type : ""), id: fullName(e), ty: k[1] + (e.promoted ? " · promoted to v1.0" : ""), src: "Graph " + e.ver, tech: e.cat, tx: "" }; }));
+    if (!items.length) box.appendChild(el("p", "s5bn-empty", "Nothing new today: no new setting in our tenant and no change in Graph $metadata."));
+    else {
+      box.appendChild(el("p", "s5ft-sl", tU.length + " in our tenant · " + n(ev.length) + " in Graph $metadata — newest first; a tile opens its card."));
+      var grid = el("div", "s5do-grid"), ul = el("ul", "s5bn-l");
+      items.slice(0, 24).forEach(function (it) {
+        var t = el("article", "s5do-tile s5do-" + it.k); t.tabIndex = 0; t.setAttribute("role", "button");
+        t.appendChild(el("div", "s5do-name", it.name)); t.appendChild(el("div", "s5do-id", it.id));
+        var pl = el("div", "s5do-pills"); pl.appendChild(el("span", "s5do-k s5bn-k", it.k === "added" ? "NEW" : it.k === "removed" ? "REMOVED" : "CHANGED"));
+        pl.appendChild(el("span", "s5do-ty", it.ty)); pl.appendChild(el("span", "s5do-ty", it.src)); if (it.tech) pl.appendChild(el("span", "s5do-ty", it.tech)); t.appendChild(pl);
+        if (it.tx) t.appendChild(el("div", "s5do-chs", it.tx.length > 160 ? it.tx.slice(0, 157).replace(/\s+\S*$/, "") + "…" : it.tx));
+        var ft = el("div", "s5do-foot"); ft.appendChild(el("span", "s5do-open", "Open ›")); t.appendChild(ft);
+        t.addEventListener("click", function () { card(it.e); });
+        t.addEventListener("keydown", function (x) { if (x.key === "Enter" || x.key === " ") { x.preventDefault(); card(it.e); } });
+        grid.appendChild(t);
+        var li = el("li", "s5bn-r s5bn-" + it.k); li.setAttribute("data-kind", it.k);
+        li.appendChild(el("span", "s5bn-k", it.k === "added" ? "NEW" : it.k === "removed" ? "REMOVED" : "CHANGED")); li.appendChild(el("span", "s5bn-ty", it.ty));
+        var a = el("a", "s5bn-tl", it.name); a.href = "#tab=radar"; a.addEventListener("click", function (x) { x.preventDefault(); card(it.e); }); li.appendChild(a);
+        li.appendChild(el("span", "s5bn-pr", it.src + (it.tech ? " · " + it.tech : ""))); ul.appendChild(li);
+      });
+      box.appendChild(grid); box.appendChild(ul);
+      if (items.length > 24) box.appendChild(el("p", "s5ft-sl", "+" + (items.length - 24) + " more — in “New in our tenant” and “Every change in Graph” below."));
+      var swv = el("span", "s5do-sw"); swv.setAttribute("role", "group"); swv.setAttribute("aria-label", "View");
+      var bT = btn("Tiles", null, function () { setV("tiles"); }), bL = btn("List", null, function () { setV("list"); }); swv.appendChild(bT); swv.appendChild(bL); h.appendChild(swv);
+      var setV = function (v) { try { localStorage.setItem("socStripView", v); } catch (x) {} grid.hidden = v !== "tiles"; ul.hidden = v === "tiles"; bT.setAttribute("aria-pressed", String(v === "tiles")); bL.setAttribute("aria-pressed", String(v !== "tiles")); };
+      var pv = "tiles"; try { pv = localStorage.getItem("socStripView") || "tiles"; } catch (x) {} setV(pv);
+    }
+    box.setAttribute("data-s5do", "1");
     panel.insertBefore(box, panel.firstChild);
     panel.setAttribute("data-units", n(und.length) + " settings not in $metadata · " + n((D.events || []).length) + " changes in 60 days");
   }
@@ -44756,6 +44811,26 @@ odtad CZTERNASCIE (4-17).**
     built = true; body.textContent = "";
     body.appendChild(intro());
     body.appendChild(vnav());
+    /* §5ft-c (30 X 2026, owner: "why has Graph API Radar no search field of its own, to search inside this tab only?"):
+       one field for the whole tab - it filters the settings of our tenant and every change in Graph, and says how many
+       it found in the other view */
+    if (S.view !== "how") {
+      var sw = el("div", "s5ft-qw"), q = el("input", "s5fq-q s5ft-q"); q.type = "search";
+      q.placeholder = "Search Graph API Radar — setting, property, type, path, permission (e.g. password, agent, conditionalAccess)";
+      q.setAttribute("aria-label", "Search Graph API Radar"); q.value = F.q;
+      var qt = null;
+      q.addEventListener("input", function () { clearTimeout(qt); qt = setTimeout(function () { F.q = q.value.trim(); var k2 = q.selectionStart; render(); var q2 = body.querySelector(".s5ft-q"); if (q2) { q2.focus(); try { q2.setSelectionRange(k2, k2); } catch (x) {} } }, 160); });
+      sw.appendChild(q);
+      if (F.q) {
+        var nT = ((D.tenant || {}).undocumented || []).map(fromUnd).filter(qHit).length, nC = (D.events || []).filter(function (e) { return e.kind !== "tenant-undocumented" && qHit(e); }).length;
+        var hits = el("div", "s5ft-qh"); hits.appendChild(el("span", null, "“" + F.q + "”: "));
+        hits.appendChild(btn(n(nT) + " in our tenant", "s5fo-tb" + (S.view === "tenant" ? " s5ft-qon" : ""), function () { S.view = "tenant"; setHash(); render(); }));
+        hits.appendChild(btn(n(nC) + " in every change in Graph", "s5fo-tb" + (S.view === "changes" ? " s5ft-qon" : ""), function () { S.view = "changes"; F.days = 60; setHash(); render(); }));
+        hits.appendChild(btn("Clear", "s5fo-tb", function () { F.q = ""; render(); }));
+        sw.appendChild(hits);
+      }
+      body.appendChild(sw);
+    }
     body.appendChild(kpis());
     var host = el("div", "s5ft-view"); body.appendChild(host);
     if (S.view === "changes") vChanges(host); else if (S.view === "how") vHow(host); else vTenant(host);
@@ -44935,6 +45010,300 @@ odtad CZTERNASCIE (4-17).**
   }, true);
   window.addEventListener("hashchange", function () { setTimeout(pass, 400); });
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(pass, 2500); }); else setTimeout(pass, 2500);
+})();
+
+/* §5fu (30 X 2026, owner: "tracking the changes of the Microsoft 365 address and IP range list - yes, a separate tab,
+   under Graph API Radar"). Tab "M365 endpoints": Microsoft's IP Address and URL web service (endpoints.office.com) read
+   twice a day by tools/m365_endpoints.py (workflow "M365 endpoints"). What Microsoft added (firewall / proxy work BEFORE
+   the effective date, or users lose access), removed (tidy up, no deadline) or moved, version by version, and the current
+   list by service area. The tab has its own search; today's version sits at the top in the §5bn frame; one sentence on
+   Overview, a block in Today, records in /diff and /week. Data: /data/m365-endpoints.json. */
+(function () {
+  "use strict";
+  if (window.__s5fu) return; window.__s5fu = 1;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || ""); }
+  function n(x) { return String(x == null ? 0 : x).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function btn(t, c, fn) { var b = el("button", c, t); b.type = "button"; b.addEventListener("click", function (e) { e.preventDefault(); fn(e); }); return b; }
+  var D = null, S = { view: "changes", q: "", area: "", imp: "" }, built = false;
+  var KCLS = { act: "s5fu-act", tidy: "s5fu-tidy", check: "s5fu-check", none: "s5fu-none" };
+
+  var wrap = document.querySelector(".wrap"), panel = null, body = null;
+  if (wrap && !document.getElementById("tab-m365ep")) {
+    panel = el("div", "tabpanel"); panel.id = "tab-m365ep"; panel.setAttribute("data-tab", "M365 endpoints"); panel.hidden = true;
+    var sec0 = el("section"); sec0.id = "m365ep"; sec0.setAttribute("data-nav", "M365 endpoints");
+    var sh0 = el("div", "sec-head"); sh0.appendChild(el("h2", null, "M365 endpoints"));
+    sh0.appendChild(el("p", "sec-title", "Microsoft 365 URLs and IP address ranges — what Microsoft adds (allow it in firewalls and proxies before the effective date), removes or moves, version by version"));
+    sec0.appendChild(sh0);
+    body = el("div", "sec-body s5fs-radar"); body.appendChild(el("p", "s5dv-note", "Loading the Microsoft 365 endpoints…")); sec0.appendChild(body);
+    panel.appendChild(sec0);
+    var after = document.getElementById("tab-radar") || document.getElementById("tab-graph");
+    if (after && after.parentNode === wrap) wrap.insertBefore(panel, after.nextSibling); else wrap.appendChild(panel);
+  }
+  function goTab() { var b = document.getElementById("tabbtn-tab-m365ep") || document.querySelector('nav.anchors .tab[aria-controls="tab-m365ep"]'); if (b && b.getAttribute("aria-selected") !== "true") b.click(); }
+
+  function imp(c) { var I = (D.impact || {}), out = (c.impact || []).map(function (k) { return [k].concat(I[k] || [k, "none", ""]); }); return out.length ? out : [["", c.disposition || "Change", "none", ""]]; }
+  function kindOf(c) { var ks = imp(c).map(function (x) { return x[2]; }); return ks.indexOf("act") >= 0 ? "act" : ks.indexOf("check") >= 0 ? "check" : ks.indexOf("tidy") >= 0 ? "tidy" : "none"; }
+  function sk(c) { var k = kindOf(c); return k === "act" ? "added" : k === "tidy" ? "removed" : "changed"; }
+  function title(c) {
+    var parts = [];
+    if (c.addUrls.length || c.addIps.length) parts.push("+" + [c.addUrls.length ? c.addUrls.length + " URL" + (c.addUrls.length === 1 ? "" : "s") : "", c.addIps.length ? c.addIps.length + " IP range" + (c.addIps.length === 1 ? "" : "s") : ""].filter(Boolean).join(", "));
+    if (c.remUrls.length || c.remIps.length) parts.push("−" + [c.remUrls.length ? c.remUrls.length + " URL" + (c.remUrls.length === 1 ? "" : "s") : "", c.remIps.length ? c.remIps.length + " IP range" + (c.remIps.length === 1 ? "" : "s") : ""].filter(Boolean).join(", "));
+    return (c.areaName || c.area || "Microsoft 365") + " · endpoint set " + c.set + (parts.length ? " · " + parts.join(" ") : c.disposition === "Remove" ? " · set removed" : "");
+  }
+  function hay(c) { return [title(c), c.desc, c.notes, c.category, c.version, (c.impact || []).join(" "), c.addUrls.join(" "), c.addIps.join(" "), c.remUrls.join(" "), c.remIps.join(" "), c.setUrls.join(" ")].join(" ").toLowerCase(); }
+  function qOk(c) { return !S.q || S.q.toLowerCase().split(/\s+/).every(function (w) { return !w || hay(c).indexOf(w) >= 0; }); }
+  function list(lab, arr, cls) { if (!arr || !arr.length) return null; var w = el("div", "s5fu-l " + (cls || "")); w.appendChild(el("b", null, lab)); var u = el("ul"); arr.forEach(function (x) { u.appendChild(el("li", null, x)); }); w.appendChild(u); return w; }
+
+  /* ---- the card ---- */
+  var CARD = null;
+  function codeBox(title2, text) {
+    var w = el("div", "s5fs-code"); var h = el("div", "s5fs-codeh"); h.appendChild(el("span", null, title2));
+    var cp = btn("Copy", "s5fs-copy", function () { try { navigator.clipboard.writeText(text).then(function () { cp.textContent = "Copied"; setTimeout(function () { cp.textContent = "Copy"; }, 1500); }); } catch (e) {} });
+    h.appendChild(cp); w.appendChild(h); w.appendChild(el("pre", "s5fq-pre", text)); return w;
+  }
+  function card(c) {
+    if (!CARD) {
+      CARD = el("div", "s5fo-ov s5ft-ov"); CARD.hidden = true; CARD.setAttribute("role", "dialog"); CARD.setAttribute("aria-modal", "true");
+      CARD.addEventListener("click", function (ev) { if (ev.target === CARD) CARD.hidden = true; });
+      document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && CARD && !CARD.hidden) CARD.hidden = true; });
+      document.body.appendChild(CARD);
+    }
+    CARD.textContent = "";
+    var k = el("div", "s5fo-card s5ft-card"); CARD.appendChild(k);
+    var x = el("button", "s5fo-x", "×"); x.type = "button"; x.setAttribute("aria-label", "Close"); x.addEventListener("click", function () { CARD.hidden = true; }); k.appendChild(x);
+    var ch = el("div", "s5fo-chips");
+    imp(c).forEach(function (i) { ch.appendChild(el("span", "s5ft-st " + KCLS[i[2]], i[1])); });
+    if (c.category) ch.appendChild(el("span", "s5fo-chip", "Category " + c.category));
+    if (c.required === true || c.required === "True") ch.appendChild(el("span", "s5fo-chip", "Required"));
+    k.appendChild(ch);
+    k.appendChild(el("h2", "s5fo-t s5ft-t", title(c)));
+    k.appendChild(el("p", "s5fo-ot", "Version " + c.version + " · published " + dmy(c.day) + " · change record " + c.id + (c.desc ? " · " + c.desc : "")));
+    var b0 = el("div", "s5fo-blk s5fo-do"); b0.appendChild(el("p", "s5fo-lab", "What to do"));
+    var u0 = el("ul", "s5ft-uses"); imp(c).forEach(function (i) { if (i[3]) u0.appendChild(el("li", null, i[3])); });
+    if (c.effective) u0.appendChild(el("li", null, "Effective date: " + dmy(c.effective) + " — Microsoft publishes additions about 30 days before it starts using them."));
+    if (c.category === "Optimize") u0.appendChild(el("li", null, "Category Optimize: the most latency-sensitive traffic — Microsoft recommends sending it directly, bypassing proxies and SSL inspection."));
+    b0.appendChild(u0); b0.appendChild(el("p", "s5fs-note", "From Microsoft's description of each impact in the web service article.")); k.appendChild(b0);
+    [["Added URLs", c.addUrls, "s5fu-add"], ["Added IP ranges", c.addIps, "s5fu-add"], ["Removed URLs", c.remUrls, "s5fu-rem"], ["Removed IP ranges", c.remIps, "s5fu-rem"]].forEach(function (a) { var l = list(a[0], a[1], a[2]); if (l) k.appendChild(l); });
+    var f = el("dl", "s5fj-facts s5fo-facts");
+    function fact(a, b) { if (!b) return; var w = el("div", "s5fj-f"); w.appendChild(el("dt", null, a)); w.appendChild(el("dd", null, b)); f.appendChild(w); }
+    fact("Service area", c.areaName); fact("Endpoint set", String(c.set) + (c.setInList ? " (in the current list)" : " (no longer in the list)"));
+    fact("URLs of the set", (c.setUrls || []).join(", ")); fact("Notes", c.notes);
+    var pv = Object.keys(c.prev || {}).filter(function (x2) { return (c.cur || {})[x2] !== undefined && String(c.prev[x2]) !== String(c.cur[x2]); });
+    if (pv.length) fact("Changed attributes", pv.map(function (x2) { return x2 + ": " + c.prev[x2] + " → " + c.cur[x2]; }).join(" · "));
+    k.appendChild(f);
+    var ps = "$cid = [guid]::NewGuid().Guid\n$ch = Invoke-RestMethod \"https://endpoints.office.com/changes/worldwide/0000000000?clientrequestid=$cid\"\n" +
+      "$ch | Where-Object { $_.version -eq '" + c.version + "' -and $_.endpointSetId -eq " + c.set + " } | ConvertTo-Json -Depth 5\n" +
+      "# the current endpoint set\n(Invoke-RestMethod \"https://endpoints.office.com/endpoints/worldwide?clientrequestid=$cid\") | Where-Object id -eq " + c.set;
+    var b1 = el("div", "s5fo-blk"); b1.appendChild(el("p", "s5fo-lab", "Check it yourself — PowerShell")); b1.appendChild(codeBox("PowerShell", ps));
+    b1.appendChild(el("p", "s5fs-note", "No sign-in needed: the web service is public. Microsoft asks for one version check an hour at most.")); k.appendChild(b1);
+    var lk = el("div", "s5fo-links"); lk.appendChild(el("p", "s5fo-lab", "Open"));
+    function a(t2, u) { var x2 = el("a", "s5fo-lk", t2 + " ↗"); x2.href = u; x2.target = "_blank"; x2.rel = "noopener"; lk.appendChild(x2); }
+    a("Microsoft 365 URLs and IP address ranges", D.list); a("The web service (Learn)", D.source);
+    k.appendChild(lk);
+    CARD.hidden = false; CARD.scrollTop = 0; x.focus();
+  }
+
+  /* ---- rows ---- */
+  function row(c) {
+    var kd = kindOf(c), li = el("li", "s5ft-f s5fu-r s5fu-r-" + kd); li.tabIndex = 0; li.setAttribute("role", "button");
+    var top = el("div", "s5ft-ft"); top.appendChild(el("span", "s5ft-fh", title(c)));
+    imp(c).forEach(function (i) { top.appendChild(el("span", "s5ft-st " + KCLS[i[2]], i[1])); }); li.appendChild(top);
+    var cs = el("div", "s5ft-fc");
+    if (c.category) cs.appendChild(el("span", "s5dv-chip", c.category));
+    if (c.effective) cs.appendChild(el("span", "s5dv-chip s5ft-today", "effective " + dmy(c.effective)));
+    var sample = c.addUrls.concat(c.addIps).slice(0, 3).map(function (x) { return "+ " + x; }).concat(c.remUrls.concat(c.remIps).slice(0, 3).map(function (x) { return "− " + x; }));
+    if (sample.length) li.appendChild(el("code", "s5ft-tech", sample.join("   ") + ((c.addUrls.length + c.addIps.length + c.remUrls.length + c.remIps.length) > sample.length ? "   …" : "")));
+    var dt = el("div", "s5ft-dates"); var s1 = el("span", "s5ft-dt" + (c.day === D.day ? " s5ft-dt-today" : "")); s1.appendChild(el("b", null, "Published ")); s1.appendChild(document.createTextNode(dmy(c.day) + " (version " + c.version + ")")); dt.appendChild(s1); li.appendChild(dt);
+    cs.appendChild(el("span", "s5ft-open", "Open ›")); li.appendChild(cs);
+    li.addEventListener("click", function () { card(c); });
+    li.addEventListener("keydown", function (x) { if (x.key === "Enter" || x.key === " ") { x.preventDefault(); card(c); } });
+    return li;
+  }
+  function intro() {
+    var d = el("section", "s5ft-intro"); d.appendChild(el("h3", null, "What this tab is for"));
+    var ul = el("ul");
+    [["Keep firewalls and proxies right. ", "Microsoft publishes the URLs and IP ranges of Microsoft 365 as a list with a version; an addition is announced about 30 days before Microsoft starts using it. Miss it and users behind your firewall or proxy can lose access."],
+     ["See every change, version by version. ", "Twice a day the portal checks Microsoft's web service; when the version moves it reads what was added, removed or moved, with Microsoft's own impact and the effective date."],
+     ["Act on it. ", "A change opens a card: what to do (from Microsoft's description of the impact), the full lists, the endpoint set and a PowerShell check."]
+    ].forEach(function (x) { var li = el("li"); li.appendChild(el("b", null, x[0])); li.appendChild(document.createTextNode(x[1])); ul.appendChild(li); });
+    d.appendChild(ul);
+    var lg = el("div", "s5ft-legend"); lg.appendChild(el("span", "s5ft-ll", "Impact:"));
+    [["act", "Act before the effective date (added IP or URL)"], ["tidy", "Removed — tidy up, no deadline"], ["check", "Check only if you use ExpressRoute"], ["none", "Generally no action"]].forEach(function (x) { var s = el("span", "s5ft-li"); s.appendChild(el("span", "s5ft-st " + KCLS[x[0]], x[0] === "act" ? "Act" : x[0] === "tidy" ? "Tidy up" : x[0] === "check" ? "Check" : "No action")); s.appendChild(document.createTextNode(" " + x[1])); lg.appendChild(s); });
+    d.appendChild(lg); return d;
+  }
+  function search() {
+    var sw = el("div", "s5ft-qw"), q = el("input", "s5fq-q s5ft-q"); q.type = "search";
+    q.placeholder = "Search M365 endpoints — URL, IP range, service, endpoint set, version (e.g. msidentity, 52.96, Teams)"; q.setAttribute("aria-label", "Search M365 endpoints"); q.value = S.q;
+    var qt = null; q.addEventListener("input", function () { clearTimeout(qt); qt = setTimeout(function () { S.q = q.value.trim(); var k2 = q.selectionStart; render(); var q2 = body.querySelector(".s5ft-q"); if (q2) { q2.focus(); try { q2.setSelectionRange(k2, k2); } catch (x) {} } }, 160); });
+    sw.appendChild(q); return sw;
+  }
+  function vnav() {
+    var nv = el("nav", "s5dv-vnav"); nv.setAttribute("aria-label", "Views of the M365 endpoints tab");
+    [["changes", "Changes", (D.changes || []).length], ["list", "Current list", (D.sets || []).length], ["how", "How it works", null]].forEach(function (v) {
+      var b = btn(v[1], "s5dv-vb" + (S.view === v[0] ? " on" : ""), function () { S.view = v[0]; try { history.replaceState(null, "", "#tab=m365ep" + (v[0] !== "changes" ? "&v=" + v[0] : "")); } catch (e) {} render(); });
+      if (v[2] != null) b.appendChild(el("span", "s5fp-n", n(v[2]))); b.setAttribute("aria-pressed", String(S.view === v[0])); nv.appendChild(b); });
+    return nv;
+  }
+  function kpis() {
+    var t = D.totals || {}, kp = el("div", "s5dv-kpis"), v0 = (D.versions || [])[0] || {};
+    [[D.version, "current version", "published " + dmy(D.versionDay)], [n(v0.n), "changes in it", n(v0.act) + " to act on"], [n(t.sets), "endpoint sets", n((t.byCategory || {}).Optimize) + " Optimize · " + n((t.byCategory || {}).Allow) + " Allow"],
+     [n(t.urls), "URLs", n(t.ips) + " IP ranges"]].forEach(function (x) { var d = el("div", "s5dv-kpi"); d.appendChild(el("b", null, x[0])); d.appendChild(el("span", "s5dv-kl", x[1])); d.appendChild(el("span", "s5dv-ks", x[2])); kp.appendChild(d); });
+    return kp;
+  }
+  function vChanges(host) {
+    var L = (D.changes || []).filter(qOk).filter(function (c) { return (!S.area || c.area === S.area) && (!S.imp || kindOf(c) === S.imp); });
+    var fb = el("div", "s5fo-tf");
+    fb.appendChild(el("span", "s5fo-tfl", "Service"));
+    var areas = {}; (D.changes || []).filter(qOk).forEach(function (c) { areas[c.area] = (areas[c.area] || 0) + 1; });
+    var ab = btn("All", "s5fo-tb", function () { S.area = ""; render(); }); ab.setAttribute("aria-pressed", String(!S.area)); fb.appendChild(ab);
+    Object.keys(areas).forEach(function (a) { var b = btn((D.areas || {})[a] || a, "s5fo-tb", function () { S.area = a; render(); }); b.setAttribute("aria-pressed", String(S.area === a)); b.appendChild(el("span", "s5fp-n", n(areas[a]))); fb.appendChild(b); });
+    fb.appendChild(el("span", "s5fo-tfl", "Impact"));
+    [["", "All"], ["act", "Act"], ["tidy", "Tidy up"], ["check", "Check"], ["none", "No action"]].forEach(function (o) { var cnt = (D.changes || []).filter(qOk).filter(function (c) { return !o[0] || kindOf(c) === o[0]; }).length; if (o[0] && !cnt) return;
+      var b = btn(o[1], "s5fo-tb", function () { S.imp = o[0]; render(); }); b.setAttribute("aria-pressed", String(S.imp === o[0])); b.appendChild(el("span", "s5fp-n", n(cnt))); fb.appendChild(b); });
+    host.appendChild(fb);
+    if (!L.length) { host.appendChild(el("p", "s5dv-note", S.q ? "No change matches “" + S.q + "”." : "No change matches the filters.")); return; }
+    var by = {}, order = []; L.forEach(function (c) { if (!by[c.version]) { by[c.version] = []; order.push(c.version); } by[c.version].push(c); });
+    order.forEach(function (v, i) {
+      var d = el("details", "s5ft-grp"); if (i < 2 || S.q) d.open = true;
+      var sm = el("summary", "s5ft-gs"); sm.appendChild(el("span", "s5ft-gn", dmy(by[v][0].day) + " · version " + v)); sm.appendChild(el("span", "s5fp-n", n(by[v].length) + " change" + (by[v].length === 1 ? "" : "s")));
+      var na = by[v].filter(function (c) { return kindOf(c) === "act"; }).length; if (na) sm.appendChild(el("span", "s5ft-st s5fu-act", na + " to act on"));
+      d.appendChild(sm); var ol = el("ol", "s5ft-fl"); by[v].forEach(function (c) { ol.appendChild(row(c)); }); d.appendChild(ol); host.appendChild(d);
+    });
+  }
+  function vList(host) {
+    var sets = (D.sets || []).filter(function (s) { if (!S.q) return true; var h = [s.serviceAreaDisplayName, s.category, s.notes, (s.urls || []).join(" "), (s.ips || []).join(" "), String(s.id), s.tcpPorts, s.udpPorts].join(" ").toLowerCase(); return S.q.toLowerCase().split(/\s+/).every(function (w) { return !w || h.indexOf(w) >= 0; }); });
+    if (!sets.length) { host.appendChild(el("p", "s5dv-note", "No endpoint set matches “" + S.q + "”.")); return; }
+    var by = {}, order = []; sets.forEach(function (s) { var a = s.serviceAreaDisplayName || s.serviceArea; if (!by[a]) { by[a] = []; order.push(a); } by[a].push(s); });
+    var CO = { Optimize: 0, Allow: 1, Default: 2 };
+    order.forEach(function (a) {
+      by[a].sort(function (x, y) { return (CO[x.category] || 0) - (CO[y.category] || 0) || x.id - y.id; });
+      var d = el("details", "s5ft-grp"); d.open = !!S.q || order.length === 1; var sm = el("summary", "s5ft-gs"); sm.appendChild(el("span", "s5ft-gn", a)); sm.appendChild(el("span", "s5fp-n", n(by[a].length) + " sets")); d.appendChild(sm);
+      var ol = el("ol", "s5ft-fl");
+      by[a].forEach(function (s) {
+        var li = el("li", "s5ft-f s5fu-set s5fu-c-" + (s.category || "Default"));
+        var top = el("div", "s5ft-ft"); top.appendChild(el("span", "s5ft-fh", "Endpoint set " + s.id + ((s.urls || []).length ? " · " + s.urls[0] + (s.urls.length > 1 ? " +" + (s.urls.length - 1) : "") : "")));
+        top.appendChild(el("span", "s5ft-st " + (s.category === "Optimize" ? "s5fu-act" : s.category === "Allow" ? "s5fu-check" : "s5fu-none"), s.category)); li.appendChild(top);
+        var cs = el("div", "s5ft-fc"); cs.appendChild(el("span", "s5dv-chip", s.required ? "Required" : "Optional"));
+        if (s.tcpPorts) cs.appendChild(el("span", "s5dv-chip", "TCP " + s.tcpPorts)); if (s.udpPorts) cs.appendChild(el("span", "s5dv-chip", "UDP " + s.udpPorts)); if (s.expressRoute) cs.appendChild(el("span", "s5dv-chip", "ExpressRoute"));
+        li.appendChild(cs);
+        if (s.notes) li.appendChild(el("p", "s5ft-fw", s.notes));
+        var dd = el("details", "s5fu-more"); dd.appendChild(el("summary", null, n((s.urls || []).length) + " URLs · " + n((s.ips || []).length) + " IP ranges"));
+        var l1 = list("URLs", s.urls), l2 = list("IP ranges", s.ips); if (l1) dd.appendChild(l1); if (l2) dd.appendChild(l2); li.appendChild(dd);
+        ol.appendChild(li);
+      });
+      d.appendChild(ol); host.appendChild(d);
+    });
+  }
+  function vHow(host) {
+    var h = el("section", "s5ft-how"); h.appendChild(el("h3", null, "How it works"));
+    var ol = el("ol");
+    ["Twice a day (05:25 and 15:25 UTC) GitHub Actions runs tools/m365_endpoints.py. It asks Microsoft's web service for the latest version of the Worldwide list (Microsoft asks for one check an hour at most).",
+     "When the version moved, it reads every change record and the current list, and keeps every endpoint set it has seen, so a set Microsoft removed keeps its name and URLs here.",
+     "Each change carries Microsoft's impact: an added IP or URL must be allowed before its effective date; a removal can be tidied up without a deadline; a move or a note needs no action.",
+     "Only the commercial (Worldwide) instance is read. GCC High, DoD and China have their own lists."].forEach(function (t) { ol.appendChild(el("li", null, t)); });
+    h.appendChild(ol); host.appendChild(h);
+    var vs = (D.versions || []).slice(0, 15), d = el("details", "s5ft-grp"); d.open = true; var sm = el("summary", "s5ft-gs"); sm.appendChild(el("span", "s5ft-gn", "Versions")); sm.appendChild(el("span", "s5fp-n", n(vs.length))); d.appendChild(sm);
+    var ul = el("ul", "s5ft-ep"); vs.forEach(function (v) { var li = el("li", v.act ? "bad" : ""); li.appendChild(el("b", null, v.version + " · " + dmy(v.day))); li.appendChild(el("span", "s5dv-sm", v.n + " change" + (v.n === 1 ? "" : "s") + (v.act ? " · " + v.act + " to act on" : "") + (v.seen ? " · seen by the portal " + dmy(v.seen) : ""))); ul.appendChild(li); });
+    d.appendChild(ul); host.appendChild(d);
+  }
+  function strip() {
+    if (!panel) return; var old = panel.querySelector(":scope > .s5bn"); if (old) old.remove();
+    var day = D.day, T = (D.changes || []).filter(function (c) { return c.day === day; });
+    var cnt = { added: 0, changed: 0, removed: 0 }; T.forEach(function (c) { cnt[sk(c)]++; });
+    var box = el("div", "s5bn s5dv-bn"); box.setAttribute("role", "region"); box.setAttribute("aria-label", "What changed in the Microsoft 365 endpoints today"); box.setAttribute("data-s5do", "1");
+    var h = el("div", "s5bn-h"); h.appendChild(el("span", "s5bn-t", "Today, all runs · " + dmy(day)));
+    [["added", "+", "new"], ["changed", "~", "changed"], ["removed", "−", "removed"]].forEach(function (k) { var b = el("span", "s5bn-n s5bn-" + k[0], k[1] + cnt[k[0]] + " " + k[2]); if (!cnt[k[0]]) b.classList.add("zero"); h.appendChild(b); });
+    box.appendChild(h);
+    if (!T.length) box.appendChild(el("p", "s5bn-empty", "No new version of the Microsoft 365 endpoints today. Current version " + D.version + ", published " + dmy(D.versionDay) + "."));
+    else {
+      box.appendChild(el("p", "s5ft-sl", "Microsoft published version " + D.version + " today: " + T.length + " change" + (T.length === 1 ? "" : "s") + " — a tile opens its card."));
+      var grid = el("div", "s5do-grid");
+      T.forEach(function (c) {
+        var t = el("article", "s5do-tile s5do-" + sk(c)); t.tabIndex = 0; t.setAttribute("role", "button");
+        t.appendChild(el("div", "s5do-name", title(c)));
+        var pl = el("div", "s5do-pills"); imp(c).forEach(function (i) { pl.appendChild(el("span", "s5do-ty", i[1])); }); if (c.category) pl.appendChild(el("span", "s5do-ty", c.category)); t.appendChild(pl);
+        var sm = c.addUrls.concat(c.addIps).map(function (x) { return "+ " + x; }).concat(c.remUrls.concat(c.remIps).map(function (x) { return "− " + x; }));
+        if (sm.length) t.appendChild(el("div", "s5do-chs", sm.slice(0, 4).join(" · ") + (sm.length > 4 ? " · …" : "")));
+        var ft = el("div", "s5do-foot"); ft.appendChild(el("span", "s5do-open", "Open ›")); t.appendChild(ft);
+        t.addEventListener("click", function () { card(c); }); t.addEventListener("keydown", function (x) { if (x.key === "Enter" || x.key === " ") { x.preventDefault(); card(c); } });
+        grid.appendChild(t);
+      });
+      box.appendChild(grid);
+    }
+    panel.insertBefore(box, panel.firstChild);
+    panel.setAttribute("data-units", "version " + D.version + " · " + n((D.totals || {}).sets) + " endpoint sets");
+  }
+  function render() {
+    if (!body || !D) return; built = true; body.textContent = "";
+    body.appendChild(intro()); body.appendChild(vnav());
+    if (S.view !== "how") body.appendChild(search());
+    body.appendChild(kpis());
+    var host = el("div", "s5ft-view"); body.appendChild(host);
+    if (S.view === "list") vList(host); else if (S.view === "how") vHow(host); else vChanges(host);
+    body.appendChild(el("p", "s5dv-fn", "Read " + dmy(D.day) + " " + String(D.generated || "").slice(11, 16) + " UTC from Microsoft's web service (tools/m365_endpoints.py), instance Worldwide."));
+  }
+  function openTab(view) { if (view) S.view = view; goTab(); setTimeout(function () { render(); if (panel) window.scrollTo(0, Math.max(0, window.scrollY + panel.getBoundingClientRect().top - 90)); }, 120); }
+  window.__socM365ep = openTab;
+
+  /* Overview: one sentence; Today: a block when Microsoft published a version since the previous brief */
+  function since() {
+    var ST = null; try { ST = JSON.parse((document.getElementById("soc-brief-state") || {}).textContent || "null"); } catch (e) {}
+    var cw = (ST || {}).comparedWith || {}; return typeof cw === "string" ? cw : (cw.date || "");
+  }
+  function sentence(k) {
+    var ol = document.querySelector("#tab-overview .s5bk-3");
+    if (!ol) { if (k < 25) setTimeout(function () { sentence(k + 1); }, 400); return; }
+    if (ol.querySelector(".s5fu-sen")) return;
+    var prev = since(), T = (D.changes || []).filter(function (c) { return prev ? c.day > prev : c.day === D.day; });
+    var act = T.filter(function (c) { return kindOf(c) === "act"; }), rem = T.filter(function (c) { return kindOf(c) === "tidy"; });
+    var li = el("li", "s5fu-sen"); li.appendChild(el("b", "s5bk-k k-tech", "M365 endpoints"));
+    var b = el("span", "s5bk-it s5bk-idl");
+    b.appendChild(el("span", "s5bk-itt", T.length ? "Microsoft published version " + D.version + " of the Microsoft 365 URLs and IP ranges: " + T.length + " change" + (T.length === 1 ? "" : "s") +
+      (act.length ? " · " + act.length + " to allow in firewalls / proxies before the effective date" : " · nothing to add to firewalls or proxies") + (rem.length ? " · " + rem.length + " removal" + (rem.length === 1 ? "" : "s") + " to tidy up" : "")
+      : "No new version of the Microsoft 365 URLs and IP ranges · current " + D.version + " of " + dmy(D.versionDay)));
+    var g = el("span", "s5bk-idg");
+    function tile(lab, num, sub, fn) { var x = el("button", "s5bk-idtile" + (num ? " s5bk-idhot" : "")); x.type = "button"; x.title = "Open " + lab;
+      x.appendChild(el("span", "s5bk-idl1", lab)); x.appendChild(el("span", "s5bk-idn", String(num))); x.appendChild(el("span", "s5bk-idl2", "since the last brief")); x.appendChild(el("span", "s5bk-idl3", sub));
+      x.addEventListener("click", function (e2) { e2.stopPropagation(); fn(); }); g.appendChild(x); }
+    tile("To act on", act.length, "added IP or URL", function () { S.imp = "act"; openTab("changes"); });
+    tile("Removed", rem.length, "tidy up, no deadline", function () { S.imp = "tidy"; openTab("changes"); });
+    tile("All changes", T.length, "version " + D.version, function () { S.imp = ""; openTab("changes"); });
+    b.appendChild(g); li.appendChild(b);
+    var at = ol.querySelector(".s5fs-sen") || ol.querySelector(".s5dv-sen"); if (at) ol.insertBefore(li, at.nextSibling); else ol.appendChild(li);
+    var sh = ol.parentNode && ol.parentNode.querySelector(".s5bk-h");
+    if (sh && window.__socRenum) { sh.textContent = "Today in " + window.__socWords(window.__socRenum(ol)) + " sentences"; if (ol.parentNode.setAttribute) ol.parentNode.setAttribute("aria-label", sh.textContent); }
+  }
+  function today() {
+    var p = document.getElementById("tab-today"); if (!p || document.getElementById("s5fu-today")) return;
+    var prev = since(), T = (D.changes || []).filter(function (c) { return prev ? c.day > prev : c.day === D.day; });
+    if (!T.length) return;
+    var box = el("section", "gd-today s5ft-tday"); box.id = "s5fu-today";
+    box.appendChild(el("h3", "gd-th", "M365 endpoints: Microsoft published version " + D.version + " — " + T.length + " change" + (T.length === 1 ? "" : "s") + " to the URLs and IP ranges"));
+    var ul = el("ul", "gd-trows");
+    T.slice(0, 6).forEach(function (c) { var li = el("li"); var i0 = imp(c)[0]; li.appendChild(el("span", "s5ft-st " + KCLS[i0[2]], i0[1]));
+      var bb = el("button", "gd-name", title(c)); bb.type = "button"; bb.addEventListener("click", function () { card(c); }); li.appendChild(bb); ul.appendChild(li); });
+    box.appendChild(ul); box.appendChild(btn("Open M365 endpoints →", "gd-all", function () { openTab("changes"); }));
+    var after = document.getElementById("s5ft-today") || document.getElementById("gd-today") || p.querySelector(":scope > .s5bn");
+    if (after && after.parentNode === p) p.insertBefore(box, after.nextSibling); else p.insertBefore(box, p.firstChild);
+  }
+  function fromHash() { var m = /^#tab=m365ep(?:&v=(\w+))?/.exec(decodeURIComponent(location.hash || "")); if (!m || !D) return false; S.view = m[1] || "changes"; openTab(); return true; }
+  function start() {
+    if (!onSite() || !window.fetch) return;
+    fetch("/data/m365-endpoints.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      if (!d || !d.changes) { if (body) { body.textContent = ""; body.appendChild(el("p", "s5dv-note", "The Microsoft 365 endpoints have not been read yet (workflow “M365 endpoints”).")); } return; }
+      D = d;
+      try { strip(); } catch (e) { if (window.console) console.error("[5fu strip]", e); }
+      setTimeout(function () { sentence(0); }, 300);
+      var k = 0; (function w() { if ((!document.getElementById("tab-today") || !document.getElementById("s5ft-today")) && ++k < 30) setTimeout(w, 500); else try { today(); } catch (e) { if (window.console) console.error("[5fu today]", e); } })();
+      if (!fromHash() && panel && !panel.hidden) render();
+      window.addEventListener("hashchange", fromHash);
+    }).catch(function () {});
+    document.addEventListener("click", function (ev) { var t = ev.target.closest && ev.target.closest('#tabbtn-tab-m365ep, nav.anchors .tab[aria-controls="tab-m365ep"]'); if (t) setTimeout(function () { if (D && !built) render(); }, 30); }, true);
+    document.addEventListener("soc:woke", function (e) { if (e && e.detail && e.detail.id === "tab-m365ep" && D && !built) render(); });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 1000); }); else setTimeout(start, 1000);
 })();
 
 /* §5dw (15 X 2026, owner: "campaigns were to be detected by us; I am not sure Security Defaults is a campaign like the
@@ -48125,6 +48494,25 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 .s5ft-tday .s5ft-st{margin-right:6px}
 #tab-radar .s5fo-tf .s5fo-tfl{flex-basis:100%;margin-top:4px}
 #tab-radar .s5fo-tf .s5fo-tfl:first-child{margin-top:0}
+.s5ft-qw{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+.s5ft-q{width:100%;box-sizing:border-box;font-size:15px;padding:10px 14px;border:2px solid var(--ok);border-radius:10px;background:var(--surface);color:var(--text)}
+.s5ft-qh{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:14px}
+.s5ft-dates{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted);margin:0 0 6px}
+.s5ft-dt b{font-weight:600;color:var(--text)}
+.s5ft-dt-today{color:#e3a33b}
+.s5ft-sl{margin:4px 0 8px;font-size:14px;color:var(--muted)}
+/* §5fu (30 X 2026): M365 endpoints */
+.s5ft-st.s5fu-act{color:#e3a33b;border-color:#e3a33b;background:color-mix(in srgb,#e3a33b 14%,transparent)}
+.s5ft-st.s5fu-tidy{color:var(--bad);border-color:var(--bad)}
+.s5ft-st.s5fu-check{color:var(--accent);border-color:var(--accent)}
+.s5ft-st.s5fu-none{color:var(--muted);border-color:var(--border)}
+.s5fu-r-act{border-left-color:#e3a33b}.s5fu-r-tidy{border-left-color:var(--bad)}.s5fu-r-check{border-left-color:var(--accent)}.s5fu-r-none{border-left-color:var(--border)}
+.s5fu-c-Optimize{border-left-color:#e3a33b}.s5fu-c-Allow{border-left-color:var(--accent)}.s5fu-c-Default{border-left-color:var(--border)}
+.s5fu-set{cursor:default}
+.s5fu-l{margin:8px 0}.s5fu-l b{font-size:13.5px}.s5fu-l ul{margin:4px 0 0;padding-left:20px;font:13px/1.45 var(--mono);overflow-wrap:anywhere}
+.s5fu-add b{color:#3fb37f}.s5fu-rem b{color:var(--bad)}
+.s5fu-more>summary{cursor:pointer;font-size:13.5px;color:var(--accent);margin-top:4px}
+.s5fo-tb.s5ft-qon{background:var(--accent);border-color:var(--accent);color:var(--on-accent,var(--bg))}
 /* §5ft-b: "Try it" in Message Center, Graph API and Roles */
 .s5ft-cmd{margin:10px 0;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--border));border-left:4px solid var(--accent);border-radius:9px;padding:0 12px;background:color-mix(in srgb,var(--accent) 5%,var(--bg))}
 .s5ft-cmd>summary{cursor:pointer;padding:9px 0;font-weight:700;font-size:14.5px;color:var(--accent)}
@@ -50036,6 +50424,44 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5fu — Zakladka „M365 endpoints” (adresy URL i zakresy IP Microsoft 365) (30 X 2026)
+
+Wlasciciel: „sledzenie zmian listy adresow i zakresow IP Microsoft 365 — tak, osobna zakladka pod Graph API Radar”.
+- **`tools/m365_endpoints.py`** + workflow „M365 endpoints” (05:25 i 15:25 UTC, push na skrypt / workflow, dispatch):
+  web service Microsoftu `endpoints.office.com` — `version/Worldwide?AllVersions=true` (wersja RRRRMMDDNN, Microsoft prosi
+  o najwyzej jedno sprawdzenie na godzine); gdy wersja sie zmienila: `changes/worldwide/0000000000` (wszystkie rekordy
+  zmian od 2018, strona pokazuje od 2024) i `endpoints/worldwide` (biezaca lista: obszar uslugi, URL, IP, porty,
+  kategoria Optimize / Allow / Default, required, ExpressRoute, notatki). Pamiec `data/m365-endpoints/`: `state.json`
+  (clientRequestId — losowy GUID wywolujacego, nie sekret; wersja; dzien, w ktorym portal zobaczyl wersje) i `sets.json`
+  (kazdy zestaw kiedykolwiek widziany — usuniety zestaw zachowuje nazwe i URL-e). Wynik `site/data/m365-endpoints.json`.
+- **Zakladka `tab-m365ep`** zaraz za Graph API Radar (grupa Changes, jednostka w menu, pasek §5bn z kaflami dzisiejszej
+  wersji): „What this tab is for”, legenda wplywu (Act — dodany IP / URL, dodac przed data wejscia; Tidy up — usuniety, bez
+  terminu; Check — ExpressRoute; No action — przeniesienie, notatka), wlasne pole wyszukiwania (URL, IP, usluga, zestaw,
+  wersja), widoki: Changes (grupy per wersja, filtr uslugi i wplywu), Current list (per obszar uslugi, Optimize / Allow
+  najpierw, URL-e i IP zwiniete), How it works (wersje). Karta: What to do (slowa Microsoftu o wplywie), data wejscia,
+  listy dodane / usuniete, zestaw, zmienione atrybuty, sprawdzenie w PowerShell (bez logowania — sprawdzone w pwsh 7.4.6
+  na zywym serwisie).
+- Zdanie Overview „M365 endpoints” (kafle: To act on / Removed / All changes), blok w Today, gdy od poprzedniego briefu
+  wyszla nowa wersja, rekordy w `/diff` i `/week` (`changes_page.py`, zakladka „M365 endpoints”).
+- 30 X 2026 Microsoft wydal wersje 2026103000: 4 zmiany, same usuniecia (m.in. `*.msidentity.com`,
+  `becws.microsoftonline.com`, `provisioningapi.microsoftonline.com` z zestawu 56 — Microsoft 365 Common, Allow).
+
+### §5ft-c — Wyszukiwanie w zakladce, nowe na gorze, daty znaleziska; wyszukiwanie zakladki w /diff i /week (30 X 2026)
+
+Wlasciciel: „czemu Graph API Radar nie ma pola wyszukiwania tylko w tej zakladce? To samo w /week i /diff” oraz „co
+nowe danego dnia — w oddzielnej sekcji na samej gorze w zaokraglonej ramce, jak w innych zakladkach; nowe zawsze
+pierwsze w swojej kategorii; kazde z data znalezienia, aktualizacji”.
+- **Pole „Search Graph API Radar”** pod widokami: filtruje ustawienia tenanta i zmiany w Graph (tytul, nazwa, sciezka,
+  technologia, opis, uzycia, uprawnienia, MC, artykuly; wszystkie slowa) i pokazuje, ile trafien jest w drugim widoku.
+  Pozostale zakladki portalu maja juz wlasne pola (sprawdzone 30 X: wszystkie poza Overview i About).
+- **Pasek §5bn na gorze zakladki**: kafle (Tiles / List) dzisiejszych znalezisk tenanta (nowych i zaktualizowanych) i
+  dzisiejszych zmian `$metadata` (najpierw promocje do v1.0, nowe typy, usuniecia), +N wiecej.
+- **Daty**: `graph_radar.py` prowadzi `tenant.json` → `life` (first, last, status, statusDay, log: zmiana statusu
+  dokumentacji, nowe zrodla); wiersz pokazuje Found / Last returned / Updated / Status since, karta — Dates i What
+  changed; ustawienie, ktorego tenant juz nie zwraca, trafia do „No longer returned by our tenant”. W technologii
+  najnowsze najpierw.
+- **/diff i /week**: w kazdej zakladce pole „Search only in <zakladka>” (`S.tq`), gorne pole nazywa sie „Search every tab”.
 
 ### §5ft — Graph API Radar jako osobna zakladka, czytelne znaleziska, uprawnienia, artykuly, polecenia w MC / Graph / Roles (30 X 2026)
 

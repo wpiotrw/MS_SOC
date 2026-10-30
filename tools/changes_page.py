@@ -14,7 +14,7 @@ What it does (code only, run by the "Code refresh" workflow after every publishe
      record (a Graph permission's endpoints, privilege level and consent in one row), plus the dated events of the
      portal's own data files that the register does not carry: first-party apps (state `fpa.chg`), campaigns
      (campaigns.json), baselines (baselines.json), Threat Research (threats.json), preview-to-GA (doc-ga.json),
-     Graph API Radar (graph-radar.json, 5ft).
+     Graph API Radar (graph-radar.json, 5ft), M365 endpoints (m365-endpoints.json, 5fu).
   2. site/diff/index.html and site/week/index.html - the page itself, from tools/changes_app.html (same file; /week/
      opens on "Last 7 days" and offers printing). A page a routine wrote there before (make_diff.py's full comparison,
      write_week()'s summary) is moved aside first: site/diff/full.html, site/week/print.html - both stay linked.
@@ -148,6 +148,25 @@ def extras(site, state, lo, hi):
         X.append({"d": d, "tab": "Graph API Radar", "k": k, "id": ty, "t": clip(ty + " (Graph " + ver + (", promoted to v1.0" if g["prom"] else "") + ")", 200), "u": "",
                   "p": g["cat"] or "Microsoft Graph", "w": None, "t0": False,
                   "f": [[KL.get(kd, kd), "", "%d" % len(v), clip(", ".join(v[:10]) + (" …" if len(v) > 10 else ""), 300)] for kd, v in sorted(g["kinds"].items())]})
+    # 5fu (30 X 2026): Microsoft 365 URLs and IP address ranges - one record per change record of a version in the window
+    mep = load(os.path.join(site, "data", "m365-endpoints.json"), {}) or {}
+    MK = {k: v for k, v in (mep.get("impact") or {}).items()}
+    for c in mep.get("changes") or []:
+        d = str(c.get("day") or "")[:10]
+        if not (lo <= d <= hi):
+            continue
+        kinds = [(MK.get(i) or [i, "none"])[1] for i in c.get("impact") or []]
+        k = "added" if "act" in kinds else "removed" if "tidy" in kinds else "changed"
+        labs = ", ".join((MK.get(i) or [i])[0] for i in c.get("impact") or []) or (c.get("disposition") or "change")
+        f = []
+        for lab, key in (("added URLs", "addUrls"), ("added IP ranges", "addIps"), ("removed URLs", "remUrls"), ("removed IP ranges", "remIps")):
+            if c.get(key):
+                f.append([lab, "", "%d" % len(c[key]), clip(", ".join(c[key][:12]) + (" …" if len(c[key]) > 12 else ""), 400)])
+        if c.get("effective"):
+            f.append(["effective date", "", c["effective"], "allow it before this day"])
+        X.append({"d": d, "tab": "M365 endpoints", "k": k, "id": "set %s · version %s" % (c.get("set"), c.get("version")),
+                  "t": clip("%s · endpoint set %s · %s" % (c.get("areaName") or c.get("area") or "Microsoft 365", c.get("set"), labs), 220),
+                  "u": mep.get("list") or "", "p": "Microsoft 365 network", "w": None, "t0": False, "f": f or [[labs, "", "", ""]]})
     thr = load(os.path.join(site, "data", "threats.json"), {}) or {}
     arts = {a["id"]: a for a in thr.get("articles") or []}
     for s in thr.get("stories") or []:

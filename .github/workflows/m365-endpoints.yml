@@ -1,0 +1,44 @@
+name: M365 endpoints
+
+# CLAUDE.md 5fu (30 X 2026): Microsoft 365 URLs and IP address ranges - Microsoft's web service (endpoints.office.com) checked
+# twice a day; when the version moved, the change records and the current list are read (tools/m365_endpoints.py) and the
+# tab "M365 endpoints" shows what was added (act before the effective date), removed or moved. Microsoft asks for at most
+# one version call an hour. Commits only when something changed; "Code refresh" deploys after it (workflow_run).
+on:
+  schedule:
+    - cron: "25 5,15 * * *"
+  push:
+    branches: [main]
+    paths:
+      - 'tools/m365_endpoints.py'
+      - '.github/workflows/m365-endpoints.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: m365-endpoints
+  cancel-in-progress: false
+
+jobs:
+  endpoints:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Version, changes and current list
+        run: python3 tools/m365_endpoints.py $([ "${{ github.event_name }}" = "push" ] && echo --force)
+      - name: Commit when it changed
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/m365-endpoints.json data/m365-endpoints
+          if git diff --cached --quiet; then echo "No change."; else
+            git commit -m "data: M365 endpoints $(date -u +%F' '%H:%M) UTC"
+            for i in 1 2 3; do git pull --rebase -q origin main && git push origin main && break; sleep 10; done
+          fi
