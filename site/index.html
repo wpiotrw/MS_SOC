@@ -5759,10 +5759,34 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 .s5ft-catp{display:inline-flex;align-items:center;font-size:12.5px;font-weight:700;padding:2px 9px;border-radius:7px;border:1.5px solid var(--accent);color:var(--text);background:color-mix(in srgb,var(--accent) 18%,transparent);white-space:nowrap}
 .s5ft-st.s5ft-s-v1,.s5ft-st.s5fu-none{color:var(--text);border-color:color-mix(in srgb,var(--text) 45%,transparent)}
 #tab-radar .s5do-pills,#tab-m365ep .s5do-pills{gap:6px}
-#tab-radar .s5dv-chip,#tab-m365ep .s5dv-chip{color:var(--text);border-color:color-mix(in srgb,var(--text) 40%,transparent)}
+#tab-radar .s5dv-chip:not(.s5fq-req):not(.s5ft-ac):not(.s5fs-cmd):not(.s5ft-today),#tab-m365ep .s5dv-chip:not(.s5ft-today){color:var(--text);border-color:color-mix(in srgb,var(--text) 40%,transparent)}
+#tab-radar .s5dv-chip.s5fq-req{color:var(--bad);border-color:var(--bad);font-weight:700}
+#tab-radar .s5dv-chip.s5ft-ac{color:var(--ok);border-color:var(--ok);font-weight:700}
+#tab-radar .s5dv-chip.s5fs-cmd{color:var(--accent);border-color:var(--accent);font-weight:600}
+#tab-radar .s5dv-chip.s5ft-today,#tab-m365ep .s5dv-chip.s5ft-today{color:var(--warn);border-color:var(--warn);font-weight:600}
 .s5ft-tf{margin:6px 0 4px}
 .s5ft-sq{flex:1 1 100%;margin-top:6px;font-size:14px;padding:8px 12px}
 .s5fo-tb.s5ft-more{margin:4px 0 0}
+/* §5ft-e: wide card with tabs; the property's name and the titles stand out */
+.s5fo-card.s5ft-wide{width:min(1180px,100%)}
+.s5ft-tname{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:4px 48px 6px 0}
+.s5ft-tname code{font:700 15px/1.4 var(--mono);color:var(--text);background:color-mix(in srgb,var(--accent) 14%,var(--surface));border:1.5px solid color-mix(in srgb,var(--accent) 55%,transparent);border-radius:8px;padding:5px 10px;overflow-wrap:anywhere;word-break:break-word}
+.s5ft-card .s5ft-t{font-size:22px;color:var(--text)}
+.s5ft-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0;border-bottom:2px solid var(--border);padding-bottom:0}
+.s5ft-tab{font:700 14.5px/1.2 var(--sans);color:var(--text);background:transparent;border:1px solid transparent;border-bottom:0;border-radius:9px 9px 0 0;padding:9px 16px;cursor:pointer;margin-bottom:-2px}
+.s5ft-tab[aria-selected="true"]{background:var(--surface);border-color:var(--border);border-bottom:2px solid var(--surface);color:var(--accent)}
+.s5ft-tab:hover{color:var(--accent)}
+.s5ft-panes{padding-top:14px}
+.s5ft-pane-ov:not([hidden]){display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;align-items:start}
+.s5ft-pane-perm .s5ft-pblk:not([hidden]){display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:12px}
+.s5ft-pane-perm .s5ft-perms+.s5ft-perms{margin-top:0}
+.s5ft-pane-try:not([hidden]){display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:12px;align-items:start}
+.s5ft-col{min-width:0}
+@media (max-width:760px){.s5ft-pane-ov:not([hidden]),.s5ft-pane-try:not([hidden]),.s5ft-pane-perm .s5ft-pblk:not([hidden]){display:block}.s5ft-tab{padding:8px 11px;font-size:14px}.s5ft-card .s5ft-t{font-size:19px}}
+/* rows: the title and the property's name readable at a glance */
+#tab-radar .s5ft-fh{font-size:17px;color:var(--text)}
+#tab-radar .s5ft-f .s5ft-tech,#tab-m365ep .s5ft-f .s5ft-tech{display:inline-block;font:600 13.5px/1.4 var(--mono);color:var(--text);background:color-mix(in srgb,var(--accent) 12%,transparent)!important;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent)!important;border-radius:6px;padding:2px 8px!important;margin:4px 0 2px}
+#tab-radar .s5ft-fw{color:var(--text)}
 /* §5fu (30 X 2026): M365 endpoints */
 .s5ft-st.s5fu-act{color:#e3a33b;border-color:#e3a33b;background:color-mix(in srgb,#e3a33b 14%,transparent)}
 .s5ft-st.s5fu-tidy{color:var(--bad);border-color:var(--bad)}
@@ -17350,7 +17374,8 @@ IdentityDirectoryEvents
       }
       /* §5fv: a word must START a word of the text ("msid" finds *.msidentity.com, "aaa" no longer finds a hash that holds
          "aaa" in the middle); only when nothing starts with it, the text inside words is searched, and the list says so */
-      function starts(x, w) { var i = x.l.indexOf(w); while (i >= 0) { if (i === 0 || !/[a-z0-9]/.test(x.l.charAt(i - 1))) return true; i = x.l.indexOf(w, i + 1); } return false; }
+      /* a word start also inside a camelCase name: "password" finds allowPasswordChangeAfterSecureSignIn (owner, 31 X) */
+      function starts(x, w) { var i = x.l.indexOf(w); while (i >= 0) { if (i === 0 || !/[a-z0-9]/.test(x.l.charAt(i - 1)) || (/[A-Z]/.test(x.t.charAt(i)) && /[a-z0-9]/.test(x.t.charAt(i - 1)))) return true; i = x.l.indexOf(w, i + 1); } return false; }
       function pick(test) { return index().filter(function (x) { return words.every(function (w) { return test(x, w); }); })
         .map(function (x, i) { return { x: x, r: rank(x), i: i }; }).sort(function (a, b) { return a.r - b.r || a.i - b.i; })
         .map(function (o) { return o.x; }).filter(function (x) { var k = x.tn + "|" + x.l; if (seen[k]) return false; seen[k] = 1; return true; }).slice(0, 30); }
@@ -30490,13 +30515,15 @@ IdentityDirectoryEvents
     if (e.promoted) chips.appendChild(el("span", "s5fo-chip s5fo-st", "Promoted to v1.0"));
     c.appendChild(chips);
     c.appendChild(el("h2", "s5fo-t s5ft-t", title(e)));
-    c.appendChild(el("code", "s5ft-tech", fullName(e)));
+    var tn = el("div", "s5ft-tname"); tn.appendChild(el("code", null, fullName(e)));
+    tn.appendChild(btn("Copy name", "s5fs-copy", function (ev) { var bb = ev.currentTarget; try { navigator.clipboard.writeText(fullName(e)).then(function () { bb.textContent = "Copied"; setTimeout(function () { bb.textContent = "Copy name"; }, 1400); }); } catch (x2) {} }));
+    c.appendChild(tn);
     c.appendChild(el("p", "s5fo-ot", e.undoc ? "Returned by " + (e.label || "the service") + " in our developer tenant, first seen " + dmy(e.first)
       : (e.via === "msgraph-metadata" ? "Microsoft's weekly schema sync of " : "Live $metadata, ") + dmy(e.day)));
     var b0 = el("div", "s5fo-blk s5ft-what"); b0.appendChild(el("p", "s5fo-lab", "What it is")); b0.appendChild(el("p", "s5fo-txt", whatText(e)));
     if (e.note && e.note.basis === "name") b0.appendChild(el("p", "s5fs-note", "Our reading of the name — Microsoft has published nothing about it yet (checked " + dmy(e.note.checked) + ")."));
     c.appendChild(b0);
-    var us = usesOf(e), b1 = el("div", "s5fo-blk s5fo-do"); b1.appendChild(el("p", "s5fo-lab", "What you could use it for"));
+    var us = usesOf(e), b1 = el("div", "s5fo-blk s5fo-do s5ft-usesb"); b1.appendChild(el("p", "s5fo-lab", "What you could use it for"));
     var ul = el("ul", "s5ft-uses"); us.forEach(function (u) { ul.appendChild(el("li", null, u)); }); b1.appendChild(ul);
     b1.appendChild(el("p", "s5fs-note", "Our suggestions, not Microsoft's text."));
     c.appendChild(b1);
@@ -30518,14 +30545,14 @@ IdentityDirectoryEvents
     if (p1 || p2) { if (p1) pb.appendChild(p1); if (p2) pb.appendChild(p2); c.appendChild(pb); }
     var t = cmdText(e.cmd);
     if (t) {
-      var b2 = el("div", "s5fo-blk s5fo-do"); b2.appendChild(el("p", "s5fo-lab", "Try it — Graph Explorer (aka.ms/ge)"));
+      var b2 = el("div", "s5fo-blk s5fo-do s5ft-try"); b2.appendChild(el("p", "s5fo-lab", "Try it — Graph Explorer (aka.ms/ge)"));
       b2.appendChild(codeBox("Graph Explorer", t.ge)); c.appendChild(b2);
-      var b3 = el("div", "s5fo-blk"); b3.appendChild(el("p", "s5fo-lab", "Try it — PowerShell (Microsoft.Graph.Authentication)"));
+      var b3 = el("div", "s5fo-blk s5ft-try"); b3.appendChild(el("p", "s5fo-lab", "Try it — PowerShell (Microsoft.Graph.Authentication)"));
       b3.appendChild(codeBox("PowerShell", t.ps));
       if (/authenticationMethodConfigurations\/\{id\}/.test(cm.get || "")) b3.appendChild(el("p", "s5fs-note", "For authentication methods {id} is the method's name: Password, Fido2, MicrosoftAuthenticator, Sms, Voice, Email, TemporaryAccessPass, SoftwareOath, HardwareOath, X509Certificate, QRCodePin."));
       b3.appendChild(el("p", "s5fs-note", "Replace {id} with the object's id. PATCH only when the property is writable — beta changes without notice; try it in a test tenant first." +
         (e.undoc && e.status === "new" ? " Undocumented: Microsoft has not published it yet, so its name and behaviour may still change." : ""))); c.appendChild(b3);
-    } else c.appendChild(el("p", "s5fs-note", e.detail === "enum type" || e.kind === "member-new" ? "An enum: a list of allowed values, used by properties of other types — nothing to call on its own." : "No path from an entity set or singleton of the API leads to this type within five steps — open the type in the Graph documentation."));
+    } else c.appendChild(el("p", "s5fs-note s5ft-try", e.detail === "enum type" || e.kind === "member-new" ? "An enum: a list of allowed values, used by properties of other types — nothing to call on its own." : "No path from an entity set or singleton of the API leads to this type within five steps — open the type in the Graph documentation."));
     /* sources: MC posts, Learn reference pages, articles checked by hand, titles of the portal's feeds that hold the words */
     var src = el("div", "s5ft-src"); src.appendChild(el("p", "s5fo-lab", "Where it is written about"));
     var lst = el("ul", "s5ft-al"), cnt = 0;
@@ -30551,6 +30578,31 @@ IdentityDirectoryEvents
     a("Docs search for " + (e.name || e.prop), "https://learn.microsoft.com/search/?terms=" + encodeURIComponent((e.name || e.prop || "").split(".").pop().replace("[]", "")) + "&category=Reference");
     if (e.via === "msgraph-metadata") a("Schema syncs (GitHub)", "https://github.com/microsoftgraph/msgraph-metadata/commits/master/schemas");
     c.appendChild(lk);
+    /* §5ft-e (31 X 2026, owner: "the window of a radar item is far too tall - make it wide, split into tabs, it would read
+       much better"): a wide card; the head (status, title, the property's name, where it came from) stays, the rest is in
+       four tabs - Overview (what it is and the uses beside the facts), Permissions (read and change side by side), Try it
+       (Graph Explorer and PowerShell side by side), Sources */
+    (function () {
+      var head = [].slice.call(c.children).filter(function (k) { return /s5fo-x|s5fo-chips|s5ft-t\b|s5ft-tname|s5fo-ot/.test(k.className); });
+      var pick = function (sel) { return [].slice.call(c.querySelectorAll(":scope > " + sel)); };
+      var panes = [["ov", "Overview", pick(".s5ft-what").concat(pick(".s5ft-usesb")), pick(".s5fo-facts")],
+        ["perm", "Permissions", pick(".s5ft-pblk"), null], ["try", "Try it", pick(".s5ft-try"), null], ["src", "Sources", pick(".s5ft-src").concat(pick(".s5fo-links")), null]];
+      var nPerm = c.querySelectorAll(".s5ft-p").length, nSrc = c.querySelectorAll(".s5ft-a").length;
+      [].slice.call(c.children).forEach(function (k) { if (head.indexOf(k) < 0) k.remove(); });
+      var bar = el("div", "s5ft-tabs"); bar.setAttribute("role", "tablist"); c.appendChild(bar);
+      var host = el("div", "s5ft-panes"); c.appendChild(host);
+      panes.forEach(function (pn, i) {
+        if (!pn[2].length && !pn[3]) return;
+        var pane = el("div", "s5ft-pane s5ft-pane-" + pn[0]); pane.setAttribute("role", "tabpanel"); pane.hidden = i !== 0;
+        if (pn[3]) { var l = el("div", "s5ft-col"), rr = el("div", "s5ft-col"); pn[2].forEach(function (k) { l.appendChild(k); }); pn[3].forEach(function (k) { rr.appendChild(k); }); pane.appendChild(l); pane.appendChild(rr); }
+        else pn[2].forEach(function (k) { pane.appendChild(k); });
+        host.appendChild(pane);
+        var lab = pn[1] + (pn[0] === "perm" && nPerm ? " · " + nPerm : pn[0] === "src" ? " · " + nSrc : "");
+        var tb = btn(lab, "s5ft-tab", function () { [].forEach.call(host.children, function (x3) { x3.hidden = x3 !== pane; }); [].forEach.call(bar.children, function (x3) { x3.setAttribute("aria-selected", String(x3 === tb)); }); });
+        tb.setAttribute("role", "tab"); tb.setAttribute("aria-selected", String(i === 0)); bar.appendChild(tb);
+      });
+      c.classList.add("s5ft-wide");
+    })();
     CARD.hidden = false; CARD.scrollTop = 0; x.focus();
   }
 
