@@ -20,7 +20,8 @@ ms.date: 2026-10-07T00:00:00.0000000Z
 ms.reviewer: sangar
 audience: Admin
 ms.topic: overview
-ms.service: microsoft-365-business
+ms.service: m365-core
+ms.subservice: change-management
 ms.localizationpriority: medium
 ms.collection:
 - Tier2

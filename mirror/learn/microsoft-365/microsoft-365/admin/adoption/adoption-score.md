@@ -21,7 +21,8 @@ manager: dansimp
 ms.date: 2026-05-20T00:00:00.0000000Z
 audience: Admin
 ms.topic: article
-ms.service: microsoft-365-business
+ms.service: m365-core
+ms.subservice: activity-reports
 ms.localizationpriority: high
 ms.collection:
 - M365-subscription-management
@@ -55,9 +56,11 @@ source_path: microsoft-365/admin/adoption/adoption-score.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: fbf2dfb1-0254-c80b-14e6-58a5aab8d80d
 ---
 

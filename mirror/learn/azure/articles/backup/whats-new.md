@@ -24,7 +24,7 @@ ms.service: azure-backup
 ms.reviewer: v-mallicka
 description: Learn about the new features in the Azure Backup service.
 ms.topic: release-notes
-ms.date: 2026-10-27T00:00:00.0000000Z
+ms.date: 2026-10-30T00:00:00.0000000Z
 ms.custom:
 - ignite-2023
 - build-2026
@@ -44,10 +44,8 @@ item_type: Content
 source_path: articles/backup/whats-new.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: dba3d424-db38-28d1-b895-111ed8690c6f
 ---
 
@@ -59,6 +57,9 @@ You can learn more about the new releases by bookmarking this page or by [subscr
 
 ## Updates summary
 
+- November 2026
+
+    - Vaulted backup support for Azure Cosmos DB is now generally available
 - October 2026
 
     - Selective disk restore for Azure VMs (preview)
@@ -146,6 +147,19 @@ You can learn more about the new releases by bookmarking this page or by [subscr
 - January 2024
 
     - Cross Region Restore support for PostgreSQL by using Azure Backup is now generally available
+
+## Vaulted backup support for Azure Cosmos DB is now generally available
+
+Azure Backup allows you to use policy-based vaulted backups to protect your Azure Cosmos DB accounts in a Backup vault.
+
+Key features include:
+
+- Data resiliency: Store backups in isolated, off-site storage account with geo-redundant storage (GRS) and encryption.
+- Cyber resiliency: Protect backup data against ransomware and accidental deletion with [role-based access control (RBAC)](backup-rbac-rs-vault), [soft delete](secure-by-default), and [WORM immutability](backup-azure-immutable-vault-concept).
+- Compliance: Retain backup data for up to 10 years to meet compliance requirements.
+- Recovery: Use incremental backups with a 1-day recovery point objective (RPO), Cross Region Restore (CRR), and item-level restore (ILR).
+
+For more information, see [About Azure Cosmos DB vaulted backup](backup-azure-cosmos-db-overview).
 
 ## Selective disk restore for Azure VMs (preview)
 

@@ -21,7 +21,8 @@ ms.reviewer:
 ms.date: 2026-01-23T00:00:00.0000000Z
 audience: Admin
 ms.topic: article
-ms.service: microsoft-365-business
+ms.service: m365-core
+ms.subservice: activity-reports
 ms.localizationpriority: medium
 ms.collection:
 - M365-subscription-management

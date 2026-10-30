@@ -22,7 +22,8 @@ manager: dansimp
 ms.date: 2026-01-05T00:00:00.0000000Z
 audience: Admin
 ms.topic: how-to
-ms.service: microsoft-365-admin
+ms.service: m365-core
+ms.subservice: identity
 ms.localizationpriority: medium
 ms.collection:
 - Tier1
@@ -61,9 +62,11 @@ item_type: Content
 source_path: microsoft-365/admin/add-users/remove-former-employee-step-1.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 platformId: c4bdd4d3-cf60-b1a0-0752-89c141108b6d
 ---

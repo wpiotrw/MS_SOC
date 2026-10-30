@@ -22,7 +22,8 @@ ms.date: 2026-10-02T00:00:00.0000000Z
 ms.reviewer: brimcg
 audience: Admin
 ms.topic: how-to
-ms.service: microsoft-365-business
+ms.service: m365-core
+ms.subservice: change-management
 ms.localizationpriority: medium
 search.appverid: MET150
 ms.collection:
@@ -56,12 +57,12 @@ item_type: Content
 source_path: microsoft-365/admin/manage/message-center.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c6f99e62-1cf6-4b71-af9b-649b05f80cce
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3f56b378-07a9-4fa1-afe8-9889fdc77628
 platformId: c15b84a1-be73-c78f-6122-8d2e5c0cffa8
 ---
 

@@ -20,7 +20,8 @@ manager: dansimp
 ms.date: 2026-06-05T00:00:00.0000000Z
 audience: Admin
 ms.topic: how-to
-ms.service: microsoft-365-business
+ms.service: m365-core
+ms.subservice: activity-reports
 ms.localizationpriority: medium
 ms.collection:
 - Tier2
@@ -56,12 +57,12 @@ item_type: Content
 source_path: microsoft-365/admin/adoption/group-level-aggregates.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
-- https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 platformId: b47d678b-bede-5a59-af7a-64f544fd49bd
 ---
 

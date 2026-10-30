@@ -21,7 +21,8 @@ author: Dansimp
 manager: dansimp
 audience: Admin
 ms.topic: article
-ms.service: microsoft-365-admin
+ms.service: m365-core
+ms.subservice: identity
 ms.localizationpriority: medium
 ms.custom:
 - m365-groups

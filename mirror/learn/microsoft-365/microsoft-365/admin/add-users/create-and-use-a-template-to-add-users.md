@@ -21,7 +21,8 @@ manager: dansimp
 ms.date: 2026-04-23T00:00:00.0000000Z
 audience: Admin
 ms.topic: how-to
-ms.service: microsoft-365-admin
+ms.service: m365-core
+ms.subservice: identity
 ms.localizationpriority: medium
 ms.collection:
 - Tier1
@@ -60,11 +61,11 @@ source_path: microsoft-365/admin/add-users/create-and-use-a-template-to-add-user
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
-- https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
+- https://authoring-docs-microsoft.poolparty.biz/devrel/e93f3d5f-c77d-4365-a7fb-c9f2234416c7
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
+- https://authoring-docs-microsoft.poolparty.biz/devrel/62e8d07a-cc62-4934-b30b-e168a571e51d
 platformId: 9bea00a4-3c61-feb4-8be6-a0025b478b93
 ---
 

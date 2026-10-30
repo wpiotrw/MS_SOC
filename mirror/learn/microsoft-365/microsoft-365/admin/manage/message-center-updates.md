@@ -20,7 +20,8 @@ ms.date: 2026-09-03T00:00:00.0000000Z
 ms.reviewer: brimcg
 audience: Admin
 ms.topic: release-notes
-ms.service: microsoft-365-business
+ms.service: m365-core
+ms.subservice: change-management
 ms.localizationpriority: medium
 search.appverid: MET150
 ms.collection:

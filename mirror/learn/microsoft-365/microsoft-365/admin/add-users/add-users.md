@@ -22,7 +22,8 @@ author: denisebmsft
 manager: dansimp
 audience: Admin
 ms.topic: how-to
-ms.service: microsoft-365-admin
+ms.service: m365-core
+ms.subservice: identity
 ms.localizationpriority: medium
 ms.collection:
 - Tier1

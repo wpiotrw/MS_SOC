@@ -20,7 +20,8 @@ ms.reviewer: afallou
 ms.date: 2026-08-25T00:00:00.0000000Z
 audience: Admin
 ms.topic: get-started
-ms.service: microsoft-365-business
+ms.service: m365-core
+ms.subservice: change-management
 ms.localizationpriority: medium
 ms.collection:
 - change-management

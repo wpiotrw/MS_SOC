@@ -54,11 +54,10 @@ Microsoft Purview Data Loss Prevention (DLP) monitoring and protection are built
 
 ## Before you begin
 
-If you're new to Microsoft Purview collection policies, Microsoft Purview pay-as-you-go billing models, or Microsoft Purview DLP, familiarize yourself with the information in these articles:
+If you're new to Microsoft Purview collection policies or Microsoft Purview DLP, familiarize yourself with the information in these articles:
 
 - [Collection policies](collection-policies-policy-reference)
 - [Learn about data loss prevention](dlp-learn-about-dlp)
-- [Learn about Microsoft Purview billing models](purview-billing-models)
 - [Get started with activity explorer](data-classification-activity-explorer)
 
 ## Licensing
@@ -67,10 +66,6 @@ For information on licensing, see
 
 - [Microsoft 365 Enterprise Plans](https://aka.ms/M365EnterprisePlans)
 - [Microsoft 365 Service Descriptions](/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-365-security-compliance-licensing-guidance)
-
-Protecting data shared from a managed device to an unmanaged app in Edge for Business is a pay-as-you-go feature. For more information, see [Learn more about pay-as-you-go-capabilities and request definitions.](/en-us/purview/purview-billing-models#requests) For information on setting up the pay-as-you-go billing model, see [Enable Microsoft Purview pay-as-you-go features for new customers](purview-payg-subscription-based-enablement#enable-microsoft-purview-pay-as-you-go-features-for-new-customers).
-
-Scenarios where data in Microsoft Entra-registered (managed) apps is protected while using Edge for Business are included in a Microsoft 365 E5 or equivalent license. 
 
 ## Permissions
 

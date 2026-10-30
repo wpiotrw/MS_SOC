@@ -22,7 +22,8 @@ manager: dansimp
 ms.date: 2025-09-17T00:00:00.0000000Z
 audience: Admin
 ms.topic: overview
-ms.service: microsoft-365-admin
+ms.service: m365-core
+ms.subservice: identity
 ms.localizationpriority: medium
 ms.collection:
 - Tier2
@@ -57,11 +58,11 @@ source_path: microsoft-365/admin/add-users/about-guest-users.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 9a553fd9-9e12-3bdf-7dc4-9c3b6528c2fc
 ---
 

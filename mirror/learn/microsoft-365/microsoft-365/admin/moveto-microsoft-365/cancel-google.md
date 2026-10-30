@@ -20,7 +20,8 @@ manager: dansimp
 ms.date: 2026-09-25T00:00:00.0000000Z
 audience: Admin
 ms.topic: how-to
-ms.service: microsoft-365-migration
+ms.service: m365-core
+ms.subservice: migration
 ms.localizationpriority: medium
 ms.collection:
 - Tier2

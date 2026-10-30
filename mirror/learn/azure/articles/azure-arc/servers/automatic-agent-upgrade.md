@@ -41,11 +41,9 @@ source_path: articles/azure-arc/servers/automatic-agent-upgrade.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/beac614b-f66d-40ed-a947-3996de709333
-- https://authoring-docs-microsoft.poolparty.biz/devrel/970f20f1-2f12-4aa9-9c95-c00fe1f5e722
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9da05372-4706-43ec-a899-f436adab380d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/432c4950-b799-4ed5-93d5-b9b2934edf7d
 platformId: ebfe9924-53e1-1bc1-cd0e-c234b19467fb
 ---
 
@@ -64,6 +62,10 @@ Before enabling automatic agent upgrade, ensure your machines meet the following
 - **All Arc-enabled servers:** Azure Connected Machine agent version 1.67 or later is required.
 - **Windows:** Set the PowerShell execution policy to RemoteSigned. Automatic agent upgrade isn't supported when the execution policy is set to Restricted.
 - **Linux:** Ensure the cron service is installed and running. This service is required to schedule and perform automatic agent upgrades.
+
+Important
+
+If enabled on an agent version earlier than 1.67, use [one of the other methods](manage-agent#additional-agent-upgrade-methods) to upgrade the agent to a compatible version. Automatic Agent Upgrade can then manage all future upgrades.
 
 ## Enable automatic agent upgrade
 

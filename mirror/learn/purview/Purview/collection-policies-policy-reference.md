@@ -44,11 +44,11 @@ source_path: Purview/collection-policies-policy-reference.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5287f575-02f0-405f-92b7-800456526b0c
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 - https://authoring-docs-microsoft.poolparty.biz/devrel/06e86142-34c2-4b94-ab9c-9477c21f7152
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: c7420f63-d166-d06a-8710-0a772b8ebe5c
 ---
 
@@ -207,7 +207,6 @@ Some collection policy data sources and features are pay-as-you-go and require a
 - Enterprise AI
 - Unmanaged cloud app activity detected through non-Microsoft SASE and secure enterprise browser integrations via [Microsoft Purview network data security](dlp-network-data-security-learn)
     - Microsoft Entra Global Secure Access integration with Purview network data security is licensed per seat and does not require pay-as-you-go. For more information, see [Learn about Microsoft Purview Network Data Security](dlp-network-data-security-learn#licensing).
-- Unmanaged cloud app activity detected through [Microsoft Purview policies using inline data protections for the browser](dlp-browser-dlp-learn).
 
 ## Privacy notice for Enterprise AI and Network Data Security
 

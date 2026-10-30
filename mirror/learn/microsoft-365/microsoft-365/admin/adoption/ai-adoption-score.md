@@ -19,7 +19,8 @@ ms.date: 2026-05-20T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: concept-article
-ms.service: microsoft-365-business
+ms.service: m365-core
+ms.subservice: activity-reports
 ms.localizationpriority: medium
 ms.collection:
 - M365-subscription-management

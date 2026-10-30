@@ -21,8 +21,8 @@ manager: dansimp
 ms.date: 2026-04-23T00:00:00.0000000Z
 audience: Admin
 ms.topic: article
-ms.service: microsoft-365-business
-ms.subservice: m365-domains
+ms.service: m365-core
+ms.subservice: domains
 ms.localizationpriority: medium
 ms.collection:
 - Tier2
@@ -66,12 +66,12 @@ item_type: Content
 source_path: microsoft-365/admin/setup/manage-domain-users.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/37da4cc9-0cfc-42a9-ba5e-805706b01ef8
 - https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/37da4cc9-0cfc-42a9-ba5e-805706b01ef8
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3661fb96-d414-4a4e-b7ad-9370637790dd
 - https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3661fb96-d414-4a4e-b7ad-9370637790dd
 platformId: 67924be8-8e91-9bad-db0b-eac79c709247
 ---
 

@@ -140,8 +140,8 @@ The following table describes additional methods supported to perform agent upgr
 
 | Operating system | Upgrade method |
 | --- | --- |
-| Windows | [Automatic agent upgrade](automatic-agent-upgrade)Manually Microsoft Update Azure Update Manager (AUM) |
-| Linux | [Automatic agent upgrade](automatic-agent-upgrade)[apt](https://help.ubuntu.com/lts/serverguide/apt.html)[yum](https://access.redhat.com/articles/yum-cheat-sheet)[zypper](https://en.opensuse.org/SDB:Zypper_usage_11.3) Azure Update Manager (AUM) |
+| Windows | Manually Microsoft Update Azure Update Manager (AUM) |
+| Linux | [apt](https://help.ubuntu.com/lts/serverguide/apt.html)[yum](https://access.redhat.com/articles/yum-cheat-sheet)[zypper](https://en.opensuse.org/SDB:Zypper_usage_11.3) Azure Update Manager (AUM) |
 
 # [Windows](#tab/windows)
 Get the latest version of the Azure Connected Machine agent for Windows-based machines from:

@@ -21,7 +21,8 @@ manager: dansimp
 ms.date: 2025-01-06T00:00:00.0000000Z
 audience: Admin
 ms.topic: upgrade-and-migration-article
-ms.service: microsoft-365-business
+ms.service: m365-core
+ms.subservice: commerce
 ms.localizationpriority: medium
 ms.collection:
 - scotvorg

@@ -21,7 +21,8 @@ manager: dansimp
 ms.date: 2026-08-27T00:00:00.0000000Z
 audience: Admin
 ms.topic: overview
-ms.service: microsoft-365-business
+ms.service: m365-core
+ms.subservice: change-management
 ms.localizationpriority: medium
 ms.collection:
 - M365-subscription-management
