@@ -113,8 +113,9 @@ jobs:
           git add -A -- 'site/feed*.xml'
           git add -A -- site/history site/data
           git commit -m "code: odswiezenie strony z CLAUDE.md ($(cat refresh.log | tr '\n' ' ')) $(tail -1 retention.log) $(tail -1 feeds.log) $(tail -1 msrc.log 2>/dev/null) $(tail -1 changes.log 2>/dev/null)"
-          git pull --rebase -q origin main
-          git push origin main
+          # 5fv (30 X 2026): another workflow (Graph radar, M365 endpoints) can push in the same second - the push was
+          # rejected ("cannot lock ref") and the run failed; pull and push again, up to three times
+          for i in 1 2 3; do git pull --rebase -q origin main && git push origin main && break; [ "$i" = 3 ] && exit 1; sleep 10; done
 
       - name: Prepare the deploy copy - data blocks as files (CLAUDE.md 5dl)
         run: python3 tools/deploy_prep.py site _deploy
