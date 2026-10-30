@@ -1,7 +1,7 @@
 {
  "read": "2026-10-30",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 738,
+ "count": 715,
  "note": null,
  "messages": [
   {
@@ -1786,34 +1786,6 @@
    "bodyHash": "b15a648ecf68f7d0"
   },
   {
-   "id": "MC1219793",
-   "title": "(Updated) Brand impersonation protection for Teams Calling",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-01-21",
-   "end": "2026-10-30",
-   "modified": "2026-06-29",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated May 5, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Brand Impersonation Protection for Teams Calling adds proactive safeguards against fraudulent or deceptive external callers who attempt to appear as trusted organizations. This helps reduce social-engineering risks and improves tenant security when users receive first-contact external calls. This update …",
-   "when": "Targeted Release: Rollout will begin mid-May 2026 (previously early May) and is expected to complete by late May (previously late April) . General Availability: Timelines will be communicated in a future message.",
-   "prepare": "No admin action is required at this time. Inform helpdesk staff that users may begin seeing high-risk call warnings. Update internal training materials if applicable. Review Microsoft documentation on caller ID security when available. Before rollout, we will update this post with new documentation.",
-   "dates": [
-    "Updated May 5, 2026: We have updated the timeline.",
-    "Targeted Release: Rollout will begin mid-May 2026 (previously early May) and is expected to complete by late May (previously late April) ."
-   ],
-   "bodyHash": "cec7c94f5a55c145"
-  },
-  {
    "id": "MC1219801",
    "title": "Ask Microsoft Anything: Secure Boot - February 5",
    "services": [
@@ -2600,36 +2572,6 @@
    "bodyHash": "96e9f253b5ea6940"
   },
   {
-   "id": "MC1240699",
-   "title": "(Updated) Introducing the new SharePoint experience",
-   "services": [
-    "SharePoint Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-02-27",
-   "end": "2026-10-30",
-   "modified": "2026-08-14",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 14, 2026: We have updated this post as a reminder. We’re ready to begin the General Availability (GA) rollout of the new SharePoint experience on June 15, with deployment continuing over the subsequent months. Based on feedback from users in the preview program, we are simplifying item-keeping experiences across SharePoint and aligning on a single Favorites gesture that is consisten…",
-   "when": "Public Preview: Rolling out in early March 2026 ; expected completion by late April 2026 . Targeted Release: Rolling out in early May 2026 (previously late April) ; expected completion by mid-May 2026 (previously June). General Availability (Worldwide, GCC, GCC High, DoD): Rolling out in mid-June 2026 (previously early May); expected completion by mid to late September 2026 (previously mid-July). Note - the late September timeline pertains primar…",
-   "prepare": "Review documentation: Enable the new SharePoint experience (preview) | SharePoint in Microsoft 365 | SharePoint | Microsoft Learn. Review changes to the SharePoint navigation experience, including the new app bar: SharePoint App Bar. Communicate expected UI changes to helpdesk teams and users. Update internal documentation that references SharePoint navigation or app bar elements.",
-   "dates": [
-    "Updated August 14, 2026: We have updated this post as a reminder.",
-    "Public Preview: Rolling out in early March 2026 ; expected completion by late April 2026 .",
-    "Targeted Release: Rolling out in early May 2026 (previously late April) ; expected completion by mid-May 2026 (previously June).",
-    "General Availability (Worldwide, GCC, GCC High, DoD): Rolling out in mid-June 2026 (previously early May); expected completion by mid to late September 2026 (previously mid-July)."
-   ],
-   "bodyHash": "7f7639f5713e2e68"
-  },
-  {
    "id": "MC1240704",
    "title": "(Updated) Copilot entry point changes in Word and handoff to Agent in chat",
    "services": [
@@ -2842,34 +2784,6 @@
     "The tenant setting to opt out of hotpatch updates is scheduled to go live on April 1, 2026."
    ],
    "bodyHash": "a89d3a03b2d08235"
-  },
-  {
-   "id": "MC1247902",
-   "title": "(Updated) SharePoint: AI citations analytics for documents and pages",
-   "services": [
-    "SharePoint Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-03-09",
-   "end": "2026-10-30",
-   "modified": "2026-09-02",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 2, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are adding copilot citations to SharePoint to help site owners understand how their SharePoint documents, news posts, and pages are referenced by Microsoft 365 Copilot. These insights will help organizations track content value, identify high‑impact information, and understand how AI‑powered wor…",
-   "when": "General Availability (Worldwide) : Rollout will begin end of August 2026 (previously start of August) and will complete by end of September 2026 (previously early September).",
-   "prepare": "No admin action is required before the rollout. You may want to: Inform site owners and content authors about the new analytics. Review your SharePoint usage and analytics processes to understand how the new AI citation metrics may support governance, content lifecycle planning, and content strategy. Update internal documentation or training materials. Provide guidance to users on Copilot licensing requirements if your organization centrally mana…",
-   "dates": [
-    "Updated September 2, 2026: We have updated the timeline.",
-    "General Availability (Worldwide) : Rollout will begin end of August 2026 (previously start of August) and will complete by end of September 2026 (previously early September)."
-   ],
-   "bodyHash": "62fe1087ed6fd039"
   },
   {
    "id": "MC1248239",
@@ -3284,35 +3198,6 @@
    "bodyHash": "d999a9c2b5671328"
   },
   {
-   "id": "MC1258000",
-   "title": "(Updated) Microsoft Purview: Data Security Investigations – analyze files tied to endpoint DLP alerts",
-   "services": [
-    "Microsoft Purview"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-03-21",
-   "end": "2026-10-30",
-   "modified": "2026-08-24",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 24, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We’re introducing endpoint Data Loss Prevention (DLP) events as a queryable data source in Data Security Investigations (DSI) in Microsoft Purview . With this update, administrators can build endpoint DLP queries directly in DSI using filters such as date range, and DSI will automatically pull files …",
-   "when": "Public Preview : Rollout begins in early June 2026 (previously late April) and completes in late June 2026 (previously early June). General Availability (Worldwide) : Rollout begins in late September 2026 (previously late August) and completes in late September 2026 (previously late August).",
-   "prepare": "No action is required. Optionally, you may: Review how endpoint DLP query capabilities work within DSI. Update internal documentation for alert triage and investigation workflows, if applicable. Inform security teams and endpoint DLP administrators about this new capability.",
-   "dates": [
-    "Updated August 24, 2026: We have updated the timeline.",
-    "Public Preview : Rollout begins in early June 2026 (previously late April) and completes in late June 2026 (previously early June).",
-    "General Availability (Worldwide) : Rollout begins in late September 2026 (previously late August) and completes in late September 2026 (previously late August)."
-   ],
-   "bodyHash": "17c481d5033ba6d9"
-  },
-  {
    "id": "MC1258087",
    "title": "Take Action: Out-of-band update released to address an issue signing in to apps with a Microsoft account",
    "services": [
@@ -3551,34 +3436,6 @@
     "In late June 2026, the 2011 Secure Boot certificates begin expiring."
    ],
    "bodyHash": "42c6e8df490f9905"
-  },
-  {
-   "id": "MC1268933",
-   "title": "(Updated) Viva Engage: Pinned resources and related communities in Teams for iOS",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-04-02",
-   "end": "2026-10-30",
-   "modified": "2026-08-28",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 28, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We're improving the Viva Engage experience in Microsoft Teams for iOS by bringing pinned resources and related communities into the Teams mobile app. Pinned resources highlight important links and files within a community, while related communities help users discover other relevant Viva Engage commu…",
-   "when": "General Availability (Worldwide): Rollout begins in mid-June 2026 (previously late May) and is expected to complete by end of September 2026 (previously mid-August).",
-   "prepare": "No admin action is required. Communicate this update to end users who use Teams on iOS. Encourage Viva Engage community admins to review pinned resources and related communities. Update internal documentation or helpdesk guidance, if applicable.",
-   "dates": [
-    "Updated August 28, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Rollout begins in mid-June 2026 (previously late May) and is expected to complete by end of September 2026 (previously mid-August)."
-   ],
-   "bodyHash": "6c39255fccc1c90a"
   },
   {
    "id": "MC1269211",
@@ -4225,33 +4082,6 @@
     "In addition, some versions of Windows Server may experience domain controllers restarting repeatedly after installing the April 2026 security update."
    ],
    "bodyHash": "b926dad2815827a5"
-  },
-  {
-   "id": "MC1287370",
-   "title": "(Updated) Auto upgrade of shared calendars from legacy MAPI model to modern REST model",
-   "services": [
-    "Microsoft 365 suite"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-04-21",
-   "end": "2026-10-30",
-   "modified": "2026-07-21",
-   "tags": [
-    "Admin impact",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 20, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft is introducing an automatic upgrade for shared calendars in Outlook and Exchange Online , transitioning from the legacy MAPI-based model to the modern REST-based model . This server-side upgrade will improve calendar sync reliability, performance, and consistency for delegates and users who a…",
-   "when": "General Availability (Worldwide): Till WW it is enabled and available to all WW tenants. Now we are expanding it to higher rings: GCC High /DoD: Rollout starting August 2026 (previously end of June) and completing by late September 2026 (previously late July). Note: Rollout will be progressive and timing may vary by tenant.",
-   "prepare": "No action is required. We recommend that administrators: During migration, a hidden shared calendar folder may be visible to tenant admins and support teams via the Get-MailboxFolderStatistics cmdlet. This is expected and has no impact on end users. Monitor for persistent issues, such as missing meetings after the migration window or duplicate calendar folders, and contact Microsoft support if observed. If a manual rollback is required after the …",
-   "dates": [
-    "Updated July 20, 2026: We have updated the timeline.",
-    "Now we are expanding it to higher rings: GCC High /DoD: Rollout starting August 2026 (previously end of June) and completing by late September 2026 (previously late July)."
-   ],
-   "bodyHash": "6d43a56d7e398f1d"
   },
   {
    "id": "MC1287681",
@@ -5225,34 +5055,6 @@
    "bodyHash": "ff9e08f367fea97f"
   },
   {
-   "id": "MC1318124",
-   "title": "(Updated) Microsoft Teams: New search experience for cloud files in the file attach picker",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-05-21",
-   "end": "2026-10-30",
-   "modified": "2026-09-01",
-   "tags": [
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 1, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft Teams is improving the quick sharing experience by enabling search for cloud files directly within the attach file picker. This helps users find and attach the right files more quickly when sharing in chats and channels. This message applies to Teams for Windows desktop, Teams for Mac des…",
-   "when": "Targeted Release (Worldwide): Rollout begins early June 2026 and is expected to complete late June 2026 . General Availability (Worldwide): Rollout begins mid-June 2026 and is expected to complete by end of September 2026 (previously late July).",
-   "prepare": "No action is required. Optional: Inform your helpdesk that users may notice a new search capability when attaching cloud files in Teams. Optional: Update internal documentation or training materials related to sharing and attaching files in Teams.",
-   "dates": [
-    "Updated September 1, 2026: We have updated the timeline.",
-    "Targeted Release (Worldwide): Rollout begins early June 2026 and is expected to complete late June 2026 .",
-    "General Availability (Worldwide): Rollout begins mid-June 2026 and is expected to complete by end of September 2026 (previously late July)."
-   ],
-   "bodyHash": "061a269faf74e3a3"
-  },
-  {
    "id": "MC1318295",
    "title": "(Updated) Take action: Mitigation guidance updated with a new script for CVE-2026-45585",
    "services": [
@@ -5305,36 +5107,6 @@
     "How Viva Glint protects your privacy | Microsoft Learn (will be updated on June 1, 2026)."
    ],
    "bodyHash": "db20c64222e7f577"
-  },
-  {
-   "id": "MC1319216",
-   "title": "(Updated) Microsoft Teams: In‑meeting toggle to turn Meeting AI on or off",
-   "services": [
-    "Microsoft 365 Copilot Chat",
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-05-22",
-   "end": "2026-10-30",
-   "modified": "2026-08-26",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 26, 2026: We have updated the content and timeline. Thank you for your patience. [What and Why] Microsoft Teams will introduce a new control that allows licensed meeting organizers and presenters to turn Meeting AI (including Copilot and Facilitator) on or off during a live meeting. This change builds on existing Meeting AI behavior and provides real-time flexibility to control when…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated August 26, 2026: We have updated the content and timeline.",
-    "[Rollout Schedule] Targeted Release: We will begin rolling out mid-September 2026 (previously mid-August) and expect to complete by late September 2026 (previously late August).",
-    "General Availability (Worldwide): We will begin rolling out mid-September 2026 (previously late August) and expect to complete by late September (previously early September)."
-   ],
-   "bodyHash": "36f532f1bfda712d"
   },
   {
    "id": "MC1323218",
@@ -5972,32 +5744,6 @@
    "bodyHash": "4d9726c688b092fe"
   },
   {
-   "id": "MC1388718",
-   "title": "Microsoft Defender for Endpoint: Update to Linux connectivity requirements with new service URLs to allowlist",
-   "services": [
-    "Microsoft Defender XDR"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-12",
-   "end": "2026-10-30",
-   "modified": "2026-09-23",
-   "tags": [
-    "Admin impact",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 23, 2026: We have updated this post as a reminder. Thank you for your patience. [What and Why] We’ve made updates to Microsoft Defender for Endpoint on Linux network connectivity requirements. As part of this update, Defender for Endpoint on Linux now uses new service URLs to deliver internal configuration updates and new capabilities. [Rollout schedule] General Availability (Wor…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 23, 2026: We have updated this post as a reminder."
-   ],
-   "bodyHash": "545d119f73136f47"
-  },
-  {
    "id": "MC1388719",
    "title": "(Updated) Microsoft Teams: Granular channel notification settings",
    "services": [
@@ -6398,33 +6144,6 @@
    "bodyHash": "2284dc5b58d70b0a"
   },
   {
-   "id": "MC1403403",
-   "title": "(Updated) Microsoft Purview compliance portal: View-only role management enhancements",
-   "services": [
-    "Microsoft Purview"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-24",
-   "end": "2026-10-30",
-   "modified": "2026-07-29",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message"
-   ],
-   "summary": "Updated July 29, 2026: We have updated the content. Thank you for your patience. [What and Why:] Microsoft Purview is introducing a new view-only role management capability that enables administrators with Global Reader and Security Reader roles to view role assignments and scopes within the Microsoft Purview portal and Microsoft Defender portal. This update improves visibility and transparency of…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated July 29, 2026: We have updated the content.",
-    "Rollout Schedule: Worldwide (General Availability), GCC, GCC High, DoD: Beginning in late August 2026 and expect to complete by late September 2026."
-   ],
-   "bodyHash": "9aebbb7fe8c3f169"
-  },
-  {
    "id": "MC1403410",
    "title": "Microsoft Viva: Agent flexible query in Analytics Workbench",
    "services": [
@@ -6623,34 +6342,6 @@
    "bodyHash": "f6b09006efc5f87b"
   },
   {
-   "id": "MC1411431",
-   "title": "(Updated) Microsoft Purview compliance portal: Admin assignment time limit",
-   "services": [
-    "Microsoft Purview"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-01",
-   "end": "2026-10-30",
-   "modified": "2026-07-02",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "Updated message"
-   ],
-   "summary": "Updated July 2, 2026: We have updated the content and timeline. Thank you for your patience. [What and Why:] Microsoft Purview is introducing the ability to assign a time limit when adding users or security groups to role groups. Administrators can specify an expiration date from 1 day up to 2 years , enabling temporary administrative access and supporting least-privilege security practices. This …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated July 2, 2026: We have updated the content and timeline.",
-    "General Availability (Worldwide): Beginning late July 2026 ; expected to complete by late August 2026.",
-    "General Availability (GCC, GCC High, DoD): Beginning late August 2026 ; expected to complete by late September 2026."
-   ],
-   "bodyHash": "c1c08f5b7f878a93"
-  },
-  {
    "id": "MC1411432",
    "title": "(Updated) Viva Engage: New post creation experience",
    "services": [
@@ -6702,35 +6393,6 @@
     "May-June 2026: During this transition, you could manage ESR settings through both the Microsoft Entra portal and Windows Backup for Organizations policies."
    ],
    "bodyHash": "a4e308978c11d6d4"
-  },
-  {
-   "id": "MC1411574",
-   "title": "(Updated) Microsoft Entra: System-preferred authentication now applies to first-factor authentication",
-   "services": [
-    "Microsoft Entra"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-01",
-   "end": "2026-10-30",
-   "modified": "2026-08-24",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 24, 2026: We have updated the timeline. Thank you for your patience. [What and Why] As announced in the What's New (June Edition) , we have been rolling out first-factor system-preferred authentication in the Microsoft-managed state. System-preferred authentication in Microsoft Entra ID now applies to both first-factor and second-factor authentication when the setting is in the Micr…",
-   "when": null,
-   "prepare": "Review whether you want system-preferred authentication to apply to first-factor authentication in your tenant: If you want the credential ranking applied to both first-factor and second-factor authentication , leave the setting in the Microsoft managed state. No action is required. If you do not want system-preferred authentication to apply to first-factor authentication, change the setting from Microsoft managed to Enabled . The Enabled state a…",
-   "dates": [
-    "Updated August 24, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Beginning late June 2026 and expected to complete by late September 2026 (previously late July).",
-    "General Availability - System-preferred authentication expanded to first-factor in Microsoft Entra ID - What's New (June 2026 Microsoft Entra Blog) | Microsoft Entra releases and announcements | Microsoft Learn."
-   ],
-   "bodyHash": "3caba375f741cd40"
   },
   {
    "id": "MC1411726",
@@ -6974,36 +6636,6 @@
    "bodyHash": "8cc6fbd81731bc2d"
   },
   {
-   "id": "MC1419802",
-   "title": "Microsoft Teams: New layout for sharing content in Teams events",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-07",
-   "end": "2026-10-30",
-   "modified": "2026-07-07",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why] Microsoft Teams is introducing an updated set of layout options for presenters using the \"Manage what attendees see\" experience in Teams events . This update includes a new Speaker focused layout, giving organizers the ability to prioritizes presenter videos alongside shared content. This improvement help deliver more engaging and polished events such as town halls and large broadca…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Targeted Release: Beginning in early August 2026 and expeced to complete by early July 2026.",
-    "General Availability Worldwide: Beginning in mid-August 2026 and expected to complete by late August 2026.",
-    "GCC High: Beginning in early August 2026 and expected to complete by early September 2026.",
-    "GCC: Beginning in late August 2026 and expected to complete by mid-September 2026.",
-    "DoD: Beginning in early September 2026 and expected to complete by late September 2026."
-   ],
-   "bodyHash": "91c4a11e97785ca8"
-  },
-  {
    "id": "MC1420901",
    "title": "(Updated) Notebooks in the M365 Copilot App",
    "services": [
@@ -7170,35 +6802,6 @@
    "bodyHash": "9bdf7b8f5913b5e3"
   },
   {
-   "id": "MC1423114",
-   "title": "(Updated) Microsoft Teams: Stricter external access controls for federated chats",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-10",
-   "end": "2026-10-30",
-   "modified": "2026-08-04",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 4, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We're introducing two new Microsoft Teams PowerShell controls that help organizations enforce external access and federation policies more consistently in federated group chats: External Access Restrictions for Chat Participants (EnableExternalAccessRestrictionsForChatParticipants) Mutual Federation f…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated August 4, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Beginning late July 2026 and expected to complete late September 2026 External Access Restrictions for Chat Participants available: August 14, 2026 (previously July 31).",
-    "Mutual Federation for Chat Participants available: September 30, 2026."
-   ],
-   "bodyHash": "78ef15e7698fe862"
-  },
-  {
    "id": "MC1426371",
    "title": "(Updated) Microsoft Entra: Passkeys by default and retirement of Microsoft-provided SMS and voice authentication",
    "services": [
@@ -7229,34 +6832,6 @@
     "February 1, 2027: Microsoft-provided SMS and voice authentication will be retired."
    ],
    "bodyHash": "c6b842b04ac5571d"
-  },
-  {
-   "id": "MC1426714",
-   "title": "(Updated) Microsoft Viva: Create and customize Power BI reports",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-13",
-   "end": "2026-10-30",
-   "modified": "2026-08-07",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 7, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft is introducing a new Viva Insights capability that enables eligible users to create, customize, and save supported Power BI reports, including the Microsoft 365 Copilot Adoption and Copilot Studio Agents reports. Today, eligible users can consume out-of-the-box reports. With this update, th…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated August 7, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Beginning early September 2026 (previously early August); expected to complete by late September 2026."
-   ],
-   "bodyHash": "257737a46cf4f927"
   },
   {
    "id": "MC1427603",
@@ -7362,34 +6937,6 @@
     "What will happen: You can download and deploy the July 2026 Scan Cab via the usual processes."
    ],
    "bodyHash": "95149a1e71801b32"
-  },
-  {
-   "id": "MC1427972",
-   "title": "(Updated) Microsoft SharePoint: Restricted content discovery enhancements for Copilot and Microsoft 365 search",
-   "services": [
-    "SharePoint Online"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-14",
-   "end": "2026-10-30",
-   "modified": "2026-08-04",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated August 4, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are enhancing Restricted Content Discovery (RCD) for SharePoint to give organizations stronger control over how content is surfaced in Copilot and Microsoft 365 search . These updates help reduce the risk of oversharing while ensuring AI-powered experiences respect organizational policies and suppo…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated August 4, 2026: We have updated the timeline.",
-    "General availability (Worldwide, GCC High, DoD): We will begin rolling out in late July 2026 and expect to complete in late September 2026 (previously late July)."
-   ],
-   "bodyHash": "9970b2b617550235"
   },
   {
    "id": "MC1428757",
@@ -7619,34 +7166,6 @@
    "bodyHash": "1f596cc2d815bf33"
   },
   {
-   "id": "MC1431365",
-   "title": "(Updated) Copilot Analytics - Agent 365 dashboard for managers",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-17",
-   "end": "2026-10-30",
-   "modified": "2026-09-01",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "Updated message"
-   ],
-   "summary": "Updated September 1, 2026: We have updated this post as a reminder. As rollout of Agent 365 dashboard for Manager approaches, if your organization intends to update access to this dashboard, we recommend reviewing your VFAM settings to ensure your desired configuration is in place. Thank you for your patience. [What and Why:] We’re extending the Agent 365 Dashboard to managers who already have tea…",
-   "when": null,
-   "prepare": "Your organization can manage access to the Agent 365 Dashboard for managers through View Feature Access Management (VFAM) controls at the user, group, and tenant levels. These controls are available under the Viva Insights web app settings. Review this change with your works council, if applicable, and update internal documentation or training materials as appropriate for your organization.",
-   "dates": [
-    "Updated September 1, 2026: We have updated this post as a reminder.",
-    "General Availability (Worldwide): We will begin rolling out in mid-September 2026 (previously late August) and expect to complete by late September 2026 (previously late August).",
-    "General Availability (GCC): We will begin rolling out in mid-September 2026 (previously late August) and expect to complete by late September 2026 (previously mid-September)."
-   ],
-   "bodyHash": "da53168cbd0d06e5"
-  },
-  {
    "id": "MC1432461",
    "title": "Out-of-band update to address Windows update issue affecting some devices with Intel IPF driver",
    "services": [
@@ -7779,33 +7298,6 @@
     "If your organization chooses to offer allowed password changes after secure sign-in, enable the feature through the Microsoft Entra admin experience or supported APIs when it becomes available in October 2026."
    ],
    "bodyHash": "ccff28253537e460"
-  },
-  {
-   "id": "MC1437679",
-   "title": "Microsoft 365 Copilot: Capture voice notes in the Microsoft 365 Copilot mobile app",
-   "services": [
-    "Microsoft 365 suite"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-07-23",
-   "end": "2026-10-30",
-   "modified": "2026-07-23",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] We're introducing Record in the Microsoft 365 Copilot mobile app . This feature enables users to capture in-person conversations or record voice notes and receive an AI-generated transcript and summary in Copilot Chat after recording ends. Record helps users capture important information wherever work happens and quickly transform spoken content into actionable summaries. Built on M…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Frontier preview: Available to Frontier customers beginning in late July 2026.",
-    "General Availability (Worldwide): Beginning in late August 2026 and is expected to be complete by late September 2026."
-   ],
-   "bodyHash": "adfd3c1f89b8a317"
   },
   {
    "id": "MC1438491",
@@ -8117,37 +7609,6 @@
     "General Availability (Worldwide): Beginning mid-January 2027 (previously mid-October 2026) and expected to complete by early February 2027 (previously mid-November 2026)."
    ],
    "bodyHash": "de6f4d4d6b675b2b"
-  },
-  {
-   "id": "MC1443510",
-   "title": "Microsoft 365: One-time cleanup of aged pending requests in All Agents",
-   "services": [
-    "Microsoft 365 suite"
-   ],
-   "category": "preventOrFixIssue",
-   "severity": "normal",
-   "major": false,
-   "actionBy": "2026-08-20",
-   "start": "2026-07-31",
-   "end": "2026-10-30",
-   "modified": "2026-07-31",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "[What and why] We're performing a one-time cleanup of aged pending requests in the All Agents request management experience. This cleanup is intended to remove stale requests that have remained pending for an extended period and help maintain a more current and manageable request queue. Beginning August 20, 2026 , pending requests created before June 1, 2026 will be permanently removed unless they…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Beginning August 20, 2026 , pending requests created before June 1, 2026 will be permanently removed unless they are reviewed and actioned before the cleanup begins.",
-    "Worldwide: Beginning August 20, 2026 and expected to complete in late August 2026.",
-    "Pending requests dated before June 1, 2026 will be removed as part of this one-time cleanup.",
-    "Pending requests created on or after June 1, 2026 are not affected.",
-    "Review any pending requests created before June 1, 2026 and determine whether they should be retained.",
-    "Before August 20, 2026: Go to All Agents > Requests ."
-   ],
-   "bodyHash": "e9867dff0a872605"
   },
   {
    "id": "MC1443514",
@@ -8763,35 +8224,6 @@
     "General Availability (Worldwide): Beginning in mid-October 2026 and expected to complete in mid-November 2026."
    ],
    "bodyHash": "589f2f9a36c5f319"
-  },
-  {
-   "id": "MC1450130",
-   "title": "(Updated) OneNote: Multimodal capture in Copilot Notebooks (Android)",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-07",
-   "end": "2026-10-30",
-   "modified": "2026-09-01",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 1, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're expanding multimodal capture in Microsoft 365 Copilot Notebooks to the Microsoft OneNote app for Android . This feature helps users capture in-person and on-the-go work in a single session by combining audio transcription , image capture , and typed notes . When the session ends, Microsoft 36…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 1, 2026: We have updated the timeline.",
-    "Public Preview: Available starting in mid-August 2026.",
-    "General Availability (Worldwide): Beginning in mid-September 2026 (previously late August) and expected to complete in late September 2026 (previously early September)."
-   ],
-   "bodyHash": "1f19faabbab06aa5"
   },
   {
    "id": "MC1450133",
@@ -9515,32 +8947,6 @@
     "General Availability (Worldwide): Beginning in late August 2026 and expected to complete by late October 2026 (previously mid-September)."
    ],
    "bodyHash": "c19c093e639fb705"
-  },
-  {
-   "id": "MC1457230",
-   "title": "Microsoft Outlook: Drag and drop calendar events to reschedule meetings",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-18",
-   "end": "2026-10-30",
-   "modified": "2026-08-18",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] Microsoft Outlook is introducing drag-and-drop support for calendar events, allowing users to reschedule events by moving them directly to a different time slot on their calendar. This update simplifies calendar management and helps users make scheduling changes more quickly. This feature is available in day view and multi-day calendar views. This message is associated with Microsof…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide, GCC and GCC High): Beginning in late August 2026 and expected to complete by late September 2026."
-   ],
-   "bodyHash": "cf7944739c859f08"
   },
   {
    "id": "MC1457685",
@@ -12275,31 +11681,6 @@
    "bodyHash": "cd2aa21a5f56bb68"
   },
   {
-   "id": "MC1470871",
-   "title": "Microsoft Graph: User.ReadBasic.All will no longer allow reading user app role assignments and license details",
-   "services": [
-    "Microsoft Entra"
-   ],
-   "category": "preventOrFixIssue",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-11",
-   "end": "2026-10-30",
-   "modified": "2026-09-11",
-   "tags": [
-    "Admin impact",
-    "User impact"
-   ],
-   "summary": "[What and why] We are correcting the behavior of the Microsoft Graph delegated and app-only permission User.ReadBasic.All . This permission is intended to provide access only to a limited set of basic user profile properties. However, it currently also allows access to user app role assignments and license details. To address a security vulnerability, we are removing access to user app role assign…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Beginning in mid-September 2026 and expected to complete by late September 2026."
-   ],
-   "bodyHash": "98c229fac9a05c02"
-  },
-  {
    "id": "MC1470881",
    "title": "Microsoft Purview: Removing pay-as-you-go requirements for Edge for Business DLP unmanaged app protections",
    "services": [
@@ -14280,33 +13661,6 @@
    "bodyHash": "cb27ba04d1c72ed8"
   },
   {
-   "id": "MC1479516",
-   "title": "(Updated) Microsoft Outlook: Link preview retirement",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-25",
-   "end": "2026-10-30",
-   "modified": "2026-10-06",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated October 6, 2026: We have updated the content. Thank you for your patience. [What and why] The Link Preview feature has been retired in new Outlook for Windows and Outlook on the web because the browser service required to retrieve preview content from the web was deprecated. Without this, Outlook can no longer access the information needed to generate preview cards. Links will continue to …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated October 6, 2026: We have updated the content."
-   ],
-   "bodyHash": "0bbe48f5ee92cbcc"
-  },
-  {
    "id": "MC1479517",
    "title": "SharePoint: HTML pages",
    "services": [
@@ -15314,32 +14668,6 @@
    "bodyHash": "40b655c09dc7e814"
   },
   {
-   "id": "MC1488843",
-   "title": "Microsoft Word for Android: Agent Mode",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-05",
-   "end": "2026-10-30",
-   "modified": "2026-10-05",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Android Agent Mode brings Copilot Agent Mode to Word on Android, enabling mobile users to work with Copilot in a more agentic, task-oriented experience from their Android devices. Users can ask Copilot to help draft, reason over, and refine Word content while staying productive on mobile. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out on late Septem…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): We will begin rolling out on late September 2026 and expect to complete by late September 2026."
-   ],
-   "bodyHash": "54d1f82f13838697"
-  },
-  {
    "id": "MC1488844",
    "title": "Updated My Task experience in Planner",
    "services": [
@@ -16200,30 +15528,6 @@
     "General Availability (Worldwide): We will begin rolling out in early November 2026 (previously late October) and expect to complete by late November 2026."
    ],
    "bodyHash": "f879ba7dd659c9f2"
-  },
-  {
-   "id": "MC1493186",
-   "title": "Microsoft Outlook for Android and iOS: Send Availability functionality restored",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-09",
-   "end": "2026-10-30",
-   "modified": "2026-10-09",
-   "tags": [
-    "Feature update",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] We have restored the Send Availability feature to the Microsoft Outlook mobile app experience. When composing a reply to an email, users can tap the calendar icon and select Send Availability , which allows them to see their availability and easily list time slots for their recipients. iOS users also have access to this feature through the on-screen keyboard and VoiceOver. This chan…",
-   "when": null,
-   "prepare": null,
-   "dates": [],
-   "bodyHash": "ddb5a07718ea5fa0"
   },
   {
    "id": "MC1502773",
@@ -19507,6 +18811,62 @@
     "General Availability (Worldwide, GCC, GCC High, DoD): Beginning in late November 2026 and expected to complete by late November 2026."
    ],
    "bodyHash": "377a9aae84174b25"
+  },
+  {
+   "id": "MC1531060",
+   "title": "An updated version of the October 2026 Scan Cab is available",
+   "services": [
+    "Windows"
+   ],
+   "category": "preventOrFixIssue",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-30",
+   "end": "2027-10-30",
+   "modified": "2026-10-30",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "IMPORTANT: This notice is only relevant for environments where: Visual Studio 2026, Visual Studio 2022, Visual Studio 2019, or Visual Studio 2017 is installed. Excel 2016 is installed. Scan Cab is used to check for update compliance The October 2026 Scan Cab was deployed before 7:00 PM PDT on October 29, 2026. What and why: An updated version of the October 2026 Scan Cab was made available at 7:00…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "The October 2026 Scan Cab was deployed before 7:00 PM PDT on October 29, 2026.",
+    "What and why: An updated version of the October 2026 Scan Cab was made available at 7:00 PM PDT on October 29, 2026.",
+    "Rollout schedule: The updated October 2026 Scan Cab was made available at 7:00 PM PDT on October 29, 2026.",
+    "Who is affected: IT administrators who downloaded the Scan Cab before 7:00 PM PDT on October 29, 2026, should re-acquire and re-deploy it if the Scan Cab is used to assess updates for environments with the affected Visual Studio or Excel versions listed above."
+   ],
+   "bodyHash": "86c47bfa279aecc6"
+  },
+  {
+   "id": "MC1531085",
+   "title": "Interim guidance for Cuba’s 2026 daylight saving time change",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-30",
+   "end": "2027-10-30",
+   "modified": "2026-10-30",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why On October 27, 2026, the government of the Republic of Cuba announced that the country will remain on daylight saving time instead of ending it as scheduled on November 1, 2026. Clocks will not be set back one hour at 2:00 a.m. on November 1. Cuba will remain at UTC-04:00 without interruption until November 7, 2027. Microsoft plans to release an update to support this time zone change…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "On October 27, 2026, the government of the Republic of Cuba announced that the country will remain on daylight saving time instead of ending it as scheduled on November 1, 2026.",
+    "Cuba will remain at UTC-04:00 without interruption until November 7, 2027.",
+    "Microsoft plans to release an update to support this time zone change as part of the November 2026 security update.",
+    "October 27, 2026: The government of Cuba announced the daylight saving time change.",
+    "November 1, 2026: Cuba’s time change takes effect.",
+    "Affected Windows devices might display an incorrect local time until the November 2026 security update is installed or the temporary workaround is applied."
+   ],
+   "bodyHash": "7a5d52ace5130f6f"
   },
   {
    "id": "MC676299",
@@ -25497,6 +24857,195 @@
    "id": "MC1530957",
    "type": "new",
    "title": "Microsoft Teams: Threads will become the default layout for new channels created with Microsoft Graph",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1531060",
+   "type": "new",
+   "title": "An updated version of the October 2026 Scan Cab is available",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1531085",
+   "type": "new",
+   "title": "Interim guidance for Cuba’s 2026 daylight saving time change",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1219793",
+   "type": "removed",
+   "title": "(Updated) Brand impersonation protection for Teams Calling",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1240699",
+   "type": "removed",
+   "title": "(Updated) Introducing the new SharePoint experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1247902",
+   "type": "removed",
+   "title": "(Updated) SharePoint: AI citations analytics for documents and pages",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1258000",
+   "type": "removed",
+   "title": "(Updated) Microsoft Purview: Data Security Investigations – analyze files tied to endpoint DLP alerts",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1268933",
+   "type": "removed",
+   "title": "(Updated) Viva Engage: Pinned resources and related communities in Teams for iOS",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1287370",
+   "type": "removed",
+   "title": "(Updated) Auto upgrade of shared calendars from legacy MAPI model to modern REST model",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1318124",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: New search experience for cloud files in the file attach picker",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1319216",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: In‑meeting toggle to turn Meeting AI on or off",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1388718",
+   "type": "removed",
+   "title": "Microsoft Defender for Endpoint: Update to Linux connectivity requirements with new service URLs to allowlist",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1403403",
+   "type": "removed",
+   "title": "(Updated) Microsoft Purview compliance portal: View-only role management enhancements",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1411431",
+   "type": "removed",
+   "title": "(Updated) Microsoft Purview compliance portal: Admin assignment time limit",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1411574",
+   "type": "removed",
+   "title": "(Updated) Microsoft Entra: System-preferred authentication now applies to first-factor authentication",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1419802",
+   "type": "removed",
+   "title": "Microsoft Teams: New layout for sharing content in Teams events",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1423114",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Stricter external access controls for federated chats",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1426714",
+   "type": "removed",
+   "title": "(Updated) Microsoft Viva: Create and customize Power BI reports",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1427972",
+   "type": "removed",
+   "title": "(Updated) Microsoft SharePoint: Restricted content discovery enhancements for Copilot and Microsoft 365 search",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1431365",
+   "type": "removed",
+   "title": "(Updated) Copilot Analytics - Agent 365 dashboard for managers",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1437679",
+   "type": "removed",
+   "title": "Microsoft 365 Copilot: Capture voice notes in the Microsoft 365 Copilot mobile app",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1443510",
+   "type": "removed",
+   "title": "Microsoft 365: One-time cleanup of aged pending requests in All Agents",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1450130",
+   "type": "removed",
+   "title": "(Updated) OneNote: Multimodal capture in Copilot Notebooks (Android)",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1457230",
+   "type": "removed",
+   "title": "Microsoft Outlook: Drag and drop calendar events to reschedule meetings",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1470871",
+   "type": "removed",
+   "title": "Microsoft Graph: User.ReadBasic.All will no longer allow reading user app role assignments and license details",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1479516",
+   "type": "removed",
+   "title": "(Updated) Microsoft Outlook: Link preview retirement",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1488843",
+   "type": "removed",
+   "title": "Microsoft Word for Android: Agent Mode",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1493186",
+   "type": "removed",
+   "title": "Microsoft Outlook for Android and iOS: Send Availability functionality restored",
    "fields": {}
   }
  ]
