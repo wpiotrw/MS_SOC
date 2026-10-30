@@ -721,5 +721,9 @@
 ]
 ],
 "read": "2026-10-23"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/10/30/help-desk-impersonation-ad-cs-abuse-investigating-esc1-esc8-intrusion-paths/": {
+"iocs": [],
+"read": "2026-10-30"
 }
 }
