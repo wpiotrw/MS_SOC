@@ -34,6 +34,7 @@ h1{font-size:21px;margin:0}
 .hlinks{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;margin-left:auto}
 .tbtn{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:13px}
 .frow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+.tqw{display:flex;gap:8px;align-items:center;margin:4px 0 12px}.tqw .q{flex:1 1 auto;border-color:var(--accent)}
 .q{flex:1 1 260px;min-width:0;font:inherit;font-size:14px;padding:8px 12px;border:2px solid var(--ok);border-radius:10px;background:var(--surface);color:var(--text)}
 .chips{display:flex;flex-wrap:wrap;gap:5px}
 .chip{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:999px;padding:4px 10px;font-size:12.5px;cursor:pointer}
@@ -132,7 +133,7 @@ body h3{font-size:18px}
   <div class="seg" role="group" aria-label="Period"><button type="button" data-range="brief">Since the previous brief</button><button type="button" data-range="week">Last 7 days</button></div>
   <div class="hlinks"><a href="../">&larr; Back to the brief</a><a class="np" href="../diff/full.html">Full comparison (all fields)</a><a class="np pr" href="../week/print.html">Week summary to print</a><button class="tbtn np" type="button" id="themebtn">Theme</button></div>
  </div>
- <div class="frow"><input class="q" id="q" type="search" placeholder="Search every change — title, ID, permission, product…" aria-label="Search every change"><div class="chips" id="chips" aria-label="Technology"></div></div>
+ <div class="frow"><input class="q" id="q" type="search" placeholder="Search every tab — title, ID, permission, product…" aria-label="Search every tab"><div class="chips" id="chips" aria-label="Technology"></div></div>
  <div class="banner" id="banner" role="status"></div>
 </header>
 <button class="jump" type="button" id="jump" aria-expanded="false" aria-controls="sheet"><span class="jl">Tab</span><span class="jc" id="jumpc">Summary</span><span aria-hidden="true">&#9662;</span></button>
@@ -143,11 +144,11 @@ body h3{font-size:18px}
   "use strict";
   var RANGE = "week" === "week" ? "week" : "brief";
   var TABS = [["Summary", "The changes worth reading first"], ["New", "New items in the brief"], ["Deadlines", "Dated items: arrived, left, or date moved"],
-    ["Message Center", "Message Center and Roadmap posts"], ["Graph API", "Graph permissions: endpoints, privilege, consent"], ["Graph API Radar", "New in Microsoft Graph: settings our tenant returns, $metadata changes"], ["Roles", "Entra directory roles"],
+    ["Message Center", "Message Center and Roadmap posts"], ["Graph API", "Graph permissions: endpoints, privilege, consent"], ["Graph API Radar", "New in Microsoft Graph: settings our tenant returns, $metadata changes"], ["M365 endpoints", "Microsoft 365 URLs and IP address ranges"], ["Roles", "Entra directory roles"],
     ["Component versions", "Agent and client versions"], ["First-party apps", "Microsoft's own Entra applications"], ["Campaigns", "Retirements, enforcements, rollouts"],
     ["Security baselines", "CISA SCuBA, Maester, Tenable, Zero Trust Assessment, Intune"], ["Threat Research", "Incidents touching Entra and Microsoft 365"], ["Microsoft Learn", "What's new entries, page edits, preview → GA"],
     ["Microsoft Blogs", "Microsoft product blogs"], ["Community Articles", "Community sources"]];
-  var D = null, S = { tab: "Summary", q: "", tech: "", kind: "" };
+  var D = null, S = { tab: "Summary", q: "", tech: "", kind: "", tq: {} };   /* 5ft-c: tq = the search of one tab only */
   function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
   function dm(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] : (d || ""); }
   function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || ""); }
@@ -168,7 +169,8 @@ body h3{font-size:18px}
   function inRange(r) { return RANGE === "week" ? true : r.d === D.day; }
   function hay(r) { return [r.id, r.t, r.p, r.tc || "", r.tab, r.x || ""].concat((r.f || []).map(function (f) { return f.join(" "); })).join(" ").toLowerCase(); }
   function passes(r) { if (!inRange(r)) return false; if (S.tech && r.tc !== S.tech) return false; if (S.q && hay(r).indexOf(S.q.toLowerCase()) < 0) return false; return true; }
-  function recs(tab) { return D.records.filter(function (r) { return (!tab || r.tab === tab) && passes(r); }); }
+  function tabq(r) { var q = S.tq[r.tab]; if (!q) return true; var h = hay(r); return q.toLowerCase().split(/\s+/).every(function (w) { return !w || h.indexOf(w) >= 0; }); }
+  function recs(tab) { return D.records.filter(function (r) { return (!tab || r.tab === tab) && passes(r) && tabq(r); }); }
   function counts(L) { var c = { a: 0, c: 0, r: 0 }; L.forEach(function (r) { if (r.k === "added") c.a++; else if (r.k === "removed") c.r++; else c.c++; }); return c; }
   /* §5eq ranking for "Most important": tier 0, the brief's weight, what the change does */
   function score(r) {
@@ -280,6 +282,18 @@ body h3{font-size:18px}
     var ph = el("div", "ph"); ph.appendChild(el("h2", null, tab));
     if (tab !== "Summary") pills(ph, c);
     ph.appendChild(el("span", "sub", meta[1])); p.appendChild(ph);
+    /* 5ft-c (30 X 2026, owner: "every tab should have its own search, in /week and /diff too"): this field searches this
+       tab only; the field at the top searches every tab */
+    if (tab !== "Summary") {
+      var tq = el("input", "q tq"); tq.type = "search"; tq.value = S.tq[tab] || ""; tq.setAttribute("aria-label", "Search in " + tab);
+      tq.placeholder = "Search only in " + tab + " — title, ID, permission, product…";
+      var tqt = null;
+      tq.addEventListener("input", function () { clearTimeout(tqt); tqt = setTimeout(function () { S.tq[tab] = tq.value.trim(); var k = tq.selectionStart; render();
+        var n2 = document.querySelector("#main .tq"); if (n2) { n2.focus(); try { n2.setSelectionRange(k, k); } catch (x) {} } }, 180); });
+      var tw = el("div", "tqw"); tw.appendChild(tq);
+      if (S.tq[tab]) { var tc = el("button", "clr", "Clear"); tc.type = "button"; tc.addEventListener("click", function () { S.tq[tab] = ""; render(); }); tw.appendChild(tc); }
+      p.appendChild(tw);
+    }
     if (tab === "Summary") {
       var top = all.slice().sort(function (x, y) { return score(y) - score(x) || y.d.localeCompare(x.d); }).slice(0, 9);
       p.appendChild(el("p", "lead", "The changes worth reading first, ranked: tier 0, the brief's SOC weight, then what the change does — a Graph permission that can reach more, a role, a date that moved, an incident, a feature leaving preview. Every tab is in the rail with what moved: + new, ~ changed, − removed."));
@@ -298,7 +312,7 @@ body h3{font-size:18px}
       var tb = el("details", "tbl"); tb.open = true; tb.appendChild(el("summary", null, "Every tab — what moved")); tb.appendChild(w); p.appendChild(tb);
       return p;
     }
-    if (!all.length) { p.appendChild(el("p", "lead", "Nothing moved in this tab " + (RANGE === "week" ? "in the last 7 days" : "since the previous brief") + (S.q || S.tech ? " that matches the filter." : ".") + (RANGE === "brief" ? " Switch to Last 7 days for the week." : ""))); return p; }
+    if (!all.length) { p.appendChild(el("p", "lead", "Nothing moved in this tab " + (RANGE === "week" ? "in the last 7 days" : "since the previous brief") + (S.q || S.tech || S.tq[tab] ? " that matches the filter." : ".") + (RANGE === "brief" ? " Switch to Last 7 days for the week." : ""))); return p; }
     if (RANGE === "brief") p.appendChild(block("Since the previous brief · " + dm(D.previousBrief || "") + " → " + dm(D.day), sortRecs(all), true));
     else days().forEach(function (d, i) { var L = sortRecs(all.filter(function (r) { return r.d === d; })); if (L.length || i === 0) p.appendChild(block(dmy(d) + (i === 0 ? " · latest brief" : ""), L, i === 0 || (i === 1 && !all.some(function (r) { return r.d === days()[0]; })))); });
     p.appendChild(table(sortRecs(all)));
@@ -374,7 +388,7 @@ body h3{font-size:18px}
   var h0 = decodeURIComponent(location.hash || ""), mt = /tab=([^&]+)/.exec(h0); if (mt && TABS.some(function (t) { return t[0] === mt[1]; })) S.tab = mt[1];
   /* the brief's links into the old page's sections (§5bn "Everything that moved here", §5cj "#dwin") open the matching tab */
   var OLD = { mcenter: "Message Center", fpa: "First-party apps", community: "Community Articles", added: "New", dwin: "New",
-    blogsdiff: "Microsoft Blogs", docsdiff: "Microsoft Learn", graph: "Graph API", radar: "Graph API Radar", roles: "Roles", deadlines: "Deadlines", campaigns: "Campaigns", baselines: "Security baselines", threats: "Threat Research" };
+    blogsdiff: "Microsoft Blogs", docsdiff: "Microsoft Learn", graph: "Graph API", radar: "Graph API Radar", m365ep: "M365 endpoints", roles: "Roles", deadlines: "Deadlines", campaigns: "Campaigns", baselines: "Security baselines", threats: "Threat Research" };
   if (!mt && OLD[h0.replace(/^#/, "")]) S.tab = OLD[h0.replace(/^#/, "")];
   addEventListener("hashchange", function () { var k = decodeURIComponent(location.hash || "").replace(/^#/, ""), m = /tab=([^&]+)/.exec(k);
     var t = m ? m[1] : OLD[k]; if (t && t !== S.tab && TABS.some(function (x) { return x[0] === t; }) && D) { S.tab = t; render(); } });
