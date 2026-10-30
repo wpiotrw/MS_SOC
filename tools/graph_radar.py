@@ -681,7 +681,9 @@ def article_hits(keys, pool):
         return []
     hits, ids = [], set()
     for p in pool:
-        mid = re.match(r"^((?:MC|RM)\d+)", p.get("title") or "")
+        mid = re.match(r"^((?:MC|RM)\d+)", p.get("title") or "") or re.search(r"roadmap\?id=(\d+)", p.get("url") or "")
+        if mid and mid.group(1).isdigit():
+            mid = re.match(r"(.*)", "RM" + mid.group(1))      # the roadmap page and RM575285 are one item
         if mid and mid.group(1) in ids:
             continue                     # the same post through two feeds (admin center and merill.net)
         if all(k in p["st"] for k in keys["all"]) and (not keys["ctx"] or any(c in p["st"] for c in keys["ctx"])):
@@ -735,8 +737,14 @@ def enrich_findings(und, beta, v1, day, mci_titles=None):
         hits = article_hits(article_keys(u["type"], leaf), pool)
         known = {a.get("url") for a in (n or {}).get("articles") or []} | {"https://mc.merill.net/message/" + m for m in u.get("mc") or []}
         old = amem.get(key) or []
+        def pid(x):   # one MC / roadmap item through several feeds is one source
+            m = re.match(r"^((?:MC|RM)\d+)", x.get("title") or "") or re.search(r"roadmap\?id=(\d+)", x.get("url") or "")
+            return ("RM" + m.group(1)) if m and m.group(1).isdigit() else (m.group(1) if m else "")
+        have = {pid(x) for x in old} | set(u.get("mc") or [])
+        old = [x for i, x in enumerate(old) if not pid(x) or pid(x) not in {pid(y) for y in old[:i]}]
         for h in hits:
-            if h["url"] not in known and h["url"] not in {x["url"] for x in old}:
+            if h["url"] not in known and h["url"] not in {x["url"] for x in old} and not (pid(h) and pid(h) in have):
+                have.add(pid(h))
                 h["first"] = day
                 old.append(h)
         amem[key] = old[-8:]

@@ -3,18 +3,38 @@
   "notes": {
     "passwordAuthenticationMethodConfiguration|allowPasswordChangeAfterSecureSignIn": {
       "title": "Password change after a secure sign-in",
-      "what": "Lets users change their password in My Sign-Ins after signing in with a strong credential (passkey, FIDO2 security key, Windows Hello for Business), without typing the current password and without SSPR. Off by default; Microsoft rolls it out worldwide in October and November 2026 (MC1437671).",
+      "what": "Lets users change their password in My Sign-Ins after signing in with a strong credential (passkey, FIDO2 security key, Windows Hello for Business), without typing the current password and without SSPR. Off by default; Microsoft rolls it out worldwide in October and November 2026 (MC1437671). Jan Bakker (30/10/2026): not in the Entra admin center yet - Graph is the only way to turn it on - and it applies to the whole tenant, it cannot be scoped to users or groups.",
       "uses": [
         "Users who sign in passwordless but still keep a password for an old app or VPN can rotate it themselves, without a help desk call",
-        "Turn it on for a pilot group first - the Password method configuration is one object for the whole tenant",
+        "It applies to the whole tenant (no user or group scope) - try it in a test tenant first and tell the help desk before you switch it on",
         "Pair it with an authentication strength that requires phishing-resistant MFA, so only a strong sign-in opens the password change",
+        "Turning it on needs Policy.ReadWrite.AuthenticationMethod and at least the Authentication Policy Administrator role (Jan Bakker)",
         "In a tenant review: off means users who forgot their password still go through SSPR or the help desk"
       ],
       "basis": "microsoft",
       "checked": "2026-10-30",
       "articles": [
-        {"title": "MC1437671 - Microsoft Entra: Allow password change after secure sign-in with My Sign-Ins", "url": "https://mc.merill.net/message/MC1437671", "by": "Microsoft Message Center (merill.net)", "date": "2026-07-23", "rel": "feature"},
-        {"title": "Microsoft Entra: Passwordless password change in My Sign-Ins", "url": "https://m365admin.handsontek.net/?p=22770", "by": "M365 Admin (handsontek)", "date": "", "rel": "feature"}
+        {
+          "title": "MC1437671 - Microsoft Entra: Allow password change after secure sign-in with My Sign-Ins",
+          "url": "https://mc.merill.net/message/MC1437671",
+          "by": "Microsoft Message Center (merill.net)",
+          "date": "2026-07-23",
+          "rel": "feature"
+        },
+        {
+          "title": "Allow password change after secure sign-in",
+          "url": "https://janbakker.tech/allow-password-change-after-secure-sign-in/",
+          "by": "Jan Bakker",
+          "date": "2026-10-30",
+          "rel": "names-it"
+        },
+        {
+          "title": "Microsoft Entra: Passwordless password change in My Sign-Ins",
+          "url": "https://m365admin.handsontek.net/?p=22770",
+          "by": "M365 Admin (handsontek)",
+          "date": "",
+          "rel": "feature"
+        }
       ]
     },
     "defaultUserRolePermissions|allowedToCreateAgentIdentityBlueprints": {
@@ -29,9 +49,27 @@
       "basis": "article",
       "checked": "2026-10-30",
       "articles": [
-        {"title": "Prevent users from creating new agent identity blueprints", "url": "https://janbakker.tech/prevent-users-from-creating-new-agent-identity-blueprints/", "by": "Jan Bakker", "date": "2026-10-16", "rel": "names-it"},
-        {"title": "Microsoft Entra Lets Users Create Agent Blueprints by Default", "url": "https://lazyadmin.nl/?p=13228", "by": "Rudy Mens (LazyAdmin)", "date": "2026-10-14", "rel": "names-it"},
-        {"title": "Entra Disable User Creation of Agent Identity Blueprints", "url": "https://blog.icewolf.ch/archive/2026/10/22/entra-disable-user-creation-of-agent-identity-blueprints/", "by": "Andres Bohren", "date": "2026-10-22", "rel": "names-it"}
+        {
+          "title": "Prevent users from creating new agent identity blueprints",
+          "url": "https://janbakker.tech/prevent-users-from-creating-new-agent-identity-blueprints/",
+          "by": "Jan Bakker",
+          "date": "2026-10-16",
+          "rel": "names-it"
+        },
+        {
+          "title": "Microsoft Entra Lets Users Create Agent Blueprints by Default",
+          "url": "https://lazyadmin.nl/?p=13228",
+          "by": "Rudy Mens (LazyAdmin)",
+          "date": "2026-10-14",
+          "rel": "names-it"
+        },
+        {
+          "title": "Entra Disable User Creation of Agent Identity Blueprints",
+          "url": "https://blog.icewolf.ch/archive/2026/10/22/entra-disable-user-creation-of-agent-identity-blueprints/",
+          "by": "Andres Bohren",
+          "date": "2026-10-22",
+          "rel": "names-it"
+        }
       ]
     },
     "voiceAuthenticationMethodConfiguration|isCustomGreetingEnabled": {
@@ -45,7 +83,13 @@
       "basis": "microsoft",
       "checked": "2026-10-30",
       "articles": [
-        {"title": "MC1219798 - Custom greetings in voice call authentication will retire on Feb 28, 2026", "url": "https://mc.merill.net/message/MC1219798", "by": "Microsoft Message Center (merill.net)", "date": "2026-01-21", "rel": "feature"}
+        {
+          "title": "MC1219798 - Custom greetings in voice call authentication will retire on Feb 28, 2026",
+          "url": "https://mc.merill.net/message/MC1219798",
+          "by": "Microsoft Message Center (merill.net)",
+          "date": "2026-01-21",
+          "rel": "feature"
+        }
       ]
     },
     "authenticationMethodsPolicy|optOutSettings": {
@@ -71,7 +115,13 @@
       "basis": "microsoft",
       "checked": "2026-10-30",
       "articles": [
-        {"title": "x509CertificateCrlValidationConfiguration resource type (v1.0)", "url": "https://learn.microsoft.com/graph/api/resources/x509certificatecrlvalidationconfiguration?view=graph-rest-1.0", "by": "Microsoft Learn", "date": "", "rel": "names-it"}
+        {
+          "title": "x509CertificateCrlValidationConfiguration resource type (v1.0)",
+          "url": "https://learn.microsoft.com/graph/api/resources/x509certificatecrlvalidationconfiguration?view=graph-rest-1.0",
+          "by": "Microsoft Learn",
+          "date": "",
+          "rel": "names-it"
+        }
       ]
     },
     "federatedIdentityCredentialAuthenticationMethodConfiguration|includeTargets": {
@@ -119,7 +169,13 @@
       "basis": "microsoft",
       "checked": "2026-10-30",
       "articles": [
-        {"title": "crossTenantAccessPolicyInboundTrust resource type (beta)", "url": "https://learn.microsoft.com/graph/api/resources/crosstenantaccesspolicyinboundtrust?view=graph-rest-beta", "by": "Microsoft Learn", "date": "", "rel": "names-it"}
+        {
+          "title": "crossTenantAccessPolicyInboundTrust resource type (beta)",
+          "url": "https://learn.microsoft.com/graph/api/resources/crosstenantaccesspolicyinboundtrust?view=graph-rest-beta",
+          "by": "Microsoft Learn",
+          "date": "",
+          "rel": "names-it"
+        }
       ]
     },
     "crossTenantAccessPolicyConfigurationDefault|crossCloudMeetingConfiguration": {
@@ -132,7 +188,13 @@
       "basis": "name",
       "checked": "2026-10-30",
       "articles": [
-        {"title": "Meet with people in other Microsoft 365 cloud environments", "url": "https://learn.microsoft.com/microsoftteams/cross-cloud-meetings", "by": "Microsoft Learn", "date": "", "rel": "feature"}
+        {
+          "title": "Meet with people in other Microsoft 365 cloud environments",
+          "url": "https://learn.microsoft.com/microsoftteams/cross-cloud-meetings",
+          "by": "Microsoft Learn",
+          "date": "",
+          "rel": "feature"
+        }
       ]
     },
     "crossTenantAccessPolicyConfigurationDefault|protectedContentSharing": {
@@ -188,7 +250,13 @@
       "basis": "name",
       "checked": "2026-10-30",
       "articles": [
-        {"title": "Introducing Trusted Certificate Authorities (public preview) in App management policy", "url": "https://devblogs.microsoft.com/identity/?p=1305", "by": "Microsoft Identity blog", "date": "2023-11-09", "rel": "feature"}
+        {
+          "title": "Introducing Trusted Certificate Authorities (public preview) in App management policy",
+          "url": "https://devblogs.microsoft.com/identity/?p=1305",
+          "by": "Microsoft Identity blog",
+          "date": "2023-11-09",
+          "rel": "feature"
+        }
       ]
     },
     "appManagementServicePrincipalConfiguration|credentials": {
@@ -245,7 +313,13 @@
       "basis": "name",
       "checked": "2026-10-30",
       "articles": [
-        {"title": "Conditional Access for agents", "url": "https://learn.microsoft.com/entra/identity/conditional-access/agent-id", "by": "Microsoft Learn", "date": "", "rel": "feature"}
+        {
+          "title": "Conditional Access for agents",
+          "url": "https://learn.microsoft.com/entra/identity/conditional-access/agent-id",
+          "by": "Microsoft Learn",
+          "date": "",
+          "rel": "feature"
+        }
       ]
     },
     "conditionalAccessSessionControls|blockSensitiveActions": {
@@ -269,7 +343,13 @@
       "basis": "name",
       "checked": "2026-10-30",
       "articles": [
-        {"title": "Conditional Access for agents", "url": "https://learn.microsoft.com/entra/identity/conditional-access/agent-id", "by": "Microsoft Learn", "date": "", "rel": "feature"}
+        {
+          "title": "Conditional Access for agents",
+          "url": "https://learn.microsoft.com/entra/identity/conditional-access/agent-id",
+          "by": "Microsoft Learn",
+          "date": "",
+          "rel": "feature"
+        }
       ]
     },
     "conditionalAccessConditionSet|purviewDataLossPreventionRules": {
@@ -282,7 +362,13 @@
       "basis": "name",
       "checked": "2026-10-30",
       "articles": [
-        {"title": "RM571397 - Purview DLP: upgraded inline protection for Entra-managed apps in Edge for Business", "url": "https://mc.merill.net/message/RM571397", "by": "Microsoft 365 roadmap (merill.net)", "date": "", "rel": "feature"}
+        {
+          "title": "RM571397 - Purview DLP: upgraded inline protection for Entra-managed apps in Edge for Business",
+          "url": "https://mc.merill.net/message/RM571397",
+          "by": "Microsoft 365 roadmap (merill.net)",
+          "date": "",
+          "rel": "feature"
+        }
       ]
     },
     "conditionalAccessConditionSet|agentSessionRiskLevels": {
@@ -295,7 +381,13 @@
       "basis": "name",
       "checked": "2026-10-30",
       "articles": [
-        {"title": "Secure autonomous agents with Conditional Access", "url": "https://learn.microsoft.com/entra/identity/conditional-access/policy-autonomous-agents", "by": "Microsoft Learn", "date": "", "rel": "feature"}
+        {
+          "title": "Secure autonomous agents with Conditional Access",
+          "url": "https://learn.microsoft.com/entra/identity/conditional-access/policy-autonomous-agents",
+          "by": "Microsoft Learn",
+          "date": "",
+          "rel": "feature"
+        }
       ]
     },
     "conditionalAccessConditionSet|clients": {
