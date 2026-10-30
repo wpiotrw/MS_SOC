@@ -430,7 +430,7 @@ def tenant_read(model, day):
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import fpa_tenant as T
     try:
-        tok = T.token()
+        tok = T.token()[1]   # (tenant id, access token)
     except Exception as e:
         return None, "sign-in failed: %s" % e
     res = []
