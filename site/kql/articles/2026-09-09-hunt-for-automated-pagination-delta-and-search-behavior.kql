@@ -1,0 +1,24 @@
+// title: Hunt for automated pagination, delta, and search behavior
+// date: 2026-09-09
+// product: 
+// tables: 
+// purpose: From the article: Passkey-themed social engineering leads to identity and cloud compromise
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/
+// kind: article
+// author: Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+GraphAPIAuditEvents
+| where Timestamp > ago(24h)
+| where toint(ResponseStatusCode) between (200 .. 299)
+| extend Uri = tolower(RequestUri),
+         ActorId = coalesce(AccountObjectId,
+                            ServicePrincipalId, ApplicationId),
+         Path = tostring(split(tolower(RequestUri), "?")[0])
+| where Uri has_any ("$top", "%24top", "$skip", "%24skip",
+                     "$skiptoken", "%24skiptoken", "$count",
+                     "%24count", "/delta", "/search")
+| summarize AutomatedRequests=count(), DistinctPaths=dcount(Path),
+            SampleUris=make_set(RequestUri, 12)
+    by ActorId, IpAddress, ApplicationId, bin(Timestamp, 15m)
+| where AutomatedRequests >= 8 and DistinctPaths >= 4
+| order by AutomatedRequests desc

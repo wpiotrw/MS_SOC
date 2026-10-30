@@ -1,0 +1,25 @@
+// title: Hunt for privilege, MFA, application, and consent discovery
+// date: 2026-09-09
+// product: 
+// tables: 
+// purpose: From the article: Passkey-themed social engineering leads to identity and cloud compromise
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/
+// kind: article
+// author: Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+GraphAPIAuditEvents
+| where Timestamp > ago(24h)
+| where toint(ResponseStatusCode) between (200 .. 299)
+| extend Uri = tolower(RequestUri),
+         ActorId = coalesce(AccountObjectId,
+                            ServicePrincipalId, ApplicationId)
+| where Uri has_any ("/directoryroles", "/rolemanagement",
+                     "/authentication/methods", "/applications",
+                     "/serviceprincipals", "/oauth2permissiongrants",
+                     "/approleassign")
+| summarize Requests=count(), DistinctPaths=dcount(tostring(split(Uri, "?")[0])),
+            ScopesSeen=make_set(Scopes, 10),
+            SampleUris=make_set(RequestUri, 12)
+    by ActorId, IpAddress, ApplicationId, bin(Timestamp, 30m)
+| where Requests >= 4 and DistinctPaths >= 2
+| order by Requests desc

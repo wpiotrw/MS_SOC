@@ -1,0 +1,28 @@
+// title: Hunt for anomalous high-volume exfiltration
+// date: 2026-09-09
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: From the article: Passkey-themed social engineering leads to identity and cloud compromise
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/
+// kind: article
+// author: Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where ApplicationId in (20892, 20893, 15600)
+| where ActionType in~ ("FileDownloaded", "FileAccessed", "FilePreviewed")
+| where IsAnonymousProxy == true
+| where UserAgent !has "ODMTADemand"
+| extend FileSizeBytes = coalesce(tolong(RawEventData.FileSizeBytes), 0)
+| summarize
+    FileSizeBytes = sum(FileSizeBytes),
+    FirstSeen = min(Timestamp),
+    LastSeen = max(Timestamp),
+    EventCount = count(),
+    ActionTypes = make_set(ActionType),
+    Applications = make_set(Application)
+    by AccountObjectId, IPAddress,
+       TimeBucket = bin(Timestamp, 2h), UserAgent, ISP
+| extend FileSizeGB =
+    round(FileSizeBytes / 1024.0 / 1024.0 / 1024.0, 2)
+| where FileSizeGB >= 5 or EventCount >= 1000
+| order by EventCount desc

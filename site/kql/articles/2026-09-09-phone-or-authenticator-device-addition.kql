@@ -1,0 +1,22 @@
+// title: Phone or authenticator device addition
+// date: 2026-09-09
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: From the article: Passkey-themed social engineering leads to identity and cloud compromise
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/
+// kind: article
+// author: Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+ | where ActionType == "Update user."
+ | where tostring(RawEventData.ResultStatus) == "Success"
+ | where RawEventData has_any ("StrongAuthenticationPhoneAppDetail", "StrongAuthenticationUserDetails")
+ | extend AccountObjectId = extract(@"User_([a-f0-9\-]+)", 1, tostring(RawEventData.Target))
+ | where isnotempty(AccountObjectId)
+ | mvexpand ModifiedProp = RawEventData.ModifiedProperties
+ | where tostring(ModifiedProp.Name) in ("StrongAuthenticationPhoneAppDetail", "StrongAuthenticationUserDetails")
+ | extend OldValue = tostring(ModifiedProp.OldValue),
+          NewValue = tostring(ModifiedProp.NewValue)
+ | extend OldDeviceCount = countof(OldValue, @"""Id"""),
+          NewDeviceCount = countof(NewValue, @"""Id""")
+ | where NewDeviceCount > OldDeviceCount

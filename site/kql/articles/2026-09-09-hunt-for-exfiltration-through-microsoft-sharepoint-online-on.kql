@@ -1,0 +1,20 @@
+// title: Hunt for exfiltration through Microsoft SharePoint Online, OneDrive for Business
+// date: 2026-09-09
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: From the article: Passkey-themed social engineering leads to identity and cloud compromise
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/
+// kind: article
+// author: Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where ApplicationId == "20892" or ApplicationId == "15600"
+| where ActionType in ("FileDownloaded", "FileAccessed", "SyncDownloadedFull")
+| where isnotempty(AccountObjectId)
+| where isnotempty(IPAddress)
+| where isnotempty(UserAgent)
+| where UncommonForUser has_any("ISP","UserAgent")
+| where UserAgent has 'python-httpx'
+| project Timestamp, AccountObjectId, IPAddress, ISP, UserAgent
+| summarize FilesAccessedLastWindow = count() by AccountObjectId, IPAddress, ISP, UserAgent, bin(Timestamp,2h)
+| where FilesAccessedLastWindow >=100

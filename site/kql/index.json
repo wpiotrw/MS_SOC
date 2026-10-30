@@ -31360,6 +31360,144 @@
   "kind": "brief"
  },
  {
+  "file": "articles/2026-09-09-phone-or-authenticator-device-addition.kql",
+  "title": "Phone or authenticator device addition",
+  "date": "2026-09-09",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "From the article: Passkey-themed social engineering leads to identity and cloud compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "incident": "auto-passkey-themed-social-engineering-leads-2026-09-09"
+ },
+ {
+  "file": "articles/2026-09-09-hunt-for-sharepoint-and-onedrive-repository-discovery.kql",
+  "title": "Hunt for SharePoint and OneDrive repository discovery",
+  "date": "2026-09-09",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Passkey-themed social engineering leads to identity and cloud compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "incident": "auto-passkey-themed-social-engineering-leads-2026-09-09"
+ },
+ {
+  "file": "articles/2026-09-09-hunt-for-reconnaissance-progressing-to-content-collection.kql",
+  "title": "Hunt for reconnaissance progressing to content collection",
+  "date": "2026-09-09",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Passkey-themed social engineering leads to identity and cloud compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "incident": "auto-passkey-themed-social-engineering-leads-2026-09-09"
+ },
+ {
+  "file": "articles/2026-09-09-hunt-for-privilege-mfa-application-and-consent-discovery.kql",
+  "title": "Hunt for privilege, MFA, application, and consent discovery",
+  "date": "2026-09-09",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Passkey-themed social engineering leads to identity and cloud compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "incident": "auto-passkey-themed-social-engineering-leads-2026-09-09"
+ },
+ {
+  "file": "articles/2026-09-09-hunt-for-mailbox-and-attachment-reconnaissance.kql",
+  "title": "Hunt for mailbox and attachment reconnaissance",
+  "date": "2026-09-09",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Passkey-themed social engineering leads to identity and cloud compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "incident": "auto-passkey-themed-social-engineering-leads-2026-09-09"
+ },
+ {
+  "file": "articles/2026-09-09-hunt-for-exfiltration-through-microsoft-sharepoint-online-on.kql",
+  "title": "Hunt for exfiltration through Microsoft SharePoint Online, OneDrive for Business",
+  "date": "2026-09-09",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "From the article: Passkey-themed social engineering leads to identity and cloud compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "incident": "auto-passkey-themed-social-engineering-leads-2026-09-09"
+ },
+ {
+  "file": "articles/2026-09-09-hunt-for-exfiltration-through-exchange-online.kql",
+  "title": "Hunt for exfiltration through Exchange Online",
+  "date": "2026-09-09",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "From the article: Passkey-themed social engineering leads to identity and cloud compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "incident": "auto-passkey-themed-social-engineering-leads-2026-09-09"
+ },
+ {
+  "file": "articles/2026-09-09-hunt-for-broad-graph-reconnaissance-in-one-session.kql",
+  "title": "Hunt for broad Graph reconnaissance in one session",
+  "date": "2026-09-09",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Passkey-themed social engineering leads to identity and cloud compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "incident": "auto-passkey-themed-social-engineering-leads-2026-09-09"
+ },
+ {
+  "file": "articles/2026-09-09-hunt-for-automated-pagination-delta-and-search-behavior.kql",
+  "title": "Hunt for automated pagination, delta, and search behavior",
+  "date": "2026-09-09",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Passkey-themed social engineering leads to identity and cloud compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "incident": "auto-passkey-themed-social-engineering-leads-2026-09-09"
+ },
+ {
+  "file": "articles/2026-09-09-hunt-for-anomalous-high-volume-exfiltration.kql",
+  "title": "Hunt for anomalous high-volume exfiltration",
+  "date": "2026-09-09",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "From the article: Passkey-themed social engineering leads to identity and cloud compromise",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/",
+  "incident": "auto-passkey-themed-social-engineering-leads-2026-09-09"
+ },
+ {
   "file": "2026-08-31-who-has-been-granted-a-permission-that-can.kql",
   "title": "Who has been granted a permission that can delete someone else’s authentication methods",
   "date": "2026-08-31",
