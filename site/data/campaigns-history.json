@@ -666,6 +666,33 @@
 },
 {
 "date":"2026-10-30",
+"id":"MC1519855",
+"what":"Title",
+"before":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+"after":"(Updated) Microsoft Entra: Choose your own telephony provider now generally available",
+"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"link":"https://deltapulse.app/item/MC1519855"
+},
+{
+"date":"2026-10-30",
+"id":"MC1519855",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"link":"https://deltapulse.app/item/MC1519855"
+},
+{
+"date":"2026-10-30",
+"id":"MC1519855",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated this post with additional information as the feature is now generally available.",
+"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"link":"https://deltapulse.app/item/MC1519855"
+},
+{
+"date":"2026-10-30",
 "id":"MC1518029",
 "what":"Entered the brief (New)",
 "before":"",
@@ -722,20 +749,20 @@
 "label":"27 Oct 2026",
 "text":"Posted: Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
 },
-"MC1519855|starting microsoft entra id will make choose your own teleph#0":{
+"MC1519855|is the general availability date microsoft states the retire#0":{
 "date":"2026-10-30",
 "label":"30 Oct 2026",
-"text":"Starting October 30, 2026, Microsoft Entra ID will make Choose Your Own Telephony Provider (CYOT) generally available."
+"text":"30 October 2026 is the general-availability date Microsoft states"
 },
 "MC1519855|microsoft entra id now generally supports choose your own te#0":{
 "date":"2027-02-01",
 "label":"1 Feb 2027",
 "text":"Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by Fe"
 },
-"MC1519855|the retirement date for global administrators and external u#0":{
+"MC1519855|is the general availability date microsoft states the retire#2":{
 "date":"2027-07-01",
 "label":"1 Jul 2027",
-"text":"The retirement date for Global Administrators and external users is July 1, 2027."
+"text":"The retirement dates are 1 February 2027 and 1 July 2027."
 }
 },
 "moves":[],
@@ -895,6 +922,15 @@
 {
 "date":"2026-10-30",
 "id":"MC1481315",
+"what":"Message Center end date",
+"before":"2027-03-01",
+"after":"2027-05-03",
+"title":"Purview retires the DSPM classic and DSPM for AI classic experiences in mid to late March 2027 (moved again, from late January 2027)",
+"link":"https://deltapulse.app/item/MC1481315"
+},
+{
+"date":"2026-10-30",
+"id":"MC1481315",
 "what":"Microsoft moved the date",
 "before":"late Jan 2027",
 "after":"mid Mar 2027",
@@ -1008,20 +1044,15 @@
 "label":"30 Oct 2026",
 "text":"Microsoft updated the post on 30 October 2026: retirement begins mid-March 2027 (previously late January 2027) and completes in late March 2027 (previously late"
 },
-"MC1481315|beginning late microsoft will start retiring the microsoft p#0":{
+"MC1481315|microsoft updated the post on retirement begins mid previous#1":{
 "date":"2027-01-25",
 "label":"late Jan 2027",
-"text":"Beginning late January 2027, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experie"
+"text":"Retirement begins mid-March 2027 (previously late January 2027) and completes in late March 2027 (previously late January)"
 },
-"MC1481315|retirement will be completed by end of#0":{
-"date":"2027-01-31",
-"label":"end of Jan 2027",
-"text":"Retirement will be completed by end of January 2027."
-},
-"MC1481315|microsoft updated the post on retirement begins mid previous#0":{
+"MC1481315|beginning mid microsoft will start retiring the microsoft pu#0":{
 "date":"2027-03-15",
 "label":"mid Mar 2027",
-"text":"Retirement begins mid-March 2027 (previously late January 2027) and completes in late March 2027 (previously late January)"
+"text":"Beginning mid-March 2027, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experience"
 },
 "MC1481315|microsoft will retire microsoft purview dspm classic and dsp#0":{
 "date":"2027-03-25",
@@ -6350,14 +6381,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-27",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-28",
 "text":"August 1, 2026."
 },
@@ -6439,6 +6462,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-29",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-30",
 "text":"August 1, 2026."
 },
 {
@@ -6951,7 +6982,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-29",
+"seen":"2026-10-30",
 "text":"early February 2026."
 },
 {
@@ -6959,7 +6990,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-29",
+"seen":"2026-10-30",
 "text":"February 2027."
 },
 {
@@ -9383,6 +9414,33 @@
 "link":"https://mc.merill.net/message/MC1519855"
 },
 {
+"date":"2026-10-30",
+"id":"MC1519855",
+"what":"Title",
+"before":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+"after":"(Updated) Microsoft Entra: Choose your own telephony provider now generally available",
+"title":"Microsoft Entra: Choose your own telephony provider now generally available",
+"link":"https://mc.merill.net/message/MC1519855"
+},
+{
+"date":"2026-10-30",
+"id":"MC1519855",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Microsoft Entra: Choose your own telephony provider now generally available",
+"link":"https://mc.merill.net/message/MC1519855"
+},
+{
+"date":"2026-10-30",
+"id":"MC1519855",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated this post with additional information as the feature is now generally available.",
+"title":"Microsoft Entra: Choose your own telephony provider now generally available",
+"link":"https://mc.merill.net/message/MC1519855"
+},
+{
 "date":"2026-10-28",
 "id":"MC1465763",
 "what":"Microsoft revised the post",
@@ -9481,10 +9539,10 @@
 "label":"21 Oct 2026",
 "text":"Posted: Microsoft Entra: Choose your own telephony provider now generally available"
 },
-"MC1519855|starting microsoft entra id will make choose your own teleph#0":{
+"MC1426371|customers who need to continue to use sms or voice will be a#0":{
 "date":"2026-10-30",
 "label":"30 Oct 2026",
-"text":"Starting October 30, 2026, Microsoft Entra ID will make Choose Your Own Telephony Provider (CYOT) generally available."
+"text":"October 30, 2026: Customers who need to continue to use SMS or voice will be able to choose from a list of telecom providers available through the Microsoft Sec"
 },
 "MC1465763|microsoft states the worldwide rollout began mid and is expe#1":{
 "date":"2026-11-30",
@@ -9496,10 +9554,10 @@
 "label":"1 Feb 2027",
 "text":"Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by Fe"
 },
-"MC1519855|the retirement date for global administrators and external u#0":{
+"MC1426371|for most users for global administrators and external users#1":{
 "date":"2027-07-01",
 "label":"1 Jul 2027",
-"text":"The retirement date for Global Administrators and external users is July 1, 2027."
+"text":"1 Jul 2027 for Global Administrators and external users."
 }
 },
 "moves":[],
@@ -10763,7 +10821,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-29",
+"seen":"2026-10-30",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10771,7 +10829,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-29",
+"seen":"2026-10-30",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -16489,6 +16547,15 @@
 "title":"Allow password change after secure sign-in",
 "source":"JanBakker Tech - EntraID",
 "link":"https://janbakker.tech/allow-password-change-after-secure-sign-in/"
+},
+{
+"day":"2026-10-30",
+"cid":"c-mc1481315",
+"type":"milestone",
+"name":"DSPM-Copilot Readiness and Data Explorer",
+"src":"MC1481315",
+"now":"late Jan 2027",
+"text":"Retirement begins mid-March 2027 (previously late January 2027) and completes in late March 2027 (previously late January)"
 }
 ],
 "archive":{
