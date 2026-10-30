@@ -44509,12 +44509,17 @@ odtad CZTERNASCIE (4-17).**
     /* one fold per day (newest open): a weekly schema sync holds hundreds of rows */
     var day = "", ol2 = null, i2 = 0, nd = 0, cntDay = {};
     L.forEach(function (e) { cntDay[e.day] = (cntDay[e.day] || 0) + 1; });
+    /* rows are built when a day is opened (phones: a weekly sync holds hundreds of rows; 30 X: +7 000 elements) */
+    var byDay = {};
     L.slice(0, 400).forEach(function (e) {
-      if (e.day !== day) { day = e.day; var dd = el("details", "s5fq-dl s5fs-day"); if (nd++ === 0 || F.q) dd.open = true; var sm = el("summary");
+      if (e.day !== day) { day = e.day; var dd = el("details", "s5fq-dl s5fs-day"); var sm = el("summary");
         sm.appendChild(document.createTextNode(dmy(day) + (e.via === "msgraph-metadata" ? " · weekly schema sync" : e.via === "our developer tenant" ? " · our tenant" : " · live $metadata"))); sm.appendChild(el("span", "s5fp-n", n(cntDay[day])));
-        dd.appendChild(sm); ol2 = el("ol", "s5fq-list"); dd.appendChild(ol2); lb.appendChild(dd); i2 = 0; }
-      ol2.appendChild(row(e, i2++));
+        dd.appendChild(sm); ol2 = el("ol", "s5fq-list"); dd.appendChild(ol2); lb.appendChild(dd); byDay[day] = { d: dd, ol: ol2, rows: [] };
+        (function (b) { dd.addEventListener("toggle", function () { if (dd.open && !b.ol.children.length) b.rows.forEach(function (x, j) { b.ol.appendChild(row(x, j)); }); }); })(byDay[day]);
+        if (nd++ === 0 || F.q) dd.open = true; }
+      byDay[day].rows.push(e);
     });
+    Object.keys(byDay).forEach(function (k) { var b = byDay[k]; if (b.d.open && !b.ol.children.length) b.rows.forEach(function (x, j) { b.ol.appendChild(row(x, j)); }); });
     if (L.length > 400) lb.appendChild(el("p", "s5dv-fn", "First 400 of " + n(L.length) + " — narrow with the filters or the search."));
     sec.appendChild(lb);
     sec.appendChild(el("p", "s5dv-fn", "Read " + dmy(D.day) + " " + String(D.generated || "").slice(11, 16) + " UTC by GitHub Actions (tools/graph_radar.py). Only property names are kept from the tenant, never a value."));
@@ -49618,7 +49623,7 @@ we wszystkich endpointach, i zbudowac komende do Graph Explorer / PowerShell?"; 
     zawiera slowa pola jako fraze.
   - Pliki: `site/data/graph-radar.json` (strona), `data/graph-radar/` (pamiec: modele gz, historia, tenant — poza site/).
 - **Strona:** Graph API → widok **Radar** (kafle, „Returned by the service in our tenant, not in $metadata", wykres dni,
-  lista z filtrami Days / Source / What i szukaniem, dzien = rozwijana sekcja, karta z komendami do skopiowania); zdanie
+  lista z filtrami Days / Source / What i szukaniem, dzien = rozwijana sekcja budowana dopiero po otwarciu, karta z komendami do skopiowania); zdanie
   Overview „Graph radar" (beta / v1.0 / nasz tenant / Learn licensing); `/diff`: sekcja „Graph radar" i chip.
 - **Learn:** kryterium „licensing" w obu listach PROMOTE; strony licencji i cross-tenant na poczatku kolejki; czytane do 60
   stron na obszar, strona z kryterium albo tier 0 zawsze zostaje, reszta do 14.
