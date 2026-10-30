@@ -5753,6 +5753,16 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 .s5ft-dt b{font-weight:600;color:var(--text)}
 .s5ft-dt-today{color:#e3a33b}
 .s5ft-sl{margin:4px 0 8px;font-size:14px;color:var(--muted)}
+/* §5ft-d: readable pills in the frames of Graph API Radar and M365 endpoints */
+.s5ft-kn{display:inline-flex;align-items:center;font:800 12px/1 var(--sans);letter-spacing:.04em;padding:5px 9px;border-radius:6px;color:#fff;white-space:nowrap}
+.s5ft-kn-added{background:#2f9e6b}.s5ft-kn-changed{background:#b9770e}.s5ft-kn-removed{background:#c0392b}
+.s5ft-catp{display:inline-flex;align-items:center;font-size:12.5px;font-weight:700;padding:2px 9px;border-radius:7px;border:1.5px solid var(--accent);color:var(--text);background:color-mix(in srgb,var(--accent) 18%,transparent);white-space:nowrap}
+.s5ft-st.s5ft-s-v1,.s5ft-st.s5fu-none{color:var(--text);border-color:color-mix(in srgb,var(--text) 45%,transparent)}
+#tab-radar .s5do-pills,#tab-m365ep .s5do-pills{gap:6px}
+#tab-radar .s5dv-chip,#tab-m365ep .s5dv-chip{color:var(--text);border-color:color-mix(in srgb,var(--text) 40%,transparent)}
+.s5ft-tf{margin:6px 0 4px}
+.s5ft-sq{flex:1 1 100%;margin-top:6px;font-size:14px;padding:8px 12px}
+.s5fo-tb.s5ft-more{margin:4px 0 0}
 /* §5fu (30 X 2026): M365 endpoints */
 .s5ft-st.s5fu-act{color:#e3a33b;border-color:#e3a33b;background:color-mix(in srgb,#e3a33b 14%,transparent)}
 .s5ft-st.s5fu-tidy{color:var(--bad);border-color:var(--bad)}
@@ -30360,7 +30370,7 @@ IdentityDirectoryEvents
     "new": ["Undocumented", "s5ft-s-new", "The service returns it, but Microsoft has published nothing: not in $metadata, not on the Graph reference page."],
     "learn": ["On Learn, not in $metadata", "s5ft-s-learn", "Microsoft describes it on the Graph reference page, but the service schema ($metadata) does not list it yet."],
     "v1": ["In v1.0, missing from beta", "s5ft-s-v1", "Documented in Graph v1.0; only the beta $metadata lacks it - not new, a gap in Microsoft's beta schema."] };
-  var D = null, F = { src: "", kind: "", q: "", days: 14, cat: "", group: "cat" }, T = { st: "", cat: "" }, S = { view: "tenant" }, built = false;
+  var D = null, F = { src: "", kind: "", q: "", days: 14, cat: "", group: "cat" }, T = { st: "", cat: "" }, S = { view: "tenant" }, built = false, TS = { src: "", k: "", cat: "" };
 
   /* ---- the tab, synchronously (the shell's nav and the rail see it, §5ca) ---- */
   var wrap = document.querySelector(".wrap"), panel = null, body = null;
@@ -30789,17 +30799,38 @@ IdentityDirectoryEvents
     var tU = und.filter(function (u) { return u.first === day || u.updated === day; }).map(fromUnd);
     var RK = function (e) { return e.promoted ? 0 : e.kind === "type-new" ? 1 : /removed/.test(e.kind) ? 2 : e.kind === "op-new" ? 3 : 4; };
     var tE = ev.slice().sort(function (a, b) { return RK(a) - RK(b); });
-    var items = tU.map(function (e) { return { e: e, k: e.first === day ? "added" : "changed", name: title(e), id: fullName(e), ty: e.first === day ? "Undocumented setting" : "Setting updated", src: "Our tenant", tech: e.cat, tx: whatText(e) }; })
-      .concat(tE.map(function (e) { var k = KIND[e.kind] || ["changed", "Change"]; return { e: e, k: k[0], name: humanize(e.name) + (e.type && e.type !== e.name ? " — in " + e.type : ""), id: fullName(e), ty: k[1] + (e.promoted ? " · promoted to v1.0" : ""), src: "Graph " + e.ver, tech: e.cat, tx: "" }; }));
-    if (!items.length) box.appendChild(el("p", "s5bn-empty", "Nothing new today: no new setting in our tenant and no change in Graph $metadata."));
+    var all = tU.map(function (e) { return { e: e, k: e.first === day ? "added" : "changed", name: title(e), id: fullName(e), ty: e.first === day ? "Undocumented setting" : "Setting updated", tyc: "s5ft-s-new", src: "Our tenant", srcc: "s5fs-c-t", tech: e.cat, tx: whatText(e) }; })
+      .concat(tE.map(function (e) { var k = KIND[e.kind] || ["changed", "Change"]; return { e: e, k: k[0], name: humanize(e.name) + (e.type && e.type !== e.name ? " — in " + e.type : ""), id: fullName(e), ty: k[1] + (e.promoted ? " · promoted to v1.0" : ""), tyc: "s5ft-s-learn", src: "Graph " + e.ver, srcc: e.ver === "v1.0" ? "s5fs-c-v1" : "s5fs-c-b", tech: e.cat, tx: "" }; }));
+    /* §5ft-d (owner, 30 X: "the first section has no filtering - only the list below has it"): the frame filters by
+       source, what happened and technology, and by the tab's search words; each chip counts what it would show */
+    function tPass(it, ign) { return (ign === "src" || !TS.src || (TS.src === "tenant" ? it.src === "Our tenant" : it.src === "Graph " + TS.src)) && (ign === "k" || !TS.k || it.k === TS.k) && (ign === "cat" || !TS.cat || it.tech === TS.cat) && qHit(it.e); }
+    var items = all.filter(function (it) { return tPass(it); });
+    if (!all.length) box.appendChild(el("p", "s5bn-empty", "Nothing new today: no new setting in our tenant and no change in Graph $metadata."));
     else {
-      box.appendChild(el("p", "s5ft-sl", tU.length + " in our tenant · " + n(ev.length) + " in Graph $metadata — newest first; a tile opens its card."));
+      var tf = el("div", "s5fo-tf s5ft-tf");
+      function tchip(lab, key, val, cnt) { var b2 = btn(lab, "s5fo-tb", function () { TS[key] = val; strip(); }); b2.setAttribute("aria-pressed", String(TS[key] === val)); if (cnt != null) b2.appendChild(el("span", "s5fp-n", n(cnt))); return b2; }
+      tf.appendChild(el("span", "s5fo-tfl", "Source"));
+      [["", "All"], ["tenant", "Our tenant"], ["beta", "Graph beta"], ["v1.0", "Graph v1.0"]].forEach(function (o) { var cnt = all.filter(function (it) { var sv = TS.src; TS.src = o[0]; var r = tPass(it); TS.src = sv; return r; }).length; if (o[0] && !cnt) return; tf.appendChild(tchip(o[1], "src", o[0], cnt)); });
+      tf.appendChild(el("span", "s5fo-tfl", "What"));
+      [["", "All"], ["added", "New"], ["changed", "Changed"], ["removed", "Removed"]].forEach(function (o) { var cnt = all.filter(function (it) { var sv = TS.k; TS.k = o[0]; var r = tPass(it); TS.k = sv; return r; }).length; if (o[0] && !cnt) return; tf.appendChild(tchip(o[1], "k", o[0], cnt)); });
+      tf.appendChild(el("span", "s5fo-tfl", "Technology"));
+      var cc = {}; all.forEach(function (it) { if (it.tech && tPass(it, "cat")) cc[it.tech] = (cc[it.tech] || 0) + 1; });
+      tf.appendChild(tchip("All", "cat", "", null));
+      Object.keys(cc).sort(function (a, b) { return cc[b] - cc[a]; }).forEach(function (k2) { tf.appendChild(tchip(k2, "cat", k2, cc[k2])); });
+      var sq = el("input", "s5ft-q s5ft-sq"); sq.type = "search"; sq.value = F.q; sq.placeholder = "Filter today's findings — and the lists below (e.g. agent, password)"; sq.setAttribute("aria-label", "Filter today's findings");
+      var sqt = null; sq.addEventListener("input", function () { clearTimeout(sqt); sqt = setTimeout(function () { F.q = sq.value.trim(); var k2 = sq.selectionStart; strip(); if (built) render(); var s2 = panel.querySelector(".s5ft-sq"); if (s2) { s2.focus(); try { s2.setSelectionRange(k2, k2); } catch (x) {} } }, 160); });
+      tf.appendChild(sq);
+      box.appendChild(tf);
+      box.appendChild(el("p", "s5ft-sl", items.length === all.length ? tU.length + " in our tenant · " + n(ev.length) + " in Graph $metadata — newest first; a tile opens its card." : n(items.length) + " of " + n(all.length) + " match the filter."));
+      if (!items.length) box.appendChild(el("p", "s5bn-empty", "Nothing of today matches the filter."));
       var grid = el("div", "s5do-grid"), ul = el("ul", "s5bn-l");
       items.slice(0, 24).forEach(function (it) {
         var t = el("article", "s5do-tile s5do-" + it.k); t.tabIndex = 0; t.setAttribute("role", "button");
         t.appendChild(el("div", "s5do-name", it.name)); t.appendChild(el("div", "s5do-id", it.id));
-        var pl = el("div", "s5do-pills"); pl.appendChild(el("span", "s5do-k s5bn-k", it.k === "added" ? "NEW" : it.k === "removed" ? "REMOVED" : "CHANGED"));
-        pl.appendChild(el("span", "s5do-ty", it.ty)); pl.appendChild(el("span", "s5do-ty", it.src)); if (it.tech) pl.appendChild(el("span", "s5do-ty", it.tech)); t.appendChild(pl);
+        /* §5ft-d (owner: "again everything blends together"): what happened is a filled badge, the documentation status
+           its own colour, the source the portal's source pill, the technology an accent pill - each readable on its own */
+        var pl = el("div", "s5do-pills"); pl.appendChild(el("span", "s5ft-kn s5ft-kn-" + it.k, it.k === "added" ? "NEW" : it.k === "removed" ? "REMOVED" : "CHANGED"));
+        pl.appendChild(el("span", "s5ft-st " + it.tyc, it.ty)); pl.appendChild(el("span", "s5fq-sp " + it.srcc, it.src)); if (it.tech) pl.appendChild(el("span", "s5ft-catp", it.tech)); t.appendChild(pl);
         if (it.tx) t.appendChild(el("div", "s5do-chs", it.tx.length > 160 ? it.tx.slice(0, 157).replace(/\s+\S*$/, "") + "…" : it.tx));
         var ft = el("div", "s5do-foot"); ft.appendChild(el("span", "s5do-open", "Open ›")); t.appendChild(ft);
         t.addEventListener("click", function () { card(it.e); });
@@ -30811,7 +30842,7 @@ IdentityDirectoryEvents
         li.appendChild(el("span", "s5bn-pr", it.src + (it.tech ? " · " + it.tech : ""))); ul.appendChild(li);
       });
       box.appendChild(grid); box.appendChild(ul);
-      if (items.length > 24) box.appendChild(el("p", "s5ft-sl", "+" + (items.length - 24) + " more — in “New in our tenant” and “Every change in Graph” below."));
+      if (items.length > 24) { var more = btn("+" + (items.length - 24) + " more — show them in the list below", "s5fo-tb s5ft-more", function () { S.view = TS.src === "tenant" || (!TS.src && tU.length) ? "tenant" : "changes"; if (S.view === "changes") F.days = 7; render(); var v = body.querySelector(".s5ft-view"); if (v) v.scrollIntoView({ block: "start" }); }); box.appendChild(more); }
       var swv = el("span", "s5do-sw"); swv.setAttribute("role", "group"); swv.setAttribute("aria-label", "View");
       var bT = btn("Tiles", null, function () { setV("tiles"); }), bL = btn("List", null, function () { setV("list"); }); swv.appendChild(bT); swv.appendChild(bL); h.appendChild(swv);
       var setV = function (v) { try { localStorage.setItem("socStripView", v); } catch (x) {} grid.hidden = v !== "tiles"; ul.hidden = v === "tiles"; bT.setAttribute("aria-pressed", String(v === "tiles")); bL.setAttribute("aria-pressed", String(v !== "tiles")); };
@@ -30834,14 +30865,14 @@ IdentityDirectoryEvents
       q.placeholder = "Search Graph API Radar — setting, property, type, path, permission (e.g. password, agent, conditionalAccess)";
       q.setAttribute("aria-label", "Search Graph API Radar"); q.value = F.q;
       var qt = null;
-      q.addEventListener("input", function () { clearTimeout(qt); qt = setTimeout(function () { F.q = q.value.trim(); var k2 = q.selectionStart; render(); var q2 = body.querySelector(".s5ft-q"); if (q2) { q2.focus(); try { q2.setSelectionRange(k2, k2); } catch (x) {} } }, 160); });
+      q.addEventListener("input", function () { clearTimeout(qt); qt = setTimeout(function () { F.q = q.value.trim(); var k2 = q.selectionStart; try { strip(); } catch (x) {} render(); var q2 = body.querySelector(".s5ft-q"); if (q2) { q2.focus(); try { q2.setSelectionRange(k2, k2); } catch (x) {} } }, 160); });
       sw.appendChild(q);
       if (F.q) {
         var nT = ((D.tenant || {}).undocumented || []).map(fromUnd).filter(qHit).length, nC = (D.events || []).filter(function (e) { return e.kind !== "tenant-undocumented" && qHit(e); }).length;
         var hits = el("div", "s5ft-qh"); hits.appendChild(el("span", null, "“" + F.q + "”: "));
         hits.appendChild(btn(n(nT) + " in our tenant", "s5fo-tb" + (S.view === "tenant" ? " s5ft-qon" : ""), function () { S.view = "tenant"; setHash(); render(); }));
         hits.appendChild(btn(n(nC) + " in every change in Graph", "s5fo-tb" + (S.view === "changes" ? " s5ft-qon" : ""), function () { S.view = "changes"; F.days = 60; setHash(); render(); }));
-        hits.appendChild(btn("Clear", "s5fo-tb", function () { F.q = ""; render(); }));
+        hits.appendChild(btn("Clear", "s5fo-tb", function () { F.q = ""; try { strip(); } catch (x) {} render(); }));
         sw.appendChild(hits);
       }
       body.appendChild(sw);
@@ -31247,7 +31278,8 @@ IdentityDirectoryEvents
       T.forEach(function (c) {
         var t = el("article", "s5do-tile s5do-" + sk(c)); t.tabIndex = 0; t.setAttribute("role", "button");
         t.appendChild(el("div", "s5do-name", title(c)));
-        var pl = el("div", "s5do-pills"); imp(c).forEach(function (i) { pl.appendChild(el("span", "s5do-ty", i[1])); }); if (c.category) pl.appendChild(el("span", "s5do-ty", c.category)); t.appendChild(pl);
+        var pl = el("div", "s5do-pills"); pl.appendChild(el("span", "s5ft-kn s5ft-kn-" + sk(c), sk(c) === "added" ? "NEW" : sk(c) === "removed" ? "REMOVED" : "CHANGED"));
+        imp(c).forEach(function (i) { pl.appendChild(el("span", "s5ft-st " + KCLS[i[2]], i[1])); }); if (c.category) pl.appendChild(el("span", "s5ft-catp", c.category)); t.appendChild(pl);
         var sm = c.addUrls.concat(c.addIps).map(function (x) { return "+ " + x; }).concat(c.remUrls.concat(c.remIps).map(function (x) { return "− " + x; }));
         if (sm.length) t.appendChild(el("div", "s5do-chs", sm.slice(0, 4).join(" · ") + (sm.length > 4 ? " · …" : "")));
         var ft = el("div", "s5do-foot"); ft.appendChild(el("span", "s5do-open", "Open ›")); t.appendChild(ft);
