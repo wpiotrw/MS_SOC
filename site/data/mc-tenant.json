@@ -1,7 +1,7 @@
 {
  "read": "2026-10-30",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 715,
+ "count": 713,
  "note": null,
  "messages": [
   {
@@ -7864,25 +7864,25 @@
    "actionBy": "2026-10-01",
    "start": "2026-08-03",
    "end": "2026-12-28",
-   "modified": "2026-10-20",
+   "modified": "2026-10-30",
    "tags": [
     "Admin impact",
     "Retirement",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 20, 2026: Gov rollout of this feature is paused at this time. We will communicate via Message center when we are ready to proceed. We apologize for any inconvenience. [What and Why:] Exchange Web Services (EWS) deprecation begins October 1, 2026 . Cross-tenant collaboration features — Free/Busy, MailTips, and Calendar Sharing — currently rely on EWS. Cross-tenant Free/Busy, MailTip…",
+   "summary": "Updated October 30, 2026: Gov rollout of this feature is paused at this time. We will communicate via Message center when we are ready to proceed. We apologize for any inconvenience. [What and Why:] Exchange Web Services (EWS) deprecation begins October 1, 2026 . Cross-tenant collaboration features — Free/Busy, MailTips, and Calendar Sharing — currently rely on EWS. Cross-tenant Free/Busy, MailTip…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 20, 2026: Gov rollout of this feature is paused at this time.",
+    "Updated October 30, 2026: Gov rollout of this feature is paused at this time.",
     "Exchange Web Services (EWS) deprecation begins October 1, 2026 .",
-    "Cross-tenant Free/Busy, MailTips will be available by September 2026 and Calendar Sharing will be available by end-October 2026 via Microsoft 365 Cross-Tenant Access Policy, which replaces EWS-based cross-tenant collaboration.",
-    "Worldwide: We will begin rolling out in August 2026 and expect to complete by September 15, 2026 for Free/Busy, Mailtips and October 30, 2026 for Calendar Sharing.",
+    "Cross-tenant Free/Busy, MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy, which replaces EWS-based cross-tenant collaboration.",
+    "Worldwide: We will begin rolling out in August 2026 and expect to complete by September 15, 2026 for Free/Busy, Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
     "What happens if I do nothing: Starting October 1, 2026, Exchange Web Services (EWS) will be gradually disabled in line with previous communications linked to this message.",
     "EWS access through this extension will remain available until the final EWS shutdown on April 1, 2027."
    ],
-   "bodyHash": "a3c20f2033484cd9"
+   "bodyHash": "8c4ad53539bb290c"
   },
   {
    "id": "MC1446797",
@@ -14014,30 +14014,6 @@
    "bodyHash": "1eece5a676822457"
   },
   {
-   "id": "MC1483413",
-   "title": "Dynamics 365 Contact Center - Assign conversation to expert who engaged with the customer previously",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-30",
-   "end": "2026-10-30",
-   "modified": "2026-09-30",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to assign conversations to experts who engaged with the customer previously in Dynamics 365 Contact Center. This feature will reach general availability on October 30, 2026. How does this affect me? This feature will enable users to assign conversations to a previously engaged or preferred expert, leveraging historical interaction context, queue membership alignment, …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach general availability on October 30, 2026."
-   ],
-   "bodyHash": "293ce798788ed792"
-  },
-  {
    "id": "MC1483419",
    "title": "Dynamics 365 Contact Center - Let representatives set next presence to handle routing of work items",
    "services": [
@@ -14060,30 +14036,6 @@
     "This feature will reach general availability on October 30, 2026."
    ],
    "bodyHash": "08f5d6c9a0a984d4"
-  },
-  {
-   "id": "MC1483432",
-   "title": "Dynamics 365 Contact Center - Let representatives set next presence to handle routing of work items",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-30",
-   "end": "2026-10-30",
-   "modified": "2026-09-30",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to let customer service representatives set their next presence to handle routing of work items in Dynamics 365 Contact Center. This feature will reach general availability on October 30, 2026. How does this affect me? With this feature, customer service representatives can schedule a future presence status, such as Away, Do Not Disturb, or Offline , while they are st…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach general availability on October 30, 2026."
-   ],
-   "bodyHash": "7c637547709c07fe"
   },
   {
    "id": "MC1483528",
@@ -25046,6 +24998,32 @@
    "id": "MC1493186",
    "type": "removed",
    "title": "Microsoft Outlook for Android and iOS: Send Availability functionality restored",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1446796",
+   "type": "changed",
+   "title": "(Updated) Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+   "fields": {
+    "bodyHash": [
+     "a3c20f2033484cd9",
+     "8c4ad53539bb290c"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1483413",
+   "type": "removed",
+   "title": "Dynamics 365 Contact Center - Assign conversation to expert who engaged with the customer previously",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-30",
+   "id": "MC1483432",
+   "type": "removed",
+   "title": "Dynamics 365 Contact Center - Let representatives set next presence to handle routing of work items",
    "fields": {}
   }
  ]
