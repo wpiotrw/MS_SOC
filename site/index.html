@@ -30347,7 +30347,7 @@ IdentityDirectoryEvents
     /* undocumented first */
     var ub = el("section", "s5fs-blk s5fs-und"); ub.appendChild(el("h4", null, "Returned by the service in our tenant, not in $metadata"));
     if (!tn.read) {
-      ub.appendChild(el("p", "s5fq-callw", "Our developer tenant has not been read yet: " + (tn.note || "") + ". The app “MS-SOC Dev tenant reader” needs read-only permissions (Policy.Read.All, Policy.Read.AuthenticationMethod, Policy.Read.PermissionGrant, Policy.Read.HybridAuthentication, Organization.Read.All, OnPremDirectorySynchronization.Read.All, DeviceManagementConfiguration.Read.All, DeviceManagementServiceConfig.Read.All) — tools/Grant-GraphRadarPermissions.ps1 grants them."));
+      ub.appendChild(el("p", "s5fq-callw", "Our developer tenant has not been read yet: " + (tn.note || "") + ". The app “MS-SOC Dev tenant reader” needs read-only permissions (Policy.Read.All, Policy.Read.AuthenticationMethod, Policy.Read.PermissionGrant, Organization.Read.All, OnPremDirectorySynchronization.Read.All, DeviceManagementConfiguration.Read.All, DeviceManagementServiceConfig.Read.All) — tools/Grant-GraphRadarPermissions.ps1 grants them."));
     } else {
       var und = tn.undocumented || [];
       if (!und.length) ub.appendChild(el("p", "s5dv-note", "Every property the tenant returned is in $metadata today."));
