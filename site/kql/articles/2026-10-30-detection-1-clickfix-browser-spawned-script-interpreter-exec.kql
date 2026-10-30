@@ -1,0 +1,72 @@
+// title: Detection 1: ClickFix - Browser-Spawned Script Interpreter Execution
+// date: 2026-10-30
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Friday, October 30, 2026
+// source: https://devsecopsdadattack.com/2026-10-30-detection-engineering-brief-friday-october-30-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookbackWindow = 7d;
+let NetworkCorrelationWindow = 5m;
+let BrowserProcesses = dynamic(["chrome.exe", "msedge.exe", "firefox.exe", "iexplore.exe", "brave.exe", "opera.exe"]);
+let ScriptInterpreters = dynamic(["cmd.exe", "powershell.exe", "mshta.exe", "wscript.exe", "cscript.exe"]);
+let ObfuscationKeywords = dynamic(["-enc", "-EncodedCommand", "FromBase64", "IEX", "Invoke-Expression", "DownloadString", "DownloadFile"]);
+let UrlKeywords = dynamic(["mshta", "http", "https"]);
+let SuspiciousChildProcs = DeviceProcessEvents
+| where Timestamp >= ago(LookbackWindow)
+| where InitiatingProcessFileName has_any (BrowserProcesses)
+| where FileName has_any (ScriptInterpreters)
+| where ProcessCommandLine has_any (ObfuscationKeywords)
+    or ProcessCommandLine has_any (UrlKeywords)
+| project
+    ProcessTime = Timestamp,
+    DeviceName,
+    DeviceId,
+    AccountName,
+    AccountDomain,
+    InitiatingProcessFileName,
+    FileName,
+    ProcessCommandLine,
+    InitiatingProcessCommandLine,
+    InitiatingProcessId,
+    ProcessId;
+let NetworkFollowOn = DeviceNetworkEvents
+| where Timestamp >= ago(LookbackWindow)
+| where InitiatingProcessFileName has_any (ScriptInterpreters)
+| where isnotempty(RemoteUrl) or isnotempty(RemoteIP)
+| where RemoteIP !startswith "127."
+    and RemoteIP !startswith "::1"
+    and RemoteIP !startswith "169.254."
+    and RemoteIP !startswith "10."
+    and RemoteIP !startswith "192.168."
+    and not (RemoteIP matches regex @"^172\.(1[6-9]|2[0-9]|3[01])\.")
+| project
+    NetworkTime = Timestamp,
+    DeviceId,
+    NetInitiatingProcessFileName = InitiatingProcessFileName,
+    RemoteUrl,
+    RemoteIP,
+    RemotePort;
+SuspiciousChildProcs
+| join kind=leftouter (
+    NetworkFollowOn
+) on DeviceId
+| where isempty(NetworkTime) or (NetworkTime >= ProcessTime and NetworkTime <= ProcessTime + NetworkCorrelationWindow)
+| where isnotempty(RemoteUrl)
+    or isnotempty(RemoteIP)
+    or ProcessCommandLine has_any (ObfuscationKeywords)
+| project
+    ProcessTime,
+    DeviceName,
+    AccountName,
+    AccountDomain,
+    InitiatingProcessFileName,
+    FileName,
+    ProcessCommandLine,
+    InitiatingProcessCommandLine,
+    NetworkTime,
+    RemoteUrl,
+    RemoteIP,
+    RemotePort
+| order by ProcessTime desc

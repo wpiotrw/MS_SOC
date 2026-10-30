@@ -1,0 +1,18 @@
+// title: Bun or Java execution from KB-prefixed staging paths
+// date: 2026-10-30
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: From help desk impersonation to AD CS abuse: Investigating ESC1 and ESC8 intrusion paths
+// source: https://www.microsoft.com/en-us/security/blog/2026/10/30/help-desk-impersonation-ad-cs-abuse-investigating-esc1-esc8-intrusion-paths/
+// kind: article
+// author: Microsoft Security Research, Sagar Patil, Jesse Birch and Tal Tzhori · Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where ProcessVersionInfoOriginalFileName =~ "bun.exe"
+    or FileName in~ ("bun.exe", "java.exe", "javaw.exe")
+| where ProcessCommandLine contains ".js"
+    or ProcessCommandLine contains ".java"
+| where FolderPath matches regex
+    @"(?i)\\AppData\\Roaming\\KB[0-9]+\\"
+| order by Timestamp desc

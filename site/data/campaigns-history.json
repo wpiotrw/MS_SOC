@@ -1376,6 +1376,24 @@
 {
 "date":"2026-10-20",
 "id":"MC1446796",
+"what":"Microsoft moved the date",
+"before":"Oct 2026",
+"after":"early Nov 2026",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-10-20",
+"id":"MC1446796",
+"what":"Microsoft moved the date",
+"before":"30 Oct 2026",
+"after":"6 Nov 2026",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-10-20",
+"id":"MC1446796",
 "what":"Microsoft revised the post",
 "before":"2026-10-05",
 "after":"2026-10-20",
@@ -1699,6 +1717,16 @@
 "date":"2026-10-30",
 "label":"30 Oct 2026",
 "text":"Calendar Sharing via Microsoft 365 Cross-Tenant Access Policy completes rolling out by 30 October 2026 (previously 15 October)."
+},
+"MC1446796|cross tenant free busy mailtips will be available by and cal#0":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tena"
+},
+"MC1446796|we will begin rolling out in and expect to complete by for f#1":{
+"date":"2026-11-06",
+"label":"6 Nov 2026",
+"text":"Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing."
 },
 "MC1227454|after ews access will be permanently removed with no re enab#0":{
 "date":"2027-04-01",
@@ -6189,14 +6217,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-27",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-28",
 "text":"August 1, 2026."
 },
@@ -6278,6 +6298,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-29",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-30",
 "text":"August 1, 2026."
 },
 {
@@ -6806,7 +6834,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-29",
+"seen":"2026-10-30",
 "text":"early February 2026."
 },
 {
@@ -6814,7 +6842,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-29",
+"seen":"2026-10-30",
 "text":"February 2027."
 },
 {
@@ -10585,7 +10613,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-29",
+"seen":"2026-10-30",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10593,7 +10621,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-29",
+"seen":"2026-10-30",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
