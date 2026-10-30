@@ -2644,6 +2644,11 @@ tr[data-review=done] .s5bi-rv{color:var(--ok,#067647)}
 .s5bi-sk[hidden]{display:none}
 .s5bi-skin{width:min(720px,100%);background:var(--surface);color:var(--ink);border:1px solid var(--border);border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.3);overflow:hidden}
 .s5bi-skq{width:100%;box-sizing:border-box;font:inherit;font-size:16px;padding:14px 16px;border:0;border-bottom:1px solid var(--border);background:transparent;color:inherit;outline:none}
+/* §5fv: the search opened in place over the wide field; the hit marked inside its line */
+.s5bi-sk.s5fv-anch{padding:0;background:rgba(10,15,20,.25)}
+.s5bi-sk.s5fv-anch .s5bi-skin{border:2px solid var(--ok);border-radius:10px}
+.s5bi-sk.s5fv-anch .s5bi-skr{max-height:min(60vh,520px);overflow:auto}
+mark.s5fv-m{background:color-mix(in srgb,#e3a33b 45%,transparent);color:inherit;border-radius:3px;padding:0 1px}
 .s5bi-skr{list-style:none;margin:0;padding:4px 0;max-height:55vh;overflow:auto}
 .s5bi-skr li{padding:8px 16px;cursor:pointer;display:flex;gap:10px;align-items:baseline}
 .s5bi-skr li.on,.s5bi-skr li:hover{background:var(--surface-2,rgba(0,0,0,.05))}
@@ -17237,7 +17242,7 @@ IdentityDirectoryEvents
   /* ---- R4: Ctrl+K ---- */
   var IDX = null;
   function index() {
-    if (IDX) return IDX;
+    if (IDX) return withExtra();
     IDX = [];
     [].forEach.call(document.querySelectorAll(".tabpanel"), function (p) {
       var tab = p.id.replace(/^tab-/, ""), btn = tabBtn(tab);
@@ -17259,7 +17264,15 @@ IdentityDirectoryEvents
         IDX.push({ t: t, l: t.toLowerCase(), tab: k, tn: k === "graph" ? "Graph API catalog" : "Roles catalog", cat: e.name || e.id });
       });
     });
-    return IDX;
+    return withExtra();
+  }
+  /* §5fv: tabs built from their own JSON (Graph API Radar, M365 endpoints) add their entries through
+     window.__socSearchAdd (a list of functions returning { t, tn, fn }); read on every search, so data that arrives
+     after the first search is found too */
+  function withExtra() {
+    var out = IDX.slice();
+    (window.__socSearchAdd || []).forEach(function (f) { try { (f() || []).forEach(function (x) { out.push({ t: x.t, l: String(x.t).toLowerCase(), tn: x.tn, fn: x.fn }); }); } catch (e) {} });
+    return out;
   }
   function search() {
     if (document.querySelector(".s5bi-sk")) return;
@@ -17268,10 +17281,11 @@ IdentityDirectoryEvents
     var q = el("input", "s5bi-skq"); q.type = "search"; q.placeholder = "Search every tab and the catalog — MC number, product, permission, role…"; q.setAttribute("aria-label", "Search every tab");
     var res = el("ul", "s5bi-skr"); var foot = el("p", "s5bi-skf", "↑ ↓ to move · Enter to open · Esc to close");
     inner.appendChild(q); inner.appendChild(res); inner.appendChild(foot); dlg.appendChild(inner); document.body.appendChild(dlg);
-    var hits = [], cur = 0, last = null;
-    function close() { dlg.hidden = true; if (last && last.focus) last.focus(); }
+    var hits = [], cur = 0, last = null, partial = false;
+    function close() { dlg.hidden = true; dlg.classList.remove("s5fv-anch"); inner.style.cssText = ""; if (last && last.focus) last.focus(); }
     function go(h) {
       close();
+      if (h.fn) { h.fn(); return; }
       openTab(h.tab);
       setTimeout(function () {
         if (h.row) {
@@ -17294,7 +17308,19 @@ IdentityDirectoryEvents
       res.textContent = "";
       hits.forEach(function (h, i) {
         var li = el("li", i === cur ? "on" : ""); li.setAttribute("role", "option"); li.setAttribute("aria-selected", i === cur ? "true" : "false");
-        li.appendChild(el("span", "s5bi-skt", h.tn)); li.appendChild(el("span", "s5bi-sks", h.t.slice(0, 160)));
+        li.appendChild(el("span", "s5bi-skt", h.tn));
+        /* §5fv (30 X 2026, owner: "I type aaa and see eMudhra rows - the filter does not work"): the row matched far into
+           its text (an ID or a hash), beyond the 160 characters shown. The line now shows the text AROUND the first hit,
+           with the hit marked */
+        var sx = el("span", "s5bi-sks"), lw = h.l, w0 = (hits.q || [])[0] || "", at = w0 ? lw.indexOf(w0) : -1;
+        if (at < 0) sx.textContent = h.t.slice(0, 160);
+        else {
+          var from = Math.max(0, at - 60), to = Math.min(h.t.length, at + w0.length + 90);
+          sx.appendChild(document.createTextNode((from ? "… " : "") + h.t.slice(from, at)));
+          sx.appendChild(el("mark", "s5fv-m", h.t.slice(at, at + w0.length)));
+          sx.appendChild(document.createTextNode(h.t.slice(at + w0.length, to) + (to < h.t.length ? " …" : "")));
+        }
+        li.appendChild(sx);
         li.addEventListener("click", function () { go(h); });
         res.appendChild(li);
       });
@@ -17312,10 +17338,18 @@ IdentityDirectoryEvents
         var i = x.l.indexOf(qv); if (i > 0 && !/[a-z0-9.]/.test(x.l.charAt(i - 1)) && !/[a-z0-9]/.test(x.l.charAt(i + qv.length) || " ")) return 2;
         return 3;
       }
-      hits = !words.length ? [] : index().filter(function (x) { return words.every(function (w) { return x.l.indexOf(w) >= 0; }); })
+      /* §5fv: a word must START a word of the text ("msid" finds *.msidentity.com, "aaa" no longer finds a hash that holds
+         "aaa" in the middle); only when nothing starts with it, the text inside words is searched, and the list says so */
+      function starts(x, w) { var i = x.l.indexOf(w); while (i >= 0) { if (i === 0 || !/[a-z0-9]/.test(x.l.charAt(i - 1))) return true; i = x.l.indexOf(w, i + 1); } return false; }
+      function pick(test) { return index().filter(function (x) { return words.every(function (w) { return test(x, w); }); })
         .map(function (x, i) { return { x: x, r: rank(x), i: i }; }).sort(function (a, b) { return a.r - b.r || a.i - b.i; })
-        .map(function (o) { return o.x; }).filter(function (x) { var k = x.tn + "|" + x.l; if (seen[k]) return false; seen[k] = 1; return true; }).slice(0, 30);
-      cur = 0; paint();
+        .map(function (o) { return o.x; }).filter(function (x) { var k = x.tn + "|" + x.l; if (seen[k]) return false; seen[k] = 1; return true; }).slice(0, 30); }
+      partial = false;
+      hits = !words.length ? [] : pick(starts);
+      if (words.length && !hits.length) { hits = pick(function (x, w) { return x.l.indexOf(w) >= 0; }); partial = hits.length > 0; }
+      hits.q = words; cur = 0; paint();
+      foot.textContent = !words.length ? "↑ ↓ to move · Enter to open · Esc to close" : !hits.length ? "Nothing in the portal starts with “" + q.value.trim() + "”." :
+        (partial ? "No word starts with “" + q.value.trim() + "” — showing text that contains it · " : hits.length + (hits.length === 30 ? "+" : "") + " found · ") + "↑ ↓ · Enter · Esc";
     });
     q.addEventListener("keydown", function (e) {
       if (e.key === "ArrowDown") { cur = Math.min(hits.length - 1, cur + 1); paint(); e.preventDefault(); }
@@ -17324,11 +17358,21 @@ IdentityDirectoryEvents
       else if (e.key === "Escape") { close(); e.preventDefault(); }
     });
     dlg.addEventListener("click", function (e) { if (e.target === dlg) close(); });
-    function open() { last = document.activeElement; dlg.hidden = false; q.focus(); q.select(); }
+    /* §5fv (owner: "I click the global search field and cannot type in it - another field appears"): opened from the wide
+       field on a computer, the search opens IN PLACE - its input sits exactly over the field, the results drop below it;
+       Ctrl K, "/" and the phone keep the centred search */
+    function open(ev) {
+      last = document.activeElement; dlg.hidden = false;
+      var a = ev && ev.currentTarget && ev.currentTarget.classList && ev.currentTarget.classList.contains("s5fl-search") ? ev.currentTarget : null;
+      if (a && window.innerWidth > 760) { var r = a.getBoundingClientRect(); dlg.classList.add("s5fv-anch"); inner.style.cssText = "position:fixed;left:" + r.left + "px;top:" + r.top + "px;width:" + Math.max(r.width, 520) + "px;max-width:calc(100vw - 32px)"; }
+      q.focus(); q.select();
+    }
     document.addEventListener("keydown", function (e) {
       var typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target || {}).tagName || "");
       if ((e.key === "k" || e.key === "K") && (e.ctrlKey || e.metaKey)) { e.preventDefault(); open(); }
       else if (e.key === "/" && !typing && dlg.hidden) { e.preventDefault(); open(); }
+      else if (dlg.hidden && document.activeElement && document.activeElement.classList && document.activeElement.classList.contains("s5fl-search") && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        e.preventDefault(); open({ currentTarget: document.activeElement }); q.value = e.key; q.dispatchEvent(new Event("input")); }   /* typing on the focused field starts the search with that letter */
     });
     var top = document.querySelector("header.top");
     if (top) {
@@ -30814,6 +30858,15 @@ IdentityDirectoryEvents
     setTimeout(function () { if (!built || view) render(); if (panel) window.scrollTo(0, Math.max(0, window.scrollY + panel.getBoundingClientRect().top - 90)); }, 120);
   }
   window.__socRadar = openRadar;
+  /* §5fv: the portal-wide search finds the radar's settings and changes */
+  (window.__socSearchAdd = window.__socSearchAdd || []).push(function () {
+    if (!D) return [];
+    var out = ((D.tenant || {}).undocumented || []).map(function (u) { var e = fromUnd(u);
+      return { t: title(e) + " · " + fullName(e) + " · " + (e.cat || "") + " · " + whatText(e), tn: "Graph API Radar", fn: function () { openRadar("tenant"); setTimeout(function () { card(e); }, 400); } }; });
+    (D.events || []).slice(0, 900).forEach(function (e) { if (e.kind === "tenant-undocumented") return;
+      out.push({ t: humanize(e.name) + " · " + fullName(e) + " · " + (KIND[e.kind] || ["", ""])[1] + " · Graph " + e.ver + " · " + (e.cat || "") + " · " + dmy(e.day), tn: "Graph API Radar", fn: function () { openRadar("changes"); setTimeout(function () { card(e); }, 400); } }); });
+    return out;
+  });
 
   /* ---- Overview: one sentence ---- */
   function sentence(k) {
@@ -31217,6 +31270,13 @@ IdentityDirectoryEvents
   }
   function openTab(view) { if (view) S.view = view; goTab(); setTimeout(function () { render(); if (panel) window.scrollTo(0, Math.max(0, window.scrollY + panel.getBoundingClientRect().top - 90)); }, 120); }
   window.__socM365ep = openTab;
+  (window.__socSearchAdd = window.__socSearchAdd || []).push(function () {   /* §5fv: found by the portal-wide search */
+    if (!D) return [];
+    return (D.changes || []).map(function (c) { return { t: title(c) + " · " + imp(c).map(function (i) { return i[1]; }).join(", ") + " · " + c.addUrls.concat(c.remUrls, c.addIps, c.remIps).join(" ") + " · version " + c.version + " · " + dmy(c.day),
+      tn: "M365 endpoints", fn: function () { openTab("changes"); setTimeout(function () { card(c); }, 400); } }; })
+      .concat((D.sets || []).map(function (st) { return { t: "Endpoint set " + st.id + " · " + (st.serviceAreaDisplayName || "") + " · " + st.category + " · " + (st.urls || []).join(" ") + " " + (st.ips || []).join(" "),
+        tn: "M365 endpoints", fn: function () { S.q = String((st.urls || [])[0] || st.id); openTab("list"); } }; }));
+  });
 
   /* Overview: one sentence; Today: a block when Microsoft published a version since the previous brief */
   function since() {
