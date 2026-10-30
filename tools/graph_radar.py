@@ -52,10 +52,10 @@ PROBE = [
     ("External identities policy", "/policies/externalIdentitiesPolicy", "Policy.Read.All"),
     ("Admin consent request policy", "/policies/adminConsentRequestPolicy", "Policy.Read.All"),
     ("Default app management policy", "/policies/defaultAppManagementPolicy", "Policy.Read.All"),
-    ("Permission grant policies", "/policies/permissionGrantPolicies", "Policy.Read.All"),
+    ("Permission grant policies", "/policies/permissionGrantPolicies", "Policy.Read.PermissionGrant"),
     ("Token lifetime policies", "/policies/tokenLifetimePolicies", "Policy.Read.All"),
     ("Activity-based timeout policies", "/policies/activityBasedTimeoutPolicies", "Policy.Read.All"),
-    ("Feature rollout policies", "/policies/featureRolloutPolicies", "Policy.Read.All"),
+    ("Feature rollout policies (staged rollout)", "/policies/featureRolloutPolicies", "Policy.Read.HybridAuthentication"),
     ("Conditional Access policies", "/identity/conditionalAccess/policies", "Policy.Read.All"),
     ("Conditional Access named locations", "/identity/conditionalAccess/namedLocations", "Policy.Read.All"),
     ("Conditional Access templates", "/identity/conditionalAccess/templates", "Policy.Read.All"),
@@ -424,6 +424,9 @@ def learn_licensing():
 
 
 # ------------------------------------------------------------------------------------------------ tenant
+GP = {}
+
+
 def tenant_read(model, day):
     if not (os.environ.get("ACTIONS_ID_TOKEN_REQUEST_URL") and os.environ.get("AZURE_CLIENT_ID") and os.environ.get("AZURE_TENANT_ID")):
         return None, "no token in this run (the workflow signs in with the app of the developer tenant)"
@@ -441,14 +444,16 @@ def tenant_read(model, day):
             body = json.loads(get(url, {"Authorization": "Bearer " + tok, "ConsistencyLevel": "eventual"}, timeout=60))
             objs = body.get("value") if isinstance(body.get("value"), list) else [body]
             seen = {}
+            root_t = resolve_path(model, path)
             for o in objs[:200]:
-                walk(o, o.get("@odata.type") or "", "", seen, path, model)
+                walk(o, o.get("@odata.type") or "", root_t, "", seen, model)
             r["status"] = 200
             r["n"] = len(objs)
             r["props"] = seen
         except urllib.error.HTTPError as e:
             r["status"] = e.code
-            r["note"] = "403: the app lacks %s" % perm if e.code == 403 else "HTTP %d" % e.code
+            need = perms_for(GP, path, "GET") or [perm]
+            r["note"] = "403: needs %s" % " or ".join(need) if e.code == 403 else "HTTP %d" % e.code
         except Exception as e:
             r["status"] = 0
             r["note"] = str(e)[:200]
@@ -461,40 +466,73 @@ def kind(v):
         else "array" if isinstance(v, list) else "object" if isinstance(v, dict) else "null"
 
 
-def walk(o, otype, prefix, seen, path, model, depth=0):
-    """names of the properties the service returned (with the odata type that holds them) - never a value"""
-    t = short((otype or "").lstrip("#"))
+def resolve_path(model, path):
+    """the declared type a GET of this path returns (the element type for a collection): /policies -> policyRoot,
+    /authenticationMethodsPolicy -> authenticationMethodsPolicy, /authenticationMethodConfigurations/Password ->
+    authenticationMethodConfiguration (a segment that is no navigation is a key)"""
+    segs = [x for x in path.split("/") if x]
+    if not segs or segs[0] not in model["roots"]:
+        return ""
+    t = model["roots"][segs[0]][1]
+    for sg in segs[1:]:
+        nv = all_navs(model, t)
+        hit = next((k for k in nv if k.lower() == sg.lower()), None)
+        if hit:
+            t = re.sub(r"^Collection\((.+)\)$", r"\1", nv[hit].rstrip("*"))
+            continue
+        pr = all_props(model, t)
+        hit = next((k for k in pr if k.lower() == sg.lower()), None)
+        if hit:
+            t = re.sub(r"^Collection\((.+)\)$", r"\1", pr[hit].rstrip("*"))
+    return t
+
+
+def walk(o, otype, declared, prefix, seen, model, depth=0):
+    """names of the properties the service returned - never a value. key: actual type | declared type | property path.
+    The actual type is the object's own @odata.type; the declared type comes from $metadata (the root of the path, or
+    the property that holds the object) and is used when Microsoft has not published the actual type yet"""
+    t = short((otype or "").lstrip("#")) or declared
     for k, v in o.items():
         if k.startswith("@") or "@odata" in k:
             continue
-        key = (t or "?") + "|" + prefix + k
-        seen[key] = kind(v)
+        seen[t + "|" + declared + "|" + prefix + k] = kind(v)
         if isinstance(v, dict) and depth < 2:
-            walk(v, v.get("@odata.type") or nested_type(model, t, k), prefix + k + ".", seen, path, model, depth + 1)
+            d2 = nested_type(model, t, k) or nested_type(model, declared, k)
+            walk(v, v.get("@odata.type") or "", d2, prefix + k + ".", seen, model, depth + 1)
         elif isinstance(v, list) and v and isinstance(v[0], dict) and depth < 2:
+            d2 = nested_type(model, t, k) or nested_type(model, declared, k)
             for it in v[:20]:
-                walk(it, it.get("@odata.type") or nested_type(model, t, k), prefix + k + "[].", seen, path, model, depth + 1)
+                walk(it, it.get("@odata.type") or "", d2, prefix + k + "[].", seen, model, depth + 1)
 
 
 def nested_type(model, t, k):
-    ty = all_props(model, t).get(k, "")
+    ty = all_props(model, t).get(k, "") if t else ""
     return re.sub(r"^Collection\((.+)\)$", r"\1", ty.rstrip("*"))
 
 
 def undocumented(res, model):
-    out = []
+    out, done = [], set()
     for r in res or []:
         for key, kd in (r.get("props") or {}).items():
-            t, _, pp = key.partition("|")
+            parts = key.split("|")
+            if len(parts) != 3:
+                continue
+            t, dt, pp = parts
             prop = pp.split(".")[-1].replace("[]", "")
-            owner = t
-            if "." in pp:   # nested: the type is the nested object's type when it said so, else unknown
-                pass
-            known = all_props(model, owner)
-            tdoc = owner in model["types"]
+            tdoc = t in model["types"]
+            known = all_props(model, t) if tdoc else {}
+            if not tdoc and dt:
+                known = all_props(model, dt)
+            if not t and not dt:
+                continue                   # nothing to compare with: not a finding
             if prop in known:
                 continue
-            out.append({"type": owner, "prop": pp, "kind": kd, "path": r["path"], "label": r["label"], "typeDocumented": tdoc})
+            k2 = (t, prop)
+            if k2 in done:                 # the same property on many objects (64 settings policies) is one finding
+                continue
+            done.add(k2)
+            out.append({"type": t or dt, "prop": pp, "kind": kd, "path": r["path"], "label": r["label"], "typeDocumented": tdoc,
+                        "declared": dt if dt != t else ""})
     return out
 
 
@@ -571,6 +609,7 @@ def main(argv):
                 e["promoted"] = 1
     # tenant
     tstate = load(os.path.join(MEM, "tenant.json"), {"first": {}})
+    GP.update(graph_perms())
     tres, tnote = (None, "skipped (--no-tenant)") if no_tenant else tenant_read(beta, day)
     und = undocumented(tres, beta) if tres else []
     if tres:

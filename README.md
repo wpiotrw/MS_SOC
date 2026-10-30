@@ -626,7 +626,7 @@ Po pierwszym zielonym przebiegu usuń stare poświadczenie `github-ms-soc-main`,
 
 > [!IMPORTANT]
 > **Od 30 X 2026 (§5fs): uprawnienia Graph radar dla „MS-SOC Dev tenant reader” (tenant deweloperski).** Uruchom jako Global Administrator albo Privileged Role Administrator tenanta deweloperskiego:
-> `./tools/Grant-GraphRadarPermissions.ps1 -TenantId <domena-tenanta-dev>` — dodaje (tylko odczyt, Application): Policy.Read.All, Policy.Read.AuthenticationMethod, Organization.Read.All, OnPremDirectorySynchronization.Read.All, DeviceManagementConfiguration.Read.All, DeviceManagementServiceConfig.Read.All. Potem GitHub → Actions → „Graph radar” → **Run workflow**. Bez nich radar czyta tylko publiczne `$metadata`, a każdy endpoint tenanta zapisuje 403.
+> `./tools/Grant-GraphRadarPermissions.ps1 -TenantId <domena-tenanta-dev>` — dodaje (tylko odczyt, Application) i wpisuje do „Configured permissions”: Policy.Read.All, Policy.Read.AuthenticationMethod, Policy.Read.PermissionGrant, Policy.Read.HybridAuthentication, Organization.Read.All, OnPremDirectorySynchronization.Read.All, DeviceManagementConfiguration.Read.All, DeviceManagementServiceConfig.Read.All. Potem GitHub → Actions → „Graph radar” → **Run workflow**. Bez nich radar czyta tylko publiczne `$metadata`, a każdy endpoint tenanta zapisuje 403.
 
 > [!IMPORTANT]
 > **Od 10 X 2026 (§5cy): zgoda na RoleManagement.Read.Directory.** Bez niej `tools/graph_sp.py` czyta same uprawnienia Graph, a role Entra zostają z dokumentacji (na stronie: notka „Roles from our tenant: not read”). Nadanie ręcznie w portalu (najprościej) albo skryptem — obie drogi niżej.
