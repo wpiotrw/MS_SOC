@@ -44397,6 +44397,7 @@ odtad CZTERNASCIE (4-17).**
       b1.appendChild(codeBox("Graph Explorer", t.ge)); c.appendChild(b1);
       var b2 = el("div", "s5fo-blk"); b2.appendChild(el("p", "s5fo-lab", "Try it — PowerShell (Microsoft.Graph.Authentication)"));
       b2.appendChild(codeBox("PowerShell", t.ps));
+      if (/authenticationMethodConfigurations\/\{id\}/.test((e.cmd || {}).get || "")) b2.appendChild(el("p", "s5fs-note", "For authentication methods {id} is the method's name: Password, Fido2, MicrosoftAuthenticator, Sms, Voice, Email, TemporaryAccessPass, SoftwareOath, HardwareOath, X509Certificate, QRCodePin."));
       b2.appendChild(el("p", "s5fs-note", "Replace {id} with the object's id. PATCH only when the property is writable — beta changes without notice; try it in a test tenant first." +
         (e.undoc ? " Undocumented: Microsoft has not published it yet, so its name and behaviour may still change." : ""))); c.appendChild(b2);
     } else c.appendChild(el("p", "s5fs-note", e.detail === "enum type" || e.kind === "member-new" ? "An enum: a list of allowed values, used by properties of other types — nothing to call on its own." : "No path from an entity set or singleton of the API leads to this type within five steps — open the type in the Graph documentation."));
