@@ -40,7 +40,6 @@ $needed = @(
     'Policy.Read.All',                          # authorization, authentication flows, cross-tenant access, security defaults...
     'Policy.Read.AuthenticationMethod',         # authenticationMethodsPolicy and every method configuration
     'Policy.Read.PermissionGrant',              # permissionGrantPolicies (30 X 2026: Policy.Read.All gave 403)
-    'Policy.Read.HybridAuthentication',         # featureRolloutPolicies - staged rollout (30 X 2026: Policy.Read.All gave 403)
     'Organization.Read.All',                    # organization and its settings
     'OnPremDirectorySynchronization.Read.All',  # directory/onPremisesSynchronization (features)
     'DeviceManagementConfiguration.Read.All',   # Intune settings objects
@@ -70,7 +69,14 @@ if (-not $app) { throw "The app registration of '$AppDisplayName' was not found 
 $have = @(Get-MgServicePrincipalAppRoleAssignment -ServicePrincipalId $sp.Id -All |
           Where-Object ResourceId -eq $graph.Id | ForEach-Object AppRoleId)
 $before = @($graph.AppRoles | Where-Object { $have -contains $_.Id } | ForEach-Object Value | Sort-Object)
-Write-Host "Before: $AppDisplayName holds $($before.Count) Microsoft Graph application permission(s): $($before -join ', ')"
+# one name per line (owner, 30 X 2026: "lists written in one run are hard to read")
+function Write-List([string] $Title, $Items) {
+    Write-Host $Title
+    if (-not $Items -or @($Items).Count -eq 0) { Write-Host "    -"; return }
+    foreach ($i in @($Items)) { Write-Host "    $i" }
+}
+Write-List "Before: $AppDisplayName holds $($before.Count) Microsoft Graph application permission(s):" $before
+Write-Host ""
 
 # 1. configured permissions (requiredResourceAccess) - so the admin center lists them under "Configured permissions"
 $rra = @($app.RequiredResourceAccess)
@@ -89,7 +95,7 @@ if ($toConfigure.Count) {
     $newRra += @{ resourceAppId = $graphAppId; resourceAccess = $access }
     if ($PSCmdlet.ShouldProcess($AppDisplayName, "list $($toConfigure.Count) permission(s) as configured")) {
         Update-MgApplication -ApplicationId $app.Id -RequiredResourceAccess $newRra
-        Write-Host "CONF $(($toConfigure | ForEach-Object Value) -join ', ')"
+        foreach ($r in $toConfigure) { Write-Host "CONF $($r.Value) (added to Configured permissions)" }
     }
 }
 
@@ -97,7 +103,7 @@ if ($toConfigure.Count) {
 $added = @(); $kept = @()
 foreach ($p in $needed) {
     $role = $graph.AppRoles | Where-Object { $_.Value -eq $p -and $_.AllowedMemberTypes -contains 'Application' }
-    if (-not $role) { Write-Warning "$p - no such application permission in Microsoft Graph"; continue }
+    if (-not $role) { Write-Warning "$p - Microsoft Graph in this tenant has no application permission with this name"; continue }
     if ($have -contains $role.Id) { Write-Host "OK   $p (already granted)"; $kept += $p; continue }
     if ($PSCmdlet.ShouldProcess($AppDisplayName, "grant $p")) {
         New-MgServicePrincipalAppRoleAssignment -ServicePrincipalId $sp.Id -PrincipalId $sp.Id `
@@ -109,8 +115,9 @@ foreach ($p in $needed) {
 $other = @($before | Where-Object { $needed -notcontains $_ })
 Write-Host ""
 Write-Host "Summary for $AppDisplayName"
-Write-Host "  granted now         : $(if ($added) { $added -join ', ' } else { '-' })"
-Write-Host "  already granted     : $(if ($kept) { $kept -join ', ' } else { '-' })"
-Write-Host "  listed as configured: $(if ($toConfigure) { ($toConfigure | ForEach-Object Value) -join ', ' } else { '- (all were listed)' })"
-Write-Host "  other, untouched    : $(if ($other) { $other -join ', ' } else { '-' })"
+Write-List "  Admin consent granted now:" $added
+Write-List "  Admin consent already there:" $kept
+Write-List "  Added to Configured permissions now:" @($toConfigure | ForEach-Object Value)
+Write-List "  Other permissions of the app (not needed by the radar, not touched):" $other
+Write-Host ""
 Write-Host "Done. The Graph radar picks the permissions up on its next run (tokens refresh within an hour)."

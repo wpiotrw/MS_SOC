@@ -44471,7 +44471,7 @@ odtad CZTERNASCIE (4-17).**
     /* undocumented first */
     var ub = el("section", "s5fs-blk s5fs-und"); ub.appendChild(el("h4", null, "Returned by the service in our tenant, not in $metadata"));
     if (!tn.read) {
-      ub.appendChild(el("p", "s5fq-callw", "Our developer tenant has not been read yet: " + (tn.note || "") + ". The app “MS-SOC Dev tenant reader” needs read-only permissions (Policy.Read.All, Policy.Read.AuthenticationMethod, Policy.Read.PermissionGrant, Policy.Read.HybridAuthentication, Organization.Read.All, OnPremDirectorySynchronization.Read.All, DeviceManagementConfiguration.Read.All, DeviceManagementServiceConfig.Read.All) — tools/Grant-GraphRadarPermissions.ps1 grants them."));
+      ub.appendChild(el("p", "s5fq-callw", "Our developer tenant has not been read yet: " + (tn.note || "") + ". The app “MS-SOC Dev tenant reader” needs read-only permissions (Policy.Read.All, Policy.Read.AuthenticationMethod, Policy.Read.PermissionGrant, Organization.Read.All, OnPremDirectorySynchronization.Read.All, DeviceManagementConfiguration.Read.All, DeviceManagementServiceConfig.Read.All) — tools/Grant-GraphRadarPermissions.ps1 grants them."));
     } else {
       var und = tn.undocumented || [];
       if (!und.length) ub.appendChild(el("p", "s5dv-note", "Every property the tenant returned is in $metadata today."));
@@ -49624,9 +49624,12 @@ we wszystkich endpointach, i zbudowac komende do Graph Explorer / PowerShell?"; 
     calego tenanta (polityki, metody uwierzytelniania, Conditional Access, organizacja, synchronizacja, Intune) — zapisujemy
     TYLKO nazwy pol i ich rodzaj (boolean/string/...), nigdy wartosci; pole, ktorego `$metadata` nie zna = „undocumented";
     uprawnienia nadaje wlasciciel skryptem `tools/Grant-GraphRadarPermissions.ps1` (Policy.Read.All,
-    Policy.Read.AuthenticationMethod, Policy.Read.PermissionGrant, Policy.Read.HybridAuthentication, Organization.Read.All,
+    Policy.Read.AuthenticationMethod, Policy.Read.PermissionGrant, Organization.Read.All,
     OnPremDirectorySynchronization.Read.All, DeviceManagementConfiguration.Read.All, DeviceManagementServiceConfig.Read.All);
-    skrypt dopisuje je tez do „Configured permissions" aplikacji i wypisuje, co bylo, co dodal, co zostawil; bez nich 403;
+    skrypt dopisuje je tez do „Configured permissions" aplikacji (requiredResourceAccess; pierwsza wersja tworzyla tylko
+    zgode - appRoleAssignment - i portal pokazal je jako „Other permissions granted", README 5.2a) i wypisuje linia po linii,
+    co bylo, co dodal, co zostawil; featureRolloutPolicies nie jest czytane (Policy.Read.HybridAuthentication nie istnieje jako
+    uprawnienie aplikacyjne w Graph, jedyne to Directory.ReadWrite.All); bez uprawnien 403;
   - typ zadeklarowany (z `$metadata`, wg sciezki i pola-rodzica) porownywany, gdy typu rzeczywistego jeszcze nie opublikowano;
     to samo pole na wielu obiektach = jedno znalezisko (30 X: `passwordAuthenticationMethodConfiguration.
     allowPasswordChangeAfterSecureSignIn` wykryte w tenancie deweloperskim przy pierwszym odczycie);

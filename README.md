@@ -622,11 +622,26 @@ Po pierwszym zielonym przebiegu usuń stare poświadczenie `github-ms-soc-main`,
 - **Jedno miejsce publikacji.** GitHub Actions już wdraża stronę na Static Web App (push w `site/**`) i przenosi wyniki rutyn z gałęzi `claude/**` na `main`. Migawka tenanta jest trzecim workflow w tym samym mechanizmie. Jej commit uruchamia wdrożenie, a poranny przebieg Claude czyta plik z klonu repozytorium.
 - **Koszt:** w publicznym repozytorium minuty GitHub Actions są bezpłatne; w prywatnym mieszczą się w limicie darmowym (przebieg trwa około minuty).
 
+### 5.2a Uprawnienia aplikacji: „Configured permissions” a „Other permissions granted” (30 X 2026)
+
+Uprawnienie aplikacyjne w Entra ID składa się z **dwóch osobnych zapisów** w dwóch różnych obiektach:
+
+| Zapis | Gdzie | Co znaczy | Co pokazuje portal |
+|---|---|---|---|
+| **requiredResourceAccess** (RRA) | rejestracja aplikacji (*application*, App registrations → API permissions) | lista uprawnień, których aplikacja **potrzebuje** — deklaracja, nic jeszcze nie daje | tabela **Configured permissions** |
+| **appRoleAssignment** | jednostka usługi (*service principal*, Enterprise applications → Permissions) | **zgoda administratora** — faktyczne nadanie; od niej zależy, czy token aplikacji dostaje rolę | status „Granted for …” |
+
+Przycisk **Grant admin consent** w portalu robi drugie dla tego, co już jest w pierwszym. Pierwsza wersja skryptu `tools/Grant-GraphRadarPermissions.ps1` (30 X, 21:48) tworzyła od razu **appRoleAssignment** (`New-MgServicePrincipalAppRoleAssignment`), a nie dopisywała uprawnień do RRA. Uprawnienia działały (token je miał, radar odczytał 22 obiekty), ale portal pokazał je w sekcji **„Other permissions granted for …”** — nadane, lecz niezadeklarowane w rejestracji. Microsoft opisuje to tak: przycisk zgody przy takich uprawnieniach proponuje dopisać je do Configured permissions albo usunąć ([Configure app permissions for a web API](https://learn.microsoft.com/entra/identity-platform/quickstart-configure-app-access-web-apis#more-on-api-permissions-and-admin-consent)).
+
+Druga wersja (30 X, 22:10) najpierw dopisuje brakujące pozycje do RRA (`Update-MgApplication -RequiredResourceAccess`, zakres `Application.ReadWrite.All`), potem nadaje zgodę tam, gdzie jej brak — i wtedy oba zapisy się zgadzają, a portal pokazuje wszystko w jednej tabeli. Dlaczego to ważne: kto patrzy tylko na rejestrację aplikacji (audyt, przegląd uprawnień), nie widzi uprawnień spoza RRA, a ponowne „Grant admin consent” albo odtworzenie aplikacji z manifestu by ich nie objęło.
+
+Przy okazji: `Policy.Read.HybridAuthentication` (odczyt `featureRolloutPolicies`) figuruje w pliku uprawnień Microsoftu jako aplikacyjne, ale Microsoft Graph w tenancie **nie ma takiej roli aplikacji** — skrypt to zgłosił. Jedyne uprawnienie aplikacyjne do tego endpointu to `Directory.ReadWrite.All` (zapis), więc radar tego obiektu nie czyta.
+
 ### 5.3 Do zrobienia raz (właściciel)
 
 > [!IMPORTANT]
 > **Od 30 X 2026 (§5fs): uprawnienia Graph radar dla „MS-SOC Dev tenant reader” (tenant deweloperski).** Uruchom jako Global Administrator albo Privileged Role Administrator tenanta deweloperskiego:
-> `./tools/Grant-GraphRadarPermissions.ps1 -TenantId <domena-tenanta-dev>` — dodaje (tylko odczyt, Application) i wpisuje do „Configured permissions”: Policy.Read.All, Policy.Read.AuthenticationMethod, Policy.Read.PermissionGrant, Policy.Read.HybridAuthentication, Organization.Read.All, OnPremDirectorySynchronization.Read.All, DeviceManagementConfiguration.Read.All, DeviceManagementServiceConfig.Read.All. Potem GitHub → Actions → „Graph radar” → **Run workflow**. Bez nich radar czyta tylko publiczne `$metadata`, a każdy endpoint tenanta zapisuje 403.
+> `./tools/Grant-GraphRadarPermissions.ps1 -TenantId <domena-tenanta-dev>` — dodaje (tylko odczyt, Application) i wpisuje do „Configured permissions”: Policy.Read.All, Policy.Read.AuthenticationMethod, Policy.Read.PermissionGrant, Organization.Read.All, OnPremDirectorySynchronization.Read.All, DeviceManagementConfiguration.Read.All, DeviceManagementServiceConfig.Read.All. Potem GitHub → Actions → „Graph radar” → **Run workflow**. Bez nich radar czyta tylko publiczne `$metadata`, a każdy endpoint tenanta zapisuje 403.
 
 > [!IMPORTANT]
 > **Od 10 X 2026 (§5cy): zgoda na RoleManagement.Read.Directory.** Bez niej `tools/graph_sp.py` czyta same uprawnienia Graph, a role Entra zostają z dokumentacji (na stronie: notka „Roles from our tenant: not read”). Nadanie ręcznie w portalu (najprościej) albo skryptem — obie drogi niżej.

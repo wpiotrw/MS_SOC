@@ -55,7 +55,9 @@ PROBE = [
     ("Permission grant policies", "/policies/permissionGrantPolicies", "Policy.Read.PermissionGrant"),
     ("Token lifetime policies", "/policies/tokenLifetimePolicies", "Policy.Read.All"),
     ("Activity-based timeout policies", "/policies/activityBasedTimeoutPolicies", "Policy.Read.All"),
-    ("Feature rollout policies (staged rollout)", "/policies/featureRolloutPolicies", "Policy.Read.HybridAuthentication"),
+    # featureRolloutPolicies (staged rollout) is not read: Microsoft's permission file names Policy.Read.HybridAuthentication,
+    # but Graph has no such application permission (30 X 2026, the grant script); the only application one is
+    # Directory.ReadWrite.All - a write permission the radar does not take
     ("Conditional Access policies", "/identity/conditionalAccess/policies", "Policy.Read.All"),
     ("Conditional Access named locations", "/identity/conditionalAccess/namedLocations", "Policy.Read.All"),
     ("Conditional Access templates", "/identity/conditionalAccess/templates", "Policy.Read.All"),
