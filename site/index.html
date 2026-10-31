@@ -5832,6 +5832,23 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 .s5fw-tday .gd-trows li{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .s5fw-k{display:inline-block;padding:1px 8px;border-radius:999px;font-weight:700;font-size:12px;color:#fff}
 .s5fw-k-added{background:var(--ok)}.s5fw-k-changed{background:#b7791f}.s5fw-k-removed{background:var(--bad)}
+/* §5fw-b: retired module | Microsoft Graph PowerShell tabs inside the card */
+.s5fw-pst{margin-top:10px;border:1px solid color-mix(in srgb,var(--text) 22%,transparent);border-radius:10px;overflow:hidden}
+.s5fw-pstb{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid color-mix(in srgb,var(--text) 22%,transparent)}
+.s5fw-pstab{flex:1 1 auto;padding:9px 14px;border:0;border-bottom:3px solid transparent;background:transparent;color:var(--text);font-family:inherit;font-weight:700;font-size:15px;line-height:1.3;cursor:pointer}
+.s5fw-links{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 2px}
+.s5fw-pstab.s5fw-tdead.on{border-bottom-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,transparent)}
+.s5fw-pstab.s5fw-tok.on{border-bottom-color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}
+.s5fw-psp{padding:10px 12px}
+.s5fw-dead{margin:0 0 8px;padding:8px 10px;border-radius:8px;background:var(--bad);color:#fff;font-weight:600}
+.s5fw-oldpre{text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--bad) 70%,transparent);opacity:.85}
+.s5fw-map{list-style:none;margin:4px 0 8px;padding:0}.s5fw-map li{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0}
+.s5fw-mold{padding:1px 6px;border-radius:5px;background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--text);font-weight:600}
+.s5fw-arr{font-weight:700}.s5fw-mnew{font:600 14px ui-monospace,SFMono-Regular,Consolas,monospace}
+.s5fw-code{border:1px solid color-mix(in srgb,var(--text) 22%,transparent);border-radius:8px;margin:8px 0;overflow:hidden}
+.s5fw-codeh{display:flex;justify-content:space-between;align-items:center;padding:4px 8px;background:color-mix(in srgb,var(--text) 8%,transparent);font-weight:700;font-size:13px}
+.s5fw-code pre{margin:0;border:0;border-radius:0;white-space:pre;overflow-x:auto}
+.s5fw-copy{border:1px solid var(--accent);background:transparent;color:var(--accent);border-radius:6px;padding:2px 10px;font-weight:700;cursor:pointer}
 
 .s5dv-chip.s5fq-sc{border-color:var(--sc,var(--border));color:var(--text);font-weight:600;background:color-mix(in srgb,var(--sc,transparent) 14%,var(--surface))}
 .s5dv-chip.s5fq-req{border-color:var(--bad);color:var(--bad);font-weight:700}
@@ -30368,6 +30385,7 @@ IdentityDirectoryEvents
     if (isNew(x)) cs.appendChild(chip("NEW · added " + dmy(x.added), "s5fw-new"));
     var ic = impChip(x); if (ic) cs.appendChild(ic);
     if (x.deprecated) cs.appendChild(chip("Deprecated by CIPP", "s5fq-gap"));
+    if (x.old) cs.appendChild(chip((x.old.module || "MSOnline") + " → Microsoft Graph", "s5fw-imp s5fw-imp-m", "CIPP's PowerShell note uses a retired module; the card has the Microsoft Graph PowerShell version"));
     (x.cis || []).slice(0, 3).forEach(function (c) { cs.appendChild(chip("CIS " + c, "s5fw-fw")); });
     (x.cisa || []).forEach(function (c) { cs.appendChild(srcChip("CISA", c)); });
     if ((x.eidsca || []).length) cs.appendChild(chip(x.eidsca.join(", "), "s5fw-fw"));
@@ -30380,6 +30398,49 @@ IdentityDirectoryEvents
     return li;
   }
   function openCipp(id) { getCipp(function (P) { var x = P["@" + id]; if (x) { if (S.view !== "cipp") { CPF = cpNoF(); CPF.tech = x.tech; go("cipp"); } setTimeout(function () { cippCard(x); }, 150); } else go("cipp"); }); }
+  /* §5fw-b (31 X 2026, owner: "where their PowerShell uses an old module give two tabs, MSOnline and Microsoft Graph,
+     rewriting the old commands to supported cmdlets - Microsoft has a cmdlet map"). Tab 1: CIPP's note with the retired
+     cmdlet and Microsoft's own mapping (Learn cmdlet map, read on every run). Tab 2: the checked Microsoft Graph
+     PowerShell version (data/baselines-cipp/ps-rewrites.json) - opened first, because it is the one that works. */
+  function copyBox(text) {
+    var w = el("div", "s5fw-code"); var h = el("div", "s5fw-codeh"); h.appendChild(el("span", null, "PowerShell"));
+    var cp = btn("Copy", "s5fw-copy", function () { try { navigator.clipboard.writeText(text).then(function () { cp.textContent = "Copied"; setTimeout(function () { cp.textContent = "Copy"; }, 1500); }); } catch (e) {} });
+    h.appendChild(cp); w.appendChild(h); w.appendChild(el("pre", "s5fq-pre", text)); return w;
+  }
+  function psTabs(x) {
+    var o = x.old || {}, g = x.graph, box = el("div", "s5fw-pst"), bar = el("div", "s5fw-pstb"); bar.setAttribute("role", "tablist"); box.appendChild(bar);
+    var pOld = el("div", "s5fw-psp"), pNew = el("div", "s5fw-psp");
+    /* the retired module */
+    pOld.appendChild(el("p", "s5fw-dead", (o.module || "MSOnline") + " PowerShell is retired: " + (o.module === "AzureAD" ? "Microsoft ended its support on 30/03/2025 and retired it from July 2025" : "Microsoft retired it between April and May 2025 — its cmdlets no longer connect") + ". Do not use the command below."));
+    pOld.appendChild(el("p", "s5fo-lab", "CIPP's note"));
+    pOld.appendChild(el("pre", "s5fq-pre s5fw-oldpre", x.ps));
+    pOld.appendChild(el("p", "s5fo-lab", "Microsoft's cmdlet map"));
+    var ul = el("ul", "s5fw-map");
+    (o.map || []).forEach(function (m) { var li = el("li"); li.appendChild(el("code", "s5fw-mold", m.old)); li.appendChild(el("span", "s5fw-arr", "→"));
+      if ((m.new || []).length) m.new.forEach(function (nw, i) { if (i) li.appendChild(document.createTextNode(" · ")); if (nw.u) li.appendChild(link(nw.c, nw.u, "s5fw-mnew")); else li.appendChild(el("code", "s5fw-mnew", nw.c)); });
+      else li.appendChild(el("span", "s5dv-sm", "no Microsoft Graph PowerShell cmdlet in Microsoft's map"));
+      ul.appendChild(li); });
+    pOld.appendChild(ul);
+    pOld.appendChild(link("Find Azure AD PowerShell and MSOnline cmdlets in Microsoft Graph PowerShell ↗", "https://learn.microsoft.com/powershell/microsoftgraph/azuread-msoline-cmdlet-map?view=graph-powershell-1.0", "s5dv-ext"));
+    /* Microsoft Graph PowerShell */
+    if (g) {
+      var cs = el("div", "s5fq-rc"); cs.appendChild(chip("Supported", "s5fw-new"));
+      if (g.beta) cs.appendChild(chip("Beta API", "s5fw-imp s5fw-imp-m", "The cmdlets call Graph beta: Microsoft does not support beta in production"));
+      (g.scopes || []).forEach(function (sc) { cs.appendChild(chip(sc, "s5fw-fw", "Permission Connect-MgGraph asks for")); }); pNew.appendChild(cs);
+      pNew.appendChild(copyBox(g.code));
+      if (g.note) pNew.appendChild(el("p", "s5fq-callw", g.note));
+      pNew.appendChild(el("p", "s5dv-sm", "Checked " + dmy(g.checked) + ": every cmdlet with Find-MgGraphCommand and its parameters in Microsoft.Graph 2.41 (" + (g.cmdlets || []).join(", ") + "); syntax with the PowerShell 7.4 parser. -WhatIf shows the change first — run without it to apply."));
+      var lk = el("div", "s5fw-links"); (g.sources || []).forEach(function (l) { var a = el("a", "s5fo-lk", l.t + " ↗"); a.href = l.u; a.target = "_blank"; a.rel = "noopener"; lk.appendChild(a); }); pNew.appendChild(lk);
+    } else {
+      pNew.appendChild(el("p", "s5fq-callw", "The portal has not written the Microsoft Graph PowerShell version of this note yet. Microsoft's map points to: " +
+        (o.map || []).map(function (m) { return m.old + " → " + ((m.new || []).map(function (nw) { return nw.c; }).join(" / ") || "no cmdlet"); }).join("; ") + " — check the parameters on the cmdlet's Learn page."));
+    }
+    var tabs = [[(o.module || "MSOnline") + " (retired)", pOld, "s5fw-tdead"], ["Microsoft Graph PowerShell", pNew, "s5fw-tok"]];
+    function show(i) { tabs.forEach(function (t, j) { t[1].hidden = i !== j; t[3].setAttribute("aria-selected", String(i === j)); t[3].classList.toggle("on", i === j); }); }
+    tabs.forEach(function (t, i) { var b = btn(t[0], "s5fw-pstab " + t[2], function () { show(i); }); b.setAttribute("role", "tab"); t.push(b); bar.appendChild(b); box.appendChild(t[1]); });
+    show(1);
+    return box;
+  }
   function cippCard(x) {
     var who = el("div", "s5fq-who");
     function row(src, ok, txt, act) { var r = el("div", "s5fq-whor" + (ok ? "" : " s5fq-no")); r.appendChild(srcChip(src, src)); r.appendChild(el("span", null, txt)); if (act) r.appendChild(act); who.appendChild(r); }
@@ -30391,8 +30452,8 @@ IdentityDirectoryEvents
     (x.cisa || []).forEach(function (c) { row("CISA", true, c + " — the same policy in CISA SCuBA", btn("Open the policy ›", "s5dv-lk", function () { CARD.hidden = true; window.__socBaseline(c); })); });
     var fix = el("div", "s5fw-fix");
     fix.appendChild(el("p", null, "In CIPP: Standards & Drift › Add Standards Template › add “" + x.label + "” › Report, Alert or Remediate. Remediate changes the tenant; Report only records the current setting; Alert also notifies you."));
-    if (x.ps) { fix.appendChild(el("p", "s5fo-lab", "The PowerShell or Graph equivalent, as CIPP notes it")); fix.appendChild(el("pre", "s5fq-pre", x.ps)); }
-    if (x.retired) fix.appendChild(el("p", "s5fq-callw", "This note names a cmdlet of the MSOnline or AzureAD module, which Microsoft retired — use the Microsoft Graph PowerShell SDK (or Exchange Online PowerShell) equivalent instead."));
+    if (x.old) fix.appendChild(psTabs(x));   /* §5fw-b: the retired module and its Microsoft Graph PowerShell version, side by side as tabs */
+    else if (x.ps) { fix.appendChild(el("p", "s5fo-lab", "The PowerShell or Graph equivalent, as CIPP notes it")); fix.appendChild(el("pre", "s5fq-pre", x.ps)); }
     if ((x.maester || []).length) fix.appendChild(el("pre", "s5fq-pre", "# check it without CIPP - Maester 2.3 (release)\nInstall-Module -Name Maester -Scope CurrentUser\nmd ~/maester-tests; cd ~/maester-tests; Install-MaesterTests\nConnect-Maester\nInvoke-Maester -Tag '" + x.maester[0] + "'\n# Maester 3.0 (preview): Invoke-Maester -TestId '" + x.maester[0] + "'"));
     var note = (x.cisaOld || []).length ? "CIPP tags it " + x.cisaOld.join(", ") + " — not a current ScubaGear id, so the portal does not match it to CISA (" + (((D.sources || {}).cisa || {}).ver ? "ScubaGear " + D.sources.cisa.ver : "current ScubaGear") + ")." : "";
     card({
@@ -30431,7 +30492,7 @@ IdentityDirectoryEvents
     bar("Framework", "fw", [["", "Any", L.length], ["cis", "CIS", null, function (x) { return (x.cis || []).length; }], ["nist", "NIST CSF 2.0", null, function (x) { return (x.nist || []).length; }], ["e8", "Essential 8", null, function (x) { return (x.e8 || []).length; }],
       ["eidsca", "EIDSCA", null, function (x) { return (x.eidsca || []).length; }], ["cisa", "CISA SCuBA", null, function (x) { return (x.cisa || []).length; }]]);
     bar("Show", "only", [["", "All", L.length], ["new", "Added in 30 days", null, isNew], ["maester", "Maester checks it", null, function (x) { return (x.maester || []).length; }], ["none", "No tool checks it", null, function (x) { return !(x.maester || []).length && !(x.tenable || []).length; }],
-      ["retired", "Note names a retired module", null, function (x) { return x.retired; }], ["dep", "Deprecated", null, function (x) { return x.deprecated; }]]);
+      ["retired", "Old module → Graph PowerShell", null, function (x) { return x.retired; }], ["dep", "Deprecated", null, function (x) { return x.deprecated; }]]);
     var qi = el("input", "s5fq-q s5fw-q"); qi.type = "search"; qi.placeholder = "Search CIPP standards (name, id, CIS 1.1.1, cmdlet…)"; qi.value = CPF.q;
     qi.addEventListener("input", function () { CPF.q = qi.value; var keep = qi.selectionStart; render(); var q2 = panel.querySelector(".s5fw-q"); if (q2) { q2.focus(); try { q2.setSelectionRange(keep, keep); } catch (e) {} } });
     host.appendChild(qi);
