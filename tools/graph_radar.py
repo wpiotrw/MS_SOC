@@ -1012,7 +1012,8 @@ def updates_of(tstate, und, day, keep=60):
             out.append({"day": L["first"], "key": k, "title": t, "kind": "found", "what": "First returned by our tenant - not in $metadata"})
         for x in L.get("log") or []:
             if x.get("day", "") >= cut:
-                out.append(dict(x, key=k, title=t, kind=x.get("kind") or ("status" if x.get("what", "").startswith("documentation") else "other")))
+                kd = x.get("kind") or ("status" if x.get("what", "").startswith("documentation") else "sources" if re.search(r"new sources?$", x.get("what", "")) else "other")
+                out.append(dict(x, key=k, title=t, kind=kd))   # log lines older than 5fz carry no kind - read it from the text
         if L.get("gone") and L["gone"] >= cut and not L.get("graduated"):
             out.append({"day": L["gone"], "key": k, "title": t, "kind": "gone", "what": "Our tenant stopped returning it"})
     out.sort(key=lambda x: (x["day"], x["kind"] != "found"), reverse=True)
