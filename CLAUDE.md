@@ -39789,9 +39789,12 @@ odtad CZTERNASCIE (4-17).**
     } else {
       P.kind = "First-party app";
       var names = g.all.map(function (a) { return String(a.name).trim(); });
-      P.what = n === 1 ? "New Microsoft application" : "";   /* the name already says "3 new first-party apps" */
-      P.facts.push(["First seen", dm(e.day)]);
-      if (n > 1) P.list = names; 
+      /* §5fx-b (owner, phone: "the new first-party apps blend in"): what happened is a filled badge, the day a chip, and
+         each new app is its own row that opens it - not a bold line under the name and grey boxes */
+      P.what = "";
+      P.badges.push([n === 1 ? "New Microsoft app" : n + " new Microsoft apps", "add"]);
+      P.chips = ["First seen " + dm(e.day)];
+      if (n > 1) { P.list = names; P.listGo = openApp; P.rows = true; }
       P.note = "Open " + (n === 1 ? "it" : "one") + " to see what it can obtain without consent.";
       P.plain = true;
     }
@@ -39810,6 +39813,7 @@ odtad CZTERNASCIE (4-17).**
       h.appendChild(b);
     });
     (P.badges || []).forEach(function (bd) { h.appendChild(el("span", "s5fj-bd" + (bd[1] ? " s5fj-" + bd[1] : ""), bd[0])); });
+    (P.chips || []).forEach(function (t) { h.appendChild(el("span", "s5fx-c", t)); });   /* §5fx-b */
     c.appendChild(h);
     if (P.what) c.appendChild(el("p", "s5fj-what", P.what + (P.more ? " \u2014 " + P.more : "")));
     if ((P.facts || []).length) {
@@ -39818,8 +39822,11 @@ odtad CZTERNASCIE (4-17).**
       c.appendChild(f);
     }
     if ((P.list || []).length) {
-      var MAX = opt.max || 4, ul = el("ul", "s5fj-acts" + (P.plain ? " s5fj-plain" : ""));
-      function li(a) { ul.appendChild(wbr(el("li"), a)); }
+      var MAX = opt.max || 4, ul = el("ul", "s5fj-acts" + (P.plain ? " s5fj-plain" : "") + (P.rows ? " s5fj-rows" : ""));
+      function li(a) {
+        if (P.listGo) { var l2 = el("li"), b2 = wbr(el("button", "s5fj-rowb"), a); b2.type = "button"; b2.title = "Open " + a;
+          l2.style.cursor = "pointer"; l2.addEventListener("click", function (ev) { ev.stopPropagation(); P.listGo(a); }); l2.appendChild(b2); l2.appendChild(el("span", "s5fj-rowgo", "Open ›")); ul.appendChild(l2); return; }
+        ul.appendChild(wbr(el("li"), a)); }
       P.list.slice(0, MAX).forEach(li);
       if (P.list.length > MAX) {
         var m = el("li", "s5fj-moreli"), mb = el("button", "s5fj-moreb", "+ " + (P.list.length - MAX) + " more"); mb.type = "button";
@@ -46757,6 +46764,9 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5er-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:10px}
 .s5er-box{display:flex;flex-direction:column;gap:6px;min-width:0;padding:10px 12px 12px;border:1px solid var(--border);border-radius:12px;background:var(--bg)}
 .s5er-hot{border-color:var(--accent)}
+/* §5fx-b: every surface box has the same visible frame (Roles with 0 had only the faint border); a box with changes is thicker */
+.s5er-grid>.s5er-box,#tab-overview .s5er-grid>.s5er-box{border:2px solid color-mix(in srgb,var(--accent) 45%,var(--border))}
+.s5er-grid>.s5er-box.s5er-hot,#tab-overview .s5er-grid>.s5er-box.s5er-hot{border:2px solid var(--accent)}
 .s5er-bh{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;background:none;border:0;padding:0 0 6px;margin:0;border-bottom:1px solid var(--border-soft);font:inherit;color:var(--text);text-align:left;cursor:pointer}
 .s5er-lab{flex:1 1 100%;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
 .s5er-n{font-size:26px;font-weight:700;line-height:1.05;color:var(--muted)}
@@ -48828,6 +48838,12 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 @media (max-width:760px){#tab-deadlines .s5ci-tdl .s5ci-tr>.s5ci-do{grid-column:1/-1}
   #tab-deadlines .s5ci-tdl .s5ci-tr>.s5ci-do::before{content:"What to do";display:block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}}
 .s5fj-acts li.s5fj-moreli{border:0;background:none;padding:0}
+/* §5fx-b: a filled "new" badge; a list of apps as rows that open the app */
+.s5fj-bd.s5fj-add{color:#fff;background:#1f7a44;border-color:transparent}
+.s5fj-acts.s5fj-rows{flex-direction:column;flex-wrap:nowrap;gap:6px}
+.s5fj-acts.s5fj-rows>li,[id^="tab-"] .s5fj-acts.s5fj-rows>li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 10px;border-radius:8px;border:1px solid color-mix(in srgb,var(--text) 22%,transparent);background:color-mix(in srgb,var(--ok) 7%,transparent)}
+.s5fj-rowb{background:none;border:0;padding:0;color:var(--text);font-family:inherit;font-weight:700;font-size:15px;line-height:1.35;text-align:left;cursor:pointer;overflow-wrap:break-word;min-width:0}
+.s5fj-rowgo{flex:0 0 auto;color:var(--accent);font-weight:700;font-size:14px}
 .s5fj-moreb{font:inherit;font-size:14px;font-weight:600;color:var(--accent);background:none;border:0;padding:3px 4px;cursor:pointer}
 .s5fj-note{margin:0;font-size:14px;line-height:1.5;color:var(--muted)}
 .s5fj-old .s5fj-nm{font-size:15px}
@@ -49038,12 +49054,12 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 /* §5fw CIPP standards: impact and "new" as filled badges, framework numbers readable, the id in a code box */
 .s5dv-chip.s5fw-imp,.s5fo-chip.s5fw-imp{font-weight:700;border-color:transparent;color:#fff}
 .s5fo-chip.s5fw-imp-h{background:var(--bad)}.s5fo-chip.s5fw-imp-m{background:#b7791f}.s5fo-chip.s5fw-imp-l{background:var(--accent)}
-.s5fo-chip.s5fw-new{background:var(--ok);color:#fff;border-color:transparent;font-weight:700}
+.s5fo-chip.s5fw-new{background:#1f7a44;color:#fff;border-color:transparent;font-weight:700}
 .s5fo-chip.s5fw-src{background:#e86fa8;color:#fff;border-color:transparent;font-weight:700}
 .s5dv-chip.s5fw-imp-h{background:var(--bad)}
 .s5dv-chip.s5fw-imp-m{background:#b7791f}
 .s5dv-chip.s5fw-imp-l{background:var(--accent);color:#fff}
-.s5dv-chip.s5fw-new{background:var(--ok);color:#fff;border:0;font-weight:700}
+.s5dv-chip.s5fw-new{background:#1f7a44;color:#fff;border:0;font-weight:700}
 .s5dv-chip.s5fw-fw{color:var(--text);border-color:#e3a33b;background:color-mix(in srgb,#e3a33b 14%,transparent);font-weight:600}
 .s5dv-chip.s5fw-dt{color:var(--text);border-color:color-mix(in srgb,var(--text) 40%,transparent)}
 .s5fw-r .s5fw-t{font-size:16px;font-weight:700;color:var(--text)}
@@ -49054,7 +49070,7 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 .s5fq-b-cipp{--sc:#e86fa8}
 .s5fw-tday .gd-trows li{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .s5fw-k{display:inline-block;padding:1px 8px;border-radius:999px;font-weight:700;font-size:12px;color:#fff}
-.s5fw-k-added{background:var(--ok)}.s5fw-k-changed{background:#b7791f}.s5fw-k-removed{background:var(--bad)}
+.s5fw-k-added{background:#1f7a44}.s5fw-k-changed{background:#b7791f}.s5fw-k-removed{background:var(--bad)}
 /* §5fw-b: retired module | Microsoft Graph PowerShell tabs inside the card */
 .s5fw-pst{margin-top:10px;border:1px solid color-mix(in srgb,var(--text) 22%,transparent);border-radius:10px;overflow:hidden}
 .s5fw-pstb{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid color-mix(in srgb,var(--text) 22%,transparent)}
@@ -49230,7 +49246,7 @@ td>.offt+.ref{display:block}
 .s5fx-p{display:flex;flex-direction:column;gap:5px;margin-top:4px}
 .s5fx-top{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .s5fx-b{display:inline-block;padding:2px 9px;border-radius:999px;font-weight:700;font-size:13px;line-height:1.5;color:#fff}
-.s5fx-add{background:var(--ok)}.s5fx-chg{background:#b7791f}.s5fx-rem{background:var(--bad)}
+.s5fx-add{background:#1f7a44}.s5fx-chg{background:#b7791f}.s5fx-rem{background:var(--bad)}
 .s5fx-c{display:inline-block;padding:1px 8px;border-radius:999px;border:1px solid color-mix(in srgb,var(--text) 35%,transparent);color:var(--text);font-size:13.5px;line-height:1.5}
 .s5fx-m{font-variant-numeric:tabular-nums}
 .s5fx-el{font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text);margin-top:2px}
@@ -51032,6 +51048,22 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5fx-b — Overview: ramka kazdej powierzchni, nowe aplikacje first-party czytelnie; pomiar szybkosci (31 X 2026)
+
+Wlasciciel (dwa zrzuty z telefonu): „Roles nie maja ramki; w first-party apps nie widac nowych aplikacji poprawnie —
+wszystko sie zlewa, popraw tak jak poprzednio; po ostatnich zmianach Overview znowu wolno sie laduje".
+- **Ramki:** kazde pole (Graph API, Roles, First-party apps) ma ramke 2 px w kolorze akcentu (z 45 % mieszanka, gdy 0
+  zmian; pelny akcent, gdy sa zmiany) — Roles z 0 mialy tylko slaba ramke `--border`.
+- **First-party apps (`describe()` + `chgCard()` w §5fj):** zamiast pogrubionej linii „New Microsoft application" i
+  szarych pudelek — wypelniona zielona plakietka „New Microsoft app" / „3 new Microsoft apps", chip „First seen
+  dd/MM/yyyy", a kazda nowa aplikacja to wlasny wiersz (nazwa pogrubiona, „Open ›", klik otwiera aplikacje).
+  Plakietki z bialym tekstem maja ciemna zielen #1f7a44 (w ciemnym motywie `--ok` jest jasne i bialy tekst ginal).
+- **Szybkosc (mobile_check, CPU ×4, ta sama maszyna, na przemian):** wersja sprzed dzisiejszych zmian (b5640dc) 26,1 /
+  25,0 / 20,8 s, obecna 20,5 / 22,1 / 24,3 s; na zywo 21,9 s. Dzisiejsze zmiany nie spowolnily Overview; rozrzut
+  pomiaru na tej maszynie to ok. 5 s. Profil: najwiecej czasu w `querySelectorAll` rozlozonym na wiele warstw
+  (`scan`, `tabs`, `clampNotes`, `a11y2` …) — zaden pojedynczy modul. Kazde wdrozenie uniewaznia pamiec podreczna
+  przegladarki (strona ~16,7 MB, ~3,3 MB przesylu), wiec pierwsze otwarcie po wdrozeniu jest wolniejsze.
 
 ### §5fx — Czytelne zmiany w Overview i audyt „szarego tekstu" w calym portalu (31 X 2026)
 
