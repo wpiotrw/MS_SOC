@@ -31733,15 +31733,21 @@ odtad CZTERNASCIE (4-17).**
       function inW(d, w) { return w === "since" ? d > since && d <= today : days(d, today) >= 0 && days(d, today) < +w; }
       function list(surf, w) {
         var L = [], seen = {};
-        function add(name, what, go, ev) { name = String(name || "").trim(); if (!name || seen[name]) return; seen[name] = 1; L.push({ name: name, what: what, go: go, ev: ev }); }
+        function add(name, what, go, ev, parts) { name = String(name || "").trim(); if (!name || seen[name]) return; seen[name] = 1; L.push({ name: name, what: what, go: go, ev: ev, parts: parts }); }
         if (surf !== "fpa" && MS[surf]) {
           var m = MS[surf](w);
           m.perms.concat(m.eps).forEach(function (r) {
             var gl = surf === "graph" && GDW && GDW.latest ? GDW.latest(r.name, w === "since" ? since : "") : "";
+            /* §5fx: the row's parts - what happened (a badge), the endpoints (boxes), Microsoft's commit and day (chips) */
+            var gp = surf === "graph" && GDW && GDW.latestParts ? GDW.latestParts(r.name, w === "since" ? since : "") : null;
+            var parts = gp ? { badges: [[gp.t === "added" ? "New permission" : gp.t === "removed" ? "Removed" : gp.t === "readded" ? "Back in Microsoft's file" : "Changed", gp.t === "added" || gp.t === "readded" ? "add" : gp.t === "removed" ? "rem" : "chg"]],
+                                     sum: gp.sum.replace(/^new permission · /, ""), eps: gp.add, epsRem: gp.rem, meta: ["Microsoft commit " + gp.sha, fmt(gp.date)] }
+                           : { badges: (r.labels || []).map(function (l) { return [l, /remov|breaking|no longer/i.test(l) ? "rem" : /^new|more endpoint/i.test(l) ? "add" : "chg"]; }),
+                               eps: r.reach && r.reach.length ? r.reach : (/^\//.test(r.name) ? [] : null), text: r.reach && r.reach.length ? "" : r.text };
             add(r.name, gl || [r.labels.join(", "), r.text].filter(Boolean).join(" — "), function () {
               if (surf === "roles" && IDW && IDW.openRole) IDW.openRole(r.name);
               else if (surf === "graph" && IDW && IDW.openPerm && !/^\//.test(r.name)) IDW.openPerm(r.name);
-              else goWin(surf, w); });
+              else goWin(surf, w); }, null, parts);
           });
         }
         if (surf !== "fpa") I.forEach(function (e) {
@@ -31750,13 +31756,39 @@ odtad CZTERNASCIE (4-17).**
           var gl2 = surf === "graph" && GDW && GDW.latest && /changed|consent/.test(e.change) ? GDW.latest(e.name, w === "since" ? since : "") : "";
           var what = gl2 ? gl2 : (VB[e.change] || e.change) + (e.tenant ? " · seen in our tenant " + fmt(String(e.tenant).slice(0, 10)) : "") +
             (e.text && e.change === "actions-added" ? ": " + firstSentence(e.text) : "");
-          add(e.name, what, function () { if (surf === "graph") IDW.openPerm(e.name); else IDW.openRole(e.name); }, e);
+          var gp2 = gl2 && GDW.latestParts ? GDW.latestParts(e.name, w === "since" ? since : "") : null;   /* §5fx */
+          var parts2 = gp2 ? { badges: [[gp2.t === "added" ? "New permission" : gp2.t === "removed" ? "Removed" : gp2.t === "readded" ? "Back in Microsoft's file" : "Changed", gp2.t === "added" || gp2.t === "readded" ? "add" : gp2.t === "removed" ? "rem" : "chg"]],
+                                sum: gp2.sum.replace(/^new permission · /, ""), eps: gp2.add, epsRem: gp2.rem, meta: ["Microsoft commit " + gp2.sha, fmt(gp2.date)] } : null;
+          add(e.name, what, function () { if (surf === "graph") IDW.openPerm(e.name); else IDW.openRole(e.name); }, e, parts2);
         });
         if (surf === "fpa") ((st.fpa || {}).chg || []).forEach(function (x) {
           if (x && x.d && inW(x.d, w)) add(x.n || x.id, (FW[x.t] || x.t) + " · " + fmt(x.d), function () { goWin("fpa", w === "since" ? "7" : w); },
             x.t === "added" ? { surface: "app", name: x.n || x.id, change: "new", day: x.d } : null);
         });
         return L;
+      }
+      /* §5fx (31 X 2026, owner with a phone screenshot: "again small grey letters, everything blends - I asked for a
+         thought-through way of showing data"): a row is no longer one grey sentence. What happened is a filled badge
+         (green new, amber changed, red removed), the endpoints are code boxes with the HTTP method as a pill (two
+         shown, "+N more" says the rest), the sum, Microsoft's commit and the day are chips in the text colour. */
+      function partsNode(P) {
+        var w = el("span", "s5fx-p"), top = el("span", "s5fx-top");
+        (P.badges || []).forEach(function (b) { top.appendChild(el("span", "s5fx-b s5fx-" + b[1], b[0])); });
+        if (P.sum) top.appendChild(el("span", "s5fx-c", P.sum));
+        (P.meta || []).forEach(function (m) { top.appendChild(el("span", "s5fx-c s5fx-m", m)); });
+        if (top.childNodes.length) w.appendChild(top);
+        function eps(list, rem) {
+          if (!list || !list.length) return;
+          var lab = el("span", "s5fx-el", rem ? "No longer calls" : "Now also calls"); w.appendChild(lab);
+          list.slice(0, 2).forEach(function (x) { var m = /^(GET|POST|PATCH|PUT|DELETE)\s+(.*)$/i.exec(String(x)), row = el("span", "s5fx-ep" + (rem ? " s5fx-eprem" : ""));
+            if (m) { row.appendChild(el("span", "s5fx-mt s5fx-mt-" + m[1].toUpperCase(), m[1].toUpperCase())); row.appendChild(el("code", "s5fx-pa", m[2])); }
+            else row.appendChild(el("code", "s5fx-pa", String(x)));
+            w.appendChild(row); });
+          if (list.length > 2) w.appendChild(el("span", "s5fx-more", "+" + (list.length - 2) + " more endpoint" + (list.length - 2 === 1 ? "" : "s") + " — open the permission"));
+        }
+        eps(P.eps, false); eps(P.epsRem, true);
+        if (P.text) w.appendChild(el("span", "s5fx-t", P.text));
+        return w;
       }
       var SURF = [["graph", "Graph API", "14", "14 days", "permission"], ["roles", "Roles", "14", "14 days", "role"], ["fpa", "First-party apps", "7", "7 days", "app"]];
       /* §5er-b (owner 19:59, phone: the boxes said "changed in the service" and "23 in 14 days" where the computer
@@ -31799,8 +31831,10 @@ odtad CZTERNASCIE (4-17).**
             g.xs.forEach(function (x) { var b = el("button", "s5er-nm", x.name); b.type = "button"; b.title = "Open " + x.name;
               b.addEventListener("click", function (ev) { ev.stopPropagation(); x.go(); }); nms.appendChild(b); });
             r.appendChild(nms);
-            var wt = String(g.what || ""); if (wt.length > 170) wt = wt.slice(0, 160).replace(/[\s,]+\S*$/, "") + " \u2026";
-            if (wt) { var ws = el("span", "s5er-w", wt); ws.title = g.what; r.appendChild(ws); }
+            var P0 = g.xs[0].parts;
+            if (P0) r.appendChild(partsNode(P0));   /* §5fx */
+            else { var wt = String(g.what || ""); if (wt.length > 170) wt = wt.slice(0, 160).replace(/[\s,]+\S*$/, "") + " \u2026";
+              if (wt) { var ws = el("span", "s5er-w", wt); ws.title = g.what; r.appendChild(ws); } }
             ul.appendChild(r);
           });
           box.appendChild(ul);
@@ -34436,6 +34470,14 @@ odtad CZTERNASCIE (4-17).**
       if (!r) return "";
       var f = (r.e.ea || [])[0] || (r.e.er || [])[0];
       return summary(r.e) + (f ? ": " + f[0] + " " + f[1] : "") + " · Microsoft commit " + r.e.sha + " · " + dm(r.e.date);
+    },
+    /* §5fx: the same, in parts, for a row that shows them as a badge, endpoint boxes and chips (not one grey line) */
+    latestParts: function (name, from) {
+      var r = ROWS.filter(function (x) { return x.name === name && (!from || x.e.date > from); })
+        .sort(function (a, b) { return b.e.date.localeCompare(a.e.date); })[0];
+      if (!r) return null;
+      return { sum: summary(r.e), t: r.e.t, add: (r.e.ea || []).map(function (x) { return x[0] + " " + x[1]; }),
+        rem: (r.e.er || []).map(function (x) { return x[0] + " " + x[1]; }), sha: r.e.sha, date: r.e.date };
     },
     recent: function (days) {
       if (!GD) return [];
@@ -49184,6 +49226,63 @@ td>.offt+.ref{display:block}
 .s5fj-clamp.s5fj-open{display:block;-webkit-line-clamp:unset;line-clamp:unset}
 .s5fj-tog{font:inherit;font-size:13.5px;font-weight:600;color:var(--accent);background:none;border:0;padding:2px 0;cursor:pointer}
 .s5er-nm{font-family:inherit}
+/* §5fx: an Overview change row in parts - badge, chips, endpoint boxes; text in the text colour, never a grey wall */
+.s5fx-p{display:flex;flex-direction:column;gap:5px;margin-top:4px}
+.s5fx-top{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.s5fx-b{display:inline-block;padding:2px 9px;border-radius:999px;font-weight:700;font-size:13px;line-height:1.5;color:#fff}
+.s5fx-add{background:var(--ok)}.s5fx-chg{background:#b7791f}.s5fx-rem{background:var(--bad)}
+.s5fx-c{display:inline-block;padding:1px 8px;border-radius:999px;border:1px solid color-mix(in srgb,var(--text) 35%,transparent);color:var(--text);font-size:13.5px;line-height:1.5}
+.s5fx-m{font-variant-numeric:tabular-nums}
+.s5fx-el{font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text);margin-top:2px}
+.s5fx-ep{display:flex;align-items:flex-start;gap:6px;min-width:0}
+.s5fx-mt{flex:0 0 auto;padding:1px 7px;border-radius:6px;font:700 12px/1.6 var(--mono,ui-monospace,monospace);color:#fff;background:var(--accent)}
+.s5fx-mt-GET{background:#2f7d4f}.s5fx-mt-POST{background:#b7791f}.s5fx-mt-PATCH,.s5fx-mt-PUT{background:#7a5bc7}.s5fx-mt-DELETE{background:var(--bad)}
+.s5fx-pa{flex:1 1 auto;min-width:0;padding:2px 7px;border-radius:6px;background:color-mix(in srgb,var(--text) 9%,transparent);border:1px solid color-mix(in srgb,var(--text) 20%,transparent);color:var(--text);font:500 13px/1.5 var(--mono,ui-monospace,monospace);overflow-wrap:anywhere}
+.s5fx-eprem .s5fx-pa{text-decoration:line-through;text-decoration-color:var(--bad)}
+.s5fx-more{font-size:13.5px;font-weight:600;color:var(--accent)}
+.s5fx-t{font-size:14.5px;line-height:1.5;color:var(--text)}
+/* §5fx (31 X 2026, owner: "small grey letters, everything blends - are there more tabs like that?"): an audit of every
+   tab at 390 px in the dark scheme listed the long grey runs (60+ characters in the muted colour) - 571 in 20 tabs.
+   Text that IS the content (a title, what changed, why it matters, a description, a path) is in the text colour now;
+   the muted colour stays for help notes and data-freshness lines only. Small content text rises to 14 px. */
+.wrap .s5bk-its,
+.wrap .s5bk-itt,
+.wrap .s5cu-ovw,
+.wrap .s5er-w,
+.wrap .s5er-old .s5er-nm,
+.wrap .s5fj-note,
+.wrap .s5ci-why:not(.s5ci-miss),
+.wrap .s5ei-title,
+.wrap .s5ei-meta,
+.wrap .s5ei-what,
+.wrap .s5fq-st,
+.wrap .s5do-chs,
+.wrap .s5do-id,
+.wrap .s5fq-path,
+.wrap .ceos,
+.wrap .cscope,
+.wrap .s5cu-sm,
+.wrap .s5cu-dd,
+.wrap .s5dw-cr li.pos,
+.wrap .s5es-ul li,
+.wrap .s5cu-tcw,
+.wrap .s5cu-bnx,
+.wrap .s5ft-gi,
+.wrap .s5ft-fh,
+.wrap .s5ft-li,
+.wrap .s5el-rm,
+.wrap .kq p,
+.wrap .s5el-mut,
+.wrap .s5el-rd,
+.wrap .s5da-long,
+#tab-products .sec-body li{color:var(--text)}
+.wrap .s5do-chs,.wrap .s5do-id,.wrap .s5er-w{font-size:14px}
+.wrap .s5do-id{font-family:var(--mono,ui-monospace,monospace);font-weight:600}
+.wrap .s5fq-st{font-weight:600}
+.wrap .s5ei-title{font-weight:700}
+.s5er-l{gap:10px}
+.s5er-l > .s5er-r + .s5er-r{border-top:1px solid color-mix(in srgb,var(--text) 18%,transparent);padding-top:10px}
+#tab-overview .s5er-r .s5er-nm{font-size:16px;font-weight:700}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
@@ -50933,6 +51032,24 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5fx — Czytelne zmiany w Overview i audyt „szarego tekstu" w calym portalu (31 X 2026)
+
+Wlasciciel (zrzut z telefonu, Overview › Graph API): „znowu male szare litery, wszystko sie zlewa — prosilem o
+przemyslane pokazywanie danych. Jest wiecej zakladek, gdzie tekst sie zlewa?".
+- **Overview › Graph API / Roles:** wiersz zmiany nie jest juz jednym szarym zdaniem. Nazwa uprawnienia 16 px pogrubiona,
+  wiersze oddzielone linia; co sie stalo — wypelniona plakietka (zielona: nowe / wiecej endpointow, bursztynowa:
+  zmiana, czerwona: usuniete); liczba endpointow, commit Microsoftu i dzien — chipy w kolorze tekstu; „Now also calls"
+  — do dwoch endpointow w ramkach kodu z metoda jako kolorowa pigulka (GET zielona, POST bursztynowa, PATCH/PUT
+  fioletowa, DELETE czerwona), reszta jako „+N more endpoints — open the permission". Dane: `__socGD.latestParts()`
+  (ten sam commit co `latest()`) i wiersze `graphRows()` (§5fw-c).
+- **Audyt (`uit/readaudit3.py`, 390 px, ciemny motyw, kazda zakladka):** dlugie fragmenty (60+ znakow) w kolorze
+  wyciszonym. Przed: 571 w 20 zakladkach (Campaigns 166, Products 78, Graph API Radar 50, Hunting 49, Overview 47,
+  Threat Research 46, Security baselines 34, About 30, Learn 21, Component versions 17 …). Tresc (tytuly, co sie
+  zmienilo, dlaczego wazne, opisy, sciezki) ma teraz kolor tekstu, maly tekst tresci 14 px (kafle zmian, id). Po: 155,
+  z czego 53 w Campaigns (daty `s5cu-dd` maja jasny kolor tekstu — nie wyciszony) i 30 w About (proza pomocy);
+  reszta to notki pomocy i linie swiezosci danych (`sec-note`, `s5cz-by`, `s5el-note`) — wyciszone celowo.
+- Testy: lokalnie 390 px w obu motywach, bramka OK, konsola bez bledow, mobile_check 19,6 s OK.
 
 ### §5fw-c — „Now also calls" pokazywalo nazwe uprawnienia zamiast endpointow (31 X 2026)
 
