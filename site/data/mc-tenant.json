@@ -1,7 +1,7 @@
 {
  "read": "2026-10-31",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 714,
+ "count": 708,
  "note": null,
  "messages": [
   {
@@ -2342,32 +2342,6 @@
    "prepare": null,
    "dates": [],
    "bodyHash": "76ac8e71cfd690d5"
-  },
-  {
-   "id": "MC1231437",
-   "title": "Update PowerPoint to maintain Captions",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-02-12",
-   "end": "2026-10-31",
-   "modified": "2026-02-12",
-   "tags": [
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[Introduction] To maintain a high-quality and reliable experience for live Captions & Subtitles in the Microsoft 365 PowerPoint app, Microsoft is upgrading the backend service that supports this capability. As part of this improvement, older Office client versions will no longer be supported. Updating to the minimum required PowerPoint version ensures continued accessibility, performance, and reli…",
-   "when": "Upgrade by the end of September 2026.",
-   "prepare": "Review PowerPoint client versions across your organization (Windows and Mac). Update Office clients to: Windows (Win32): 16.0.19426.20218 or later. macOS: 16.103.1207.4 or later. Plan upgrades ahead of September 2026 , especially for environments on managed or restricted update cadences. Notify helpdesk and accessibility stakeholders.",
-   "dates": [
-    "Upgrade by the end of September 2026.",
-    "Plan upgrades ahead of September 2026 , especially for environments on managed or restricted update cadences."
-   ],
-   "bodyHash": "17d337583a6f3788"
   },
   {
    "id": "MC1234094",
@@ -8497,54 +8471,6 @@
    "bodyHash": "4d5d9ebd4a2457bf"
   },
   {
-   "id": "MC1454370",
-   "title": "Plan for Change: Intune moving to support macOS 15 and higher later this year",
-   "services": [
-    "Microsoft Intune"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-08-13",
-   "end": "2026-10-31",
-   "modified": "2026-08-13",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "As mentioned in MC1403402, we expect macOS Golden Gate 27 to be released by Apple later this year. Microsoft Intune, the Company Portal app and the Intune MDM agent will be moving to support macOS 15 (Sequoia) and later. Since the Company Portal app for iOS and macOS are a unified app, this change will occur shortly after the release of macOS 27. This does not affect existing enrolled devices. [Ho…",
-   "when": null,
-   "prepare": "Check your Intune reporting to see which devices or users may be affected. Go to Devices > All devices and filter by macOS. You can add in additional columns to help identify who in your organization has devices running macOS 14.x or below. Request that your users upgrade their devices to a supported OS version before this change.",
-   "dates": [],
-   "bodyHash": "43b38801cc4b18fb"
-  },
-  {
-   "id": "MC1454371",
-   "title": "Plan for Change: Intune moving to support iOS/iPadOS 18 and higher later this year",
-   "services": [
-    "Microsoft Intune"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-08-13",
-   "end": "2026-10-31",
-   "modified": "2026-08-13",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "As mentioned in MC1403401, we expect iOS 27 and iPadOS 27 to be released by Apple later this year. Microsoft Intune, including the Intune Company Portal and Intune app protection policies (APP, also known as MAM), will require iOS/iPadOS 18 and higher shortly after the iOS/iPadOS 27 release. [How this will affect your organization:] If you are managing iOS/iPadOS devices, you might have devices th…",
-   "when": null,
-   "prepare": "Check your Intune reporting to see what devices or users may be affected. For devices with mobile device management (MDM) go to Devices > All devices and filter by OS. For devices with app protection policies go to Apps > Monitor > App protection status and use the Platform and Platform version columns to filter. To manage the supported OS version in your organization, you can use Microsoft Intune controls for both MDM and APP. For more informati…",
-   "dates": [],
-   "bodyHash": "a6950c6070277ded"
-  },
-  {
    "id": "MC1454373",
    "title": "Frontier =COPILOT function in Excel will no longer be available",
    "services": [
@@ -10513,31 +10439,6 @@
     "If your organization relies on DLP alerts appearing in the Microsoft Defender XDR incident queue, disable the rule before October 12, 2026, to keep the current experience."
    ],
    "bodyHash": "f476be8f3eef8023"
-  },
-  {
-   "id": "MC1465773",
-   "title": "Microsoft Viva Engage: Microsoft Entra permissions required for community and membership administration",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": "2026-09-30",
-   "start": "2026-09-01",
-   "end": "2026-10-31",
-   "modified": "2026-09-01",
-   "tags": [
-    "Admin impact",
-    "User impact"
-   ],
-   "summary": "[What and why] To align community administration in Microsoft Viva Engage with the Microsoft Entra security and administration model, we are changing how certain community and membership management actions are authorized. Today, users assigned the Verified Admin or Network Admin role within Viva Engage can perform a limited set of community and membership administration tasks, even if they do not …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Beginning in late September 2026 and expected to complete by late September 2026."
-   ],
-   "bodyHash": "3af852c1b93fdc34"
   },
   {
    "id": "MC1465777",
@@ -12670,28 +12571,6 @@
    "bodyHash": "5d76e0c61813d634"
   },
   {
-   "id": "MC1476322",
-   "title": "Customized PowerBI reports behavior after major report updates",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-21",
-   "end": "2026-10-31",
-   "modified": "2026-09-21",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "[What and Why:] Microsoft is updating how Viva Insights customized Power BI reports are managed when major out-of-the-box report updates are released. Customized reports will remain associated with the report version from which they were originally created and will not be automatically migrated to newer report versions. This approach preserves report integrity and prevents customizations from brea…",
-   "when": null,
-   "prepare": null,
-   "dates": [],
-   "bodyHash": "cad772740ba41bbc"
-  },
-  {
    "id": "MC1477005",
    "title": "(Updated) The September 2026 Windows non-security preview update is now available",
    "services": [
@@ -13408,35 +13287,6 @@
     "General Availability (GCC, GCC High, DoD): We will begin rolling out on mid-November 2026 and expect to complete by mid-December 2026."
    ],
    "bodyHash": "b0ba89f57694a691"
-  },
-  {
-   "id": "MC1479512",
-   "title": "(Updated) Microsoft Teams: Updates to Teams Events licensing for business, frontline, and education customers",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-09-25",
-   "end": "2026-10-31",
-   "modified": "2026-09-28",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 28, 2026: We have updated the content. Thank you for your patience. [What and Why:] We are updating how Microsoft Teams Events capabilities are organized by license type. Teams Events capabilities will be grouped into foundational event features and advanced event features. This update clarifies which licenses map to each category, attendee limits, and the relationship between Te…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 28, 2026: We have updated the content.",
-    "Many Teams Events capabilities moved from Teams Premium to Teams Enterprise in April 2026.",
-    "General Availability (Worldwide): We will begin rolling out in late September 2026 and expect to complete by late September 2026."
-   ],
-   "bodyHash": "1f12bde7be8bad5b"
   },
   {
    "id": "MC1479513",
@@ -25111,6 +24961,48 @@
    "id": "MC1532259",
    "type": "removed",
    "title": "Microsoft Teams: Retirement of Translate slides in PowerPoint Live",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1231437",
+   "type": "removed",
+   "title": "Update PowerPoint to maintain Captions",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1454370",
+   "type": "removed",
+   "title": "Plan for Change: Intune moving to support macOS 15 and higher later this year",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1454371",
+   "type": "removed",
+   "title": "Plan for Change: Intune moving to support iOS/iPadOS 18 and higher later this year",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1465773",
+   "type": "removed",
+   "title": "Microsoft Viva Engage: Microsoft Entra permissions required for community and membership administration",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1476322",
+   "type": "removed",
+   "title": "Customized PowerBI reports behavior after major report updates",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1479512",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Updates to Teams Events licensing for business, frontline, and education customers",
    "fields": {}
   }
  ]
