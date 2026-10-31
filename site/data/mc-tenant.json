@@ -1,7 +1,7 @@
 {
  "read": "2026-10-31",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 708,
+ "count": 705,
  "note": null,
  "messages": [
   {
@@ -8063,30 +8063,6 @@
    "bodyHash": "ada2c236c0833a52"
   },
   {
-   "id": "MC1448890",
-   "title": "Power Automate - Legacy chatbot retirement",
-   "services": [
-    "Microsoft Power Automate"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-06",
-   "end": "2026-10-31",
-   "modified": "2026-08-06",
-   "tags": [
-    "Retirement"
-   ],
-   "summary": "Starting on September 2, 2026, the legacy chatbot experience in the Power Automate portal will no longer be available. How does this affect me? Users will be unable to access the legacy chatbot within the Power Automate portal. Access to help, documentation, and support resources is available through the Help (?) menu in the top-right corner of the command bar. This change does not affect existing…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Starting on September 2, 2026, the legacy chatbot experience in the Power Automate portal will no longer be available."
-   ],
-   "bodyHash": "0e37dc44a5fd7c18"
-  },
-  {
    "id": "MC1449170",
    "title": "Microsoft Edge: Retirement of default unload event support",
    "services": [
@@ -10178,54 +10154,6 @@
     "General Availability (Worldwide): Rollout begins in mid-September 2026 and is expected to complete by mid-September 2026."
    ],
    "bodyHash": "23f4424ee5e40417"
-  },
-  {
-   "id": "MC1464821",
-   "title": "Dynamics 365 Project Operations - Show accounting currency with the correct label",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-31",
-   "end": "2026-10-31",
-   "modified": "2026-08-31",
-   "tags": [
-    "Feature update"
-   ],
-   "summary": "We are announcing an update to currency accounting that ensures that currencies that differ from your base currency will include the correct label in Dynamics 365 Project Operations. This change will reach general availability on September 30, 2026. How does this affect me? This change allows different currency units to show the actual record for the accounting currency when the unit differs from …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This change will reach general availability on September 30, 2026."
-   ],
-   "bodyHash": "5873fe71a07c9e11"
-  },
-  {
-   "id": "MC1464869",
-   "title": "Dynamics 365 Contact Center - Platform observability and plug-in performance",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-31",
-   "end": "2026-10-31",
-   "modified": "2026-08-31",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing platform observability and plug-in performance in Dynamics 365 Contact Center. This feature will reach public preview on September 14, 2026. How does this affect me? This feature enables admins to track and quickly act on customizations that may be impacting service health. In the Copilot Service admin center, admins can view which plug-ins are affecting performance SLAs, underst…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on September 14, 2026."
-   ],
-   "bodyHash": "32c4a44731b4bf9c"
   },
   {
    "id": "MC1464926",
@@ -25003,6 +24931,27 @@
    "id": "MC1479512",
    "type": "removed",
    "title": "(Updated) Microsoft Teams: Updates to Teams Events licensing for business, frontline, and education customers",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1448890",
+   "type": "removed",
+   "title": "Power Automate - Legacy chatbot retirement",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1464821",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Show accounting currency with the correct label",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1464869",
+   "type": "removed",
+   "title": "Dynamics 365 Contact Center - Platform observability and plug-in performance",
    "fields": {}
   }
  ]
