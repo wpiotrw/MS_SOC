@@ -1,0 +1,20 @@
+// title: Advanced hunting queries
+// date: 2026-10-31
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: Inside a malicious Claude Code-branded extension and its persistent SSH backdoor
+// source: https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/
+// kind: article
+// author: Microsoft Security Research · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+ | where Timestamp > ago(30d)
+ | where RemoteIP == "134.209.82.225"
+     or RemoteUrl has "134.209.82.225"
+ | project Timestamp,
+           DeviceName,
+           InitiatingProcessFileName,
+           InitiatingProcessCommandLine,
+           RemoteIP,
+           RemotePort,
+           RemoteUrl

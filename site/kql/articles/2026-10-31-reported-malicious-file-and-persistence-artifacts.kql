@@ -1,0 +1,29 @@
+// title: Reported malicious file and persistence artifacts
+// date: 2026-10-31
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: Inside a malicious Claude Code-branded extension and its persistent SSH backdoor
+// source: https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/
+// kind: article
+// author: Microsoft Security Research · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceFileEvents
+ | where Timestamp > ago(30d)
+ | where SHA256 == "ecb58cb29078d9646ad1dcdbe51526f2d9cfea06be5fb2ab183e8ecc3ab6bf15"
+     or FileName in~ (
+         ".smt",
+         ".smtk",
+         "smt.cmd",
+         "smtk",
+         "sysmon.cmd",
+         "com.apple.sysmond.plist"
+     )
+     or FileName startswith ".stk_"
+ | project Timestamp,
+           DeviceName,
+           ActionType,
+           FolderPath,
+           FileName,
+           SHA256,
+           InitiatingProcessFileName,
+           InitiatingProcessCommandLine

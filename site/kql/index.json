@@ -1,5 +1,65 @@
 [
  {
+  "file": "articles/2026-10-31-reported-malicious-file-and-persistence-artifacts.kql",
+  "title": "Reported malicious file and persistence artifacts",
+  "date": "2026-10-31",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Inside a malicious Claude Code-branded extension and its persistent SSH backdoor",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/",
+  "kind": "article",
+  "author": "Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/",
+  "incident": "auto-inside-a-malicious-claude-code-branded-e-2026-10-31"
+ },
+ {
+  "file": "articles/2026-10-31-possible-windows-scheduled-task-persistence.kql",
+  "title": "Possible Windows scheduled-task persistence",
+  "date": "2026-10-31",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents"
+  ],
+  "purpose": "From the article: Inside a malicious Claude Code-branded extension and its persistent SSH backdoor",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/",
+  "kind": "article",
+  "author": "Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/",
+  "incident": "auto-inside-a-malicious-claude-code-branded-e-2026-10-31"
+ },
+ {
+  "file": "articles/2026-10-31-possible-macos-launchagent-persistence.kql",
+  "title": "Possible macOS LaunchAgent persistence",
+  "date": "2026-10-31",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents"
+  ],
+  "purpose": "From the article: Inside a malicious Claude Code-branded extension and its persistent SSH backdoor",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/",
+  "kind": "article",
+  "author": "Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/",
+  "incident": "auto-inside-a-malicious-claude-code-branded-e-2026-10-31"
+ },
+ {
+  "file": "articles/2026-10-31-advanced-hunting-queries.kql",
+  "title": "Advanced hunting queries",
+  "date": "2026-10-31",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Inside a malicious Claude Code-branded extension and its persistent SSH backdoor",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/",
+  "kind": "article",
+  "author": "Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/",
+  "incident": "auto-inside-a-malicious-claude-code-branded-e-2026-10-31"
+ },
+ {
   "file": "articles/2026-10-30-teams-external-contact-and-available-impersonation-signals.kql",
   "title": "Teams external contact and available impersonation signals",
   "date": "2026-10-30",
