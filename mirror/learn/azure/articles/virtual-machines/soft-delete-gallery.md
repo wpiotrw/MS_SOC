@@ -43,20 +43,22 @@ item_type: Content
 source_path: articles/virtual-machines/soft-delete-gallery.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/970f20f1-2f12-4aa9-9c95-c00fe1f5e722
 - https://authoring-docs-microsoft.poolparty.biz/devrel/96f6b0a2-2fd7-4de1-936d-89ad6e0eb7cc
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/432c4950-b799-4ed5-93d5-b9b2934edf7d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ef8b0a5a-ba0a-4ec0-8636-48246ccd954f
 platformId: d5b44464-9b29-260a-6494-de9caf02de19
 ---
 
 # Soft Delete in Azure Compute Gallery (Preview) - Azure Virtual Machines | Microsoft Learn
 
+The Soft delete feature in Azure Compute Gallery lets you recover accidentally deleted image versions before they're permanently deleted. Soft delete is available starting with API version `2024-03-03`. API version `2026-03-03` adds customizable retention and grace periods and changes when a soft-deleted image can be consumed. This feature is currently available only for Azure Compute Gallery images.
+
 Important
 
 The Soft Delete feature is currently in PREVIEW. See the [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/) for legal terms that apply to Azure features that are in beta, preview, or otherwise not yet released into general availability.
-
-The Soft delete feature in Azure Compute Gallery lets you recover accidentally deleted image versions before they're permanently deleted. Soft delete is available starting with API version `2024-03-03`. API version `2026-03-03` adds customizable retention and grace periods and changes when a soft-deleted image can be consumed. This feature is currently available only for Azure Compute Gallery images.
 
 Soft Delete is available for the following gallery types:
 

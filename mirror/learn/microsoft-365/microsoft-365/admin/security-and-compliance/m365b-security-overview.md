@@ -31,7 +31,8 @@ ms.collection:
 - trust-pod
 ms.custom: 
 description: Learn about the security features available in Microsoft 365 for business.
-ms.service: microsoft-365-security
+ms.service: m365-core
+ms.subservice: security
 adobe-target: 
 ms.date: 2025-09-30T00:00:00.0000000Z
 locale: en-us

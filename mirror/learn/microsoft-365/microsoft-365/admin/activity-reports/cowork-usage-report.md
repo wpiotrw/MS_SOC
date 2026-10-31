@@ -22,7 +22,8 @@ manager: dansimp
 ms.reviewer: tiaraquan
 audience: Admin
 ms.topic: concept-article
-ms.service: microsoft-365-copilot
+ms.service: microsoft-copilot
+ms.subservice: cowork
 ms.update-cycle: 180-days
 ms.localizationpriority: medium
 ms.collection:
@@ -51,13 +52,13 @@ monikers:
 item_type: Content
 source_path: microsoft-365/admin/activity-reports/cowork-usage-report.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
-- https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
 platformId: 053855c6-1ae4-501b-90ed-69a1d84d1f6a
 ---
 

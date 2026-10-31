@@ -20,7 +20,8 @@ author: vpattnai
 manager: dansimp
 audience: Admin
 ms.topic: how-to
-ms.service: microsoft-365-security
+ms.service: m365-core
+ms.subservice: security
 ms.date: 2025-08-14T00:00:00.0000000Z
 ms.localizationpriority: medium
 ms.collection:
@@ -59,12 +60,12 @@ item_type: Content
 source_path: microsoft-365/admin/security-and-compliance/m365bp-security-monitor.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c671beaa-a830-4c9f-aceb-97379ee031ca
-- https://authoring-docs-microsoft.poolparty.biz/devrel/cd48b104-e308-4e08-a405-66f04a7df418
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/b11ae577-8d18-47ab-998c-ea182a941e71
+- https://authoring-docs-microsoft.poolparty.biz/devrel/cd48b104-e308-4e08-a405-66f04a7df418
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/8921374c-4dbe-4ed0-b011-a39e18bfbd98
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ac23bdb5-c078-4620-8ee2-60eba45e97f8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/87b1d24d-826d-4337-90a0-b6c35e4561f2
+- https://authoring-docs-microsoft.poolparty.biz/devrel/ac23bdb5-c078-4620-8ee2-60eba45e97f8
 platformId: 3a9d0a3b-941f-119b-6a60-7375489f0c2b
 ---
 

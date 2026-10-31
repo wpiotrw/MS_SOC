@@ -11,6 +11,7 @@ https://learn.microsoft.com/en-us/defender-for-identity/deploy/deploy-defender-i
 https://learn.microsoft.com/en-us/defender-for-identity/deploy/deploy-sensor-v3
 https://learn.microsoft.com/en-us/defender-for-identity/deploy/directory-service-accounts
 https://learn.microsoft.com/en-us/defender-for-identity/deploy/install-sensor
+https://learn.microsoft.com/en-us/defender-for-identity/deploy/manage-action-accounts
 https://learn.microsoft.com/en-us/defender-for-identity/deploy/migrate-to-sensor-v3
 https://learn.microsoft.com/en-us/defender-for-identity/deploy/prerequisites-sensor-version-2
 https://learn.microsoft.com/en-us/defender-for-identity/deploy/prerequisites-standalone

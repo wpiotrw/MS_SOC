@@ -23,6 +23,7 @@ https://learn.microsoft.com/en-us/defender-office-365/mdo-ices-vendor-ecosystem
 https://learn.microsoft.com/en-us/defender-office-365/mdo-support-teams-about
 https://learn.microsoft.com/en-us/defender-office-365/mdo-support-teams-quick-configure
 https://learn.microsoft.com/en-us/defender-office-365/mdo-support-teams-sec-ops-guide
+https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-restore-restricted-users
 https://learn.microsoft.com/en-us/defender-office-365/quarantine-admin-manage-messages-files
 https://learn.microsoft.com/en-us/defender-office-365/safe-links-about
 https://learn.microsoft.com/en-us/defender-office-365/scc-permissions

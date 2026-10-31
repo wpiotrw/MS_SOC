@@ -24,7 +24,8 @@ ai-usage: ai-assisted
 ms.reviewer: mkaur
 ms.author: jenniferge
 manager: tapanm
-ms.service: microsoft-365-copilot
+ms.service: microsoft-copilot
+ms.subservice: agents
 locale: en-us
 document_id: 23215928-425d-a4fc-2d05-96f08223e781
 document_version_independent_id: 23215928-425d-a4fc-2d05-96f08223e781

@@ -21,7 +21,8 @@ manager: dansimp
 ms.date: 2025-08-14T00:00:00.0000000Z
 audience: Admin
 ms.topic: how-to
-ms.service: microsoft-365-security
+ms.service: m365-core
+ms.subservice: security
 ms.localizationpriority: medium
 ms.collection:
 - Tier3
@@ -59,9 +60,11 @@ monikers:
 item_type: Content
 source_path: microsoft-365/admin/security-and-compliance/m365b-devices-basic-mobility-security-view-device-details.md
 cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/5cf46315-b33f-4e99-8224-a1592697eff9
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/715d24c3-3683-4219-82c5-1e3c813fb7fc
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
 platformId: cea86103-5552-9055-0136-9ff3575a910d

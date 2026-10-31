@@ -16,7 +16,7 @@ uhfHeaderId: MSDocsHeader-M365-IT
 ms.author: mabond
 author: mkbond007
 manager: dansimp
-ms.date: 2026-10-15T00:00:00.0000000Z
+ms.date: 2026-10-30T00:00:00.0000000Z
 ms.reviewer: sangar
 audience: Admin
 ms.topic: how-to
@@ -73,7 +73,7 @@ Important
 
 In November 2026, administrators can no longer add users to, remove users from, or modify Targeted release enrollment. In January 2027, Targeted release will be retired and no longer available to use. For more information, see [Plan for retirement of Targeted release](targeted-release-retirement).
 
-To prepare for this change, we recommend configuring Standard release and Deferred release options to manage when users in your organization receive generally available Microsoft 365 services as Microsoft delivers features through the new release model. If your organization has configured Targeted release in the Microsoft 365 admin center, you can continue using your existing configuration until its retired. Use the Message center to stay informed about updates delivered through the new audience-based release model.
+To prepare for the retirement of Targeted release, we recommend configuring Standard release and Deferred release options to manage when users in your organization receive generally available Microsoft 365 services as Microsoft delivers features through the new release model. If your organization has configured Targeted release in the Microsoft 365 admin center, you can continue using your existing configuration until its retired. Use the Message center to stay informed about updates delivered through the new audience-based release model.
 
 ### Frontier program
 

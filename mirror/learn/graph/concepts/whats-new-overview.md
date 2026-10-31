@@ -73,6 +73,10 @@ Features in *preview* status are subject to change without notice, and might not
 - Use the **lastUpdatedTime** and **customProperties** properties on the [place](/en-us/graph/api/resources/place) resource to read when a place was last updated and manage custom string key-value metadata.
 - The [Place update](/en-us/graph/api/place-update) API doesn't honor administrative roles assigned to groups in Microsoft Entra ID. Instead, assign the required role directly to the user in Microsoft Entra ID, or assign it to a user or group through the Microsoft 365 admin center.
 
+### Identity and access | Directory management
+
+- Promoted the **managerApplications** property on the [agentUser](/en-us/graph/api/resources/agentuser) resource type from beta to v1.0. Use it to read the application IDs authorized to manage the agent user's backing agent blueprint. The property is read-only and is returned only when explicitly selected with the `microsoft.graph.agentUser` type cast.
+
 ### Identity and access | Governance
 
 - Added the **isEnabled** property to the [roleManagementCustomCalloutExtension](/en-us/graph/api/resources/rolemanagementcustomcalloutextension) resource type in v1.0. Use it to enable or disable a PIM custom extension without deleting it.
@@ -82,6 +86,10 @@ Features in *preview* status are subject to change without notice, and might not
 ### Identity and access | Identity and sign-in
 
 - Added the [federatedTokenValidationPolicy](/en-us/graph/api/resources/federatedtokenvalidationpolicy) resource to control which federated domains Microsoft Entra ID accepts tokens from on a per-tenant basis, as a defense-in-depth measure against token-replay and rogue-IdP scenarios.
+
+### Identity and access | Identity and sign-in
+
+Added support for routing SMS and voice authentication traffic through a telecom provider integration. Configure the provider endpoint, application identifier, evaluation mode, and migration percentage through the **telecomProviderSettings** property on the [smsAuthenticationMethodConfiguration](/en-us/graph/api/resources/smsauthenticationmethodconfiguration) and [voiceAuthenticationMethodConfiguration](/en-us/graph/api/resources/voiceauthenticationmethodconfiguration) resources.
 
 ### Mail | Message trace
 

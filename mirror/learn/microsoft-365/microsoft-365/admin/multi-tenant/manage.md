@@ -23,7 +23,8 @@ manager: dansimp
 ms.date: 2026-01-06T00:00:00.0000000Z
 audience: Admin
 ms.topic: how-to
-ms.service: microsoft-365-admin
+ms.service: m365-core
+ms.subservice: tenant
 ms.localizationpriority: medium
 ms.collection:
 - Tier3

@@ -20,7 +20,8 @@ author: vpattnai
 manager: dansimp
 audience: Admin
 ms.topic: how-to
-ms.service: microsoft-365-security
+ms.service: m365-core
+ms.subservice: security
 ms.date: 2025-08-14T00:00:00.0000000Z
 ms.localizationpriority: medium
 ms.reviewer: nehabha
@@ -53,11 +54,11 @@ source_path: microsoft-365/admin/security-and-compliance/m365bp-devices-groups-c
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68cb9039-df60-49b0-8ef8-89ad96497f63
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c671beaa-a830-4c9f-aceb-97379ee031ca
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/725b6df3-93e8-472d-834e-e7e0d2953d35
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/8921374c-4dbe-4ed0-b011-a39e18bfbd98
 platformId: ea7fb397-e1dd-18ef-c9ef-402eebeb8d7e
 ---
 

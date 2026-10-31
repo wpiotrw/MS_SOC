@@ -21,7 +21,8 @@ manager: dansimp
 ms.date: 2025-08-14T00:00:00.0000000Z
 audience: Admin
 ms.topic: install-set-up-deploy
-ms.service: microsoft-365-security
+ms.service: m365-core
+ms.subservice: security
 ms.localizationpriority: medium
 ms.collection:
 - Tier2
@@ -59,8 +60,12 @@ item_type: Content
 source_path: microsoft-365/admin/security-and-compliance/m365b-devices-basic-mobility-security-set-up.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/5cf46315-b33f-4e99-8224-a1592697eff9
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/715d24c3-3683-4219-82c5-1e3c813fb7fc
 platformId: eaa8726e-5d78-b369-4ace-bdc6075dd4a6
 ---
 

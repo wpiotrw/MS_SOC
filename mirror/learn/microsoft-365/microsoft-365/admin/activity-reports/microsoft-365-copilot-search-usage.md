@@ -19,7 +19,8 @@ manager: scotv
 ms.reviewer: kols
 audience: Admin
 ms.topic: concept-article
-ms.service: microsoft-365-copilot
+ms.service: microsoft-copilot
+ms.subservice: search
 ms.localizationpriority: medium
 ms.collection:
 - M365-subscription-management

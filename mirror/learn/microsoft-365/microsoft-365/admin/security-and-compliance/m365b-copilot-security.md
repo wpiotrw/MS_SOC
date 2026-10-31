@@ -20,7 +20,8 @@ author: vpattnai
 manager: dansimp
 audience: Admin
 ms.topic: overview
-ms.service: microsoft-365-security
+ms.service: m365-core
+ms.subservice: security
 ms.date: 2025-08-14T00:00:00.0000000Z
 ms.localizationpriority: medium
 ms.reviewer: 
@@ -53,12 +54,12 @@ item_type: Content
 source_path: microsoft-365/admin/security-and-compliance/m365b-copilot-security.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/82f69bd7-5cb0-4163-9fd6-9103bb1a8352
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f003597a-dab2-429a-8639-1d2acd9c0371
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
 platformId: 78db1e9d-dbef-1012-c009-07709b93f566
 ---
 

@@ -136,4 +136,4 @@ See [Estimate telecom-provider and Azure hosting costs](phone-providers-faq#how-
 
 To diagnose SMS or voice issues, identify whether the issue is in Microsoft Entra authentication and configuration, your CYOT integration, or telecom provider delivery.
 
-See [Troubleshoot SMS and voice with your own telecom provider](troubleshoot-voice-call-sms#monitor-and-troubleshoot-your-own-telephony-provider) for diagnostic guidance and information about where to get support.
+See [Troubleshoot SMS and voice with your own telecom provider](choose-your-own-telephony-troubleshoot#monitor-and-troubleshoot-your-own-telephony-provider) for diagnostic guidance and information about where to get support.

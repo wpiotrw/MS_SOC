@@ -6,13 +6,13 @@ breadcrumb_path: /windows-365/breadcrumb/toc.json
 feedback_system: Standard
 feedback_product_url: https://feedbackportal.microsoft.com/feedback/forum/6ab53114-95ab-ec11-9840-000d3a1c7d74
 uhfHeaderId: MSDocsHeader-Windows365
-description: Learn how to configure display protection for Windows 365 Cloud PCs and Azure Virtual Desktop session hosts to protect display output against unauthorized screen capture.
+description: Learn how to configure display protection for Windows 365 and Azure Virtual Desktop to help protect against screen capture malware on users' devices.
 keywords: 
 author: Fragnightmist
 ms.author: ryclar
 ai-usage: ai-assisted
 manager: pratikshah
-ms.date: 2026-07-21T00:00:00.0000000Z
+ms.date: 2026-10-28T00:00:00.0000000Z
 ms.topic: how-to
 ms.service: windows-365
 ms.subservice: windows-365-enterprise
@@ -32,6 +32,14 @@ moniker_range_name:
 monikers: []
 item_type: Content
 source_path: Windows365/enterprise/windows-cloud-display-protection.md
+cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
+- https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
+- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
+- https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
+- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 platformId: c2caa5f8-b652-fabd-630b-48078c5a95aa
 ---
 
@@ -48,9 +56,16 @@ Display protection is in preview. For legal terms that apply to features that ar
 
 ## Overview
 
-Display protection is a component of Output Protection, part of the broader Input and Output Protection feature set. It helps protect display output on Windows 365 Cloud PCs and Azure Virtual Desktop session hosts against unauthorized screen capture and recording from endpoint-resident threats.
+Display protection helps protect Windows 365 Cloud PC and Azure Virtual Desktop session video from screen capture malware on the user's local Windows device. The local device is the physical Windows device running Windows App. It supports both managed endpoints and unmanaged or bring-your-own-device (BYOD) endpoints.
 
-When enabled, display protection helps safeguard sensitive information displayed in a remote session by encrypting the display stream from the Cloud PC to the endpoint device. The encrypted content can be decrypted and rendered only within a trusted environment on the endpoint, using either hardware-based or software-based protection technologies. When compatible GPU hardware is available, decryption occurs directly within the device's GPU (both discrete or integrated are supported). Otherwise, protected software-based rendering is used. This approach helps reduce the risk of unauthorized screen capture or display interception on the endpoint device while maintaining a seamless user experience.
+Display protection doesn't require a GPU-enabled Cloud PC. Hardware-based protection uses a compatible GPU on the endpoint.
+
+The feature uses Microsoft PlayReady to encrypt remote-session video and protect its decryption on the endpoint. Depending on the configured protection level and endpoint capabilities, it uses either hardware DRM (digital rights management) or software DRM:
+
+- **Hardware DRM (SL3000)** uses hardware-backed PlayReady protection with a compatible endpoint GPU, which can be discrete or integrated.
+- **Software DRM (SL2000)** uses software-based PlayReady protection. Software fallback is allowed only when the configured protection level permits it.
+
+For background on these security levels, see [PlayReady security levels](/en-us/playready/overview/security-level).
 
 Note
 
@@ -58,12 +73,22 @@ Input protection is a separate component of Input and Output Protection that pro
 
 ## How display protection works
 
-Display protection secures the display path between the remote session and the endpoint device. The feature includes:
+Display protection adds a protected video path between the remote session and the endpoint's PlayReady decryption environment. The feature includes:
 
-- **Protected display rendering**: The display stream is encrypted end-to-end before it leaves the Cloud PC and is decrypted and rendered only within a trusted, protected path on supported endpoint devices.
-- **Trusted endpoint requirement**: Only supported Windows App clients that meet the required protection level can access protected sessions.
-- **Configurable protection levels**: Organizations can require either software-backed or hardware-backed display protection, with optional HDCP enforcement for connected displays.
-- **Session-specific protection**: Protection applies only to the remote session being viewed and doesn't alter behavior on the Cloud PC itself.
+- **Protected video decryption**: Remote-session video is encrypted before it leaves the Cloud PC or session host. PlayReady protects decryption on the endpoint.
+- **Protection-level enforcement**: A connection is allowed only when Windows App can establish the configured PlayReady protection level.
+- **Configurable protection levels**: Organizations can allow hardware or software DRM, or require hardware DRM and block endpoints that can't meet that requirement.
+- **Session-specific protection**: Protection applies to remote-session video, not to other applications running locally on the endpoint.
+
+### Protection boundaries
+
+Hardware DRM and High-bandwidth Digital Content Protection (HDCP) protect different parts of the display path. Hardware DRM protects video decryption on the endpoint. HDCP concerns the physical output connection from the endpoint to a connected display, such as an HDMI or DisplayPort connection.
+
+Display protection **doesn't currently enforce HDCP**, including when **Hardware enforcement required** is selected. That setting requires hardware DRM, not HDCP-capable monitors, docks, or adapters. Non-HDCP equipment isn't automatically rejected because it lacks HDCP support.
+
+HDCP enforcement for external display connections is planned as a separate configuration option in a future update. It isn't available in the current release.
+
+The feature is designed to help protect against malware on the device running Windows App, not to prevent a user from intentionally disclosing content they can view. It doesn't authenticate external displays or capture devices, guarantee that external capture hardware can't record the output, or prevent someone from photographing the screen. Don't treat a successful hardware DRM connection as proof that the external display path is protected.
 
 ## Supported configurations
 
@@ -85,13 +110,13 @@ Enable display protection only for the Cloud PCs or Azure Virtual Desktop sessio
 
 ### Display protection levels
 
-Both Azure Virtual Desktop and Windows 365 support the following protection levels:
+Both Azure Virtual Desktop and Windows 365 support the following protection levels. The hardware and software labels refer to PlayReady protection on the endpoint, not to HDCP enforcement on connected displays.
 
 | Level | Description |
 | --- | --- |
 | **Not configured** | Display protection isn't enabled for the Cloud PC or session host. |
-| **Hardware or software enforcement** | The Cloud PC or session host attempts to create a hardware-protected display channel. If hardware protection is unavailable, it falls back to software protection. |
-| **Hardware enforcement required** | The Cloud PC or session host requires a hardware-protected display channel. If the endpoint can't meet that requirement, the connection is blocked and the user sees an error. |
+| **Hardware or software enforcement** | Uses hardware DRM (SL3000) when available. If the endpoint can't provide hardware DRM, software DRM (SL2000) is allowed. |
+| **Hardware enforcement required** | Requires hardware DRM (SL3000). If the endpoint can't provide it, the connection is blocked and the user sees an error. This level doesn't permit software DRM fallback. |
 
 ### Configure display protection for Azure Virtual Desktop
 
@@ -121,7 +146,7 @@ For Windows 365, configure display protection in Microsoft Intune:
 
 When you enable display protection or change its level in Intune or in host pool RDP properties, the setting is delivered to the endpoint device through the connection (RDP) properties and is cached on the device. To apply an updated configuration immediately, select **Refresh** in Windows App. Otherwise, configuration changes can take up to 8 hours to reach an endpoint.
 
-If a connection is unexpectedly blocked with an incompatible-client error (`0x204` with extended code `0x11f5`) shortly after you enable or change display protection, select **Refresh** in Windows App to pull the latest configuration, or wait for it to propagate—up to 8 hours—and then try to connect again.
+If a connection is unexpectedly blocked with an incompatible-client error shortly after you enable or change display protection, select **Refresh** in Windows App to pull the latest configuration, or wait for it to propagate—up to 8 hours—and then try to connect again.
 
 ## Validate protection
 
@@ -132,32 +157,28 @@ After you configure display protection on the target Cloud PCs or session hosts:
 3. Verify that the connection succeeds without an error message.
 4. Attempt to use a screen capture tool on the endpoint while the remote session is active. The captured content from the remote session should be blocked or appear blank.
 
+This capture test evaluates behavior on the endpoint. It doesn't validate HDCP enforcement or show that an external capture device is blocked.
+
 To monitor display protection across your tenant, use [Cloud PC monitoring](cloud-pc-monitoring-overview) (preview) and review the `DisplayProtectionState` connection event on the **Connection health** page. For steps, see [Monitor Input and Output Protection](windows-cloud-io-protection#monitor-input-and-output-protection).
 
-## Error codes and failure messages
+## Troubleshoot display protection
 
-If display protection can't be established, the connection might be blocked and an error appears on the endpoint. The following screenshot shows an example of an incompatible client error:
+If display protection can't be established at the configured level, the connection is blocked and an error appears on the endpoint. Check the following:
 
-![Screenshot of the incompatible client error 0x204 with extended code 0x11f5.](media/windows-cloud-display-protection/error-0x204-0x11f5-incompatible-client.png)
+- Use a supported physical Windows 11 endpoint and Windows App version.
+- If you recently enabled or changed display protection, select **Refresh** in Windows App to retrieve the updated configuration, or allow up to 8 hours for propagation.
+- If you require hardware enforcement, verify that the endpoint can provide hardware DRM. This requirement is separate from the HDCP capability of the attached display.
 
-The following table lists common error codes and their causes.
-
-| Error code | Extended code | Description | Common causes |
-| --- | --- | --- | --- |
-| `0x204` | `0x11f5` | Incompatible client. The client platform or version doesn't support display protection. | Connecting from iOS, macOS, or Android. Windows App version older than 2.0.1236. Display protection was recently enabled or changed and the endpoint hasn't received the updated configuration yet (select **Refresh** in Windows App, or allow up to 8 hours to propagate). |
-| `0x204` | `0x11f6` | Policy not met. The Cloud PC or session host rejects the connection because the client doesn't meet the required security policy. | Endpoint defaults to software-based protection. Lack of GPU support or bad GPU configuration. Remote machine requires hardware-only enforcement. |
-| `0x110` | — | HDCP requirements not met. Physical display outputs don't support the required HDCP policies. | Old docking stations. USB display adapters and DisplayLink docks without HDCP. VGA cables (no HDCP support). Non-HDCP monitors. |
-
-If you encounter an error that doesn't match the codes listed here, contact Microsoft support and provide the activity ID, timestamp of the failure, and steps to reproduce the issue.
+For help with connection errors, see [Troubleshoot connection errors](/en-us/troubleshoot/windows-365/connection-errors). If the issue continues, contact Microsoft support and provide the activity ID, timestamp of the failure, and steps to reproduce the issue.
 
 ## Limitations and considerations
 
 - **Physical devices only**: Display protection requires a physical Windows 11 endpoint. Virtual machines aren't supported as endpoint devices.
 - **Supported clients**: Windows App on Windows is the only supported client for display protection.
 - **Not supported clients**: Virtual endpoint devices (VMs), macOS, iOS, Android, web browsers, and other non-Windows App on Windows clients, including Windows 365 Link devices.
-- **DisplayLink and USB display adapters**: Displays connected through DisplayLink or other USB graphics adapters aren't supported, because they don't provide the protected display path and typically lack HDCP support. Protected sessions can't be shown on these displays, so the connection might be blocked (error `0x110`) or protected content might not render. Connect protected sessions to a display driven by the endpoint's built-in GPU, such as an HDMI, DisplayPort, or USB-C DisplayPort Alt Mode output.
-- **Performance with software-based protection**: When hardware-based protection isn't available, the session uses software-based protection. Software-based protection can increase the time needed to establish a session compared to hardware-based protection. For the best experience, use endpoints with a compatible GPU that supports hardware-based protection.
-- **Maximum resolution**: Display protection supports resolutions up to 4K (3840 x 2160). Higher resolutions aren't supported for protected sessions.
+- **External displays, docks, and adapters**: HDCP support alone doesn't determine whether an endpoint meets the configured PlayReady protection level. Don't assume that display protection blocks a non-HDCP monitor, a DisplayLink dock, or a USB display adapter. Validate the endpoint and display setup against your selected protection level; this doesn't establish protection against external capture devices.
+- **Performance with software DRM**: When hardware DRM isn't available and the configured level allows software DRM, the session uses software DRM. Software DRM can increase the time needed to establish a session. If hardware enforcement is required instead, the connection is blocked rather than falling back.
+- **Display resolution**: Display protection supports resolutions up to 4K (3840 x 2160). 5K monitors aren't currently supported. Use a 4K or lower-resolution monitor for protected sessions.
 
 ## Related features
 

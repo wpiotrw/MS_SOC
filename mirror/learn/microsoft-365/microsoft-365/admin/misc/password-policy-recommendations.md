@@ -21,7 +21,8 @@ manager: dansimp
 ms.date: 2026-04-08T00:00:00.0000000Z
 audience: Admin
 ms.topic: article
-ms.service: microsoft-365-admin
+ms.service: m365-core
+ms.subservice: security
 ms.localizationpriority: high
 ms.collection:
 - Tier1

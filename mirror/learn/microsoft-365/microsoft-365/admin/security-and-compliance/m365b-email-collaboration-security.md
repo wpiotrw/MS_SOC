@@ -20,7 +20,8 @@ author: vpattnai
 manager: dansimp
 audience: Admin
 ms.topic: how-to
-ms.service: microsoft-365-security
+ms.service: m365-core
+ms.subservice: security
 ms.date: 2025-08-14T00:00:00.0000000Z
 ms.localizationpriority: medium
 ms.collection:
@@ -58,12 +59,12 @@ item_type: Content
 source_path: microsoft-365/admin/security-and-compliance/m365b-email-collaboration-security.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://authoring-docs-microsoft.poolparty.biz/devrel/609dad7f-61d2-4958-9386-e6e4bb38d61e
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/9d7be3ef-f27c-4c7f-9eba-67c3cd429995
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1af30562-083a-42e2-aad4-17ae29f4ad72
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
-- https://authoring-docs-microsoft.poolparty.biz/devrel/feeb50f3-b677-44f9-b3a6-5f2f58182b0d
 platformId: 24d1505b-71cb-57c3-f1e0-ae4fd8ee736c
 ---
 

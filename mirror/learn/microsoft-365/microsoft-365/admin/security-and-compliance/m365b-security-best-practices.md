@@ -20,7 +20,8 @@ author: vpattnai
 manager: dansimp
 audience: Admin
 ms.topic: reference
-ms.service: microsoft-365-security
+ms.service: m365-core
+ms.subservice: security
 ms.date: 2025-08-14T00:00:00.0000000Z
 ms.localizationpriority: medium
 ms.collection:

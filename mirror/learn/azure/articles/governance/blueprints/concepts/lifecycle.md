@@ -38,12 +38,12 @@ monikers: []
 item_type: Content
 source_path: articles/governance/blueprints/concepts/lifecycle.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/40ba597f-f235-4787-be4d-fde8258e1045
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/4e834929-0ce1-4c1d-9c81-fcb14721edfb
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0c4bc7fc-8fc8-4dea-bc53-680da859ef46
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/75670257-a3f0-4627-9981-8046f99219e6
 platformId: 3ebd8fae-fce3-d759-757e-adb60cc66ca6
 ---
@@ -52,7 +52,7 @@ platformId: 3ebd8fae-fce3-d759-757e-adb60cc66ca6
 
 Important
 
-Azure Blueprints (Preview) will be **retired on January 31, 2027**, with a phased retirement beginning July 31, 2026. Migrate your existing blueprint definitions and assignments to [Deployment Stacks](../../../azure-resource-manager/bicep/deployment-stacks) (recommended) and [Template Specs](../../../azure-resource-manager/bicep/template-specs). Blueprint artifacts are converted to ARM JSON templates or Bicep files used to define deployment stacks. For the full phased timeline, impact, and FAQ, see [Azure Blueprints retirement](../blueprint-retirement) or https://aka.ms/AzureBlueprintsRetirement. To learn how to author an artifact as an ARM resource, see:
+Azure Blueprints (Preview) will be **retired on January 31, 2027**, with a phased retirement that began July 31, 2026. Migrate your existing blueprint definitions and assignments to [Deployment Stacks](../../../azure-resource-manager/bicep/deployment-stacks) (recommended) and [Template Specs](../../../azure-resource-manager/bicep/template-specs). Blueprint artifacts are converted to ARM JSON templates or Bicep files used to define deployment stacks. For the full phased timeline, impact, and FAQ, see [Azure Blueprints retirement](../blueprint-retirement) or https://aka.ms/AzureBlueprintsRetirement. To learn how to author an artifact as an ARM resource, see:
 
 - [Policy](/en-us/azure/templates/microsoft.authorization/policyassignments?pivots=deployment-language-bicep)
 - [RBAC](/en-us/azure/templates/microsoft.authorization/roleassignments?pivots=deployment-language-bicep)

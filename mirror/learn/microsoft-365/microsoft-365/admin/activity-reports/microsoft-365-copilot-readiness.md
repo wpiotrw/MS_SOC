@@ -20,7 +20,8 @@ ms.reviewer: kols
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: concept-article
-ms.service: microsoft-365-copilot
+ms.service: microsoft-copilot
+ms.subservice: readiness
 ms.localizationpriority: medium
 ms.collection:
 - M365-subscription-management

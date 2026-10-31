@@ -2,7 +2,7 @@
   "version": 1,
   "cursor": "https://learn.microsoft.com/en-us/sharepoint/use-group-policy",
   "pages": {
-    "https://learn.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azuread": {"etag":"\"qzwmgPX4ImHs9v0gU7Sy7fWedaI=\"","gitCommitId":"83e7d413c08a03aa65debd0bbd5c96d549040111","path":"docs/solution-guidance/security-apponly-azuread.md","sourcePath":"docs/solution-guidance/security-apponly-azuread.md","updatedAt":"2025-11-28T10:51:00.0000000Z"},
-    "https://learn.microsoft.com/en-us/sharepoint/use-group-policy": {"etag":"\"UahT7mIhs0LIYqMkA5HBG0T/pMU=\"","gitCommitId":"51876a386586de270a706dc45c9cca6beb2f5fed","path":"SharePoint/SharePointOnline/use-group-policy.md","sourcePath":"SharePoint/SharePointOnline/use-group-policy.md","updatedAt":"2026-10-12T17:41:00.0000000Z"}
+    "https://learn.microsoft.com/en-us/sharepoint/dev/solution-guidance/security-apponly-azuread": {"etag":"\"Q56qe13DxHb2v5lk3hevjZEubIA=\"","gitCommitId":"83e7d413c08a03aa65debd0bbd5c96d549040111","path":"docs/solution-guidance/security-apponly-azuread.md","sourcePath":"docs/solution-guidance/security-apponly-azuread.md","updatedAt":"2025-11-28T10:51:00.0000000Z"},
+    "https://learn.microsoft.com/en-us/sharepoint/use-group-policy": {"etag":"\"PVDhjblJq2rRuRBiC90ooq5YRNg=\"","gitCommitId":"51876a386586de270a706dc45c9cca6beb2f5fed","path":"SharePoint/SharePointOnline/use-group-policy.md","sourcePath":"SharePoint/SharePointOnline/use-group-policy.md","updatedAt":"2026-10-12T17:41:00.0000000Z"}
   }
 }

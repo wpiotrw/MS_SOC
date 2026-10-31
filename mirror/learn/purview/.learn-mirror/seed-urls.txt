@@ -18,8 +18,10 @@ https://learn.microsoft.com/en-us/purview/dlp-microsoft365-copilot-location-lear
 https://learn.microsoft.com/en-us/purview/dlp-network-data-security-learn
 https://learn.microsoft.com/en-us/purview/dlp-non-microsoft-connected-applications
 https://learn.microsoft.com/en-us/purview/dlp-policy-reference
+https://learn.microsoft.com/en-us/purview/endpoint-dlp-ftp-sftp-short
 https://learn.microsoft.com/en-us/purview/endpoint-dlp-learn-about-jit
 https://learn.microsoft.com/en-us/purview/information-barriers-sharepoint-report
+https://learn.microsoft.com/en-us/purview/priori
 https://learn.microsoft.com/en-us/purview/priority-cleanup-exchange
 https://learn.microsoft.com/en-us/purview/purview-extensibility
 https://learn.microsoft.com/en-us/purview/purview-permissions

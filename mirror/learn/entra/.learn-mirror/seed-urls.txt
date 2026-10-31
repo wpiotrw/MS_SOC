@@ -21,6 +21,7 @@ https://learn.microsoft.com/en-us/entra/external-id/customers/plan-your-migratio
 https://learn.microsoft.com/en-us/entra/external-id/customers/plan-your-migration-from-b2c-to-external-id
 https://learn.microsoft.com/en-us/entra/external-id/customers/plan-your-migration…
 https://learn.microsoft.com/en-us/entra/external-id/customers/plan-your-migratio…
+https://learn.microsoft.com/en-us/entra/external-id/customers/samples-ciam-all
 https://learn.microsoft.com/en-us/entra/external-id/direct-federation
 https://learn.microsoft.com/en-us/entra/external-id/whats-new-docs
 https://learn.microsoft.com/en-us/entra/fundamentals/agent-id/what-is-microsoft-entra-agent-id
@@ -85,11 +86,14 @@ https://learn.microsoft.com/en-us/entra/fundamentals/whats-new
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-bring-your-own-device
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-connector-groups
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-traffic-forwarding
+https://learn.microsoft.com/en-us/entra/global-secure-access/concept-universal-continuous-access-evaluation
+https://learn.microsoft.com/en-us/entra/global-secure-access/concept-web-filtering
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-compliant-network
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-cloud-firewall
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-custom-headers
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-domain-controllers
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-customize-block-page
+https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-manage-internet-access-profile
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-manage-users-groups-assignment
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-network-content-filtering
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-transport-layer-security-settings-managed-certificate
@@ -106,8 +110,11 @@ https://learn.microsoft.com/en-us/entra/id-governance/agent-default-inactivity-p
 https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview
 https://learn.microsoft.com/en-us/entra/id-governance/agent-lifecycle-policies
 https://learn.microsoft.com/en-us/entra/id-governance/agent-sponsor-tasks
+https://learn.microsoft.com/en-us/entra/id-governance/apps
+https://learn.microsoft.com/en-us/entra/id-governance/catalog-access-reviews-access-packages
 https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-access-drift
 https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-access-package-resources
+https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-access-reviews-create
 https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-reports
 https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-request-access
 https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-request-approve
@@ -121,6 +128,7 @@ https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-manage
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/groups-role-settings
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-how-to-use-audit-log
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/privileged-identity-management-custom-extensions
+https://learn.microsoft.com/en-us/entra/id-governance/scenarios/identity-governance-use-cases
 https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/configuration-management
 https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/overview
 https://learn.microsoft.com/en-us/entra/id-governance/workflow-custom-triggers
@@ -151,6 +159,9 @@ https://learn.microsoft.com/en-us/entra/identity/app-provisioning/known-issues
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/manage-object-connections
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/object-connection-identifiers
 https://learn.microsoft.com/en-us/entra/identity/app-proxy/application-proxy-faq
+https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-fraud-costs
+https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-reliability
+https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-troubleshoot
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-methods
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-telephony-provider
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-certificate-based-authentication-mobile-ios
@@ -161,6 +172,7 @@ https://learn.microsoft.com/en-us/entra/identity/authentication/concept-passkey-
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-password-ban-bad
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-phone-providers
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sms-voice-retirement-faq
+https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-howitworks
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-writeback
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-system-preferred-authentication
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-system-preferred-multifactor-authentication
@@ -173,9 +185,13 @@ https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-authentic
 https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-enable-authenticator-passkey
 https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-number-match
 https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-registration-campaign
+https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-set-up-sms-voice-api
+https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-sms-signin
 https://learn.microsoft.com/en-us/entra/identity/authentication/kerberos-server-key-rotation
 https://learn.microsoft.com/en-us/entra/identity/authentication/multi-factor-authentication-faq
 https://learn.microsoft.com/en-us/entra/identity/authentication/overview-authentication
+https://learn.microsoft.com/en-us/entra/identity/authentication/phone-providers-faq
+https://learn.microsoft.com/en-us/entra/identity/authentication/troubleshoot-voice-call-sms
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/agent-id
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-cloud-apps
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-conditions
@@ -229,6 +245,7 @@ https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connec
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/whatis-azure-ad-connect-v2
 https://learn.microsoft.com/en-us/entra/identity/hybrid/user-source-of-authority-overview
 https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/configure-managed-identities-assignment-restriction
+https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-usage-insights-report
 https://learn.microsoft.com/en-us/entra/identity/monitoring-health/howto-analyze-provisioning-logs
 https://learn.microsoft.com/en-us/entra/identity/monitoring-health/howto-investigate-health-scenario-alerts
 https://learn.microsoft.com/en-us/entra/identity/monitoring-health/howto-investigate-internet-access-signals
@@ -247,6 +264,9 @@ https://learn.microsoft.com/en-us/entra/identity/saas-apps/chatwork-provisioning
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/hibob-to-active-directory-user-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/sap-successfactors-inbound-provisioning-cloud-only-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/sap-successfactors-inbound-provisioning-tutorial
+https://learn.microsoft.com/en-us/entra/identity/saas-apps/snowflake-provisioning-tutorial
+https://learn.microsoft.com/en-us/entra/identity/saas-apps/snowflake-tutorial
+https://learn.microsoft.com/en-us/entra/identity/saas-apps/vonage-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/zscaler-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/zscaler-zidentity-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/users/groups-sensitivity-labels

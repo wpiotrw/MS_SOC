@@ -23,7 +23,8 @@ manager: dansimp
 audience: Admin
 ms.topic: article
 ms.date: 2025-09-24T00:00:00.0000000Z
-ms.service: microsoft-365-admin
+ms.service: m365-core
+ms.subservice: security
 ms.localizationpriority: medium
 ms.collection:
 - tier2

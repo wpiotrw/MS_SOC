@@ -11,6 +11,7 @@ https://learn.microsoft.com/en-us/windows-365/enterprise/cloud-apps
 https://learn.microsoft.com/en-us/windows-365/enterprise/cloud-pc-configurations
 https://learn.microsoft.com/en-us/windows-365/enterprise/cloud-pc-monitoring-overview
 https://learn.microsoft.com/en-us/windows-365/enterprise/cloud-pc-size-recommendations
+https://learn.microsoft.com/en-us/windows-365/enterprise/context-based-redirections
 https://learn.microsoft.com/en-us/windows-365/enterprise/create-provisioning-policy
 https://learn.microsoft.com/en-us/windows-365/enterprise/device-images
 https://learn.microsoft.com/en-us/windows-365/enterprise/end-grace-period
@@ -34,6 +35,7 @@ https://learn.microsoft.com/en-us/windows-365/enterprise/understanding-network-c
 https://learn.microsoft.com/en-us/windows-365/enterprise/understanding-remote-desktop-protocol-traffic
 https://learn.microsoft.com/en-us/windows-365/enterprise/view-provisioning-policy
 https://learn.microsoft.com/en-us/windows-365/enterprise/whats-new
+https://learn.microsoft.com/en-us/windows-365/enterprise/windows-365-deployment-guidance
 https://learn.microsoft.com/en-us/windows-365/enterprise/windows-365-flex-snapshot-based-reset
 https://learn.microsoft.com/en-us/windows-365/enterprise/windows-365-flex-user-experience-sync
 https://learn.microsoft.com/en-us/windows-365/enterprise/windows-365-reserve-manage

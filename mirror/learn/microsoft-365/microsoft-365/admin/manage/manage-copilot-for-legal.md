@@ -16,7 +16,8 @@ uhfHeaderId: MSDocsHeader-M365-IT
 description: Microsoft offers a set of legal plugins that match legal professionals’ real-life workflows. Here's how to manage access to them.
 ms.date: 2026-10-13T00:00:00.0000000Z
 ms.topic: how-to
-ms.service: microsoft-365-copilot
+ms.service: microsoft-copilot
+ms.subservice: copilot-experiences
 author: nickmarcellimsft
 manager: basselnamih
 ms.author: nickmarcelli
