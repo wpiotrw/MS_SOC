@@ -30515,10 +30515,13 @@ odtad CZTERNASCIE (4-17).**
     if (eps.length) {
       var s4 = sec(pane, "What " + perm + " can call — " + eps.length + (eps.length >= 400 ? "+" : "") + " endpoints");
       var hit = /gained reach|endpoint added/i.test(e.kind || "") ? String(e.kind).match(/endpoint added/i) ? String(e.name || "").split(" ").pop() : pathOf(e) : "";
-      eps.sort(function (a, b) { return (b.split(" ")[1] === hit) - (a.split(" ")[1] === hit); });
+      /* §5fw-c: the endpoints of the record's `added` list are the new ones (lower case in Microsoft's file - compared without case) */
+      var hits = (Array.isArray(e.added) ? e.added : []).map(function (x) { return String(x).split(" ").pop().toLowerCase(); }); if (hit && hit !== perm) hits.push(String(hit).toLowerCase());
+      function isHit(x) { return hits.indexOf(String(x.split(" ")[1] || "").toLowerCase()) >= 0; }
+      eps.sort(function (a, b) { return isHit(b) - isHit(a); });
       var ul = el("ul", "mceps"); eps.slice(0, 60).forEach(function (x) {
         var li = el("li", "mono", x);
-        if (hit && x.split(" ")[1] === hit) { li.className = "mono mc-hit"; li.appendChild(el("span", "badge mc-t-add", "new")); }
+        if (isHit(x)) { li.className = "mono mc-hit"; li.appendChild(el("span", "badge mc-t-add", "new")); }
         ul.appendChild(li);
       });
       s4.appendChild(ul);
@@ -30624,10 +30627,15 @@ odtad CZTERNASCIE (4-17).**
         /* §5fl: a sync that only moved the COUNT (name without "→ path", after/before = {endpoints: n}) put the
            permission's own name in the "Now also calls" list (owner, 26 X: "NOW ALSO CALLS NetworkAccess.ReadWrite.All") */
         var pth = pathOf(e);
-        if (pth === pn && e.after && typeof e.after === "object") {
+        /* \u00a75fw-c (owner, 31 X: "Can call 1 more endpoint - Now also calls AccessReview.Read.All - it calls itself?"):
+           the daily permission-file record names the permission and lists the new endpoints in `added`
+           (here 3 GET paths of access review reports) - read them; the permission's own name is never an endpoint */
+        if (Array.isArray(e.added) && e.added.length) e.added.forEach(function (a) { a = String(a); if (q.reach.indexOf(a) < 0) q.reach.push(a); });
+        else if (pth === pn && e.after && typeof e.after === "object") {
           var na = +e.after.endpoints || 0, nb = +(e.before || {}).endpoints || 0;
           q.reachN = (q.reachN || 0) + Math.max(0, na - nb); q.counts = nb + " \u2192 " + na;
-        } else q.reach.push(pth);
+        } else if (pth !== pn) q.reach.push(pth);
+        else q.reachUnknown = true;
       }
       else {
         var lab = /no longer/i.test(k) ? "Removed from Graph" : /breaking/i.test(k) ? "Breaking change" :
@@ -30640,9 +30648,11 @@ odtad CZTERNASCIE (4-17).**
       var q = perms[k];
       var nReach = q.reach.length + (q.reachN || 0);
       if (nReach) q.labels.push("Can call " + nReach + " more endpoint" + (nReach === 1 ? "" : "s"));
+      else if (q.reachUnknown) q.labels.push("Can call more endpoints");
       var own = q.entries.filter(function (e) { return !/gained reach/i.test(e.kind || ""); })[0];
       var main = own || q.entries[0];
       q.text = !own ? (q.reach.length ? "Now also calls " + q.reach.slice(0, 3).join(" · ") + (q.reach.length > 3 ? " · …" : "")
+                       : !nReach ? "Microsoft's permission file maps new endpoints to it; the record does not name them — open the permission"
                        : "Reaches " + nReach + " more endpoint" + (nReach === 1 ? "" : "s") + " than before (endpoints " + q.counts + "); Microsoft's map does not name the path")
              : (/^new/i.test(own.kind || "") ? short([ (own.permTypes || []).join(" + "), own.consent ].filter(Boolean).join(" · ") || own.after, 150)
              : short(own.after || own.before, 150));
@@ -50923,6 +50933,17 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5fw-c — „Now also calls" pokazywalo nazwe uprawnienia zamiast endpointow (31 X 2026)
+
+Wlasciciel (zrzut z telefonu, Overview › Identity surface › Graph API): „AccessReview.Read.All — Can call 1 more
+endpoint — Now also calls AccessReview.Read.All. API wola samo siebie?". Przyczyna: wpis katalogu „Existing permission
+gained reach" z dziennego pliku uprawnien ma nazwe uprawnienia (bez „→ sciezka") i nowe endpointy w liscie `added`
+(30 X: 3 sciezki GET raportow access review); `graphRows()` bral `pathOf(e)`, czyli nazwe uprawnienia, i liczyl ja jako
+1 endpoint. Teraz: endpointy z `added` (AccessReview.Read.All: 3, AccessReview.ReadWrite.All: 5); bez `added` i bez
+liczb — „Can call more endpoints" i zdanie, ze rekord ich nie nazywa; nazwa uprawnienia nigdy nie trafia na liste.
+Panel `detailGraph()` oznacza „new" endpointy z `added` (porownanie bez wielkosci liter — plik Microsoftu ma male
+litery). Sprawdzone lokalnie na danych 31 X (Overview, 390 px), bramka OK, konsola bez bledow.
 
 ### §5fw-b — Stary modul PowerShell w notatce CIPP: zakladki „MSOnline / AzureAD (retired)" i „Microsoft Graph PowerShell" (31 X 2026)
 
