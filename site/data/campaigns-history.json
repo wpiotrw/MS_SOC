@@ -4343,6 +4343,166 @@
 "date":"2026-10-30",
 "group":"microsoft",
 "found":"2026-10-30"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118304":{
+"title":"Chromium: CVE-2026-118304 Improper input validation in SVG",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118304",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118313":{
+"title":"Chromium: CVE-2026-118313 Use after free in Video",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118313",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118311":{
+"title":"Chromium: CVE-2026-118311 Memory corruption in Media",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118311",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118317":{
+"title":"Chromium: CVE-2026-118317 Memory corruption in HTML",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118317",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118315":{
+"title":"Chromium: CVE-2026-118315 Improper input validation in SVG",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118315",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118312":{
+"title":"Chromium: CVE-2026-118312 Memory corruption in Paint",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118312",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118316":{
+"title":"Chromium: CVE-2026-118316 Improper input validation in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118316",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118318":{
+"title":"Chromium: CVE-2026-118318 Improper access control in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118318",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118308":{
+"title":"Chromium: CVE-2026-118308 Use after free in SVG",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118308",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118310":{
+"title":"Chromium: CVE-2026-118310 Improper input validation in Views",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118310",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118305":{
+"title":"Chromium: CVE-2026-118305 Memory corruption in Turbolev",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118305",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118307":{
+"title":"Chromium: CVE-2026-118307 Use after free in Paint",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118307",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118306":{
+"title":"Chromium: CVE-2026-118306 Memory corruption in FileSystem",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118306",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118319":{
+"title":"Chromium: CVE-2026-118319 Memory corruption in Skia",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118319",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118322":{
+"title":"Chromium: CVE-2026-118322 Memory corruption in ANGLE",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118322",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118328":{
+"title":"Chromium: CVE-2026-118328 Improper input validation in WebRTC",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118328",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118327":{
+"title":"Chromium: CVE-2026-118327 Memory corruption in Media",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118327",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118332":{
+"title":"Chromium: CVE-2026-118332 Improper input validation in Compositing",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118332",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118320":{
+"title":"Chromium: CVE-2026-118320 Memory corruption in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118320",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://dev.to/guidance_white/cve-2026-68582-how-a-share-link-lets-you-read-someone-elses-kanban-board-vikunja-bola-48nc":{
+"title":"CVE-2026-68582: How a Share Link Lets You Read Someone Else's Kanban Board (Vikunja BOLA)",
+"link":"https://dev.to/guidance_white/cve-2026-68582-how-a-share-link-lets-you-read-someone-elses-kanban-board-vikunja-bola-48nc",
+"source":"NeonTiger12",
+"date":"2026-10-31",
+"group":"community",
+"found":"2026-10-31"
 }
 },
 "final":"2026-10-15",
@@ -6313,14 +6473,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-29",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-30",
 "text":"August 1, 2026."
 },
@@ -6378,6 +6530,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-30",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-31",
 "text":"August 1, 2026."
 },
 {
@@ -6906,7 +7066,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-30",
+"seen":"2026-10-31",
 "text":"early February 2026."
 },
 {
@@ -6914,7 +7074,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-30",
+"seen":"2026-10-31",
 "text":"February 2027."
 },
 {
@@ -10079,6 +10239,22 @@
 "date":"2026-10-30",
 "group":"microsoft",
 "found":"2026-10-31"
+},
+"https://dev.to/jacob_gawlik/building-a-notes-app-for-the-phone-first-when-the-server-cannot-read-a-word-63d":{
+"title":"Building a notes app for the phone first, when the server cannot read a word",
+"link":"https://dev.to/jacob_gawlik/building-a-notes-app-for-the-phone-first-when-the-server-cannot-read-a-word-63d",
+"source":"NeonTiger12",
+"date":"2026-10-31",
+"group":"community",
+"found":"2026-10-31"
+},
+"https://www.bleepingcomputer.com/news/security/new-android-sms-of-death-exploit-can-remotely-crash-unpatched-phones/":{
+"title":"New Android SMS of Death exploit can remotely crash unpatched phones",
+"link":"https://www.bleepingcomputer.com/news/security/new-android-sms-of-death-exploit-can-remotely-crash-unpatched-phones/",
+"source":"BleepingComputer",
+"date":"2026-10-31",
+"group":"community",
+"found":"2026-10-31"
 }
 },
 "final":"2027-07-01",
@@ -10767,7 +10943,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-30",
+"seen":"2026-10-31",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10775,7 +10951,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-30",
+"seen":"2026-10-31",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -16693,6 +16869,226 @@
 "title":"MC1521604: Microsoft Authenticator: Usability improvements for iOS and Android",
 "source":"MC - Merill",
 "link":"https://mc.merill.net/message/MC1521604"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118304 Improper input validation in SVG",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118304"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118313 Use after free in Video",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118313"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118311 Memory corruption in Media",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118311"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118317 Memory corruption in HTML",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118317"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118315 Improper input validation in SVG",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118315"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118312 Memory corruption in Paint",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118312"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118316 Improper input validation in V8",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118316"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118318 Improper access control in V8",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118318"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118308 Use after free in SVG",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118308"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118310 Improper input validation in Views",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118310"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118305 Memory corruption in Turbolev",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118305"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118307 Use after free in Paint",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118307"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118306 Memory corruption in FileSystem",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118306"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118319 Memory corruption in Skia",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118319"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118322 Memory corruption in ANGLE",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118322"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118328 Improper input validation in WebRTC",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118328"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118327 Memory corruption in Media",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118327"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118332 Improper input validation in Compositing",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118332"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2026-118320 Memory corruption in V8",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118320"
+},
+{
+"day":"2026-10-31",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"community",
+"title":"CVE-2026-68582: How a Share Link Lets You Read Someone Else's Kanban Board (Vikunja BOLA)",
+"source":"NeonTiger12",
+"link":"https://dev.to/guidance_white/cve-2026-68582-how-a-share-link-lets-you-read-someone-elses-kanban-board-vikunja-bola-48nc"
+},
+{
+"day":"2026-10-31",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Building a notes app for the phone first, when the server cannot read a word",
+"source":"NeonTiger12",
+"link":"https://dev.to/jacob_gawlik/building-a-notes-app-for-the-phone-first-when-the-server-cannot-read-a-word-63d"
+},
+{
+"day":"2026-10-31",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"New Android SMS of Death exploit can remotely crash unpatched phones",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/security/new-android-sms-of-death-exploit-can-remotely-crash-unpatched-phones/"
 }
 ],
 "archive":{
