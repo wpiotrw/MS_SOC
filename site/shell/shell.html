@@ -2416,6 +2416,11 @@ tr[data-review=done] .s5bi-rv{color:var(--ok,#067647)}
 .s5bi-sk[hidden]{display:none}
 .s5bi-skin{width:min(720px,100%);background:var(--surface);color:var(--ink);border:1px solid var(--border);border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.3);overflow:hidden}
 .s5bi-skq{width:100%;box-sizing:border-box;font:inherit;font-size:16px;padding:14px 16px;border:0;border-bottom:1px solid var(--border);background:transparent;color:inherit;outline:none}
+/* §5fv: the search opened in place over the wide field; the hit marked inside its line */
+.s5bi-sk.s5fv-anch{padding:0;background:rgba(10,15,20,.25)}
+.s5bi-sk.s5fv-anch .s5bi-skin{border:2px solid var(--ok);border-radius:10px}
+.s5bi-sk.s5fv-anch .s5bi-skr{max-height:min(60vh,520px);overflow:auto}
+mark.s5fv-m{background:color-mix(in srgb,#e3a33b 45%,transparent);color:inherit;border-radius:3px;padding:0 1px}
 .s5bi-skr{list-style:none;margin:0;padding:4px 0;max-height:55vh;overflow:auto}
 .s5bi-skr li{padding:8px 16px;cursor:pointer;display:flex;gap:10px;align-items:baseline}
 .s5bi-skr li.on,.s5bi-skr li:hover{background:var(--surface-2,rgba(0,0,0,.05))}
@@ -3084,7 +3089,8 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .tabpanel[data-s5cd="pages"] [data-s5cd-v]:not([data-s5cd-v~="pages"]):not([data-s5cd-v="*"]),
 .tabpanel[data-s5cd="tbl"] [data-s5cd-v]:not([data-s5cd-v~="tbl"]):not([data-s5cd-v="*"]),
 .tabpanel[data-s5cd="deep"] [data-s5cd-v]:not([data-s5cd-v~="deep"]):not([data-s5cd-v="*"]),
-.tabpanel[data-s5cd="auth"] [data-s5cd-v]:not([data-s5cd-v~="auth"]):not([data-s5cd-v="*"]){display:none!important}
+.tabpanel[data-s5cd="auth"] [data-s5cd-v]:not([data-s5cd-v~="auth"]):not([data-s5cd-v="*"]),
+.tabpanel[data-s5cd="radar"] [data-s5cd-v]:not([data-s5cd-v~="radar"]):not([data-s5cd-v="*"]){display:none!important}
 /* a section wrapper the views replace: its own header goes, its content stays */
 .tabpanel[data-s5cd] details.s5cd-flat > summary,.tabpanel[data-s5cd] details.s5cd-flat section > .sec-head{display:none!important}
 .tabpanel[data-s5cd] details.s5cd-flat{border:0;background:none;padding:0;margin:0}
@@ -5428,6 +5434,153 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .mcb-views,.s5dq-jump,.s5fo-tf{padding:6px 8px;border:1px dashed color-mix(in srgb,var(--text) 22%,transparent);border-radius:10px;background:color-mix(in srgb,var(--text) 3%,transparent)}
 .mcb-view,.s5dq-j,.s5fo-tb{border-color:color-mix(in srgb,var(--text) 28%,transparent)}
 .mcb-view:hover,.s5dq-j:hover,.s5fo-tb:hover{background:color-mix(in srgb,var(--accent) 14%,var(--bg))}
+/* §5fs (30 X 2026): Graph API > Radar */
+.s5fs-radar{display:flex;flex-direction:column;gap:14px;margin:4px 0 18px}
+.s5fs-head h3{margin:0 0 4px;font-size:19px}
+.s5fs-blk h4{margin:4px 0 8px;font-size:16px}
+.s5fs-und{border-left:4px solid #e3a33b;padding-left:14px}
+.s5fs-c-b{--sc:var(--accent)}.s5fs-c-v1{--sc:#3fb37f}.s5fs-c-t{--sc:#e3a33b}
+.s5fs-r.s5fs-removed{border-left:3px solid var(--bad)}.s5fs-r.s5fs-added{border-left:3px solid var(--ok)}.s5fs-r.s5fs-changed{border-left:3px solid var(--warn)}
+.s5dv-chip.s5fs-cmd{border-color:var(--accent);color:var(--accent);font-weight:600}
+.s5fs-code{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:4px 0}
+.s5fs-codeh{display:flex;justify-content:space-between;align-items:center;padding:4px 8px;background:var(--surface);font-size:12.5px;font-weight:700;color:var(--muted)}
+.s5fs-code .s5fq-pre{border:0;border-radius:0;margin:0}
+.s5fs-copy{font:inherit;font-size:12.5px;padding:2px 10px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);cursor:pointer}
+.s5fs-note{font-size:13px;color:var(--muted);margin:6px 0 0}
+.s5fs-at{font-size:12.5px;color:var(--muted);overflow-wrap:anywhere}
+/* §5ft (30 X 2026): the tab Graph API Radar - what it is for, findings by technology, readable card */
+.s5ft-intro{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;padding:12px 16px;background:var(--surface)}
+.s5ft-intro h3{margin:0 0 6px;font-size:17px}
+.s5ft-intro ul{margin:0 0 10px;padding-left:20px;display:flex;flex-direction:column;gap:5px;font-size:15px;line-height:1.5}
+.s5ft-legend{display:flex;flex-direction:column;gap:5px;font-size:13.5px;color:var(--muted);border-top:1px solid var(--border);padding-top:8px}
+.s5ft-ll{font-weight:700;color:var(--text)}
+.s5ft-st{display:inline-block;font:700 12.5px/1.2 var(--sans);padding:3px 9px;border-radius:7px;border:1px solid;white-space:nowrap}
+.s5ft-s-new{color:#e3a33b;border-color:#e3a33b;background:color-mix(in srgb,#e3a33b 14%,transparent)}
+.s5ft-s-learn{color:var(--accent);border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.s5ft-s-v1{color:var(--muted);border-color:var(--border)}
+.s5ft-grp{border:1px solid var(--border);border-radius:10px;margin:0 0 10px;background:var(--bg)}
+.s5ft-gs{cursor:pointer;padding:10px 14px;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;list-style:none}
+.s5ft-gs::-webkit-details-marker{display:none}
+.s5ft-gs::before{content:"\25B8";color:var(--muted)}
+details[open]>.s5ft-gs::before{content:"\25BE"}
+.s5ft-gn{font-size:16.5px;font-weight:700}
+.s5ft-gi{flex:1 1 100%;font-size:13.5px;color:var(--muted)}
+.s5ft-fl{list-style:none;margin:0;padding:0 10px 10px;display:flex;flex-direction:column;gap:8px}
+.s5ft-f{border:1px solid var(--border);border-left:4px solid #e3a33b;border-radius:9px;padding:10px 12px;cursor:pointer;background:var(--surface);min-width:0}
+.s5ft-f-learn{border-left-color:var(--accent)}
+.s5ft-f-v1{border-left-color:var(--border)}
+.s5ft-f:hover,.s5ft-f:focus{border-color:var(--accent);outline:none}
+.s5ft-ft{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.s5ft-fh{font-size:16px;font-weight:700;line-height:1.35;flex:1 1 260px;min-width:0}
+.s5ft-tech{display:block;font:12.5px/1.4 var(--mono);color:var(--muted);overflow-wrap:anywhere;word-break:break-word;margin:2px 0 0;background:none!important;border:0!important;padding:0!important}
+.s5ft-fw{margin:6px 0;font-size:14.5px;line-height:1.5}
+.s5ft-fc{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.s5ft-open{margin-left:auto;font-weight:700;color:var(--accent);font-size:14px}
+.s5dv-chip.s5ft-today{color:#e3a33b;border-color:#e3a33b}
+.s5dv-chip.s5ft-ac{border-color:#3fb37f;color:#3fb37f;font-weight:600}
+.s5ft-cat{border-color:color-mix(in srgb,var(--accent) 50%,var(--border))}
+/* the card: long names wrap, the close button keeps its corner, the card sits above every floating box (30 X screenshot) */
+.s5fo-ov.s5ft-ov{z-index:4000;background:rgba(0,0,0,.6)}
+.s5ft-card{min-width:0;overflow-wrap:anywhere}
+.s5ft-card .s5ft-t{padding-right:44px;overflow-wrap:anywhere;word-break:break-word}
+.s5ft-card .s5fo-chips{margin-right:48px}
+.s5ft-card pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;max-width:100%}
+.s5ft-card .s5fj-facts dd{overflow-wrap:anywhere;word-break:break-word;min-width:0}
+.s5ft-uses{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:15px;line-height:1.5}
+.s5fo-blk.s5ft-pblk{border-left-color:var(--accent)}
+.s5ft-perms+.s5ft-perms{margin-top:12px}
+.s5ft-pl{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.s5ft-p{border:1px solid var(--border);border-radius:8px;padding:8px 10px;background:var(--bg)}
+.s5ft-pw{border-left:3px solid var(--warn)}
+.s5ft-pt{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.s5ft-pn{font:700 14.5px/1.3 var(--mono);overflow-wrap:anywhere;background:none;padding:0}
+.s5ft-pb{font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px;border:1px solid var(--border);color:var(--muted)}
+.s5ft-least{color:#3fb37f;border-color:#3fb37f}
+.s5ft-rw{color:var(--warn);border-color:var(--warn)}
+.s5ft-ptl{font-weight:600;font-size:14.5px;margin:4px 0 2px}
+.s5ft-pd{font-size:13.5px;color:var(--muted);line-height:1.45}
+.s5ft-src{margin:0 0 12px}
+.s5ft-al{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.s5ft-a{border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+.s5ft-at{font-weight:700;font-size:15px;color:var(--accent);text-decoration:none;overflow-wrap:anywhere}
+button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;font-weight:700;text-align:left;color:var(--accent)}
+.s5ft-am{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:13px;color:var(--muted);margin-top:3px}
+.s5ft-rel{font-size:12px;font-weight:700;padding:1px 8px;border-radius:6px;border:1px solid var(--border)}
+.s5ft-rel-names-it{color:#3fb37f;border-color:#3fb37f}
+.s5ft-rel-doc{color:var(--accent);border-color:var(--accent)}
+.s5ft-rel-feature{color:var(--text)}
+.s5ft-rel-words{color:var(--warn);border-color:var(--warn)}
+.s5ft-how h3{margin:0 0 6px;font-size:17px}
+.s5ft-how ol{padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15px;line-height:1.5}
+.s5ft-ep{list-style:none;margin:0;padding:0 12px 12px;display:flex;flex-direction:column;gap:6px}
+.s5ft-ep li{display:flex;flex-direction:column;border-left:3px solid #3fb37f;padding-left:8px}
+.s5ft-ep li.bad{border-left-color:var(--bad)}
+.s5ft-tday .s5ft-st{margin-right:6px}
+#tab-radar .s5fo-tf .s5fo-tfl{flex-basis:100%;margin-top:4px}
+#tab-radar .s5fo-tf .s5fo-tfl:first-child{margin-top:0}
+.s5ft-qw{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+.s5ft-q{width:100%;box-sizing:border-box;font-size:15px;padding:10px 14px;border:2px solid var(--ok);border-radius:10px;background:var(--surface);color:var(--text)}
+.s5ft-qh{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:14px}
+.s5ft-dates{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted);margin:0 0 6px}
+.s5ft-dt b{font-weight:600;color:var(--text)}
+.s5ft-dt-today{color:#e3a33b}
+.s5ft-sl{margin:4px 0 8px;font-size:14px;color:var(--muted)}
+/* §5ft-d: readable pills in the frames of Graph API Radar and M365 endpoints */
+.s5ft-kn{display:inline-flex;align-items:center;font:800 12px/1 var(--sans);letter-spacing:.04em;padding:5px 9px;border-radius:6px;color:#fff;white-space:nowrap}
+.s5ft-kn-added{background:#2f9e6b}.s5ft-kn-changed{background:#b9770e}.s5ft-kn-removed{background:#c0392b}
+.s5ft-catp{display:inline-flex;align-items:center;font-size:12.5px;font-weight:700;padding:2px 9px;border-radius:7px;border:1.5px solid var(--accent);color:var(--text);background:color-mix(in srgb,var(--accent) 18%,transparent);white-space:nowrap}
+.s5ft-st.s5ft-s-v1,.s5ft-st.s5fu-none{color:var(--text);border-color:color-mix(in srgb,var(--text) 45%,transparent)}
+#tab-radar .s5do-pills,#tab-m365ep .s5do-pills{gap:6px}
+#tab-radar .s5dv-chip:not(.s5fq-req):not(.s5ft-ac):not(.s5fs-cmd):not(.s5ft-today),#tab-m365ep .s5dv-chip:not(.s5ft-today){color:var(--text);border-color:color-mix(in srgb,var(--text) 40%,transparent)}
+#tab-radar .s5dv-chip.s5fq-req{color:var(--bad);border-color:var(--bad);font-weight:700}
+#tab-radar .s5dv-chip.s5ft-ac{color:var(--ok);border-color:var(--ok);font-weight:700}
+#tab-radar .s5dv-chip.s5fs-cmd{color:var(--accent);border-color:var(--accent);font-weight:600}
+#tab-radar .s5dv-chip.s5ft-today,#tab-m365ep .s5dv-chip.s5ft-today{color:var(--warn);border-color:var(--warn);font-weight:600}
+.s5ft-tf{margin:6px 0 4px}
+.s5ft-sq{flex:1 1 100%;margin-top:6px;font-size:14px;padding:8px 12px}
+.s5fo-tb.s5ft-more{margin:4px 0 0}
+/* §5ft-e: wide card with tabs; the property's name and the titles stand out */
+.s5fo-card.s5ft-wide{width:min(1180px,100%)}
+.s5ft-wide .s5fo-t{font-size:22px;color:var(--text);padding-right:44px;overflow-wrap:anywhere}
+.s5ft-wide .s5fo-chips{margin-right:48px}
+.s5ft-wide .s5fq-pre,.s5ft-wide pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.s5ft-pane .s5fo-go{margin-top:8px}
+.s5ft-tname{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:4px 48px 6px 0}
+.s5ft-tname code{font:700 15px/1.4 var(--mono);color:var(--text);background:color-mix(in srgb,var(--accent) 14%,var(--surface));border:1.5px solid color-mix(in srgb,var(--accent) 55%,transparent);border-radius:8px;padding:5px 10px;overflow-wrap:anywhere;word-break:break-word}
+.s5ft-card .s5ft-t{font-size:22px;color:var(--text)}
+.s5ft-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0;border-bottom:2px solid var(--border);padding-bottom:0}
+.s5ft-tab{font:700 14.5px/1.2 var(--sans);color:var(--text);background:transparent;border:1px solid transparent;border-bottom:0;border-radius:9px 9px 0 0;padding:9px 16px;cursor:pointer;margin-bottom:-2px}
+.s5ft-tab[aria-selected="true"]{background:var(--surface);border-color:var(--border);border-bottom:2px solid var(--surface);color:var(--accent)}
+.s5ft-tab:hover{color:var(--accent)}
+.s5ft-panes{padding-top:14px}
+.s5ft-pane.s5ft-two:not([hidden]){display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;align-items:start}
+.s5ft-pane-perm .s5ft-pblk:not([hidden]){display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:12px}
+.s5ft-pane-perm .s5ft-perms+.s5ft-perms{margin-top:0}
+.s5ft-pane-try:not([hidden]){display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:12px;align-items:start}
+.s5ft-col{min-width:0}
+@media (max-width:760px){.s5ft-pane.s5ft-two:not([hidden]),.s5ft-pane-try:not([hidden]),.s5ft-pane-perm .s5ft-pblk:not([hidden]){display:block}.s5ft-tab{padding:8px 11px;font-size:14px}.s5ft-card .s5ft-t{font-size:19px}}
+/* rows: the title and the property's name readable at a glance */
+#tab-radar .s5ft-fh{font-size:17px;color:var(--text)}
+#tab-radar .s5ft-f .s5ft-tech,#tab-m365ep .s5ft-f .s5ft-tech{display:inline-block;font:600 13.5px/1.4 var(--mono);color:var(--text);background:color-mix(in srgb,var(--accent) 12%,transparent)!important;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent)!important;border-radius:6px;padding:2px 8px!important;margin:4px 0 2px}
+#tab-radar .s5ft-fw{color:var(--text)}
+/* §5fu (30 X 2026): M365 endpoints */
+.s5ft-st.s5fu-act{color:#e3a33b;border-color:#e3a33b;background:color-mix(in srgb,#e3a33b 14%,transparent)}
+.s5ft-st.s5fu-tidy{color:var(--bad);border-color:var(--bad)}
+.s5ft-st.s5fu-check{color:var(--accent);border-color:var(--accent)}
+.s5ft-st.s5fu-none{color:var(--muted);border-color:var(--border)}
+.s5fu-r-act{border-left-color:#e3a33b}.s5fu-r-tidy{border-left-color:var(--bad)}.s5fu-r-check{border-left-color:var(--accent)}.s5fu-r-none{border-left-color:var(--border)}
+.s5fu-c-Optimize{border-left-color:#e3a33b}.s5fu-c-Allow{border-left-color:var(--accent)}.s5fu-c-Default{border-left-color:var(--border)}
+.s5fu-set{cursor:default}
+.s5fu-l{margin:8px 0}.s5fu-l b{font-size:13.5px}.s5fu-l ul{margin:4px 0 0;padding-left:20px;font:13px/1.45 var(--mono);overflow-wrap:anywhere}
+.s5fu-add b{color:#3fb37f}.s5fu-rem b{color:var(--bad)}
+.s5fu-more>summary{cursor:pointer;font-size:13.5px;color:var(--accent);margin-top:4px}
+.s5fo-tb.s5ft-qon{background:var(--accent);border-color:var(--accent);color:var(--on-accent,var(--bg))}
+/* §5ft-b: "Try it" in Message Center, Graph API and Roles */
+.s5ft-cmd{margin:10px 0;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--border));border-left:4px solid var(--accent);border-radius:9px;padding:0 12px;background:color-mix(in srgb,var(--accent) 5%,var(--bg))}
+.s5ft-cmd>summary{cursor:pointer;padding:9px 0;font-weight:700;font-size:14.5px;color:var(--accent)}
+.s5ft-cmd[open]{padding-bottom:10px}
+.s5ft-cmd pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;max-width:100%}
+@media (max-width:640px){.s5ft-gs{padding:9px 10px}.s5ft-fl{padding:0 6px 8px}.s5ft-fh{font-size:15.5px}.s5ft-open{margin-left:0}.s5ft-intro{padding:10px 12px}}
 @media (max-width:640px){.s5cd-bar,.s5dv-vnav,.s5fg-nav{padding:6px 8px;gap:5px}.s5cd-bar::before{flex-basis:100%;margin:2px 0 2px 2px}
  .s5cd-bar button:not(.s5cd-drawer),.s5dv-vb,.s5fg-navb{font-size:14px;padding:7px 11px}}
 .s5fq-c-cisa{--sc:#3fb37f}.s5fq-c-m{--sc:var(--accent)}.s5fq-c-t{--sc:#e3a33b}.s5fq-c-z{--sc:#b48cff}.s5fq-c-i{--sc:#4cc2d6}
@@ -8429,7 +8582,7 @@ td>.offt+.ref{display:block}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Friday 30 October 2026</b> &middot; published 07:37 Warsaw &middot; 16 October &ndash; 30 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>46</b> deadlines in 60 days<span>&middot; 41 inside 30, 12 due today or tomorrow</span></a><a class="count" href="#graph"><b>975</b> undocumented at Microsoft<span>&middot; 975 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>8</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>113</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>26</b> changes since 29 Oct<span>&middot; 7 at Microsoft, 19 in this report</span></a><a class="count" href="#chg14"><b>1560</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Saturday 31 October 2026</b> &middot; published 07:46 Warsaw &middot; 17 October &ndash; 31 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>43</b> deadlines in 60 days<span>&middot; 38 inside 30, 14 due today or tomorrow</span></a><a class="count" href="#graph"><b>975</b> undocumented at Microsoft<span>&middot; 975 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>10</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>121</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>32</b> changes since 30 Oct<span>&middot; 6 at Microsoft, 26 in this report</span></a><a class="count" href="#chg14"><b>1768</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -8630,7 +8783,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 30 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 31 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
