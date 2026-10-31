@@ -45450,7 +45450,28 @@ odtad CZTERNASCIE (4-17).**
       tf.appendChild(sq);
       box.appendChild(tf);
       box.appendChild(el("p", "s5ft-sl", items.length === all.length ? tU.length + " in our tenant · " + n(ev.length) + " in Graph $metadata — newest first; a tile opens its card." : n(items.length) + " of " + n(all.length) + " match the filter."));
-      if (!items.length) box.appendChild(el("p", "s5bn-empty", "Nothing of today matches the filter."));
+      /* §5gb (31 X 2026, owner: "allowPasswordChangeAfterSecureSignIn vanished - the search finds it, but Graph API Radar
+         filtered to Authentication methods shows 3 entries and none is it"): this frame holds only TODAY's changes, the
+         finding (first seen 30 X) is in the full list below the charts - 2,400 px lower on a phone - and nothing said so.
+         With a filter or search words the frame now names what the FULL lists hold, each a button straight to its card */
+      var fltOn = !!(F.q || TS.cat), tIds = {}; items.forEach(function (it) { tIds[it.id] = 1; });
+      var fullT = fltOn ? und.map(fromUnd).filter(function (e) { return qHit(e) && (!TS.cat || e.cat === TS.cat || (e.also || []).indexOf(TS.cat) >= 0) && !tIds[fullName(e)]; }) : [];
+      var fullC = fltOn ? (D.events || []).filter(function (e) { return e.kind !== "tenant-undocumented" && (!TS.cat || e.cat === TS.cat) && qHit(e) && e.day !== day; }) : [];
+      if (!items.length) box.appendChild(el("p", "s5bn-empty", fullT.length || fullC.length ? "Nothing that changed TODAY matches — the full lists below do:" : "Nothing of today matches the filter, and nothing in the full lists either."));
+      if (fullT.length || fullC.length) {
+        var bey = el("div", "s5gb-bey"); bey.appendChild(el("p", "s5gb-bh", "Not changed today, in the full lists" + (TS.cat ? " · " + TS.cat : "") + (F.q ? " · “" + F.q + "”" : "")));
+        if (fullT.length) {
+          var bl = el("ul", "s5gb-bl");
+          fullT.slice(0, 6).forEach(function (e) { var li = el("li"); var bb = btn(title(e), "s5gb-bn", function () { card(e); }); li.appendChild(bb); li.appendChild(el("code", "s5gb-bc", fullName(e)));
+            li.appendChild(el("span", "s5gb-bd", "found " + dmy(e.first))); bl.appendChild(li); });
+          bey.appendChild(bl);
+          bey.appendChild(btn("Show " + (fullT.length === 1 ? "it" : "all " + fullT.length) + " in “New in our tenant” ›", "s5gb-go", function () { T.cat = TS.cat || ""; S.view = "tenant"; setHash(); render();
+            var v = panel.querySelector(".s5ft-view"); if (v) setTimeout(function () { window.scrollTo(0, Math.max(0, window.scrollY + v.getBoundingClientRect().top - 110)); }, 60); }));
+        }
+        if (fullC.length) bey.appendChild(btn(n(fullC.length) + " in “Every change in Graph” ›", "s5gb-go s5gb-go2", function () { F.cat = TS.cat || ""; F.days = 60; S.view = "changes"; setHash(); render();
+          var v = panel.querySelector(".s5ft-view"); if (v) setTimeout(function () { window.scrollTo(0, Math.max(0, window.scrollY + v.getBoundingClientRect().top - 110)); }, 60); }));
+        box.appendChild(bey);
+      }
       var grid = el("div", "s5do-grid"), ul = el("ul", "s5bn-l");
       items.slice(0, 24).forEach(function (it) {
         var t = el("article", "s5do-tile s5do-" + it.k); t.tabIndex = 0; t.setAttribute("role", "button");
@@ -49308,6 +49329,17 @@ button.s5fz-urn:hover{color:var(--accent);text-decoration:underline}
 .s5ga-src .s5fz-sc{margin:0 0 10px!important}
 .s5ga-src .s5fz-says{color:var(--text)!important;font-size:14.5px!important}
 .s5ga-ab .s5ga-src{margin-top:8px}
+/* §5gb: what the full lists hold when today's frame is filtered */
+.s5gb-bey{margin:10px 0 12px;padding:10px 12px;border-radius:12px;border:2px solid var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--surface))}
+.s5gb-bh{margin:0 0 6px;font-weight:800;font-size:14.5px;color:var(--text)}
+.s5gb-bl{list-style:none;margin:0 0 8px;padding:0;display:flex;flex-direction:column;gap:6px}
+.s5gb-bl li{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;padding:7px 9px;border-radius:9px;border:1px solid color-mix(in srgb,var(--text) 22%,transparent);background:var(--surface)}
+.s5gb-bn{font:700 15.5px/1.35 var(--sans);color:var(--text);background:none;border:0;padding:0;text-align:left;cursor:pointer}
+.s5gb-bn:hover{color:var(--accent);text-decoration:underline}
+.s5gb-bc{font:500 12.5px/1.4 var(--mono,ui-monospace,monospace);color:var(--text);overflow-wrap:anywhere}
+.s5gb-bd{font-size:13px;color:var(--text);padding:1px 7px;border-radius:999px;border:1px solid color-mix(in srgb,var(--text) 30%,transparent)}
+.s5gb-go{margin:2px 8px 0 0;padding:7px 13px;border-radius:999px;font:700 14px/1.2 var(--sans);color:#fff;background:var(--accent);border:0;cursor:pointer}
+.s5gb-go2{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
 .s5fz-strip{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0 6px;padding:8px 10px;border-radius:14px;border:2px solid color-mix(in srgb,var(--accent) 50%,transparent);background:color-mix(in srgb,var(--accent) 6%,var(--surface))}
 .s5fz-dots{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 10px}
 .s5fz-d{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--text)}
@@ -51516,6 +51548,23 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5gb — Graph API Radar: ramka „Today" mowi, co maja pelne listy (31 X 2026)
+
+Wlasciciel (zrzuty z iPhone'a): „Cos popsules — allowPasswordChangeAfterSecureSignIn (Jan Bakker, komendy, przyklady)
+zniknal; wyszukiwarka globalna go znajduje, ale w Graph API Radar z filtrem Authentication methods sa 3 wpisy i zaden
+to nie on; wyszukiwarka zakladki nic nie znajduje po slowie password. Dlaczego cos zniknelo przy zmianach wizualnych?"
+- **Przyczyna (sprawdzona, dane nietkniete):** `site/data/graph-radar.json` na zywo ma 28 znalezisk, w tym to — z
+  notatka, zrodlami, PATCH i uprawnieniami; WebKit (silnik Safari) rysuje je bez bledow. Ramka na gorze zakladki
+  („Today, all runs") pokazuje TYLKO dzisiejsze zmiany (21); jej filtr Technology/Authentication methods mial 3 dzisiejsze
+  pozycje. Znalezisko jest z 30 X, wiec dzis wypadlo z ramki; pelna lista („New in our tenant", Authentication methods ·
+  6) stoi pod wykresami, ok. 2 400 px nizej na telefonie, a ramka pisala tylko „Nothing of today matches the filter".
+- **Poprawka:** przy slowach szukania albo wybranej technologii ramka liczy tez pelne listy i pokazuje pole „Not changed
+  today, in the full lists": do 6 znalezisk tenanta (nazwa, nazwa wlasciwosci, data znalezienia — klik otwiera karte),
+  przycisk „Show it / Show all N in New in our tenant ›" (ustawia te sama technologie i przewija do listy) oraz
+  „N in Every change in Graph ›". Pusty wynik mowi teraz „Nothing that changed TODAY matches — the full lists below do".
+- Testy: WebKit 390 px — „Passw" → „Password change after a secure sign-in", klik otwiera karte; Authentication methods →
+  3 znaleziska spoza dzisiaj, przycisk → lista z 6; bramka OK, skladnia OK, konsola bez bledow.
 
 ### §5ga — Jedna karta zrodla w calym portalu (31 X 2026)
 
