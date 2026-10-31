@@ -45,6 +45,79 @@
   "incident": "auto-inside-a-malicious-claude-code-branded-e-2026-10-31"
  },
  {
+  "file": "articles/2026-10-31-detection-5-php-or-web-server-process-spawning.kql",
+  "title": "Detection 5: PHP or Web Server Process Spawning Interactive Shell (CVE-2026-109618/CVE-2026-109619)",
+  "date": "2026-10-31",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, October 31, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/",
+  "incident": "php2shell-php-rce-2026-10"
+ },
+ {
+  "file": "articles/2026-10-31-detection-4-ide-extension-writing-to-ssh-authorized.kql",
+  "title": "Detection 4: IDE Extension Writing to SSH Authorized Keys or Spawning SSH Daemon",
+  "date": "2026-10-31",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, October 31, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/"
+ },
+ {
+  "file": "articles/2026-10-31-detection-3-beyondtrust-web-service-spawning-shell-process.kql",
+  "title": "Detection 3: BeyondTrust Web Service Spawning Shell Process (CVE-2026-102764 RCE)",
+  "date": "2026-10-31",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, October 31, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/"
+ },
+ {
+  "file": "articles/2026-10-31-detection-2-kerberos-pkinit-authentication-following-ad-cs.kql",
+  "title": "Detection 2: Kerberos PKINIT Authentication Following AD CS Certificate Issuance",
+  "date": "2026-10-31",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, October 31, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/"
+ },
+ {
+  "file": "articles/2026-10-31-detection-1-ad-cs-certificate-issuance-from-anomalous.kql",
+  "title": "Detection 1: AD CS Certificate Issuance from Anomalous Requester (ESC1/ESC8)",
+  "date": "2026-10-31",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, October 31, 2026",
+  "source": "https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/",
+  "incident": "teams-helpdesk-adcs-esc1-esc8-2026-10"
+ },
+ {
   "file": "articles/2026-10-31-advanced-hunting-queries.kql",
   "title": "Advanced hunting queries",
   "date": "2026-10-31",

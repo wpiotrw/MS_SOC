@@ -1,0 +1,32 @@
+// title: Detection 1: AD CS Certificate Issuance from Anomalous Requester (ESC1/ESC8)
+// date: 2026-10-31
+// product: Sentinel
+// tables: SecurityEvent
+// purpose: From the article: Detection Engineering Brief - Saturday, October 31, 2026
+// source: https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookbackWindow = 2d;
+let CorrelationWindow = 10m;
+let SensitiveTemplates = dynamic(["SubCA", "DomainController", "DomainControllerAuthentication", "KerberosAuthentication", "SmartCardLogon", "Administrator"]);
+let CertRequests = SecurityEvent
+| where TimeGenerated >= ago(LookbackWindow)
+| where EventID in (4886, 4887)
+| extend RequesterName = tostring(extract(@"(?i)Requester:\s*([^\r\n]+)", 1, EventData))
+| extend TemplateName = tostring(extract(@"(?i)Certificate Template Name:\s*([^\r\n]+)", 1, EventData))
+| where isnotempty(RequesterName)
+| where TemplateName in~ (SensitiveTemplates) or (isnotempty(SubjectUserName) and RequesterName !~ SubjectUserName)
+| project CertTime = TimeGenerated, RequesterName = trim(" ", RequesterName), TemplateName = trim(" ", TemplateName), SubjectUserName, IpAddress, WorkstationName, CertEventID = EventID;
+let KerbTGTs = SecurityEvent
+| where TimeGenerated >= ago(LookbackWindow)
+| where EventID == 4768
+| project KerbTime = TimeGenerated, KerbUser = tostring(TargetUserName), KerbIP = tostring(IpAddress);
+CertRequests
+| join kind=inner (
+    KerbTGTs
+) on $left.RequesterName == $right.KerbUser
+| where CertTime between (KerbTime .. (KerbTime + CorrelationWindow))
+| project CertTime, KerbTime, RequesterName, TemplateName, SubjectUserName, IpAddress, WorkstationName, CertEventID, KerbIP
+| extend TimeDeltaSeconds = datetime_diff('second', CertTime, KerbTime)
+| order by CertTime desc

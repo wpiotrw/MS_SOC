@@ -1,0 +1,27 @@
+// title: Detection 5: PHP or Web Server Process Spawning Interactive Shell (CVE-2026-109618/CVE-2026-109619)
+// date: 2026-10-31
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Saturday, October 31, 2026
+// source: https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let WebParents = dynamic(["php", "php-fpm", "php8", "php7", "apache2", "httpd", "nginx", "lighttpd"]);
+let ShellChildren = dynamic(["bash", "sh", "dash", "zsh", "cmd.exe", "powershell.exe", "python", "python3", "perl", "ruby", "wget", "curl"]);
+DeviceProcessEvents
+| where ActionType == "ProcessCreated"
+| where InitiatingProcessFileName has_any (WebParents)
+    and FileName has_any (ShellChildren)
+| extend RiskIndicator = case(
+    ProcessCommandLine has "-c" or ProcessCommandLine has "-e" or ProcessCommandLine has "exec" or ProcessCommandLine has "eval", "CommandExecution",
+    ProcessCommandLine has "wget" or ProcessCommandLine has "curl" or ProcessCommandLine has "nc" or ProcessCommandLine has "ncat", "NetworkTool",
+    ProcessCommandLine has "chmod" or ProcessCommandLine has "chown", "PermissionChange",
+    "ShellSpawn"
+  )
+| project TimeGenerated, DeviceName, AccountName,
+    InitiatingProcessFileName, InitiatingProcessCommandLine,
+    InitiatingProcessParentFileName,
+    FileName, ProcessCommandLine, ActionType, RiskIndicator,
+    InitiatingProcessSHA1, SHA1
+| order by TimeGenerated desc

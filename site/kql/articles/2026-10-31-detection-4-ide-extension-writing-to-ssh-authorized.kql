@@ -1,0 +1,38 @@
+// title: Detection 4: IDE Extension Writing to SSH Authorized Keys or Spawning SSH Daemon
+// date: 2026-10-31
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Saturday, October 31, 2026
+// source: https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let IDEParents = dynamic(["cursor", "code", "node", "extensionHost", "Cursor.exe", "Code.exe"]);
+let SSHKeyWrites = DeviceFileEvents
+| where ActionType in ("FileCreated", "FileModified")
+| where (FolderPath has ".ssh/" or FolderPath endswith ".ssh")
+    and FileName =~ "authorized_keys"
+    and InitiatingProcessFileName has_any (IDEParents)
+| project TimeGenerated, DeviceName, AccountName,
+    FolderPath, FileName,
+    InitiatingProcessFileName, InitiatingProcessCommandLine,
+    ActionType, InitiatingProcessSHA1,
+    ProcessCommandLine = "",
+    SHA1 = ""
+| extend SignalType = "SSHKeyWrite";
+let SSHProcessSpawn = DeviceProcessEvents
+| where ActionType == "ProcessCreated"
+| where InitiatingProcessFileName has_any (IDEParents)
+    and FileName in~ ("sshd", "ssh-keygen", "ssh")
+| project TimeGenerated, DeviceName, AccountName,
+    FolderPath = "",
+    FileName, InitiatingProcessFileName, InitiatingProcessCommandLine,
+    ActionType, InitiatingProcessSHA1,
+    ProcessCommandLine, SHA1
+| extend SignalType = "SSHProcessSpawn";
+union SSHKeyWrites, SSHProcessSpawn
+| project TimeGenerated, DeviceName, AccountName, FolderPath, FileName,
+    InitiatingProcessFileName, InitiatingProcessCommandLine,
+    ProcessCommandLine, ActionType, SignalType,
+    InitiatingProcessSHA1, SHA1
+| order by TimeGenerated desc

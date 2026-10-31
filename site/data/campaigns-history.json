@@ -5830,120 +5830,6 @@
 "MC1458474"
 ]
 },
-"c-mc1403402":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-10-31",
-"name":"Intune moving to support macOS 15 and higher later this year",
-"status":"No date",
-"members":[
-"MC1454370",
-"MC1454371",
-"MC1403402"
-],
-"log":[
-{
-"date":"2026-09-28",
-"id":"MC1454371",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"Plan for Change: Intune moving to support iOS/iPadOS 18 and higher later this year",
-"title":"Intune moving to support iOS/iPadOS 18 and higher later this year",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454371"
-},
-{
-"date":"2026-09-28",
-"id":"MC1454370",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"Plan for Change: Intune moving to support macOS 15 and higher later this year",
-"title":"Intune moving to support macOS 15 and higher later this year",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454370"
-},
-{
-"date":"2026-09-28",
-"id":"MC1403402",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"Plan for Change: Intune moving to support macOS 15 and higher later this year",
-"title":"Intune moving to support macOS 15 and higher later this year",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1403402"
-}
-],
-"milestones":{
-"MC1454370|posted":{
-"date":"2026-08-13",
-"label":"13 Aug 2026",
-"text":"Posted: Intune moving to support macOS 15 and higher later this year"
-},
-"MC1454371|posted":{
-"date":"2026-08-13",
-"label":"13 Aug 2026",
-"text":"Posted: Intune moving to support iOS/iPadOS 18 and higher later this year"
-},
-"MC1403402|posted":{
-"date":"2026-09-29",
-"label":"29 Sep 2026",
-"text":"Posted: Intune moving to support macOS 15 and higher later this year"
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1403402":{
-"title":"Intune moving to support macOS 15 and higher later this year",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1403402",
-"source":"Message Center",
-"id":"MC1403402",
-"date":"2026-06-24",
-"updated":"2026-06-24",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454370":{
-"title":"Intune moving to support macOS 15 and higher later this year",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454370",
-"source":"Message Center",
-"id":"MC1454370",
-"date":"2026-08-13",
-"updated":"2026-08-13",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454371":{
-"title":"Intune moving to support iOS/iPadOS 18 and higher later this year",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454371",
-"source":"Message Center",
-"id":"MC1454371",
-"date":"2026-08-13",
-"updated":"2026-08-13",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
-"title":"New Apple settings in the Settings Catalog for iOS/iPadOS and macOS",
-"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
-"source":"Microsoft Learn · What's new · Microsoft Intune",
-"date":"2026-10-05T00:00:00.0000000Z",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/windows-365/whats-new":{
-"title":"iOS and iPadOS now support screen capture protection via Microsoft Intune Mobile Application Management (MAM)",
-"link":"https://learn.microsoft.com/en-us/windows-365/whats-new",
-"source":"Microsoft Learn · What's new · Windows 365",
-"date":"2026-09-24",
-"group":"microsoft",
-"found":"2026-10-13"
-}
-},
-"final":null,
-"type":"Retirement",
-"tech":"Intune",
-"posts":[
-"MC1454370",
-"MC1454371",
-"MC1403402"
-]
-},
 "c-mc1452374":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-10-31",
@@ -6387,14 +6273,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-28",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-29",
 "text":"August 1, 2026."
 },
@@ -6500,6 +6378,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-30",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-10-31",
 "text":"August 1, 2026."
 },
 {
@@ -7036,7 +6922,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-30",
+"seen":"2026-10-31",
 "text":"early February 2026."
 },
 {
@@ -7044,7 +6930,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-30",
+"seen":"2026-10-31",
 "text":"February 2027."
 },
 {
@@ -10897,7 +10783,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-30",
+"seen":"2026-10-31",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10905,7 +10791,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-30",
+"seen":"2026-10-31",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -18147,6 +18033,120 @@
 "tech":"Teams",
 "posts":[
 "MC1511056"
+]
+},
+"c-mc1403402":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-10-31",
+"name":"Intune moving to support macOS 15 and higher later this year",
+"status":"Archive",
+"members":[
+"MC1454370",
+"MC1454371",
+"MC1403402"
+],
+"log":[
+{
+"date":"2026-09-28",
+"id":"MC1454371",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Plan for Change: Intune moving to support iOS/iPadOS 18 and higher later this year",
+"title":"Intune moving to support iOS/iPadOS 18 and higher later this year",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454371"
+},
+{
+"date":"2026-09-28",
+"id":"MC1454370",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Plan for Change: Intune moving to support macOS 15 and higher later this year",
+"title":"Intune moving to support macOS 15 and higher later this year",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454370"
+},
+{
+"date":"2026-09-28",
+"id":"MC1403402",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Plan for Change: Intune moving to support macOS 15 and higher later this year",
+"title":"Intune moving to support macOS 15 and higher later this year",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1403402"
+}
+],
+"milestones":{
+"MC1454370|posted":{
+"date":"2026-08-13",
+"label":"13 Aug 2026",
+"text":"Posted: Intune moving to support macOS 15 and higher later this year"
+},
+"MC1454371|posted":{
+"date":"2026-08-13",
+"label":"13 Aug 2026",
+"text":"Posted: Intune moving to support iOS/iPadOS 18 and higher later this year"
+},
+"MC1403402|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Intune moving to support macOS 15 and higher later this year"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1403402":{
+"title":"Intune moving to support macOS 15 and higher later this year",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1403402",
+"source":"Message Center",
+"id":"MC1403402",
+"date":"2026-06-24",
+"updated":"2026-06-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454370":{
+"title":"Intune moving to support macOS 15 and higher later this year",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454370",
+"source":"Message Center",
+"id":"MC1454370",
+"date":"2026-08-13",
+"updated":"2026-08-13",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454371":{
+"title":"Intune moving to support iOS/iPadOS 18 and higher later this year",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1454371",
+"source":"Message Center",
+"id":"MC1454371",
+"date":"2026-08-13",
+"updated":"2026-08-13",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
+"title":"New Apple settings in the Settings Catalog for iOS/iPadOS and macOS",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"date":"2026-10-05T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/windows-365/whats-new":{
+"title":"iOS and iPadOS now support screen capture protection via Microsoft Intune Mobile Application Management (MAM)",
+"link":"https://learn.microsoft.com/en-us/windows-365/whats-new",
+"source":"Microsoft Learn · What's new · Windows 365",
+"date":"2026-09-24",
+"group":"microsoft",
+"found":"2026-10-13"
+}
+},
+"final":null,
+"type":"Retirement",
+"tech":"Intune",
+"posts":[
+"MC1454370",
+"MC1454371",
+"MC1403402"
 ]
 }
 }

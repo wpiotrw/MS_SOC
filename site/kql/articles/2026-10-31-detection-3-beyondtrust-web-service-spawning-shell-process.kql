@@ -1,0 +1,31 @@
+// title: Detection 3: BeyondTrust Web Service Spawning Shell Process (CVE-2026-102764 RCE)
+// date: 2026-10-31
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Saturday, October 31, 2026
+// source: https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let BeyondTrustParents = dynamic(["bomgar-scc", "bomgar-rep", "btapp"]);
+let BeyondTrustParentsExtended = dynamic(["bomgar-scc", "bomgar-rep", "btapp", "php", "php-fpm"]);
+let ShellProcesses = dynamic(["bash", "sh", "dash", "cmd.exe", "powershell.exe", "python", "python3", "perl", "ruby"]);
+DeviceProcessEvents
+| where ActionType == "ProcessCreated"
+| where (
+    InitiatingProcessFileName has_any (BeyondTrustParents)
+    or InitiatingProcessParentFileName has_any (BeyondTrustParents)
+    or InitiatingProcessFileName has_any (BeyondTrustParentsExtended)
+  )
+| where FileName has_any (ShellProcesses)
+| extend RiskIndicator = case(
+    ProcessCommandLine has "-c" or ProcessCommandLine has "-e" or ProcessCommandLine has "exec" or ProcessCommandLine has "eval", "CommandExecution",
+    ProcessCommandLine has "wget" or ProcessCommandLine has "curl" or ProcessCommandLine has "nc" or ProcessCommandLine has "ncat", "NetworkTool",
+    "ShellSpawn"
+  )
+| project TimeGenerated, DeviceName, AccountName,
+    InitiatingProcessFileName, InitiatingProcessCommandLine,
+    InitiatingProcessParentFileName,
+    FileName, ProcessCommandLine, ActionType, RiskIndicator,
+    InitiatingProcessSHA1, SHA1
+| order by TimeGenerated desc

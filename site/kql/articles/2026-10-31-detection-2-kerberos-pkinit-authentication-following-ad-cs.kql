@@ -1,0 +1,32 @@
+// title: Detection 2: Kerberos PKINIT Authentication Following AD CS Certificate Issuance
+// date: 2026-10-31
+// product: Sentinel
+// tables: SecurityEvent
+// purpose: From the article: Detection Engineering Brief - Saturday, October 31, 2026
+// source: https://devsecopsdadattack.com/2026-10-31-detection-engineering-brief-saturday-october-31-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookbackWindow = 2d;
+let CorrelationWindow = 15m;
+let CertIssued = SecurityEvent
+| where TimeGenerated >= ago(LookbackWindow)
+| where EventID == 4887
+| extend IssuedTo = trim(" ", tostring(extract(@"(?i)Subject:\s*([^\r\n]+)", 1, EventData)))
+| where isnotempty(IssuedTo)
+| project IssueTime = TimeGenerated, IssuedTo, CertIP = tostring(IpAddress);
+let PKINITLogons = SecurityEvent
+| where TimeGenerated >= ago(LookbackWindow)
+| where EventID == 4768
+| extend PreAuthType = trim(" ", tostring(extract(@"(?i)Pre-Authentication Type:\s*(\d+)", 1, EventData)))
+| where PreAuthType == "16"
+| project LogonTime = TimeGenerated, TargetUserName = tostring(TargetUserName), LogonIP = tostring(IpAddress), TicketEncryptionType = tostring(TicketEncryptionType);
+PKINITLogons
+| join kind=inner (
+    CertIssued
+) on $left.TargetUserName == $right.IssuedTo
+| where LogonTime between (IssueTime .. (IssueTime + CorrelationWindow))
+| extend SuspiciousIPMismatch = (LogonIP != CertIP)
+| extend TimeDeltaSeconds = datetime_diff('second', LogonTime, IssueTime)
+| project LogonTime, IssueTime, TargetUserName, LogonIP, CertIP, TicketEncryptionType, SuspiciousIPMismatch, TimeDeltaSeconds
+| order by LogonTime desc
