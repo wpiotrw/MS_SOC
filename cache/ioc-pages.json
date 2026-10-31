@@ -1,11 +1,11 @@
 {
 "https://cloud.google.com/blog/topics/threat-intelligence/recovering-active-adfs-signing-keys-machine-dpapi/": {
 "iocs": [],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://pushsecurity.com/blog/authorization-phishing": {
 "iocs": [],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://specterops.io/blog/2026/10/17/connectwise-skykick-breach-microsoft-365/": {
 "iocs": [
@@ -15,7 +15,7 @@
 "In the text: As of October 19, Huntress has identified nearly 1,000 Entra tenants with sign-in activity from the IP address associated with the unauthorized activity ( 144.172.64[.]128 ), with "
 ]
 ],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://thehackernews.com/2026/10/attackers-use-microsoft-teams-it.html": {
 "iocs": [
@@ -70,7 +70,7 @@
 "In the text: None of these replace reviewing credentials, but they make a planted secret harder to use or easier to spot.\" Update ConnectWise has shared two new IP addresses linked to the activ"
 ]
 ],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://thehackernews.com/2026/10/hackers-use-compromised-connectwise.html": {
 "iocs": [
@@ -80,7 +80,7 @@
 "In the text: The incident impacts every organization that has the app installed, and the credential works against every tenant the app is consented in. \"The app's credential is in hostile hands"
 ]
 ],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://thehackernews.com/2026/10/microsoft-365-token-replay-attacks.html": {
 "iocs": [
@@ -115,11 +115,11 @@
 "In the text: Based on reports from Microsoft, Huntress, and administrators, the malicious activity started at least on October 15 from a single IP address: 144.172.64[.]128 ."
 ]
 ],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.huntress.com/blog/conditional-access-misconfigurations": {
 "iocs": [],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.huntress.com/blog/inside-knight-office-m365-aitm-attack": {
 "iocs": [
@@ -269,11 +269,11 @@
 "IOC table: Resource Development \u00b7 Stage Capabilities: Link Target ( T1608.005 )"
 ]
 ],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.huntress.com/blog/stealing-oauth-tokens-through-microsofts-front-door": {
 "iocs": [],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.huntress.com/blog/vendor-credential-enables-unauthorized-access": {
 "iocs": [
@@ -298,7 +298,7 @@
 "IOC table: Broad failed login spray, ongoing, many organizations"
 ]
 ],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/": {
 "iocs": [
@@ -378,15 +378,15 @@
 "IOC table: Setup and verification"
 ]
 ],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/": {
 "iocs": [],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/24/beyond-ransomware-tracking-storm-2570-consistent-tradecraft-across-deployments/": {
 "iocs": [],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/25/storm-3168-agentic-driven-cloud-attacks-using-compromised-service-principals/": {
 "iocs": [
@@ -406,7 +406,7 @@
 "IOC table: App Service probing"
 ]
 ],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/": {
 "iocs": [
@@ -416,11 +416,11 @@
 "IOC table: Host name \u00b7 C2 host name"
 ]
 ],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/29/beyond-source-code-a-path-to-the-keys-to-the-kingdom/": {
 "iocs": [],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/": {
 "iocs": [
@@ -460,7 +460,7 @@
 "IOC table: Domains contacted by ScreenConnect clients in observed malicious sessions."
 ]
 ],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/": {
 "iocs": [
@@ -580,7 +580,7 @@
 "In the text: Star Blizzard also continues using email from free providers such as Proton @proton[.]me , particularly in Evilginx spear-phishing operations observed throughout 2026."
 ]
 ],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/": {
 "iocs": [
@@ -660,7 +660,7 @@
 "In the text: The actor then downloaded AzCopy from hxxps://aka[.]ms/downloadazcopy-v10-linux and invoked it with an operator-supplied Azure Blob SAS URL targeting wsweb03[.]blob[.]core[.]window"
 ]
 ],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/": {
 "iocs": [
@@ -705,7 +705,7 @@
 "IOC table: These IPs were seen accessing the Graph API via the compromised apps. However, since they are VPN IPs, it is transient and relevant for investigation on October"
 ]
 ],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/": {
 "iocs": [
@@ -720,10 +720,20 @@
 "IOC table: C2 dead-drop URL"
 ]
 ],
-"read": "2026-10-23"
+"read": "2026-10-31"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/10/30/help-desk-impersonation-ad-cs-abuse-investigating-esc1-esc8-intrusion-paths/": {
 "iocs": [],
 "read": "2026-10-30"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/": {
+"iocs": [
+[
+"ip",
+"134.209.82.225",
+"IOC table: Reconnaissance endpoint; correlate with the configured address"
+]
+],
+"read": "2026-10-31"
 }
 }
