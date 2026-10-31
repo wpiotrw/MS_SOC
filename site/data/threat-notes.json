@@ -1442,6 +1442,214 @@
      "date": "2026-09-29"
     }
    ]
+  },
+  {
+   "id": "teams-helpdesk-adcs-esc1-esc8-2026-10",
+   "title": "Teams help-desk impersonation leading to AD CS abuse (ESC1 and ESC8), DCSync and Rclone exfiltration",
+   "match": [
+    "ESC1",
+    "ESC8",
+    "PetitPotam"
+   ],
+   "areas": [
+    "Identity attacks",
+    "Hybrid & federation",
+    "M365 workloads"
+   ],
+   "status": "active",
+   "updated": "2026-10-31",
+   "by": "morning routine",
+   "summary": "Microsoft Security Research describes two intrusions, not attributed to a named actor, that began with Microsoft Teams messages and calls from organization-themed onmicrosoft.com tenants posing as IT support. Victims opened Quick Assist and shared the code, giving the attacker hands-on-keyboard access; staged Python, Bun or Java runtimes ran payloads from KB-prefixed folders under the user profile. In the first case an ESC1-vulnerable certificate template let the attacker obtain certificates for eleven privileged accounts, run DCSync within seconds and later exfiltrate file-server data with Rclone renamed SearchApp.exe through an account excluded from automated response. In the second case PetitPotam coercion was relayed to AD CS Web Enrollment (ESC8) to obtain a domain controller certificate used for PKINIT; Defender alerted and the workstation was isolated before further progress.",
+   "timeline": [
+    {
+     "date": "2026-10-30",
+     "text": "Microsoft Security Blog publishes the analysis of both cases; no intrusion dates are given beyond that. In case 1 a second Teams wave against 16 users followed about 90 minutes after the first session was disrupted.",
+     "src": "Microsoft Security Blog"
+    }
+   ],
+   "rootCause": "Social engineering over Teams to obtain a Quick Assist session, then an ESC1 certificate template that accepts requester-supplied identity with broad enrollment rights (case 1) and an AD CS Web Enrollment endpoint accepting NTLM without relay protection (case 2). Issued certificates and Kerberos tickets survive password resets and reimaging.",
+   "attacker": [
+    "Teams chats and calls from help-desk-themed external onmicrosoft.com tenants",
+    "Quick Assist remote control granted by the victim",
+    "Portable Python, Bun (renamed executable) and Java runtimes run from KB-prefixed folders under the user profile",
+    "Discovery with ipconfig /all and tasklist; LDAPS and SMB to domain infrastructure",
+    "ESC1 certificate requests for privileged accounts, then DCSync",
+    "PetitPotam (EFSRPC) coercion relayed to /certsrv for a Domain Controller certificate, then PKINIT",
+    "Rclone renamed SearchApp.exe copying file-server data to an external SFTP destination"
+   ],
+   "iocs": [
+    "85b6c424117494d3056e88689dbc94c75e9afdb187a339714043aec0da109f17 (SHA-256, initial access JavaScript)",
+    "f326201269f1ee2f803ae435317507263bb6e0dbfdeb70bd1bb5446e2e46f001 (SHA-256, initial access Python script)",
+    "06c5c14f043aee3bcc5843b5f50909623d5c9a6239a7c1fba9cddad4111469e7 (SHA-256, initial access Python script)"
+   ],
+   "remediation": [
+    {
+     "text": "Restrict Teams external access and federation to business needs and investigate new help-desk-themed external tenants contacting users.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "harden"
+    },
+    {
+     "text": "Allow only approved remote-support tools and workflows; alert when Quick Assist or an RMM session extracts archives or launches scripts from user-writable paths.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "detect"
+    },
+    {
+     "text": "Use App Control for Business to block unapproved portable runtimes (Bun, Python, Java) and script execution from user-writable locations.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "harden"
+    },
+    {
+     "text": "Apply KB5005413 guidance against NTLM relay to AD CS: require HTTPS with Extended Protection for Authentication on enrollment endpoints, disable NTLM there where Kerberos works, and remove unneeded Web Enrollment and CES endpoints.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "harden"
+    },
+    {
+     "text": "Review authentication-capable certificate templates for requester-supplied subject, broad enrollment rights and weak issuance controls; use Defender for Identity AD CS posture assessments to find ESC1 and ESC8 exposure.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "harden"
+    },
+    {
+     "text": "Enable Certification Services advanced auditing (success and failure) with the CA audit filter, and preserve CA, IIS, endpoint, identity and Teams logs.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "detect"
+    },
+    {
+     "text": "Revoke unauthorized certificates and publish revocation; handle already-issued Kerberos tickets separately because revocation does not invalidate them.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "eradicate"
+    },
+    {
+     "text": "Treat exclusions from automated containment as incident decisions and assign manual compensating actions for every excluded identity or device.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "contain"
+    },
+    {
+     "text": "Run the post's four advanced hunting queries (Teams external contact, Bun or Java from KB-prefixed paths, network activity of those runtimes, AD CS relay and PKINIT alerts with evidence) over the last 30 days and review Defender for Identity ESC1/ESC8 alerts.",
+     "from": "ours",
+     "phase": "investigate"
+    },
+    {
+     "text": "List certificate templates with ENROLLEE_SUPPLIES_SUBJECT and Client Authentication EKU that Domain Users or Authenticated Users can enroll, and remove the enrollment right or require manager approval this week.",
+     "from": "ours",
+     "phase": "harden"
+    }
+   ],
+   "microsoft": [
+    {
+     "what": "Microsoft Security Research analysis with Defender detections, IOCs and advanced hunting queries",
+     "title": "From help desk impersonation to AD CS abuse: Investigating ESC1 and ESC8 intrusion paths",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/10/30/help-desk-impersonation-ad-cs-abuse-investigating-esc1-esc8-intrusion-paths/",
+     "date": "2026-10-30"
+    }
+   ],
+   "links": [
+    {
+     "text": "Microsoft Security Blog: From help desk impersonation to AD CS abuse",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/10/30/help-desk-impersonation-ad-cs-abuse-investigating-esc1-esc8-intrusion-paths/",
+     "date": "2026-10-30"
+    }
+   ],
+   "kqlSearched": "2026-10-31"
+  },
+  {
+   "id": "cursor-claude-code-extension-ssh-backdoor-2026-10",
+   "title": "Tampered Claude Code-branded extension in the Cursor marketplace (2.1.312 and 2.1.313) installs a persistent SSH reverse-tunnel backdoor",
+   "match": [
+    "Claude Code-branded",
+    "svc-telemetry"
+   ],
+   "areas": [
+    "Vulnerabilities"
+   ],
+   "status": "contained",
+   "updated": "2026-10-31",
+   "by": "morning routine",
+   "summary": "A tampered copy of the anthropic.claude-code extension, versions 2.1.312 and 2.1.313, was served by the Cursor extension marketplace from about 2:27 AM to 1:35 PM PDT before Cursor reported it on 29 October 2026; Anthropic says it did not develop the package and the Visual Studio Marketplace and npm package were not affected. On load the extension collected host details, the Git email and up to forty environment-variable names, appended an Ed25519 key with the comment svc-telemetry to authorized_keys and opened an SSH reverse tunnel to 134.209.82[.]225, persisting through a LaunchAgent, an @reboot crontab entry or a SysMon scheduled task. Microsoft found no evidence that secrets themselves were stolen, and Cursor reported the tunnel blocked on most macOS and Windows hosts. Microsoft does not attribute it to an actor.",
+   "timeline": [
+    {
+     "date": "2026-10-29",
+     "text": "Cursor reports the malicious extension versions; they were live from about 02:27 to 13:35 PDT.",
+     "src": "Microsoft Security Blog"
+    },
+    {
+     "date": "2026-10-30",
+     "text": "Microsoft Security Blog publishes its analysis with IOCs, Defender detections and hunting queries.",
+     "src": "Microsoft Security Blog"
+    }
+   ],
+   "rootCause": "A tampered copy of a popular AI-assistant extension was published to and served by the Cursor marketplace; developers installing or auto-updating received it. Microsoft does not state how the package got into the marketplace.",
+   "attacker": [
+    "Reconnaissance of host, user, OS, Git email and secret-like environment-variable names",
+    "Ed25519 key with comment svc-telemetry appended to authorized_keys (including administrators_authorized_keys on Windows)",
+    "SSH reverse tunnel -N -R '*:0:localhost:22' with host-key checking off, via autossh or a hidden PowerShell loop",
+    "Persistence: ~/Library/LaunchAgents/com.apple.sysmond.plist (macOS), @reboot crontab (Linux), SysMon scheduled task or sysmon.cmd in Startup (Windows)",
+    "Beacon of host details to hxxp://134[.]209[.]82[.]225:8099/beacon"
+   ],
+   "iocs": [
+    "134.209.82[.]225 (remote SSH and HTTP destination)",
+    "hxxp://134[.]209[.]82[.]225:8099/beacon",
+    "svc-telemetry (authorized key comment)",
+    "SHA256:0Z6R+DF64Do2nwQic8a7kkfDLNNk4IiK+2U2Rci4htk (SSH key fingerprint)",
+    ".stk_[0-9a-f]{10} (temporary tunnel identity file)",
+    "ecb58cb29078d9646ad1dcdbe51526f2d9cfea06be5fb2ab183e8ecc3ab6bf15 (SHA-256, JavaScript entry point)",
+    "7e0a52885fadee05544a9e99eb18c792bec05900a5e1a66d68f8383decb0e278 (SHA-256, decoded tunnel private key)",
+    "~/Library/LaunchAgents/com.apple.sysmond.plist"
+   ],
+   "remediation": [
+    {
+     "text": "Hunt for affected installs, preserve the extension package, modified SSH files, keys, scripts and startup configuration, and isolate devices showing loader execution or backdoor installation.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "contain"
+    },
+    {
+     "text": "Remove the exact svc-telemetry key by fingerprint while keeping unrelated keys, stop the SSH tunnel processes, delete .stk_ files after collection, inspect and remove the persistence objects, and remove the extension.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "eradicate"
+    },
+    {
+     "text": "Review telemetry for key acceptance, tunnel processes and command execution; rotate credentials and revoke sessions where exposure is indicated, rebuilding the device if needed.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "investigate"
+    },
+    {
+     "text": "Restrict editor extensions to approved publishers and set an extension installation cooldown, as Cursor advises.",
+     "from": "source",
+     "src": "Cursor (via Microsoft Security Blog)",
+     "phase": "harden"
+    },
+    {
+     "text": "Run the post's DeviceNetworkEvents, DeviceFileEvents and ScheduledTaskCreated queries over 30 days and treat any hit on a developer device as an incident: rotate the cloud and Git tokens that device's user held.",
+     "from": "ours",
+     "phase": "detect"
+    }
+   ],
+   "microsoft": [
+    {
+     "what": "Microsoft Security Blog research post with IOCs, Defender detections and hunting queries; threat analytics report 'Activity Profile: Malicious Claude Code branded extension v2.1.313 contains a persistent SSH backdoor'",
+     "title": "Inside a malicious Claude Code-branded extension and its persistent SSH backdoor",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/",
+     "date": "2026-10-30"
+    }
+   ],
+   "links": [
+    {
+     "text": "Microsoft Security Blog: Inside a malicious Claude Code-branded extension and its persistent SSH backdoor",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/",
+     "date": "2026-10-30"
+    }
+   ],
+   "kqlSearched": "2026-10-31"
   }
  ]
 }
