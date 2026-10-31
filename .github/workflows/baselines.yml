@@ -23,6 +23,7 @@ on:
       - 'tools/baselines.py'
       - 'tools/baselines_more.py'
       - 'tools/baselines_cipp.py'
+      - 'data/baselines-cipp/ps-rewrites.json'   # 5fw-b: our Microsoft Graph PowerShell versions of CIPP's old-module notes
       - 'baselines_sources.json'
       - '.github/workflows/baselines.yml'
   workflow_dispatch:

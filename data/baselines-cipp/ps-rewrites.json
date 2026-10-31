@@ -1,0 +1,85 @@
+{
+ "_about": "CLAUDE.md 5fw-b (31 X 2026). Hand-checked Microsoft Graph PowerShell versions of CIPP's PowerShell notes that name a retired module (MSOnline, AzureAD). Keyed by CIPP standard id. Every cmdlet was looked up with Find-MgGraphCommand (Microsoft.Graph.Authentication, offline) and its parameters on its Learn page; scopes are the least privileged ones Find-MgGraphCommand and Learn list for the calls used. Syntax checked with the PowerShell 7.4 parser. Author: Piotr Wisniewski.",
+ "LegacyMFACleanup": {
+  "module": "MSOnline",
+  "code": "# Per-user MFA has no v1.0 cmdlet: the state lives in the beta API (users/{id}/authentication/requirements)\nInstall-Module Microsoft.Graph.Users, Microsoft.Graph.Beta.Identity.SignIns -Scope CurrentUser\nConnect-MgGraph -Scopes 'User.Read.All', 'Policy.ReadWrite.AuthenticationMethod' -NoWelcome\n\n# 1. who still has per-user MFA (enabled or enforced)\n$left = Get-MgUser -All -Property Id, UserPrincipalName | ForEach-Object {\n    $state = (Get-MgBetaUserAuthenticationRequirement -UserId $_.Id).PerUserMfaState\n    if ($state -ne 'disabled') { [pscustomobject]@{ UPN = $_.UserPrincipalName; Id = $_.Id; State = $state } }\n}\n$left | Format-Table UPN, State\n\"$(@($left).Count) users with per-user MFA\"\n\n# 2. only when Security defaults or a Conditional Access policy requires MFA for these users\n$left | ForEach-Object {\n    Update-MgBetaUserAuthenticationRequirement -UserId $_.Id -BodyParameter @{ perUserMfaState = 'disabled' } -WhatIf\n}   # read the list, then run again without -WhatIf",
+  "scopes": [
+   "User.Read.All",
+   "Policy.ReadWrite.AuthenticationMethod"
+  ],
+  "beta": true,
+  "note": "Microsoft's cmdlet map sends Set-MsolUser to Update-MgUser, but per-user MFA is not a user property in Graph: it is the perUserMfaState of the user's authentication requirements (beta API). Microsoft: do not enable or enforce per-user MFA when you use Conditional Access policies.",
+  "cmdlets": [
+   "Get-MgUser",
+   "Get-MgBetaUserAuthenticationRequirement",
+   "Update-MgBetaUserAuthenticationRequirement"
+  ],
+  "sources": [
+   {
+    "t": "Per-user MFA: use Microsoft Graph",
+    "u": "https://learn.microsoft.com/entra/identity/authentication/howto-mfa-userstates#use-microsoft-graph-to-manage-per-user-mfa"
+   },
+   {
+    "t": "Update-MgBetaUserAuthenticationRequirement",
+    "u": "https://learn.microsoft.com/powershell/module/microsoft.graph.beta.identity.signins/update-mgbetauserauthenticationrequirement?view=graph-powershell-beta"
+   },
+   {
+    "t": "Get-MgBetaUserAuthenticationRequirement",
+    "u": "https://learn.microsoft.com/powershell/module/microsoft.graph.beta.identity.signins/get-mgbetauserauthenticationrequirement?view=graph-powershell-beta"
+   }
+  ],
+  "checked": "2026-10-31"
+ },
+ "DisableGuestDirectory": {
+  "module": "AzureAD",
+  "code": "Install-Module Microsoft.Graph.Identity.SignIns -Scope CurrentUser\nConnect-MgGraph -Scopes 'Policy.ReadWrite.Authorization' -NoWelcome\n\n# now: a0b1b346-... = User (same as members), 10dae51f-... = Guest User (default), 2af84b1e-... = Restricted Guest User\n(Get-MgPolicyAuthorizationPolicy).GuestUserRoleId\n\n# guests see only their own directory objects\nUpdate-MgPolicyAuthorizationPolicy -GuestUserRoleId '2af84b1e-32c8-42b7-82bc-daa82404023b' -WhatIf",
+  "scopes": [
+   "Policy.ReadWrite.Authorization"
+  ],
+  "beta": false,
+  "note": "The role ids are Microsoft's role template ids, the same in every tenant. Microsoft lists services that do not support the restricted guest setting yet (Forms, Project Online, Viva Engage, Planner in SharePoint).",
+  "cmdlets": [
+   "Get-MgPolicyAuthorizationPolicy",
+   "Update-MgPolicyAuthorizationPolicy"
+  ],
+  "sources": [
+   {
+    "t": "Restrict guest access permissions",
+    "u": "https://learn.microsoft.com/entra/identity/users/users-restrict-guest-permissions#update-with-powershell-cmdlets"
+   },
+   {
+    "t": "Update authorizationPolicy (Graph API)",
+    "u": "https://learn.microsoft.com/graph/api/authorizationpolicy-update?view=graph-rest-1.0"
+   },
+   {
+    "t": "Update-MgPolicyAuthorizationPolicy",
+    "u": "https://learn.microsoft.com/powershell/module/microsoft.graph.identity.signins/update-mgpolicyauthorizationpolicy?view=graph-powershell-1.0"
+   }
+  ],
+  "checked": "2026-10-31"
+ },
+ "MailContacts": {
+  "module": "MSOnline",
+  "code": "Install-Module Microsoft.Graph.Identity.DirectoryManagement -Scope CurrentUser\nConnect-MgGraph -Scopes 'Organization.ReadWrite.All' -NoWelcome\n\n$org = Get-MgOrganization\n$org | Select-Object TechnicalNotificationMails, SecurityComplianceNotificationMails, MarketingNotificationEmails\n\nUpdate-MgOrganization -OrganizationId $org.Id `\n    -TechnicalNotificationMails @('it@contoso.com') `\n    -SecurityComplianceNotificationMails @('security@contoso.com') `\n    -MarketingNotificationEmails @('marketing@contoso.com') -WhatIf",
+  "scopes": [
+   "Organization.ReadWrite.All"
+  ],
+  "beta": false,
+  "note": "Replace the contoso addresses with your own shared mailboxes. CIPP's standard asks for a general, security, marketing and technical contact; the organization resource in Graph has technicalNotificationMails, securityComplianceNotificationMails and marketingNotificationEmails.",
+  "cmdlets": [
+   "Get-MgOrganization",
+   "Update-MgOrganization"
+  ],
+  "sources": [
+   {
+    "t": "Update organization (Graph API)",
+    "u": "https://learn.microsoft.com/graph/api/organization-update?view=graph-rest-1.0"
+   },
+   {
+    "t": "Update-MgOrganization",
+    "u": "https://learn.microsoft.com/powershell/module/microsoft.graph.identity.directorymanagement/update-mgorganization?view=graph-powershell-1.0"
+   }
+  ],
+  "checked": "2026-10-31"
+ }
+}

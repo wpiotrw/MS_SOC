@@ -17,6 +17,11 @@ recommends it and CIPP's note of the PowerShell / Graph equivalent. Matched to o
 Changes between runs become events of the Security baselines (src "CIPP"): standard-new, standard-changed,
 standard-removed, cipp-version. The first run records the list without events.
 Writes site/data/baselines-cipp.json; memory in data/baselines-cipp/state.json.
+5fw-b (31 X 2026, owner: "where their PowerShell uses an old module, give two tabs - MSOnline and Microsoft Graph -
+rewriting the old commands to supported cmdlets; Microsoft has a cmdlet map"): a note that names a retired MSOnline or
+AzureAD cmdlet gets Microsoft's own mapping (the Learn page "Find Azure AD PowerShell and MSOnline cmdlets in Microsoft
+Graph PowerShell", read on every run, kept in data/baselines-cipp/cmdlet-map.json when Learn is not reachable) and,
+when we wrote one, the checked Microsoft Graph PowerShell version from data/baselines-cipp/ps-rewrites.json.
 """
 import datetime
 import hashlib
@@ -44,6 +49,9 @@ TEMPLATE_TECH = [(r"ConditionalAccess|PIMRole|GroupTemplate", "Entra ID"), (r"Dl
                  (r"SafeLinks", "Defender"), (r"Transport|ExchangeConnector", "Exchange Online"), (r"Intune|AssignmentFilter|ReusableSettings", "Intune")]
 # PowerShell modules Microsoft retired - CIPP's note still names them for some standards
 RETIRED = re.compile(r"\b(?:\w+-Msol\w+|\w+-AzureAD\w*)\b")
+MAP_URL = "https://learn.microsoft.com/en-us/powershell/microsoftgraph/azuread-msoline-cmdlet-map?view=graph-powershell-1.0"
+MAP_MEM = os.path.join(ROOT, "data", "baselines-cipp", "cmdlet-map.json")
+RW = os.path.join(ROOT, "data", "baselines-cipp", "ps-rewrites.json")
 
 
 def log(*a):
@@ -111,6 +119,35 @@ def fetch():
     return std, ver, commit_info()
 
 
+def cmdlet_map():
+    """Microsoft's MSOnline / AzureAD -> Microsoft Graph PowerShell map: {old cmdlet: [[new cmdlet, url], ...]}"""
+    import html as _h
+    try:
+        t = get(MAP_URL)
+        m = {}
+        for a, b in re.findall(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>", t, re.S):
+            old = re.sub(r"\s*\^?\d\^?$", "", _h.unescape(re.sub("<[^>]+>", "", a)).strip()).strip()
+            new = _h.unescape(re.sub("<[^>]+>", "", b)).strip()
+            if not re.match(r"^[A-Z][a-z]+-(Msol|AzureAD)\w+$", old):
+                continue
+            lk = re.search(r'<a href="([^"]+)"', b)
+            u = lk.group(1) if lk else ""
+            if u.startswith("/"):
+                u = "https://learn.microsoft.com" + u
+            elif u and not u.startswith("http"):
+                u = "https://learn.microsoft.com/powershell/microsoftgraph/" + u
+            pair = [new, u]
+            if pair not in m.setdefault(old, []):
+                m[old].append(pair)
+        if len(m) > 100:
+            save(MAP_MEM, {"read": datetime.date.today().isoformat(), "url": MAP_URL, "map": m})
+            return m
+        log("cmdlet map: only %d rows read - the kept copy is used" % len(m))
+    except Exception as e:
+        log("cmdlet map not read:", e)
+    return (load(MAP_MEM, {}) or {}).get("map") or {}
+
+
 def tech_of(s):
     if s.get("cat") == "Templates":
         for rx, t in TEMPLATE_TECH:
@@ -169,6 +206,8 @@ def run(day, seed=False, maester_tests=None, tenable_items=None):
             if re.match(r"^\d+(\.\d+)+$", n):
                 tcis.setdefault(n, []).append({"a": aid, "f": a.get("file") or aid + ".audit", "k": i.get("k"), "n": n})
     cisa_ids = {p.get("id") for p in ((load(CTL, {}) or {}).get("cisa") or {}).get("policies") or []}
+    cmap = cmdlet_map()
+    rws = {k: v for k, v in (load(RW, {}) or {}).items() if not k.startswith("_")}
 
     first = not st.get("fp")
     mute = seed or first
@@ -189,6 +228,12 @@ def run(day, seed=False, maester_tests=None, tenable_items=None):
              "rec": s.get("recommendedBy") or [], "ps": ps if ps.lower() not in ("none", "") else "",
              "retired": bool(RETIRED.search(ps)), "deprecated": bool(s.get("deprecated")), "beta": bool(s.get("beta")),
              "multi": bool(s.get("multiple") or s.get("multi"))}
+        if r["retired"]:   # 5fw-b
+            olds = sorted(set(RETIRED.findall(ps)))
+            r["old"] = {"module": "MSOnline" if any("-Msol" in o for o in olds) else "AzureAD",
+                        "map": [{"old": o, "new": [{"c": n, "u": u} for n, u in cmap.get(o, [])]} for o in olds]}
+            if sid in rws:
+                r["graph"] = {k: rws[sid].get(k) for k in ("code", "scopes", "beta", "note", "cmdlets", "sources", "checked")}
         r["maester"] = [x for x in ["CIS.M365." + c for c in tg["cis"]] + tg["eidsca"] if x in mt]
         r["tenable"] = [t for c in tg["cis"] for t in tcis.get(c, [])][:6]
         cur = {"label": r["label"], "impact": r["impact"], "tags": sorted(s.get("tag") or []), "deprecated": r["deprecated"], "ps": ps,
@@ -253,6 +298,7 @@ def run(day, seed=False, maester_tests=None, tenable_items=None):
             "cis": sum(1 for r in rows if r["cis"]), "maester": sum(1 for r in rows if r["maester"]), "tenable": sum(1 for r in rows if r["tenable"]),
             "cisaOk": sum(1 for r in rows if r["cisa"]), "cisaOld": sum(1 for r in rows if r["cisaOld"]),
             "impact": imp, "added30": sum(1 for r in rows if r["added"] >= since30), "retired": sum(1 for r in rows if r["retired"]),
+            "rewritten": sum(1 for r in rows if r.get("graph")), "mapUrl": MAP_URL,
             "newest": [{"id": r["id"], "label": r["label"], "added": r["added"], "tech": r["tech"]} for r in newest],
             "page": PAGE, "json": JSON_URL}
     out = {"generated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "day": day, "spec": "5fw",
