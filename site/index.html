@@ -5681,6 +5681,7 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 a.s5fz-sct:hover,button.s5fz-sct:hover{color:var(--accent);text-decoration:underline}
 .s5fz-scm{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0}
 .s5fz-rel{padding:2px 9px;border-radius:999px;font-size:12.5px;font-weight:700;color:#fff}
+.s5fz-rel-official,.s5fz-rel-primary{background:#2f5fd0}.s5fz-rel-vendor{background:#b42318}.s5fz-rel-research{background:#7a5bc7}.s5fz-rel-news{background:#4b5563}.s5fz-rel-community{background:#0e7c86}.s5fz-rel-query{background:#1f7a44}
 .s5fz-rel-names-it{background:#1f7a44}.s5fz-rel-feature{background:#2f5fd0}.s5fz-rel-doc{background:#7a5bc7}.s5fz-rel-words{background:#b7791f}.s5fz-rel-pv{background:#b7791f}.s5fz-rel-un{background:var(--bad)}
 .s5fz-by,.s5fz-dt{padding:1px 8px;border-radius:999px;font-size:13px;color:var(--text);border:1px solid color-mix(in srgb,var(--text) 30%,transparent)}
 .s5fz-says{margin:4px 0;font-size:14.5px;line-height:1.5;color:var(--text)}.s5fz-says b{font-weight:700}
@@ -5699,6 +5700,13 @@ button.s5fz-urn:hover{color:var(--accent);text-decoration:underline}
 .s5fz-k{padding:2px 9px;border-radius:999px;font-size:12.5px;font-weight:700;color:#fff}
 .s5fz-k-new{background:#2f5fd0}.s5fz-k-st{background:#1f7a44}.s5fz-k-src{background:#7a5bc7}.s5fz-k-ex{background:#0e7c86}.s5fz-k-gone{background:var(--bad)}
 .s5fz-tdl{margin:10px 0 4px;font-weight:700;color:var(--text)}
+/* §5ga: the shared source card looks the same in every tab - local link styles (Campaigns, Threat Research) must not win */
+.s5ga-src .s5fz-sc a.s5fz-sct,.s5ga-src .s5fz-sc button.s5fz-sct,.s5ga-src .s5fz-sc span.s5fz-sct{display:block;color:var(--text)!important;font-weight:700!important;font-size:16px!important;line-height:1.35!important;text-decoration:none!important}
+.s5ga-src .s5fz-sc a.s5fz-sct:hover{color:var(--accent)!important;text-decoration:underline!important}
+.s5ga-src a.s5fz-open{display:inline-block!important;margin-top:4px;padding:4px 12px!important;border-radius:8px!important;font-size:14px!important;font-weight:700!important;color:var(--accent)!important;border:1.5px solid var(--accent)!important;text-decoration:none!important;background:transparent!important}
+.s5ga-src .s5fz-sc{margin:0 0 10px!important}
+.s5ga-src .s5fz-says{color:var(--text)!important;font-size:14.5px!important}
+.s5ga-ab .s5ga-src{margin-top:8px}
 .s5fz-strip{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0 6px;padding:8px 10px;border-radius:14px;border:2px solid color-mix(in srgb,var(--accent) 50%,transparent);background:color-mix(in srgb,var(--accent) 6%,var(--surface))}
 .s5fz-dots{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 10px}
 .s5fz-d{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--text)}
@@ -17767,7 +17775,26 @@ IdentityDirectoryEvents
     if (mc) { var mb = el("button", "s5fo-lk s5fo-mc", "Message Center " + mc); mb.type = "button";
       mb.addEventListener("click", function () { SHEET.hidden = true; if (window.__socOpenMC) window.__socOpenMC(mc); else goItem(id, "mc", true); }); links.appendChild(mb); }
     function host(u) { var h = (String(u).match(/^https?:\/\/([^\/]+)/) || [])[1] || ""; return /learn\.microsoft/.test(h) ? "Microsoft Learn" : /techcommunity/.test(h) ? "Tech Community blog" : /deltapulse/.test(h) ? "DeltaPulse" : /merill/.test(h) ? "mc.merill.net" : /msrc/.test(h) ? "MSRC" : h.replace(/^www\./, ""); }
-    [[it.url, "s5fo-src"], [it.blogUrl, ""], [it.learnUrl, ""], [it.docUrl, ""]].forEach(function (u) {
+    /* §5ga: the sources as cards - the item's own source with its official title, what it says (fingerprint), when it
+       was published / revised and whether its link was checked; Message Center as an in-portal card */
+    if (window.__socSrc) {
+      var SI = [];
+      if (mc) SI.push({ title: "Message Center " + mc + " — open in the portal", go: function () { SHEET.hidden = true; if (window.__socOpenMC) window.__socOpenMC(mc); else goItem(id, "mc", true); },
+        group: "ms", rel: "official", by: "Microsoft Message Center", says: it.officialTitle || "" });
+      var seenU2 = {};
+      [[it.url, 1], [it.blogUrl, 0], [it.learnUrl, 0], [it.docUrl, 0]].forEach(function (u) {
+        if (!u[0] || seenU2[u[0]]) return; seenU2[u[0]] = 1;
+        var href2 = window.__socLearnAnchor ? window.__socLearnAnchor(it.id, u[0]) : u[0];
+        SI.push(u[1] ? { title: it.officialTitle || it.title || host(u[0]), url: href2, by: host(u[0]), rel: "primary", date: it.revisedOn || it.published, dateLab: it.revisedOn ? "revised" : "published",
+            says: it.fingerprint || "", chips: [it.linkStatus === "ok" && it.linkCheckedOn ? "link checked " + String(it.linkCheckedOn).slice(8, 10) + "/" + String(it.linkCheckedOn).slice(5, 7) : "", it.changeType || ""].filter(Boolean) }
+          : { title: host(u[0]), url: href2, by: host(u[0]), rel: /learn\.microsoft/.test(u[0]) ? "doc" : "official" });
+      });
+      (it.sourcesExtra || []).forEach(function (x) { if (!x || !x.url || seenU2[x.url]) return; seenU2[x.url] = 1;
+        SI.push({ title: x.label || host(x.url), url: x.url, by: host(x.url), date: x.seen || "", dateLab: "seen" }); });
+      if (it.publishedSource && SI.length && SI[SI.length - 1]) SI.forEach(function (o) { if (o.rel === "primary") o.chips = (o.chips || []).concat(["date from " + it.publishedSource]); });
+      if (SI.length) { links.textContent = ""; links.appendChild(el("p", "s5fo-lab", "Sources")); links.appendChild(window.__socSrc.list(SI)); }
+    }
+    if (!links.querySelector(".s5ga-src")) [[it.url, "s5fo-src"], [it.blogUrl, ""], [it.learnUrl, ""], [it.docUrl, ""]].forEach(function (u) {
       if (!u[0] || links.querySelector('[data-u="' + String(u[0]).replace(/"/g, "") + '"]')) return;
       var href = window.__socLearnAnchor ? window.__socLearnAnchor(it.id, u[0]) : u[0];
       var a = el("a", "s5fo-lk " + u[1], host(u[0]) + " \u2197"); a.href = href; a.target = "_blank"; a.rel = "noopener"; a.setAttribute("data-u", u[0]);
@@ -21286,7 +21313,7 @@ IdentityDirectoryEvents
             text: String(a.text || "").slice(0, 700), why: a.why || "", meta: [a.area, a.monthLabel].filter(Boolean).join(" · "),
             /* §5cd step 5: what Section A/B carried beyond this row — weight, criteria, every topic,
                the links "Where to check" — so the list can replace those two tables */
-            weight: a.weight, crit: a.criteria || [], tags: a.tags || [], links: a.links || [],
+            weight: a.weight, crit: a.criteria || [], tags: a.tags || [], links: a.links || [], blogs: a.blogs || [],   /* §5ga: blogs that wrote about it */
             /* the source of a Learn entry is the area's what's-new page it was read from */
             srcL: "Learn: " + (a.area || "what's new"), srcH: String(a.url || "").split("#")[0],
             kind: "wn", f2: "What's new entry", pageDate: a.msDate || "" };
@@ -21590,7 +21617,16 @@ IdentityDirectoryEvents
             if (r.tags && r.tags.length) { g.appendChild(el("span", "mcb-k", "Technology")); g.appendChild(document.createTextNode(r.tags.join(", "))); }
             d.appendChild(g);
           }
-          if (r.links && r.links.length) {
+          /* §5ga (31 X 2026): "Where to check" as the portal's source cards - the live page, Microsoft's commit and the
+             blog posts that wrote about the entry (with how they cover it), grouped Microsoft / Community */
+          var SX = [], seenX = {};
+          (r.links || []).forEach(function (x) { if (!x || !x.url || seenX[x.url]) return; seenX[x.url] = 1;
+            SX.push({ title: /^Commit /.test(x.text || "") ? "Microsoft's commit " + x.text.slice(7) + " — the exact lines changed" : (x.text === "Live page" ? (r.title || "Live page") : (x.text || x.url)), url: x.url,
+              rel: /github\.com/.test(x.url) ? "doc" : "official", group: "ms", by: /github\.com/.test(x.url) ? "GitHub · MicrosoftDocs" : "Microsoft Learn" }); });
+          (r.blogs || []).forEach(function (b) { if (!b || !b.link || seenX[b.link]) return; seenX[b.link] = 1;
+            SX.push({ title: b.title || b.source || b.link, url: b.link, by: b.source, says: b.how || "", saysLab: "How it covers it", rel: "community" }); });
+          if (window.__socSrc && SX.length) { var sw2 = el("div", "mcb-sum s5ga-ab"); sw2.appendChild(el("span", "mcb-k", "Sources · " + SX.length)); sw2.appendChild(window.__socSrc.list(SX)); d.appendChild(sw2); }
+          else if (r.links && r.links.length) {
             var lk = el("p", "mcb-sum"); lk.appendChild(el("span", "mcb-k", "Where to check"));
             r.links.forEach(function (x) { if (!x || !x.url) return; var a2 = el("a", "ab-lnk", x.text || x.url); a2.href = x.url; a2.target = "_blank"; a2.rel = "noopener"; lk.appendChild(a2); lk.appendChild(document.createTextNode(" ")); });
             d.appendChild(lk);
@@ -25246,6 +25282,25 @@ IdentityDirectoryEvents
     t.appendChild(tb); tw.appendChild(labels(t)); s.appendChild(tw); body.appendChild(s);
   }
   function materials(c) {
+    /* §5ga (31 X 2026): the campaign's materials as the portal's source cards - inner tabs Microsoft / Community /
+       Video, each source with who, when, when it was added, and - for a Microsoft post - what it says about the
+       campaign (the "says" of the What changes table that cites it) */
+    if (window.__socSrc) {
+      var SAYS = {}; (c.changes || []).forEach(function (r) { if (r.src && r.says && !SAYS[r.src]) SAYS[r.src] = r.says; });
+      var IT = [];
+      [["microsoft", "ms"], ["community", "com"], ["video", "video"]].forEach(function (x) {
+        ((c.materials || {})[x[0]] || []).forEach(function (m) {
+          var isMC = m.id && m.source === "Message Center";
+          IT.push({ title: m.title || m.link, url: m.link, group: x[1], by: m.source, date: m.date, rel: x[1] === "ms" ? "official" : x[1] === "video" ? "news" : "community",
+            says: (m.id && SAYS[m.id]) || "", chips: [isMC ? m.id : "", m.updated && m.updated !== m.date ? "updated " + dm(m.updated) : "", m.found && m.found !== D.day && m.found > (c.firstSeen || "") ? "added " + dm(m.found) : ""].filter(Boolean) });
+        });
+      });
+      var sec = el("section", "s5cu-s s5ga-camp"); sec.id = "s5cu-m-microsoft"; sec.appendChild(h2("Sources · " + IT.length));
+      sec.appendChild(window.__socSrc.list(IT, { alwaysTabs: true, empty: "No material on this campaign yet." }));
+      if (!((c.materials || {}).video || []).length) sec.appendChild(el("p", "s5cu-empty", "No video on this campaign yet from the watched channels. A video appears here with its title, channel and date when one of them publishes."));
+      body.appendChild(sec);
+      return;
+    }
     var g = el("div", "s5cu-mats");
     [["microsoft", "Microsoft"], ["community", "Community"], ["video", "Video"]].forEach(function (x) {
       var L = (c.materials || {})[x[0]] || [];
@@ -25494,7 +25549,13 @@ IdentityDirectoryEvents
         if (e.purpose && e.purpose !== e.title) det.appendChild(el("p", "s5eu-p", e.purpose));
         var links = el("p", "s5eu-links");
         function a(t, h) { var x = el("a", null, t); x.href = h; x.target = "_blank"; x.rel = "noopener"; links.appendChild(x); }
-        if (e.link) a(e.kind === "repo" ? "Original in " + (e.repo || "the repository") + " \u2197" : "The article \u2197", e.link);
+        /* §5ga (31 X 2026): the query's origin as the portal's source card - who published it, where, when, licence */
+        if (window.__socSrc && (e.link || e.source)) {
+          var u0 = e.link || e.source;
+          det.appendChild(window.__socSrc.list([{ title: e.kind === "repo" ? "Original in " + (e.repo || "the repository") : (e.articleTitle || e.title || "The article"), url: u0,
+            by: e.author || e.repo || "", date: e.date || "", rel: "query",
+            chips: [e.license ? "licence: " + e.license : "", e.kind === "repo" ? "repository" : "article"].filter(Boolean) }]));
+        } else if (e.link) a(e.kind === "repo" ? "Original in " + (e.repo || "the repository") + " \u2197" : "The article \u2197", e.link);
         else if (e.source) a("Source \u2197", e.source);
         if (e.incident) { var ib = el("button", "s5el-lnk", "Open the incident in Threat Research"); ib.type = "button";
           ib.addEventListener("click", function () { if (window.__socOpenThreat) window.__socOpenThreat(e.incident); }); links.appendChild(ib); }
@@ -28458,21 +28519,26 @@ IdentityDirectoryEvents
         });
       }
     } else { var c0 = card(A, "No analysis yet"); c0.appendChild(el("p", "s5el-note", "The articles are what the sources say. The morning run writes a summary and steps for new incidents.")); }
-    if (s.microsoft.items.length) {
-      var c9 = card(B, "What Microsoft published", s.microsoft.items.length + "");
-      var mu = el("ul", "s5et-links"); s.microsoft.items.forEach(function (m) { var li = el("li"); li.appendChild(aLink(m.title, m.link)); li.appendChild(el("span", "s5el-mut", dmy(m.date) + " · " + m.what)); mu.appendChild(li); });
-      c9.appendChild(mu);
-    }
-    var ca = card(B, "Articles", s.articles.length + "");
-    var au = el("ul", "s5et-links"), seenL = {};
+    /* §5ga (31 X 2026): one Sources card instead of "What Microsoft published" + "Articles" - the shared source card
+       (window.__socSrc): grouped Microsoft / Security research & news / Community, each source with who, when and what
+       it says (the article's summary); one URL is listed once (Microsoft items and the note's links shared URLs) */
+    var SR = [], seenL = {};
+    function addSrc(o) { if (!o.url || seenL[o.url]) return; seenL[o.url] = 1; SR.push(o); }
+    s.microsoft.items.forEach(function (m) { addSrc({ title: m.title, url: m.link, by: m.what, date: day(m.date || ""), rel: "official", group: "ms" }); });
     s.articles.map(function (id) { return ART[id]; }).filter(Boolean).forEach(function (a) {
-      seenL[a.link] = 1;
-      var li = el("li"); li.appendChild(aLink(a.title, a.link)); li.appendChild(el("span", "s5el-mut", dmy(day(a.published || a.firstSeen)) + " · " + a.source));
-      if (a.summary && !N) li.appendChild(el("p", "s5el-ex", a.summary.slice(0, 260) + (a.summary.length > 260 ? "…" : "")));
-      au.appendChild(li);
-    });
-    if (N && N.links) N.links.forEach(function (x) { if (seenL[x.url]) return; var li = el("li"); li.appendChild(aLink(x.text, x.url)); li.appendChild(el("span", "s5el-mut", dmy(x.date))); au.appendChild(li); });
-    ca.appendChild(au);
+      var o = { title: a.title, url: a.link, by: a.source, date: day(a.published || a.firstSeen || ""), says: a.summary ? a.summary.slice(0, 320) + (a.summary.length > 320 ? "…" : "") : "",
+        chips: (a.cves || []).slice(0, 3) };
+      var g = window.__socSrc ? window.__socSrc.groupOf(o) : "com"; o.rel = g === "ms" ? "official" : g === "res" ? "research" : "community"; addSrc(o); });
+    if (N && N.links) N.links.forEach(function (x) { var o = { title: x.text, url: x.url, date: x.date, chips: ["used in the analysis"] };
+      var g = window.__socSrc ? window.__socSrc.groupOf(o) : "com"; o.rel = g === "ms" ? "official" : g === "res" ? "research" : g === "code" ? "doc" : "community"; addSrc(o); });
+    if (window.__socSrc && SR.length) {
+      var ca = card(B, "Sources", SR.length + "");
+      ca.appendChild(window.__socSrc.list(SR, { labels: { ms: "Microsoft", res: "Security research & news", com: "Community & other" } }));
+    } else {
+      var ca2 = card(B, "Articles", SR.length + ""), au = el("ul", "s5et-links");
+      SR.forEach(function (o) { var li = el("li"); li.appendChild(aLink(o.title, o.url)); li.appendChild(el("span", "s5el-mut", dmy(o.date) + (o.by ? " · " + o.by : ""))); au.appendChild(li); });
+      ca2.appendChild(au);
+    }
     if (N && N.remediation && N.remediation.length) todoCard(N, d);   /* §5ez */
     kqlCard(s, N, d);                                                   /* §5ez */
   }
@@ -32190,12 +32256,15 @@ IdentityDirectoryEvents
     var panes = [{ key: "ov", label: lab.ov || "Overview", els: P.ov, side: P.ovSide }, { key: "steps", label: lab.steps || "What to do", els: P.steps },
       { key: "what", label: lab.what || "What changed", els: P.what }, { key: "who", label: lab.who || "Who checks it", els: P.who },
       { key: "said", label: lab.said || "What the source says", els: P.said }, { key: "try", label: "Try it", els: P.tr },
-      { key: "src", label: lab.src || "Sources", els: P.src, n: c.querySelectorAll(".s5fo-links .s5fo-lk, .s5ft-a").length || 0 }];
+      { key: "src", label: lab.src || "Sources", els: P.src, n: c.querySelectorAll(".s5fo-links .s5fo-lk, .s5ft-a, .s5fz-sc").length || 0 }];
     var nonEmpty = panes.filter(function (p) { return p.els.length || (p.side || []).length; });
     if (!P.ov.length && P.ovSide.length) { panes[0].els = P.ovSide; panes[0].side = []; }
     if (nonEmpty.length < 2) { c.classList.add("s5ft-wide"); return c; }
     kids.forEach(function (k) { if (head.indexOf(k) < 0) k.remove(); });
-    return build(c, panes);
+    var out = build(c, panes);
+    try { var sp = c.querySelector(".s5ft-pane-src"); if (sp && window.__socSrc) { var nU = window.__socSrc.upgrade(sp); /* §5ga */
+      if (nU) { var tb = [].filter.call(c.querySelectorAll(".s5ft-tab"), function (t) { return /^Sources/.test(t.textContent); })[0]; if (tb) tb.textContent = "Sources · " + (sp.querySelectorAll(".s5fz-sc").length + sp.querySelectorAll(".s5ft-a").length); } } } catch (e) {}
+    return out;
   }
   /* a tab added after the card was built (the §5ft-b "Try it" of an MC post) */
   function add(c, key, label, nodes) {
@@ -32208,6 +32277,80 @@ IdentityDirectoryEvents
     return true;
   }
   window.__socCardTabs = { auto: auto, build: build, add: add };
+
+  /* §5ga (31 X 2026, owner: "wherever the portal gives information - interesting descriptions of news, interesting
+     sources - put them in nice tabs too; do everything, we know what to do"): ONE source card for the whole portal,
+     the one Graph API Radar has (§5fz). window.__socSrc.list(items, opts) groups sources into inner tabs (Microsoft /
+     Security research / Community / Code & tools / Found in our feeds) and draws each as a card: title (link or an
+     in-portal button), filled badge, who, when, What it says, Tested, Open ↗. auto() turns every card's plain
+     "Open ↗" links into these cards, so every wide card with tabs gets them at once. */
+  var MSH = /(^|\.)(microsoft\.com|learn\.microsoft\.com|techcommunity\.microsoft\.com|azure\.com|office\.com|microsoft365\.com|msrc\.microsoft\.com|mc\.merill\.net|admin\.microsoft\.com|aka\.ms|windows\.com|github\.blog|deltapulse\.app|msmessagecenter\.com|merill\.net)$/i;
+  var RSH = /(huntress|sophos|crowdstrike|mandiant|unit42|paloaltonetworks|sentinelone|proofpoint|trendmicro|eset|kaspersky|checkpoint|wiz\.io|specterops|cisa\.gov|nvd\.nist|cve\.org|bleepingcomputer|thehackernews|securityweek|darkreading|therecord|abuse\.ch|virustotal|elastic\.co|redcanary|volexity|invictus|datadoghq|permiso|obsidiansecurity|reco\.ai|cyera|varonis)/i;
+  function hostOf(u) { try { return new URL(u, location.href).hostname.replace(/^www\./, ""); } catch (e) { return ""; } }
+  function groupOf(a) {
+    if (a.group) return a.group;
+    var h = hostOf(a.url || "");
+    if (a.kind === "code-tool" || /github\.com|gitlab\.com|powershellgallery/.test(h)) return /github\.com\/(microsoft|MicrosoftDocs|microsoftgraph|Azure)\//i.test(a.url || "") ? "ms" : "code";
+    if (a.kind === "community-blog" || a.kind === "qa-forum" || /\/answers\//.test(a.url || "")) return "com";
+    if (a.mc || MSH.test(h) || /^microsoft|graph-reference|message-center/.test(a.kind || "")) return "ms";
+    if (RSH.test(h) || a.kind === "research" || a.kind === "news") return "res";
+    if (a.kind === "feed") return "auto";
+    return "com";
+  }
+  var GL = { ms: "Microsoft", res: "Security research & news", com: "Community", code: "Code & tools", video: "Video", auto: "Found in our feeds" };
+  var RELT = { "names-it": "Names this property", feature: "About the feature", doc: "Microsoft's reference", words: "Title matches — check it",
+    official: "Microsoft", vendor: "Vendor advisory", research: "Research", news: "News", community: "Community", query: "Published query", primary: "Primary source" };
+  function card(a) {
+    var d = el("div", "s5fz-sc s5fz-sc-" + (a.rel || "words")), h = el("div", "s5fz-sch");
+    if (a.go) { var mb = el("button", "s5fz-sct", a.title + " ›"); mb.type = "button"; mb.addEventListener("click", a.go); h.appendChild(mb); }
+    else if (a.url) { var t3 = el("a", "s5fz-sct", a.title); t3.href = a.url; t3.target = "_blank"; t3.rel = "noopener"; h.appendChild(t3); }
+    else h.appendChild(el("span", "s5fz-sct", a.title));
+    d.appendChild(h);
+    var m = el("div", "s5fz-scm");
+    if (a.rel && RELT[a.rel]) m.appendChild(el("span", "s5fz-rel s5fz-rel-" + a.rel, RELT[a.rel]));
+    (a.badges || []).forEach(function (b) { m.appendChild(el("span", "s5fz-rel s5fz-rel-" + (b[1] || "doc"), b[0])); });
+    if (a.preview) m.appendChild(el("span", "s5fz-rel s5fz-rel-pv", "Preview"));
+    if (a.unread) m.appendChild(el("span", "s5fz-rel s5fz-rel-un", "Not read by us — the site blocks our reader"));
+    var by = a.by || hostOf(a.url || "");
+    if (by) m.appendChild(el("span", "s5fz-by", String(by)));
+    if (a.date) m.appendChild(el("span", "s5fz-dt", (a.dateLab ? a.dateLab + " " : "") + (/^\d{4}-\d{2}-\d{2}/.test(a.date) ? a.date.slice(8, 10) + "/" + a.date.slice(5, 7) + "/" + a.date.slice(0, 4) : a.date)));
+    (a.chips || []).forEach(function (cx) { m.appendChild(el("span", "s5fz-dt", cx)); });
+    d.appendChild(m);
+    if (a.says) { var sp = el("p", "s5fz-says"); sp.appendChild(el("b", null, (a.saysLab || "What it says") + ": ")); sp.appendChild(document.createTextNode(a.says)); d.appendChild(sp); }
+    if (a.tested) { var tp = el("p", "s5fz-tst"); tp.appendChild(el("b", null, "Tested: ")); tp.appendChild(document.createTextNode(a.tested)); d.appendChild(tp); }
+    if (a.extra) d.appendChild(a.extra);
+    if (a.url && !a.go) { var go2 = el("a", "s5fz-open", "Open ↗"); go2.href = a.url; go2.target = "_blank"; go2.rel = "noopener"; d.appendChild(go2); }
+    return d;
+  }
+  function list(items, opts) {
+    opts = opts || {};
+    var w = el("div", "s5ga-src"), G = {}, order = ["ms", "res", "com", "code", "video", "auto"];
+    (items || []).forEach(function (a) { if (!a || !a.title) return; var g = groupOf(a); (G[g] = G[g] || []).push(a); });
+    var GT = order.filter(function (g) { return (G[g] || []).length; });
+    if (!GT.length) { if (opts.empty) w.appendChild(el("p", "s5fy-lead", opts.empty)); return w; }
+    if (opts.lead) w.appendChild(el("p", "s5fy-lead", opts.lead));
+    if (GT.length === 1 && !opts.alwaysTabs) { G[GT[0]].forEach(function (a) { w.appendChild(card(a)); }); return w; }
+    var bar = el("div", "s5fz-gtabs"), host = el("div", "s5fz-gpanes");
+    GT.forEach(function (g, i) {
+      var pane = el("div", "s5fz-gpane"); pane.hidden = i !== 0; G[g].forEach(function (a) { pane.appendChild(card(a)); }); host.appendChild(pane);
+      var b = el("button", "s5fz-gtab", (opts.labels && opts.labels[g] || GL[g]) + " · " + G[g].length); b.type = "button"; b.setAttribute("aria-selected", String(i === 0));
+      b.addEventListener("click", function () { [].forEach.call(host.children, function (x) { x.hidden = x !== pane; }); [].forEach.call(bar.children, function (x) { x.setAttribute("aria-selected", String(x === b)); }); });
+      bar.appendChild(b);
+    });
+    w.appendChild(bar); w.appendChild(host); return w;
+  }
+  /* the plain "Open ↗" links of a card's Sources pane become source cards (in-portal buttons stay as they are) */
+  function upgradeLinks(pane) {
+    var links = [].slice.call(pane.querySelectorAll(".s5fo-links a.s5fo-lk[href^='http'], .s5fo-go a[href^='http']"));
+    if (!links.length || pane.querySelector(".s5ga-src")) return 0;
+    var items = links.map(function (a) { return { title: (a.textContent || "").replace(/\s*↗\s*$/, ""), url: a.href, says: a.getAttribute("data-says") || "", date: a.getAttribute("data-date") || "",
+      by: a.getAttribute("data-by") || "", rel: a.getAttribute("data-rel") || (MSH.test(hostOf(a.href)) ? "official" : RSH.test(hostOf(a.href)) ? "research" : "community"), kind: a.getAttribute("data-kind") || "" }; });
+    links.forEach(function (a) { a.remove(); });
+    [].forEach.call(pane.querySelectorAll(".s5fo-links, .s5fo-go"), function (b) { if (!b.querySelector("a,button")) b.remove(); });
+    pane.appendChild(list(items));
+    return items.length;
+  }
+  window.__socSrc = { list: list, card: card, groupOf: groupOf, upgrade: upgradeLinks };
 })();
 
 /* §5dw (15 X 2026, owner: "campaigns were to be detected by us; I am not sure Security Defaults is a campaign like the
