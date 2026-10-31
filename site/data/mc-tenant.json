@@ -1,7 +1,7 @@
 {
- "read": "2026-10-30",
+ "read": "2026-10-31",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 721,
+ "count": 714,
  "note": null,
  "messages": [
   {
@@ -1853,26 +1853,26 @@
    "major": true,
    "actionBy": null,
    "start": "2026-01-23",
-   "end": "2026-11-30",
-   "modified": "2026-07-20",
+   "end": "2027-07-02",
+   "modified": "2026-10-30",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated July 20, 2026: We have updated the content. Thank you for your patience. [Introduction] Starting in March 2026 , Microsoft Entra ID will introduce passkey profiles and synced passkeys to General Availability (GA). This update allows administrators to opt in to a new passkey profiles experience that supports group-based passkey configurations and introduces a new passkeyType property. Impor…",
-   "when": "Passkey profile and Synced passkeys General Availability. Public cloud Worldwide, GCC: Rollout begins in early March 2026 and is expected to complete by late March 2026. GCC High, DoD clouds: Rollout begins in early May 2026 and is expected to complete by late May 2026. USNat, USSec: Rollout begins in early October 2026 (previously early July) and is expected to complete by late October 2026 (previously late July). Automatic migration for existin…",
+   "summary": "Updated October 30, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Starting in March 2026 , Microsoft Entra ID will introduce passkey profiles and synced passkeys to General Availability (GA). This update allows administrators to opt in to a new passkey profiles experience that supports group-based passkey configurations and introduces a new passkeyType property. I…",
+   "when": "Passkey profile and Synced passkeys General Availability. Public cloud Worldwide, GCC: Rollout begins in early March 2026 and is expected to complete by late March 2026. GCC High, DoD clouds: Rollout begins in early May 2026 and is expected to complete by late May 2026. USNat, USSec: Rollout begins in early April 2027 (previously early October 2026) and is expected to complete by late April 2027 (previously late October 2026). Automatic migration…",
    "prepare": "If you want a configuration different from the migration defaults, review the timeline above and opt in to passkey profiles before your tenant’s automatic enablement window begins . Then configure the Default passkey profile’s passkeyType to your preferred values. We also recommend: Review your registration campaign configuration, especially if its set to Microsoft-managed . If you do not want registration campaign to target passkeys, you can: Sw…",
    "dates": [
-    "Updated July 20, 2026: We have updated the content.",
+    "Updated October 30, 2026: We have updated the timeline.",
     "Starting in March 2026 , Microsoft Entra ID will introduce passkey profiles and synced passkeys to General Availability (GA).",
     "Public cloud Worldwide, GCC: Rollout begins in early March 2026 and is expected to complete by late March 2026.",
     "GCC High, DoD clouds: Rollout begins in early May 2026 and is expected to complete by late May 2026.",
-    "USNat, USSec: Rollout begins in early October 2026 (previously early July) and is expected to complete by late October 2026 (previously late July).",
+    "USNat, USSec: Rollout begins in early April 2027 (previously early October 2026) and is expected to complete by late April 2027 (previously late October 2026).",
     "Public cloud Worldwide, GCC: Rollout begins in early May 2026 and is expected to complete by late June 2026."
    ],
-   "bodyHash": "1d424e19ce5dcbf4"
+   "bodyHash": "8029bbc715b713a0"
   },
   {
    "id": "MC1221453",
@@ -3953,23 +3953,24 @@
    "major": false,
    "actionBy": null,
    "start": "2026-04-16",
-   "end": "2026-11-30",
-   "modified": "2026-07-20",
+   "end": "2027-07-02",
+   "modified": "2026-10-30",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated July 20, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft Entra passkeys on Windows will soon be Generally Available, enabling phishing‑resistant, passwordless sign‑in to Microsoft Entra‑protected resources from Windows devices. The Public Preview of this capability was previously announced in MC1247893 . Users can create device‑bound passkeys store…",
-   "when": "General Availability (Worldwide, GCC): We will begin rolling out in late April 2026 and expect to complete by mid‑June 2026 . General Availability (GCC High, DoD): We will begin rolling out in early October 2026 (previously early September 2026) and expect to complete by late October 2026 (previously late September).",
+   "summary": "Updated October 30, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft Entra passkeys on Windows will soon be Generally Available, enabling phishing‑resistant, passwordless sign‑in to Microsoft Entra‑protected resources from Windows devices. The Public Preview of this capability was previously announced in MC1247893 . Users can create device‑bound passkeys st…",
+   "when": "General Availability (Worldwide, GCC): We will begin rolling out in late April 2026 and expect to complete by mid‑June 2026 . General Availability (GCC High, DoD): We will begin rolling out in early February 2027 (previously early October 2026) and expect to complete by late February 2027 (previously late October 2026). For Airgap: We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
    "prepare": "No action is required for most organizations. If you do not want users to register or use Microsoft Entra passkeys on Windows: Update the relevant passkey (FIDO2) profile to block Windows Hello AAGUIDs . Review existing passkey profiles that allow device‑bound, non‑attested passkeys. Add Windows Hello AAGUIDs to the block list in passkey profiles where passkey usage on Windows devices should not be permitted. .",
    "dates": [
-    "Updated July 20, 2026: We have updated the timeline.",
+    "Updated October 30, 2026: We have updated the timeline.",
     "General Availability (Worldwide, GCC): We will begin rolling out in late April 2026 and expect to complete by mid‑June 2026 .",
-    "General Availability (GCC High, DoD): We will begin rolling out in early October 2026 (previously early September 2026) and expect to complete by late October 2026 (previously late September)."
+    "General Availability (GCC High, DoD): We will begin rolling out in early February 2027 (previously early October 2026) and expect to complete by late February 2027 (previously late October 2026).",
+    "For Airgap: We will begin rolling out in early May 2027 and expect to complete by late May 2027 ."
    ],
-   "bodyHash": "035805e20d5d9cdd"
+   "bodyHash": "1f1e9bc36c00374f"
   },
   {
    "id": "MC1282571",
@@ -10356,172 +10357,6 @@
    "bodyHash": "085d8465394850ea"
   },
   {
-   "id": "MC1465279",
-   "title": "Dynamics 365 Human Resources - Streamline benefits enrollment process",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-01",
-   "end": "2026-10-31",
-   "modified": "2026-09-01",
-   "tags": [],
-   "summary": "We are announcing the ability to streamline benefits enrollment process in Dynamics 365 Human Resources. This feature will reach general availability on September 30, 2026. How does this affect me? This feature introduces major enhancements to benefits management: Year-round HSA/401(k) contribution changes: Allows employees to modify the HSA/401(k) contribution throughout the year. Today, these de…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach general availability on September 30, 2026."
-   ],
-   "bodyHash": "f4306f5f89757768"
-  },
-  {
-   "id": "MC1465307",
-   "title": "Dynamics 365 Contact Center - Teams Presence Sync",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-01",
-   "end": "2026-10-31",
-   "modified": "2026-09-01",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to configure the presence sync between Dynamics Contact Center and Microsoft Teams. This feature will reach general availability on September 30, 2026. How does this affect me? Teams Presence Sync will enable admins to sync the presence status between Dynamics Contact Center and Microsoft Teams for representatives in voice conversations. What action do I need to take?…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach general availability on September 30, 2026."
-   ],
-   "bodyHash": "4a7f309410570569"
-  },
-  {
-   "id": "MC1465309",
-   "title": "Dynamics 365 Project Operations - Update key project fields using Copy project",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-01",
-   "end": "2026-10-31",
-   "modified": "2026-09-01",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to update key project fields using Copy project in Dynamics 365 Project Operations. This feature will reach general availability on September 4, 2026. How does this affect me? This feature enables you to update key project fields according to their requirements during the copy process. Fields that may be updated during the copy process include: Contracting unit Owning…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach general availability on September 4, 2026."
-   ],
-   "bodyHash": "dfea624e1d19398d"
-  },
-  {
-   "id": "MC1465314",
-   "title": "Dynamics 365 Project Operations - Use what-if analysis on estimates",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-01",
-   "end": "2026-10-31",
-   "modified": "2026-09-01",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to use what-if analysis on estimates in Dynamics 365 Project Operations. This feature will reach general availability on September 30, 2026. How does this affect me? This feature introduces a robust what-if analysis capability for estimates that enables you to model scenarios and evaluate their impact on key financial goals. Scenario modeling: Use existing quotes to s…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach general availability on September 30, 2026."
-   ],
-   "bodyHash": "25153945c029e1fe"
-  },
-  {
-   "id": "MC1465316",
-   "title": "Dynamics 365 Project Operations - Use time zone-agnostic fields in resource planning",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-01",
-   "end": "2026-10-31",
-   "modified": "2026-09-01",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to use time zone-agnostic fields in resource planning in Dynamics 365 Project Operations. This feature will reach general availability on September 30, 2026. How does this affect me? Users will be able to set default start and end dates for resource requirements, resource bookings, and related tables without dates being converted based on time zone differences. This f…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach general availability on September 30, 2026."
-   ],
-   "bodyHash": "c5c2721263cc9597"
-  },
-  {
-   "id": "MC1465319",
-   "title": "Dynamics 365 Contact Center - Use redesigned embedded CSR widget for Contact Center",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-01",
-   "end": "2026-10-31",
-   "modified": "2026-09-01",
-   "tags": [
-    "Feature update"
-   ],
-   "summary": "We are announcing the redesigned embedded customer service representative (CSR) widget in Dynamics 365 Contact Center. This enhancement will reach general availability on September 30, 2026. How does this affect me? When you run Dynamics 365 Contact Center inside an existing CRM, you can adopt a redesigned embedded experience that reduces UI latency and makes it easier for CSRs to manage multiple …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This enhancement will reach general availability on September 30, 2026."
-   ],
-   "bodyHash": "6ae2f911da303bd5"
-  },
-  {
-   "id": "MC1465398",
-   "title": "Dynamics 365 Sales - Use historical deal patterns to get better insights in Sales Opportunity Agent",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-01",
-   "end": "2026-10-31",
-   "modified": "2026-09-01",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to use historical deal patterns to get better insights with Sales Opportunity Agent in Dynamics 365 Sales. This feature will reach general availability on September 30, 2026. How does this affect me? Users will be able to use a stage-impact filter to identify historical deal patterns that affect the current sales stage and receive an explanation and recommended next a…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach general availability on September 30, 2026."
-   ],
-   "bodyHash": "de99baae7ebe73ca"
-  },
-  {
    "id": "MC1465669",
    "title": "Expanding memory integrity protection across Windows devices",
    "services": [
@@ -14139,31 +13974,6 @@
     "The rollout is scheduled to begin in late March 2027 and be completed by late April 2027."
    ],
    "bodyHash": "65960456f84d4c58"
-  },
-  {
-   "id": "MC1484007",
-   "title": "Updated Copilot in Microsoft Edge Experience",
-   "services": [
-    "Microsoft 365 suite"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-30",
-   "end": "2026-10-30",
-   "modified": "2026-09-30",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] As part of our ongoing efforts to simplify the Copilot experience for customers, we are beginning to roll out updates to Copilot in Microsoft Edge in the coming weeks. As part of this update, we will adopt an updated icon across all Copilot entry points within Edge and the Copilot sidepane will adopt a simplified UX. Also, included is upgraded functionality and features, like Copil…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): We will begin rolling out on mid-October 2026 and expect to complete by mid-October 2026."
-   ],
-   "bodyHash": "5bc76e4237fb8133"
   },
   {
    "id": "MC1484009",
@@ -17918,19 +17728,19 @@
    "actionBy": null,
    "start": "2026-10-26",
    "end": "2026-11-26",
-   "modified": "2026-10-30",
+   "modified": "2026-10-31",
    "tags": [
     "Admin impact",
     "User impact"
    ],
-   "summary": "What and why Dynamics 365 apps and Dataverse are being updated to add the new Canadian time zone definitions in support of the 2026 time zone changes in Manitoba, Alberta, and British Columbia. This is a general awareness message to support the changes and complements MC1510951 — Windows updates are available for 2026 time zone changes in Canada . Rollout schedule The Dataverse configuration updat…",
+   "summary": "Dynamics 365 apps and Dataverse are being updated to add the new Canadian time zone definitions in support of the 2026 time zone changes in Manitoba, Alberta, and British Columbia. This is a general awareness message to support the changes and complements MC1510951 — Windows updates are available for 2026 time zone changes in Canada . Rollout schedule The Dataverse update is being deployed through…",
    "when": null,
    "prepare": null,
    "dates": [
-    "The Dataverse configuration update is being deployed through the regular release train and is scheduled to reach the Canada region by October 31, 2026.",
-    "An app update will be available by November 1, 2026."
+    "The Dataverse update is being deployed through the regular release schedule and is scheduled to reach the Canada region by October 31, 2026.",
+    "Review the following Known Issues for details and workarounds: Schedule Board may display incorrect times for Western Canadian regions starting November 1, 2026."
    ],
-   "bodyHash": "a484721b7bcd428b"
+   "bodyHash": "a5bd5c0bb72a9eac"
   },
   {
    "id": "MC1526780",
@@ -18999,33 +18809,54 @@
    "bodyHash": "c79121b86a8e95c8"
   },
   {
-   "id": "MC1532259",
-   "title": "Microsoft Teams: Retirement of Translate slides in PowerPoint Live",
+   "id": "MC1532421",
+   "title": "Power Apps - Formula assistance features in canvas apps are being retired",
    "services": [
-    "Microsoft 365 apps"
+    "Power Apps"
    ],
-   "category": "planForChange",
+   "category": "stayInformed",
    "severity": "normal",
-   "major": true,
+   "major": false,
    "actionBy": null,
-   "start": "2026-10-30",
-   "end": "2026-12-30",
-   "modified": "2026-10-30",
+   "start": "2026-10-31",
+   "end": "2027-02-11",
+   "modified": "2026-10-31",
    "tags": [
-    "Admin impact",
-    "Retirement",
-    "User impact"
+    "Retirement"
    ],
-   "summary": "[What and why] Starting November 30, 2026, attendees in Microsoft Teams meetings will no longer be able to translate slides into another language in PowerPoint Live by using Change view > Translate slides . Other PowerPoint Live features for presenters and attendees are not affected. [Rollout schedule] Retirement (Worldwide): Beginning and completing in late November 2026 Translate slides will be …",
+   "summary": "Starting on December 11, 2026, the Use Copilot to create and edit Power Fx formulas and Power Apps Ideas formula assistance features in Power Apps will be no longer available. How does this affect me? The affected features will no longer be available to makers who use them to generate or transform Power Fx formulas after December 11, 2026. This will not impact existing formulas in published apps. …",
    "when": null,
    "prepare": null,
    "dates": [
-    "Starting November 30, 2026, attendees in Microsoft Teams meetings will no longer be able to translate slides into another language in PowerPoint Live by using Change view > Translate slides .",
-    "Retirement (Worldwide): Beginning and completing in late November 2026.",
-    "Translate slides will be removed for all attendees on November 30, 2026.",
-    "Translate slides will be removed automatically for all attendees on November 30, 2026."
+    "Starting on December 11, 2026, the Use Copilot to create and edit Power Fx formulas and Power Apps Ideas formula assistance features in Power Apps will be no longer available.",
+    "The affected features will no longer be available to makers who use them to generate or transform Power Fx formulas after December 11, 2026."
    ],
-   "bodyHash": "db044871b108670d"
+   "bodyHash": "9270abdb7d9e3c31"
+  },
+  {
+   "id": "MC1532426",
+   "title": "Power Apps - Information regarding the retirement for the Proactive control rename feature in canvas apps",
+   "services": [
+    "Power Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-31",
+   "end": "2027-02-11",
+   "modified": "2026-10-31",
+   "tags": [
+    "Retirement"
+   ],
+   "summary": "On December 11, 2026, the Proactive control rename feature for canvas apps in Power Apps will be no longer available. How does this affect me? After December 11, 2026, makers and tenant administrators will no longer have access to Copilot (AI-powered assistant) suggestions for renaming similar controls or applying multiple suggested renames in canvas apps. Existing app control names and formulas w…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "On December 11, 2026, the Proactive control rename feature for canvas apps in Power Apps will be no longer available.",
+    "After December 11, 2026, makers and tenant administrators will no longer have access to Copilot (AI-powered assistant) suggestions for renaming similar controls or applying multiple suggested renames in canvas apps."
+   ],
+   "bodyHash": "66ee6d4bc2779e91"
   },
   {
    "id": "MC676299",
@@ -19346,223 +19177,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-09-30",
-   "id": "MC1223829",
-   "type": "removed",
-   "title": "(Updated) Upcoming Conditional Access change: Improved enforcement for policies with resource exclusions",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1227622",
-   "type": "removed",
-   "title": "(Updated) Transitioning Teams Android Device Management from Teams admin Center to the Teams Rooms Pro Management portal",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1266025",
-   "type": "removed",
-   "title": "(Updated) Update on custom domain guidance for Teams Event emails",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1287372",
-   "type": "removed",
-   "title": "Microsoft Entra ID Governance Account Discovery",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1310683",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: Standardized preview experience for PowerPoint, Excel, and Word files",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1319214",
-   "type": "removed",
-   "title": "(Updated) Interact with your favorite apps on Teams using Slash ( / ) Commands",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1325422",
-   "type": "removed",
-   "title": "(Updated) Microsoft 365 Copilot app: Simplified, chat-centered experience",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1411434",
-   "type": "removed",
-   "title": "Viva Engage: Reducing reply notification volume on mobile",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1423117",
-   "type": "removed",
-   "title": "Thumbnail view for PDFs is available in OneDrive and SharePoint on the web",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1430530",
-   "type": "removed",
-   "title": "Microsoft OneDrive: Exclude specific folders from syncing",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1431377",
-   "type": "removed",
-   "title": "(Updated) Microsoft Defender for Office 365: AIR Investigation Experience Improvements",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1434583",
-   "type": "removed",
-   "title": "Microsoft 365 Copilot: Configure organization policy link for blocked Copilot Chat users",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1464686",
-   "type": "removed",
-   "title": "Dynamics 365 Sales - Customize default risk criteria for Sales Opportunity Agent",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1464712",
-   "type": "removed",
-   "title": "Dynamics 365 Project Operations - Assign task level calendar for precise planning",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1464732",
-   "type": "removed",
-   "title": "Dynamics 365 Sales - Autonomously generate quotes and drive sales with Sales Development agent",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1464753",
-   "type": "removed",
-   "title": "Dynamics 365 Sales - Create records in Dynamics 365 Sales using Sales agent",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1464762",
-   "type": "removed",
-   "title": "Dynamics 365 Project Operations – Copy externally scheduled projects",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1464783",
-   "type": "removed",
-   "title": "Dynamics 365 Project Operations - Customize the task details pane",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1483413",
-   "type": "new",
-   "title": "Dynamics 365 Contact Center - Assign conversation to expert who engaged with the customer previously",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1483419",
-   "type": "new",
-   "title": "Dynamics 365 Contact Center - Let representatives set next presence to handle routing of work items",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1483432",
-   "type": "new",
-   "title": "Dynamics 365 Contact Center - Let representatives set next presence to handle routing of work items",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1483528",
-   "type": "new",
-   "title": "Dynamics 365 and Power Platform– Information about storage validation for Dataverse-only tenants",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1483538",
-   "type": "new",
-   "title": "Windows settings backup is now enabled by default for eligible devices",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1483566",
-   "type": "new",
-   "title": "Updates available for Microsoft 365 Apps for Current Channel",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1162857",
-   "type": "removed",
-   "title": "Windows 11, version 25H2 is now available",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1421828",
-   "type": "removed",
-   "title": "Dynamics 365 Customer Service - WEM in M365 Copilot for CSRs and Supervisors",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1446371",
-   "type": "removed",
-   "title": "Dynamics 365 Project Operations - Enable time phasing of quote and contract lines",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1462722",
-   "type": "removed",
-   "title": "Dynamics 365 Project Operations - Assign task level schedule mode for precise planning",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1464795",
-   "type": "removed",
-   "title": "Dynamics 365 Contact Center - Delight your customers with the enhanced chat widget",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1464797",
-   "type": "removed",
-   "title": "Dynamics 365 Contact Center - Control how many conversations are evaluated with a sampling percentage",
-   "fields": {}
-  },
-  {
-   "date": "2026-09-30",
-   "id": "MC1464814",
-   "type": "removed",
-   "title": "Dynamics 365 Project Operations - Enable time phasing of quote and contract lines",
-   "fields": {}
-  },
   {
    "date": "2026-10-01",
    "id": "MC1307979",
@@ -25375,6 +24989,127 @@
    "date": "2026-10-30",
    "id": "MC1532259",
    "type": "new",
+   "title": "Microsoft Teams: Retirement of Translate slides in PowerPoint Live",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1221452",
+   "type": "changed",
+   "title": "(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2027-07-02"
+    ],
+    "bodyHash": [
+     "1d424e19ce5dcbf4",
+     "8029bbc715b713a0"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1282568",
+   "type": "changed",
+   "title": "(Updated) General Availability: Microsoft Entra passkeys on Windows",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2027-07-02"
+    ],
+    "bodyHash": [
+     "035805e20d5d9cdd",
+     "1f1e9bc36c00374f"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1526697",
+   "type": "changed",
+   "title": "Dynamics 365 apps and Dataverse – Information about the 2026 time zone changes in Canada",
+   "fields": {
+    "bodyHash": [
+     "a484721b7bcd428b",
+     "a5bd5c0bb72a9eac"
+    ]
+   }
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1532421",
+   "type": "new",
+   "title": "Power Apps - Formula assistance features in canvas apps are being retired",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1532426",
+   "type": "new",
+   "title": "Power Apps - Information regarding the retirement for the Proactive control rename feature in canvas apps",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1465279",
+   "type": "removed",
+   "title": "Dynamics 365 Human Resources - Streamline benefits enrollment process",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1465307",
+   "type": "removed",
+   "title": "Dynamics 365 Contact Center - Teams Presence Sync",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1465309",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Update key project fields using Copy project",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1465314",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Use what-if analysis on estimates",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1465316",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Use time zone-agnostic fields in resource planning",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1465319",
+   "type": "removed",
+   "title": "Dynamics 365 Contact Center - Use redesigned embedded CSR widget for Contact Center",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1465398",
+   "type": "removed",
+   "title": "Dynamics 365 Sales - Use historical deal patterns to get better insights in Sales Opportunity Agent",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1484007",
+   "type": "removed",
+   "title": "Updated Copilot in Microsoft Edge Experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-10-31",
+   "id": "MC1532259",
+   "type": "removed",
    "title": "Microsoft Teams: Retirement of Translate slides in PowerPoint Live",
    "fields": {}
   }
