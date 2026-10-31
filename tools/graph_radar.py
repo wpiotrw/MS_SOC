@@ -445,13 +445,14 @@ def tenant_read(model, day):
         try:
             body = json.loads(get(url, {"Authorization": "Bearer " + tok, "ConsistencyLevel": "eventual"}, timeout=60))
             objs = body.get("value") if isinstance(body.get("value"), list) else [body]
-            seen = {}
+            seen, vals = {}, {}
             root_t = resolve_path(model, path)
             for o in objs[:200]:
-                walk(o, o.get("@odata.type") or "", root_t, "", seen, model)
+                walk(o, o.get("@odata.type") or "", root_t, "", seen, model, 0, vals)
             r["status"] = 200
             r["n"] = len(objs)
             r["props"] = seen
+            r["vals"] = vals
         except urllib.error.HTTPError as e:
             r["status"] = e.code
             need = perms_for(GP, path, "GET") or [perm]
@@ -489,27 +490,144 @@ def resolve_path(model, path):
     return t
 
 
-def walk(o, otype, declared, prefix, seen, model, depth=0):
-    """names of the properties the service returned - never a value. key: actual type | declared type | property path.
+def path_is_collection(model, path):
+    """5fy: does a GET of this path return a list (/identity/conditionalAccess/policies)? A PATCH then needs an item:
+    path + /{id}. Owner, 31 X 2026: the Try it of conditions.times sent a PATCH to the list of policies"""
+    segs = [x for x in path.split("/") if x]
+    if not segs or segs[0] not in model["roots"]:
+        return False
+    coll = model["roots"][segs[0]][0] != "1"
+    t = model["roots"][segs[0]][1]
+    for sg in segs[1:]:
+        if coll:            # a key into the list: /policies/{id}
+            coll = False
+            continue
+        nv = all_navs(model, t)
+        hit = next((k for k in nv if k.lower() == sg.lower()), None)
+        ty = nv.get(hit) if hit else None
+        if not ty:
+            pr = all_props(model, t)
+            hit = next((k for k in pr if k.lower() == sg.lower()), None)
+            ty = pr.get(hit) if hit else None
+        if not ty:
+            return False
+        ty = ty.rstrip("*")
+        coll = ty.startswith("Collection(")
+        t = re.sub(r"^Collection\((.+)\)$", r"\1", ty)
+    return coll
+
+
+def item_patch(u, model, gp):
+    """5fy: a list that Microsoft's permission file lets you PATCH only per item (/identity/conditionalAccess/policies,
+    /organization) gets /{id}; a list that takes the PATCH itself (beta /policies/authorizationPolicy) keeps its path"""
+    if path_is_collection(model, u["path"]) and not perms_for(gp, u["path"], "PATCH"):
+        p2 = u["path"] + "/{id}"
+        if perms_for(gp, p2, "PATCH"):
+            u["cmd"]["patch"] = u["cmd"]["get"] + "/{id}"
+            u["cmd"]["permPatch"] = perms_for(gp, p2, "PATCH")
+            u["itemPath"] = p2
+
+
+SAFE_KEY = re.compile(r"name|mail|upn|principal|domain|url|uri|description|comment|note|address|phone|tenant|(^|[a-z])id$|ids$|Id$|Ids$|key|secret|thumbprint|subject|issuer", re.I)
+ENUMISH = re.compile(r"^[a-z][a-zA-Z_]{1,39}$")
+DATEISH = re.compile(r"^\d{4}-\d{2}-\d{2}(T[\d:.]+(Z|[+-]\d{2}:\d{2})?)?$")
+
+
+def safe_val(k, v):
+    """5fy: a value the radar may publish (the repository is public): true/false, an enum-like word ("autoEnable",
+    "disabled", "all_users" is not one), a placeholder for everything else - never a name, an id, an address or text"""
+    if isinstance(v, bool):
+        return v
+    if v is None:
+        return None
+    if isinstance(v, (int, float)):
+        return "<number>"
+    if isinstance(v, str):
+        if DATEISH.match(v):
+            return "<date-time>" if "T" in v else "<date>"
+        if not SAFE_KEY.search(k) and ENUMISH.match(v):
+            return v
+        return "<text>"
+    return None
+
+
+def walk(o, otype, declared, prefix, seen, model, depth=0, vals=None):
+    """names of the properties the service returned. key: actual type | declared type | property path.
     The actual type is the object's own @odata.type; the declared type comes from $metadata (the root of the path, or
-    the property that holds the object) and is used when Microsoft has not published the actual type yet"""
+    the property that holds the object) and is used when Microsoft has not published the actual type yet.
+    5fy: with vals, also the values seen per property path - only what safe_val lets through (true/false, enum words,
+    placeholders), up to 8 per path; the deeper levels (depth 3-4) are walked for these paths too"""
     t = short((otype or "").lstrip("#")) or declared
     for k, v in o.items():
         if k.startswith("@") or "@odata" in k:
             continue
-        seen[t + "|" + declared + "|" + prefix + k] = kind(v)
-        if isinstance(v, dict) and depth < 2:
+        if depth < 3:
+            seen[t + "|" + declared + "|" + prefix + k] = kind(v)
+        if vals is not None:
+            sv = vals.setdefault(prefix + k, {"kind": kind(v), "v": []})
+            if sv["kind"] == "null" and v is not None:
+                sv["kind"] = kind(v)
+            items = v if isinstance(v, list) else [v]
+            for it in items[:20]:
+                x = safe_val(k, it)
+                if x is not None and x not in sv["v"] and len(sv["v"]) < 8:
+                    sv["v"].append(x)
+            if isinstance(v, list) and v and not isinstance(v[0], dict):
+                sv["item"] = kind(v[0])
+        if isinstance(v, dict) and depth < (4 if vals is not None else 2):
             d2 = nested_type(model, t, k) or nested_type(model, declared, k)
-            walk(v, v.get("@odata.type") or "", d2, prefix + k + ".", seen, model, depth + 1)
-        elif isinstance(v, list) and v and isinstance(v[0], dict) and depth < 2:
+            walk(v, v.get("@odata.type") or "", d2, prefix + k + ".", seen, model, depth + 1, vals)
+        elif isinstance(v, list) and v and isinstance(v[0], dict) and depth < (4 if vals is not None else 2):
             d2 = nested_type(model, t, k) or nested_type(model, declared, k)
             for it in v[:20]:
-                walk(it, it.get("@odata.type") or "", d2, prefix + k + "[].", seen, model, depth + 1)
+                walk(it, it.get("@odata.type") or "", d2, prefix + k + "[].", seen, model, depth + 1, vals)
 
 
 def nested_type(model, t, k):
     ty = all_props(model, t).get(k, "") if t else ""
     return re.sub(r"^Collection\((.+)\)$", r"\1", ty.rstrip("*"))
+
+
+def shape_of(vals, pp, n):
+    """5fy (owner, 31 X 2026: "how does the community know what a parameter takes when Learn has nothing? If they can,
+    so can you - show it for the other findings too"): what our tenant returns at this property and under it - every
+    sub-property with its JSON kind and the safe values seen on the objects read (n of them)"""
+    out = []
+    for path, sv in sorted(vals.items()):
+        if path == pp or path.startswith(pp + ".") or path.startswith(pp + "[]."):
+            rel = path[len(pp):].lstrip(".") or ""
+            e = {"p": rel, "k": sv["kind"]}
+            if sv.get("v"):
+                e["v"] = sv["v"]
+            if sv.get("item"):
+                e["i"] = sv["item"]
+            out.append(e)
+    return {"n": n, "rows": out[:40]} if out else None
+
+
+def skeleton(shape):
+    """5fy: a PATCH body in the shape our tenant returns - sub-properties with the first safe value seen, or a typed
+    placeholder; None when the tenant returned nothing under the property (null, [] or a plain value)"""
+    rows = [r for r in (shape or {}).get("rows") or [] if r["p"]]
+    if not rows:
+        return None
+    def ph(r):
+        v = (r.get("v") or [None])[0]
+        if r["k"] == "array":
+            return [v] if v is not None else []
+        if v is not None and not (isinstance(v, str) and v.startswith("<")):
+            return v
+        return {"boolean": False, "number": 0, "string": "<text>", "object": {}}.get(r["k"], None)
+    out = {}
+    for r in rows:
+        if "[]" in r["p"]:
+            continue
+        cur, segs = out, r["p"].split(".")
+        for sg in segs[:-1]:
+            cur = cur.setdefault(sg, {}) if isinstance(cur.get(sg, {}), dict) else {}
+        if segs[-1] not in cur or not isinstance(cur[segs[-1]], dict):
+            cur[segs[-1]] = ph(r) if r["k"] != "object" else cur.get(segs[-1], {})
+    return out or None
 
 
 def undocumented(res, model):
@@ -534,7 +652,7 @@ def undocumented(res, model):
                 continue
             done.add(k2)
             out.append({"type": t or dt, "prop": pp, "kind": kd, "path": r["path"], "label": r["label"], "typeDocumented": tdoc,
-                        "declared": dt if dt != t else ""})
+                        "declared": dt if dt != t else "", "shape": shape_of(r.get("vals") or {}, pp, r.get("n") or 0)})
     return out
 
 
@@ -708,9 +826,29 @@ def perm_info(names):
     return out
 
 
+def merged_notes():
+    """5fy: notes.json (written by a person) and site/data/graph-radar-notes.json (written by the morning routine after a web
+    search for community articles, values and examples - routines/poranny-B-publish.md STEP -1c). Per property the
+    note checked last wins; a person's note wins a tie; the articles of both are kept"""
+    own = (load(os.path.join(MEM, "notes.json"), {}) or {}).get("notes") or {}
+    com = (load(os.path.join(SITE, "graph-radar-notes.json"), {}) or {}).get("notes") or {}
+    out = dict(own)
+    for k, c in com.items():
+        o = own.get(k)
+        if not o:
+            out[k] = c
+            continue
+        win, other = (c, o) if (c.get("checked") or "") > (o.get("checked") or "") else (o, c)
+        m = dict(win)
+        urls = {a.get("url") for a in m.get("articles") or []}
+        m["articles"] = list(m.get("articles") or []) + [a for a in other.get("articles") or [] if a.get("url") not in urls]
+        out[k] = m
+    return out
+
+
 def enrich_findings(und, beta, v1, day, mci_titles=None):
     """5ft: technology, documentation status, notes and articles for every undocumented property"""
-    notes = (load(os.path.join(MEM, "notes.json"), {}) or {}).get("notes") or {}
+    notes = merged_notes()
     dcache = load(os.path.join(MEM, "docs-cache.json"), {}) or {}
     amem = load(os.path.join(MEM, "articles.json"), None)
     pool = article_pool(30 if amem is None else 2)
@@ -877,6 +1015,9 @@ def main(argv):
         prop = u["prop"].split(".")[-1].replace("[]", "")
         ty = {"boolean": "Edm.Boolean", "number": "Edm.Int32", "string": "Edm.String", "array": "Collection(x)", "object": "x"}.get(u["kind"], "")
         val = sample(ty, beta) if ty else "<value>"
+        sk = skeleton(u.get("shape"))      # 5fy: the shape our tenant returns beats a placeholder
+        if sk is not None and u["kind"] == "object":
+            val = sk
         m1 = re.match(r"^(\w+)\[\]\.(\w+)$", u["prop"])
         root_t = resolve_path(beta, u["path"])
         if m1 and m1.group(1) in all_navs(beta, root_t):
@@ -898,8 +1039,13 @@ def main(argv):
             u["cmd"] = command(u["path"], root_t, "", "", beta, gp)
             if u["cmd"]:
                 u["cmd"]["patch"], u["cmd"]["body"] = u["cmd"]["get"], dict({"@odata.type": "#microsoft.graph." + root_t}, **body)
+                item_patch(u, beta, gp)
         elif "[]" not in u["prop"]:
             u["cmd"] = command(u["path"], u["type"] if u["typeDocumented"] else root_t, prop, ty, beta, gp)
+            if u["cmd"] and u["cmd"].get("body") and sk is not None and u["kind"] == "object":
+                u["cmd"]["body"][prop] = val
+            if u["cmd"] and u["cmd"].get("patch"):
+                item_patch(u, beta, gp)
         else:
             u["cmd"] = command(u["path"], root_t, "", "", beta, gp)   # deeper in a list: GET only
         u["mc"] = mc_match(mci, prop)

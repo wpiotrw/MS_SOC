@@ -3,7 +3,8 @@ name: Graph radar
 # CLAUDE.md 5fs (30 X 2026): what Microsoft adds to Microsoft Graph - the live $metadata of beta and v1.0 compared with
 # the previous run (every type, property, navigation, action, function, entity set), and the tenant-wide configuration
 # objects of our developer tenant read with GET to find properties the service returns before $metadata knows them
-# (allowPasswordChangeAfterSecureSignIn, 30 X). Only property NAMES are kept, never a value (the repository is public).
+# (allowPasswordChangeAfterSecureSignIn, 30 X). Property names are kept; of values only true/false, enum words and typed
+# placeholders (5fy, 31 X: what our tenant returns under a finding) - never a name, an id or text (the repository is public).
 # Signs in with a federated credential (no secret): app "MS-SOC Dev tenant reader" of the developer tenant; its read-only
 # permissions are granted with tools/Grant-GraphRadarPermissions.ps1. Without them the tenant part records 403 and the
 # $metadata part still runs. Commits only when something changed; "Code refresh" deploys after it (workflow_run).
@@ -16,6 +17,8 @@ on:
     paths:
       - 'tools/graph_radar.py'
       - '.github/workflows/graph-radar.yml'
+      - 'data/graph-radar/notes.json'        # 5fy: a person's note (values, examples) reaches the page at once
+      - 'site/data/graph-radar-notes.json'   # 5fy: the morning routine's community notes (STEP -1c)
   workflow_dispatch:
 
 permissions:
