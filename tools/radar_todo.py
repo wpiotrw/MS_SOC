@@ -16,7 +16,8 @@ the articles of both are kept.
 `todo` lists, best first:
   new      - a finding with no note in either file (first seen most recently first);
   recheck  - a note whose basis is still "name" (nothing published) and that was checked more than --recheck days ago;
-  values   - a note with articles but no values and no examples, checked more than --recheck days ago.
+  values   - a note with articles but no values and no examples, checked more than --recheck days ago;
+  says     - (5fz) a note with a source that has no 'says' (what it says about this property, 1-2 sentences).
 Each entry carries what the radar knows: type, property, path, the label of the endpoint, the shape our tenant
 returned (sub-properties, kinds, safe values) and the current note's title - the search starts from the exact name.
 
@@ -39,6 +40,7 @@ KNOWN = {"00000003-0000-0000-c000-000000000000", "00000000-0000-0000-0000-000000
 BASIS = {"microsoft", "article", "name"}
 REL = {"names-it", "feature", "doc"}
 METHODS = {"GET", "POST", "PATCH", "PUT", "DELETE"}
+KINDS = {"microsoft-article", "graph-reference", "message-center", "community-blog", "code-tool", "qa-forum"}
 
 
 def load(p, d):
@@ -74,13 +76,15 @@ def todo(mx=3, recheck=14):
             why = "recheck"
         elif not n.get("values") and not n.get("examples") and n.get("articles") and days_since(n.get("checked"), today) > recheck:
             why = "values"
+        elif any(not a.get("says") and not a.get("unread") for a in n.get("articles") or []):
+            why = "says"      # 5fz: a source without its 1-2 sentences
         if not why:
             continue
         out.append({"why": why, "key": key, "type": u["type"], "property": u.get("prop"), "path": u.get("path"),
                     "endpoint": u.get("label"), "status": u.get("status"), "first": u.get("first"),
                     "shape": u.get("shape"), "noteTitle": (n or {}).get("title"), "noteChecked": (n or {}).get("checked"),
                     "inOwnerNotes": key in own})
-    order = {"new": 0, "recheck": 1, "values": 2}
+    order = {"new": 0, "recheck": 1, "values": 2, "says": 3}
     out.sort(key=lambda x: (order[x["why"]], "" if x["why"] != "new" else "~" + str(x.get("first") or "")), reverse=False)
     news = sorted([x for x in out if x["why"] == "new"], key=lambda x: str(x.get("first") or ""), reverse=True)
     rest = [x for x in out if x["why"] != "new"]
@@ -136,6 +140,10 @@ def check():
                 err.append("%s: article rel %r" % (key, a.get("rel")))
             if not a.get("title"):
                 err.append("%s: article without a title" % key)
+            if not a.get("says") and not a.get("unread"):   # 5fz: every source says what it says about THIS property
+                err.append("%s: article without 'says' (1-2 sentences) and not unread: %s" % (key, a.get("title")))
+            if a.get("kind") and a["kind"] not in KINDS:
+                err.append("%s: article kind %r" % (key, a.get("kind")))
         for v in n.get("values") or []:
             if not v.get("name") or not v.get("accepted"):
                 err.append("%s: a value without name/accepted" % key)

@@ -148,7 +148,7 @@ blocks or delays the brief**: if anything here fails, say so in the reply and st
 
 1. `git pull --rebase origin main`, then `python3 tools/radar_todo.py todo` (defaults `--max 3 --recheck 14`). It prints
    at most three findings: `new` (no note yet), `recheck` (still "nothing published", checked over 14 days ago),
-   `values` (articles but no values or example yet). Each carries the exact property name, the endpoint, and `shape` —
+   `values` (articles but no values or example yet), `says` (a source without its 1-2 sentences - read it and add them). Each carries the exact property name, the endpoint, and `shape` —
    what our tenant returns under it (sub-properties, kinds, true/false and enum words). An empty `todo` is a correct
    result — say "no radar finding to research today" and skip to point 6.
 2. For each finding: **at most 3 WebSearch calls and 4 fetches.** Search the exact property name in quotes, alone and
@@ -163,7 +163,10 @@ blocks or delays the brief**: if anything here fails, say so in the reply and st
    `title`, `what` (2-4 sentences: what it does per the sources), `uses` (2-4 concrete actions an admin could take —
    our suggestions), `basis` (`microsoft` when Microsoft describes it anywhere, `article` when a community source does,
    `name` when nothing explains it), `checked` (today), `by: "morning routine"`, `articles` (`title`, `url`, `by`,
-   `date`, `rel` = `names-it` / `feature` / `doc`, `key` = a short slug other fields point to), and — whenever a source
+   `date`, `rel` = `names-it` / `feature` / `doc`, `key` = a short slug other fields point to, **`says`** = 1-2 plain
+   sentences on what THIS source says or shows about THIS property — the Sources tab shows it on the source's card,
+   `tested` = what the author ran and the result, `kind` = `microsoft-article` / `graph-reference` / `message-center` /
+   `community-blog` / `code-tool` / `qa-forum`; `check` refuses a source without `says` unless it is `unread`), and — whenever a source
    gives them:
    - `values` — one entry per sub-property: `name`, `type`, `accepted` (the values the sources used or the service
      accepted / refused), `what`, `src` (article keys, space-separated). Add what `shape` shows (kinds, true/false and
@@ -186,7 +189,9 @@ blocks or delays the brief**: if anything here fails, say so in the reply and st
 5. `python3 tools/radar_todo.py check` — **exit 1 = do not commit**: fix the named field and re-run; a note you cannot
    fix is removed. Then `git add site/data/graph-radar-notes.json`, `git commit -m "content: graph radar notes
    <YYYY-MM-DD>"`, push the same way as the brief, and prove it on `origin/main` (`BEFORE != AFTER`). The notes reach
-   the page with the next `graph-radar.yml` run (07:40 UTC every day, also 04:50 and 16:50).
+   the page with the next `graph-radar.yml` run (07:40 UTC every day, also 04:50 and 16:50). The radar itself records
+   every stage a finding reaches (Microsoft describes it on Learn, Graph reference, $metadata, v1.0, preview) and every
+   new source in its Updates report (§5fz) - you do not write those.
 6. In the reply, one block "Graph radar — community": each note as `<new|recheck|values> <type>|<property> — <title>`
    with its basis, the number of articles / values / examples, the first source link, how many to-do findings were
    left for tomorrow, and the commit `BEFORE`/`AFTER`.

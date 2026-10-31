@@ -19,21 +19,28 @@
      "url": "https://mc.merill.net/message/MC1437671",
      "by": "Microsoft Message Center (merill.net)",
      "date": "2026-07-23",
-     "rel": "feature"
+     "rel": "feature",
+     "says": "Lets users who signed in with a passkey, FIDO2 key or Windows Hello for Business set a new password in My Sign-Ins without knowing the current one and without SSPR; it is off by default, tenant-wide only (no per-user or per-group scoping), and must be turned on by an admin. General availability (worldwide and GCC) starts at the end of October 2026 and should finish by the end of November 2026 (updated 9 Oct 2026).",
+     "kind": "message-center"
     },
     {
      "title": "Allow password change after secure sign-in",
      "url": "https://janbakker.tech/allow-password-change-after-secure-sign-in/",
      "by": "Jan Bakker",
      "date": "2026-10-30",
-     "rel": "names-it"
+     "rel": "names-it",
+     "says": "The setting is not in the Entra admin center yet, so you enable it by sending a PATCH to the beta Password authentication method configuration with allowPasswordChangeAfterSecureSignIn=true (Graph Explorer or Invoke-MgGraphRequest, Policy.ReadWrite.AuthenticationMethod, at least Authentication Policy Administrator). It applies to the whole tenant, and the rollout runs from late October to the end of November 2026.",
+     "tested": "Sent the PATCH from Graph Explorer and got a successful response (shown in a screenshot); the user experience itself was not tested.",
+     "kind": "community-blog"
     },
     {
      "title": "Microsoft Entra: Passwordless password change in My Sign-Ins",
      "url": "https://m365admin.handsontek.net/?p=22770",
      "by": "M365 Admin (handsontek)",
      "date": "",
-     "rel": "feature"
+     "rel": "feature",
+     "kind": "message-center",
+     "unread": true
     }
    ]
   },
@@ -54,21 +61,29 @@
      "url": "https://janbakker.tech/prevent-users-from-creating-new-agent-identity-blueprints/",
      "by": "Jan Bakker",
      "date": "2026-10-16",
-     "rel": "names-it"
+     "rel": "names-it",
+     "says": "From 4 November 2026, every user without an Entra role can create agent identity blueprints unless an admin turns this off, either in Entra admin center > Users > User settings > 'Users can register agent identity blueprints' = No, or by sending a PATCH to beta authorizationPolicy with allowedToCreateAgentIdentityBlueprints=false (Policy.ReadWrite.Authorization). The property is only on the beta endpoint for now (based on MC1506733).",
+     "kind": "community-blog"
     },
     {
      "title": "Microsoft Entra Lets Users Create Agent Blueprints by Default",
      "url": "https://lazyadmin.nl/?p=13228",
      "by": "Rudy Mens (LazyAdmin)",
      "date": "2026-10-14",
-     "rel": "names-it"
+     "rel": "names-it",
+     "says": "The new setting 'Users can create agent blueprints' is on by default and lives in authorizationPolicy as allowedToCreateAgentIdentityBlueprints, which is beta-only, undocumented and may still be renamed. It takes effect as the rollout reaches each tenant, from 4 November to late November 2026, and you can switch it off in User settings or through a beta PATCH; users who still need to create blueprints can be given the Agent ID Developer role.",
+     "tested": "The toggle showed up in the author's tenant only after a hard refresh (Ctrl+F5); the author suggests a two-account test but gives no result for it.",
+     "kind": "community-blog"
     },
     {
      "title": "Entra Disable User Creation of Agent Identity Blueprints",
      "url": "https://blog.icewolf.ch/archive/2026/10/22/entra-disable-user-creation-of-agent-identity-blueprints/",
      "by": "Andres Bohren",
      "date": "2026-10-22",
-     "rel": "names-it"
+     "rel": "names-it",
+     "says": "'Users can register agent identity blueprints' is on by default. The post turns it off with Microsoft Graph PowerShell by sending a PATCH to beta policies/authorizationPolicy/authorizationPolicy that sets defaultUserRolePermissions.allowedToCreateAgentIdentityBlueprints=$false.",
+     "tested": "Read defaultUserRolePermissions with a GET, sent the PATCH, then read it again; the screenshots show the setting off ('Now it's turned off').",
+     "kind": "community-blog"
     }
    ]
   },
@@ -88,7 +103,9 @@
      "url": "https://mc.merill.net/message/MC1219798",
      "by": "Microsoft Message Center (merill.net)",
      "date": "2026-01-21",
-     "rel": "feature"
+     "rel": "feature",
+     "says": "Custom greetings for voice call MFA retire on 28 February 2026; after that, voice call authentication uses Microsoft's default recordings. The retirement happens automatically, so admins only need to prepare users.",
+     "kind": "message-center"
     }
    ]
   },
@@ -109,7 +126,9 @@
      "by": "Microsoft Learn (Entra docs, author marinasanchezz1)",
      "date": "2026-08-03",
      "rel": "names-it",
-     "key": "learnmicrosoftcom"
+     "key": "learnmicrosoftcom",
+     "says": "Says that setting optOutSettings.passkeyDynamicMigration to true with a PATCH to the beta authenticationmethodspolicy endpoint temporarily excludes the tenant from the automatic passkey enablement and Registration Campaign rollout (1 Sep 2026 to 1 Feb 2027). It requires Policy.ReadWrite.AuthenticationMethod and does not stop the retirement enforcement dates.",
+     "kind": "microsoft-article"
     },
     {
      "title": "自動パスキー有効化を一時的にオプトアウトする手順 (Steps to temporarily opt out of automatic passkey enablement)",
@@ -117,7 +136,10 @@
      "by": "Hasegawa, Microsoft Japan Azure & Identity support team (jpazureid blog)",
      "date": "2026-08-06",
      "rel": "names-it",
-     "key": "jpazureid"
+     "key": "jpazureid",
+     "says": "Gives step-by-step Graph PowerShell commands to read optOutSettings with a GET and set passkeyDynamicMigration to true with a PATCH on /beta/policies/authenticationmethodspolicy. Notes that the GET returns nothing when no opt-out has been set, and that Global Administrator, or Cloud Application Administrator plus Authentication Policy Administrator, is needed.",
+     "tested": "GET before (empty when not set), PATCH, GET after to confirm; a screenshot of the PowerShell session is included",
+     "kind": "community-blog"
     },
     {
      "title": "How to Disable Passkey Prompts and Delay Enforcement in Microsoft 365",
@@ -125,7 +147,9 @@
      "by": "Konstantinos Tsoukalas (wintips.org)",
      "date": "2026-09-24",
      "rel": "names-it",
-     "key": "wintipsorg"
+     "key": "wintipsorg",
+     "says": "Shows an Invoke-MgGraphRequest PATCH to /beta/policies/authenticationMethodsPolicy with optOutSettings.passkeyDynamicMigration = $true, then a GET to check the value. Stresses that true means the tenant is opting OUT and that the opt-out does not change the retirement dates.",
+     "kind": "community-blog"
     },
     {
      "title": "SAW Authentication Assessment Toolkit - rule AUTH006 'Passkey Dynamic Migration Not Opted Out'",
@@ -133,7 +157,10 @@
      "by": "Kenneth van Surksum (Secure-At-Work)",
      "date": "2026-07-30",
      "rel": "names-it",
-     "key": "secureatwork"
+     "key": "secureatwork",
+     "says": "An assessment rule that flags tenants that have not set authenticationMethodsPolicy.optOutSettings.passkeyDynamicMigration (beta only). It explains that true opts the tenant out of the 1 Sep 2026 automatic enablement but not out of the 1 Feb 2027 retirement.",
+     "tested": "The commit message says the author checked the absent, false and true states manually and ran the full sample-data pipeline",
+     "kind": "code-tool"
     }
    ],
    "values": [
@@ -184,7 +211,9 @@
      "url": "https://learn.microsoft.com/graph/api/resources/x509certificatecrlvalidationconfiguration?view=graph-rest-1.0",
      "by": "Microsoft Learn",
      "date": "",
-     "rel": "names-it"
+     "rel": "names-it",
+     "says": "This v1.0 resource decides whether certificate-based authentication fails when the issuing CA has no valid CRL distribution point. state can be disabled, enabled or unknownFutureValue, and exemptedCertificateAuthoritiesSubjectKeyIdentifiers lists the subject key identifiers (in hex) of CAs that are exempt from the check.",
+     "kind": "graph-reference"
     }
    ]
   },
@@ -205,7 +234,10 @@
      "by": "itc-lu (m365_security_posture repo)",
      "date": "2026-03-16",
      "rel": "names-it",
-     "key": "itclu"
+     "key": "itclu",
+     "says": "A tenant export lists a method with id FederatedIdentityCredential and state disabled. Its includeTargets holds one entry: targetType group, id all_users, isRegistrationRequired false, allowedProfiles [].",
+     "tested": "GET only, as part of a ScubaGear run; state disabled, includeTargets = all_users",
+     "kind": "code-tool"
     },
     {
      "title": "terraform-provider-microsoft365wp: authentication_methods_policy.go strips federatedIdentityCredentialAuthenticationMethodConfiguration",
@@ -213,7 +245,9 @@
      "by": "terraprovider (Glueckkanja)",
      "date": "2026-10-12",
      "rel": "names-it",
-     "key": "terraprovider"
+     "key": "terraprovider",
+     "says": "The provider code removes entries of type federatedIdentityCredentialAuthenticationMethodConfiguration from the authentication methods policy it reads, with a comment that the type has 'not yet been documented anywhere'.",
+     "kind": "code-tool"
     }
    ]
   },
@@ -233,7 +267,10 @@
      "by": "itc-lu (m365_security_posture repo)",
      "date": "2026-03-16",
      "rel": "names-it",
-     "key": "itclu"
+     "key": "itclu",
+     "says": "Shows Profiles as an empty array on the FederatedIdentityCredential method, with its own @odata.context pointing to .../authenticationMethodConfigurations('FederatedIdentityCredential')/.../profiles.",
+     "tested": "GET only; profiles = []",
+     "kind": "code-tool"
     },
     {
      "title": "terraform-provider-microsoft365wp: authentication_methods_policy.go strips federatedIdentityCredentialAuthenticationMethodConfiguration",
@@ -241,7 +278,9 @@
      "by": "terraprovider (Glueckkanja)",
      "date": "2026-10-12",
      "rel": "names-it",
-     "key": "terraprovider"
+     "key": "terraprovider",
+     "says": "The whole federatedIdentityCredential method configuration, profiles included, is dropped by the provider because the type is not documented.",
+     "kind": "code-tool"
     }
    ]
   },
@@ -261,7 +300,9 @@
      "by": "ATVWGS / Volkswagen Group (Johannes Lechermeier)",
      "date": "2025-09-19",
      "rel": "names-it",
-     "key": "atvwgs"
+     "key": "atvwgs",
+     "says": "The export function removes applyDefaultsToDomainBasedOrganizations from the retrieved settings, together with system fields such as policyTenantId, migrationStatus, version and lastModifiedDateTime, so the property is never exported.",
+     "kind": "code-tool"
     },
     {
      "title": "IntuneLab EntraBackup - crossTenantAccessPolicy.json",
@@ -269,7 +310,10 @@
      "by": "mbusbee505",
      "date": "",
      "rel": "names-it",
-     "key": "mbusbee505"
+     "key": "mbusbee505",
+     "says": "A backup of the crossTenantAccessPolicy object shows applyDefaultsToDomainBasedOrganizations: false.",
+     "tested": "GET only (backup export); value false",
+     "kind": "code-tool"
     }
    ]
   },
@@ -289,7 +333,9 @@
      "url": "https://learn.microsoft.com/graph/api/resources/crosstenantaccesspolicyinboundtrust?view=graph-rest-beta",
      "by": "Microsoft Learn",
      "date": "",
-     "rel": "names-it"
+     "rel": "names-it",
+     "says": "In the beta inbound trust settings of cross-tenant access policy, isCompliantNetworkAccepted is a Boolean that says whether a compliant network claim from external Entra organizations is trusted. It sits alongside isMfaAccepted, isCompliantDeviceAccepted and isHybridAzureADJoinedDeviceAccepted.",
+     "kind": "graph-reference"
     }
    ]
   },
@@ -308,7 +354,9 @@
      "url": "https://learn.microsoft.com/microsoftteams/cross-cloud-meetings",
      "by": "Microsoft Learn",
      "date": "",
-     "rel": "feature"
+     "rel": "feature",
+     "says": "Teams cross-cloud meeting connections let users join meetings with an organization in another Microsoft 365 cloud (for example commercial and GCC) as authenticated participants without guest accounts. Each connection is built on Entra cross-tenant access settings, has its own Inbound and Outbound toggle in the Teams admin center, and must be configured by both organizations. The page does not name the Graph property; if the host tenant requires MFA, users can hit AADSTS90072 unless inbound MFA trust is configured.",
+     "kind": "microsoft-article"
     },
     {
      "title": "Get policyDeletableItem (beta) - example response for a deleted crossTenantAccessPolicyConfigurationPartner",
@@ -316,7 +364,9 @@
      "by": "Microsoft Graph docs",
      "date": "2026-10-08",
      "rel": "names-it",
-     "key": "learnmicrosoftcom"
+     "key": "learnmicrosoftcom",
+     "says": "The example response for a deleted cross-tenant partner configuration includes crossCloudMeetingConfiguration with inboundAllowed null and outboundAllowed null. The property is not described.",
+     "kind": "graph-reference"
     },
     {
      "title": "Configure cross-tenant synchronization using PowerShell or Microsoft Graph API (partner POST response)",
@@ -324,7 +374,9 @@
      "by": "Microsoft Learn (Entra docs)",
      "date": "2026-03-25",
      "rel": "names-it",
-     "key": "learnmicrosoftcom"
+     "key": "learnmicrosoftcom",
+     "says": "The example response after creating a partner configuration (POST to /policies/crossTenantAccessPolicy/partners) includes crossCloudMeetingConfiguration {inboundAllowed: null, outboundAllowed: null}. The property is not described.",
+     "kind": "microsoft-article"
     },
     {
      "title": "terraform-provider-microsoft365 api_docs.md - captured portal GET /policies/crossTenantAccessPolicy/default",
@@ -332,7 +384,10 @@
      "by": "deploymenttheory (ShocOne)",
      "date": "",
      "rel": "names-it",
-     "key": "deploymenttheory"
+     "key": "deploymenttheory",
+     "says": "A captured Entra portal request (GET /policies/crossTenantAccessPolicy/default) shows crossCloudMeetingConfiguration with inboundAllowed false and outboundAllowed false on the default policy.",
+     "tested": "GET only (captured portal traffic); false/false",
+     "kind": "code-tool"
     },
     {
      "title": "Meet with people in other Microsoft 365 cloud environments",
@@ -340,7 +395,9 @@
      "by": "Microsoft Learn (Teams docs)",
      "date": "",
      "rel": "doc",
-     "key": "learnmicrosoftcom"
+     "key": "learnmicrosoftcom",
+     "says": "Does not name the property. Explains that Teams cross-cloud meeting connections use organizations defined in Entra cross-tenant access settings, with Inbound and Outbound connection toggles per organization in the Teams admin center.",
+     "kind": "microsoft-article"
     }
    ],
    "values": [
@@ -380,7 +437,9 @@
      "by": "Microsoft Graph docs",
      "date": "2026-10-08",
      "rel": "names-it",
-     "key": "learnmicrosoftcom"
+     "key": "learnmicrosoftcom",
+     "says": "The example response for a deleted cross-tenant partner configuration includes protectedContentSharing with inboundAllowed null and outboundAllowed null. The property is not described.",
+     "kind": "graph-reference"
     },
     {
      "title": "terraform-provider-microsoft365 api_docs.md - captured portal GET /policies/crossTenantAccessPolicy/default",
@@ -388,7 +447,10 @@
      "by": "deploymenttheory (ShocOne)",
      "date": "",
      "rel": "names-it",
-     "key": "deploymenttheory"
+     "key": "deploymenttheory",
+     "says": "A captured Entra portal GET of the default cross-tenant policy shows protectedContentSharing with inboundAllowed true and outboundAllowed true.",
+     "tested": "GET only (captured portal traffic); true/true",
+     "kind": "code-tool"
     }
    ],
    "values": [
@@ -427,7 +489,9 @@
      "by": "almenscorner (Tobias Almén)",
      "date": "",
      "rel": "names-it",
-     "key": "almenscorner"
+     "key": "almenscorner",
+     "says": "IntuneCD leaves controlTypes out of the compare and update of the security defaults policy, along with securityDefaultsUpsell, displayName and description.",
+     "kind": "code-tool"
     },
     {
      "title": "nodoc-ibiza-iam - security_defaults.yml (undocumented portal API /SecurityDefaults/Configuration)",
@@ -435,7 +499,9 @@
      "by": "dolphinsec",
      "date": "",
      "rel": "names-it",
-     "key": "dolphinsec"
+     "key": "dolphinsec",
+     "says": "An OpenAPI spec of the undocumented portal endpoint /SecurityDefaults/Configuration lists controlTypes as a nullable array with example null, next to isEnabled and ignoreBaselineProtectionPolicies.",
+     "kind": "code-tool"
     }
    ]
   },
@@ -456,7 +522,9 @@
      "by": "CyberDrain / CIPP (Kelvin Tegelaar, Zacgoose)",
      "date": "2026-04-05",
      "rel": "names-it",
-     "key": "kelvintegelaar"
+     "key": "kelvintegelaar",
+     "says": "The alert GETs /beta/policies/identitySecurityDefaultsEnforcementPolicy. If isEnabled is false and securityDefaultsUpsell.action is autoEnable or autoEnabledNotify, it reports 'Security Defaults will be automatically enabled on {dueDateTime}'.",
+     "kind": "code-tool"
     },
     {
      "title": "IntuneCD - update/Entra/SecurityDefaults.py",
@@ -464,7 +532,9 @@
      "by": "almenscorner (Tobias Almén)",
      "date": "",
      "rel": "names-it",
-     "key": "almenscorner"
+     "key": "almenscorner",
+     "says": "IntuneCD leaves securityDefaultsUpsell out of the compare and update of the security defaults policy.",
+     "kind": "code-tool"
     },
     {
      "title": "Security defaults in Microsoft Entra ID (section Enabling security defaults)",
@@ -472,7 +542,9 @@
      "by": "Microsoft Learn (Entra docs)",
      "date": "",
      "rel": "doc",
-     "key": "learnmicrosoftcom"
+     "key": "learnmicrosoftcom",
+     "says": "Does not name the property. Says customers are periodically notified that security defaults will be automatically enabled if they have no Conditional Access policies, no premium licenses and no active legacy authentication clients.",
+     "kind": "microsoft-article"
     }
    ],
    "values": [
@@ -526,7 +598,9 @@
      "by": "deploymenttheory (ShocOne)",
      "date": "2026-02-02",
      "rel": "names-it",
-     "key": "deploymenttheory"
+     "key": "deploymenttheory",
+     "says": "A tenant app management policy JSON lists applicationRestrictions.federatedIdentityCredentials as null, next to audiences, redirectUris and trustedSubjectNameAndIssuers (also null).",
+     "kind": "code-tool"
     }
    ]
   },
@@ -545,7 +619,9 @@
      "url": "https://devblogs.microsoft.com/identity/?p=1305",
      "by": "Microsoft Identity blog",
      "date": "2023-11-09",
-     "rel": "feature"
+     "rel": "feature",
+     "says": "This November 2023 post announces a public preview of trusted certificate authority restrictions in app management policy: admins define trusted issuer chains (certificateBasedApplicationConfiguration) and then block app certificates from other issuers, including self-signed ones. It requires Workload ID premium, allows up to 5 trusted CAs per policy, and checks existing apps only when they rotate certificates. The post does not mention trustedSubjectNameAndIssuers by name.",
+     "kind": "microsoft-article"
     },
     {
      "title": "terraform-provider-microsoft365 - scripts/powershell/applications/config/policy-comprehensive.json",
@@ -553,7 +629,9 @@
      "by": "deploymenttheory (ShocOne)",
      "date": "2026-02-02",
      "rel": "names-it",
-     "key": "deploymenttheory"
+     "key": "deploymenttheory",
+     "says": "Lists applicationRestrictions.trustedSubjectNameAndIssuers as null in a tenant app management policy JSON.",
+     "kind": "code-tool"
     },
     {
      "title": "Azure/ARO-HCP - dev-infrastructure/modules/entra/app.bicep and templates/geneva-identities.bicep (application property for SNI authentication)",
@@ -561,7 +639,9 @@
      "by": "Microsoft / Red Hat ARO-HCP team",
      "date": "",
      "rel": "feature",
-     "key": "azure"
+     "key": "azure",
+     "says": "Sets a property with the same name on an application (Microsoft.Graph/applications@beta, not the policy) to [{authorityId, subjectName}] when SNI is used. The module describes it as 'Trusted subject name and issuer pairs for SNI authentication'.",
+     "kind": "code-tool"
     },
     {
      "title": "Azure/ARO-HCP - docs/ci/dev-mock-identities.md (historical note on SNI)",
@@ -569,7 +649,10 @@
      "by": "Microsoft / Red Hat ARO-HCP team",
      "date": "2026-10-21",
      "rel": "feature",
-     "key": "azure"
+     "key": "azure",
+     "says": "Says an earlier setup configured SNI (trustedSubjectNameAndIssuers) on apps. That fails for self-signed certificates when the client sends the chain (AADSTS7000213) and caused a CI-wide auth outage, so the apps now use pinned keyCredentials.",
+     "tested": "Used in their CI: SNI sign-ins failed with AADSTS7000213 for self-signed certs sent with the chain",
+     "kind": "code-tool"
     },
     {
      "title": "Configure an App Registration in the Microsoft CORP tenant to trust certificates based on Subject Name + Issuer (Microsoft Q&A)",
@@ -577,7 +660,9 @@
      "by": "Nick Andres (question), Sridevi Machavarapu (Microsoft External Staff, answer)",
      "date": "2026-02-13",
      "rel": "doc",
-     "key": "learnmicrosoftcom"
+     "key": "learnmicrosoftcom",
+     "says": "Does not name the property. A Microsoft External Staff answer says trusting certificates by subject name and issuer is not supported for app registrations, and that no portal setting, Graph API parameter or tenant policy enables it.",
+     "kind": "qa-forum"
     }
    ]
   },
@@ -619,7 +704,10 @@
      "by": "Daniel Bradley (ourcloudnetwork.com)",
      "date": "2024-07-12",
      "rel": "names-it",
-     "key": "ourcloudnetworkcom"
+     "key": "ourcloudnetworkcom",
+     "says": "The portal has a new CA policy status 'Staged rollout' (state 'partiallyEnabled'), and Graph refuses that state unless partialEnablementStrategy is set. The author could not work out the property's format.",
+     "tested": "GET with $filter state eq 'partiallyEnabled' returned no policies; PATCH state=PartiallyEnabled failed with error 1211; adding PartialEnablementStrategy='Enabled' failed with schema errors",
+     "kind": "community-blog"
     },
     {
      "title": "Get conditionalAccessPolicy (beta) - example response",
@@ -627,7 +715,9 @@
      "by": "Microsoft Graph docs (source: microsoftgraph/microsoft-graph-docs-contrib api-reference/beta/api/conditionalaccesspolicy-get.md)",
      "date": "",
      "rel": "names-it",
-     "key": "learnmicrosoftcom"
+     "key": "learnmicrosoftcom",
+     "says": "The beta example response contains \"partialEnablementStrategy\": null. The property is not described. (Read from the docs source file in microsoft-graph-docs-contrib.)",
+     "kind": "graph-reference"
     },
     {
      "title": "Create conditionalAccessPolicy (beta) - example responses",
@@ -635,7 +725,9 @@
      "by": "Microsoft Graph docs (source: microsoft-graph-docs-contrib)",
      "date": "",
      "rel": "names-it",
-     "key": "learnmicrosoftcom"
+     "key": "learnmicrosoftcom",
+     "says": "Several beta create-policy example responses include \"partialEnablementStrategy\": null, but the page has no description of it. (Read from the docs source file.)",
+     "kind": "graph-reference"
     },
     {
      "title": "Tutorial: Entra Internet Access via Microsoft Graph - example response",
@@ -643,7 +735,9 @@
      "by": "Microsoft Graph docs (source: microsoft-graph-docs-contrib concepts/tutorial-entra-internet-access.md)",
      "date": "",
      "rel": "names-it",
-     "key": "learnmicrosoftcom"
+     "key": "learnmicrosoftcom",
+     "says": "A CA policy in the tutorial's example response includes \"partialEnablementStrategy\": null, with no explanation. (Read from the docs source file.)",
+     "kind": "microsoft-article"
     },
     {
      "title": "Conditional Access Policy Field Mapping (Graph beta)",
@@ -651,7 +745,10 @@
      "by": "deploymenttheory / terraform-provider-microsoft365",
      "date": "",
      "rel": "names-it",
-     "key": "deploymenttheory"
+     "key": "deploymenttheory",
+     "says": "Lists it as a root field the API always adds with a default of null (String/null, 'Partial enablement config') and recommends treating it as read-only/computed.",
+     "tested": "6 create-policy tests against beta: the field was added as null in every response",
+     "kind": "code-tool"
     },
     {
      "title": "CippCAPolicyBuilder.jsx (strips the key before re-deploying a policy)",
@@ -659,7 +756,9 @@
      "by": "CIPP (KelvinTegelaar)",
      "date": "",
      "rel": "names-it",
-     "key": "kelvintegelaar"
+     "key": "kelvintegelaar",
+     "says": "The CA policy builder removes the partialEnablementStrategy key along with other server-generated keys (id, templateId, deletedDateTime) when it processes a policy.",
+     "kind": "code-tool"
     },
     {
      "title": "DCToolbox.psm1 - CA policy JSON templates",
@@ -667,7 +766,9 @@
      "by": "Daniel Chronlund",
      "date": "",
      "rel": "names-it",
-     "key": "danielchronlund"
+     "key": "danielchronlund",
+     "says": "Its embedded CA policy JSON templates include \"partialEnablementStrategy\": null.",
+     "kind": "code-tool"
     }
    ],
    "values": [
@@ -907,7 +1008,10 @@
      "by": "Daniel Bradley (ourcloudnetwork.com)",
      "date": "2026-01-06",
      "rel": "names-it",
-     "key": "bradley"
+     "key": "bradley",
+     "says": "Shows the PATCH body with conditions.times (includeAllTimes false, includeDays Mon-Fri 09:00-17:00 UTC) and the shape of includeRange / excludeRange found in the admin center's JavaScript.",
+     "tested": "Added the condition to a policy in Graph Explorer; the admin center then listed every condition as \"Not configured\".",
+     "kind": "community-blog"
     },
     {
      "title": "Logon Hours in Conditional Access",
@@ -915,7 +1019,10 @@
      "by": "Damian Patyk (dpatyk.com)",
      "date": "2026-02-17",
      "rel": "names-it",
-     "key": "dpatyk"
+     "key": "dpatyk",
+     "says": "Blocks sign-ins outside working hours with includeAllTimes true and excludeDays Mon-Fri 07:00-15:00 UTC; only \"UTC\" is accepted, \"CET\" returned an error.",
+     "tested": "PATCH returned 204; sign-ins tested 17-21/02/2026 - allowed 14:47 UTC, blocked 15:18 UTC, blocked on Saturday.",
+     "kind": "community-blog"
     },
     {
      "title": "Conditional Access Demo: Time-Bound Access",
@@ -923,28 +1030,35 @@
      "by": "jhope188 (Medium)",
      "date": "",
      "rel": "feature",
-     "unread": true
+     "unread": true,
+     "kind": "community-blog"
     },
     {
      "title": "Conditional Access Policies are the Best Way to Block Weekend Access to Microsoft 365",
      "url": "https://office365itpros.com/2026/03/30/conditional-access-weekend-block/",
      "by": "Tony Redmond (Office 365 for IT Pros)",
      "date": "2026-03-30",
-     "rel": "feature"
+     "rel": "feature",
+     "says": "Points to the time condition as an undocumented beta feature and argues a scheduled runbook that switches a block policy on and off does the same today.",
+     "kind": "community-blog"
     },
     {
      "title": "Access token lifetime",
      "url": "https://learn.microsoft.com/entra/identity-platform/access-tokens#token-lifetime",
      "by": "Microsoft Learn",
      "date": "",
-     "rel": "doc"
+     "rel": "doc",
+     "says": "Access tokens get a random lifetime of 60-90 minutes; Conditional Access is evaluated when a token is issued - why a session can outlive the time window.",
+     "kind": "microsoft-article"
     },
     {
      "title": "Continuous access evaluation - token lifetime",
      "url": "https://learn.microsoft.com/entra/identity/conditional-access/concept-continuous-access-evaluation#token-lifetime",
      "by": "Microsoft Learn",
      "date": "",
-     "rel": "doc"
+     "rel": "doc",
+     "says": "With Continuous Access Evaluation, tokens can live up to 28 hours; revocation is driven by critical events, not by the clock.",
+     "kind": "microsoft-article"
     }
    ]
   },
@@ -963,7 +1077,9 @@
      "url": "https://learn.microsoft.com/entra/identity/conditional-access/agent-id",
      "by": "Microsoft Learn",
      "date": "",
-     "rel": "feature"
+     "rel": "feature",
+     "says": "Explains how Conditional Access applies to agents across three access patterns (on-behalf-of a user, app-only with the agent identity, and agent user accounts), how policies can target agent identity blueprints or custom security attributes, and that it needs Microsoft 365 E7 or Agent 365 with at least Entra P1. The page does not mention 'agent actions' or includeAgentActions.",
+     "kind": "microsoft-article"
     },
     {
      "title": "graph-property-types.ts (comment on undocumented CA keys)",
@@ -971,7 +1087,10 @@
      "by": "Ugur Koc (ugurkocde/IntuneDocumentation)",
      "date": "",
      "rel": "names-it",
-     "key": "ugurkocde"
+     "key": "ugurkocde",
+     "says": "A code comment says includeAgentActions is not in the Graph reference and its type is unknown, so the tool types it 'Untyped' and reads only null or an empty list.",
+     "tested": "Lab tenant returns an empty list",
+     "kind": "code-tool"
     },
     {
      "title": "Export-ConditionalAccessReport-HTML.ps1 (field-label schema)",
@@ -979,7 +1098,9 @@
      "by": "ramyogeshwaran",
      "date": "",
      "rel": "names-it",
-     "key": "ramyogeshwaran"
+     "key": "ramyogeshwaran",
+     "says": "Maps conditions.applications.includeAgentActions to the report label 'Assignments - Agents / Agent actions'.",
+     "kind": "code-tool"
     },
     {
      "title": "IAC - APP - BLOCK - Copilot - Exclude - AgentAdmins.json (beta policy export)",
@@ -987,7 +1108,10 @@
      "by": "Jhope188",
      "date": "",
      "rel": "names-it",
-     "key": "jhope188"
+     "key": "jhope188",
+     "says": "A beta policy export shows \"includeAgentActions\": [] in conditions.applications, next to includeUserActions.",
+     "tested": "GET export only, value []",
+     "kind": "code-tool"
     },
     {
      "title": "NMM CA012 No persistent browser session v1.0.2 (policy export)",
@@ -995,7 +1119,10 @@
      "by": "Nerdio (Get-Nerdio/NMM)",
      "date": "",
      "rel": "names-it",
-     "key": "getnerdio"
+     "key": "getnerdio",
+     "says": "A versioned CA policy JSON contains \"includeAgentActions\": [] under conditions.applications.",
+     "tested": "Export only, value []",
+     "kind": "code-tool"
     }
    ]
   },
@@ -1015,7 +1142,10 @@
      "by": "Nerdio (Get-Nerdio/NMM)",
      "date": "",
      "rel": "names-it",
-     "key": "getnerdio"
+     "key": "getnerdio",
+     "says": "The policy's sessionControls contain \"blockSensitiveActions\": null, next to humanApproval.",
+     "tested": "Export only, value null",
+     "kind": "code-tool"
     },
     {
      "title": "Export-ConditionalAccessReport-HTML.ps1 (field-label schema)",
@@ -1023,7 +1153,9 @@
      "by": "ramyogeshwaran",
      "date": "",
      "rel": "names-it",
-     "key": "ramyogeshwaran"
+     "key": "ramyogeshwaran",
+     "says": "Maps sessionControls.blockSensitiveActions to the report label 'Session controls / Block sensitive actions'.",
+     "kind": "code-tool"
     }
    ]
   },
@@ -1042,7 +1174,9 @@
      "url": "https://learn.microsoft.com/entra/identity/conditional-access/agent-id",
      "by": "Microsoft Learn",
      "date": "",
-     "rel": "feature"
+     "rel": "feature",
+     "says": "The overview of Conditional Access for agents covers the access patterns, blueprint and attribute targeting, licensing (M365 E7, or Agent 365 with Entra P1 or E3) and current limitations, such as policies scoped to Users not applying to agent user accounts. It says nothing about a human-approval session control or humanApproval.",
+     "kind": "microsoft-article"
     },
     {
      "title": "NMM CA012 No persistent browser session v1.0.2 (policy export)",
@@ -1050,7 +1184,10 @@
      "by": "Nerdio (Get-Nerdio/NMM)",
      "date": "",
      "rel": "names-it",
-     "key": "getnerdio"
+     "key": "getnerdio",
+     "says": "The policy's sessionControls contain \"humanApproval\": null.",
+     "tested": "Export only, value null",
+     "kind": "code-tool"
     },
     {
      "title": "Export-ConditionalAccessReport-HTML.ps1 (field-label schema)",
@@ -1058,7 +1195,9 @@
      "by": "ramyogeshwaran",
      "date": "",
      "rel": "names-it",
-     "key": "ramyogeshwaran"
+     "key": "ramyogeshwaran",
+     "says": "Maps sessionControls.humanApproval to the report label 'Session controls / Human approval'.",
+     "kind": "code-tool"
     }
    ]
   },
@@ -1077,7 +1216,9 @@
      "url": "https://mc.merill.net/message/RM571397",
      "by": "Microsoft 365 roadmap (merill.net)",
      "date": "",
-     "rel": "feature"
+     "rel": "feature",
+     "says": "The roadmap item does not name the property. It says Purview inline DLP for Entra-managed apps in Edge for Business will integrate with a Conditional Access grant control (In development; preview Feb CY2027, GA Mar CY2027).",
+     "kind": "message-center"
     },
     {
      "title": "Export-ConditionalAccessReport-HTML.ps1 (field-label schema)",
@@ -1085,7 +1226,9 @@
      "by": "ramyogeshwaran",
      "date": "",
      "rel": "names-it",
-     "key": "ramyogeshwaran"
+     "key": "ramyogeshwaran",
+     "says": "Maps conditions.purviewDataLossPreventionRules to the report label 'Conditions - Other / Purview DLP rules'.",
+     "kind": "code-tool"
     }
    ]
   },
@@ -1104,7 +1247,9 @@
      "url": "https://learn.microsoft.com/entra/identity/conditional-access/policy-autonomous-agents",
      "by": "Microsoft Learn",
      "date": "",
-     "rel": "feature"
+     "rel": "feature",
+     "says": "Microsoft's step-by-step Conditional Access policies for agents with the documented agent risk condition; agent session risk is not mentioned.",
+     "kind": "microsoft-article"
     },
     {
      "title": "policy-console - engine.go / mstemplates.go (beta-only CA conditions list)",
@@ -1112,7 +1257,9 @@
      "by": "anthonyonazure",
      "date": "",
      "rel": "names-it",
-     "key": "anthonyonazure"
+     "key": "anthonyonazure",
+     "says": "Lists agentSessionRiskLevels with agentIdRiskLevels, clientApplications, agents and agentContext as conditions that exist only in the beta CA API (the same list is also in engine.go and equiv.go).",
+     "kind": "code-tool"
     },
     {
      "title": "Export-ConditionalAccessReport-HTML.ps1 (field-label schema)",
@@ -1120,7 +1267,9 @@
      "by": "ramyogeshwaran",
      "date": "",
      "rel": "names-it",
-     "key": "ramyogeshwaran"
+     "key": "ramyogeshwaran",
+     "says": "Maps conditions.agentSessionRiskLevels to the report label 'Conditions - Risk / Agent session risk'.",
+     "kind": "code-tool"
     }
    ]
   },
@@ -1139,7 +1288,10 @@
      "by": "deploymenttheory / terraform-provider-microsoft365",
      "date": "",
      "rel": "names-it",
-     "key": "deploymenttheory"
+     "key": "deploymenttheory",
+     "says": "conditions.clients (Object/null) is sent as null by the Entra portal GUI, and the API removes it from the response.",
+     "tested": "6 create-policy tests: sent null, field always removed",
+     "kind": "code-tool"
     },
     {
      "title": "travel-exclusion.json (CA example)",
@@ -1147,7 +1299,9 @@
      "by": "Nathan McNutty",
      "date": "",
      "rel": "names-it",
-     "key": "nathanmcnulty"
+     "key": "nathanmcnulty",
+     "says": "An example CA policy JSON contains \"clients\": null in conditions.",
+     "kind": "code-tool"
     },
     {
      "title": "Export-ConditionalAccessReport-HTML.ps1 (field-label schema)",
@@ -1155,7 +1309,9 @@
      "by": "ramyogeshwaran",
      "date": "",
      "rel": "names-it",
-     "key": "ramyogeshwaran"
+     "key": "ramyogeshwaran",
+     "says": "Maps conditions.clients to the report label 'Conditions - Client apps / Clients'.",
+     "kind": "code-tool"
     }
    ]
   },
@@ -1175,7 +1331,9 @@
      "by": "ramyogeshwaran",
      "date": "",
      "rel": "names-it",
-     "key": "ramyogeshwaran"
+     "key": "ramyogeshwaran",
+     "says": "Maps conditions.federatedTokens to the report label 'Conditions - Other / Federated tokens'.",
+     "kind": "code-tool"
     }
    ]
   },
@@ -1196,7 +1354,10 @@
      "by": "Franck Heilmann and Andres Canello (Microsoft)",
      "date": "2026-02-27",
      "rel": "names-it",
-     "key": "microsoft"
+     "key": "microsoft",
+     "says": "CA policies return sessionControls.networkAccessSecurity {policyId, isEnabled} as the older property, holding the same security profile ID as globalSecureAccessFilteringProfile.profileId; the spec says to use the latter.",
+     "tested": "GET of CA policies validated against a live tenant on 2026-02-27; both properties present with the same ID",
+     "kind": "code-tool"
     },
     {
      "title": "GSA-Policy-Workbench - ConditionalAccessPolicy.definition.ts",
@@ -1204,7 +1365,9 @@
      "by": "Microsoft (GSA-Policy-Workbench)",
      "date": "",
      "rel": "names-it",
-     "key": "microsoft"
+     "key": "microsoft",
+     "says": "Types it as {isEnabled, policyId}. A comment calls it a legacy, undocumented sibling of globalSecureAccessFilteringProfile that attaches a security profile and should not be used as a basis for guidance.",
+     "kind": "code-tool"
     },
     {
      "title": "802 - RING - Global Secure Access - Specific Websites Block.json",
@@ -1212,7 +1375,9 @@
      "by": "Alex Filipin",
      "date": "",
      "rel": "names-it",
-     "key": "alexfilipin"
+     "key": "alexfilipin",
+     "says": "A GSA website-block policy template sets networkAccessSecurity {policyId, isEnabled: true} alongside globalSecureAccessFilteringProfile {profileId, isEnabled: true}, both with a zero-GUID placeholder.",
+     "kind": "code-tool"
     },
     {
      "title": "Conditional Access Policy Field Mapping (Graph beta)",
@@ -1220,7 +1385,10 @@
      "by": "deploymenttheory / terraform-provider-microsoft365",
      "date": "",
      "rel": "names-it",
-     "key": "deploymenttheory"
+     "key": "deploymenttheory",
+     "says": "The portal sends sessionControls.networkAccessSecurity as null, and the API removes the field from the response.",
+     "tested": "Create-policy test caau005: sent null, not returned",
+     "kind": "code-tool"
     },
     {
      "title": "conditionalAccessSessionControls (beta) - docs source lists it in optionalProperties only",
@@ -1228,7 +1396,9 @@
      "by": "microsoftgraph/microsoft-graph-docs-contrib",
      "date": "",
      "rel": "names-it",
-     "key": "microsoftgraph"
+     "key": "microsoftgraph",
+     "says": "The beta resource doc lists networkAccessSecurity only in its hidden optionalProperties annotation. It is absent from the property table and the JSON representation.",
+     "kind": "graph-reference"
     },
     {
      "title": "conditionalAccessRoot: evaluate (beta) - example response",
@@ -1236,7 +1406,9 @@
      "by": "Microsoft Graph docs",
      "date": "",
      "rel": "names-it",
-     "key": "learnmicrosoftcom"
+     "key": "learnmicrosoftcom",
+     "says": "The beta evaluate example response shows \"networkAccessSecurity\": null in a policy's sessionControls. (Read from the docs source file.)",
+     "kind": "graph-reference"
     }
    ],
    "values": [
@@ -1276,7 +1448,9 @@
      "by": "PnP CLI for Microsoft 365",
      "date": "",
      "rel": "names-it",
-     "key": "pnp"
+     "key": "pnp",
+     "says": "The example JSON output of 'm365 entra organization list' includes \"onPremisesSyncStatus\": [].",
+     "kind": "code-tool"
     },
     {
      "title": "AzRanger - OrganizationSettings.cs",
@@ -1284,7 +1458,9 @@
      "by": "HackmichNet (AzRanger)",
      "date": "",
      "rel": "names-it",
-     "key": "hackmichnet"
+     "key": "hackmichnet",
+     "says": "Models onPremisesSyncStatus as an array of objects with attributeSetName (string), state (string) and version (int).",
+     "kind": "code-tool"
     },
     {
      "title": "Entra ID Connect - Sync details.ps1",
@@ -1292,7 +1468,10 @@
      "by": "alflokken (PSGraphToolbox)",
      "date": "",
      "rel": "names-it",
-     "key": "alflokken"
+     "key": "alflokken",
+     "says": "Selects onpremisesSyncStatus from beta /organization together with the documented sync fields, as part of 'onprem sync details'.",
+     "tested": "GET only; no output shown",
+     "kind": "code-tool"
     },
     {
      "title": "DODCOAZT.md (Zero Trust checks)",
@@ -1300,7 +1479,9 @@
      "by": "Cyberlorians",
      "date": "",
      "rel": "names-it",
-     "key": "cyberlorians"
+     "key": "cyberlorians",
+     "says": "Shows the on-premises synchronization status with $(Get-MgOrganization).AdditionalProperties.onPremisesSyncStatus.state.",
+     "kind": "community-blog"
     }
    ],
    "values": [

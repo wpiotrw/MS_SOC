@@ -26,7 +26,7 @@ Writes  site/data/graph-radar.json        (the portal: Graph API > Radar, Overvi
         data/graph-radar/meta-{beta,v1.0}.json.gz, tenant.json, history.json   (memory, not published)
 Usage   python3 tools/graph_radar.py [--backfill DIR] [--day YYYY-MM-DD] [--no-tenant]
 """
-import datetime, glob, gzip, json, os, re, subprocess, sys, urllib.error, urllib.request
+import datetime, glob, gzip, json, os, re, subprocess, sys, urllib.error, urllib.parse, urllib.request
 import xml.etree.ElementTree as ET
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -742,6 +742,87 @@ def docs_check(types, leaf, cache, day):
     return found
 
 
+LEARN_SEARCH = "https://learn.microsoft.com/api/search?search=%s&locale=en-us&%%24top=10"
+
+
+def learn_mentions(leaf, cache, day, elsewhere=False):
+    """5fz (owner, 31 X 2026: "track and show in a rounded frame whether a feature is described by Microsoft on Learn or
+    came out of preview, is GA - so we stay up to date"): Learn's own search for the exact property name. Only names
+    distinctive enough to search (camelCase, 12+ characters - not times, clients, profiles). A hit counts when the
+    title or Learn's own excerpt holds the exact name; Graph reference pages (/graph/api/) are the reference stage
+    (docs_check), the rest are Microsoft articles. preview = the title or the excerpt says preview"""
+    if not (re.search(r"[a-z][A-Z]", leaf) and len(leaf) >= 12):
+        return {"skipped": "the name is too common to search on its own"}
+    if elsewhere:
+        return {"skipped": "documented types use the same name - a search would find those, not this one"}
+    k = "learn|" + leaf
+    c = cache.get(k)
+    if c and c.get("day") == day:
+        return c
+    hits, ref, qa = [], [], []    # qa: Microsoft Q&A threads - a forum, not Microsoft's documentation
+    try:
+        body = json.loads(get(LEARN_SEARCH % urllib.parse.quote(leaf), timeout=30))
+        rx = re.compile(r"(?<![A-Za-z])" + re.escape(leaf) + r"(?![A-Za-z])", re.I)
+        for r in body.get("results") or []:
+            texts = [r.get("title") or ""] + [d.get("content") or "" for d in r.get("descriptions") or []] + [r.get("description") or ""]
+            if not any(rx.search(t) for t in texts):
+                continue
+            url = re.sub(r"^https://learn\.microsoft\.com/en-us/", "https://learn.microsoft.com/", r.get("url") or "")
+            snip = next((t for t in texts[1:] if rx.search(t)), "")
+            m = rx.search(snip)
+            if m and len(snip) > 240:
+                a = max(0, m.start() - 110)
+                snip = ("…" if a else "") + snip[a:a + 230].strip() + "…"
+            h = {"title": re.sub(r"\s+-\s+Microsoft [^-]+$", "", r.get("title") or ""), "url": url, "updated": str(r.get("lastUpdatedDate") or "")[:10],
+                 "preview": bool(re.search(r"\bpreview\b", " ".join(texts), re.I)), "snippet": snip}
+            (ref if "/graph/api/" in url else qa if "/answers/" in url else hits).append(h)
+        c = {"day": day, "ok": True, "hits": hits[:5], "ref": ref[:3], "qa": qa[:3]}
+    except Exception as e:
+        c = dict(cache.get(k) or {}, day=day, ok=False, note=str(e)[:80])
+    cache[k] = c
+    return c
+
+
+ELSEWHERE = {}
+
+
+def names_in(m):
+    """every property and navigation name the model knows, on any type"""
+    out = set()
+    for t in m["types"].values():
+        out |= set((t.get("p") or {}).keys()) | set((t.get("n") or {}).keys())
+    return out
+
+
+STAGES = [("tenant", "Returned by our tenant"), ("community", "Described by the community"), ("msdoc", "Microsoft describes it on Learn"),
+          ("ref", "In the Graph beta reference"), ("meta", "In Graph $metadata (beta)"), ("v1", "In Graph v1.0 - the generally available API")]
+
+
+def stages_of(u, n, lm):
+    """5fz: where a finding stands - each stage on/off with what proves it"""
+    arts = [a for a in (n or {}).get("articles") or [] if a.get("rel") != "doc" and ("learn.microsoft.com" not in (a.get("url") or "") or "/answers/" in (a.get("url") or ""))] + list((lm or {}).get("qa") or [])
+    ms_arts = [a for a in (n or {}).get("articles") or [] if "learn.microsoft.com" in (a.get("url") or "") and not re.search(r"/graph/api/|/answers/", a.get("url") or "")]
+    doc = u.get("doc") or {}
+    hits = (lm or {}).get("hits") or []
+    st = {
+        "tenant": {"on": True, "why": "first returned " + (u.get("first") or "")},
+        "community": {"on": bool(arts), "why": ("%d article%s" % (len(arts), "" if len(arts) == 1 else "s")) if arts else ""},
+        "msdoc": {"on": bool(hits or (n or {}).get("basis") == "microsoft" or u.get("mc")),
+                  "why": (hits[0]["title"] if hits else next((a["title"] for a in ms_arts if a.get("rel") == "names-it"), (ms_arts or (n or {}).get("articles") or [{}])[0].get("title", "")) if (n or {}).get("basis") == "microsoft"
+                          else ("Message Center " + ", ".join(u.get("mc") or [])) if u.get("mc") else ""),
+                  "url": (hits[0]["url"] if hits else next((a["url"] for a in ms_arts if a.get("rel") == "names-it"), "") if (n or {}).get("basis") == "microsoft" else "")},
+        "ref": {"on": bool(doc.get("beta")), "url": doc.get("beta") or ""},
+        "meta": {"on": bool(doc.get("v1meta")), "why": "in v1.0 $metadata, missing from beta" if doc.get("v1meta") else "not in $metadata - that is why the radar lists it"},
+        "v1": {"on": bool(doc.get("v1meta") or doc.get("v1.0")), "url": doc.get("v1.0") or ""},
+    }
+    feat_arts = [a for a in ms_arts if a.get("rel") == "feature"]
+    if not st["msdoc"]["on"] and feat_arts:   # Microsoft writes about the feature, not about this property (yet)
+        st["msdoc"].update({"part": True, "why": "the feature only: " + feat_arts[0]["title"], "url": feat_arts[0]["url"]})
+    pv = [h for h in hits if h.get("preview")]
+    feat = "preview" if pv else ("ga-api" if st["v1"]["on"] else "described" if st["msdoc"]["on"] else "unknown")
+    return st, feat
+
+
 ART_STOP = STOPW | {"allow", "allowed", "is", "has", "include", "includes", "enable", "enabled", "configuration", "configurations", "settings",
                     "level", "levels", "details", "default", "value", "values", "list", "status", "new"}
 TYPE_GENERIC = {"authentication", "method", "methods", "configuration", "policy", "access", "conditional", "settings", "default", "set",
@@ -887,6 +968,9 @@ def enrich_findings(und, beta, v1, day, mci_titles=None):
                 old.append(h)
         amem[key] = old[-8:]
         u["auto"] = [a for a in amem[key] if a["url"] not in known]
+        lm = learn_mentions(leaf, dcache, day, leaf in ELSEWHERE.setdefault("names", names_in(beta)))
+        u["learn"] = {k: lm.get(k) for k in ("hits", "qa", "skipped", "ok") if lm.get(k) is not None}
+        u["stages"], u["feature"] = stages_of(u, n, lm)
     save(os.path.join(MEM, "docs-cache.json"), dcache)
     save(os.path.join(MEM, "articles.json"), amem)
 
@@ -915,6 +999,26 @@ def backfill(repo, n=12):
 
 
 # ------------------------------------------------------------------------------------------------ main
+def updates_of(tstate, und, day, keep=60):
+    """5fz (owner: "update reports, so that nothing slips past us"): every change of every finding in one dated list -
+    new finding, new stage (Learn, reference, $metadata, v1.0, preview), new sources with their titles, a complete
+    example or the values added, graduated or gone - newest first"""
+    cut = (datetime.date.fromisoformat(day) - datetime.timedelta(days=keep)).isoformat()
+    title = {u["type"] + "|" + u["prop"]: u.get("human") or u["prop"] for u in und}
+    out = []
+    for k, L in (tstate.get("life") or {}).items():
+        t = title.get(k) or k.split("|", 1)[1]
+        if (L.get("first") or "") >= cut:
+            out.append({"day": L["first"], "key": k, "title": t, "kind": "found", "what": "First returned by our tenant - not in $metadata"})
+        for x in L.get("log") or []:
+            if x.get("day", "") >= cut:
+                out.append(dict(x, key=k, title=t, kind=x.get("kind") or ("status" if x.get("what", "").startswith("documentation") else "other")))
+        if L.get("gone") and L["gone"] >= cut and not L.get("graduated"):
+            out.append({"day": L["gone"], "key": k, "title": t, "kind": "gone", "what": "Our tenant stopped returning it"})
+    out.sort(key=lambda x: (x["day"], x["kind"] != "found"), reverse=True)
+    return out[:400]
+
+
 def main(argv):
     day = datetime.date.today().isoformat()
     bf, no_tenant = None, False
@@ -1069,16 +1173,60 @@ def main(argv):
                 L["log"].append({"day": day, "what": "documentation: %s -> %s" % (L.get("status"), u.get("status"))})
                 L["status"], L["statusDay"] = u.get("status"), day
             na = len((u.get("note") or {}).get("articles") or []) + len(u.get("auto") or []) + len(u.get("mc") or [])
+            # 5fz: which sources are new (titles and links, not only a number)
+            urls = [a.get("url") for a in ((u.get("note") or {}).get("articles") or []) + (u.get("auto") or []) if a.get("url")]
             if L.get("sources") is not None and na > L["sources"]:
-                L["log"].append({"day": day, "what": "%d new source%s" % (na - L["sources"], "" if na - L["sources"] == 1 else "s")})
+                newu = [x for x in urls if x not in (L.get("urls") or [])] if L.get("urls") is not None else []
+                titles = {a.get("url"): a.get("title") for a in ((u.get("note") or {}).get("articles") or []) + (u.get("auto") or [])}
+                L["log"].append({"day": day, "kind": "sources", "what": "%d new source%s" % (na - L["sources"], "" if na - L["sources"] == 1 else "s"),
+                                 "items": [{"t": titles.get(x) or x, "u": x} for x in newu[:5]]})
+            L["urls"] = urls
+            # 5fz: the stages - the day each was first reached; a stage reached after the first tracked run is logged
+            sd, base = L.setdefault("stageDays", {}), not L.get("stageDays")
+            if base:
+                L["stageBase"] = day      # stages already reached when the radar began tracking them
+            for k2, lab in STAGES:
+                s2 = (u.get("stages") or {}).get(k2) or {}
+                if s2.get("on") and k2 not in sd:
+                    sd[k2] = day
+                    if not base:
+                        L["log"].append({"day": day, "kind": "stage", "stage": k2, "what": lab + (": " + s2["why"] if s2.get("why") and k2 != "tenant" else ""), "u": s2.get("url") or ""})
+            nt = u.get("note") or {}
+            cnt = {"ex": len(nt.get("examples") or []), "val": len(nt.get("values") or [])}
+            if L.get("noteCnt") is not None:
+                if cnt["ex"] > L["noteCnt"].get("ex", 0):
+                    L["log"].append({"day": day, "kind": "example", "what": "%d complete example%s of use added" % (cnt["ex"] - L["noteCnt"].get("ex", 0), "" if cnt["ex"] - L["noteCnt"].get("ex", 0) == 1 else "s")})
+                if cnt["val"] > L["noteCnt"].get("val", 0):
+                    L["log"].append({"day": day, "kind": "values", "what": "the values it takes described (%d)" % cnt["val"]})
+            L["noteCnt"] = cnt
+            pf = u.get("feature")
+            if L.get("feature") and pf != L["feature"] and pf == "preview":
+                L["log"].append({"day": day, "kind": "stage", "stage": "preview", "what": "Learn calls the feature preview"})
+            L["feature"] = pf
+            u["stageDays"], u["stageBase"] = sd, L.get("stageBase")
             L["sources"], L["last"] = na, day
-            L["log"] = L["log"][-10:]
+            L["log"] = L["log"][-20:]
             u["last"], u["statusDay"], u["log"] = day, L["statusDay"], L["log"]
             u["updated"] = max([L["first"]] + [x["day"] for x in L["log"]])
         for k, L in life.items():
             if k not in cur:
-                L.setdefault("gone", day)
-                gone_out.append({"key": k, "first": L.get("first"), "last": L.get("last"), "gone": L["gone"]})
+                # 5fz: a finding that left the list because Microsoft added it to $metadata graduated - it did not vanish
+                t0, p0 = k.split("|", 1)
+                leaf0 = p0.split(".")[-1].replace("[]", "")
+                inb = leaf0 in all_props(beta, t0)
+                inv1 = bool(models.get("v1.0")) and leaf0 in all_props(models["v1.0"], t0)
+                if inb and not L.get("graduated"):
+                    L["graduated"] = day
+                    L.setdefault("stageDays", {}).setdefault("meta", day)
+                    L.setdefault("log", []).append({"day": day, "kind": "stage", "stage": "meta", "what": "Microsoft added it to Graph $metadata (beta)" + (" and v1.0" if inv1 else "")})
+                if inv1 and "v1" not in L.get("stageDays", {}):
+                    L.setdefault("stageDays", {})["v1"] = day
+                    if L.get("graduated") != day:
+                        L["log"].append({"day": day, "kind": "stage", "stage": "v1", "what": "Now in Graph v1.0 - the generally available API"})
+                if not inb:
+                    L.setdefault("gone", day)
+                gone_out.append({"key": k, "first": L.get("first"), "last": L.get("last"), "gone": L.get("gone"), "graduated": L.get("graduated"),
+                                 "v1": bool(L.get("stageDays", {}).get("v1")), "log": (L.get("log") or [])[-6:]})
         save(os.path.join(MEM, "tenant.json"), tstate)
     order = {"new": 0, "learn": 1, "v1": 2}
     und.sort(key=lambda u: (u.get("first") or "") , reverse=True)
@@ -1110,7 +1258,8 @@ def main(argv):
         b["tenant" if e["kind"].startswith("tenant") else e["ver"]] += 1
     out = {"generated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "day": day, "spec": "5ft",
            "read": read, "tenant": {"read": bool(tres), "note": tnote, "endpoints": tstate.get("endpoints") if tres else [],
-                                    "undocumented": und[:300], "day": tstate.get("read"), "gone": gone_out[-60:]},
+                                    "undocumented": und[:300], "day": tstate.get("read"), "gone": gone_out[-60:],
+                                    "updates": updates_of(tstate, und, day)},
            "events": hist["events"][:1500], "perDay": sorted(by.values(), key=lambda x: x["day"]), "daily": hist["daily"][-120:],
            "learnLicensing": learn_licensing()[0], "learnState": learn_licensing()[1],
            "perms": perm_info(pn), "cats": CAT_INFO,
