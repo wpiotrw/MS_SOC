@@ -5618,6 +5618,42 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .s5fj-note{margin:0;font-size:14px;line-height:1.5;color:var(--muted)}
 .s5fj-old .s5fj-nm{font-size:15px}
 .s5er-box .s5fj-c+.s5fj-c{margin-top:2px}
+/* §5fy: Graph radar - community values, complete examples, warnings (names and values stand out, text in the text colour) */
+.s5fy-lead{margin:0 0 10px;font-size:14.5px;line-height:1.5;color:var(--text)}
+.s5fy-warn{border-left:4px solid #b7791f!important;background:color-mix(in srgb,#b7791f 12%,var(--surface))!important}
+.s5fy-warn .s5fo-lab{color:#b7791f!important}
+@media (prefers-color-scheme:dark){.s5fy-warn .s5fo-lab{color:#efba60!important}}
+.s5fy-wl{margin:0;padding-left:18px}.s5fy-wl li{margin:0 0 6px;font-size:14.5px;line-height:1.5;color:var(--text)}
+.s5fy-vl{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.s5fy-vr{padding:10px 12px;border-radius:9px;border:1.5px solid color-mix(in srgb,var(--accent) 40%,transparent);background:color-mix(in srgb,var(--accent) 6%,var(--surface));min-width:0}
+.s5fy-vh{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:6px}
+.s5fy-vn{font:700 14px/1.4 var(--mono,ui-monospace,monospace);color:var(--text);overflow-wrap:anywhere}
+.s5fy-vty{padding:1px 8px;border-radius:999px;font-size:12.5px;font-weight:700;color:#fff;background:#7a5bc7}
+.s5fy-va{margin:0 0 4px;font-size:14.5px;line-height:1.45;color:var(--text);overflow-wrap:anywhere}
+.s5fy-va b{color:var(--accent)}
+.s5fy-vw{margin:0 0 4px;font-size:14px;line-height:1.5;color:var(--text)}
+.s5fy-src{display:block;font-size:13.5px;color:var(--text)}.s5fy-src b{font-weight:700}.s5fy-src a{color:var(--accent);font-weight:600}
+.s5fy-ex{padding:12px 14px;border-radius:10px;border:2px solid color-mix(in srgb,var(--ok) 45%,transparent);background:color-mix(in srgb,var(--ok) 5%,var(--surface));margin:0 0 14px}
+.s5fy-exh{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px}
+.s5fy-ext{margin:0;font-size:17px;line-height:1.35;color:var(--text)}
+.s5fy-exw{margin:0 0 6px;font-size:14.5px;line-height:1.5;color:var(--text)}
+.s5fy-tst{margin:0 0 6px;padding:6px 10px;border-radius:8px;font-size:14px;line-height:1.45;color:var(--text);background:color-mix(in srgb,var(--ok) 12%,transparent);border-left:3px solid #1f7a44}
+.s5fy-tst-part{background:color-mix(in srgb,#b7791f 12%,transparent);border-left-color:#b7791f}
+.s5fy-scs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 8px;font-size:14px;color:var(--text)}
+.s5fy-sc{padding:1px 8px;border-radius:6px;font:600 13px/1.5 var(--mono,ui-monospace,monospace);color:var(--text);background:color-mix(in srgb,var(--text) 9%,transparent);border:1px solid color-mix(in srgb,var(--text) 22%,transparent)}
+.s5fy-code2{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:10px;margin-bottom:6px}
+.s5fy-code2>*{min-width:0}
+@media (max-width:760px){.s5fy-code2{display:block}.s5fy-code2>*+*{margin-top:10px}}
+.s5dv-chip.s5fy-hasex{color:#fff;background:#1f7a44;border-color:transparent;font-weight:700}
+.s5dv-chip.s5fy-hasval{color:#fff;background:#7a5bc7;border-color:transparent;font-weight:700}
+.s5fy-unread{color:#b7791f;border-color:#b7791f}
+.s5fy-ten{margin-top:14px}
+.s5fy-tw{overflow-x:auto}
+.s5fy-tt{width:100%;border-collapse:collapse;font-size:14px;color:var(--text)}
+.s5fy-tt th{text-align:left;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--text);padding:6px 8px;border-bottom:2px solid var(--border)}
+.s5fy-tt td{padding:7px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+.s5fy-sv{display:inline-block;margin:0 4px 4px 0;padding:1px 7px;border-radius:6px;font:600 13px/1.5 var(--mono,ui-monospace,monospace);color:var(--text);background:color-mix(in srgb,#7a5bc7 16%,transparent);border:1px solid color-mix(in srgb,#7a5bc7 50%,transparent)}
+.s5fy-none{color:var(--text);font-style:italic}
 .s5er-sub2{flex:1 1 100%;font-size:13.5px;color:var(--muted)}
 #tab-overview .s5er-sub2{font-size:14px}
 #tab-overview .s5er-sub{font-size:14.5px;color:var(--text)}
@@ -30790,7 +30826,7 @@ IdentityDirectoryEvents
     "new": ["Undocumented", "s5ft-s-new", "The service returns it, but Microsoft has published nothing: not in $metadata, not on the Graph reference page."],
     "learn": ["On Learn, not in $metadata", "s5ft-s-learn", "Microsoft describes it on the Graph reference page, but the service schema ($metadata) does not list it yet."],
     "v1": ["In v1.0, missing from beta", "s5ft-s-v1", "Documented in Graph v1.0; only the beta $metadata lacks it - not new, a gap in Microsoft's beta schema."] };
-  var D = null, F = { src: "", kind: "", q: "", days: 14, cat: "", group: "cat" }, T = { st: "", cat: "" }, S = { view: "tenant" }, built = false, TS = { src: "", k: "", cat: "" };
+  var D = null, F = { src: "", kind: "", q: "", days: 14, cat: "", group: "cat" }, T = { st: "", cat: "", cm: "" }, S = { view: "tenant" }, built = false, TS = { src: "", k: "", cat: "" };
 
   /* ---- the tab, synchronously (the shell's nav and the rail see it, §5ca) ---- */
   var wrap = document.querySelector(".wrap"), panel = null, body = null;
@@ -30819,15 +30855,18 @@ IdentityDirectoryEvents
   function cmdText(c) {
     if (!c) return null;
     var ge = "GET " + c.get, ps = [];
-    var scope = (c.patch ? (c.permPatch || [])[0] : null) || (c.permGet || [])[0];
-    ps.push("Connect-MgGraph -Scopes \"" + (scope || "<permission>") + "\"");
-    ps.push("$uri = \"" + c.get + "\"");
+    /* §5fy: a PATCH asks for every permission Microsoft lists for it (a Conditional Access policy needs three), and goes
+       to its own URI - one item of a list (.../policies/{id}), never the list */
+    var scopes = c.patch && (c.permPatch || []).length ? c.permPatch : (c.permGet || []).slice(0, 1);
+    ps.push("Connect-MgGraph -Scopes " + (scopes.length ? scopes.map(function (x) { return "'" + x + "'"; }).join(", ") : "'<permission>'") + " -NoWelcome");
+    ps.push("$uri = '" + c.get + "'");
     ps.push("Invoke-MgGraphRequest -Method GET -Uri $uri");
     if (c.patch) {
       ge += "\n\nPATCH " + c.patch + "\nContent-Type: application/json\n\n" + JSON.stringify(c.body, null, 2);
       var b = c.body || {}, parts = Object.keys(b).map(function (k) { return '  "' + k + '" = ' + psVal(b[k]); });
-      ps.push("$body = @{\n" + parts.join("\n") + "\n} | ConvertTo-Json -Depth 5");
-      ps.push("Invoke-MgGraphRequest -Method PATCH -Uri $uri -Body $body -ContentType \"application/json\"");
+      ps.push("$body = @{\n" + parts.join("\n") + "\n} | ConvertTo-Json -Depth 10");
+      if (c.patch !== c.get) ps.push("$id = '<id from the GET above>'\n$patchUri = " + ("'" + c.patch.replace("{id}", "' + $id + '") + "'").replace(/ \+ ''$/, ""));
+      ps.push("Invoke-MgGraphRequest -Method PATCH -Uri " + (c.patch !== c.get ? "$patchUri" : "$uri") + " -Body $body -ContentType 'application/json'");
     }
     return { ge: ge, ps: ps.join("\n") };
   }
@@ -30841,7 +30880,7 @@ IdentityDirectoryEvents
   function fromUnd(u) {
     return { undoc: 1, type: u.type, name: u.leaf || String(u.prop).split(".").pop().replace("[]", ""), prop: u.prop, human: u.human, cat: u.cat, also: u.also,
       status: u.status || "new", doc: u.doc || {}, note: u.note, auto: u.auto || [], at: String(u.prop).replace(/\.?[^.]+$/, ""), path: u.itemPath || u.path, label: u.label,
-      first: u.first, last: u.last, updated: u.updated, statusDay: u.statusDay, log: u.log || [], cmd: u.cmd, mc: u.mc || [], ver: "beta", kindv: u.kind, declared: u.declared };
+      first: u.first, last: u.last, updated: u.updated, statusDay: u.statusDay, log: u.log || [], cmd: u.cmd, mc: u.mc || [], ver: "beta", kindv: u.kind, declared: u.declared, shape: u.shape };
   }
   function fullName(e) { return (e.type && e.type !== e.name ? e.type + "." : "") + (e.name || e.prop || ""); }
   function title(e) { return e.human || (e.undoc ? humanize(e.name) : humanize(e.name) + (e.type && e.type !== e.name ? " — " + humanize(e.type) : "")); }
@@ -30916,12 +30955,95 @@ IdentityDirectoryEvents
     c.appendChild(el("p", "s5fo-ot", e.undoc ? "Returned by " + (e.label || "the service") + " in our developer tenant, first seen " + dmy(e.first)
       : (e.via === "msgraph-metadata" ? "Microsoft's weekly schema sync of " : "Live $metadata, ") + dmy(e.day)));
     var b0 = el("div", "s5fo-blk s5ft-what"); b0.appendChild(el("p", "s5fo-lab", "What it is")); b0.appendChild(el("p", "s5fo-txt", whatText(e)));
-    if (e.note && e.note.basis === "name") b0.appendChild(el("p", "s5fs-note", "Our reading of the name — Microsoft has published nothing about it yet (checked " + dmy(e.note.checked) + ")."));
+    if (e.note && e.note.basis === "name") b0.appendChild(el("p", "s5fs-note", ((e.note.articles || []).some(function (a) { return a.rel === "names-it"; })
+      ? "Our reading of the name — no article explains it yet; the sources only show it in exported policies and tools (searched " : "Our reading of the name — Microsoft has published nothing about it yet (checked ") + dmy(e.note.checked) + ")."));
     c.appendChild(b0);
     var us = usesOf(e), b1 = el("div", "s5fo-blk s5fo-do s5ft-usesb"); b1.appendChild(el("p", "s5fo-lab", "What you could use it for"));
     var ul = el("ul", "s5ft-uses"); us.forEach(function (u) { ul.appendChild(el("li", null, u)); }); b1.appendChild(ul);
     b1.appendChild(el("p", "s5fs-note", "Our suggestions, not Microsoft's text."));
     c.appendChild(b1);
+    /* §5fy (31 X 2026, owner: "you found the new Conditional Access parameter time, good - but there is no full example of
+       use: we do not know how to build a whole policy with it, and the community describes it (dpatyk.com, Medium); look
+       for examples in the community when the radar finds a new API or parameter - also what values it takes"): from the
+       note (notes.json by hand, notes-community.json by the morning routine) - Watch out, What values it takes, complete
+       examples with Graph Explorer and PowerShell, each line tied to the article it comes from */
+    var NT = e.note || {}, AK = {};
+    (NT.articles || []).forEach(function (a) { if (a.key) AK[a.key] = a; });
+    function srcOf(k) {
+      var keys = k === "both" ? Object.keys(AK) : String(k || "").split(/[ ,]+/), w = el("span", "s5fy-src");
+      keys.forEach(function (kk) { var a = AK[kk]; if (!a) return; if (w.childNodes.length) w.appendChild(document.createTextNode(" · "));
+        var l = el("a", null, String(a.by || a.title).replace(/\s*\(.*\)$/, "") + " ↗"); l.href = a.url; l.target = "_blank"; l.rel = "noopener"; w.appendChild(l); });
+      if (w.childNodes.length) w.insertBefore(el("b", null, "Source: "), w.firstChild);
+      return w.childNodes.length ? w : null;
+    }
+    function warnBox() { var bw = el("div", "s5fo-blk s5fy-warn"); bw.appendChild(el("p", "s5fo-lab", "Watch out"));
+      var wl = el("ul", "s5fy-wl"); NT.caveats.forEach(function (t) { wl.appendChild(el("li", null, t)); }); bw.appendChild(wl); return bw; }
+    if ((NT.caveats || []).length) c.appendChild(warnBox());
+    if ((NT.values || []).length) {
+      var bv = el("div", "s5fo-blk s5fy-vals"); bv.appendChild(el("p", "s5fo-lab", "What values it takes"));
+      if (e.undoc && (e.status || "new") === "new") bv.appendChild(el("p", "s5fy-lead", NT.basis === "microsoft" ? "Microsoft describes it outside the Graph reference — the values below come from that page and the community sources. Each line names its source."
+        : "Microsoft has not published the schema — these are the values community articles used and tested. Each line names its article."));
+      var vl = el("div", "s5fy-vl");
+      NT.values.forEach(function (v) {
+        var r = el("div", "s5fy-vr"), h = el("div", "s5fy-vh"); h.appendChild(el("code", "s5fy-vn", v.name)); if (v.type) h.appendChild(el("span", "s5fy-vty", v.type)); r.appendChild(h);
+        var ac = el("p", "s5fy-va"); ac.appendChild(el("b", null, "Accepts: ")); ac.appendChild(document.createTextNode(v.accepted || "—")); r.appendChild(ac);
+        if (v.what) r.appendChild(el("p", "s5fy-vw", v.what));
+        var so = srcOf(v.src); if (so) r.appendChild(so);
+        vl.appendChild(r);
+      });
+      bv.appendChild(vl); c.appendChild(bv);
+    }
+    /* §5fy (owner: "how does the community know what a parameter takes without Learn? If they can, so can you"): the same
+       way - by reading what the service returns. The radar keeps, per finding, every sub-property our tenant returned under
+       it with its JSON kind and the safe values seen (true/false, enum words; names, ids and text never leave the run) */
+    var SH = e.shape && (e.shape.rows || []).length ? e.shape : null;
+    if (SH) {
+      var bt = el("div", "s5fo-blk s5fy-vals s5fy-ten"); bt.appendChild(el("p", "s5fo-lab", "What our tenant returns"));
+      bt.appendChild(el("p", "s5fy-lead", "Read by the radar from " + (e.label || "the service") + " in our developer tenant (" + SH.n + " object" + (SH.n === 1 ? "" : "s") + "). Names, ids and free text are replaced by <text>; true/false and enum words are shown as returned."));
+      var tw = el("div", "s5fy-tw"), tbl = el("table", "s5fy-tt"), th = el("tr"); ["Property", "Kind", "Values seen"].forEach(function (h2) { th.appendChild(el("th", null, h2)); });
+      var thd = el("thead"); thd.appendChild(th); tbl.appendChild(thd); var tbd = el("tbody");
+      SH.rows.forEach(function (r) {
+        var tr = el("tr", "s5fy-tr"), td1 = el("td"); td1.appendChild(el("code", "s5fy-vn", (e.name || "") + (r.p ? "." + r.p : ""))); tr.appendChild(td1);
+        var td2 = el("td"); td2.appendChild(el("span", "s5fy-vty", r.k + (r.i ? " of " + r.i : ""))); tr.appendChild(td2);
+        var td3 = el("td"); if ((r.v || []).length) r.v.forEach(function (v) { td3.appendChild(el("code", "s5fy-sv", JSON.stringify(v))); }); else td3.appendChild(el("span", "s5fy-none", r.k === "null" ? "null — not set in our tenant" : r.k === "array" ? "[] — empty" : "—"));
+        tr.appendChild(td3); tbd.appendChild(tr); });
+      tbl.appendChild(tbd); tw.appendChild(tbl); bt.appendChild(tw);
+      if (SH.rows.length === 1 && SH.rows[0].k === "null") bt.appendChild(el("p", "s5fy-lead", "Null in every object we read: nobody has set it in our tenant, so its shape is not visible yet. The community learns it the same way — once a value is set, GET shows the structure."));
+      c.appendChild(bt);
+    }
+    function exGE(x) { return x.method + " " + x.uri + (x.body == null ? "" : "\nContent-Type: application/json\n\n" + JSON.stringify(x.body, null, 2)); }
+    function exPS(x) {
+      var L = ["# Microsoft.Graph.Authentication · Graph " + (/\/beta\//.test(x.uri) ? "beta" : "v1.0") + (e.undoc ? " · undocumented - a test tenant first" : ""),
+        "Connect-MgGraph -Scopes " + (x.scopes || ["<permission>"]).map(function (s2) { return "'" + s2 + "'"; }).join(", ") + " -NoWelcome", ""];
+      var uri = "'" + x.uri + "'";
+      if (/\{id\}/.test(x.uri)) {
+        var list = x.uri.replace(/\/\{id\}.*$/, "");
+        L.push("# the objects and their ids - take the id of the one to change");
+        L.push("(Invoke-MgGraphRequest -Method GET -Uri '" + list + "').value | ForEach-Object { '{0}  {1}' -f $_.id, $_.displayName }");
+        L.push("$id = '<id>'", "");
+        uri = '"' + x.uri.replace("{id}", function () { return "$id"; }) + '"';   /* a command argument: "...$id", never '...' + $id */
+      }
+      if (x.body == null) { L.push("$r = Invoke-MgGraphRequest -Method " + x.method + " -Uri " + uri, "$r | ConvertTo-Json -Depth 10"); return L.join("\n"); }
+      L.push("$body = @'", JSON.stringify(x.body, null, 2), "'@", "");
+      L.push((x.method === "POST" ? "$new = " : "") + "Invoke-MgGraphRequest -Method " + x.method + " -Uri " + uri + " -Body $body -ContentType 'application/json'");
+      if (x.method === "POST") L.push("$new.id   # the id of the new object");
+      return L.join("\n");
+    }
+    if ((NT.examples || []).length) {
+      var bx = el("div", "s5fo-blk s5fy-exs");
+      bx.appendChild(el("p", "s5fy-lead", "Complete calls built from the community articles — copy, replace the <…> placeholders, run in a test tenant first."));
+      NT.examples.forEach(function (x, i) {
+        var d = el("div", "s5fy-ex"), hh = el("div", "s5fy-exh");
+        hh.appendChild(el("span", "s5fx-mt s5fx-mt-" + x.method, x.method)); hh.appendChild(el("h3", "s5fy-ext", (i + 1) + ". " + x.title)); d.appendChild(hh);
+        if (x.what) d.appendChild(el("p", "s5fy-exw", x.what));
+        if (x.tested) { var tp = el("p", "s5fy-tst" + (/not run|not tested|have not/i.test(x.tested) ? " s5fy-tst-part" : "")); tp.appendChild(el("b", null, "Tested: ")); tp.appendChild(document.createTextNode(x.tested)); d.appendChild(tp); }
+        if ((x.scopes || []).length) { var sc = el("div", "s5fy-scs"); sc.appendChild(el("b", null, "Permissions: ")); x.scopes.forEach(function (s2) { sc.appendChild(el("code", "s5fy-sc", s2)); }); d.appendChild(sc); }
+        var g2 = el("div", "s5fy-code2"); g2.appendChild(codeBox("Graph Explorer", exGE(x))); g2.appendChild(codeBox("PowerShell", exPS(x))); d.appendChild(g2);
+        var so = srcOf(x.src); if (so) d.appendChild(so);
+        bx.appendChild(d);
+      });
+      c.appendChild(bx);
+    }
     var f = el("dl", "s5fj-facts s5fo-facts");
     function fact(a, b) { if (!b) return; var w = el("div", "s5fj-f"); w.appendChild(el("dt", null, a)); w.appendChild(el("dd", null, b)); f.appendChild(w); }
     if (e.detail !== "enum type" && e.kind !== "member-new") fact("Path", e.path || "no path from a root of the API found");
@@ -30951,10 +31073,11 @@ IdentityDirectoryEvents
     /* sources: MC posts, Learn reference pages, articles checked by hand, titles of the portal's feeds that hold the words */
     var src = el("div", "s5ft-src"); src.appendChild(el("p", "s5fo-lab", "Where it is written about"));
     var lst = el("ul", "s5ft-al"), cnt = 0;
-    function art(t2, u, by, date, rel) {
+    function art(t2, u, by, date, rel, unread) {
       var li = el("li", "s5ft-a"); var a2 = el("a", "s5ft-at", t2 + " ↗"); a2.href = u; a2.target = "_blank"; a2.rel = "noopener"; li.appendChild(a2);
       var m = el("div", "s5ft-am"); m.appendChild(document.createTextNode([by, date ? dmy(date) : ""].filter(Boolean).join(" · ")));
       if (rel) m.appendChild(el("span", "s5ft-rel s5ft-rel-" + rel, rel === "names-it" ? "names this property" : rel === "feature" ? "about the feature" : rel === "doc" ? "Microsoft's reference" : "title matches — check it"));
+      if (unread) m.appendChild(el("span", "s5ft-rel s5fy-unread", "not read by us — the site blocks our reader"));   /* §5fy */
       li.appendChild(m); lst.appendChild(li); cnt++;
     }
     (e.mc || []).forEach(function (m) { var li = el("li", "s5ft-a"); var mb = el("button", "s5ft-at s5ft-mcb", "Message Center " + m + " — open in the portal"); mb.type = "button";
@@ -30963,7 +31086,7 @@ IdentityDirectoryEvents
     var dc = e.doc || {};
     if (dc.beta) art("Graph reference page (beta) — " + (e.type || ""), dc.beta, "Microsoft Learn", "", "doc");
     if (dc["v1.0"]) art("Graph reference page (v1.0) — " + (e.type || ""), dc["v1.0"], "Microsoft Learn", "", "doc");
-    ((e.note || {}).articles || []).forEach(function (a) { art(a.title, a.url, a.by, a.date, a.rel); });
+    ((e.note || {}).articles || []).forEach(function (a) { art(a.title, a.url, a.by, a.date, a.rel, a.unread); });
     (e.auto || []).forEach(function (a) { art(a.title, a.url, (a.by || "") + (a.via ? " · " + a.via : ""), a.date, "words"); });
     if (!cnt) lst.appendChild(el("li", "s5fs-note", e.undoc ? "Nothing found yet — no Message Center post, Learn page or article names it (searched " + dmy((e.note || {}).checked || D.day) + "). The radar keeps looking in the portal's feeds on every run." : "No Message Center post or article names it."));
     src.appendChild(lst); c.appendChild(src);
@@ -30980,9 +31103,12 @@ IdentityDirectoryEvents
     (function () {
       var head = [].slice.call(c.children).filter(function (k) { return /s5fo-x|s5fo-chips|s5ft-t\b|s5ft-tname|s5fo-ot/.test(k.className); });
       var pick = function (sel) { return [].slice.call(c.querySelectorAll(":scope > " + sel)); };
-      var panes = [["ov", "Overview", pick(".s5ft-what").concat(pick(".s5ft-usesb")), pick(".s5fo-facts")],
+      var wn = pick(".s5fy-warn"), exs = pick(".s5fy-exs");
+      if (wn.length && exs.length) exs[0].insertBefore(warnBox(), exs[0].firstChild);   /* §5fy: the warnings beside the examples too */
+      var panes = [["ov", "Overview", pick(".s5ft-what").concat(pick(".s5ft-usesb")).concat(wn), pick(".s5fo-facts")],
+        ["ex", "Examples", exs, null], ["val", "Values", pick(".s5fy-vals"), null],
         ["perm", "Permissions", pick(".s5ft-pblk"), null], ["try", "Try it", pick(".s5ft-try"), null], ["src", "Sources", pick(".s5ft-src").concat(pick(".s5fo-links")), null]];
-      var nPerm = c.querySelectorAll(".s5ft-p").length, nSrc = c.querySelectorAll(".s5ft-a").length;
+      var nPerm = c.querySelectorAll(".s5ft-p").length, nSrc = c.querySelectorAll(".s5ft-a").length, nEx = c.querySelectorAll(".s5fy-ex").length, nVal = c.querySelectorAll(".s5fy-vr").length + c.querySelectorAll(".s5fy-tr").length;
       [].slice.call(c.children).forEach(function (k) { if (head.indexOf(k) < 0) k.remove(); });
       var bar = el("div", "s5ft-tabs"); bar.setAttribute("role", "tablist"); c.appendChild(bar);
       var host = el("div", "s5ft-panes"); c.appendChild(host);
@@ -30992,7 +31118,7 @@ IdentityDirectoryEvents
         if (pn[3]) { var l = el("div", "s5ft-col"), rr = el("div", "s5ft-col"); pn[2].forEach(function (k) { l.appendChild(k); }); pn[3].forEach(function (k) { rr.appendChild(k); }); pane.appendChild(l); pane.appendChild(rr); pane.classList.add("s5ft-two"); }
         else pn[2].forEach(function (k) { pane.appendChild(k); });
         host.appendChild(pane);
-        var lab = pn[1] + (pn[0] === "perm" && nPerm ? " · " + nPerm : pn[0] === "src" ? " · " + nSrc : "");
+        var lab = pn[1] + (pn[0] === "perm" && nPerm ? " · " + nPerm : pn[0] === "src" ? " · " + nSrc : pn[0] === "ex" ? " · " + nEx : pn[0] === "val" ? " · " + nVal : "");
         var tb = btn(lab, "s5ft-tab", function () { [].forEach.call(host.children, function (x3) { x3.hidden = x3 !== pane; }); [].forEach.call(bar.children, function (x3) { x3.setAttribute("aria-selected", String(x3 === tb)); }); });
         tb.setAttribute("role", "tab"); tb.setAttribute("aria-selected", String(i === 0)); bar.appendChild(tb);
       });
@@ -31077,6 +31203,9 @@ IdentityDirectoryEvents
     (e.mc || []).forEach(function (m) { cs.appendChild(el("span", "s5dv-chip s5fq-req", m)); });
     var na = ((e.note || {}).articles || []).length + (e.auto || []).length + (e.doc && (e.doc.beta || e.doc["v1.0"]) ? 1 : 0);
     if (na) cs.appendChild(el("span", "s5dv-chip s5ft-ac", na + " source" + (na === 1 ? "" : "s")));
+    var nex = ((e.note || {}).examples || []).length, nvl = ((e.note || {}).values || []).length;   /* §5fy */
+    if (nex) cs.appendChild(el("span", "s5dv-chip s5fy-hasex", nex === 1 ? "Full example" : nex + " full examples"));
+    if (nvl) cs.appendChild(el("span", "s5dv-chip s5fy-hasval", nvl + " values described"));
     var nu = usesOf(e).length; cs.appendChild(el("span", "s5dv-chip", nu + " possible use" + (nu === 1 ? "" : "s")));
     if (e.cmd && e.cmd.get) cs.appendChild(el("span", "s5dv-chip s5fs-cmd", e.cmd.patch ? "GET · PATCH ready" : "GET ready"));
     if (e.first === D.day) cs.appendChild(el("span", "s5dv-chip s5ft-today", "new today"));
@@ -31120,7 +31249,8 @@ IdentityDirectoryEvents
     if (!F.q) return true;
     var c = e.cmd || {}, nt = e.note || {};
     var hay = [title(e), fullName(e), e.path, e.cat, e.detail, e.label, whatText(e), (nt.uses || []).join(" "), (e.mc || []).join(" "),
-      (c.permGet || []).join(" "), (c.permPatch || []).join(" "), ((nt.articles || []).concat(e.auto || [])).map(function (a) { return a.title + " " + (a.by || ""); }).join(" ")].join(" ").toLowerCase();
+      (c.permGet || []).join(" "), (c.permPatch || []).join(" "), ((nt.articles || []).concat(e.auto || [])).map(function (a) { return a.title + " " + (a.by || ""); }).join(" "),
+      (nt.values || []).map(function (v) { return v.name + " " + v.accepted; }).join(" "), (nt.examples || []).map(function (x) { return x.title + " " + x.method; }).join(" "), (nt.caveats || []).join(" ")].join(" ").toLowerCase();
     return F.q.toLowerCase().split(/\s+/).every(function (w) { return !w || hay.indexOf(w) >= 0; });
   }
 
@@ -31130,11 +31260,20 @@ IdentityDirectoryEvents
     if (!tn.read) { host.appendChild(el("p", "s5fq-callw", "Our developer tenant has not been read on the last run: " + (tn.note || "") + ". The app “MS-SOC Dev tenant reader” needs read-only permissions — tools/Grant-GraphRadarPermissions.ps1 grants them.")); }
     if (!und.length) { host.appendChild(el("p", "s5dv-note", "Every property the tenant returned is in $metadata today.")); return; }
     var fb = el("div", "s5fo-tf");
-    function pass(u, ign) { return qHit(u) && (ign === "st" || !T.st || (u.status || "new") === T.st) && (ign === "cat" || !T.cat || u.cat === T.cat || (u.also || []).indexOf(T.cat) >= 0); }
+    function pass(u, ign) { return qHit(u) && (ign === "st" || !T.st || (u.status || "new") === T.st) && (ign === "cat" || !T.cat || u.cat === T.cat || (u.also || []).indexOf(T.cat) >= 0)
+      && (ign === "cm" || !T.cm || !CM || CM[T.cm][1](u)); }
     fb.appendChild(el("span", "s5fo-tfl", "Status"));
     [["", "All"], ["new", STATUS["new"][0]], ["learn", STATUS.learn[0]], ["v1", STATUS.v1[0]]].forEach(function (o) {
       var c = und.filter(function (u) { return (!o[0] || (u.status || "new") === o[0]) && pass(u, "st"); }).length; if (o[0] && !c) return;
       fb.appendChild(chip(o[1], T.st === o[0], c, function () { T.st = o[0]; render(); })); });
+    /* §5fy: what the community has published about it */
+    var CM = { ex: ["With a full example", function (u) { return ((u.note || {}).examples || []).length; }],
+      art: ["With community articles", function (u) { return ((u.note || {}).articles || []).some(function (a) { return a.rel !== "doc"; }) || (u.auto || []).length; }],
+      none: ["Nothing published yet", function (u) { return !((u.note || {}).articles || []).length && !(u.auto || []).length && !(u.mc || []).length; }] };
+    fb.appendChild(el("span", "s5fo-tfl", "Community"));
+    fb.appendChild(chip("Any", !T.cm, null, function () { T.cm = ""; render(); }));
+    Object.keys(CM).forEach(function (k) { var c = und.filter(function (u) { return pass(u, "cm") && CM[k][1](u); }).length; if (!c && T.cm !== k) return;
+      fb.appendChild(chip(CM[k][0], T.cm === k, c, function () { T.cm = T.cm === k ? "" : k; render(); })); });
     fb.appendChild(el("span", "s5fo-tfl", "Technology"));
     var cats = {}; und.forEach(function (u) { [u.cat].concat(u.also || []).forEach(function (c) { if (c && pass(u, "cat")) cats[c] = (cats[c] || 0) + 1; }); });
     fb.appendChild(chip("All", !T.cat, null, function () { T.cat = ""; render(); }));
