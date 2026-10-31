@@ -836,7 +836,8 @@ def write_week(state, outdir, date, site_url="https://orange-ground-019f30603.7.
                 "version": "Baseline version", "audit-new": "New Tenable audit file", "audit-updated": "Tenable audit file updated",
                 "audit-gone": "Tenable audit file withdrawn", "items": "Tenable items changed",
                 "policy-new": "New CISA policy", "policy-changed": "CISA policy changed", "policy-removed": "CISA policy removed",
-                "baseline-version": "New Intune baseline version", "baseline-settings": "Intune baseline settings changed"}
+                "baseline-version": "New Intune baseline version", "baseline-settings": "Intune baseline settings changed",
+                "standard-new": "New CIPP standard", "standard-changed": "CIPP standard changed", "standard-removed": "CIPP standard removed", "cipp-version": "New CIPP version"}   # 5fw
         for e in sorted(_bd.get("events") or [], key=lambda e: e.get("day", ""), reverse=True):
             if str(e.get("day", "")) < wk_from:
                 continue
@@ -1067,14 +1068,17 @@ def write_feed(state, outdir, date, site_url="https://orange-ground-019f30603.7.
             "items": "Baseline: Tenable items changed",
             "policy-new": "Security baselines: new CISA policy", "policy-changed": "Security baselines: CISA policy changed",
             "policy-removed": "Security baselines: CISA policy removed", "baseline-version": "Security baselines: new Intune baseline version",
-            "baseline-settings": "Security baselines: Intune baseline settings changed"}
+            "baseline-settings": "Security baselines: Intune baseline settings changed",
+            "standard-new": "Security baselines: new CIPP standard", "standard-changed": "Security baselines: CIPP standard changed",
+            "standard-removed": "Security baselines: CIPP standard removed", "cipp-version": "Security baselines: new CIPP version"}   # 5fw
     def _jw(v):
         return ", ".join(str(x) for x in v) if isinstance(v, (list, tuple)) else str(v or "")
     for e in bj.get("events") or []:
         if str(e.get("day") or "") < since:
             continue
         typ = e.get("type") or ""
-        place = site_url + "#tab=baselines" + (("&t=" + _up.quote(str(e.get("id")), safe="")) if typ.startswith("test-") and typ != "test-removed" and e.get("src") == "Maester" else "")
+        place = site_url + "#tab=baselines" + (("&t=" + _up.quote(str(e.get("id")), safe="")) if typ.startswith("test-") and typ != "test-removed" and e.get("src") == "Maester" else
+                                               ("&v=cipp&c=" + _up.quote(str(e.get("id")), safe="")) if typ in ("standard-new", "standard-changed") else "")   # 5fw
         lab = blab.get(typ, "Baseline") if e.get("src") != "Zero Trust Assessment" else "Security baselines: Zero Trust Assessment " + typ.replace("test-", "test ")
         add("baseline:%s:%s:%s" % (typ, e.get("id"), e.get("day")), lab, e.get("title") or e.get("id"),
             place, e.get("url"), e.get("day"),
@@ -5156,13 +5160,17 @@ def baseline_rows(prev_d, curr_d, home):
              "audit-gone": "Tenable audit file withdrawn", "items": "Tenable items changed",
              # §5fq (27 X 2026): CISA ScubaGear, Zero Trust Assessment, Intune security baselines
              "policy-new": "New CISA policy", "policy-changed": "CISA policy changed", "policy-removed": "CISA policy removed",
-             "baseline-version": "New Intune baseline version", "baseline-settings": "Intune baseline settings changed"}
+             "baseline-version": "New Intune baseline version", "baseline-settings": "Intune baseline settings changed",
+             # §5fw (31 X 2026): CIPP's standards
+             "standard-new": "New CIPP standard", "standard-changed": "CIPP standard changed", "standard-removed": "CIPP standard removed", "cipp-version": "New CIPP version"}
     order = ["policy-new", "policy-changed", "policy-removed"] + [k for k in label if not k.startswith("policy-")]
     rows = []
     for e in sorted(evs, key=lambda e: (order.index(e.get("type")) if e.get("type") in order else 99, e.get("id") or "")):
         t = e.get("type")
         if t.startswith("test-") and t != "test-removed" and e.get("src") == "Maester":
             name = '<a href="%s#tab=baselines&amp;t=%s">%s</a>' % (esc(home), esc(e.get("id") or ""), esc(e.get("title") or e.get("id") or ""))
+        elif e.get("src") == "CIPP" and t in ("standard-new", "standard-changed"):
+            name = '<a href="%s#tab=baselines&amp;v=cipp&amp;c=%s">%s</a>' % (esc(home), esc(e.get("id") or ""), esc(e.get("title") or e.get("id") or ""))
         elif e.get("src") in ("CISA", "Zero Trust Assessment", "Intune security baselines") and e.get("url"):
             name = '<a href="%s">%s</a>' % (esc(e["url"]), esc(e.get("title") or e.get("id") or ""))
         elif t.startswith("audit-") or t == "items":
@@ -5192,6 +5200,13 @@ def baseline_rows(prev_d, curr_d, home):
         elif t == "test-changed":
             what = "what it checks or how to fix it was rewritten"
         elif t == "version" or (t == "audit-updated" and e.get("was") is not None):
+            what = "<del>%s</del><span class=\"arrow\">&rarr;</span><ins>%s</ins>" % (esc(e.get("was")), esc(e.get("now")))
+        elif t == "standard-new":
+            what = esc(" · ".join(x for x in ((e.get("impact") or "") and e["impact"] + " impact", e.get("cis") and "CIS " + ", ".join(e["cis"]), e.get("added") and "added by CIPP " + e["added"]) if x))
+        elif t == "standard-changed":
+            what = ("impact <del>%s</del><span class=\"arrow\">&rarr;</span><ins>%s</ins> &middot; " % (esc(e.get("was")), esc(e.get("now"))) if e.get("was") is not None else "") + \
+                ("name was: <del>%s</del> &middot; " % esc(e["wasTitle"]) if e.get("wasTitle") else "") + "changed: " + esc(", ".join(e.get("what") or []))
+        elif t == "cipp-version":
             what = "<del>%s</del><span class=\"arrow\">&rarr;</span><ins>%s</ins>" % (esc(e.get("was")), esc(e.get("now")))
         elif t == "items":
             what = ("+%d: %s" % (len(e.get("added") or []), esc(", ".join((e.get("added") or [])[:8]))) if e.get("added") else "") + \
@@ -40208,7 +40223,7 @@ odtad CZTERNASCIE (4-17).**
     fpa: { by: "an automated job every 3 h (tenant snapshot) + the morning brief (public lists)", keys: ["tenant"], every: 3 },
     mc: { by: "an automated job every 3 h (our tenant's Message Center) + the morning brief", keys: ["tenant"], every: 3 },
     campaigns: { by: "an automated job twice a day (05:40 UTC and 20:40 UTC) and after every brief", keys: ["campgen", "campaigns"], every: 0 },
-    baselines: { by: "an automated job once a day (05:15 UTC): CISA ScubaGear, Maester and Zero Trust Assessment from GitHub, Tenable's audit files, the Intune security baselines from our Learn copy", keys: ["baselines"], every: 24 },   /* §5dv */
+    baselines: { by: "an automated job twice a day (05:15 and 15:15 UTC): CISA ScubaGear, Maester, Zero Trust Assessment and CIPP's standards from GitHub, Tenable's audit files, the Intune security baselines from our Learn copy", keys: ["baselines"], every: 12 },   /* §5fw: twice a day */   /* §5dv */
     hunting: { by: "the morning brief; queries archived by an automated job twice a day", keys: ["campaigns"], every: 0 },
     learn: { by: "the morning brief; our copy of the Learn pages refreshed by an automated job 4 times a day", keys: ["learn"], every: 6 }
   };
@@ -40305,7 +40320,7 @@ odtad CZTERNASCIE (4-17).**
     ["Sources", "sources", "Every source the brief reads, when it was read and whether its link works."],
     ["Hunting & actions", "hunting", "KQL queries and actions for the items of the day; every query is archived in the repository."],
     ["Products", "products", "The same items grouped by product."],
-    ["Security baselines", "baselines", "What to check in your tenant, technology by technology: CISA SCuBA (ScubaGear), Maester, Tenable, Microsoft's Zero Trust Assessment and the Intune security baselines — every policy and test with how to check and fix it, the differences between the sources, versions, trends — read once a day; no test is run."]
+    ["Security baselines", "baselines", "What to check in your tenant, technology by technology: CISA SCuBA (ScubaGear), Maester, Tenable, Microsoft's Zero Trust Assessment, the Intune security baselines and CIPP's standards — every policy, test and standard with how to check and fix it, the differences between the sources, versions, trends — read twice a day; no test is run."]
   ];
   function card(title, cls) { var c = el("section", "s5cz-card" + (cls ? " " + cls : "")); c.appendChild(el("h3", null, title)); return c; }
   function ul(items) { var u = el("ul"); items.forEach(function (x) { var li = el("li"); if (typeof x === "string") li.textContent = x; else li.appendChild(x); u.appendChild(li); }); return u; }
@@ -43238,7 +43253,7 @@ odtad CZTERNASCIE (4-17).**
   var panel = el("div", "tabpanel"); panel.id = "tab-baselines"; panel.setAttribute("data-tab", "Security baselines"); panel.hidden = true;   /* §5fq-b: the name of the tab everywhere */
   var sec = el("section"); sec.id = "baselines"; sec.setAttribute("data-nav", "Security baselines");
   var sh = el("div", "sec-head"); sh.appendChild(el("h2", null, "Security baselines"));
-  sh.appendChild(el("p", "sec-title", "Security baselines — CISA SCuBA, Maester, Tenable, Microsoft's Zero Trust Assessment and the Intune security baselines: what to check in your tenant, technology by technology"));
+  sh.appendChild(el("p", "sec-title", "Security baselines — CISA SCuBA, Maester, Tenable, Microsoft's Zero Trust Assessment, the Intune security baselines and CIPP's standards: what to check in your tenant, technology by technology"));
   sec.appendChild(sh);
   var body = el("div", "sec-body s5dv"); body.appendChild(el("p", "s5dv-note", "Loading the baselines…")); sec.appendChild(body);
   panel.appendChild(sec);
@@ -43248,7 +43263,7 @@ odtad CZTERNASCIE (4-17).**
 
   var D = null, TS = null, TI = null, tsAsked = false, tiAsked = false, tiWait = [];
   /* §5fq: the three views a reader starts with come first; the earlier views stay, named for what they hold */
-  var VIEWS = [["tech", "By technology"], ["sources", "Sources & differences"], ["changes", "Changes"], ["overview", "Statistics"], ["tests", "Maester tests"], ["frameworks", "Frameworks"], ["compare", "Compare: CISA · Maester · Tenable"], ["tenable", "Tenable audits"], ["history", "Versions & history"]];
+  var VIEWS = [["tech", "By technology"], ["sources", "Sources & differences"], ["changes", "Changes"], ["overview", "Statistics"], ["tests", "Maester tests"], ["frameworks", "Frameworks"], ["compare", "Compare: CISA · Maester · Tenable"], ["tenable", "Tenable audits"], ["cipp", "CIPP standards"], ["history", "Versions & history"]];   /* §5fw: CIPP */
   function noF() { return { suite: "", sev: "", tech: "", ai: false, q: "", mapped: false, tten: "", tq: "" }; }
   var S = { view: "tech", open: "", fam: "", item: "", tech: "" }, F = noF();
 
@@ -43272,7 +43287,7 @@ odtad CZTERNASCIE (4-17).**
   }
   function cssq(s) { return String(s).replace(/["\\]/g, "\\$&"); }
   /* other layers (Overview, /diff/ links, the MC chips) open a test with this */
-  window.__socBaseline = function (id) { if (!id) go("tech"); else if (/^MS\.[A-Z]+\.\d/.test(id)) { var p = CT && ((CT.cisa || {}).policies || []).filter(function (x) { return x.id === id || x.base === id; })[0]; go("tech", p ? { tech: p.tech } : {}); if (p) setTimeout(function () { cisaCard(p); }, 120); } else if (/^t:|^[A-Z][\w ]+ v?\d/.test(id) && !/^(MT|CIS|CISA|EIDSCA|ORCA)\./.test(id)) go("tenable", { fam: id.replace(/^t:/, "") }); else go("tests", { open: id }); };
+  window.__socBaseline = function (id) { if (!id) go("tech"); else if (/^cipp:/.test(id)) openCipp(id.slice(5)); else if (/^MS\.[A-Z]+\.\d/.test(id)) { var p = CT && ((CT.cisa || {}).policies || []).filter(function (x) { return x.id === id || x.base === id; })[0]; go("tech", p ? { tech: p.tech } : {}); if (p) setTimeout(function () { cisaCard(p); }, 120); } else if (/^t:|^[A-Z][\w ]+ v?\d/.test(id) && !/^(MT|CIS|CISA|EIDSCA|ORCA)\./.test(id)) go("tenable", { fam: id.replace(/^t:/, "") }); else go("tests", { open: id }); };
 
   /* ---- data ---- */
   function getTests(cb) {
@@ -43424,7 +43439,8 @@ odtad CZTERNASCIE (4-17).**
   var EVL = { "test-new": ["added", "New test"], "test-removed": ["removed", "Test removed"], "test-changed": ["changed", "Test changed"], "release": ["added", "New Maester version"],
     "version": ["changed", "Baseline version"], "audit-new": ["added", "New Tenable audit"], "audit-updated": ["changed", "Tenable audit updated"], "audit-gone": ["removed", "Tenable audit withdrawn"], "items": ["changed", "Tenable items changed"],
     /* §5fq */ "policy-new": ["added", "New CISA policy"], "policy-changed": ["changed", "CISA policy changed"], "policy-removed": ["removed", "CISA policy removed"],
-    "baseline-version": ["added", "New Intune baseline version"], "baseline-settings": ["changed", "Intune baseline settings changed"] };
+    "baseline-version": ["added", "New Intune baseline version"], "baseline-settings": ["changed", "Intune baseline settings changed"],
+    /* §5fw */ "standard-new": ["added", "New CIPP standard"], "standard-changed": ["changed", "CIPP standard changed"], "standard-removed": ["removed", "CIPP standard removed"], "cipp-version": ["added", "New CIPP version"] };
   function evText(e) {
     if (e.type === "test-changed") return (e.what || []).indexOf("severity") >= 0 ? "Severity " + (e.was || "") + " → " + (e.now || "") : (e.what || []).indexOf("title") >= 0 ? "Title was: " + (e.wasTitle || "") : "What it checks or how to fix it was rewritten";
     if (e.type === "version") return (e.was || "") + " → " + (e.now || "");
@@ -43437,9 +43453,16 @@ odtad CZTERNASCIE (4-17).**
     if (e.type === "baseline-version") return (e.was || "") + " → " + (e.now || "");
     if (e.type === "baseline-settings") return e.nWas != null ? "Settings " + e.nWas + " → " + e.nNow : "";
     if (e.type === "audit-new") return "Tenable date " + dmy(e.date);
+    /* §5fw: CIPP */
+    if (e.type === "standard-new") return [e.impact ? e.impact + " impact" : "", (e.cis || []).length ? "CIS " + e.cis.join(", ") : "", e.added ? "added by CIPP " + dmy(e.added) : ""].filter(Boolean).join(" · ");
+    if (e.type === "standard-changed") return [(e.what || []).indexOf("impact") >= 0 ? "Impact " + (e.was || "") + " → " + (e.now || "") : "", e.wasTitle ? "Name was: " + e.wasTitle : "",
+      (e.tagsAdded || []).length ? "+ " + e.tagsAdded.join(", ") : "", (e.tagsRemoved || []).length ? "− " + e.tagsRemoved.join(", ") : "", e.deprecated ? "now deprecated" : "",
+      "Changed: " + (e.what || []).join(", ")].filter(Boolean).join(" · ");
+    if (e.type === "cipp-version") return (e.was || "") + " → " + (e.now || "");
     return e.sev ? "Severity " + e.sev : "";
   }
   function openEv(e) {
+    if (e.src === "CIPP") { if (e.type === "standard-removed" || e.type === "cipp-version") { if (e.url) window.open(e.url, "_blank", "noopener"); return; } openCipp(e.id); return; }   /* §5fw */
     if (e.src === "CISA" && /^policy-/.test(e.type) && e.type !== "policy-removed") { var p = CT && ((CT.cisa || {}).policies || []).filter(function (x) { return x.id === e.id; })[0]; go("tech", { tech: e.tech }); if (p) setTimeout(function () { cisaCard(p); }, 120); else getCtl(); return; }
     if (e.src === "Zero Trust Assessment" || e.src === "Intune security baselines" || e.type === "policy-removed") { if (e.url) window.open(e.url, "_blank", "noopener"); else go("tech", { tech: e.tech }); return; }
     if (/^test-/.test(e.type) && e.type !== "test-removed") go("tests", { open: e.id });
@@ -43459,7 +43482,7 @@ odtad CZTERNASCIE (4-17).**
     box.appendChild(h);
     if (!ev.length) {
       var e14 = (D.events || []).length;
-      box.appendChild(el("p", "s5bn-empty", "Nothing moved in the security baselines today (CISA, Maester, Tenable, Zero Trust Assessment, Intune): no new, changed or removed policy, test or audit file, no new version." +
+      box.appendChild(el("p", "s5bn-empty", "Nothing moved in the security baselines today (CISA, Maester, Tenable, Zero Trust Assessment, Intune, CIPP): no new, changed or removed policy, test, audit file or standard, no new version." +
         (e14 ? " " + plural(e14, "change") + " in the last 14 days — Changes." : "")));
     } else {
       var grid = el("div", "s5do-grid"), ul = el("ul", "s5bn-l");
@@ -43506,7 +43529,7 @@ odtad CZTERNASCIE (4-17).**
     var nv = el("nav", "s5dv-vnav"); nv.setAttribute("aria-label", "Views of the Baselines tab");
     VIEWS.forEach(function (v, i) {
       if (i === 0 || i === 3) nv.appendChild(el("span", "s5fq-vg", i === 0 ? "Start here" : "Details"));
-      var lab = v[1] + (v[0] === "tests" ? " · " + n((D.counts || {}).tests) : v[0] === "tenable" ? " · " + n((D.counts || {}).tenableCurrent) : v[0] === "changes" ? " · " + n((D.events || []).length) : "");
+      var lab = v[1] + (v[0] === "tests" ? " · " + n((D.counts || {}).tests) : v[0] === "tenable" ? " · " + n((D.counts || {}).tenableCurrent) : v[0] === "changes" ? " · " + n((D.events || []).length) : v[0] === "cipp" && ((D.sources || {}).cipp || {}).standards ? " · " + n(D.sources.cipp.standards) : "");
       var b = btn(lab, "s5dv-vb" + (i < 3 ? " s5fq-vb1" : "") + (S.view === v[0] ? " on" : ""), function () { S.open = ""; S.fam = ""; S.view = v[0]; setHash(); render(); });
       b.setAttribute("aria-pressed", String(S.view === v[0])); nv.appendChild(b);
     });
@@ -43521,6 +43544,7 @@ odtad CZTERNASCIE (4-17).**
     if (c5.ver) f.appendChild(frag([srcPill("CISA"), " ScubaGear " + c5.ver + " · baselines at commit " + (c5.commit || "—") + (c5.date ? " (" + dmy(c5.date) + ")" : "") + (c5.ok ? "" : " · not read on the last run")]));
     if (z5.ver) f.appendChild(frag([srcPill("Zero Trust Assessment"), " module " + z5.ver + " · commit " + (z5.commit || "—") + (z5.date ? " (" + dmy(z5.date) + ")" : "")]));
     if (i5.length) f.appendChild(frag([srcPill("Intune security baselines"), " " + i5.filter(function (b) { return !b.missing; }).length + " of " + i5.length + " read from our Learn copy"]));
+    var p5 = s.cipp || {}; if (p5.standards) f.appendChild(frag([srcPill("CIPP"), " " + n(p5.standards) + " standards · CIPP " + (p5.ver || "") + " · standards.json at commit " + (p5.commit || "—") + (p5.date ? " (" + dmy(p5.date) + ")" : "") + (p5.ok ? "" : " · not read on the last run")]));   /* §5fw */
     f.appendChild(frag(["Read " + dmy(D.day) + " " + String(D.generated || "").slice(11, 16) + " UTC by GitHub Actions · we run no test: this tab shows what the tools check"]));
     return f;
   }
@@ -43547,6 +43571,7 @@ odtad CZTERNASCIE (4-17).**
       else if (v === "frameworks") vFrameworks(host);
       else if (v === "compare") vCompare(host);
       else if (v === "tenable") vTenable(host);
+      else if (v === "cipp") vCipp(host);   /* §5fw */
       else vHistory(host);
     } catch (e) { if (window.console) console.error("[5dv render]", e); body.appendChild(el("p", "s5dv-note", "This view could not be drawn: " + e)); }
   }
@@ -43575,13 +43600,13 @@ odtad CZTERNASCIE (4-17).**
     "Edge": "Intune admin center › Endpoint security › Security baselines › Microsoft Edge", "Global Secure Access": "Microsoft Entra admin center › Global Secure Access",
     "AI and agents": "Microsoft Entra admin center (Agent ID), Copilot Studio and Microsoft 365 admin centers", "Copilot Studio": "Power Platform admin center and Copilot Studio",
     "Microsoft 365": "Microsoft 365 admin center (admin.microsoft.com)", "Azure": "Azure portal and Microsoft Defender for Cloud" };
-  var SRC_COL = { CISA: "s5fq-c-cisa", Maester: "s5fq-c-m", Tenable: "s5fq-c-t", "Zero Trust Assessment": "s5fq-c-z", "Intune security baselines": "s5fq-c-i" };
+  var SRC_COL = { CISA: "s5fq-c-cisa", Maester: "s5fq-c-m", Tenable: "s5fq-c-t", "Zero Trust Assessment": "s5fq-c-z", "Intune security baselines": "s5fq-c-i", CIPP: "s5fq-c-cipp" };
   function badgeN(x) { return el("span", "s5fp-n", n(x)); }
   function techRows() {
-    var m = {}; function g(t) { return m[t] || (m[t] = { tech: t, maester: 0, tenable: 0, high: 0, cisa: 0, bod: 0, shall: 0, should: 0, zta: 0, intune: 0, noTool: 0 }); }
+    var m = {}; function g(t) { return m[t] || (m[t] = { tech: t, maester: 0, tenable: 0, high: 0, cisa: 0, bod: 0, shall: 0, should: 0, zta: 0, intune: 0, noTool: 0, cipp: 0 }); }
     (D.techs || []).forEach(function (t) { var x = g(t.tech); x.maester = t.maester || 0; x.tenable = t.tenable || 0; x.high = t.high || 0; });
-    ((D.more || {}).techs || []).forEach(function (t) { var x = g(t.tech); ["cisa", "bod", "shall", "should", "zta", "intune", "noTool"].forEach(function (k) { x[k] = t[k] || 0; }); });
-    var out = Object.keys(m).map(function (k) { return m[k]; }).filter(function (x) { return x.cisa + x.maester + x.tenable + x.zta + x.intune > 0 && x.tech !== "Other"; });
+    ((D.more || {}).techs || []).forEach(function (t) { var x = g(t.tech); ["cisa", "bod", "shall", "should", "zta", "intune", "noTool", "cipp"].forEach(function (k) { x[k] = t[k] || 0; }); });
+    var out = Object.keys(m).map(function (k) { return m[k]; }).filter(function (x) { return x.cisa + x.maester + x.tenable + x.zta + x.intune + x.cipp > 0 && x.tech !== "Other"; });
     out.sort(function (a, b) { var ia = TECH_ORDER.indexOf(a.tech), ib = TECH_ORDER.indexOf(b.tech); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || (a.tech < b.tech ? -1 : 1); });
     return out;
   }
@@ -43664,7 +43689,7 @@ odtad CZTERNASCIE (4-17).**
       var big = el("span", "s5fq-big"); if (r.bod) { big.appendChild(el("b", null, n(r.bod))); big.appendChild(el("span", null, " required")); } else { big.appendChild(el("b", null, n(r.cisa + r.maester + r.tenable + r.zta + r.intune))); big.appendChild(el("span", null, " checks")); }
       b.appendChild(big);
       var s = el("span", "s5fq-ts");
-      [["CISA", r.cisa], ["Maester", r.maester], ["Tenable", r.tenable], ["ZTA", r.zta], ["Intune", r.intune]].forEach(function (k) { if (!k[1]) return; var c = el("span", "s5fq-tc " + (SRC_COL[k[0] === "ZTA" ? "Zero Trust Assessment" : k[0] === "Intune" ? "Intune security baselines" : k[0]] || "")); c.appendChild(document.createTextNode(k[0])); c.appendChild(badgeN(k[1])); s.appendChild(c); });
+      [["CISA", r.cisa], ["Maester", r.maester], ["Tenable", r.tenable], ["ZTA", r.zta], ["Intune", r.intune], ["CIPP", r.cipp]].forEach(function (k) { if (!k[1]) return; var c = el("span", "s5fq-tc " + (SRC_COL[k[0] === "ZTA" ? "Zero Trust Assessment" : k[0] === "Intune" ? "Intune security baselines" : k[0]] || "")); c.appendChild(document.createTextNode(k[0])); c.appendChild(badgeN(k[1])); s.appendChild(c); });
       b.appendChild(s);
       if (r.noTool) b.appendChild(el("span", "s5fq-warn", r.noTool + " CISA polic" + (r.noTool === 1 ? "y" : "ies") + " no tool checks"));
       grid.appendChild(b);
@@ -43786,12 +43811,25 @@ odtad CZTERNASCIE (4-17).**
       mb.appendChild(row);
       mb.appendChild(el("p", "s5dv-fn", "Maester: its own tests (MT), EIDSCA, ORCA, CIS and CISA suites — the CISA ones are already on CISA's rows above. Tenable: CIS, DISA STIG, Microsoft (MSCT) and Tenable's own audit files."));
     }
+    /* 5. CIPP (§5fw): what a partner portal enforces for this technology */
+    if (R.cipp) {
+      var cb = el("section", "s5fq-blk s5fq-b-cipp"); tp.appendChild(cb);
+      var ch5 = el("div", "s5fq-bh"); ch5.appendChild(srcChip("CIPP", "CIPP")); ch5.appendChild(el("h4", null, "CIPP's standards for " + R.tech + " · " + n(R.cipp)));
+      ch5.appendChild(el("span", "s5dv-sm", "CIPP " + (((D.sources || {}).cipp || {}).ver || "") + " · a portal for Microsoft partners that sets these and keeps them set")); cb.appendChild(ch5);
+      var P = getCipp();
+      if (P) {
+        var l5 = (P.standards || []).filter(function (x) { return x.tech === R.tech; }).slice(0, 5);
+        var o5 = el("ol", "s5fq-list"); l5.forEach(function (x, i) { o5.appendChild(cippRow(x, i + 1)); }); cb.appendChild(o5);
+      }
+      var row5 = el("div", "s5fq-more"); row5.appendChild(btn("Open all " + n(R.cipp) + " CIPP standards for " + R.tech + " ›", "s5fo-go", function () { CPF = cpNoF(); CPF.tech = R.tech; go("cipp"); })); cb.appendChild(row5);
+      cb.appendChild(el("p", "s5dv-fn", "Newest first (the date CIPP added it). CIPP checks every standard in a template every twelve hours and, per standard, reports, alerts or remediates. The CIS numbers on a CIPP standard are the same CIS Microsoft 365 7.0.0 controls Maester and Tenable check."));
+    }
   }
 
   /* ---- Sources: what each one is, how to run it against a tenant, what to do to comply, the differences ---- */
   function vSources(host) {
     var C = getCtl(), s = D.sources || {}, ct = C && C.cisa || {}, g = ct.gaps || {}, lag = ct.lag || (s.cisa || {}).lag;
-    host.appendChild(el("p", "s5dv-sub", "Five sources, one job each. The portal runs nothing against a tenant: it reads what each source checks and shows how to check it yourself. " +
+    host.appendChild(el("p", "s5dv-sub", "Six sources, one job each. The portal runs nothing against a tenant: it reads what each source checks and shows how to check it yourself. " +
       "To be compliant, run the tools below against your tenant (read-only roles are enough) and work through the failed checks — CISA's “Required” first."));
     var grid = el("div", "s5fq-srcs"); host.appendChild(grid);
     function src(key, name, who, ver, what, run, todo, links, stat) {
@@ -43816,8 +43854,8 @@ odtad CZTERNASCIE (4-17).**
     src("Maester", "Maester", "Community test framework (maester.dev) built on Pester; read-only Microsoft Graph and Exchange checks of a tenant.",
       ((D.releases || []).filter(function (r) { return !r.pre; })[0] || {}).tag ? "Maester " + (D.releases || []).filter(function (r) { return !r.pre; })[0].tag : "",
       "Its own tests (MT), EIDSCA (Entra ID Security Config Analyzer), ORCA (Office 365 Recommended Configuration Analyzer), CIS Microsoft 365 Foundations and CISA SCuBA — Entra, Exchange, Defender, Intune, Purview, Teams, SharePoint, AI agents.",
-      "Install-Module -Name Maester -Scope CurrentUser\nConnect-Maester\nInvoke-Maester",
-      ["Run Invoke-Maester (or schedule it in GitHub Actions / Azure DevOps) and read the HTML report.", "Start with High severity failures; every test card here says how to fix it.", "Its CISA tests still carry the ScubaGear 1.x ids for " + n(g.maesterOld ? g.maesterOld.length : 0) + " tests — the By technology rows show the current CISA id next to Maester's."],
+      "# Maester 2.3 (the release build on the PowerShell Gallery)\nInstall-Module -Name Maester -Scope CurrentUser\nmd ~/maester-tests; cd ~/maester-tests\nInstall-MaesterTests        # copies the tests here, installs Pester if needed\nConnect-Maester\nInvoke-Maester\n\n# Maester 3.0 (preview): the tests ship inside the module\nInstall-Module -Name Maester -AllowPrerelease -Scope CurrentUser\nConnect-Maester\nInvoke-Maester",
+      ["Run Invoke-Maester (or schedule it in GitHub Actions / Azure DevOps) and read the HTML report.", "One test only: Invoke-Maester -Tag '<id>' (2.3) or -TestId '<id>' (3.0 preview) — e.g. CIS.M365.3.1.1, EIDSCA.AP14, MT.1001.", "Start with High severity failures; every test card here says how to fix it.", "Its CISA tests still carry the ScubaGear 1.x ids for " + n(g.maesterOld ? g.maesterOld.length : 0) + " tests — the By technology rows show the current CISA id next to Maester's."],
       [["maester.dev", "https://maester.dev"], ["Maester on GitHub", "https://github.com/maester365/maester"], ["Test catalogue", "https://maester.dev/docs/tests/"]],
       [["tests in scope", (D.counts || {}).tests], ["CISA", mtc.CISA], ["CIS", mtc.CIS], ["EIDSCA", mtc.EIDSCA], ["ORCA", mtc.ORCA]]);
     src("Tenable", "Tenable", "Commercial scanner (Tenable Vulnerability Management / Nessus). Its public audit catalogue publishes the compliance checks it runs.",
@@ -43843,6 +43881,15 @@ odtad CZTERNASCIE (4-17).**
       ["Every baseline you use has a profile on the newest version.", "Profile status shows no conflict (another policy setting the same CSP) and no error.", "Read “What changed” per baseline (By technology › Intune) before you update a profile."],
       [["Security baselines on Learn", "https://learn.microsoft.com/intune/device-security/security-baselines/overview"], ["Security Compliance Toolkit", "https://learn.microsoft.com/windows/security/operating-system-security/device-management/windows-security-configuration-framework/security-compliance-toolkit-10"]],
       [["baselines read", si.filter(function (b) { return !b.missing; }).length]]);
+    var sp = s.cipp || {};   /* §5fw */
+    if (sp.standards) src("CIPP", "CIPP", "CyberDrain Improved Partner Portal — an open-source (AGPL-3.0) multi-tenant portal for Microsoft partners. It does not only test: its standards set a configuration and keep it set.",
+      sp.ver ? "CIPP " + sp.ver + (sp.date ? " · standards " + dmy(sp.date) : "") : "",
+      n(sp.standards) + " standards for Entra ID, Exchange Online, SharePoint, Teams, Defender, Intune, Purview templates and Microsoft 365 Copilot — each with an impact rating, the date CIPP added it and CIS Microsoft 365, NIST CSF 2.0, Essential 8 or EIDSCA numbers.",
+      "CIPP (self-hosted in Azure, or the hosted service):\n  Standards & Drift › Add Standards Template\n  › pick standards › Report, Alert or Remediate per standard\n  › apply to tenants — checked every 12 hours\nWithout CIPP: the same CIS / EIDSCA ids run in Maester\n  (Invoke-Maester -Tag <id>; 3.0 preview: -TestId <id>)",
+      ["Use the list as a checklist of what can be enforced: CIPP standards view, filter by technology and impact.", "Apply High impact standards in Report mode first, read the report, then Remediate.", "Where Maester has the same CIS or EIDSCA id, check it there too — the card links the test.",
+       "CIPP's own CISA tags are older ids: " + n(sp.cisaOld) + " standards carry ids ScubaGear no longer uses — the portal matches only the " + n(sp.cisaOk) + " that are current."],
+      [["CIPP on GitHub", "https://github.com/CyberDrain/CIPP"], ["standards.json", sp.json || "https://github.com/CyberDrain/CIPP/blob/main/frontend/src/data/standards.json"], ["CIPP standards page", "https://standards.cipp.app/"], ["Docs: Standards & Drift", "https://github.com/CyberDrain/CIPP/blob/main/docs/user-documentation/tenant/standards/README.md"]],
+      [["standards", sp.standards], ["with a CIS number", sp.cis], ["Maester checks too", sp.maester], ["High impact", (sp.impact || {}).High], ["added in 30 days", sp.added30]]);
     /* differences */
     var dif = el("section", "s5dv-blk s5fq-dif"); host.appendChild(dif);
     dif.appendChild(el("h3", null, "Differences — CISA, Maester and Tenable on the same policies"));
@@ -43871,7 +43918,7 @@ odtad CZTERNASCIE (4-17).**
   var CF = "";
   function vChanges(host) {
     var ev = (D.events || []).slice().sort(function (a, b) { return a.day < b.day ? 1 : a.day > b.day ? -1 : 0; });
-    host.appendChild(el("p", "s5dv-sub", "Security baselines — every change of the last 14 days: CISA policies added, changed or removed, ScubaGear releases, Maester tests, Tenable audit files, Zero Trust Assessment tests and new Intune baseline versions. A row opens the policy, test or file."));
+    host.appendChild(el("p", "s5dv-sub", "Security baselines — every change of the last 14 days: CISA policies added, changed or removed, ScubaGear releases, Maester tests, Tenable audit files, Zero Trust Assessment tests, new Intune baseline versions and CIPP's standards (read twice a day). A row opens the policy, test, file or standard."));
     var srcs = {}; ev.forEach(function (e) { srcs[e.src] = (srcs[e.src] || 0) + 1; });
     var fb = el("div", "s5fo-tf"); fb.appendChild(el("span", "s5fo-tfl", "Source"));
     [""].concat(Object.keys(srcs)).forEach(function (k) { var b = btn(k || "All", "s5fo-tb", function () { CF = k; render(); }); b.setAttribute("aria-pressed", String(CF === k)); b.appendChild(badgeN(k ? srcs[k] : ev.length)); fb.appendChild(b); });
@@ -44154,8 +44201,11 @@ odtad CZTERNASCIE (4-17).**
     if (t.sum) { var w = el("div", "s5dv-ps"); w.appendChild(el("p", "s5dv-pk", "What it checks")); w.appendChild(md(t.sum)); pane.appendChild(w); }
     /* how to check it yourself - the portal runs nothing; these are the reader's own steps */
     var ck = el("div", "s5dv-ps s5dv-box"); ck.appendChild(el("p", "s5dv-pk", "Check it yourself — PowerShell"));
-    ck.appendChild(el("pre", "s5dv-pre", "Install-Module Maester -Scope CurrentUser\nConnect-Maester\nInvoke-Maester -TestId '" + t.id + "'"));
-    ck.appendChild(el("p", "s5dv-sm", (t.suite === "MT" || t.suite === "CISA" ? "-TestId is a Maester 3.0 (preview) parameter; in Maester 2.3 the same test runs with Invoke-Maester -Tag '" + t.id + "'. " : "-TestId is a Maester 3.0 (preview) parameter. ") +
+    /* §5fw: Maester 2.3 (the Gallery's release build) needs Install-MaesterTests in a folder and selects one test with -Tag;
+       3.0 (preview) ships the tests in the module and has -TestId - checked in maester365/maester (tag 2.3.0 and main), 31 X 2026 */
+    var tagOk = t.suite === "MT" || t.suite === "CISA" || t.suite === "CIS" || t.suite === "EIDSCA";
+    ck.appendChild(el("pre", "s5dv-pre", "# Maester 2.3 (release)\nInstall-Module Maester -Scope CurrentUser\nmd ~/maester-tests; cd ~/maester-tests; Install-MaesterTests\nConnect-Maester\nInvoke-Maester -Tag '" + t.id + "'\n\n# Maester 3.0 (preview)\nInstall-Module Maester -AllowPrerelease -Scope CurrentUser\nConnect-Maester\nInvoke-Maester -TestId '" + t.id + "'"));
+    ck.appendChild(el("p", "s5dv-sm", (tagOk ? "In Maester 2.3 every " + t.suite + " test carries its id as a tag, so -Tag runs this one test; -TestId exists from Maester 3.0 (preview). " : "-TestId is a Maester 3.0 (preview) parameter. ") +
       "The test reads the tenant with the permissions Connect-Maester asks for; nothing is changed." + (t.reads && t.reads.length ? " It reads: " + t.reads.join(", ") + "." : "")));
     pane.appendChild(ck);
     if (t.fix) { var fx = el("div", "s5dv-ps s5dv-box"); fx.appendChild(el("p", "s5dv-pk", "How to fix — admin centre or PowerShell")); fx.appendChild(md(t.fix)); pane.appendChild(fx); }
@@ -44276,17 +44326,161 @@ odtad CZTERNASCIE (4-17).**
     host.appendChild(s4);
   }
 
+  /* ==== §5fw (31 X 2026, owner: "would github.com/CyberDrain/CIPP help next to Tenable, Maester and SCuBA? - yes, in the
+     scope you said; keep watching that JSON all the time; what they change goes into our sentences and Today"). CIPP's
+     standards (frontend/src/data/standards.json of CyberDrain/CIPP, read twice a day by tools/baselines_cipp.py):
+     /data/baselines-cipp.json, read when the view, a technology or a card needs it. Ids, names, impact, dates, framework
+     tags and CIPP's PowerShell note only (AGPL-3.0 - no long text copied); every standard links back to CIPP. ==== */
+  var CP = null, cpAsked = false, cpWait = [];
+  function getCipp(cb) {
+    if (CP) { if (cb) cb(CP); return CP; }
+    if (cb) cpWait.push(cb);
+    if (!cpAsked) { cpAsked = true; getJSON("/data/baselines-cipp.json", function (d) { CP = d || { standards: [] }; (CP.standards || []).forEach(function (x) { CP["@" + x.id] = x; });
+      var w = cpWait; cpWait = []; w.forEach(function (f) { try { f(CP); } catch (e) {} }); if (D) render(true); }); }
+    return null;
+  }
+  function cpNoF() { return { tech: "", imp: "", fw: "", only: "", q: "" }; }
+  var CPF = cpNoF();
+  var IMP_CLS = { High: "s5fw-imp-h", Medium: "s5fw-imp-m", Low: "s5fw-imp-l" };
+  function isNew(x) { return x.added && D && dayDiff(x.added, D.day) <= 30; }
+  function impChip(x) { return x.impact ? chip(x.impact + " impact", "s5fw-imp " + (IMP_CLS[x.impact] || ""), "CIPP's impact rating: how much applying it can change for users") : null; }
+  function cippRow(x, num) {
+    var li = el("li", "s5fq-r s5fw-r"); li.setAttribute("data-cipp", x.id); li.tabIndex = 0; li.setAttribute("role", "button");
+    li.appendChild(el("span", "s5fm-n s5fq-num", String(num)));
+    var mid = el("div", "s5fq-rm");
+    var top = el("div", "s5fq-rt"); top.appendChild(el("span", "s5fq-st s5fw-t", x.label)); mid.appendChild(top);
+    mid.appendChild(el("div", "s5fw-id", x.id));
+    var cs = el("div", "s5fq-rc");
+    if (isNew(x)) cs.appendChild(chip("NEW · added " + dmy(x.added), "s5fw-new"));
+    var ic = impChip(x); if (ic) cs.appendChild(ic);
+    if (x.deprecated) cs.appendChild(chip("Deprecated by CIPP", "s5fq-gap"));
+    (x.cis || []).slice(0, 3).forEach(function (c) { cs.appendChild(chip("CIS " + c, "s5fw-fw")); });
+    (x.cisa || []).forEach(function (c) { cs.appendChild(srcChip("CISA", c)); });
+    if ((x.eidsca || []).length) cs.appendChild(chip(x.eidsca.join(", "), "s5fw-fw"));
+    cs.appendChild((x.maester || []).length ? srcChip("Maester", "Maester ✓", x.maester.join(", ")) : chip("Maester —", "s5fq-miss"));
+    cs.appendChild((x.tenable || []).length ? srcChip("Tenable", "Tenable ✓", x.tenable.map(function (t) { return t.n; }).join(", ")) : chip("Tenable —", "s5fq-miss"));
+    if (!isNew(x) && x.added) cs.appendChild(chip("added " + dmy(x.added), "s5fw-dt"));
+    mid.appendChild(cs); li.appendChild(mid);
+    li.addEventListener("click", function () { cippCard(x); });
+    li.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); cippCard(x); } });
+    return li;
+  }
+  function openCipp(id) { getCipp(function (P) { var x = P["@" + id]; if (x) { if (S.view !== "cipp") { CPF = cpNoF(); CPF.tech = x.tech; go("cipp"); } setTimeout(function () { cippCard(x); }, 150); } else go("cipp"); }); }
+  function cippCard(x) {
+    var who = el("div", "s5fq-who");
+    function row(src, ok, txt, act) { var r = el("div", "s5fq-whor" + (ok ? "" : " s5fq-no")); r.appendChild(srcChip(src, src)); r.appendChild(el("span", null, txt)); if (act) r.appendChild(act); who.appendChild(r); }
+    row("CIPP", true, "Sets it and keeps it set: in a standards template choose Report, Alert or Remediate; CIPP checks every 12 hours");
+    if ((x.maester || []).length) x.maester.forEach(function (m) { row("Maester", true, m, btn("Open the test ›", "s5dv-lk", function () { CARD.hidden = true; go("tests", { open: m }); })); });
+    else row("Maester", false, "No Maester test with the same CIS or EIDSCA id");
+    if ((x.tenable || []).length) x.tenable.forEach(function (t) { row("Tenable", true, "CIS " + t.n + " · " + t.a.replace(/_/g, " "), link("Tenable item ↗", "https://www.tenable.com/audits/items/" + (t.f || t.a + ".audit") + ":" + t.k)); });
+    else row("Tenable", false, "No Tenable CIS Microsoft 365 item with the same number");
+    (x.cisa || []).forEach(function (c) { row("CISA", true, c + " — the same policy in CISA SCuBA", btn("Open the policy ›", "s5dv-lk", function () { CARD.hidden = true; window.__socBaseline(c); })); });
+    var fix = el("div", "s5fw-fix");
+    fix.appendChild(el("p", null, "In CIPP: Standards & Drift › Add Standards Template › add “" + x.label + "” › Report, Alert or Remediate. Remediate changes the tenant; Report only records the current setting; Alert also notifies you."));
+    if (x.ps) { fix.appendChild(el("p", "s5fo-lab", "The PowerShell or Graph equivalent, as CIPP notes it")); fix.appendChild(el("pre", "s5fq-pre", x.ps)); }
+    if (x.retired) fix.appendChild(el("p", "s5fq-callw", "This note names a cmdlet of the MSOnline or AzureAD module, which Microsoft retired — use the Microsoft Graph PowerShell SDK (or Exchange Online PowerShell) equivalent instead."));
+    if ((x.maester || []).length) fix.appendChild(el("pre", "s5fq-pre", "# check it without CIPP - Maester 2.3 (release)\nInstall-Module -Name Maester -Scope CurrentUser\nmd ~/maester-tests; cd ~/maester-tests; Install-MaesterTests\nConnect-Maester\nInvoke-Maester -Tag '" + x.maester[0] + "'\n# Maester 3.0 (preview): Invoke-Maester -TestId '" + x.maester[0] + "'"));
+    var note = (x.cisaOld || []).length ? "CIPP tags it " + x.cisaOld.join(", ") + " — not a current ScubaGear id, so the portal does not match it to CISA (" + (((D.sources || {}).cisa || {}).ver ? "ScubaGear " + D.sources.cisa.ver : "current ScubaGear") + ")." : "";
+    card({
+      chips: [[x.tech, "s5fo-st"], x.impact ? [x.impact + " impact", "s5fw-imp " + (IMP_CLS[x.impact] || "")] : null, ["CIPP standard", "s5fw-src"], isNew(x) ? ["New · added " + dmy(x.added), "s5fw-new"] : null, x.deprecated ? ["Deprecated", "s5fw-imp s5fw-imp-h"] : null].filter(Boolean),
+      title: x.label, sub: x.id + " · CIPP · " + x.cat,
+      facts: [["Impact", x.impact ? x.impact + " (CIPP's rating)" : ""], ["Added by CIPP", dmy(x.added)], ["First seen by the portal", dmy(x.first)], ["CIS Microsoft 365 7.0.0", (x.cis || []).join(", ")],
+        ["NIST CSF 2.0", (x.nist || []).join(", ")], ["Essential 8", (x.e8 || []).join(", ")], ["EIDSCA", (x.eidsca || []).join(", ")], ["CISA SCuBA", (x.cisa || []).join(", ")],
+        ["Recommended by", (x.rec || []).join(", ")], ["Where to check", TECH_WHERE[x.tech]]],
+      blocks: [["How to set it and check it", fix, "s5fo-do"], ["Who checks it for you", who], ["Note", note]],
+      links: [{ t: "CIPP standards page", u: "https://standards.cipp.app/" }, { t: "standards.json on GitHub", u: "https://github.com/CyberDrain/CIPP/blob/main/frontend/src/data/standards.json" }, { t: "CIPP docs: Standards & Drift", u: "https://github.com/CyberDrain/CIPP/blob/main/docs/user-documentation/tenant/standards/README.md" }],
+      go: [["Show it in the list ›", function () { CPF = cpNoF(); CPF.tech = x.tech; go("cipp"); setTimeout(function () { var r = panel.querySelector('[data-cipp="' + cssq(x.id) + '"]'); if (r) { r.scrollIntoView({ block: "center" }); if (window.__socMark) window.__socMark(r); } }, 120); }]]
+    });
+  }
+  function vCipp(host) {
+    var sc = (D.sources || {}).cipp || {};
+    host.appendChild(el("p", "s5dv-sub", "CIPP (CyberDrain Improved Partner Portal) is an open-source portal for Microsoft partners that sets these standards in their customers' tenants and keeps them set. " +
+      "Its list is a good “what can be enforced” checklist: each standard carries an impact rating, the date CIPP added it and its CIS, NIST, Essential 8 and EIDSCA numbers — matched here to Maester's tests and Tenable's items. Read twice a day; a new, changed or removed standard appears in Changes, Today and the Overview sentence."));
+    var P = getCipp(); if (!P) { host.appendChild(el("p", "s5dv-note", "Reading CIPP's standards…")); return; }
+    var L = P.standards || [];
+    var kp = el("div", "s5dv-kpis");
+    [[sc.standards || L.length, "standards", "CIPP " + (sc.ver || ""), ""], [sc.cis, "with a CIS number", "CIS Microsoft 365 7.0.0", ""], [sc.maester, "Maester checks too", "same CIS or EIDSCA id", "s5fq-k-ok"],
+     [(sc.impact || {}).High, "High impact", "test before you apply", "s5fq-k-w"], [sc.added30, "added in 30 days", "by CIPP", ""]].forEach(function (k) { if (k[0] == null) return;
+      var b = el("div", "s5dv-kpi " + k[3]); b.appendChild(el("b", null, n(k[0]))); b.appendChild(el("span", "s5dv-kl", k[1])); b.appendChild(el("span", "s5dv-ks", k[2])); kp.appendChild(b); });
+    host.appendChild(kp);
+    function cnt(f) { return L.filter(f).length; }
+    function bar(lab, key, opts) {
+      var fb = el("div", "s5fo-tf s5fq-f"); fb.appendChild(el("span", "s5fo-tfl", lab));
+      opts.forEach(function (o) { var k = o[2] == null ? cnt(o[3]) : o[2]; if (o[0] && !k) return;
+        var b = btn(o[1], "s5fo-tb", function () { CPF[key] = CPF[key] === o[0] ? "" : o[0]; render(); }); b.setAttribute("aria-pressed", String(CPF[key] === o[0])); b.appendChild(badgeN(k)); fb.appendChild(b); });
+      host.appendChild(fb);
+    }
+    var techs = {}; L.forEach(function (x) { techs[x.tech] = (techs[x.tech] || 0) + 1; });
+    var tl = Object.keys(techs).sort(function (a, b) { var ia = TECH_ORDER.indexOf(a), ib = TECH_ORDER.indexOf(b); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib); });
+    bar("Technology", "tech", [["", "All", L.length]].concat(tl.map(function (t) { return [t, t, techs[t]]; })));
+    bar("Impact", "imp", [["", "Any", L.length], ["High", "High", null, function (x) { return x.impact === "High"; }], ["Medium", "Medium", null, function (x) { return x.impact === "Medium"; }], ["Low", "Low", null, function (x) { return x.impact === "Low"; }]]);
+    bar("Framework", "fw", [["", "Any", L.length], ["cis", "CIS", null, function (x) { return (x.cis || []).length; }], ["nist", "NIST CSF 2.0", null, function (x) { return (x.nist || []).length; }], ["e8", "Essential 8", null, function (x) { return (x.e8 || []).length; }],
+      ["eidsca", "EIDSCA", null, function (x) { return (x.eidsca || []).length; }], ["cisa", "CISA SCuBA", null, function (x) { return (x.cisa || []).length; }]]);
+    bar("Show", "only", [["", "All", L.length], ["new", "Added in 30 days", null, isNew], ["maester", "Maester checks it", null, function (x) { return (x.maester || []).length; }], ["none", "No tool checks it", null, function (x) { return !(x.maester || []).length && !(x.tenable || []).length; }],
+      ["retired", "Note names a retired module", null, function (x) { return x.retired; }], ["dep", "Deprecated", null, function (x) { return x.deprecated; }]]);
+    var qi = el("input", "s5fq-q s5fw-q"); qi.type = "search"; qi.placeholder = "Search CIPP standards (name, id, CIS 1.1.1, cmdlet…)"; qi.value = CPF.q;
+    qi.addEventListener("input", function () { CPF.q = qi.value; var keep = qi.selectionStart; render(); var q2 = panel.querySelector(".s5fw-q"); if (q2) { q2.focus(); try { q2.setSelectionRange(keep, keep); } catch (e) {} } });
+    host.appendChild(qi);
+    var q = CPF.q.toLowerCase();
+    var shown = L.filter(function (x) {
+      if (CPF.tech && x.tech !== CPF.tech) return false; if (CPF.imp && x.impact !== CPF.imp) return false;
+      if (CPF.fw && !(x[CPF.fw] || []).length) return false;
+      if (CPF.only === "new" && !isNew(x)) return false; if (CPF.only === "maester" && !(x.maester || []).length) return false;
+      if (CPF.only === "none" && ((x.maester || []).length || (x.tenable || []).length)) return false;
+      if (CPF.only === "retired" && !x.retired) return false; if (CPF.only === "dep" && !x.deprecated) return false;
+      if (q && (x.id + " " + x.label + " " + x.cat + " " + x.ps + " " + (x.cis || []).map(function (c) { return "cis " + c; }).join(" ") + " " + (x.nist || []).join(" ") + " " + (x.eidsca || []).join(" ") + " " + (x.cisa || []).join(" ")).toLowerCase().indexOf(q) < 0) return false;
+      return true; });
+    shown = shown.map(function (x, i) { return [x, i]; }).sort(function (a, b) { var ia = TECH_ORDER.indexOf(a[0].tech), ib = TECH_ORDER.indexOf(b[0].tech); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a[1] - b[1]; }).map(function (p) { return p[0]; });
+    host.appendChild(el("p", "s5dv-sm", n(shown.length) + " of " + n(L.length) + " standards · per technology, newest first"));
+    var tech = "", ol = null, num = 0;
+    shown.forEach(function (x) {
+      if (x.tech !== tech) { tech = x.tech; var h = el("h4", "s5fq-sec s5fw-th"); h.appendChild(document.createTextNode(tech)); h.appendChild(badgeN(shown.filter(function (y) { return y.tech === tech; }).length)); host.appendChild(h); ol = el("ol", "s5fq-list"); host.appendChild(ol); num = 0; }
+      ol.appendChild(cippRow(x, ++num));
+    });
+    if (!shown.length) host.appendChild(el("p", "s5dv-note", "No standard matches the filter."));
+    host.appendChild(el("p", "s5dv-fn", "Source: CIPP's public repository, frontend/src/data/standards.json at commit " + (sc.commit || "—") + (sc.date ? " (" + dmy(sc.date) + ")" : "") + ". CIPP is AGPL-3.0; the portal keeps ids, names, tags, impact and dates and links back to CIPP. CIPP's own CISA tags are shown only when ScubaGear still uses the id."));
+  }
+  /* the portal-wide search (§5fv) finds CIPP's standards once the list was read; the first search asks for it */
+  (window.__socSearchAdd = window.__socSearchAdd || []).push(function () {
+    if (!D) return [];
+    if (!CP) { getCipp(); return []; }
+    return (CP.standards || []).map(function (x) { return { t: x.label + " · CIPP standard " + x.id + " · " + x.tech + (x.impact ? " · " + x.impact + " impact" : "") + ((x.cis || []).length ? " · CIS " + x.cis.join(", ") : "") + (x.ps ? " · " + x.ps : ""),
+      tn: "Security baselines · CIPP", fn: function () { openCipp(x.id); } }; });
+  });
+  /* Today (§5fw: the security baselines had no box in Today) - what moved in the baselines since the last brief, every source */
+  function todayBox(k) {
+    var p = document.getElementById("tab-today");
+    if (!p) { if (k < 30) setTimeout(function () { todayBox(k + 1); }, 500); return; }
+    if (document.getElementById("s5dv-today")) return;
+    var T = (D.events || []).filter(function (e) { return e.day === D.day; }); if (!T.length) return;
+    var box = el("section", "gd-today s5ft-tday s5fw-tday"); box.id = "s5dv-today";
+    var by = {}; T.forEach(function (e) { by[e.src] = (by[e.src] || 0) + 1; });
+    box.appendChild(el("h3", "gd-th", "Security baselines: " + plural(T.length, "change") + " today — " + Object.keys(by).map(function (s) { return (s === "CISA" ? "CISA SCuBA" : s) + " " + by[s]; }).join(", ")));
+    var ul = el("ul", "gd-trows");
+    var order = { CIPP: 0, CISA: 1, Maester: 2, Tenable: 3 };
+    T.slice().sort(function (a, b) { return ((order[a.src] == null ? 9 : order[a.src]) - (order[b.src] == null ? 9 : order[b.src])); }).slice(0, 8).forEach(function (e) {
+      var li = el("li"); var kk = EVL[e.type] || ["changed", e.type];
+      li.appendChild(el("span", "s5fw-k s5fw-k-" + kk[0], kk[0] === "added" ? "NEW" : kk[0] === "removed" ? "REMOVED" : "CHANGED")); li.appendChild(srcPill(e.src));
+      var bb = el("button", "gd-name", e.title || e.id); bb.type = "button"; bb.addEventListener("click", function () { openEv(e); }); li.appendChild(bb);
+      var tx = evText(e); if (tx) li.appendChild(el("span", "s5dv-sm", tx)); ul.appendChild(li); });
+    box.appendChild(ul);
+    if (T.length > 8) box.appendChild(el("p", "s5dv-sm", "+" + (T.length - 8) + " more in Security baselines › Changes"));
+    box.appendChild(btn("Open Security baselines › Changes →", "gd-all", function () { go("changes"); }));
+    var after = document.getElementById("s5fu-today") || document.getElementById("s5ft-today") || document.getElementById("gd-today") || p.querySelector(":scope > .s5bn");
+    if (after && after.parentNode === p) p.insertBefore(box, after.nextSibling); else p.insertBefore(box, p.firstChild);
+  }
+
   /* ---- Overview of the portal: a card and one sentence (§5do: today's changes as tiles) ---- */
   function ovCard(k) {
     var host = document.querySelector("#tab-overview .s5ci-ov");
     if (!host) { if (k < 25) setTimeout(function () { ovCard(k + 1); }, 400); return; }
     if (host.querySelector(".s5dv-ov")) return;
     var c = D.counts || {}, card = el("section", "s5ci-card s5ci-c-acc s5dv-ov"), h = el("div", "s5ci-ch");
-    h.appendChild(el("h3", null, "Security baselines · CISA, Maester, Tenable, Microsoft"));
+    h.appendChild(el("h3", null, "Security baselines · CISA, Maester, Tenable, Microsoft, CIPP"));
     var al = el("span", "s5cu-ovh"); al.appendChild(btn("Open Baselines ›", "s5ci-inl", function () { go("tech"); })); h.appendChild(al); card.appendChild(h);
     var g = el("div", "s5dv-ovk");
     var sc5 = (D.sources || {}).cisa || {};
-    [[sc5.bod, "CISA required", function () { go("tech"); }], [sc5.policies, "CISA policies", function () { go("tech"); }], [c.tests, "Maester tests", function () { go("tests", { F: {} }); }], [c.tenableItems, "Tenable items", function () { go("tenable"); }], [((D.sources || {}).zta || {}).tests, "ZTA tests", function () { go("tech", { tech: "Entra ID" }); }]].forEach(function (x) { if (x[0] == null) return;
+    [[sc5.bod, "CISA required", function () { go("tech"); }], [sc5.policies, "CISA policies", function () { go("tech"); }], [c.tests, "Maester tests", function () { go("tests", { F: {} }); }], [c.tenableItems, "Tenable items", function () { go("tenable"); }], [((D.sources || {}).zta || {}).tests, "ZTA tests", function () { go("tech", { tech: "Entra ID" }); }], [((D.sources || {}).cipp || {}).standards, "CIPP standards", function () { go("cipp"); }]].forEach(function (x) { if (x[0] == null) return;
       var b = btn("", "s5dv-ovb", x[2], "Open " + x[1]); b.appendChild(el("b", null, n(x[0]))); b.appendChild(el("span", null, x[1])); g.appendChild(b); });
     card.appendChild(g);
     var ev = (D.events || []).slice().sort(function (a, b) { return a.day < b.day ? 1 : -1; }).slice(0, 5);
@@ -44310,6 +44504,7 @@ odtad CZTERNASCIE (4-17).**
     var day = D.day, evT = (D.events || []).filter(function (e) { return e.day === day; }), e14 = (D.events || []).length;
     var mT = evT.filter(function (e) { return e.src === "Maester"; }), tT = evT.filter(function (e) { return e.src === "Tenable"; });
     var cT = evT.filter(function (e) { return e.src === "CISA"; }), oT = evT.filter(function (e) { return e.src === "Zero Trust Assessment" || e.src === "Intune security baselines"; });
+    var pT = evT.filter(function (e) { return e.src === "CIPP"; });   /* §5fw */
     var li = el("li", "s5dv-sen"); li.appendChild(el("b", "s5bk-k k-tech", "Security baselines"));
     var b = el("span", "s5bk-it s5bk-idl");
     var lg5 = ((D.sources || {}).cisa || {}).lag;
@@ -44325,6 +44520,8 @@ odtad CZTERNASCIE (4-17).**
     tile("Maester tests", mT.length, n((D.counts || {}).tests) + " tests · " + versionText().split(",")[0], function () { if (mT.length === 1) openEv(mT[0]); else go(mT.length ? "changes" : "tests"); });
     tile("Tenable audits", tT.length, n((D.counts || {}).tenableCurrent) + " newest files", function () { if (tT.length === 1) openEv(tT[0]); else go(tT.length ? "changes" : "tenable"); });
     if (((D.sources || {}).zta || {}).ver) tile("Microsoft (ZTA, Intune)", oT.length, n(((D.sources || {}).zta || {}).tests) + " ZTA tests · Intune baselines", function () { if (oT.length === 1) openEv(oT[0]); else go(oT.length ? "changes" : "sources"); });
+    var sp6 = (D.sources || {}).cipp || {};
+    if (sp6.standards) tile("CIPP standards", pT.length, n(sp6.standards) + " standards · CIPP " + (sp6.ver || ""), function () { if (pT.length === 1) openEv(pT[0]); else if (pT.length) { CF = "CIPP"; go("changes"); } else go("cipp"); });
     tile("Last 14 days", e14, "new, changed, removed", function () { go("changes"); }, "14 days to " + dmy(day).slice(0, 5));
     b.appendChild(g); li.appendChild(b);
     var lis = [].slice.call(ol.children), cv = lis.filter(function (x) { return x.classList.contains("s5cu-sen"); })[0];
@@ -44341,13 +44538,14 @@ odtad CZTERNASCIE (4-17).**
     var m = /^#tab=baselines(?:&(.*))?$/.exec(location.hash || ""); if (!m) return;
     var p = {}; String(m[1] || "").split("&").forEach(function (kv) { var i = kv.indexOf("="); if (i > 0) p[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1)); });
     S.view = p.v || (p.t ? "tests" : p.f ? "tenable" : "tech"); S.open = p.t || ""; S.fam = p.f || ""; if (p.tech) S.tech = p.tech; goTab(); render();
+    if (p.c) { getCtl(); openCipp(p.c); }   /* §5fw: /diff and /week link a CIPP standard with &v=cipp&c=<id> */
   }
   function start() {
     if (!onSite() || !window.fetch) { body.textContent = ""; body.appendChild(el("p", "s5dv-note", "Baselines are read from /data/baselines.json on the published site.")); return; }
     fetch("/data/baselines.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
       if (!d || !d.counts) { body.textContent = ""; body.appendChild(el("p", "s5dv-note", "No baselines yet: the first run of tools/baselines.py has not been published.")); return; }
       D = d; panel.setAttribute("data-units", (((d.sources || {}).cisa || {}).policies ? n(d.sources.cisa.policies) + " CISA policies · " : "") + n(d.counts.tests) + " Maester tests · " + n(d.counts.tenableCurrent) + " Tenable audit files · run " + dmy(d.day));
-      strip(); render(); fromHash(); ovCard(0); ovSentence(0);
+      strip(); render(); fromHash(); ovCard(0); ovSentence(0); try { todayBox(0); } catch (e) { if (window.console) console.error("[5fw today]", e); }
       var nb = document.querySelector('nav.anchors .tab[aria-controls="tab-baselines"] .navcount'); if (nb) nb.textContent = n(d.counts.tests);
       /* the catalogue is needed by the Tests view only; a phone that never opens the tab never downloads it */
       document.addEventListener("click", function (ev) { var t = ev.target.closest && ev.target.closest("#tabbtn-tab-baselines"); if (t) { getTests(function () {}); getCtl(); } }, true);
@@ -48740,7 +48938,28 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 @media (max-width:640px){.s5ft-gs{padding:9px 10px}.s5ft-fl{padding:0 6px 8px}.s5ft-fh{font-size:15.5px}.s5ft-open{margin-left:0}.s5ft-intro{padding:10px 12px}}
 @media (max-width:640px){.s5cd-bar,.s5dv-vnav,.s5fg-nav{padding:6px 8px;gap:5px}.s5cd-bar::before{flex-basis:100%;margin:2px 0 2px 2px}
  .s5cd-bar button:not(.s5cd-drawer),.s5dv-vb,.s5fg-navb{font-size:14px;padding:7px 11px}}
-.s5fq-c-cisa{--sc:#3fb37f}.s5fq-c-m{--sc:var(--accent)}.s5fq-c-t{--sc:#e3a33b}.s5fq-c-z{--sc:#b48cff}.s5fq-c-i{--sc:#4cc2d6}
+.s5fq-c-cisa{--sc:#3fb37f}.s5fq-c-m{--sc:var(--accent)}.s5fq-c-t{--sc:#e3a33b}.s5fq-c-z{--sc:#b48cff}.s5fq-c-i{--sc:#4cc2d6}.s5fq-c-cipp{--sc:#e86fa8}
+/* §5fw CIPP standards: impact and "new" as filled badges, framework numbers readable, the id in a code box */
+.s5dv-chip.s5fw-imp,.s5fo-chip.s5fw-imp{font-weight:700;border-color:transparent;color:#fff}
+.s5fo-chip.s5fw-imp-h{background:var(--bad)}.s5fo-chip.s5fw-imp-m{background:#b7791f}.s5fo-chip.s5fw-imp-l{background:var(--accent)}
+.s5fo-chip.s5fw-new{background:var(--ok);color:#fff;border-color:transparent;font-weight:700}
+.s5fo-chip.s5fw-src{background:#e86fa8;color:#fff;border-color:transparent;font-weight:700}
+.s5dv-chip.s5fw-imp-h{background:var(--bad)}
+.s5dv-chip.s5fw-imp-m{background:#b7791f}
+.s5dv-chip.s5fw-imp-l{background:var(--accent);color:#fff}
+.s5dv-chip.s5fw-new{background:var(--ok);color:#fff;border:0;font-weight:700}
+.s5dv-chip.s5fw-fw{color:var(--text);border-color:#e3a33b;background:color-mix(in srgb,#e3a33b 14%,transparent);font-weight:600}
+.s5dv-chip.s5fw-dt{color:var(--text);border-color:color-mix(in srgb,var(--text) 40%,transparent)}
+.s5fw-r .s5fw-t{font-size:16px;font-weight:700;color:var(--text)}
+.s5fw-id{display:block;width:max-content;max-width:100%;overflow-wrap:anywhere;margin:3px 0 4px;padding:1px 7px;border-radius:6px;font:600 13px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--text);background:color-mix(in srgb,var(--text) 9%,transparent);border:1px solid color-mix(in srgb,var(--text) 22%,transparent)}
+.s5fw-th{display:flex;align-items:center;gap:8px;margin:22px 0 6px;padding:7px 12px;border-left:5px solid #e86fa8;border-radius:8px 8px 0 0;background:color-mix(in srgb,#e86fa8 12%,transparent);font-size:16px}
+.s5fw-q{margin:6px 0 10px}
+.s5fw-fix pre{margin:6px 0}
+.s5fq-b-cipp{--sc:#e86fa8}
+.s5fw-tday .gd-trows li{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.s5fw-k{display:inline-block;padding:1px 8px;border-radius:999px;font-weight:700;font-size:12px;color:#fff}
+.s5fw-k-added{background:var(--ok)}.s5fw-k-changed{background:#b7791f}.s5fw-k-removed{background:var(--bad)}
+
 .s5dv-chip.s5fq-sc{border-color:var(--sc,var(--border));color:var(--text);font-weight:600;background:color-mix(in srgb,var(--sc,transparent) 14%,var(--surface))}
 .s5dv-chip.s5fq-req{border-color:var(--bad);color:var(--bad);font-weight:700}
 .s5dv-chip.s5fq-shall{border-color:var(--warn);color:var(--warn);font-weight:600}
@@ -50643,6 +50862,43 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5fw — CIPP w Security baselines; Today dla baseline'ow; poprawne polecenia Maestera (31 X 2026)
+
+Wlasciciel: „czy github.com/CyberDrain/CIPP przyda sie do Tenable, Maester, SCuBA? — tak, dodaj w zakresie, ktory
+mowisz, monitoruj ten JSON caly czas; to, co zmienia, ma trafic do zdan i do Today" oraz pytania: czy CISA / Maester /
+Tenable maja swoje miejsce w zdaniach i w Today, czy portal pisze, jak uzyc Maestera do zbadania srodowiska.
+- **Zrodlo:** `tools/baselines_cipp.py` (wolany z `tools/baselines.py` po `more()`; blad niczego innego nie zatrzymuje)
+  czyta `frontend/src/data/standards.json` i `frontend/public/version.json` z CyberDrain/CIPP (raw.githubusercontent,
+  data commitu z API GitHub). Zakres uzgodniony (AGPL-3.0): id, nazwa, kategoria -> technologia, wplyw, data dodania
+  przez CIPP, tagi CIS M365 7.0.0 / NIST CSF 2.0 / Essential 8 / EIDSCA / CISA, „recommended by", notatka CIPP o
+  odpowiedniku PowerShell / Graph — bez dlugich opisow. Pamiec: `data/baselines-cipp/state.json` (odciski, pierwsze
+  dni, zdarzenia 60 dni); wynik: `site/data/baselines-cipp.json` (~117 kB, czytany dopiero przez widok, technologie,
+  karte lub wyszukiwarke).
+- **Monitoring:** workflow „Baselines tracking" ma drugi przebieg 15:15 UTC (obok 05:15). Zdarzenia (`src: "CIPP"`):
+  `standard-new`, `standard-changed` (co: nazwa, wplyw was/now, frameworki +/−, deprecated, PowerShell, opis,
+  dokumentacja, kategoria), `standard-removed`, `cipp-version`. Pierwszy przebieg tylko zapisuje stan. Test 31 X na
+  zmienionej kopii: 4 zdarzenia (nowy, zmieniony wplyw + tag, usuniety, wersja 11.2.1 -> 11.3.0) — poprawnie.
+- **Dopasowanie:** CIS -> test Maestera `CIS.M365.<n>` i pozycje Tenable „CIS Microsoft 365 Foundations" o tym numerze;
+  EIDSCA -> test Maestera; tag CISA tylko gdy ScubaGear zna id (31 X: 7 standardow ma aktualne id, 17 stare — np.
+  `MS.AAD.21.1v1`, `MS.SPO…` zamiast `MS.SHAREPOINT…`). 31 X: 210 standardow, 73 z numerem CIS, 78 sprawdzanych tez
+  przez Maestera, 33 High impact, 3 notatki z wycofanymi modulami MSOnline / AzureAD (karta to mowi).
+- **Interfejs:** widok „CIPP standards" (filtry: technologia, wplyw, framework, Show: nowe 30 dni / Maester sprawdza /
+  zadne narzedzie / wycofany modul / deprecated; wlasne pole szukania; grupy technologii, najnowsze pierwsze; wplyw i
+  NEW jako wypelnione plakietki, id w ramce kodu); karta z zakladkami (§5ft-f): Overview · How to check and fix (sciezka
+  w CIPP: Standards & Drift › Add Standards Template › Report / Alert / Remediate — z dokumentacji CIPP; notatka
+  PowerShell; Maester bez CIPP) · Who checks it · Sources. By technology: kafel z liczba CIPP i blok „CIPP's standards
+  for <tech>" (5 najnowszych). Sources: karta CIPP (szosta). Pasek swiezosci, Changes (filtr CIPP), Overview (karta i
+  kafel „CIPP standards" w zdaniu Security baselines), wyszukiwarka portalu, `/diff`, `/week`, RSS (link
+  `#tab=baselines&v=cipp&c=<id>`), About (dwa przebiegi dziennie).
+- **Today:** Security baselines nie mialy dotad ramki w zakladce Today (byly tylko w zdaniu Overview i w pasku
+  zakladki). Nowa ramka `#s5dv-today`: zmiany dnia ze wszystkich zrodel (CIPP pierwszy), do 8 wierszy, „Open Security
+  baselines › Changes".
+- **Maester — sprawdzone w maester365/maester (tag 2.3.0 i main) 31 X:** wydanie na PowerShell Gallery to 2.3.0 i
+  wymaga `md ~/maester-tests; cd ~/maester-tests; Install-MaesterTests` przed `Connect-Maester` / `Invoke-Maester`;
+  portal podawal tylko wariant 3.0 (preview, testy w module, `-AllowPrerelease`). Karta zrodla i karta testu pokazuja
+  teraz oba warianty; jeden test: `-Tag '<id>'` (2.3 — testy MT, CISA, CIS i EIDSCA maja id jako tag) lub
+  `-TestId '<id>'` (3.0 preview). Skladnia sprawdzona parserem pwsh 7.4.6 (0 bledow).
 
 ### §5ft-f — Ten sam widok karty w calym portalu (31 X 2026)
 

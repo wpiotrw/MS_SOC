@@ -770,6 +770,32 @@ def more(out, day, seed, mtests, items):
                                      "note": "Settings and defaults of the newest version of every Intune security baseline (Learn)"})
 
 
+def cipp(out, day, seed, mtests, items):
+    """CLAUDE.md 5fw (31 X 2026): CIPP's standards (github.com/CyberDrain/CIPP, frontend/src/data/standards.json) -
+    tools/baselines_cipp.py; a failure there changes nothing else"""
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import baselines_cipp
+        summ, ev, techs = baselines_cipp.run(day, seed=bool(seed), maester_tests=mtests.get("tests"), tenable_items=items.get("audits"))
+    except Exception as e:
+        log("CIPP: not read:", e)
+        return
+    out["spec"] = (out.get("spec") or "5dv") + "+5fw"
+    out["sources"]["cipp"] = summ
+    if not summ.get("ok"):
+        return
+    mt = out.setdefault("more", {}).setdefault("techs", [])
+    have = {t.get("tech"): t for t in mt}
+    for tech, k in techs.items():
+        if tech in have:
+            have[tech]["cipp"] = k
+        else:
+            mt.append({"tech": tech, "cipp": k})
+    since14 = (datetime.date.fromisoformat(day) - datetime.timedelta(days=14)).isoformat()
+    out["events"] = sorted(out["events"] + [e for e in ev if e["day"] >= since14], key=lambda e: e["day"], reverse=True)
+    out["counts"]["events14"] = len(out["events"])
+
+
 def main(argv):
     args, i = {}, 0
     while i < len(argv):
@@ -797,6 +823,7 @@ def main(argv):
         log("no source read; nothing written")
         return 1
     more(out, day, seed, mtests, items)
+    cipp(out, day, seed, mtests, items)   # 5fw
     c1 = dump(OUT, out)
     c2 = dump(OUT_T, items) | dump(OUT_M, mtests)
     c3 = dump(HIST, hist)
