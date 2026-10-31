@@ -1,9 +1,9 @@
 {
  "key": "code",
- "at": "2026-10-31T15:55Z",
+ "at": "2026-10-31T16:50Z",
  "workflow": "Code refresh (CLAUDE.md -> published page)",
- "run": "41217128710",
- "sha": "c093cf6",
+ "run": "41221579089",
+ "sha": "60903cb",
  "note": "",
- "spec": "5ga"
+ "spec": "5gb"
 }

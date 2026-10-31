@@ -5707,6 +5707,17 @@ button.s5fz-urn:hover{color:var(--accent);text-decoration:underline}
 .s5ga-src .s5fz-sc{margin:0 0 10px!important}
 .s5ga-src .s5fz-says{color:var(--text)!important;font-size:14.5px!important}
 .s5ga-ab .s5ga-src{margin-top:8px}
+/* §5gb: what the full lists hold when today's frame is filtered */
+.s5gb-bey{margin:10px 0 12px;padding:10px 12px;border-radius:12px;border:2px solid var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--surface))}
+.s5gb-bh{margin:0 0 6px;font-weight:800;font-size:14.5px;color:var(--text)}
+.s5gb-bl{list-style:none;margin:0 0 8px;padding:0;display:flex;flex-direction:column;gap:6px}
+.s5gb-bl li{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;padding:7px 9px;border-radius:9px;border:1px solid color-mix(in srgb,var(--text) 22%,transparent);background:var(--surface)}
+.s5gb-bn{font:700 15.5px/1.35 var(--sans);color:var(--text);background:none;border:0;padding:0;text-align:left;cursor:pointer}
+.s5gb-bn:hover{color:var(--accent);text-decoration:underline}
+.s5gb-bc{font:500 12.5px/1.4 var(--mono,ui-monospace,monospace);color:var(--text);overflow-wrap:anywhere}
+.s5gb-bd{font-size:13px;color:var(--text);padding:1px 7px;border-radius:999px;border:1px solid color-mix(in srgb,var(--text) 30%,transparent)}
+.s5gb-go{margin:2px 8px 0 0;padding:7px 13px;border-radius:999px;font:700 14px/1.2 var(--sans);color:#fff;background:var(--accent);border:0;cursor:pointer}
+.s5gb-go2{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
 .s5fz-strip{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0 6px;padding:8px 10px;border-radius:14px;border:2px solid color-mix(in srgb,var(--accent) 50%,transparent);background:color-mix(in srgb,var(--accent) 6%,var(--surface))}
 .s5fz-dots{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 10px}
 .s5fz-d{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--text)}
@@ -31644,7 +31655,28 @@ IdentityDirectoryEvents
       tf.appendChild(sq);
       box.appendChild(tf);
       box.appendChild(el("p", "s5ft-sl", items.length === all.length ? tU.length + " in our tenant · " + n(ev.length) + " in Graph $metadata — newest first; a tile opens its card." : n(items.length) + " of " + n(all.length) + " match the filter."));
-      if (!items.length) box.appendChild(el("p", "s5bn-empty", "Nothing of today matches the filter."));
+      /* §5gb (31 X 2026, owner: "allowPasswordChangeAfterSecureSignIn vanished - the search finds it, but Graph API Radar
+         filtered to Authentication methods shows 3 entries and none is it"): this frame holds only TODAY's changes, the
+         finding (first seen 30 X) is in the full list below the charts - 2,400 px lower on a phone - and nothing said so.
+         With a filter or search words the frame now names what the FULL lists hold, each a button straight to its card */
+      var fltOn = !!(F.q || TS.cat), tIds = {}; items.forEach(function (it) { tIds[it.id] = 1; });
+      var fullT = fltOn ? und.map(fromUnd).filter(function (e) { return qHit(e) && (!TS.cat || e.cat === TS.cat || (e.also || []).indexOf(TS.cat) >= 0) && !tIds[fullName(e)]; }) : [];
+      var fullC = fltOn ? (D.events || []).filter(function (e) { return e.kind !== "tenant-undocumented" && (!TS.cat || e.cat === TS.cat) && qHit(e) && e.day !== day; }) : [];
+      if (!items.length) box.appendChild(el("p", "s5bn-empty", fullT.length || fullC.length ? "Nothing that changed TODAY matches — the full lists below do:" : "Nothing of today matches the filter, and nothing in the full lists either."));
+      if (fullT.length || fullC.length) {
+        var bey = el("div", "s5gb-bey"); bey.appendChild(el("p", "s5gb-bh", "Not changed today, in the full lists" + (TS.cat ? " · " + TS.cat : "") + (F.q ? " · “" + F.q + "”" : "")));
+        if (fullT.length) {
+          var bl = el("ul", "s5gb-bl");
+          fullT.slice(0, 6).forEach(function (e) { var li = el("li"); var bb = btn(title(e), "s5gb-bn", function () { card(e); }); li.appendChild(bb); li.appendChild(el("code", "s5gb-bc", fullName(e)));
+            li.appendChild(el("span", "s5gb-bd", "found " + dmy(e.first))); bl.appendChild(li); });
+          bey.appendChild(bl);
+          bey.appendChild(btn("Show " + (fullT.length === 1 ? "it" : "all " + fullT.length) + " in “New in our tenant” ›", "s5gb-go", function () { T.cat = TS.cat || ""; S.view = "tenant"; setHash(); render();
+            var v = panel.querySelector(".s5ft-view"); if (v) setTimeout(function () { window.scrollTo(0, Math.max(0, window.scrollY + v.getBoundingClientRect().top - 110)); }, 60); }));
+        }
+        if (fullC.length) bey.appendChild(btn(n(fullC.length) + " in “Every change in Graph” ›", "s5gb-go s5gb-go2", function () { F.cat = TS.cat || ""; F.days = 60; S.view = "changes"; setHash(); render();
+          var v = panel.querySelector(".s5ft-view"); if (v) setTimeout(function () { window.scrollTo(0, Math.max(0, window.scrollY + v.getBoundingClientRect().top - 110)); }, 60); }));
+        box.appendChild(bey);
+      }
       var grid = el("div", "s5do-grid"), ul = el("ul", "s5bn-l");
       items.slice(0, 24).forEach(function (it) {
         var t = el("article", "s5do-tile s5do-" + it.k); t.tabIndex = 0; t.setAttribute("role", "button");
