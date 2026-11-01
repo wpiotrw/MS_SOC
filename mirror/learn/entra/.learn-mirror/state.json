@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/entra/identity/authentication/howto-registration-mfa-sspr-combined",
+  "cursor": "https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sync-service-manager-ui-mvdesigner",
   "pages": {
     "https://learn.microsoft.com/en-us/entra/agent-id": {"etag":"\"Dl8lAD/DIkO0Q0fanNp4iAFUO6U=\"","gitCommitId":"f991e390f7c7f326a5ecc1cbdd982919b27b48a1","path":"docs/agent-id/index.md","redirectedTo":"https://learn.microsoft.com/en-us/entra/agent-id/","sourcePath":"docs/agent-id/index.yml","updatedAt":"2026-10-28T17:35:00.0000000Z"},
     "https://learn.microsoft.com/en-us/entra/agent-id/agent-access-packages": {"etag":"\"Y5kw49esZ95HX7qfZYL+lVza6s0=\"","gitCommitId":"416745851ee81b5acf4e5e761bf46815c2e23758","path":"docs/agent-id/agent-access-packages.md","sourcePath":"docs/agent-id/agent-access-packages.md","updatedAt":"2026-10-06T17:42:00.0000000Z"},
