@@ -1,0 +1,279 @@
+---
+layout: Conceptual
+title: Manage personal data for the Azure Rights Management service | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/purview/rights-management-personal-data
+breadcrumb_path: /purview/breadcrumb/toc.json
+feedback_system: Standard
+uhfHeaderId: MSDocsHeader-Purview
+f1.keywords:
+- NOCSH
+ms.author: kreagle
+author: k-reagle
+ms.reviewer: tommoser
+manager: laurawi
+ms.date: 2026-06-22T00:00:00.0000000Z
+audience: Admin
+ms.topic: how-to
+ms.service: purview
+ms.subservice: purview-encryption
+ms.collection:
+- purview-compliance
+description: Information about the personal data that is used by the Azure Rights Management encryption service and how you can view, export, and delete it.
+ms.custom: sfi-ga-nochange, msecd-doc-authoring-1014
+ai-usage: ai-assisted
+locale: en-us
+document_id: b3812310-924d-2cb3-2e05-ec698fe8a03e
+document_version_independent_id: b3812310-924d-2cb3-2e05-ec698fe8a03e
+original_content_git_url: https://github.com/MicrosoftDocs/Purview-pr/blob/live/Purview/rights-management-personal-data.md
+site_name: Docs
+depot_name: MSDN.Purview
+page_type: conceptual
+toc_rel: toc.json
+feedback_product_url: ''
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: rights-management-personal-data
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: Purview/rights-management-personal-data.md
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+platformId: cbb297a6-e803-644a-6348-a2020ae51e83
+---
+
+# Manage personal data for the Azure Rights Management service | Microsoft Learn
+
+> 
+> *[Microsoft Purview service description](/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-purview-service-description)*
+
+When you configure and use the Azure Rights Management encryption service from [Microsoft Purview Information Protection](information-protection), email addresses and IP addresses are stored and used by this service. The personal data can be found in the following items:
+
+- Super users and delegated administrators for the Azure Rights Management service
+- Administration logs for the Azure Rights Management service
+- Usage logs for the Azure Rights Management service
+- Usage logs for the Microsoft Purview Information Protection client and RMS client
+
+Note
+
+This article provides steps for how to delete personal data from the device or service and can be used to support your obligations under the GDPR. If you’re looking for general info about GDPR, see the [GDPR section of the Service Trust portal](https://servicetrust.microsoft.com/ViewPage/GDPRGetStarted).
+
+## Viewing personal data that the Azure Rights Management service uses
+
+- **Microsoft Purview Information Protection client**:
+
+    For the Microsoft Purview Information Protection client, sensitivity labels and label policies are configured in the Microsoft Purview portal. For more information, see [Create and configure sensitivity labels and their policies](create-sensitivity-labels).
+
+Note
+
+When the Microsoft Purview Information Protection client is used to encrypt documents and emails, email addresses and the users' IP addresses might be saved in log files.
+
+### Super users and delegated administrators for the Azure Rights Management service
+
+Run the [Get-AipServiceSuperUser](/en-us/powershell/module/aipservice/get-aipservicesuperuser) cmdlet and [get-aipservicerolebasedadministrator](/en-us/powershell/module/aipservice/get-aipservicerolebasedadministrator) cmdlet to see which users have been assigned the super user role or global administrator role for the Azure Rights Management service. For users who have been assigned either of these roles, their email addresses are displayed.
+
+### Administration logs for the Azure Rights Management service
+
+Run the [Get-AipServiceAdminLog cmdlet](/en-us/powershell/module/aipservice/get-aipserviceadminlog) to get a log of admin actions for the Azure Rights Management service. This log includes personal data in the form of email addresses and IP addresses. The log is in plaintext and after it is downloaded, the details of a specific administrator can be searched offline.
+
+For example:
+
+```PowerShell
+PS C:\Users> Get-AipServiceAdminLog -Path '.\Desktop\admin.log' -FromTime 4/1/2018 -ToTime 4/30/2018 -Verbose
+The Rights Management administration log was successfully generated and can be found at .\Desktop\admin.log.
+```
+
+### Usage logs for the Azure Rights Management service
+
+Run the [Get-AipServiceUserLog](/en-us/powershell/module/aipservice/get-aipserviceuserlog) cmdlet to retrieve a log of end-user actions that use the Azure Rights Management service. The log could include personal data in the form of email addresses and IP addresses. The log is in plaintext and after it is downloaded, the details of a specific administrator can be searched offline.
+
+For example:
+
+```PowerShell
+PS C:\Users> Get-AipServiceUserLog -Path '.\Desktop\' -FromDate 4/1/2018 -ToDate 4/30/2018 -NumberOfThreads 10
+Acquiring access to your user log…
+Downloading the log for 2018-04-01.
+Downloading the log for 2018-04-03.
+Downloading the log for 2018-04-06.
+Downloading the log for 2018-04-09.
+Downloading the log for 2018-04-10.
+Downloaded the log for 2018-04-01. The log is available at .\Desktop\rmslog-2018-04-01.log.
+Downloaded the log for 2018-04-03. The log is available at .\Desktop\rmslog-2018-04-03.log.
+Downloaded the log for 2018-04-06. The log is available at .\Desktop\rmslog-2018-04-06.log.
+Downloaded the log for 2018-04-09. The log is available at .\Desktop\rmslog-2018-04-09.log.
+Downloaded the log for 2018-04-10. The log is available at .\Desktop\rmslog-2018-04-10.log.
+Downloading the log for 2018-04-12.
+Downloading the log for 2018-04-13.
+Downloading the log for 2018-04-14.
+Downloading the log for 2018-04-16.
+Downloading the log for 2018-04-18.
+Downloaded the log for 2018-04-12. The log is available at .\Desktop\rmslog-2018-04-12.log.
+Downloaded the log for 2018-04-13. The log is available at .\Desktop\rmslog-2018-04-13.log.
+Downloaded the log for 2018-04-14. The log is available at .\Desktop\rmslog-2018-04-14.log.
+Downloaded the log for 2018-04-16. The log is available at .\Desktop\rmslog-2018-04-16.log.
+Downloaded the log for 2018-04-18. The log is available at .\Desktop\rmslog-2018-04-18.log.
+Downloading the log for 2018-04-24.
+Downloaded the log for 2018-04-24. The log is available at .\Desktop\rmslog-2018-04-24.log.
+```
+
+### Usage logs for the Microsoft Purview Information Protection client and RMS client
+
+When labels and encryption are applied to documents and emails, email addresses and IP addresses can be stored in log files on a user's computer in the following locations:
+
+- For the Microsoft Purview Information Protection client: **%localappdata%\Microsoft\MSIP\Logs**
+- For the RMS client: **%localappdata%\Microsoft\MSIPC\msip\Logs**
+
+In addition, the Microsoft Purview Information Protection client logs this personal data to the local Windows event log **Applications and Services Logs** &gt; **Microsoft Purview Information Protection**.
+
+When the Microsoft Purview Information Protection client runs the scanner, personal data is saved to **%localappdata%\Microsoft\MSIP\Scanner\Reports** on the Windows Server computer that runs the scanner.
+
+You can turn off logging information for the Microsoft Purview Information Protection client and the scanner by using the following configurations:
+
+- For the Microsoft Purview Information Protection client: Edit the registry to [change the local logging level for the Information Protection client](/en-us/purview/information-protection-client#change-the-local-logging-level) to **Off**.
+- For the Microsoft Purview Information Protection scanner: Use the [Set-ScannerConfiguration](/en-us/powershell/module/purviewinformationprotection/set-scannerconfiguration) cmdlet to set the *ReportLevel* parameter to **Off**.
+
+Note
+
+If you’re interested in viewing or deleting personal data, please review Microsoft's guidance in the [Microsoft Purview Compliance Manager](https://servicetrust.microsoft.com/ComplianceManager) and in the [GDPR section of the Microsoft 365 Enterprise Compliance](/en-us/microsoft-365/compliance/gdpr) site. If you’re looking for general information about GDPR, see the [GDPR section of the Service Trust portal](https://servicetrust.microsoft.com/ViewPage/GDPRGetStarted).
+
+### Document tracking logs
+
+**Relevant for**: The Azure Rights Management service with the legacy tracking portal
+
+Run the [Get-AipServiceDocumentLog](/en-us/powershell/module/aipservice/get-aipservicedocumentlog) cmdlet to retrieve information from the document tracking site about a specific user. To get tracking information associated with the document logs, use the [Get-AipServiceTrackingLog](/en-us/powershell/module/aipservice/get-aipservicetrackinglog) cmdlet.
+
+For example:
+
+```PowerShell
+PS C:\Users> Get-AipServiceDocumentLog -UserEmail "admin@aip500.onmicrosoft.com"
+
+ContentId             : 6326fcb2-c465-4c24-a7f6-1cace7a9cb6f
+Issuer                : admin@aip500.onmicrosoft.com
+Owner                 : admin@aip500.onmicrosoft.com
+ContentName           :
+CreatedTime           : 3/6/2018 10:24:00 PM
+Recipients            : {
+                        PrimaryEmail: johndoe@contoso.com
+                        DisplayName: JOHNDOE@CONTOSO.COM
+                        UserType: External,
+                        PrimaryEmail: alice@contoso0110.onmicrosoft.com
+                        DisplayName: ALICE@CONTOSO0110.ONMICROSOFT.COM
+                        UserType: External
+                        }
+TemplateId            :
+PolicyExpires         :
+EULDuration           :
+SendRegistrationEmail : True
+NotificationInfo      : Enabled: False
+                        DeniedOnly: False
+                        Culture:
+                        TimeZoneId:
+                        TimeZoneOffset: 0
+                        TimeZoneDaylightName:
+                        TimeZoneStandardName:
+
+RevocationInfo        : Revoked: False
+                        RevokedTime:
+                        RevokedBy:
+
+PS C:\Users> Get-AipServiceTrackingLog -UserEmail "admin@aip500.onmicrosoft.com"
+
+ContentId            : 6326fcb2-c465-4c24-a7f6-1cace7a9cb6f
+Issuer               : admin@aip500.onmicrosoft.com
+RequestTime          : 3/6/2018 10:45:57 PM
+RequesterType        : External
+RequesterEmail       : johndoe@contoso.com
+RequesterDisplayName : johndoe@contoso.com
+RequesterLocation    : IP: 167.220.1.54
+                       Country/region: US
+                       City: redmond
+                       Position: 47.6812453974602,-122.120736471666
+
+Rights               : {VIEW,OBJMODEL}
+Successful           : False
+IsHiddenInfo         : False
+```
+
+There is no search by ObjectID. However, you are not restricted by the `-UserEmail` parameter and the email address you provide doesn't need to be part of your tenant. If the email address provided is stored anywhere in the document tracking logs, the document tracking entry is returned in the cmdlet output.
+
+## Securing and controlling access to personal information
+
+Personal data that you view and specify in the Microsoft Purview portal is accessible only to users who have been assigned one of the following [Microsoft Entra ID built-in administrator roles](/en-us/azure/active-directory/active-directory-assign-admin-roles-azure-portal):
+
+- **Azure Information Protection administrator**
+- **Compliance administrator**
+- **Compliance data administrator**
+- **Security administrator**
+- **Security reader**
+- **Global administrator**
+- **Global reader**
+
+Personal data that you view and specify by using the AIPService module is accessible only to users who have been assigned the **Azure Information Protection administrator**, **Compliance administrator**, **Compliance data administrator**, or **Global Administrator** roles from Microsoft Entra ID, or the global administrator role for the Azure Rights Management service.
+
+## Updating personal data
+
+Sensitivity labels and label policies are configured in the Microsoft Purview. For more information, see the [Create and configure sensitivity labels and their policies](create-sensitivity-labels).
+
+For the encryption settings, you can update the related personal data by using PowerShell cmdlets from the [AIPService module](/en-us/powershell/module/aipservice).
+
+You cannot update email addresses for the super users and delegated administrators. Instead, remove the specified user account, and add the user account with the updated email address.
+
+### Super users and delegated administrators for the Azure Rights Management service
+
+When you need update an email address for a super user:
+
+1. Use [Remove-AipServiceSuperUser](/en-us/powershell/module/aipservice/Remove-AipServiceSuperUser) to remove the user and old email address.
+2. Use [Add-AipServiceSuperUser](/en-us/powershell/module/aipservice/Add-AipServiceSuperUser) to add the user and new email address.
+
+When you need update an email address for a delegated administrator:
+
+1. Use [Remove-AipServiceRoleBasedAdministrator](/en-us/powershell/module/aipservice/Remove-AipServiceRoleBasedAdministrator) to remove the user and old email address.
+2. Use [Add-AipServiceRoleBasedAdministrator](/en-us/powershell/module/aipservice/Add-AipServiceRoleBasedAdministrator) to add the user and new email address.
+
+## Deleting personal data
+
+Sensitivity labels and label policies are configured in the Microsoft Purview portal. For more information, see [Create and configure sensitivity labels and their policies](create-sensitivity-labels).
+
+For the encryption settings, you can delete the related personal data by using PowerShell cmdlets from the [AIPService module](/en-us/powershell/module/aipservice).
+
+To delete email addresses for super users and delegated administrators, remove these users by using the [Remove-AipServiceSuperUser](/en-us/powershell/module/aipservice/Remove-AipServiceSuperUser) cmdlet and [Remove-AipServiceRoleBasedAdministrator](/en-us/powershell/module/aipservice/Remove-AipServiceRoleBasedAdministrator).
+
+To delete personal data in document tracking logs, administration logs, or usage logs for the Azure Rights Management service, raise a request with Microsoft Support by using the procedure in To delete personal data with Microsoft Support.
+
+To delete personal data in the client log files and scanner logs that are stored on computers, use any standard Windows tools to delete the files or personal data within the files.
+
+### To delete personal data with Microsoft Support
+
+Use the following three steps to request that Microsoft deletes personal data in document tracking logs, administration logs, or usage logs for the Azure Rights Management service.
+
+Before you submit a delete request, make sure you can prove that you are an administrator for your tenant. Also be aware that this process takes several days to confirm.
+
+**Step 1: Initiate delete request**[Contact Microsoft Support](https://support.microsoft.com/contactus) to open Microsoft Purview Information Protection support case with a request for deleting data from your tenant. When you submit your request, you need to provide additional information, depending on the data that needs to be deleted.
+
+- To delete the administration log, provide the **end date**. All admin logs until that end date will be deleted.
+- To delete the usage logs, provide the **end date**. All usage logs until that end date will be deleted.
+- To delete the document tracking logs, provide the **end date** and **UserEmail**. All document tracking information relating to the UserEmail until that end date will be deleted. Regular expression (Perl format) for UserEmail is supported.
+
+Deleting this data is a permanent action. There is no means to recover the data after a delete request has been processed. It's recommended that administrators export the required data before submitting a delete request.
+
+**Step 2: Wait for verification** Microsoft will verify that your request to delete one or more logs is legitimate. This process can take up to five working days.
+
+**Step 3: Get confirmation of the deletion** Microsoft Customer Support Services (CSS) will send you a confirmation email that the data has been deleted.
+
+## Exporting personal data
+
+When you use the AIPService cmdlets, the personal data is made available for search and export as a PowerShell object. The PowerShell object can be converted into JSON and saved by using the `ConvertTo-Json` cmdlet.
+
+## Restricting the use of personal data for profiling or marketing without consent
+
+The Azure Rights Management service follows Microsoft's [Microsoft Privacy Statement](https://privacy.microsoft.com/privacystatement) for profiling or marketing based on personal data.
+
+## Auditing and reporting
+
+Only users who have been assigned the required administrator roles for accessing personal information can use the AIPService for search and export of personal data. These operations are recorded in the administration log that can be downloaded.
+
+For delete actions, the support request acts as the auditing and reporting trail for the actions performed by Microsoft. After deletion, the deleted data will not be available for search and export, and the administrator can verify this using the Get cmdlets from the AIPService module.

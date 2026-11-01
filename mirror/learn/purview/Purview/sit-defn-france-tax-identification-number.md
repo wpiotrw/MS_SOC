@@ -1,0 +1,126 @@
+---
+layout: Conceptual
+title: France Tax Identification Number (numéro SPI.) entity definition | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/purview/sit-defn-france-tax-identification-number
+breadcrumb_path: /purview/breadcrumb/toc.json
+feedback_system: None
+uhfHeaderId: MSDocsHeader-Purview
+f1.keywords:
+- CSH
+ms.author: kreagle
+author: k-reagle
+manager: laurawi
+ms.date: 2023-09-13T00:00:00.0000000Z
+audience: Admin
+search.appverid: MET150
+ms.topic: reference
+ms.service: purview
+ms.subservice: purview-sit-definitions
+ms.collection:
+- purview-compliance
+recommendations: false
+description: France Tax Identification Number (numéro SPI.) sensitive information type entity definition.
+locale: en-us
+document_id: fe1bd414-0dec-192a-e8ba-9891b0f8c74d
+document_version_independent_id: fe1bd414-0dec-192a-e8ba-9891b0f8c74d
+original_content_git_url: https://github.com/MicrosoftDocs/Purview-pr/blob/live/Purview/sit-defn-france-tax-identification-number.md
+site_name: Docs
+depot_name: MSDN.Purview
+page_type: conceptual
+toc_rel: toc.json
+feedback_product_url: ''
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: sit-defn-france-tax-identification-number
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: Purview/sit-defn-france-tax-identification-number.md
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/540ac133-a371-4dbb-8f94-28d6cc77a70b
+spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/60bfc045-f127-4841-9d00-ea35495a5800
+platformId: e165efe5-d30d-87ac-4f76-1056306aeb9f
+---
+
+# France Tax Identification Number (numéro SPI.) entity definition | Microsoft Learn
+
+## Format
+
+13 digits
+
+## Pattern
+
+13 digits
+
+- One digit that must be 0, 1, 2, or 3
+- One digit
+- A space (optional)
+- Two digits
+- A space (optional)
+- Three digits
+- A space (optional)
+- Three digits
+- A space (optional)
+- Three check digits
+
+## Checksum
+
+Yes
+
+## Keyword Highlighting
+
+Supported
+
+When keyword highlighting is supported in the contextual summary for a sensitive information type or a trainable classifier, in the **Contextual Summary** view of activity explorer, the keywords in a document that were matched to a policy are highlighted.
+
+## Definition
+
+A DLP policy has high confidence that it's detected this type of sensitive information if, within a proximity of 300 characters:
+
+- The function `Func_france_eu_tax_file_number` finds content that matches the pattern.
+- A keyword from `Keywords_france_eu_tax_file_number` is found.
+
+A DLP policy has medium confidence that it's detected this type of sensitive information if, within a proximity of 300 characters:
+
+- The function `Func_france_eu_tax_file_number` finds content that matches the pattern.
+
+```xml
+      <!-- France Tax Identification Number (numéro SPI.) -->
+      <Entity id="ed59e77e-171d-442c-9ec1-88e2ebcb5b0a" patternsProximity="300" recommendedConfidence="85">
+        <Pattern confidenceLevel="85">
+          <IdMatch idRef="Func_france_eu_tax_file_number" />
+          <Match idRef="Keywords_france_eu_tax_file_number" />
+        </Pattern>
+        <Pattern confidenceLevel="75">
+          <IdMatch idRef="Func_france_eu_tax_file_number" />
+          <Any minMatches="0" maxMatches="0">
+            <Match idRef="Keywords_france_eu_telephone_number" />
+            <Match idRef="Keywords_france_eu_mobile_number" />
+          </Any>
+        </Pattern>
+      </Entity>
+
+```
+
+## Keywords
+
+### Keywords\_france\_eu\_tax\_file\_number
+
+- numéro d'identification fiscale
+- tax id
+- tax identification no
+- tax identification number
+- tax no#
+- tax no
+- tax number
+- tax registration number
+- taxid#
+- taxidno#
+- taxidnumber#
+- taxno#
+- taxnumber#
+- taxnumber
+- tin id
+- tin no
+- tin#

@@ -1,0 +1,222 @@
+---
+layout: Conceptual
+title: Configure usage rights for the Azure Rights Management service | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/purview/rights-management-usage-rights
+breadcrumb_path: /purview/breadcrumb/toc.json
+feedback_system: Standard
+uhfHeaderId: MSDocsHeader-Purview
+f1.keywords:
+- NOCSH
+ms.author: kreagle
+author: k-reagle
+ms.reviewer: tommoser
+manager: laurawi
+ms.date: 2025-08-27T00:00:00.0000000Z
+audience: Admin
+ms.topic: article
+ms.service: purview
+ms.subservice: purview-encryption
+ms.collection:
+- purview-compliance
+description: Understand and identify the specific rights that are used when you protect items by using the Rights Management encryption service from Microsoft Purview Information Protection.
+locale: en-us
+document_id: dd1d0206-f7ba-38fd-8ddd-1c5e89927ee5
+document_version_independent_id: dd1d0206-f7ba-38fd-8ddd-1c5e89927ee5
+original_content_git_url: https://github.com/MicrosoftDocs/Purview-pr/blob/live/Purview/rights-management-usage-rights.md
+site_name: Docs
+depot_name: MSDN.Purview
+page_type: conceptual
+toc_rel: toc.json
+feedback_product_url: ''
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: rights-management-usage-rights
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: Purview/rights-management-usage-rights.md
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
+- https://authoring-docs-microsoft.poolparty.biz/devrel/3e34b70d-bca0-4369-a01b-71d1edfd427b
+spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
+- https://authoring-docs-microsoft.poolparty.biz/devrel/8ca32b3f-fa14-46df-b09a-9c4a591d6396
+platformId: 0a2868a6-0ba9-84c1-7c9c-28fbf82ed77e
+---
+
+# Configure usage rights for the Azure Rights Management service | Microsoft Learn
+
+> 
+> *[Microsoft Purview service description](/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-purview-service-description)*
+
+This article describes usage rights you can configure to be automatically applied when a [sensitivity label](sensitivity-labels) from Microsoft Purview Information Protection is selected by users, administrators, or configured services.
+
+Usage rights are selected when you configure sensitivity labels or rights management templates for encryption. For example, you can select roles that configure a logical grouping of usage rights, or configure the individual rights separately. Alternatively users might select and apply the usage rights themselves.
+
+Important
+
+Use this article to understand how usage rights are designed to be interpreted by applications.
+
+Applications may vary in how they implement usage rights, and we recommend you consult your application's documentation and do your own testing to check application behavior before you deploy in production.
+
+## Usage rights and descriptions
+
+The following table lists and describes the usage rights that Rights Management supports, and how they're used and interpreted. They're listed by their **common name**, which is typically how you might see the usage right displayed or referenced, as a more friendly version of the single-word value that is used in the code (the **Encoding in policy** value).
+
+In this table:
+
+- The **API Constant or Value** is the SDK name for an MSIPC or Microsoft Information Protection SDK API call, used when you write an application that checks for a usage right, or adds a usage right to a policy.
+- The names from **AD RMS templates** are included for customers on or [migrating from the on-premises rights management solution, Active Rights Rights Management Services](/en-us/azure/information-protection/migrate-from-ad-rms-to-azure-rms).
+
+| Usage right | Description | Implementation |
+| --- | --- | --- |
+| Common name: **Edit Content, Edit**Encoding in policy: **DOCEDIT** | Allows the user to modify, rearrange, format, or sort the content inside the application, which includes Office on the web. It doesn't grant the right to save the edited copy. | Office custom rights: As part of the **Change** and **Full Control** options.Name in the Microsoft Purview portal: **Edit Content, Edit (DOCEDIT)**Name in AD RMS templates: **Edit**API constant or value:**MSIPC:** Not applicable.**MIP SDK:**`DOCEDIT` |
+| Common name: **Save**Encoding in policy: **EDIT** | Allows the user to save the item to the current location. In Office on the web, it also allows the user to edit the content.In Office applications, this right allows the user to save the contents of the file to a new location and with a new name if the selected file format has built-in support for Rights Management. The list of file formats available is restricted to those that support Rights Management. This restriction ensures that the original encryption can't be removed from the file. | Office custom rights: As part of the **Change** and **Full Control** options.Name in the Microsoft Purview portal: **Save (EDIT)**Name in AD RMS templates: **Save**API constant or value:**MSIPC:**`IPC_GENERIC_WRITE L"EDIT"`**MIP SDK:**`EDIT` |
+| Common name: **Comment**Encoding in policy: **COMMENT** | Enables the option to add annotations or comments to the content.This right is available in the SDK, is available as an ad-hoc policy in the PurviewInformationProtection PowerShell module, and has been implemented in some software vendor applications. However, it isn't widely used and isn't supported by Office applications. | Office custom rights: Not implemented.Name in the Microsoft Purview portal: Not implemented.Name in AD RMS templates: Not implemented.API constant or value:**MSIPC:**`IPC_GENERIC_COMMENT L"COMMENT`**MIP SDK:**`COMMENT` |
+| Common name: **Save As, Export**Encoding in policy: **EXPORT** | Enables the option to save the content to a different file name (Save As). This right also allows the user to perform other export options in applications, such as **Send to OneNote**. | Office custom rights: As part of the **Full Control** option.Name in the Microsoft Purview portal: **Save As, Export (EXPORT)**Name in AD RMS templates: **Export (Save As)**API constant or value:**MSIPC:**`IPC_GENERIC_EXPORT L"EXPORT"`**MIP SDK:**`EXPORT` |
+| Common name: **Forward**Encoding in policy: **FORWARD** | Enables the option to forward an email message and to add recipients to the **To** and **Cc** lines. This right does not apply to documents; only email messages.Does not allow the forwarder to grant rights to other users as part of the forward action. When you grant this right, also grant the **Edit Content, Edit** right (common name), and additionally grant the **Save** right (common name) to ensure that the encrypted email message isn't delivered as an attachment. Also specify these rights when you send an email to another organization that uses the Outlook client or Outlook web app. Or, for users in your organization that are exempt from using Rights Management encryption because you have implemented [onboarding controls](/en-us/powershell/module/aipservice/set-aipserviceonboardingcontrolpolicy). | Office custom rights: Denied when using the **Do Not Forward** standard policy.Name in the Microsoft Purview portal: **Forward (FORWARD)**Name in AD RMS templates: **Forward**API constant or value:**MSIPC:**`IPC_EMAIL_FORWARD L"FORWARD"`**MIP SDK:**`FORWARD` |
+| Common name: **Full Control**Encoding in policy: **OWNER** | Grants all rights to the item and all available actions can be performed. Includes the ability to remove encryption and re-encrypt a document. Note that this usage right isn't the same as the Rights Management owner. | Office custom rights: As the **Full Control** custom option.Name in the Microsoft Purview portal: **Full Control (OWNER)**Name in AD RMS templates: **Full Control**API constant or value:**MSIPC:**`IPC_GENERIC_ALL L"OWNER"`**MIP SDK:**`OWNER` |
+| Common name: **Print**Encoding in policy: **PRINT** | Enables the options to print the content. | Office custom rights: As the **Print Content** option in custom permissions. Not a per-recipient setting.Name in the Microsoft Purview portal: **Print (PRINT)**Name in AD RMS templates: **Print**API constant or value:**MSIPC:**`IPC_GENERIC_PRINT L"PRINT"`**MIP SDK:**`PRINT` |
+| Common name: **Reply**Encoding in policy: **REPLY** | Enables the **Reply** option in an email client, without allowing changes in the **To** or **Cc** lines. When you grant this right, also grant the **Edit Content, Edit** right (common name), and additionally grant the **Save** right (common name) to ensure that the encrypted email message isn't delivered as an attachment. Also specify these rights when you send an email to another organization that uses the Outlook client or Outlook web app. Or, for users in your organization that are exempt from using Rights Management protection because you have implemented [onboarding controls](/en-us/powershell/module/aipservice/set-aipserviceonboardingcontrolpolicy). | Office custom rights: Not applicable.Name in AD RMS templates: **Reply**API constant or value:**MSIPC:**`IPC_EMAIL_REPLY`**MIP SDK:**`REPLY` |
+| Common name: **Reply All**Encoding in policy: **REPLYALL** | Enables the **Reply All** option in an email client, but doesn’t allow the user to add recipients to the **To** or **Cc** lines. When you grant this right, also grant the **Edit Content, Edit** right (common name), and additionally grant the **Save** right (common name) to ensure that the encrypted email message isn't delivered as an attachment. Also specify these rights when you send an email to another organization that uses the Outlook client or Outlook web app. Or, for users in your organization that are exempt from using the Azure Rights Management service because you have implemented [onboarding controls](/en-us/powershell/module/aipservice/set-aipserviceonboardingcontrolpolicy). | Office custom rights: Not applicable.Name in the Microsoft Purview portal: **Reply All (REPLY ALL)**Name in AD RMS templates: **Reply All**API constant or value:**MSIPC:**`IPC_EMAIL_REPLYALL L"REPLYALL"`**MIP SDK:**`REPLYALL` |
+| Common name: **View, Open, Read**Encoding in policy: **VIEW** | Allows the user to open the document and see the content. Additionally:  - In Microsoft 365 Copilot and other AI apps, allows the [LLM to reference the item with a link but without summarizing the content](ai-m365-copilot-considerations#information-protection-considerations-for-microsoft-365-copilot), so the user can then open and view the content outside the AI app.  In Excel, this right isn't sufficient to sort data, which requires the following right: **Edit Content, Edit**. To filter data in Excel, you need the following two rights: **Edit Content, Edit** and **Copy**. | Office custom rights: As the **Read** custom policy, **View** option.Name in the Microsoft Purview portal: **View, Open, Read (VIEW)**Name in AD RMS templates: **Read**API constant or value:**MSIPC:**`IPC_GENERIC_READ L"VIEW"`**MIP SDK:**`VIEW` |
+| Common name: **Copy**Encoding in policy: **EXTRACT** | Enables options to copy data (including screen captures) from the item into the same or another item. Additionally:  - In Microsoft 365 Copilot and other AI apps, allows the [LLM to access and summarize the content for the requesting user](ai-m365-copilot-considerations#copilot-honors-existing-protection-with-the-extract-usage-right). - In some applications, this right also allows the entire document to be saved unencrypted. In Microsoft Teams and similar screen-sharing applications, the presenter must have this right to successfully present an encrypted document. If the presenter doesn't have this right, the attendees can't view the document and it displays as blacked out to them. | Office custom rights: As the **Allow users with Read access to copy content** custom policy option.Name in the Microsoft Purview portal: **Copy (EXTRACT)**Name in AD RMS templates: **Extract**API constant or value:**MSIPC:**`IPC_GENERIC_EXTRACT L"EXTRACT"`**MIP SDK:**`EXTRACT` |
+| Common name: **View Rights**Encoding in policy: **VIEWRIGHTSDATA** | Allows the user to see the policy that is applied to the document. Not supported by Office apps or by the Microsoft Purview Information Protection client. | Office custom rights: Not implemented.Name in the Microsoft Purview portal: **View Rights (VIEWRIGHTSDATA)**.Name in AD RMS templates: **View Rights**API constant or value:**MSIPC:**`IPC_READ_RIGHTS L"VIEWRIGHTSDATA"`**MIP SDK:**`VIEWRIGHTSDATA` |
+| Common name: **Change Rights**Encoding in policy: **EDITRIGHTSDATA** | Allows the user to change the policy that is applied to the document. Includes removing encryption. Not supported by Office apps or the Microsoft Purview Information Protection client. | Office custom rights: Not implemented.Name in the Microsoft Purview portal: **Edit Rights (EDITRIGHTSDATA)**.Name in AD RMS templates: **Edit Rights**API constant or value:**MSIPC:**`PC_WRITE_RIGHTS L"EDITRIGHTSDATA"`**MIP SDK:**`EDITRIGHTSDATA` |
+| Common name: **Allow Macros**Encoding in policy: **OBJMODEL** | Enables the option to run macros or perform other programmatic or remote access to the content in a document. | Office custom rights: As the **Allow Programmatic Access** custom policy option. Not a per-recipient setting.Name in the Microsoft Purview portal: **Allow Macros (OBJMODEL)**Name in AD RMS templates: **Allow Macros**API constant or value:**MSIPC:** Not implemented.**MIP SDK:**`OBJMODEL` |
+
+## Rights included in permissions levels
+
+Some applications group usage rights together into permissions levels, to make it easier to select usage rights that are typically used together. These permissions levels help to abstract a level of complexity from users, so they can choose options that are role-based. For example, **Viewer** and **Restricted Editor**. Although these options often show users a summary of the rights, they might not include every right that is listed in the previous table.
+
+Use the following table for a list of these permissions levels and a complete list of the usage rights that they contain. The usage rights are listed by their common name.
+
+| Permissions level | Applications | Usage rights included |
+| --- | --- | --- |
+| **Viewer** | Microsoft Purview portalMicrosoft Purview Information Protection client | View, Open, Read; View Rights; Reply [1]; Reply All [1]; Allow Macros [2]Note: For emails, use Reviewer rather than this permission level to ensure that an email reply is received as an email message rather than an attachment. Reviewer is also required when you send an email to another organization that uses the Outlook client or Outlook web app. Or, for users in your organization that are exempt from using the Azure Rights Management service because you have implemented [onboarding controls](/en-us/powershell/module/aipservice/set-aipserviceonboardingcontrolpolicy). |
+| **Restricted Editor**(Previously **Reviewer**[3]) | Microsoft Purview portal Microsoft Purview Information Protection client | View, Open, Read; Save; Edit Content, Edit; View Rights; Reply: Reply All; Forward; Allow Macros [2] |
+| **Editor**(Previously **Co-Author**[3]) | Microsoft Purview portal Microsoft Purview Information Protection client | View, Open, Read; Save; Edit Content, Edit; Copy; View Rights; Allow Macros [2]; Save As, Export [4]; Print; Reply; Reply All; Forward |
+| **Owner**(Previously **Co-Owner**[3]) | Microsoft Purview portal Microsoft Purview Information Protection client | View, Open, Read; Save; Edit Content, Edit; Copy; View Rights; Change Rights; Allow Macros; Save As, Export; Print; Reply; Reply All; Forward; Full Control |
+
+###### Footnote 1
+
+Not included in the Microsoft Purview portal.
+
+###### Footnote 2
+
+Not included in the custom permissions dialog in Word, Excel, and PowerPoint for Windows (version 2408+).
+
+###### Footnote 3
+
+The Microsoft Purview portal and the custom permissions dialog in Word, Excel, and PowerPoint for Windows (version 2411+) have updated permissions level naming. **Reviewer** is now called **Restricted Editor**, **Co-Author** is now called **Editor**, and **Co-Owner** is now called **Owner**. Other applications continue to use the original permissions level naming.
+
+###### Footnote 4
+
+Not included in the Microsoft Purview portal.
+
+## Do Not Forward option for emails
+
+Exchange clients and services (for example, the Outlook client, Outlook on the web, Exchange mail flow rules, and DLP actions for Exchange) have an additional information rights protection option for emails: **Do Not Forward**.
+
+Although this option appears to users (and Exchange administrators) as if it's a default Rights Management template that they can select, **Do Not Forward** isn't a template. Instead, the **Do Not Forward** option is a set of usage rights that is dynamically applied by users to their email recipients.
+
+When the **Do Not Forward** option is applied to an email, the email is encrypted and recipients must be authenticated. Then, the recipients can't forward it, print it, or copy from it. For example, in the Outlook client, the Forward button isn't available, the **Save As** and **Print** menu options are not available, and you can't add or change recipients in the **To**, **Cc**, or **Bcc** boxes.
+
+Unencrypted [Office documents](https://support.office.com/article/bb643d33-4a3f-4ac7-9770-fd50d95f58dc#FileTypesforIRM) that are attached to the email automatically inherit the same restrictions. The usage rights applied to these documents are **Edit Content, Edit**; **Save**; **View, Open, Read**; and **Allow Macros**. If you want different usage rights for an attachment, or your attachment isn't an Office document that supports this inherited encryption, encrypt the file before you attach it to the email. You can then assign the specific usage rights that you need for the file.
+
+### Difference between Do Not Forward and not granting the Forward usage right
+
+There's an important distinction between applying the **Do Not Forward** option and applying a rights management template that doesn't grant the **Forward** usage right to an email: The **Do Not Forward** option uses a dynamic list of authorized users that is based on the user's chosen recipients of the original email; whereas the rights in the template have a static list of authorized users that the administrator has previously specified. What's the difference? Let's take an example:
+
+A user wants to email some information to specific people in the Marketing department that shouldn't be shared with anybody else. Should they protect the email with a rights management template that restricts rights (viewing, replying, and saving) to the Marketing department? Or should they choose the **Do Not Forward** option? Both choices would result in the recipients not able to forward the email.
+
+- If they applied the template, the recipients could still share the information with others in the marketing department. For example, a recipient could use Explorer to drag and drop the email to a shared location or a USB drive. Now, anybody from the marketing department (and the email owner) who has access to this location can view the information in the email.
+- If they applied the **Do Not Forward** option, the recipients will not be able to share the information with anybody else in the marketing department by moving the email to another location. In this scenario, only the original recipients (and the email owner) will be able to view the information in the email.
+
+Note
+
+Use **Do Not Forward** when it's important that only the recipients that the sender chooses should see the information in the email. Use a template for emails to restrict rights to a group of people that the administrator specifies in advance, independently from the sender's chosen recipients.
+
+## Encrypt-only option for emails
+
+When Exchange Online uses [Microsoft Purview Message Encryption](ome), a new **Encrypt** email option becomes available, to encrypt the data without additional restrictions.
+
+This option is available to tenants who use Exchange Online and can be selected as follows:
+
+- **In Outlook on the web** with the **Encrypt** option or a sensitivity label that's configured for **Let users assign permissions** and the **Encrypt-Only** option
+- **As another rights protection option** for a mail flow rule
+- **As Microsoft Purview DLP action**
+- **From the Outlook app**for desktops and mobile devices:
+    - With a sensitivity label that's configured for **Let users assign permissions** and the **Encrypt-Only** option, for Windows, macOS, iOS and Android when you use sensitivity labels with the minimum versions listed in the [table for sensitivity label capabilities in Outlook](/en-us/microsoft-365/compliance/sensitivity-labels-office-apps#sensitivity-label-capabilities-in-outlook).
+    - With the **Encrypt** option on Windows and macOS, for the versions listed in the [table of supported versions for Microsoft 365 Apps by update channel](/en-us/officeupdates/update-history-microsoft365-apps-by-date).
+
+For more information about the encrypt-only option, see the following blog post when it was first announced from the Office team: [Encrypt only rolling out in Office 365 Message Encryption](https://aka.ms/omefeb2018).
+
+When this option is selected, the email is encrypted and recipients must be authenticated. Then, the recipients have all usage rights except **Save As, Export** and **Full Control**. This combination of usage rights means that the recipients have no restrictions except that they can't remove the encryption. For example, a recipient can copy from the email, print it, and forward it.
+
+Similarly, by default, unencrypted [Office documents](https://support.office.com/article/bb643d33-4a3f-4ac7-9770-fd50d95f58dc#FileTypesforIRM) that are attached to the email inherit the same permissions. These documents are automatically encryption and when they're downloaded, they can be saved, edited, copied, and printed from Office applications by the recipients. When the document is saved by a recipient, it can be saved to a new name and even a different format. However, only file formats that support Rights Management encryption are available so that the document can't be saved without the original encryption. If you want different usage rights for an attachment, or your attachment isn't an Office document that supports this inherited encryption, encrypt the file before you attach it to the email. You can then assign the specific usage rights that you need for the file.
+
+Alternatively, you can change this encryption inheritance of documents by specifying `Set-IRMConfiguration -DecryptAttachmentForEncryptOnly $true` with [Exchange Online PowerShell](/en-us/powershell/exchange/exchange-online/connect-to-exchange-online-powershell/connect-to-exchange-online-powershell). Use this configuration when you don't need to retain the original encryption for the document after the user is authenticated. When recipients open the email message, the document isn't encrypted.
+
+Note
+
+If you see references to **DecryptAttachmentFromPortal**, this parameter is now deprecated for [Set-IRMConfiguration](/en-us/powershell/module/exchange/encryption-and-certificates/set-irmconfiguration). Unless you have previously set this parameter, it's not available.
+
+## Automatically encrypt PDF documents with Exchange Online
+
+When Exchange Online uses Microsoft Purview Message Encryption, you can automatically encrypt PDF documents when they're attached to an encrypted email. The document inherits the same permissions as those for the email message. To enable this configuration, set **EnablePdfEncryption $True** with [Set-IRMConfiguration](/en-us/powershell/module/exchange/encryption-and-certificates/set-irmconfiguration).
+
+Recipients can use [Microsoft Edge to view the encrypted PDF document](https://support.microsoft.com/topic/view-protected-pdfs-using-microsoft-edge-on-windows-or-mac-643c3dbe-c4ed-477c-9acb-078398a7e2b5). Alternatively, recipients can read the encrypted PDF document in the OME portal.
+
+## Rights Management issuer and Rights Management owner
+
+When an item is encrypted by using the Azure Rights Management service, the account that encrypts that content automatically becomes the Rights Management issuer for that content. This account is logged as the **issuer** field in the [usage logs](rights-management-usage-logging#how-to-interpret-your-usage-logs).
+
+The Rights Management issuer is always granted the Full Control usage right for the item, and in addition:
+
+- If the encryption settings include an expiry date, the Rights Management issuer can still open and edit the document or email after that date.
+- The Rights Management issuer can always access the document or email offline.
+- The Rights Management issuer can still open a document after it's revoked.
+
+By default, this account is also the **Rights Management owner** for that content, which is the case when a user who created the item initiates the encryption. But there are some scenarios where an administrator or service can encrypt content on behalf of users. For example:
+
+- An administrator bulk-encrypts files on a file share: The administrator account in Microsoft Entra ID encrypts the documents for the users.
+- The Rights Management connector encrypts Office documents on a Windows Server folder: The service principal account in Microsoft Entra ID that is created for the Rights Management connector encrypts the documents for the users.
+
+In these scenarios, the Rights Management issuer can assign the Rights Management owner to another account by using the Microsoft Information Protection SDKs or PowerShell. For example, when you use the [Set-LabelFile](/en-us/powershell/module/purviewinformationprotection/set-filelabel) PowerShell cmdlet with the Microsoft Purview Information Protection client, you can specify the *Owner* parameter to assign the Rights Management owner to another account.
+
+When the Rights Management issuer encrypts on behalf of users, assigning the Rights Management owner ensures that the original item owner has the same level of control for their encrypted content as if they initiated the encryption themselves.
+
+For example, the user who created the document can print it, even though it's now labeled with encryption settings that don't include the Print usage right. The same user can always access their document, regardless of the offline access setting or expiry date that might have been configured in the encryption settings. In addition, because the Rights Management owner has the Full Control usage right, this user can also re-encrypt the document to grant additional users access (at which point the user then becomes the Rights Management issuer as well as the Rights Management owner), and this user can even remove the encryption. However, only the Rights Management issuer can track and revoke a document.
+
+The Rights Management owner for an item is logged as the **owner-email** field in the [usage logs](rights-management-usage-logging#how-to-interpret-your-usage-logs).
+
+Note
+
+The Rights Management owner is independent from the Windows file system Owner. They're often the same but can be different, even if you don't use the SDKs or PowerShell.
+
+## Rights Management use license
+
+When a user opens an item that has been encrypted by the Azure Rights Management service, a Rights Management use license for that content is granted to the user. This use license is a certificate that contains the user's usage rights for item, and the encryption key that was used to encrypt the content. The use license also contains an expiry date if this has been set, and how long the use license is valid.
+
+A user must have a valid use license to open the content in addition to their rights account certificate (RAC), which is a certificate that's granted when the [user environment is initialized](rights-management-how-does-it-work#initializing-the-user-environment) and then renewed every 31 days.
+
+For the duration of the use license, the user isn't reauthenticated or reauthorized for the content. This lets the user continue to open the encrypted item without an internet connection. When the use license validity period expires, the next time the user accesses the encrypted item, the user must be reauthenticated and reauthorized.
+
+When items are encrypted by using a sensitivity label that defines the encryption settings, you can change these settings in your sensitivity label without having to encrypt the content again. If the user has already accessed the content, the changes take effect after their use license has expired. However, when users apply permissions themselves (also known as user-defined permissions, custom permissions, or an ad-hoc rights policy) and these permissions need to change after the item is encrypted, that content must be encrypted again with the new permissions. User-defined permissions for an email message are implemented with the Do Not Forward option.
+
+The default use license validity period for a tenant is 30 days and you can configure this value by using the PowerShell cmdlet, [Set-AipServiceMaxUseLicenseValidityTime](/en-us/powershell/module/aipservice/set-aipservicemaxuselicensevaliditytime). You can configure a more restrictive setting for when encryption is applied by using a sensitivity label that's configured to assign permissions now, or a rights management template:
+
+- When you configure a sensitivity label, the use license validity period takes its value from the **Allow offline access** setting.
+
+    For more information and guidance to configure this setting for a sensitivity label, see the recommendations table from the instructions how to [configure permissions now](encryption-sensitivity-labels#assign-permissions-now) for a sensitivity label.
+- When you configure a rights management template by using PowerShell, the use license validity period takes its value from the *LicenseValidityDuration* parameter in the [Set-AipServiceTemplateProperty](/en-us/powershell/module/aipservice/set-aipservicetemplateproperty) and [Add-AipServiceTemplate](/en-us/powershell/module/aipservice/add-aipservicetemplate) cmdlets.
+
+    For more information and guidance to configure this setting by using PowerShell, see the help for each cmdlet.
+
+## Related documentation
+
+- [Restrict access to content by using sensitivity labels to apply encryption](encryption-sensitivity-labels)
+- [Configure Azure Rights Management super users for discovery services or data recovery](encryption-super-users)
