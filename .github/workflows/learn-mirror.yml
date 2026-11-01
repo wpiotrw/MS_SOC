@@ -39,6 +39,12 @@ jobs:
           tools/run_learn_mirror.sh 5 "$RUNNER_TEMP/mirror-message.txt" | tee "$RUNNER_TEMP/mirror.log"
           { echo '```'; cat "$RUNNER_TEMP/mirror.log"; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
+      # CLAUDE.md 5gc (1 XI 2026): Purview's SIT pages carry sample credentials ("Credential example"); GitHub push
+      # protection rejected three mirror commits over one of them (sit-defn-azure-iot-connection-string.md) - they are
+      # replaced by a marker before the commit, the live Learn page stays the reference
+      - name: Remove sample credentials from the copy
+        run: python3 tools/mirror_redact.py "$GITHUB_WORKSPACE"
+
       - name: Commit mirror/
         run: |
           if [ -z "$(git status --porcelain -- mirror)" ]; then

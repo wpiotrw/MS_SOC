@@ -51549,6 +51549,24 @@ skryptu, jasny i ciemny motyw.
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
 
+### §5gc — Learn mirror: przykladowe poswiadczenia z Purview blokowaly push (1 XI 2026)
+
+Wlasciciel: „Mamy blad w GitHub — Learn mirror: All jobs have failed (45 min)".
+- **Przyczyna (log trzech nieudanych przebiegow: 30 X 23:09, 31 X 13:49, 31 X 22:46 UTC):** GitHub push protection
+  (`GH013: Push cannot contain secrets`, typ „Azure IoT Hub Connection String") odrzucal commit kopii przez
+  `mirror/learn/purview/Purview/sit-defn-azure-iot-connection-string.md:77` — sekcje „Credential example" strony Purview
+  o typie informacji poufnych (SIT): fikcyjny, ale poprawny formatem connection string. Odrzucony byl CALY commit, wiec
+  przez dwa dni zadna zmiana stron Learn nie weszla do repo. Nic nie wyciekalo — commit nie dotarl do GitHub.
+- **Poprawka:** `tools/mirror_redact.py` (krok „Remove sample credentials from the copy" w `learn-mirror.yml` przed
+  commitem): w plikach nowych/zmienionych pod `mirror/` sekcje „Credential example" (kod w linii i bloki) oraz wartosci
+  w formatach, ktore skanuje push protection (connection stringi i klucze kont Azure, AWS, GitHub, Slack, Google,
+  Stripe, Twilio, SendGrid, npm, PyPI, bloki kluczy prywatnych) zamienia na znacznik „sample credential removed by the
+  MS_SOC mirror (GitHub push protection) - see the live Learn page". Strona na zywo pozostaje wzorcem; przyklad klucza
+  nie zmienia sensu strony. Nie zezwalamy na „sekret" w GitHub — nastepny przyklad zablokowalby push znowu.
+- Testy: plik testowy z dokladnym wierszem strony + klucz AWS + blok klucza prywatnego — wszystkie zamienione, zwykly
+  tekst (`HostName` w sekcji Pattern) nietkniety; skan calego obecnego `mirror/` — 0 plikow do zmiany; YAML poprawny;
+  reczne uruchomienie workflow po wdrozeniu.
+
 ### §5gb — Graph API Radar: ramka „Today" mowi, co maja pelne listy (31 X 2026)
 
 Wlasciciel (zrzuty z iPhone'a): „Cos popsules — allowPasswordChangeAfterSecureSignIn (Jan Bakker, komendy, przyklady)
