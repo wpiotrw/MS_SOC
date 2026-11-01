@@ -47,5 +47,12 @@
     "Author": "Steven Lim",
     "Kind": "git",
     "Note": "Steven Lim (KQLWizard, x.com/0x534c): Defender XDR and Sentinel queries; his X posts are not readable by code (x.com refuses robots), the repository is - 5ez"
+  },
+  {
+    "SourceName": "SlimKQL Detections.AI (Steven Lim)",
+    "SourceURL": "https://github.com/SlimKQL/Detections.AI",
+    "Author": "Steven Lim",
+    "Kind": "git",
+    "Note": "Steven Lim's second repository: detection rules (KQL folder, ~120 rules, updated several times a week in X 2026); the first one is Hunting-Queries-Detection-Rules. CLAUDE.md 5gd."
   }
 ]

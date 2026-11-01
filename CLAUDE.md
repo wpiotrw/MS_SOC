@@ -42100,8 +42100,20 @@ odtad CZTERNASCIE (4-17).**
     b.appendChild(sm); return b;
   }
   function chip(t, cls, title) { var c = el("span", "s5el-chip" + (cls ? " " + cls : ""), t); if (title) c.title = title; return c; }
+  /* §5gd (1 XI 2026, owner: "show the incidents together with what Microsoft finally publishes - clearly marked"):
+     Microsoft's response named by its source and day - MSRC blog first, then Threat Intelligence, the Security blog,
+     Incident Response, Message Center, the Security Update Guide - and how many days after the first report */
+  var MSRANK = [/^MSRC blog/, /Threat Intelligence/, /Security Blog/i, /Incident Response/, /^Message Center/, /Update Guide/];
+  function msBest(s) {
+    var it = (s.microsoft || {}).items || []; if (!it.length) return null;
+    return it.slice().sort(function (a, b) { var ra = MSRANK.findIndex(function (r) { return r.test(a.what || ""); }), rb = MSRANK.findIndex(function (r) { return r.test(b.what || ""); });
+      return ((ra < 0 ? 9 : ra) - (rb < 0 ? 9 : rb)) || String(a.date || "").localeCompare(String(b.date || "")); })[0];
+  }
+  function msShort(w) { return /^MSRC blog/.test(w) ? "MSRC blog" : /Threat Intelligence/.test(w) ? "MS Threat Intel" : /^Message Center/.test(w) ? w.replace("Message Center ", "MC ") : /Update Guide/.test(w) ? "MSRC update guide" : /Incident Response/.test(w) ? "MS Incident Response" : /Security Blog/i.test(w) ? "MS Security blog" : w; }
+  function daysAfter(s, d) { var a = Date.parse(String(s.firstReported || "").slice(0, 10)), b = Date.parse(String(d || "").slice(0, 10)); if (isNaN(a) || isNaN(b)) return ""; var n2 = Math.round((b - a) / 864e5); return n2 <= 0 ? "same day as the first report" : n2 + " day" + (n2 === 1 ? "" : "s") + " after the first report"; }
   function msChip(s) {
-    return s.microsoft.status === "described" ? chip("Described by Microsoft", "ok", "Found in: " + s.microsoft.items.map(function (x) { return x.what; }).join(", "))
+    var mb = msBest(s);
+    return s.microsoft.status === "described" ? chip("Microsoft: " + (mb ? msShort(mb.what) + " · " + dmy(mb.date).slice(0, 5) : "described"), "ok", "Found in: " + s.microsoft.items.map(function (x) { return x.what + " (" + dmy(x.date) + ")"; }).join(", "))
       : chip("Not described by Microsoft yet", "warn", "Checked: " + s.microsoft.checked);
   }
 
@@ -42290,7 +42302,8 @@ odtad CZTERNASCIE (4-17).**
     fact("First reported", dmy(s.firstReported));
     fact("Seen by this portal", dmy(day(s.firstSeen)));
     fact("Last update", dmy(day(s.lastUpdate)));
-    fact("Microsoft", s.microsoft.status === "described" ? "Described" : "Not described yet", s.microsoft.status === "described" ? "s5et-ok" : "s5et-warn");
+    var mbd = msBest(s);
+    fact("Microsoft", s.microsoft.status === "described" ? (mbd ? msShort(mbd.what) + " · " + dmy(mbd.date) : "Described") : "Not described yet", s.microsoft.status === "described" ? "s5et-ok" : "s5et-warn");
     fact("Areas", s.areas.join(", ") || "—");
     fact("Sources", s.sources.length + " — " + s.sources.join(", "));
     fact("Analysis", N ? "Written " + (N.updated ? dmy(N.updated) : "") + (N.by ? " by the " + N.by : " by a person") : "None yet");
@@ -42299,6 +42312,22 @@ odtad CZTERNASCIE (4-17).**
       fact("Related incident", rl);
     }
     d.appendChild(f);
+    /* §5gd: Microsoft's response, in its own rounded frame at the top - every Microsoft publication on the incident,
+       best source first, with its day and the delay after the first report; or, plainly, that there is none yet */
+    var rsp = el("div", "s5gd-rsp " + (s.microsoft.status === "described" ? "s5gd-yes" : "s5gd-no"));
+    var rh = el("div", "s5gd-rh"); rh.appendChild(el("span", "s5gd-rl", "Microsoft's response"));
+    if (s.microsoft.status !== "described") { rh.appendChild(el("span", "s5gd-rb s5gd-rb-no", "Nothing published yet")); rsp.appendChild(rh);
+      rsp.appendChild(el("p", "s5gd-rn", "No Microsoft publication names this incident yet. Checked on every run: " + (s.microsoft.checked || "the MSRC blog, Microsoft Threat Intelligence, the Security blog, Incident Response, Message Center and the Security Update Guide") + "."));
+    } else {
+      rh.appendChild(el("span", "s5gd-rb s5gd-rb-yes", "Published · " + s.microsoft.items.length)); rsp.appendChild(rh);
+      var MI = s.microsoft.items.slice().sort(function (a, b) { var ra = MSRANK.findIndex(function (r) { return r.test(a.what || ""); }), rb = MSRANK.findIndex(function (r) { return r.test(b.what || ""); }); return ((ra < 0 ? 9 : ra) - (rb < 0 ? 9 : rb)) || String(a.date || "").localeCompare(String(b.date || "")); });
+      var rl2 = el("ul", "s5gd-rlst");
+      MI.forEach(function (m) { var li = el("li"), top = el("div", "s5gd-rt"); top.appendChild(el("span", "s5gd-src", msShort(m.what || "Microsoft")));
+        var a2 = aLink(m.title, m.link); a2.className = (a2.className || "") + " s5gd-ra"; top.appendChild(a2); li.appendChild(top);
+        var meta = el("div", "s5gd-rm"); meta.appendChild(el("span", "s5gd-d", dmy(m.date))); var da = daysAfter(s, m.date); if (da) meta.appendChild(el("span", "s5gd-d", da)); li.appendChild(meta); rl2.appendChild(li); });
+      rsp.appendChild(rl2);
+    }
+    d.appendChild(rsp);
     appsCard(s, d);   /* §5ez */
     infraCard(s, d);  /* §5fb */
     var cols = el("div", "s5et-cols"), A = el("div", "s5et-col"), B = el("div", "s5et-col"); cols.appendChild(A); cols.appendChild(B); d.appendChild(cols);
@@ -42922,7 +42951,7 @@ odtad CZTERNASCIE (4-17).**
     var c3 = el("span", "s5el-c3"); c3.setAttribute("data-l", "Reported"); c3.textContent = dmy(s.firstReported); h.appendChild(c3);
     var c4 = el("span", "s5el-c4"); c4.setAttribute("data-l", "Last update"); c4.textContent = dmy(day(s.lastUpdate)); h.appendChild(c4);
     var c5 = el("span", "s5el-c5 " + (s.microsoft.status === "described" ? "s5el-yes" : "s5el-no")); c5.setAttribute("data-l", "Microsoft");
-    c5.textContent = s.microsoft.status === "described" ? "Described" : "Not yet"; h.appendChild(c5);
+    var mb5 = msBest(s); c5.textContent = s.microsoft.status === "described" ? (mb5 ? msShort(mb5.what) + " " + dmy(mb5.date).slice(0, 5) : "Described") : "Not yet"; h.appendChild(c5);   /* §5gd */
     var c6 = el("span", "s5el-c6" + (s.curated ? " s5el-yes" : " s5el-mut")); c6.setAttribute("data-l", "Analysis"); c6.textContent = s.curated ? "Written" : "Not yet"; h.appendChild(c6);
     r.appendChild(h);
     var d = el("div", "s5el-det"); d.hidden = true; r.appendChild(d);
@@ -49329,6 +49358,21 @@ button.s5fz-urn:hover{color:var(--accent);text-decoration:underline}
 .s5ga-src .s5fz-sc{margin:0 0 10px!important}
 .s5ga-src .s5fz-says{color:var(--text)!important;font-size:14.5px!important}
 .s5ga-ab .s5ga-src{margin-top:8px}
+/* §5gd: Microsoft's response frame in Threat Research */
+.s5gd-rsp{margin:10px 0 12px;padding:11px 13px;border-radius:14px;border:2px solid #2f5fd0;background:color-mix(in srgb,#2f5fd0 8%,var(--surface))}
+.s5gd-rsp.s5gd-no{border-color:#b7791f;background:color-mix(in srgb,#b7791f 8%,var(--surface))}
+.s5gd-rh{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:6px}
+.s5gd-rl{font-size:13px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--text)}
+.s5gd-rb{padding:2px 10px;border-radius:999px;font-size:13px;font-weight:700;color:#fff}.s5gd-rb-yes{background:#2f5fd0}.s5gd-rb-no{background:#b7791f}
+.s5gd-rn{margin:0;font-size:14.5px;line-height:1.5;color:var(--text)}
+.s5gd-rlst{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.s5gd-rlst li{padding:8px 10px;border-radius:10px;border:1px solid color-mix(in srgb,var(--text) 22%,transparent);background:var(--surface)}
+.s5gd-rt{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 8px}
+.s5gd-src{flex:0 0 auto;padding:2px 9px;border-radius:999px;font-size:12.5px;font-weight:700;color:#fff;background:#2f5fd0}
+#tab-threats .s5gd-ra,.s5gd-ra{font-weight:700;font-size:15.5px;line-height:1.35;color:var(--text)!important;text-decoration:none}
+.s5gd-ra:hover{color:var(--accent)!important;text-decoration:underline}
+.s5gd-rm{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+.s5gd-d{padding:1px 8px;border-radius:999px;font-size:13px;color:var(--text);border:1px solid color-mix(in srgb,var(--text) 30%,transparent)}
 /* §5gb: what the full lists hold when today's frame is filtered */
 .s5gb-bey{margin:10px 0 12px;padding:10px 12px;border-radius:12px;border:2px solid var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--surface))}
 .s5gb-bh{margin:0 0 6px;font-weight:800;font-size:14.5px;color:var(--text)}
@@ -51548,6 +51592,31 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5gd — MSRC blog w Threat Research, „Microsoft's response", drugie repozytorium SlimKQL (1 XI 2026)
+
+Wlasciciel: „W kontekscie security i incydentow, jak np. PHP2Shell — czy sledzimy strony MS takie jak blog MSRC? Warto
+dopisac do zrodel? Moglibysmy pokazac znalezione incydenty z tym, co w koncu publikuje Microsoft — jasno i przejrzyscie
+zaznaczone. Oraz github.com/SlimKQL (dwa repozytoria, ostatnio aktualizowane) — przyda sie? Mozna powiazac dane".
+- **Stan przed zmiana (sprawdzony):** blogu MSRC nie czytalismy (tylko MSRC Security Update Guide, RSS CVE). Stary
+  `msrc.microsoft.com/feed` jest pusty od 2022 („Content Not Found"). SlimKQL: `Hunting-Queries-Detection-Rules` byl
+  w bibliotece KQL od 21 X (312 zapytan); drugie repozytorium `Detections.AI` (120 plikow .kql, 25 commitow w X) nie.
+- **MSRC blog:** strona blogu laduje liste z JSON `https://www.microsoft.com/msstoreapiprod/api/msrc/Search?PageType=
+  Categories&FilterType=categories&top=30&query=MSRC&skip=0` (title, blurb, publishedDate, permalink; odpowiada tez
+  zwyklemu klientowi). Nowe zrodlo w `threat_sources.json` (Kind `msrc-blog`, Microsoft, Tier core); `tools/threats.py`
+  zamienia wyniki na pozycje jak z RSS — trafiaja do „Microsoft items" historii po tych samych slowach/CVE co inne
+  zrodla Microsoftu. Przyklad: „Patch now: PHP2Shell, Brotli, and eMudhra guidance for customers" (30 X 2026) przy
+  historii PHP2Shell (pierwsze doniesienie 21 X).
+- **„Microsoft's response" (Threat Research):** na gorze kazdego incydentu zaokraglona ramka — niebieska „Published · N":
+  kazda publikacja Microsoftu (najpierw MSRC blog, potem Threat Intelligence, Security blog, Incident Response, Message
+  Center, Security Update Guide) z plakietka zrodla, tytulem, data i „N days after the first report"; bursztynowa
+  „Nothing published yet" z lista zrodel sprawdzanych w kazdym przebiegu. W wierszu listy kolumna Microsoft i chip mowia,
+  kto i kiedy („MSRC blog 30/10", „MC MC1234567 …") zamiast samego „Described".
+- **SlimKQL:** `Detections.AI` dopisane do `kql_sources.json` (Kind git) — `tools/kql_repos.py` (raz dziennie) zbiera
+  jego pliki .kql; zapytania z repozytoriow sa wiazane z incydentami tak jak dotad (slowa historii / CVE). Najnowsze
+  zapytanie Stevena „php2Shell Indicator Scan" (1 XI) przyjdzie z pierwszego repozytorium w najblizszym przebiegu.
+- Testy: odpowiedz JSON MSRC z narzedzia (30 pozycji z 1 110), WebKit 390 px — wiersz „MSRC blog 30/10", ramka z
+  „9 days after the first report", ramka „Nothing published yet" przy historii bez publikacji; skladnia, bramka OK.
 
 ### §5gc — Learn mirror: przykladowe poswiadczenia z Purview blokowaly push (1 XI 2026)
 

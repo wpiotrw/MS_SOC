@@ -34,6 +34,15 @@
     "CheckOnly": true
   },
   {
+    "SourceName": "MSRC blog",
+    "SourceURL": "https://www.microsoft.com/msstoreapiprod/api/msrc/Search?PageType=Categories&FilterType=categories&top=30&query=MSRC&skip=0",
+    "Site": "https://www.microsoft.com/en-us/msrc/blog/category?cat=MSRC",
+    "Tier": "core",
+    "Kind": "msrc-blog",
+    "Microsoft": true,
+    "Note": "Microsoft Security Response Center: guidance for customers on incidents and vulnerabilities (e.g. 'Patch now: PHP2Shell, Brotli, and eMudhra', 30 X 2026). The page loads its list from this JSON (title, blurb, date, permalink); the old msrc.microsoft.com/feed is empty since 2022. CLAUDE.md 5gd."
+  },
+  {
     "SourceName": "CISA Known Exploited Vulnerabilities (Microsoft)",
     "SourceURL": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
     "Site": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",

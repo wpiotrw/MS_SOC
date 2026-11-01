@@ -272,7 +272,15 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                 kev.sort(key=lambda x: (x["added"] or "", x["cve"] or ""), reverse=True)
                 rep["kept"] = len(kev); rep["newest"] = kev[0]["added"] if kev else None
                 srep.append(rep); continue
-            items = parse_feed(raw)
+            if s.get("Kind") == "msrc-blog":
+                # CLAUDE.md 5gd (1 XI 2026, owner: "MSRC blog - show the incidents together with what Microsoft finally
+                # publishes"): the MSRC blog page loads its list from this JSON - title, blurb, date, permalink
+                j = json.loads(raw)
+                items = [{"title": x.get("title") or "", "link": "https://www.microsoft.com/en-us/msrc" + (x.get("permalink") or x.get("readMoreLink") or ""),
+                          "published": (x.get("publishedDate") or "")[:10], "summary": strip(x.get("blurb") or "")[:1500], "html": "", "author": "MSRC"}
+                         for x in j.get("results") or [] if x.get("title")]
+            else:
+                items = parse_feed(raw)
             rep["read"] = len(items)
             rep["newest"] = max([i["published"] or "" for i in items] or [""]) or None
             for i in items:
@@ -499,7 +507,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
             "articles": [a["id"] for a in L], "sources": sorted({a["source"] for a in L}),
             "areas": note.get("areas") or areas, "cves": cves, "words": words,
             "microsoft": {"status": "described" if ms else "not-yet", "items": ms[:8],
-                          "checked": "Microsoft Threat Intelligence, Microsoft Security Blog, Microsoft Incident Response, MSRC Security Update Guide, Message Center (mc.merill.net, 60 days)"},
+                          "checked": "MSRC blog, Microsoft Threat Intelligence, Microsoft Security Blog, Microsoft Incident Response, MSRC Security Update Guide, Message Center (mc.merill.net, 60 days)"},
             "score": max(a["score"] for a in L) + 2 * len({a["source"] for a in L}) + (6 if note else 0),
             "articlesBefore": len(ps.get("articles") or []) if ps else 0,
             # CLAUDE.md 5ey (owner 22 X: "ConnectWise has KQL when expanded - why is it not shown? Does KQL mean the incident
