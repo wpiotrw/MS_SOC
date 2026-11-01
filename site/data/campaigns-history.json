@@ -6262,14 +6262,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-30",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-31",
 "text":"August 1, 2026."
 },
@@ -6327,6 +6319,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-31",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-01",
 "text":"August 1, 2026."
 },
 {
@@ -6926,7 +6926,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-10-31",
+"seen":"2026-11-01",
 "text":"early February 2026."
 },
 {
@@ -6934,7 +6934,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-10-31",
+"seen":"2026-11-01",
 "text":"February 2027."
 },
 {
@@ -8412,6 +8412,14 @@
 "date":"2026-10-30",
 "group":"community",
 "found":"2026-10-30"
+},
+"https://thehackernews.com/2026/11/netamloader-malware-targets-government.html":{
+"title":"NetamLoader Malware Targets Government Windows 10 Systems in Asia via .NET Injection",
+"link":"https://thehackernews.com/2026/11/netamloader-malware-targets-government.html",
+"source":"Hacker News",
+"date":"2026-11-01",
+"group":"community",
+"found":"2026-11-01"
 }
 },
 "final":"2026-11-10",
@@ -10798,7 +10806,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-10-31",
+"seen":"2026-11-01",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10806,7 +10814,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-10-31",
+"seen":"2026-11-01",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -17019,6 +17027,16 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-01",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"community",
+"title":"NetamLoader Malware Targets Government Windows 10 Systems in Asia via .NET Injection",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/11/netamloader-malware-targets-government.html"
 }
 ],
 "archive":{
