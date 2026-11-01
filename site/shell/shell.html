@@ -3306,6 +3306,9 @@ td.src a:hover{background:var(--accent);color:var(--on-accent)}
 .s5er-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:10px}
 .s5er-box{display:flex;flex-direction:column;gap:6px;min-width:0;padding:10px 12px 12px;border:1px solid var(--border);border-radius:12px;background:var(--bg)}
 .s5er-hot{border-color:var(--accent)}
+/* §5fx-b: every surface box has the same visible frame (Roles with 0 had only the faint border); a box with changes is thicker */
+.s5er-grid>.s5er-box,#tab-overview .s5er-grid>.s5er-box{border:2px solid color-mix(in srgb,var(--accent) 45%,var(--border))}
+.s5er-grid>.s5er-box.s5er-hot,#tab-overview .s5er-grid>.s5er-box.s5er-hot{border:2px solid var(--accent)}
 .s5er-bh{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;background:none;border:0;padding:0 0 6px;margin:0;border-bottom:1px solid var(--border-soft);font:inherit;color:var(--text);text-align:left;cursor:pointer}
 .s5er-lab{flex:1 1 100%;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
 .s5er-n{font-size:26px;font-weight:700;line-height:1.05;color:var(--muted)}
@@ -5377,10 +5380,124 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 @media (max-width:760px){#tab-deadlines .s5ci-tdl .s5ci-tr>.s5ci-do{grid-column:1/-1}
   #tab-deadlines .s5ci-tdl .s5ci-tr>.s5ci-do::before{content:"What to do";display:block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}}
 .s5fj-acts li.s5fj-moreli{border:0;background:none;padding:0}
+/* §5fx-b: a filled "new" badge; a list of apps as rows that open the app */
+.s5fj-bd.s5fj-add{color:#fff;background:#1f7a44;border-color:transparent}
+.s5fj-acts.s5fj-rows{flex-direction:column;flex-wrap:nowrap;gap:6px}
+.s5fj-acts.s5fj-rows>li,[id^="tab-"] .s5fj-acts.s5fj-rows>li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 10px;border-radius:8px;border:1px solid color-mix(in srgb,var(--text) 22%,transparent);background:color-mix(in srgb,var(--ok) 7%,transparent)}
+.s5fj-rowb{background:none;border:0;padding:0;color:var(--text);font-family:inherit;font-weight:700;font-size:15px;line-height:1.35;text-align:left;cursor:pointer;overflow-wrap:break-word;min-width:0}
+.s5fj-rowgo{flex:0 0 auto;color:var(--accent);font-weight:700;font-size:14px}
 .s5fj-moreb{font:inherit;font-size:14px;font-weight:600;color:var(--accent);background:none;border:0;padding:3px 4px;cursor:pointer}
 .s5fj-note{margin:0;font-size:14px;line-height:1.5;color:var(--muted)}
 .s5fj-old .s5fj-nm{font-size:15px}
 .s5er-box .s5fj-c+.s5fj-c{margin-top:2px}
+/* §5fy: Graph radar - community values, complete examples, warnings (names and values stand out, text in the text colour) */
+.s5fy-lead{margin:0 0 10px;font-size:14.5px;line-height:1.5;color:var(--text)}
+.s5fy-warn{border-left:4px solid #b7791f!important;background:color-mix(in srgb,#b7791f 12%,var(--surface))!important}
+.s5fy-warn .s5fo-lab{color:#b7791f!important}
+@media (prefers-color-scheme:dark){.s5fy-warn .s5fo-lab{color:#efba60!important}}
+.s5fy-wl{margin:0;padding-left:18px}.s5fy-wl li{margin:0 0 6px;font-size:14.5px;line-height:1.5;color:var(--text)}
+.s5fy-vl{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.s5fy-vr{padding:10px 12px;border-radius:9px;border:1.5px solid color-mix(in srgb,var(--accent) 40%,transparent);background:color-mix(in srgb,var(--accent) 6%,var(--surface));min-width:0}
+.s5fy-vh{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:6px}
+.s5fy-vn{font:700 14px/1.4 var(--mono,ui-monospace,monospace);color:var(--text);overflow-wrap:anywhere}
+.s5fy-vty{padding:1px 8px;border-radius:999px;font-size:12.5px;font-weight:700;color:#fff;background:#7a5bc7}
+.s5fy-va{margin:0 0 4px;font-size:14.5px;line-height:1.45;color:var(--text);overflow-wrap:anywhere}
+.s5fy-va b{color:var(--accent)}
+.s5fy-vw{margin:0 0 4px;font-size:14px;line-height:1.5;color:var(--text)}
+.s5fy-src{display:block;font-size:13.5px;color:var(--text)}.s5fy-src b{font-weight:700}.s5fy-src a{color:var(--accent);font-weight:600}
+.s5fy-ex{padding:12px 14px;border-radius:10px;border:2px solid color-mix(in srgb,var(--ok) 45%,transparent);background:color-mix(in srgb,var(--ok) 5%,var(--surface));margin:0 0 14px}
+.s5fy-exh{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px}
+.s5fy-ext{margin:0;font-size:17px;line-height:1.35;color:var(--text)}
+.s5fy-exw{margin:0 0 6px;font-size:14.5px;line-height:1.5;color:var(--text)}
+.s5fy-tst{margin:0 0 6px;padding:6px 10px;border-radius:8px;font-size:14px;line-height:1.45;color:var(--text);background:color-mix(in srgb,var(--ok) 12%,transparent);border-left:3px solid #1f7a44}
+.s5fy-tst-part{background:color-mix(in srgb,#b7791f 12%,transparent);border-left-color:#b7791f}
+.s5fy-scs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 8px;font-size:14px;color:var(--text)}
+.s5fy-sc{padding:1px 8px;border-radius:6px;font:600 13px/1.5 var(--mono,ui-monospace,monospace);color:var(--text);background:color-mix(in srgb,var(--text) 9%,transparent);border:1px solid color-mix(in srgb,var(--text) 22%,transparent)}
+.s5fy-code2{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:10px;margin-bottom:6px}
+.s5fy-code2>*{min-width:0}
+@media (max-width:760px){.s5fy-code2{display:block}.s5fy-code2>*+*{margin-top:10px}}
+.s5dv-chip.s5fy-hasex{color:#fff;background:#1f7a44;border-color:transparent;font-weight:700}
+.s5dv-chip.s5fy-hasval{color:#fff;background:#7a5bc7;border-color:transparent;font-weight:700}
+.s5fy-unread{color:#b7791f;border-color:#b7791f}
+.s5fy-ten{margin-top:14px}
+.s5fy-tw{overflow-x:auto}
+.s5fy-tt{width:100%;border-collapse:collapse;font-size:14px;color:var(--text)}
+.s5fy-tt th{text-align:left;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--text);padding:6px 8px;border-bottom:2px solid var(--border)}
+.s5fy-tt td{padding:7px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+.s5fy-sv{display:inline-block;margin:0 4px 4px 0;padding:1px 7px;border-radius:6px;font:600 13px/1.5 var(--mono,ui-monospace,monospace);color:var(--text);background:color-mix(in srgb,#7a5bc7 16%,transparent);border:1px solid color-mix(in srgb,#7a5bc7 50%,transparent)}
+.s5fy-none{color:var(--text);font-style:italic}
+/* §5fz: Where it stands (rounded frame), grouped sources as cards, the Updates report */
+.s5fz-st{margin:10px 0 8px;padding:12px 14px;border-radius:14px;border:2px solid color-mix(in srgb,var(--accent) 50%,transparent);background:color-mix(in srgb,var(--accent) 6%,var(--surface))}
+.s5fz-sth{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px}
+.s5fz-stl{font-size:13px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--text)}
+.s5fz-f{padding:3px 11px;border-radius:999px;font-size:13.5px;font-weight:700;color:#fff}
+.s5fz-f-pv{background:#b7791f}.s5fz-f-ga{background:#1f7a44}.s5fz-f-ms{background:#2f5fd0}.s5fz-f-no{background:transparent;color:var(--text);border:1.5px solid color-mix(in srgb,var(--text) 45%,transparent)}
+.s5fz-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px}
+.s5fz-sp{display:flex;align-items:flex-start;gap:8px;padding:7px 9px;border-radius:10px;border:1.5px solid color-mix(in srgb,var(--text) 22%,transparent);min-width:0}
+.s5fz-sp.on{border-color:#1f7a44;background:color-mix(in srgb,#1f7a44 12%,transparent)}
+.s5fz-sp.part{border-color:#b7791f;background:color-mix(in srgb,#b7791f 10%,transparent)}
+.s5fz-sp.off{border-style:dashed}
+.s5fz-dot{flex:0 0 auto;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;background:transparent;border:2px solid color-mix(in srgb,var(--text) 35%,transparent)}
+.s5fz-sp.on .s5fz-dot{background:#1f7a44;border-color:#1f7a44}.s5fz-sp.part .s5fz-dot{background:#b7791f;border-color:#b7791f}
+.s5fz-sx{display:flex;flex-direction:column;min-width:0;font-size:14px;line-height:1.35;color:var(--text)}
+.s5fz-sx b{font-weight:700}
+.s5fz-sw{font-size:13px;color:var(--text);overflow-wrap:anywhere}a.s5fz-sw{color:var(--accent)}
+.s5fz-sp.off .s5fz-sw{font-style:italic}
+.s5fz-stn{margin:8px 0 0;font-size:13px;line-height:1.45;color:var(--text)}
+.s5fz-gtabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.s5fz-gtab{font:700 14px/1.2 var(--sans);padding:7px 13px;border-radius:999px;border:1.5px solid color-mix(in srgb,var(--text) 30%,transparent);background:transparent;color:var(--text);cursor:pointer}
+.s5fz-gtab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.s5fz-sc{position:relative;padding:11px 13px;margin:0 0 10px;border-radius:12px;border:1.5px solid color-mix(in srgb,var(--text) 22%,transparent);background:var(--surface)}
+.s5fz-sc-names-it{border-left:4px solid #1f7a44}.s5fz-sc-feature{border-left:4px solid #2f5fd0}.s5fz-sc-doc{border-left:4px solid #7a5bc7}.s5fz-sc-words{border-left:4px solid #b7791f}
+.s5fz-sct{font-size:16px;font-weight:700;line-height:1.35;color:var(--text);text-decoration:none;background:none;border:0;padding:0;text-align:left;cursor:pointer;font-family:inherit}
+a.s5fz-sct:hover,button.s5fz-sct:hover{color:var(--accent);text-decoration:underline}
+.s5fz-scm{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0}
+.s5fz-rel{padding:2px 9px;border-radius:999px;font-size:12.5px;font-weight:700;color:#fff}
+.s5fz-rel-official,.s5fz-rel-primary{background:#2f5fd0}.s5fz-rel-vendor{background:#b42318}.s5fz-rel-research{background:#7a5bc7}.s5fz-rel-news{background:#4b5563}.s5fz-rel-community{background:#0e7c86}.s5fz-rel-query{background:#1f7a44}
+.s5fz-rel-names-it{background:#1f7a44}.s5fz-rel-feature{background:#2f5fd0}.s5fz-rel-doc{background:#7a5bc7}.s5fz-rel-words{background:#b7791f}.s5fz-rel-pv{background:#b7791f}.s5fz-rel-un{background:var(--bad)}
+.s5fz-by,.s5fz-dt{padding:1px 8px;border-radius:999px;font-size:13px;color:var(--text);border:1px solid color-mix(in srgb,var(--text) 30%,transparent)}
+.s5fz-says{margin:4px 0;font-size:14.5px;line-height:1.5;color:var(--text)}.s5fz-says b{font-weight:700}
+.s5fz-nos{font-style:italic}
+.s5fz-tst{margin:6px 0;padding:6px 10px;border-radius:8px;font-size:14px;line-height:1.45;color:var(--text);background:color-mix(in srgb,var(--ok) 12%,transparent);border-left:3px solid #1f7a44}
+.s5fz-open{display:inline-block;margin-top:4px;padding:4px 12px;border-radius:8px;font-size:14px;font-weight:700;color:var(--accent);border:1.5px solid var(--accent);text-decoration:none}
+.s5fz-ud{margin:16px 0 6px}
+.s5fz-ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.s5fz-ur{padding:10px 12px;border-radius:10px;border:1.5px solid color-mix(in srgb,var(--text) 22%,transparent);background:var(--surface)}
+.s5fz-urt{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.s5fz-urn{font:700 15.5px/1.35 var(--sans);color:var(--text);background:none;border:0;padding:0;text-align:left;cursor:pointer}
+button.s5fz-urn:hover{color:var(--accent);text-decoration:underline}
+.s5fz-urw{margin:5px 0 4px;font-size:14.5px;line-height:1.5;color:var(--text)}.s5fz-urw a{color:var(--accent);font-weight:600}
+.s5fz-uri{margin:0 0 4px;padding-left:18px;font-size:14px}.s5fz-uri a{color:var(--accent)}
+.s5fz-urk{font:500 12.5px/1.4 var(--mono,ui-monospace,monospace);color:var(--text);overflow-wrap:anywhere}
+.s5fz-k{padding:2px 9px;border-radius:999px;font-size:12.5px;font-weight:700;color:#fff}
+.s5fz-k-new{background:#2f5fd0}.s5fz-k-st{background:#1f7a44}.s5fz-k-src{background:#7a5bc7}.s5fz-k-ex{background:#0e7c86}.s5fz-k-gone{background:var(--bad)}
+.s5fz-tdl{margin:10px 0 4px;font-weight:700;color:var(--text)}
+/* §5ga: the shared source card looks the same in every tab - local link styles (Campaigns, Threat Research) must not win */
+.s5ga-src .s5fz-sc a.s5fz-sct,.s5ga-src .s5fz-sc button.s5fz-sct,.s5ga-src .s5fz-sc span.s5fz-sct{display:block;color:var(--text)!important;font-weight:700!important;font-size:16px!important;line-height:1.35!important;text-decoration:none!important}
+.s5ga-src .s5fz-sc a.s5fz-sct:hover{color:var(--accent)!important;text-decoration:underline!important}
+.s5ga-src a.s5fz-open{display:inline-block!important;margin-top:4px;padding:4px 12px!important;border-radius:8px!important;font-size:14px!important;font-weight:700!important;color:var(--accent)!important;border:1.5px solid var(--accent)!important;text-decoration:none!important;background:transparent!important}
+.s5ga-src .s5fz-sc{margin:0 0 10px!important}
+.s5ga-src .s5fz-says{color:var(--text)!important;font-size:14.5px!important}
+.s5ga-ab .s5ga-src{margin-top:8px}
+/* §5gb: what the full lists hold when today's frame is filtered */
+.s5gb-bey{margin:10px 0 12px;padding:10px 12px;border-radius:12px;border:2px solid var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--surface))}
+.s5gb-bh{margin:0 0 6px;font-weight:800;font-size:14.5px;color:var(--text)}
+.s5gb-bl{list-style:none;margin:0 0 8px;padding:0;display:flex;flex-direction:column;gap:6px}
+.s5gb-bl li{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;padding:7px 9px;border-radius:9px;border:1px solid color-mix(in srgb,var(--text) 22%,transparent);background:var(--surface)}
+.s5gb-bn{font:700 15.5px/1.35 var(--sans);color:var(--text);background:none;border:0;padding:0;text-align:left;cursor:pointer}
+.s5gb-bn:hover{color:var(--accent);text-decoration:underline}
+.s5gb-bc{font:500 12.5px/1.4 var(--mono,ui-monospace,monospace);color:var(--text);overflow-wrap:anywhere}
+.s5gb-bd{font-size:13px;color:var(--text);padding:1px 7px;border-radius:999px;border:1px solid color-mix(in srgb,var(--text) 30%,transparent)}
+.s5gb-go{margin:2px 8px 0 0;padding:7px 13px;border-radius:999px;font:700 14px/1.2 var(--sans);color:#fff;background:var(--accent);border:0;cursor:pointer}
+.s5gb-go2{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.s5fz-strip{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0 6px;padding:8px 10px;border-radius:14px;border:2px solid color-mix(in srgb,var(--accent) 50%,transparent);background:color-mix(in srgb,var(--accent) 6%,var(--surface))}
+.s5fz-dots{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 10px}
+.s5fz-d{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--text)}
+.s5fz-d .s5fz-dot{width:18px;height:18px;font-size:11px}
+.s5fz-d.on .s5fz-dot{background:#1f7a44;border-color:#1f7a44}.s5fz-d.part .s5fz-dot{background:#b7791f;border-color:#b7791f}
+.s5fz-d.off .s5fz-dl{opacity:.75}
+.s5ft-pane .s5fz-st{margin-top:0}
+@media (max-width:760px){.s5fz-steps{grid-template-columns:1fr}.s5fz-st{padding:10px}.s5fz-sp{padding:6px 8px}}
 .s5er-sub2{flex:1 1 100%;font-size:13.5px;color:var(--muted)}
 #tab-overview .s5er-sub2{font-size:14px}
 #tab-overview .s5er-sub{font-size:14.5px;color:var(--text)}
@@ -5583,7 +5700,45 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 @media (max-width:640px){.s5ft-gs{padding:9px 10px}.s5ft-fl{padding:0 6px 8px}.s5ft-fh{font-size:15.5px}.s5ft-open{margin-left:0}.s5ft-intro{padding:10px 12px}}
 @media (max-width:640px){.s5cd-bar,.s5dv-vnav,.s5fg-nav{padding:6px 8px;gap:5px}.s5cd-bar::before{flex-basis:100%;margin:2px 0 2px 2px}
  .s5cd-bar button:not(.s5cd-drawer),.s5dv-vb,.s5fg-navb{font-size:14px;padding:7px 11px}}
-.s5fq-c-cisa{--sc:#3fb37f}.s5fq-c-m{--sc:var(--accent)}.s5fq-c-t{--sc:#e3a33b}.s5fq-c-z{--sc:#b48cff}.s5fq-c-i{--sc:#4cc2d6}
+.s5fq-c-cisa{--sc:#3fb37f}.s5fq-c-m{--sc:var(--accent)}.s5fq-c-t{--sc:#e3a33b}.s5fq-c-z{--sc:#b48cff}.s5fq-c-i{--sc:#4cc2d6}.s5fq-c-cipp{--sc:#e86fa8}
+/* §5fw CIPP standards: impact and "new" as filled badges, framework numbers readable, the id in a code box */
+.s5dv-chip.s5fw-imp,.s5fo-chip.s5fw-imp{font-weight:700;border-color:transparent;color:#fff}
+.s5fo-chip.s5fw-imp-h{background:var(--bad)}.s5fo-chip.s5fw-imp-m{background:#b7791f}.s5fo-chip.s5fw-imp-l{background:var(--accent)}
+.s5fo-chip.s5fw-new{background:#1f7a44;color:#fff;border-color:transparent;font-weight:700}
+.s5fo-chip.s5fw-src{background:#e86fa8;color:#fff;border-color:transparent;font-weight:700}
+.s5dv-chip.s5fw-imp-h{background:var(--bad)}
+.s5dv-chip.s5fw-imp-m{background:#b7791f}
+.s5dv-chip.s5fw-imp-l{background:var(--accent);color:#fff}
+.s5dv-chip.s5fw-new{background:#1f7a44;color:#fff;border:0;font-weight:700}
+.s5dv-chip.s5fw-fw{color:var(--text);border-color:#e3a33b;background:color-mix(in srgb,#e3a33b 14%,transparent);font-weight:600}
+.s5dv-chip.s5fw-dt{color:var(--text);border-color:color-mix(in srgb,var(--text) 40%,transparent)}
+.s5fw-r .s5fw-t{font-size:16px;font-weight:700;color:var(--text)}
+.s5fw-id{display:block;width:max-content;max-width:100%;overflow-wrap:anywhere;margin:3px 0 4px;padding:1px 7px;border-radius:6px;font:600 13px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--text);background:color-mix(in srgb,var(--text) 9%,transparent);border:1px solid color-mix(in srgb,var(--text) 22%,transparent)}
+.s5fw-th{display:flex;align-items:center;gap:8px;margin:22px 0 6px;padding:7px 12px;border-left:5px solid #e86fa8;border-radius:8px 8px 0 0;background:color-mix(in srgb,#e86fa8 12%,transparent);font-size:16px}
+.s5fw-q{margin:6px 0 10px}
+.s5fw-fix pre{margin:6px 0}
+.s5fq-b-cipp{--sc:#e86fa8}
+.s5fw-tday .gd-trows li{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.s5fw-k{display:inline-block;padding:1px 8px;border-radius:999px;font-weight:700;font-size:12px;color:#fff}
+.s5fw-k-added{background:#1f7a44}.s5fw-k-changed{background:#b7791f}.s5fw-k-removed{background:var(--bad)}
+/* §5fw-b: retired module | Microsoft Graph PowerShell tabs inside the card */
+.s5fw-pst{margin-top:10px;border:1px solid color-mix(in srgb,var(--text) 22%,transparent);border-radius:10px;overflow:hidden}
+.s5fw-pstb{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid color-mix(in srgb,var(--text) 22%,transparent)}
+.s5fw-pstab{flex:1 1 auto;padding:9px 14px;border:0;border-bottom:3px solid transparent;background:transparent;color:var(--text);font-family:inherit;font-weight:700;font-size:15px;line-height:1.3;cursor:pointer}
+.s5fw-links{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 2px}
+.s5fw-pstab.s5fw-tdead.on{border-bottom-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,transparent)}
+.s5fw-pstab.s5fw-tok.on{border-bottom-color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}
+.s5fw-psp{padding:10px 12px}
+.s5fw-dead{margin:0 0 8px;padding:8px 10px;border-radius:8px;background:var(--bad);color:#fff;font-weight:600}
+.s5fw-oldpre{text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--bad) 70%,transparent);opacity:.85}
+.s5fw-map{list-style:none;margin:4px 0 8px;padding:0}.s5fw-map li{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0}
+.s5fw-mold{padding:1px 6px;border-radius:5px;background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--text);font-weight:600}
+.s5fw-arr{font-weight:700}.s5fw-mnew{font:600 14px ui-monospace,SFMono-Regular,Consolas,monospace}
+.s5fw-code{border:1px solid color-mix(in srgb,var(--text) 22%,transparent);border-radius:8px;margin:8px 0;overflow:hidden}
+.s5fw-codeh{display:flex;justify-content:space-between;align-items:center;padding:4px 8px;background:color-mix(in srgb,var(--text) 8%,transparent);font-weight:700;font-size:13px}
+.s5fw-code pre{margin:0;border:0;border-radius:0;white-space:pre;overflow-x:auto}
+.s5fw-copy{border:1px solid var(--accent);background:transparent;color:var(--accent);border-radius:6px;padding:2px 10px;font-weight:700;cursor:pointer}
+
 .s5dv-chip.s5fq-sc{border-color:var(--sc,var(--border));color:var(--text);font-weight:600;background:color-mix(in srgb,var(--sc,transparent) 14%,var(--surface))}
 .s5dv-chip.s5fq-req{border-color:var(--bad);color:var(--bad);font-weight:700}
 .s5dv-chip.s5fq-shall{border-color:var(--warn);color:var(--warn);font-weight:600}
@@ -5737,6 +5892,63 @@ td>.offt+.ref{display:block}
 .s5fj-clamp.s5fj-open{display:block;-webkit-line-clamp:unset;line-clamp:unset}
 .s5fj-tog{font:inherit;font-size:13.5px;font-weight:600;color:var(--accent);background:none;border:0;padding:2px 0;cursor:pointer}
 .s5er-nm{font-family:inherit}
+/* §5fx: an Overview change row in parts - badge, chips, endpoint boxes; text in the text colour, never a grey wall */
+.s5fx-p{display:flex;flex-direction:column;gap:5px;margin-top:4px}
+.s5fx-top{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.s5fx-b{display:inline-block;padding:2px 9px;border-radius:999px;font-weight:700;font-size:13px;line-height:1.5;color:#fff}
+.s5fx-add{background:#1f7a44}.s5fx-chg{background:#b7791f}.s5fx-rem{background:var(--bad)}
+.s5fx-c{display:inline-block;padding:1px 8px;border-radius:999px;border:1px solid color-mix(in srgb,var(--text) 35%,transparent);color:var(--text);font-size:13.5px;line-height:1.5}
+.s5fx-m{font-variant-numeric:tabular-nums}
+.s5fx-el{font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text);margin-top:2px}
+.s5fx-ep{display:flex;align-items:flex-start;gap:6px;min-width:0}
+.s5fx-mt{flex:0 0 auto;padding:1px 7px;border-radius:6px;font:700 12px/1.6 var(--mono,ui-monospace,monospace);color:#fff;background:var(--accent)}
+.s5fx-mt-GET{background:#2f7d4f}.s5fx-mt-POST{background:#b7791f}.s5fx-mt-PATCH,.s5fx-mt-PUT{background:#7a5bc7}.s5fx-mt-DELETE{background:var(--bad)}
+.s5fx-pa{flex:1 1 auto;min-width:0;padding:2px 7px;border-radius:6px;background:color-mix(in srgb,var(--text) 9%,transparent);border:1px solid color-mix(in srgb,var(--text) 20%,transparent);color:var(--text);font:500 13px/1.5 var(--mono,ui-monospace,monospace);overflow-wrap:anywhere}
+.s5fx-eprem .s5fx-pa{text-decoration:line-through;text-decoration-color:var(--bad)}
+.s5fx-more{font-size:13.5px;font-weight:600;color:var(--accent)}
+.s5fx-t{font-size:14.5px;line-height:1.5;color:var(--text)}
+/* §5fx (31 X 2026, owner: "small grey letters, everything blends - are there more tabs like that?"): an audit of every
+   tab at 390 px in the dark scheme listed the long grey runs (60+ characters in the muted colour) - 571 in 20 tabs.
+   Text that IS the content (a title, what changed, why it matters, a description, a path) is in the text colour now;
+   the muted colour stays for help notes and data-freshness lines only. Small content text rises to 14 px. */
+.wrap .s5bk-its,
+.wrap .s5bk-itt,
+.wrap .s5cu-ovw,
+.wrap .s5er-w,
+.wrap .s5er-old .s5er-nm,
+.wrap .s5fj-note,
+.wrap .s5ci-why:not(.s5ci-miss),
+.wrap .s5ei-title,
+.wrap .s5ei-meta,
+.wrap .s5ei-what,
+.wrap .s5fq-st,
+.wrap .s5do-chs,
+.wrap .s5do-id,
+.wrap .s5fq-path,
+.wrap .ceos,
+.wrap .cscope,
+.wrap .s5cu-sm,
+.wrap .s5cu-dd,
+.wrap .s5dw-cr li.pos,
+.wrap .s5es-ul li,
+.wrap .s5cu-tcw,
+.wrap .s5cu-bnx,
+.wrap .s5ft-gi,
+.wrap .s5ft-fh,
+.wrap .s5ft-li,
+.wrap .s5el-rm,
+.wrap .kq p,
+.wrap .s5el-mut,
+.wrap .s5el-rd,
+.wrap .s5da-long,
+#tab-products .sec-body li{color:var(--text)}
+.wrap .s5do-chs,.wrap .s5do-id,.wrap .s5er-w{font-size:14px}
+.wrap .s5do-id{font-family:var(--mono,ui-monospace,monospace);font-weight:600}
+.wrap .s5fq-st{font-weight:600}
+.wrap .s5ei-title{font-weight:700}
+.s5er-l{gap:10px}
+.s5er-l > .s5er-r + .s5er-r{border-top:1px solid color-mix(in srgb,var(--text) 18%,transparent);padding-top:10px}
+#tab-overview .s5er-r .s5er-nm{font-size:16px;font-weight:700}
 
 </style>
 <!--SOC-SHELL part=script1-->
@@ -8582,7 +8794,7 @@ td>.offt+.ref{display:block}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Saturday 31 October 2026</b> &middot; published 07:46 Warsaw &middot; 17 October &ndash; 31 October 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>43</b> deadlines in 60 days<span>&middot; 38 inside 30, 14 due today or tomorrow</span></a><a class="count" href="#graph"><b>975</b> undocumented at Microsoft<span>&middot; 975 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>10</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>121</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>32</b> changes since 30 Oct<span>&middot; 6 at Microsoft, 26 in this report</span></a><a class="count" href="#chg14"><b>1768</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Sunday 1 November 2026</b> &middot; published 07:49 Warsaw &middot; 18 October &ndash; 1 November 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>37</b> deadlines in 60 days<span>&middot; 33 inside 30, 7 due today or tomorrow</span></a><a class="count" href="#graph"><b>975</b> undocumented at Microsoft<span>&middot; 975 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>17</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>122</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>14</b> changes since 31 Oct<span>&middot; 1 at Microsoft, 13 in this report</span></a><a class="count" href="#chg14"><b>1831</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -8783,7 +8995,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 31 October 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 1 November 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
