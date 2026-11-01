@@ -4901,6 +4901,154 @@
 "MC1479516"
 ]
 },
+"c-mc1243549":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-01",
+"name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"status":"Active",
+"members":[
+"MC1243549"
+],
+"log":[
+{
+"date":"2026-10-02",
+"id":"MC1243549",
+"what":"Message Center end date",
+"before":"2026-12-07",
+"after":"2026-12-31",
+"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"link":"https://mc.merill.net/message/MC1243549"
+},
+{
+"date":"2026-10-02",
+"id":"MC1243549",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"link":"https://mc.merill.net/message/MC1243549"
+},
+{
+"date":"2026-10-01",
+"id":"MC1243549",
+"what":"Microsoft's update note",
+"before":"",
+"after":"Phase 1, which enables Entra B2B for new external sharing, is now fully rolled out for Production environments.",
+"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"link":"https://mc.merill.net/message/MC1243549"
+},
+{
+"date":"2026-09-28",
+"id":"MC1243549",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"(Updated) Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"title":"SharePoint one-time passcode retirement slips: Phase 2 now starts mid-October and runs to the end of November",
+"link":"https://deltapulse.app/item/MC1243549"
+}
+],
+"milestones":{
+"MC1243549|posted":{
+"date":"2026-03-04",
+"label":"4 Mar 2026",
+"text":"Posted: Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B"
+},
+"MC1243549|to ensure a smooth transition phase the retirement of sharep#0":{
+"date":"2026-10-15",
+"label":"mid Oct 2026",
+"text":"Has been rescheduled to begin in mid-October 2026 and is expected to complete by end of November 2026 for Production environments."
+},
+"MC1243549|to ensure a smooth transition phase the retirement of sharep#1":{
+"date":"2026-11-30",
+"label":"end of Nov 2026",
+"text":"Has been rescheduled to begin in mid-October 2026 and is expected to complete by end of November 2026 for Production environments."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1243549":{
+"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"link":"https://mc.merill.net/message/MC1243549",
+"source":"Message Center",
+"id":"MC1243549",
+"date":"2026-03-04",
+"updated":"2026-10-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1243549":{
+"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"link":"https://deltapulse.app/item/MC1243549",
+"source":"Main list source",
+"id":"MC1243549",
+"date":"2026-03-04",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1459133":{
+"title":"MC1459133: Microsoft Entra ID: Passkey support for B2B users",
+"link":"https://mc.merill.net/message/MC1459133",
+"source":"MC - Merill",
+"date":"2026-10-08",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://daily.entra.news/day/2026-10-08/":{
+"title":"Entra outlines late-October passkey expansion for B2B and first MFA registration — 8 October 2026",
+"link":"https://daily.entra.news/day/2026-10-08/",
+"source":"Daily Entra News",
+"date":"2026-10-08",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra/b2b-direct-connect-and-file-sharing-support/m-p/4565297#M10486":{
+"title":"B2B Direct Connect and File Sharing Support",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/b2b-direct-connect-and-file-sharing-support/m-p/4565297#M10486",
+"source":"Microsoft Entra Blog",
+"date":"2026-10-16",
+"group":"community",
+"found":"2026-10-17"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=578066":{
+"title":"Dynamics 365 Commerce: Digital commerce - Streamline multioutlet access for B2B web storefronts",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578066",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=578061":{
+"title":"Dynamics 365 Commerce: Omnichannel commerce - Add support for multiple outlet B2B ordering via CSU",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578061",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
+},
+"https://mc.merill.net/message/RM578066":{
+"title":"RM578066: Dynamics 365 Commerce: Digital commerce - Streamline multioutlet access for B2B web storefronts",
+"link":"https://mc.merill.net/message/RM578066",
+"source":"MC - Merill",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
+},
+"https://mc.merill.net/message/RM578061":{
+"title":"RM578061: Dynamics 365 Commerce: Omnichannel commerce - Add support for multiple outlet B2B ordering via CSU",
+"link":"https://mc.merill.net/message/RM578061",
+"source":"MC - Merill",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-24"
+}
+},
+"final":"2026-11-30",
+"type":"Retirement",
+"tech":"Entra",
+"posts":[
+"MC1243549"
+]
+},
 "c-mc1481317":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-01",
@@ -6238,6 +6386,14 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
+"seen":"2026-10-29",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
 "seen":"2026-10-30",
 "text":"August 1, 2026."
 },
@@ -6359,14 +6515,6 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-10-31",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
-"seen":"2026-11-01",
 "text":"August 1, 2026."
 },
 {
@@ -6494,163 +6642,6 @@
 "tech":"Exchange",
 "posts":[
 "MC1293480"
-]
-},
-"c-mc1243549":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-01",
-"name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
-"status":"Active",
-"members":[
-"MC1243549"
-],
-"log":[
-{
-"date":"2026-11-01",
-"id":"MC1243549",
-"what":"Microsoft revised the post",
-"before":"2026-10-01",
-"after":"2026-03-04",
-"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
-"link":"https://mc.merill.net/message/MC1243549"
-},
-{
-"date":"2026-10-02",
-"id":"MC1243549",
-"what":"Message Center end date",
-"before":"2026-12-07",
-"after":"2026-12-31",
-"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
-"link":"https://mc.merill.net/message/MC1243549"
-},
-{
-"date":"2026-10-02",
-"id":"MC1243549",
-"what":"Microsoft edited the post text",
-"before":"",
-"after":"see the post",
-"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
-"link":"https://mc.merill.net/message/MC1243549"
-},
-{
-"date":"2026-10-01",
-"id":"MC1243549",
-"what":"Microsoft's update note",
-"before":"",
-"after":"Phase 1, which enables Entra B2B for new external sharing, is now fully rolled out for Production environments.",
-"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
-"link":"https://mc.merill.net/message/MC1243549"
-},
-{
-"date":"2026-09-28",
-"id":"MC1243549",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"(Updated) Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
-"title":"SharePoint one-time passcode retirement slips: Phase 2 now starts mid-October and runs to the end of November",
-"link":"https://deltapulse.app/item/MC1243549"
-}
-],
-"milestones":{
-"MC1243549|posted":{
-"date":"2026-03-04",
-"label":"4 Mar 2026",
-"text":"Posted: Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B"
-},
-"MC1243549|to ensure a smooth transition phase the retirement of sharep#0":{
-"date":"2026-10-15",
-"label":"mid Oct 2026",
-"text":"Has been rescheduled to begin in mid-October 2026 and is expected to complete by end of November 2026 for Production environments."
-},
-"MC1243549|to ensure a smooth transition phase the retirement of sharep#1":{
-"date":"2026-11-30",
-"label":"end of Nov 2026",
-"text":"Has been rescheduled to begin in mid-October 2026 and is expected to complete by end of November 2026 for Production environments."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1243549":{
-"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
-"link":"https://mc.merill.net/message/MC1243549",
-"source":"Message Center",
-"id":"MC1243549",
-"date":"2026-03-04",
-"updated":"2026-10-01",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/MC1243549":{
-"title":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
-"link":"https://deltapulse.app/item/MC1243549",
-"source":"Main list source",
-"id":"MC1243549",
-"date":"2026-03-04",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1459133":{
-"title":"MC1459133: Microsoft Entra ID: Passkey support for B2B users",
-"link":"https://mc.merill.net/message/MC1459133",
-"source":"MC - Merill",
-"date":"2026-10-08",
-"group":"community",
-"found":"2026-10-09"
-},
-"https://daily.entra.news/day/2026-10-08/":{
-"title":"Entra outlines late-October passkey expansion for B2B and first MFA registration — 8 October 2026",
-"link":"https://daily.entra.news/day/2026-10-08/",
-"source":"Daily Entra News",
-"date":"2026-10-08",
-"group":"community",
-"found":"2026-10-09"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-entra/b2b-direct-connect-and-file-sharing-support/m-p/4565297#M10486":{
-"title":"B2B Direct Connect and File Sharing Support",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/b2b-direct-connect-and-file-sharing-support/m-p/4565297#M10486",
-"source":"Microsoft Entra Blog",
-"date":"2026-10-16",
-"group":"community",
-"found":"2026-10-17"
-},
-"https://www.microsoft.com/microsoft-365/roadmap?id=578066":{
-"title":"Dynamics 365 Commerce: Digital commerce - Streamline multioutlet access for B2B web storefronts",
-"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578066",
-"source":"Microsoft 365 Roadmap",
-"date":"2026-10-23",
-"group":"community",
-"found":"2026-10-24"
-},
-"https://www.microsoft.com/microsoft-365/roadmap?id=578061":{
-"title":"Dynamics 365 Commerce: Omnichannel commerce - Add support for multiple outlet B2B ordering via CSU",
-"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578061",
-"source":"Microsoft 365 Roadmap",
-"date":"2026-10-23",
-"group":"community",
-"found":"2026-10-24"
-},
-"https://mc.merill.net/message/RM578066":{
-"title":"RM578066: Dynamics 365 Commerce: Digital commerce - Streamline multioutlet access for B2B web storefronts",
-"link":"https://mc.merill.net/message/RM578066",
-"source":"MC - Merill",
-"date":"2026-10-23",
-"group":"community",
-"found":"2026-10-24"
-},
-"https://mc.merill.net/message/RM578061":{
-"title":"RM578061: Dynamics 365 Commerce: Omnichannel commerce - Add support for multiple outlet B2B ordering via CSU",
-"link":"https://mc.merill.net/message/RM578061",
-"source":"MC - Merill",
-"date":"2026-10-23",
-"group":"community",
-"found":"2026-10-24"
-}
-},
-"final":"2026-11-30",
-"type":"Retirement",
-"tech":"Entra",
-"posts":[
-"MC1243549"
 ]
 },
 "c-mc1235720":{
@@ -7006,7 +6997,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-01",
+"seen":"2026-10-31",
 "text":"early February 2026."
 },
 {
@@ -7014,7 +7005,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-01",
+"seen":"2026-10-31",
 "text":"February 2027."
 },
 {
@@ -10878,7 +10869,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-01",
+"seen":"2026-10-31",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10886,7 +10877,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-01",
+"seen":"2026-10-31",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
