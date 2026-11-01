@@ -1,5 +1,78 @@
 [
  {
+  "file": "articles/2026-11-01-detection-5-shell-process-spawned-by-beyondtrust-web.kql",
+  "title": "Detection 5: Shell Process Spawned by BeyondTrust Web Service Indicating RCE via CVE-2026-102764",
+  "date": "2026-11-01",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 1, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-01-detection-engineering-brief-sunday-november-1-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-01-detection-engineering-brief-sunday-november-1-2026/"
+ },
+ {
+  "file": "articles/2026-11-01-detection-4-kerberos-ticket-request-anomaly-following-ad.kql",
+  "title": "Detection 4: Kerberos Ticket Request Anomaly Following AD CS Certificate Issuance for Lateral Movement",
+  "date": "2026-11-01",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 1, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-01-detection-engineering-brief-sunday-november-1-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-01-detection-engineering-brief-sunday-november-1-2026/"
+ },
+ {
+  "file": "articles/2026-11-01-detection-3-ad-cs-certificate-issued-with-mismatched.kql",
+  "title": "Detection 3: AD CS Certificate Issued with Mismatched Requester and Subject Indicating ESC8 Relay Abuse",
+  "date": "2026-11-01",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 1, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-01-detection-engineering-brief-sunday-november-1-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-01-detection-engineering-brief-sunday-november-1-2026/",
+  "incident": "teams-helpdesk-adcs-esc1-esc8-2026-10"
+ },
+ {
+  "file": "articles/2026-11-01-detection-2-malicious-ide-extension-installation-masqueradin.kql",
+  "title": "Detection 2: Malicious IDE Extension Installation Masquerading as Claude Code",
+  "date": "2026-11-01",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 1, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-01-detection-engineering-brief-sunday-november-1-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-01-detection-engineering-brief-sunday-november-1-2026/"
+ },
+ {
+  "file": "articles/2026-11-01-detection-1-ssh-backdoor-persistence-via-scheduled-task.kql",
+  "title": "Detection 1: SSH Backdoor Persistence via Scheduled Task from IDE Extension Process",
+  "date": "2026-11-01",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 1, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-01-detection-engineering-brief-sunday-november-1-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-01-detection-engineering-brief-sunday-november-1-2026/"
+ },
+ {
   "file": "articles/2026-10-31-reported-malicious-file-and-persistence-artifacts.kql",
   "title": "Reported malicious file and persistence artifacts",
   "date": "2026-10-31",

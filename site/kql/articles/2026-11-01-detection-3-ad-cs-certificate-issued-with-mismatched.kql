@@ -1,0 +1,31 @@
+// title: Detection 3: AD CS Certificate Issued with Mismatched Requester and Subject Indicating ESC8 Relay Abuse
+// date: 2026-11-01
+// product: Sentinel
+// tables: SecurityEvent
+// purpose: From the article: Detection Engineering Brief - Sunday, November 1, 2026
+// source: https://devsecopsdadattack.com/2026-11-01-detection-engineering-brief-sunday-november-1-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CertEvents = SecurityEvent
+| where EventID in (4886, 4887)
+| extend RequesterName = tostring(EventData.RequesterName)
+| extend CertSubject = tostring(EventData.SubjectUserName)
+| where isnotempty(RequesterName) and isnotempty(CertSubject)
+| where RequesterName !endswith "$"
+| where RequesterName !in~ ("ANONYMOUS LOGON", "SYSTEM")
+| where tolower(RequesterName) != tolower(CertSubject)
+| extend RequesterNameNorm = tolower(split(RequesterName, "\\")[-1])
+| project CertTimestamp = TimeGenerated, Computer, RequesterName, RequesterNameNorm, CertSubject, EventID;
+let RemoteLogons = SecurityEvent
+| where EventID == 4624
+| where LogonType == 10
+| where TargetUserName !endswith "$"
+| where TargetUserName !in~ ("ANONYMOUS LOGON", "SYSTEM")
+| extend LogonAccount = tolower(TargetUserName)
+| project LogonTimestamp = TimeGenerated, LogonAccount, IpAddress, LogonComputer = Computer;
+CertEvents
+| join kind=inner RemoteLogons on $left.RequesterNameNorm == $right.LogonAccount
+| where LogonTimestamp < CertTimestamp
+| where CertTimestamp <= LogonTimestamp + 1h
+| project CertTimestamp, LogonTimestamp, Computer, RequesterName, CertSubject, EventID, IpAddress, LogonComputer

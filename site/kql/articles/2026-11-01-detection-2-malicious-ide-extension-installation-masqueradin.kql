@@ -1,0 +1,52 @@
+// title: Detection 2: Malicious IDE Extension Installation Masquerading as Claude Code
+// date: 2026-11-01
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: Detection Engineering Brief - Sunday, November 1, 2026
+// source: https://devsecopsdadattack.com/2026-11-01-detection-engineering-brief-sunday-november-1-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceFileEvents
+| where ActionType in ("FileCreated", "FileModified")
+| where FolderPath has_any (
+    ".cursor/extensions",
+    ".vscode/extensions",
+    "cursor/extensions",
+    ".cursor\\extensions",
+    ".vscode\\extensions",
+    "cursor\\extensions",
+    "AppData\\Roaming\\Cursor\\User\\extensions",
+    "AppData\\Roaming\\Code\\User\\extensions"
+)
+| where FolderPath has_any ("claude", "claudecode", "claude-code")
+    or FileName has_any ("claude", "claudecode", "claude-code")
+| where InitiatingProcessFileName !in~ (
+    "cursor",
+    "cursor-update",
+    "code",
+    "code-update",
+    "cursor_installer",
+    "code_installer",
+    "cursor.exe",
+    "code.exe"
+)
+| where InitiatingProcessFileName has_any (
+    "python",
+    "python3",
+    "bash",
+    "sh",
+    "powershell",
+    "pwsh",
+    "cmd",
+    "curl",
+    "wget",
+    "npm",
+    "7z",
+    "unzip",
+    "tar",
+    "chrome",
+    "msedge",
+    "firefox"
+)
+| project Timestamp, DeviceName, AccountName, FileName, FolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, SHA256

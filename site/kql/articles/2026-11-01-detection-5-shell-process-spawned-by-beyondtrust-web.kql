@@ -1,0 +1,21 @@
+// title: Detection 5: Shell Process Spawned by BeyondTrust Web Service Indicating RCE via CVE-2026-102764
+// date: 2026-11-01
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Sunday, November 1, 2026
+// source: https://devsecopsdadattack.com/2026-11-01-detection-engineering-brief-sunday-november-1-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ShellSpawn = DeviceProcessEvents
+| where InitiatingProcessFileName has_any ("bomgar", "beyondtrust", "btremotesupport", "supportapp")
+| where FileName in~ ("bash", "sh", "dash", "python", "python3", "perl", "ruby")
+| project DeviceId, DeviceName, AccountName, ShellTime = Timestamp, FileName, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessCommandLine;
+let FileWrites = DeviceFileEvents
+| where ActionType == "FileCreated"
+| where FolderPath has_any ("/var/www", "/opt/bomgar", "/opt/beyondtrust", "/tmp", "/srv")
+| project DeviceId, WriteTime = Timestamp, WrittenFile = FileName, FolderPath, WrittenFileSHA256 = SHA256;
+ShellSpawn
+| join kind=inner FileWrites on DeviceId
+| where WriteTime between ((ShellTime - 5m) .. ShellTime)
+| project ShellTime, DeviceName, AccountName, FileName, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessCommandLine, WrittenFile, FolderPath, WriteTime, WrittenFileSHA256

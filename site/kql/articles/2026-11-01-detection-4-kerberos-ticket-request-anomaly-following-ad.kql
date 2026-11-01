@@ -1,0 +1,29 @@
+// title: Detection 4: Kerberos Ticket Request Anomaly Following AD CS Certificate Issuance for Lateral Movement
+// date: 2026-11-01
+// product: Sentinel
+// tables: SecurityEvent
+// purpose: From the article: Detection Engineering Brief - Sunday, November 1, 2026
+// source: https://devsecopsdadattack.com/2026-11-01-detection-engineering-brief-sunday-november-1-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CertIssued = SecurityEvent
+| where EventID == 4887
+| extend RawRequester = tostring(EventData.RequesterName)
+| where isnotempty(RawRequester)
+| where RawRequester !endswith "$"
+| extend CertRequester = tolower(split(RawRequester, "\\")[-1])
+| project CertTime = TimeGenerated, CertRequester, Computer;
+let KerbRequests = SecurityEvent
+| where EventID in (4768, 4769)
+| extend EncType = tostring(EventData.TicketEncryptionType)
+| extend KerbUser = tolower(tostring(TargetUserName))
+| extend SvcName = tostring(EventData.ServiceName)
+| where EncType in ("0x17", "0x3", "0x1", "0x18")
+    or SvcName =~ "krbtgt"
+| project KerbTime = TimeGenerated, KerbUser, SvcName, EncType, IpAddress;
+CertIssued
+| join kind=inner KerbRequests on $left.CertRequester == $right.KerbUser
+| where KerbTime > CertTime
+| where KerbTime <= CertTime + 2h
+| project CertTime, KerbTime, CertRequester, SvcName, EncType, IpAddress, Computer
