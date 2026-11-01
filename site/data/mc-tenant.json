@@ -1,7 +1,7 @@
 {
  "read": "2026-11-01",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 705,
+ "count": 702,
  "note": null,
  "messages": [
   {
@@ -13837,78 +13837,6 @@
    "bodyHash": "5f208d747e54fd1b"
   },
   {
-   "id": "MC1484511",
-   "title": "Dynamics 365 Contact Center - Certify Contact Center for Windows 365 virtual computers",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-01",
-   "end": "2026-11-01",
-   "modified": "2026-10-01",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to certify Contact Center for Windows 365 virtual computers in Dynamics 365 Contact Center. This feature will reach general availability on October 31, 2026. How does this affect me? This feature certifies Dynamics 365 Contact Center for use on Windows 365 virtual PCs, ensuring the solution delivers a reliable and supported experience when accessed from cloud-based Wi…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach general availability on October 31, 2026."
-   ],
-   "bodyHash": "94bc4f3aa773f5dd"
-  },
-  {
-   "id": "MC1484591",
-   "title": "Power Automate - Enable Process Intelligence Studio in object-centric process mining",
-   "services": [
-    "Microsoft Power Automate"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-01",
-   "end": "2026-11-01",
-   "modified": "2026-10-01",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the availability of Process Intelligence Studio in object-centric process mining in Power Automate Process Mining. This feature will reach general availability on October 31, 2026. How does this affect me? Process Intelligence Studio makes process analysis easier and more intuitive. It gives teams one place to explore data, compare scenarios, and uncover insights faster—without j…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach general availability on October 31, 2026."
-   ],
-   "bodyHash": "0b05c123b65de9b8"
-  },
-  {
-   "id": "MC1484604",
-   "title": "Dynamics 365 Contact Center - Use after conversation presence status for wrap-up activities",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-01",
-   "end": "2026-11-01",
-   "modified": "2026-10-01",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to use after conversation presence status for wrap-up activities in Dynamics 365 Contact Center. This feature will reach general availability on October 30, 2026. How does this affect me? This feature disambiguates the Busy/DND presence state of a representative by letting the supervisor clearly distinguish agents performing after-conversation wrap-up work from repres…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach general availability on October 30, 2026."
-   ],
-   "bodyHash": "7acb2b6aa3e13f09"
-  },
-  {
    "id": "MC1485054",
    "title": "Microsoft Entra App Gallery: Self-service onboarding for new applications",
    "services": [
@@ -24614,6 +24542,27 @@
    "id": "MC1464869",
    "type": "removed",
    "title": "Dynamics 365 Contact Center - Platform observability and plug-in performance",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-01",
+   "id": "MC1484511",
+   "type": "removed",
+   "title": "Dynamics 365 Contact Center - Certify Contact Center for Windows 365 virtual computers",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-01",
+   "id": "MC1484591",
+   "type": "removed",
+   "title": "Power Automate - Enable Process Intelligence Studio in object-centric process mining",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-01",
+   "id": "MC1484604",
+   "type": "removed",
+   "title": "Dynamics 365 Contact Center - Use after conversation presence status for wrap-up activities",
    "fields": {}
   }
  ]
