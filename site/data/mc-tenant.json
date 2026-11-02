@@ -1,7 +1,7 @@
 {
  "read": "2026-11-02",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 702,
+ "count": 696,
  "note": null,
  "messages": [
   {
@@ -61,35 +61,6 @@
     "General Availability: (GCC High, DoD): We will begin rolling out early May 2026 (previously early February) and expect to complete by end of October 2026 (previously mid-September)."
    ],
    "bodyHash": "622dd1260e3203db"
-  },
-  {
-   "id": "MC1058259",
-   "title": "(Updated) Microsoft Teams: Preview changes before making them visible to attendees with \"Manage what attendees see\"",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-04-18",
-   "end": "2026-11-02",
-   "modified": "2025-09-03",
-   "tags": [
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 3, 2025: We have updated the timeline. Thank you for your patience. Coming soon for Microsoft Teams: A new Manage what attendees see feature will help organizers and presenters deliver polished town hall events by simplifying the attendee view and keeping the focus on participants brought on screen. The new feature allows assigned organizers and presenters to preview changes befo…",
-   "when": "Targeted Release: We will begin rolling out mid-July 2025 and expect to complete by late July 2025. General Availability (Worldwide): We will begin rolling out late July 2025 and expect to complete by late September 2025.",
-   "prepare": "This rollout will happen automatically by the specified dates with no admin action required before the rollout. You may want to notify your users about this change and update any relevant documentation. We recommend you review Manage what attendees see in Teams meetings (will be updated before rollout) for a comprehensive overview of the feature and conduct a test session with the feature turned on to get acquainted with the new controls.",
-   "dates": [
-    "Updated September 3, 2025: We have updated the timeline.",
-    "Targeted Release: We will begin rolling out mid-July 2025 and expect to complete by late July 2025.",
-    "General Availability (Worldwide): We will begin rolling out late July 2025 and expect to complete by late September 2025.",
-    "Any new meetings or events created after mid-June 2025 will receive the new updates by default to the Manage what attendees see feature."
-   ],
-   "bodyHash": "4461610542ba9cb3"
   },
   {
    "id": "MC1059679",
@@ -3887,34 +3858,6 @@
     "Worldwide: We will begin rolling out late January 2027 (previously early December 2026) and expect to complete by late February 2027 (previously late December 2026)."
    ],
    "bodyHash": "3d713175238d191e"
-  },
-  {
-   "id": "MC1282567",
-   "title": "(Updated) Create charts on pages with AI in SharePoint",
-   "services": [
-    "SharePoint Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-04-16",
-   "end": "2026-11-02",
-   "modified": "2026-09-14",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 14, 2026: We have updated the timeline. Thank you for your patience. Introduction We’re introducing a new Charts web part with AI assistance in SharePoint , designed to help page authors quickly create rich, interactive charts using plain-language prompts. This update reduces the time and effort needed to visualize data on SharePoint pages and enables more intuitive, AI-powered a…",
-   "when": "Targeted Release: Rollout begins in late May 2026 (previously early May) and is expected to complete by mid-June 2026 (previously mid-May) . General Availability (Worldwide): Rollout begins in mid-June 2026 (previously mid-May) and is expected to complete by end of September 2026 (previously end of August).",
-   "prepare": "No action is required. Optionally inform SharePoint authors of the new capability. Update internal documentation if you provide SharePoint or Copilot guidance. Review Copilot licensing assignments to confirm which users will have access.",
-   "dates": [
-    "Updated September 14, 2026: We have updated the timeline.",
-    "When this will happen: Targeted Release: Rollout begins in late May 2026 (previously early May) and is expected to complete by mid-June 2026 (previously mid-May) .",
-    "General Availability (Worldwide): Rollout begins in mid-June 2026 (previously mid-May) and is expected to complete by end of September 2026 (previously end of August)."
-   ],
-   "bodyHash": "4a6e9437b7c8f5e2"
   },
   {
    "id": "MC1282568",
@@ -9006,31 +8949,6 @@
    "bodyHash": "57580090f285cbe8"
   },
   {
-   "id": "MC1458477",
-   "title": "AI overview for SharePoint News posts in the SharePoint app for Teams",
-   "services": [
-    "SharePoint Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-21",
-   "end": "2026-11-02",
-   "modified": "2026-08-21",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why:] Users will be able access an AI generated audio summary of SharePoint News posts in the SharePoint app for Teams (Viva Connections). This message is associated with Microsoft 365 Roadmap ID 562018 [Rollout Schedule:] General Availability (Worldwide): We began rolling out mid-August 2026 and expect to complete by early September 2026. [Impact on your organization:] Users with an eli…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): We began rolling out mid-August 2026 and expect to complete by early September 2026."
-   ],
-   "bodyHash": "10b8a8f587d627f1"
-  },
-  {
    "id": "MC1458479",
    "title": "SharePoint Page and News Post: Content Update flow in the FAQ web part will be retired",
    "services": [
@@ -9271,35 +9189,6 @@
     "General Availability (GCC, Worldwide): Beginning in late October 2026, with a phased rollout as outlined below: Internal guest users: Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O"
    ],
    "bodyHash": "e80a484b03fcaef2"
-  },
-  {
-   "id": "MC1459136",
-   "title": "Microsoft 365 admin center: Usage reports migrating to new domains",
-   "services": [
-    "Microsoft 365 suite"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-21",
-   "end": "2026-11-02",
-   "modified": "2026-08-21",
-   "tags": [
-    "Admin impact",
-    "Feature update"
-   ],
-   "summary": "[What and why:] As part of Microsoft's domain consolidation initiative, Microsoft 365 admin center Usage reports will begin resolving new domains. Both the current and the new domains will remain active in parallel for a minimum of 30 days following this post, so Usage reports will continue to load on the current domains while you update your network configuration. Redirection of the current domai…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Any redirect will occur no earlier than September 17, 2026, subject to validation and approval, and we will announce the timing in a separate Message center post before it takes effect.",
-    "Worldwide: We will begin rolling out on mid-August 2026 and expect to complete by mid-August 2026.",
-    "GCC: We will begin rolling out on mid-August 2026 and expect to complete by late August 2026.",
-    "GCC High: We will begin rolling out on late August 2026 and expect to complete by late August 2026.",
-    "DoD: We will begin rolling out on late August 2026 and expect to complete by early September 2026."
-   ],
-   "bodyHash": "9dfade48106faac3"
   },
   {
    "id": "MC1459138",
@@ -9774,36 +9663,6 @@
     "General Availability (GCC): Rollout will begin in late September 2026 and is expected to complete by mid October 2026."
    ],
    "bodyHash": "d5fa46f009305a53"
-  },
-  {
-   "id": "MC1462464",
-   "title": "Microsoft Defender for Cloud Apps: App Governance support for the Cloud Application Administrator role is being retired",
-   "services": [
-    "Microsoft Defender XDR"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": "2026-09-25",
-   "start": "2026-08-26",
-   "end": "2026-11-02",
-   "modified": "2026-08-26",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "[What and why] Microsoft Defender for Cloud Apps is updating the Microsoft Entra roles that grant access to App Governance when Unified Role-Based Access Control (URBAC) is enabled. As part of this change, support for the Cloud Application Administrator role will be retired for App Governance access. This change aligns App Governance access with the standard supported role set used across Microsof…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Retirement (Worldwide): Beginning in late September 2026.",
-    "Enforcement date: September 26, 2026.",
-    "After September 26, 2026: Administrators assigned only the Cloud Application Administrator role will no longer be able to access App Governance when URBAC is enabled for Defender for Cloud Apps.",
-    "Review administrator assignments by September 25, 2026 .",
-    "Organizations should review current administrator role assignments and assign a supported role to administrators who require App Governance access before September 26, 2026."
-   ],
-   "bodyHash": "6a73cc9594cef75a"
   },
   {
    "id": "MC1462467",
@@ -10645,32 +10504,6 @@
     "General Availability (Worldwide): Rollout begins in late September 2026 and is expected to complete by late October 2026."
    ],
    "bodyHash": "770cbb45d1843665"
-  },
-  {
-   "id": "MC1466760",
-   "title": "Microsoft Copilot Pages: Access existing Pages from the \"/\" menu in chat",
-   "services": [
-    "Microsoft 365 Copilot Chat"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-03",
-   "end": "2026-11-02",
-   "modified": "2026-09-03",
-   "tags": [
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and why:] Starting in September 2026, users will access existing Pages in the Library tab. They can also reference existing Pages from the Copilot prompt box using the \"/\" menu, providing a streamlined way to find and reference Pages in chat. As part of this update, the Edit in Pages menu in Copilot will focus on creating new Pages alongside your chat experience. This aligns the experience w…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Starting in September 2026, users will access existing Pages in the Library tab.",
-    "[Rollout schedule: General Availability (Worldwide): We will begin rolling out in late August 2026 and expect to complete by early September 2026."
-   ],
-   "bodyHash": "fdf53fe428897eaa"
   },
   {
    "id": "MC1466762",
@@ -24408,6 +24241,48 @@
    "id": "MC1484604",
    "type": "removed",
    "title": "Dynamics 365 Contact Center - Use after conversation presence status for wrap-up activities",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-02",
+   "id": "MC1058259",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Preview changes before making them visible to attendees with \"Manage what attendees see\"",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-02",
+   "id": "MC1282567",
+   "type": "removed",
+   "title": "(Updated) Create charts on pages with AI in SharePoint",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-02",
+   "id": "MC1458477",
+   "type": "removed",
+   "title": "AI overview for SharePoint News posts in the SharePoint app for Teams",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-02",
+   "id": "MC1459136",
+   "type": "removed",
+   "title": "Microsoft 365 admin center: Usage reports migrating to new domains",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-02",
+   "id": "MC1462464",
+   "type": "removed",
+   "title": "Microsoft Defender for Cloud Apps: App Governance support for the Cloud Application Administrator role is being retired",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-02",
+   "id": "MC1466760",
+   "type": "removed",
+   "title": "Microsoft Copilot Pages: Access existing Pages from the \"/\" menu in chat",
    "fields": {}
   }
  ]
