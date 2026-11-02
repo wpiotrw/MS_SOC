@@ -1,0 +1,29 @@
+// title: detect whatsapp vbscript campaign
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceNetworkEvents, DeviceProcessEvents
+// purpose: detect whatsapp vbscript campaign
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-whatsapp-vbscript-campaign.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookBack = 1h;
+let WhatsAppDevice =
+DeviceNetworkEvents
+| where Timestamp > ago(LookBack)
+| where ActionType == "ConnectionSuccess"
+| where RemoteUrl == "web.whatsapp.com"
+| distinct DeviceName;
+let WAVBSCreated =
+DeviceFileEvents
+| where Timestamp > ago(LookBack)
+| where ActionType=="FileCreated"
+| where FolderPath has "WhatsAppDesktop"
+| where tolower(FileName) endswith ".vbs"
+| where DeviceName has_any(WhatsAppDevice)
+| distinct DeviceName;
+DeviceProcessEvents
+| where Timestamp > ago(LookBack)
+| where FileName =~ "wscript.exe"
+| where DeviceName has_any(WAVBSCreated)

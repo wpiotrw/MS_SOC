@@ -1,0 +1,17 @@
+// title: admin consent for m365 connector for claude
+// date: 2026-11-02
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: admin consent for m365 connector for claude
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/admin-consent-for-m365-connector-for-claude.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where Timestamp > ago(1h)
+| where ActionType == "Consent to application." and AccountType == "Admin"
+| where ObjectName == "M365 MCP Client for Claude"
+| extend AdminUPN = tostring(RawEventData.UserId)
+| extend ConsentData = tostring(RawEventData.ModifiedProperties)
+| project Timestamp, AdminUPN, ActionType, ObjectName, ConsentData, ReportId

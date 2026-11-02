@@ -1,0 +1,22 @@
+// title: malicious teams call attempts check
+// date: 2026-11-02
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: malicious teams call attempts check
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/malicious-teams-call-attempts-check.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudAppEvents
+| where TimeGenerated > ago(90d)
+| where Application == @"Microsoft Teams"
+| where ActionType == @"CallParticipantDetail"
+| where tostring(RawEventData.Attendees) has "@"
+| extend CallerPSTN = tostring(RawEventData.UserId)
+| extend Domain = tostring(split(CallerPSTN, "@")[1])
+| extend Caller = tostring(split(CallerPSTN, "@")[0])
+| where CallerPSTN has "onmicrosoft.com" and 
+(CallerPSTN has "helpdesk" or CallerPSTN has "support" 
+or CallerPSTN has "admin")
+| distinct Caller, Domain

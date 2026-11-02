@@ -1,0 +1,23 @@
+// title: high fidelity device code phishing abuse detection
+// date: 2026-11-02
+// product: Defender for Identity
+// tables: CloudAppEvents, IdentityInfo, UrlClickEvents
+// purpose: high fidelity device code phishing abuse detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/high-fidelity-device-code-phishing-abuse-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let UserVisitedDeviceAuth =
+UrlClickEvents
+| where Timestamp > ago(1h)
+| where ActionType in ("ClickAllowed", "UrlScanInProgress", "UrlErrorPage") or IsClickedThrough != "0"
+| where UrlChain has_any ("microsoft.com/devicelogin", "login.microsoftonline.com/common/oauth2/deviceauth")
+| where Workload == "Email"
+| distinct AccountUpn;
+CloudAppEvents
+| where Timestamp > ago(1h)
+| where AccountDisplayName == "Device Registration Service"
+| extend ID = extract("Device_(.*)", 1, tostring(RawEventData.ObjectId))
+| join IdentityInfo on $left.ID == $right.AccountObjectId
+| where AccountUpn has_any(UserVisitedDeviceAuth)

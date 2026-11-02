@@ -1,0 +1,14 @@
+// title: openclaw installation detection on mde
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: openclaw installation detection on mde
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/openclaw-installation-detection-on-mde.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where Timestamp > ago(1h)
+| where (InitiatingProcessFileName == "node" and InitiatingProcessCommandLine has "install" and InitiatingProcessCommandLine has "openclaw") or InitiatingProcessCommandLine has "https://openclaw.ai/install." or InitiatingProcessCommandLine has "https://github.com/openclaw/openclaw.git"
+| project Timestamp, ActionType, DeviceName, AccountUpn, InitiatingProcessCommandLine

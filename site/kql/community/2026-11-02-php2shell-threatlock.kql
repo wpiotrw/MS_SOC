@@ -1,0 +1,22 @@
+// title: php2shell threatlock
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceTvmSoftwareVulnerabilities
+// purpose: php2shell threatlock
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/php2shell-threatlock.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let GreyNoiseIOC=externaldata(IP:string, AttackOrganisation:string)
+[h'https://raw.githubusercontent.com/SlimKQL/Hunting-Queries-Detection-Rules/refs/heads/main/IOC/greynoise_php2shell_attacker_ips.csv']
+with (format='csv', ignoreFirstRecord=true)
+| distinct IP;
+let VulnerablePHPEndpoint =
+DeviceTvmSoftwareVulnerabilities 
+| where CveId == "CVE-2026-109618" or CveId == "CVE-2026-109619"
+| distinct DeviceId;
+DeviceNetworkEvents
+| where Timestamp > ago(1h)
+| where DeviceId has_any(VulnerablePHPEndpoint) and RemoteIP has_any(GreyNoiseIOC)
+| project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessCommandLine, LocalIP, RemoteIP

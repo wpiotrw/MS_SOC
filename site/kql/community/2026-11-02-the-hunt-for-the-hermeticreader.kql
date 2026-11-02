@@ -1,0 +1,16 @@
+// title: the hunt for the hermeticreader
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: the hunt for the hermeticreader
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/the-hunt-for-the-hermeticreader.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceFileEvents
+| where TimeStamp > ago(30d)
+| where FileName has "efaidnbmnnnibpcajpcglclefindmkaj"
+| summarize arg_max(Timestamp, *) by DeviceId
+| where FileName <> "EFAIDNBMNNNIBPCAJPCGLCLEFINDMKAJ_26_7_2_0.crx"
+| project Timestamp, DeviceName, FileName

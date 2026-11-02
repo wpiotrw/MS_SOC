@@ -1,0 +1,21 @@
+// title: hunting nullclaw
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: hunting nullclaw
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-nullclaw.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Lookback = 30d;
+let InstallCmd = "https://github.com/nullclaw/nullclaw.git";
+let ZigEP =
+DeviceProcessEvents
+| where Timestamp > ago(Lookback)
+| where InitiatingProcessCommandLine == "zig build-exe"
+| distinct DeviceName;
+DeviceProcessEvents
+| where Timestamp > ago(1h)
+| where InitiatingProcessCommandLine has InstallCmd or ProcessCommandLine has InstallCmd
+| where DeviceName has_any(ZigEP)

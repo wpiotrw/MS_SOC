@@ -1,0 +1,18 @@
+// title: prompt injector analysis report
+// date: 2026-11-02
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: prompt injector analysis report
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/prompt-injector-analysis-report.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EmailEvents
+| where TimeGenerated > ago(30d)
+| where EmailDirection == "Inbound"
+| where IsFirstContact == true
+| where tostring(DetectionMethods) has "Prompt Injection Protection"
+| extend IP = iff(isnotempty(SenderIPv4), SenderIPv4, SenderIPv6)
+| extend PromptInjector = strcat(SenderFromDomain, " ", IP)
+| summarize AttackCount=count() by PromptInjector

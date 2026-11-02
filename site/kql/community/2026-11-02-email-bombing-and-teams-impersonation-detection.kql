@@ -1,0 +1,29 @@
+// title: email bombing and teams impersonation detection
+// date: 2026-11-02
+// product: Defender for Office 365
+// tables: CloudAppEvents, EmailEvents
+// purpose: email bombing and teams impersonation detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/email-bombing-and-teams-impersonation-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookBack = 1h;
+let MailBombUser =
+EmailEvents
+| where Timestamp > ago(LookBack)
+| summarize MailCount=count() by RecipientEmailAddress
+| where MailCount > 100
+| distinct RecipientEmailAddress;
+CloudAppEvents
+| where Timestamp > ago(LookBack)
+| where ActionType == "TeamsImpersonationDetected"
+| extend ImpersonationDisplayName = tostring(parse_json(tostring(RawEventData.Sender)).DisplayName)
+| extend ImpersonationUPN = tostring(parse_json(tostring(RawEventData.Sender)).UPN)
+| extend ImpactedUserUPN = tostring(RawEventData.UserId)
+| where (tolower(ImpersonationDisplayName) matches regex 
+@"(compliance|security|secops|help|desk|support|^tech|tech$|tech\s|assistance|troubleshoot|admin|^it|it$|it\s)" 
+or tolower(ImpersonationUPN) matches regex 
+@"(compliance|security|secops|onmicrosoft|help|desk|support|^tech|tech$|tech\s|assistance|troubleshoot|admin|^it|it$|it\s)")
+| where ImpactedUserUPN has_any(MailBombUser)
+| project TimeGenerated, ImpactedUserUPN, ImpersonationDisplayName, ImpersonationUPN

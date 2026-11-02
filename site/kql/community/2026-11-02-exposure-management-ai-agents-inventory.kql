@@ -1,0 +1,17 @@
+// title: exposure management ai agents inventory
+// date: 2026-11-02
+// product: Defender XDR
+// tables: ExposureGraphEdges, ExposureGraphNodes
+// purpose: exposure management ai agents inventory
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/exposure-management-ai-agents-inventory.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+ExposureGraphEdges 
+| where SourceNodeLabel == @"ai-agent"
+| join ExposureGraphNodes on $left.SourceNodeId == $right.NodeId
+| project AISoftwareName=SourceNodeName, UsedByUser=TargetNodeName, 
+AgentType=parse_json(NodeProperties).rawData.aiAgentMetadata.platform,
+ProcessName=parse_json(NodeProperties).rawData.aiAgentMetadata.processName,
+AgentVersion=parse_json(NodeProperties).rawData.aiAgentMetadata.agentVersion

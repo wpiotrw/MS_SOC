@@ -1,0 +1,26 @@
+// title: miniplasma detection
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: miniplasma detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/miniplasma-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookBack = 1d;
+let LowGPExeByUser =
+DeviceFileEvents
+| where Timestamp > ago(LookBack)
+| where ActionType == "FileCreated" and tostring(FileName) endswith ".exe"
+| where InitiatingProcessAccountName != "system"
+| invoke FileProfile("SHA1",1000)
+| where GlobalPrevalence < 5
+| distinct FileName;
+DeviceProcessEvents
+| where Timestamp > ago(LookBack)
+| where ActionType == "ProcessCreated"
+| where FileName == "conhost.exe" and InitiatingProcessIntegrityLevel == "System"
+| where InitiatingProcessVersionInfoInternalFileName has_any(LowGPExeByUser)
+| project Timestamp, DeviceName, ActionType, InitiatingProcessIntegrityLevel, 
+InitiatingProcessVersionInfoInternalFileName, InitiatingProcessFolderPath

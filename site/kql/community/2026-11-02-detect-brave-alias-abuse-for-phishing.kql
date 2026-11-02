@@ -1,0 +1,18 @@
+// title: detect brave alias abuse for phishing
+// date: 2026-11-02
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: detect brave alias abuse for phishing
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-brave-alias-abuse-for-phishing.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EmailEvents
+| where Timestamp > ago(1h)
+| where EmailDirection == @"Inbound"
+| where SenderMailFromAddress has "@bravealias.com" or SenderFromAddress has "@bravealias.com"
+| where IsFirstContact == "1" and LatestDeliveryAction == @"Delivered"
+| extend SenderEmail = iff(SenderMailFromAddress has "@bravealias.com", SenderMailFromAddress, SenderFromAddress)
+| summarize MailCount = count() by SenderEmail
+| where MailCount >= 3

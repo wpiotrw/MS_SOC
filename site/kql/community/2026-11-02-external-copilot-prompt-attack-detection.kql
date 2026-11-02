@@ -1,0 +1,17 @@
+// title: external copilot prompt attack detection
+// date: 2026-11-02
+// product: Defender for Office 365
+// tables: UrlClickEvents
+// purpose: external copilot prompt attack detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/external-copilot-prompt-attack-detection-.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookBack = 1h;
+UrlClickEvents 
+| where Timestamp > ago(LookBack)
+| where ActionType == @"ClickAllowed"
+// Check for Email, Teams and Office Workload for embbeded Copilot Prompt in URL
+| where Workload != @"Copilot"
+| where UrlChain has "https://m365.cloud.microsoft/search/?auth=2&origindomain=microsoft365&q="

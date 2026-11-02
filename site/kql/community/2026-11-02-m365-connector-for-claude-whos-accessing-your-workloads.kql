@@ -1,0 +1,16 @@
+// title: m365 connector for claude whos accessing your workloads
+// date: 2026-11-02
+// product: Defender for Identity
+// tables: IdentityInfo
+// purpose: m365 connector for claude whos accessing your workloads
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/m365-connector-for-claude-whos-accessing-your-workloads.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+GraphAPIAuditEvents 
+| where ApplicationId  == "08ad6f98-a4f8-4635-bb8d-f1a3044760f0" or ApplicationId == "07c030f6-5743-41b7-ba00-0a6e85f37c17"
+| where RequestMethod == "GET"
+| join IdentityInfo on AccountObjectId
+| summarize ClaudeAccessCount=count() by AccountUpn, TargetWorkload
+| sort by ClaudeAccessCount, AccountUpn desc

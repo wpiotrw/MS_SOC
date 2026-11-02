@@ -1,0 +1,27 @@
+// title: teamviewer remote code execution detection
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: teamviewer remote code execution detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/teamviewer-remote-code-execution-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Viewer2Shell =
+DeviceNetworkEvents
+| where Timestamp > ago(1h)
+| where ActionType == "ConnectionSuccess"
+| where InitiatingProcessVersionInfoCompanyName == "TeamViewer Germany GmbH"
+| where InitiatingProcessFileName == "teamviewer.exe"
+| where InitiatingProcessVersionInfoProductVersion !has "15.83"
+| where RemoteUrl !has "teamviewer.com"
+| where RemoteIPType == "Public"
+| distinct DeviceId;
+DeviceProcessEvents
+| where Timestamp > ago (1h)
+| where InitiatingProcessFileName == "teamviewer.exe"
+| where FileName in~ ("cmd.exe","powershell.exe","pwsh.exe","conhost.exe","cscript.exe","wscript.exe")
+| where DeviceId has_any(Viewer2Shell)
+| project Timestamp, DeviceName, AccountName, FileName, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessParentFileName
+| order by Timestamp desc

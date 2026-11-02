@@ -1,0 +1,17 @@
+// title: wp2shell exposure detection
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceInfo
+// purpose: wp2shell exposure detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/wp2shell-exposure-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceFileEvents
+| where Timestamp > ago(30d)
+| where InitiatingProcessFileName in~ ("w3wp.exe", "php-cgi.exe", "httpd.exe", "nginx.exe", "apache2.exe")
+| where FolderPath has "\\wp-content\\"
+| distinct DeviceName
+| join DeviceInfo on DeviceName
+| where IsInternetFacing == true and isnotempty(PublicIP)

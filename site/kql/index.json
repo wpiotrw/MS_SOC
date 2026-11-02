@@ -1,5 +1,2136 @@
 [
  {
+  "file": "community/2026-11-02-wp2shell-exposure-detection.kql",
+  "title": "wp2shell exposure detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceInfo"
+  ],
+  "purpose": "wp2shell exposure detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/wp2shell-exposure-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/wp2shell-exposure-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-windows-notepad-vulnerability-rce-detection.kql",
+  "title": "windows notepad vulnerability rce detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "windows notepad vulnerability rce detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/windows-notepad-vulnerability-rce-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/windows-notepad-vulnerability-rce-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-vscode-extension-inventory-in-your-mde-tenant.kql",
+  "title": "vscode extension inventory in your mde tenant",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "vscode extension inventory in your mde tenant",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/vscode-extension-inventory-in-your-mde-tenant.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/vscode-extension-inventory-in-your-mde-tenant.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-visualize-vpn-linked-spray-attempts.kql",
+  "title": "visualize vpn linked spray attempts",
+  "date": "2026-11-02",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "visualize vpn linked spray attempts",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/visualize-vpn-linked-spray-attempts.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/visualize-vpn-linked-spray-attempts.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-undefend-detection.kql",
+  "title": "undefend detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "undefend detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/undefend-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/undefend-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-threat-hunting-kql-php-rce-cve-2026-109618.kql",
+  "title": "threat hunting kql  php rce cve 2026 109618  cve 2026 109619",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "threat hunting kql php rce cve 2026 109618 cve 2026 109619",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/threat-hunting-kql--php-rce-cve-2026-109618--cve-2026-109619.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/threat-hunting-kql--php-rce-cve-2026-109618--cve-2026-109619.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-threat-entities-by-mitre-tactics.kql",
+  "title": "threat entities by mitre tactics",
+  "date": "2026-11-02",
+  "product": "",
+  "tables": [],
+  "purpose": "threat entities by mitre tactics",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/threat-entities-by-mitre-tactics.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/threat-entities-by-mitre-tactics.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-threat-detection-passkey-enrollment-phishing-by-o-unc.kql",
+  "title": "threat detection passkey enrollment phishing by o unc 066",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "threat detection passkey enrollment phishing by o unc 066",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/threat-detection-passkey-enrollment-phishing-by-o-unc-066.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/threat-detection-passkey-enrollment-phishing-by-o-unc-066.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-the-ultimate-claw-agent-hunting-query.kql",
+  "title": "the ultimate claw agent hunting query",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "the ultimate claw agent hunting query",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/the-ultimate-claw-agent-hunting-query.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/the-ultimate-claw-agent-hunting-query.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-the-hunt-for-the-hermeticreader.kql",
+  "title": "the hunt for the hermeticreader",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "the hunt for the hermeticreader",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/the-hunt-for-the-hermeticreader.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/the-hunt-for-the-hermeticreader.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-tenant-mcp-server-connectivity-risk-assessment.kql",
+  "title": "tenant mcp server connectivity risk assessment",
+  "date": "2026-11-02",
+  "product": "Defender XDR",
+  "tables": [
+   "AgentsInfo"
+  ],
+  "purpose": "tenant mcp server connectivity risk assessment",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/tenant-mcp-server-connectivity-risk-assessment.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/tenant-mcp-server-connectivity-risk-assessment.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-teamviewer-remote-code-execution-detection.kql",
+  "title": "teamviewer remote code execution detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "teamviewer remote code execution detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/teamviewer-remote-code-execution-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/teamviewer-remote-code-execution-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-teams-zoom-turn-relay-abuse-monitoring.kql",
+  "title": "teams  zoom turn relay abuse monitoring",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "teams zoom turn relay abuse monitoring",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/teams--zoom-turn-relay-abuse-monitoring.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/teams--zoom-turn-relay-abuse-monitoring.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-symleak-detection-via-git-clone-ntlm-hash-disclosure.kql",
+  "title": "symleak detection via git clone ntlm hash disclosure",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceTvmSoftwareVulnerabilities"
+  ],
+  "purpose": "symleak detection via git clone ntlm hash disclosure",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/symleak-detection-via-git-clone-ntlm-hash-disclosure.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/symleak-detection-via-git-clone-ntlm-hash-disclosure.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-successful-php2shell-indicator-scan.kql",
+  "title": "Successful php2Shell Indicator Scan",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "Successful php2Shell Indicator Scan",
+  "source": "https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/49b6acd24885b26f8a7f60919b854aebd8406238/DefenderXDR/Successful%20php2Shell%20Indicator%20Scan.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/49b6acd24885b26f8a7f60919b854aebd8406238/DefenderXDR/Successful%20php2Shell%20Indicator%20Scan.kql",
+  "license": "BSD-3-Clause",
+  "repo": "SlimKQL Hunting Queries & Detection Rules (Steven Lim)"
+ },
+ {
+  "file": "community/2026-11-02-storm-2755-high-fidelity-kql-scan.kql",
+  "title": "storm 2755 high fidelity kql scan",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "storm 2755 high fidelity kql scan",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/storm-2755-high-fidelity-kql-scan.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/storm-2755-high-fidelity-kql-scan.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-stop-jadepuffer.kql",
+  "title": "stop jadepuffer",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo",
+   "DeviceTvmSoftwareVulnerabilities"
+  ],
+  "purpose": "stop jadepuffer",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/stop-jadepuffer.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/stop-jadepuffer.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-shinyhunters-infrastructure-detection.kql",
+  "title": "shinyhunters infrastructure detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "EmailUrlInfo"
+  ],
+  "purpose": "shinyhunters infrastructure detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/shinyhunters-infrastructure-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/shinyhunters-infrastructure-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-sentinel-kql-for-oauth-redirection-abuse-enables-phishing.kql",
+  "title": "sentinel kql for oauth redirection abuse enables phishing and malware delivery",
+  "date": "2026-11-02",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents",
+   "EmailUrlInfo"
+  ],
+  "purpose": "sentinel kql for oauth redirection abuse enables phishing and malware delivery",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/sentinel-kql-for-oauth-redirection-abuse-enables-phishing-and-malware-delivery.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/sentinel-kql-for-oauth-redirection-abuse-enables-phishing-and-malware-delivery.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-rise-in-kali365-de-domains.kql",
+  "title": "rise in kali365 de domains",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "rise in kali365 de domains",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/rise-in-kali365-de-domains.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/rise-in-kali365-de-domains.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-reduce-unnecessary-inbound-internet-exposure-on-internet-fac.kql",
+  "title": "reduce unnecessary inbound internet exposure on internet facing devices",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceTvmSecureConfigurationAssessment",
+   "DeviceTvmSecureConfigurationAssessmentKB"
+  ],
+  "purpose": "reduce unnecessary inbound internet exposure on internet facing devices",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/reduce-unnecessary-inbound-internet-exposure-on-internet-facing-devices.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/reduce-unnecessary-inbound-internet-exposure-on-internet-facing-devices.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-prompt-injector-analysis-report.kql",
+  "title": "prompt injector analysis report",
+  "date": "2026-11-02",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents"
+  ],
+  "purpose": "prompt injector analysis report",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/prompt-injector-analysis-report.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/prompt-injector-analysis-report.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-preemptive-search-for-artoken-phaas-domain-lures.kql",
+  "title": "preemptive search for artoken phaas domain lures",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "preemptive search for artoken phaas domain lures",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/preemptive-search-for-artoken-phaas-domain-lures.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/preemptive-search-for-artoken-phaas-domain-lures.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-php2shell-threatlock.kql",
+  "title": "php2shell threatlock",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceTvmSoftwareVulnerabilities"
+  ],
+  "purpose": "php2shell threatlock",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/php2shell-threatlock.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/php2shell-threatlock.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-openclaw-installation-detection-on-mde.kql",
+  "title": "openclaw installation detection on mde",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "openclaw installation detection on mde",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/openclaw-installation-detection-on-mde.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/openclaw-installation-detection-on-mde.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-one-click-exposure-check-for-litellm-ai-supply.kql",
+  "title": "one click exposure check for litellm ai supply chain attack",
+  "date": "2026-11-02",
+  "product": "Entra",
+  "tables": [
+   "EntraIdSignInEvents"
+  ],
+  "purpose": "one click exposure check for litellm ai supply chain attack",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/one-click-exposure-check-for-litellm-ai-supply-chain-attack.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/one-click-exposure-check-for-litellm-ai-supply-chain-attack.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-one-click-defenderxdr-axios-supply-chain-compromise-scan.kql",
+  "title": "one click defenderxdr axios supply chain compromise scan",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "one click defenderxdr axios supply chain compromise scan",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/one-click-defenderxdr-axios-supply-chain-compromise-scan.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/one-click-defenderxdr-axios-supply-chain-compromise-scan.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-oauthmsphish-detection.kql",
+  "title": "oauthmsphish detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "EmailEvents",
+   "EmailUrlInfo"
+  ],
+  "purpose": "oauthmsphish detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/oauthmsphish-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/oauthmsphish-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-oauth-redirection-abuse-detection.kql",
+  "title": "oauth redirection abuse detection",
+  "date": "2026-11-02",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents",
+   "EmailUrlInfo"
+  ],
+  "purpose": "oauth redirection abuse detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/oauth-redirection-abuse-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/oauth-redirection-abuse-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-oauth-ms-phish-targeting-docusign-users.kql",
+  "title": "oauth ms phish targeting docusign users",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "EmailUrlInfo"
+  ],
+  "purpose": "oauth ms phish targeting docusign users",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/oauth-ms-phish-targeting-docusign-users.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/oauth-ms-phish-targeting-docusign-users.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-monitoring-exploitation-of-windows-shell-cve-2026-32202.kql",
+  "title": "monitoring exploitation of windows shell cve 2026 32202",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents",
+   "DeviceTvmSoftwareVulnerabilities",
+   "ExposureGraphEdges"
+  ],
+  "purpose": "monitoring exploitation of windows shell cve 2026 32202",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/monitoring-exploitation-of-windows-shell-cve-2026-32202.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/monitoring-exploitation-of-windows-shell-cve-2026-32202.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-monitoring-claude-cowork-on-microsoft-365.kql",
+  "title": "monitoring claude cowork on microsoft 365",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "EntraIdSignInEvents"
+  ],
+  "purpose": "monitoring claude cowork on microsoft 365",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/monitoring-claude-cowork-on-microsoft-365.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/monitoring-claude-cowork-on-microsoft-365.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-modelorat-detection-crashfix-campaign.kql",
+  "title": "modelorat detection crashfix campaign",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceRegistryEvents"
+  ],
+  "purpose": "modelorat detection crashfix campaign",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/modelorat-detection-crashfix-campaign.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/modelorat-detection-crashfix-campaign.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-miniplasma-detection.kql",
+  "title": "miniplasma detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "miniplasma detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/miniplasma-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/miniplasma-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-mikrotik-routers-under-attack-cert-polska.kql",
+  "title": "mikrotik routers under attack   cert polska",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo"
+  ],
+  "purpose": "mikrotik routers under attack cert polska",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/mikrotik-routers-under-attack---cert-polska.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/mikrotik-routers-under-attack---cert-polska.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-microsoft-sentinel-detection-for-adwsdomaindump.kql",
+  "title": "microsoft sentinel detection for adwsdomaindump",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "SecurityEvent"
+  ],
+  "purpose": "microsoft sentinel detection for adwsdomaindump",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/microsoft-sentinel-detection-for-adwsdomaindump.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/microsoft-sentinel-detection-for-adwsdomaindump.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-mdvm-zero-day-impact-analysis.kql",
+  "title": "mdvm zero day impact analysis",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceTvmSoftwareVulnerabilities"
+  ],
+  "purpose": "mdvm zero day impact analysis",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/mdvm-zero-day-impact-analysis.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/mdvm-zero-day-impact-analysis.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-mde-platform-analyzing-ai-model-provider-usage.kql",
+  "title": "mde platform analyzing ai model provider usage",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "mde platform analyzing ai model provider usage",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/mde-platform-analyzing-ai-model-provider-usage.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/mde-platform-analyzing-ai-model-provider-usage.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-malicious-teams-call-attempts-check.kql",
+  "title": "malicious teams call attempts check",
+  "date": "2026-11-02",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "malicious teams call attempts check",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/malicious-teams-call-attempts-check.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/malicious-teams-call-attempts-check.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-m365-connector-for-claude-whos-accessing-your-workloads.kql",
+  "title": "m365 connector for claude whos accessing your workloads",
+  "date": "2026-11-02",
+  "product": "Defender for Identity",
+  "tables": [
+   "IdentityInfo"
+  ],
+  "purpose": "m365 connector for claude whos accessing your workloads",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/m365-connector-for-claude-whos-accessing-your-workloads.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/m365-connector-for-claude-whos-accessing-your-workloads.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-m365-connector-for-claude-detection.kql",
+  "title": "m365 connector for claude detection",
+  "date": "2026-11-02",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "m365 connector for claude detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/m365-connector-for-claude-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/m365-connector-for-claude-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-legacyhive-duo-detection.kql",
+  "title": "legacyhive duo detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceFileEvents"
+  ],
+  "purpose": "legacyhive duo detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/legacyhive-duo-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/legacyhive-duo-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-kql-detection-for-mdi-password-protection-insight.kql",
+  "title": "kql detection for mdi password protection insight",
+  "date": "2026-11-02",
+  "product": "Defender XDR",
+  "tables": [
+   "ExposureGraphEdges",
+   "ExposureGraphNodes"
+  ],
+  "purpose": "kql detection for mdi password protection insight",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/kql-detection-for-mdi-password-protection-insight.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/kql-detection-for-mdi-password-protection-insight.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-kongtukes-unmasked-defenderxdr-detection-of-evolved-modelora.kql",
+  "title": "kongtukes unmasked  defenderxdr detection of evolved modelorat",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "CloudAppEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "kongtukes unmasked defenderxdr detection of evolved modelorat",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/kongtukes-unmasked--defenderxdr-detection-of-evolved-modelorat.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/kongtukes-unmasked--defenderxdr-detection-of-evolved-modelorat.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-indirect-prompt-injection-risk-assessment.kql",
+  "title": "indirect prompt injection risk assessment",
+  "date": "2026-11-02",
+  "product": "Defender XDR",
+  "tables": [
+   "ExposureGraphEdges",
+   "ExposureGraphNodes"
+  ],
+  "purpose": "indirect prompt injection risk assessment",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/indirect-prompt-injection-risk-assessment.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/indirect-prompt-injection-risk-assessment.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-hunting-teams-vishing-with-defenderxdr.kql",
+  "title": "hunting teams vishing with defenderxdr",
+  "date": "2026-11-02",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "hunting teams vishing with defenderxdr",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-teams-vishing-with-defenderxdr.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-teams-vishing-with-defenderxdr.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-hunting-redsun.kql",
+  "title": "hunting redsun",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "hunting redsun",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-redsun.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-redsun.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-hunting-punycode-domains-in-defender-xdr.kql",
+  "title": "hunting punycode domains in defender xdr",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents"
+  ],
+  "purpose": "hunting punycode domains in defender xdr",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-punycode-domains-in-defender-xdr.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-punycode-domains-in-defender-xdr.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-hunting-paypal-dkim-replay-attacks.kql",
+  "title": "hunting paypal dkim replay attacks",
+  "date": "2026-11-02",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents"
+  ],
+  "purpose": "hunting paypal dkim replay attacks",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-paypal-dkim-replay-attacks.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-paypal-dkim-replay-attacks.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-hunting-nullclaw.kql",
+  "title": "hunting nullclaw",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "hunting nullclaw",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-nullclaw.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-nullclaw.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-hunting-novacookies-campaign.kql",
+  "title": "hunting novacookies campaign",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "hunting novacookies campaign",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-novacookies-campaign.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-novacookies-campaign.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-hunting-nanoclaw.kql",
+  "title": "hunting nanoclaw",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "hunting nanoclaw",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-nanoclaw.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-nanoclaw.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-hunting-anthropic-ai-model-hacking.kql",
+  "title": "hunting anthropic ai model hacking",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "CloudAppEvents",
+   "DeviceNetworkEvents",
+   "EmailEvents",
+   "EntraIdSignInEvents"
+  ],
+  "purpose": "hunting anthropic ai model hacking",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-anthropic-ai-model-hacking.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-anthropic-ai-model-hacking.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-hunting-adversaries-abusing-google-goto-urls.kql",
+  "title": "hunting adversaries abusing google goto urls",
+  "date": "2026-11-02",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents",
+   "EmailUrlInfo"
+  ],
+  "purpose": "hunting adversaries abusing google goto urls",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-adversaries-abusing-google-goto-urls.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-adversaries-abusing-google-goto-urls.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-high-precision-teams-impersonation-detection.kql",
+  "title": "high precision teams impersonation detection",
+  "date": "2026-11-02",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "high precision teams impersonation detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/high-precision-teams-impersonation-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/high-precision-teams-impersonation-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-high-fidelity-php2shell-kql-detection.kql",
+  "title": "high fidelity php2shell kql detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo",
+   "DeviceProcessEvents",
+   "DeviceTvmSoftwareVulnerabilities"
+  ],
+  "purpose": "high fidelity php2shell kql detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/high-fidelity-php2shell-kql-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/high-fidelity-php2shell-kql-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-high-fidelity-forg365-phaas-detection.kql",
+  "title": "high fidelity forg365 phaas detection",
+  "date": "2026-11-02",
+  "product": "Entra",
+  "tables": [
+   "EntraIdSignInEvents"
+  ],
+  "purpose": "high fidelity forg365 phaas detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/high-fidelity-forg365-phaas-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/high-fidelity-forg365-phaas-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-high-fidelity-device-code-phishing-abuse-detection.kql",
+  "title": "high fidelity device code phishing abuse detection",
+  "date": "2026-11-02",
+  "product": "Defender for Identity",
+  "tables": [
+   "CloudAppEvents",
+   "IdentityInfo",
+   "UrlClickEvents"
+  ],
+  "purpose": "high fidelity device code phishing abuse detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/high-fidelity-device-code-phishing-abuse-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/high-fidelity-device-code-phishing-abuse-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-high-fidelity-artoken-detection.kql",
+  "title": "high fidelity artoken detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "EmailEvents",
+   "EmailUrlInfo"
+  ],
+  "purpose": "high fidelity artoken detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/high-fidelity-artoken-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/high-fidelity-artoken-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-helpdesk-theme-impersonation-attack-detection.kql",
+  "title": "helpdesk theme impersonation attack detection",
+  "date": "2026-11-02",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "helpdesk theme impersonation attack detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/helpdesk-theme-impersonation-attack-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/helpdesk-theme-impersonation-attack-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-greatkql-detection-for-greatxml.kql",
+  "title": "greatkql detection for greatxml",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "greatkql detection for greatxml",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/greatkql-detection-for-greatxml.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/greatkql-detection-for-greatxml.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-forg365-phaas-detection-using-silent-push.kql",
+  "title": "forg365 phaas detection using silent push",
+  "date": "2026-11-02",
+  "product": "Entra",
+  "tables": [
+   "EntraIdSignInEvents"
+  ],
+  "purpose": "forg365 phaas detection using silent push",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/forg365-phaas-detection-using-silent-push.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/forg365-phaas-detection-using-silent-push.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-external-copilot-prompt-attack-detection.kql",
+  "title": "external copilot prompt attack detection",
+  "date": "2026-11-02",
+  "product": "Defender for Office 365",
+  "tables": [
+   "UrlClickEvents"
+  ],
+  "purpose": "external copilot prompt attack detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/external-copilot-prompt-attack-detection-.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/external-copilot-prompt-attack-detection-.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-exposure-management-ai-agents-inventory.kql",
+  "title": "exposure management ai agents inventory",
+  "date": "2026-11-02",
+  "product": "Defender XDR",
+  "tables": [
+   "ExposureGraphEdges",
+   "ExposureGraphNodes"
+  ],
+  "purpose": "exposure management ai agents inventory",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/exposure-management-ai-agents-inventory.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/exposure-management-ai-agents-inventory.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-exo-retirement-of-legacy-tls-versions-for-pop.kql",
+  "title": "exo retirement of legacy tls versions for pop and imap connections",
+  "date": "2026-11-02",
+  "product": "Entra",
+  "tables": [
+   "EntraIdSignInEvents"
+  ],
+  "purpose": "exo retirement of legacy tls versions for pop and imap connections",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/exo-retirement-of-legacy-tls-versions-for-pop-and-imap-connections.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/exo-retirement-of-legacy-tls-versions-for-pop-and-imap-connections.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-entra-mfa-report-sms-and-voice-authentication.kql",
+  "title": "entra mfa report   sms and voice authentication",
+  "date": "2026-11-02",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "entra mfa report sms and voice authentication",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/entra-mfa-report---sms-and-voice-authentication.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/entra-mfa-report---sms-and-voice-authentication.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-email-bombing-and-teams-impersonation-detection.kql",
+  "title": "email bombing and teams impersonation detection",
+  "date": "2026-11-02",
+  "product": "Defender for Office 365",
+  "tables": [
+   "CloudAppEvents",
+   "EmailEvents"
+  ],
+  "purpose": "email bombing and teams impersonation detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/email-bombing-and-teams-impersonation-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/email-bombing-and-teams-impersonation-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-edrchoker-detection.kql",
+  "title": "edrchoker detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceInfo",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "edrchoker detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/edrchoker-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/edrchoker-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-docmagic-impersonation-campaign-redirects-users-to-tycoon2fa.kql",
+  "title": "docmagic impersonation campaign redirects users to tycoon2fa phishing pages",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "EmailEvents"
+  ],
+  "purpose": "docmagic impersonation campaign redirects users to tycoon2fa phishing pages",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/docmagic-impersonation-campaign-redirects-users-to-tycoon2fa-phishing-pages.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/docmagic-impersonation-campaign-redirects-users-to-tycoon2fa-phishing-pages.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detection-rules-for-mois-campaign.kql",
+  "title": "detection rules for mois campaign",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "detection rules for mois campaign",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detection-rules-for-mois-campaign.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detection-rules-for-mois-campaign.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detecting-the-nodejs-brotli-rce.kql",
+  "title": "detecting the nodejs brotli rce",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents",
+   "DeviceTvmSoftwareVulnerabilities"
+  ],
+  "purpose": "detecting the nodejs brotli rce",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detecting-the-nodejs-brotli-rce.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detecting-the-nodejs-brotli-rce.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detecting-teams-impersonation-via-rmm-exfiltration.kql",
+  "title": "detecting teams impersonation via rmm exfiltration",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "CloudAppEvents",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "detecting teams impersonation via rmm exfiltration",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detecting-teams-impersonation-via-rmm-exfiltration.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detecting-teams-impersonation-via-rmm-exfiltration.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detecting-svg-payload-phishing-campaign.kql",
+  "title": "detecting svg payload phishing campaign",
+  "date": "2026-11-02",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailAttachmentInfo",
+   "EmailEvents"
+  ],
+  "purpose": "detecting svg payload phishing campaign",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detecting-svg-payload-phishing-campaign.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detecting-svg-payload-phishing-campaign.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detecting-ntlm-leakage-in-windows-search.kql",
+  "title": "detecting ntlm leakage in windows search",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo",
+   "DeviceNetworkEvents",
+   "IdentityInfo",
+   "UrlClickEvents"
+  ],
+  "purpose": "detecting ntlm leakage in windows search",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detecting-ntlm-leakage-in-windows-search.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detecting-ntlm-leakage-in-windows-search.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detecting-lpe-associated-with-either-dirtyfrag-or-copyfail.kql",
+  "title": "detecting lpe associated with either dirtyfrag or copyfail",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "detecting lpe associated with either dirtyfrag or copyfail",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detecting-lpe-associated-with-either-dirtyfrag-or-copyfail.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detecting-lpe-associated-with-either-dirtyfrag-or-copyfail.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detect-whatsapp-vbscript-campaign.kql",
+  "title": "detect whatsapp vbscript campaign",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "detect whatsapp vbscript campaign",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-whatsapp-vbscript-campaign.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-whatsapp-vbscript-campaign.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detect-teams-impersonation-malicious-qr-codes.kql",
+  "title": "detect teams impersonation malicious qr codes",
+  "date": "2026-11-02",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents",
+   "MessageEvents",
+   "MessageUrlInfo"
+  ],
+  "purpose": "detect teams impersonation malicious qr codes",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-teams-impersonation-malicious-qr-codes.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-teams-impersonation-malicious-qr-codes.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detect-teams-based-helpdesk-impersonation-attack-mail-bomb.kql",
+  "title": "detect teams based helpdesk impersonation attack mail bomb follow by social engineering attack",
+  "date": "2026-11-02",
+  "product": "Defender for Office 365",
+  "tables": [
+   "CloudAppEvents",
+   "EmailEvents"
+  ],
+  "purpose": "detect teams based helpdesk impersonation attack mail bomb follow by social engineering attack",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-teams-based-helpdesk-impersonation-attack-mail-bomb-follow-by-social-engineering-attack.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-teams-based-helpdesk-impersonation-attack-mail-bomb-follow-by-social-engineering-attack.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detect-solidity-pro-vs-code-extensions-steal-crypto.kql",
+  "title": "detect solidity pro vs code extensions steal crypto wallets api keys and credentials",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "detect solidity pro vs code extensions steal crypto wallets api keys and credentials",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-solidity-pro-vs-code-extensions-steal-crypto-wallets-api-keys-and-credentials.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-solidity-pro-vs-code-extensions-steal-crypto-wallets-api-keys-and-credentials.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detect-phishing-callback-from-azure-monitor-alerts.kql",
+  "title": "detect phishing callback from azure monitor alerts",
+  "date": "2026-11-02",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents"
+  ],
+  "purpose": "detect phishing callback from azure monitor alerts",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-phishing-callback-from-azure-monitor-alerts.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-phishing-callback-from-azure-monitor-alerts.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detect-o365-activities-from-openai-ip-addresses.kql",
+  "title": "detect o365 activities from openai ip addresses",
+  "date": "2026-11-02",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "detect o365 activities from openai ip addresses",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-o365-activities-from-openai-ip-addresses.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-o365-activities-from-openai-ip-addresses.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detect-dirk-jan-mollemas-borrowing-windows-hello-keys.kql",
+  "title": "detect dirk jan mollemas borrowing windows hello keys for authentication and persistence",
+  "date": "2026-11-02",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "detect dirk jan mollemas borrowing windows hello keys for authentication and persistence",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-dirk-jan-mollemas-borrowing-windows-hello-keys-for-authentication-and-persistence.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-dirk-jan-mollemas-borrowing-windows-hello-keys-for-authentication-and-persistence.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detect-compromised-npm-packages-keyv-and-cacheable-via.kql",
+  "title": "detect compromised npm packages keyv and cacheable via socket ioc",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "detect compromised npm packages keyv and cacheable via socket ioc",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-compromised-npm-packages-keyv-and-cacheable-via-socket-ioc.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-compromised-npm-packages-keyv-and-cacheable-via-socket-ioc.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detect-certighost-cve-2026-54121.kql",
+  "title": "detect certighost cve 2026 54121",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "SecurityEvent"
+  ],
+  "purpose": "detect certighost cve 2026 54121",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-certighost-cve-2026-54121.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-certighost-cve-2026-54121.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detect-brave-alias-abuse-for-phishing.kql",
+  "title": "detect brave alias abuse for phishing",
+  "date": "2026-11-02",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents"
+  ],
+  "purpose": "detect brave alias abuse for phishing",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-brave-alias-abuse-for-phishing.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-brave-alias-abuse-for-phishing.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-detect-77-evil-twin-open-vsx-extensions.kql",
+  "title": "detect 77 evil twin open vsx extensions",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "detect 77 evil twin open vsx extensions",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-77-evil-twin-open-vsx-extensions.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-77-evil-twin-open-vsx-extensions.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-defending-against-kerberloss-cve-2026-25177.kql",
+  "title": "defending against kerberloss cve 2026 25177",
+  "date": "2026-11-02",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityEvent"
+  ],
+  "purpose": "defending against kerberloss cve 2026 25177",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/defending-against-kerberloss-cve-2026-25177.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/defending-against-kerberloss-cve-2026-25177.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-defenderxdr-cloudflare-win-r-clickfix-detection.kql",
+  "title": "defenderxdr cloudflare win  r clickfix detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceNetworkEvents",
+   "DeviceRegistryEvents"
+  ],
+  "purpose": "defenderxdr cloudflare win r clickfix detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/defenderxdr-cloudflare-win--r-clickfix-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/defenderxdr-cloudflare-win--r-clickfix-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-defenderxdr-bluehammer-detection.kql",
+  "title": "defenderxdr bluehammer detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "defenderxdr bluehammer detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/defenderxdr-bluehammer-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/defenderxdr-bluehammer-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-defender-xdr-threat-entities-abusing-cloudflare.kql",
+  "title": "defender xdr threat entities abusing cloudflare",
+  "date": "2026-11-02",
+  "product": "",
+  "tables": [],
+  "purpose": "defender xdr threat entities abusing cloudflare",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/defender-xdr-threat-entities-abusing-cloudflare.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/defender-xdr-threat-entities-abusing-cloudflare.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-debull-detection.kql",
+  "title": "debull detection",
+  "date": "2026-11-02",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "debull detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/debull-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/debull-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-cve202641089-cvss-98-detection.kql",
+  "title": "cve202641089 cvss 98 detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceInfo",
+   "DeviceNetworkEvents",
+   "DeviceTvmSoftwareVulnerabilities"
+  ],
+  "purpose": "cve202641089 cvss 98 detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve202641089-cvss-98-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve202641089-cvss-98-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-cve202614191-winrar-rce-detection.kql",
+  "title": "cve202614191  winrar rce detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "cve202614191 winrar rce detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve202614191--winrar-rce-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve202614191--winrar-rce-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-cve-2026-62911-check.kql",
+  "title": "cve 2026 62911 check",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "cve 2026 62911 check",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve-2026-62911-check.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve-2026-62911-check.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-cve-2026-48095-surface-attack-area.kql",
+  "title": "cve 2026 48095 surface attack area",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceImageLoadEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "cve 2026 48095 surface attack area",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve-2026-48095-surface-attack-area.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve-2026-48095-surface-attack-area.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-cve-2026-33829-snipping-tool-ntlm-leak.kql",
+  "title": "cve 2026 33829 snipping tool ntlm leak",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "cve 2026 33829 snipping tool ntlm leak",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve-2026-33829-snipping-tool-ntlm-leak.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve-2026-33829-snipping-tool-ntlm-leak.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-cve-2026-31431-copyfail.kql",
+  "title": "cve 2026 31431 copyfail",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents",
+   "ExposureGraphEdges",
+   "ExposureGraphNodes"
+  ],
+  "purpose": "cve 2026 31431 copyfail",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve-2026-31431-copyfail.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve-2026-31431-copyfail.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-cve-2026-26128-kerberos-reflection-bypass-detection.kql",
+  "title": "cve 2026 26128 kerberos reflection bypass detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "cve 2026 26128 kerberos reflection bypass detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve-2026-26128-kerberos-reflection-bypass-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve-2026-26128-kerberos-reflection-bypass-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-cve-2026-26119-privilege-escalation-in-windows-admin.kql",
+  "title": "CVE 2026 26119 Privilege Escalation in Windows Admin Center",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "CVE 2026 26119 Privilege Escalation in Windows Admin Center",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/CVE-2026-26119-Privilege-Escalation-in-Windows-Admin-Center.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/CVE-2026-26119-Privilege-Escalation-in-Windows-Admin-Center.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-cve-2026-26117-hijacking-azure-arc-on-windows.kql",
+  "title": "cve 2026 26117 hijacking azure arc on windows for local privilege escalation  cloud identity takeover",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo",
+   "DeviceTvmSoftwareVulnerabilities"
+  ],
+  "purpose": "cve 2026 26117 hijacking azure arc on windows for local privilege escalation cloud identity takeover",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve-2026-26117-hijacking-azure-arc-on-windows-for-local-privilege-escalation--cloud-identity-takeover.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve-2026-26117-hijacking-azure-arc-on-windows-for-local-privilege-escalation--cloud-identity-takeover.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-crosstenant-helpdesk-impersonation-to-data-exfiltration.kql",
+  "title": "crosstenant helpdesk impersonation to data exfiltration",
+  "date": "2026-11-02",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "crosstenant helpdesk impersonation to data exfiltration",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/crosstenant-helpdesk-impersonation-to-data-exfiltration.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/crosstenant-helpdesk-impersonation-to-data-exfiltration.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-cloudflare-eviltokens-gotta-catchem-all.kql",
+  "title": "cloudflare eviltokens gotta catchem all",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "EmailUrlInfo",
+   "UrlClickEvents"
+  ],
+  "purpose": "cloudflare eviltokens gotta catchem all",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cloudflare-eviltokens-gotta-catchem-all.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cloudflare-eviltokens-gotta-catchem-all.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-clickfix-nslookup-abuse-detection.kql",
+  "title": "clickfix nslookup abuse detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "clickfix nslookup abuse detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/clickfix-nslookup-abuse-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/clickfix-nslookup-abuse-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-clickfix-nslookup-abuse-detection-enhanced.kql",
+  "title": "clickfix nslookup abuse detection enhanced",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "clickfix nslookup abuse detection enhanced",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/clickfix-nslookup-abuse-detection-enhanced.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/clickfix-nslookup-abuse-detection-enhanced.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-claudefix-shared-claude-chats-meet-clickfix.kql",
+  "title": "claudefix shared claude chats meet clickfix",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "claudefix shared claude chats meet clickfix",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/claudefix-shared-claude-chats-meet-clickfix.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/claudefix-shared-claude-chats-meet-clickfix.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-citrix-netscaler-check.kql",
+  "title": "citrix netscaler check",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo"
+  ],
+  "purpose": "citrix netscaler check",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/citrix-netscaler-check.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/citrix-netscaler-check.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-catch-them-if-you-can.kql",
+  "title": "catch them if you can",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "catch them if you can",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/catch-them-if-you-can.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/catch-them-if-you-can.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-btr-reforged-detection.kql",
+  "title": "btr reforged detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceFileEvents"
+  ],
+  "purpose": "btr reforged detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/btr-reforged-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/btr-reforged-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-bitwarden-cli-compromised-detection.kql",
+  "title": "bitwarden cli compromised detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "bitwarden cli compromised detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/bitwarden-cli-compromised-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/bitwarden-cli-compromised-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-axios-compromise-detection-via-3rd-party.kql",
+  "title": "axios compromise detection via 3rd party",
+  "date": "2026-11-02",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "axios compromise detection via 3rd party",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/axios-compromise-detection-via-3rd-party.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/axios-compromise-detection-via-3rd-party.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-arpa-under-siege-cybercriminals-weaponize-the-dns-infrastruc.kql",
+  "title": "arpa under siege cybercriminals weaponize the dns infrastructure",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "arpa under siege cybercriminals weaponize the dns infrastructure",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/arpa-under-siege-cybercriminals-weaponize-the-dns-infrastructure.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/arpa-under-siege-cybercriminals-weaponize-the-dns-infrastructure.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-analyzing-ai-mcp-saas-usage-in-your-mde.kql",
+  "title": "analyzing ai mcp saas usage in your mde environment",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "analyzing ai mcp saas usage in your mde environment",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/analyzing-ai-mcp-saas-usage-in-your-mde-environment.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/analyzing-ai-mcp-saas-usage-in-your-mde-environment.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-analysis-of-kali365-by-asn-over-past-30.kql",
+  "title": "analysis of kali365 by asn over past 30 days",
+  "date": "2026-11-02",
+  "product": "",
+  "tables": [],
+  "purpose": "analysis of kali365 by asn over past 30 days",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/analysis-of-kali365-by-asn-over-past-30-days.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/analysis-of-kali365-by-asn-over-past-30-days.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-ai-mcp-agent-visibility-risk-assessment.kql",
+  "title": "ai mcp agent visibility  risk assessment",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "ExposureGraphEdges",
+   "ExposureGraphNodes"
+  ],
+  "purpose": "ai mcp agent visibility risk assessment",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/ai-mcp-agent-visibility--risk-assessment.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/ai-mcp-agent-visibility--risk-assessment.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-ai-agents-run-by-priviliged-users.kql",
+  "title": "ai agents run by priviliged users",
+  "date": "2026-11-02",
+  "product": "Defender for Identity",
+  "tables": [
+   "AgentsInfo",
+   "IdentityInfo"
+  ],
+  "purpose": "ai agents run by priviliged users",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/ai-agents-run-by-priviliged-users.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/ai-agents-run-by-priviliged-users.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-ai-agent-high-severity-exposure-check.kql",
+  "title": "ai agent high severity exposure check",
+  "date": "2026-11-02",
+  "product": "",
+  "tables": [],
+  "purpose": "ai agent high severity exposure check",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/ai-agent-high-severity-exposure-check.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/ai-agent-high-severity-exposure-check.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-agent365-autojack-detection.kql",
+  "title": "agent365 autojack detection",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "AIAgentsInfo",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "agent365 autojack detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/agent365-autojack-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/agent365-autojack-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-agent-365-local-ai-agent-installation-detection.kql",
+  "title": "agent 365  local ai agent installation detection",
+  "date": "2026-11-02",
+  "product": "Defender XDR",
+  "tables": [
+   "AIAgentsInfo"
+  ],
+  "purpose": "agent 365 local ai agent installation detection",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/agent-365--local-ai-agent-installation-detection.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/agent-365--local-ai-agent-installation-detection.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-agent-365-detecting-autonomous-agents-awaiting-commands.kql",
+  "title": "agent 365  detecting autonomous agents awaiting commands",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "ExposureGraphEdges",
+   "ExposureGraphNodes"
+  ],
+  "purpose": "agent 365 detecting autonomous agents awaiting commands",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/agent-365--detecting-autonomous-agents-awaiting-commands.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/agent-365--detecting-autonomous-agents-awaiting-commands.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-admin-consent-for-m365-connector-for-claude.kql",
+  "title": "admin consent for m365 connector for claude",
+  "date": "2026-11-02",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "admin consent for m365 connector for claude",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/admin-consent-for-m365-connector-for-claude.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/admin-consent-for-m365-connector-for-claude.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
+  "file": "community/2026-11-02-a-360-surveillance-kql-for-monitoring-potential-risks.kql",
+  "title": "a 360 surveillance kql for monitoring potential risks from entra and mde endpoint activities amid the usisraeliran escalation",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "EntraIdSignInEvents"
+  ],
+  "purpose": "a 360 surveillance kql for monitoring potential risks from entra and mde endpoint activities amid the usisraeliran escalation",
+  "source": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/a-360-surveillance-kql-for-monitoring-potential-risks-from-entra-and-mde-endpoint-activities-amid-the-usisraeliran-escalation.kql",
+  "kind": "repo",
+  "author": "Steven Lim",
+  "link": "https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/a-360-surveillance-kql-for-monitoring-potential-risks-from-entra-and-mde-endpoint-activities-amid-the-usisraeliran-escalation.kql",
+  "license": "not stated",
+  "repo": "SlimKQL Detections.AI (Steven Lim)",
+  "initial": true
+ },
+ {
   "file": "articles/2026-11-01-detection-5-shell-process-spawned-by-beyondtrust-web.kql",
   "title": "Detection 5: Shell Process Spawned by BeyondTrust Web Service Indicating RCE via CVE-2026-102764",
   "date": "2026-11-01",

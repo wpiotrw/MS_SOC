@@ -1,0 +1,24 @@
+// title: detection rules for mois campaign
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceNetworkEvents
+// purpose: detection rules for mois campaign
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detection-rules-for-mois-campaign.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let MasqueradeExes = dynamic(["MicDriver.exe", "Winappx.exe", "MsCache.exe", "RuntimeSSH.exe", "smqdservice.exe"]);
+let MOIS=externaldata(FileName:string,MD5:string)
+[h'https://raw.githubusercontent.com/SlimKQL/Hunting-Queries-Detection-Rules/refs/heads/main/IOC/MOISIOC.csv']
+with (format='csv', ignoreFirstRecord=true)
+| project MD5;
+let FileHash =
+DeviceFileEvents
+| where Timestamp > ago(30d)
+| where MD5 has_any(MOIS);
+DeviceNetworkEvents
+| where Timestamp > ago(30d)
+| where RemoteUrl has "api.telegram.org"
+| where InitiatingProcessFileName has_any(MasqueradeExes)
+| union FileHash

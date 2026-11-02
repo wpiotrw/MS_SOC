@@ -1,0 +1,29 @@
+// title: agent365 autojack detection
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: AIAgentsInfo, DeviceProcessEvents
+// purpose: agent365 autojack detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/agent365-autojack-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let AgentProcess =
+AIAgentsInfo
+| where AgentCreationTime > ago(30d) 
+| where Platform == @"LocalAgents"
+| where IsBlocked == false
+| where parse_json(RawAgentInfo).publishedStatus == 'Published'
+| extend ProcessName = tostring(parse_json(RawAgentInfo).localAgentMetadata.relatedProcess)
+| distinct ProcessName;
+DeviceProcessEvents 
+| where Timestamp > ago(30d) 
+| where InitiatingProcessFileName has_any(AgentProcess)
+| where FileName in~ ( 
+    "cmd.exe", "powershell.exe", "pwsh.exe", "bash.exe", "wsl.exe", 
+    "certutil.exe", "mshta.exe", "rundll32.exe", "regsvr32.exe", 
+    "curl.exe", "wget.exe", "bitsadmin.exe" 
+) 
+| project Timestamp, DeviceName, AccountName, FileName, ProcessCommandLine, 
+          InitiatingProcessFileName, InitiatingProcessCommandLine 
+| sort by Timestamp desc

@@ -1,0 +1,18 @@
+// title: detect dirk jan mollemas borrowing windows hello keys for authentication and persistence
+// date: 2026-11-02
+// product: Entra
+// tables: SigninLogs
+// purpose: detect dirk jan mollemas borrowing windows hello keys for authentication and persistence
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-dirk-jan-mollemas-borrowing-windows-hello-keys-for-authentication-and-persistence.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookBack = 1h;
+SigninLogs
+| where TimeGenerated > ago(LookBack)
+| where ResultType == "0"
+| where DeviceDetail.deviceId == ""
+| where AuthenticationDetails has '"authenticationMethod":"Windows Hello for Business"'
+| where AuthenticationContextClassReferences has '"urn:user:registerdevice"'
+| where RiskDetail <> "none" or RiskLevelAggregated <> "none" or RiskState <> "none"

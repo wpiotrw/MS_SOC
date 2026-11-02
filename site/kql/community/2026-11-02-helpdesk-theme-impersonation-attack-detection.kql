@@ -1,0 +1,19 @@
+// title: helpdesk theme impersonation attack detection
+// date: 2026-11-02
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: helpdesk theme impersonation attack detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/helpdesk-theme-impersonation-attack-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let HelpdeskDomain = dynamic(["helpdesk-quick.com","helpdesk-call.com","helpdesk-service.com"]);
+CloudAppEvents
+| where Timestamp > ago(30d)
+| where ActionType == "TeamsImpersonationDetected"
+| extend ImpersonationDisplayName = tostring(parse_json(tostring(RawEventData.Sender)).DisplayName)
+| extend ImpersonationUPN = tostring(parse_json(tostring(RawEventData.Sender)).UPN)
+| extend ImpactedUserUPN = tostring(RawEventData.UserId)
+| where ImpersonationUPN has_any(HelpdeskDomain)
+| project Timestamp, AccountType, ImpactedUserUPN, ImpersonationDisplayName, ImpersonationUPN

@@ -1,0 +1,29 @@
+// title: cve202641089 cvss 98 detection
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceInfo, DeviceNetworkEvents, DeviceTvmSoftwareVulnerabilities
+// purpose: cve202641089 cvss 98 detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve202641089-cvss-98-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let VulnerableEP =
+DeviceTvmSoftwareVulnerabilities 
+| where CveId == "CVE-2026-41089"
+| distinct DeviceId;
+let InternetFacingVEP =
+DeviceInfo
+| where IsInternetFacing == true and isnotempty(PublicIP)
+| where DeviceId has_any(VulnerableEP);
+let InboundRPCNetlogon =
+DeviceEvents
+| where ActionType == "InboundRemoteRpcCall"
+| extend AdditionalFields = parse_json(AdditionalFields)
+| where AdditionalFields.RpcInterfaceUuid == "12345678-1234-abcd-ef00-01234567cffb";
+DeviceNetworkEvents
+| where DeviceId has_any(InternetFacingVEP)
+| where ActionType == @"InboundConnectionAttempt"
+| where not(ipv4_is_private(RemoteIP))
+| where LocalPort == "445"
+| union InboundRPCNetlogon

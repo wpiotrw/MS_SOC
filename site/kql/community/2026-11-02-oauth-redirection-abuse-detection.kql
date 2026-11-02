@@ -1,0 +1,17 @@
+// title: oauth redirection abuse detection
+// date: 2026-11-02
+// product: Defender for Office 365
+// tables: EmailEvents, EmailUrlInfo
+// purpose: oauth redirection abuse detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/oauth-redirection-abuse-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Lookback = 1h;
+EmailUrlInfo
+| where Timestamp > ago(Lookback)
+| where Url startswith "https://login.microsoftonline.com/common/oauth2/v2.0/authorize" and Url has "prompt=none"
+| join EmailEvents on NetworkMessageId
+| where EmailDirection == "Inbound"
+| where DeliveryAction <> "Blocked"

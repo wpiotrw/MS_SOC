@@ -1,0 +1,15 @@
+// title: m365 connector for claude detection
+// date: 2026-11-02
+// product: Entra
+// tables: SigninLogs
+// purpose: m365 connector for claude detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/m365-connector-for-claude-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+SigninLogs
+| where TimeGenerated > ago(1h)
+| where ResultType == "0" or ResultType == "90095"
+| where AppId == "08ad6f98-a4f8-4635-bb8d-f1a3044760f0" 
+or AppId == "07c030f6-5743-41b7-ba00-0a6e85f37c17"

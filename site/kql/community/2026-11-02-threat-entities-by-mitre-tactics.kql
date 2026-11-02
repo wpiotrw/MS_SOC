@@ -1,0 +1,19 @@
+// title: threat entities by mitre tactics
+// date: 2026-11-02
+// product: 
+// tables: 
+// purpose: threat entities by mitre tactics
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/threat-entities-by-mitre-tactics.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+ThreatIntelEntities
+| where Modified > ago(30d)
+| extend ActivityGroup = tostring(split(Tags,",")[0])
+| where ActivityGroup != @"activitygroup:unknown actor"
+| where Tags has "mitre"
+| extend MITRETactics = extract_all(@'"fullname":"mitre/([^"]+)"', tostring(Tags))
+| mv-expand MITRETactics
+| summarize Tactics=count() by ActivityGroup, tostring(MITRETactics)
+| sort by Tactics desc

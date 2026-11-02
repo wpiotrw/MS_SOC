@@ -1,0 +1,19 @@
+// title: ai agent high severity exposure check
+// date: 2026-11-02
+// product: 
+// tables: 
+// purpose: ai agent high severity exposure check
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/ai-agent-high-severity-exposure-check.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+ExposureRecommendations
+| where TimeGenerated > ago(30d)
+| where AssetType == "AI Agent"
+| where Severity == "High"
+| where Title == "Remove secrets or credentials from AI agent instructions" or 
+Title == "Restrict user access for an AI agent with High Blast Radius" or 
+Title == "Enforce authentication for published AI agent with privileged data access" or
+Title == "Remove Secrets from MCP Arguments"
+| summarize arg_max(TimeGenerated, *) by AssetId

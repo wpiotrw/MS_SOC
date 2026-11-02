@@ -1,0 +1,20 @@
+// title: analyzing ai mcp saas usage in your mde environment
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: analyzing ai mcp saas usage in your mde environment
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/analyzing-ai-mcp-saas-usage-in-your-mde-environment.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let AIMCPServer=externaldata(AIModel:string,AIAPIUrl:string,RiskScore:string)
+[h'https://raw.githubusercontent.com/SlimKQL/Hunting-Queries-Detection-Rules/refs/heads/main/IOC/AIMCPServer.csv']
+with (format='csv', ignoreFirstRecord=true)
+| project AIAPIUrl;
+DeviceNetworkEvents
+| where Timestamp > ago(30d)
+| where RemoteUrl has_any(AIMCPServer)
+| extend AIMCP = replace_string(RemoteUrl, "https://", "")
+| summarize Count=count() by AIMCP
+| sort by Count desc

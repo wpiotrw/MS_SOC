@@ -1,0 +1,30 @@
+// title: high fidelity artoken detection
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, EmailEvents, EmailUrlInfo
+// purpose: high fidelity artoken detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/high-fidelity-artoken-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookBack = 1h;
+let ARTokenC2 = dynamic([
+"hewktree.net",
+"pamconj.com",
+"corabuild.eu",
+"outllerbuilt.com",
+"badrockstabilization.com",
+"klwo.org"
+]);
+let SuspectedEmailLure =
+EmailUrlInfo
+| where Timestamp > ago(LookBack)
+| where Url has ".sharepoint.com" or Url has ".workers.dev"
+| join EmailEvents on NetworkMessageId
+| where EmailDirection == "Inbound"
+| where IsFirstContact == true;
+DeviceNetworkEvents
+| where Timestamp > ago(LookBack)
+| where RemoteUrl has_any(ARTokenC2)
+| union SuspectedEmailLure

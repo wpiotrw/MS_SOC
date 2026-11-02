@@ -1,0 +1,25 @@
+// title: detecting lpe associated with either dirtyfrag or copyfail
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: detecting lpe associated with either dirtyfrag or copyfail
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detecting-lpe-associated-with-either-dirtyfrag-or-copyfail.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookBack = 1h;
+let ElfBinaryCreatedInUserDirectory =
+DeviceFileEvents
+| where Timestamp > ago(LookBack)
+| where ActionType == "FileCreated"
+| extend FileType=tostring(parse_json(AdditionalFields)["FileType"])
+| where FileType == "ElfSharedLib" or FileType == "ElfExecutable"
+| where FolderPath startswith "/home/"
+| distinct FileName;
+DeviceProcessEvents
+| where Timestamp > ago(LookBack)
+| where ActionType == "ProcessCreated"
+| where FileName == "su" and FolderPath == "/usr/bin/su"
+| where InitiatingProcessFolderPath startswith "/home/"
+| where InitiatingProcessFileName has_any(ElfBinaryCreatedInUserDirectory)

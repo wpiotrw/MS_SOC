@@ -1,0 +1,19 @@
+// title: hunting punycode domains in defender xdr
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: hunting punycode domains in defender xdr
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/hunting-punycode-domains-in-defender-xdr.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where Timestamp > ago(30d)
+| where ActionType == @"DnsQueryResponse"
+| extend DNSHostQuery = tostring(parse_json(AdditionalFields).DnsQueryString)
+| extend ProcessQuery = tostring(parse_json(AdditionalFields).ClientProcessName)
+| where DNSHostQuery startswith "xn--"
+| extend PunyDomain = punycode_domain_from_string(DNSHostQuery)
+| summarize Count=count() by PunyDomain, ProcessQuery
+| sort by Count desc

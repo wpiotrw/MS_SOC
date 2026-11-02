@@ -1,0 +1,19 @@
+// title: analysis of kali365 by asn over past 30 days
+// date: 2026-11-02
+// product: 
+// tables: 
+// purpose: analysis of kali365 by asn over past 30 days
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/analysis-of-kali365-by-asn-over-past-30-days.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Kali365Urls=externaldata(ID:string,url:string,Time:string,ThreatLevel:string,IsNew:string,
+RelatedDomainsvalue:string,RelatedDomainsthreatLevel:string,RelatedIpsvalue:string,RelatedIpsport:string,
+RelatedIpsgeo:string,RelatedIpsasn:string,RelatedIpsthreatLevel:string )
+[h'https://raw.githubusercontent.com/SlimKQL/Hunting-Queries-Detection-Rules/refs/heads/main/IOC/Kali365_Urls.csv']
+with (format='csv', ignoreFirstRecord=true);
+Kali365Urls
+| where isnotempty(RelatedIpsasn)
+| summarize Count=count() by tolower(RelatedIpsasn)
+| sort by Count desc

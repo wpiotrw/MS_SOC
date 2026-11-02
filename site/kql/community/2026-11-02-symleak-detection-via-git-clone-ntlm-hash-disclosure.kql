@@ -1,0 +1,20 @@
+// title: symleak detection via git clone ntlm hash disclosure
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceTvmSoftwareVulnerabilities
+// purpose: symleak detection via git clone ntlm hash disclosure
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/symleak-detection-via-git-clone-ntlm-hash-disclosure.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let VulnerableEP =
+DeviceTvmSoftwareVulnerabilities
+| where CveId == "CVE-2026-32631"
+| distinct DeviceName;
+DeviceNetworkEvents
+| where Timestamp > ago(1h)
+| where InitiatingProcessFileName has "git"
+| where InitiatingProcessCommandLine has "git clone"
+| where RemoteIPType == "Public" and RemotePort == 445
+| where DeviceName has_any(VulnerableEP)

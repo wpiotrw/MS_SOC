@@ -1,0 +1,23 @@
+// title: reduce unnecessary inbound internet exposure on internet facing devices
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceTvmSecureConfigurationAssessment, DeviceTvmSecureConfigurationAssessmentKB
+// purpose: reduce unnecessary inbound internet exposure on internet facing devices
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/reduce-unnecessary-inbound-internet-exposure-on-internet-facing-devices.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let InternetExposedEP =
+DeviceTvmSecureConfigurationAssessmentKB
+| where ConfigurationName == @"Reduce unnecessary inbound internet exposure on internet-facing devices"
+| join DeviceTvmSecureConfigurationAssessment on ConfigurationId
+| where IsCompliant !=1 and IsApplicable==1
+| distinct DeviceName;
+DeviceNetworkEvents
+| where Timestamp > ago(30d)
+| where ActionType == "ListeningConnectionCreated"
+| where DeviceName has_any(InternetExposedEP)
+| where LocalIP != @"127.0.0.1"
+| summarize ListeningPortExposed=dcount(LocalPort) by DeviceName
+| sort by ListeningPortExposed desc

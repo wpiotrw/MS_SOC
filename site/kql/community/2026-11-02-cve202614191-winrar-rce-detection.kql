@@ -1,0 +1,16 @@
+// title: cve202614191  winrar rce detection
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: cve202614191 winrar rce detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/cve202614191--winrar-rce-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where Timestamp > ago(1h)
+| where InitiatingProcessFileName has "UnRAR.exe" or InitiatingProcessFileName has "WinRAR.exe"
+| where InitiatingProcessCommandLine has ".rev"
+| extend VersionShort = toreal(tostring(extract(@"^\d+\.\d+", 0, InitiatingProcessVersionInfoProductVersion)))
+| where VersionShort < 7.23

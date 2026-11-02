@@ -1,0 +1,19 @@
+// title: detect 77 evil twin open vsx extensions
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: detect 77 evil twin open vsx extensions
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-77-evil-twin-open-vsx-extensions.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let EvilTwinExtensions=externaldata(Num:string, ExtensionName:string, Version:string)
+[h'https://raw.githubusercontent.com/SlimKQL/Hunting-Queries-Detection-Rules/refs/heads/main/IOC/openvsx-evil-twins-2026-07.csv']
+with (format='csv', ignoreFirstRecord=true)
+| project tolower(ExtensionName);
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where InitiatingProcessCommandLine has "\\.vscode\\extensions\\" and InitiatingProcessCommandLine has "code.exe"
+| extend ExtensionName = tolower(extract(@"extensions\\([^\\]+)", 1, InitiatingProcessCommandLine))
+| where ExtensionName has_any(EvilTwinExtensions)

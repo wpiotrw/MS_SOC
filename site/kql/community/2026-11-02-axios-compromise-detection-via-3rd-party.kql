@@ -1,0 +1,19 @@
+// title: axios compromise detection via 3rd party
+// date: 2026-11-02
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: axios compromise detection via 3rd party
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/axios-compromise-detection-via-3rd-party.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let CompromisedAxios =
+AADSignInEventsBeta 
+| where Timestamp > ago(1h)
+| where isnotempty(DeviceTrustType) and ErrorCode == "0"
+| where UserAgent has "axios/1.14.1" or UserAgent has "axios/0.30.4";
+CloudAppEvents
+| where Timestamp > ago(1h)
+| where UserAgent has "axios/1.14.1" or UserAgent has "axios/0.30.4"
+| union CompromisedAxios

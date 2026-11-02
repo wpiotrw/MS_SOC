@@ -1,0 +1,20 @@
+// title: visualize vpn linked spray attempts
+// date: 2026-11-02
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: visualize vpn linked spray attempts
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/visualize-vpn-linked-spray-attempts.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let VPNInfo =
+CloudAppEvents
+| where Timestamp > ago(30d)
+| where ISP has "vpn"
+| distinct IPAddress, ISP;
+AADSignInEventsBeta
+| where Timestamp > ago(30d)
+| where ErrorCode == "50053" or ErrorCode == "50126"
+| join VPNInfo on $left.IPAddress == $right.IPAddress
+| summarize PasswordSpray = count() by bin(Timestamp, 1d)

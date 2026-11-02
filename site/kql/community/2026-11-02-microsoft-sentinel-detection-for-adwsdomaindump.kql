@@ -1,0 +1,20 @@
+// title: microsoft sentinel detection for adwsdomaindump
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, SecurityEvent
+// purpose: microsoft sentinel detection for adwsdomaindump
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/microsoft-sentinel-detection-for-adwsdomaindump.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ADWSSrv =
+DeviceNetworkEvents
+| where TimeGenerated > ago(1h)
+| where ActionType == "InboundConnectionAccepted"
+| where LocalPort == 9389
+| distinct DeviceName;
+SecurityEvent
+| where TimeGenerated > ago(1h)
+| where EventID == 1644 or EventID == 4662
+| where Computer has_any(ADWSSrv)

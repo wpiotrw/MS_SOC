@@ -1,0 +1,19 @@
+// title: indirect prompt injection risk assessment
+// date: 2026-11-02
+// product: Defender XDR
+// tables: ExposureGraphEdges, ExposureGraphNodes
+// purpose: indirect prompt injection risk assessment
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/indirect-prompt-injection-risk-assessment.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let HighRiskAgentOwner =
+ExposureGraphNodes 
+| where NodeLabel == @"ai-agent"
+| where parse_json(NodeProperties).rawData.aiAgentMetadata.publishedStatus == "Published"
+| where parse_json(NodeProperties).rawData.indirectPromptInjectionRiskIndicator == true
+| join ExposureGraphEdges on $left.NodeId == $right.TargetNodeId
+| distinct SourceNodeId;
+ExposureGraphEdges
+| where TargetNodeId has_any(HighRiskAgentOwner)

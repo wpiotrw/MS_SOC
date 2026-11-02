@@ -1,0 +1,15 @@
+// title: mikrotik routers under attack   cert polska
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: mikrotik routers under attack cert polska
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/mikrotik-routers-under-attack---cert-polska.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceInfo
+| where TimeGenerated > ago(90d)
+| where Vendor == "MikroTik" and OSDistribution == "MikroTikRouterOS"
+| where OSVersionInfo != "6.49.21" or OSVersionInfo != "7.23.4" or OSVersionInfo != "7.24.2"
+| summarize arg_max(TimeGenerated, *) by DeviceId

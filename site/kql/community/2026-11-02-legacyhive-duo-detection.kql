@@ -1,0 +1,21 @@
+// title: legacyhive duo detection
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceFileEvents
+// purpose: legacyhive duo detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/legacyhive-duo-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookBack = 1h;
+let AntimalwareDetection =
+DeviceEvents
+| where Timestamp > ago(LookBack)
+| where parse_json(AdditionalFields)["Description"] has "Trojan:Win64/LegacyHive";
+DeviceFileEvents
+| where Timestamp > ago(LookBack)
+| where ActionType == @"FileCreated"
+| where FolderPath matches regex @"\\[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\\"
+| where tolower(FileName) in~ ("ntuser.dat", "usrclass.dat")
+| union AntimalwareDetection

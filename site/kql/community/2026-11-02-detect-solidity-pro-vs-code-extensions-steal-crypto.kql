@@ -1,0 +1,21 @@
+// title: detect solidity pro vs code extensions steal crypto wallets api keys and credentials
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: detect solidity pro vs code extensions steal crypto wallets api keys and credentials
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-solidity-pro-vs-code-extensions-steal-crypto-wallets-api-keys-and-credentials.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let VSCodeExtensionStealer = dynamic([
+"helper-beeps.solidity-pro",
+"helper-beeps.solidity-pro-ai-auditor",
+"web3devtoolsx.solidity-pro",
+"iktok90-design.solidity-pro"
+]);
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where InitiatingProcessCommandLine has "\\.vscode\\extensions\\" and InitiatingProcessCommandLine has "code.exe"
+| extend ExtensionName = tolower(extract(@"extensions\\([^\\]+)", 1, InitiatingProcessCommandLine))
+| where ExtensionName has_any(VSCodeExtensionStealer)

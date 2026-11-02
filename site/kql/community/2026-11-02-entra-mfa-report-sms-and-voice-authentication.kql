@@ -1,0 +1,17 @@
+// title: entra mfa report   sms and voice authentication
+// date: 2026-11-02
+// product: Entra
+// tables: SigninLogs
+// purpose: entra mfa report sms and voice authentication
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/entra-mfa-report---sms-and-voice-authentication.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+SigninLogs
+| where TimeGenerated > ago(90d)
+| extend MfaMethod = tostring(parse_json(AuthenticationDetails)[1].authenticationMethod)
+| where parse_json(AuthenticationDetails)[0].succeeded == true and parse_json(AuthenticationDetails)[1].succeeded == true
+| where MfaMethod == "Text message" or MfaMethod has "phone"
+| distinct UserPrincipalName, MfaMethod
+//| summarize Count=count() by MfaMethod

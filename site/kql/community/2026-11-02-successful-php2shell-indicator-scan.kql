@@ -1,0 +1,21 @@
+// title: Successful php2Shell Indicator Scan
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Successful php2Shell Indicator Scan
+// source: https://github.com/SlimKQL/Hunting-Queries-Detection-Rules/blob/49b6acd24885b26f8a7f60919b854aebd8406238/DefenderXDR/Successful%20php2Shell%20Indicator%20Scan.kql
+// kind: repo
+// author: Steven Lim
+// license: BSD-3-Clause (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let IOC = dynamic([
+"2.59.133.151",
+"185.65.134.250",
+"185.184.222.160",
+"206.245.153.56",
+"23.234.81.67"
+]);
+DeviceNetworkEvents
+| where Timestamp > ago(30d)
+| where ActionType == "InboundConnectionAccepted"
+| where RemoteIP has_any(IOC)

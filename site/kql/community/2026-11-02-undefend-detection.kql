@@ -1,0 +1,24 @@
+// title: undefend detection
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: undefend detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/undefend-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookBackup = 3d;
+let DeviceFailedAVUpdate =
+DeviceTvmInfoGathering
+| where Timestamp > ago(LookBackup)
+| where parse_json(AdditionalFields)["AvIsSignatureUptoDate"] == 'false'
+| distinct DeviceName;
+DeviceFileEvents
+| where Timestamp > ago(LookBackup)
+| where DeviceName has_any(DeviceFailedAVUpdate)
+| where ActionType == "FileCreated"
+| where FileName endswith ".exe"
+| invoke FileProfile("SHA1",1000)
+| where isnotempty(GlobalPrevalence)
+| where GlobalPrevalence < 5

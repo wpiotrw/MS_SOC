@@ -1,0 +1,20 @@
+// title: one click exposure check for litellm ai supply chain attack
+// date: 2026-11-02
+// product: Entra
+// tables: EntraIdSignInEvents
+// purpose: one click exposure check for litellm ai supply chain attack
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/one-click-exposure-check-for-litellm-ai-supply-chain-attack.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let IOC=externaldata(Domain:string)
+[h'https://raw.githubusercontent.com/SlimKQL/Hunting-Queries-Detection-Rules/refs/heads/main/IOC/LiteLLMdomains.csv']
+with (format='csv', ignoreFirstRecord=true)
+| project Domain;
+EntraIdSignInEvents
+| where Timestamp > ago(30d) 
+| where AccountUpn has_any(IOC)
+| extend Domain = tostring(split(AccountUpn, "@")[1])
+| extend DomainType = iff(IsGuestUser==0, "TenantDomain", "GuestDomain")
+| distinct DomainType, Domain

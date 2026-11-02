@@ -1,0 +1,22 @@
+// title: detect compromised npm packages keyv and cacheable via socket ioc
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: detect compromised npm packages keyv and cacheable via socket ioc
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-compromised-npm-packages-keyv-and-cacheable-via-socket-ioc.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let NpmNodeFilename = dynamic(["node", "npm.cmd", "npm", "npx.cmd", "npx"]);
+let SocketCompromisedNPM=externaldata(Ecosystem:string, Namespace:string, NPMName:string, Version:string)
+[h'https://raw.githubusercontent.com/SlimKQL/Hunting-Queries-Detection-Rules/refs/heads/main/IOC/compromised-npm-packages.csv']
+with (format='csv', ignoreFirstRecord=true)
+| where isnotempty(NPMName) and isnotempty(Version)
+| project strcat(NPMName,"@",Version);
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where FileName has_any(NpmNodeFilename) 
+| where ProcessCommandLine has_any ("preinstall", "postinstall", "install")
+| where ProcessCommandLine has_any(SocketCompromisedNPM)
+| project Timestamp, DeviceName, FileName, ProcessCommandLine,InitiatingProcessFileName, InitiatingProcessCommandLine, AccountName

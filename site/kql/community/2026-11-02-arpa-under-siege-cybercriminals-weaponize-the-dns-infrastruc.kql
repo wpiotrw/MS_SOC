@@ -1,0 +1,15 @@
+// title: arpa under siege cybercriminals weaponize the dns infrastructure
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: arpa under siege cybercriminals weaponize the dns infrastructure
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/arpa-under-siege-cybercriminals-weaponize-the-dns-infrastructure.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where Timestamp > ago(1h)
+| where ActionType == "ConnectionSuccess"
+| extend fqdn = replace_string(RemoteUrl, "https://", "")
+| where fqdn matches regex @"^[a-z]{10}\.[0-9a-f\.]+ip6\.arpa$"

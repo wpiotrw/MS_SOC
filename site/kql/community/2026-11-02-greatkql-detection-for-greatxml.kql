@@ -1,0 +1,15 @@
+// title: greatkql detection for greatxml
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: greatkql detection for greatxml
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/greatkql-detection-for-greatxml.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceFileEvents
+| where Timestamp > ago(1h)
+| where ActionType in ("FileCreated", "FileModified", "FileRenamed")
+| where FileName =~ "unattend.xml"
+| where FolderPath matches regex @"^[A-Za-z]:\\unattend\.xml$"

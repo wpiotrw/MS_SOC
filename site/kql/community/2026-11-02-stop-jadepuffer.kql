@@ -1,0 +1,17 @@
+// title: stop jadepuffer
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceInfo, DeviceTvmSoftwareVulnerabilities
+// purpose: stop jadepuffer
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/stop-jadepuffer.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let JADEPUFFER =
+DeviceTvmSoftwareVulnerabilities
+| where CveId == "CVE-2025-3248"
+| distinct DeviceName;
+DeviceInfo
+| where IsInternetFacing == true and isnotempty(PublicIP)
+| where DeviceName has_any(JADEPUFFER)

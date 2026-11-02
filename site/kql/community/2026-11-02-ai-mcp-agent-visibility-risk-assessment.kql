@@ -1,0 +1,22 @@
+// title: ai mcp agent visibility  risk assessment
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, ExposureGraphEdges, ExposureGraphNodes
+// purpose: ai mcp agent visibility risk assessment
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/ai-mcp-agent-visibility--risk-assessment.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let EndpointMCPAgent =
+DeviceNetworkEvents
+| where Timestamp > ago(30d)
+| where ActionType == "ListeningConnectionCreated"
+| where LocalIP == "127.0.0.1" or LocalIP == "0.0.0.0"
+| where InitiatingProcessCommandLine has "mcp"
+| distinct DeviceName;
+ExposureGraphEdges 
+| where EdgeLabel == @"frequently logged in by"
+| where SourceNodeName has_any(EndpointMCPAgent)
+| join ExposureGraphNodes on $left.TargetNodeId == $right.NodeId
+// Your MCP Agent will have roles equivalent to NodeProperties column Assigned Roles

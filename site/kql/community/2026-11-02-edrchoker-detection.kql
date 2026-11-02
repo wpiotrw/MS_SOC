@@ -1,0 +1,29 @@
+// title: edrchoker detection
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceInfo, DeviceProcessEvents
+// purpose: edrchoker detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/edrchoker-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookBack= 1h;
+let SuspectedChoker =
+DeviceFileEvents
+| where Timestamp > ago(LookBack)
+| where ActionType == "FileCreated"
+| where FileName endswith ".exe" 
+| where InitiatingProcessAccountName != @"system"
+| distinct FileName;
+let SuspectedDevice =
+DeviceProcessEvents
+| where Timestamp > ago(LookBack)
+| where FileName has_any(SuspectedChoker)
+| where ProcessCommandLine has " "
+| where InitiatingProcessFileName == @"cmd.exe"
+| distinct DeviceName;
+DeviceInfo
+| where Timestamp > ago(LookBack)
+| where SensorHealthState == @"Inactive"
+| where DeviceName has_any(SuspectedDevice)

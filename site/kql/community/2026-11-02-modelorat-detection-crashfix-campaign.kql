@@ -1,0 +1,14 @@
+// title: modelorat detection crashfix campaign
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceRegistryEvents
+// purpose: modelorat detection crashfix campaign
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/modelorat-detection-crashfix-campaign.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceRegistryEvents
+| where Timestamp > ago(1h)
+| where ActionType == "RegistryKeyCreated"
+| where RegistryKey has "\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\MonitoringService"

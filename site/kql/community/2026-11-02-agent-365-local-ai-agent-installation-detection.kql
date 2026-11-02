@@ -1,0 +1,19 @@
+// title: agent 365  local ai agent installation detection
+// date: 2026-11-02
+// product: Defender XDR
+// tables: AIAgentsInfo
+// purpose: agent 365 local ai agent installation detection
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/agent-365--local-ai-agent-installation-detection.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AIAgentsInfo
+| where AgentCreationTime > ago(1d) 
+| where Platform == @"LocalAgents"
+| project AIVendor=parse_json(RawAgentInfo).localAgentMetadata.vendor,
+AISoftwareName=parse_json(RawAgentInfo).name,
+DeviceName=parse_json(RawAgentInfo).localAgentMetadata.deviceName,
+OSPlatform=parse_json(RawAgentInfo).localAgentMetadata.osPlatform,
+UserName=parse_json(RawAgentInfo).localAgentMetadata.accountName,
+AccountSid=parse_json(RawAgentInfo).localAgentMetadata.accountSid

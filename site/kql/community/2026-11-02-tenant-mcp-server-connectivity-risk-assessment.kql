@@ -1,0 +1,19 @@
+// title: tenant mcp server connectivity risk assessment
+// date: 2026-11-02
+// product: Defender XDR
+// tables: AgentsInfo
+// purpose: tenant mcp server connectivity risk assessment
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/tenant-mcp-server-connectivity-risk-assessment.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AgentsInfo 
+| where Platform == @"LocalAgents"
+| where PublishedStatus == @"Published"
+| where isnotempty(McpServers)
+| summarize arg_max(Timestamp, *) by AgentId
+| mv-expand McpServers
+| extend McpSrv = tolower(tostring(parse_json(McpServers).endpoint))
+| summarize Count=count() by McpSrv
+| sort by Count desc

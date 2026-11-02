@@ -1,0 +1,22 @@
+// title: detect teams impersonation malicious qr codes
+// date: 2026-11-02
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents, MessageEvents, MessageUrlInfo
+// purpose: detect teams impersonation malicious qr codes
+// source: https://github.com/SlimKQL/Detections.AI/blob/e9aedb2826722ccf078f2d099a8f5faac74f704d/KQL/detect-teams-impersonation-malicious-qr-codes.kql
+// kind: repo
+// author: Steven Lim
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Lookup = 1h;
+let UPNImpersonation =
+CloudAppEvents
+| where Timestamp > ago(Lookup)
+| where ActionType == "TeamsImpersonationDetected"
+| extend ImpersonationUPN = tostring(parse_json(tostring(RawEventData.Sender)).UPN)
+| distinct ImpersonationUPN;
+MessageEvents
+| where Timestamp > ago(Lookup)
+| where SenderEmailAddress has_any(UPNImpersonation)
+| join MessageUrlInfo on TeamsMessageId
+| where UrlLocation has "QRCode"
