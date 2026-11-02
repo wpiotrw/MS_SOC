@@ -5479,6 +5479,21 @@ button.s5fz-urn:hover{color:var(--accent);text-decoration:underline}
 .s5ga-src .s5fz-sc{margin:0 0 10px!important}
 .s5ga-src .s5fz-says{color:var(--text)!important;font-size:14.5px!important}
 .s5ga-ab .s5ga-src{margin-top:8px}
+/* §5gd: Microsoft's response frame in Threat Research */
+.s5gd-rsp{margin:10px 0 12px;padding:11px 13px;border-radius:14px;border:2px solid #2f5fd0;background:color-mix(in srgb,#2f5fd0 8%,var(--surface))}
+.s5gd-rsp.s5gd-no{border-color:#b7791f;background:color-mix(in srgb,#b7791f 8%,var(--surface))}
+.s5gd-rh{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:6px}
+.s5gd-rl{font-size:13px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--text)}
+.s5gd-rb{padding:2px 10px;border-radius:999px;font-size:13px;font-weight:700;color:#fff}.s5gd-rb-yes{background:#2f5fd0}.s5gd-rb-no{background:#b7791f}
+.s5gd-rn{margin:0;font-size:14.5px;line-height:1.5;color:var(--text)}
+.s5gd-rlst{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.s5gd-rlst li{padding:8px 10px;border-radius:10px;border:1px solid color-mix(in srgb,var(--text) 22%,transparent);background:var(--surface)}
+.s5gd-rt{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 8px}
+.s5gd-src{flex:0 0 auto;padding:2px 9px;border-radius:999px;font-size:12.5px;font-weight:700;color:#fff;background:#2f5fd0}
+#tab-threats .s5gd-ra,.s5gd-ra{font-weight:700;font-size:15.5px;line-height:1.35;color:var(--text)!important;text-decoration:none}
+.s5gd-ra:hover{color:var(--accent)!important;text-decoration:underline}
+.s5gd-rm{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+.s5gd-d{padding:1px 8px;border-radius:999px;font-size:13px;color:var(--text);border:1px solid color-mix(in srgb,var(--text) 30%,transparent)}
 /* §5gb: what the full lists hold when today's frame is filtered */
 .s5gb-bey{margin:10px 0 12px;padding:10px 12px;border-radius:12px;border:2px solid var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--surface))}
 .s5gb-bh{margin:0 0 6px;font-weight:800;font-size:14.5px;color:var(--text)}
@@ -8794,7 +8809,7 @@ td>.offt+.ref{display:block}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Sunday 1 November 2026</b> &middot; published 07:49 Warsaw &middot; 18 October &ndash; 1 November 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>37</b> deadlines in 60 days<span>&middot; 33 inside 30, 7 due today or tomorrow</span></a><a class="count" href="#graph"><b>975</b> undocumented at Microsoft<span>&middot; 975 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>17</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>122</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>14</b> changes since 31 Oct<span>&middot; 1 at Microsoft, 13 in this report</span></a><a class="count" href="#chg14"><b>1831</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Monday 2 November 2026</b> &middot; published 07:46 Warsaw &middot; 19 October &ndash; 2 November 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>32</b> deadlines in 60 days<span>&middot; 27 inside 30, 4 due today or tomorrow</span></a><a class="count" href="#graph"><b>975</b> undocumented at Microsoft<span>&middot; 975 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>21</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>123</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>13</b> changes since 1 Nov<span>&middot; 0 at Microsoft, 13 in this report</span></a><a class="count" href="#chg14"><b>1694</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -8995,7 +9010,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 1 November 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 2 November 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
