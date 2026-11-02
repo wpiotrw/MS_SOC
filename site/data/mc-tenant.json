@@ -1,7 +1,7 @@
 {
  "read": "2026-11-02",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 696,
+ "count": 698,
  "note": null,
  "messages": [
   {
@@ -1600,22 +1600,21 @@
    "major": false,
    "actionBy": null,
    "start": "2026-01-14",
-   "end": "2026-12-31",
-   "modified": "2026-07-07",
+   "end": "2026-11-06",
+   "modified": "2026-11-02",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated July 7, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We’re enhancing Microsoft Purview Content Explorer with new summary metrics to improve visibility into scanning and classification activities. These updates will help admins identify unscanned files and monitor classification trends, enabling better data governance and informed decisions. This message i…",
-   "when": "Public Preview: We will begin rolling out late July 2026 (previously mid-July) and expect to complete by early October 2026 (previously early August). General Availability (Worldwide): We will begin rolling out early November 2026 (previously mid-August) and expect to complete by late November 2026 (previously late August).",
-   "prepare": "No action is required. These metrics will automatically appear in Content Explorer.",
+   "summary": "Updated November 2, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. [Introduction] We’re enhancing Microsoft Purview Content Explorer with new summary metrics to improve visibility into scanning and classification activities. These updates will help admins identify unscanned files and monitor classification trends, enabling better data g…",
+   "when": "Public Preview: We will begin rolling out late July 2026 (previously mid-July) and expect to complete by early October 2026 (previously early August). General Availability (Worldwide): We have decided not to move forward with this change at this time.",
+   "prepare": "No action is required. These metrics will automatically appear in Content Explorer. .",
    "dates": [
-    "Updated July 7, 2026: We have updated the timeline.",
-    "Public Preview: We will begin rolling out late July 2026 (previously mid-July) and expect to complete by early October 2026 (previously early August).",
-    "General Availability (Worldwide): We will begin rolling out early November 2026 (previously mid-August) and expect to complete by late November 2026 (previously late August)."
+    "Updated November 2, 2026: We have decided not to move forward with this change at this time.",
+    "Public Preview: We will begin rolling out late July 2026 (previously mid-July) and expect to complete by early October 2026 (previously early August)."
    ],
-   "bodyHash": "834549a9673c73ee"
+   "bodyHash": "2ad5f51f83b57cbe"
   },
   {
    "id": "MC1217951",
@@ -8299,21 +8298,21 @@
    "actionBy": null,
    "start": "2026-08-13",
    "end": "2026-12-31",
-   "modified": "2026-10-06",
+   "modified": "2026-11-02",
    "tags": [
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 21, 2026: We have clarified the timeline. Thank you for your patience. [What and Why:] We are updating how users access document summarization in Microsoft Word. Beginning in September 2026, the current Top of Doc summarization experience will transition to other Copilot in Word surfaces. This change creates a more unified Copilot experience in Word while preserving users’ abilit…",
+   "summary": "Updated November 2, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We are updating how users access document summarization in Microsoft Word. Beginning in September 2026, the current Top of Doc summarization experience will transition to other Copilot in Word surfaces. This change creates a more unified Copilot experience in Word while preserving users’ ability to…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 21, 2026: We have clarified the timeline.",
+    "Updated November 2, 2026: We have updated the timeline.",
     "Beginning in September 2026, the current Top of Doc summarization experience will transition to other Copilot in Word surfaces.",
-    "General Availability (Worldwide, GCC, GCCH, DoD): Rollout will begin early September 2026."
+    "General Availability (Worldwide, GCC, GCCH, DoD): Rollout will begin early September 2026 and is expected to complete by end of November 2026."
    ],
-   "bodyHash": "238f54b15db53b9a"
+   "bodyHash": "eccf8e2b77f4e6d5"
   },
   {
    "id": "MC1454114",
@@ -14020,7 +14019,7 @@
   },
   {
    "id": "MC1488847",
-   "title": "Microsoft Teams: Breakout room support for Teams Rooms on Android",
+   "title": "(Updated) Microsoft Teams: Breakout room support for Teams Rooms on Android",
    "services": [
     "Microsoft Teams"
    ],
@@ -14030,19 +14029,21 @@
    "actionBy": null,
    "start": "2026-10-05",
    "end": "2026-12-31",
-   "modified": "2026-10-05",
+   "modified": "2026-11-02",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We're introducing breakout room support for Microsoft Teams Rooms on Android. This update allows Teams Rooms on Android devices to be assigned to breakout rooms and moved between breakout rooms and the main meeting room by meeting organizers. This feature improves coordination during breakout sessions and brings Microsoft Teams Rooms on Android closer to feature parity with Microsof…",
+   "summary": "Updated November 2, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're introducing breakout room support for Microsoft Teams Rooms on Android. This update allows Teams Rooms on Android devices to be assigned to breakout rooms and moved between breakout rooms and the main meeting room by meeting organizers. This feature improves coordination during breakout sessio…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Beginning in mid-November 2026 and expected to be complete by late November 2026."
+    "Updated November 2, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in early December 2026 (previously mid-November) and expected to be complete by mid-December 2026 (previously late November)."
    ],
-   "bodyHash": "9302e796ba258209"
+   "bodyHash": "7229e1899386aaf1"
   },
   {
    "id": "MC1489590",
@@ -15799,7 +15800,7 @@
   },
   {
    "id": "MC1509801",
-   "title": "Microsoft Teams: Customize file extensions blocked by Weaponizable File Protection",
+   "title": "(Updated) Microsoft Teams: Customize file extensions blocked by Weaponizable File Protection",
    "services": [
     "Microsoft Teams"
    ],
@@ -15808,20 +15809,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-15",
-   "end": "2026-12-19",
-   "modified": "2026-10-15",
+   "end": "2027-01-25",
+   "modified": "2026-11-02",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Teams is expanding admin controls for Weaponizable File Protection. Admins will be able to customize which file extensions are blocked in Teams based on their organization’s security needs or continue using the Microsoft-recommended default list. This change provides greater flexibility to tailor file protection policies while maintaining a secure collaboration experience.…",
+   "summary": "Updated November 2, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Teams is expanding admin controls for Weaponizable File Protection. Admins will be able to customize which file extensions are blocked in Teams based on their organization’s security needs or continue using the Microsoft-recommended default list. This change provides greater flexibility to…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Beginning in early November 2026 and expected to complete by mid-November 2026."
+    "Updated November 2, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in early December 2026 (previously early November) and expected to complete by mid-December 2026 (previously mid-November)."
    ],
-   "bodyHash": "036ea3f600391e1e"
+   "bodyHash": "80ce2f8b60c3fdd1"
   },
   {
    "id": "MC1509803",
@@ -18396,6 +18399,52 @@
     "After December 11, 2026, makers and tenant administrators will no longer have access to Copilot (AI-powered assistant) suggestions for renaming similar controls or applying multiple suggested renames in canvas apps."
    ],
    "bodyHash": "66ee6d4bc2779e91"
+  },
+  {
+   "id": "MC1535666",
+   "title": "Introducing restore summary in Windows settings backup and restore",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-02",
+   "end": "2027-11-02",
+   "modified": "2026-11-02",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why Starting with Windows 11, version 24H2 and later, Windows settings backup and restore introduces restore summary . It’s a new on-device experience that helps users understand what was restored to their PC after setup. Users can view a summary of restored personalization settings and the Microsoft Store app list, having greater visibility into restore outcomes and getting productive fa…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Generally available with the October 2026 non-security update for Windows 11, version 24H2 or later."
+   ],
+   "bodyHash": "f53e118de96a3426"
+  },
+  {
+   "id": "MC1535667",
+   "title": "Building a risk-based patching response for Windows Server",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-02",
+   "end": "2027-11-02",
+   "modified": "2026-11-02",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why: Microsoft recommends adopting a risk-based approach to Windows Server patching. It helps organizations respond faster to critical vulnerabilities while minimizing operational disruption. Rather than relying on fixed patching schedules, prioritize updates based on exploit activity, system exposure, workload criticality, and business impact. Rollout schedule: This guidance is available…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "5e907414575fad66"
   },
   {
    "id": "MC676299",
@@ -24283,6 +24332,110 @@
    "id": "MC1466760",
    "type": "removed",
    "title": "Microsoft Copilot Pages: Access existing Pages from the \"/\" menu in chat",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-02",
+   "id": "MC1217640",
+   "type": "changed",
+   "title": "Microsoft Purview | Information Protection - Content Explorer: Unscanned data and Classification History summary metrics",
+   "fields": {
+    "end": [
+     "2026-12-31",
+     "2026-11-06"
+    ],
+    "bodyHash": [
+     "834549a9673c73ee",
+     "2ad5f51f83b57cbe"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-02",
+   "id": "MC1454113",
+   "type": "changed",
+   "title": "(Updated) Microsoft Copilot Word: Document summarization experience moving",
+   "fields": {
+    "bodyHash": [
+     "238f54b15db53b9a",
+     "eccf8e2b77f4e6d5"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-02",
+   "id": "MC1488847",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Breakout room support for Teams Rooms on Android",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Breakout room support for Teams Rooms on Android",
+     "(Updated) Microsoft Teams: Breakout room support for Teams Rooms on Android"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "9302e796ba258209",
+     "7229e1899386aaf1"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-02",
+   "id": "MC1509801",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Customize file extensions blocked by Weaponizable File Protection",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Customize file extensions blocked by Weaponizable File Protection",
+     "(Updated) Microsoft Teams: Customize file extensions blocked by Weaponizable File Protection"
+    ],
+    "end": [
+     "2026-12-19",
+     "2027-01-25"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "036ea3f600391e1e",
+     "80ce2f8b60c3fdd1"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-02",
+   "id": "MC1535666",
+   "type": "new",
+   "title": "Introducing restore summary in Windows settings backup and restore",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-02",
+   "id": "MC1535667",
+   "type": "new",
+   "title": "Building a risk-based patching response for Windows Server",
    "fields": {}
   }
  ]
