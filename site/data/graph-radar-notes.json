@@ -1,0 +1,36 @@
+{
+ "notes": {
+  "voiceAuthenticationMethodTarget|verificationMode": {
+   "title": "Voice call method: per-target verification mode",
+   "what": "A verificationMode property on each include target of the voice call authentication method; our tenant returns the value voiceApproval. Neither Microsoft's voiceAuthenticationMethodTarget reference nor any community source found on 2 November 2026 names or explains it, so what other values it takes and what each does is not known.",
+   "uses": [
+    "Read the voice method configuration of your tenant and record which groups carry verificationMode, so a later change is visible",
+    "Do not change the value through the API until Microsoft or a tested community source documents it",
+    "Keep the voice method scoped to the smallest group possible while it is undocumented"
+   ],
+   "basis": "name",
+   "checked": "2026-11-02",
+   "by": "morning routine",
+   "searched": [
+    "\"verificationMode\" \"voiceApproval\" authentication methods policy voice"
+   ],
+   "articles": []
+  },
+  "conditionalAccessConditionSet|actionsAndDestinations": {
+   "title": "Conditional Access condition: actions and destinations",
+   "what": "A new actionsAndDestinations property on the Conditional Access condition set, first seen by the radar on 1 November 2026. No Microsoft page and no community source found on 2 November 2026 names it, so its shape and accepted values are unknown.",
+   "uses": [
+    "Export your Conditional Access policies now so a policy that later carries this condition can be compared with today's",
+    "Watch the beta conditionalAccessConditionSet reference for the property",
+    "Do not build policies on it until Microsoft documents it"
+   ],
+   "basis": "name",
+   "checked": "2026-11-02",
+   "by": "morning routine",
+   "searched": [
+    "\"actionsAndDestinations\" conditional access Graph"
+   ],
+   "articles": []
+  }
+ }
+}
