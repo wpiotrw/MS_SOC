@@ -21,7 +21,7 @@ ms.sitesec: library
 ms.localizationpriority: medium
 ms.author: direek
 author: WindowsCommunications
-ms.date: 2026-10-30T00:00:00.0000000Z
+ms.date: 2026-11-02T00:00:00.0000000Z
 locale: en-us
 document_id: 23a22fef-6025-c344-f03d-d8b2b87db03f
 document_version_independent_id: 23a22fef-6025-c344-f03d-d8b2b87db03f
@@ -78,7 +78,6 @@ See open issues, content updated in the last 30 days, and information on [safegu
 | **Devices might experience a black screen or desktop loading issues after sign-in**Microsoft has received reports of this issue occurring in some virtual desktop environments. | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved[KB5127648](https://support.microsoft.com/help/5127648) | 2026-10-13 10:13 PT |
 | **Applications which require AC-3 audio decoding might close unexpectedly**This issue is more likely to occur in legacy applications, and unlikely for many modern applications. | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Resolved[KB5127648](https://support.microsoft.com/help/5127648) | 2026-10-13 10:13 PT |
 | **Domain-joined devices might lose their secure trust relationship with the domain**Some Credential Guard protected machine accounts might be unable to sign in interactively will valid domain credentials. | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5124010](https://support.microsoft.com/help/5124010) | 2026-10-08 17:44 PT |
-| **Incorrect notifications that "Microsoft Defender Antivirus is turned off"**Microsoft Defender Antivirus remains active and functioning correctly despite notifications following the latest update. | N/A | Resolved | 2026-09-30 16:42 PT |
 | **USB audio devices might fail to start or produce no sound**Some USB Audio Class 1.0 devices display Code 10 or fail in multichannel audio modes after installing the Sept. 8 update | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Mitigated | 2026-09-29 10:12 PT |
 
 ## Issue details
@@ -246,27 +245,6 @@ This issue is limited to USB Audio Class 1.0 devices.
 **Affected platforms:**
 
 - ​Client: Windows 11, version 26H2; Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2; Windows 11, version 23H2; Windows 10, version 22H2; Windows 10, version 21H2; Windows 10 Enterprise LTSC 2019; Windows 10 Enterprise LTSC 2016
-- ​Server: Windows Server 2025; Windows Server 2022; Windows Server 2019; Windows Server 2016; Windows Server 2012 R2; Windows Server 2012
-
-Back to top
-
-### August 2026
-
-#### Incorrect notifications that "Microsoft Defender Antivirus is turned off"
-
-| **Status** | **Originating update** | **History** |
-| --- | --- | --- |
- Resolved | N/A | Resolved: 2026-09-30, 16:42 PTOpened: 2026-08-28, 15:34 PT |
-
-After installing [Microsoft Defender Antivirus update (version 4.18.26070.9)](/en-us/defender-endpoint/microsoft-defender-endpoint-releases#release-details-65), released on August 5, 2026, notifications might appear stating that "Microsoft Defender Antivirus is turned off," even though the antivirus is functioning correctly and all settings show it as active. These notifications can appear when Windows starts and intermittently afterward. They persist even if notification settings are turned off.
-
-This issue can be observed in any version of Windows or Windows Server with Microsoft Defender Antivirus running with the latest Defender updates.
-
-**Resolution: **This issue was resolved in [Microsoft Defender Antivirus update (version 4.18.26080.4)](https://www.microsoft.com/wdsi/defenderupdates), released on September 17, 2026.
-
-**Affected platforms:**
-
-- ​Client: Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2; Windows 11, version 23H2; Windows 10, version 22H2; Windows 10, version 21H2; Windows 10 Enterprise LTSC 2019; Windows 10 Enterprise LTSC 2016
 - ​Server: Windows Server 2025; Windows Server 2022; Windows Server 2019; Windows Server 2016; Windows Server 2012 R2; Windows Server 2012
 
 Back to top

@@ -798,148 +798,132 @@ In `@azure/ai-projects` 2.8.0, `BrowserAutomationTool` and `BrowserAutomationToo
 ```typescript
 import { DefaultAzureCredential } from "@azure/identity";
 import { AIProjectClient } from "@azure/ai-projects";
+import "dotenv/config";
 
-// Format: "https://resource_name.ai.azure.com/api/projects/project_name"
-const PROJECT_ENDPOINT = "your_project_endpoint";
-const BROWSER_CONNECTION_ID = "your-browser-automation-connection-id";
+const projectEndpoint = process.env["FOUNDRY_PROJECT_ENDPOINT"] || "<project endpoint>";
+const deploymentName = process.env["FOUNDRY_MODEL_NAME"] || "<model deployment name>";
+const agentName = process.env["FOUNDRY_AGENT_NAME"] || "MyAgent";
+const browserAutomationProjectConnectionId =
+  process.env["BROWSER_AUTOMATION_PROJECT_CONNECTION_ID"] ||
+  "<browser automation project connection id>";
 
-const handleBrowserCall = (item: any) => {
-  // TODO: support browser_automation_preview_call schema
-  const callId = item.call_id;
-  const argumentsStr = item.arguments;
-
-  // Parse the arguments string into a dictionary
-  let query = null;
-  if (argumentsStr && typeof argumentsStr === "string") {
-    try {
-      const argumentsObj = JSON.parse(argumentsStr);
-      query = argumentsObj.query;
-    } catch (e) {
-      console.error("Failed to parse arguments:", e);
-    }
+// Foundry remote function items are not part of OpenAI's ResponseOutputItem union.
+const handleBrowserCall = (item: unknown): void => {
+  if (typeof item !== "object" || item === null || !("type" in item)) {
+    return;
   }
-
-  console.log(`Call ID: ${callId ?? "None"}`);
-  console.log(`Query arguments: ${query ?? "None"}`);
+  if (item.type === "remote_function_call") {
+    if (
+      !("name" in item) ||
+      typeof item.name !== "string" ||
+      !("call_id" in item) ||
+      typeof item.call_id !== "string" ||
+      !("arguments" in item) ||
+      typeof item.arguments !== "string"
+    ) {
+      throw new Error("Invalid Browser Automation remote function call.");
+    }
+    const argumentsObj: unknown = JSON.parse(item.arguments);
+    const argumentsStr = JSON.stringify(argumentsObj, (key, value: unknown) =>
+      key === "browserSessionId" ? undefined : value,
+    );
+    console.log(
+      `Browser action: ${item.name} (call ID: ${item.call_id}), arguments: ${argumentsStr}`,
+    );
+  } else if (item.type === "remote_function_call_output") {
+    if (!("call_id" in item) || typeof item.call_id !== "string") {
+      throw new Error("Invalid Browser Automation remote function call output.");
+    }
+    console.log(`Browser action output received for call ID: ${item.call_id}`);
+  }
 };
 
 export async function main(): Promise<void> {
-  // Create clients to call Foundry API
-  const project = new AIProjectClient(PROJECT_ENDPOINT, new DefaultAzureCredential());
-  const openai = project.getOpenAIClient();
+  const project = new AIProjectClient(projectEndpoint, new DefaultAzureCredential());
+  const openAIClient = project.getOpenAIClient();
 
-  console.log("Creating a toolbox with the Browser Automation tool...");
+  console.log("Creating agent with Browser Automation tool...");
 
-  // 1. Add the Browser Automation tool to a toolbox. Using a toolbox is the recommended
-  //    way to give agents tools. See /azure/foundry/agents/concepts/toolbox-overview
-  const toolbox = await project.toolboxes.createVersion(
-    "browser-automation-toolbox",
-    [
+  const agent = await project.agents.createVersion(agentName, {
+    kind: "prompt",
+    model: deploymentName,
+    instructions: `You are an Agent helping with browser automation tasks. 
+            You can answer questions, provide information, and assist with various tasks 
+            related to web browsing using the Browser Automation tool available to you.`,
+    // Define Browser Automation tool
+    tools: [
       {
         type: "browser_automation",
         browser_automation: {
           connection: {
-            project_connection_id: BROWSER_CONNECTION_ID,
+            project_connection_id: browserAutomationProjectConnectionId,
           },
         },
-      },
-    ],
-    { description: "Toolbox with the Browser Automation tool" },
-  );
-
-  // 2. The toolbox exposes an MCP-compatible endpoint.
-  const toolboxMcpUrl =
-    `${PROJECT_ENDPOINT}/toolboxes/${toolbox.name}` +
-    `/versions/${toolbox.version}/mcp?api-version=v1`;
-
-  // 3. Create a remote-tool project connection that points at the toolbox endpoint.
-  //    Use a user Entra token so the caller's identity is passed through
-  //    (audience https://ai.azure.com). Create the connection once, for example
-  //    with the Azure Developer CLI:
-  //
-  //    azd ai connection create browser-automation-toolbox-conn \
-  //      --kind remote-tool \
-  //      --target "<toolboxMcpUrl>" \
-  //      --auth-type user-entra-token \
-  //      --audience https://ai.azure.com
-  const toolboxConnectionName = "browser-automation-toolbox-conn";
-
-  // 4. Attach the toolbox to a prompt agent as an MCP tool.
-  const agent = await project.agents.createVersion("MyAgent", {
-    kind: "prompt",
-    model: "gpt-4.1-mini",
-    instructions: `You are an Agent helping with browser automation tasks. 
-            You can answer questions, provide information, and assist with various tasks 
-            related to web browsing using the Browser Automation tool available to you.`,
-    tools: [
-      {
-        type: "mcp",
-        server_label: "toolbox",
-        server_url: toolboxMcpUrl,
-        require_approval: "never",
-        project_connection_id: toolboxConnectionName,
       },
     ],
   });
   console.log(`Agent created (id: ${agent.id}, name: ${agent.name}, version: ${agent.version})`);
 
-  console.log("\nSending browser automation request with streaming...");
-  const streamResponse = await openai.responses.create(
-    {
-      input: `Your goal is to report the percent of Microsoft year-to-date stock price change.
-            To do that, go to the website finance.yahoo.com.
-            At the top of the page, you will find a search bar.
-            Enter the value 'MSFT', to get information about the Microsoft stock price.
-            At the top of the resulting page you will see a default chart of Microsoft stock price.
-            Click on 'YTD' at the top of that chart, and report the percent value that shows up just below it.`,
-      stream: true,
-    },
-    {
-      body: {
-        agent_reference: { name: agent.name, type: "agent_reference" },
-        tool_choice: "required",
+  try {
+    console.log("\nSending browser automation request with streaming...");
+    const streamResponse = await openAIClient.responses.create(
+      {
+        input:
+          "Use the Browser Automation tool to visit https://example.com. Read the page and report its title and the visible description paragraph. Base your answer on the browser results, not on prior knowledge.",
+        stream: true,
       },
-    },
-  );
+      {
+        body: {
+          agent_reference: { name: agent.name, version: agent.version, type: "agent_reference" },
+        },
+      },
+    );
 
-  // Process the streaming response
-  for await (const event of streamResponse) {
-    if (event.type === "response.created") {
-      console.log(`Follow-up response created with ID: ${event.response.id}`);
-    } else if (event.type === "response.output_text.delta") {
-      process.stdout.write(event.delta);
-    } else if (event.type === "response.output_text.done") {
-      console.log("\n\nFollow-up response done!");
-    } else if (
-      event.type === "response.output_item.done" ||
-      event.type === "response.output_item.added"
-    ) {
-      const item = event.item as any;
-      if (item.type === "browser_automation_preview_call") {
-        handleBrowserCall(item);
+    console.log(
+      "The browser live-view URL is sensitive. Do not share it or commit it to source control.",
+    );
+    let responseCompleted = false;
+    for await (const event of streamResponse) {
+      if (event.type === "response.created") {
+        console.log(`Response created with ID: ${event.response.id}`);
+      } else if (event.type === "response.output_text.done") {
+        console.log(`\nAgent message: ${event.text}`);
+      } else if (event.type === "response.output_item.done") {
+        handleBrowserCall(event.item);
+      } else if (event.type === "response.failed") {
+        throw new Error(event.response.error?.message ?? "Browser Automation response failed.");
+      } else if (event.type === "response.incomplete") {
+        throw new Error(
+          `Browser Automation response incomplete: ${event.response.incomplete_details?.reason}`,
+        );
+      } else if (event.type === "error") {
+        throw new Error(event.message);
+      } else if (event.type === "response.completed") {
+        responseCompleted = true;
+        console.log("\nResponse completed!");
       }
-    } else if (event.type === "response.completed") {
-      console.log("\nFollow-up completed!");
     }
+    if (!responseCompleted) {
+      throw new Error("Browser Automation stream ended without a completed response.");
+    }
+  } finally {
+    console.log("\nCleaning up resources...");
+    await project.agents.deleteVersion(agent.name, agent.version);
+    console.log("Agent deleted");
   }
-
-  // Clean up resources by deleting the agent version
-  // This prevents accumulation of unused resources in your project
-  console.log("\nCleaning up resources...");
-  await project.agents.deleteVersion(agent.name, agent.version);
-  console.log("Agent deleted");
 
   console.log("\nBrowser Automation sample completed!");
 }
 
 main().catch((err) => {
   console.error("The sample encountered an error:", err);
+  process.exitCode = 1;
 });
 ```
 
 ### What this code does
 
-This example creates an agent version with the Browser Automation tool enabled, sends a prompt that requires tool usage, and processes streaming events, including browser automation call events, as they arrive.
+This sample demonstrates how to create an agent with Browser Automation tool, perform web browsing tasks, and process completed text and remote function call events.
 
 ### Required inputs
 
@@ -1063,8 +1047,8 @@ Foundry traces can contain sensitive information, including prompts, model respo
 ### Python SDK errors
 
 - **Workspace not found**: Verify your project endpoint uses the correct format: `https://{account-name}.services.ai.azure.com/api/projects/{project-name}`. Don't use the legacy Azure ML endpoint format.
-- **Unexpected keyword argument errors**: Ensure you're using the latest version of `azure-ai-projects`. Run `pip install "azure-ai-projects>=2.0.0" --upgrade` to update.
-- **Import errors**: Install all required packages: `pip install "azure-ai-projects>=2.0.0"`.
+- **Unexpected keyword argument errors**: Ensure you're using the latest version of `azure-ai-projects`. Run `pip install "azure-ai-projects>=2.8.0" --upgrade` to update.
+- **Import errors**: Install all required packages: `pip install "azure-ai-projects>=2.8.0"`.
 
 ::: zone-end
 
@@ -1077,7 +1061,7 @@ Browser automation can take longer than typical requests.
 
 ## Limitations
 
-- **Sign-in and sensitive actions**: Use this tool only with sites you trust. Avoid pages that prompt for credentials, payments, or other sensitive actions.
+- **Sign-in and sensitive actions**: Use this tool only with sites you trust. Avoid pages that prompt for payments, or other sensitive actions.
 - **Page volatility**: Web pages can change at any time. Your agent might fail if the page layout, labels, or navigation flows change. Build error handling into your workflows.
 - **Complex single-page applications**: JavaScript-heavy SPAs with dynamic content might not render correctly.
 

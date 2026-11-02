@@ -15,7 +15,7 @@ ms.service: windows
 ms.topic: hub-page
 author: WindowsCommunications
 ms.author: direek
-ms.date: 2026-10-30T00:00:00.0000000Z
+ms.date: 2026-11-02T00:00:00.0000000Z
 ms.localizationpriority: medium
 locale: en-us
 document_id: 3105e4c0-7e83-7f42-7f1a-e0504b23afc9
@@ -81,9 +81,9 @@ Overview
 
 ### Message center
 
+- [Building a risk-based patching response for Windows Server](https://www.microsoft.com/windows-server/blog/?p=21878)
+- [Introducing restore summary in Windows settings backup and restore](/en-us/windows/configuration/windows-backup/)
 - [Interim guidance for Cuba’s 2026 daylight saving time change](https://techcommunity.microsoft.com/blog/dstblog/interim-guidance-for-cuba-dst-2026/4568608)
-- [Policy-based in-box app removal extended to multi-session environments](/en-us/windows/configuration/policy-based-inbox-app-removal/policy-based-inbox-app-removal)
-- [The October 2026 Windows non-security preview update is now available](https://support.microsoft.com/help/5127936)
 - [See more](/en-us/windows/release-information/windows-message-center)
 
 ### Windows 11, version 26H2

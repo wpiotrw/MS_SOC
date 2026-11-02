@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/microsoft-365/enterprise/microsoft-365-admin-overview-enhanced-engagements",
+  "cursor": "https://learn.microsoft.com/en-us/microsoft-365/admin/setup/set-up-mobile-devices",
   "pages": {
     "https://learn.microsoft.com/en-us/microsoft-365/admin": {"etag":"\"bXFZ9ikjiLKkVbhvnTWizGK8ww8=\"","gitCommitId":"72d606f3333184cff201e9c5b059bf0ba936febe","path":"microsoft-365/admin/index.md","redirectedTo":"https://learn.microsoft.com/en-us/microsoft-365/admin/?view=o365-worldwide","sourcePath":"microsoft-365/admin/index.yml","updatedAt":"2026-06-19T18:10:00.0000000Z"},
     "https://learn.microsoft.com/en-us/microsoft-365/admin/": {"aliasOf":"https://learn.microsoft.com/en-us/microsoft-365/admin","etag":"\"bXFZ9ikjiLKkVbhvnTWizGK8ww8=\"","gitCommitId":"72d606f3333184cff201e9c5b059bf0ba936febe","redirectedTo":"https://learn.microsoft.com/en-us/microsoft-365/admin/?view=o365-worldwide","sourcePath":"microsoft-365/admin/index.yml","updatedAt":"2026-06-19T18:10:00.0000000Z"},

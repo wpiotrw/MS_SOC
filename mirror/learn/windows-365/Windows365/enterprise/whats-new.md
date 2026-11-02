@@ -58,6 +58,16 @@ For information about Windows App and its features, see [What's new in Windows A
 
 For more information about public preview items, see [Public preview in Windows 365](../public-preview).
 
+## Week of November 2, 2026
+
+### Auto-deprovisioning setting for Windows 365 Reserve Cloud PCs (Public Preview)
+
+Auto-deprovisioning is an optional setting that helps admins maximize the value of the 10-day entitlement for a Reserve Cloud PC. When enabled, this setting automatically deprovisions Cloud PCs that are provisioned but not actively connected to, based on a threshold configured by the admin. Administrators control availability through Cloud PC configuration settings for Windows 365 in Microsoft Intune, where the setting can be enabled and scoped to specific Microsoft Entra ID user groups.
+
+Once deprovisioned, the Cloud PCs will need reprovisioning to be used again. Any remaining Reserve Cloud PC access days are preserved and can be used after reprovisioning. This feature is disabled by default and fully governed by IT, with the ability to update the setting at any point in time.
+
+For more information, see [Managing W365 Reserve](/en-us/windows-365/enterprise/windows-365-reserve-manage).
+
 ## Week of October 19, 2026
 
 ### RDP Multipath and RDP Shortpath with TURN relay are now generally available in Azure Government
