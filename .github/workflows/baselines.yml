@@ -11,6 +11,9 @@ name: Baselines tracking
 # 5fw (31 X 2026): tools/baselines_cipp.py adds CIPP's standards (github.com/CyberDrain/CIPP, frontend/src/data/
 # standards.json) -> baselines-cipp.json, memory in data/baselines-cipp/; owner: "watch that JSON all the time" - a
 # second run in the afternoon.
+# 5ge (2 XI 2026): tools/baselines_stig.py adds DISA STIGs for Microsoft products (cyber.mil catalog, names/versions/
+# dates/links only) and Intune's STIG audit baseline vs DISA's newest benchmark -> baselines-stig.json, memory in
+# data/baselines-stig/.
 # Commits only when something changed. A push made with GITHUB_TOKEN starts no other workflow, so
 # "Code refresh" deploys the site after this one (workflow_run there).
 on:
@@ -23,6 +26,7 @@ on:
       - 'tools/baselines.py'
       - 'tools/baselines_more.py'
       - 'tools/baselines_cipp.py'
+      - 'tools/baselines_stig.py'   # 5ge
       - 'data/baselines-cipp/ps-rewrites.json'   # 5fw-b: our Microsoft Graph PowerShell versions of CIPP's old-module notes
       - 'baselines_sources.json'
       - '.github/workflows/baselines.yml'
@@ -44,7 +48,7 @@ jobs:
         with:
           ref: main
           fetch-depth: 1
-      - name: Read CISA ScubaGear, Maester, Tenable, Zero Trust Assessment, the Intune security baselines and CIPP's standards
+      - name: Read CISA ScubaGear, Maester, Tenable, Zero Trust Assessment, the Intune security baselines, CIPP's standards and DISA STIGs
         timeout-minutes: 20
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -57,9 +61,10 @@ jobs:
           git add site/data/baselines.json site/data/baselines-tests.json site/data/baselines-tenable.json site/data/baselines-history.json
           git add site/data/baselines-controls.json site/data/baselines-intune.json site/data/baselines-zta.json site/data/baselines-more-history.json 2>/dev/null || true   # 5fq
           git add site/data/baselines-cipp.json data/baselines-cipp 2>/dev/null || true   # 5fw
+          git add site/data/baselines-stig.json data/baselines-stig 2>/dev/null || true   # 5ge
           if git diff --cached --quiet; then echo "No change."; else
             python3 tools/stamp.py baselines || true; git add site/data/fresh   # CLAUDE.md 5cz
-            git commit -m "data: security baselines (CISA, Maester, Tenable, ZTA, Intune, CIPP) $(date -u +%F' '%H:%M) UTC"
+            git commit -m "data: security baselines (CISA, Maester, Tenable, ZTA, Intune, CIPP, DISA STIG) $(date -u +%F' '%H:%M) UTC"
             git pull --rebase -q origin main
             git push origin main
           fi

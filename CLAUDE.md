@@ -837,7 +837,9 @@ def write_week(state, outdir, date, site_url="https://orange-ground-019f30603.7.
                 "audit-gone": "Tenable audit file withdrawn", "items": "Tenable items changed",
                 "policy-new": "New CISA policy", "policy-changed": "CISA policy changed", "policy-removed": "CISA policy removed",
                 "baseline-version": "New Intune baseline version", "baseline-settings": "Intune baseline settings changed",
-                "standard-new": "New CIPP standard", "standard-changed": "CIPP standard changed", "standard-removed": "CIPP standard removed", "cipp-version": "New CIPP version"}   # 5fw
+                "standard-new": "New CIPP standard", "standard-changed": "CIPP standard changed", "standard-removed": "CIPP standard removed", "cipp-version": "New CIPP version",   # 5fw
+                "stig-new": "New DISA STIG", "stig-updated": "DISA STIG updated", "stig-sunset": "DISA STIG moved to Sunset", "stig-removed": "DISA STIG withdrawn",
+                "intune-stig": "Intune STIG audit baseline changed"}   # 5ge
         for e in sorted(_bd.get("events") or [], key=lambda e: e.get("day", ""), reverse=True):
             if str(e.get("day", "")) < wk_from:
                 continue
@@ -845,6 +847,9 @@ def write_week(state, outdir, date, site_url="https://orange-ground-019f30603.7.
             nm = E(e.get("title") or e.get("id"))
             if t.startswith("test-") and t != "test-removed" and e.get("src") == "Maester":
                 nm = '<a href="%s#tab=baselines&amp;t=%s">%s</a> <small>%s</small>' % (E(site_url), E(e.get("id")), nm, E(e.get("id")))
+            elif e.get("src") == "DISA STIG" and e.get("url"):   # 5ge: the version says more than the key
+                nm = '<a href="%s">%s</a> <small>%s</small>' % (E(e.get("url")), nm, E(" → ".join(str(x) for x in (e.get("was"), e.get("ver")) if x) +
+                                                                                   (" (DISA %s)" % e["disaVer"] if e.get("disaVer") else "")))
             elif e.get("url"):
                 nm = '<a href="%s">%s</a> <small>%s</small>' % (E(e.get("url")), nm, E(e.get("id")))
             bl.append([E(e.get("day")), E(e.get("src")), E(_lab.get(t, t)), nm])
@@ -1070,7 +1075,10 @@ def write_feed(state, outdir, date, site_url="https://orange-ground-019f30603.7.
             "policy-removed": "Security baselines: CISA policy removed", "baseline-version": "Security baselines: new Intune baseline version",
             "baseline-settings": "Security baselines: Intune baseline settings changed",
             "standard-new": "Security baselines: new CIPP standard", "standard-changed": "Security baselines: CIPP standard changed",
-            "standard-removed": "Security baselines: CIPP standard removed", "cipp-version": "Security baselines: new CIPP version"}   # 5fw
+            "standard-removed": "Security baselines: CIPP standard removed", "cipp-version": "Security baselines: new CIPP version",   # 5fw
+            "stig-new": "Security baselines: new DISA STIG", "stig-updated": "Security baselines: DISA STIG updated",
+            "stig-sunset": "Security baselines: DISA STIG moved to Sunset", "stig-removed": "Security baselines: DISA STIG withdrawn",
+            "intune-stig": "Security baselines: Intune STIG audit baseline changed"}   # 5ge
     def _jw(v):
         return ", ".join(str(x) for x in v) if isinstance(v, (list, tuple)) else str(v or "")
     for e in bj.get("events") or []:
@@ -1078,7 +1086,8 @@ def write_feed(state, outdir, date, site_url="https://orange-ground-019f30603.7.
             continue
         typ = e.get("type") or ""
         place = site_url + "#tab=baselines" + (("&t=" + _up.quote(str(e.get("id")), safe="")) if typ.startswith("test-") and typ != "test-removed" and e.get("src") == "Maester" else
-                                               ("&v=cipp&c=" + _up.quote(str(e.get("id")), safe="")) if typ in ("standard-new", "standard-changed") else "")   # 5fw
+                                               ("&v=cipp&c=" + _up.quote(str(e.get("id")), safe="")) if typ in ("standard-new", "standard-changed") else
+                                               ("&v=stig&s=" + _up.quote(str(e.get("id")), safe="")) if e.get("src") == "DISA STIG" else "")   # 5fw, 5ge
         lab = blab.get(typ, "Baseline") if e.get("src") != "Zero Trust Assessment" else "Security baselines: Zero Trust Assessment " + typ.replace("test-", "test ")
         add("baseline:%s:%s:%s" % (typ, e.get("id"), e.get("day")), lab, e.get("title") or e.get("id"),
             place, e.get("url"), e.get("day"),
@@ -5162,7 +5171,10 @@ def baseline_rows(prev_d, curr_d, home):
              "policy-new": "New CISA policy", "policy-changed": "CISA policy changed", "policy-removed": "CISA policy removed",
              "baseline-version": "New Intune baseline version", "baseline-settings": "Intune baseline settings changed",
              # §5fw (31 X 2026): CIPP's standards
-             "standard-new": "New CIPP standard", "standard-changed": "CIPP standard changed", "standard-removed": "CIPP standard removed", "cipp-version": "New CIPP version"}
+             "standard-new": "New CIPP standard", "standard-changed": "CIPP standard changed", "standard-removed": "CIPP standard removed", "cipp-version": "New CIPP version",
+             # §5ge (2 XI 2026): DISA STIGs for Microsoft products and Intune's STIG audit baseline
+             "stig-new": "New DISA STIG", "stig-updated": "DISA STIG updated", "stig-sunset": "DISA STIG moved to Sunset", "stig-removed": "DISA STIG withdrawn",
+             "intune-stig": "Intune STIG audit baseline changed"}
     order = ["policy-new", "policy-changed", "policy-removed"] + [k for k in label if not k.startswith("policy-")]
     rows = []
     for e in sorted(evs, key=lambda e: (order.index(e.get("type")) if e.get("type") in order else 99, e.get("id") or "")):
@@ -5171,6 +5183,8 @@ def baseline_rows(prev_d, curr_d, home):
             name = '<a href="%s#tab=baselines&amp;t=%s">%s</a>' % (esc(home), esc(e.get("id") or ""), esc(e.get("title") or e.get("id") or ""))
         elif e.get("src") == "CIPP" and t in ("standard-new", "standard-changed"):
             name = '<a href="%s#tab=baselines&amp;v=cipp&amp;c=%s">%s</a>' % (esc(home), esc(e.get("id") or ""), esc(e.get("title") or e.get("id") or ""))
+        elif e.get("src") == "DISA STIG":   # §5ge
+            name = '<a href="%s#tab=baselines&amp;v=stig&amp;s=%s">%s</a>' % (esc(home), esc(e.get("id") or ""), esc(e.get("title") or e.get("id") or ""))
         elif e.get("src") in ("CISA", "Zero Trust Assessment", "Intune security baselines") and e.get("url"):
             name = '<a href="%s">%s</a>' % (esc(e["url"]), esc(e.get("title") or e.get("id") or ""))
         elif t.startswith("audit-") or t == "items":
@@ -5208,6 +5222,12 @@ def baseline_rows(prev_d, curr_d, home):
                 ("name was: <del>%s</del> &middot; " % esc(e["wasTitle"]) if e.get("wasTitle") else "") + "changed: " + esc(", ".join(e.get("what") or []))
         elif t == "cipp-version":
             what = "<del>%s</del><span class=\"arrow\">&rarr;</span><ins>%s</ins>" % (esc(e.get("was")), esc(e.get("now")))
+        elif t == "stig-updated":   # §5ge
+            what = "<del>%s</del><span class=\"arrow\">&rarr;</span><ins>%s</ins> &middot; released %s" % (esc(e.get("was") or e.get("wasDate") or ""), esc(e.get("now") or e.get("ver") or ""), esc(e.get("date") or ""))
+        elif t in ("stig-new", "stig-sunset"):
+            what = esc(" · ".join(x for x in (e.get("ver"), e.get("date") and "released " + e["date"], t == "stig-sunset" and "DISA moved it to Sunset (no longer maintained)") if x))
+        elif t == "intune-stig":
+            what = esc("Intune audits %s (%s rules)%s" % (e.get("ver") or "?", e.get("rules") or "?", " · DISA's newest is " + e["disaVer"] if e.get("disaVer") else ""))
         elif t == "items":
             what = ("+%d: %s" % (len(e.get("added") or []), esc(", ".join((e.get("added") or [])[:8]))) if e.get("added") else "") + \
                    (" &minus;%d: %s" % (len(e.get("removed") or []), esc(", ".join((e.get("removed") or [])[:8]))) if e.get("removed") else "")
@@ -40335,7 +40355,7 @@ odtad CZTERNASCIE (4-17).**
     fpa: { by: "an automated job every 3 h (tenant snapshot) + the morning brief (public lists)", keys: ["tenant"], every: 3 },
     mc: { by: "an automated job every 3 h (our tenant's Message Center) + the morning brief", keys: ["tenant"], every: 3 },
     campaigns: { by: "an automated job twice a day (05:40 UTC and 20:40 UTC) and after every brief", keys: ["campgen", "campaigns"], every: 0 },
-    baselines: { by: "an automated job twice a day (05:15 and 15:15 UTC): CISA ScubaGear, Maester, Zero Trust Assessment and CIPP's standards from GitHub, Tenable's audit files, the Intune security baselines from our Learn copy", keys: ["baselines"], every: 12 },   /* §5fw: twice a day */   /* §5dv */
+    baselines: { by: "an automated job twice a day (05:15 and 15:15 UTC): CISA ScubaGear, Maester, Zero Trust Assessment and CIPP's standards from GitHub, Tenable's audit files, the Intune security baselines (and Intune's STIG audit baseline) from our Learn copy, DISA's STIG catalog from cyber.mil", keys: ["baselines"], every: 12 },   /* §5fw: twice a day */   /* §5dv */
     hunting: { by: "the morning brief; queries archived by an automated job twice a day", keys: ["campaigns"], every: 0 },
     learn: { by: "the morning brief; our copy of the Learn pages refreshed by an automated job 4 times a day", keys: ["learn"], every: 6 }
   };
@@ -40432,7 +40452,7 @@ odtad CZTERNASCIE (4-17).**
     ["Sources", "sources", "Every source the brief reads, when it was read and whether its link works."],
     ["Hunting & actions", "hunting", "KQL queries and actions for the items of the day; every query is archived in the repository."],
     ["Products", "products", "The same items grouped by product."],
-    ["Security baselines", "baselines", "What to check in your tenant, technology by technology: CISA SCuBA (ScubaGear), Maester, Tenable, Microsoft's Zero Trust Assessment, the Intune security baselines and CIPP's standards — every policy, test and standard with how to check and fix it, the differences between the sources, versions, trends — read twice a day; no test is run."]
+    ["Security baselines", "baselines", "What to check in your tenant, technology by technology: CISA SCuBA (ScubaGear), Maester, Tenable, Microsoft's Zero Trust Assessment, the Intune security baselines, CIPP's standards and DISA STIGs — every policy, test, standard and STIG with how to check and fix it, the differences between the sources, versions, trends — read twice a day; no test is run."]
   ];
   function card(title, cls) { var c = el("section", "s5cz-card" + (cls ? " " + cls : "")); c.appendChild(el("h3", null, title)); return c; }
   function ul(items) { var u = el("ul"); items.forEach(function (x) { var li = el("li"); if (typeof x === "string") li.textContent = x; else li.appendChild(x); u.appendChild(li); }); return u; }
@@ -43380,6 +43400,7 @@ odtad CZTERNASCIE (4-17).**
 (function () {
   "use strict";
   if (window.__s5dv) return; window.__s5dv = 1;
+  var HASH0 = location.hash || "";   /* §5ge: the address at load - the tab layer can rewrite it to #tab-baselines before the data arrives (WebKit, 1 in 3) */
   var SVGNS = "http://www.w3.org/2000/svg";
   function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
   function sv(t, a) { var e = document.createElementNS(SVGNS, t); for (var k in a) if (a.hasOwnProperty(k)) e.setAttribute(k, a[k]); return e; }
@@ -43399,7 +43420,7 @@ odtad CZTERNASCIE (4-17).**
   var panel = el("div", "tabpanel"); panel.id = "tab-baselines"; panel.setAttribute("data-tab", "Security baselines"); panel.hidden = true;   /* §5fq-b: the name of the tab everywhere */
   var sec = el("section"); sec.id = "baselines"; sec.setAttribute("data-nav", "Security baselines");
   var sh = el("div", "sec-head"); sh.appendChild(el("h2", null, "Security baselines"));
-  sh.appendChild(el("p", "sec-title", "Security baselines — CISA SCuBA, Maester, Tenable, Microsoft's Zero Trust Assessment, the Intune security baselines and CIPP's standards: what to check in your tenant, technology by technology"));
+  sh.appendChild(el("p", "sec-title", "Security baselines — CISA SCuBA, Maester, Tenable, Microsoft's Zero Trust Assessment, the Intune security baselines, CIPP's standards and DISA STIGs: what to check in your tenant, technology by technology"));
   sec.appendChild(sh);
   var body = el("div", "sec-body s5dv"); body.appendChild(el("p", "s5dv-note", "Loading the baselines…")); sec.appendChild(body);
   panel.appendChild(sec);
@@ -43409,7 +43430,7 @@ odtad CZTERNASCIE (4-17).**
 
   var D = null, TS = null, TI = null, tsAsked = false, tiAsked = false, tiWait = [];
   /* §5fq: the three views a reader starts with come first; the earlier views stay, named for what they hold */
-  var VIEWS = [["tech", "By technology"], ["sources", "Sources & differences"], ["changes", "Changes"], ["overview", "Statistics"], ["tests", "Maester tests"], ["frameworks", "Frameworks"], ["compare", "Compare: CISA · Maester · Tenable"], ["tenable", "Tenable audits"], ["cipp", "CIPP standards"], ["history", "Versions & history"]];   /* §5fw: CIPP */
+  var VIEWS = [["tech", "By technology"], ["sources", "Sources & differences"], ["changes", "Changes"], ["overview", "Statistics"], ["tests", "Maester tests"], ["frameworks", "Frameworks"], ["compare", "Compare: CISA · Maester · Tenable"], ["tenable", "Tenable audits"], ["cipp", "CIPP standards"], ["stig", "DISA STIG"], ["history", "Versions & history"]];   /* §5fw: CIPP, §5ge: DISA STIG */
   function noF() { return { suite: "", sev: "", tech: "", ai: false, q: "", mapped: false, tten: "", tq: "" }; }
   var S = { view: "tech", open: "", fam: "", item: "", tech: "" }, F = noF();
 
@@ -43433,7 +43454,7 @@ odtad CZTERNASCIE (4-17).**
   }
   function cssq(s) { return String(s).replace(/["\\]/g, "\\$&"); }
   /* other layers (Overview, /diff/ links, the MC chips) open a test with this */
-  window.__socBaseline = function (id) { if (!id) go("tech"); else if (/^cipp:/.test(id)) openCipp(id.slice(5)); else if (/^MS\.[A-Z]+\.\d/.test(id)) { var p = CT && ((CT.cisa || {}).policies || []).filter(function (x) { return x.id === id || x.base === id; })[0]; go("tech", p ? { tech: p.tech } : {}); if (p) setTimeout(function () { cisaCard(p); }, 120); } else if (/^t:|^[A-Z][\w ]+ v?\d/.test(id) && !/^(MT|CIS|CISA|EIDSCA|ORCA)\./.test(id)) go("tenable", { fam: id.replace(/^t:/, "") }); else go("tests", { open: id }); };
+  window.__socBaseline = function (id) { if (!id) go("tech"); else if (/^cipp:/.test(id)) openCipp(id.slice(5)); else if (/^stig:/.test(id)) openStig(id.slice(5)); else if (/^MS\.[A-Z]+\.\d/.test(id)) { var p = CT && ((CT.cisa || {}).policies || []).filter(function (x) { return x.id === id || x.base === id; })[0]; go("tech", p ? { tech: p.tech } : {}); if (p) setTimeout(function () { cisaCard(p); }, 120); } else if (/^t:|^[A-Z][\w ]+ v?\d/.test(id) && !/^(MT|CIS|CISA|EIDSCA|ORCA)\./.test(id)) go("tenable", { fam: id.replace(/^t:/, "") }); else go("tests", { open: id }); };
 
   /* ---- data ---- */
   function getTests(cb) {
@@ -43586,7 +43607,8 @@ odtad CZTERNASCIE (4-17).**
     "version": ["changed", "Baseline version"], "audit-new": ["added", "New Tenable audit"], "audit-updated": ["changed", "Tenable audit updated"], "audit-gone": ["removed", "Tenable audit withdrawn"], "items": ["changed", "Tenable items changed"],
     /* §5fq */ "policy-new": ["added", "New CISA policy"], "policy-changed": ["changed", "CISA policy changed"], "policy-removed": ["removed", "CISA policy removed"],
     "baseline-version": ["added", "New Intune baseline version"], "baseline-settings": ["changed", "Intune baseline settings changed"],
-    /* §5fw */ "standard-new": ["added", "New CIPP standard"], "standard-changed": ["changed", "CIPP standard changed"], "standard-removed": ["removed", "CIPP standard removed"], "cipp-version": ["added", "New CIPP version"] };
+    /* §5fw */ "standard-new": ["added", "New CIPP standard"], "standard-changed": ["changed", "CIPP standard changed"], "standard-removed": ["removed", "CIPP standard removed"], "cipp-version": ["added", "New CIPP version"],
+    /* §5ge */ "stig-new": ["added", "New DISA STIG"], "stig-updated": ["changed", "DISA STIG updated"], "stig-sunset": ["removed", "DISA STIG moved to Sunset"], "stig-removed": ["removed", "DISA STIG withdrawn"], "intune-stig": ["changed", "Intune STIG audit baseline changed"] };
   function evText(e) {
     if (e.type === "test-changed") return (e.what || []).indexOf("severity") >= 0 ? "Severity " + (e.was || "") + " → " + (e.now || "") : (e.what || []).indexOf("title") >= 0 ? "Title was: " + (e.wasTitle || "") : "What it checks or how to fix it was rewritten";
     if (e.type === "version") return (e.was || "") + " → " + (e.now || "");
@@ -43605,9 +43627,14 @@ odtad CZTERNASCIE (4-17).**
       (e.tagsAdded || []).length ? "+ " + e.tagsAdded.join(", ") : "", (e.tagsRemoved || []).length ? "− " + e.tagsRemoved.join(", ") : "", e.deprecated ? "now deprecated" : "",
       "Changed: " + (e.what || []).join(", ")].filter(Boolean).join(" · ");
     if (e.type === "cipp-version") return (e.was || "") + " → " + (e.now || "");
+    /* §5ge: DISA STIG */
+    if (e.type === "stig-updated") return (e.was || "") + " → " + (e.now || e.ver || "") + (e.date ? " · released " + dmy(e.date) : "");
+    if (e.type === "stig-new" || e.type === "stig-sunset") return [e.ver, e.date ? "released " + dmy(e.date) : "", e.type === "stig-sunset" ? "no longer maintained" : ""].filter(Boolean).join(" · ");
+    if (e.type === "intune-stig") return "Intune audits " + (e.ver || "") + (e.rules ? " · " + e.rules + " rules" : "") + (e.disaVer ? " · DISA newest " + e.disaVer : "");
     return e.sev ? "Severity " + e.sev : "";
   }
   function openEv(e) {
+    if (e.src === "DISA STIG") { if (e.type === "stig-removed") { window.open(e.url || "https://www.cyber.mil/stigs/downloads", "_blank", "noopener"); return; } if (e.type === "intune-stig") { SGF = sgNoF(); go("stig"); return; } openStig(e.id); return; }   /* §5ge */
     if (e.src === "CIPP") { if (e.type === "standard-removed" || e.type === "cipp-version") { if (e.url) window.open(e.url, "_blank", "noopener"); return; } openCipp(e.id); return; }   /* §5fw */
     if (e.src === "CISA" && /^policy-/.test(e.type) && e.type !== "policy-removed") { var p = CT && ((CT.cisa || {}).policies || []).filter(function (x) { return x.id === e.id; })[0]; go("tech", { tech: e.tech }); if (p) setTimeout(function () { cisaCard(p); }, 120); else getCtl(); return; }
     if (e.src === "Zero Trust Assessment" || e.src === "Intune security baselines" || e.type === "policy-removed") { if (e.url) window.open(e.url, "_blank", "noopener"); else go("tech", { tech: e.tech }); return; }
@@ -43628,7 +43655,7 @@ odtad CZTERNASCIE (4-17).**
     box.appendChild(h);
     if (!ev.length) {
       var e14 = (D.events || []).length;
-      box.appendChild(el("p", "s5bn-empty", "Nothing moved in the security baselines today (CISA, Maester, Tenable, Zero Trust Assessment, Intune, CIPP): no new, changed or removed policy, test, audit file or standard, no new version." +
+      box.appendChild(el("p", "s5bn-empty", "Nothing moved in the security baselines today (CISA, Maester, Tenable, Zero Trust Assessment, Intune, CIPP, DISA STIG): no new, changed or removed policy, test, audit file or standard, no new version." +
         (e14 ? " " + plural(e14, "change") + " in the last 14 days — Changes." : "")));
     } else {
       var grid = el("div", "s5do-grid"), ul = el("ul", "s5bn-l");
@@ -43675,7 +43702,7 @@ odtad CZTERNASCIE (4-17).**
     var nv = el("nav", "s5dv-vnav"); nv.setAttribute("aria-label", "Views of the Baselines tab");
     VIEWS.forEach(function (v, i) {
       if (i === 0 || i === 3) nv.appendChild(el("span", "s5fq-vg", i === 0 ? "Start here" : "Details"));
-      var lab = v[1] + (v[0] === "tests" ? " · " + n((D.counts || {}).tests) : v[0] === "tenable" ? " · " + n((D.counts || {}).tenableCurrent) : v[0] === "changes" ? " · " + n((D.events || []).length) : v[0] === "cipp" && ((D.sources || {}).cipp || {}).standards ? " · " + n(D.sources.cipp.standards) : "");
+      var lab = v[1] + (v[0] === "tests" ? " · " + n((D.counts || {}).tests) : v[0] === "tenable" ? " · " + n((D.counts || {}).tenableCurrent) : v[0] === "changes" ? " · " + n((D.events || []).length) : v[0] === "cipp" && ((D.sources || {}).cipp || {}).standards ? " · " + n(D.sources.cipp.standards) : v[0] === "stig" && ((D.sources || {}).stig || {}).current ? " · " + n(D.sources.stig.current) : "");
       var b = btn(lab, "s5dv-vb" + (i < 3 ? " s5fq-vb1" : "") + (S.view === v[0] ? " on" : ""), function () { S.open = ""; S.fam = ""; S.view = v[0]; setHash(); render(); });
       b.setAttribute("aria-pressed", String(S.view === v[0])); nv.appendChild(b);
     });
@@ -43691,6 +43718,7 @@ odtad CZTERNASCIE (4-17).**
     if (z5.ver) f.appendChild(frag([srcPill("Zero Trust Assessment"), " module " + z5.ver + " · commit " + (z5.commit || "—") + (z5.date ? " (" + dmy(z5.date) + ")" : "")]));
     if (i5.length) f.appendChild(frag([srcPill("Intune security baselines"), " " + i5.filter(function (b) { return !b.missing; }).length + " of " + i5.length + " read from our Learn copy"]));
     var p5 = s.cipp || {}; if (p5.standards) f.appendChild(frag([srcPill("CIPP"), " " + n(p5.standards) + " standards · CIPP " + (p5.ver || "") + " · standards.json at commit " + (p5.commit || "—") + (p5.date ? " (" + dmy(p5.date) + ")" : "") + (p5.ok ? "" : " · not read on the last run")]));   /* §5fw */
+    var g5 = s.stig || {}; if (g5.current || g5.ok === false) f.appendChild(frag([srcPill("DISA STIG"), g5.ok === false ? " cyber.mil not read on the last run" : " " + n(g5.current) + " current STIGs for Microsoft products · newest " + dmy(((g5.newest || [])[0] || {}).date) + ((g5.intune || [])[0] && g5.intune[0].behind ? " · Intune audits " + g5.intune[0].ver + ", DISA at " + (g5.intune[0].disa || {}).ver : "")]));   /* §5ge */
     f.appendChild(frag(["Read " + dmy(D.day) + " " + String(D.generated || "").slice(11, 16) + " UTC by GitHub Actions · we run no test: this tab shows what the tools check"]));
     return f;
   }
@@ -43718,6 +43746,7 @@ odtad CZTERNASCIE (4-17).**
       else if (v === "compare") vCompare(host);
       else if (v === "tenable") vTenable(host);
       else if (v === "cipp") vCipp(host);   /* §5fw */
+      else if (v === "stig") vStig(host);   /* §5ge */
       else vHistory(host);
     } catch (e) { if (window.console) console.error("[5dv render]", e); body.appendChild(el("p", "s5dv-note", "This view could not be drawn: " + e)); }
   }
@@ -43745,14 +43774,15 @@ odtad CZTERNASCIE (4-17).**
     "Intune": "Intune admin center (intune.microsoft.com) › Endpoint security › Security baselines", "Microsoft 365 Apps": "Intune admin center › Endpoint security › Security baselines › Microsoft 365 Apps",
     "Edge": "Intune admin center › Endpoint security › Security baselines › Microsoft Edge", "Global Secure Access": "Microsoft Entra admin center › Global Secure Access",
     "AI and agents": "Microsoft Entra admin center (Agent ID), Copilot Studio and Microsoft 365 admin centers", "Copilot Studio": "Power Platform admin center and Copilot Studio",
-    "Microsoft 365": "Microsoft 365 admin center (admin.microsoft.com)", "Azure": "Azure portal and Microsoft Defender for Cloud" };
-  var SRC_COL = { CISA: "s5fq-c-cisa", Maester: "s5fq-c-m", Tenable: "s5fq-c-t", "Zero Trust Assessment": "s5fq-c-z", "Intune security baselines": "s5fq-c-i", CIPP: "s5fq-c-cipp" };
+    "Microsoft 365": "Microsoft 365 admin center (admin.microsoft.com)", "Azure": "Azure portal and Microsoft Defender for Cloud",
+    "Windows": "Intune admin center › Endpoint security › Security baselines (Windows security baseline, STIG audit baseline for Windows 11) — or Group Policy on domain-joined devices" };   /* §5ge */
+  var SRC_COL = { CISA: "s5fq-c-cisa", Maester: "s5fq-c-m", Tenable: "s5fq-c-t", "Zero Trust Assessment": "s5fq-c-z", "Intune security baselines": "s5fq-c-i", CIPP: "s5fq-c-cipp", "DISA STIG": "s5fq-c-stig" };
   function badgeN(x) { return el("span", "s5fp-n", n(x)); }
   function techRows() {
-    var m = {}; function g(t) { return m[t] || (m[t] = { tech: t, maester: 0, tenable: 0, high: 0, cisa: 0, bod: 0, shall: 0, should: 0, zta: 0, intune: 0, noTool: 0, cipp: 0 }); }
+    var m = {}; function g(t) { return m[t] || (m[t] = { tech: t, maester: 0, tenable: 0, high: 0, cisa: 0, bod: 0, shall: 0, should: 0, zta: 0, intune: 0, noTool: 0, cipp: 0, stig: 0 }); }
     (D.techs || []).forEach(function (t) { var x = g(t.tech); x.maester = t.maester || 0; x.tenable = t.tenable || 0; x.high = t.high || 0; });
-    ((D.more || {}).techs || []).forEach(function (t) { var x = g(t.tech); ["cisa", "bod", "shall", "should", "zta", "intune", "noTool", "cipp"].forEach(function (k) { x[k] = t[k] || 0; }); });
-    var out = Object.keys(m).map(function (k) { return m[k]; }).filter(function (x) { return x.cisa + x.maester + x.tenable + x.zta + x.intune + x.cipp > 0 && x.tech !== "Other"; });
+    ((D.more || {}).techs || []).forEach(function (t) { var x = g(t.tech); ["cisa", "bod", "shall", "should", "zta", "intune", "noTool", "cipp", "stig"].forEach(function (k) { x[k] = t[k] || 0; }); if (STIG_TECHS.indexOf(t.tech) < 0) x.stig = 0; });
+    var out = Object.keys(m).map(function (k) { return m[k]; }).filter(function (x) { return x.cisa + x.maester + x.tenable + x.zta + x.intune + x.cipp + x.stig > 0 && x.tech !== "Other"; });
     out.sort(function (a, b) { var ia = TECH_ORDER.indexOf(a.tech), ib = TECH_ORDER.indexOf(b.tech); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || (a.tech < b.tech ? -1 : 1); });
     return out;
   }
@@ -43835,7 +43865,7 @@ odtad CZTERNASCIE (4-17).**
       var big = el("span", "s5fq-big"); if (r.bod) { big.appendChild(el("b", null, n(r.bod))); big.appendChild(el("span", null, " required")); } else { big.appendChild(el("b", null, n(r.cisa + r.maester + r.tenable + r.zta + r.intune))); big.appendChild(el("span", null, " checks")); }
       b.appendChild(big);
       var s = el("span", "s5fq-ts");
-      [["CISA", r.cisa], ["Maester", r.maester], ["Tenable", r.tenable], ["ZTA", r.zta], ["Intune", r.intune], ["CIPP", r.cipp]].forEach(function (k) { if (!k[1]) return; var c = el("span", "s5fq-tc " + (SRC_COL[k[0] === "ZTA" ? "Zero Trust Assessment" : k[0] === "Intune" ? "Intune security baselines" : k[0]] || "")); c.appendChild(document.createTextNode(k[0])); c.appendChild(badgeN(k[1])); s.appendChild(c); });
+      [["CISA", r.cisa], ["Maester", r.maester], ["Tenable", r.tenable], ["ZTA", r.zta], ["Intune", r.intune], ["CIPP", r.cipp], ["DISA STIG", r.stig]].forEach(function (k) { if (!k[1]) return; var c = el("span", "s5fq-tc " + (SRC_COL[k[0] === "ZTA" ? "Zero Trust Assessment" : k[0] === "Intune" ? "Intune security baselines" : k[0]] || "")); c.appendChild(document.createTextNode(k[0])); c.appendChild(badgeN(k[1])); s.appendChild(c); });
       b.appendChild(s);
       if (r.noTool) b.appendChild(el("span", "s5fq-warn", r.noTool + " CISA polic" + (r.noTool === 1 ? "y" : "ies") + " no tool checks"));
       grid.appendChild(b);
@@ -43970,6 +44000,19 @@ odtad CZTERNASCIE (4-17).**
       var row5 = el("div", "s5fq-more"); row5.appendChild(btn("Open all " + n(R.cipp) + " CIPP standards for " + R.tech + " ›", "s5fo-go", function () { CPF = cpNoF(); CPF.tech = R.tech; go("cipp"); })); cb.appendChild(row5);
       cb.appendChild(el("p", "s5dv-fn", "Newest first (the date CIPP added it). CIPP checks every standard in a template every twelve hours and, per standard, reports, alerts or remediates. The CIS numbers on a CIPP standard are the same CIS Microsoft 365 7.0.0 controls Maester and Tenable check."));
     }
+    /* 6. DISA STIG (§5ge): the US Department of Defense's guides for this technology; for Intune and Windows the Intune STIG audit frame */
+    if (R.stig) {
+      var gb = el("section", "s5fq-blk s5fq-b-stig"); tp.appendChild(gb);
+      var gh6 = el("div", "s5fq-bh"); gh6.appendChild(srcChip("DISA STIG", "DISA STIG")); gh6.appendChild(el("h4", null, "DISA STIGs for " + R.tech + " · " + n(R.stig)));
+      gh6.appendChild(el("span", "s5dv-sm", "US Department of Defense configuration guides · cyber.mil")); gb.appendChild(gh6);
+      var G6 = getStig();
+      if (G6) {
+        if (R.tech === "Intune" || R.tech === "Windows") intuneFrame(gb, G6.source || {});
+        var l6 = (G6.stigs || []).filter(function (x) { return x.tech === R.tech && !x.sunset; });
+        var o6 = el("ol", "s5fq-list"); l6.forEach(function (x, i) { o6.appendChild(stigRow(x, i + 1)); }); gb.appendChild(o6);
+      }
+      var row6 = el("div", "s5fq-more"); row6.appendChild(btn("Open all DISA STIGs ›", "s5fo-go", function () { SGF = sgNoF(); go("stig"); })); gb.appendChild(row6);
+    }
   }
 
   /* ---- Sources: what each one is, how to run it against a tenant, what to do to comply, the differences ---- */
@@ -44027,6 +44070,7 @@ odtad CZTERNASCIE (4-17).**
       ["Every baseline you use has a profile on the newest version.", "Profile status shows no conflict (another policy setting the same CSP) and no error.", "Read “What changed” per baseline (By technology › Intune) before you update a profile."],
       [["Security baselines on Learn", "https://learn.microsoft.com/intune/device-security/security-baselines/overview"], ["Security Compliance Toolkit", "https://learn.microsoft.com/windows/security/operating-system-security/device-management/windows-security-configuration-framework/security-compliance-toolkit-10"]],
       [["baselines read", si.filter(function (b) { return !b.missing; }).length]]);
+    var sg = s.stig || {};   /* §5ge: DISA STIG, pushed after CIPP below */
     var sp = s.cipp || {};   /* §5fw */
     if (sp.standards) src("CIPP", "CIPP", "CyberDrain Improved Partner Portal — an open-source (AGPL-3.0) multi-tenant portal for Microsoft partners. It does not only test: its standards set a configuration and keep it set.",
       sp.ver ? "CIPP " + sp.ver + (sp.date ? " · standards " + dmy(sp.date) : "") : "",
@@ -44036,6 +44080,13 @@ odtad CZTERNASCIE (4-17).**
        "CIPP's own CISA tags are older ids: " + n(sp.cisaOld) + " standards carry ids ScubaGear no longer uses — the portal matches only the " + n(sp.cisaOk) + " that are current."],
       [["CIPP on GitHub", "https://github.com/CyberDrain/CIPP"], ["standards.json", sp.json || "https://github.com/CyberDrain/CIPP/blob/main/frontend/src/data/standards.json"], ["CIPP standards page", "https://standards.cipp.app/"], ["Docs: Standards & Drift", "https://github.com/CyberDrain/CIPP/blob/main/docs/user-documentation/tenant/standards/README.md"]],
       [["standards", sp.standards], ["with a CIS number", sp.cis], ["Maester checks too", sp.maester], ["High impact", (sp.impact || {}).High], ["added in 30 days", sp.added30]]);
+    if (sg.current) src("DISA STIG", "DISA STIG", "Security Technical Implementation Guides of DISA (US Defense Information Systems Agency) — the configuration standards of the US Department of Defense, with SCAP benchmarks a scanner can run and ready-made policy packages. Public, free, updated every quarter.",
+      ((sg.newest || [])[0] || {}).date ? "newest release " + dmy(sg.newest[0].date) : "",
+      n(sg.current) + " current STIGs for Microsoft products — " + n(sg.cloud) + " for cloud services (Entra ID, Intune, Defender for Endpoint, Azure SQL), Windows 11 and Windows Server, Microsoft 365 Apps, Edge, Active Directory, SQL Server, IIS. No STIG for Microsoft 365 as a service or for Exchange Online.",
+      "STIG: DISA STIG Viewer › open the XCCDF › go through CAT I, II, III\nSCAP benchmark: SCAP Compliance Checker (SCC) › scan\nWindows 11 with Intune: Endpoint security › Security baselines\n  › STIG audit baseline › Create (audit only, Advanced Analytics)\nTenable: its DISA STIG audit files (Tenable audits view)",
+      ["Every CAT I (high) rule of the STIGs for what you run is closed or has a documented exception.", "Devices on Windows 11: the Intune STIG audit report shows the rules each device fails.", "Watch the version: Intune's audit baseline can be a few releases behind DISA's newest benchmark (DISA STIG view)."],
+      [["DISA STIG downloads", sg.page || "https://www.cyber.mil/stigs/downloads"], ["Intune STIG audit baseline (Learn)", sg.learn || "https://learn.microsoft.com/en-us/intune/device-security/security-baselines/stig-audit-baseline"], ["STIG Viewer and SCC", "https://www.cyber.mil/stigs/srg-stig-tools"]],
+      [["current STIGs", sg.current], ["cloud services", sg.cloud], ["SCAP benchmarks", sg.scap], ["released in 30 days", sg.updated30]]);
     /* differences */
     var dif = el("section", "s5dv-blk s5fq-dif"); host.appendChild(dif);
     dif.appendChild(el("h3", null, "Differences — CISA, Maester and Tenable on the same policies"));
@@ -44064,7 +44115,7 @@ odtad CZTERNASCIE (4-17).**
   var CF = "";
   function vChanges(host) {
     var ev = (D.events || []).slice().sort(function (a, b) { return a.day < b.day ? 1 : a.day > b.day ? -1 : 0; });
-    host.appendChild(el("p", "s5dv-sub", "Security baselines — every change of the last 14 days: CISA policies added, changed or removed, ScubaGear releases, Maester tests, Tenable audit files, Zero Trust Assessment tests, new Intune baseline versions and CIPP's standards (read twice a day). A row opens the policy, test, file or standard."));
+    host.appendChild(el("p", "s5dv-sub", "Security baselines — every change of the last 14 days: CISA policies added, changed or removed, ScubaGear releases, Maester tests, Tenable audit files, Zero Trust Assessment tests, new Intune baseline versions, CIPP's standards and DISA STIGs (read twice a day). A row opens the policy, test, file, standard or STIG."));
     var srcs = {}; ev.forEach(function (e) { srcs[e.src] = (srcs[e.src] || 0) + 1; });
     var fb = el("div", "s5fo-tf"); fb.appendChild(el("span", "s5fo-tfl", "Source"));
     [""].concat(Object.keys(srcs)).forEach(function (k) { var b = btn(k || "All", "s5fo-tb", function () { CF = k; render(); }); b.setAttribute("aria-pressed", String(CF === k)); b.appendChild(badgeN(k ? srcs[k] : ev.length)); fb.appendChild(b); });
@@ -44637,6 +44688,131 @@ odtad CZTERNASCIE (4-17).**
     return (CP.standards || []).map(function (x) { return { t: x.label + " · CIPP standard " + x.id + " · " + x.tech + (x.impact ? " · " + x.impact + " impact" : "") + ((x.cis || []).length ? " · CIS " + x.cis.join(", ") : "") + (x.ps ? " · " + x.ps : ""),
       tn: "Security baselines · CIPP", fn: function () { openCipp(x.id); } }; });
   });
+  /* ==== §5ge (2 XI 2026, owner: "did our portal catch Intune's STIG audit baseline and Patch My PC's article? Microsoft's
+     article is based on cyber.mil/stigs/downloads - Intune, Entra, M365, EXO; an addition to Tenable, Maester, CISA; show
+     it in Today, Overview, the sentences, diff and week"). DISA's STIG catalog (the public call behind
+     cyber.mil/stigs/downloads, read twice a day by tools/baselines_stig.py): the Microsoft products only - names,
+     versions, release dates and download links; /data/baselines-stig.json is read when the view, a technology, a card or
+     the search needs it. Intune's STIG audit baseline (Learn) is compared with DISA's newest benchmark. DISA has no STIG
+     for Microsoft 365 as a service or for Exchange Online (Exchange 2016/2019 are on-premises, Sunset) - said where
+     a reader would look for it. ==== */
+  var SG = null, sgAsked = false, sgWait = [];
+  function getStig(cb) {
+    if (SG) { if (cb) cb(SG); return SG; }
+    if (cb) sgWait.push(cb);
+    if (!sgAsked) { sgAsked = true; getJSON("/data/baselines-stig.json", function (d) { SG = d || { stigs: [], source: {} }; (SG.stigs || []).forEach(function (x) { SG["@" + x.key] = x; });
+      var w = sgWait; sgWait = []; w.forEach(function (f) { try { f(SG); } catch (e) {} }); if (D) render(true); }); }
+    return null;
+  }
+  var STIG_TECHS = ["Entra ID", "Intune", "Defender", "Microsoft 365 Apps", "Edge", "Azure", "Windows"];   /* on By technology; the rest (Windows Server, SQL, IIS, AD, .NET, Exchange on-premises) in the DISA STIG view */
+  function sgNoF() { return { tech: "", kind: "", show: "current", q: "" }; }
+  var SGF = sgNoF();
+  function sgNew(x) { return x.date && D && dayDiff(x.date, D.day) <= 30; }
+  function lagChip(i) { if (!i || i.behind == null) return null; return chip(i.behind === 0 ? "Intune audits the newest" : i.behind === 99 ? "Intune audits an older version" : "Intune " + i.ver + " · " + i.behind + " release" + (i.behind === 1 ? "" : "s") + " behind DISA", i.behind ? "s5ge-lag" : "s5ge-ok", "Intune's STIG audit baseline (Learn) checks against " + i.ver + "; DISA's newest is " + ((i.disa || {}).ver || "")); }
+  function stigRow(x, num) {
+    var li = el("li", "s5fq-r s5ge-r" + (x.sunset ? " s5ge-sun" : "")); li.setAttribute("data-stig", x.key); li.tabIndex = 0; li.setAttribute("role", "button");
+    li.appendChild(el("span", "s5fm-n s5fq-num", String(num)));
+    var mid = el("div", "s5fq-rm");
+    var top = el("div", "s5fq-rt"); top.appendChild(el("span", "s5fq-st s5ge-t", x.product)); mid.appendChild(top);
+    var cs = el("div", "s5fq-rc");
+    cs.appendChild(chip(x.ver || "—", "s5ge-ver", "Version and release as DISA names it"));
+    cs.appendChild(chip(x.kind, "s5ge-kind s5ge-k-" + (x.kind === "SCAP benchmark" ? "scap" : x.kind === "Policy package" ? "pol" : "stig")));
+    if (x.sunset) cs.appendChild(chip("Sunset", "s5ge-sunc", "DISA no longer maintains it"));
+    else if (sgNew(x)) cs.appendChild(chip("NEW RELEASE · " + dmy(x.date), "s5fw-new"));
+    else cs.appendChild(chip("released " + dmy(x.date), "s5fw-dt"));
+    if (x.cloud) cs.appendChild(chip("Cloud", "s5ge-cloud", "A cloud service or the agent of one"));
+    cs.appendChild(chip(x.tech, "s5fo-st"));
+    var lc = lagChip(x.intune && { ver: x.intune.ver, behind: x.intune.behind, disa: { ver: x.ver } }); if (lc) cs.appendChild(lc);
+    mid.appendChild(cs); li.appendChild(mid);
+    li.addEventListener("click", function () { stigCard(x); });
+    li.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); stigCard(x); } });
+    return li;
+  }
+  function openStig(key) { getStig(function (G) { var x = G["@" + key]; if (x) { if (S.view !== "stig") { SGF = sgNoF(); if (x.sunset) SGF.show = "all"; go("stig"); } setTimeout(function () { stigCard(x); }, 150); } else go("stig"); }); }
+  var KIND_TXT = { "STIG": "The guide itself: every rule with its severity (CAT I high, CAT II medium, CAT III low), what to check and how to fix it. Opened in DISA's STIG Viewer.",
+    "SCAP benchmark": "The machine-readable version of the checks (XCCDF/OVAL): a scanner such as DISA's SCAP Compliance Checker (SCC) reads it and reports Pass or Fail per rule. Intune's STIG audit baseline uses this file for Windows 11.",
+    "Policy package": "DISA's ready-made settings to import (Group Policy objects or Intune policies) that apply the STIG.", "SRG": "Security Requirements Guide: the general requirements a STIG is written from." };
+  function stigCard(x) {
+    var sc = ((SG || {}).source || {}), it = (sc.intune || []).filter(function (i) { return x.intune && i.ver === x.intune.ver; })[0];
+    var how = x.kind === "SCAP benchmark" ? "Download the ZIP › open it in DISA's SCAP Compliance Checker (SCC) › scan the device › read the CAT I / II / III results." +
+      (x.intune ? "\nWithout SCC, on Windows 11 managed by Intune: Intune admin center › Endpoint security › Security baselines › STIG audit baseline › Create (audit only — it changes no setting; needs Intune Advanced Analytics)." : "")
+      : x.kind === "Policy package" ? "Download the ZIP › import the Group Policy objects (GPMC) or the Intune policies › assign them to a test group first › compare with the STIG." :
+      "Download the ZIP › open the XCCDF file in DISA's STIG Viewer › go through the rules from CAT I down › record Open / Not a finding / Not applicable per rule (a checklist, .cklb).";
+    var lag = x.intune ? "Intune's STIG audit baseline checks " + x.intune.ver + " (" + n(x.intune.rules) + " rules, " + dmy(x.intune.date) + "); DISA's newest is " + x.ver + " (" + dmy(x.date) + ")" + (x.intune.behind ? " — " + x.intune.behind + " release" + (x.intune.behind === 1 ? "" : "s") + " behind: rules DISA added since are not in Intune's report yet." : ".") : "";
+    card({
+      chips: [[x.tech, "s5fo-st"], [x.kind, "s5ge-kind"], [x.ver, "s5ge-ver"], x.sunset ? ["Sunset", "s5ge-sunc"] : sgNew(x) ? ["New release · " + dmy(x.date), "s5fw-new"] : null, x.cloud ? ["Cloud", "s5ge-cloud"] : null].filter(Boolean),
+      title: x.product, sub: x.name + " · DISA STIG",
+      facts: [["Version", x.ver], ["Released by DISA", dmy(x.date)], ["First seen by the portal", dmy(x.first)], ["Kind", x.kind], ["File", x.file], ["Status", x.sunset ? "Sunset — DISA no longer updates it" : "Current"], ["Intune STIG audit", x.intune ? x.intune.ver + " · " + n(x.intune.rules) + " rules" : ""]],
+      blocks: [["What it is", KIND_TXT[x.kind] || KIND_TXT.STIG], ["Intune vs DISA", lag, lag && x.intune.behind ? "s5ge-lagb" : ""], ["How to use it", how, "s5fo-do", "pre"],
+        ["Note", x.tech === "Exchange (on-premises)" || x.tech === "Microsoft 365 Apps" ? "DISA has no STIG for Exchange Online or for Microsoft 365 as a service; for those use CISA SCuBA (By technology › Exchange Online), Maester and CIPP." : ""]],
+      links: [{ t: "Download (" + (x.file || "ZIP") + ")", u: x.link }, { t: "DISA STIG downloads (cyber.mil)", u: sc.page || "https://www.cyber.mil/stigs/downloads" }, x.intune || /Windows 11/.test(x.product) ? { t: "Intune STIG audit baseline (Learn)", u: sc.learn || "https://learn.microsoft.com/en-us/intune/device-security/security-baselines/stig-audit-baseline" } : null,
+        { t: "STIG Viewer and SCC (cyber.mil)", u: "https://www.cyber.mil/stigs/srg-stig-tools" }].filter(Boolean),
+      go: [["Show it in the list ›", function () { SGF = sgNoF(); SGF.tech = x.tech; if (x.sunset) SGF.show = "all"; go("stig"); setTimeout(function () { var r = panel.querySelector('[data-stig="' + cssq(x.key) + '"]'); if (r) { r.scrollIntoView({ block: "center" }); if (window.__socMark) window.__socMark(r); } }, 120); }]]
+    });
+  }
+  /* the frame "Intune STIG audit vs DISA" - one rounded box, the lag as a filled badge */
+  function intuneFrame(host, sc) {
+    var L = sc.intune || []; if (!L.length) return;
+    var f = el("section", "s5ge-frame");
+    var h = el("div", "s5ge-fh"); h.appendChild(srcChip("Intune security baselines", "Intune")); h.appendChild(el("h4", null, "Intune STIG audit baseline vs DISA")); f.appendChild(h);
+    L.forEach(function (i) {
+      var r = el("div", "s5ge-fr");
+      r.appendChild(el("b", null, i.baseline));
+      var cs = el("div", "s5fq-rc");
+      cs.appendChild(chip("Intune audits " + i.ver + " · " + n(i.rules) + " rules · " + dmy(i.date), "s5ge-ver"));
+      if (i.disa) cs.appendChild(chip("DISA newest " + i.disa.ver + " · " + dmy(i.disa.date), "s5ge-kind s5ge-k-scap"));
+      var lc = lagChip(i); if (lc) cs.appendChild(lc);
+      r.appendChild(cs); f.appendChild(r);
+    });
+    f.appendChild(el("p", "s5dv-fn", "Audit only (no setting is changed) · Windows 11 · commercial and GCC High tenants · needs Intune Advanced Analytics · report per device and per rule (CAT I / II / III), exportable through Microsoft Graph. Read from our Learn copy of the page; a new benchmark version in Intune shows in Changes, Today and the Overview sentence."));
+    var a = link("Open the Learn page", sc.learn || "https://learn.microsoft.com/en-us/intune/device-security/security-baselines/stig-audit-baseline", "s5dv-ext"); f.appendChild(a);
+    host.appendChild(f);
+  }
+  function vStig(host) {
+    var G = getStig(), sc = (G && G.source) || (D.sources || {}).stig || {};
+    host.appendChild(el("p", "s5dv-sub", "DISA (US Defense Information Systems Agency) publishes Security Technical Implementation Guides — the configuration standards of the US Department of Defense — with SCAP benchmarks a scanner can run and ready-made policy packages. " +
+      "Here: every STIG for a Microsoft product, read twice a day from cyber.mil. Tenable's DISA STIG audit files (Tenable audits view) are built from these. A new release, a new STIG or one moved to Sunset appears in Changes, Today and the Overview sentence."));
+    if (!G) { host.appendChild(el("p", "s5dv-note", "Reading DISA's catalog…")); return; }
+    var L = G.stigs || [];
+    var kp = el("div", "s5dv-kpis");
+    [[sc.current, "current STIGs", "Microsoft products", ""], [sc.cloud, "cloud services", "Entra ID, Intune, Defender, Azure", "s5fq-k-ok"], [sc.scap, "SCAP benchmarks", "a scanner can run them", ""],
+     [sc.updated30, "released in 30 days", "new version or new STIG", ""], [sc.sunset, "Sunset", "no longer maintained", "s5fq-k-w"]].forEach(function (k) { if (k[0] == null) return;
+      var b = el("div", "s5dv-kpi " + k[3]); b.appendChild(el("b", null, n(k[0]))); b.appendChild(el("span", "s5dv-kl", k[1])); b.appendChild(el("span", "s5dv-ks", k[2])); kp.appendChild(b); });
+    host.appendChild(kp);
+    intuneFrame(host, sc);
+    var nb = el("p", "s5ge-none"); nb.appendChild(chip("No STIG", "s5ge-sunc")); nb.appendChild(document.createTextNode(" for Microsoft 365 as a service or for Exchange Online — DISA's Exchange STIGs are for Exchange Server 2016/2019 (on-premises, Sunset). For Exchange Online, SharePoint Online and Teams use CISA SCuBA, Maester and CIPP (By technology).")); host.appendChild(nb);
+    function base(x) { return SGF.show === "all" || (SGF.show === "sunset" ? x.sunset : SGF.show === "cloud" ? x.cloud && !x.sunset : SGF.show === "new" ? sgNew(x) : !x.sunset); }
+    function bar(lab, key, opts) {
+      var fb = el("div", "s5fo-tf s5fq-f"); fb.appendChild(el("span", "s5fo-tfl", lab));
+      opts.forEach(function (o) { var k = o[2]; if (o[0] && !k) return;
+        var b = btn(o[1], "s5fo-tb", function () { SGF[key] = SGF[key] === o[0] && key !== "show" ? "" : o[0]; render(); }); b.setAttribute("aria-pressed", String(SGF[key] === o[0])); b.appendChild(badgeN(k)); fb.appendChild(b); });
+      host.appendChild(fb);
+    }
+    var B = L.filter(base), techs = {}, kinds = {}; B.forEach(function (x) { techs[x.tech] = (techs[x.tech] || 0) + 1; kinds[x.kind] = (kinds[x.kind] || 0) + 1; });
+    bar("Show", "show", [["current", "Current", L.filter(function (x) { return !x.sunset; }).length], ["cloud", "Cloud", L.filter(function (x) { return x.cloud && !x.sunset; }).length], ["new", "Released in 30 days", L.filter(sgNew).length], ["sunset", "Sunset", L.filter(function (x) { return x.sunset; }).length], ["all", "All", L.length]]);
+    bar("Technology", "tech", [["", "All", B.length]].concat(Object.keys(techs).sort(function (a, b) { return techs[b] - techs[a] || (a < b ? -1 : 1); }).map(function (t) { return [t, t, techs[t]]; })));
+    bar("Kind", "kind", [["", "Any", B.length]].concat(Object.keys(kinds).map(function (t) { return [t, t, kinds[t]]; })));
+    var qi = el("input", "s5fq-q s5ge-q"); qi.type = "search"; qi.placeholder = "Search DISA STIGs (product, version V2R11, file…)"; qi.value = SGF.q;
+    qi.addEventListener("input", function () { SGF.q = qi.value; var keep = qi.selectionStart; render(); var q2 = panel.querySelector(".s5ge-q"); if (q2) { q2.focus(); try { q2.setSelectionRange(keep, keep); } catch (e) {} } });
+    host.appendChild(qi);
+    var q = SGF.q.toLowerCase();
+    var shown = B.filter(function (x) { if (SGF.tech && x.tech !== SGF.tech) return false; if (SGF.kind && x.kind !== SGF.kind) return false;
+      if (q && (x.name + " " + x.product + " " + x.ver + " " + x.file + " " + x.tech + " " + x.kind).toLowerCase().indexOf(q) < 0) return false; return true; });
+    host.appendChild(el("p", "s5dv-sm", n(shown.length) + " of " + n(L.length) + " · cloud first, then by technology, newest release first"));
+    var tech = "", ol = null, num = 0;
+    shown.forEach(function (x) {
+      if (x.tech !== tech) { tech = x.tech; var h = el("h4", "s5fq-sec s5fw-th s5ge-th"); h.appendChild(document.createTextNode(tech)); h.appendChild(badgeN(shown.filter(function (y) { return y.tech === tech; }).length)); host.appendChild(h); ol = el("ol", "s5fq-list"); host.appendChild(ol); num = 0; }
+      ol.appendChild(stigRow(x, ++num));
+    });
+    if (!shown.length) host.appendChild(el("p", "s5dv-note", "No STIG matches the filter."));
+    host.appendChild(el("p", "s5dv-fn", "Source: DISA's public catalog behind cyber.mil/stigs/downloads (" + n(sc.catalog) + " documents, " + n(sc.entries) + " for Microsoft products). STIGs are US Government works; the portal keeps names, versions, dates and download links — nothing is downloaded or run."));
+  }
+  (window.__socSearchAdd = window.__socSearchAdd || []).push(function () {
+    if (!D) return [];
+    if (!SG) { getStig(); return []; }
+    return (SG.stigs || []).map(function (x) { return { t: x.product + " · DISA STIG " + x.ver + " · " + x.tech + " · " + x.kind + (x.sunset ? " · Sunset" : "") + " · released " + dmy(x.date) + (x.intune ? " · Intune STIG audit baseline " + x.intune.ver : ""),
+      tn: "Security baselines · DISA STIG", fn: function () { openStig(x.key); } }; });
+  });
   /* Today (§5fw: the security baselines had no box in Today) - what moved in the baselines since the last brief, every source */
   function todayBox(k) {
     var p = document.getElementById("tab-today");
@@ -44647,7 +44823,7 @@ odtad CZTERNASCIE (4-17).**
     var by = {}; T.forEach(function (e) { by[e.src] = (by[e.src] || 0) + 1; });
     box.appendChild(el("h3", "gd-th", "Security baselines: " + plural(T.length, "change") + " today — " + Object.keys(by).map(function (s) { return (s === "CISA" ? "CISA SCuBA" : s) + " " + by[s]; }).join(", ")));
     var ul = el("ul", "gd-trows");
-    var order = { CIPP: 0, CISA: 1, Maester: 2, Tenable: 3 };
+    var order = { CIPP: 0, "DISA STIG": 1, CISA: 2, Maester: 3, Tenable: 4 };   /* §5ge */
     T.slice().sort(function (a, b) { return ((order[a.src] == null ? 9 : order[a.src]) - (order[b.src] == null ? 9 : order[b.src])); }).slice(0, 8).forEach(function (e) {
       var li = el("li"); var kk = EVL[e.type] || ["changed", e.type];
       li.appendChild(el("span", "s5fw-k s5fw-k-" + kk[0], kk[0] === "added" ? "NEW" : kk[0] === "removed" ? "REMOVED" : "CHANGED")); li.appendChild(srcPill(e.src));
@@ -44666,11 +44842,11 @@ odtad CZTERNASCIE (4-17).**
     if (!host) { if (k < 25) setTimeout(function () { ovCard(k + 1); }, 400); return; }
     if (host.querySelector(".s5dv-ov")) return;
     var c = D.counts || {}, card = el("section", "s5ci-card s5ci-c-acc s5dv-ov"), h = el("div", "s5ci-ch");
-    h.appendChild(el("h3", null, "Security baselines · CISA, Maester, Tenable, Microsoft, CIPP"));
+    h.appendChild(el("h3", null, "Security baselines · CISA, Maester, Tenable, Microsoft, CIPP, DISA"));
     var al = el("span", "s5cu-ovh"); al.appendChild(btn("Open Baselines ›", "s5ci-inl", function () { go("tech"); })); h.appendChild(al); card.appendChild(h);
     var g = el("div", "s5dv-ovk");
     var sc5 = (D.sources || {}).cisa || {};
-    [[sc5.bod, "CISA required", function () { go("tech"); }], [sc5.policies, "CISA policies", function () { go("tech"); }], [c.tests, "Maester tests", function () { go("tests", { F: {} }); }], [c.tenableItems, "Tenable items", function () { go("tenable"); }], [((D.sources || {}).zta || {}).tests, "ZTA tests", function () { go("tech", { tech: "Entra ID" }); }], [((D.sources || {}).cipp || {}).standards, "CIPP standards", function () { go("cipp"); }]].forEach(function (x) { if (x[0] == null) return;
+    [[sc5.bod, "CISA required", function () { go("tech"); }], [sc5.policies, "CISA policies", function () { go("tech"); }], [c.tests, "Maester tests", function () { go("tests", { F: {} }); }], [c.tenableItems, "Tenable items", function () { go("tenable"); }], [((D.sources || {}).zta || {}).tests, "ZTA tests", function () { go("tech", { tech: "Entra ID" }); }], [((D.sources || {}).cipp || {}).standards, "CIPP standards", function () { go("cipp"); }], [((D.sources || {}).stig || {}).current, "DISA STIGs", function () { SGF = sgNoF(); go("stig"); }]].forEach(function (x) { if (x[0] == null) return;
       var b = btn("", "s5dv-ovb", x[2], "Open " + x[1]); b.appendChild(el("b", null, n(x[0]))); b.appendChild(el("span", null, x[1])); g.appendChild(b); });
     card.appendChild(g);
     var ev = (D.events || []).slice().sort(function (a, b) { return a.day < b.day ? 1 : -1; }).slice(0, 5);
@@ -44695,6 +44871,7 @@ odtad CZTERNASCIE (4-17).**
     var mT = evT.filter(function (e) { return e.src === "Maester"; }), tT = evT.filter(function (e) { return e.src === "Tenable"; });
     var cT = evT.filter(function (e) { return e.src === "CISA"; }), oT = evT.filter(function (e) { return e.src === "Zero Trust Assessment" || e.src === "Intune security baselines"; });
     var pT = evT.filter(function (e) { return e.src === "CIPP"; });   /* §5fw */
+    var gT = evT.filter(function (e) { return e.src === "DISA STIG"; });   /* §5ge */
     var li = el("li", "s5dv-sen"); li.appendChild(el("b", "s5bk-k k-tech", "Security baselines"));
     var b = el("span", "s5bk-it s5bk-idl");
     var lg5 = ((D.sources || {}).cisa || {}).lag;
@@ -44712,6 +44889,8 @@ odtad CZTERNASCIE (4-17).**
     if (((D.sources || {}).zta || {}).ver) tile("Microsoft (ZTA, Intune)", oT.length, n(((D.sources || {}).zta || {}).tests) + " ZTA tests · Intune baselines", function () { if (oT.length === 1) openEv(oT[0]); else go(oT.length ? "changes" : "sources"); });
     var sp6 = (D.sources || {}).cipp || {};
     if (sp6.standards) tile("CIPP standards", pT.length, n(sp6.standards) + " standards · CIPP " + (sp6.ver || ""), function () { if (pT.length === 1) openEv(pT[0]); else if (pT.length) { CF = "CIPP"; go("changes"); } else go("cipp"); });
+    var sg6 = (D.sources || {}).stig || {}, ig6 = (sg6.intune || [])[0];
+    if (sg6.current) tile("DISA STIG", gT.length, n(sg6.current) + " STIGs" + (ig6 && ig6.behind ? " · Intune " + ig6.ver + " vs DISA " + (ig6.disa || {}).ver : ""), function () { if (gT.length === 1) openEv(gT[0]); else if (gT.length) { CF = "DISA STIG"; go("changes"); } else { SGF = sgNoF(); go("stig"); } });   /* §5ge */
     tile("Last 14 days", e14, "new, changed, removed", function () { go("changes"); }, "14 days to " + dmy(day).slice(0, 5));
     b.appendChild(g); li.appendChild(b);
     var lis = [].slice.call(ol.children), cv = lis.filter(function (x) { return x.classList.contains("s5cu-sen"); })[0];
@@ -44725,10 +44904,12 @@ odtad CZTERNASCIE (4-17).**
   }
 
   function fromHash() {
-    var m = /^#tab=baselines(?:&(.*))?$/.exec(location.hash || ""); if (!m) return;
+    var h0 = /^#tab=baselines/.test(location.hash || "") ? location.hash : HASH0; HASH0 = "";
+    var m = /^#tab=baselines(?:&(.*))?$/.exec(h0 || ""); if (!m) return;
     var p = {}; String(m[1] || "").split("&").forEach(function (kv) { var i = kv.indexOf("="); if (i > 0) p[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1)); });
     S.view = p.v || (p.t ? "tests" : p.f ? "tenable" : "tech"); S.open = p.t || ""; S.fam = p.f || ""; if (p.tech) S.tech = p.tech; goTab(); render();
     if (p.c) { getCtl(); openCipp(p.c); }   /* §5fw: /diff and /week link a CIPP standard with &v=cipp&c=<id> */
+    if (p.s) openStig(p.s);   /* §5ge: and a DISA STIG with &v=stig&s=<key> */
   }
   function start() {
     if (!onSite() || !window.fetch) { body.textContent = ""; body.appendChild(el("p", "s5dv-note", "Baselines are read from /data/baselines.json on the published site.")); return; }
@@ -49594,7 +49775,7 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 @media (max-width:640px){.s5ft-gs{padding:9px 10px}.s5ft-fl{padding:0 6px 8px}.s5ft-fh{font-size:15.5px}.s5ft-open{margin-left:0}.s5ft-intro{padding:10px 12px}}
 @media (max-width:640px){.s5cd-bar,.s5dv-vnav,.s5fg-nav{padding:6px 8px;gap:5px}.s5cd-bar::before{flex-basis:100%;margin:2px 0 2px 2px}
  .s5cd-bar button:not(.s5cd-drawer),.s5dv-vb,.s5fg-navb{font-size:14px;padding:7px 11px}}
-.s5fq-c-cisa{--sc:#3fb37f}.s5fq-c-m{--sc:var(--accent)}.s5fq-c-t{--sc:#e3a33b}.s5fq-c-z{--sc:#b48cff}.s5fq-c-i{--sc:#4cc2d6}.s5fq-c-cipp{--sc:#e86fa8}
+.s5fq-c-cisa{--sc:#3fb37f}.s5fq-c-m{--sc:var(--accent)}.s5fq-c-t{--sc:#e3a33b}.s5fq-c-z{--sc:#b48cff}.s5fq-c-i{--sc:#4cc2d6}.s5fq-c-cipp{--sc:#e86fa8}.s5fq-c-stig{--sc:#8fae5a}
 /* §5fw CIPP standards: impact and "new" as filled badges, framework numbers readable, the id in a code box */
 .s5dv-chip.s5fw-imp,.s5fo-chip.s5fw-imp{font-weight:700;border-color:transparent;color:#fff}
 .s5fo-chip.s5fw-imp-h{background:var(--bad)}.s5fo-chip.s5fw-imp-m{background:#b7791f}.s5fo-chip.s5fw-imp-l{background:var(--accent)}
@@ -49612,6 +49793,22 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 .s5fw-q{margin:6px 0 10px}
 .s5fw-fix pre{margin:6px 0}
 .s5fq-b-cipp{--sc:#e86fa8}
+/* §5ge DISA STIG: version, kind, Sunset, Cloud and the Intune lag as filled badges; the Intune vs DISA frame rounded */
+.s5fq-b-stig{--sc:#8fae5a}
+.s5fw-th.s5ge-th{border-left-color:#8fae5a;background:color-mix(in srgb,#8fae5a 14%,transparent)}
+.s5dv-chip.s5ge-ver,.s5fo-chip.s5ge-ver{background:#34495e;color:#fff;border-color:transparent;font-weight:700;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.s5dv-chip.s5ge-kind,.s5fo-chip.s5ge-kind{background:#5d6d2f;color:#fff;border-color:transparent;font-weight:700}
+.s5dv-chip.s5ge-k-scap,.s5fo-chip.s5ge-k-scap{background:#2f6b6d}.s5dv-chip.s5ge-k-pol,.s5fo-chip.s5ge-k-pol{background:#6b4f9e}
+.s5dv-chip.s5ge-sunc,.s5fo-chip.s5ge-sunc{background:#6b7280;color:#fff;border-color:transparent;font-weight:700}
+.s5dv-chip.s5ge-cloud,.s5fo-chip.s5ge-cloud{background:#1d5fa8;color:#fff;border-color:transparent;font-weight:700}
+.s5dv-chip.s5ge-lag,.s5fo-chip.s5ge-lag{background:#b7791f;color:#fff;border-color:transparent;font-weight:700}
+.s5dv-chip.s5ge-ok,.s5fo-chip.s5ge-ok{background:#1f7a44;color:#fff;border-color:transparent;font-weight:700}
+.s5ge-r.s5ge-sun .s5ge-t{opacity:.75}
+.s5ge-frame{margin:12px 0;padding:12px 14px;border:2px solid #8fae5a;border-radius:14px;background:color-mix(in srgb,#8fae5a 8%,transparent)}
+.s5ge-fh{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:6px}.s5ge-fh h4{margin:0;font-size:16px}
+.s5ge-fr{display:flex;flex-direction:column;gap:6px;padding:8px 0;border-top:1px solid color-mix(in srgb,var(--text) 15%,transparent)}
+.s5ge-none{margin:10px 0;padding:10px 12px;border:1px solid color-mix(in srgb,var(--text) 25%,transparent);border-radius:12px;line-height:1.5}
+.s5fo-blk.s5ge-lagb{border-left:4px solid #b7791f;border-radius:10px}
 .s5fw-tday .gd-trows li{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .s5fw-k{display:inline-block;padding:1px 8px;border-radius:999px;font-weight:700;font-size:12px;color:#fff}
 .s5fw-k-added{background:#1f7a44}.s5fw-k-changed{background:#b7791f}.s5fw-k-removed{background:var(--bad)}
@@ -51592,6 +51789,46 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5ge — DISA STIG w Security baselines; Intune STIG audit baseline kontra DISA (2 XI 2026)
+
+Wlasciciel: „Czy nasz portal i skrypty wykryly strone Learn o Intune STIG audit baseline oraz artykul Patch My PC? Artykul
+MS opiera sie na cyber.mil/stigs/downloads, gdzie mamy Intune, Entra, M365, EXO… To dodatek do Tenable, Maester, CISA.
+Pokazujemy to w Today, Overview, community, zdaniach dnia, /diff, week?"
+- **Stan przed zmiana (sprawdzony):** wpis Learn „STIG audit baselines for Windows devices in commercial tenants"
+  (Intune, X 2026) byl w zakladce Learn i w zmianach stron; Patch My PC „Intune STIG Audit: What Happens After You Click
+  Create" (26 X, kanaly Patch My PC i Call4Cloud) i Joost Gelijsteen (27 X) byly w Community; wszystkie trzy w ledgerze
+  `/diff`. Nie bylo ich w Today, w zdaniach Overview ani w Security baselines (strona STIG audit nie byla w `SLUGS`
+  `baselines_more.py`, DISA nie bylo zrodlem).
+- **Fakty z cyber.mil (2 XI):** strona pobierania to Salesforce; caly katalog zwraca jedno publiczne wywolanie
+  `POST /webruntime/api/apex/execute` (`getCyberDocumentCatalogByDocumentLibrary`, `documentLibrary: "STIGs"`) — 417
+  dokumentow, 55 dla produktow Microsoftu (29 aktualnych, 26 Sunset, 8 chmurowych). **Nie ma STIG dla Microsoft 365 jako
+  uslugi ani dla Exchange Online** — Exchange 2016/2019 to serwery on-premises i sa „Sunset". Chmurowe: Entra ID V1R2,
+  Intune (Desktop & Mobile), Intune Policy (paczka), Defender Antivirus / for Endpoint, Azure SQL DB / MI.
+- **Zrodlo:** `tools/baselines_stig.py` (wolany z `tools/baselines.py` po `cipp()` jako `stig()`; blad niczego innego
+  nie zatrzymuje). Filtr produktow Microsoftu (bez Apache/Firefox/Symantec/Splunk/Apple itp.), wersja VxRy z nazwy lub
+  pliku, rodzaj (STIG / SCAP benchmark / Policy package), technologia, Sunset, chmura; jeden wpis na produkt i rodzaj
+  (najnowszy). Tabela „Available STIG baselines" ze strony Intune (nasza kopia Learn) porownana z najnowszym benchmarkiem
+  DISA: **Intune audytuje Windows 11 STIG SCAP V2R7 (197 regul, 5 I 2026), DISA ma V2R11 (5 X 2026) — 4 wydania w tyle.**
+  Pamiec `data/baselines-stig/state.json`, wynik `site/data/baselines-stig.json` (tylko nazwy, wersje, daty, linki).
+- **Zdarzenia** (`src: "DISA STIG"`): `stig-new`, `stig-updated` (was → now, data wydania), `stig-sunset`,
+  `stig-removed`, `intune-stig` (zmiana tabeli Intune). Pierwszy przebieg tylko zapisuje stan. Workflow „Baselines
+  tracking" (05:15 i 15:15 UTC) commituje `baselines-stig.json` i `data/baselines-stig/`; push na `tools/baselines_stig.py`
+  uruchamia go.
+- **Interfejs:** widok „DISA STIG" (KPI, ramka „Intune STIG audit baseline vs DISA" z wypelnionymi plakietkami wersji
+  i opoznienia, ramka „No STIG dla M365 / EXO", filtry Show / Technology / Kind, wyszukiwarka, sekcje per technologia,
+  karta z zakladkami: co to jest, Intune vs DISA, jak uzyc — STIG Viewer / SCC / Intune STIG audit, linki do ZIP,
+  cyber.mil, Learn). By technology: kafel „DISA STIG" i blok 6 dla Entra ID, Intune, Defender, Microsoft 365 Apps, Edge,
+  Azure, Windows (nowa technologia; reszta on-premises tylko w widoku). Sources (siodma karta), Changes, pasek
+  swiezosci, Today (`#s5dv-today`), Overview (kafel w zdaniu Security baselines z „Intune V2R7 vs DISA V2R11", liczba
+  w karcie), wyszukiwarka portalu, `/diff` i `/week` (link `#tab=baselines&v=stig&s=<klucz>`), RSS, About.
+- **Poprawka przy okazji:** link `#tab=baselines&v=…` w WebKit czasem otwieral „By technology" (warstwa zakladek
+  przepisywala adres na `#tab-baselines`, zanim przyszly dane). Zakladka pamieta adres z chwili ladowania (`HASH0`, jak
+  Radar w §5gb) — 4/4 otwarcia poprawne.
+- **Testy (2 XI):** zdarzenia na sztucznym stanie (new / updated / removed / intune-stig = 4), Chromium 390 i 1280,
+  WebKit 390: widok 29 wierszy, filtry (Sunset 26, „exchange" → Exchange 2016/2019), karta, technologie (Windows 5 +
+  ramka, Intune 2 + ramka, Entra ID 1), Sources, Changes, deep link do karty, Today, zdanie i karta Overview, 0 bledow.
+  `mobile_check --cpu 4`: zdania Overview 10,2 s. Bramka, 17 skryptow bez bledow skladni.
 
 ### §5gd — MSRC blog w Threat Research, „Microsoft's response", drugie repozytorium SlimKQL (1 XI 2026)
 

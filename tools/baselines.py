@@ -796,6 +796,32 @@ def cipp(out, day, seed, mtests, items):
     out["counts"]["events14"] = len(out["events"])
 
 
+def stig(out, day, seed):
+    """CLAUDE.md 5ge (2 XI 2026): DISA STIGs for Microsoft products (cyber.mil catalog) and Intune's STIG audit baseline
+    against DISA's newest benchmark - tools/baselines_stig.py; a failure there changes nothing else"""
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import baselines_stig
+        summ, ev, techs = baselines_stig.run(day, seed=bool(seed))
+    except Exception as e:
+        log("DISA STIG: not read:", e)
+        return
+    out["spec"] = (out.get("spec") or "5dv") + "+5ge"
+    out["sources"]["stig"] = summ
+    if not summ.get("ok"):
+        return
+    mt = out.setdefault("more", {}).setdefault("techs", [])
+    have = {t.get("tech"): t for t in mt}
+    for tech, k in techs.items():
+        if tech in have:
+            have[tech]["stig"] = k
+        else:
+            mt.append({"tech": tech, "stig": k})
+    since14 = (datetime.date.fromisoformat(day) - datetime.timedelta(days=14)).isoformat()
+    out["events"] = sorted(out["events"] + [e for e in ev if e["day"] >= since14], key=lambda e: e["day"], reverse=True)
+    out["counts"]["events14"] = len(out["events"])
+
+
 def main(argv):
     args, i = {}, 0
     while i < len(argv):
@@ -824,6 +850,7 @@ def main(argv):
         return 1
     more(out, day, seed, mtests, items)
     cipp(out, day, seed, mtests, items)   # 5fw
+    stig(out, day, seed)   # 5ge
     c1 = dump(OUT, out)
     c2 = dump(OUT_T, items) | dump(OUT_M, mtests)
     c3 = dump(HIST, hist)

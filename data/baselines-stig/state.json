@@ -1,0 +1,566 @@
+{
+ "events": [],
+ "snap": {
+  "active-directory-forest-stig-stig": {
+   "name": "Active Directory Forest STIG - Ver 3, Rel 2",
+   "ver": "V3R2",
+   "date": "2025-08-07",
+   "sunset": false,
+   "tech": "Active Directory",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_Active_Directory_Forest_V3R2_STIG.zip"
+  },
+  "intune-policy-policy-package": {
+   "name": "Intune Policy - October 2026",
+   "ver": "October 2026",
+   "date": "2026-10-16",
+   "sunset": false,
+   "tech": "Intune",
+   "kind": "Policy package",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_Intune_Policy_Package_October_2026.zip"
+  },
+  "microsoft-net-framework-security-checklist-stig": {
+   "name": "Microsoft .Net Framework Security Checklist - Ver 1, Rel 3",
+   "ver": "V1R3",
+   "date": "2016-04-22",
+   "sunset": false,
+   "tech": ".NET",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/pdf/U_Microsoft_DotNet_V1R3_Checklist.pdf"
+  },
+  "microsoft-access-2016-stig-stig": {
+   "name": "Sunset - Microsoft Access 2016 STIG - Ver 2, Rel 1",
+   "ver": "V2R1",
+   "date": "2026-01-29",
+   "sunset": true,
+   "tech": "Microsoft 365 Apps",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Access_2016_V2R1_STIG.zip"
+  },
+  "microsoft-azure-sql-database-stig-stig": {
+   "name": "Microsoft Azure SQL Database STIG - Ver 2, Rel 4",
+   "ver": "V2R4",
+   "date": "2026-10-05",
+   "sunset": false,
+   "tech": "Azure",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Azure_SQL_DB_V2R4_STIG.zip"
+  },
+  "microsoft-defender-antivirus-stig-stig": {
+   "name": "Microsoft Defender Antivirus STIG - Ver 2, Rel 10",
+   "ver": "V2R10",
+   "date": "2026-10-20",
+   "sunset": false,
+   "tech": "Defender",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Defender_Antivirus_V2R10_STIG.zip"
+  },
+  "microsoft-defender-antivirus-stig-scap-benchmark-scap-benchmark": {
+   "name": "Microsoft Defender Antivirus STIG SCAP Benchmark - Ver 2, Rel 10",
+   "ver": "V2R10",
+   "date": "2026-10-06",
+   "sunset": false,
+   "tech": "Defender",
+   "kind": "SCAP benchmark",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Defender_Antivirus_V2R10_STIG_SCAP_1-3_Benchmark.zip"
+  },
+  "microsoft-dotnet-framework-4-0-stig-stig": {
+   "name": "Sunset - Microsoft DotNet Framework 4.0 STIG - Ver 2, Rel 9",
+   "ver": "V2R9",
+   "date": "2026-07-10",
+   "sunset": true,
+   "tech": ".NET",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_DotNet_Framework_4-0_V2R9_STIG.zip"
+  },
+  "microsoft-dotnet-framework-4-0-stig-scap-benchmark-scap-benchmark": {
+   "name": "Sunset - Microsoft DotNet Framework 4.0 STIG SCAP Benchmark - Ver 2, Rel 8",
+   "ver": "V2R8",
+   "date": "2026-07-10",
+   "sunset": true,
+   "tech": ".NET",
+   "kind": "SCAP benchmark",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_DotNet_Framework_4-0_V2R8_STIG_SCAP_1-3_Benchmark.zip"
+  },
+  "microsoft-edge-stig-stig": {
+   "name": "Microsoft Edge STIG - Ver 2, Rel 5",
+   "ver": "V2R5",
+   "date": "2026-04-07",
+   "sunset": false,
+   "tech": "Edge",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Edge_V2R5_STIG.zip"
+  },
+  "microsoft-edge-stig-benchmark-scap-benchmark": {
+   "name": "Microsoft Edge STIG Benchmark - Ver 2, Rel 5",
+   "ver": "V2R5",
+   "date": "2026-04-07",
+   "sunset": false,
+   "tech": "Edge",
+   "kind": "SCAP benchmark",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Edge_V2R5_STIG_SCAP_1-3_Benchmark.zip"
+  },
+  "microsoft-entra-id-stig-stig": {
+   "name": "Microsoft Entra ID STIG – Ver 1, Rel 2",
+   "ver": "V1R2",
+   "date": "2026-10-05",
+   "sunset": false,
+   "tech": "Entra ID",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Entra_ID_V1R2_STIG.zip"
+  },
+  "microsoft-excel-2016-stig-stig": {
+   "name": "Sunset - Microsoft Excel 2016 STIG - Ver 2, Rel 2",
+   "ver": "V2R2",
+   "date": "2026-01-29",
+   "sunset": true,
+   "tech": "Microsoft 365 Apps",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Excel_2016_V2R2_STIG.zip"
+  },
+  "microsoft-exchange-2016-stig-stig": {
+   "name": "Sunset - Microsoft Exchange 2016 STIG",
+   "ver": "2026-10",
+   "date": "2026-10-05",
+   "sunset": true,
+   "tech": "Exchange (on-premises)",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Exchange_2016_Y26M10_STIG.zip"
+  },
+  "microsoft-exchange-2019-stig-stig": {
+   "name": "Sunset - Microsoft Exchange 2019 STIG",
+   "ver": "2026-10",
+   "date": "2026-10-05",
+   "sunset": true,
+   "tech": "Exchange (on-premises)",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Exchange_2019_Y26M10_STIG.zip"
+  },
+  "microsoft-iis-10-0-stig-stig": {
+   "name": "Microsoft IIS 10.0 STIG",
+   "ver": "2026-10",
+   "date": "2026-10-05",
+   "sunset": false,
+   "tech": "IIS",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_IIS_10-0_Y26M10_STIG.zip"
+  },
+  "microsoft-internet-explorer-11-stig-stig": {
+   "name": "Sunset - Microsoft Internet Explorer 11 STIG - Ver 2, Rel 7",
+   "ver": "V2R7",
+   "date": "2026-04-07",
+   "sunset": true,
+   "tech": "Other Microsoft",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_IE11_V2R7_STIG.zip"
+  },
+  "microsoft-intune-desktop-mobile-stig-stig": {
+   "name": "Microsoft Intune (Desktop & Mobile) STIG",
+   "ver": "2026-07",
+   "date": "2026-07-10",
+   "sunset": false,
+   "tech": "Intune",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Intune_Desktop_Mobile_Y26M07_STIG.zip"
+  },
+  "microsoft-office-365-proplus-stig-stig": {
+   "name": "Microsoft Office 365 ProPlus STIG - Ver 3, Rel 5",
+   "ver": "V3R5",
+   "date": "2026-04-07",
+   "sunset": false,
+   "tech": "Microsoft 365 Apps",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Office_365_ProPlus_V3R5_STIG.zip"
+  },
+  "microsoft-office-365-proplus-stig-scap-benchmark-scap-benchmark": {
+   "name": "Microsoft Office 365 ProPlus STIG SCAP Benchmark - Ver 3, Rel 8",
+   "ver": "V3R8",
+   "date": "2026-04-07",
+   "sunset": false,
+   "tech": "Microsoft 365 Apps",
+   "kind": "SCAP benchmark",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Office_365_ProPlus_V3R8_STIG_SCAP_1-3_Benchmark.zip"
+  },
+  "microsoft-office-system-2016-stig-stig": {
+   "name": "Sunset - Microsoft Office System 2016 STIG - Ver 2, Rel 5",
+   "ver": "V2R5",
+   "date": "2026-01-29",
+   "sunset": true,
+   "tech": "Microsoft 365 Apps",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Office_System_2016_V2R5_STIG.zip"
+  },
+  "microsoft-onenote-2016-stig-stig": {
+   "name": "Sunset - Microsoft OneNote 2016 STIG - Ver 2, Rel 1",
+   "ver": "V2R1",
+   "date": "2026-01-29",
+   "sunset": true,
+   "tech": "Microsoft 365 Apps",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_OneNote_2016_V2R1_STIG.zip"
+  },
+  "microsoft-outlook-2016-stig-stig": {
+   "name": "Sunset - Microsoft Outlook 2016 STIG - Ver 2, Rel 4",
+   "ver": "V2R4",
+   "date": "2026-01-29",
+   "sunset": true,
+   "tech": "Microsoft 365 Apps",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Outlook_2016_V2R4_STIG.zip"
+  },
+  "microsoft-powerpoint-2016-stig-stig": {
+   "name": "Sunset - Microsoft PowerPoint 2016 STIG - Ver 2, Rel 1",
+   "ver": "V2R1",
+   "date": "2026-01-29",
+   "sunset": true,
+   "tech": "Microsoft 365 Apps",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_PowerPoint_2016_V2R1_STIG.zip"
+  },
+  "microsoft-project-2016-stig-stig": {
+   "name": "Microsoft Project 2016 STIG - Ver 1, Rel 1",
+   "ver": "V1R1",
+   "date": "2018-12-01",
+   "sunset": false,
+   "tech": "Microsoft 365 Apps",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_Microsoft_Project_2016_V1R1_STIG.zip"
+  },
+  "microsoft-publisher-2016-stig-stig": {
+   "name": "Sunset - Microsoft Publisher 2016 STIG - Ver 2, Rel 1",
+   "ver": "V2R1",
+   "date": "2026-01-29",
+   "sunset": true,
+   "tech": "Microsoft 365 Apps",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Publisher_2016_V2R1_STIG.zip"
+  },
+  "microsoft-skype-for-business-2016-stig-stig": {
+   "name": "Sunset-Microsoft Skype for Business 2016 STIG - Ver 2, Rel 1",
+   "ver": "V2R1",
+   "date": "2026-01-22",
+   "sunset": true,
+   "tech": "Microsoft 365 Apps",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Skype_for_Business_2016_V2R1_STIG.zip"
+  },
+  "microsoft-sql-server-2016-stig-stig": {
+   "name": "Microsoft SQL Server 2016 STIG",
+   "ver": "2026-04",
+   "date": "2026-04-07",
+   "sunset": false,
+   "tech": "SQL Server",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_SQL_Server_2016_Y26M04_STIG.zip"
+  },
+  "microsoft-sql-server-2022-stig-stig": {
+   "name": "Microsoft SQL Server 2022 STIG",
+   "ver": "2026-04",
+   "date": "2026-04-07",
+   "sunset": false,
+   "tech": "SQL Server",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_SQL_Server_2022_Y26M04_STIG.zip"
+  },
+  "microsoft-visio-2016-stig-stig": {
+   "name": "Sunset - Microsoft Visio 2016 STIG - Ver 2, Rel 1",
+   "ver": "V2R1",
+   "date": "2026-01-23",
+   "sunset": true,
+   "tech": "Microsoft 365 Apps",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Visio_2016_V2R1_STIG.zip"
+  },
+  "microsoft-windows-10-stig-stig": {
+   "name": "Sunset-Microsoft Windows 10 STIG - Ver 3, Rel 6",
+   "ver": "V3R6",
+   "date": "2026-01-23",
+   "sunset": true,
+   "tech": "Windows",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_10_V3R6_STIG.zip"
+  },
+  "microsoft-windows-10-stig-scap-benchmark-scap-benchmark": {
+   "name": "Sunset - Microsoft Windows 10 STIG SCAP Benchmark - Ver 3, Rel 7",
+   "ver": "V3R7",
+   "date": "2026-01-29",
+   "sunset": true,
+   "tech": "Windows",
+   "kind": "SCAP benchmark",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_10_V3R7_STIG_SCAP_1-3_Benchmark.zip"
+  },
+  "microsoft-windows-11-stig-stig": {
+   "name": "Microsoft Windows 11 STIG - Ver 2, Rel 11",
+   "ver": "V2R11",
+   "date": "2026-10-05",
+   "sunset": false,
+   "tech": "Windows",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_11_V2R11_STIG.zip"
+  },
+  "microsoft-windows-11-stig-scap-benchmark-scap-benchmark": {
+   "name": "Microsoft Windows 11 STIG SCAP Benchmark - Ver 2, Rel 11",
+   "ver": "V2R11",
+   "date": "2026-10-05",
+   "sunset": false,
+   "tech": "Windows",
+   "kind": "SCAP benchmark",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_11_V2R11_STIG_SCAP_1-3_Benchmark.zip"
+  },
+  "microsoft-windows-defender-firewall-with-advanced-security-stig-stig": {
+   "name": "Microsoft Windows Defender Firewall with Advanced Security STIG - Ver 2, Rel 2",
+   "ver": "V2R2",
+   "date": "2023-10-30",
+   "sunset": false,
+   "tech": "Windows",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Defender_Firewall_V2R2_STIG.zip"
+  },
+  "microsoft-windows-defender-firewall-with-advanced-security-stig-benchmark-scap-benchmark": {
+   "name": "Microsoft Windows Defender Firewall with Advanced Security STIG Benchmark - Ver 2, Rel 3",
+   "ver": "V2R3",
+   "date": "2023-10-30",
+   "sunset": false,
+   "tech": "Windows",
+   "kind": "SCAP benchmark",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Defender_Firewall_V2R3_STIG_SCAP_1-2_Benchmark.zip"
+  },
+  "microsoft-windows-paw-stig-stig": {
+   "name": "Microsoft Windows PAW STIG - Ver 3, Rel 3",
+   "ver": "V3R3",
+   "date": "2026-04-07",
+   "sunset": false,
+   "tech": "Windows",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_PAW_V3R3_STIG.zip"
+  },
+  "microsoft-windows-server-2019-stig-stig": {
+   "name": "Sunset - Microsoft Windows Server 2019 STIG - Ver 3, Rel 9",
+   "ver": "V3R9",
+   "date": "2026-07-10",
+   "sunset": true,
+   "tech": "Windows Server",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2019_V3R9_STIG.zip"
+  },
+  "microsoft-windows-server-2019-stig-scap-benchmark-scap-benchmark": {
+   "name": "Sunset - Microsoft Windows Server 2019 STIG SCAP Benchmark - Ver 3, Rel 9",
+   "ver": "V3R9",
+   "date": "2026-07-10",
+   "sunset": true,
+   "tech": "Windows Server",
+   "kind": "SCAP benchmark",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2019_V3R9_STIG_SCAP_1-3_Benchmark.zip"
+  },
+  "microsoft-windows-server-2022-stig-stig": {
+   "name": "Microsoft Windows Server 2022 STIG - Ver 2, Rel 11",
+   "ver": "V2R11",
+   "date": "2026-10-05",
+   "sunset": false,
+   "tech": "Windows Server",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2022_V2R11_STIG.zip"
+  },
+  "microsoft-windows-server-dns-stig-stig": {
+   "name": "Microsoft Windows Server DNS STIG - Ver 2, Rel 6",
+   "ver": "V2R6",
+   "date": "2026-10-05",
+   "sunset": false,
+   "tech": "Windows Server",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_DNS_V2R6_STIG.zip"
+  },
+  "microsoft-word-2016-stig-stig": {
+   "name": "Sunset-Microsoft Word 2016 STIG - Ver 2, Rel 1",
+   "ver": "V2R1",
+   "date": "2026-01-23",
+   "sunset": true,
+   "tech": "Microsoft 365 Apps",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Word_2016_V2R1_STIG.zip"
+  },
+  "microsoft-scom-stig-stig": {
+   "name": "Sunset - Microsoft SCOM STIG - Ver 1, Rel 2",
+   "ver": "V1R2",
+   "date": "2025-04-07",
+   "sunset": true,
+   "tech": "Other Microsoft",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_SCOM_V1R2_STIG.zip"
+  },
+  "microsoft-windows-2012-server-domain-name-system-stig-stig": {
+   "name": "Sunset - Microsoft Windows 2012 Server Domain Name System STIG - Ver 2, Rel 7",
+   "ver": "V2R7",
+   "date": "2024-07-17",
+   "sunset": true,
+   "tech": "Windows Server",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_2012_Server_DNS_V2R7_STIG.zip"
+  },
+  "microsoft-windows-server-2016-stig-stig": {
+   "name": "Sunset - Microsoft Windows Server 2016 STIG - Ver 2, Rel 10",
+   "ver": "V2R10",
+   "date": "2025-01-23",
+   "sunset": true,
+   "tech": "Windows Server",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2016_V2R10_STIG.zip"
+  },
+  "microsoft-windows-server-2016-stig-benchmark-scap-benchmark": {
+   "name": "Sunset - Microsoft Windows Server 2016 STIG Benchmark - Ver 2, Rel 8",
+   "ver": "V2R8",
+   "date": "2025-01-23",
+   "sunset": true,
+   "tech": "Windows Server",
+   "kind": "SCAP benchmark",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2016_V2R8_STIG_SCAP_1-3_Benchmark.zip"
+  },
+  "ms-sql-server-2014-stig-stig": {
+   "name": "Sunset - MS SQL Server 2014 STIG",
+   "ver": "2024-07",
+   "date": "2024-08-13",
+   "sunset": true,
+   "tech": "SQL Server",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_SQL_Server_2014_Y24M07_STIG.zip"
+  },
+  "microsoft-onedrive-stig-stig": {
+   "name": "Sunset - Microsoft OneDrive STIG - Ver 2, Rel 4",
+   "ver": "V2R4",
+   "date": "2025-08-07",
+   "sunset": true,
+   "tech": "Microsoft 365 Apps",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_OneDrive_V2R4_STIG.zip"
+  },
+  "microsoft-internet-explorer-11-stig-scap-benchmark-scap-benchmark": {
+   "name": "Sunset - Microsoft Internet Explorer 11 STIG SCAP Benchmark - Ver 2, Rel 9",
+   "ver": "V2R9",
+   "date": "2026-04-07",
+   "sunset": true,
+   "tech": "Other Microsoft",
+   "kind": "SCAP benchmark",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_IE11_V2R9_STIG_SCAP_1-3_Benchmark.zip"
+  },
+  "microsoft-defender-for-endpoint-stig-stig": {
+   "name": "Microsoft Defender for Endpoint STIG, Ver 1, Rel 2",
+   "ver": "V1R2",
+   "date": "2026-01-22",
+   "sunset": false,
+   "tech": "Defender",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Defender_Endpoint_V1R2_STIG.zip"
+  },
+  "microsoft-azure-sql-managed-instance-stig-stig": {
+   "name": "Microsoft Azure SQL Managed Instance STIG - Ver 1, Rel 1",
+   "ver": "V1R1",
+   "date": "2025-12-01",
+   "sunset": false,
+   "tech": "Azure",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Azure_SQL_MI_V1R1_STIG.zip"
+  },
+  "microsoft-windows-server-2025-stig-stig": {
+   "name": "Microsoft Windows Server 2025 STIG - Ver 1, Rel 4",
+   "ver": "V1R4",
+   "date": "2026-10-05",
+   "sunset": false,
+   "tech": "Windows Server",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2025_V1R4_STIG.zip"
+  },
+  "active-directory-domain-stig-stig": {
+   "name": "Active Directory Domain STIG - Ver 3, Rel 8",
+   "ver": "V3R8",
+   "date": "2026-10-05",
+   "sunset": false,
+   "tech": "Active Directory",
+   "kind": "STIG",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_Active_Directory_Domain_V3R8_STIG.zip"
+  },
+  "microsoft-windows-server-2025-stig-scap-benchmark-scap-benchmark": {
+   "name": "Microsoft Windows Server 2025 STIG SCAP Benchmark - Ver 1, Rel 2",
+   "ver": "V1R2",
+   "date": "2026-10-05",
+   "sunset": false,
+   "tech": "Windows Server",
+   "kind": "SCAP benchmark",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2025_V1R2_STIG_SCAP_1-3_Benchmark.zip"
+  },
+  "microsoft-windows-server-2022-stig-scap-benchmark-scap-benchmark": {
+   "name": "Microsoft Windows Server 2022 STIG SCAP Benchmark – Ver 2, Rel 11",
+   "ver": "V2R11",
+   "date": "2026-10-05",
+   "sunset": false,
+   "tech": "Windows Server",
+   "kind": "SCAP benchmark",
+   "link": "https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/U_MS_Windows_Server_2022_V2R11_STIG_SCAP_1-3_Benchmark.zip"
+  }
+ },
+ "first": {
+  "active-directory-forest-stig-stig": "2025-08-07",
+  "intune-policy-policy-package": "2026-10-16",
+  "microsoft-net-framework-security-checklist-stig": "2016-04-22",
+  "microsoft-access-2016-stig-stig": "2026-01-29",
+  "microsoft-azure-sql-database-stig-stig": "2026-10-05",
+  "microsoft-defender-antivirus-stig-stig": "2026-10-20",
+  "microsoft-defender-antivirus-stig-scap-benchmark-scap-benchmark": "2026-10-06",
+  "microsoft-dotnet-framework-4-0-stig-stig": "2026-07-10",
+  "microsoft-dotnet-framework-4-0-stig-scap-benchmark-scap-benchmark": "2026-07-10",
+  "microsoft-edge-stig-stig": "2026-04-07",
+  "microsoft-edge-stig-benchmark-scap-benchmark": "2026-04-07",
+  "microsoft-entra-id-stig-stig": "2026-10-05",
+  "microsoft-excel-2016-stig-stig": "2026-01-29",
+  "microsoft-exchange-2016-stig-stig": "2026-10-05",
+  "microsoft-exchange-2019-stig-stig": "2026-10-05",
+  "microsoft-iis-10-0-stig-stig": "2026-10-05",
+  "microsoft-internet-explorer-11-stig-stig": "2026-04-07",
+  "microsoft-intune-desktop-mobile-stig-stig": "2026-07-10",
+  "microsoft-office-365-proplus-stig-stig": "2026-04-07",
+  "microsoft-office-365-proplus-stig-scap-benchmark-scap-benchmark": "2026-04-07",
+  "microsoft-office-system-2016-stig-stig": "2026-01-29",
+  "microsoft-onenote-2016-stig-stig": "2026-01-29",
+  "microsoft-outlook-2016-stig-stig": "2026-01-29",
+  "microsoft-powerpoint-2016-stig-stig": "2026-01-29",
+  "microsoft-project-2016-stig-stig": "2018-12-01",
+  "microsoft-publisher-2016-stig-stig": "2026-01-29",
+  "microsoft-skype-for-business-2016-stig-stig": "2026-01-22",
+  "microsoft-sql-server-2016-stig-stig": "2026-04-07",
+  "microsoft-sql-server-2022-stig-stig": "2026-04-07",
+  "microsoft-visio-2016-stig-stig": "2026-01-23",
+  "microsoft-windows-10-stig-stig": "2026-01-23",
+  "microsoft-windows-10-stig-scap-benchmark-scap-benchmark": "2026-01-29",
+  "microsoft-windows-11-stig-stig": "2026-10-05",
+  "microsoft-windows-11-stig-scap-benchmark-scap-benchmark": "2026-10-05",
+  "microsoft-windows-defender-firewall-with-advanced-security-stig-stig": "2023-10-30",
+  "microsoft-windows-defender-firewall-with-advanced-security-stig-benchmark-scap-benchmark": "2023-10-30",
+  "microsoft-windows-paw-stig-stig": "2026-04-07",
+  "microsoft-windows-server-2019-stig-stig": "2026-07-10",
+  "microsoft-windows-server-2019-stig-scap-benchmark-scap-benchmark": "2026-07-10",
+  "microsoft-windows-server-2022-stig-stig": "2026-10-05",
+  "microsoft-windows-server-dns-stig-stig": "2026-10-05",
+  "microsoft-word-2016-stig-stig": "2026-01-23",
+  "microsoft-scom-stig-stig": "2025-04-07",
+  "microsoft-windows-2012-server-domain-name-system-stig-stig": "2024-07-17",
+  "microsoft-windows-server-2016-stig-stig": "2025-01-23",
+  "microsoft-windows-server-2016-stig-benchmark-scap-benchmark": "2025-01-23",
+  "ms-sql-server-2014-stig-stig": "2024-08-13",
+  "microsoft-onedrive-stig-stig": "2025-08-07",
+  "microsoft-internet-explorer-11-stig-scap-benchmark-scap-benchmark": "2026-04-07",
+  "microsoft-defender-for-endpoint-stig-stig": "2026-01-22",
+  "microsoft-azure-sql-managed-instance-stig-stig": "2025-12-01",
+  "microsoft-windows-server-2025-stig-stig": "2026-10-05",
+  "active-directory-domain-stig-stig": "2026-10-05",
+  "microsoft-windows-server-2025-stig-scap-benchmark-scap-benchmark": "2026-10-05",
+  "microsoft-windows-server-2022-stig-scap-benchmark-scap-benchmark": "2026-10-05"
+ },
+ "checked": "2026-11-02",
+ "intune": [
+  {
+   "baseline": "Microsoft Windows 11 STIG SCAP Benchmark",
+   "ver": "V2R7",
+   "rules": 197,
+   "date": "2026-01-05"
+  }
+ ]
+}
