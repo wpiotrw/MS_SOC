@@ -13,6 +13,7 @@ https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-clouddnsevents-t
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudkeyvaultevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudpolicyenforcementevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudprocessevents-table
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudstorageaggregatedevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-custom-functions
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table
