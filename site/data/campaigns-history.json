@@ -6302,14 +6302,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-31",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-01",
 "text":"August 1, 2026."
 },
@@ -6375,6 +6367,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-01",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-02",
 "text":"August 1, 2026."
 },
 {
@@ -7006,7 +7006,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-01",
+"seen":"2026-11-02",
 "text":"early February 2026."
 },
 {
@@ -7014,7 +7014,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-01",
+"seen":"2026-11-02",
 "text":"February 2027."
 },
 {
@@ -10825,7 +10825,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-01",
+"seen":"2026-11-02",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10833,7 +10833,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-01",
+"seen":"2026-11-02",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {

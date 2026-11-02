@@ -1,0 +1,46 @@
+// title: The Detection Engineering Toolchain
+// date: 2026-11-02
+// product: Sentinel
+// tables: AzureActivity
+// purpose: From the article: Implementing Detection as Code as a multi-platform MSSP
+// source: https://detect.fyi/implementing-detection-as-code-as-a-multi-platform-mssp-6518cc5289b4?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Rcegan · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+---
+type: logsource
+platform: sentinel
+mitre_datacomponent_name:
+  - Cloud Service Modification
+  - Instance Creation
+  - Instance Deletion
+  - Instance Modification
+  - Cloud Service Enumeration
+  - Cloud Service Disable
+mitre_datacomponent_id:
+  - DC0069
+  - DC0076
+  - DC0081
+  - DC0073
+  - DC0083
+  - DC0090
+mitre_logsource_name: azure:activity
+siem_logsource_name: AzureActivity
+---
+# Context
+Entries from the Azure Activity log that provides insight into any subscription-level or management group level events that have occurred in Azure. Source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azureactivity
+
+# Suggested Queries
+## Check for ...
+```kql
+AzureActivity
+| where TimeGenerated > ago(1d)
+...
+```
+
+# Schema
+| Field Name | Data Type | Description |
+|------------|-----------|-------------|
+| _ResourceId | string | A unique identifier for the resource that the record is associated with |
+| ActivityStatus | string |  |
+...

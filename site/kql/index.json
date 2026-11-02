@@ -2131,6 +2131,20 @@
   "initial": true
  },
  {
+  "file": "articles/2026-11-02-the-detection-engineering-toolchain.kql",
+  "title": "The Detection Engineering Toolchain",
+  "date": "2026-11-02",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "From the article: Implementing Detection as Code as a multi-platform MSSP",
+  "source": "https://detect.fyi/implementing-detection-as-code-as-a-multi-platform-mssp-6518cc5289b4?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Rcegan · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/implementing-detection-as-code-as-a-multi-platform-mssp-6518cc5289b4?source=rss----d5fd8f494f6a---4"
+ },
+ {
   "file": "articles/2026-11-01-detection-5-shell-process-spawned-by-beyondtrust-web.kql",
   "title": "Detection 5: Shell Process Spawned by BeyondTrust Web Service Indicating RCE via CVE-2026-102764",
   "date": "2026-11-01",
