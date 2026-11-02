@@ -1038,6 +1038,15 @@
 ],
 "log":[
 {
+"date":"2026-11-02",
+"id":"MC1469551",
+"what":"Microsoft revised the post",
+"before":"2026-10-02",
+"after":"2026-09-09",
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
+},
+{
 "date":"2026-10-30",
 "id":"MC1448373",
 "what":"Microsoft revised the post",
@@ -1061,15 +1070,6 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the timeline.",
-"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"link":"https://mc.merill.net/message/MC1469551"
-},
-{
-"date":"2026-10-02",
-"id":"MC1469551",
-"what":"Microsoft moved the date",
-"before":"late Sep 2026",
-"after":"late Oct 2026",
 "title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
 "link":"https://mc.merill.net/message/MC1469551"
 },
@@ -1117,6 +1117,15 @@
 "after":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
 "title":"Teams admin center device state rules and health alerts: retirement slips from late September to late October",
 "link":"https://deltapulse.app/item/MC1469551"
+},
+{
+"date":"2026-09-09",
+"id":"MC1469551",
+"what":"Microsoft moved the date",
+"before":"late Sep 2026",
+"after":"late Oct 2026",
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
 }
 ],
 "milestones":{
@@ -1973,15 +1982,6 @@
 {
 "date":"2026-10-26",
 "id":"MC1220762",
-"what":"Microsoft revised the post",
-"before":"2026-01-22",
-"after":"2026-10-26",
-"title":"MDE and XDR APIs retire; migrate to Graph security API",
-"link":"https://mc.merill.net/message/MC1220762"
-},
-{
-"date":"2026-10-26",
-"id":"MC1220762",
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
@@ -1994,6 +1994,15 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated this post as a reminder.",
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762"
+},
+{
+"date":"2026-10-26",
+"id":"MC1220762",
+"what":"Microsoft revised the post",
+"before":"2026-01-22",
+"after":"2026-10-26",
 "title":"MDE and XDR APIs retire; migrate to Graph security API",
 "link":"https://mc.merill.net/message/MC1220762"
 },
@@ -4458,6 +4467,14 @@
 "date":"2026-10-31",
 "group":"community",
 "found":"2026-10-31"
+},
+"https://dev.to/ioneyrezende/cve-2026-105483-when-an-ipv4-address-is-checked-as-a-dns-name-3bkk":{
+"title":"CVE-2026-105483: when an IPv4 address is checked as a DNS name",
+"link":"https://dev.to/ioneyrezende/cve-2026-105483-when-an-ipv4-address-is-checked-as-a-dns-name-3bkk",
+"source":"NeonTiger12",
+"date":"2026-11-02",
+"group":"community",
+"found":"2026-11-02"
 }
 },
 "final":"2026-10-13",
@@ -4998,8 +5015,7 @@
 "name":"Teams user reporting enabled by default",
 "status":"Recently closed",
 "members":[
-"MC1478463",
-"item:MC1478463"
+"MC1478463"
 ],
 "log":[
 {
@@ -6238,14 +6254,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-10-30",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-10-31",
 "text":"August 1, 2026."
 },
@@ -6375,6 +6383,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-01",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-02",
 "text":"August 1, 2026."
 },
 {
@@ -7022,7 +7038,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-01",
+"seen":"2026-11-02",
 "text":"early February 2026."
 },
 {
@@ -7030,7 +7046,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-01",
+"seen":"2026-11-02",
 "text":"February 2027."
 },
 {
@@ -8035,67 +8051,6 @@
 "type":"Enforcement",
 "tech":"Intune",
 "posts":[]
-},
-"c-item-mc1472007":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-02",
-"name":"Manage who can upload advanced agents and plugins",
-"status":"Recently closed",
-"members":[
-"MC1472007",
-"item:MC1472007"
-],
-"log":[
-{
-"date":"2026-10-16",
-"id":"MC1472007",
-"what":"Microsoft revised the post",
-"before":"2026-09-15",
-"after":"2026-09-14",
-"title":"Admins get a control over who can upload advanced agents and plugins; uploads stay open by default from 25 Oct",
-"link":"https://deltapulse.app/item/MC1472007"
-}
-],
-"milestones":{
-"MC1472007|posted":{
-"date":"2026-09-14",
-"label":"14 Sep 2026",
-"text":"Posted: Manage who can upload advanced agents and plugins"
-},
-"MC1472007|is when advanced package uploads become enabled by default u#0":{
-"date":"2026-10-25",
-"label":"25 Oct 2026",
-"text":"25 October 2026 is when advanced-package uploads become enabled by default unless an admin has chosen no users or specific users or groups."
-}
-},
-"moves":[],
-"materials":{
-"https://deltapulse.app/item/MC1472007":{
-"title":"Manage who can upload advanced agents and plugins",
-"link":"https://deltapulse.app/item/MC1472007",
-"source":"Main list source",
-"id":"MC1472007",
-"date":"2026-09-14",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1472007":{
-"title":"Manage who can upload advanced agents and plugins",
-"link":"https://mc.merill.net/message/MC1472007",
-"source":"Message Center",
-"id":"MC1472007",
-"date":"2026-09-14",
-"updated":"2026-09-15",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":"2026-10-25",
-"type":"Rollout",
-"tech":"Copilot",
-"posts":[
-"MC1472007"
-]
 },
 "c-item-azure-blueprints-retirement":{
 "firstSeen":"2026-10-09",
@@ -10902,7 +10857,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-01",
+"seen":"2026-11-02",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10910,7 +10865,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-01",
+"seen":"2026-11-02",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -17094,6 +17049,16 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-02",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"community",
+"title":"CVE-2026-105483: when an IPv4 address is checked as a DNS name",
+"source":"NeonTiger12",
+"link":"https://dev.to/ioneyrezende/cve-2026-105483-when-an-ipv4-address-is-checked-as-a-dns-name-3bkk"
 }
 ],
 "archive":{
@@ -18626,6 +18591,67 @@
 "tech":"Defender",
 "posts":[
 "MC1392568"
+]
+},
+"c-item-mc1472007":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-02",
+"name":"Manage who can upload advanced agents and plugins",
+"status":"Archive",
+"members":[
+"MC1472007",
+"item:MC1472007"
+],
+"log":[
+{
+"date":"2026-10-16",
+"id":"MC1472007",
+"what":"Microsoft revised the post",
+"before":"2026-09-15",
+"after":"2026-09-14",
+"title":"Admins get a control over who can upload advanced agents and plugins; uploads stay open by default from 25 Oct",
+"link":"https://deltapulse.app/item/MC1472007"
+}
+],
+"milestones":{
+"MC1472007|posted":{
+"date":"2026-09-14",
+"label":"14 Sep 2026",
+"text":"Posted: Manage who can upload advanced agents and plugins"
+},
+"MC1472007|is when advanced package uploads become enabled by default u#0":{
+"date":"2026-10-25",
+"label":"25 Oct 2026",
+"text":"25 October 2026 is when advanced-package uploads become enabled by default unless an admin has chosen no users or specific users or groups."
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1472007":{
+"title":"Manage who can upload advanced agents and plugins",
+"link":"https://deltapulse.app/item/MC1472007",
+"source":"Main list source",
+"id":"MC1472007",
+"date":"2026-09-14",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1472007":{
+"title":"Manage who can upload advanced agents and plugins",
+"link":"https://mc.merill.net/message/MC1472007",
+"source":"Message Center",
+"id":"MC1472007",
+"date":"2026-09-14",
+"updated":"2026-09-15",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":"2026-10-25",
+"type":"Rollout",
+"tech":"Copilot",
+"posts":[
+"MC1472007"
 ]
 }
 }
