@@ -1,0 +1,105 @@
+{
+ "spec": "5gf",
+ "about": "Message Center posts with PowerShell for the FEATURE itself (find where it is used, use it, move off it) - not only for reading the post. Written by hand or by the morning routine (routines/poranny-B-publish.md STEP -1d), checked by tools/mc_howto_todo.py check: every block parses, every Graph cmdlet and parameter exists in the Microsoft Graph PowerShell SDK, scopes are named, writes carry -WhatIf. A post without a note shows nothing; `scriptable: false` says why no script exists. Author: Piotr Wisniewski.",
+ "notes": [
+  {
+   "key": "memberof-rule-operator",
+   "ids": [
+    "MC1448379",
+    "MC1488834",
+    "MC1488839",
+    "MC1529463"
+   ],
+   "campaign": "c-mc1488834",
+   "title": "MemberOf rule operator in dynamic groups, dynamic administrative units and auto-assignment policies",
+   "scriptable": true,
+   "checked": "2026-11-03",
+   "sdk": "Microsoft Graph PowerShell SDK 2.41.2 (Microsoft.Graph.Authentication, .Groups, .Identity.DirectoryManagement)",
+   "dates": "03/11/2026 - the preview ends: configurations that use memberOf stop updating and keep their last membership (MC1448379, MC1488834, MC1529463; Learn). Tenants with Microsoft Entra ID Governance or higher: existing configurations keep working until 31/03/2027, then Microsoft migrates them to a new MemberOf capability (MC1488839, published 05/10/2026). On 03/11/2026 the Learn pages still give only 03/11/2026 and do not mention the extension.",
+   "blocks": [
+    {
+     "t": "Find dynamic groups that use memberOf",
+     "kind": "read",
+     "scopes": "GroupMember.Read.All",
+     "code": "# Read only. Lists every dynamic group whose rule uses memberOf (a memberOf rule cannot be combined with other conditions).\nConnect-MgGraph -Scopes 'GroupMember.Read.All' -NoWelcome\n$groups = Get-MgGroup -Filter \"groupTypes/any(c:c eq 'DynamicMembership')\" -All `\n    -Property Id, DisplayName, MembershipRule, MembershipRuleProcessingState\n$memberOf = $groups | Where-Object { $_.MembershipRule -match '(?i)memberof' }\n$memberOf | Select-Object DisplayName, Id, MembershipRuleProcessingState, MembershipRule |\n    Export-Csv -Path .\\memberof-dynamic-groups.csv -NoTypeInformation -Encoding UTF8\n\"{0} of {1} dynamic groups use memberOf\" -f @($memberOf).Count, @($groups).Count",
+     "src": [
+      "https://office365itpros.com/2026/08/07/memberof-rule-operator/",
+      "https://learn.microsoft.com/graph/api/group-list?view=graph-rest-1.0"
+     ]
+    },
+    {
+     "t": "Find dynamic administrative units that use memberOf",
+     "kind": "read",
+     "scopes": "AdministrativeUnit.Read.All",
+     "code": "# Read only. The filter runs on your computer, so no advanced query is needed.\nConnect-MgGraph -Scopes 'AdministrativeUnit.Read.All' -NoWelcome\nGet-MgDirectoryAdministrativeUnit -All -Property Id, DisplayName, MembershipType, MembershipRule, MembershipRuleProcessingState |\n    Where-Object { $_.MembershipType -eq 'Dynamic' -and $_.MembershipRule -match '(?i)memberof' } |\n    Select-Object DisplayName, Id, MembershipRuleProcessingState, MembershipRule",
+     "src": [
+      "https://learn.microsoft.com/graph/api/resources/administrativeunit?view=graph-rest-1.0",
+      "https://office365itpros.com/2026/08/07/memberof-rule-operator/"
+     ]
+    },
+    {
+     "t": "Find auto-assignment policies (access packages) that use memberOf",
+     "kind": "read",
+     "scopes": "EntitlementManagement.Read.All",
+     "code": "# Read only - Microsoft's script from Learn, shortened. Needs only Microsoft.Graph.Authentication.\nConnect-MgGraph -Scopes 'EntitlementManagement.Read.All' -NoWelcome\n$found = New-Object System.Collections.Generic.List[object]\n$uri = 'https://graph.microsoft.com/v1.0/identityGovernance/entitlementManagement/assignmentPolicies?$expand=accessPackage&$top=50'\nwhile ($uri) {\n    $page = Invoke-MgGraphRequest -Method GET -Uri $uri\n    foreach ($policy in $page.value) {\n        if (-not $policy.automaticRequestSettings) { continue }   # only automatic assignment policies\n        foreach ($target in @($policy.specificAllowedTargets)) {\n            if ([string]$target.'@odata.type' -notlike '*attributeRuleMembers*') { continue }\n            if ([string]$target.membershipRule -match '(?i)memberof') {\n                $found.Add([pscustomobject]@{ AccessPackage = $policy.accessPackage.displayName; Policy = $policy.displayName; PolicyId = $policy.id; Rule = $target.membershipRule })\n            }\n        }\n    }\n    $uri = $page.'@odata.nextLink'\n}\n$found | Format-Table AccessPackage, Policy, Rule -AutoSize",
+     "src": [
+      "https://learn.microsoft.com/entra/id-governance/entitlement-management-access-package-auto-assignment-policy#find-automatic-assignment-policies-that-use-the-memberof-attribute"
+     ]
+    },
+    {
+     "t": "Keep a record of who is in each group before the date",
+     "kind": "read",
+     "scopes": "GroupMember.Read.All",
+     "code": "# Read only. Run after the first block: one CSV row per member of every memberOf group.\n$rows = foreach ($g in $memberOf) {\n    Get-MgGroupMember -GroupId $g.Id -All | ForEach-Object {\n        [pscustomobject]@{ Group = $g.DisplayName; GroupId = $g.Id; MemberId = $_.Id\n            Name = $_.AdditionalProperties['displayName']; UPN = $_.AdditionalProperties['userPrincipalName'] }\n    }\n}\n$rows | Export-Csv -Path .\\memberof-members-$(Get-Date -Format yyyyMMdd).csv -NoTypeInformation -Encoding UTF8",
+     "src": [
+      "https://learn.microsoft.com/graph/api/group-list-members?view=graph-rest-1.0"
+     ]
+    },
+    {
+     "t": "How the feature is used: a memberOf group (test tenant only)",
+     "kind": "write",
+     "scopes": "Group.ReadWrite.All",
+     "warn": "The operator is a retiring preview: do not build new production groups on it. -WhatIf shows what would be created; remove it only in a test tenant.",
+     "code": "# WRITE - test tenant only. Members of the source group(s) become members of the new dynamic group.\nConnect-MgGraph -Scopes 'Group.ReadWrite.All' -NoWelcome\n$source = '<object id of the source group>'\nNew-MgGroup -DisplayName 'DYN - members of Sales (memberOf test)' -MailNickname 'dyn-memberof-test' `\n    -MailEnabled:$false -SecurityEnabled -GroupTypes 'DynamicMembership' `\n    -MembershipRule \"user.memberof -any (group.objectId -in ['$source'])\" `\n    -MembershipRuleProcessingState 'On' -WhatIf",
+     "src": [
+      "https://learn.microsoft.com/entra/identity/users/groups-dynamic-rule-member-of#get-started",
+      "https://learn.microsoft.com/graph/api/group-post-groups?view=graph-rest-1.0"
+     ]
+    },
+    {
+     "t": "Move off it: rebuild the rule with an attribute, or make the group assigned",
+     "kind": "write",
+     "scopes": "Group.ReadWrite.All",
+     "warn": "Changes membership. Run with -WhatIf first, on one group, and compare the members with the CSV of the previous block.",
+     "code": "# WRITE. Option A - the source group's members share an attribute: replace the rule (here: department).\nUpdate-MgGroup -GroupId '<group id>' -MembershipRule '(user.department -eq \"Sales\")' -MembershipRuleProcessingState 'On' -WhatIf\n\n# Option B - no attribute fits: make the group assigned (Microsoft's way on Learn: drop only 'DynamicMembership', keep 'Unified').\n# Its current members stay; from now on you add and remove them yourself.\n$groupId = '<group id>'\n$types = [System.Collections.Generic.List[string]]@((Get-MgGroup -GroupId $groupId -Property GroupTypes).GroupTypes)\n[void]$types.Remove('DynamicMembership')\nUpdate-MgGroup -GroupId $groupId -GroupTypes $types.ToArray() -MembershipRuleProcessingState 'Paused' -WhatIf",
+     "src": [
+      "https://learn.microsoft.com/entra/identity/users/groups-dynamic-rule-member-of#migrate-before-the-preview-ends",
+      "https://learn.microsoft.com/entra/identity/users/groups-change-type"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "t": "Microsoft Learn: memberOf operator (preview) - migrate before the preview ends",
+     "u": "https://learn.microsoft.com/entra/identity/users/groups-dynamic-rule-member-of",
+     "says": "After 3 November 2026 dynamic groups, dynamic administrative units and auto-assignment policies that use memberOf stop updating and keep their last state; lists the preview limits (500 groups, 50 source groups, no other conditions)."
+    },
+    {
+     "t": "Microsoft Learn: auto-assignment policies - find policies that use memberOf",
+     "u": "https://learn.microsoft.com/entra/id-governance/entitlement-management-access-package-auto-assignment-policy#find-automatic-assignment-policies-that-use-the-memberof-attribute",
+     "says": "Policies that use memberOf are quarantined from 3 November 2026; Microsoft's read-only script exports them to CSV."
+    },
+    {
+     "t": "msmessagecenter.com: MC1488839",
+     "u": "https://msmessagecenter.com/MC1488839",
+     "says": "Existing configurations of tenants with Entra ID Governance or higher are supported until 31 March 2027; a replacement is planned for late 2026; automatic migration by the deadline."
+    },
+    {
+     "t": "Office 365 for IT Pros (Tony Redmond): the memberOf rule operator",
+     "u": "https://office365itpros.com/2026/08/07/memberof-rule-operator/",
+     "says": "PowerShell to find dynamic groups, dynamic administrative units and auto-assignment policies that use memberOf; updated for the extension."
+    }
+   ]
+  }
+ ]
+}

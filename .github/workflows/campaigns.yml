@@ -7,6 +7,8 @@ name: Campaign tracking
 # Entra Connect version table on Microsoft Learn (public markdown). Writes site/data/campaigns.json and
 # site/data/campaigns-history.json; commits only when something changed. A push made with GITHUB_TOKEN
 # starts no other workflow, so "Code refresh" deploys the site after this one (workflow_run there).
+# 5gf (3 XI 2026): also tools/mc_datecheck.py (dates of the other posts on the same change -> mc-datecheck.json) and
+# tools/mc_coverage.py (mc.merill.net, msmessagecenter.com sitemap, DeltaPulse MCP, tenant, portal -> mc-coverage.json).
 on:
   schedule:
     - cron: "40 5 * * *"     # after the morning routine (06:00 Warsaw = 04:00 UTC) has been published
@@ -18,6 +20,8 @@ on:
     branches: [main]
     paths:
       - 'tools/campaigns.py'
+      - 'tools/mc_datecheck.py'   # 5gf
+      - 'tools/mc_coverage.py'    # 5gf
       - 'campaigns.json'
       - 'youtube_sources.json'
       - 'tools/kql_archive.py'
@@ -44,6 +48,11 @@ jobs:
           fetch-depth: 1
       - name: Detect and update campaigns
         run: python3 tools/campaigns.py
+      # CLAUDE.md 5gf (3 XI 2026): dates of the other posts on the same change, and which source knows which MC post
+      - name: Cross-check MC dates and source coverage (CLAUDE.md 5gf)
+        run: |
+          python3 tools/mc_datecheck.py || true
+          timeout 600 python3 tools/mc_coverage.py || true
       # CLAUDE.md 5eu (21 X 2026): community KQL repositories (kql_sources.json), once a day; never fails the job
       - name: Community KQL repositories (CLAUDE.md 5eu)
         run: timeout 1500 python3 tools/kql_repos.py || true
@@ -55,6 +64,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add site/data/campaigns.json site/data/campaigns-history.json site/kql
+          git add site/data/mc-datecheck.json site/data/mc-coverage.json 2>/dev/null || true   # 5gf
           git add cache/kql-repos.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "No change."; else
             python3 tools/stamp.py campaigns || true; git add site/data/fresh   # CLAUDE.md 5cz

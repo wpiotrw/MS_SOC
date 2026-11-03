@@ -61,7 +61,7 @@ source is usable. The push goes straight to `main`, which is what Azure Static W
 
    When class B items come back `BRAK`, you **publish** and you **say so in the FIRST paragraph of the reply**: which items, why, and the name of the scheduled task that built the artifact (`Microsoft SOC Brief <today>`). Silence there is the same failure as silence on a `BRAK`.
 6. Move the previous version to `site/history/YYYY-MM-DD-poranny.html`, then `git pull --rebase origin main`, commit **`site/index.html`, `site/data/<today>.json`, `site/data/changelog.json` and `site/data/changelog.prev.json` together**, push, and prove `BEFORE != AFTER`.
-7. **Then do STEP -1b (Threat Research notes) and STEP -1c (Graph radar community examples), and only after them end the run.** Reply with: the page URL, the artifact URL, the pill figures, **and below that the full `CLAUDE.md` §0 checklist — 96 items (0-33, 35-61, 63-77, 79-98) as `OK` / `BRAK <reason>`** (STEP 4 point 6), plus one line saying how many ledger entries today added and how many days of the 14-day window carried a run — and **name every day that carried none, and every day that carried runs but no `morning` one, with what the page was serving then** (§0g, gate item 98; it never blocks). You are the run whose absence is invisible: on 16 Sep 2026 everything else ran and this mirror did not, so `site/index.html` served 14 September content for three days. On the mirror path, report items NOT marked **[L]** in the spec map as inherited from the artifact, with the gate result as the evidence — never as unchecked.
+7. **Then do STEP -1b (Threat Research notes), STEP -1c (Graph radar community examples) and STEP -1d (MC "use it" notes), and only after them end the run.** Reply with: the page URL, the artifact URL, the pill figures, **and below that the full `CLAUDE.md` §0 checklist — 96 items (0-33, 35-61, 63-77, 79-98) as `OK` / `BRAK <reason>`** (STEP 4 point 6), plus one line saying how many ledger entries today added and how many days of the 14-day window carried a run — and **name every day that carried none, and every day that carried runs but no `morning` one, with what the page was serving then** (§0g, gate item 98; it never blocks). You are the run whose absence is invisible: on 16 Sep 2026 everything else ran and this mirror did not, so `site/index.html` served 14 September content for three days. On the mirror path, report items NOT marked **[L]** in the spec map as inherited from the artifact, with the gate result as the evidence — never as unchecked.
 
 **The fallback opens ONLY** when today's artifact does not exist, its `briefDate` is not today, or **`mirror_artifact.py` (step 3)** returned exit code 1. **Exit code 1 from the §0b gate (step 4) does NOT open the fallback** — it means today's artifact has a gap, and building your own page hides that gap instead of showing it. Then you do not publish, and you report. In the fallback you build the page yourself per STEP 0-4 below, and `CLAUDE.md` §0 and §0a-§5aj are binding in full — including the spec map below, where in the fallback EVERY row applies, not only the **[L]** ones — **and you say in the reply that the mirror failed and why**. Falling back to building your own page in silence is what made the two pages drift apart.
 
@@ -195,6 +195,32 @@ blocks or delays the brief**: if anything here fails, say so in the reply and st
 6. In the reply, one block "Graph radar — community": each note as `<new|recheck|values> <type>|<property> — <title>`
    with its basis, the number of articles / values / examples, the first source link, how many to-do findings were
    left for tomorrow, and the commit `BEFORE`/`AFTER`.
+
+# STEP -1d — MESSAGE CENTER: "USE IT — POWERSHELL" NOTES (`CLAUDE.md` §5gf is binding) — AFTER STEP -1c
+
+The owner, 3 Nov 2026: for a Message Center post, show PowerShell that USES the feature the post describes (find where
+it is used, use it, move off it) - not only the call that reads the post; "not every MC can have a PowerShell". **This
+step never blocks the brief.** Run it on both paths, after STEP -1c.
+
+1. `git pull --rebase origin main`, then `python3 tools/mc_howto_todo.py todo 14`. Take at most the first **two** posts
+   (Admin impact, retirement, deadline or major change come first).
+2. For each: at most 2 WebSearch calls and 3 fetches (Learn MCP first, then office365itpros.com, merill.net,
+   ourcloudnetwork.com, janbakker.tech, alitajran.com, GitHub). Decide:
+   - the feature has an admin surface in Microsoft Graph PowerShell, Exchange Online PowerShell or Teams PowerShell →
+     a note in `site/data/mc-howto.json` with `scriptable: true` and 2-6 `blocks` (model: the `memberof-rule-operator`
+     note): find where it is used / how it is set (read), and only where it applies, how to use it or move off it
+     (write). Each block: `t`, `kind` (`read` / `write`), `scopes` (least privileged, from Learn or `Find-MgGraphCommand`),
+     `code`, `src` (https). A write block carries `warn` and `-WhatIf` on every New-/Set-/Update-/Remove- call.
+   - a change in a client, the UI or a licence with no admin surface → a note with `scriptable: false` and `why` (one
+     sentence) - so tomorrow's to-do does not ask again.
+   Add `dates` when posts on the same change give different dates (read `site/data/mc-datecheck.json`), `sources` with
+   `says`, `checked` (today), `ids` (every MC number of the same change).
+   **Never invent a cmdlet, a parameter or a scope. No GUID, tenant name or secret in code - `<placeholders>`.**
+3. `python3 tools/mc_howto_todo.py check` — exit 1 = do not commit. If `pwsh` is available, also run
+   `pwsh -NoProfile -File tools/mc_howto_validate.ps1` (installs nothing; checks the parser, the cmdlets and their
+   parameters against the installed Microsoft Graph modules); a block it fails is fixed or removed.
+4. Commit `site/data/mc-howto.json` ("content: MC how-to notes <YYYY-MM-DD>"), push, prove it on `origin/main`.
+5. In the reply, one block "MC — use it": each post with `scriptable` true/false, the number of blocks, the first source.
 
 # STEP 0 — CONTINUITY (do this FIRST)
 
@@ -498,6 +524,15 @@ Advanced filtering bar the whole portal uses. Gate items 80, 81 and 82.
 
 Rank findings: 1) breaking changes and items needing administrator action 2) retirements and deprecations with dates 3) new detections, analytics rules and hunting capabilities 4) GA 5) preview 6) security enhancements 7) KQL and schema changes.
 
+**Dates are cross-checked before they are written (`CLAUDE.md` §5gf, owner 3 Nov 2026: "why do we still say MemberOf
+ends in November when MC1488839 extends it to 31 March 2027? Say it was until X and now is until Y - check every piece
+of information that way").** Before a sentence, a card, a Top N item or a deadline row states a date of a Message Center
+post, read that post in `site/data/mc-datecheck.json` (`byMc`). When it is there, the text names BOTH: the date this post
+gives and what the other posts on the same change say (`others`, `moved`, `newer`, `why`) - e.g. "03/11/2026 for
+tenants without Entra ID Governance; with it existing configurations keep working until 31/03/2027 (MC1488839)", or
+"was <was>, now <now> (<MC>)". Never present one post's date as the whole truth when the file says otherwise. The page
+also adds a "Cross-check" frame next to every MC chip, but the sentence itself must not contradict it.
+
 **Sections A-N are no longer duplicated in this prompt — they are `CLAUDE.md` §8**, for the same reason as above. Build them in order A-N, each exactly as §8 describes:
 
 | § | what it is | what §8 enforces |
@@ -756,7 +791,7 @@ Write onto each role entry:
       `BEFORE` and equal your own `HEAD`. If it does not, nothing was published and the run
       **FAILED**: say FAILED in the first line of the reply and quote both SHAs. Never report a
       commit you did not create, and never describe an unchanged `main` as a successful publish.
-5. **Then do STEP -1b (Threat Research notes) and STEP -1c (Graph radar community examples) — they run on this path too, after the push is proven.** Reply: the branch you pushed and whether the shell was inherited from `site/index.html` or bootstrapped from the seed artifact; the Top N as one-line bullets with links; counts split source-side vs brief-side; the catalog line ("roles v3 · 8 entries, 1 bumped; graph v4 · 17 entries, 2 new"); **how many catalog changes were Microsoft's and how many this catalog's own, stated separately**; any source unreachable or stale. Detail lives on the published page.
+5. **Then do STEP -1b (Threat Research notes), STEP -1c (Graph radar community examples) and STEP -1d (MC "use it" notes) — they run on this path too, after the push is proven.** Reply: the branch you pushed and whether the shell was inherited from `site/index.html` or bootstrapped from the seed artifact; the Top N as one-line bullets with links; counts split source-side vs brief-side; the catalog line ("roles v3 · 8 entries, 1 bumped; graph v4 · 17 entries, 2 new"); **how many catalog changes were Microsoft's and how many this catalog's own, stated separately**; any source unreachable or stale. Detail lives on the published page.
 
 6. **PRINT THE `CLAUDE.md` §0 CHECKLIST — all 52 items (0-33, 35-52), each as `OK` or `BRAK <reason>`.**
    Items 48-56, 59 and 61 (§5ak, §5al, §5am, §5an and §0c: the permission and role panels, `ledger14`, the 14-day block with labelled axes, the `+` that opens a panel, the green search box on every table SCRIPTS 6-8 build, the `Show these N in the list` filter, SCRIPT 9, the **Community Articles tab and SCRIPT 10** (§5an), and whether scripts 4-17 are the ones in `CLAUDE.md`) are **inherited from the artifact on the mirror path** — the mirror copies, it does not build. If the artifact carries no SCRIPT 7 or 8, or carries yesterday's, report them as `BRAK` **naming the artifact and the scheduled task that built it**, and do NOT add them yourself: a mirror that builds is the very divergence §0a exists to stop. This is a separate part of the reply, below those fifteen lines, and it is never shortened or replaced with "everything per spec". The owner reads this list instead of hunting for gaps on the page. An item not done carries a reason, never silence. **Only class A stops publication on this path; class B is reported and the page is published anyway** — and you take the membership of each class from `CLASS_A` and `CLASS_B` in the §0b gate, never from a list in this prompt. The gate reads it from there, a copy here goes stale the day an item moves class, and one moved on 12 Sep 2026: items 76 and 77 (a link that does not name its source, a table with no meaning column) left class A for class B, because **the mirror only copies** — it cannot rename a link or add a column, so blocking it would have swapped today's page for yesterday's page under yesterday's date, which is the 10 Sep failure this rule exists to prevent — the mirror cannot fix an interface feature, and refusing to publish only leaves yesterday's page live under yesterday's date. For the items the §0b gate cannot check in code (0 the mirror, 2 stylesheet rule order, 17 facets, 19 the coverage floor, 22 the DeltaPulse denominator) say how you checked them. **Items 60 and 63 (§5an) are class A even here**: a Community Articles tab built from a source list that is not today's, or carrying a source with no reason for going unread, is false content, and the mirror copies it onward. Check them from the artifact's own `community.readOn` and `listDiff` — if `readOn` is not today's date, that is a `BRAK` and it stops the run, exactly like a rewritten ledger.

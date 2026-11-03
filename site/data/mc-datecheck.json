@@ -1,0 +1,2166 @@
+{
+ "generated": "2026-11-03T09:37:29Z",
+ "day": "2026-11-03",
+ "spec": "5gf",
+ "source": "site/data/campaigns.json (2026-11-03)",
+ "count": 40,
+ "byMc": {
+  "MC1448379": {
+   "says": [
+    "2026-11-03"
+   ],
+   "others": [
+    {
+     "date": "2027-03-31",
+     "src": "MC1488839",
+     "text": "Action required by 31 March 2027, read on the message page; it applies to organizations with Microsoft Entra ID Governance.",
+     "post": "2026-10-05",
+     "later": true,
+     "link": "https://msmessagecenter.com/MC1488839"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1488834",
+     "date": "2026-10-05",
+     "title": "Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
+    },
+    {
+     "id": "MC1488839",
+     "date": "2026-10-05",
+     "title": "Microsoft Entra ID: Support for existing MemberOf rule operator configurations extended through March 31, 2027"
+    },
+    {
+     "id": "MC1529463",
+     "date": "2026-10-28",
+     "title": "Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
+    }
+   ],
+   "why": [
+    "MemberOf rule operator: tenants with Entra ID Governance keep their existing configurations until 31 March 2027, while the 3 November retirement stands for everyone else"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc1488834",
+     "name": "MemberOf rule operator retires"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1488834": {
+   "says": [
+    "2026-11-03"
+   ],
+   "others": [
+    {
+     "date": "2027-03-31",
+     "src": "MC1488839",
+     "text": "Action required by 31 March 2027, read on the message page; it applies to organizations with Microsoft Entra ID Governance.",
+     "post": "2026-10-05",
+     "later": true,
+     "link": "https://msmessagecenter.com/MC1488839"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1529463",
+     "date": "2026-10-28",
+     "title": "Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
+    }
+   ],
+   "why": [
+    "MemberOf rule operator: tenants with Entra ID Governance keep their existing configurations until 31 March 2027, while the 3 November retirement stands for everyone else"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc1488834",
+     "name": "MemberOf rule operator retires"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1488839": {
+   "says": [
+    "2026-11-03",
+    "2027-03-31"
+   ],
+   "others": [],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1529463",
+     "date": "2026-10-28",
+     "title": "Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-mc1488834",
+     "name": "MemberOf rule operator retires"
+    }
+   ],
+   "verdict": "newer"
+  },
+  "MC1529463": {
+   "says": [
+    "2026-11-03"
+   ],
+   "others": [
+    {
+     "date": "2027-03-31",
+     "src": "MC1488839",
+     "text": "Action required by 31 March 2027, read on the message page; it applies to organizations with Microsoft Entra ID Governance.",
+     "post": "2026-10-05",
+     "later": true,
+     "link": "https://msmessagecenter.com/MC1488839"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [
+    "MemberOf rule operator: tenants with Entra ID Governance keep their existing configurations until 31 March 2027, while the 3 November retirement stands for everyone else"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc1488834",
+     "name": "MemberOf rule operator retires"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1191578": {
+   "says": [
+    "2026-10-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
+     "post": "2026-08-03",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-06",
+     "src": "MC1446796",
+     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-01",
+     "src": "MC1227454",
+     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
+     "post": "2026-02-05",
+     "later": true,
+     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
+    },
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1469960"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1485116",
+     "date": "2026-10-01",
+     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
+    },
+    {
+     "id": "MC1486282",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    },
+    {
+     "id": "MC1486288",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    }
+   ],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1227454": {
+   "says": [
+    "2027-04-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-06",
+     "src": "MC1446796",
+     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1485116"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1485116",
+     "date": "2026-10-01",
+     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
+    },
+    {
+     "id": "MC1486282",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    },
+    {
+     "id": "MC1486288",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    }
+   ],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1446796": {
+   "says": [
+    "2026-11-05",
+    "2026-11-06",
+    "2026-11-15",
+    "2027-04-01"
+   ],
+   "others": [
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1485116"
+    }
+   ],
+   "moved": [
+    {
+     "was": "Oct 2026",
+     "now": "2026-11-05",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy"
+    },
+    {
+     "was": "30 Oct 2026",
+     "now": "2026-11-06",
+     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing."
+    }
+   ],
+   "newer": [
+    {
+     "id": "MC1485116",
+     "date": "2026-10-01",
+     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
+    },
+    {
+     "id": "MC1486282",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    },
+    {
+     "id": "MC1486288",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    }
+   ],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1447678": {
+   "says": [
+    "2027-04-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-06",
+     "src": "MC1446796",
+     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1485116"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1485116",
+     "date": "2026-10-01",
+     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
+    },
+    {
+     "id": "MC1486282",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    },
+    {
+     "id": "MC1486288",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    }
+   ],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1469960": {
+   "says": [
+    "2027-04-25"
+   ],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-06",
+     "src": "MC1446796",
+     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-01",
+     "src": "MC1227454",
+     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
+     "post": "2026-02-05",
+     "later": false,
+     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1485116"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1485116",
+     "date": "2026-10-01",
+     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
+    },
+    {
+     "id": "MC1486282",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    },
+    {
+     "id": "MC1486288",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    }
+   ],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1477180": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-06",
+     "src": "MC1446796",
+     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-01",
+     "src": "MC1227454",
+     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
+     "post": "2026-02-05",
+     "later": false,
+     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
+    },
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1469960"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1485116",
+     "date": "2026-10-01",
+     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
+    },
+    {
+     "id": "MC1486282",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    },
+    {
+     "id": "MC1486288",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    }
+   ],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1485116": {
+   "says": [
+    "2027-07-05"
+   ],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-06",
+     "src": "MC1446796",
+     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-01",
+     "src": "MC1227454",
+     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
+     "post": "2026-02-05",
+     "later": false,
+     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
+    },
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1469960"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1486282",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    },
+    {
+     "id": "MC1486288",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    }
+   ],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1486282": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-06",
+     "src": "MC1446796",
+     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-01",
+     "src": "MC1227454",
+     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
+     "post": "2026-02-05",
+     "later": false,
+     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
+    },
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1469960"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1486288": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-06",
+     "src": "MC1446796",
+     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-01",
+     "src": "MC1227454",
+     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
+     "post": "2026-02-05",
+     "later": false,
+     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
+    },
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1469960"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1230889": {
+   "says": [
+    "2026-11-05",
+    "2026-11-25"
+   ],
+   "others": [],
+   "moved": [
+    {
+     "was": "mid Aug 2026",
+     "now": "2026-11-05",
+     "text": "Retirement will begin in early November 2026 (previously mid-August)."
+    },
+    {
+     "was": "mid Sep 2026",
+     "now": "2026-11-25",
+     "text": "Retirement will complete in late November 2026 (previously mid-September)."
+    }
+   ],
+   "newer": [],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-mc1230889",
+     "name": "Outlook for Windows report retirement in the Exchange admin center"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1221452": {
+   "says": [
+    "2026-06-25"
+   ],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1459133",
+     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
+     "post": "2026-08-21",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1459133"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1450133",
+     "date": "2026-08-07",
+     "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
+    },
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    }
+   ],
+   "why": [
+    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
+   ],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1282568": {
+   "says": [
+    "2027-05-05",
+    "2027-05-25"
+   ],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1459133",
+     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
+     "post": "2026-08-21",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1459133"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1450133",
+     "date": "2026-08-07",
+     "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
+    },
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    }
+   ],
+   "why": [
+    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
+   ],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1338816": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1459133",
+     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
+     "post": "2026-08-21",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1459133"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1450133",
+     "date": "2026-08-07",
+     "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
+    },
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    }
+   ],
+   "why": [
+    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
+   ],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1423108": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1459133",
+     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
+     "post": "2026-08-21",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1459133"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1450133",
+     "date": "2026-08-07",
+     "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
+    },
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    }
+   ],
+   "why": [
+    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
+   ],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1426371": {
+   "says": [
+    "2026-09-01",
+    "2027-02-01",
+    "2027-07-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1459133",
+     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
+     "post": "2026-08-21",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1459133"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2026-11-30",
+     "src": "MC1465763",
+     "text": "Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)",
+     "post": "2026-09-01",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1465763"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1450133",
+     "date": "2026-08-07",
+     "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
+    },
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1465763",
+     "date": "2026-09-01",
+     "title": "Microsoft Entra: Prepare for Microsoft to disable unused or unsuccessful SMS first-factor sign-in"
+    },
+    {
+     "id": "MC1474104",
+     "date": "2026-09-18",
+     "title": "Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes"
+    },
+    {
+     "id": "MC1519855",
+     "date": "2026-10-21",
+     "title": "Microsoft Entra: Choose your own telephony provider now generally available"
+    }
+   ],
+   "why": [
+    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
+   ],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    },
+    {
+     "id": "c-sms-voice-retirement",
+     "name": "Microsoft-provided SMS and voice MFA retirement"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1437671": {
+   "says": [
+    "2026-10-31"
+   ],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1459133",
+     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
+     "post": "2026-08-21",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1459133"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1450133",
+     "date": "2026-08-07",
+     "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
+    },
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    }
+   ],
+   "why": [
+    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
+   ],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1440968": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1459133",
+     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
+     "post": "2026-08-21",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1459133"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1450133",
+     "date": "2026-08-07",
+     "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
+    },
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    }
+   ],
+   "why": [
+    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
+   ],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1450133": {
+   "says": [
+    "2026-11-05",
+    "2026-11-25",
+    "2027-01-05",
+    "2027-02-15"
+   ],
+   "others": [
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1282568"
+    },
+    {
+     "date": "2027-05-25",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1282568"
+    }
+   ],
+   "moved": [
+    {
+     "was": "late Oct 2026",
+     "now": "2026-11-05",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026)."
+    },
+    {
+     "was": "late Nov 2026",
+     "now": "2027-01-05",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026)."
+    }
+   ],
+   "newer": [
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    }
+   ],
+   "why": [
+    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
+   ],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1459133": {
+   "says": [
+    "2026-11-25"
+   ],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1282568"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    }
+   ],
+   "why": [
+    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
+   ],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1469555": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1459133",
+     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
+     "post": "2026-08-21",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1459133"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [
+    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
+   ],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1325414": {
+   "says": [
+    "2026-11-05",
+    "2026-11-06",
+    "2026-11-07",
+    "2026-11-09"
+   ],
+   "others": [
+    {
+     "date": "2027-02-01",
+     "src": "MC1519855",
+     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
+     "post": "2026-10-21",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1519855"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    },
+    {
+     "date": "2027-07-01",
+     "src": "MC1536049",
+     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    }
+   ],
+   "moved": [
+    {
+     "was": "early Sep 2026",
+     "now": "2026-11-05",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
+    },
+    {
+     "was": "mid Sep 2026",
+     "now": "2026-11-15",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
+    }
+   ],
+   "newer": [
+    {
+     "id": "MC1519855",
+     "date": "2026-10-21",
+     "title": "Microsoft Entra: Choose your own telephony provider now generally available"
+    },
+    {
+     "id": "MC1528000",
+     "date": "2026-10-27",
+     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
+    },
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1400824": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-06",
+     "src": "MC1325414",
+     "text": "Act by this date (Message Center)",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-07",
+     "src": "MC1325414",
+     "text": "November 7, 2026: Enforcement begins.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-09",
+     "src": "MC1325414",
+     "text": "Action is required before November 9, 2026.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1519855",
+     "date": "2026-10-21",
+     "title": "Microsoft Entra: Choose your own telephony provider now generally available"
+    },
+    {
+     "id": "MC1528000",
+     "date": "2026-10-27",
+     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
+    },
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1519855": {
+   "says": [
+    "2027-02-01",
+    "2027-07-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-06",
+     "src": "MC1325414",
+     "text": "Act by this date (Message Center)",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-07",
+     "src": "MC1325414",
+     "text": "November 7, 2026: Enforcement begins.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-09",
+     "src": "MC1325414",
+     "text": "Action is required before November 9, 2026.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-30",
+     "src": "MC1465763",
+     "text": "Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)",
+     "post": "2026-09-01",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1465763"
+    },
+    {
+     "date": "2027-07-01",
+     "src": "MC1426371",
+     "text": "1 Jul 2027 for Global Administrators and external users.",
+     "post": "2026-07-13",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1426371"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1528000",
+     "date": "2026-10-27",
+     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
+    },
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    },
+    {
+     "id": "c-sms-voice-retirement",
+     "name": "Microsoft-provided SMS and voice MFA retirement"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1528000": {
+   "says": [
+    "2027-02-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-06",
+     "src": "MC1325414",
+     "text": "Act by this date (Message Center)",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-07",
+     "src": "MC1325414",
+     "text": "November 7, 2026: Enforcement begins.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-09",
+     "src": "MC1325414",
+     "text": "Action is required before November 9, 2026.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1536049": {
+   "says": [
+    "2027-02-01",
+    "2027-03-22",
+    "2027-07-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-05",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-06",
+     "src": "MC1325414",
+     "text": "Act by this date (Message Center)",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-07",
+     "src": "MC1325414",
+     "text": "November 7, 2026: Enforcement begins.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-09",
+     "src": "MC1325414",
+     "text": "Action is required before November 9, 2026.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1465763": {
+   "says": [
+    "2026-11-30"
+   ],
+   "others": [
+    {
+     "date": "2027-02-01",
+     "src": "MC1519855",
+     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
+     "post": "2026-10-21",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1519855"
+    },
+    {
+     "date": "2027-07-01",
+     "src": "MC1426371",
+     "text": "1 Jul 2027 for Global Administrators and external users.",
+     "post": "2026-07-13",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1426371"
+    }
+   ],
+   "moved": [
+    {
+     "was": "late Sep 2026",
+     "now": "2026-11-30",
+     "text": "Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)"
+    }
+   ],
+   "newer": [
+    {
+     "id": "MC1474104",
+     "date": "2026-09-18",
+     "title": "Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes"
+    },
+    {
+     "id": "MC1519855",
+     "date": "2026-10-21",
+     "title": "Microsoft Entra: Choose your own telephony provider now generally available"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-sms-voice-retirement",
+     "name": "Microsoft-provided SMS and voice MFA retirement"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1474104": {
+   "says": [
+    "2027-02-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-30",
+     "src": "MC1465763",
+     "text": "Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)",
+     "post": "2026-09-01",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1465763"
+    },
+    {
+     "date": "2027-07-01",
+     "src": "MC1426371",
+     "text": "1 Jul 2027 for Global Administrators and external users.",
+     "post": "2026-07-13",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1426371"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1519855",
+     "date": "2026-10-21",
+     "title": "Microsoft Entra: Choose your own telephony provider now generally available"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-sms-voice-retirement",
+     "name": "Microsoft-provided SMS and voice MFA retirement"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1471964": {
+   "says": [
+    "2027-10-12"
+   ],
+   "others": [],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1169587",
+     "date": "2026-09-29",
+     "title": "30-Day Reminder: Windows 11, version 23H2 (Home and Pro editions) will reach end of servicing on November 11, 2025"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-windows-11-24h2-end-of-servicing",
+     "name": "Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026"
+    }
+   ],
+   "verdict": "newer"
+  },
+  "MC1169587": {
+   "says": [],
+   "others": [
+    {
+     "date": "2027-10-12",
+     "src": "MC1471964",
+     "text": "Enterprise and Education editions remain supported until October 12, 2027.",
+     "post": "2026-09-14",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1471964"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-windows-11-24h2-end-of-servicing",
+     "name": "Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1278920": {
+   "says": [
+    "2029-10-15"
+   ],
+   "others": [],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1472429",
+     "date": "2026-09-15",
+     "title": "Support for Office LTSC 2021, and additional apps will end on October 13, 2026"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-mc1278920-2",
+     "name": "Support for Office LTSC 2021, and additional apps will end on October 13, 2026"
+    }
+   ],
+   "verdict": "newer"
+  },
+  "MC1442510": {
+   "says": [],
+   "others": [],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1456735",
+     "date": "2026-08-17",
+     "title": "AD FS DKM container ACL hardening enforcement (CVE-2026-56155)"
+    },
+    {
+     "id": "MC1471963",
+     "date": "2026-09-14",
+     "title": "30-Day Reminder: AD FS DKM container ACL hardening begins in October 2026"
+    },
+    {
+     "id": "MC1506287",
+     "date": "2026-10-13",
+     "title": "AD FS Distributed Key Manager (DKM) container ACL hardening begins today"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-mc1442510",
+     "name": "AD FS DKM container ACL hardening begins in October 2026"
+    }
+   ],
+   "verdict": "newer"
+  },
+  "MC1456735": {
+   "says": [],
+   "others": [],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1471963",
+     "date": "2026-09-14",
+     "title": "30-Day Reminder: AD FS DKM container ACL hardening begins in October 2026"
+    },
+    {
+     "id": "MC1506287",
+     "date": "2026-10-13",
+     "title": "AD FS Distributed Key Manager (DKM) container ACL hardening begins today"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-mc1442510",
+     "name": "AD FS DKM container ACL hardening begins in October 2026"
+    }
+   ],
+   "verdict": "newer"
+  },
+  "MC1471963": {
+   "says": [
+    "2026-07-14"
+   ],
+   "others": [],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1506287",
+     "date": "2026-10-13",
+     "title": "AD FS Distributed Key Manager (DKM) container ACL hardening begins today"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-mc1442510",
+     "name": "AD FS DKM container ACL hardening begins in October 2026"
+    }
+   ],
+   "verdict": "newer"
+  },
+  "MC1476122": {
+   "says": [
+    "2026-10-28"
+   ],
+   "others": [],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1507808",
+     "date": "2026-10-14",
+     "title": "Reminder: Microsoft‑managed CA policy will be enforced soon — Require risk remediation for high‑risk users"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1476122",
+     "name": "Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users"
+    }
+   ],
+   "verdict": "newer"
+  },
+  "MC1435782": {
+   "says": [
+    "2026-10-26"
+   ],
+   "others": [],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1458474",
+     "date": "2026-08-21",
+     "title": "Custom CSS layout properties in company branding retiring"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-mc1435782",
+     "name": "Retirement of custom CSS positioning properties in custom branding"
+    }
+   ],
+   "verdict": "newer"
+  },
+  "MC1448373": {
+   "says": [],
+   "others": [],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1469551",
+     "date": "2026-09-09",
+     "title": "Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-mc1448373",
+     "name": "Teams device management transition from Teams admin center to Teams Rooms Pro management portal"
+    }
+   ],
+   "verdict": "newer"
+  }
+ }
+}
