@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-03T06:46:25Z",
+ "generated": "2026-11-02T00:46:28Z",
  "source": "tools/doc_ga.py (CLAUDE.md 5eo)",
  "sources": [
   {
@@ -15,7 +15,7 @@
    "state": "ok",
    "commits": 75,
    "events": 9,
-   "since": "2026-09-04"
+   "since": "2026-09-03"
   }
  ],
  "events": [
