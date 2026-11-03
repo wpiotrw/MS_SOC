@@ -1,7 +1,7 @@
 {
- "read": "2026-11-02",
+ "read": "2026-11-03",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 696,
+ "count": 706,
  "note": null,
  "messages": [
   {
@@ -552,23 +552,23 @@
    "major": false,
    "actionBy": null,
    "start": "2025-11-05",
-   "end": "2026-11-20",
-   "modified": "2026-07-08",
+   "end": "2027-03-31",
+   "modified": "2026-11-02",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated July 8, 2026: We have updated the content and timeline. Thank you for your patience. We’re introducing My Team audiences and expanded targeting capabilities in Viva Engage to help leaders communicate with the employees in their organization and tailor messages to relevant teams, departments, locations, or groups. My Team provides a ready-to-use, automatically maintained audience based on t…",
-   "when": "Public Preview (Worldwide): Begins mid-November 2025 and completes by mid-March 2026 (previously early February). General Availability (Worldwide): Begins early November 2026 (previously late-July) and completes by late November 2026.",
+   "summary": "Updated November 2, 2026: We have updated the timeline. Thank you for your patience. We’re introducing My Team audiences and expanded targeting capabilities in Viva Engage to help leaders communicate with the employees in their organization and tailor messages to relevant teams, departments, locations, or groups. My Team provides a ready-to-use, automatically maintained audience based on the organ…",
+   "when": "Public Preview (Worldwide): Begins mid-November 2025 and completes by mid-March 2026 (previously early February). General Availability (Worldwide): Begins mid-January 2027 (previously early November 2026) and completes by late February 2027 (previously late November 2026).",
    "prepare": "No admin action is required for rollout. To prepare, you may want to: Validate organizational attributes (reporting structure, country, department, role, job title) in Microsoft Entra ID or Organizational Data in Microsoft . Confirm leader and delegate assignments to ensure the right people can use Storyline Announcements and the new targeting control.",
    "dates": [
-    "Updated July 8, 2026: We have updated the content and timeline.",
+    "Updated November 2, 2026: We have updated the timeline.",
     "Public Preview (Worldwide): Begins mid-November 2025 and completes by mid-March 2026 (previously early February).",
-    "General Availability (Worldwide): Begins early November 2026 (previously late-July) and completes by late November 2026."
+    "General Availability (Worldwide): Begins mid-January 2027 (previously early November 2026) and completes by late February 2027 (previously late November 2026)."
    ],
-   "bodyHash": "2aaaeb4e7f3daaa9"
+   "bodyHash": "d002a6c2275b99df"
   },
   {
    "id": "MC1183186",
@@ -1600,22 +1600,21 @@
    "major": false,
    "actionBy": null,
    "start": "2026-01-14",
-   "end": "2026-12-31",
-   "modified": "2026-07-07",
+   "end": "2026-11-06",
+   "modified": "2026-11-02",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated July 7, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We’re enhancing Microsoft Purview Content Explorer with new summary metrics to improve visibility into scanning and classification activities. These updates will help admins identify unscanned files and monitor classification trends, enabling better data governance and informed decisions. This message i…",
-   "when": "Public Preview: We will begin rolling out late July 2026 (previously mid-July) and expect to complete by early October 2026 (previously early August). General Availability (Worldwide): We will begin rolling out early November 2026 (previously mid-August) and expect to complete by late November 2026 (previously late August).",
-   "prepare": "No action is required. These metrics will automatically appear in Content Explorer.",
+   "summary": "Updated November 2, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. [Introduction] We’re enhancing Microsoft Purview Content Explorer with new summary metrics to improve visibility into scanning and classification activities. These updates will help admins identify unscanned files and monitor classification trends, enabling better data g…",
+   "when": "Public Preview: We will begin rolling out late July 2026 (previously mid-July) and expect to complete by early October 2026 (previously early August). General Availability (Worldwide): We have decided not to move forward with this change at this time.",
+   "prepare": "No action is required. These metrics will automatically appear in Content Explorer. .",
    "dates": [
-    "Updated July 7, 2026: We have updated the timeline.",
-    "Public Preview: We will begin rolling out late July 2026 (previously mid-July) and expect to complete by early October 2026 (previously early August).",
-    "General Availability (Worldwide): We will begin rolling out early November 2026 (previously mid-August) and expect to complete by late November 2026 (previously late August)."
+    "Updated November 2, 2026: We have decided not to move forward with this change at this time.",
+    "Public Preview: We will begin rolling out late July 2026 (previously mid-July) and expect to complete by early October 2026 (previously early August)."
    ],
-   "bodyHash": "834549a9673c73ee"
+   "bodyHash": "2ad5f51f83b57cbe"
   },
   {
    "id": "MC1217951",
@@ -3126,20 +3125,22 @@
    "major": true,
    "actionBy": null,
    "start": "2026-03-21",
-   "end": "2027-01-04",
-   "modified": "2026-03-21",
+   "end": "2027-07-30",
+   "modified": "2026-11-02",
    "tags": [
     "Admin impact",
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[Introduction] Microsoft Purview network data security now integrates with Palo Alto Prisma Access , extending discovery and protection to network traffic. With this integration, new and existing Palo Alto Prisma Access customers can configure Microsoft Purview collection and data loss prevention policies to discover and protect sensitive data shared with unmanaged cloud apps via HTTP/HTTPS, using…",
-   "when": "Public preview: We will begin rolling out in mid-April 2026 and expect to complete by mid-May 2026 . General availability: We will begin rolling out in late October 2026 and expect to complete by late November 2026 .",
+   "summary": "Updated November 2, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft Purview network data security now integrates with Palo Alto Prisma Access , extending discovery and protection to network traffic. With this integration, new and existing Palo Alto Prisma Access customers can configure Microsoft Purview collection and data loss prevention policies to disco…",
+   "when": "Public preview: We will begin rolling out in mid-April 2026 and expect to complete by mid-May 2026 . General availability: We will begin rolling out in June 2027 (previously late October 2026) and expect to complete in June 2027 (previously late November 2026).",
    "prepare": "Confirm that Purview pay-as-you-go is enabled and configured for your tenant, as it is required to use this integration.",
    "dates": [
+    "Updated November 2, 2026: We have updated the timeline.",
     "Public preview: We will begin rolling out in mid-April 2026 and expect to complete by mid-May 2026 .",
-    "General availability: We will begin rolling out in late October 2026 and expect to complete by late November 2026 ."
+    "General availability: We will begin rolling out in June 2027 (previously late October 2026) and expect to complete in June 2027 (previously late November 2026)."
    ],
-   "bodyHash": "d999a9c2b5671328"
+   "bodyHash": "90d2973df67a86a0"
   },
   {
    "id": "MC1258087",
@@ -8299,21 +8300,21 @@
    "actionBy": null,
    "start": "2026-08-13",
    "end": "2026-12-31",
-   "modified": "2026-10-06",
+   "modified": "2026-11-02",
    "tags": [
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 21, 2026: We have clarified the timeline. Thank you for your patience. [What and Why:] We are updating how users access document summarization in Microsoft Word. Beginning in September 2026, the current Top of Doc summarization experience will transition to other Copilot in Word surfaces. This change creates a more unified Copilot experience in Word while preserving users’ abilit…",
+   "summary": "Updated November 2, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We are updating how users access document summarization in Microsoft Word. Beginning in September 2026, the current Top of Doc summarization experience will transition to other Copilot in Word surfaces. This change creates a more unified Copilot experience in Word while preserving users’ ability to…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 21, 2026: We have clarified the timeline.",
+    "Updated November 2, 2026: We have updated the timeline.",
     "Beginning in September 2026, the current Top of Doc summarization experience will transition to other Copilot in Word surfaces.",
-    "General Availability (Worldwide, GCC, GCCH, DoD): Rollout will begin early September 2026."
+    "General Availability (Worldwide, GCC, GCCH, DoD): Rollout will begin early September 2026 and is expected to complete by end of November 2026."
    ],
-   "bodyHash": "238f54b15db53b9a"
+   "bodyHash": "eccf8e2b77f4e6d5"
   },
   {
    "id": "MC1454114",
@@ -12207,7 +12208,7 @@
   },
   {
    "id": "MC1474458",
-   "title": "Microsoft Copilot (Microsoft 365): Power BI reports as references in Copilot Notebooks",
+   "title": "(Updated) Microsoft Copilot (Microsoft 365): Power BI reports as references in Copilot Notebooks",
    "services": [
     "Microsoft 365 apps"
    ],
@@ -12216,20 +12217,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-19",
-   "end": "2026-12-28",
-   "modified": "2026-09-19",
+   "end": "2027-01-25",
+   "modified": "2026-11-02",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why:] Copilot Notebooks now lets users add Power BI reports as references, bringing report data directly into their notebooks alongside files. Copilot uses this information to help generate more relevant summaries, presentations, and briefs grounded in the organization's data. [Rollout schedule:] Public Preview (Worldwide): We will began rolling out late September 2026 and expect to comp…",
+   "summary": "Updated November 2, 2026: We have updated the timeline. Thank you for your patience. [What and why:] Copilot Notebooks now lets users add Power BI reports as references, bringing report data directly into their notebooks alongside files. Copilot uses this information to help generate more relevant summaries, presentations, and briefs grounded in the organization's data. [Rollout schedule:] Public …",
    "when": null,
    "prepare": null,
    "dates": [
+    "Updated November 2, 2026: We have updated the timeline.",
     "Public Preview (Worldwide): We will began rolling out late September 2026 and expect to complete by mid-October 2026.",
-    "General Availability (Worldwide): We will begin rolling out late October 2026 and expect to complete by mid-November 2026."
+    "General Availability (Worldwide): We will begin rolling out end of November 2026 (previously late October) and expect to complete by mid-December 2026 (previously mid-November)."
    ],
-   "bodyHash": "c157ff496b011599"
+   "bodyHash": "7c80317a46b70e92"
   },
   {
    "id": "MC1475801",
@@ -14020,7 +14023,7 @@
   },
   {
    "id": "MC1488847",
-   "title": "Microsoft Teams: Breakout room support for Teams Rooms on Android",
+   "title": "(Updated) Microsoft Teams: Breakout room support for Teams Rooms on Android",
    "services": [
     "Microsoft Teams"
    ],
@@ -14030,19 +14033,21 @@
    "actionBy": null,
    "start": "2026-10-05",
    "end": "2026-12-31",
-   "modified": "2026-10-05",
+   "modified": "2026-11-02",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We're introducing breakout room support for Microsoft Teams Rooms on Android. This update allows Teams Rooms on Android devices to be assigned to breakout rooms and moved between breakout rooms and the main meeting room by meeting organizers. This feature improves coordination during breakout sessions and brings Microsoft Teams Rooms on Android closer to feature parity with Microsof…",
+   "summary": "Updated November 2, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're introducing breakout room support for Microsoft Teams Rooms on Android. This update allows Teams Rooms on Android devices to be assigned to breakout rooms and moved between breakout rooms and the main meeting room by meeting organizers. This feature improves coordination during breakout sessio…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Beginning in mid-November 2026 and expected to be complete by late November 2026."
+    "Updated November 2, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in early December 2026 (previously mid-November) and expected to be complete by mid-December 2026 (previously late November)."
    ],
-   "bodyHash": "9302e796ba258209"
+   "bodyHash": "7229e1899386aaf1"
   },
   {
    "id": "MC1489590",
@@ -15799,7 +15804,7 @@
   },
   {
    "id": "MC1509801",
-   "title": "Microsoft Teams: Customize file extensions blocked by Weaponizable File Protection",
+   "title": "(Updated) Microsoft Teams: Customize file extensions blocked by Weaponizable File Protection",
    "services": [
     "Microsoft Teams"
    ],
@@ -15808,20 +15813,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-15",
-   "end": "2026-12-19",
-   "modified": "2026-10-15",
+   "end": "2027-01-25",
+   "modified": "2026-11-02",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Teams is expanding admin controls for Weaponizable File Protection. Admins will be able to customize which file extensions are blocked in Teams based on their organization’s security needs or continue using the Microsoft-recommended default list. This change provides greater flexibility to tailor file protection policies while maintaining a secure collaboration experience.…",
+   "summary": "Updated November 2, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Teams is expanding admin controls for Weaponizable File Protection. Admins will be able to customize which file extensions are blocked in Teams based on their organization’s security needs or continue using the Microsoft-recommended default list. This change provides greater flexibility to…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Beginning in early November 2026 and expected to complete by mid-November 2026."
+    "Updated November 2, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in early December 2026 (previously early November) and expected to complete by mid-December 2026 (previously mid-November)."
    ],
-   "bodyHash": "036ea3f600391e1e"
+   "bodyHash": "80ce2f8b60c3fdd1"
   },
   {
    "id": "MC1509803",
@@ -16710,7 +16717,7 @@
   },
   {
    "id": "MC1521609",
-   "title": "Create sales pitches with Copilot in PowerPoint",
+   "title": "(Updated) Create sales pitches with Copilot in PowerPoint",
    "services": [
     "Microsoft 365 apps"
    ],
@@ -16719,18 +16726,20 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-22",
-   "end": "2026-11-30",
-   "modified": "2026-10-22",
+   "end": "2026-12-31",
+   "modified": "2026-11-03",
    "tags": [
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[What and Why:] We are introducing a new Copilot skill in PowerPoint that helps users create customer-facing sales pitch presentations. Users can use this skill for scenarios such as a first customer meeting, warm-lead product introduction, industry-specific pitch, or internal sales enablement. The skill helps users shape a commercial story around the audience, opportunity, key messages, supportin…",
+   "summary": "Updated November 3, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We are introducing a new Copilot skill in PowerPoint that helps users create customer-facing sales pitch presentations. Users can use this skill for scenarios such as a first customer meeting, warm-lead product introduction, industry-specific pitch, or internal sales enablement. The skill helps use…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): We will begin rolling out in mid October 2026 and expect to complete by late October 2026."
+    "Updated November 3, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We began rolling in late October 2026 and expect to complete by late November 2026 (previously late October)."
    ],
-   "bodyHash": "01c0ce78e3fa2daa"
+   "bodyHash": "ae13499e0b2503d2"
   },
   {
    "id": "MC1521613",
@@ -17914,8 +17923,8 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-29",
-   "end": "2026-11-29",
-   "modified": "2026-10-29",
+   "end": "2027-01-29",
+   "modified": "2026-11-03",
    "tags": [
     "New feature",
     "User impact"
@@ -18398,6 +18407,258 @@
    "bodyHash": "66ee6d4bc2779e91"
   },
   {
+   "id": "MC1535666",
+   "title": "Introducing restore summary in Windows settings backup and restore",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-02",
+   "end": "2027-11-02",
+   "modified": "2026-11-02",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why Starting with Windows 11, version 24H2 and later, Windows settings backup and restore introduces restore summary . It’s a new on-device experience that helps users understand what was restored to their PC after setup. Users can view a summary of restored personalization settings and the Microsoft Store app list, having greater visibility into restore outcomes and getting productive fa…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Generally available with the October 2026 non-security update for Windows 11, version 24H2 or later."
+   ],
+   "bodyHash": "f53e118de96a3426"
+  },
+  {
+   "id": "MC1535667",
+   "title": "Building a risk-based patching response for Windows Server",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-02",
+   "end": "2027-11-02",
+   "modified": "2026-11-02",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why: Microsoft recommends adopting a risk-based approach to Windows Server patching. It helps organizations respond faster to critical vulnerabilities while minimizing operational disruption. Rather than relying on fixed patching schedules, prioritize updates based on exploit activity, system exposure, workload criticality, and business impact. Rollout schedule: This guidance is available…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "5e907414575fad66"
+  },
+  {
+   "id": "MC1536045",
+   "title": "Microsoft Defender: Expanded URBAC permission support for email content access",
+   "services": [
+    "Microsoft Defender XDR"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-03",
+   "end": "2026-12-03",
+   "modified": "2026-11-03",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We’re expanding Unified role-based access control (URBAC) permission support for Email & collaboration content: Emails associated with alerts in Microsoft Defender . This change provides more consistent email content access across alert investigation scenarios based on a user’s assigned permissions. Previously, this permission applied to: Email reported by user as malware or phish E…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "74f741dc45b652c8"
+  },
+  {
+   "id": "MC1536049",
+   "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)",
+   "services": [
+    "Microsoft Entra"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2027-03-22",
+   "start": "2026-11-03",
+   "end": "2027-03-03",
+   "modified": "2026-11-03",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] As Microsoft-provided SMS and voice authentication retire in Microsoft Entra ID, these methods will also become unavailable for SSPR. Organizations have 50 days after the applicable sign-in retirement rollout reaches their tenant to prepare alternative recovery methods. Users may still be able to sign in but lose the ability to reset forgotten passwords. Passkeys and other sign-in m…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide, GCC): We expect rollout to begin and complete in February 2027.",
+    "February 1, 2027.",
+    "July 1, 2027."
+   ],
+   "bodyHash": "4af53610312e8b8c"
+  },
+  {
+   "id": "MC1536053",
+   "title": "Microsoft 365 Copilot: New accounting capabilities in Excel and Cowork",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-03",
+   "end": "2027-01-25",
+   "modified": "2026-11-03",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] New accounting capabilities in Copilot in Excel and Cowork help finance professionals complete common accounting tasks in the tools they already use. Users can reconcile accounts, prepare journal entries, analyze financial performance and variances, and prepare financial reports. Additional capabilities support budgeting, forecasting, audit, tax, compliance, and training. Copilot pr…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview: We will begin rolling out in late October 2026 and expect to complete by mid-November 2026.",
+    "General Availability (Worldwide): We will begin rolling out on November 13, 2026, and expect to complete by late November 2026.",
+    "Beginning with General Availability on November 13, 2026, Frontier enrollment will not be required."
+   ],
+   "bodyHash": "dffad523bf0ee47d"
+  },
+  {
+   "id": "MC1536056",
+   "title": "Microsoft Teams: Facilitator Protection skill helps identify suspected social-engineering attempts",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-03",
+   "end": "2027-03-12",
+   "modified": "2026-11-03",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Facilitator can help users identify suspected social-engineering attempts by people outside their organization during a meeting. When Facilitator is present, its Protection skill uses AI to check the meeting transcript for signs that someone may be attempting to trick users into sharing sensitive information. If a suspected attempt is detected, users will see a warning with options …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Beginning in late January 2027 and expected to complete by mid-February 2027."
+   ],
+   "bodyHash": "ed9fd2b8ffdbe732"
+  },
+  {
+   "id": "MC1536057",
+   "title": "Increasing user exception limit to 10,000 for Standard-Deferred release preferences",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-03",
+   "end": "2026-12-20",
+   "modified": "2026-11-03",
+   "tags": [
+    "Admin impact",
+    "Feature update"
+   ],
+   "summary": "[What and Why:] We heard your feedback that the 100-user exception limit was too small to support meaningful pilot and validation audiences, particularly in larger organizations. We previously introduced Microsoft Entra ID group support to simplify audience management. We are now increasing the exception limit from 100 to 10,000 users per tenant, giving administrators more flexibility to manage re…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in late October 2026 and expect to complete by mid-November 2026."
+   ],
+   "bodyHash": "22f286b0be0ddc41"
+  },
+  {
+   "id": "MC1536058",
+   "title": "Microsoft Teams: What's happening across your organization in Activity notifications",
+   "services": [
+    "Microsoft Viva"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-03",
+   "end": "2027-01-15",
+   "modified": "2026-11-03",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are adding a new What's happening across your organization section beneath community and storyline notifications in the Microsoft Teams Activity feed. The section helps users discover relevant content beyond their immediate communities, including posts from leaders and official communities, and provides ways to join communities or follow colleagues directly from the notification …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): Rollout will begin in early November 2026 and is expected to complete by early December 2026.",
+    "General Availability (Worldwide): Rollout will begin in early December 2026 and is expected to complete by mid-December 2026."
+   ],
+   "bodyHash": "6d33f16ea41dd750"
+  },
+  {
+   "id": "MC1536059",
+   "title": "Microsoft 365 Copilot: Conversation orchestration expands routing and overflow capabilities",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-03",
+   "end": "2026-12-30",
+   "modified": "2026-11-03",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Conversation orchestration in Microsoft Dynamics 365 Contact center actively manages conversations throughout their lifecycle, from initiation through resolution. As conditions change, such as increasing wait times, queues filling quickly, or representatives going offline, conversation orchestration can automatically take actions defined in natural-language playbooks configured by a…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Beginning in late October 2026 and expected to complete by late November 2026."
+   ],
+   "bodyHash": "55ee607abeef92ff"
+  },
+  {
+   "id": "MC1536163",
+   "title": "Limits in Copilot Chat",
+   "services": [
+    "Microsoft 365 Copilot Chat"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-03",
+   "end": "2027-01-25",
+   "modified": "2026-11-03",
+   "tags": [
+    "User impact"
+   ],
+   "summary": "Microsoft uses fair use limits for some Copilot features for users without a Microsoft 365 Copilot license. Features, such as image generation, already use limits, as previously communicated in MC1064749. We are applying this approach to additional Copilot Chat features and capabilities. Users will be notified in-product if the capacity or feature is not available. Rollout Schedule Limits are curr…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "f3d8e957a822bbb1"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -18716,71 +18977,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-03",
-   "id": "MC1166852",
-   "type": "changed",
-   "title": "(Updated) Microsoft Viva Copilot Analytics launches new agent dashboard",
-   "fields": {
-    "end": [
-     "2026-12-07",
-     "2027-03-31"
-    ],
-    "bodyHash": [
-     "d556f669a53dc2e2",
-     "155400cb916efa4f"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-03",
-   "id": "MC1486284",
-   "type": "new",
-   "title": "Microsoft Purview | Data Loss Prevention: Administrative Units support for DLP policies for Microsoft Copilot",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-03",
-   "id": "MC1486289",
-   "type": "new",
-   "title": "Microsoft Purview |Unified Classification Management Experience",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-03",
-   "id": "MC1486292",
-   "type": "new",
-   "title": "Prompt Column backfill",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-03",
-   "id": "MC1486295",
-   "type": "new",
-   "title": "Microsoft OneDrive and SharePoint: Generate smart tables of contents for PDFs on the web with Copilot",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-03",
-   "id": "MC1486397",
-   "type": "new",
-   "title": "An updated version of the September 2026 Scan Cab is available",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-03",
-   "id": "MC1474415",
-   "type": "removed",
-   "title": "Updates available for Microsoft 365 Apps for Current Channel",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-03",
-   "id": "MC1466584",
-   "type": "removed",
-   "title": "Dynamics 365 Contact Center- Use data masking to protect customer data",
-   "fields": {}
-  },
   {
    "date": "2026-10-04",
    "id": "MC1423106",
@@ -24283,6 +24479,281 @@
    "id": "MC1466760",
    "type": "removed",
    "title": "Microsoft Copilot Pages: Access existing Pages from the \"/\" menu in chat",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1183013",
+   "type": "changed",
+   "title": "(Updated) Microsoft Viva Engage: Flexible targeting of Storyline Announcements",
+   "fields": {
+    "end": [
+     "2026-11-20",
+     "2027-03-31"
+    ],
+    "bodyHash": [
+     "2aaaeb4e7f3daaa9",
+     "d002a6c2275b99df"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1217640",
+   "type": "changed",
+   "title": "Microsoft Purview | Information Protection - Content Explorer: Unscanned data and Classification History summary metrics",
+   "fields": {
+    "end": [
+     "2026-12-31",
+     "2026-11-06"
+    ],
+    "bodyHash": [
+     "834549a9673c73ee",
+     "2ad5f51f83b57cbe"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1257999",
+   "type": "changed",
+   "title": "Microsoft Purview DLP: Unmanaged cloud app discovery and protection with Microsoft Purview and Palo Alto Prisma Access",
+   "fields": {
+    "end": [
+     "2027-01-04",
+     "2027-07-30"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "d999a9c2b5671328",
+     "90d2973df67a86a0"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1454113",
+   "type": "changed",
+   "title": "(Updated) Microsoft Copilot Word: Document summarization experience moving",
+   "fields": {
+    "bodyHash": [
+     "238f54b15db53b9a",
+     "eccf8e2b77f4e6d5"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1474458",
+   "type": "changed",
+   "title": "(Updated) Microsoft Copilot (Microsoft 365): Power BI reports as references in Copilot Notebooks",
+   "fields": {
+    "title": [
+     "Microsoft Copilot (Microsoft 365): Power BI reports as references in Copilot Notebooks",
+     "(Updated) Microsoft Copilot (Microsoft 365): Power BI reports as references in Copilot Notebooks"
+    ],
+    "end": [
+     "2026-12-28",
+     "2027-01-25"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "c157ff496b011599",
+     "7c80317a46b70e92"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1488847",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Breakout room support for Teams Rooms on Android",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Breakout room support for Teams Rooms on Android",
+     "(Updated) Microsoft Teams: Breakout room support for Teams Rooms on Android"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "9302e796ba258209",
+     "7229e1899386aaf1"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1509801",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Customize file extensions blocked by Weaponizable File Protection",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Customize file extensions blocked by Weaponizable File Protection",
+     "(Updated) Microsoft Teams: Customize file extensions blocked by Weaponizable File Protection"
+    ],
+    "end": [
+     "2026-12-19",
+     "2027-01-25"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "036ea3f600391e1e",
+     "80ce2f8b60c3fdd1"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1521609",
+   "type": "changed",
+   "title": "(Updated) Create sales pitches with Copilot in PowerPoint",
+   "fields": {
+    "title": [
+     "Create sales pitches with Copilot in PowerPoint",
+     "(Updated) Create sales pitches with Copilot in PowerPoint"
+    ],
+    "end": [
+     "2026-11-30",
+     "2026-12-31"
+    ],
+    "tags": [
+     [
+      "New feature"
+     ],
+     [
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "01c0ce78e3fa2daa",
+     "ae13499e0b2503d2"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1530611",
+   "type": "changed",
+   "title": "Office in Copilot brings the full power of Office into the Microsoft Copilot app",
+   "fields": {
+    "end": [
+     "2026-11-29",
+     "2027-01-29"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1535666",
+   "type": "new",
+   "title": "Introducing restore summary in Windows settings backup and restore",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1535667",
+   "type": "new",
+   "title": "Building a risk-based patching response for Windows Server",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1536045",
+   "type": "new",
+   "title": "Microsoft Defender: Expanded URBAC permission support for email content access",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1536049",
+   "type": "new",
+   "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1536053",
+   "type": "new",
+   "title": "Microsoft 365 Copilot: New accounting capabilities in Excel and Cowork",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1536056",
+   "type": "new",
+   "title": "Microsoft Teams: Facilitator Protection skill helps identify suspected social-engineering attempts",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1536057",
+   "type": "new",
+   "title": "Increasing user exception limit to 10,000 for Standard-Deferred release preferences",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1536058",
+   "type": "new",
+   "title": "Microsoft Teams: What's happening across your organization in Activity notifications",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1536059",
+   "type": "new",
+   "title": "Microsoft 365 Copilot: Conversation orchestration expands routing and overflow capabilities",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-03",
+   "id": "MC1536163",
+   "type": "new",
+   "title": "Limits in Copilot Chat",
    "fields": {}
   }
  ]

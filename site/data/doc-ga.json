@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-02T00:46:28Z",
+ "generated": "2026-11-03T17:12:10Z",
  "source": "tools/doc_ga.py (CLAUDE.md 5eo)",
  "sources": [
   {
    "name": "Our Learn copy (mirror/learn)",
    "state": "ok",
-   "pages": 6899,
-   "events": 0,
+   "pages": 6910,
+   "events": 9,
    "note": ""
   },
   {
@@ -19,6 +19,105 @@
   }
  ],
  "events": [
+  {
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/stream-with-reconnect",
+   "title": "Stream long-running agent output with reconnect - Microsoft Foundry",
+   "before": "Stream long-running agent output with reconnect (preview) - Microsoft Foundry",
+   "date": "2026-11-03",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-03",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/steer-hosted-agent",
+   "title": "Steer an in-flight agent turn - Microsoft Foundry",
+   "before": "Steer an in-flight agent turn (preview) - Microsoft Foundry",
+   "date": "2026-11-03",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-03",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/recover-long-running-work",
+   "title": "Recover long-running work after a crash - Microsoft Foundry",
+   "before": "Recover long-running work after a crash (preview) - Microsoft Foundry",
+   "date": "2026-11-03",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-03",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/manage-task-state",
+   "title": "Manage state for long-running agents - Microsoft Foundry",
+   "before": "Manage state for long-running agents (preview) - Microsoft Foundry",
+   "date": "2026-11-03",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-03",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/deploy-steerable-agent",
+   "title": "Deploy a steerable agent - Microsoft Foundry",
+   "before": "Deploy a steerable agent (preview) - Microsoft Foundry",
+   "date": "2026-11-03",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-03",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/deploy-resilient-agent",
+   "title": "Deploy a crash-resilient long-running agent - Microsoft Foundry",
+   "before": "Deploy a crash-resilient long-running agent (preview) - Microsoft Foundry",
+   "date": "2026-11-03",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-03",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/add-human-in-the-loop",
+   "title": "Add a human-in-the-loop approval step - Microsoft Foundry",
+   "before": "Add a human-in-the-loop approval step (preview) - Microsoft Foundry",
+   "date": "2026-11-03",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-03",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/long-running-agent-resilience",
+   "title": "Resilience for long-running Microsoft Foundry hosted agents - Microsoft Foundry",
+   "before": "Resilience for long-running Microsoft Foundry hosted agents (preview) - Microsoft Foundry",
+   "date": "2026-11-03",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-03",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/long-running-agent-reference",
+   "title": "Long-running agent API reference - Microsoft Foundry",
+   "before": "Long-running agent API reference (preview) - Microsoft Foundry",
+   "date": "2026-11-03",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-03",
+   "announced": false
+  },
   {
    "url": "https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-custom-headers",
    "title": "How to configure custom headers",
