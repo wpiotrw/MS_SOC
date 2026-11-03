@@ -378,6 +378,30 @@
 "date":"2026-06-08",
 "group":"microsoft",
 "found":"2026-11-03"
+},
+"https://janbakker.tech/how-to-setup-sms-or-voice-with-your-own-telecom-provider-in-microsoft-entra/":{
+"title":"How to set up SMS or voice with your own telecom provider in Microsoft Entra",
+"link":"https://janbakker.tech/how-to-setup-sms-or-voice-with-your-own-telecom-provider-in-microsoft-entra/",
+"source":"JanBakker Tech - EntraID",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://daily.entra.news/day/2026-11-03/":{
+"title":"Microsoft-provided SMS and voice SSPR retirement sets February 2027 recovery deadline — 3 November 2026",
+"link":"https://daily.entra.news/day/2026-11-03/",
+"source":"Daily Entra News",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://blog.admindroid.com/microsoft-entra-id-sms-voice-retirement-for-sspr/":{
+"title":"Microsoft Entra ID is Retiring SMS & Voice Authentication for SSPR",
+"link":"https://blog.admindroid.com/microsoft-entra-id-sms-voice-retirement-for-sspr/",
+"source":"AdminDroid Blog",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
 }
 },
 "final":"2027-07-01",
@@ -6443,14 +6467,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-01",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-02",
 "text":"August 1, 2026."
 },
@@ -6500,6 +6516,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-02",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-03",
 "text":"August 1, 2026."
 },
 {
@@ -7115,7 +7139,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-02",
+"seen":"2026-11-03",
 "text":"early February 2026."
 },
 {
@@ -7123,7 +7147,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-02",
+"seen":"2026-11-03",
 "text":"February 2027."
 },
 {
@@ -8064,6 +8088,14 @@
 "date":"2026-10-23",
 "group":"community",
 "found":"2026-10-23"
+},
+"https://dev.to/theoliveirad/where-should-a-small-studio-launch-its-next-android-app-a-data-experiment-on-9644-google-play-apps-54bd":{
+"title":"Where should a small studio launch its next Android app? A data experiment on 9,644 Google Play apps",
+"link":"https://dev.to/theoliveirad/where-should-a-small-studio-launch-its-next-android-app-a-data-experiment-on-9644-google-play-apps-54bd",
+"source":"NeonTiger12",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
 }
 },
 "final":"2026-10-31",
@@ -9131,6 +9163,14 @@
 "date":"2026-10-30",
 "group":"community",
 "found":"2026-11-03"
+},
+"https://dev.to/pilothousedev/running-codex-claude-code-and-grok-side-by-side-without-babysitting-them-4i44":{
+"title":"Running Codex, Claude Code and Grok side by side without babysitting them",
+"link":"https://dev.to/pilothousedev/running-codex-claude-code-and-grok-side-by-side-without-babysitting-them-4i44",
+"source":"NeonTiger12",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
 }
 },
 "final":"2026-12-02",
@@ -10028,6 +10068,38 @@
 "date":"2026-11-03",
 "group":"community",
 "found":"2026-11-03"
+},
+"https://dev.to/voice_developer/10-tips-for-getting-natural-sounding-ai-voice-output-2hhn":{
+"title":"10 Tips for Getting Natural-Sounding AI Voice Output",
+"link":"https://dev.to/voice_developer/10-tips-for-getting-natural-sounding-ai-voice-output-2hhn",
+"source":"NeonTiger12",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://janbakker.tech/how-to-setup-sms-or-voice-with-your-own-telecom-provider-in-microsoft-entra/":{
+"title":"How to set up SMS or voice with your own telecom provider in Microsoft Entra",
+"link":"https://janbakker.tech/how-to-setup-sms-or-voice-with-your-own-telecom-provider-in-microsoft-entra/",
+"source":"JanBakker Tech - EntraID",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://daily.entra.news/day/2026-11-03/":{
+"title":"Microsoft-provided SMS and voice SSPR retirement sets February 2027 recovery deadline — 3 November 2026",
+"link":"https://daily.entra.news/day/2026-11-03/",
+"source":"Daily Entra News",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://blog.admindroid.com/microsoft-entra-id-sms-voice-retirement-for-sspr/":{
+"title":"Microsoft Entra ID is Retiring SMS & Voice Authentication for SSPR",
+"link":"https://blog.admindroid.com/microsoft-entra-id-sms-voice-retirement-for-sspr/",
+"source":"AdminDroid Blog",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
 }
 },
 "final":"2027-07-01",
@@ -10727,7 +10799,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-02",
+"seen":"2026-11-03",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10735,7 +10807,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-02",
+"seen":"2026-11-03",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11294,6 +11366,22 @@
 "title":"MC1536049: Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)",
 "link":"https://mc.merill.net/message/MC1536049",
 "source":"MC - Merill",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://office365itpros.com/2026/11/03/change-password-no-original/?utm_source=rss&utm_medium=rss&utm_campaign=change-password-no-original":{
+"title":"Entra ID Allows Users to Change Passwords Without Knowing Their Old Password",
+"link":"https://office365itpros.com/2026/11/03/change-password-no-original/?utm_source=rss&utm_medium=rss&utm_campaign=change-password-no-original",
+"source":"Office 365 IT Pros",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://janbakker.tech/how-to-secure-passkey-registration-in-entra-id/":{
+"title":"How to secure passkey registration in Entra ID",
+"link":"https://janbakker.tech/how-to-secure-passkey-registration-in-entra-id/",
+"source":"JanBakker Tech - EntraID",
 "date":"2026-11-03",
 "group":"community",
 "found":"2026-11-03"
@@ -17187,6 +17275,116 @@
 "src":"MC1536049",
 "now":"Feb 2027",
 "text":"We expect rollout to begin and complete in February 2027."
+},
+{
+"day":"2026-11-03",
+"cid":"c-item-mc1519855",
+"type":"material",
+"name":"SSPR requires registered authentication methods",
+"group":"community",
+"title":"How to set up SMS or voice with your own telecom provider in Microsoft Entra",
+"source":"JanBakker Tech - EntraID",
+"link":"https://janbakker.tech/how-to-setup-sms-or-voice-with-your-own-telecom-provider-in-microsoft-entra/"
+},
+{
+"day":"2026-11-03",
+"cid":"c-item-mc1519855",
+"type":"material",
+"name":"SSPR requires registered authentication methods",
+"group":"community",
+"title":"Microsoft-provided SMS and voice SSPR retirement sets February 2027 recovery deadline — 3 November 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-11-03/"
+},
+{
+"day":"2026-11-03",
+"cid":"c-item-mc1519855",
+"type":"material",
+"name":"SSPR requires registered authentication methods",
+"group":"community",
+"title":"Microsoft Entra ID is Retiring SMS & Voice Authentication for SSPR",
+"source":"AdminDroid Blog",
+"link":"https://blog.admindroid.com/microsoft-entra-id-sms-voice-retirement-for-sspr/"
+},
+{
+"day":"2026-11-03",
+"cid":"c-item-intune-google-play-strong-integrity",
+"type":"material",
+"name":"Google Play Strong Integrity enforcement for Android 13+",
+"group":"community",
+"title":"Where should a small studio launch its next Android app? A data experiment on 9,644 Google Play apps",
+"source":"NeonTiger12",
+"link":"https://dev.to/theoliveirad/where-should-a-small-studio-launch-its-next-android-app-a-data-experiment-on-9644-google-play-apps-54bd"
+},
+{
+"day":"2026-11-03",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"Running Codex, Claude Code and Grok side by side without babysitting them",
+"source":"NeonTiger12",
+"link":"https://dev.to/pilothousedev/running-codex-claude-code-and-grok-side-by-side-without-babysitting-them-4i44"
+},
+{
+"day":"2026-11-03",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"10 Tips for Getting Natural-Sounding AI Voice Output",
+"source":"NeonTiger12",
+"link":"https://dev.to/voice_developer/10-tips-for-getting-natural-sounding-ai-voice-output-2hhn"
+},
+{
+"day":"2026-11-03",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"How to set up SMS or voice with your own telecom provider in Microsoft Entra",
+"source":"JanBakker Tech - EntraID",
+"link":"https://janbakker.tech/how-to-setup-sms-or-voice-with-your-own-telecom-provider-in-microsoft-entra/"
+},
+{
+"day":"2026-11-03",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Microsoft-provided SMS and voice SSPR retirement sets February 2027 recovery deadline — 3 November 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-11-03/"
+},
+{
+"day":"2026-11-03",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Microsoft Entra ID is Retiring SMS & Voice Authentication for SSPR",
+"source":"AdminDroid Blog",
+"link":"https://blog.admindroid.com/microsoft-entra-id-sms-voice-retirement-for-sspr/"
+},
+{
+"day":"2026-11-03",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Entra ID Allows Users to Change Passwords Without Knowing Their Old Password",
+"source":"Office 365 IT Pros",
+"link":"https://office365itpros.com/2026/11/03/change-password-no-original/?utm_source=rss&utm_medium=rss&utm_campaign=change-password-no-original"
+},
+{
+"day":"2026-11-03",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"How to secure passkey registration in Entra ID",
+"source":"JanBakker Tech - EntraID",
+"link":"https://janbakker.tech/how-to-secure-passkey-registration-in-entra-id/"
 }
 ],
 "archive":{
