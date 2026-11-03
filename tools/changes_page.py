@@ -257,7 +257,7 @@ def xcheck_static(path, dc, home="../"):
     h = re.sub(r'<a class="xcflag-s"[^>]*>[^<]*</a>', "", h0)
     h = re.sub(r"<!--s5gf-->.*?<!--/s5gf-->", "", h, flags=re.S)
     E = lambda s: _h.escape(str(s or ""), quote=True)
-    V = {"moved": ("DATE MOVED", "#c53030"), "differs": ("OTHER DATE", "#b7791f"), "newer": ("NEWER POST", "#2b6cb0")}
+    V = {"moved": ("DATE MOVED", "#c53030"), "differs": ("OTHER DATE", "#94600f"), "newer": ("NEWER POST", "#2b6cb0")}
     found = []
 
     def flag(m):
