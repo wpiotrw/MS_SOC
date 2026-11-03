@@ -123,15 +123,16 @@ body th{font-size:13.5px;white-space:normal}
 body h2{font-size:20px}
 body h3{font-size:18px}
 /* §5gf: the cross-check of a Message Center post's dates against the other posts on the same change */
-.xc{margin:8px 0 2px;padding:8px 10px;border:2px solid #d69e2e;border-radius:10px;background:color-mix(in srgb,#d69e2e 9%,transparent);font-size:13px;line-height:1.45;overflow-wrap:anywhere}
+.xc{margin:8px 0 2px;padding:9px 12px;border:2px solid #d69e2e;border-radius:12px;background:color-mix(in srgb,#d69e2e 9%,transparent);font-size:14.5px;line-height:1.5;overflow-wrap:anywhere;color:var(--text)}
+.xc-lead{margin:6px 0;font-weight:700;font-size:15px}.xc-ul{margin:4px 0;padding-left:20px;list-style:disc}.xc-ul>li{margin:5px 0}.xc-ul>li::marker{color:#d69e2e}.xc-t{display:block;margin-top:2px}.xc-dm{background:#c53030}
 .xc-h{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:3px}
-.xc-v{display:inline-block;padding:1px 8px;border-radius:999px;font-weight:800;font-size:11px;letter-spacing:.04em;color:#fff}
-.xc-moved{background:#c53030}.xc-differs{background:#b7791f}.xc-newer{background:#2b6cb0}
+.xc-v{display:inline-block;padding:1px 8px;border-radius:999px;font-weight:800;font-size:12.5px;letter-spacing:.04em;color:#fff}
+.xc-moved{background:#c53030}.xc-differs{background:#94600f}.xc-newer{background:#2b6cb0}
 .xc-l{margin:3px 0}.xc-k{font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);margin-right:4px}
-.xc-d{display:inline-block;padding:0 7px;border-radius:5px;background:#34495e;color:#fff;font:700 12px var(--mono)}.xc-do{background:#b7791f}
-.xc-id{font:700 12px var(--mono);color:var(--accent)}
-.xc-f{margin:4px 0 0;font-size:12px;color:var(--muted)}
-.xcflag{display:inline-block;margin-left:6px;padding:0 7px;border-radius:999px;font-weight:800;font-size:10.5px;color:#fff;vertical-align:middle}
+.xc-d{display:inline-block;margin-right:6px;padding:1px 8px;border-radius:6px;background:#34495e;color:#fff;font:700 13.5px var(--mono)}.xc-do{background:#94600f}
+.xc-id{font:700 13.5px var(--mono);color:var(--accent)}
+.xc-f{margin:6px 0 0;font-size:14px}
+.xcflag{display:inline-block;margin-left:6px;padding:0 7px;border-radius:999px;font-weight:800;font-size:12px;color:#fff;vertical-align:middle}
 .xcsum{margin:0 0 14px;padding:10px 12px;border:2px solid #d69e2e;border-radius:12px}
 .xcsum h3{margin:0 0 6px;font-size:15px}.xc-row summary{cursor:pointer;line-height:1.6}.xcsum ul{margin:0;padding:0;list-style:none}.xcsum li{padding:6px 0;border-top:1px solid var(--border-soft)}
 </style>
@@ -222,18 +223,24 @@ body h3{font-size:18px}
     while ((m = rx.exec(s))) if (DC[m[0]] && o.indexOf(m[0]) < 0) o.push(m[0]); return o.slice(0, 2); }
   function mcA(id) { var a = el("a", "xc-id", id); a.href = "../#" + id; a.title = "Open " + id + " in the brief's Message Center tab"; return a; }
   function xcBox(id, full) {
-    var r = DC[id], box = el("div", "xc"), h = el("div", "xc-h"), N = full ? 9 : 2;
+    var r = DC[id], box = el("div", "xc"), h = el("div", "xc-h"), N = full ? 9 : 3, O = r.others || [], M = r.moved || [], NW = r.newer || [];
     h.appendChild(el("span", "xc-v xc-" + (r.verdict || "differs"), XV[r.verdict] || XV.differs));
     h.appendChild(el("b", null, "Cross-check of ")); h.appendChild(mcA(id)); box.appendChild(h);
-    function line(k, nodes) { var p = el("div", "xc-l"); p.appendChild(el("span", "xc-k", k)); nodes.forEach(function (n) { p.appendChild(typeof n === "string" ? document.createTextNode(n) : n); }); box.appendChild(p); }
-    if ((r.says || []).length) line("This post", [el("span", "xc-d", r.says.map(dmy).join(", "))]);
-    (r.moved || []).forEach(function (m) { line("Moved by Microsoft", [el("del", null, m.was), " → ", el("span", "xc-d", dmy(m.now))]); });
-    var O = r.others || [], NW = r.newer || [];
-    O.slice(0, N).forEach(function (o) { line(o.later ? "Later date in" : "Other date in", [mcA(o.src), o.post ? " (posted " + dmy(o.post) + ") " : " ", el("span", "xc-d xc-do", dmy(o.date)), " " + cut(o.text)]); });
-    NW.slice(-(full ? 3 : 1)).forEach(function (o) { line("Later post", [mcA(o.id), " (" + dmy(o.date) + ") " + (o.title || "")]); });
-    var more = Math.max(0, O.length - N) + Math.max(0, NW.length - (full ? 3 : 1)); if (more) line("", ["and " + more + " more date" + (more === 1 ? "" : "s") + " on this change — open the campaign"]);
-    (r.why || []).slice(0, full ? 2 : 1).forEach(function (w) { line("How they fit", [w]); });
-    var c = (r.campaigns || [])[0]; if (c) { var f = el("p", "xc-f"); f.appendChild(document.createTextNode("Campaign “" + c.name + "” — ")); var a = el("a", null, "open it"); a.href = "../#tab=campaigns&c=" + encodeURIComponent(c.id); f.appendChild(a); box.appendChild(f); }
+    var says = (r.says || []).map(dmy).join(", ");
+    /* §5gg: the conclusion first, in bold, then one bullet per date */
+    var lead = (r.why || [])[0] || (M[0] ? "Microsoft moved the date in this post: was " + M[0].was + ", now " + dmy(M[0].now) + "." :
+      O[0] ? "This post gives " + (says || "no date") + "; " + O[0].src + " gives " + dmy(O[0].date) + " for the same change." :
+      NW[0] ? "A later post on the same change exists: " + NW[NW.length - 1].id + " (" + dmy(NW[NW.length - 1].date) + ")." : "");
+    if (lead) box.appendChild(el("p", "xc-lead", lead));
+    var ul = el("ul", "xc-ul");
+    function li(date, cls, who, text) { var x = el("li"); if (date) x.appendChild(el("span", "xc-d " + (cls || ""), date)); (who || []).forEach(function (w) { x.appendChild(typeof w === "string" ? document.createTextNode(w) : w); }); if (text) x.appendChild(el("span", "xc-t", text)); ul.appendChild(x); }
+    if (says) li(says, "", [" this post"], "");
+    M.forEach(function (m) { li(dmy(m.now), "xc-dm", [" ", el("del", null, m.was), " → moved by Microsoft"], ""); });
+    O.slice(0, N).forEach(function (o) { li(dmy(o.date), "xc-do", [" ", mcA(o.src), o.post ? " posted " + dmy(o.post) : ""], cut(o.text)); });
+    NW.slice(-(full ? 3 : 1)).forEach(function (o) { li("", "", ["later post ", mcA(o.id), " " + dmy(o.date)], o.title || ""); });
+    var more = Math.max(0, O.length - N); if (more) li("", "", ["and " + more + " more date" + (more === 1 ? "" : "s") + " on this change"], "");
+    box.appendChild(ul);
+    var c = (r.campaigns || [])[0]; if (c) { var f = el("p", "xc-f"); var a = el("a", null, "Open the campaign “" + c.name + "” ›"); a.href = "../#tab=campaigns&c=" + encodeURIComponent(c.id); f.appendChild(a); box.appendChild(f); }
     return box;
   }
   function xcSummary(L) {
