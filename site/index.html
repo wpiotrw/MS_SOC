@@ -5977,6 +5977,70 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 .s5ge-fr{display:flex;flex-direction:column;gap:6px;padding:8px 0;border-top:1px solid color-mix(in srgb,var(--text) 15%,transparent)}
 .s5ge-none{margin:10px 0;padding:10px 12px;border:1px solid color-mix(in srgb,var(--text) 25%,transparent);border-radius:12px;line-height:1.5}
 .s5fo-blk.s5ge-lagb{border-left:4px solid #b7791f;border-radius:10px}
+/* §5gf: cross-check of dates, Known to with links, Use it - PowerShell, Sources & coverage */
+.s5gf-dc{margin:10px 0 4px;padding:10px 12px;border:2px solid #d69e2e;border-radius:12px;background:color-mix(in srgb,#d69e2e 9%,transparent);font-size:14px;line-height:1.45;text-align:left;cursor:auto}
+.s5gf-dc-c{font-size:13px}
+.s5gf-dch{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:4px}
+.s5gf-v{display:inline-block;padding:2px 9px;border-radius:999px;font-weight:800;font-size:11.5px;letter-spacing:.04em;color:#fff}
+.s5gf-v-moved{background:#c53030}.s5gf-v-diff{background:#b7791f}.s5gf-v-new{background:#2b6cb0}.s5gf-v-ps{background:#2f855a}
+.s5gf-dcl,.s5gf-why{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;margin:4px 0}
+.s5gf-k{display:inline-block;min-width:9.5em;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.03em;opacity:.85}
+.s5gf-d{display:inline-block;padding:1px 8px;border-radius:6px;background:#34495e;color:#fff;font-weight:800;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.s5gf-d-o{background:#b7791f}
+.s5gf-was{opacity:.8}
+.s5gf-t{flex:1 1 18em}
+.s5gf-sm{font-size:12px;opacity:.8}
+.s5gf-id{padding:1px 8px;border:1px solid var(--accent);border-radius:999px;background:transparent;color:var(--accent);font:700 12.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;cursor:pointer;text-decoration:none}
+.s5gf-fn{margin:6px 0 0;font-size:12px;opacity:.85}
+.s5gf-a{color:var(--accent)}
+.s5gf-flag{margin-left:6px;padding:1px 7px;border:0;border-radius:999px;font-family:inherit;font-weight:800;font-size:10.5px;line-height:1.6;letter-spacing:.04em;color:#fff;cursor:pointer}
+.s5gf-flag.s5gf-v-moved{background:#c53030}.s5gf-flag.s5gf-v-diff{background:#b7791f}.s5gf-flag.s5gf-v-new{background:#2b6cb0}
+.s5gf-known{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center}
+.s5gf-src{display:inline-block;padding:1px 9px;border-radius:999px;background:#2b6cb0;color:#fff!important;font-weight:700;font-size:12.5px;text-decoration:none}
+.s5gf-s-msmc{background:#6b46c1}.s5gf-s-deltapulse{background:#2c7a7b}.s5gf-s-tenant{background:#2f855a}
+.s5gf-miss{display:inline-block;padding:1px 9px;border:1px dashed color-mix(in srgb,var(--text) 45%,transparent);border-radius:999px;font-size:12px}
+.s5gf-how{margin:12px 0;padding:12px 14px;border:2px solid #2f855a;border-radius:14px;background:color-mix(in srgb,#2f855a 7%,transparent)}
+.s5gf-hh{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px}
+.s5gf-dates{margin:6px 0 10px;line-height:1.5}
+.s5gf-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.s5gf-tab{padding:6px 11px;border:1px solid color-mix(in srgb,var(--text) 30%,transparent);border-radius:10px;background:transparent;color:var(--text);font-family:inherit;font-weight:600;font-size:13px;line-height:1.35;cursor:pointer;text-align:left}
+.s5gf-tab[aria-selected="true"]{background:#2f855a;border-color:#2f855a;color:#fff}
+.s5gf-tab-w{border-style:dashed}.s5gf-tab-w[aria-selected="true"]{background:#c53030;border-color:#c53030}
+.s5gf-pane{padding:10px 12px;border:1px solid color-mix(in srgb,var(--text) 22%,transparent);border-radius:12px}
+.s5gf-pt{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
+.s5gf-kind{padding:2px 9px;border-radius:999px;font-weight:800;font-size:11.5px;color:#fff}.s5gf-kr{background:#2f855a}.s5gf-kw{background:#c53030}
+.s5gf-scope{font:600 12.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.s5gf-warn{margin:6px 0;padding:7px 10px;border-left:4px solid #c53030;border-radius:8px;background:color-mix(in srgb,#c53030 10%,transparent)}
+.s5gf-code{margin:6px 0;padding:10px;border-radius:10px;overflow:auto;max-height:420px;font-size:12.5px;line-height:1.45;white-space:pre}
+.s5gf-copy{padding:4px 12px;border:1px solid var(--accent);border-radius:8px;background:transparent;color:var(--accent);font-weight:700;cursor:pointer}
+.s5gf-srcs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 0;font-size:12.5px}
+.s5gf-srcl{margin-top:10px}.s5gf-srow{margin:4px 0;line-height:1.45}.s5gf-says{display:block;font-size:12.5px;opacity:.9}
+.s5gf-cov{margin:16px 0;padding:14px;border:2px solid var(--accent);border-radius:14px}
+.s5gf-ch h3{margin:0 0 4px}.s5gf-sub{margin:4px 0 10px;line-height:1.5}
+.s5gf-alarm{margin:8px 0 12px;padding:10px 12px;border-radius:12px;border:2px solid}.s5gf-al-ok{border-color:#2f855a;background:color-mix(in srgb,#2f855a 10%,transparent)}.s5gf-al-bad{border-color:#c53030;background:color-mix(in srgb,#c53030 10%,transparent)}
+.s5gf-gr{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0}
+.s5gf-bars{display:flex;flex-direction:column;gap:6px;margin:8px 0 12px}
+.s5gf-br{display:grid;grid-template-columns:11em minmax(80px,1fr) 6.5em;gap:4px 10px;align-items:center}
+.s5gf-bi{grid-column:1/-1;font-size:12px;opacity:.85;margin:-2px 0 4px}
+.s5gf-bn{font-weight:700}.s5gf-br-us .s5gf-bn{color:var(--accent)}
+.s5gf-bar{display:inline-block;width:100%;height:12px;border-radius:6px;background:color-mix(in srgb,var(--text) 12%,transparent);overflow:hidden;vertical-align:middle}
+.s5gf-bar i{display:block;height:100%;background:#6b46c1;border-radius:6px}.s5gf-bar i.s5gf-i-us{background:var(--accent)}
+.s5gf-bv{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;text-align:right}
+.s5gf-lack{margin:6px 0;padding:6px 10px;border:1px solid color-mix(in srgb,var(--text) 22%,transparent);border-radius:10px}
+.s5gf-lack summary{cursor:pointer;font-weight:600}
+.s5gf-ll{margin:6px 0;padding-left:0;list-style:none}.s5gf-ll li{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;padding:4px 0;border-top:1px solid color-mix(in srgb,var(--text) 12%,transparent)}
+.s5gf-tw{overflow-x:auto}.s5gf-tw h4{margin:12px 0 6px}
+.s5gf-tt{border-collapse:collapse;min-width:640px;width:100%;font-size:13px}
+.s5gf-tt th,.s5gf-tt td{padding:5px 8px;border-bottom:1px solid color-mix(in srgb,var(--text) 14%,transparent);text-align:left;white-space:nowrap}
+.s5gf-tv .s5gf-bar{width:60px;margin-right:6px}.s5gf-tv.s5gf-lt span{color:#d69e2e;font-weight:700}
+.s5gf-none{margin:6px 0;opacity:.9}
+@media (max-width:560px){.s5gf-br{grid-template-columns:8em minmax(60px,1fr) 5.5em}.s5gf-k{min-width:0}}
+.s5gf-dc,.s5gf-how,.s5gf-pane,.s5gf-cov,.s5gf-alarm{box-sizing:border-box;min-width:0;max-width:100%}
+.mcb-det{grid-template-columns:minmax(0,1fr)}.mcb-det>.s5gf-dc,.mcb-det>.s5gf-how{width:100%}
+.s5gf-dch b,.s5gf-t,.s5gf-says,.s5gf-tab,.s5gf-dates,.s5gf-why{overflow-wrap:anywhere;white-space:normal}
+.s5gf-tab{max-width:100%}
+.s5gf-code{max-width:100%;box-sizing:border-box}
+.s5gf-lack summary{display:block}
 .s5fw-tday .gd-trows li{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .s5fw-k{display:inline-block;padding:1px 8px;border-radius:999px;font-weight:700;font-size:12px;color:#fff}
 .s5fw-k-added{background:#1f7a44}.s5fw-k-changed{background:#b7791f}.s5fw-k-removed{background:var(--bad)}
@@ -19711,6 +19775,7 @@ IdentityDirectoryEvents
       var p = el("p", "mcb-sum"); p.appendChild(el("span", "mcb-k", s[1])); p.appendChild(document.createTextNode(e[s[0]])); box.appendChild(p);
     });
     if (!any) box.appendChild(el("p", "mcb-none", "No summary was read for this post — open it at the source."));
+    if (window.__socMcX) { try { var dcx = window.__socMcX.dateBox(r.id); if (dcx) box.appendChild(dcx); } catch (x0) {} }   /* §5gf: the other posts on the same change */
     if (r.act) { var pa = el("p", "mcb-sum"); pa.appendChild(el("span", "mcb-k", "What to do")); pa.appendChild(document.createTextNode(r.act)); box.appendChild(pa); }
     var dl = el("dl", "mcb-dl");
     function kv(k, v) { if (!v) return; dl.appendChild(el("dt", null, k)); var dd = el("dd"); if (typeof v === "string") dd.textContent = v; else dd.appendChild(v); dl.appendChild(dd); }
@@ -19725,6 +19790,9 @@ IdentityDirectoryEvents
     if (e.tenantChange) kv("Changed in our tenant", Object.keys(e.tenantChange).join(", "));
     var src = el("span", "mcb-srcs");
     r.src.forEach(function (s) { src.appendChild(el("span", "mcb-src s-" + s, SRC[s] || s)); });
+    /* §5gf: "Known to" said "Earlier brief" for every post carried over from a previous run; now it names every source
+       that lists the post (tools/mc_coverage.py), each with its link, and the ones that do not */
+    if (window.__socMcX) { try { src = window.__socMcX.known(r.id, r.src); } catch (x1) {} }
     kv("Known to", src);
     var ln = el("span", "mcb-links");
     var num = String(r.id).replace(/^MC/i, "");
@@ -19736,6 +19804,7 @@ IdentityDirectoryEvents
     } else ln.appendChild(a("https://www.microsoft.com/microsoft-365/roadmap?id=" + num.replace(/\D/g, ""), "Microsoft 365 Roadmap"));
     kv("Open at", ln);
     box.appendChild(dl);
+    if (window.__socMcX) { try { var hw = window.__socMcX.howto(r.id); if (hw) box.appendChild(hw); } catch (x2) {} }   /* §5gf: Use it - PowerShell */
     var tools = el("div", "mcb-tools");
     var cp = el("button", "mcb-btn", "Copy link to this post"); cp.type = "button";
     cp.addEventListener("click", function () {
@@ -31138,6 +31207,190 @@ IdentityDirectoryEvents
   }
   window.addEventListener("hashchange", fromHash);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 300); }); else setTimeout(start, 300);
+})();
+
+
+/* §5gf (3 XI 2026, owner: "MC1488839 extends MemberOf to 31 March 2027 - so why do we still say it ends in November?
+   We do not cross-check. Say that something was until X and now is until Y - and check every piece of information
+   that way. Do we follow msmessagecenter.com, do we cross-check the sources so the list is always complete, does every
+   section say where an MC comes from with a link, does the Message Center tab report counts, differences and
+   technologies per source? And for an MC: PowerShell to USE the feature, not only to read the post").
+   window.__socMcX: three small files.
+     /data/mc-datecheck.json  (tools/mc_datecheck.py, from the campaigns): per post, the dates the OTHER posts of the same
+                              change give, dates Microsoft moved, later posts - the "Cross-check" frame next to every
+                              MC chip (Overview sentences and cards, Today, New, Deadlines) and in the MC card.
+     /data/mc-howto.json      (hand + routine, checked by tools/mc_howto_todo.py and mc_howto_validate.ps1): "Use it -
+                              PowerShell" tabs in the MC card.
+     /data/mc-coverage.json   (tools/mc_coverage.py, read when the Message Center tab or a card needs it): which source
+                              knows which post - "Known to" with a link per source, and the "Sources & coverage" report. */
+(function () {
+  "use strict";
+  if (window.__socMcX) return;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || ""); }
+  function a(h, t, c) { var x = el("a", c || "s5gf-a", t); x.href = h; x.target = "_blank"; x.rel = "noopener"; return x; }
+  function getJSON(u, ok) { if (!window.fetch) { ok(null); return; } fetch(u, { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(ok).catch(function () { ok(null); }); }
+  var DC = null, HW = null, CV = null, cvAsked = false, cvWait = [];
+  var X = window.__socMcX = {};
+  var LINK = { merill: function (i) { return "https://mc.merill.net/message/" + i; }, msmc: function (i) { return "https://msmessagecenter.com/" + i; },
+    deltapulse: function (i) { return "https://deltapulse.app/item/" + i; }, tenant: function (i) { return "https://admin.microsoft.com/#/MessageCenter/:/messages/" + i; } };
+  var NAME = { merill: "mc.merill.net", msmc: "msmessagecenter.com", deltapulse: "DeltaPulse", tenant: "Our tenant (Graph)", ours: "This portal" };
+  var ORDER = ["merill", "msmc", "deltapulse", "tenant"];
+  X.cov = function (cb) { if (CV) { if (cb) cb(CV); return CV; } if (cb) cvWait.push(cb);
+    if (!cvAsked) { cvAsked = true; getJSON("/data/mc-coverage.json", function (d) { CV = d || { posts: {} }; var w = cvWait; cvWait = []; w.forEach(function (f) { try { f(CV); } catch (e) {} }); }); } return null; };
+
+  /* ---- the cross-check frame ---- */
+  var VERD = { moved: ["DATE MOVED", "s5gf-v-moved"], differs: ["OTHER DATE", "s5gf-v-diff"], newer: ["NEWER POST", "s5gf-v-new"] };
+  function openMc(id) {
+    var row = document.getElementById("mcb-" + id);
+    var t = document.getElementById("tabbtn-tab-mc"); if (t && t.getAttribute("aria-selected") !== "true") t.click();
+    setTimeout(function () { var r = document.getElementById("mcb-" + id); if (r) { var h = r.querySelector(".mcb-head"); if (h && h.getAttribute("aria-expanded") !== "true") h.click(); r.scrollIntoView({ block: "center" }); } else location.hash = "#" + id; }, row ? 60 : 400);
+  }
+  function idBtn(id) { var b = el("button", "s5gf-id", id); b.type = "button"; b.title = "Open " + id + " in Message Center"; b.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); openMc(id); }); return b; }
+  X.dateBox = function (id, compact) {
+    var r = DC && (DC.byMc || {})[id]; if (!r) return null;
+    var v = VERD[r.verdict] || VERD.differs;
+    var box = el("div", "s5gf-dc" + (compact ? " s5gf-dc-c" : "")); box.setAttribute("data-id", id);
+    box.addEventListener("click", function (ev) { ev.stopPropagation(); });
+    var h = el("div", "s5gf-dch"); h.appendChild(el("span", "s5gf-v " + v[1], v[0]));
+    h.appendChild(el("b", null, "Cross-check of " + id + " with the other posts on this change"));
+    box.appendChild(h);
+    if ((r.says || []).length) { var p0 = el("p", "s5gf-dcl"); p0.appendChild(el("span", "s5gf-k", "This post")); p0.appendChild(el("span", "s5gf-d", r.says.map(dmy).join(", "))); box.appendChild(p0); }
+    (r.moved || []).forEach(function (m) { var p = el("p", "s5gf-dcl"); p.appendChild(el("span", "s5gf-k", "Moved by Microsoft"));
+      p.appendChild(el("del", "s5gf-was", m.was)); p.appendChild(document.createTextNode(" → ")); p.appendChild(el("span", "s5gf-d", dmy(m.now))); if (!compact) p.appendChild(el("span", "s5gf-t", m.text)); box.appendChild(p); });
+    (r.others || []).forEach(function (o) { var p = el("p", "s5gf-dcl"); p.appendChild(el("span", "s5gf-k", o.later ? "Later date in" : "Other date in"));
+      p.appendChild(idBtn(o.src)); if (o.post) p.appendChild(el("span", "s5gf-sm", "posted " + dmy(o.post))); p.appendChild(el("span", "s5gf-d s5gf-d-o", dmy(o.date)));
+      p.appendChild(el("span", "s5gf-t", o.text)); box.appendChild(p); });
+    (r.newer || []).forEach(function (o) { var p = el("p", "s5gf-dcl"); p.appendChild(el("span", "s5gf-k", "Later post")); p.appendChild(idBtn(o.id));
+      p.appendChild(el("span", "s5gf-sm", "posted " + dmy(o.date))); p.appendChild(el("span", "s5gf-t", o.title)); box.appendChild(p); });
+    (r.why || []).forEach(function (w) { var p = el("p", "s5gf-why"); p.appendChild(el("span", "s5gf-k", "How they fit")); p.appendChild(document.createTextNode(w)); box.appendChild(p); });
+    var f = el("p", "s5gf-fn"); f.appendChild(document.createTextNode("From the campaign " + (r.campaigns || []).map(function (c) { return "“" + c.name + "”"; }).join(", ") + " — every post on the change, compared by the portal. "));
+    var cl = el("a", "s5gf-a", "Open the campaign"); cl.href = "#tab=campaigns&c=" + encodeURIComponent(((r.campaigns || [])[0] || {}).id || ""); f.appendChild(cl); box.appendChild(f);
+    return box;
+  };
+  /* every MC chip of the brief (Overview sentences and cards, Today, New, Deadlines) gets the frame once per row */
+  var SCOPE = "#tab-overview .mcchip, #tab-today .mcchip, #tab-new .mcchip, #tab-deadlines .mcchip";
+  function scan() {
+    if (!DC) return;
+    var ch = document.querySelectorAll(SCOPE), n = 0;
+    for (var i = 0; i < ch.length; i++) {
+      var c = ch[i], id = (c.getAttribute("data-mc") || c.textContent || "").trim();
+      if (!/^MC\d+$/.test(id) || !(DC.byMc || {})[id] || c.__s5gf) continue;
+      c.__s5gf = 1;
+      var row = c.closest("tr");
+      if (row) {   /* a table row: a filled flag next to the chip, the frame opens under it */
+        var fl = el("button", "s5gf-flag " + (VERD[DC.byMc[id].verdict] || VERD.differs)[1], (VERD[DC.byMc[id].verdict] || VERD.differs)[0]); fl.type = "button"; fl.title = "Other posts on this change give another date - open the cross-check";
+        (function (fl, id) { fl.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); var nx = fl.nextElementSibling; if (nx && nx.classList.contains("s5gf-dc")) { nx.remove(); return; } var bx = X.dateBox(id, true); if (bx) fl.parentNode.insertBefore(bx, fl.nextSibling); }); })(fl, id);
+        if (c.nextSibling) c.parentNode.insertBefore(fl, c.nextSibling); else c.parentNode.appendChild(fl);
+        n++; continue;
+      }
+      var box = c.closest("li, article, .s5ci-it, .s5ci-pick, .s5ci-tr, .s5bk-card"); if (!box) continue;
+      if (box.querySelector('.s5gf-dc[data-id="' + id + '"]')) continue;
+      var dc = X.dateBox(id, true); if (dc) { box.appendChild(dc); n++; }
+    }
+    return n;
+  }
+  X.scan = scan;
+  function later(f, ms) { setTimeout(function () { if (window.requestIdleCallback) requestIdleCallback(f, { timeout: 1500 }); else f(); }, ms); }
+  document.addEventListener("click", function (ev) { var t = ev.target.closest && ev.target.closest('[id^="tabbtn-tab-"], .s5bk-tab, summary'); if (t) later(scan, 500); }, true);
+
+  /* ---- Known to: every source that lists the post, with its link; the ones that do not list it are named too ---- */
+  X.known = function (id, fallback) {
+    var w = el("span", "s5gf-known");
+    function draw(C) {
+      w.textContent = "";
+      var s = ((C && C.posts) || {})[id];
+      if (!s) { (fallback || []).forEach(function (k) { if (k !== "prev") w.appendChild(el("span", "mcb-src s-" + k, k)); }); if (!w.childNodes.length) w.appendChild(el("span", "s5gf-sm", "not in the sources' listings (older than their reach)")); return; }
+      var has = s.split("+");
+      ORDER.forEach(function (k) { if (has.indexOf(k) >= 0) { var x = a(LINK[k](id), NAME[k] + " ↗", "s5gf-src s5gf-s-" + k); w.appendChild(x); } });
+      var miss = ORDER.filter(function (k) { return has.indexOf(k) < 0 && (C.sources || {})[k] && C.sources[k].state === "ok"; });
+      if (miss.length) { var m = el("span", "s5gf-miss", "not on " + miss.map(function (k) { return NAME[k]; }).join(", ")); m.title = "Checked " + dmy(C.day) + (miss.indexOf("deltapulse") >= 0 ? " · DeltaPulse reads the last 30 days only" : "") + (miss.indexOf("tenant") >= 0 ? " · our tenant sees only the services it subscribes to" : ""); w.appendChild(m); }
+    }
+    var C = X.cov(function (C2) { draw(C2); }); draw(C);
+    return w;
+  };
+
+  /* ---- Use it - PowerShell: tabs, one per block ---- */
+  X.howto = function (id) {
+    var note = HW && (HW.notes || []).filter(function (n) { return (n.ids || []).indexOf(id) >= 0; })[0]; if (!note) return null;
+    var box = el("section", "s5gf-how");
+    var h = el("div", "s5gf-hh"); h.appendChild(el("span", "s5gf-v s5gf-v-ps", "USE IT — POWERSHELL"));
+    h.appendChild(el("b", null, note.title)); box.appendChild(h);
+    if (note.scriptable === false) { box.appendChild(el("p", "s5gf-none", "No admin script for this change: " + (note.why || ""))); return box; }
+    if (note.dates) { var dt = el("p", "s5gf-dates"); dt.appendChild(el("span", "s5gf-k", "Dates, cross-checked")); dt.appendChild(document.createTextNode(note.dates)); box.appendChild(dt); }
+    var tabs = el("div", "s5gf-tabs"); tabs.setAttribute("role", "tablist"); var pane = el("div", "s5gf-pane"); box.appendChild(tabs); box.appendChild(pane);
+    function show(i) {
+      [].forEach.call(tabs.children, function (b, j) { b.setAttribute("aria-selected", String(i === j)); });
+      var b = note.blocks[i]; pane.textContent = "";
+      var top = el("div", "s5gf-pt"); top.appendChild(el("span", "s5gf-kind " + (b.kind === "write" ? "s5gf-kw" : "s5gf-kr"), b.kind === "write" ? "CHANGES THE TENANT" : "READ ONLY"));
+      top.appendChild(el("span", "s5gf-scope", "Scopes: " + b.scopes)); pane.appendChild(top);
+      if (b.warn) pane.appendChild(el("p", "s5gf-warn", b.warn));
+      var pre = el("pre", "s5gf-code"); pre.textContent = b.code; pane.appendChild(pre);
+      var cp = el("button", "s5gf-copy", "Copy"); cp.type = "button"; cp.addEventListener("click", function () { try { navigator.clipboard.writeText(b.code).then(function () { cp.textContent = "Copied"; setTimeout(function () { cp.textContent = "Copy"; }, 1500); }); } catch (e) {} }); pane.appendChild(cp);
+      var s = el("p", "s5gf-srcs"); s.appendChild(el("span", "s5gf-k", "Based on")); (b.src || []).forEach(function (u) { s.appendChild(a(u, u.replace(/^https:\/\/(www\.)?/, "").replace(/[?#].*$/, "").slice(0, 70) + " ↗")); }); pane.appendChild(s);
+    }
+    (note.blocks || []).forEach(function (b, i) { var t = el("button", "s5gf-tab" + (b.kind === "write" ? " s5gf-tab-w" : ""), b.t); t.type = "button"; t.setAttribute("role", "tab"); t.addEventListener("click", function () { show(i); }); tabs.appendChild(t); });
+    if ((note.blocks || []).length) show(0);
+    if ((note.sources || []).length) { var sl = el("div", "s5gf-srcl"); sl.appendChild(el("p", "s5gf-k", "Sources"));
+      note.sources.forEach(function (s) { var p = el("p", "s5gf-srow"); p.appendChild(a(s.u, s.t + " ↗")); p.appendChild(el("span", "s5gf-says", s.says)); sl.appendChild(p); }); box.appendChild(sl); }
+    box.appendChild(el("p", "s5gf-fn", "Checked " + dmy(note.checked) + " against " + (note.sdk || "the Microsoft Graph PowerShell SDK") + ": every cmdlet and parameter exists, scopes from Find-MgGraphCommand, changes only with -WhatIf. Run in your own tenant; nothing here is run by the portal."));
+    return box;
+  };
+
+  /* ---- Message Center > Sources & coverage ---- */
+  function bar(v, max, cls) { var b = el("span", "s5gf-bar"); var i = el("i", cls || ""); i.style.width = Math.max(v ? 2 : 0, Math.round(100 * v / Math.max(1, max))) + "%"; b.appendChild(i); return b; }
+  function coverage() {
+    var p = document.getElementById("tab-mc"); if (!p || document.getElementById("s5gf-cov")) return;
+    var sec = el("section", "s5gf-cov"); sec.id = "s5gf-cov";
+    var anchor = document.getElementById("mc-sources"); if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(sec, anchor); else p.appendChild(sec);
+    sec.appendChild(el("p", "s5dv-note", "Reading the cross-check of the sources…"));
+    X.cov(function (C) {
+      sec.textContent = "";
+      var h = el("div", "s5gf-ch"); h.appendChild(el("h3", null, "Sources & coverage — who knows which Message Center post")); sec.appendChild(h);
+      var W = C.window || {}, cn = C.counts || {};
+      sec.appendChild(el("p", "s5gf-sub", "Posts changed in the last " + (W.days || 30) + " days (" + dmy(W.since) + " – " + dmy(C.day) + "): " + (W.posts || 0) + ". Each source is read on its own and compared post by post; a source with a shorter reach (DeltaPulse 30 days, our tenant only its services) is not a gap."));
+      var g = C.gaps || [];
+      var al = el("div", "s5gf-alarm " + (g.length ? "s5gf-al-bad" : "s5gf-al-ok"));
+      al.appendChild(el("b", null, g.length ? g.length + " post" + (g.length === 1 ? "" : "s") + " another source knows and this portal's list did not carry when it was checked" : "Nothing missing: every post another source knows is in this portal's list"));
+      g.slice(0, 10).forEach(function (x) { var r = el("p", "s5gf-gr"); r.appendChild(a(x.link, x.id + " ↗", "s5gf-id")); r.appendChild(el("span", null, (x.title || "") + " · " + dmy(x.changed) + " · on " + x.s.split("+").map(function (k) { return NAME[k] || k; }).join(", "))); al.appendChild(r); });
+      if (g.length) al.appendChild(el("p", "s5gf-sm", "The brief's collector adds them on its next run (collect_mc.py, source “coverage”)."));
+      sec.appendChild(al);
+      var max = W.posts || 1, tbl = el("div", "s5gf-bars");
+      ["ours"].concat(ORDER).forEach(function (k) {
+        var c = cn[k] || {}, r = el("div", "s5gf-br" + (k === "ours" ? " s5gf-br-us" : ""));
+        r.appendChild(el("span", "s5gf-bn", NAME[k]));
+        r.appendChild(bar(c.window || 0, max, k === "ours" ? "s5gf-i-us" : ""));
+        r.appendChild(el("b", "s5gf-bv", (c.window || 0) + " / " + max));
+        var info = el("span", "s5gf-bi", (C.reach || {})[k] + " · " + (c.all || 0) + " in all" + (c.only ? " · " + c.only + " only here" : "") + (((C.sources || {})[k] || {}).state === "unread" ? " · NOT READ" : ""));
+        r.appendChild(info); tbl.appendChild(r);
+      });
+      sec.appendChild(tbl);
+      var lk = C.lacks || {};
+      ORDER.forEach(function (k) {
+        var L = lk[k] || []; if (!L.length) return;
+        var d = el("details", "s5gf-lack"); var sm = el("summary"), st = el("span"); st.appendChild(document.createTextNode("Not on " + NAME[k] + ": ")); st.appendChild(el("b", null, String((C.missingCount || {})[k] || L.length))); st.appendChild(document.createTextNode(" posts of the window")); sm.appendChild(st); d.appendChild(sm);
+        var ul = el("ul", "s5gf-ll"); L.slice(0, 60).forEach(function (x) { var li = el("li"); li.appendChild(idBtn(x.id)); li.appendChild(el("span", "s5gf-sm", dmy(x.changed))); li.appendChild(el("span", null, x.title || "")); li.appendChild(el("span", "s5gf-sm", "on " + x.s.split("+").filter(function (s) { return s !== "ours"; }).map(function (s) { return NAME[s]; }).join(", "))); ul.appendChild(li); });
+        d.appendChild(ul); sec.appendChild(d);
+      });
+      var T = C.tech || {}, keys = Object.keys(T);
+      if (keys.length) {
+        var t = el("table", "s5gf-tt"), th = el("tr"); ["Technology", "All", NAME.ours].concat(ORDER.map(function (k) { return NAME[k]; })).forEach(function (x) { th.appendChild(el("th", null, x)); }); t.appendChild(th);
+        keys.forEach(function (tk) { var r = T[tk], tr = el("tr"); tr.appendChild(el("td", "s5gf-tn", tk)); tr.appendChild(el("td", "s5gf-tv", String(r.all)));
+          ["ours"].concat(ORDER).forEach(function (k) { var v = r[k] || 0, td = el("td", "s5gf-tv" + (v < r.all ? " s5gf-lt" : "")); td.appendChild(bar(v, r.all, k === "ours" ? "s5gf-i-us" : "")); td.appendChild(el("span", null, String(v))); tr.appendChild(td); }); t.appendChild(tr); });
+        var tw = el("div", "s5gf-tw"); tw.appendChild(el("h4", null, "Per technology — posts of the window each source carries (amber: fewer than all)")); tw.appendChild(t); sec.appendChild(tw);
+      }
+      sec.appendChild(el("p", "s5gf-fn", "Read " + dmy(C.day) + " by tools/mc_coverage.py: mc.merill.net (its published JSON), msmessagecenter.com (its sitemap of active posts and the RSS feed), DeltaPulse (its public MCP server), our tenant's Message Center (Microsoft Graph) and this portal's list. " + (C.note || "")));
+    });
+  }
+  X.coverage = coverage;
+  document.addEventListener("click", function (ev) { var t = ev.target.closest && ev.target.closest("#tabbtn-tab-mc"); if (t) setTimeout(coverage, 300); }, true);
+
+  function start() {
+    getJSON("/data/mc-datecheck.json", function (d) { DC = d || { byMc: {} }; later(scan, 1500); later(scan, 6000); later(scan, 12000); });
+    getJSON("/data/mc-howto.json", function (d) { HW = d || { notes: [] }; });
+    if (/^#(tab=mc|tab-mc|MC\d+)/.test(location.hash || "")) setTimeout(coverage, 1500);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 800); }); else setTimeout(start, 800);
 })();
 
 
