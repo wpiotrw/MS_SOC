@@ -1,0 +1,13 @@
+// title: Mitigation and protection guidance
+// date: 2026-11-03
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: Fake-download campaign uses trojanized installers to deliver monetization payloads
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/
+// kind: article
+// author: Microsoft Security Research and Jiacen Xu · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where RemoteUrl has "d=inno"
+| where RemoteUrl has_any ("r=offer_execution", "r=offer_execution_fail")
+| project Timestamp, DeviceName, RemoteUrl, InitiatingProcessFileName

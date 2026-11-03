@@ -98,6 +98,51 @@
   "repo": "cyb3rmik3 KQL threat hunting queries"
  },
  {
+  "file": "articles/2026-11-03-payload-execution-from-inno-temporary-directories.kql",
+  "title": "Payload execution from Inno temporary directories",
+  "date": "2026-11-03",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Fake-download campaign uses trojanized installers to deliver monetization payloads",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/",
+  "kind": "article",
+  "author": "Microsoft Security Research and Jiacen Xu · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/",
+  "incident": "auto-fake-download-campaign-uses-trojanized-i-2026-11-03"
+ },
+ {
+  "file": "articles/2026-11-03-outbound-connections-to-observed-campaign-infrastructure.kql",
+  "title": "Outbound connections to observed campaign infrastructure",
+  "date": "2026-11-03",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Fake-download campaign uses trojanized installers to deliver monetization payloads",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/",
+  "kind": "article",
+  "author": "Microsoft Security Research and Jiacen Xu · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/",
+  "incident": "auto-fake-download-campaign-uses-trojanized-i-2026-11-03"
+ },
+ {
+  "file": "articles/2026-11-03-mitigation-and-protection-guidance.kql",
+  "title": "Mitigation and protection guidance",
+  "date": "2026-11-03",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Fake-download campaign uses trojanized installers to deliver monetization payloads",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/",
+  "kind": "article",
+  "author": "Microsoft Security Research and Jiacen Xu · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/",
+  "incident": "auto-fake-download-campaign-uses-trojanized-i-2026-11-03"
+ },
+ {
   "file": "articles/2026-11-03-detection-1-ivanti-connect-secure-remote-authenticated-file.kql",
   "title": "Detection 1: Ivanti Connect Secure - Remote Authenticated File Upload to Known Disk Path (CVE-2026-118527)",
   "date": "2026-11-03",

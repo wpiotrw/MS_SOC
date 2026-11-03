@@ -1,0 +1,13 @@
+// title: Payload execution from Inno temporary directories
+// date: 2026-11-03
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Fake-download campaign uses trojanized installers to deliver monetization payloads
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/
+// kind: article
+// author: Microsoft Security Research and Jiacen Xu · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where FolderPath has @"\AppData\Local\Temp\is-"
+| where FileName matches regex @"(?i)^(eld[0-9]+|set_[0-9]+|FirstFast(?:\[1\])?|SecondRunner(?:\[1\])?)\.exe$"
+| project Timestamp, DeviceName, FileName, FolderPath, InitiatingProcessFileName, SHA256

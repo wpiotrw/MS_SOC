@@ -1,0 +1,12 @@
+// title: Outbound connections to observed campaign infrastructure
+// date: 2026-11-03
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: Fake-download campaign uses trojanized installers to deliver monetization payloads
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/
+// kind: article
+// author: Microsoft Security Research and Jiacen Xu · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where RemoteUrl has_any ("orbittrack.cfd", "prairielink.cfd", "willowbox.xyz", "stonestation.cfd", "foldlodge.xyz", "friendsanchor.xyz", "fallport.cfd", "wishcourt.cfd", "cratebase.cfd", "belieftrack.cfd", "beliefdesk.xyz", "companyharbor.xyz", "signalpane.cfd", "inkact.xyz", "wishgrove.cfd")
+| project Timestamp, DeviceName, RemoteUrl, RemotePort, InitiatingProcessFileName
