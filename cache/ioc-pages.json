@@ -50,7 +50,7 @@
 "In the text: These domains masquerade as IT infrastructure, opting for a help desk- or support-themed word as the tenant name to increase their credibility -  helpdeskteam365.onmicrosoft[.]com "
 ]
 ],
-"read": "2026-10-26"
+"read": "2026-11-03"
 },
 "https://thehackernews.com/2026/10/connectwise-suspends-cloud-backup-after.html": {
 "iocs": [
@@ -105,7 +105,7 @@
 "In the text: As of writing, the two platforms are operational, with the former now rebranded as exy[.]sh . \"StarkRDP has always been operating by the law and is not involved in any of these all"
 ]
 ],
-"read": "2026-10-26"
+"read": "2026-11-03"
 },
 "https://www.bleepingcomputer.com/news/security/hackers-breach-microsoft-365-tenants-via-connectwise-supply-chain-attack/": {
 "iocs": [
