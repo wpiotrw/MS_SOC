@@ -60,13 +60,15 @@ For more information about public preview items, see [Public preview in Windows 
 
 ## Week of November 2, 2026
 
-### Auto-deprovisioning setting for Windows 365 Reserve Cloud PCs (Public Preview)
+### User settings (legacy) policy creation is being disabled in Cloud PC Settings (Public Preview)
 
-Auto-deprovisioning is an optional setting that helps admins maximize the value of the 10-day entitlement for a Reserve Cloud PC. When enabled, this setting automatically deprovisions Cloud PCs that are provisioned but not actively connected to, based on a threshold configured by the admin. Administrators control availability through Cloud PC configuration settings for Windows 365 in Microsoft Intune, where the setting can be enabled and scoped to specific Microsoft Entra ID user groups.
+As part of the **User settings (legacy)** transition, we're rolling out changes to **Cloud PC Settings** in the Microsoft Intune admin center. The **User settings** tab is being renamed to **User settings (legacy)**, and the ability to create new policies is being disabled.
 
-Once deprovisioned, the Cloud PCs will need reprovisioning to be used again. Any remaining Reserve Cloud PC access days are preserved and can be used after reprovisioning. This feature is disabled by default and fully governed by IT, with the ability to update the setting at any point in time.
+Existing policies can still be edited for a limited time and will continue to apply until their migration is complete. We encourage admins to migrate their existing **User settings (legacy)** policies by recreating each setting in the corresponding experience. To learn more, see [User settings (legacy)](/en-us/windows-365/enterprise/assign-users-as-local-admin).
 
-For more information, see [Managing W365 Reserve](/en-us/windows-365/enterprise/windows-365-reserve-manage).
+### Enable local admin setting in Cloud PC configurations now generally available
+
+The Enable local admin setting in Cloud PC configurations is now generally available in Intune. This setting allows IT admins to grant users local administrator permissions on their Cloud PCs. To learn more, see [Cloud PC configurations](/en-us/windows-365/enterprise/cloud-pc-configurations).
 
 ## Week of October 19, 2026
 

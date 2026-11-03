@@ -16,7 +16,7 @@ uhfHeaderId: MSDocsHeader-M365-IT
 ms.author: mabond
 author: mkbond007
 manager: dansimp
-ms.date: 2026-10-30T00:00:00.0000000Z
+ms.date: 2026-11-02T00:00:00.0000000Z
 ms.reviewer: sangar
 audience: Admin
 ms.topic: how-to
@@ -165,15 +165,17 @@ To assign users or [security groups](/en-us/entra/fundamentals/concept-learn-abo
 1. Sign in to the Microsoft 365 admin center.
 2. In the left navigation, expand **Copilot** and select **Settings**.
 
-    [![Screenshot of Copilot settings in Microsoft 365 admin center.](../../media/copilot-settings-admin-center.png)](../../media/copilot-settings-admin-center-expanded.png#lightbox)
+    [![Screenshot of Manage release prefrences setting in Microsoft 365 admin center.](../../media/copilot-settings-admin-center.png)](../../media/copilot-settings-admin-center-expanded.png#lightbox)
 3. Under the **View all** tab, select **Copilot Release Preferences: General Availability**.
 4. Choose either **Standard release** or **Deferred release**.
-5. Add any user or security group exceptions. You can add up to 100 exceptions to Standard release or Deferred release. Each user in a security group and each user added individually count toward the 100-user limit.
+5. Add any user or security group exceptions. You can add up to 10,000 exceptions to Standard release or Deferred release. Each user in a security group and each user added individually count toward the 10,000-user limit.
 
     - If you want to assign only a specific user or security group to Deferred release, select **Standard release**, search for the user or group, and select their name.
 
-        ![Screenshot of Standard release in Microsoft 365 admin center.](../../media/audience-release-options-standard.png)
+        ![Screenshot of Standard release in Microsoft 365 admin center.](../../media/standard-release-settings.png)
     - If you want to assign only a specific user or security group to Standard release, select **Deferred release**, search for the user or group, and select their name.
+
+        ![Screenshot of Deferred release in Microsoft 365 admin center.](../../media/deferred-release-settings.png)
 6. Select **Save**.
 
 To opt in to Frontier preview, follow the instructions in [Configure Frontier preview for Microsoft 365 services](get-started-frontier).

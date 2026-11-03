@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Deploy a crash-resilient long-running agent (preview) - Microsoft Foundry | Microsoft Learn
+title: Deploy a crash-resilient long-running agent - Microsoft Foundry | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/deploy-resilient-agent
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
@@ -24,7 +24,7 @@ ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Deploy a long-running hosted agent that keeps working with no client traffic, survives a container crash, and resumes from its last checkpoint.
 ms.manager: mcleans
-ms.date: 2026-08-20T00:00:00.0000000Z
+ms.date: 2026-10-14T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
 ms.custom: references_regions, doc-kit-assisted
@@ -53,15 +53,11 @@ spProducts:
 platformId: af76e441-ec6f-74f5-fc58-2aaed17a0ee7
 ---
 
-# Deploy a crash-resilient long-running agent (preview) - Microsoft Foundry | Microsoft Learn
+# Deploy a crash-resilient long-running agent - Microsoft Foundry | Microsoft Learn
 
 In this article, you deploy a [long-running hosted agent](../concepts/long-running-agent-resilience) that uses the Responses protocol and the resilient background response feature. You run a stored background response, crash the agent process on purpose, and watch it resume from the last checkpoint after restart.
 
 The agent runs three simulated streamed stages: analyze, generate, and refine. Each completed stage is one checkpointed output item, so a recovered run repeats at most one stage.
-
-Note
-
-Long-running agents are in preview. APIs and package versions are subject to change.
 
 ## Prerequisites
 

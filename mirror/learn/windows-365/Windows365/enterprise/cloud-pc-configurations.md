@@ -11,7 +11,7 @@ author: maddiecarr22
 ms.author: madelinecarr
 ms.service: windows-365
 ms.topic: how-to
-ms.date: 2026-09-08T00:00:00.0000000Z
+ms.date: 2026-11-02T00:00:00.0000000Z
 ms.subservice: windows-365-enterprise
 locale: en-us
 document_id: db88c9bf-6717-f497-9c94-45f438b5b41b
@@ -42,18 +42,14 @@ Cloud PC configurations encompass settings that affect Cloud PCs, specifically a
 The **Cloud PC configurations** page lets IT administrators manage the following settings for the user: 
 
 - **AI-enabled features (Frontier preview):** The hybrid compute framework will be installed and allow end user’s device to use AI-enabled features.
-- **Enable local admin (preview):** If enabled, each user in the assigned groups is elevated to a local administrator of each of their own Cloud PCs. These permissions apply at the user level.
+- **Enable local admin:** If enabled, each user in the assigned groups is elevated to a local administrator of each of their own Cloud PCs. These permissions apply at the user level.
 - **Business continuity and disaster recovery features:** These features help protect Cloud PCs and support recovery during service interruptions. To learn more, see [Business continuity and disaster recovery](/en-us/windows-365/enterprise/business-continuity-disaster-recovery-setup).
 
 Note
 
-We recommend using **Cloud PC configurations** when configuring the **Enable local admin (preview)** setting. Existing configurations of **Enable local admin (preview)** in **User Settings** can continue to be managed there for now. Over time, we recommend moving these configurations to **Cloud PC configurations** as support through **User Settings** is phased out.
+We recommend using Cloud PC configurations when creating new policies for Enable local admin, Point-in-time restore, Cross-Region Disaster Recovery, and Disaster Recovery Plus. While new policies can no longer be created through **User settings (legacy)**, existing policies can still be edited. We encourage admins to recreate their existing configurations in Cloud PC configurations before editing is disabled.
 
-Note
-
-The AI-enabled features are applicable only to devices with specs of 8vCPU/32GB/128GB and higher.
-
-## **Add a new setting**
+## Add a new setting
 
 1. Sign in to the [Microsoft Intune admin center](https://go.microsoft.com/fwlink/?linkid=2109431), select **Devices** &gt; **Cloud PC Settings** (under **Manage Windows 365 Cloud PCs**).
 2. Click on **Create** and select **Cloud PC configurations** from the dropdown.
@@ -67,6 +63,10 @@ The AI-enabled features are applicable only to devices with specs of 8vCPU/32GB/
 
     ![Screenshot that shows Cloud PC configurations in Intune.](media/cloud-pc-configurations/cloud-pc-configurations.png)
 
+Note
+
+When there's a conflict between **Cloud PC configurations settings** and **User settings (legacy)**, the **Cloud PC configurations settings** will override **User settings (legacy)**.
+
 ## **Edit a setting**
 
 1. Sign in to the [Microsoft Intune admin center](https://go.microsoft.com/fwlink/?linkid=2109431), select **Devices** &gt; **Cloud PC Settings** (under **Manage Windows 365 Cloud PCs**).
@@ -78,7 +78,7 @@ The AI-enabled features are applicable only to devices with specs of 8vCPU/32GB/
 7. Select **Next**.
 8. On the **Review + Save** page, select **Update**.
 
-## **Delete a setting**
+## Delete a Cloud PC configurations setting
 
 1. Sign in to the [Microsoft Intune admin center](https://go.microsoft.com/fwlink/?linkid=2109431), select **Devices** &gt; **Cloud PC Settings** (under **Manage Windows 365 Cloud PCs**).
 2. On the **Cloud PC Settings** page, you can view the created settings.

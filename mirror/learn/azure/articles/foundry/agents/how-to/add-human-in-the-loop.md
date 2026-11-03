@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Add a human-in-the-loop approval step (preview) - Microsoft Foundry | Microsoft Learn
+title: Add a human-in-the-loop approval step - Microsoft Foundry | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/add-human-in-the-loop
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
@@ -24,7 +24,7 @@ ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Pause a long-running hosted agent indefinitely for human approval or input, then resume the conversation from where it left off.
 ms.manager: mcleans
-ms.date: 2026-08-05T00:00:00.0000000Z
+ms.date: 2026-10-14T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
 ms.custom: doc-kit-assisted
@@ -53,13 +53,9 @@ spProducts:
 platformId: b084ab00-d3d0-3152-14df-ac9d9dab5d0f
 ---
 
-# Add a human-in-the-loop approval step (preview) - Microsoft Foundry | Microsoft Learn
+# Add a human-in-the-loop approval step - Microsoft Foundry | Microsoft Learn
 
 Some agent workflows must stop and wait for a person - to approve an action, answer a question, or provide missing input - and then continue. A [long-running hosted agent](../concepts/long-running-agent-resilience) can pause indefinitely for that reply without holding a request open or losing its place, because a multi-turn chain persists between turns.
-
-Note
-
-Long-running agents are in preview. APIs and package versions are subject to change.
 
 ## How pause-and-resume works
 

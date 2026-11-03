@@ -31,11 +31,9 @@ source_path: Windows365/enterprise/windows-app-settings.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/cd440f3c-1b78-40a7-97ba-aa00a1d79df7
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c450d479-44e5-4a9c-9b93-e6f9b69dd42d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c828f7e0-89b4-459c-9bae-d7ab1c4bd9ad
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e273b0-a43e-4cc8-9bf9-67d4d6a1e869
 platformId: c6cc6d8d-0705-c41e-2382-a4167e3f357a
 ---
 
@@ -45,22 +43,17 @@ This settings object allows IT administrators the ability to customize options f
 
 The **Windows App settings** page lets IT administrators manage the following settings for the user: 
 
-- **Enable users to reset their Cloud PCs:** Enabling this setting will allow targeted users to reprovision their Cloud PC from within the Windows 365 app and web app.
-
-    Note
-
-    Applicable only to user groups assigned to Windows 365 Enterprise, Windows 365 Flex Dedicated, and Windows 365 Reserve provisioning policies.
+- **Enable users to reset their Cloud PC:** Enabling this setting will allow targeted users to reprovision their Cloud PC from within the Windows 365 app and web app.
 - **Allow users to initiate a Restore:** Allow user to initiate restore service.
+- **Allow users to initiate Disaster Recovery Plus service:** Protect Cloud PCs during regional outages. Learn more about optional [Business Continuity and Disaster Recovery](/en-us/windows-365/enterprise/disaster-recovery-plus).
 
-    Note
+    **Enable users to provision new Cloud PC instances:** Enabling this setting will allow targeted users to provision their Reserve Cloud PC from within the Windows 365 app and web app.
 
-    Applicable only to user groups assigned to Windows 365 Enterprise and Windows 365 Flex Dedicated provisioning policies.
+Note
 
-    Note
+Applicable only to user groups assigned to Windows 365 Enterprise, Windows 365 Flex Dedicated, and Windows 365 Reserve provisioning policies.
 
-    Applicable only to user groups assigned to Reserve provisioning policies & licensed for Reserve.
-
-## **Add a new setting**
+## Add a new setting
 
 1. Sign in to the [Microsoft Intune admin center](https://go.microsoft.com/fwlink/?linkid=2109431), select **Devices** &gt; **Cloud PC Settings** (under **Manage Windows 365 Cloud PCs**).
 2. Click on **Create** and select **Windows App settings** from the dropdown.
@@ -76,9 +69,9 @@ The **Windows App settings** page lets IT administrators manage the following se
 
 Note
 
-When there's a conflict between **Windows App settings** and **User settings**, the **Windows App settings** will override **User settings**.
+When there's a conflict between **Windows App settings** and **User settings (legacy)**, the **Windows App settings** will override **User settings (legacy)**.
 
-## **Edit a setting**
+## Edit a Windows App setting
 
 1. Sign in to the [Microsoft Intune admin center](https://go.microsoft.com/fwlink/?linkid=2109431), select **Devices** &gt; **Cloud PC Settings** (under **Manage Windows 365 Cloud PCs**).
 2. Select the **Windows App settings** policy that you want to edit.
@@ -89,7 +82,7 @@ When there's a conflict between **Windows App settings** and **User settings**, 
 7. Select **Next**.
 8. On the **Review + Save** page, select **Update**.
 
-## **Delete a setting**
+## Delete a Windows App setting
 
 1. Sign in to the [Microsoft Intune admin center](https://go.microsoft.com/fwlink/?linkid=2109431), select **Devices** &gt; **Cloud PC Settings** (under **Manage Windows 365 Cloud PCs**).
 2. On the **Settings** page, you can view the created settings.

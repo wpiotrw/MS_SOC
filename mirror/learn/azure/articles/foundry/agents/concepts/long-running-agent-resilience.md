@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Resilience for long-running Microsoft Foundry hosted agents (preview) - Microsoft Foundry | Microsoft Learn
+title: Resilience for long-running Microsoft Foundry hosted agents - Microsoft Foundry | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/long-running-agent-resilience
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
@@ -27,7 +27,7 @@ ms.manager: mcleans
 ms.reviewer: glennc
 ms.subservice: foundry-agent-service
 ms.topic: concept-article
-ms.date: 2026-07-30T00:00:00.0000000Z
+ms.date: 2026-10-14T00:00:00.0000000Z
 ms.custom: doc-kit-assisted
 ai-usage: ai-assisted
 locale: en-us
@@ -46,21 +46,15 @@ source_path: articles/foundry/agents/concepts/long-running-agent-resilience.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/2d774b87-7dcb-40bf-a0b9-5a7a9efff0d1
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/89dc5f37-0e4e-4b05-ad87-5fcd2b941a8a
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 1d033287-501c-ddb2-e845-9985be288181
 ---
 
-# Resilience for long-running Microsoft Foundry hosted agents (preview) - Microsoft Foundry | Microsoft Learn
+# Resilience for long-running Microsoft Foundry hosted agents - Microsoft Foundry | Microsoft Learn
 
 Long-running hosted agents can keep working after the request that started them disconnects. They can also recover after their hosting process stops unexpectedly. Foundry Agent Service and the AgentServer SDKs provide durable work identity, persisted inputs, lease-based recovery, and stream replay. Your agent is still responsible for preserving meaningful progress and preventing duplicate side effects.
-
-Important
-
-Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
 
 ## Background execution and resilience
 

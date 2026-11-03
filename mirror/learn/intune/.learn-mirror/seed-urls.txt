@@ -20,6 +20,7 @@ https://learn.microsoft.com/en-us/intune/app-management/protection/multiple-mana
 https://learn.microsoft.com/en-us/intune/app-management/ref-protected-apps
 https://learn.microsoft.com/en-us/intune/cloud-pki
 https://learn.microsoft.com/en-us/intune/cloud-pki/renew-ca
+https://learn.microsoft.com/en-us/intune/configmgr/comanage/overview
 https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/cmg/cost
 https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/cmg/perf-scale
 https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/cmg/setup-cloud-management-gateway
@@ -35,11 +36,13 @@ https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/security/ena
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/deploy/configure/about-discovery-methods
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/deploy/install/install-consoles
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/deploy/install/list-of-prerequisite-checks
+https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/admin-console
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/checklist-for-installing-update-2609
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/cmpivot
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/community-hub
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/updates
 https://learn.microsoft.com/en-us/intune/configmgr/core/support/cmtrace
+https://learn.microsoft.com/en-us/intune/configmgr/core/support/tools
 https://learn.microsoft.com/en-us/intune/configmgr/core/understand/introduction
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/37942646
@@ -50,6 +53,7 @@ https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/39398030
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2609/2377842
 https://learn.microsoft.com/en-us/intune/configmgr/mdm/deploy-use/create-pfx-certificate-profiles
 https://learn.microsoft.com/en-us/intune/configmgr/mdm/get-started/set-up-certificates-on-premises-mdm
+https://learn.microsoft.com/en-us/intune/configmgr/mdt
 https://learn.microsoft.com/en-us/intune/configmgr/mdt/samples-guide
 https://learn.microsoft.com/en-us/intune/configmgr/osd/deploy-use/preprovision-bitlocker-in-windows-pe
 https://learn.microsoft.com/en-us/intune/copilot
@@ -101,7 +105,9 @@ https://learn.microsoft.com/en-us/intune/device-management/inventory-and-status/
 https://learn.microsoft.com/en-us/intune/device-management/inventory-and-status/find-primary-user
 https://learn.microsoft.com/en-us/intune/device-management/inventory-and-status/rename-device
 https://learn.microsoft.com/en-us/intune/device-management/overview
+https://learn.microsoft.com/en-us/intune/device-management/tools/deploy-remediations
 https://learn.microsoft.com/en-us/intune/device-management/tools/management-extension-windows
+https://learn.microsoft.com/en-us/intune/device-management/tools/run-powershell-scripts-windows
 https://learn.microsoft.com/en-us/intune/device-management/tools/setup-teamviewer
 https://learn.microsoft.com/en-us/intune/device-management/tools/teamviewer-legacy
 https://learn.microsoft.com/en-us/intune/device-security/compliance/create-policy

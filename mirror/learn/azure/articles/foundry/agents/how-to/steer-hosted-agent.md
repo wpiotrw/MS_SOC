@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Steer an in-flight agent turn (preview) - Microsoft Foundry | Microsoft Learn
+title: Steer an in-flight agent turn - Microsoft Foundry | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/steer-hosted-agent
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
@@ -24,7 +24,7 @@ ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Let a new input redirect a hosted agent's in-flight turn instead of racing or rejecting it, using steerable conversations and the steering queue.
 ms.manager: mcleans
-ms.date: 2026-08-05T00:00:00.0000000Z
+ms.date: 2026-10-14T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
 ms.custom: doc-kit-assisted
@@ -51,13 +51,9 @@ spProducts:
 platformId: 1d268493-c2e8-9216-86a4-f94d3eaf9d05
 ---
 
-# Steer an in-flight agent turn (preview) - Microsoft Foundry | Microsoft Learn
+# Steer an in-flight agent turn - Microsoft Foundry | Microsoft Learn
 
 *Steering* lets you redirect a [long-running hosted agent](../concepts/long-running-agent-resilience) while it's still working. A new input queues behind the active turn and the running handler cooperatively winds down. This approach avoids rejecting the new turn or racing two turns at once.
-
-Note
-
-Long-running agents are in preview. APIs and package versions are subject to change.
 
 ## Turn on steering
 

@@ -4,6 +4,7 @@ https://learn.microsoft.com/en-us/windows-365/enterprise/add-device-images
 https://learn.microsoft.com/en-us/windows-365/enterprise/admin-insights
 https://learn.microsoft.com/en-us/windows-365/enterprise/ai-enabled-cloud-pcs
 https://learn.microsoft.com/en-us/windows-365/enterprise/alerts
+https://learn.microsoft.com/en-us/windows-365/enterprise/assign-users-as-local-admin
 https://learn.microsoft.com/en-us/windows-365/enterprise/automated-provisioning-steps
 https://learn.microsoft.com/en-us/windows-365/enterprise/autopilot-device-preparation
 https://learn.microsoft.com/en-us/windows-365/enterprise/business-continuity-disaster-recovery-setup

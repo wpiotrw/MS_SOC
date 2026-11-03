@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Deploy a steerable agent (preview) - Microsoft Foundry | Microsoft Learn
+title: Deploy a steerable agent - Microsoft Foundry | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/deploy-steerable-agent
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
@@ -24,7 +24,7 @@ ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Deploy a hosted agent that accepts a new instruction mid-run, cooperatively winding down the in-flight turn and continuing with the redirected input.
 ms.manager: mcleans
-ms.date: 2026-08-20T00:00:00.0000000Z
+ms.date: 2026-10-14T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
 ms.custom: references_regions, doc-kit-assisted
@@ -53,15 +53,11 @@ spProducts:
 platformId: 0b828dd0-3d5f-a969-dd26-38971f8a68b4
 ---
 
-# Deploy a steerable agent (preview) - Microsoft Foundry | Microsoft Learn
+# Deploy a steerable agent - Microsoft Foundry | Microsoft Learn
 
 In this article, you deploy a [long-running hosted agent](../concepts/long-running-agent-resilience) that supports *steering*: when a second turn arrives on the same conversation while the first turn is still running, the platform queues the new turn and cooperatively cancels the current one instead of rejecting it with `409 conversation_locked`.
 
 The sample is a Responses protocol agent that turns on resilience and steering with two options. It uses a simulated model stream, so you can run it without model credentials.
-
-Note
-
-Long-running agents are in preview. APIs and package versions are subject to change.
 
 ## Prerequisites
 

@@ -32,12 +32,12 @@ monikers: []
 item_type: Content
 source_path: windows-app/compare-platforms-features.md
 cmProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/cd440f3c-1b78-40a7-97ba-aa00a1d79df7
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/cd440f3c-1b78-40a7-97ba-aa00a1d79df7
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
 spProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c828f7e0-89b4-459c-9bae-d7ab1c4bd9ad
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c828f7e0-89b4-459c-9bae-d7ab1c4bd9ad
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
 platformId: 3c4e193f-a19a-a886-3b3f-3a3629d68bec
 ---
@@ -94,8 +94,26 @@ The following table compares which Windows App experience features are supported
 
 ::: zone-end
 
+::: zone pivot="remote-pc"
+
+| Feature | Windows | macOS | iOS/iPadOS | Android/Chrome OS |
+| --- | --- | --- | --- | --- |
+| Appearance (dark or light) | ✅ | ✅ | ✅ | ✅ |
+| Localization | ✅ | ❌ | ❌ | ✅ |
+| Favorite | ✅ | ✅ | ✅ | ✅ |
+| Search | ✅ | ✅ | ✅ | ✅ |
+| Uniform Resource Identifier (URI) schemes | ❌ | ✅¹ | ✅¹ | ✅¹ |
+
+1. [Legacy RDP URI scheme](/en-us/windows-server/remote/remote-desktop-services/remote-desktop-uri#legacy-rdp-uri-scheme) only.
+
+::: zone-end
+
+::: zone pivot="azure-virtual-desktop,windows-365,dev-box"
+
 1. Only light appearance is available.
 2. For more information, see Localization and languages.
+
+::: zone-end
 
 The following table provides a description for each of the experience features:
 
@@ -139,7 +157,21 @@ The following table provides a description for each of the experience features:
 
 ::: zone-end
 
+::: zone pivot="remote-pc"
+
+| Feature | Description |
+| --- | --- |
+| [Appearance (dark or light)](display-settings) | Change the appearance of Windows App to be light or dark. |
+| Localization | User interface available in languages other than *English (United States)*. |
+| [Favorite](device-actions) | Pin your favorite devices and apps to the **Favorites** tab for quick access. |
+| Search | Quickly search for devices or apps. |
+| [Uniform Resource Identifier (URI) schemes](/en-us/windows-server/remote/remote-desktop-services/remote-desktop-uri#legacy-rdp-uri-scheme) | Start Windows App with specific parameters and values with a URI. |
+
+::: zone-end
+
 ## Display
+
+::: zone pivot="azure-virtual-desktop,windows-365,dev-box"
 
 The following table compares which display features are supported on which platforms:
 
@@ -163,6 +195,36 @@ The following table provides a description for each of the display features:
 | [Selected displays](display-settings) | Specifies which local displays to use for the remote session. |
 | [Smart sizing](display-settings) | A desktop in *windowed* mode is dynamically scaled to the window's size. |
 
+::: zone-end
+
+::: zone pivot="remote-pc"
+
+The following table compares which display features are supported on which platforms:
+
+| Feature | Windows | macOS | iOS/iPadOS | Android/Chrome OS |
+| --- | --- | --- | --- | --- |
+| Dynamic resolution | ✅ | ✅ | ❌ | ❌ |
+| External display | ✅ | ✅ | ✅ | ✅¹ |
+| Multiple displays | ✅ | ✅ | ❌ | ❌ |
+| Selected displays | ✅ | ❌ | ✅ | ❌ |
+| Smart sizing | ✅ | ✅ | ❌ | ❌ |
+
+1. Depends on the capabilities of the local device.
+
+The following table provides a description for each of the display features:
+
+| Feature | Description |
+| --- | --- |
+| [Dynamic resolution](display-settings) | The resolution and orientation of local displays is dynamically reflected in the remote session for desktops. If the session is running in *windowed* mode, the desktop is dynamically resized to the size of the window. |
+| [External display](display-settings) | Enables the use of an external display for a remote session. |
+| [Multiple displays](display-settings) | Enables the remote session to use all local displays. |
+| [Selected displays](display-settings) | Specifies which local displays to use for the remote session. |
+| [Smart sizing](display-settings) | A desktop in *windowed* mode is dynamically scaled to the window's size. |
+
+::: zone-end
+
+::: zone pivot="azure-virtual-desktop,windows-365,dev-box"
+
 ## Multimedia
 
 The following table shows which multimedia features are available on each platform:
@@ -175,6 +237,8 @@ The following table shows which multimedia features are available on each platfo
 | Microsoft Teams media optimizations (SlimCore) | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 
 The following table provides a description for each of the multimedia features:
+
+::: zone-end
 
 ::: zone pivot="azure-virtual-desktop"
 
@@ -217,6 +281,8 @@ A more restrictive setting takes precedence wherever it's configured. For exampl
 
 ### Device redirection
 
+::: zone pivot="azure-virtual-desktop,windows-365,dev-box"
+
 The following table shows which local devices you can redirect to a remote session on each platform:
 
 | Device type | Windows | macOS | iOS/iPadOS | Android/Chrome OS | Webbrowser | MetaQuest |
@@ -248,7 +314,44 @@ The following table provides a description for each type of device you can redir
 | [Smart cards](device-audio-folder-redirection-teams) | Use smart cards in a remote session. |
 | [Speakers](device-audio-folder-redirection-teams) | Play audio in the remote session or on local device. |
 
+::: zone-end
+
+::: zone pivot="remote-pc"
+
+The following table shows which local devices you can redirect to a remote session on each platform:
+
+| Device type | Windows | macOS | iOS/iPadOS | Android/Chrome OS |
+| --- | --- | --- | --- | --- |
+| Cameras¹ | ✅ | ✅ | ✅ | ✅ |
+| Local drive/storage | ✅ | ✅ | ✅ | ✅ |
+| Microphones¹ | ✅ | ✅ | ✅ | ✅ |
+| Printers | ✅ | ✅² | ❌ | ❌ |
+| Scanners³ | ✅ | ❌ | ❌ | ❌ |
+| Smart cards | ✅ | ✅ | ✅⁴ | ❌ |
+| Speakers | ✅ | ✅ | ✅ | ✅ |
+
+1. Remote PC connections to Windows Server 2019 and later don't support camera and microphone device redirection.
+2. Windows App on macOS supports the *Publisher Imagesetter* printer driver by default (*Common UNIX Printing System* (CUPS) only). Native printer drivers aren't supported.
+3. High-level redirection of TWAIN scanners isn't supported. You can only redirect USB scanners using opaque low-level redirection. For more information, see [Peripheral and resource redirection over the Remote Desktop Protocol](/en-us/azure/virtual-desktop/redirection-remote-desktop-protocol).
+4. Smart card redirection for iOS/iPadOS is in preview. Only YubiKey is supported due to iOS/iPadOS limitations. For more information, see [YubiKey smart card redirection (preview)](device-audio-folder-redirection-teams#yubikey-smart-card-redirection-preview).
+
+The following table provides a description for each type of device you can redirect:
+
+| Device type | Description |
+| --- | --- |
+| [Cameras](device-audio-folder-redirection-teams) | Redirect a local camera to use with apps like Microsoft Teams. |
+| [Local drive/storage](device-audio-folder-redirection-teams) | Access local disk drives in a remote session. |
+| [Microphones](device-audio-folder-redirection-teams) | Redirect a local microphone to use with apps like Microsoft Teams. |
+| [Printers](device-audio-folder-redirection-teams) | Print from a remote session to a local printer. |
+| [Scanners](device-audio-folder-redirection-teams) | Access a local scanner in a remote session. |
+| [Smart cards](device-audio-folder-redirection-teams) | Use smart cards in a remote session. |
+| [Speakers](device-audio-folder-redirection-teams) | Play audio in the remote session or on local device. |
+
+::: zone-end
+
 ### Input redirection
+
+::: zone pivot="azure-virtual-desktop,windows-365,dev-box"
 
 The following table shows which input methods you can redirect:
 
@@ -277,7 +380,40 @@ The following table provides a description for each type of input you can redire
 | [Pen](input-keyboard-mouse-touch-pen) | Redirect pen inputs, including pressure, to the remote session. |
 | [Touch](input-keyboard-mouse-touch-pen) | Redirect touch inputs to the remote session. |
 
+::: zone-end
+
+::: zone pivot="remote-pc"
+
+The following table shows which input methods you can redirect:
+
+| Feature | Windows | macOS | iOS/iPadOS | Android/Chrome OS |
+| --- | --- | --- | --- | --- |
+| Keyboard | ✅ | ✅ | ✅ | ✅ |
+| Keyboard input language | ✅ | ✅ | ❌ | ❌ |
+| Keyboard shortcuts | ✅ | ✅ | ✅ | ✅¹ |
+| Mouse/trackpad | ✅ | ✅ | ✅² | ✅ |
+| Multi-touch | ✅ | ❌ | ✅ | ✅ |
+| Pen | ✅ | ❌ | ✅ | ✅ |
+| Touch | ✅ | ❌ | ✅ | ✅ |
+
+1. For keyboard shortcuts limitations, see [Keyboard and keyboard shortcuts](input-keyboard-mouse-touch-pen?tabs=android#keyboard-and-keyboard-shortcuts).
+2. For more information, see [Use keyboard, mouse, touch, and pen in Windows App](input-keyboard-mouse-touch-pen?tabs=ios-ipados#mouse-and-trackpad-device-support-1).
+
+The following table provides a description for each type of input you can redirect:
+
+| Input type | Description |
+| --- | --- |
+| [Keyboard](input-keyboard-mouse-touch-pen) | Redirect keyboard inputs to the remote session. |
+| [Mouse/trackpad](input-keyboard-mouse-touch-pen) | Redirect mouse or trackpad inputs to the remote session. |
+| [Multi-touch](input-keyboard-mouse-touch-pen) | Redirect multiple touches simultaneously to the remote session. |
+| [Pen](input-keyboard-mouse-touch-pen) | Redirect pen inputs, including pressure, to the remote session. |
+| [Touch](input-keyboard-mouse-touch-pen) | Redirect touch inputs to the remote session. |
+
+::: zone-end
+
 ### Port redirection
+
+::: zone pivot="azure-virtual-desktop,windows-365,dev-box"
 
 The following table shows which ports you can redirect:
 
@@ -293,7 +429,29 @@ The following table provides a description for each port you can redirect:
 | [Serial](device-audio-folder-redirection-teams) | Redirect serial (COM) ports on the local device to the remote session. |
 | [USB](device-audio-folder-redirection-teams) | Redirect supported USB devices on the local device to the remote session. |
 
+::: zone-end
+
+::: zone pivot="remote-pc"
+
+The following table shows which ports you can redirect:
+
+| Port type | Windows | macOS | iOS/iPadOS | Android/Chrome OS |
+| --- | --- | --- | --- | --- |
+| Serial | ✅ | ❌ | ❌ | ❌ |
+| USB | ✅ | ❌ | ❌ | ❌ |
+
+The following table provides a description for each port you can redirect:
+
+| Port type | Description |
+| --- | --- |
+| [Serial](device-audio-folder-redirection-teams) | Redirect serial (COM) ports on the local device to the remote session. |
+| [USB](device-audio-folder-redirection-teams) | Redirect supported USB devices on the local device to the remote session. |
+
+::: zone-end
+
 ### Other redirection
+
+::: zone pivot="azure-virtual-desktop,windows-365,dev-box"
 
 The following table shows which other features you can redirect:
 
@@ -328,7 +486,42 @@ The following table provides a description for each other redirection feature yo
 | Time zone | The time zone of the local device can be available in the remote session. |
 | [WebAuthn](/en-us/azure/virtual-desktop/redirection-configure-webauthn) | Authentication requests in the remote session can be redirected to the local device allowing the use of security devices such as Windows Hello for Business or a security key. |
 
+::: zone-end
+
+::: zone pivot="remote-pc"
+
+The following table shows which other features you can redirect:
+
+| Feature | Windows | macOS | iOS/iPadOS | Android/Chrome OS |
+| --- | --- | --- | --- | --- |
+| Clipboard - bidirectional | ✅ | ✅ | ✅¹ | ✅² |
+| Clipboard - unidirectional³ | ✅ | ✅ | ✅ | ✅ |
+| Location | ✅⁴ | ❌ | ✅ | ✅ |
+| Third-party virtual channel plugins | ✅ | ❌ | ❌ | ❌ |
+| Time zone | ✅ | ✅ | ✅ | ✅ |
+| WebAuthn | ✅ | ❌ | ❌ | ❌ |
+
+1. Text and images only.
+2. Text only.
+3. macOS support is native in Windows App. All other platforms require remote session configuration. For more information, see [Configure the clipboard transfer direction and types of data that can be copied](/en-us/azure/virtual-desktop/clipboard-transfer-direction-data-types).
+4. From a local device running Windows 11 only.
+
+The following table provides a description for each other redirection feature you can redirect:
+
+| Feature | Description |
+| --- | --- |
+| [Clipboard - bidirectional](/en-us/azure/virtual-desktop/redirection-configure-clipboard) | Redirect the clipboard on the local device is to the remote session and from the remote session to the local device. |
+| [Clipboard - unidirectional](/en-us/azure/virtual-desktop/clipboard-transfer-direction-data-types) | Control the direction in which the clipboard can be used and restrict the types of data that can be copied. |
+| [Location](/en-us/azure/virtual-desktop/redirection-configure-location) | The location of the local device can be available in a remote session. |
+| Third-party virtual channel plugins | Enables third-party virtual channel plugins to extend Remote Desktop Protocol (RDP) capabilities. |
+| Time zone | The time zone of the local device can be available in the remote session. |
+| [WebAuthn](/en-us/azure/virtual-desktop/redirection-configure-webauthn) | Authentication requests in the remote session can be redirected to the local device allowing the use of security devices such as Windows Hello for Business or a security key. |
+
+::: zone-end
+
 ## Localization and languages
+
+::: zone pivot="azure-virtual-desktop,windows-365,dev-box"
 
 The following table shows which locales are available for each platform. The language is set by the language of the local device and isn't set independently.
 
@@ -359,6 +552,44 @@ The following table shows which locales are available for each platform. The lan
 | Spanish (Spain) | es-ES | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | Swedish (Sweden) | sv-SE | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | Turkish (Türkiye) | tr-TR | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ |
+
+::: zone-end
+
+::: zone pivot="remote-pc"
+
+The following table shows which locales are available for each platform. The language is set by the language of the local device and isn't set independently.
+
+| Name | Locale code | Windows | macOS | iOS/iPadOS | Android/Chrome OS |
+| --- | --- | --- | --- | --- | --- |
+| Chinese (Simplified, China) | zh-CN | ✅ | ❌ | ❌ | ✅ |
+| Chinese (Traditional, Taiwan) | zh-TW | ✅ | ❌ | ❌ | ✅ |
+| Czech (Czech Republic) | cs-CZ | ✅ | ❌ | ❌ | ❌ |
+| Danish (Denmark) | da-DK | ❌ | ❌ | ❌ | ✅ |
+| Dutch (Netherlands) | nl-NL | ✅ | ❌ | ❌ | ✅ |
+| English (United Kingdom) | en-GB | ❌ | ❌ | ❌ | ✅ |
+| English (United States) | en-US | ✅ | ✅ | ✅ | ✅ |
+| Finnish (Finland) | fi-FI | ❌ | ❌ | ❌ | ✅ |
+| French (France) | fr-FR | ✅ | ❌ | ❌ | ✅ |
+| German (Germany) | de-DE | ✅ | ❌ | ❌ | ✅ |
+| Hungarian (Hungary) | hu-HU | ✅ | ❌ | ❌ | ❌ |
+| Indonesian | id-ID | ✅ | ❌ | ❌ | ❌ |
+| Italian (Italy) | it-IT | ✅ | ❌ | ❌ | ✅ |
+| Japanese (Japan) | ja-JP | ✅ | ❌ | ❌ | ✅ |
+| Korean (Korea) | ko-KR | ✅ | ❌ | ❌ | ❌ |
+| Norwegian, Bokmål (Norway) | nb-NO | ❌ | ❌ | ❌ | ✅ |
+| Polish (Poland) | pl-PL | ✅ | ❌ | ❌ | ✅ |
+| Portuguese (Brazil) | pt-BR | ✅ | ❌ | ❌ | ✅ |
+| Portuguese (Portugal) | pt-PT | ✅ | ❌ | ❌ | ❌ |
+| Romanian (Romania) | ro-RO | ✅ | ❌ | ❌ | ❌ |
+| Russian (Russia) | ru-RU | ✅ | ❌ | ❌ | ✅ |
+| Spanish (Mexico) | es-MX | ✅ | ❌ | ❌ | ❌ |
+| Spanish (Spain) | es-ES | ❌ | ❌ | ❌ | ✅ |
+| Swedish (Sweden) | sv-SE | ✅ | ❌ | ❌ | ✅ |
+| Turkish (Türkiye) | tr-TR | ✅ | ❌ | ❌ | ❌ |
+
+::: zone-end
+
+::: zone pivot="azure-virtual-desktop,windows-365,dev-box"
 
 ## Identity
 
@@ -396,6 +627,8 @@ The following table details the identity support available on each platform and 
         - You can only sign in as an external identity that is a work or school account, or that is a Microsoft account that is signed into Authenticator as a 'Connected account'.
     6. If your administrator sent you a `https://myapplications.microsoft.com/` redemption link with the `domain_hint` parameter, enter that link and redeem your invite in a web browser before signing into the Windows App.
 
+::: zone-end
+
 ## Authentication
 
 The following sections detail the authentication support available on each platform and the following table provides a description for each credential type:
@@ -407,6 +640,8 @@ The following sections detail the authentication support available on each platf
 | [Windows Hello for Business certificate trust](/en-us/windows/security/identity-protection/hello-for-business/#comparing-key-based-and-certificate-based-authentication) | Uses an enterprise managed public key infrastructure (PKI) for issuing and managing end user certificates. |
 | [Windows Hello for Business cloud trust](/en-us/windows/security/identity-protection/hello-for-business/#comparing-key-based-and-certificate-based-authentication) | Uses Microsoft Entra Kerberos, which enables a simpler deployment when compared to the key trust model. |
 | [Windows Hello for Business key trust](/en-us/windows/security/identity-protection/hello-for-business/#comparing-key-based-and-certificate-based-authentication) | Uses hardware-bound keys created during the provisioning experience. |
+
+::: zone pivot="azure-virtual-desktop,windows-365,dev-box"
 
 ### Cloud service authentication
 
@@ -431,7 +666,11 @@ The following table shows which credential types are available for each platform
     3. Android: version 1.0.0.152 or later.
 2. Available when using a web browser on a local Windows device only.
 
+::: zone-end
+
 ### Remote session authentication
+
+::: zone pivot="azure-virtual-desktop,windows-365,dev-box"
 
 When connecting to a remote session, there are multiple ways to authenticate. If single sign-on (SSO) is enabled, the credentials used to sign into the cloud service are automatically passed through when connecting to the remote session. The following table shows which types of credential that can be used to authenticate to the remote session if single sign-on is disabled:
 
@@ -449,7 +688,30 @@ When connecting to a remote session, there are multiple ways to authenticate. If
 2. Requires smart card redirection with Network Level Authentication (NLA) disabled.
 3. Requires a [certificate for Remote Desktop Protocol (RDP) sign-in](/en-us/windows/security/identity-protection/hello-for-business/hello-deployment-rdp-certs).
 
+::: zone-end
+
+::: zone pivot="remote-pc"
+
+When connecting to a remote session, there are multiple ways to authenticate. If single sign-on (SSO) is enabled, the credentials used to sign into the cloud service are automatically passed through when connecting to the remote session. The following table shows which types of credential that can be used to authenticate to the remote session if single sign-on is disabled:
+
+| Credential type | Windows | macOS | iOS/iPadOS | Android/Chrome OS |
+| --- | --- | --- | --- | --- |
+| Password | ✅ | ✅ | ✅ | ✅ |
+| Smart card | ✅¹ | ✅² | ❌ | ❌ |
+| Windows Hello for Business certificate trust | ✅ | ❌ | ❌ | ❌ |
+| Windows Hello for Business cloud trust | ❌ | ❌ | ❌ | ❌ |
+| Windows Hello for Business key trust | ✅³ | ❌ | ❌ | ❌ |
+| RDS AAD Auth | ✅ | ❌ | ❌ | ❌ |
+
+1. Requires smart card redirection.
+2. Requires smart card redirection with Network Level Authentication (NLA) disabled.
+3. Requires a [certificate for Remote Desktop Protocol (RDP) sign-in](/en-us/windows/security/identity-protection/hello-for-business/hello-deployment-rdp-certs).
+
+::: zone-end
+
 ### In-session authentication
+
+::: zone pivot="azure-virtual-desktop,windows-365,dev-box"
 
 The following table shows which types of credential are available when authenticating within a remote session:
 
@@ -465,7 +727,29 @@ The following table shows which types of credential are available when authentic
 1. Requires WebAuthn redirection.
 2. Requires smart card redirection.
 
+::: zone-end
+
+::: zone pivot="remote-pc"
+
+The following table shows which types of credential are available when authenticating within a remote session:
+
+| Credential type | Windows | macOS | iOS/iPadOS | Android/Chrome OS |
+| --- | --- | --- | --- | --- |
+| Passkeys (FIDO2) | ❌ | ❌ | ❌ | ❌ |
+| Password | ✅ | ✅ | ✅ | ✅ |
+| Smart card | ✅² | ✅² | ❌ | ❌ |
+| Windows Hello for Business certificate trust | ✅¹ | ❌ | ❌ | ❌ |
+| Windows Hello for Business cloud trust | ✅¹ | ❌ | ❌ | ❌ |
+| Windows Hello for Business key trust | ✅¹ | ❌ | ❌ | ❌ |
+
+1. Requires WebAuthn redirection.
+2. Requires smart card redirection.
+
+::: zone-end
+
 ## Security
+
+::: zone pivot="azure-virtual-desktop,windows-365,dev-box"
 
 The following table shows which security features are available on each platform:
 
@@ -480,6 +764,26 @@ The following table shows which security features are available on each platform
 1. Requires [Microsoft Intune Mobile Application Management](/en-us/windows-app/require-device-security-compliance-intune). Not available for Chrome OS.
 2. Requires Windows App on Windows version 2.0.379.0 or later. For more information, see [Microsoft Entra Conditional Access token protection](/en-us/entra/identity/conditional-access/concept-token-protection).
 3. In preview. Available only when you connect to Windows 365 or Azure Virtual Desktop, and requires Windows App on Windows version 2.0.1236.0 or later together with Cloud PC or session host configuration. Input Protection also requires the Windows Cloud Input Protect MSI on the device. Not applicable to Microsoft Dev Box.
+
+::: zone-end
+
+::: zone pivot="remote-pc"
+
+The following table shows which security features are available on each platform:
+
+| Feature | Windows | macOS | iOS/iPadOS | Android/Chrome OS |
+| --- | --- | --- | --- | --- |
+| Screen capture protection | ✅ | ✅ | ✅¹ | ✅¹ |
+| Watermarking | ✅ | ✅ | ✅ | ✅ |
+| Input Protection | ✅³ | ❌ | ❌ | ❌ |
+| Display Protection | ✅³ | ❌ | ❌ | ❌ |
+| Token protection | ✅² | ❌ | ❌ | ❌ |
+
+1. Requires [Microsoft Intune Mobile Application Management](/en-us/windows-app/require-device-security-compliance-intune). Not available for Chrome OS.
+2. Requires Windows App on Windows version 2.0.379.0 or later. For more information, see [Microsoft Entra Conditional Access token protection](/en-us/entra/identity/conditional-access/concept-token-protection).
+3. In preview. Available only when you connect to Windows 365 or Azure Virtual Desktop, and requires Windows App on Windows version 2.0.1236.0 or later together with Cloud PC or session host configuration. Input Protection also requires the Windows Cloud Input Protect MSI on the device. Not applicable to Microsoft Dev Box.
+
+::: zone-end
 
 The following table provides a description for each security feature:
 
@@ -511,6 +815,17 @@ The following table provides a description for each security feature:
 | --- | --- |
 | [Screen capture protection](/en-us/azure/virtual-desktop/screen-capture-protection?context=%2Fwindows-365%2Fcontext%2Fpr-context) | Helps prevent sensitive information in the remote session from being screen captured from the physical device. Requires dev box configuration. |
 | [Watermarking](/en-us/azure/virtual-desktop/watermarking?context=%2Fwindows-365%2Fcontext%2Fpr-context) | Helps protect sensitive information from being stolen or altered. |
+
+::: zone-end
+
+::: zone pivot="remote-pc"
+
+| Feature | Description |
+| --- | --- |
+| [Screen capture protection](/en-us/azure/virtual-desktop/screen-capture-protection) | Helps prevent sensitive information in the remote session from being screen captured from the physical device. Requires remote session configuration. |
+| [Watermarking](/en-us/azure/virtual-desktop/watermarking) | Helps protect sensitive information from being stolen or altered. |
+| [Input Protection](/en-us/windows-365/enterprise/windows-cloud-input-protection) | Helps protect keyboard input in the remote session from keyloggers on the physical device by routing keystrokes through a protected channel. In preview. Requires session host configuration and the Windows Cloud Input Protect MSI on the device. |
+| [Display Protection](/en-us/windows-365/enterprise/windows-cloud-display-protection) | Helps prevent the remote session's display output from being captured or recorded on the physical device. In preview. Requires session host configuration. |
 
 ::: zone-end
 
@@ -554,6 +869,14 @@ The following table shows which network features are available on each platform:
 
 ::: zone-end
 
+::: zone pivot="remote-pc"
+
+| Feature | Windows | macOS | iOS/iPadOS | Android/Chrome OS |
+| --- | --- | --- | --- | --- |
+| Connection information | ✅ | ✅ | ❌ | ❌ |
+
+::: zone-end
+
 The following table provides a description for each network feature:
 
 ::: zone pivot="azure-virtual-desktop"
@@ -590,6 +913,16 @@ The following table provides a description for each network feature:
 
 ::: zone-end
 
+::: zone pivot="remote-pc"
+
+| Feature | Description |
+| --- | --- |
+| Connection information | See the connection information of the remote session. |
+
+::: zone-end
+
+::: zone pivot="azure-virtual-desktop,windows-365,dev-box"
+
 ## Intune mobile application management
 
 The following table shows which Windows App settings you can manage centrally using Microsoft Intune mobile application management (MAM). To learn more, see [Manage local device redirection settings with Microsoft Intune](manage-device-redirection-intune).
@@ -604,3 +937,5 @@ The following table shows which Windows App settings you can manage centrally us
 | Screen capture protection | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ |
 
 1. Supported for Windows App in a web browser using Microsoft Edge only.
+
+::: zone-end

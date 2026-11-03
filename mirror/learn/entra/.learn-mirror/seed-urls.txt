@@ -85,6 +85,7 @@ https://learn.microsoft.com/en-us/entra/fundamentals/whatis
 https://learn.microsoft.com/en-us/entra/fundamentals/whats-new
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-bring-your-own-device
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-connector-groups
+https://learn.microsoft.com/en-us/entra/global-secure-access/concept-private-access-sign-in-every-time
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-traffic-forwarding
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-universal-continuous-access-evaluation
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-web-filtering
@@ -92,6 +93,7 @@ https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-compliant-ne
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-cloud-firewall
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-custom-headers
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-domain-controllers
+https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-sign-in-every-time
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-customize-block-page
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-manage-internet-access-profile
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-manage-users-groups-assignment
@@ -199,7 +201,9 @@ https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-cond
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-policy-plans
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-session
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-enforcement-resource-exclusions
+https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-session-lifetime
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/controls
+https://learn.microsoft.com/en-us/entra/identity/conditional-access/deployment-guide-token-protection-windows
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/how-to-create-conditional-access-policy-plan
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/how-to-migrate-conditional-access-policy-plan
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-target-agent-identities
@@ -207,6 +211,7 @@ https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-agent
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-all-users-device-compliance
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-autonomous-agents
 https://learn.microsoft.com/en-us/entra/identity/devices/how-to-hybrid-join-using-microsoft-entra-kerberos
+https://learn.microsoft.com/en-us/entra/identity/devices/howto-vm-sign-in-azure-ad-linux
 https://learn.microsoft.com/en-us/entra/identity/devices/macos-platform-sso-architecture
 https://learn.microsoft.com/en-us/entra/identity/devices/sso-linux
 https://learn.microsoft.com/en-us/entra/identity/devices/troubleshoot-primary-refresh-token
@@ -244,6 +249,8 @@ https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-p
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/plan-connect-design-concepts
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-version-history
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/whatis-azure-ad-connect-v2
+https://learn.microsoft.com/en-us/entra/identity/hybrid/how-to-group-source-of-authority-configure
+https://learn.microsoft.com/en-us/entra/identity/hybrid/how-to-user-source-of-authority-configure
 https://learn.microsoft.com/en-us/entra/identity/hybrid/user-source-of-authority-overview
 https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/configure-managed-identities-assignment-restriction
 https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-usage-insights-report
@@ -263,6 +270,8 @@ https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/whats
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/brivo-onair-identity-connector-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/chatwork-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/hibob-to-active-directory-user-provisioning-tutorial
+https://learn.microsoft.com/en-us/entra/identity/saas-apps/salesforce-provisioning-tutorial
+https://learn.microsoft.com/en-us/entra/identity/saas-apps/salesforce-sandbox-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/sap-successfactors-inbound-provisioning-cloud-only-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/sap-successfactors-inbound-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/snowflake-provisioning-tutorial

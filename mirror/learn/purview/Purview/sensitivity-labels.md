@@ -11,7 +11,8 @@ ms.author: TracyP
 author: MSFTTracyP
 manager: laurawi
 ms.update-cycle: 180-days
-ms.date: 2026-04-15T00:00:00.0000000Z
+ms.date: 2026-10-29T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -31,6 +32,7 @@ description: Learn how sensitivity labels from Microsoft Purview Information Pro
 ms.custom:
 - seo-marvel-apr2020
 - seo-marvel-jun2020
+- msecd-doc-authoring-1030
 locale: en-us
 document_id: a046ef0e-0423-6221-d8f6-0c987ffda66c
 document_version_independent_id: a046ef0e-0423-6221-d8f6-0c987ffda66c
@@ -49,12 +51,12 @@ item_type: Content
 source_path: Purview/sensitivity-labels.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9d7be3ef-f27c-4c7f-9eba-67c3cd429995
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/19e6356c-ba1e-4d22-9557-6222c183f04d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/feeb50f3-b677-44f9-b3a6-5f2f58182b0d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/01e6eca5-e701-4cd9-a21f-56c9258f473e
 platformId: 43dba79e-079c-1f7e-91fa-75b8bf1ea874
 ---
 
@@ -261,14 +263,18 @@ All users in the same organization can see the name of a sensitivity label appli
 
 When you configure a publishing label policy, you can:
 
-- **Choose which users and groups see the labels.** Labels can be published to any specific user or email-enabled security group, distribution group, or Microsoft 365 group (which can have [dynamic membership](/en-us/azure/active-directory/users-groups-roles/groups-create-rule)) in Microsoft Entra ID.
-- **Specify a default label** for unlabeled documents and Loop components and pages, emails and meeting invites, new containers (when you've [enabled sensitivity labels for containers](sensitivity-labels-teams-groups-sites)), and also a default label for [Power BI content](/en-us/power-bi/admin/service-security-sensitivity-label-default-label-policy). You can specify the same label for all five types of items, or different labels. Users can change the applied default sensitivity label to better match the sensitivity of their content or container.
-
-    Consider using a default label to set a base level of protection settings that you want applied to all your content. However, without user training and other controls, this setting can also result in inaccurate labeling. It's usually not a good idea to select a label that applies encryption as a default label to documents. For example, many organizations need to send and share documents with external users who might not have apps that support the encryption or they might not use an account that can be authorized. For more information about this scenario, see [Sharing encrypted documents with external users](sensitivity-labels-office-apps#sharing-encrypted-documents-with-external-users).
+- **Choose which users and groups see the labels.** Labels can be published to include or exclude specific users and supported groups. Supported groups include security groups (email-enabled or non-email-enabled), distribution groups, and Microsoft 365 groups. Microsoft 365 groups can also have [dynamic membership](/en-us/azure/active-directory/users-groups-roles/groups-create-rule).
 
     Important
 
-    When you have sublabels, be careful not to configure the parent label as a default label.
+    The effect of user and group scoping depends on whether the sensitivity label applies protection:
+
+    **Label without protection:** The publishing policy scope determines which users can see and apply the label.
+
+    **Label with protection:** The publishing policy still determines who can see and apply the label. Access to protected content is also subject to Azure Rights Management. Azure Rights Management doesn't support non-email-enabled security groups or exclusions for protection. Make sure the users and groups that need access are supported and authorized by the protection configuration.
+- **Specify a default label** for unlabeled documents and Loop components and pages, emails and meeting invites, new containers (when you've [enabled sensitivity labels for containers](sensitivity-labels-teams-groups-sites)), and also a default label for [Power BI content](/en-us/power-bi/admin/service-security-sensitivity-label-default-label-policy). You can specify the same label for all five types of items, or different labels. Users can change the applied default sensitivity label to better match the sensitivity of their content or container.
+
+    Consider using a default label to set a base level of protection settings that you want applied to all your content. However, without user training and other controls, this setting can also result in inaccurate labeling. It's usually not a good idea to select a label that applies encryption as a default label to documents. For example, many organizations need to send and share documents with external users who might not have apps that support the encryption or they might not use an account that can be authorized. For more information about this scenario, see [Sharing encrypted documents with external users](sensitivity-labels-office-apps#sharing-encrypted-documents-with-external-users).
 - **Require a justification for changing a label.** For files, emails, and meetings, but not for groups and sites (used by Teams and SharePoint), if a user tries to remove a label or replace it with a label that has a lower priority, by default the user must provide a justification to perform this action. For example, a user opens a document labeled Confidential (order number 3) and replaces that label with one named Public (order number 1). For Office apps, this justification prompt is triggered once per app session. When you use the Microsoft Purview Information Protection client, the prompt is triggered for each file. Administrators can read the justification reason along with the label change in [activity explorer](data-classification-activity-explorer).
 
     ![Prompt where users enter a justification.](media/sensitivity-label-justification-required.png)

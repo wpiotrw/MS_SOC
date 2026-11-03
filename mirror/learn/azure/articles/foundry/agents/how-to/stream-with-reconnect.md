@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Stream long-running agent output with reconnect (preview) - Microsoft Foundry | Microsoft Learn
+title: Stream long-running agent output with reconnect - Microsoft Foundry | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/stream-with-reconnect
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
@@ -24,7 +24,7 @@ ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Stream a hosted agent's output so clients can drop and reconnect without losing events, using the streaming registry, backings, and the starting_after cursor.
 ms.manager: mcleans
-ms.date: 2026-08-05T00:00:00.0000000Z
+ms.date: 2026-10-14T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
 ms.custom: doc-kit-assisted
@@ -49,13 +49,9 @@ spProducts:
 platformId: 610c9705-b937-eb61-ac8e-2176a9017f55
 ---
 
-# Stream long-running agent output with reconnect (preview) - Microsoft Foundry | Microsoft Learn
+# Stream long-running agent output with reconnect - Microsoft Foundry | Microsoft Learn
 
 A [long-running hosted agent](../concepts/long-running-agent-resilience) can stream output for minutes. Clients disconnect and reconnect, and the container itself can restart mid-turn. This article shows how to stream so subscribers catch up cleanly after a drop, and how a crashed producer resumes the same stream.
-
-Note
-
-Long-running agents are in preview. APIs and package versions are subject to change.
 
 ## The streaming model in brief
 

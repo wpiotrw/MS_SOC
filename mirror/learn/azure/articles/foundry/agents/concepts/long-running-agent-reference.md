@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Long-running agent API reference (preview) - Microsoft Foundry | Microsoft Learn
+title: Long-running agent API reference - Microsoft Foundry | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/long-running-agent-reference
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
@@ -24,7 +24,7 @@ ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: 'API surface for building long-running, crash-resilient hosted agents with the AgentServer SDKs: task decorators, TaskContext, retry policy, resilient response options, and the streaming registry, in Python and C#.'
 ms.manager: mcleans
-ms.date: 2026-08-10T00:00:00.0000000Z
+ms.date: 2026-10-14T00:00:00.0000000Z
 ms.topic: reference
 ms.subservice: foundry-agent-service
 ms.custom: doc-kit-assisted
@@ -45,31 +45,27 @@ source_path: articles/foundry/agents/concepts/long-running-agent-reference.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/2d774b87-7dcb-40bf-a0b9-5a7a9efff0d1
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/062d60c9-ee0f-402e-a046-b4e67c3572d6
-- https://authoring-docs-microsoft.poolparty.biz/devrel/7696cda6-0510-47f6-8302-71bb5d2e28cf
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/89dc5f37-0e4e-4b05-ad87-5fcd2b941a8a
 - https://authoring-docs-microsoft.poolparty.biz/devrel/17d3b3f6-a66e-4c69-9774-14a73c38e669
-- https://authoring-docs-microsoft.poolparty.biz/devrel/69c76c32-967e-4c65-b89a-74cc527db725
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 9cbbc9e2-0124-a857-f7d9-79c45bc300aa
 ---
 
-# Long-running agent API reference (preview) - Microsoft Foundry | Microsoft Learn
+# Long-running agent API reference - Microsoft Foundry | Microsoft Learn
 
 This reference lists the AgentServer SDK surface for building [long-running, resilient hosted agents](long-running-agent-resilience): the resilient task primitives, the resilient Responses options, and the streaming registry. For the concepts behind these APIs, see [Resilience for long-running hosted agents](long-running-agent-resilience). For task-oriented walkthroughs, see the [how-to guides](../how-to/recover-long-running-work).
 
-Note
-
-Long-running agents are in preview. The APIs on this page are from the `azure-ai-agentserver` packages and are subject to change.
-
 ## Packages
 
-The APIs on this page require at least the following package versions. The Python packages are generally available; the .NET packages are in preview—install them with `--prerelease`.
+The APIs on this page require at least the following generally available package versions.
 
 | Protocol | Python (minimum version) | .NET (minimum version) |
 | --- | --- | --- |
-| Core (tasks, streaming, storage) | `azure-ai-agentserver-core` ≥ 2.0.0 | `Azure.AI.AgentServer.Core` ≥ 1.0.0-beta.28 |
-| Responses | `azure-ai-agentserver-responses` ≥ 2.0.0 | `Azure.AI.AgentServer.Responses` ≥ 1.0.0-beta.8 |
-| Invocations | `azure-ai-agentserver-invocations` ≥ 1.0.0 | `Azure.AI.AgentServer.Invocations` ≥ 1.0.0-beta.6 |
+| Core (tasks, streaming, storage) | `azure-ai-agentserver-core` ≥ 2.0.0 | `Azure.AI.AgentServer.Core` ≥ 1.0.0 |
+| Responses | `azure-ai-agentserver-responses` ≥ 2.0.0 | `Azure.AI.AgentServer.Responses` ≥ 1.0.0 |
+| Invocations | `azure-ai-agentserver-invocations` ≥ 1.0.0 | `Azure.AI.AgentServer.Invocations` ≥ 1.0.0 |
 
 Note
 

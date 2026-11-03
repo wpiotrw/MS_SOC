@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Recover long-running work after a crash (preview) - Microsoft Foundry | Microsoft Learn
+title: Recover long-running work after a crash - Microsoft Foundry | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/recover-long-running-work
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
@@ -24,7 +24,7 @@ ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Make a hosted agent's background responses crash-recoverable, and resume a recovered run from its last checkpoint instead of rerunning the whole turn.
 ms.manager: mcleans
-ms.date: 2026-08-05T00:00:00.0000000Z
+ms.date: 2026-10-14T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
 ms.custom: doc-kit-assisted
@@ -53,13 +53,9 @@ spProducts:
 platformId: 5491d046-8292-aa6e-e07b-3e2b0fc3fbfd
 ---
 
-# Recover long-running work after a crash (preview) - Microsoft Foundry | Microsoft Learn
+# Recover long-running work after a crash - Microsoft Foundry | Microsoft Learn
 
 A [long-running hosted agent](../concepts/long-running-agent-resilience) can be interrupted at any time by a crash, an out-of-memory kill, a redeploy, or a scale-in. This article shows how to make your agent's background responses recoverable and how to resume a recovered run from its last checkpoint.
-
-Note
-
-Long-running agents are in preview. APIs and package versions are subject to change.
 
 ## Turn on crash recovery
 

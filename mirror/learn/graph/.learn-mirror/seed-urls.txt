@@ -39,6 +39,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/alert
 https://learn.microsoft.com/en-us/graph/api/resources/anonymouscalendarsharingfreebusydetail
 https://learn.microsoft.com/en-us/graph/api/resources/anonymouscalendarsharingfreebusyreviewer
 https://learn.microsoft.com/en-us/graph/api/resources/anonymouscalendarsharingfreebusysimple
+https://learn.microsoft.com/en-us/graph/api/resources/approverdelegate
 https://learn.microsoft.com/en-us/graph/api/resources/authentication
 https://learn.microsoft.com/en-us/graph/api/resources/authenticationbehaviors
 https://learn.microsoft.com/en-us/graph/api/resources/authenticationinfo
@@ -55,14 +56,18 @@ https://learn.microsoft.com/en-us/graph/api/resources/embeddinginput
 https://learn.microsoft.com/en-us/graph/api/resources/entradriftidentityinfo
 https://learn.microsoft.com/en-us/graph/api/resources/entrarecoveryservices-backup-recovery-overview
 https://learn.microsoft.com/en-us/graph/api/resources/entrarecoveryservices-recovery
+https://learn.microsoft.com/en-us/graph/api/resources/enums
 https://learn.microsoft.com/en-us/graph/api/resources/enums-security
+https://learn.microsoft.com/en-us/graph/api/resources/evaluationerrordetail
 https://learn.microsoft.com/en-us/graph/api/resources/exchangemessagetrace
 https://learn.microsoft.com/en-us/graph/api/resources/externaloriginresourceconnector
 https://learn.microsoft.com/en-us/graph/api/resources/externalsapacconnectioninfo
 https://learn.microsoft.com/en-us/graph/api/resources/federatedtokenvalidationpolicy
 https://learn.microsoft.com/en-us/graph/api/resources/fido2authenticationmethod
 https://learn.microsoft.com/en-us/graph/api/resources/group
+https://learn.microsoft.com/en-us/graph/api/resources/groupresource
 https://learn.microsoft.com/en-us/graph/api/resources/identitygovernance-lifecyclepolicy
+https://learn.microsoft.com/en-us/graph/api/resources/identitygovernance-lifecyclepolicyrule
 https://learn.microsoft.com/en-us/graph/api/resources/identitygovernance-timebasedattributetriggerv2
 https://learn.microsoft.com/en-us/graph/api/resources/list
 https://learn.microsoft.com/en-us/graph/api/resources/m365capabilitybase
@@ -74,6 +79,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/onpasswordupdatelistener
 https://learn.microsoft.com/en-us/graph/api/resources/onpremisespublishing
 https://learn.microsoft.com/en-us/graph/api/resources/planner
 https://learn.microsoft.com/en-us/graph/api/resources/policyscopebase
+https://learn.microsoft.com/en-us/graph/api/resources/privilegedaccessgroup
 https://learn.microsoft.com/en-us/graph/api/resources/processcontentmetadatabase
 https://learn.microsoft.com/en-us/graph/api/resources/resourceaccountkeyauthenticationmethod
 https://learn.microsoft.com/en-us/graph/api/resources/rolemanagementcustomcalloutextension
@@ -88,6 +94,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/security-casemanagement-co
 https://learn.microsoft.com/en-us/graph/api/resources/security-casemanagement-slapolicydefinition
 https://learn.microsoft.com/en-us/graph/api/resources/security-casemanagementroot
 https://learn.microsoft.com/en-us/graph/api/resources/security-detectionaction
+https://learn.microsoft.com/en-us/graph/api/resources/security-detectionrule
 https://learn.microsoft.com/en-us/graph/api/resources/security-ediscoveryHoldPolicy
 https://learn.microsoft.com/en-us/graph/api/resources/security-ediscoveryaddtoreviewsetoperation
 https://learn.microsoft.com/en-us/graph/api/resources/security-incidentconfiguration
@@ -108,6 +115,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/x509certificateauthenticat
 https://learn.microsoft.com/en-us/graph/api/re…
 https://learn.microsoft.com/en-us/graph/api/security-alert-createalert
 https://learn.microsoft.com/en-us/graph/api/security-alert-movealerts
+https://learn.microsoft.com/en-us/graph/api/security-casemanagement-activity-update
 https://learn.microsoft.com/en-us/graph/api/security-casemanagement-attachment-download-content
 https://learn.microsoft.com/en-us/graph/api/security-casemanagement-attachment-upload-content
 https://learn.microsoft.com/en-us/graph/api/security-casemanagement-case-post-activities

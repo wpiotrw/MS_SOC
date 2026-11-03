@@ -41,13 +41,13 @@ monikers:
 item_type: Content
 source_path: api-reference/v1.0/resources/security.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1577a46d-8446-40bd-bfae-0578362f4d94
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f769bf00-f89e-4c24-8f5f-d0170c0a71cb
+- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/cdf3f22d-5420-4d59-a2bf-66d6b3d9c828
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/faddc47a-29dc-46f7-b30f-81d9d6c05fa0
+- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 platformId: b6733c8a-154a-2f89-559f-38160e5727f4
 ---
 
@@ -77,6 +77,7 @@ None
 | data security and compliance | [microsoft.graph.tenantDataSecurityAndGovernance](tenantdatasecurityandgovernance) | A container for Microsoft Purview data security and compliance APIs. |
 | identities | [microsoft.graph.security.identityContainer](security-identitycontainer) | A container for security identities APIs. |
 | incidents | [microsoft.graph.security.incident](security-incident) collection | A collection of incidents in Microsoft 365 Defender, each of which is a set of correlated alerts and associated metadata that reflects the story of an attack. |
+| rules | [microsoft.graph.security.rulesRoot](security-rulesroot) | Container for the security rules configured in Microsoft Defender XDR, including [custom detection rules](security-detectionrule). |
 
 ## JSON representation
 

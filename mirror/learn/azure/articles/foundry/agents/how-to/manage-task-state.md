@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Manage state for long-running agents (preview) - Microsoft Foundry | Microsoft Learn
+title: Manage state for long-running agents - Microsoft Foundry | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/manage-task-state
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
@@ -24,7 +24,7 @@ ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Keep durable progress for a hosted agent by storing progress markers, checkpoints, and framework recovery state in the Foundry state store.
 ms.manager: mcleans
-ms.date: 2026-09-04T00:00:00.0000000Z
+ms.date: 2026-10-14T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
 ms.custom: doc-kit-assisted
@@ -53,13 +53,9 @@ spProducts:
 platformId: 726bad1f-22ae-9cf4-f89c-eb9e6c6268bb
 ---
 
-# Manage state for long-running agents (preview) - Microsoft Foundry | Microsoft Learn
+# Manage state for long-running agents - Microsoft Foundry | Microsoft Learn
 
 A [long-running hosted agent](../concepts/long-running-agent-resilience) recovers from crashes only if its progress is durable. This article shows how to keep progress markers and checkpoints in the Foundry state store, and how to back a framework checkpointer so framework-level recovery survives restarts.
-
-Note
-
-Long-running agents are in preview. APIs and package versions are subject to change.
 
 ## Store progress and checkpoints
 
