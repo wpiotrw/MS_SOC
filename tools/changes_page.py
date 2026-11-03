@@ -239,6 +239,68 @@ def fix_archive(site, full):
         shutil.copyfile(full, h)
 
 
+def _dmy(d):
+    m = re.match(r"(\d{4})-(\d{2})-(\d{2})", d or "")
+    return "%s/%s/%s" % (m.group(3), m.group(2), m.group(1)) if m else (d or "")
+
+
+def xcheck_static(path, dc, home="../"):
+    """CLAUDE.md 5gf (3 XI 2026, owner: "say that something was until X and now is until Y - check every piece of
+    information that way; /diff and /week too"). The full comparison (diff/full.html) and the printable week
+    (week/print.html) are static pages a routine wrote: every Message Center number on them that another post on the same
+    change contradicts, moves or follows up (site/data/mc-datecheck.json) gets a filled flag, and the page gets a
+    "Dates cross-checked" section before </body>. Idempotent: the previous flags and section are removed first."""
+    if not dc or not os.path.exists(path):
+        return False
+    import html as _h
+    h0 = open(path, encoding="utf-8", errors="replace").read()
+    h = re.sub(r'<a class="xcflag-s"[^>]*>[^<]*</a>', "", h0)
+    h = re.sub(r"<!--s5gf-->.*?<!--/s5gf-->", "", h, flags=re.S)
+    E = lambda s: _h.escape(str(s or ""), quote=True)
+    V = {"moved": ("DATE MOVED", "#c53030"), "differs": ("OTHER DATE", "#b7791f"), "newer": ("NEWER POST", "#2b6cb0")}
+    found = []
+
+    def flag(m):
+        i = m.group(2)
+        if i not in dc:
+            return m.group(0)
+        if i not in found:
+            found.append(i)
+        v = V.get(dc[i].get("verdict"), V["differs"])
+        return m.group(0) + ('<a class="xcflag-s" href="#xc-%s" style="margin-left:6px;padding:0 7px;border-radius:999px;background:%s;color:#fff;'
+                             'font-weight:800;font-size:10.5px;text-decoration:none" title="Other posts on this change give another date">%s</a>' % (i, v[1], v[0]))
+    # the number as the whole text of an element: <td>MC..</td>, <span class="mono">MC..</span>, <a ...>MC..</a>;
+    # after </a> the flag goes outside the link (a link inside a link is invalid)
+    h = re.sub(r"(>)(MC\d{6,8})(</a>)?(?=<)", flag, h)
+    if found:
+        rows = []
+        for i in found:
+            r = dc[i]
+            v = V.get(r.get("verdict"), V["differs"])
+            ln = ['<span style="display:inline-block;padding:1px 8px;border-radius:999px;background:%s;color:#fff;font-weight:800;font-size:11px">%s</span> '
+                  '<b>Cross-check of <a href="%s#%s">%s</a></b>' % (v[1], v[0], home, i, i)]
+            if r.get("says"):
+                ln.append("This post: <b>%s</b>" % E(", ".join(_dmy(d) for d in r["says"])))
+            for m in r.get("moved") or []:
+                ln.append("Moved by Microsoft: <del>%s</del> &rarr; <b>%s</b>" % (E(m.get("was")), E(_dmy(m.get("now")))))
+            for o in r.get("others") or []:
+                ln.append('%s <a href="%s#%s">%s</a>%s: <b>%s</b> &mdash; %s' % ("Later date in" if o.get("later") else "Other date in", home, E(o.get("src")), E(o.get("src")),
+                          (" (posted %s)" % E(_dmy(o.get("post")))) if o.get("post") else "", E(_dmy(o.get("date"))), E(o.get("text"))))
+            for o in r.get("newer") or []:
+                ln.append('Later post <a href="%s#%s">%s</a> (%s) %s' % (home, E(o.get("id")), E(o.get("id")), E(_dmy(o.get("date"))), E(o.get("title"))))
+            for w in r.get("why") or []:
+                ln.append("How they fit: %s" % E(w))
+            rows.append('<li id="xc-%s" style="margin:0 0 10px;padding:8px 10px;border:2px solid #d69e2e;border-radius:10px;list-style:none">%s</li>' % (i, "<br>".join(ln)))
+        sec = ('<!--s5gf--><section id="xcheck" style="max-width:1100px;margin:24px auto;padding:0 16px"><h2>Dates cross-checked &middot; %d</h2>'
+               '<p>Message Center posts on this page whose date another post on the same change contradicts, moves or follows up '
+               '(site/data/mc-datecheck.json, from the campaigns). Read both before acting on one.</p><ul style="padding:0">%s</ul></section><!--/s5gf-->' % (len(found), "".join(rows)))
+        h = h.replace("</body>", sec + "</body>", 1) if "</body>" in h else h + sec
+    if h != h0:
+        open(path, "w", encoding="utf-8").write(h)
+        return True
+    return False
+
+
 def main(site="site"):
     app_src = os.path.join(os.path.dirname(os.path.abspath(__file__)), "changes_app.html")
     app = open(app_src, encoding="utf-8").read()
@@ -279,6 +341,13 @@ def main(site="site"):
         if not os.path.exists(p) or open(p, encoding="utf-8").read() != page:
             open(p, "w", encoding="utf-8").write(page)
             wrote.append(sub + "/index.html")
+    dc = (load(os.path.join(site, "data", "mc-datecheck.json"), {}) or {}).get("byMc") or {}   # 5gf
+    for sub, aside in (("diff", "full.html"), ("week", "print.html")):
+        try:
+            if xcheck_static(os.path.join(site, sub, aside), dc):
+                wrote.append(sub + "/" + aside + " (cross-check)")
+        except Exception as ex:
+            print("changes_page: cross-check of %s/%s skipped - %s" % (sub, aside, ex))
     print("changes_page: %d records (%s..%s, %d bookkeeping rows dropped)%s" % (
         len(recs), lo, hi, dropped, (" - wrote " + ", ".join(wrote)) if wrote else " - pages unchanged"))
     return 0

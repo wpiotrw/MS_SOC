@@ -122,6 +122,18 @@ body .fl,body .hlinks > a,body .lead,body .n,body .np,body .ri > span,body .seg 
 body th{font-size:13.5px;white-space:normal}
 body h2{font-size:20px}
 body h3{font-size:18px}
+/* §5gf: the cross-check of a Message Center post's dates against the other posts on the same change */
+.xc{margin:8px 0 2px;padding:8px 10px;border:2px solid #d69e2e;border-radius:10px;background:color-mix(in srgb,#d69e2e 9%,transparent);font-size:13px;line-height:1.45;overflow-wrap:anywhere}
+.xc-h{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:3px}
+.xc-v{display:inline-block;padding:1px 8px;border-radius:999px;font-weight:800;font-size:11px;letter-spacing:.04em;color:#fff}
+.xc-moved{background:#c53030}.xc-differs{background:#b7791f}.xc-newer{background:#2b6cb0}
+.xc-l{margin:3px 0}.xc-k{font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);margin-right:4px}
+.xc-d{display:inline-block;padding:0 7px;border-radius:5px;background:#34495e;color:#fff;font:700 12px var(--mono)}.xc-do{background:#b7791f}
+.xc-id{font:700 12px var(--mono);color:var(--accent)}
+.xc-f{margin:4px 0 0;font-size:12px;color:var(--muted)}
+.xcflag{display:inline-block;margin-left:6px;padding:0 7px;border-radius:999px;font-weight:800;font-size:10.5px;color:#fff;vertical-align:middle}
+.xcsum{margin:0 0 14px;padding:10px 12px;border:2px solid #d69e2e;border-radius:12px}
+.xcsum h3{margin:0 0 6px;font-size:15px}.xc-row summary{cursor:pointer;line-height:1.6}.xcsum ul{margin:0;padding:0;list-style:none}.xcsum li{padding:6px 0;border-top:1px solid var(--border-soft)}
 </style>
 </head>
 <body>
@@ -200,6 +212,41 @@ body h3{font-size:18px}
     if (d) p.appendChild(el("span", "det", cut(d).replace(/^endpoint (added|removed): /, function (m, x) { return (x === "added" ? "+ " : "− "); })));
     return p;
   }
+  /* §5gf (3 XI 2026, owner: "say that something was until X and now is until Y - check every piece of information that
+     way", then "do it in /diff and /week too"): /data/mc-datecheck.json (tools/mc_datecheck.py) gives every Message
+     Center post the dates the OTHER posts on the same change give. A change that names such a post carries the frame. */
+  var DC = null;
+  var XV = { moved: "DATE MOVED", differs: "OTHER DATE", newer: "NEWER POST" };
+  function xcIds(r) { if (!DC) return []; var s = [r.id, r.t, r.x].concat((r.f || []).map(function (f) { return f.join(" "); })).join(" "), o = [], m, rx = /MC\d{6,8}/g;
+    while ((m = rx.exec(s))) if (DC[m[0]] && o.indexOf(m[0]) < 0) o.push(m[0]); return o.slice(0, 2); }
+  function mcA(id) { var a = el("a", "xc-id", id); a.href = "@@HOME@@#" + id; a.title = "Open " + id + " in the brief's Message Center tab"; return a; }
+  function xcBox(id, full) {
+    var r = DC[id], box = el("div", "xc"), h = el("div", "xc-h"), N = full ? 9 : 2;
+    h.appendChild(el("span", "xc-v xc-" + (r.verdict || "differs"), XV[r.verdict] || XV.differs));
+    h.appendChild(el("b", null, "Cross-check of ")); h.appendChild(mcA(id)); box.appendChild(h);
+    function line(k, nodes) { var p = el("div", "xc-l"); p.appendChild(el("span", "xc-k", k)); nodes.forEach(function (n) { p.appendChild(typeof n === "string" ? document.createTextNode(n) : n); }); box.appendChild(p); }
+    if ((r.says || []).length) line("This post", [el("span", "xc-d", r.says.map(dmy).join(", "))]);
+    (r.moved || []).forEach(function (m) { line("Moved by Microsoft", [el("del", null, m.was), " → ", el("span", "xc-d", dmy(m.now))]); });
+    var O = r.others || [], NW = r.newer || [];
+    O.slice(0, N).forEach(function (o) { line(o.later ? "Later date in" : "Other date in", [mcA(o.src), o.post ? " (posted " + dmy(o.post) + ") " : " ", el("span", "xc-d xc-do", dmy(o.date)), " " + cut(o.text)]); });
+    NW.slice(-(full ? 3 : 1)).forEach(function (o) { line("Later post", [mcA(o.id), " (" + dmy(o.date) + ") " + (o.title || "")]); });
+    var more = Math.max(0, O.length - N) + Math.max(0, NW.length - (full ? 3 : 1)); if (more) line("", ["and " + more + " more date" + (more === 1 ? "" : "s") + " on this change — open the campaign"]);
+    (r.why || []).slice(0, full ? 2 : 1).forEach(function (w) { line("How they fit", [w]); });
+    var c = (r.campaigns || [])[0]; if (c) { var f = el("p", "xc-f"); f.appendChild(document.createTextNode("Campaign “" + c.name + "” — ")); var a = el("a", null, "open it"); a.href = "@@HOME@@#tab=campaigns&c=" + encodeURIComponent(c.id); f.appendChild(a); box.appendChild(f); }
+    return box;
+  }
+  function xcSummary(L) {
+    var seen = {}, rows = []; L.forEach(function (r) { xcIds(r).forEach(function (id) { if (!seen[id]) { seen[id] = 1; rows.push([id, r]); } }); });
+    if (!rows.length) return null;
+    var s = el("section", "xcsum"); s.appendChild(el("h3", null, "Dates cross-checked · " + rows.length + " Message Center post" + (rows.length === 1 ? "" : "s") + " in these changes — another post on the same change gives another date, moved it or followed it up"));
+    var ul = el("ul"); rows.forEach(function (x) {
+      var q = DC[x[0]], li = el("li"), d = el("details", "xc-row"), sm = el("summary");
+      sm.appendChild(el("span", "xc-v xc-" + (q.verdict || "differs"), XV[q.verdict] || XV.differs)); sm.appendChild(document.createTextNode(" ")); sm.appendChild(el("b", "xc-id", x[0]));
+      var o = (q.others || [])[0], m = (q.moved || [])[0], nw = (q.newer || []).slice(-1)[0];
+      sm.appendChild(document.createTextNode(((q.says || []).length ? " · this post " + q.says.map(dmy).join(", ") : "") + (m ? " · was " + m.was + ", now " + dmy(m.now) : o ? " · " + o.src + ": " + dmy(o.date) : nw ? " · later post " + nw.id + " (" + dmy(nw.date) + ")" : "")));
+      d.appendChild(sm); d.addEventListener("toggle", function () { if (d.open && !d.__f) { d.__f = 1; d.appendChild(xcBox(x[0], true)); } }); li.appendChild(d); ul.appendChild(li); });
+    s.appendChild(ul); return s;
+  }
   function tile(r) {
     var k = kindOf(r), li = el("li", "tile " + k), top = el("div", "tt");
     top.appendChild(el("span", "kind", KL[k]));
@@ -213,6 +260,7 @@ body h3{font-size:18px}
     (r.f || []).slice(0, 4).forEach(function (f) { li.appendChild(fieldLine(f)); });
     if ((r.f || []).length > 4) li.appendChild(el("div", "meta", "and " + (r.f.length - 4) + " more fields"));
     if (r.x) li.appendChild(el("div", "meta", r.x));
+    xcIds(r).forEach(function (id) { li.appendChild(xcBox(id)); });   /* §5gf */
     return li;
   }
   /* §5ev (22 X 2026, owner: "you write 26 new · 2 changed · 7 removed, but I cannot click a status to see only the
@@ -266,7 +314,8 @@ body h3{font-size:18px}
         var rows = (r.f && r.f.length) ? r.f : [["", "", r.x || "", ""]];
         rows.forEach(function (f, i) {
           var x = el("tr"); x.appendChild(el("td", null, i ? "" : dm(r.d))); x.appendChild(el("td", null, i ? "" : KL[kindOf(r)]));
-          var c = el("td"); if (!i) { if (r.u) { var a = el("a", null, r.t || r.id); a.href = r.u; a.target = "_blank"; a.rel = "noopener"; c.appendChild(a); } else c.textContent = r.t || r.id; }
+          var c = el("td"); if (!i) { if (r.u) { var a = el("a", null, r.t || r.id); a.href = r.u; a.target = "_blank"; a.rel = "noopener"; c.appendChild(a); } else c.textContent = r.t || r.id;
+            xcIds(r).forEach(function (id) { var q = DC[id], fl = el("span", "xcflag xc-" + (q.verdict || "differs"), XV[q.verdict] || XV.differs); fl.title = "Other posts on this change: " + (q.others || []).map(function (o) { return o.src + " " + dmy(o.date); }).concat((q.moved || []).map(function (m) { return "was " + m.was + ", now " + dmy(m.now); })).join("; "); c.appendChild(fl); }); }   /* §5gf */
           x.appendChild(c); x.appendChild(el("td", null, i ? "" : r.p)); x.appendChild(el("td", null, f[0])); x.appendChild(el("td", null, f[1])); x.appendChild(el("td", null, [f[2], f[3]].filter(Boolean).join(" — ")));
           bd.appendChild(x);
         });
@@ -298,6 +347,7 @@ body h3{font-size:18px}
       var top = all.slice().sort(function (x, y) { return score(y) - score(x) || y.d.localeCompare(x.d); }).slice(0, 9);
       p.appendChild(el("p", "lead", "The changes worth reading first, ranked: tier 0, the brief's SOC weight, then what the change does — a Graph permission that can reach more, a role, a date that moved, an incident, a feature leaving preview. Every tab is in the rail with what moved: + new, ~ changed, − removed."));
       p.appendChild(block("Most important · " + (RANGE === "week" ? "last 7 days" : "since the previous brief"), top, true, 9, true));
+      var xs = xcSummary(all); if (xs) p.appendChild(xs);   /* §5gf */
       var w = el("div", "tw"), t = el("table", "sumtab"), hd = el("thead"), tr = el("tr");
       ["Tab", "New", "Changed", "Removed", "Last change"].forEach(function (h) { tr.appendChild(el("th", null, h)); }); hd.appendChild(tr); t.appendChild(hd);
       var bd = el("tbody");
@@ -393,6 +443,7 @@ body h3{font-size:18px}
   addEventListener("hashchange", function () { var k = decodeURIComponent(location.hash || "").replace(/^#/, ""), m = /tab=([^&]+)/.exec(k);
     var t = m ? m[1] : OLD[k]; if (t && t !== S.tab && TABS.some(function (x) { return x[0] === t; }) && D) { S.tab = t; render(); } });
   if (/range=week/.test(h0)) RANGE = "week"; else if (/range=brief/.test(h0)) RANGE = "brief";
+  fetch("@@HOME@@data/mc-datecheck.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { DC = (j && j.byMc) || {}; if (D) render(); }).catch(function () {});   /* §5gf */
   fetch("@@HOME@@data/changes-7d.json", { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
     .then(function (j) { D = j; render(); })
     .catch(function (e) { document.getElementById("main").textContent = "The change register could not be read (" + e.message + "). The full comparison is at diff/full.html."; });

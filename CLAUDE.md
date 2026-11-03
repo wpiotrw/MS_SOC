@@ -52102,7 +52102,16 @@ ze cos bylo do X, a teraz jest do Y — i tak sprawdzac kazda informacje w porta
   MC1529463: cross-check, Known to (mc.merill.net ↗, not on msmessagecenter.com, DeltaPulse, tenant), 6 zakladek
   PowerShell; Sources & coverage (5 paskow, 4 listy, 13 technologii, 1 luka MC1536158 z dzisiejszego poludnia); brak
   przewijania w bok, 0 bledow skryptu. Kolektor z luka: 1 147 wpisow. `mobile_check --cpu 4`: zdania Overview 8,1 s.
-- **Nie zrobione:** `/diff` i `/week` nie pokazuja jeszcze ramki cross-check (tylko strona glowna).
+- **§5gf-b (3 XI 2026, wlasciciel: „ok, to robimy" — cross-check w `/diff` i `/week`):** aplikacja zmian
+  (`tools/changes_app.html`) czyta `site/data/mc-datecheck.json`: kafel zmiany, ktora nazywa post MC z wpisem, dostaje
+  ramke (najwyzej 2 inne daty i „and N more"), tabela „All changes" — wypelniona plakietke przy pozycji, a Summary —
+  blok „Dates cross-checked" (jedna linia na post: werdykt, numer, data posta, druga data albo „was → now"; klik rozwija
+  pelna ramke). Statyczne strony (`diff/full.html`, `week/print.html`) przetwarza `tools/changes_page.py`
+  (`xcheck_static`): plakietka przy kazdym numerze MC (komorka, `span.mono`, link — po `</a>`, bez linku w linku)
+  i sekcja „Dates cross-checked" przed `</body>`; idempotentnie (stare plakietki i sekcja usuwane przed kazdym
+  przebiegiem). 3 XI: `/week` 10 postow (MC1529463 · MC1488839 31/03/2027, MC1446796 was Oct 2026 → 05/11/2026 …),
+  `/diff` 1; `print.html` 9 plakietek i 8 wpisow sekcji, `full.html` 2 i 1. Chromium 390/1280, WebKit 390: bez
+  przewijania w bok, 0 bledow.
 
 ### §5ge — DISA STIG w Security baselines; Intune STIG audit baseline kontra DISA (2 XI 2026)
 
