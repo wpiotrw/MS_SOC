@@ -1,5 +1,103 @@
 [
  {
+  "file": "community/2026-11-03-hunting-query.kql",
+  "title": "Hunting query",
+  "date": "2026-11-03",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents",
+   "EmailAttachmentInfo",
+   "EmailEvents",
+   "EmailUrlInfo",
+   "SigninLogs",
+   "ThreatIntelIndicators",
+   "UrlClickEvents"
+  ],
+  "purpose": "Hunting query",
+  "source": "https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/509d4ab5c62903acf65d9b22f799c1a18e9bf271/TIFCE/tifcepillar2-data.md",
+  "kind": "repo",
+  "author": "Michalis Michalos",
+  "link": "https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/509d4ab5c62903acf65d9b22f799c1a18e9bf271/TIFCE/tifcepillar2-data.md",
+  "license": "MIT",
+  "repo": "cyb3rmik3 KQL threat hunting queries"
+ },
+ {
+  "file": "community/2026-11-03-hunting-query-5.kql",
+  "title": "Hunting query",
+  "date": "2026-11-03",
+  "product": "Sentinel",
+  "tables": [
+   "ThreatIntelIndicators"
+  ],
+  "purpose": "Hunting query",
+  "source": "https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/509d4ab5c62903acf65d9b22f799c1a18e9bf271/TIFCE/tifcepillar1-data.md",
+  "kind": "repo",
+  "author": "Michalis Michalos",
+  "link": "https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/509d4ab5c62903acf65d9b22f799c1a18e9bf271/TIFCE/tifcepillar1-data.md",
+  "license": "MIT",
+  "repo": "cyb3rmik3 KQL threat hunting queries"
+ },
+ {
+  "file": "community/2026-11-03-hunting-query-4.kql",
+  "title": "Hunting query",
+  "date": "2026-11-03",
+  "product": "Sentinel",
+  "tables": [
+   "ThreatIntelIndicators"
+  ],
+  "purpose": "Hunting query",
+  "source": "https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/509d4ab5c62903acf65d9b22f799c1a18e9bf271/TIFCE/tifcepillar4-data.md",
+  "kind": "repo",
+  "author": "Michalis Michalos",
+  "link": "https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/509d4ab5c62903acf65d9b22f799c1a18e9bf271/TIFCE/tifcepillar4-data.md",
+  "license": "MIT",
+  "repo": "cyb3rmik3 KQL threat hunting queries"
+ },
+ {
+  "file": "community/2026-11-03-hunting-query-3.kql",
+  "title": "Hunting query",
+  "date": "2026-11-03",
+  "product": "Sentinel",
+  "tables": [
+   "ThreatIntelIndicators"
+  ],
+  "purpose": "Hunting query",
+  "source": "https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/509d4ab5c62903acf65d9b22f799c1a18e9bf271/TIFCE/tifcepillar4-data.md",
+  "kind": "repo",
+  "author": "Michalis Michalos",
+  "link": "https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/509d4ab5c62903acf65d9b22f799c1a18e9bf271/TIFCE/tifcepillar4-data.md",
+  "license": "MIT",
+  "repo": "cyb3rmik3 KQL threat hunting queries"
+ },
+ {
+  "file": "community/2026-11-03-hunting-query-2.kql",
+  "title": "Hunting query",
+  "date": "2026-11-03",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents",
+   "EmailAttachmentInfo",
+   "EmailEvents",
+   "EmailUrlInfo",
+   "SecurityAlert",
+   "SecurityIncident",
+   "SigninLogs",
+   "ThreatIntelIndicators",
+   "UrlClickEvents"
+  ],
+  "purpose": "Hunting query",
+  "source": "https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/509d4ab5c62903acf65d9b22f799c1a18e9bf271/TIFCE/tifcepillar3-data.md",
+  "kind": "repo",
+  "author": "Michalis Michalos",
+  "link": "https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/509d4ab5c62903acf65d9b22f799c1a18e9bf271/TIFCE/tifcepillar3-data.md",
+  "license": "MIT",
+  "repo": "cyb3rmik3 KQL threat hunting queries"
+ },
+ {
   "file": "community/2026-11-02-wp2shell-exposure-detection.kql",
   "title": "wp2shell exposure detection",
   "date": "2026-11-02",

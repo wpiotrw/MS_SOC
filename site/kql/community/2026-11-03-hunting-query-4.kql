@@ -1,0 +1,32 @@
+// title: Hunting query
+// date: 2026-11-03
+// product: Sentinel
+// tables: ThreatIntelIndicators
+// purpose: Hunting query
+// source: https://github.com/cyb3rmik3/KQL-threat-hunting-queries/blob/509d4ab5c62903acf65d9b22f799c1a18e9bf271/TIFCE/tifcepillar4-data.md
+// kind: repo
+// author: Michalis Michalos
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// ================================================
+// TIFCE Pillar 4: New IOCs per day
+//
+// Purpose:
+// - Chart how many indicators each feed adds per day.
+// - Days without new indicators are plotted as zero, so a feed that has
+//   stopped delivering shows up before its freshness status turns stale.
+// ================================================
+// Indicator versions older than this are ignored; align it with the table's retention
+let TILookback = 90d;
+// Chart window when run standalone; the workbook uses its Time Range picker
+let ChartStart = ago(30d);
+let ChartEnd = now();
+ThreatIntelIndicators
+| where TimeGenerated > ago(TILookback)
+// Each update writes a new row; keep only the latest version of each indicator,
+// remembering when its first version was seen
+| summarize arg_max(TimeGenerated, *), FirstVersionTime = min(TimeGenerated) by Id
+| where isnotempty(SourceSystem)
+| extend AddedTime = coalesce(todatetime(column_ifexists("Created", datetime(null))), FirstVersionTime)
+| where AddedTime between (ChartStart .. ChartEnd)
+| make-series NewIOCs = count() default = 0 on AddedTime from bin(ChartStart, 1d) to ChartEnd step 1d by Feed = tostring(SourceSystem)
