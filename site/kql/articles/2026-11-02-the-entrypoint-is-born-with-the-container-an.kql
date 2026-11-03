@@ -1,0 +1,30 @@
+// title: The entrypoint is born with the container. An exec arrives later.
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed
+// source: https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 1d;
+let entrypointGraceSeconds = 120;
+DeviceProcessEvents
+| where Timestamp >= ago(lookback)
+| where InitiatingProcessFileName startswith "containerd-shim"
+     or InitiatingProcessFileName in~ ("conmon", "crun", "runc")
+| where FileName in~ ("sh", "bash", "dash", "ash", "zsh", "busybox")
+| extend SecondsAfterParentStart =
+      datetime_diff('second', ProcessCreationTime, InitiatingProcessCreationTime)
+// The entrypoint is born with the container. An exec arrives later.
+| where SecondsAfterParentStart > entrypointGraceSeconds
+| summarize
+    Execs     = count(),
+    FirstExec = min(Timestamp),
+    LastExec  = max(Timestamp),
+    Accounts  = make_set(AccountName, 5)
+  by DeviceName, ShimPid = InitiatingProcessId, ProcessCommandLine
+// Exec liveness/readiness probes repeat on a schedule.
+// Humans and attackers usually don't.
+| where Execs <= 3
+| order by FirstExec desc

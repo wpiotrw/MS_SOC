@@ -1,0 +1,14 @@
+// title: 2. Does your sensor surface RunMRU writes at all?
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceRegistryEvents
+// purpose: From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed
+// source: https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// 2. Does your sensor surface RunMRU writes at all?
+DeviceRegistryEvents
+| where Timestamp >= ago(7d)
+| where RegistryKey endswith @"\Explorer\RunMRU"
+| summarize Events = count(), Devices = dcount(DeviceId), Writers = make_set(InitiatingProcessFileName, 5)

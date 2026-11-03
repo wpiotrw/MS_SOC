@@ -1,0 +1,22 @@
+// title: Per device: IsTrusted depends on that device's root store.
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceFileCertificateInfo, DeviceImageLoadEvents
+// purpose: From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed
+// source: https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceImageLoadEvents
+| where Timestamp >= ago(1d)
+| join kind=leftouter (
+    DeviceFileCertificateInfo
+    | where Timestamp >= ago(7d)
+    // Per device: IsTrusted depends on that device's root store.
+    | summarize arg_max(Timestamp, IsSigned, IsTrusted, Signer) by DeviceId, SHA1
+  ) on DeviceId, SHA1
+| extend SignatureState = case(
+      isnull(IsSigned),        "NoCertificateRecord",
+      IsSigned and IsTrusted,  "SignedTrusted",
+      IsSigned,                "SignedUntrusted",
+                               "Unsigned")

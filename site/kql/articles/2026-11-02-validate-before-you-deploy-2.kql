@@ -1,0 +1,19 @@
+// title: Validate before you deploy
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed
+// source: https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// 1. Where do download-cradle interpreters ACTUALLY come from
+//    in your fleet? This is the brief's own filter with the
+//    parent constraint removed.
+DeviceProcessEvents
+| where Timestamp >= ago(30d)
+| where FileName in~ ("cmd.exe", "powershell.exe", "mshta.exe", "wscript.exe", "cscript.exe")
+| where ProcessCommandLine has_any ("-enc", "-EncodedCommand", "FromBase64", "IEX",
+                                    "Invoke-Expression", "DownloadString", "DownloadFile")
+| summarize Events = count(), Devices = dcount(DeviceId) by InitiatingProcessFileName
+| order by Events desc

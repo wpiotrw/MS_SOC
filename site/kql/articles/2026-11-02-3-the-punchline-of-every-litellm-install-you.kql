@@ -1,0 +1,23 @@
+// title: 3. The punchline: of every LiteLLM install you can see, how
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed
+// source: https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// 3. The punchline: of every LiteLLM install you can see, how
+//    many named a version on the command line?
+DeviceFileEvents
+| where Timestamp >= ago(30d)
+| where FolderPath has_any ("site-packages", "dist-packages")
+| extend DistInfo = extract(@"(?i)[\\/](litellm-[^\\/]+)\.dist-info", 1, FolderPath)
+| where isnotempty(DistInfo)
+| summarize by DeviceId, DistInfo, InitiatingProcessCommandLine
+// Indicative, not definitive: a version constraint on litellm
+// itself in the command line. Versions pinned inside a
+// requirements or lock file won't appear here, which is the point.
+| extend VersionAskedFor = InitiatingProcessCommandLine matches regex
+      @"(?i)\blitellm\s*(===|==|~=|>=|<=|!=)\s*[0-9]"
+| summarize Installs = count() by VersionAskedFor

@@ -1,0 +1,20 @@
+// title: No registry telemetry? Use the right parent anyway
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed
+// source: https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where Timestamp >= ago(1d)
+| where InitiatingProcessFileName =~ "explorer.exe"
+| where FileName in~ ("powershell.exe", "pwsh.exe", "mshta.exe", "cmd.exe",
+                      "wscript.exe", "cscript.exe", "rundll32.exe",
+                      "msiexec.exe", "curl.exe", "conhost.exe")
+| where ProcessCommandLine matches regex
+    @"(?i)(https?://|frombase64|\biex\b|invoke-expression|downloadstring|\birm\b|\biwr\b|-e(nc(odedcommand)?)?\s)"
+| project Timestamp, DeviceName, AccountName, FileName, ProcessCommandLine,
+          ProcessId, ProcessCreationTime, SHA256
+| order by Timestamp desc

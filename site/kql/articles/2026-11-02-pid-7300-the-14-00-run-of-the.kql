@@ -1,0 +1,37 @@
+// title: PID 7300 (the 14:00 run of the temp-folder binary) loads the unsigned DLL.
+// date: 2026-11-02
+// product: 
+// tables: 
+// purpose: From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed
+// source: https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Procs = datatable(DeviceName:string, Timestamp:datetime, FileName:string,
+                      FolderPath:string, SHA256:string, ProcessId:long,
+                      ProcessCreationTime:datetime) [
+    "ws01", datetime(2026-10-29 09:00:00), "helper.exe", @"c:\users\a\appdata\local\temp\helper.exe", "AAA", 4100, datetime(2026-10-29 09:00:00),
+    "ws01", datetime(2026-10-29 14:00:00), "helper.exe", @"c:\users\a\appdata\local\temp\helper.exe", "AAA", 7300, datetime(2026-10-29 14:00:00),
+    "ws01", datetime(2026-10-29 14:00:05), "helper.exe", @"c:\users\a\downloads\helper.exe",          "BBB", 7320, datetime(2026-10-29 14:00:05)
+];
+// PID 7300 (the 14:00 run of the temp-folder binary) loads the unsigned DLL.
+let Loads = datatable(DeviceName:string, ImageTimestamp:datetime, LoadedImage:string,
+                      InitiatingProcessFileName:string, InitiatingProcessId:long,
+                      InitiatingProcessCreationTime:datetime) [
+    "ws01", datetime(2026-10-29 14:00:30), "netam.dll", "helper.exe", 7300, datetime(2026-10-29 14:00:00)
+];
+// The brief's pattern: collapse to first-seen per binary, join on the name.
+let ByName =
+    Procs
+    | summarize arg_min(Timestamp, *) by DeviceName, FileName, FolderPath, SHA256
+    | join kind=inner Loads on DeviceName, $left.FileName == $right.InitiatingProcessFileName
+    | where datetime_diff('second', ImageTimestamp, Timestamp) between (0 .. 120)
+    | project Method = "ByName", ProcessId, FolderPath, LoadedImage;
+// Identity: a process is (device, PID, creation time). No window needed.
+let ByIdentity =
+    Procs
+    | join kind=inner Loads on DeviceName,
+        $left.ProcessId == $right.InitiatingProcessId,
+        $left.ProcessCreationTime == $right.InitiatingProcessCreationTime
+    | project Method = "ByIdentity", ProcessId, FolderPath, LoadedImage;
+union ByName, ByIdentity

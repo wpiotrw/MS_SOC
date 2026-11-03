@@ -1,0 +1,29 @@
+// title: Detection 2: Malicious IDE Extension SSH Backdoor - Outbound SSH Connection from IDE Process
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: Detection Engineering Brief - Monday, November 2, 2026
+// source: https://devsecopsdadattack.com/2026-11-02-detection-engineering-brief-monday-november-2-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where TimeGenerated > ago(7d)
+| where RemotePort == 22
+| where ActionType in ("ConnectionSuccess", "ConnectionAttempt", "ConnectionFound")
+| where (
+    InitiatingProcessFileName has_any ("cursor", "node", "electron", "code")
+    or InitiatingProcessParentFileName has_any ("cursor", "node", "electron", "code")
+)
+| project
+    TimeGenerated,
+    DeviceName,
+    RemoteIP,
+    RemotePort,
+    RemoteUrl,
+    ActionType,
+    InitiatingProcessFileName,
+    InitiatingProcessParentFileName,
+    InitiatingProcessCommandLine,
+    InitiatingProcessAccountName
+| order by TimeGenerated desc

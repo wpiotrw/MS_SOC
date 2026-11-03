@@ -1,0 +1,18 @@
+// title: 🥊 Bonus Round: Joining on a FileName Is Joining on a Rumor
+// date: 2026-11-02
+// product: 
+// tables: 
+// purpose: From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed
+// source: https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+| summarize
+    arg_min(Timestamp, *)
+    by DeviceName, FileName, FolderPath, SHA256, InitiatingProcessFileName
+...
+SuspiciousLoaderProcesses
+| join kind=inner UnsignedImageLoads
+    on DeviceName,
+       $left.ChildProcess == $right.InitiatingProcessFileName
+| where datetime_diff('second', ImageTimestamp, Timestamp) between (0 .. ChainWindowSeconds)

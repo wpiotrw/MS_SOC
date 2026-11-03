@@ -1,0 +1,18 @@
+// title: 2. Your .pth baseline. Every name here needs an explanation
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed
+// source: https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// 2. Your .pth baseline. Every name here needs an explanation
+//    before you trust the exclusion list.
+DeviceFileEvents
+| where Timestamp >= ago(30d)
+| where FolderPath has_any ("site-packages", "dist-packages")
+| where FileName endswith ".pth"
+| summarize Writes = count(), Devices = dcount(DeviceId),
+            Writers = make_set(InitiatingProcessFileName, 5) by FileName
+| order by Devices desc

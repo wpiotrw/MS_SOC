@@ -98,6 +98,24 @@
   "repo": "cyb3rmik3 KQL threat hunting queries"
  },
  {
+  "file": "articles/2026-11-03-detection-1-ivanti-connect-secure-remote-authenticated-file.kql",
+  "title": "Detection 1: Ivanti Connect Secure - Remote Authenticated File Upload to Known Disk Path (CVE-2026-118527)",
+  "date": "2026-11-03",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, November 3, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-03-detection-engineering-brief-tuesday-november-3-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-03-detection-engineering-brief-tuesday-november-3-2026/",
+  "cves": [
+   "CVE-2026-118527"
+  ]
+ },
+ {
   "file": "community/2026-11-02-wp2shell-exposure-detection.kql",
   "title": "wp2shell exposure detection",
   "date": "2026-11-02",
@@ -2229,6 +2247,48 @@
   "initial": true
  },
  {
+  "file": "articles/2026-11-02-validate-before-you-deploy.kql",
+  "title": "Validate before you deploy",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/"
+ },
+ {
+  "file": "articles/2026-11-02-validate-before-you-deploy-2.kql",
+  "title": "Validate before you deploy",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/"
+ },
+ {
+  "file": "articles/2026-11-02-the-entrypoint-is-born-with-the-container-an.kql",
+  "title": "The entrypoint is born with the container. An exec arrives later.",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/"
+ },
+ {
   "file": "articles/2026-11-02-the-detection-engineering-toolchain.kql",
   "title": "The Detection Engineering Toolchain",
   "date": "2026-11-02",
@@ -2241,6 +2301,241 @@
   "kind": "article",
   "author": "Rcegan · Detect FYI (detection engineering, KQL)",
   "link": "https://detect.fyi/implementing-detection-as-code-as-a-multi-platform-mssp-6518cc5289b4?source=rss----d5fd8f494f6a---4"
+ },
+ {
+  "file": "articles/2026-11-02-pid-7300-the-14-00-run-of-the.kql",
+  "title": "PID 7300 (the 14:00 run of the temp-folder binary) loads the unsigned DLL.",
+  "date": "2026-11-02",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/"
+ },
+ {
+  "file": "articles/2026-11-02-per-device-istrusted-depends-on-that-device-s.kql",
+  "title": "Per device: IsTrusted depends on that device's root store.",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileCertificateInfo",
+   "DeviceImageLoadEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/"
+ },
+ {
+  "file": "articles/2026-11-02-no-registry-telemetry-use-the-right-parent-anyway.kql",
+  "title": "No registry telemetry? Use the right parent anyway",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/"
+ },
+ {
+  "file": "articles/2026-11-02-no-dedicated-template-name-field-in-these-events.kql",
+  "title": "No dedicated template-name field in these events. When the",
+  "date": "2026-11-02",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/"
+ },
+ {
+  "file": "articles/2026-11-02-detection-5-beyondtrust-cve-2026-102764-unexpected-process.kql",
+  "title": "Detection 5: BeyondTrust CVE-2026-102764 - Unexpected Process Execution Following Inbound Customer Session",
+  "date": "2026-11-02",
+  "product": "Sentinel",
+  "tables": [
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 2, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-02-detection-engineering-brief-monday-november-2-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-detection-engineering-brief-monday-november-2-2026/"
+ },
+ {
+  "file": "articles/2026-11-02-detection-4-ad-cs-esc1-abuse-low-privileged.kql",
+  "title": "Detection 4: AD CS ESC1 Abuse - Low-Privileged Account Certificate Enrollment with Anomalous Template",
+  "date": "2026-11-02",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 2, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-02-detection-engineering-brief-monday-november-2-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-detection-engineering-brief-monday-november-2-2026/",
+  "incident": "teams-helpdesk-adcs-esc1-esc8-2026-10"
+ },
+ {
+  "file": "articles/2026-11-02-detection-3-ad-cs-esc8-abuse-certificate-enrollment.kql",
+  "title": "Detection 3: AD CS ESC8 Abuse - Certificate Enrollment Following NTLM Logon from Unexpected Source",
+  "date": "2026-11-02",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 2, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-02-detection-engineering-brief-monday-november-2-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-detection-engineering-brief-monday-november-2-2026/",
+  "incident": "teams-helpdesk-adcs-esc1-esc8-2026-10"
+ },
+ {
+  "file": "articles/2026-11-02-detection-2-malicious-ide-extension-ssh-backdoor-outbound.kql",
+  "title": "Detection 2: Malicious IDE Extension SSH Backdoor - Outbound SSH Connection from IDE Process",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 2, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-02-detection-engineering-brief-monday-november-2-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-detection-engineering-brief-monday-november-2-2026/"
+ },
+ {
+  "file": "articles/2026-11-02-detection-1-malicious-ide-extension-ssh-backdoor-authorized.kql",
+  "title": "Detection 1: Malicious IDE Extension SSH Backdoor - authorized_keys Modified by Extension Process",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 2, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-02-detection-engineering-brief-monday-november-2-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-detection-engineering-brief-monday-november-2-2026/"
+ },
+ {
+  "file": "articles/2026-11-02-bonus-round-joining-on-a-filename-is-joining.kql",
+  "title": "🥊 Bonus Round: Joining on a FileName Is Joining on a Rumor",
+  "date": "2026-11-02",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/"
+ },
+ {
+  "file": "articles/2026-11-02-act-ii-nobody-types-the-compromised-version.kql",
+  "title": "🥈 Act II: Nobody Types the Compromised Version",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/"
+ },
+ {
+  "file": "articles/2026-11-02-act-i-clickfix-never-has-a-browser-parent.kql",
+  "title": "🥇 Act I: ClickFix Never Has a Browser Parent",
+  "date": "2026-11-02",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/"
+ },
+ {
+  "file": "articles/2026-11-02-act-i-clickfix-never-has-a-browser-parent-3.kql",
+  "title": "🥇 Act I: ClickFix Never Has a Browser Parent",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents",
+   "DeviceRegistryEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/"
+ },
+ {
+  "file": "articles/2026-11-02-act-i-clickfix-never-has-a-browser-parent-2.kql",
+  "title": "🥇 Act I: ClickFix Never Has a Browser Parent",
+  "date": "2026-11-02",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/"
+ },
+ {
+  "file": "articles/2026-11-02-3-the-punchline-of-every-litellm-install-you.kql",
+  "title": "3. The punchline: of every LiteLLM install you can see, how",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "incident": "litellm-1-107-0-supply-chain-2026-10"
+ },
+ {
+  "file": "articles/2026-11-02-2-your-pth-baseline-every-name-here-needs.kql",
+  "title": "2. Your .pth baseline. Every name here needs an explanation",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/"
+ },
+ {
+  "file": "articles/2026-11-02-2-does-your-sensor-surface-runmru-writes-at.kql",
+  "title": "2. Does your sensor surface RunMRU writes at all?",
+  "date": "2026-11-02",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceRegistryEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed",
+  "source": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/"
  },
  {
   "file": "articles/2026-11-01-detection-5-shell-process-spawned-by-beyondtrust-web.kql",

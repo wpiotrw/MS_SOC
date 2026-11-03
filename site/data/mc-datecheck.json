@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-03T13:00:17Z",
+ "generated": "2026-11-03T17:16:05Z",
  "day": "2026-11-03",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-03)",
@@ -1529,6 +1529,14 @@
      "link": "https://mc.merill.net/message/MC1519855"
     },
     {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
      "date": "2027-03-22",
      "src": "MC1536049",
      "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
@@ -1809,6 +1817,7 @@
   "MC1536049": {
    "says": [
     "2027-02-01",
+    "2027-02-15",
     "2027-03-22",
     "2027-07-01"
    ],

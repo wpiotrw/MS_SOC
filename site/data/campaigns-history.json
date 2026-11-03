@@ -194,6 +194,11 @@
 "label":"1 Feb 2027",
 "text":"Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by Fe"
 },
+"MC1536049|we expect rollout to begin and complete in#0":{
+"date":"2027-02-15",
+"label":"Feb 2027",
+"text":"We expect rollout to begin and complete in February 2027."
+},
 "MC1536049|message center action required date days after the rollout s#0":{
 "date":"2027-03-22",
 "label":"22 Mar 2027",
@@ -6446,14 +6451,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-01",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-02",
 "text":"August 1, 2026."
 },
@@ -6503,6 +6500,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-02",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-03",
 "text":"August 1, 2026."
 },
 {
@@ -7126,7 +7131,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-02",
+"seen":"2026-11-03",
 "text":"early February 2026."
 },
 {
@@ -7134,7 +7139,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-02",
+"seen":"2026-11-03",
 "text":"February 2027."
 },
 {
@@ -10738,7 +10743,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-02",
+"seen":"2026-11-03",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10746,7 +10751,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-02",
+"seen":"2026-11-03",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -17173,6 +17178,15 @@
 "title":"MC1536049: Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)",
 "source":"MC - Merill",
 "link":"https://mc.merill.net/message/MC1536049"
+},
+{
+"day":"2026-11-03",
+"cid":"c-item-mc1519855",
+"type":"milestone",
+"name":"SSPR requires registered authentication methods",
+"src":"MC1536049",
+"now":"Feb 2027",
+"text":"We expect rollout to begin and complete in February 2027."
 }
 ],
 "archive":{

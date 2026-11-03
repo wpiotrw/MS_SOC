@@ -1,0 +1,62 @@
+// title: Detection 1: Ivanti Connect Secure - Remote Authenticated File Upload to Known Disk Path (CVE-2026-118527)
+// date: 2026-11-03
+// product: Sentinel
+// tables: CommonSecurityLog, Syslog
+// purpose: From the article: Detection Engineering Brief - Tuesday, November 3, 2026
+// source: https://devsecopsdadattack.com/2026-11-03-detection-engineering-brief-tuesday-november-3-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 24h;
+let ivanti_upload_paths = dynamic(["/dana-na/", "/dana/", "/upload/", "/tmp/", "/home/"]);
+let csl_uploads =
+    CommonSecurityLog
+    | where TimeGenerated >= ago(lookback)
+    | where DeviceProduct has_any ("Ivanti", "Pulse Connect Secure", "Connect Secure")
+    | where isnotempty(HttpMethod) and HttpMethod in ("POST", "PUT")
+    | where isnotempty(RequestURL) and RequestURL has_any (ivanti_upload_paths)
+    | project
+        TimeGenerated,
+        SourceIP,
+        UserName,
+        RequestURL,
+        HttpMethod,
+        FileName,
+        FilePath,
+        DeviceProduct,
+        AdditionalExtensions,
+        Source = "CommonSecurityLog";
+let syslog_uploads =
+    Syslog
+    | where TimeGenerated >= ago(lookback)
+    | where tolower(HostName) has_any ("ivanti", "pulse", "connectsecure")
+    | where SyslogMessage has_any ("POST", "PUT")
+    | where SyslogMessage has_any (ivanti_upload_paths)
+    | extend
+        SourceIP = extract(@"(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})", 1, SyslogMessage),
+        UserName = extract(@"user[=:\s]+(\S+)", 1, SyslogMessage),
+        RequestURL = extract(@"(?:POST|PUT)\s+(\S+)", 1, SyslogMessage),
+        HttpMethod = extract(@"(POST|PUT)", 1, SyslogMessage)
+    | project
+        TimeGenerated,
+        SourceIP,
+        UserName,
+        RequestURL,
+        HttpMethod,
+        FileName = "",
+        FilePath = "",
+        DeviceProduct = HostName,
+        AdditionalExtensions = "",
+        Source = "Syslog";
+union csl_uploads, syslog_uploads
+| where isnotempty(SourceIP)
+| summarize
+    UploadCount = count(),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated),
+    URLs = make_set(RequestURL, 20),
+    Methods = make_set(HttpMethod),
+    Sources = make_set(Source)
+    by SourceIP, UserName, DeviceProduct
+| extend CVE = "CVE-2026-118527"
+| project-reorder FirstSeen, LastSeen, SourceIP, UserName, DeviceProduct, UploadCount, URLs, Methods, Sources, CVE

@@ -1,0 +1,103 @@
+// title: 🥈 Act II: Nobody Types the Compromised Version
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed
+// source: https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 30d;
+// Known-bad releases. This is the only list in the query, and
+// it's a list of facts from advisories, not guesses about names.
+let CompromisedReleases = datatable(Package:string, Version:string) [
+    "litellm", "1.107.0"
+];
+// .pth files that ship nearly everywhere. Baseline yours with
+// check 2 below before trusting this list.
+let BenignPth = dynamic(["distutils-precedence.pth", "_virtualenv.pth"]);
+let PythonArtifacts =
+    DeviceFileEvents
+    | where Timestamp >= ago(lookback)
+    | where ActionType in ("FileCreated", "FileModified", "FileRenamed")
+    | where FolderPath has_any ("site-packages", "dist-packages")
+    // ============================================================
+    // WHAT GOT INSTALLED.
+    // Every wheel install writes {name}-{version}.dist-info.
+    // Name normalised per PEP 503 so "LiteLLM" and "litellm"
+    // compare equal.
+    // ============================================================
+    | extend DistInfo = extract(@"[\\/]([^\\/]+)\.dist-info(?:[\\/]|$)", 1, FolderPath)
+    | extend Package  = tolower(replace_regex(
+                            extract(@"^(.+)-[^-]+$", 1, DistInfo), @"[-_.]+", "-")),
+             Version  = extract(@"-([^-]+)$", 1, DistInfo)
+    // ============================================================
+    // WHAT WILL RUN AT EVERY INTERPRETER START.
+    // All three T1546.018 hook points, not two of them.
+    // ============================================================
+    | extend IsStartupHook =
+          FileName in~ ("sitecustomize.py", "usercustomize.py")
+          or (FileName endswith ".pth"
+              and FileName !in~ (BenignPth)
+              and not(FileName startswith "__editable__")
+              and not(FileName endswith "-nspkg.pth"))
+    | where isnotempty(DistInfo) or IsStartupHook
+    | lookup kind=leftouter (CompromisedReleases | extend IsCompromised = true)
+        on Package, Version
+    | extend IsCompromised = coalesce(IsCompromised, false);
+// ============================================================
+// ONE ROW PER WRITING PROCESS.
+// A process is (device, PID, creation time). Grouping by it ties
+// a startup hook to the install that dropped it, or shows that
+// no install did.
+// ============================================================
+PythonArtifacts
+| summarize
+    FirstWrite   = min(Timestamp),
+    LastWrite    = max(Timestamp),
+    InstallCount = dcountif(Package, isnotempty(Package)),
+    Installed    = make_set_if(strcat(Package, "==", Version), isnotempty(Package), 100),
+    Compromised  = make_set_if(strcat(Package, "==", Version), IsCompromised, 10),
+    StartupHooks = make_set_if(FolderPath, IsStartupHook, 20),
+    HookNames    = make_set_if(FileName, IsStartupHook, 20)
+  by DeviceId, DeviceName,
+     WriterPid         = InitiatingProcessId,
+     WriterCreated     = InitiatingProcessCreationTime,
+     Writer            = InitiatingProcessFileName,
+     WriterCommandLine = InitiatingProcessCommandLine,
+     WriterAccount     = InitiatingProcessAccountName
+| extend HasCompromised = array_length(Compromised) > 0,
+         HasHook        = array_length(StartupHooks) > 0
+// A hint, not a finding: the writer's name suggests how the
+// files arrived but doesn't establish it.
+| extend WriteKind = iff(Writer matches regex
+      @"(?i)^(python[0-9.]*|pip[0-9.]*|uv|poetry|conda|pdm)(\.exe)?$",
+      "LikelyInstaller", "OtherWriter")
+// ============================================================
+// THE VERDICT.
+// A hook from a process with no observed install is the most
+// interesting row. It's consistent with a package writing its
+// hook at import time, though a missed metadata write or a
+// split installer process can produce it too.
+// ============================================================
+| extend Verdict = case(
+      HasCompromised and HasHook,        "CompromisedReleaseWithStartupHook",
+      HasHook and InstallCount == 0,     "StartupHookNoInstallObserved",
+      HasCompromised,                    "CompromisedReleaseInstalled",
+      HasHook,                           "InstallDroppedStartupHook",
+                                         "")
+| where isnotempty(Verdict)
+| extend Severity = case(
+      Verdict == "CompromisedReleaseWithStartupHook", 1,
+      Verdict == "StartupHookNoInstallObserved",  2,
+      Verdict == "CompromisedReleaseInstalled",       3,
+                                                      4)
+// Did anyone ask for the bad version by name? Usually not, which
+// is the point. Single-entry list here; mv-apply if you track many.
+| extend VersionInCommandLine = HasCompromised
+      and WriterCommandLine contains tostring(split(tostring(Compromised[0]), "==")[1])
+| project
+    Severity, Verdict, WriteKind, FirstWrite, LastWrite, DeviceName, WriterAccount,
+    Writer, WriterPid, WriterCommandLine, VersionInCommandLine,
+    Compromised, HookNames, StartupHooks, InstallCount, Installed
+| order by Severity asc, FirstWrite desc

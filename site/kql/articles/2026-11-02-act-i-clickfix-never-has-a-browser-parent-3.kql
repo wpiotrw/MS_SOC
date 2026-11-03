@@ -1,0 +1,111 @@
+// title: 🥇 Act I: ClickFix Never Has a Browser Parent
+// date: 2026-11-02
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents, DeviceRegistryEvents
+// purpose: From the article: KQL Detection of the Week: Your Detection Is Looking for a Process That Never Existed
+// source: https://devsecopsdadattack.com/2026-11-02-KQL-Detection-of-the-Week-Your-Detection-Is-Looking-For-a-Process-That-Never-Existed/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback     = 1d;
+let launchWindow = 15s;
+// Tools a pasted one-liner needs in order to do anything.
+// These are requirements of the payload, not names the lure
+// gets to choose.
+let PayloadTools = dynamic([
+    "powershell", "pwsh", "mshta", "cmd", "wscript", "cscript",
+    "rundll32", "regsvr32", "msiexec", "curl", "bitsadmin",
+    "certutil", "conhost", "forfiles", "finger", "wmic"
+]);
+// ============================================================
+// STAGE 1: WHAT WAS TYPED, OR PASTED, INTO AN EXPLORER
+// INPUT SURFACE.
+//
+//   RunMRU     = the Win+R Run dialog
+//   TypedPaths = the File Explorer address bar ("FileFix")
+//
+// explorer.exe writes these values in the user's hive when
+// something is run from them. The browser never touches them.
+// ============================================================
+let TypedCommands =
+    DeviceRegistryEvents
+    | where Timestamp >= ago(lookback)
+    | where ActionType == "RegistryValueSet"
+    | where RegistryKey endswith @"\Explorer\RunMRU"
+         or RegistryKey endswith @"\Explorer\TypedPaths"
+    | where RegistryValueName != "MRUList"
+    | extend Surface = iff(RegistryKey endswith @"\RunMRU",
+                           "RunDialog", "ExplorerAddressBar")
+    // RunMRU entries carry a trailing "\1". Strip it.
+    | extend Typed      = trim_end(@"\\1", RegistryValueData)
+    | extend TypedLower = tolower(Typed)
+    // ── What makes a typed command look pasted ──
+    | extend HasTool     = TypedLower has_any (PayloadTools)
+    | extend HasRemote   = TypedLower contains "http://"
+                        or TypedLower contains "https://"
+    | extend HasEncoding = TypedLower matches regex
+          @"(-e(nc(odedcommand)?)?\s|frombase64|\biex\b|invoke-expression|downloadstring|\birm\b|\biwr\b)"
+    // Lures pad the command with a "# I am not a robot..." comment
+    // so the visible tail of the Run box looks harmless.
+    | extend HasDecoy    = Typed contains "#"
+    // Hand-typed Run commands are rarely 80+ characters.
+    | extend IsLong      = strlen(Typed) >= 80
+    | extend PasteScore  = toint(HasRemote) + toint(HasEncoding)
+                         + toint(HasDecoy)  + toint(IsLong)
+    | where HasTool and PasteScore >= 1
+    // The first token is what explorer.exe will launch:
+    // "powershell", "mshta", "conhost", or a full path to one.
+    | extend FirstToken = tolower(extract(
+          @"^\s*""?(?:[^\s""]*[\\/])?([^\\/\s"".]+)", 1, Typed))
+    | project RegTime = Timestamp, DeviceId, DeviceName,
+              RegistryKey, RegistryValueName, Surface, Typed,
+              FirstToken, HasRemote, HasEncoding, HasDecoy, IsLong,
+              PasteScore, Writer = InitiatingProcessFileName;
+// ============================================================
+// STAGE 2: WHAT EXPLORER LAUNCHED.
+// ============================================================
+let ExplorerLaunches =
+    DeviceProcessEvents
+    | where Timestamp >= ago(lookback)
+    | where InitiatingProcessFileName =~ "explorer.exe"
+    | extend ChildStem = tolower(extract(@"^([^.]+)", 1, FileName))
+    | project LaunchTime = Timestamp, DeviceId, ChildStem,
+              ChildName = FileName, ChildCommandLine = ProcessCommandLine,
+              ChildProcessId = ProcessId,
+              ChildCreationTime = ProcessCreationTime,
+              ChildSHA256 = SHA256, AccountName;
+// ============================================================
+// CORRELATE → CONSTRAIN → COLLAPSE, in its own CTE, so a
+// launch outside the window can't null out the typed command.
+// ============================================================
+let CorrelatedLaunch =
+    TypedCommands
+    | project DeviceId, RegTime, RegistryKey, RegistryValueName, FirstToken
+    | join kind=inner ExplorerLaunches
+        on DeviceId, $left.FirstToken == $right.ChildStem
+    | where LaunchTime between ((RegTime - launchWindow) .. (RegTime + launchWindow))
+    | summarize arg_min(abs(datetime_diff('millisecond', LaunchTime, RegTime)), *)
+        by DeviceId, RegTime, RegistryKey, RegistryValueName
+    | project DeviceId, RegTime, RegistryKey, RegistryValueName,
+              LaunchTime, ChildName, ChildCommandLine, ChildProcessId,
+              ChildCreationTime, ChildSHA256, AccountName;
+// ============================================================
+// THE VERDICT.
+// A suspicious entry with no observed launch is still reported:
+// the registry value was written whether or not a process
+// event arrived. Whether it was pasted is an inference.
+// ============================================================
+TypedCommands
+| join kind=leftouter CorrelatedLaunch
+    on DeviceId, RegTime, RegistryKey, RegistryValueName
+| extend Launched = isnotempty(ChildName)
+| extend Verdict = case(
+      Launched and HasRemote,  "PasteLikeDownloadCradleLaunched",
+      Launched,                "PasteLikeCommandLaunched",
+                               "PasteLikeCommandLaunchNotObserved")
+| project
+    RegTime, Verdict, PasteScore, Surface, DeviceName, AccountName,
+    Typed, HasRemote, HasEncoding, HasDecoy, IsLong,
+    LaunchTime, ChildName, ChildCommandLine, ChildProcessId,
+    ChildCreationTime, ChildSHA256, Writer
+| order by PasteScore desc, RegTime desc
