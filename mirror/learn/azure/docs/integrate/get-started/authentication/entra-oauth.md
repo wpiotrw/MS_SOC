@@ -13,8 +13,7 @@ breadcrumb_path: /azure/devops/breadcrumb/toc.json
 uhfHeaderId: MSDocsHeader-AzureDevOps
 archive_url: https://docs.microsoft.com/en-us/previous-versions/azure/devops/all/
 ms.topic: overview
-ms.manager: wiwagn
-author: chcomley
+ms.manager: rajr
 ms.author: chcomley
 ms.date: 2026-04-02T00:00:00.0000000Z
 ms.service: azure-devops
@@ -24,8 +23,8 @@ ms.prodfamily: ALM
 description: 'Microsoft Entra OAuth apps: Discover how to build secure Azure DevOps integrations using delegated authentication and enhance your development process.'
 ms.subservice: azure-devops-security
 ms.custom: pat-reduction, UpdateFrequency3
-ms.reviewer: chcomley
 locale: en-us
+author: angelwong
 document_id: df147a01-bb29-8573-7c94-66adc55f1bba
 document_version_independent_id: df147a01-bb29-8573-7c94-66adc55f1bba
 original_content_git_url: https://github.com/MicrosoftDocs/azure-devops-docs-pr/blob/live/docs/integrate/get-started/authentication/entra-oauth.md

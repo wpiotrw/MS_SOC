@@ -13,8 +13,7 @@ breadcrumb_path: /azure/devops/breadcrumb/toc.json
 uhfHeaderId: MSDocsHeader-AzureDevOps
 archive_url: https://docs.microsoft.com/en-us/previous-versions/azure/devops/all/
 ms.topic: how-to
-ms.manager: wiwagn
-author: chcomley
+ms.manager: rajr
 ms.author: chcomley
 ms.date: 2025-07-14T00:00:00.0000000Z
 ms.service: azure-devops
@@ -26,6 +25,7 @@ ai-usage: ai-assisted
 ms.custom: pat-reduction
 ms.subservice: azure-devops-security
 locale: en-us
+author: mitchdenny
 document_id: ac47cbcf-45ed-81aa-b532-e7ad0046658e
 document_version_independent_id: 7aa1f60e-069f-3d62-5cac-b65e4b1116ef
 original_content_git_url: https://github.com/MicrosoftDocs/azure-devops-docs-pr/blob/live/docs/integrate/get-started/authentication/oauth.md

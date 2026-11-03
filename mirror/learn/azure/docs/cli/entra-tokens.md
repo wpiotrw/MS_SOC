@@ -13,9 +13,8 @@ breadcrumb_path: /azure/devops/breadcrumb/toc.json
 uhfHeaderId: MSDocsHeader-AzureDevOps
 archive_url: https://docs.microsoft.com/en-us/previous-versions/azure/devops/all/
 ms.topic: how-to
-ms.manager: wiwagn
-author: chcomley
-ms.author: chcomley
+ms.manager: rajr
+ms.author: dahellem
 ms.date: 2025-09-16T00:00:00.0000000Z
 ms.service: azure-devops
 ms.version: ALM
@@ -25,6 +24,7 @@ description: Use Microsoft Entra authentication on top of Azure CLI
 ms.subservice: azure-devops-security
 ms.custom: pat-reduction
 locale: en-us
+author: angelwong
 document_id: f540356a-8414-ebe4-2f8a-3c52a3e4cea2
 document_version_independent_id: f540356a-8414-ebe4-2f8a-3c52a3e4cea2
 original_content_git_url: https://github.com/MicrosoftDocs/azure-devops-docs-pr/blob/live/docs/cli/entra-tokens.md

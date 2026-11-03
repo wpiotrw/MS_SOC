@@ -42,11 +42,11 @@ source_path: articles/azure-arc/servers/prerequisites.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/beac614b-f66d-40ed-a947-3996de709333
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fc3f72c2-fb6f-4cea-95ee-b444e52254ee
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9da05372-4706-43ec-a899-f436adab380d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f12cf087-582d-48ac-a085-0c19adf1e391
 platformId: 5e0f7616-b98f-0912-eede-9d9a7735c4fa
 ---
 
@@ -125,7 +125,7 @@ x86-64 (64-bit) architecture is fully supported, while only some features may be
 | Windows IoT Enterprise LTSC | 10 (2021) | ✅ | ❌ | — | see client operating system guidance |
 | Windows IoT Enterprise LTSC | 11 (2024) | ✅ | ❌ | — | see client operating system guidance |
 | Windows Server | 2012 | ⚠️ | ❌ | November 2026 | New arc agent version support ends November 2026 |
-| Windows Server | 2012 R2 | ⚠️ | ❌ | November 2026 | New arc agent version support ends November 2026 |
+| Windows Server | 2012 R2 | ⚠️ | ❌ | — |  |
 | Windows Server | 2016 | ✅ | ❌ | February 2030 |  |
 | Windows Server | 2019 | ✅ | ❌ | — |  |
 | Windows Server | 2022 | ✅ | ❌ | — |  |

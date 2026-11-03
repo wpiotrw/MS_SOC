@@ -7,8 +7,8 @@ uhfHeaderId: MSDocsHeader-Security
 breadcrumb_path: /security/breadcrumb/toc.json
 feedback_system: Standard
 feedback_help_link_type: ''
-ms.author: joflore
-author: MicrosoftGuyJFlo
+ms.author: mas
+author: MarkSimos
 description: Learn about Zero Trust, a security strategy that assumes breach and verifies every request. Find deployment guides, assessment tools, and adoption frameworks to implement Zero Trust principles that protect and enable secure operations across identity, endpoints, applications, data, infrastructure, and networks in your organization.
 ms.service: security
 ms.subservice: zero-trust
@@ -30,10 +30,10 @@ item_type: Content
 source_path: security-docs/zero-trust/index.yml
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/a3955c7b-f5ee-420d-aff5-d7119738f38b
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/b31948f4-2f38-404b-ac93-c3c8c5b3ae33
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: d30ef382-af12-2b73-b9c4-f2a45565ebe6
 ---
 

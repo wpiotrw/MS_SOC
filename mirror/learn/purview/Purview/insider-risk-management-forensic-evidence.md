@@ -15,9 +15,11 @@ f1.keywords:
 ms.author: kreagle
 author: k-reagle
 manager: laurawi
-ms.date: 2025-02-27T00:00:00.0000000Z
+ms.date: 2026-11-03T00:00:00.0000000Z
 audience: itpro
 ms.collection: m365-security-compliance
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1032
 locale: en-us
 document_id: bc09d5ad-27ad-d245-5c00-12e12a2000b1
 document_version_independent_id: bc09d5ad-27ad-d245-5c00-12e12a2000b1
@@ -37,11 +39,11 @@ source_path: Purview/insider-risk-management-forensic-evidence.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/03921bea-3752-4ddc-98c2-5aa70db91565
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 - https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/09911d3e-3eb9-4c8d-ab86-ce80d8d36bbd
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: b336c402-b98d-5bcd-2f53-5e8bad243c4c
 ---
 
@@ -121,6 +123,8 @@ Depending on how your organization decides to configure forensic evidence, you c
 Important
 
 Forensic evidence clips are deleted 120 days after they're captured or at the end of the preview period, whichever is sooner. You can download or transfer forensic evidence clips before they're deleted.
+
+You can export a maximum of 10 forensic evidence clips at a time.
 
 ## Workflow
 
