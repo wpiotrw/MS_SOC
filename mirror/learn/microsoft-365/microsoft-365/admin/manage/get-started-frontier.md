@@ -81,19 +81,25 @@ Important
 
 Frontier is managed at the tenant level. Production tenants can safely enroll users into the Frontier program to allow your organization access to Frontier features. IT admins have explicit control which users have access to which Frontier features.
 
-Frontier features are preview and subject to change.
-
 ## Prerequisites
 
 Review the following requirements and recommendations:
 
-- Verify your [admin role](/en-us/microsoft-365/admin/add-users/about-admin-roles)in Microsoft 365 admin center. You need an account that includes one of the following roles:
+- Verify your [admin role](/en-us/microsoft-365/admin/add-users/about-admin-roles) in Microsoft 365 admin center. You need an account that includes one of the following roles:
+
     - AI Administrator
     - Security Administrator
     - Office Apps Administrator
 - Assign users licenses that provide access to the products you want them to preview.
+
     - With the expansion of Frontier across Microsoft 365 previews to include both AI and non-AI features, a Microsoft Copilot license isn't required to enroll users in Frontier. However, to use Frontier features for Copilot, users need a [Microsoft Copilot license](/en-us/microsoft-365/copilot/microsoft-365-copilot-licensing) or a license that includes access to Copilot. Users enrolled in Frontier without a Microsoft Copilot license aren't presented with Copilot-related Frontier features.
     - As another product example, to use Frontier features for Microsoft Teams, users need a license that includes access to Teams. Users enrolled in Frontier without a license that includes access to Teams aren't presented with Teams-related Frontier features.
+
+        Note
+
+        When the unified release preferences experience becomes available in November 2026, the existing experience for opting in to Frontier preview within the Microsoft 365 admin center will still exist. **Once the unified release preferences experience is available, admins will no longer be required to have a license that includes Copilot to opt in to Frontier via the exsting experience or the new unified release preferences experience.** Additional details about related admin experience changes will be shared in Message center and this article will be updated to show the new navigation.
+
+        The existing experience for managing Standard release and Deferred release preferences will be retired at that time and admins will use the unified release preferences experiences to manage general availability release preferences. For more information, see [Configure Standard and Deferred release](configure-release-options) and [Frequently asked questions about modern release options for Microsoft 365](release-options-faq).
 - Verify that your own admin account has also has a corresponding license for products to ensure full access to Frontier AI settings and agents. Some Frontier settings and agents in the Microsoft 365 admin center might not appear.
 
 ## Enroll users in Frontier

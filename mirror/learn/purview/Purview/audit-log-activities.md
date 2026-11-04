@@ -316,6 +316,7 @@ You can also search for Dragon Copilot admin activities by running the `Search-U
 | Viewed role assignment | ViewedRoleAssignment | A role assignment was viewed. |
 | Viewed role definition | ViewedRoleDefinition | An administrator viewed a role definition. |
 | Viewed setting | ViewedSetting | A setting value was viewed. |
+| Viewed user licenses | ViewedUserLicenses | User licenses were viewed. |
 
 ## Dragon Copilot Web activities
 
@@ -652,6 +653,8 @@ The following table lists the Microsoft Fabric activities in Power BI that the M
 | Created a Fabric Copilot session | FabricCopilotSessionCreated | A user created a Fabric Copilot session. |
 | Create a Microsoft Fabric free trial | CreatedFabricTrial | A new Microsoft Fabric free trial capacity was started. |
 | Created MirroredStorage | CreatedMirroredStorage | Generated when a user or service principal creates a Fabric MirroredStorage item, linking an external storage source to a workspace as OneLake shortcuts. |
+| Created an outbound IP firewall rule for a workspace. | CreatedOutboundIpFirewallRule | Created an outbound IP firewall rule for a workspace. |
+| Created multiple outbound IP firewall rules in a single bulk request for a workspace. | CreatedOutboundIpFirewallRules | Created multiple outbound IP firewall rules in a single bulk request for a workspace. |
 | Created workspace relation | CreatedWorkspaceRelation | Created workspace relation. |
 | Deleted a Fabric Copilot session | FabricCopilotSessionDeleted | A user deleted a Fabric Copilot session. |
 | Deleted a task flow | DeletedTaskFlow | Deleted a task flow. |
@@ -679,6 +682,7 @@ The following table lists the Microsoft Fabric activities in Power BI that the M
 | List all of the cross tenant auth mappings | ListCrossTenantAuthMappings | List cross tenant auth mappings in a tenant. |
 | Logged in to Git provider | ConfiguredGitProviderCredentials | Logged in to Git provider. |
 | Logged out of Git provider | DeletedGitProviderCredentials | Logged out of Git provider. |
+| Deleted an outbound IP firewall rule for a workspace. | DeletedOutboundIpFirewallRule | Deleted an outbound IP firewall rule for a workspace. |
 | Microsoft Fabric Audit activity to retrieve FMI bindings | GetFabricManagedIdentityBindings | Microsoft Fabric Audit activity to retrieve FMI bindings. |
 | Migrate Gen1 dataflow | MigrateGen1Dataflow | A user upgraded a Power BI Gen1 dataflow to a Fabric Gen2.1 dataflow in place by using the Upgrade Wizard. |
 | Modified OneLake default tier | ModifiedDefaultTier | Modified OneLake default tier. |
@@ -711,6 +715,7 @@ The following table lists the Microsoft Fabric activities in Power BI that the M
 | validate connection access for a given identity. | ValidatedConnectionAccess | validate connection access for a given identity. |
 | Updated git items selection | GitItemsSelectionUpdated | Updated git items selection. |
 | Updated MirroredStorage definition | UpdatedMirroredStorageDefinition | Generated when a user or service principal modifies the mirroring scope of an existing MirroredStorage item, changing which external paths are exposed in OneLake. |
+| Updated an existing outbound IP firewall rule for a workspace. | UpdatedOutboundIpFirewallRule | Updated an existing outbound IP firewall rule for a workspace. |
 | Unassign Warehouse Server Alias | UnassignWarehouseServerAlias | A workspace administrator assigned a server alias to a Fabric Warehouse workspace. |
 | Workspace relations retrieved | WorkspaceRelationsRetrieved | Workspace relations retrieved. |
 

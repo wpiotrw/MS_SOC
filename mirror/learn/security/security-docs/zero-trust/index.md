@@ -9,7 +9,7 @@ feedback_system: Standard
 feedback_help_link_type: ''
 ms.author: mas
 author: MarkSimos
-description: Learn about Zero Trust, a security strategy that assumes breach and verifies every request. Find deployment guides, assessment tools, and adoption frameworks to implement Zero Trust principles that protect and enable secure operations across identity, endpoints, applications, data, infrastructure, and networks in your organization.
+description: Learn about Zero Trust, a security strategy that assumes breach and verifies every request. Find SAF guidance, deployment guides, assessment tools, and workshops to implement Zero Trust principles that protect and enable secure operations across identity, endpoints, applications, data, infrastructure, and networks in your organization.
 ms.service: security
 ms.subservice: zero-trust
 ms.topic: hub-page
@@ -45,6 +45,16 @@ Zero Trust security “assumes breach,” “never trusts,” and “always veri
 
 Get started
 [Adopt security with Zero Trust principles](/en-us/security/zero-trust/security-adoption-model)
+
+![](/en-us/media/hubs/shared/icon-concept.svg?branch=main)
+
+Concept
+[Learn Zero Trust principles](/en-us/security/zero-trust/zero-trust-overview)
+
+![](/en-us/media/hubs/shared/icon-get-started.svg?branch=main)
+
+Get started
+[Take the Zero Trust workshop](/en-us/security/zero-trust/workshop-zero-trust-overview)
 
 ![](/en-us/media/hubs/shared/icon-training.svg?branch=main)
 
@@ -105,20 +115,20 @@ Review key business outcomes and the security disciplines that support them.
 
 ### Explore business scenarios
 
-- [Protect AI and data](/en-us/security/zero-trust/security-adoption-scenario-secure-ai)
-- [Allow work from anywhere](/en-us/security/zero-trust/security-adoption-scenario-remote-work)
-- [Secure critical business assets](/en-us/security/zero-trust/security-adoption-scenario-secure-assets)
-- [Strengthen posture and compliance](/en-us/security/zero-trust/security-adoption-scenario-improve-posture)
-- [Minimize the impact of security incidents](/en-us/security/zero-trust/security-adoption-scenario-minimize-impact)
+- [Rapidly and securely adopt AI](/en-us/security/zero-trust/security-adoption-scenario-secure-ai)
+- [Enable people to work securely from anywhere](/en-us/security/zero-trust/security-adoption-scenario-remote-work)
+- [Identify and protect critical business assets](/en-us/security/zero-trust/security-adoption-scenario-secure-assets)
+- [Continuously improve security posture and compliance](/en-us/security/zero-trust/security-adoption-scenario-improve-posture)
+- [Minimize business damage from security incidents](/en-us/security/zero-trust/security-adoption-scenario-minimize-impact)
 
 ### Build security disciplines
 
 - [Strategy, integration, and governance](/en-us/security/zero-trust/security-adoption-discipline-strategy)
 - [Security architecture](/en-us/security/zero-trust/security-adoption-discipline-architecture)
-- [Identity](/en-us/security/zero-trust/security-adoption-discipline-identity-access)
+- [Access and identity](/en-us/security/zero-trust/security-adoption-discipline-identity-access)
 - [Data security](/en-us/security/zero-trust/security-adoption-discipline-data)
-- [Security operations](/en-us/security/zero-trust/security-adoption-discipline-security-operations)
-- [Developer operations](/en-us/security/zero-trust/security-adoption-discipline-development)
+- [SecOps](/en-us/security/zero-trust/security-adoption-discipline-security-operations)
+- [Development security](/en-us/security/zero-trust/security-adoption-discipline-development)
 
 ## Training and credentials
 

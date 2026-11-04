@@ -19,6 +19,7 @@ recommendations: false
 breadcrumb_path: /graph/ref-breadcrumb/toc.json
 ms.service: microsoft-graph
 ms.topic: reference
+toc.title: SLA policy definition
 description: Represents a service-level agreement policy for a single case type.
 ms.date: 2026-09-06T00:00:00.0000000Z
 ms.localizationpriority: medium

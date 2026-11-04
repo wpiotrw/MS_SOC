@@ -277,6 +277,7 @@ https://learn.microsoft.com/en-us/entra/identity/saas-apps/sap-successfactors-in
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/snowflake-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/snowflake-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/vonage-provisioning-tutorial
+https://learn.microsoft.com/en-us/entra/identity/saas-apps/zendesk-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/zscaler-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/zscaler-zidentity-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/users/groups-sensitivity-labels

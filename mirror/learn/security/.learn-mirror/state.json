@@ -2,6 +2,6 @@
   "version": 1,
   "cursor": "https://learn.microsoft.com/en-us/security/zero-trust",
   "pages": {
-    "https://learn.microsoft.com/en-us/security/zero-trust": {"etag":"\"+sRxsCtIAA9LVL216flUAY680vw=\"","gitCommitId":"9a981240c42d76dbc308eb52b213bcb45071dae8","path":"security-docs/zero-trust/index.md","redirectedTo":"https://learn.microsoft.com/en-us/security/zero-trust/","sourcePath":"security-docs/zero-trust/index.yml","updatedAt":"2026-11-03T18:34:00.0000000Z"}
+    "https://learn.microsoft.com/en-us/security/zero-trust": {"etag":"\"92enR5PC/eEOJNUMIHcGNPlevSU=\"","gitCommitId":"29a8b2f331e141fd72bde170c05d382aaf68e8f1","path":"security-docs/zero-trust/index.md","redirectedTo":"https://learn.microsoft.com/en-us/security/zero-trust/","sourcePath":"security-docs/zero-trust/index.yml","updatedAt":"2026-11-03T23:35:00.0000000Z"}
   }
 }

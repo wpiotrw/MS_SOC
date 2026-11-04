@@ -161,6 +161,7 @@ https://learn.microsoft.com/en-us/intune/intune-service/configure-managed-ios
 https://learn.microsoft.com/en-us/intune/intune-service/create-device-categories
 https://learn.microsoft.com/en-us/intune/intune-service/developer/data-warehouse-app-only-auth
 https://learn.microsoft.com/en-us/intune/intune-service/device-details
+https://learn.microsoft.com/en-us/intune/intune-service/device-security/microsoft-defender/security-settings-management
 https://learn.microsoft.com/en-us/intune/intune-service/edit-device-properties
 https://learn.microsoft.com/en-us/intune/intune-service/find-primary-user
 https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/advanced-analytics
@@ -221,6 +222,7 @@ https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/device-secu
 https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/device-security/security-baselines/ref-windows-mdm-settings
 https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/device-security/security-baselines/stig-audit-baseline
 https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/device-updates/android/setup-samsung-knox
+https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/endpoints
 https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/epm/manage-support-approvals
 https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/fundamentals/endpoints
 https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/fundamentals/filters/overview
@@ -243,6 +245,7 @@ https://learn.microsoft.com/en-us/intune/intune-service/remove-apps-config
 https://learn.microsoft.com/en-us/intune/intune-service/rename
 https://learn.microsoft.com/en-us/intune/intune-service/rename-device
 https://learn.microsoft.com/en-us/intune/intune-service/site-and-site-system-prerequisites
+https://learn.microsoft.com/en-us/intune/intune-service/solutions/azure-virtual-desktop-multi-session
 https://learn.microsoft.com/en-us/intune/remote-help/plan
 https://learn.microsoft.com/en-us/intune/remote-help/start-session
 https://learn.microsoft.com/en-us/intune/solutions/azure-virtual-desktop-multi-session

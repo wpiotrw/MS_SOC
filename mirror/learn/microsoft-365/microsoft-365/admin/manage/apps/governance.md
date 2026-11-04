@@ -14,7 +14,7 @@ breadcrumb_path: /microsoft-365/breadcrumb/toc.json
 recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
 description: Learn about the default settings for Microsoft Copilot Managed Runtime, where to review them, how to customize them, and how they work with existing Power Platform governance.
-ms.date: 2026-09-29T00:00:00.0000000Z
+ms.date: 2026-11-03T00:00:00.0000000Z
 author: mikferland-msft
 ms.author: miferlan
 manager: zoraz
@@ -51,12 +51,12 @@ item_type: Content
 source_path: microsoft-365/admin/manage/apps/governance.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
-- https://authoring-docs-microsoft.poolparty.biz/devrel/e6f942e8-55a7-4c86-b8e3-7456508ea850
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/e6f942e8-55a7-4c86-b8e3-7456508ea850
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
-- https://authoring-docs-microsoft.poolparty.biz/devrel/f1834696-48d6-470d-966b-6ee418881596
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/f1834696-48d6-470d-966b-6ee418881596
 platformId: 417aa135-7d5f-ebe4-8e64-d729f30608d7
 ---
 
@@ -185,6 +185,10 @@ The sharing rule controls how broadly makers can share apps they build:
 
 - **Allow sharing with everyone in your organization**: Allows sharing the app with other people in the tenant.
 - **Allow sharing with guest users**: Extends sharing to external guest users.
+
+Note
+
+Guest users can’t open apps built with Copilot Managed Runtime, even when **Allow sharing with guest users** is turned on. This behavior is a known issue. We’re working on a fix.
 
 ### Content security policy
 

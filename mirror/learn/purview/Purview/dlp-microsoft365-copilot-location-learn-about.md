@@ -150,7 +150,7 @@ Contoso establishes and applies a sensitivity label taxonomy to their data. The 
 - **Public**
 - **Personal**
 
-They deploy Microsoft 365 Copilot and Copilot Chat to help users find and use Contoso enterprise information in their organization. They want to minimize the risk of General Data Protection Regulation (GDPR) data being included in Microsoft 365 Copilot and Copilot Chat summaries and also exclude private information from summaries. They create a DLP policy that uses the **Microsoft 365 Copilot and Copilot Chat** policy location with the **Content contains** &gt; **Sensitivity labels** condition to exclude items that have the **Personal** sensitivity label from being processed in the response summary and also to exclude items that have the **Highly Confidential** sensitivity label from being processed in the response summary.
+They deploy Microsoft 365 Copilot and Copilot Chat to help users find and use Contoso enterprise information in their organization. They want to exclude personal data and highly confidential information from Microsoft 365 Copilot and Copilot Chat summaries. They create a DLP policy that uses the **Microsoft 365 Copilot and Copilot Chat** policy location with the **Content contains** &gt; **Sensitivity labels** condition to exclude items that have the **Personal** sensitivity label from being processed in the response summary and also to exclude items that have the **Highly Confidential** sensitivity label from being processed in the response summary.
 
 ### Coverage of email and file content
 

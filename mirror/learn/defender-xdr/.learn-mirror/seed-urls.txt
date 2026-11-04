@@ -84,6 +84,7 @@ https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/ai-agent-inventor
 https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/ai-agent-real-time-protection
 https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/ai-agent-risk-assessment
 https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/defender-security-for-ai
+https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/get-started-defender-security-for-ai
 https://learn.microsoft.com/en-us/defender-xdr/shield-predict-threats
 https://learn.microsoft.com/en-us/defender-xdr/split-incidents-into-tasks
 https://learn.microsoft.com/en-us/defender-xdr/threat-analytics

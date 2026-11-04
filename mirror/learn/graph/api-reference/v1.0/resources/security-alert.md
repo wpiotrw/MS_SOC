@@ -43,11 +43,11 @@ source_path: api-reference/v1.0/resources/security-alert.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f769bf00-f89e-4c24-8f5f-d0170c0a71cb
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1577a46d-8446-40bd-bfae-0578362f4d94
-- https://authoring-docs-microsoft.poolparty.biz/devrel/8a94907f-2511-4271-b5ca-ec7f2e75067c
+- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/faddc47a-29dc-46f7-b30f-81d9d6c05fa0
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/cdf3f22d-5420-4d59-a2bf-66d6b3d9c828
-- https://authoring-docs-microsoft.poolparty.biz/devrel/bffa8e88-f633-409d-a24d-083bdbc68872
+- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 platformId: 97b18cc6-c7fa-2054-8f8c-aedb21152800
 ---
 

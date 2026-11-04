@@ -22,7 +22,7 @@ ms.author: davidsmatlak
 ms.service: azure-arc
 ms.subservice: servers-azure-arc
 description: Learn about billing services for Windows Server pay-as-you-go enabled by Azure Arc.
-ms.date: 2026-10-30T00:00:00.0000000Z
+ms.date: 2026-11-03T00:00:00.0000000Z
 ms.topic: concept-article
 locale: en-us
 document_id: f0298b84-9230-1226-1a7c-595dc5bd122d
@@ -40,11 +40,9 @@ source_path: articles/azure-arc/servers/billing-windows-server-pay-go.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/beac614b-f66d-40ed-a947-3996de709333
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fc3f72c2-fb6f-4cea-95ee-b444e52254ee
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9da05372-4706-43ec-a899-f436adab380d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f12cf087-582d-48ac-a085-0c19adf1e391
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: e20b992b-c4d4-ffb6-be59-239f9baac6f0
 ---
 
@@ -53,6 +51,12 @@ platformId: e20b992b-c4d4-ffb6-be59-239f9baac6f0
 Machines must be onboarded to Azure Arc through the deployment of the [Azure Connected Machine agent](agent-overview). Azure Arc-enabled servers need to be in a connected state. Azure Arc-enabled servers don't support disconnected machines.
 
 Windows Server pay-as-you-go enabled by Azure Arc supports both Windows Server 2025 Standard and Datacenter editions. Windows Server Datacenter and Standard editions are billed at the same rate for pay-as-you-go enabled by Azure Arc. There's no difference between virtual and physical machines from a billing perspective. Also, there's no minimum CPU core count per machine or per subscription, nor a fixed increment in which CPU cores are counted.
+
+## Core counts with hyper-threading
+
+For Windows Server 2025 pay-as-you-go enabled by Azure Arc, billing uses the machine's physical core count, not the logical processor count that hyper-threading provides. Enabling hyper-threading doesn't increase the number of billable cores.
+
+For example, if your physical server has 16 physical cores and hyper-threading exposes 32 logical processors, you're billed for 16 cores, not 32. A physical core that exposes two logical processors counts as one billable core.
 
 ## Benefits
 

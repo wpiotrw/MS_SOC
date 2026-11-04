@@ -61,6 +61,13 @@ Features in *preview* status are subject to change without notice, and might not
 
 Added the [distributionList](/en-us/graph/api/resources/distributionlist) resource type and related methods for managing personal distribution lists in a user's mailbox. Use these APIs to create, read, update, and delete distribution lists, and add or remove members.
 
+## November 2026: New in preview only
+
+### Teamwork and communications | Messaging
+
+- Removed the `If-Match` header from [create section](/en-us/graph/api/userteamwork-post-sections?view=graph-rest-beta&amp;preserve-view=true), [update section](/en-us/graph/api/teamworksection-update?view=graph-rest-beta&amp;preserve-view=true), [delete section](/en-us/graph/api/teamworksection-delete?view=graph-rest-beta&amp;preserve-view=true), [reorder sections](/en-us/graph/api/teamworksection-reorder?view=graph-rest-beta&amp;preserve-view=true), [create section item](/en-us/graph/api/teamworksection-post-items?view=graph-rest-beta&amp;preserve-view=true), [move section item](/en-us/graph/api/teamworksectionitem-move?view=graph-rest-beta&amp;preserve-view=true), [reorder section items](/en-us/graph/api/teamworksectionitem-reorder?view=graph-rest-beta&amp;preserve-view=true), and [delete section item](/en-us/graph/api/teamworksectionitem-delete?view=graph-rest-beta&amp;preserve-view=true) methods of the [teamworkSection](/en-us/graph/api/resources/teamworksection?view=graph-rest-beta&amp;preserve-view=true) and [teamworkSectionItem](/en-us/graph/api/resources/teamworksectionitem?view=graph-rest-beta&amp;preserve-view=true) resources. These operations now return a `409 Conflict` response code for concurrent changes, and no longer return `412 Precondition Failed` or `428 Precondition Required`.
+- Updated the [add teamworkSectionItem](/en-us/graph/api/teamworksection-post-items?view=graph-rest-beta&amp;preserve-view=true) method to move an item from another user-defined section.
+
 ## October 2026: New and generally available
 
 ### Backup and recovery | Microsoft 365 backup and storage

@@ -11,7 +11,7 @@ description: Provides a list of updates, changes, and fixes in FSLogix official 
 author: msft-jasonparker
 ms.author: japarker
 ms.topic: overview
-ms.date: 2025-08-26T00:00:00.0000000Z
+ms.date: 2026-09-01T00:00:00.0000000Z
 ms.custom: template-overview
 locale: en-us
 document_id: 3c140ca1-20a5-7766-a04d-d1cac53f1466
@@ -31,10 +31,8 @@ item_type: Content
 source_path: fslogix-docs/overview-release-notes.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57ef615f-6bf1-4904-b6dc-96bb1d32c7e9
-- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1aea571c-6f95-42f8-b87e-c4d3aaf4bd7d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 2PlusCloud:
 - Azure
 - Power

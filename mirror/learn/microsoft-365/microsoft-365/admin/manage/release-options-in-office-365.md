@@ -19,7 +19,7 @@ ms.author: mabond
 author: mkbond007
 manager: dansimp
 ms.reviewer: sangar
-ms.date: 2026-10-07T00:00:00.0000000Z
+ms.date: 2026-11-03T00:00:00.0000000Z
 audience: Admin
 ms.topic: install-set-up-deploy
 ms.service: m365-core
@@ -138,6 +138,16 @@ Targeted release allows admins, change managers, or anyone else responsible for 
 - Keep most users in Standard release and assign IT pros and power users to Targeted release to evaluate new features ahead of broader rollout. Targeted release users can then prepare user notifications, documentation, and the internal help desk before updates are released worldwide.
 - Only assign specific users in Targeted release.
 - If you need to test a feature in Targeted release with a larger group of users (or a tenant), consider using a test tenant instead of putting your entire organization in Targeted release.
+
+## Prerequisites
+
+To configure Targeted release options, you need one of the following roles in the Microsoft 365 admin center:
+
+- Office Apps Admin
+- Security Admin
+- AI Admin
+
+For more information, see [About administrator roles in the Microsoft 365 admin center](../add-users/about-admin-roles).
 
 ## Set up the release option in the admin center
 

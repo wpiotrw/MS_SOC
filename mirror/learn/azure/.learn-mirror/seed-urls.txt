@@ -75,6 +75,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/servers/manage-agent-proxy-set
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/plan-at-scale-deployment
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/prepare-extended-security-updates
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/prerequisites
+https://learn.microsoft.com/en-us/azure/azure-arc/servers/tpm-backed-identity
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/troubleshoot-extended-security-updates
 https://learn.microsoft.com/en-us/azure/azure-arc/system-center-virtual-machine-manager/administer-arc-scvmm
 https://learn.microsoft.com/en-us/azure/azure-arc/system-center-virtual-machine-manager/create-virtual-machine
@@ -607,4 +608,5 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-create
 https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-create-restore-points-powershell
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-amd-driver-setup
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-driver-setup
+https://learn.microsoft.com/en-us/azure/virtual-machines/workloads/canonical/ubuntu-pro-in-place-scale-sets-upgrade
 https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/custom-rules-geo-based-ipv6

@@ -11,7 +11,7 @@ description: Set up an FSLogix profile container on an Azure file share with you
 author: sipastak
 zone_pivot_groups: fslogix-identity-types
 ms.topic: how-to
-ms.date: 2026-03-09T00:00:00.0000000Z
+ms.date: 2026-05-18T00:00:00.0000000Z
 ms.author: sipastak
 locale: en-us
 document_id: 85dfa3b6-b7f5-c747-a79f-1a85d3c64ff6

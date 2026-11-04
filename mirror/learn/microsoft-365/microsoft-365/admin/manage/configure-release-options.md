@@ -16,7 +16,7 @@ uhfHeaderId: MSDocsHeader-M365-IT
 ms.author: mabond
 author: mkbond007
 manager: dansimp
-ms.date: 2026-11-02T00:00:00.0000000Z
+ms.date: 2026-11-03T00:00:00.0000000Z
 ms.reviewer: sangar
 audience: Admin
 ms.topic: how-to
@@ -54,9 +54,11 @@ item_type: Content
 source_path: microsoft-365/admin/manage/configure-release-options.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 751d7d88-fdf7-33ad-b866-ef1ca81d33b8
 ---
@@ -64,6 +66,12 @@ platformId: 751d7d88-fdf7-33ad-b866-ef1ca81d33b8
 # Configure new Standard and Deferred release options for Microsoft 365 - Microsoft 365 admin | Microsoft Learn
 
 Microsoft 365 delivers updates continuously, enabling organizations to adopt new capabilities without large, infrequent upgrades. To help IT admins manage this pace of change, Microsoft 365 offers a new three-tier, audience-based release model—**Frontier, Standard release, and Deferred release**—so organizations can balance early access with readiness and control.
+
+Note
+
+The Microsoft 365 updates described in this article apply to New Outlook for Windows, Outlook on the web, OneDrive, SharePoint Online, Office for the web, Microsoft Teams, and the Microsoft 365 admin center. They don't currently apply to services other than those listed previously. Check this article for updates to the list of applicable services.
+
+These updates don't apply to Microsoft 365 Apps, which are managed separately via update channels, such as the Current Channel and Monthly Enterprise Channel. For information about release options for Microsoft 365 Apps, see [Overview of update channels for Microsoft 365 Apps](/en-us/deployoffice/overview-update-channels).
 
 ## Release options
 
@@ -73,7 +81,7 @@ Important
 
 In November 2026, administrators can no longer add users to, remove users from, or modify Targeted release enrollment. In January 2027, Targeted release will be retired and no longer available to use. For more information, see [Plan for retirement of Targeted release](targeted-release-retirement).
 
-To prepare for the retirement of Targeted release, we recommend configuring Standard release and Deferred release options to manage when users in your organization receive generally available Microsoft 365 services as Microsoft delivers features through the new release model. If your organization has configured Targeted release in the Microsoft 365 admin center, you can continue using your existing configuration until its retired. Use the Message center to stay informed about updates delivered through the new audience-based release model.
+To prepare for the retirement of Targeted release, we recommend configuring Standard release and Deferred release options to manage when users in your organization receive generally available Microsoft 365 services as Microsoft delivers features through the new release model. If your organization has configured Targeted release in the Microsoft 365 admin center, you can continue using your existing configuration until its retired. Use the Message center to stay informed about these updates.
 
 ### Frontier program
 
@@ -84,8 +92,6 @@ For more information about getting started with the Frontier preview, see [Get s
 ### Standard release
 
 With **Standard release**, your organization receives new features as soon as they're generally available (GA). Standard release should be the primary release channel for most customers. Microsoft thoroughly tests and validates all features and services before releasing them. For general availability updates, the default release preference for your organization is Standard release. You can update this setting to Deferred release if you need additional time for validation and change management.
-
-In your modern release preferences, your organization is configured for Standard release by default. With Standard release, your organization receives new features as soon as they're generally available (GA). Standard release should be the primary release channel for most customers. Microsoft thoroughly tests and validates all features and services before releasing them. You can update this setting to Deferred release if you need additional time for validation and change management.
 
 If your organization is using Targeted release, you can continue with your existing configuration until Targeted release is retired. Features that aren't in Targeted release follow your configured Standard release or Deferred release preference.
 
@@ -142,16 +148,6 @@ To manage group-based exceptions, create or identify a dedicated Microsoft Entra
 - [Manage groups with Microsoft Entra admin center](/en-us/entra/fundamentals/how-to-manage-groups)
 - [Manage groups with Microsoft Graph PowerShell](/en-us/entra/identity/users/groups-settings-v2-cmdlets)
 
-## Release option best practices
-
-To balance early access with organizational readiness, use the release options in the following ways:
-
-- Enroll your organization in Standard release to get the latest Microsoft 365 improvements as soon as they reach general availability. Optionally, assign business-critical users to Deferred release to give them more time to prepare for major changes.
-- Use Deferred release if you need extra time to validate deferred-capable features before broad rollout. Assign a subset of IT pros or power users to Standard release to evaluate new features for privacy and compliance readiness.
-- Plan release phases around user impact and readiness, not individual feature controls, to help manage risk and set clear expectations for users.
-- Align your release configuration with your change management and support readiness, including documentation, training, and help desk preparation.
-- Review and adjust audience assignments over time as your organization's readiness and change tolerance evolve.
-
 ## Configure general availability release options in Microsoft 365 admin center
 
 Important
@@ -160,7 +156,7 @@ For customers in GCC, GCC High, and DoD environments, Standard release (general 
 
 By default, use Standard release for Microsoft 365 service updates. This option meets the needs of most customers. To better manage your organization's readiness and testing needs, you can change the default release selection to Deferred release at any time in the Microsoft 365 admin center. It can take up to 24 hours for the following changes to take effect in Microsoft 365.
 
-To assign users or [security groups](/en-us/entra/fundamentals/concept-learn-about-groups) to Deferred release, follow these steps:
+To assign users or [security groups](/en-us/entra/fundamentals/concept-learn-about-groups) to Standard release or Deferred release, follow these steps:
 
 1. Sign in to the Microsoft 365 admin center.
 2. In the left navigation, expand **Copilot** and select **Settings**.
@@ -185,3 +181,13 @@ In November 2026, release preferences for Frontier, Standard release, and Deferr
 Note
 
 If you move users from Standard release to Deferred release, they might lose access to features that aren't available yet in Deferred release.
+
+## Release option best practices
+
+To balance early access with organizational readiness, use the release options in the following ways:
+
+- Enroll your organization in Standard release to get the latest Microsoft 365 improvements as soon as they reach general availability. Optionally, assign business-critical users to Deferred release to give them more time to prepare for major changes.
+- Use Deferred release if you need extra time to validate deferred-capable features before broad rollout. Assign a subset of IT pros or power users to Standard release to evaluate new features for privacy and compliance readiness.
+- Plan release phases around user impact and readiness, not individual feature controls, to help manage risk and set clear expectations for users.
+- Align your release configuration with your change management and support readiness, including documentation, training, and help desk preparation.
+- Review and adjust audience assignments over time as your organization's readiness and change tolerance evolve.
