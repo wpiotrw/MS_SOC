@@ -24,16 +24,32 @@ MS = {"f8cdef31-a31e-4b4a-93e4-5f571e91255a", "72f988bf-86f1-41af-91ab-2d7cd011d
       "975f013f-7f24-47e8-a7d3-abc4752bf346"}
 
 
-def http(url, data=None, headers=None):
-    req = urllib.request.Request(url, data=data, headers=headers or {})
-    try:
-        with urllib.request.urlopen(req, timeout=60) as r:
-            return json.loads(r.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        # Entra/Graph error bodies carry the AADSTS code and description, no secrets
-        e.body = e.read().decode("utf-8", "replace")
-        print("HTTP %s %s\n%s" % (e.code, url.split("?")[0], e.body[:2000]), file=sys.stderr)
-        raise
+def http(url, data=None, headers=None, tries=3):
+    """4 XI 2026: the 06:08 UTC run died because GitHub's OIDC token endpoint closed the connection without a response
+    (http.client.RemoteDisconnected) - one dropped connection stopped the whole snapshot. A network error, a 429 or a
+    5xx is retried (3 tries, 5 s and 20 s apart, Retry-After honoured up to 60 s); a 4xx is the real answer and raises."""
+    import time
+    for n in range(tries):
+        req = urllib.request.Request(url, data=data, headers=headers or {})
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return json.loads(r.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:
+            # Entra/Graph error bodies carry the AADSTS code and description, no secrets
+            e.body = e.read().decode("utf-8", "replace")
+            if (e.code == 429 or e.code >= 500) and n < tries - 1:
+                wait = min(60, int(e.headers.get("Retry-After") or 0) or (5, 20)[n])
+                print("HTTP %s %s - retry %d in %d s" % (e.code, url.split("?")[0], n + 1, wait), file=sys.stderr)
+                time.sleep(wait)
+                continue
+            print("HTTP %s %s\n%s" % (e.code, url.split("?")[0], e.body[:2000]), file=sys.stderr)
+            raise
+        except (urllib.error.URLError, ConnectionError, TimeoutError, OSError) as e:
+            if n < tries - 1:
+                print("network error %s %s - retry %d in %d s" % (type(e).__name__, url.split("?")[0], n + 1, (5, 20)[n]), file=sys.stderr)
+                time.sleep((5, 20)[n])
+                continue
+            raise
 
 
 def claims(jwt):
