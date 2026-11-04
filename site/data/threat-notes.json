@@ -1650,6 +1650,99 @@
     }
    ],
    "kqlSearched": "2026-10-31"
+  },
+  {
+   "id": "fake-download-inno-offerloader-proxyware-2026-11",
+   "title": "Fake-download campaign: trojanized Inno Setup-style installers install WorldProxyPool proxyware, BOINC/CharityEngine and adware in one session",
+   "match": [
+    "Fake-download campaign",
+    "WorldProxyPool"
+   ],
+   "areas": [
+    "Vulnerabilities"
+   ],
+   "status": "active",
+   "updated": "2026-11-04",
+   "by": "morning routine",
+   "summary": "Microsoft Threat Intelligence describes an evolving fake-download campaign whose lures are cracked commercial software, free games, activators and unofficial utilities. The download is a trojanized Inno Setup-style installer that stages executables under %TEMP%\\is-*.tmp\\ and calls rotating infrastructure with a d=inno and r=offer_execution pattern, installing several monetized 'offers' in one session. The payloads monetize the device through WorldProxyPool proxyware (SYSTEM-level scheduled tasks), CharityEngine and BOINC distributed computing, and AW Manager or Windows Manager adware-style utilities. Microsoft names no actor and does not state whether the campaign is still running; it describes the infrastructure as rotating frequently.",
+   "timeline": [
+    {
+     "date": "2026-11-03",
+     "text": "Microsoft Security Blog publishes the analysis with IOCs, Defender detections and three advanced hunting queries.",
+     "src": "Microsoft Security Blog"
+    }
+   ],
+   "rootCause": "Users download software from untrusted sources (cracked software, key generators, unofficial game installers, activation tools); the installer itself is the delivery vehicle.",
+   "attacker": [
+    "Lures: cracked software, free games, activators, unofficial utilities",
+    "Trojanized Inno Setup-style installer stages eld*.exe, set_*.exe, FirstFast[1].exe or SecondRunner[1].exe under %TEMP%\\is-*.tmp\\",
+    "Callbacks carrying d=inno with r=offer_execution or r=offer_execution_fail to rotating .xyz and .cfd domains",
+    "WorldProxyPool proxyware (C:\\Program Files\\WorldProxyPool\\sdk-agent.exe) persisted by SYSTEM scheduled tasks WorldProxyPoolAgent, WorldProxyPoolWatchdog, WorldProxyPoolUpdater",
+    "CharityEngine / BOINC distributed computing and AW Manager or Windows Manager adware-style utilities"
+   ],
+   "iocs": [
+    "beliefdesk[.]xyz",
+    "companyharbor[.]xyz",
+    "signalpane[.]cfd",
+    "inkact[.]xyz",
+    "wishgrove[.]cfd",
+    "Scheduled tasks WorldProxyPoolAgent, WorldProxyPoolWatchdog, WorldProxyPoolUpdater",
+    "C:\\Program Files\\WorldProxyPool\\sdk-agent.exe",
+    "SHA-256 006510ce1da2b7410376f0788c19e55616eb4bcc30072d25b7d0871dc32aa11c",
+    "SHA-256 21306fc5716f95e252388f920314b42f1c8bcc7df67cb4d39da30217b96f4044",
+    "SHA-256 72750d32b440e9f2b6d05ff3d218a561a75d3d75fb976b461fa59897674a7f70",
+    "SHA-256 ab2c2dd37fdcfe1e7620a57f98c80bd063258bea145adc0cc6a0f8b1e24c6a8f",
+    "SHA-256 452a210bba4c8d08f7cb7733a816d7220a7fa570a469aea0a997cfc8b594b6a0",
+    "SHA-256 523fb81fae0c7beba7b5171243cc0dee7a4d04ae0483be9172eef2394a5a2152",
+    "SHA-256 55cd3d36fdcc58016a64398357b2c9724a060da9f0d09266e537a61ec9552e4f"
+   ],
+   "remediation": [
+    {
+     "text": "Investigate execution from Inno temporary directories, especially staged eld*.exe, set_*.exe, FirstFast[1].exe or SecondRunner[1].exe files.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "investigate"
+    },
+    {
+     "text": "Correlate outbound requests containing d=inno with r=offer_execution or r=offer_execution_fail and review process, file and network activity across the whole installer session.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "investigate"
+    },
+    {
+     "text": "Review newly created scheduled tasks, particularly those running as SYSTEM or performing watchdog or updater functions, and audit software inventory for WorldProxyPool, CharityEngine, BOINC or VirtualBox.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "eradicate"
+    },
+    {
+     "text": "Enable Defender Antivirus cloud-delivered protection, keep tamper protection on, enable SmartScreen reputation-based protection and evaluate ASR rules such as blocking executables that do not meet prevalence, age or trusted-list criteria.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "harden"
+    },
+    {
+     "text": "Run the post's three advanced hunting queries (DeviceNetworkEvents and DeviceProcessEvents) over 30 days and isolate any device with a WorldProxyPool scheduled task: a proxyware exit node makes other people's traffic appear to come from your network.",
+     "from": "ours",
+     "phase": "detect"
+    }
+   ],
+   "microsoft": [
+    {
+     "what": "Microsoft Security Blog research post with IOCs, Defender detections (Trojan:Win64/OfferLoader.DA!MTB, Adware:Win32/Clover, Behavior:Win32/SuspInnoOffer.A!mapsi) and advanced hunting queries",
+     "title": "Fake-download campaign uses trojanized installers to deliver monetization payloads",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/",
+     "date": "2026-11-03"
+    }
+   ],
+   "links": [
+    {
+     "text": "Microsoft Security Blog: Fake-download campaign uses trojanized installers to deliver monetization payloads",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/",
+     "date": "2026-11-03"
+    }
+   ],
+   "kqlSearched": "2026-11-04"
   }
  ]
 }
