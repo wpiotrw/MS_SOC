@@ -1,10 +1,10 @@
 {
- "read": "2026-11-03T23:25Z",
+ "read": "2026-11-04T21:22Z",
  "source": "our second tenant (tools/graph_sp.py)",
  "sourceLabel": "our developer tenant",
  "sourceNote": "built-in role definitions of our second (developer) tenant, read every 3 hours with the same app permissions",
- "thereRead": "2026-11-03T23:24Z",
- "ourRead": "2026-10-28T20:23Z",
+ "thereRead": "2026-11-04T21:21Z",
+ "ourRead": "2026-11-04T21:20Z",
  "keepDays": 90,
  "counts": {
   "rolesThere": 145,
@@ -26,25 +26,10 @@
    ]
   }
  ],
- "permsThereOnly": [
-  "Perception.Manage.All",
-  "Perception.Read.All",
-  "RoleManagement-Authorization.Read.All",
-  "RoleManagement-Authorization.ReadWrite.All"
- ],
- "permsFirst": {
-  "Perception.Manage.All": "2026-11-03",
-  "Perception.Read.All": "2026-11-03",
-  "RoleManagement-Authorization.Read.All": "2026-11-03",
-  "RoleManagement-Authorization.ReadWrite.All": "2026-11-03"
- },
+ "permsThereOnly": [],
+ "permsFirst": {},
  "actionsThereOnly": [],
  "actionsFirst": {},
- "permsText": {
-  "Perception.Manage.All": "Allows the app to read Agentic Security resources, create sessions and request cancellation on behalf of the signed-in user, subject to the user's access.",
-  "Perception.Read.All": "Allows the app to read Agentic Security playbook definitions, sessions, agent runs, inputs, outputs and messages on behalf of the signed-in user, subject to the user's access.",
-  "RoleManagement-Authorization.Read.All": "Allows the app to read unified role definitions, multi-scope role assignments, and their resource scopes, without a signed-in user.",
-  "RoleManagement-Authorization.ReadWrite.All": "Allows the app to create, read, update, and delete unified role definitions; create, read, and delete multi-scope role assignments; and create, read, update, and delete their resource scopes, without a signed-in user."
- },
+ "permsText": {},
  "actionsText": {}
 }

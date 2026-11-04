@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-04T14:33:19Z",
+ "generated": "2026-11-04T21:23:44Z",
  "source": "tools/doc_ga.py (CLAUDE.md 5eo)",
  "sources": [
   {
    "name": "Our Learn copy (mirror/learn)",
    "state": "ok",
    "pages": 6919,
-   "events": 0,
+   "events": 1,
    "note": ""
   },
   {
@@ -19,6 +19,17 @@
   }
  ],
  "events": [
+  {
+   "url": "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/clear-attribute-values",
+   "title": "Clear attribute values",
+   "before": "Clear attribute values (Preview)",
+   "date": "2026-11-04",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-31 and 2026-11-04",
+   "announced": false
+  },
   {
    "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/stream-with-reconnect",
    "title": "Stream long-running agent output with reconnect - Microsoft Foundry",

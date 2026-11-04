@@ -1576,20 +1576,19 @@
    "actionBy": null,
    "start": "2026-01-14",
    "end": "2026-11-06",
-   "modified": "2026-11-02",
+   "modified": "2026-11-04",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
    "summary": "Updated November 2, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. [Introduction] We’re enhancing Microsoft Purview Content Explorer with new summary metrics to improve visibility into scanning and classification activities. These updates will help admins identify unscanned files and monitor classification trends, enabling better data g…",
-   "when": "Public Preview: We will begin rolling out late July 2026 (previously mid-July) and expect to complete by early October 2026 (previously early August). General Availability (Worldwide): We have decided not to move forward with this change at this time.",
+   "when": "Public Preview: We have decided not to move forward with this change at this time. General Availability (Worldwide): We have decided not to move forward with this change at this time.",
    "prepare": "No action is required. These metrics will automatically appear in Content Explorer. .",
    "dates": [
-    "Updated November 2, 2026: We have decided not to move forward with this change at this time.",
-    "Public Preview: We will begin rolling out late July 2026 (previously mid-July) and expect to complete by early October 2026 (previously early August)."
+    "Updated November 2, 2026: We have decided not to move forward with this change at this time."
    ],
-   "bodyHash": "2ad5f51f83b57cbe"
+   "bodyHash": "38f32869d2cf3846"
   },
   {
    "id": "MC1217951",
@@ -2635,23 +2634,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-03-05",
-   "end": "2027-03-19",
-   "modified": "2026-09-01",
+   "end": "2027-05-03",
+   "modified": "2026-11-04",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 1, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We’re adding support for sending locally stored Word, Excel, and PowerPoint files as email attachments directly through the new Outlook for Windows. This update streamlines the sharing experience and aligns with ongoing efforts to bring feature parity between classic Outlook for Windows and the new…",
-   "when": "General Availability (Worldwide): We will begin rolling out in early November 2026 (previously early September) and expect to complete by early December 2026 (previously late September). General Availability (GCC): We will begin rolling out in mid-January 2027 (previously early October 2026) and expect to complete by mid-February 2027 (previously late October 2026).",
+   "summary": "Updated November 4, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We’re adding support for sending locally stored Word, Excel, and PowerPoint files as email attachments directly through the new Outlook for Windows. This update streamlines the sharing experience and aligns with ongoing efforts to bring feature parity between classic Outlook for Windows and the new …",
+   "when": "General Availability (Worldwide): We will begin rolling out in mid-January 2027 (previously early November 2026) and expect to complete by mid-February 2027 (previously early December 2026). General Availability (GCC): We will begin rolling out in late February 2027 (previously mid-January) and expect to complete by late March 2027 (previously mid-February).",
    "prepare": "No admin action is required. To prepare your organization, you may: Inform help desk staff about this update to reduce support inquiries. Update your internal documentation if it references classic Outlook workflows. Encourage users to adopt the new Outlook for Windows if your organization is transitioning away from classic Outlook.",
    "dates": [
-    "Updated September 1, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): We will begin rolling out in early November 2026 (previously early September) and expect to complete by early December 2026 (previously late September).",
-    "General Availability (GCC): We will begin rolling out in mid-January 2027 (previously early October 2026) and expect to complete by mid-February 2027 (previously late October 2026)."
+    "Updated November 4, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We will begin rolling out in mid-January 2027 (previously early November 2026) and expect to complete by mid-February 2027 (previously early December 2026).",
+    "General Availability (GCC): We will begin rolling out in late February 2027 (previously mid-January) and expect to complete by late March 2027 (previously mid-February)."
    ],
-   "bodyHash": "1c36ed28a9968b5c"
+   "bodyHash": "634e8e0f8959a409"
   },
   {
    "id": "MC1245992",
@@ -16366,28 +16365,6 @@
    "bodyHash": "ce004839cf217c39"
   },
   {
-   "id": "MC1519247",
-   "title": "Updates available for Microsoft 365 Apps for Current Channel",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-21",
-   "end": "2026-11-04",
-   "modified": "2026-10-21",
-   "tags": [
-    "Feature update"
-   ],
-   "summary": "We've released updates to the following update channel for Microsoft 365 Apps: Current Channel [When this will happen:] We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting October 21st, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are configured to automatically update from the Office Content Delivery…",
-   "when": "We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting October 21st, 2026 (PST).",
-   "prepare": "To get more details about this update view the following release notes: Current Channel.",
-   "dates": [],
-   "bodyHash": "fe15957e6b3e8496"
-  },
-  {
    "id": "MC1519841",
    "title": "Microsoft OneNote: CSV and TSV references in Copilot Notebooks",
    "services": [
@@ -18816,6 +18793,28 @@
     "General Availability (Worldwide): Rollout will begin in early December 2026 and is expected to complete by late January 2027."
    ],
    "bodyHash": "2c5cee142c91616c"
+  },
+  {
+   "id": "MC1538752",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-04",
+   "end": "2026-11-18",
+   "modified": "2026-11-04",
+   "tags": [
+    "Feature update"
+   ],
+   "summary": "We've released updates to the following update channel for Microsoft 365 Apps: Current Channel [When this will happen:] We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting November 4th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are configured to automatically update from the Office Content Delivery…",
+   "when": "We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting November 4th, 2026 (PST).",
+   "prepare": "To get more details about this update view the following release notes: Current Channel.",
+   "dates": [],
+   "bodyHash": "8ad0e1d2948f5a13"
   },
   {
    "id": "MC676299",
@@ -25570,6 +25569,48 @@
      "1483eb305a75ec99"
     ]
    }
+  },
+  {
+   "date": "2026-11-04",
+   "id": "MC1217640",
+   "type": "changed",
+   "title": "Microsoft Purview | Information Protection - Content Explorer: Unscanned data and Classification History summary metrics",
+   "fields": {
+    "bodyHash": [
+     "2ad5f51f83b57cbe",
+     "38f32869d2cf3846"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-04",
+   "id": "MC1245222",
+   "type": "changed",
+   "title": "(Updated) Outlook: Share Word, Excel and PowerPoint local files via the new Outlook for Windows",
+   "fields": {
+    "end": [
+     "2027-03-19",
+     "2027-05-03"
+    ],
+    "bodyHash": [
+     "1c36ed28a9968b5c",
+     "634e8e0f8959a409"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-04",
+   "id": "MC1538752",
+   "type": "new",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-04",
+   "id": "MC1519247",
+   "type": "removed",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
   }
  ]
 }

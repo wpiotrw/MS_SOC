@@ -1,17 +1,83 @@
 {
- "updated": "2026-11-04T06:36Z",
+ "updated": "2026-11-04T21:20Z",
  "baseline": "2026-10-10T08:35Z",
- "lastRead": "2026-11-04T06:36Z",
+ "lastRead": "2026-11-04T21:20Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
-  "names": 1086,
-  "application": 777,
-  "delegated": 867,
+  "names": 1090,
+  "application": 779,
+  "delegated": 871,
   "rsc": 60,
   "roles": 145
  },
  "events": [
+  {
+   "seen": "2026-11-04T21:20Z",
+   "day": "2026-11-04",
+   "surface": "action",
+   "name": "microsoft.directory/agentIdentityBlueprints/idJagConfiguration/update",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Update the ID-JAG outbound configuration of agent identity blueprints"
+  },
+  {
+   "seen": "2026-11-04T21:20Z",
+   "day": "2026-11-04",
+   "surface": "permission",
+   "name": "EntitlementMgmt-SubjectAccess.ReadWrite",
+   "change": "text",
+   "type": "Delegated",
+   "before": "Allows the app to manage self-service entitlement management resources on behalf of the signed-in user.  This includes operations such as requesting access and approving access of others.",
+   "after": "Allows the app to manage self-service entitlement management resources on behalf of the signed-in user. This includes operations such as requesting access and approving access of others.",
+   "text": ""
+  },
+  {
+   "seen": "2026-11-04T21:20Z",
+   "day": "2026-11-04",
+   "surface": "permission",
+   "name": "Perception.Manage.All",
+   "change": "added",
+   "type": "Delegated",
+   "before": null,
+   "after": "Delegated (consent: Admin)",
+   "text": "Allows the app to read Agentic Security resources, create sessions and request cancellation on behalf of the signed-in user, subject to the user's access."
+  },
+  {
+   "seen": "2026-11-04T21:20Z",
+   "day": "2026-11-04",
+   "surface": "permission",
+   "name": "Perception.Read.All",
+   "change": "added",
+   "type": "Delegated",
+   "before": null,
+   "after": "Delegated (consent: Admin)",
+   "text": "Allows the app to read Agentic Security playbook definitions, sessions, agent runs, inputs, outputs and messages on behalf of the signed-in user, subject to the user's access."
+  },
+  {
+   "seen": "2026-11-04T21:20Z",
+   "day": "2026-11-04",
+   "surface": "permission",
+   "name": "RoleManagement-Authorization.Read.All",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to read unified role definitions, multi-scope role assignments, and their resource scopes, without a signed-in user."
+  },
+  {
+   "seen": "2026-11-04T21:20Z",
+   "day": "2026-11-04",
+   "surface": "permission",
+   "name": "RoleManagement-Authorization.ReadWrite.All",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to create, read, update, and delete unified role definitions; create, read, and delete multi-scope role assignments; and create, read, update, and delete their resource scopes, without a signed-in user."
+  },
   {
    "seen": "2026-10-28T20:23Z",
    "day": "2026-10-28",
