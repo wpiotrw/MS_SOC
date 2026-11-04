@@ -11,7 +11,7 @@ f1.keywords:
 ms.author: v-lilkafka
 author: kafkadesign
 manager: laurawi
-ms.date: 2026-10-15T00:00:00.0000000Z
+ms.date: 2026-11-03T00:00:00.0000000Z
 audience: Admin
 ms.topic: reference
 ms.service: purview
@@ -260,6 +260,7 @@ You can also search for Dragon Copilot admin activities by running the `Search-U
 | Created environment | CreatedEnvironment | A new Dragon Copilot environment was created. |
 | Created extension | CreatedExtension | An extension was installed. |
 | Created group | CreatedGroup | A user group was created. |
+| Created organization member | CreatedOrganizationMember | An organization member was created. |
 | Created organization role assignment | CreatedOrganizationRoleAssignment | An organization role assignment was created. |
 | Created role assignment | CreatedRoleAssignment | A role was assigned to a user. |
 | Deleted billing plan | DeletedBillingPlan | A billing plan was deleted. |
@@ -270,6 +271,7 @@ You can also search for Dragon Copilot admin activities by running the `Search-U
 | Deleted environment | DeletedEnvironment | An environment was deleted. |
 | Deleted group | DeletedGroup | A user group was deleted. |
 | Deleted organization | DeletedOrganization | An organization was deleted from the hierarchy. |
+| Deleted organization member | DeletedOrganizationMember | An organization member was deleted. |
 | Deleted organization role assignment | DeletedOrganizationRoleAssignment | An organization role assignment was deleted. |
 | Deleted role assignment | DeletedRoleAssignment | A role assignment was removed. |
 | Deleted setting | DeletedSetting | A configuration setting was deleted. |
@@ -280,8 +282,10 @@ You can also search for Dragon Copilot admin activities by running the `Search-U
 | Listed bulk user imports | ListedBulkUserImports | Bulk user imports were listed. |
 | Listed device connectors | ListedDeviceConnectors | Device connectors installed under an EHR connector were listed. |
 | Listed EHR instances | ListedEhrInstances | EHR instances were listed. |
+| Listed EHR users | ListedEhrUsers | EHR users were listed. |
 | Listed environments | ListedEnvironments | All environments were listed. |
 | Listed extensions | ListedExtensions | Extensions were listed. |
+| Listed group members | ListedGroupMembers | Group members were listed. |
 | Listed groups | ListedGroups | User groups were listed. |
 | Listed organizations | ListedOrganizations | Organizations were listed. |
 | Listed role assignments | ListedRoleAssignments | Role assignments were listed. |
@@ -717,6 +721,7 @@ The following table lists the Microsoft Fabric activities in Power BI that the M
 | Updated MirroredStorage definition | UpdatedMirroredStorageDefinition | Generated when a user or service principal modifies the mirroring scope of an existing MirroredStorage item, changing which external paths are exposed in OneLake. |
 | Updated an existing outbound IP firewall rule for a workspace. | UpdatedOutboundIpFirewallRule | Updated an existing outbound IP firewall rule for a workspace. |
 | Unassign Warehouse Server Alias | UnassignWarehouseServerAlias | A workspace administrator assigned a server alias to a Fabric Warehouse workspace. |
+| Viewed Workspace App | ViewedWorkspaceApp | Viewed Workspace App is generated when a user opens a Power BI workspace app. |
 | Workspace relations retrieved | WorkspaceRelationsRetrieved | Workspace relations retrieved. |
 
 ## File and page activities
@@ -1201,7 +1206,6 @@ The following table lists automation activities for Microsoft Defender XDR recor
 | Activated an automation rule | AutomationRuleActivated | A user activated an automation rule. |
 | Removed a generated playbook | GeneratedPlaybookRemoved | A user removed a generated playbook. |
 | Removed an automation rule | AutomationRuleRemoved | A user removed an automation rule. |
-| Triggered a generated playbook | TriggerGeneratedPlaybook | A user manually triggered a generated playbook. |
 
 ## Microsoft Defender XDR case management activities
 
