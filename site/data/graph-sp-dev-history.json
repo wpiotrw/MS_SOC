@@ -1,17 +1,28 @@
 {
- "updated": "2026-11-03T23:24Z",
+ "updated": "2026-11-04T06:36Z",
  "baseline": "2026-10-18T20:23Z",
- "lastRead": "2026-11-03T23:24Z",
+ "lastRead": "2026-11-04T06:36Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
   "names": 1090,
-  "application": 779,
-  "delegated": 871,
+  "application": 777,
+  "delegated": 867,
   "rsc": 60,
   "roles": 145
  },
  "events": [
+  {
+   "seen": "2026-11-04T06:36Z",
+   "day": "2026-11-04",
+   "surface": "permission",
+   "name": "EntitlementMgmt-SubjectAccess.ReadWrite",
+   "change": "text",
+   "type": "Delegated",
+   "before": "Allows the app to manage self-service entitlement management resources on behalf of the signed-in user. This includes operations such as requesting access and approving access of others.",
+   "after": "Allows the app to manage self-service entitlement management resources on behalf of the signed-in user.  This includes operations such as requesting access and approving access of others.",
+   "text": ""
+  },
   {
    "seen": "2026-11-03T23:24Z",
    "day": "2026-11-03",

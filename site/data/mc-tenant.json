@@ -1,5 +1,5 @@
 {
- "read": "2026-11-03",
+ "read": "2026-11-04",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
  "count": 711,
  "note": null,
@@ -15196,7 +15196,7 @@
   },
   {
    "id": "MC1506730",
-   "title": "Classic Outlook for Windows: Upcoming visual improvements and a more consistent Outlook experience",
+   "title": "(Updated) Classic Outlook for Windows: Upcoming visual improvements and a more consistent Outlook experience",
    "services": [
     "Exchange Online"
    ],
@@ -15206,19 +15206,21 @@
    "actionBy": null,
    "start": "2026-10-13",
    "end": "2026-12-30",
-   "modified": "2026-10-13",
+   "modified": "2026-11-04",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We’re making updates across Microsoft Outlook experiences to improve clarity and consistency across endpoints. The first updates focus on visual details such as icons, spacing, and alignment, while maintaining familiar ways of working. These updates are part of an ongoing series of improvements across Outlook experiences and are not a replacement for the classic Outlook experience. …",
+   "summary": "Updated November 3, 2026: We’ve heard your feedback that you’d like more information about what’s changing in classic Outlook. To help end-users understand recent changes, we’re bringing back the What’s New in-app dialog. The dialog is designed to be nonintrusive and will appear automatically at most once per month in Production on Current Channel. Users can dismiss it at any time and reopen it la…",
    "when": null,
    "prepare": null,
    "dates": [
+    "Updated November 3, 2026: We’ve heard your feedback that you’d like more information about what’s changing in classic Outlook.",
     "General Availability (Worldwide): Beginning in early November 2026 and expected to complete by late November 2026."
    ],
-   "bodyHash": "e220ef78712aafcb"
+   "bodyHash": "1483eb305a75ec99"
   },
   {
    "id": "MC1506733",
@@ -19134,27 +19136,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-04",
-   "id": "MC1423106",
-   "type": "removed",
-   "title": "Introducing cross-tenant message recall in Exchange Online",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-04",
-   "id": "MC1448378",
-   "type": "removed",
-   "title": "(Update)Microsoft Purview | Endpoint DLP: Prepare for the macOS Golden Gate (version 27) accessibility permission change",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-04",
-   "id": "MC1457838",
-   "type": "removed",
-   "title": "Microsoft OneDrive: New policies to control file exclusions",
-   "fields": {}
-  },
   {
    "date": "2026-10-05",
    "id": "MC1090689",
@@ -25560,6 +25541,35 @@
    "type": "removed",
    "title": "Get started with October 2025 improvements in Windows 11",
    "fields": {}
+  },
+  {
+   "date": "2026-11-04",
+   "id": "MC1506730",
+   "type": "changed",
+   "title": "(Updated) Classic Outlook for Windows: Upcoming visual improvements and a more consistent Outlook experience",
+   "fields": {
+    "title": [
+     "Classic Outlook for Windows: Upcoming visual improvements and a more consistent Outlook experience",
+     "(Updated) Classic Outlook for Windows: Upcoming visual improvements and a more consistent Outlook experience"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "e220ef78712aafcb",
+     "1483eb305a75ec99"
+    ]
+   }
   }
  ]
 }
