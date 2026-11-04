@@ -735,5 +735,35 @@
 ]
 ],
 "read": "2026-10-31"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/": {
+"iocs": [
+[
+"domain",
+"beliefdesk.xyz",
+"IOC table: Offer-execution callback infrastructure."
+],
+[
+"domain",
+"companyharbor.xyz",
+"IOC table: Offer-execution callback infrastructure."
+],
+[
+"domain",
+"signalpane.cfd",
+"IOC table: Offer-execution callback infrastructure."
+],
+[
+"domain",
+"inkact.xyz",
+"IOC table: Offer-execution callback infrastructure."
+],
+[
+"domain",
+"wishgrove.cfd",
+"IOC table: Offer-execution callback infrastructure."
+]
+],
+"read": "2026-11-03"
 }
 }
