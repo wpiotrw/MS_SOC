@@ -410,6 +410,14 @@
 "date":"2026-11-04",
 "group":"community",
 "found":"2026-11-04"
+},
+"https://www.bleepingcomputer.com/news/security/msecure-password-manager-hack-prompts-password-reset-warnings/":{
+"title":"mSecure password manager hack prompts password reset warnings",
+"link":"https://www.bleepingcomputer.com/news/security/msecure-password-manager-hack-prompts-password-reset-warnings/",
+"source":"BleepingComputer",
+"date":"2026-11-04",
+"group":"community",
+"found":"2026-11-04"
 }
 },
 "final":"2027-07-01",
@@ -2024,6 +2032,14 @@
 "updated":"2026-10-27",
 "group":"microsoft",
 "found":"2026-10-28"
+},
+"https://dev.to/unix_76eeb8015d64/wireway-a-native-macos-https-proxy-with-a-built-in-mcp-server-a2g":{
+"title":"Wireway – a native macOS HTTPS proxy with a built-in MCP server",
+"link":"https://dev.to/unix_76eeb8015d64/wireway-a-native-macos-https-proxy-with-a-built-in-mcp-server-a2g",
+"source":"NeonTiger12",
+"date":"2026-11-04",
+"group":"community",
+"found":"2026-11-04"
 }
 },
 "final":"2026-12-25",
@@ -3012,6 +3028,14 @@
 "updated":"2026-10-13",
 "group":"microsoft",
 "found":"2026-10-14"
+},
+"https://thehackernews.com/2026/11/xen-hypervisor-flaws-let-one-malicious.html":{
+"title":"Xen Hypervisor Flaws Let One Malicious VM Read and Write Any Other VM's Memory",
+"link":"https://thehackernews.com/2026/11/xen-hypervisor-flaws-let-one-malicious.html",
+"source":"Hacker News",
+"date":"2026-11-04",
+"group":"community",
+"found":"2026-11-04"
 }
 },
 "final":"2026-11-25",
@@ -6456,14 +6480,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-02",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-03",
 "text":"August 1, 2026."
 },
@@ -6513,6 +6529,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-03",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-04",
 "text":"August 1, 2026."
 },
 {
@@ -7112,7 +7136,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-03",
+"seen":"2026-11-04",
 "text":"early February 2026."
 },
 {
@@ -7120,7 +7144,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-03",
+"seen":"2026-11-04",
 "text":"February 2027."
 },
 {
@@ -8894,15 +8918,15 @@
 "label":"12 Nov 2026",
 "text":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically"
 },
-"MC1519122|microsoft states a rollout window early to mid not an action#0":{
-"date":"2026-11-15",
-"label":"mid Nov 2026",
-"text":"Microsoft states a rollout window, early to mid-November 2026, not an action date."
-},
 "MC1536101|deadline":{
 "date":"2026-12-02",
 "label":"2 Dec 2026",
 "text":"Copilot Studio, Power Automate and Power Apps prompts move automatically from Anthropic, Grok and older GPT models to newer GPT models on 2 December 2026"
+},
+"MC1519122|microsoft states a rollout window general availability early#0":{
+"date":"2026-12-15",
+"label":"mid Dec 2026",
+"text":"Microsoft states a rollout window (general availability early to mid-December 2026), not an action date."
 }
 },
 "moves":[],
@@ -9113,7 +9137,7 @@
 "found":"2026-11-04"
 }
 },
-"final":"2026-12-02",
+"final":"2026-12-15",
 "type":"Support end",
 "tech":"Copilot",
 "posts":[
@@ -10723,7 +10747,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-03",
+"seen":"2026-11-04",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10731,7 +10755,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-03",
+"seen":"2026-11-04",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -17449,6 +17473,45 @@
 "title":"mSecure Warns Users to Change Passwords, Reset 2FA and Passkeys After Suspicious Activity",
 "source":"Hacker News",
 "link":"https://thehackernews.com/2026/11/msecure-warns-users-to-change-passwords.html"
+},
+{
+"day":"2026-11-04",
+"cid":"c-item-mc1519855",
+"type":"material",
+"name":"SSPR requires registered authentication methods",
+"group":"community",
+"title":"mSecure password manager hack prompts password reset warnings",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/security/msecure-password-manager-hack-prompts-password-reset-warnings/"
+},
+{
+"day":"2026-11-04",
+"cid":"c-mc1528007",
+"type":"material",
+"name":"Join button will require HTTPS meeting links",
+"group":"community",
+"title":"Wireway – a native macOS HTTPS proxy with a built-in MCP server",
+"source":"NeonTiger12",
+"link":"https://dev.to/unix_76eeb8015d64/wireway-a-native-macos-https-proxy-with-a-built-in-mcp-server-a2g"
+},
+{
+"day":"2026-11-04",
+"cid":"c-mc1506728",
+"type":"material",
+"name":"Changes to AgentIdentity.CreateAsManager permission for agent identities",
+"group":"community",
+"title":"Xen Hypervisor Flaws Let One Malicious VM Read and Write Any Other VM's Memory",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/11/xen-hypervisor-flaws-let-one-malicious.html"
+},
+{
+"day":"2026-11-04",
+"cid":"c-item-mc1506318",
+"type":"milestone",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"src":"MC1519122",
+"now":"mid Dec 2026",
+"text":"Microsoft states a rollout window (general availability early to mid-December 2026), not an action date."
 }
 ],
 "archive":{
