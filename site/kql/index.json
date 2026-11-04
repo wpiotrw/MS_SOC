@@ -1,5 +1,19 @@
 [
  {
+  "file": "articles/2026-11-04-detection-1-trojanized-inno-setup-installer-spawning-scripti.kql",
+  "title": "Detection 1: Trojanized Inno Setup Installer Spawning Scripting Engine or Network Tool",
+  "date": "2026-11-04",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, November 4, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-04-detection-engineering-brief-wednesday-november-4-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-04-detection-engineering-brief-wednesday-november-4-2026/"
+ },
+ {
   "file": "community/2026-11-03-hunting-query.kql",
   "title": "Hunting query",
   "date": "2026-11-03",
