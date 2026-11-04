@@ -100,6 +100,59 @@
      "says": "PowerShell to find dynamic groups, dynamic administrative units and auto-assignment policies that use memberOf; updated for the extension."
     }
    ]
+  },
+  {
+   "key": "sspr-microsoft-sms-voice-retirement",
+   "ids": [
+    "MC1536049",
+    "MC1528000"
+   ],
+   "title": "Microsoft-provided SMS and voice retire for self-service password reset (SSPR)",
+   "scriptable": true,
+   "checked": "2026-11-04",
+   "sdk": "Microsoft Graph PowerShell SDK (Microsoft.Graph.Authentication, Microsoft.Graph.Reports)",
+   "blocks": [
+    {
+     "t": "Find SSPR-registered users whose only registered methods are phone numbers",
+     "kind": "read",
+     "scopes": "AuditLog.Read.All",
+     "code": "# Read only. Lists users registered for SSPR whose registered methods are all phone-based,\n# i.e. the users who lose self-service recovery when Microsoft-provided SMS and voice retire.\nConnect-MgGraph -Scopes 'AuditLog.Read.All' -NoWelcome\n$phone = @('mobilePhone','alternateMobilePhone','officePhone')\n$details = Get-MgReportAuthenticationMethodUserRegistrationDetail -All -Filter 'isSsprRegistered eq true'\n$atRisk = $details | Where-Object {\n    $m = @($_.MethodsRegistered)\n    $m.Count -gt 0 -and -not ($m | Where-Object { $_ -notin $phone })\n}\n$atRisk | Select-Object UserPrincipalName, UserDisplayName, @{n='Methods';e={$_.MethodsRegistered -join ','}} |\n    Export-Csv -Path .\\sspr-phone-only-users.csv -NoTypeInformation -Encoding UTF8\n\"{0} of {1} SSPR-registered users have only phone methods\" -f @($atRisk).Count, @($details).Count",
+     "src": [
+      "https://learn.microsoft.com/en-us/graph/api/authenticationmethodsroot-list-userregistrationdetails?view=graph-rest-1.0",
+      "https://deltapulse.app/item/MC1536049"
+     ]
+    }
+   ],
+   "dates": "MC1536049 (3 November 2026): SMS/voice sign-in retirement rollout begins 1 February 2027 for most users and 1 July 2027 for Global Administrators and external users; each population keeps Microsoft-provided SMS/voice for SSPR for 50 days after its rollout reaches the tenant. Action-required date shown by DeltaPulse: 22 March 2027.",
+   "sources": [
+    {
+     "t": "Message Center MC1536049",
+     "u": "https://deltapulse.app/item/MC1536049",
+     "says": "Microsoft-provided SMS and voice stop being usable for SSPR 50 days after the SMS/voice sign-in retirement reaches each population; customer-managed telephony remains available and Microsoft will not change the SSPR policy automatically."
+    },
+    {
+     "t": "Microsoft Learn: List userRegistrationDetails",
+     "u": "https://learn.microsoft.com/en-us/graph/api/authenticationmethodsroot-list-userregistrationdetails?view=graph-rest-1.0",
+     "says": "Documents the report with isSsprRegistered and methodsRegistered filters, least privileged permission AuditLog.Read.All, and the PowerShell cmdlet Get-MgReportAuthenticationMethodUserRegistrationDetail."
+    }
+   ]
+  },
+  {
+   "key": "copilot-connectors-setfederatedconnectors-cli",
+   "ids": [
+    "MC1454973"
+   ],
+   "title": "Copilot connectors global setting: SetFederatedConnectors CLI toggle retires in favour of Agent 365",
+   "scriptable": false,
+   "checked": "2026-11-04",
+   "why": "The post retires a CLI toggle in favour of a setting in the Agent 365 admin experience; this routine found no documented Graph, Exchange Online or Teams PowerShell surface for that setting, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1454973",
+     "u": "https://deltapulse.app/item/MC1454973",
+     "says": "Managing the Copilot connectors global setting moves to Agent 365 and the SetFederatedConnectors CLI toggle is retiring."
+    }
+   ]
   }
  ]
 }
