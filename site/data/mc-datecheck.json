@@ -1,136 +1,10 @@
 {
- "generated": "2026-11-03T23:30:08Z",
- "day": "2026-11-03",
+ "generated": "2026-11-04T00:52:35Z",
+ "day": "2026-11-04",
  "spec": "5gf",
- "source": "site/data/campaigns.json (2026-11-03)",
+ "source": "site/data/campaigns.json (2026-11-04)",
  "count": 40,
  "byMc": {
-  "MC1448379": {
-   "says": [
-    "2026-11-03"
-   ],
-   "others": [
-    {
-     "date": "2027-03-31",
-     "src": "MC1488839",
-     "text": "Action required by 31 March 2027, read on the message page; it applies to organizations with Microsoft Entra ID Governance.",
-     "post": "2026-10-05",
-     "later": true,
-     "link": "https://msmessagecenter.com/MC1488839"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1488834",
-     "date": "2026-10-05",
-     "title": "Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
-    },
-    {
-     "id": "MC1488839",
-     "date": "2026-10-05",
-     "title": "Microsoft Entra ID: Support for existing MemberOf rule operator configurations extended through March 31, 2027"
-    },
-    {
-     "id": "MC1529463",
-     "date": "2026-10-28",
-     "title": "Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
-    }
-   ],
-   "why": [
-    "MemberOf rule operator: tenants with Entra ID Governance keep their existing configurations until 31 March 2027, while the 3 November retirement stands for everyone else"
-   ],
-   "campaigns": [
-    {
-     "id": "c-mc1488834",
-     "name": "MemberOf rule operator retires"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1488834": {
-   "says": [
-    "2026-11-03"
-   ],
-   "others": [
-    {
-     "date": "2027-03-31",
-     "src": "MC1488839",
-     "text": "Action required by 31 March 2027, read on the message page; it applies to organizations with Microsoft Entra ID Governance.",
-     "post": "2026-10-05",
-     "later": true,
-     "link": "https://msmessagecenter.com/MC1488839"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1529463",
-     "date": "2026-10-28",
-     "title": "Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
-    }
-   ],
-   "why": [
-    "MemberOf rule operator: tenants with Entra ID Governance keep their existing configurations until 31 March 2027, while the 3 November retirement stands for everyone else"
-   ],
-   "campaigns": [
-    {
-     "id": "c-mc1488834",
-     "name": "MemberOf rule operator retires"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1488839": {
-   "says": [
-    "2026-11-03",
-    "2027-03-31"
-   ],
-   "others": [],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1529463",
-     "date": "2026-10-28",
-     "title": "Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-mc1488834",
-     "name": "MemberOf rule operator retires"
-    }
-   ],
-   "verdict": "newer"
-  },
-  "MC1529463": {
-   "says": [
-    "2026-11-03"
-   ],
-   "others": [
-    {
-     "date": "2027-03-31",
-     "src": "MC1488839",
-     "text": "Action required by 31 March 2027, read on the message page; it applies to organizations with Microsoft Entra ID Governance.",
-     "post": "2026-10-05",
-     "later": true,
-     "link": "https://msmessagecenter.com/MC1488839"
-    }
-   ],
-   "moved": [],
-   "newer": [],
-   "why": [
-    "MemberOf rule operator: tenants with Entra ID Governance keep their existing configurations until 31 March 2027, while the 3 November retirement stands for everyone else"
-   ],
-   "campaigns": [
-    {
-     "id": "c-mc1488834",
-     "name": "MemberOf rule operator retires"
-    }
-   ],
-   "verdict": "differs"
-  },
   "MC1191578": {
    "says": [
     "2026-10-01"
@@ -1959,6 +1833,131 @@
     {
      "id": "c-sms-voice-retirement",
      "name": "Microsoft-provided SMS and voice MFA retirement"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1448379": {
+   "says": [
+    "2026-11-03"
+   ],
+   "others": [
+    {
+     "date": "2027-03-31",
+     "src": "MC1488839",
+     "text": "Action required by 31 March 2027, read on the message page; it applies to organizations with Microsoft Entra ID Governance.",
+     "post": "2026-10-05",
+     "later": true,
+     "link": "https://msmessagecenter.com/MC1488839"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1488834",
+     "date": "2026-10-05",
+     "title": "Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
+    },
+    {
+     "id": "MC1488839",
+     "date": "2026-10-05",
+     "title": "Microsoft Entra ID: Support for existing MemberOf rule operator configurations extended through March 31, 2027"
+    },
+    {
+     "id": "MC1529463",
+     "date": "2026-10-28",
+     "title": "Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
+    }
+   ],
+   "why": [
+    "MemberOf rule operator: tenants with Entra ID Governance keep their existing configurations until 31 March 2027, while the 3 November retirement stands for everyone else"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc1488834",
+     "name": "MemberOf rule operator retires"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1488834": {
+   "says": [
+    "2026-11-03"
+   ],
+   "others": [
+    {
+     "date": "2027-03-31",
+     "src": "MC1488839",
+     "text": "Action required by 31 March 2027, read on the message page; it applies to organizations with Microsoft Entra ID Governance.",
+     "post": "2026-10-05",
+     "later": true,
+     "link": "https://msmessagecenter.com/MC1488839"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1529463",
+     "date": "2026-10-28",
+     "title": "Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
+    }
+   ],
+   "why": [
+    "MemberOf rule operator: tenants with Entra ID Governance keep their existing configurations until 31 March 2027, while the 3 November retirement stands for everyone else"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc1488834",
+     "name": "MemberOf rule operator retires"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1488839": {
+   "says": [
+    "2027-03-31"
+   ],
+   "others": [],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1529463",
+     "date": "2026-10-28",
+     "title": "Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-mc1488834",
+     "name": "MemberOf rule operator retires"
+    }
+   ],
+   "verdict": "newer"
+  },
+  "MC1529463": {
+   "says": [
+    "2026-11-03"
+   ],
+   "others": [
+    {
+     "date": "2027-03-31",
+     "src": "MC1488839",
+     "text": "Action required by 31 March 2027, read on the message page; it applies to organizations with Microsoft Entra ID Governance.",
+     "post": "2026-10-05",
+     "later": true,
+     "link": "https://msmessagecenter.com/MC1488839"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [
+    "MemberOf rule operator: tenants with Entra ID Governance keep their existing configurations until 31 March 2027, while the 3 November retirement stands for everyone else"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc1488834",
+     "name": "MemberOf rule operator retires"
     }
    ],
    "verdict": "differs"
