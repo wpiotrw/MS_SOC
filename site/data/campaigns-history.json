@@ -402,6 +402,14 @@
 "date":"2026-11-03",
 "group":"community",
 "found":"2026-11-03"
+},
+"https://thehackernews.com/2026/11/msecure-warns-users-to-change-passwords.html":{
+"title":"mSecure Warns Users to Change Passwords, Reset 2FA and Passkeys After Suspicious Activity",
+"link":"https://thehackernews.com/2026/11/msecure-warns-users-to-change-passwords.html",
+"source":"Hacker News",
+"date":"2026-11-04",
+"group":"community",
+"found":"2026-11-04"
 }
 },
 "final":"2027-07-01",
@@ -3019,8 +3027,7 @@
 "name":"Manage Administrator protection within Windows 11 security baseline",
 "status":"Released",
 "members":[
-"MC1506291",
-"item:MC1506291"
+"MC1506291"
 ],
 "log":[
 {
@@ -3094,8 +3101,7 @@
 "name":"Hardening changes for ReFS volumes on removable media",
 "status":"Active",
 "members":[
-"MC1506290",
-"item:MC1506290"
+"MC1506290"
 ],
 "log":[
 {
@@ -6320,8 +6326,7 @@
 "name":"Retirement of legacy TLS versions for POP and IMAP connections",
 "status":"Active",
 "members":[
-"MC1293480",
-"item:azure-appgw-keyless-tls-mhsm-ga-2026-10-20"
+"MC1293480"
 ],
 "log":[
 {
@@ -6427,14 +6432,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-01",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-02",
 "text":"August 1, 2026."
 },
@@ -6540,6 +6537,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-03",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-04",
 "text":"August 1, 2026."
 },
 {
@@ -7171,7 +7176,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-03",
+"seen":"2026-11-04",
 "text":"early February 2026."
 },
 {
@@ -7179,7 +7184,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-03",
+"seen":"2026-11-04",
 "text":"February 2027."
 },
 {
@@ -7693,88 +7698,6 @@
 "tech":"Copilot",
 "posts":[
 "MC1454973"
-]
-},
-"c-item-mc1515940":{
-"firstSeen":"2026-10-21",
-"lastSeen":"2026-11-04",
-"name":"Copilot actions in the File Explorer context menu are being retired",
-"status":"Active",
-"members":[
-"MC1515940",
-"item:MC1515940"
-],
-"log":[
-{
-"date":"2026-10-20",
-"id":"MC1515940",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"Microsoft OneDrive: Copilot actions in the File Explorer context menu are being retired",
-"title":"OneDrive Copilot actions (Summarize, Compare files, Extract text and five more) leave the File Explorer context menu mid-November to early December",
-"link":"https://deltapulse.app/item/MC1515940"
-}
-],
-"milestones":{
-"MC1515940|posted":{
-"date":"2026-10-19",
-"label":"19 Oct 2026",
-"text":"Posted: Microsoft OneDrive: Copilot actions in the File Explorer context menu are being retired"
-},
-"MC1515940|retirement will begin in mid and is expected to complete by #0":{
-"date":"2026-11-15",
-"label":"mid Nov 2026",
-"text":"Retirement will begin in mid-November 2026 and is expected to complete by early December 2026."
-},
-"MC1515940|microsoft is retiring several onedrive copilot actions from #0":{
-"date":"2026-12-05",
-"label":"early Dec 2026",
-"text":"Microsoft is retiring several OneDrive Copilot actions from the File Explorer context menu by early December 2026, simplifying usage."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1515940":{
-"title":"Microsoft OneDrive: Copilot actions in the File Explorer context menu are being retired",
-"link":"https://mc.merill.net/message/MC1515940",
-"source":"Message Center",
-"id":"MC1515940",
-"date":"2026-10-19",
-"updated":"2026-10-20",
-"group":"microsoft",
-"found":"2026-10-21"
-},
-"https://deltapulse.app/item/MC1515940":{
-"title":"Microsoft OneDrive: Copilot actions in the File Explorer context menu are being retired",
-"link":"https://deltapulse.app/item/MC1515940",
-"source":"Main list source",
-"id":"MC1515940",
-"date":"2026-10-19",
-"group":"microsoft",
-"found":"2026-10-21"
-},
-"https://mc.merill.net/message/MC1470417":{
-"title":"MC1470417: Microsoft 365 Copilot: Review PDFs using the Copilot context menu on OneDrive iOS",
-"link":"https://mc.merill.net/message/MC1470417",
-"source":"MC - Merill",
-"date":"2026-10-20",
-"group":"community",
-"found":"2026-10-21"
-},
-"https://www.microsoft.com/microsoft-365/roadmap?id=570662":{
-"title":"Microsoft Edge: Select Password from the context menu",
-"link":"https://www.microsoft.com/microsoft-365/roadmap?id=570662",
-"source":"Microsoft 365 Roadmap",
-"date":"2026-10-30",
-"group":"community",
-"found":"2026-10-31"
-}
-},
-"final":"2026-12-05",
-"type":"Retirement",
-"tech":"SharePoint",
-"posts":[
-"MC1515940"
 ]
 },
 "c-item-defender-cross-tenant-delegated-admin-ga-2026-10-20":{
@@ -8847,6 +8770,15 @@
 ],
 "log":[
 {
+"date":"2026-11-04",
+"id":"MC1506318",
+"what":"Microsoft revised the post",
+"before":"2026-10-26",
+"after":"2026-11-03",
+"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
+"link":"https://mc.merill.net/message/MC1506318"
+},
+{
 "date":"2026-11-03",
 "id":"MC1536101",
 "what":"Entered the brief (Deadlines)",
@@ -9171,6 +9103,14 @@
 "date":"2026-11-03",
 "group":"community",
 "found":"2026-11-03"
+},
+"https://mc.merill.net/message/MC1537406":{
+"title":"MC1537406: Power Automate - Information regarding the end of support for Describe it to design it",
+"link":"https://mc.merill.net/message/MC1537406",
+"source":"MC - Merill",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-04"
 }
 },
 "final":"2026-12-02",
@@ -9240,18 +9180,18 @@
 {
 "date":"2026-10-28",
 "id":"MC1465763",
-"what":"Microsoft revised the post",
-"before":"2026-09-01",
-"after":"2026-10-28",
+"what":"Microsoft moved the date",
+"before":"late Sep 2026",
+"after":"end of Nov 2026",
 "title":"Entra switches off unused or failing SMS first-factor sign-in tenant by tenant; the rollout now runs to the end of November 2026",
 "link":"https://deltapulse.app/item/MC1465763"
 },
 {
 "date":"2026-10-28",
 "id":"MC1465763",
-"what":"Microsoft moved the date",
-"before":"late Sep 2026",
-"after":"end of Nov 2026",
+"what":"Microsoft revised the post",
+"before":"2026-09-01",
+"after":"2026-10-28",
 "title":"Entra switches off unused or failing SMS first-factor sign-in tenant by tenant; the rollout now runs to the end of November 2026",
 "link":"https://deltapulse.app/item/MC1465763"
 },
@@ -10100,6 +10040,22 @@
 "date":"2026-11-03",
 "group":"community",
 "found":"2026-11-03"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=577855":{
+"title":"Dynamics 365 Project Operations: Support larger invoices in Project Operations",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=577855",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-04",
+"group":"community",
+"found":"2026-11-04"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=577409":{
+"title":"Dynamics 365 Commerce: Extend the phone Cart with custom app-bar commands",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=577409",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-04",
+"group":"community",
+"found":"2026-11-04"
 }
 },
 "final":"2027-07-01",
@@ -10831,7 +10787,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-03",
+"seen":"2026-11-04",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10839,7 +10795,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-03",
+"seen":"2026-11-04",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11385,6 +11341,14 @@
 "date":"2026-11-03",
 "group":"community",
 "found":"2026-11-03"
+},
+"https://thehackernews.com/2026/11/msecure-warns-users-to-change-passwords.html":{
+"title":"mSecure Warns Users to Change Passwords, Reset 2FA and Passkeys After Suspicious Activity",
+"link":"https://thehackernews.com/2026/11/msecure-warns-users-to-change-passwords.html",
+"source":"Hacker News",
+"date":"2026-11-04",
+"group":"community",
+"found":"2026-11-04"
 }
 },
 "final":"2027-05-25",
@@ -17435,6 +17399,56 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-04",
+"cid":"c-item-mc1519855",
+"type":"material",
+"name":"SSPR requires registered authentication methods",
+"group":"community",
+"title":"mSecure Warns Users to Change Passwords, Reset 2FA and Passkeys After Suspicious Activity",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/11/msecure-warns-users-to-change-passwords.html"
+},
+{
+"day":"2026-11-04",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"MC1537406: Power Automate - Information regarding the end of support for Describe it to design it",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1537406"
+},
+{
+"day":"2026-11-04",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Dynamics 365 Project Operations: Support larger invoices in Project Operations",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=577855"
+},
+{
+"day":"2026-11-04",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Dynamics 365 Commerce: Extend the phone Cart with custom app-bar commands",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=577409"
+},
+{
+"day":"2026-11-04",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"mSecure Warns Users to Change Passwords, Reset 2FA and Passkeys After Suspicious Activity",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/11/msecure-warns-users-to-change-passwords.html"
 }
 ],
 "archive":{
@@ -19302,6 +19316,88 @@
 "type":"Rollout",
 "tech":"Azure",
 "posts":[]
+},
+"c-item-mc1515940":{
+"firstSeen":"2026-10-21",
+"lastSeen":"2026-11-04",
+"name":"Copilot actions in the File Explorer context menu are being retired",
+"status":"Archive",
+"members":[
+"MC1515940",
+"item:MC1515940"
+],
+"log":[
+{
+"date":"2026-10-20",
+"id":"MC1515940",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Microsoft OneDrive: Copilot actions in the File Explorer context menu are being retired",
+"title":"OneDrive Copilot actions (Summarize, Compare files, Extract text and five more) leave the File Explorer context menu mid-November to early December",
+"link":"https://deltapulse.app/item/MC1515940"
+}
+],
+"milestones":{
+"MC1515940|posted":{
+"date":"2026-10-19",
+"label":"19 Oct 2026",
+"text":"Posted: Microsoft OneDrive: Copilot actions in the File Explorer context menu are being retired"
+},
+"MC1515940|retirement will begin in mid and is expected to complete by #0":{
+"date":"2026-11-15",
+"label":"mid Nov 2026",
+"text":"Retirement will begin in mid-November 2026 and is expected to complete by early December 2026."
+},
+"MC1515940|microsoft is retiring several onedrive copilot actions from #0":{
+"date":"2026-12-05",
+"label":"early Dec 2026",
+"text":"Microsoft is retiring several OneDrive Copilot actions from the File Explorer context menu by early December 2026, simplifying usage."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1515940":{
+"title":"Microsoft OneDrive: Copilot actions in the File Explorer context menu are being retired",
+"link":"https://mc.merill.net/message/MC1515940",
+"source":"Message Center",
+"id":"MC1515940",
+"date":"2026-10-19",
+"updated":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-21"
+},
+"https://deltapulse.app/item/MC1515940":{
+"title":"Microsoft OneDrive: Copilot actions in the File Explorer context menu are being retired",
+"link":"https://deltapulse.app/item/MC1515940",
+"source":"Main list source",
+"id":"MC1515940",
+"date":"2026-10-19",
+"group":"microsoft",
+"found":"2026-10-21"
+},
+"https://mc.merill.net/message/MC1470417":{
+"title":"MC1470417: Microsoft 365 Copilot: Review PDFs using the Copilot context menu on OneDrive iOS",
+"link":"https://mc.merill.net/message/MC1470417",
+"source":"MC - Merill",
+"date":"2026-10-20",
+"group":"community",
+"found":"2026-10-21"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=570662":{
+"title":"Microsoft Edge: Select Password from the context menu",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=570662",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-30",
+"group":"community",
+"found":"2026-10-31"
+}
+},
+"final":"2026-12-05",
+"type":"Retirement",
+"tech":"SharePoint",
+"posts":[
+"MC1515940"
+]
 }
 }
 }
