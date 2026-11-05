@@ -17,7 +17,7 @@ ms.author: rickman
 ms.service: azure-virtual-desktop
 description: Learn how to enable enhanced windowing and integration behaviors for RemoteApps (preview).
 ms.topic: how-to
-ms.date: 2025-12-02T00:00:00.0000000Z
+ms.date: 2026-09-02T00:00:00.0000000Z
 locale: en-us
 document_id: 0fbff5c4-e819-5513-f1f0-72727c2320da
 document_version_independent_id: 0fbff5c4-e819-5513-f1f0-72727c2320da

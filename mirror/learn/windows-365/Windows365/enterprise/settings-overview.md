@@ -11,7 +11,7 @@ author: rachellelcheung
 ms.author: racheun
 ms.service: windows-365
 ms.topic: overview
-ms.date: 2026-01-27T00:00:00.0000000Z
+ms.date: 2026-07-10T00:00:00.0000000Z
 ms.subservice: windows-365-enterprise
 ai-usage: ai-assisted
 locale: en-us

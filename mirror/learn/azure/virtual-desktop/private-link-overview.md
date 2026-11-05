@@ -17,7 +17,7 @@ ms.author: paulcoll
 ms.service: azure-virtual-desktop
 description: Learn about using Private Link with Azure Virtual Desktop to privately connect to your remote resources.
 ms.topic: article
-ms.date: 2023-12-08T00:00:00.0000000Z
+ms.date: 2026-02-23T00:00:00.0000000Z
 locale: en-us
 document_id: 6ead4e6e-7507-e771-09ea-412cac1afd92
 document_version_independent_id: 6ead4e6e-7507-e771-09ea-412cac1afd92
@@ -36,9 +36,11 @@ source_path: virtual-desktop/private-link-overview.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
 - https://authoring-docs-microsoft.poolparty.biz/devrel/16cd61cd-9ecf-429b-b494-91576c41f8e4
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
 - https://authoring-docs-microsoft.poolparty.biz/devrel/c4bdb33a-5524-4b66-b162-03f5621d7902
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 02b83ed3-f6a7-8fea-9bed-b98d9ca52c6a
 ---
 

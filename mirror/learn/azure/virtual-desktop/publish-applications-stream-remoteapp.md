@@ -18,7 +18,7 @@ ms.service: azure-virtual-desktop
 description: How to publish applications with RemoteApp in Azure Virtual Desktop using the Azure portal and Azure PowerShell.
 ms.topic: how-to
 ms.custom: devx-track-azurepowershell
-ms.date: 2025-06-04T00:00:00.0000000Z
+ms.date: 2026-09-01T00:00:00.0000000Z
 locale: en-us
 document_id: 0831cfbf-741b-8e22-ecdb-b9521c5e4ee7
 document_version_independent_id: 0831cfbf-741b-8e22-ecdb-b9521c5e4ee7
@@ -35,11 +35,13 @@ monikers: []
 item_type: Content
 source_path: virtual-desktop/publish-applications-stream-remoteapp.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
+- https://authoring-docs-microsoft.poolparty.biz/devrel/970f20f1-2f12-4aa9-9c95-c00fe1f5e722
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
+- https://authoring-docs-microsoft.poolparty.biz/devrel/432c4950-b799-4ed5-93d5-b9b2934edf7d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: ad90a86a-222b-04ec-f79c-de4b6b82e15b
 ---
 

@@ -11,7 +11,7 @@ keywords:
 author: ErikjeMS
 ms.author: ivivano
 manager: dougeby
-ms.date: 2026-03-23T00:00:00.0000000Z
+ms.date: 2026-10-22T00:00:00.0000000Z
 ms.topic: how-to
 ms.service: windows-365
 ms.subservice: windows-365-enterprise

@@ -701,11 +701,12 @@ When connecting to a remote session, there are multiple ways to authenticate. If
 | Windows Hello for Business certificate trust | ✅ | ❌ | ❌ | ❌ |
 | Windows Hello for Business cloud trust | ❌ | ❌ | ❌ | ❌ |
 | Windows Hello for Business key trust | ✅³ | ❌ | ❌ | ❌ |
-| RDS AAD Auth | ✅ | ❌ | ❌ | ❌ |
+| Microsoft Entra authentication | ✅ | ❌ | ❌ | ✅⁴ |
 
 1. Requires smart card redirection.
 2. Requires smart card redirection with Network Level Authentication (NLA) disabled.
 3. Requires a [certificate for Remote Desktop Protocol (RDP) sign-in](/en-us/windows/security/identity-protection/hello-for-business/hello-deployment-rdp-certs).
+4. Microsoft Entra authentication is in preview for Windows App on Android.
 
 ::: zone-end
 

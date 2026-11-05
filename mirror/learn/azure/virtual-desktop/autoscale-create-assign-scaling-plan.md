@@ -19,7 +19,7 @@ ms.service: azure-virtual-desktop
 description: How to create and assign an autoscale scaling plan to optimize deployment costs.
 ms.topic: how-to
 zone_pivot_groups: autoscale
-ms.date: 2025-04-29T00:00:00.0000000Z
+ms.date: 2026-09-01T00:00:00.0000000Z
 ms.custom: references_regions, devx-track-azurepowershell, docs_inherited
 locale: en-us
 document_id: 441ac120-892f-ba1e-8fb4-4a42e1e5ebe2
@@ -39,11 +39,11 @@ source_path: virtual-desktop/autoscale-create-assign-scaling-plan.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68cb9039-df60-49b0-8ef8-89ad96497f63
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/725b6df3-93e8-472d-834e-e7e0d2953d35
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 9c7d8f8c-8219-55ae-4bc3-a1874db6070e
 ---
 

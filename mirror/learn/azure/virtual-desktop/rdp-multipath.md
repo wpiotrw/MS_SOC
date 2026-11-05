@@ -17,7 +17,7 @@ ms.author: cawerner
 ms.service: azure-virtual-desktop
 description: Learn how RDP Multipath enhances remote connections to an Azure Virtual Desktop session by intelligently managing multiple network paths.
 ms.topic: how-to
-ms.date: 2025-06-02T00:00:00.0000000Z
+ms.date: 2026-10-23T00:00:00.0000000Z
 locale: en-us
 document_id: 12f15fbe-4cd6-872f-2bc9-d461cfaaf15d
 document_version_independent_id: 12f15fbe-4cd6-872f-2bc9-d461cfaaf15d

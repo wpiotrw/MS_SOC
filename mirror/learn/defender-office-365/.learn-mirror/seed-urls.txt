@@ -2,8 +2,11 @@ https://learn.microsoft.com/en-us/defender-office-365
 https://learn.microsoft.com/en-us/defender-office-365/air-about
 https://learn.microsoft.com/en-us/defender-office-365/alert-policies-defender-portal
 https://learn.microsoft.com/en-us/defender-office-365/anti-spam-bulk-complaint-level-bcl-about
+https://learn.microsoft.com/en-us/defender-office-365/attack-simulation-training-end-user-notifications
 https://learn.microsoft.com/en-us/defender-office-365/attack-simulation-training-faq
 https://learn.microsoft.com/en-us/defender-office-365/attack-simulation-training-insights
+https://learn.microsoft.com/en-us/defender-office-365/attack-simulation-training-landing-pages
+https://learn.microsoft.com/en-us/defender-office-365/attack-simulation-training-simulations
 https://learn.microsoft.com/en-us/defender-office-365/defender-for-office-365-whats-new
 https://learn.microsoft.com/en-us/defender-office-365/defender-for-office-365-whats-new/anti-spam-bulk-complaint-level-bcl-about
 https://learn.microsoft.com/en-us/defender-office-365/defender-for-office-365-whats-new/mdo-about

@@ -28,7 +28,7 @@ ms.custom:
 - classic-and-new
 - references_regions
 ms.topic: how-to
-ms.date: 2026-09-25T00:00:00.0000000Z
+ms.date: 2026-10-30T00:00:00.0000000Z
 ms.reviewer: dlozier
 ai-usage: ai-assisted
 locale: en-us
@@ -45,13 +45,13 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/observability/how-to/cloud-evaluation.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/954f73a6-f63f-4ee4-82b7-50903bc7735d
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/a5690ca4-dbe1-40cd-8b54-527e1da6d88c
 platformId: f8e8a2e2-052d-de83-2f9e-51d7cdfc01d0
 ---
 
@@ -193,7 +193,7 @@ Reference: [AIProjectClient class](/en-us/javascript/api/@azure/ai-projects/aipr
 
 ---
 
-To use a model connected through admin connections as a target, judge model, or conversation simulator, see [Use admin-connected models in cloud evaluations](evaluate-admin-connected-models).
+To use a connected model as a target, judge model, or conversation simulator, see [Use connected models in cloud evaluations](evaluate-admin-connected-models).
 
 ## Understand the evaluation workflow
 

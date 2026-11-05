@@ -11,7 +11,7 @@ author: IvayloIvanov-W365
 ms.author: ivivano
 ms.service: windows-365
 ms.topic: article
-ms.date: 2026-04-01T00:00:00.0000000Z
+ms.date: 2026-10-29T00:00:00.0000000Z
 locale: en-us
 document_id: f14a3fad-51c7-ca2c-8988-1e4c1efd909b
 document_version_independent_id: f14a3fad-51c7-ca2c-8988-1e4c1efd909b

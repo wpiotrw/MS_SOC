@@ -18,7 +18,7 @@ ms.service: azure-virtual-desktop
 description: Learn the supported methods to update and service Azure Virtual Desktop session hosts, including monthly updates, feature updates, and OS version upgrades.
 ms.topic: overview
 ms.reviewer: sugopina
-ms.date: 2026-08-28T00:00:00.0000000Z
+ms.date: 2026-10-29T00:00:00.0000000Z
 locale: en-us
 document_id: 7e2aff78-bddd-6540-c8a8-6d5e908c7319
 document_version_independent_id: 7e2aff78-bddd-6540-c8a8-6d5e908c7319

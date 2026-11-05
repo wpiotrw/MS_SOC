@@ -66,6 +66,7 @@ https://learn.microsoft.com/en-us/defender-xdr/incidents-overview
 https://learn.microsoft.com/en-us/defender-xdr/integrated-security-operations-data-billing-retention
 https://learn.microsoft.com/en-us/defender-xdr/investigate-alerts
 https://learn.microsoft.com/en-us/defender-xdr/investigate-incide
+https://learn.microsoft.com/en-us/defender-xdr/investigate-incident-cases
 https://learn.microsoft.com/en-us/defender-xdr/investigate-incidents
 https://learn.microsoft.com/en-us/defender-xdr/investigate-non-human-identities
 https://learn.microsoft.com/en-us/defender-xdr/investigate-respond-container-threats

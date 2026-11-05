@@ -17,7 +17,7 @@ ms.author: mmoyaaceves
 ms.service: azure-virtual-desktop
 description: Learn how you can dynamically attach applications from an application package to a user session using App Attach in Azure Virtual Desktop.
 ms.topic: concept-article
-ms.date: 2026-04-22T00:00:00.0000000Z
+ms.date: 2026-08-26T00:00:00.0000000Z
 locale: en-us
 document_id: 9660d14a-0aa2-a577-4b3d-1a1f89b6b57b
 document_version_independent_id: 9660d14a-0aa2-a577-4b3d-1a1f89b6b57b
@@ -35,12 +35,12 @@ item_type: Content
 source_path: virtual-desktop/app-attach-overview.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
-- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/01a89bec-e73f-4ce0-a00a-ae34ad62e5fe
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
-- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/50038ab9-5431-4515-9dfc-c24291ef4fce
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
 platformId: 839dcdf7-2908-57a3-b069-f179a96f40e0
 ---
 

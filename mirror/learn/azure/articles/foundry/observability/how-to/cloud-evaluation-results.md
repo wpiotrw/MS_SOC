@@ -28,7 +28,7 @@ ms.custom:
 - references_regions
 - doc-kit-assisted
 ms.topic: how-to
-ms.date: 2026-09-25T00:00:00.0000000Z
+ms.date: 2026-10-30T00:00:00.0000000Z
 ms.reviewer: dlozier
 ai-usage: ai-assisted
 locale: en-us

@@ -11,7 +11,7 @@ author: losillim
 ms.author: losillim
 ms.service: windows-365
 ms.topic: get-started
-ms.date: 2026-09-16T00:00:00.0000000Z
+ms.date: 2026-10-22T00:00:00.0000000Z
 ms.subservice: windows-365-enterprise
 locale: en-us
 document_id: 64a1df45-669b-5c70-f477-3e0c1e8b23d5
@@ -85,7 +85,7 @@ For details, see [Role-based access control](role-based-access).
 
 ### Create a Reserve provisioning policy
 
-Provisioning policies define Cloud PC settings, such as geography, language, and image type. 
+Provisioning policies define Cloud PC settings, such as geography, language, and image type.
 
 Important
 
@@ -107,6 +107,30 @@ To allocate Windows 365 Reserve licenses, assign a Microsoft Entra Group to a Re
 10. Review settings and select **Create**.
 
 ## Configure Windows 365 Settings for Reserve
+
+### Cloud PC Configuration setting: Enable auto-deprovisioning of inactive Reserve Cloud PCs
+
+Auto-deprovisioning is an optional setting that helps admins maximize the value of the 10-day entitlement for a Reserve Cloud PC. When enabled, this setting automatically deprovisions Cloud PCs that are provisioned but not actively connected to based on a threshold configured by the admin. This feature is disabled by default and fully governed by IT. Administrators control availability through Cloud PC configuration settings for Windows 365 in Microsoft Intune, where the setting can be enabled and scoped to specific Microsoft Entra ID user groups. This control allows organizations to reduce manual monitoring, reduce administrative overhead and preserve unused Reserve entitlement days for future use while maintaining centralized governance.
+
+#### Admin steps
+
+1. In Intune, go to Devices &gt; Windows 365 &gt; Settings and select Create &gt; Cloud PC Configuration.
+
+2. Under Basics, enter a name and description.
+
+3. Under Configuration settings, toggle Auto-deprovision Reserve Cloud PCs to Enabled. Note: This setting applies only to user groups assigned to Reserve provisioning policies & licensed for Reserve.
+
+4. Select number of days from 'When Cloud PCs are provisioned but not connected to for'. Note: This threshold defines the number of days a provisioned Reserve Cloud PC is not connected to before it is automatically deprovisioned.
+
+5. Add scope tags (optional). 
+
+6. Under Assignments, add user groups.
+
+7. Review settings and select Create.
+
+#### Resulting experience
+
+Once the setting is applied, eligible Reserve Cloud PCs will be automatically deprovisioned once the configured threshold is met and will need reprovisioning to be used again. Any remaining Reserve Cloud PC access days are preserved and can be used after reprovisioning. IT retains the ability to update this setting at any point in time.
 
 ### Windows App setting: Enable users to provision new Cloud PC instances
 

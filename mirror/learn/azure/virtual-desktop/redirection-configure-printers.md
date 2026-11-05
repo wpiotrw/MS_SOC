@@ -19,7 +19,7 @@ ms.service: azure-virtual-desktop
 description: Learn how to redirect printers from a local device to a remote session over the Remote Desktop Protocol. It applies to Azure Virtual Desktop, Windows 365, and Microsoft Dev Box.
 ms.topic: how-to
 zone_pivot_groups: rdp-products-features
-ms.date: 2026-05-16T00:00:00.0000000Z
+ms.date: 2026-08-11T00:00:00.0000000Z
 locale: en-us
 document_id: 965c5ad6-4bb8-1c35-6ea2-7a9da3fa6ed3
 document_version_independent_id: 965c5ad6-4bb8-1c35-6ea2-7a9da3fa6ed3
@@ -36,13 +36,13 @@ monikers: []
 item_type: Content
 source_path: virtual-desktop/redirection-configure-printers.md
 cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/e10a756b-c002-4cbb-8cf6-f0fab0633697
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/a72e95ff-4b4f-4cc1-90c6-7dcba67ff05f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
 spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a741da3-90b9-472d-8fd6-830aafecaac8
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/24dc3ccd-591a-4415-a1fe-8759afafcb12
-- https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
 platformId: 1185aed1-3f4a-bace-9b74-b97f11e48ccd
 ---
 

@@ -12,7 +12,7 @@ ms.author: golipreethi
 ms.service: windows-365
 ms.subservice: windows-365-enterprise
 ms.topic: how-to
-ms.date: 2026-07-20T00:00:00.0000000Z
+ms.date: 2026-09-21T00:00:00.0000000Z
 locale: en-us
 document_id: e651dd76-cd81-d39a-02c5-e0147aa77155
 document_version_independent_id: e651dd76-cd81-d39a-02c5-e0147aa77155

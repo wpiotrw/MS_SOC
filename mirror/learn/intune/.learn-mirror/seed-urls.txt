@@ -20,6 +20,7 @@ https://learn.microsoft.com/en-us/intune/app-management/protection/multiple-mana
 https://learn.microsoft.com/en-us/intune/app-management/ref-protected-apps
 https://learn.microsoft.com/en-us/intune/cloud-pki
 https://learn.microsoft.com/en-us/intune/cloud-pki/renew-ca
+https://learn.microsoft.com/en-us/intune/configmgr/comanage/how-to-monitor
 https://learn.microsoft.com/en-us/intune/configmgr/comanage/overview
 https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/cmg/cost
 https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/cmg/perf-scale
@@ -56,6 +57,7 @@ https://learn.microsoft.com/en-us/intune/configmgr/mdm/get-started/set-up-certif
 https://learn.microsoft.com/en-us/intune/configmgr/mdt
 https://learn.microsoft.com/en-us/intune/configmgr/mdt/samples-guide
 https://learn.microsoft.com/en-us/intune/configmgr/osd/deploy-use/preprovision-bitlocker-in-windows-pe
+https://learn.microsoft.com/en-us/intune/configmgr/osd/understand/introduction-to-operating-system-deployment
 https://learn.microsoft.com/en-us/intune/copilot
 https://learn.microsoft.com/en-us/intune/copilot/agents/change-review-agent
 https://learn.microsoft.com/en-us/intune/copilot/agents/vulnerability-remediation-agent
@@ -82,11 +84,13 @@ https://learn.microsoft.com/en-us/intune/device-enrollment/android/connect-manag
 https://learn.microsoft.com/en-us/intune/device-enrollment/android/ref-corporate-methods
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/manage-devices-tokens-macos
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/overview-automated-enrollment-apple
+https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-account-driven-user
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-account-service-access
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-automated-ios
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-automated-macos
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-automated-tv-os
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-automated-vision-os
+https://learn.microsoft.com/en-us/intune/device-enrollment/apple/tutorial-automated-ios
 https://learn.microsoft.com/en-us/intune/device-enrollment/guide-linux
 https://learn.microsoft.com/en-us/intune/device-enrollment/setup-time-grouping
 https://learn.microsoft.com/en-us/intune/device-management/actions
@@ -250,6 +254,7 @@ https://learn.microsoft.com/en-us/intune/remote-help/plan
 https://learn.microsoft.com/en-us/intune/remote-help/start-session
 https://learn.microsoft.com/en-us/intune/solutions/azure-virtual-desktop-multi-session
 https://learn.microsoft.com/en-us/intune/solutions/tutorials/protect-email-unmanaged-devices
+https://learn.microsoft.com/en-us/intune/user-help/security/setup-mobile-threat-defense
 https://learn.microsoft.com/en-us/intune/whats-new
 https://learn.microsoft.com/en-us/intune/whats-new/archive
 https://learn.microsoft.com/en-us/intune/whats-new/in-development

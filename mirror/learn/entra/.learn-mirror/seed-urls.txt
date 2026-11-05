@@ -121,6 +121,7 @@ https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-rep
 https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-request-access
 https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-request-approve
 https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-request-behalf
+https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-sap-ac-integration
 https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-servicenow-integration
 https://learn.microsoft.com/en-us/entra/id-governance/guest-lifecycle-policies
 https://learn.microsoft.com/en-us/entra/id-governance/manage-delegate-workflow
@@ -150,6 +151,7 @@ https://learn.microsoft.com/en-us/entra/identity-platform/scopes-oidc
 https://learn.microsoft.com/en-us/entra/identity-platform/tutorial-native-authentication-single-page-app-react-sdk-sign-in
 https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-client-creds-grant-flow
 https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-device-code
+https://learn.microsoft.com/en-us/entra/identity/app-provisioning/clear-attribute-values
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/configure-workday-termination-lookahead
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/enable-scim-api
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/entra-id-scim-api-reference
@@ -207,6 +209,7 @@ https://learn.microsoft.com/en-us/entra/identity/conditional-access/deployment-g
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/how-to-create-conditional-access-policy-plan
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/how-to-migrate-conditional-access-policy-plan
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-target-agent-identities
+https://learn.microsoft.com/en-us/entra/identity/conditional-access/managed-policies
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-agent-user
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-all-users-device-compliance
 https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-autonomous-agents
@@ -214,6 +217,7 @@ https://learn.microsoft.com/en-us/entra/identity/devices/how-to-hybrid-join-usin
 https://learn.microsoft.com/en-us/entra/identity/devices/howto-vm-sign-in-azure-ad-linux
 https://learn.microsoft.com/en-us/entra/identity/devices/macos-platform-sso-architecture
 https://learn.microsoft.com/en-us/entra/identity/devices/sso-linux
+https://learn.microsoft.com/en-us/entra/identity/devices/troubleshoot-macos-platform-single-sign-on-extension
 https://learn.microsoft.com/en-us/entra/identity/devices/troubleshoot-primary-refresh-token
 https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/application-properties
 https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/assign-user-or-group-access-portal
@@ -246,6 +250,7 @@ https://learn.microsoft.com/en-us/entra/identity/hybrid/common-scenarios
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-health-adfs-risky-ip
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-health-operations
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-passwordless-authentication
+https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-syncservice-features
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/plan-connect-design-concepts
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-version-history
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/whatis-azure-ad-connect-v2
@@ -262,7 +267,9 @@ https://learn.microsoft.com/en-us/entra/identity/monitoring-health/reference-aud
 https://learn.microsoft.com/en-us/entra/identity/monitoring-health/scenario-health-agent-id-autonomous-sign-ins
 https://learn.microsoft.com/en-us/entra/identity/monitoring-health/scenario-health-agent-id-interactive-sign-ins
 https://learn.microsoft.com/en-us/entra/identity/monitoring-health/understand-service-principal-creation-with-new-audit-log-properties
+https://learn.microsoft.com/en-us/entra/identity/multi-tenant-organizations/cross-tenant-synchronization-configure
 https://learn.microsoft.com/en-us/entra/identity/multi-tenant-organizations/cross-tenant-synchronization-overview
+https://learn.microsoft.com/en-us/entra/identity/multi-tenant-organizations/whats-new
 https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/delegate-app-roles
 https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/my-staff-configure
 https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference

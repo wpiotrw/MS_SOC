@@ -11,7 +11,7 @@ keywords:
 author: ErikjeMS
 ms.author: abpineda
 manager: dougeby
-ms.date: 2025-04-28T00:00:00.0000000Z
+ms.date: 2026-03-23T00:00:00.0000000Z
 ms.topic: overview
 ms.service: windows-365
 ms.subservice: windows-365-enterprise
@@ -41,9 +41,11 @@ item_type: Content
 source_path: Windows365/enterprise/resize-cloud-pc-bulk.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/a72e95ff-4b4f-4cc1-90c6-7dcba67ff05f
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/24dc3ccd-591a-4415-a1fe-8759afafcb12
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
 platformId: 5f978dfc-396d-eb90-a144-582c60be6399
 ---

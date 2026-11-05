@@ -17,7 +17,7 @@ ms.author: chrimo
 ms.service: azure-virtual-desktop
 description: Identities and authentication methods for Azure Virtual Desktop.
 ms.topic: article
-ms.date: 2024-07-16T00:00:00.0000000Z
+ms.date: 2026-07-30T00:00:00.0000000Z
 ms.custom: docs_inherited
 locale: en-us
 document_id: aaea7a38-df9d-4a98-07b1-7b051af60bd0
@@ -35,13 +35,13 @@ monikers: []
 item_type: Content
 source_path: virtual-desktop/authentication.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
 platformId: 00845655-c969-4210-24a7-a696bc505bb7
 ---
 

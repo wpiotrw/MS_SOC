@@ -17,7 +17,7 @@ ms.author: cosmeochoa
 ms.service: azure-virtual-desktop
 description: An overview of licensing Azure Virtual Desktop for internal and external commercial purposes, including per-user access pricing.
 ms.topic: overview
-ms.date: 2025-01-17T00:00:00.0000000Z
+ms.date: 2025-11-07T00:00:00.0000000Z
 locale: en-us
 document_id: e6c70e5f-db91-9a6d-1358-51420c982d4c
 document_version_independent_id: e6c70e5f-db91-9a6d-1358-51420c982d4c
@@ -35,8 +35,10 @@ item_type: Content
 source_path: virtual-desktop/licensing.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 83ebbcc4-17f6-1816-2ae8-72e7d6500639
 ---
 

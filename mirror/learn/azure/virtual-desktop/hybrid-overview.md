@@ -17,7 +17,7 @@ ms.author: stdowns
 ms.service: azure-virtual-desktop
 description: An overview of Microsoft's Azure Virtual Desktop Hybrid capability. This feature enables deploying virtual desktops and applications on-premises while managing them from a cloud-native service.
 ms.topic: overview
-ms.date: 2026-06-09T00:00:00.0000000Z
+ms.date: 2026-09-02T00:00:00.0000000Z
 locale: en-us
 document_id: ef85a86e-0401-1268-7cd3-5cc87944d8a2
 document_version_independent_id: ef85a86e-0401-1268-7cd3-5cc87944d8a2

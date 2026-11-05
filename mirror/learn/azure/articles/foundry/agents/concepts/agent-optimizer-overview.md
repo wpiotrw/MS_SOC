@@ -23,7 +23,7 @@ ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Improve prompt and hosted agents by evaluating behavior and generating better instructions, skills, tools, and model configurations.
-ms.date: 2026-10-26T00:00:00.0000000Z
+ms.date: 2026-11-03T00:00:00.0000000Z
 ms.topic: overview
 ms.subservice: foundry-agent-service
 ms.custom: references_regions, doc-kit-assisted
@@ -57,6 +57,8 @@ platformId: 09413729-da64-3ba0-2d5b-80560eb908cd
 The agent optimizer in Foundry Agent Service automatically improves prompt agents and hosted agents by evaluating their behavior and generating better configurations. Depending on the agent type, these configurations can include improved instructions, skills, tool descriptions, and model selection.
 
 Building effective AI agents requires extensive prompt engineering. You deploy an agent with handcrafted instructions, test it against real scenarios, identify weaknesses, revise the prompt, and repeat. This loop is slow, subjective, and doesn't scale. The agent optimizer automates this cycle so you can focus on your agent's core logic.
+
+The evaluation-driven workflow described in this article improves configurations by running agents against a dataset. To learn reusable skills from recorded conversations instead, see Skill optimization.
 
 ## Supported agent types
 
@@ -119,9 +121,15 @@ Warning
 
 During optimization, the optimizer evaluates your agent by invoking it against every task in your dataset. If your agent calls external tools—such as APIs, databases, or third-party services—those calls execute during each evaluation run. To avoid unintended side effects (charges, state mutations, or rate limiting), consider using test endpoints or mocking tool implementations during optimization.
 
+## Skill optimization
+
+Skill optimization learns from recorded agent conversations to create skills or publish new versions of existing skills. For setup and usage, see [Optimize skills](../how-to/optimize-skills-from-traces).
+
 ## Optimization targets
 
 An optimization *target* is a specific aspect of your agent's configuration that the optimizer can improve. Available targets depend on the agent type. For hosted agents, the optimizer automatically activates applicable targets from the baseline configuration and `eval.yaml` settings.
+
+The following table describes evaluation-driven configuration targets. Skill optimization uses the separate workflow described earlier.
 
 | Target | What the optimizer improves | Prompt agent | Hosted agent |
 | --- | --- | --- | --- |

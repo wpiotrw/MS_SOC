@@ -17,7 +17,7 @@ ms.author: thhickli
 ms.service: azure-virtual-desktop
 description: A guide to regional host pools
 ms.topic: article
-ms.date: 2025-10-17T00:00:00.0000000Z
+ms.date: 2026-09-29T00:00:00.0000000Z
 locale: en-us
 document_id: 19913212-2ade-fb7f-7068-c459c4e56b58
 document_version_independent_id: 19913212-2ade-fb7f-7068-c459c4e56b58

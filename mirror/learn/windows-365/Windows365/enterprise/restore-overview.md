@@ -11,7 +11,7 @@ keywords:
 author: ErikjeMS
 ms.author: aradinger
 manager: dougeby
-ms.date: 2025-04-17T00:00:00.0000000Z
+ms.date: 2026-08-13T00:00:00.0000000Z
 ms.topic: concept-article
 ms.service: windows-365
 ms.subservice: windows-365-enterprise

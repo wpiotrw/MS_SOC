@@ -30,7 +30,7 @@ ai-usage: ai-assisted
 ms.custom:
 - classic-and-new
 - doc-kit-assisted
-ms.date: 2026-09-01T00:00:00.0000000Z
+ms.date: 2026-10-30T00:00:00.0000000Z
 locale: en-us
 document_id: ff504e55-2f28-eb80-af3a-9beb766b5114
 document_version_independent_id: 4b5971bf-5291-b37f-89ce-71f0815f91f8
@@ -89,7 +89,7 @@ Welcome! This article highlights key updates for Microsoft Foundry in August 202
     - [Generate synthetic data with the Microsoft Foundry SDK](/en-us/azure/foundry/observability/how-to/cloud-evaluation-synthetic-data)
     - [Evaluate models and agents with the Microsoft Foundry SDK](/en-us/azure/foundry/observability/how-to/cloud-evaluation-targets)
     - [Run cloud evaluations with the Microsoft Foundry SDK](/en-us/azure/foundry/observability/how-to/cloud-evaluation)
-    - [Use admin-connected models in cloud evaluations](/en-us/azure/foundry/observability/how-to/evaluate-admin-connected-models)
+    - [Use connected models in cloud evaluations](/en-us/azure/foundry/observability/how-to/evaluate-admin-connected-models)
     - [Evaluation dataset schema in Microsoft Foundry](/en-us/azure/foundry/observability/how-to/evaluation-dataset-schema)
     - [Evaluation datasets in Microsoft Foundry](/en-us/azure/foundry/observability/how-to/evaluation-datasets)
     - [Configure Microsoft Entra authentication for Foundry Agent trace ingestion (preview)](/en-us/azure/foundry/observability/how-to/trace-ingestion-entra-authentication)

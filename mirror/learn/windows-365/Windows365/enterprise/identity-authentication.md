@@ -11,7 +11,7 @@ keywords:
 author: ChristianMontoya
 ms.author: chrimo
 manager: pratikshah
-ms.date: 2026-05-17T00:00:00.0000000Z
+ms.date: 2026-07-30T00:00:00.0000000Z
 ms.topic: overview
 ms.service: windows-365
 ms.subservice: windows-365-enterprise
@@ -42,11 +42,11 @@ source_path: Windows365/enterprise/identity-authentication.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c77bc83e-f0b0-4b63-836e-6630e606bf7c
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/b98eda1f-6af8-444f-bbfb-7f2366948cbc
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
 platformId: 529a0888-67ed-87df-9259-09f33a0f99d3
 ---
 

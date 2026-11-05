@@ -19,7 +19,7 @@ ms.service: azure-virtual-desktop
 description: How to configure a managed identity for host pools in Azure Virtual Desktop.
 ms.topic: how-to
 zone_pivot_groups: azure-virtual-desktop-managed-identity-approaches
-ms.date: 2025-08-14T00:00:00.0000000Z
+ms.date: 2026-09-25T00:00:00.0000000Z
 locale: en-us
 document_id: cd385be2-1d0e-0e2f-0f94-479f6a5f43d4
 document_version_independent_id: cd385be2-1d0e-0e2f-0f94-479f6a5f43d4
@@ -36,13 +36,13 @@ monikers: []
 item_type: Content
 source_path: virtual-desktop/configure-managed-identity.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f7db5823-dfbf-4e94-9016-c24311b90d7e
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
 - https://authoring-docs-microsoft.poolparty.biz/devrel/a5ab72d9-1367-4994-84a6-d9964cd9936d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: f296cabd-4a7c-c20b-e3a4-248f9295c873
 ---
 

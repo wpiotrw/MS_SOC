@@ -40,6 +40,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/extensions-troubles
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/flux-gitops-release-notes
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/gitops-overview
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/how-to-manage-gitops-argo-cd-extension
+https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/manage-agent-proxy-settings
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-deploy-gitops-argo-cd
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/release-notes
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/resource-graph-samples
@@ -50,6 +51,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/secret-store-extens
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/secret-store-extension-troubleshooting
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-akv-secrets-provider
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-argocd
+https://learn.microsoft.com/en-us/azure/azure-arc/ku…
 https://learn.microsoft.com/en-us/azure/azure-arc/manage-agent-proxy-settings
 https://learn.microsoft.com/en-us/azure/azure-arc/multicloud-connector/multicloud-lifecycle-management
 https://learn.microsoft.com/en-us/azure/azure-arc/network-requirements
@@ -75,6 +77,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/servers/manage-agent-proxy-set
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/plan-at-scale-deployment
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/prepare-extended-security-updates
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/prerequisites
+https://learn.microsoft.com/en-us/azure/azure-arc/servers/security-identity-authorization
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/tpm-backed-identity
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/troubleshoot-extended-security-updates
 https://learn.microsoft.com/en-us/azure/azure-arc/system-center-virtual-machine-manager/administer-arc-scvmm
@@ -101,6 +104,7 @@ https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlog
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/usage
 https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/pri
 https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/private/github-local/github-local-overview
+https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/…
 https://learn.microsoft.com/en-us/azure/backup/whats-new
 https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets
 https://learn.microsoft.com/en-us/azure/cost-management-billing
@@ -132,10 +136,13 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/pay-bill
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservation-trade-in
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/agent-pre-purchase
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/fabric-capacity
+https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/github-ai-credits-pre-purchase-plan
+https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/github-pre-purchase
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/manage-reservations-rbac-powershell
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/nutanix-bare-metal
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/reservati
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/reservation-exchange-policy-changes
+https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/reserv…
 https://learn.microsoft.com/en-us/azure/cost-management-billing/savings-plan
 https://learn.microsoft.com/en-us/azure/cost-management-billing/savings-plan-overview
 https://learn.microsoft.com/en-us/azure/cost-management-billing/savings-plan/buy-savings-plan
@@ -393,6 +400,7 @@ https://learn.microsoft.com/en-us/azure/governance/resource-graph/changes/resour
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/changes/view-resource-changes
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/conc
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/concepts/guidance-for-throttled-requests
+https://learn.microsoft.com/en-us/azure/governance/resource-graph/c…
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/samples/advanced
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/samples/starter
 https://learn.microsoft.com/en-us/azure/governance/rhel-ado
@@ -515,7 +523,10 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/disks-instant-access-sn
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared-enable
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-understand-billing
+https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/chef
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/key-vault-linux
+https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/salt-minion
+https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/vmaccess-linux
 https://learn.microsoft.com/en-us/azure/virtual-machines/how-to-enable-write-accelerator
 https://learn.microsoft.com/en-us/azure/virtual-machines/ibm-spectrum-symphony-overview
 https://learn.microsoft.com/en-us/azure/virtual-machines/laosv5-series
@@ -606,6 +617,8 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/use-premium-ssd-v2-with
 https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-create-restore-points
 https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-create-restore-points-cli
 https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-create-restore-points-powershell
+https://learn.microsoft.com/en-us/azure/virtual-machines/vm-applications
+https://learn.microsoft.com/en-us/azure/virtual-machines/vm-applications-create-app-scripts
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-amd-driver-setup
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-driver-setup
 https://learn.microsoft.com/en-us/azure/virtual-machines/workloads/canonical/ubuntu-pro-in-place-scale-sets-upgrade

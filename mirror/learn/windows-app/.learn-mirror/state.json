@@ -2,7 +2,7 @@
   "version": 1,
   "cursor": "https://learn.microsoft.com/en-us/windows-app/configure-updates-windows",
   "pages": {
-    "https://learn.microsoft.com/en-us/windows-app/compare-platforms-features": {"etag":"\"1T4rlB4pDsk5vaj+xOXOcqbD9E8=\"","gitCommitId":"0c52ed72544afc47ac1a3e58145351f635aaf813","path":"windows-app/compare-platforms-features.md","sourcePath":"windows-app/compare-platforms-features.md","updatedAt":"2026-11-03T03:29:00.0000000Z"},
+    "https://learn.microsoft.com/en-us/windows-app/compare-platforms-features": {"etag":"\"z+fODgEF/MNPL+1vo5yTZDOczAk=\"","gitCommitId":"a379bb39d1db951ad024bf18188b53d627c11a99","path":"windows-app/compare-platforms-features.md","sourcePath":"windows-app/compare-platforms-features.md","updatedAt":"2026-11-04T21:28:00.0000000Z"},
     "https://learn.microsoft.com/en-us/windows-app/configure-updates-windows": {"etag":"\"ibfceLdvekWHiaiuVx5JljrcH9k=\"","gitCommitId":"8ae87154de50be359c80866c1ba0de8abc4d4428","path":"windows-app/configure-updates-windows.md","sourcePath":"windows-app/configure-updates-windows.md","updatedAt":"2026-11-04T03:29:00.0000000Z"}
   }
 }
