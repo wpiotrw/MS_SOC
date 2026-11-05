@@ -153,6 +153,68 @@
      "says": "Managing the Copilot connectors global setting moves to Agent 365 and the SetFederatedConnectors CLI toggle is retiring."
     }
    ]
+  },
+  {
+   "key": "ews-cross-tenant-freebusy-mailtips-calendar-sharing",
+   "ids": [
+    "MC1446796"
+   ],
+   "title": "Cross-tenant Free/Busy, MailTips and calendar sharing move from EWS to Microsoft 365 Cross-Tenant Access Policy",
+   "scriptable": true,
+   "checked": "2026-11-05",
+   "sdk": "Exchange Online PowerShell (ExchangeOnlineManagement module)",
+   "dates": "Free/Busy and MailTips through Cross-Tenant Access Policy by 15/09/2026, calendar sharing by 06/11/2026 (previously 30/10/2026); EWS is disabled gradually from 01/10/2026 and switched off finally on 01/04/2027 (MC1446796, updated 30/10/2026). Government clouds are paused.",
+   "blocks": [
+    {
+     "t": "Is the tenant affected? Organization relationships that share Free/Busy or MailTips",
+     "kind": "read",
+     "scopes": "Exchange Online: a role that can run Get-OrganizationRelationship (for example View-Only Organization Management)",
+     "code": "# Read only. Microsoft's own check from MC1446796.\nConnect-ExchangeOnline\nGet-OrganizationRelationship | Format-List Name, DomainNames, Enabled, FreeBusyAccessEnabled, FreeBusyAccessLevel, FreeBusyAccessScope, MailTipsAccessEnabled, MailTipsAccessLevel, MailTipsAccessScope\n# Affected when Enabled is True, FreeBusyAccessEnabled or MailTipsAccessEnabled is True, and the partner is hosted in Microsoft 365.",
+     "src": [
+      "https://deltapulse.app/item/MC1446796",
+      "https://learn.microsoft.com/exchange/sharing/migrate-to-m365-xtap"
+     ]
+    },
+    {
+     "t": "Is the tenant affected? Sharing policies with calendar sharing rules",
+     "kind": "read",
+     "scopes": "Exchange Online: a role that can run Get-SharingPolicy (for example View-Only Organization Management)",
+     "code": "# Read only. Microsoft's own check from MC1446796.\nConnect-ExchangeOnline\nGet-SharingPolicy | Format-List Name, Domains, Enabled, Default\n# Affected when Enabled is True, Domains holds a CalendarSharingFreeBusy rule (Simple, Detail or Reviewer) for a Microsoft 365 partner,\n# and the policy is assigned to mailboxes. Rules starting with Anonymous: are calendars published to an internet URL.",
+     "src": [
+      "https://deltapulse.app/item/MC1446796",
+      "https://learn.microsoft.com/exchange/sharing/migrate-to-m365-xtap"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "t": "Message Center MC1446796",
+     "u": "https://deltapulse.app/item/MC1446796",
+     "says": "Cross-tenant Free/Busy, MailTips and calendar sharing that rely on EWS move to Microsoft 365 Cross-Tenant Access Policy; calendar sharing is available by 6 November 2026, and the post gives the two Exchange Online PowerShell checks used here."
+    },
+    {
+     "t": "Microsoft Learn: Migrating to Microsoft 365 Cross-Tenant Access Policy for sharing Free/Busy, Calendars, and MailTips",
+     "u": "https://learn.microsoft.com/exchange/sharing/migrate-to-m365-xtap",
+     "says": "Microsoft's migration guide linked from the post: review the current configuration, create the new cross-tenant access policies, validate them and remove the old ones."
+    }
+   ]
+  },
+  {
+   "key": "project-usage-report-retirement",
+   "ids": [
+    "MC1539001"
+   ],
+   "title": "Project usage report retires from the Microsoft 365 admin center on 4 December 2026",
+   "scriptable": false,
+   "checked": "2026-11-05",
+   "why": "The post retires a report page in the Microsoft 365 admin center and asks admins to export its data from that page before 20 November 2026; neither the post nor the Learn page it links names a Graph or PowerShell surface for Project activity, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1539001",
+     "u": "https://deltapulse.app/item/MC1539001",
+     "says": "The Project usage report (Project activity) leaves Reports > Usage on 4 December 2026 with its history; export data before 20 November 2026 and use the Planner usage report."
+    }
+   ]
   }
  ]
 }
