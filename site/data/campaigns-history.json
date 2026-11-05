@@ -6642,14 +6642,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-03",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-04",
 "text":"August 1, 2026."
 },
@@ -6707,6 +6699,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-04",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-05",
 "text":"August 1, 2026."
 },
 {
@@ -7322,7 +7322,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-04",
+"seen":"2026-11-05",
 "text":"early February 2026."
 },
 {
@@ -7330,7 +7330,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-04",
+"seen":"2026-11-05",
 "text":"February 2027."
 },
 {
@@ -7802,6 +7802,57 @@
 "tech":"Windows",
 "posts":[
 "MC1172446"
+]
+},
+"c-mc1540345":{
+"firstSeen":"2026-11-05",
+"lastSeen":"2026-11-05",
+"name":"Update permissions for Exchange Online Admin API",
+"status":"Active",
+"members":[
+"MC1540345"
+],
+"log":[],
+"milestones":{
+"MC1540345|new permissions become available#0":{
+"date":"2026-11-01",
+"label":"1 Nov 2026",
+"text":"New permissions become available November 1, 2026."
+},
+"MC1540345|posted":{
+"date":"2026-11-05",
+"label":"5 Nov 2026",
+"text":"Posted: Update permissions for Exchange Online Admin API"
+},
+"MC1540345|complete migration by#0":{
+"date":"2026-11-30",
+"label":"30 Nov 2026",
+"text":"Complete migration by November 30, 2026."
+},
+"MC1540345|existing permissions are deprecated#0":{
+"date":"2026-12-01",
+"label":"1 Dec 2026",
+"text":"Existing permissions are deprecated December 1, 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1540345":{
+"title":"Update permissions for Exchange Online Admin API",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1540345",
+"source":"Message Center",
+"id":"MC1540345",
+"date":"2026-11-05",
+"updated":"2026-11-05",
+"group":"microsoft",
+"found":"2026-11-05"
+}
+},
+"final":"2026-12-01",
+"type":"Retirement",
+"tech":"Exchange",
+"posts":[
+"MC1540345"
 ]
 },
 "c-item-mc1454973":{
@@ -10991,7 +11042,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-04",
+"seen":"2026-11-05",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10999,7 +11050,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-04",
+"seen":"2026-11-05",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -18024,6 +18075,16 @@
 "title":"Let any AI agent answer WhatsApp voice notes in 10 minutes",
 "source":"NeonTiger12",
 "link":"https://dev.to/denegraai/let-any-ai-agent-answer-whatsapp-voice-notes-in-10-minutes-2mei"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1540345",
+"type":"new",
+"name":"Update permissions for Exchange Online Admin API",
+"ctype":"Retirement",
+"tech":"Exchange",
+"next":"30 Nov 2026",
+"text":"Microsoft is updating the authorization model for Exchange Online Admin API v2.0 by introducing dedicated API permissions."
 }
 ],
 "archive":{
