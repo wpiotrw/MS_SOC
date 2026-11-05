@@ -43,11 +43,11 @@ source_path: Purview/sensitivity-labels-sharepoint-onedrive-files.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9d7be3ef-f27c-4c7f-9eba-67c3cd429995
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7428317a-e6c2-4461-ad3e-8a8ad3608734
-- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
+- https://authoring-docs-microsoft.poolparty.biz/devrel/e93f3d5f-c77d-4365-a7fb-c9f2234416c7
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/feeb50f3-b677-44f9-b3a6-5f2f58182b0d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/e4f59707-f107-48f2-8d75-0afd91868cd7
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
+- https://authoring-docs-microsoft.poolparty.biz/devrel/62e8d07a-cc62-4934-b30b-e168a571e51d
 platformId: 7c44350d-0235-3a94-7224-b71cff737f28
 ---
 
@@ -172,7 +172,7 @@ Sensitivity labels don't support signed PDFs.
 
 Important
 
-Enabling PDF support can increase the number of files that get automatically labeled by existing auto-labeling policies. The limit is 500,000 automatically labeled SharePoint and OneDrive files per tenant per day, across all auto-labeling policies.
+Enabling PDF support can increase the number of files that get automatically labeled by existing auto-labeling policies. The **absolute maximum throughput** is 500,000 automatically labeled SharePoint and OneDrive files per tenant per day, in aggregate across all auto-labeling policies. This ceiling isn't a guaranteed or consistently expected daily processing rate; actual throughput can be lower.
 
 To turn on support from the Microsoft Purview portal:
 

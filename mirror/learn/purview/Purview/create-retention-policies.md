@@ -267,10 +267,13 @@ If your organization is using [administrative units](purview-admin-units#permiss
 
 ## Separate an existing 'Teams chats and Copilot interactions' policy
 
-Previously, retention policies used the location **Teams chats and Copilot interactions** that combined Teams chat and Copilot interactions. There are now separate retention locations for Teams chat and Copilot interactions.
+Previously, retention policies used the location **Teams chats and Copilot interactions** that combined Teams chat and Copilot interactions. Beginning 15th January, 2027, Microsoft Purview will treat 'Teams chats and Copilot interactions" policy as **Teams-only policies**. After this change is applied to your organization:
 
-- You can separate Teams chats from Copilot interactions from an existing retention policy.
-- You can create new retention policies for just Teams chats, or for just Copilot interactions.
+- Microsoft 365 Copilot interactions will no longer be retained or deleted through these legacy Teams policies.
+- This change applies to both previously retained Copilot interactions and new Copilot interactions.
+- Retention behavior for Microsoft Teams content will remain unchanged.
+
+Create a new retention policy explicitly configured for Copilot by selecting **"Microsoft Copilot Experiences"** location to maintain the required retention coverage for Copilot interactions.
 
 Use the following PowerShell commands to separate an existing retention policy for **Teams chats and Copilot interactions**:
 
@@ -291,11 +294,11 @@ Use the following PowerShell commands to separate an existing retention policy f
     Set-AppRetentionCompliancePolicy -Identity “<policy name>” -Applications "User:M365Copilot"
     ```
 
-For new retention policies, select the new locations, such as **Teams chat** or **Microsoft Copilot Experiences**.
+Please note that doing a Get command on 'Teams chats and Copilot interactions' policies from cmdlet will still show the policy covering teams+copilot i.e. MicrosoftTeams and NOT TeamsChatUserInteractions but while processing; they will ONLY cover Teams Interactions.
 
 Note
 
-If you have existing retention policies for **Teams chats and Copilot interactions**, they continue to be supported, although they can't be edited when your tenant supports the separate locations. At this point, any new retention policies must use the new locations.
+Beginning 15th January, 2027; Teams chats and Copilot interactions policies will continue to govern only Teams content, and will no longer cover **Microsoft 365 Copilot interactions**. Previously retained Copilot interactions also will NOT be covered. Create a new Copilot retention policy if your organization requires retention or deletion controls for this data.
 
 ## How long it takes for retention policies to take effect
 
