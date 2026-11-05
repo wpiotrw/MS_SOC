@@ -2784,13 +2784,10 @@
 "c-item-mc1476122":{
 "firstSeen":"2026-10-12",
 "lastSeen":"2026-11-05",
-"name":"Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users",
-"status":"Recently closed",
+"name":"Microsoft‑managed CA policy will be enforced soon — Require risk remediation for high‑risk users",
+"status":"No date",
 "members":[
-"MC1476122",
-"item:MC1476122",
-"MC1507808",
-"item:MC1507808"
+"MC1507808"
 ],
 "log":[
 {
@@ -2813,20 +2810,10 @@
 }
 ],
 "milestones":{
-"MC1476122|posted":{
-"date":"2026-09-21",
-"label":"21 Sep 2026",
-"text":"Posted: Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users"
-},
 "MC1507808|posted":{
 "date":"2026-10-14",
 "label":"14 Oct 2026",
 "text":"Posted: Microsoft‑managed CA policy will be enforced soon — Require risk remediation for high‑risk users"
-},
-"MC1476122|microsoft states week of end of evaluation period policy wil#0":{
-"date":"2026-10-28",
-"label":"28 Oct 2026",
-"text":"Microsoft states 'Week of October 28, 2026: End of evaluation period - policy will be enforced'; the date is the start of that week as stated."
 }
 },
 "moves":[],
@@ -2860,11 +2847,10 @@
 "found":"2026-10-15"
 }
 },
-"final":"2026-10-28",
+"final":null,
 "type":"Enforcement",
 "tech":"Entra",
 "posts":[
-"MC1476122",
 "MC1507808"
 ]
 },
@@ -4663,6 +4649,166 @@
 "date":"2026-11-02",
 "group":"community",
 "found":"2026-11-02"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119260":{
+"title":"Chromium CVE-2026-119260: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119260",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118321":{
+"title":"Chromium CVE-2026-118321: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118321",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118314":{
+"title":"Chromium CVE-2026-118314: Incorrect reference resolution",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118314",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118309":{
+"title":"Chromium CVE-2026-118309: Incorrect reference resolution",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118309",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119261":{
+"title":"Chromium CVE-2026-119261: Improper input validation",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119261",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119262":{
+"title":"Chromium CVE-2026-119262: Improper input validation",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119262",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119263":{
+"title":"Chromium CVE-2026-119263: Memory corruption",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119263",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119264":{
+"title":"Chromium CVE-2026-119264: Memory corruption",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119264",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119265":{
+"title":"Chromium CVE-2026-119265: Memory corruption",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119265",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119266":{
+"title":"Chromium CVE-2026-119266: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119266",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119267":{
+"title":"Chromium CVE-2026-119267: Memory corruption",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119267",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119268":{
+"title":"Chromium CVE-2026-119268: Integer overflow",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119268",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119269":{
+"title":"Chromium CVE-2026-119269: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119269",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119270":{
+"title":"Chromium CVE-2026-119270: Improper input validation",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119270",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119271":{
+"title":"Chromium CVE-2026-119271: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119271",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119272":{
+"title":"Chromium CVE-2026-119272: Out of bounds read",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119272",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76024":{
+"title":"Chromium CVE-2026-76024: Memory corruption",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76024",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76025":{
+"title":"Chromium CVE-2026-76025: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76025",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76026":{
+"title":"Chromium CVE-2026-76026: Memory corruption",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76026",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76027":{
+"title":"Chromium CVE-2026-76027: Memory corruption",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76027",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
 }
 },
 "final":"2026-10-13",
@@ -6464,14 +6610,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-02",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-03",
 "text":"August 1, 2026."
 },
@@ -6585,6 +6723,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-04",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-05",
 "text":"August 1, 2026."
 },
 {
@@ -7104,22 +7250,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-03",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-03",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-04",
 "text":"early February 2026."
 },
@@ -7241,6 +7371,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-04",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-05",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-05",
 "text":"February 2027."
 },
 {
@@ -8367,6 +8513,14 @@
 "date":"2026-11-01",
 "group":"community",
 "found":"2026-11-01"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-cups-remote-code-execution-vulnerability/ba-p/4260542":{
+"title":"Guidance for handling CUPS remote code execution vulnerability using Microsoft Security capabilities",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-cups-remote-code-execution-vulnerability/ba-p/4260542",
+"source":"Defender Vulnerability Management Blog",
+"date":"2024-10-06",
+"group":"microsoft",
+"found":"2026-11-05"
 }
 },
 "final":"2026-11-10",
@@ -8794,6 +8948,24 @@
 ],
 "log":[
 {
+"date":"2026-11-05",
+"id":"MC1519122",
+"what":"Status",
+"before":"Rolling out",
+"after":"Revised at source",
+"title":"GPT-6 Astra and Claude Fable 5.1 become selectable in Copilot Chat, Word, Excel and PowerPoint for users with usage-based billing enabled: Frontier from early November, general availability moved to early to mid-December",
+"link":"https://deltapulse.app/item/MC1519122"
+},
+{
+"date":"2026-11-04",
+"id":"MC1519122",
+"what":"Microsoft revised the post",
+"before":"2026-10-21",
+"after":"2026-11-04",
+"title":"GPT-6 Astra and Claude Fable 5.1 become selectable in Copilot Chat, Word, Excel and PowerPoint for users with usage-based billing enabled: Frontier from early November, general availability moved to early to mid-December",
+"link":"https://deltapulse.app/item/MC1519122"
+},
+{
 "date":"2026-11-04",
 "id":"MC1506318",
 "what":"Microsoft revised the post",
@@ -9135,6 +9307,14 @@
 "date":"2026-11-03",
 "group":"community",
 "found":"2026-11-04"
+},
+"https://mc.merill.net/message/MC1538998":{
+"title":"MC1538998: Power Platform - Copilot Studio agent metrics and alerts",
+"link":"https://mc.merill.net/message/MC1538998",
+"source":"MC - Merill",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-05"
 }
 },
 "final":"2026-12-15",
@@ -10715,22 +10895,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-03",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-03",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-04",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -10852,6 +11016,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-04",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-05",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-05",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -17562,6 +17742,216 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-119260: Use after free",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119260"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-118321: Use after free",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118321"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-118314: Incorrect reference resolution",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118314"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-118309: Incorrect reference resolution",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118309"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-119261: Improper input validation",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119261"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-119262: Improper input validation",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119262"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-119263: Memory corruption",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119263"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-119264: Memory corruption",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119264"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-119265: Memory corruption",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119265"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-119266: Use after free",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119266"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-119267: Memory corruption",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119267"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-119268: Integer overflow",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119268"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-119269: Use after free",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119269"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-119270: Improper input validation",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119270"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-119271: Use after free",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119271"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-119272: Out of bounds read",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119272"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-76024: Memory corruption",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76024"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-76025: Use after free",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76025"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-76026: Memory corruption",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76026"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-76027: Memory corruption",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76027"
+},
+{
+"day":"2026-11-05",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"MC1538998: Power Platform - Copilot Studio agent metrics and alerts",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1538998"
 }
 ],
 "archive":{
