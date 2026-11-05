@@ -1,7 +1,7 @@
 {
  "read": "2026-11-05",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 716,
+ "count": 725,
  "note": null,
  "messages": [
   {
@@ -519,28 +519,6 @@
     "General Availability (Worldwide): Begins mid-January 2027 (previously early November 2026) and completes by late February 2027 (previously late November 2026)."
    ],
    "bodyHash": "d002a6c2275b99df"
-  },
-  {
-   "id": "MC1183186",
-   "title": "New resource on Known Issue Rollback (KIR) for Windows update management",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-11-05",
-   "end": "2026-11-05",
-   "modified": "2025-11-05",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "A new resource is available to help you understand Known Issue Rollback (KIR). This well-established process automatically rolls back problematic code for a known issue in Windows non-security updates. This rollback applies automatically through Windows Update on non-IT-managed devices. IT-managed devices require a specific Group Policy configuration. When will this happen: KIR came together as a …",
-   "when": null,
-   "prepare": "Download the Group Policy template from the Download Center and follow the steps in How to use Group Policy to deploy a Known Issue Rollback . . For domain-joined devices, the Group Policy refresh happens at certain regular intervals. To make sure that the Group Policy settings take effect, take one of the following actions: Wait for Group Policy to refresh in the background, then restart the affected devices. To force a single device to update i…",
-   "dates": [],
-   "bodyHash": "afef8f07bccc1008"
   },
   {
    "id": "MC1183611",
@@ -3393,22 +3371,22 @@
    "major": true,
    "actionBy": null,
    "start": "2026-04-03",
-   "end": "2026-12-21",
-   "modified": "2026-10-15",
+   "end": "2027-03-01",
+   "modified": "2026-11-05",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 15, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft Teams is introducing two new system chat sections called Muted chats and Meeting chats . These sections allow users to organize their chat and channels list by grouping muted conversations and meeting chats into dedicated sections that users can turn on or off. The new Meeting chats sectio…",
-   "when": "General Availability (Worldwide, GCC, GCC High, DoD): Rollout begins in early November 2026 (previously mid-October) and is expected to complete by mid-November 2026 (previously end of October).",
+   "summary": "Updated November 5, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft Teams is introducing two new system chat sections called Muted chats and Meeting chats . These sections allow users to organize their chat and channels list by grouping muted conversations and meeting chats into dedicated sections that users can turn on or off. The new Meeting chats sectio…",
+   "when": "General Availability (Worldwide, GCC, GCC High, DoD): Rollout begins in early January 2027 (previously early November 2026) (previously mid-October) and is expected to complete by late January 2027 (previously mid-November 2026).",
    "prepare": "No admin action is required. You may want to: Inform users that new chat sections are available and that they can turn them on or off. Notify helpdesk staff that muted chats may appear in a separate section by default. Direct users to Settings > Chats and channels to manage these sections.",
    "dates": [
-    "Updated October 15, 2026: We have updated the timeline.",
-    "General Availability (Worldwide, GCC, GCC High, DoD): Rollout begins in early November 2026 (previously mid-October) and is expected to complete by mid-November 2026 (previously end of October)."
+    "Updated November 5, 2026: We have updated the timeline.",
+    "General Availability (Worldwide, GCC, GCC High, DoD): Rollout begins in early January 2027 (previously early November 2026) (previously mid-October) and is expected to complete by late January 2027 (previously mid-November 2026)."
    ],
-   "bodyHash": "1dbf244c29983b76"
+   "bodyHash": "cc9725ee9379fab4"
   },
   {
    "id": "MC1274349",
@@ -13725,15 +13703,15 @@
    "actionBy": null,
    "start": "2026-10-02",
    "end": "2026-12-01",
-   "modified": "2026-10-02",
-   "tags": [],
-   "summary": "We are announcing the ability to use role-based enforcement for recording and transcription downloads in Dynamics 365 Contact Center. This feature will reach general availability on October 31, 2026. How does this affect me? This feature helps organizations better protect sensitive customer communications by separating permissions to view recordings and transcripts from permissions to download the…",
+   "modified": "2026-11-05",
+   "tags": [
+    "Updated message"
+   ],
+   "summary": "Update: Release of this feature has been postponed; we will announce a new date in the future. We are announcing the ability to use role-based enforcement for recording and transcription downloads in Dynamics 365 Contact Center. How does this affect me? This feature helps organizations better protect sensitive customer communications by separating permissions to view recordings and transcripts fro…",
    "when": null,
    "prepare": null,
-   "dates": [
-    "This feature will reach general availability on October 31, 2026."
-   ],
-   "bodyHash": "14e072a832a7b4d8"
+   "dates": [],
+   "bodyHash": "3adc1d4163b11da8"
   },
   {
    "id": "MC1485411",
@@ -16843,7 +16821,7 @@
   },
   {
    "id": "MC1523084",
-   "title": "Microsoft Defender for Office 365: Move email messages to quarantine with a new remediation action",
+   "title": "(Updated) Microsoft Defender for Office 365: Move email messages to quarantine with a new remediation action",
    "services": [
     "Microsoft Defender XDR"
    ],
@@ -16852,20 +16830,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-23",
-   "end": "2027-01-15",
-   "modified": "2026-10-23",
+   "end": "2027-02-22",
+   "modified": "2026-11-05",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We are introducing Move to Quarantine , a new remediation action in Microsoft Defender for Office 365 . It enables security teams to move potentially malicious email messages from users' mailboxes directly to Microsoft Defender quarantine. This provides a safer and more flexible way to contain suspicious messages that bypassed initial detection while preserving the ability to invest…",
+   "summary": "Updated November 5, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are introducing Move to Quarantine , a new remediation action in Microsoft Defender for Office 365 . It enables security teams to move potentially malicious email messages from users' mailboxes directly to Microsoft Defender quarantine. This provides a safer and more flexible way to contain suspi…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Beginning in early November 2026 and expected to complete by mid-December 2026."
+    "Updated November 5, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in late November 2026 (previously early November) and expected to complete by mid-January 2027 (previously mid-December)."
    ],
-   "bodyHash": "fd7ebf0b0793acfb"
+   "bodyHash": "31e309905f830e62"
   },
   {
    "id": "MC1523085",
@@ -17846,7 +17826,7 @@
   },
   {
    "id": "MC1530611",
-   "title": "Office in Copilot brings the full power of Office into the Microsoft Copilot app",
+   "title": "(Updated) Office in Copilot brings the full power of Office into the Microsoft Copilot app",
    "services": [
     "Microsoft 365 Copilot Chat"
    ],
@@ -17856,18 +17836,20 @@
    "actionBy": null,
    "start": "2026-10-29",
    "end": "2027-01-29",
-   "modified": "2026-11-03",
+   "modified": "2026-11-05",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] Now users have the full power of Office in Microsoft Copilot app, so users can create, edit and collaborate on Word, Excel and PowerPoint files, without leaving the app. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out in mid-November 2026 and expect to complete by mid-November 2026. [Impact on Your Organization:] Now with the full value of Office in …",
+   "summary": "Updated November 5, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Now users have the full power of Office in Microsoft Copilot app, so users can create, edit and collaborate on Word, Excel and PowerPoint files, without leaving the app. [Rollout Schedule:] General Availability (Worldwide): We have begun rolling out and expect to complete by mid-November 2026. [Imp…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): We will begin rolling out in mid-November 2026 and expect to complete by mid-November 2026."
+    "Updated November 5, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We have begun rolling out and expect to complete by mid-November 2026."
    ],
-   "bodyHash": "31e084dc5928a09e"
+   "bodyHash": "961236e3aa8e39d0"
   },
   {
    "id": "MC1530613",
@@ -18947,6 +18929,262 @@
     "General Availability (Worldwide): Rollout will begin in mid-November 2026 and is expected to complete by late November 2026."
    ],
    "bodyHash": "0dec727f8f885a83"
+  },
+  {
+   "id": "MC1540093",
+   "title": "Strengthen protection with timely Windows security updates",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-05",
+   "end": "2027-11-05",
+   "modified": "2026-11-05",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why AI is accelerating vulnerability discovery and analysis, increasing the importance of timely protection. Windows is expanding the use of AI-assisted capabilities across vulnerability discovery, remediation, validation, and post-release monitoring, while keeping human judgment and accountability central to engineering decisions. Once a security update and associated guidance are public…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "97e4b37f985e8137"
+  },
+  {
+   "id": "MC1540110",
+   "title": "Power Apps - Information regarding the end of support for AI-generated descriptions for model driven apps",
+   "services": [
+    "Power Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-05",
+   "end": "2026-12-05",
+   "modified": "2026-11-05",
+   "tags": [
+    "Retirement"
+   ],
+   "summary": "Starting on November 30, 2026, AI-generated descriptions for model driven apps will have reached end of support. How does this affect me? The Create descriptions using AI option will no longer be available in the Publish dialog or the app designer Settings panel. Existing descriptions aren't affected, and you can continue to add or edit descriptions manually. For an AI-assisted option, the model a…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Starting on November 30, 2026, AI-generated descriptions for model driven apps will have reached end of support."
+   ],
+   "bodyHash": "35862f0f3cb727dc"
+  },
+  {
+   "id": "MC1540258",
+   "title": "Power Automate - Information regarding the end of support for Copilot in the designer for cloud flows or agent flows.",
+   "services": [
+    "Microsoft Power Automate"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-05",
+   "end": "2026-12-05",
+   "modified": "2026-11-05",
+   "tags": [
+    "Retirement"
+   ],
+   "summary": "On November 30, 2026, Copilot in the designer for cloud flows or agent flows will have reached end of support. How does this affect me? Makers will no longer be able to use Copilot in the designer for cloud flows or agent flows. This deprecation doesn't delete, move, or change existing cloud flows or agent flows, including flows created or edited with Copilot. Makers will still be able to create, …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "On November 30, 2026, Copilot in the designer for cloud flows or agent flows will have reached end of support."
+   ],
+   "bodyHash": "f25ca8f6c52d1692"
+  },
+  {
+   "id": "MC1540339",
+   "title": "Microsoft Planner: Planner capabilities in Copilot Cowork through the Planner Plugin",
+   "services": [
+    "Planner"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-05",
+   "end": "2026-12-30",
+   "modified": "2026-11-05",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] The Planner Plugin connects Microsoft Planner to Copilot Cowork, helping users understand their priorities, get help completing tasks, and keep their plans current. Cowork can use Planner task notes, checklists, and attachments to research, draft, analyze, and create deliverables. It can also turn existing content into plans, generate visual status reports, and use Planner context f…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We began rolling out in late October 2026 and expect to complete by late November 2026 .",
+    "The experience is available now in Frontier, with general availability targeted for November 2026."
+   ],
+   "bodyHash": "68fcf7a79cbe0ea6"
+  },
+  {
+   "id": "MC1540342",
+   "title": "Action required: Exchange Online Admin API MailboxFolderPermission response update",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-05",
+   "end": "2027-01-25",
+   "modified": "2026-11-05",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "[What and why:] Microsoft is updating the Exchange Online Admin API v2.0 MailboxFolderPermission endpoint to return the User property as a structured object instead of a display-name string. The new response includes DisplayName, Name, and PrimarySmtpAddress, helping applications more reliably identify users with similar or identical display names and supporting mailbox folder permission managemen…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Rollout will begin and is expected to complete in early November 2026."
+   ],
+   "bodyHash": "880ec59333c4feb2"
+  },
+  {
+   "id": "MC1540345",
+   "title": "Action required: Update permissions for Exchange Online Admin API",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-11-05",
+   "end": "2027-01-25",
+   "modified": "2026-11-05",
+   "tags": [
+    "Admin impact",
+    "Retirement"
+   ],
+   "summary": "[What and Why:] Microsoft is updating the authorization model for Exchange Online Admin API v2.0 by introducing dedicated API permissions. This change provides a clearer permission model for applications accessing Exchange Online administrative endpoints and supports the ongoing modernization of Exchange Online administration, including migration from Exchange Web Services (EWS). The Exchange Onli…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Worldwide: New permissions become available November 1, 2026.",
+    "Complete migration by November 30, 2026.",
+    "Existing permissions are deprecated December 1, 2026.",
+    "GCC, GCC High, DoD: Rollout begins in November 2026, with existing permissions deprecated January 1, 2027."
+   ],
+   "bodyHash": "29b60703361978bd"
+  },
+  {
+   "id": "MC1540348",
+   "title": "Microsoft SharePoint: Data access governance report for group permissions",
+   "services": [
+    "SharePoint Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-05",
+   "end": "2027-01-08",
+   "modified": "2026-11-05",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and why] We are introducing a new Data access governance report in the SharePoint admin center that allows SharePoint administrators to identify all sites accessible to a given group and the extent of that access. Groups with broad membership, including groups created for vendors, can expose sensitive content to unintended recipients. This report helps administrators investigate potential ex…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide, GCC, GCC High, DoD): Rollout will begin in late November 2026 and is expected to complete by early December 2026."
+   ],
+   "bodyHash": "bead27cc29611899"
+  },
+  {
+   "id": "MC1540349",
+   "title": "Microsoft Teams: Decline incoming mobile calls with a message",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-05",
+   "end": "2027-01-11",
+   "modified": "2026-11-05",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Teams mobile users will be able to decline an incoming Teams call and send a message to the caller at the same time. This gives users a faster way to communicate their availability without answering the call or separately navigating to chat. From the incoming call screen, users can select Message and choose a predefined response or select Custom to compose a personalized r…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out in early December 2026 and expect to complete by mid-December 2026 ."
+   ],
+   "bodyHash": "a8d74bf8bbcda865"
+  },
+  {
+   "id": "MC1540351",
+   "title": "Microsoft Teams: Automatically add tag members to channels with Workflows",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-05",
+   "end": "2027-01-22",
+   "modified": "2026-11-05",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing the Join member to channel when user is added to tag template in the Workflows app to automatically add users to selected channels when they are added to a team tag. Once configured, the workflow runs whenever a user is added to the tag, eliminating the need to add members to each channel manually. This is especially useful for location-based or project-based grou…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout will begin in mid-December 2026 and is expected to complete by mid-December 2026."
+   ],
+   "bodyHash": "b57abfaf8205a57b"
+  },
+  {
+   "id": "MC1540513",
+   "title": "Microsoft SharePoint Online and OneDrive for the web: Updated search experience with Copilot Search",
+   "services": [
+    "Microsoft OneDrive",
+    "SharePoint Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2027-01-18",
+   "start": "2026-11-05",
+   "end": "2027-05-21",
+   "modified": "2026-11-05",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are updating the search experience in SharePoint Online and OneDrive on the web to align with the Copilot Search experience across Microsoft 365. This updated experience allows users to search using natural-language prompts and combines relevant search results, AI-generated summaries with source references, and filters. By bringing SharePoint and OneDrive onto a common search int…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Frontier Preview (Worldwide): Rollout began in mid-October 2026 and is expected to complete by mid-January 2027.",
+    "General Availability (Worldwide): Rollout begins in mid-January 2027 and is expected to complete by mid-April 2027."
+   ],
+   "bodyHash": "de8700c00a0bdb6a"
   },
   {
    "id": "MC676299",
@@ -25616,6 +25854,177 @@
    "id": "MC1454399",
    "type": "removed",
    "title": "Microsoft Clipchamp: Updates to the EnableSensitivityLabelForVideoFiles PowerShell setting",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1269864",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: New chat sections for muted and meeting chats",
+   "fields": {
+    "end": [
+     "2026-12-21",
+     "2027-03-01"
+    ],
+    "bodyHash": [
+     "1dbf244c29983b76",
+     "cc9725ee9379fab4"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1485169",
+   "type": "changed",
+   "title": "Dynamics 365 Contact Center - Use role-based enforcement for recording and transcription downloads",
+   "fields": {
+    "tags": [
+     [],
+     [
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "14e072a832a7b4d8",
+     "3adc1d4163b11da8"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1523084",
+   "type": "changed",
+   "title": "(Updated) Microsoft Defender for Office 365: Move email messages to quarantine with a new remediation action",
+   "fields": {
+    "title": [
+     "Microsoft Defender for Office 365: Move email messages to quarantine with a new remediation action",
+     "(Updated) Microsoft Defender for Office 365: Move email messages to quarantine with a new remediation action"
+    ],
+    "end": [
+     "2027-01-15",
+     "2027-02-22"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "fd7ebf0b0793acfb",
+     "31e309905f830e62"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1530611",
+   "type": "changed",
+   "title": "(Updated) Office in Copilot brings the full power of Office into the Microsoft Copilot app",
+   "fields": {
+    "title": [
+     "Office in Copilot brings the full power of Office into the Microsoft Copilot app",
+     "(Updated) Office in Copilot brings the full power of Office into the Microsoft Copilot app"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "31e084dc5928a09e",
+     "961236e3aa8e39d0"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1540093",
+   "type": "new",
+   "title": "Strengthen protection with timely Windows security updates",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1540110",
+   "type": "new",
+   "title": "Power Apps - Information regarding the end of support for AI-generated descriptions for model driven apps",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1540258",
+   "type": "new",
+   "title": "Power Automate - Information regarding the end of support for Copilot in the designer for cloud flows or agent flows.",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1540339",
+   "type": "new",
+   "title": "Microsoft Planner: Planner capabilities in Copilot Cowork through the Planner Plugin",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1540342",
+   "type": "new",
+   "title": "Action required: Exchange Online Admin API MailboxFolderPermission response update",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1540345",
+   "type": "new",
+   "title": "Action required: Update permissions for Exchange Online Admin API",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1540348",
+   "type": "new",
+   "title": "Microsoft SharePoint: Data access governance report for group permissions",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1540349",
+   "type": "new",
+   "title": "Microsoft Teams: Decline incoming mobile calls with a message",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1540351",
+   "type": "new",
+   "title": "Microsoft Teams: Automatically add tag members to channels with Workflows",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1540513",
+   "type": "new",
+   "title": "Microsoft SharePoint Online and OneDrive for the web: Updated search experience with Copilot Search",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1183186",
+   "type": "removed",
+   "title": "New resource on Known Issue Rollback (KIR) for Windows update management",
    "fields": {}
   }
  ]
