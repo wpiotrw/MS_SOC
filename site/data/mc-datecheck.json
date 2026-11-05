@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-05T06:51:16Z",
+ "generated": "2026-11-05T01:02:39Z",
  "day": "2026-11-05",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-05)",
- "count": 39,
+ "count": 40,
  "byMc": {
   "MC1191578": {
    "says": [
@@ -2102,6 +2102,28 @@
     {
      "id": "c-mc1442510",
      "name": "AD FS DKM container ACL hardening begins in October 2026"
+    }
+   ],
+   "verdict": "newer"
+  },
+  "MC1476122": {
+   "says": [
+    "2026-10-28"
+   ],
+   "others": [],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1507808",
+     "date": "2026-10-14",
+     "title": "Reminder: Microsoft‑managed CA policy will be enforced soon — Require risk remediation for high‑risk users"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1476122",
+     "name": "Microsoft-managed CA policy coming to your tenant: Require risk remediation for high-risk users"
     }
    ],
    "verdict": "newer"
