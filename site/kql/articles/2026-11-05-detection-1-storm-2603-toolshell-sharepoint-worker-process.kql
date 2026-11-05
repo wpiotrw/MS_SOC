@@ -1,0 +1,33 @@
+// title: Detection 1: Storm-2603 ToolShell: SharePoint Worker Process Spawning Anomalous Child Process
+// date: 2026-11-05
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Thursday, November 5, 2026
+// source: https://devsecopsdadattack.com/2026-11-05-detection-engineering-brief-thursday-november-5-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let suspiciousChildren = dynamic([
+    "cmd.exe", "powershell.exe", "pwsh.exe", "cscript.exe", "wscript.exe",
+    "mshta.exe", "rundll32.exe", "regsvr32.exe", "certutil.exe", "bitsadmin.exe",
+    "wmic.exe", "net.exe", "net1.exe", "whoami.exe", "nltest.exe",
+    "ipconfig.exe", "systeminfo.exe", "msiexec.exe", "regasm.exe",
+    "installutil.exe", "odbcconf.exe"
+]);
+DeviceProcessEvents
+| where Timestamp > ago(7d)
+| where InitiatingProcessFileName =~ "w3wp.exe"
+| where FileName in~ (suspiciousChildren)
+| project
+    Timestamp,
+    DeviceName,
+    DeviceId,
+    AccountName,
+    InitiatingProcessFileName,
+    InitiatingProcessCommandLine,
+    InitiatingProcessParentFileName,
+    FileName,
+    FolderPath,
+    ProcessCommandLine,
+    SHA256
+| order by Timestamp desc

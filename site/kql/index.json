@@ -1,5 +1,109 @@
 [
  {
+  "file": "articles/2026-11-05-spanish-language-purchase-order-and-payroll-campaign-emails.kql",
+  "title": "Spanish-language purchase order and payroll campaign emails by sender address",
+  "date": "2026-11-05",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents"
+  ],
+  "purpose": "From the article: Email threat landscape: Q3 2026 trends and insights",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence and Microsoft Defender Security Research Team · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/",
+  "incident": "auto-email-threat-landscape-q3-2026-trends-an-2026-11-05"
+ },
+ {
+  "file": "articles/2026-11-05-microsoft-defender-xdr.kql",
+  "title": "Microsoft Defender XDR",
+  "date": "2026-11-05",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents"
+  ],
+  "purpose": "From the article: Email threat landscape: Q3 2026 trends and insights",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence and Microsoft Defender Security Research Team · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/",
+  "incident": "auto-email-threat-landscape-q3-2026-trends-an-2026-11-05"
+ },
+ {
+  "file": "articles/2026-11-05-hunting-with-kql-in-microsoft-defender-xdr.kql",
+  "title": "Hunting with KQL in Microsoft Defender XDR",
+  "date": "2026-11-05",
+  "product": "Entra",
+  "tables": [
+   "EntraIdSignInEvents",
+   "EntraIdSpnSignInEvents"
+  ],
+  "purpose": "From the article: | …",
+  "source": "https://detect.fyi/-add55da050ad?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/-add55da050ad?source=rss----d5fd8f494f6a---4",
+  "incident": "auto--2026-11-05"
+ },
+ {
+  "file": "articles/2026-11-05-detection-4-trojanized-inno-installer-child-process-making.kql",
+  "title": "Detection 4: Trojanized Inno Installer Child Process Making Outbound Network Connection During Setup Session",
+  "date": "2026-11-05",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 5, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-05-detection-engineering-brief-thursday-november-5-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-05-detection-engineering-brief-thursday-november-5-2026/"
+ },
+ {
+  "file": "articles/2026-11-05-detection-3-trojanized-inno-installer-spawning-unexpected-ch.kql",
+  "title": "Detection 3: Trojanized Inno Installer Spawning Unexpected Child Processes and Dropping Payloads to Suspicious Paths",
+  "date": "2026-11-05",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 5, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-05-detection-engineering-brief-thursday-november-5-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-05-detection-engineering-brief-thursday-november-5-2026/"
+ },
+ {
+  "file": "articles/2026-11-05-detection-2-storm-2603-toolshell-anomalous-sharepoint-operat.kql",
+  "title": "Detection 2: Storm-2603 ToolShell: Anomalous SharePoint Operations from Non-Interactive or Unexpected Sources",
+  "date": "2026-11-05",
+  "product": "Microsoft 365",
+  "tables": [
+   "OfficeActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 5, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-05-detection-engineering-brief-thursday-november-5-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-05-detection-engineering-brief-thursday-november-5-2026/"
+ },
+ {
+  "file": "articles/2026-11-05-detection-1-storm-2603-toolshell-sharepoint-worker-process.kql",
+  "title": "Detection 1: Storm-2603 ToolShell: SharePoint Worker Process Spawning Anomalous Child Process",
+  "date": "2026-11-05",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 5, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-05-detection-engineering-brief-thursday-november-5-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-05-detection-engineering-brief-thursday-november-5-2026/"
+ },
+ {
   "file": "articles/2026-11-04-detection-1-trojanized-inno-setup-installer-spawning-scripti.kql",
   "title": "Detection 1: Trojanized Inno Setup Installer Spawning Scripting Engine or Network Tool",
   "date": "2026-11-04",

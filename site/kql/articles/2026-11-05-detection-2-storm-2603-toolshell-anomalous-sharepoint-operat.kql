@@ -1,0 +1,28 @@
+// title: Detection 2: Storm-2603 ToolShell: Anomalous SharePoint Operations from Non-Interactive or Unexpected Sources
+// date: 2026-11-05
+// product: Microsoft 365
+// tables: OfficeActivity
+// purpose: From the article: Detection Engineering Brief - Thursday, November 5, 2026
+// source: https://devsecopsdadattack.com/2026-11-05-detection-engineering-brief-thursday-november-5-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let knownClientPatterns = dynamic([
+    "Mozilla", "Chrome", "Safari", "Edge", "Firefox",
+    "OneDrive", "MSAL", "Microsoft Office", "SharePointOnline"
+]);
+OfficeActivity
+| where TimeGenerated > ago(7d)
+| where RecordType == "SharePointFileOperation"
+| where isnotempty(UserAgent)
+| where not(UserAgent has_any (knownClientPatterns))
+| where isnotempty(ClientIP)
+| where not(UserId has_any ("#microsoft.com", "app@sharepoint", "SHAREPOINT\\system"))
+| summarize
+    OperationCount = count(),
+    Operations = make_set(Operation, 50),
+    Sites = make_set(SiteUrl, 20),
+    Objects = make_set(OfficeObjectId, 20)
+    by ClientIP, UserAgent, UserId, bin(TimeGenerated, 1h)
+| where OperationCount > 3
+| order by OperationCount desc

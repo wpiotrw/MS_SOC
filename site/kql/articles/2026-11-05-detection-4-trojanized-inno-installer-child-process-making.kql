@@ -1,0 +1,45 @@
+// title: Detection 4: Trojanized Inno Installer Child Process Making Outbound Network Connection During Setup Session
+// date: 2026-11-05
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Thursday, November 5, 2026
+// source: https://devsecopsdadattack.com/2026-11-05-detection-engineering-brief-thursday-november-5-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 7d;
+let sessionWindowMinutes = 15;
+let installerChildren = DeviceProcessEvents
+| where Timestamp > ago(lookback)
+| where InitiatingProcessFileName =~ "setup.exe"
+| where InitiatingProcessCommandLine has_any ("inno", "innounp", "is-", "_isetup")
+| where FolderPath has_any ("\\Temp\\", "\\AppData\\Local\\", "\\AppData\\Roaming\\")
+| where FileName !in~ ("setup.exe", "uninst.exe", "unins000.exe")
+| project
+    DeviceId,
+    DeviceName,
+    AccountName,
+    ChildProcessId = ProcessId,
+    ChildFileName = FileName,
+    ChildFolderPath = FolderPath,
+    ChildCommandLine = ProcessCommandLine,
+    InstallerCommandLine = InitiatingProcessCommandLine,
+    ChildTimestamp = Timestamp;
+DeviceNetworkEvents
+| where Timestamp > ago(lookback)
+| where isnotempty(RemoteIP)
+| join kind=inner installerChildren on DeviceId, $left.InitiatingProcessId == $right.ChildProcessId
+| where abs(datetime_diff('minute', Timestamp, ChildTimestamp)) <= sessionWindowMinutes
+| project
+    Timestamp,
+    DeviceName,
+    AccountName,
+    InstallerCommandLine,
+    ChildFileName,
+    ChildFolderPath,
+    ChildCommandLine,
+    RemoteIP,
+    RemoteUrl,
+    RemotePort,
+    ActionType
+| order by Timestamp desc

@@ -1,0 +1,54 @@
+// title: Detection 3: Trojanized Inno Installer Spawning Unexpected Child Processes and Dropping Payloads to Suspicious Paths
+// date: 2026-11-05
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Thursday, November 5, 2026
+// source: https://devsecopsdadattack.com/2026-11-05-detection-engineering-brief-thursday-november-5-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 7d;
+let sessionWindowMinutes = 15;
+let suspiciousChildren = DeviceProcessEvents
+| where Timestamp > ago(lookback)
+| where InitiatingProcessFileName =~ "setup.exe"
+| where InitiatingProcessCommandLine has_any ("inno", "innounp", "is-", "_isetup")
+| where FolderPath has_any ("\\Temp\\", "\\AppData\\Local\\", "\\AppData\\Roaming\\")
+| where FileName !in~ ("setup.exe", "uninst.exe", "unins000.exe")
+| project
+    DeviceId,
+    DeviceName,
+    AccountName,
+    ChildProcessId = ProcessId,
+    ChildProcess = FileName,
+    ChildFolderPath = FolderPath,
+    ChildCommandLine = ProcessCommandLine,
+    InstallerCommandLine = InitiatingProcessCommandLine,
+    ChildTimestamp = Timestamp;
+let payloadDrops = DeviceFileEvents
+| where Timestamp > ago(lookback)
+| where InitiatingProcessFileName =~ "setup.exe"
+| where FolderPath has_any ("\\Temp\\", "\\AppData\\Local\\", "\\AppData\\Roaming\\")
+| where FileName endswith ".exe" or FileName endswith ".dll"
+| where ActionType == "FileCreated"
+| project
+    DeviceId,
+    DroppedFile = FileName,
+    DroppedPath = FolderPath,
+    DroppedSHA256 = SHA256,
+    DropTimestamp = Timestamp;
+suspiciousChildren
+| join kind=inner payloadDrops on DeviceId
+| where abs(datetime_diff('minute', DropTimestamp, ChildTimestamp)) <= sessionWindowMinutes
+| project
+    Timestamp = ChildTimestamp,
+    DeviceName,
+    AccountName,
+    InstallerCommandLine,
+    ChildProcess,
+    ChildFolderPath,
+    ChildCommandLine,
+    DroppedFile,
+    DroppedPath,
+    DroppedSHA256
+| order by Timestamp desc
