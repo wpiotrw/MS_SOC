@@ -1,7 +1,7 @@
 {
- "read": "2026-11-04",
+ "read": "2026-11-05",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 711,
+ "count": 717,
  "note": null,
  "messages": [
   {
@@ -490,31 +490,6 @@
     "Monthly Enterprise Channel: February 2027."
    ],
    "bodyHash": "8632f81a0c4e4274"
-  },
-  {
-   "id": "MC1182993",
-   "title": "Preparing commercial Windows 10 devices for ESUs",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-11-04",
-   "end": "2026-11-04",
-   "modified": "2025-11-04",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Now that support for Windows 10 has officially ended, it is important that organizations with Windows 10 devices stay as protected as possible through the Windows 10 Extended Security Updates (ESU) program. A new guide for Windows 10 ESU customers is now available, offering details on how to find, activate, and verify licenses on devices and endpoints. When will this happen: Windows 10 reached end…",
-   "when": null,
-   "prepare": "Follow the steps in the new guide to locate MAK keys, activate ESU licenses on each applicable device, prepare devices used by people with Windows 365 Cloud PC and Azure Virtual Desktop licenses, and verify enrollment. .",
-   "dates": [
-    "When will this happen: Windows 10 reached end of support on October 14, 2025.",
-    "To continue receiving monthly security updates, Windows 10 devices need to be activated with Windows 10 Extended Security Updates (ESU) licenses before the November 2025 Windows security update."
-   ],
-   "bodyHash": "cafff715b6b3546e"
   },
   {
    "id": "MC1183013",
@@ -16152,7 +16127,7 @@
   },
   {
    "id": "MC1515937",
-   "title": "Microsoft Purview | eDiscovery: In-product diagnostics to troubleshoot common challenges",
+   "title": "(Updated) Microsoft Purview | eDiscovery: In-product diagnostics to troubleshoot common challenges",
    "services": [
     "Microsoft Purview"
    ],
@@ -16162,22 +16137,24 @@
    "actionBy": null,
    "start": "2026-10-19",
    "end": "2027-03-30",
-   "modified": "2026-10-19",
+   "modified": "2026-11-04",
    "tags": [
     "Admin impact",
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[What and Why:] Microsoft Purview eDiscovery is introducing three read-only diagnostic checks for case access, security filters, and hold-policy distribution. These checks help admins understand and troubleshoot common access, search-scoping, and hold-distribution issues directly in the product. This message is associated with Microsoft 365 Roadmap ID 565222 [Rollout Schedule:] Public Preview (Wor…",
+   "summary": "Updated November 4, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Purview eDiscovery is introducing three read-only diagnostic checks for case access, security filters, and hold-policy distribution. These checks help admins understand and troubleshoot common access, search-scoping, and hold-distribution issues directly in the product. This message is as…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Public Preview (Worldwide): We will begin rolling out in late October 2026 and expect to complete by mid November 2026.",
-    "General Availability (Worldwide): We will begin rolling out in early December 2026 and expect to complete by mid December 2026.",
-    "General Availability (GCC): We will begin rolling out in early December 2026 and expect to complete by mid January 2027.",
-    "General Availability (GCC High): We will begin rolling out in early December 2026 and expect to complete by early February 2027.",
-    "General Availability (DoD): We will begin rolling out in early December 2026 and expect to complete by late February 2027."
+    "Updated November 4, 2026: We have updated the timeline.",
+    "Public Preview (Worldwide): We will begin rolling out in early December 2026 (previously late October) and expect to complete by mid-December 2026 (previously mid-November).",
+    "General Availability (Worldwide): We will begin rolling out in late December 2026 (previously early December) and expect to complete by early January 2027 (previously mid-December 2026).",
+    "General Availability (GCC): We will begin rolling out in late December 2026 (previously early December) and expect to complete by mid-January 2027.",
+    "General Availability (GCC High): We will begin rolling out in late December 2026 (previously early December) and expect to complete by early February 2027.",
+    "General Availability (DoD): We will begin rolling out in late December 2026 (previously early December) and expect to complete by late February 2027."
    ],
-   "bodyHash": "b6fde5b959a538ed"
+   "bodyHash": "e5ad4f7eafc91784"
   },
   {
    "id": "MC1515939",
@@ -18817,6 +18794,186 @@
    "bodyHash": "8ad0e1d2948f5a13"
   },
   {
+   "id": "MC1538962",
+   "title": "Dynamics 365 Contact Center - Use bullseye routing with user groups to orchestrate conversations",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-04",
+   "end": "2026-12-07",
+   "modified": "2026-11-04",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "We are announcing the ability to Use bullseye routing with user groups to orchestrate conversations in Dynamics 365 Contact Center. This feature will reach general availability by November 6, 2026. How does this affect me? This feature introduces a tiered assignment strategy that automatically expands the pool of eligible customer service representatives as conversation wait times increase. Admins…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "This feature will reach general availability by November 6, 2026."
+   ],
+   "bodyHash": "a6e950cbd6945067"
+  },
+  {
+   "id": "MC1538980",
+   "title": "Dynamics 365 Contact Center - Orchestrate conversation distribution with natural language playbooks",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-04",
+   "end": "2026-12-31",
+   "modified": "2026-11-04",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "We are announcing the ability to orchestrate conversation distribution with natural language playbooks in Dynamics 365 Contact Center. This feature will be generally available by November 30, 2026. How does this affect me? Users will be able to configure natural-language playbooks to automatically manage conversation priority, overflow handling, representative assignment, and routing as conditions…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "This feature will be generally available by November 30, 2026."
+   ],
+   "bodyHash": "7516223bac45871d"
+  },
+  {
+   "id": "MC1538999",
+   "title": "Microsoft 365 Copilot: Copilot connectors in Work IQ APIs",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-05",
+   "end": "2027-01-30",
+   "modified": "2026-11-05",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Copilot connectors will extend Work IQ beyond Microsoft 365 by making data and tools from connected enterprise systems available to AI agents through Work IQ APIs. Organizations can use their existing Copilot connector investments to build richer, more context-aware agentic experiences across Microsoft 365 and enterprise systems without requiring separate connector setup or manageme…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in late November 2026 and expect to complete by late December 2026."
+   ],
+   "bodyHash": "4bf4bf85f4d769ca"
+  },
+  {
+   "id": "MC1539000",
+   "title": "Microsoft Outlook: Search within a selected folder",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-05",
+   "end": "2026-12-16",
+   "modified": "2026-11-05",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Users can now select a mail folder and scope Outlook search results to that folder. This update gives users more control over their searches by helping them narrow results to a specific folder. [Rollout schedule] General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out in mid-November 2026 and expect to complete in mid-November 2026 . [Impact on your organizat…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out in mid-November 2026 and expect to complete in mid-November 2026 ."
+   ],
+   "bodyHash": "e7149ffd62082194"
+  },
+  {
+   "id": "MC1539001",
+   "title": "Microsoft 365 admin center: Project usage report retirement",
+   "services": [
+    "Project for the web"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2026-12-04",
+   "start": "2026-11-05",
+   "end": "2027-01-08",
+   "modified": "2026-11-05",
+   "tags": [
+    "Admin impact",
+    "Retirement"
+   ],
+   "summary": "[What and why] We are retiring the Project usage report (Project activity) from Reports > Usage in the Microsoft 365 admin center. Currently, the report shows how many users are active in the Project desktop client, Project Online, and Project for the web. Because Project Online and Project for the web have been retired, the Project usage report is also being retired. Starting December 4, 2026, th…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Starting December 4, 2026, the Project usage report will no longer be available in the Microsoft 365 admin center, and its historical data will no longer be accessible there.",
+    "General Availability (Worldwide, GCC): Rollout will begin in early December 2026 and is expected to complete by early December 2026.",
+    "Export any Project usage data you want to keep before November 20, 2026, if you rely on this report."
+   ],
+   "bodyHash": "2f8f210cd43fa0bf"
+  },
+  {
+   "id": "MC1539002",
+   "title": "Microsoft Copilot Chat: Planner Agent task assignment, catch-up, and Copilot memory integration",
+   "services": [
+    "Planner"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2026-12-04",
+   "start": "2026-11-05",
+   "end": "2027-01-08",
+   "modified": "2026-11-05",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are expanding Planner Agent in Microsoft Copilot Chat with task assignment, scheduled task catch-up, and Copilot memory integration. These improvements help users manage tasks and shared plans, identify outstanding work, and receive personalized responses. We are also improving support for larger plans, response quality, speed, and reliability. [Rollout schedule] General Availabi…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout will begin in early December 2026 and is expected to complete by early December 2026.",
+    "What's new in Microsoft Planner | September 2026 | Microsoft Community Hub."
+   ],
+   "bodyHash": "26d2c11398c7bf30"
+  },
+  {
+   "id": "MC1539003",
+   "title": "Microsoft Viva Engage: Improved shared message experience",
+   "services": [
+    "Microsoft Viva"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-05",
+   "end": "2027-01-01",
+   "modified": "2026-11-05",
+   "tags": [
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We are improving the shared message experience in Microsoft Viva Engage to make it easier for users to discover, read, and participate in conversations shared by their colleagues. Shared messages will display richer previews of the original post, including formatted text, images, videos, and attachments. On Viva Engage web surfaces, users will be able to open and interact with the f…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout will begin in mid-November 2026 and is expected to complete by late November 2026."
+   ],
+   "bodyHash": "0dec727f8f885a83"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -19135,222 +19292,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-05",
-   "id": "MC1090689",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: Enhanced peripheral data in Pro Management portal reports for BYOD spaces",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1218712",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: Meeting notes now available for instant meetings",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1227623",
-   "type": "removed",
-   "title": "(Updated) Change meeting organizer via PowerShell cmdlet in Exchange Online",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1262590",
-   "type": "removed",
-   "title": "(Updated) Planner tab support for Shared and Private Channels in Microsoft Teams",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1266027",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: New experience when users minimize the meeting window",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1287365",
-   "type": "removed",
-   "title": "(Updated) Microsoft 365 Copilot: Change in accessing additional agents in Excel",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1303719",
-   "type": "removed",
-   "title": "(Updated) Microsoft Entra: Upcoming changes to federatedTokenValidationPolicy default settings",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1308855",
-   "type": "removed",
-   "title": "(Updated) Collect Diagnostics change to Get Diagnostics for Outlook Mobile and Mac",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1309747",
-   "type": "removed",
-   "title": "(Updated) Planner is now available in Outlook and Microsoft 365 Copilot",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1311979",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: Digital signage support for Teams panels",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1324286",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: Profanity filter disabled by default for live captions",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1330887",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: Enhanced bookable desk experience with Teams panel based desk devices",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1358831",
-   "type": "removed",
-   "title": "(Updated) Copilot settings in classic Outlook for Windows",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1387521",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: Human interpreter listening mode supported in Teams Rooms on Windows",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1402306",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: Use multiple phone lines on Teams mobile",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1403407",
-   "type": "removed",
-   "title": "(Updated) OneDrive for the web: New libraries browsing experience",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1404322",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: Recap app consolidates meeting recaps in one place",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1405505",
-   "type": "removed",
-   "title": "(Updated) Access your brand assets in PowerPoint",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1419800",
-   "type": "removed",
-   "title": "SharePoint button web part: Add custom Copilot in SharePoint prompts or start Power Automate flows",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1430542",
-   "type": "removed",
-   "title": "(Updated) Microsoft Outlook: Collaborate with Copilot while drafting email",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1259828",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview: Credential scanning in Data Security Posture Agent",
-   "fields": {
-    "end": [
-     "2026-12-14",
-     "2026-10-09"
-    ],
-    "bodyHash": [
-     "03e026fb0ee06ee3",
-     "8e5fa991faba8a82"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1446796",
-   "type": "changed",
-   "title": "(Updated) Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
-   "fields": {
-    "bodyHash": [
-     "4c37d92cfaea2942",
-     "684963dd09461d20"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1483528",
-   "type": "changed",
-   "title": "Dynamics 365 and Power Platform– Information about storage validation for Dataverse-only tenants",
-   "fields": {
-    "end": [
-     "2026-12-31",
-     "2027-12-31"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1485120",
-   "type": "changed",
-   "title": "(Updated) Outlook (new): Right-click to customize the classic ribbon",
-   "fields": {
-    "title": [
-     "Microsoft Outlook: Right-click to customize the classic ribbon",
-     "(Updated) Outlook (new): Right-click to customize the classic ribbon"
-    ],
-    "tags": [
-     [
-      "Feature update",
-      "New feature",
-      "User impact"
-     ],
-     [
-      "Feature update",
-      "New feature",
-      "Updated message",
-      "User impact"
-     ]
-    ],
-    "bodyHash": [
-     "4472184248226a26",
-     "5007881e27e50f53"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-05",
-   "id": "MC1486292",
-   "type": "removed",
-   "title": "Prompt Column backfill",
-   "fields": {}
-  },
   {
    "date": "2026-10-06",
    "id": "MC1338816",
@@ -25610,6 +25551,89 @@
    "id": "MC1519247",
    "type": "removed",
    "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1515937",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | eDiscovery: In-product diagnostics to troubleshoot common challenges",
+   "fields": {
+    "title": [
+     "Microsoft Purview | eDiscovery: In-product diagnostics to troubleshoot common challenges",
+     "(Updated) Microsoft Purview | eDiscovery: In-product diagnostics to troubleshoot common challenges"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "b6fde5b959a538ed",
+     "e5ad4f7eafc91784"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1538962",
+   "type": "new",
+   "title": "Dynamics 365 Contact Center - Use bullseye routing with user groups to orchestrate conversations",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1538980",
+   "type": "new",
+   "title": "Dynamics 365 Contact Center - Orchestrate conversation distribution with natural language playbooks",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1538999",
+   "type": "new",
+   "title": "Microsoft 365 Copilot: Copilot connectors in Work IQ APIs",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1539000",
+   "type": "new",
+   "title": "Microsoft Outlook: Search within a selected folder",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1539001",
+   "type": "new",
+   "title": "Microsoft 365 admin center: Project usage report retirement",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1539002",
+   "type": "new",
+   "title": "Microsoft Copilot Chat: Planner Agent task assignment, catch-up, and Copilot memory integration",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1539003",
+   "type": "new",
+   "title": "Microsoft Viva Engage: Improved shared message experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-05",
+   "id": "MC1182993",
+   "type": "removed",
+   "title": "Preparing commercial Windows 10 devices for ESUs",
    "fields": {}
   }
  ]
