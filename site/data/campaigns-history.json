@@ -4809,6 +4809,14 @@
 "date":"2026-11-04",
 "group":"microsoft",
 "found":"2026-11-05"
+},
+"https://dev.to/olgabyte/apt-vulnerability-cve-2026-109518-enables-root-level-attacks-via-malicious-http-traffic-on-1o27":{
+"title":"APT Vulnerability (CVE-2026-109518) Enables Root-Level Attacks via Malicious HTTP Traffic on Debian/Ubuntu Derivatives",
+"link":"https://dev.to/olgabyte/apt-vulnerability-cve-2026-109518-enables-root-level-attacks-via-malicious-http-traffic-on-1o27",
+"source":"NeonTiger12",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-05"
 }
 },
 "final":"2026-10-13",
@@ -6586,14 +6594,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-02",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-03",
 "text":"August 1, 2026."
 },
@@ -6707,6 +6707,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-04",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-05",
 "text":"August 1, 2026."
 },
 {
@@ -7330,7 +7338,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-04",
+"seen":"2026-11-05",
 "text":"early February 2026."
 },
 {
@@ -7338,7 +7346,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-04",
+"seen":"2026-11-05",
 "text":"February 2027."
 },
 {
@@ -9315,6 +9323,22 @@
 "date":"2026-11-05",
 "group":"community",
 "found":"2026-11-05"
+},
+"https://mc.merill.net/message/MC1540110":{
+"title":"MC1540110: Power Apps - Information regarding the end of support for AI-generated descriptions for model driven apps",
+"link":"https://mc.merill.net/message/MC1540110",
+"source":"MC - Merill",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-05"
+},
+"https://www.bleepingcomputer.com/news/security/openais-gpt-6-astra-silently-obstructed-safety-research-tasks/":{
+"title":"OpenAI’s GPT-6 Astra silently obstructed safety research tasks",
+"link":"https://www.bleepingcomputer.com/news/security/openais-gpt-6-astra-silently-obstructed-safety-research-tasks/",
+"source":"BleepingComputer",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-05"
 }
 },
 "final":"2026-12-15",
@@ -10260,6 +10284,14 @@
 "date":"2026-11-04",
 "group":"community",
 "found":"2026-11-04"
+},
+"https://dev.to/denegraai/let-any-ai-agent-answer-whatsapp-voice-notes-in-10-minutes-2mei":{
+"title":"Let any AI agent answer WhatsApp voice notes in 10 minutes",
+"link":"https://dev.to/denegraai/let-any-ai-agent-answer-whatsapp-voice-notes-in-10-minutes-2mei",
+"source":"NeonTiger12",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-05"
 }
 },
 "final":"2027-07-01",
@@ -10975,7 +11007,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-04",
+"seen":"2026-11-05",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10983,7 +11015,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-04",
+"seen":"2026-11-05",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -17952,6 +17984,46 @@
 "title":"MC1538998: Power Platform - Copilot Studio agent metrics and alerts",
 "source":"MC - Merill",
 "link":"https://mc.merill.net/message/MC1538998"
+},
+{
+"day":"2026-11-05",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"community",
+"title":"APT Vulnerability (CVE-2026-109518) Enables Root-Level Attacks via Malicious HTTP Traffic on Debian/Ubuntu Derivatives",
+"source":"NeonTiger12",
+"link":"https://dev.to/olgabyte/apt-vulnerability-cve-2026-109518-enables-root-level-attacks-via-malicious-http-traffic-on-1o27"
+},
+{
+"day":"2026-11-05",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"MC1540110: Power Apps - Information regarding the end of support for AI-generated descriptions for model driven apps",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1540110"
+},
+{
+"day":"2026-11-05",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"OpenAI’s GPT-6 Astra silently obstructed safety research tasks",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/security/openais-gpt-6-astra-silently-obstructed-safety-research-tasks/"
+},
+{
+"day":"2026-11-05",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Let any AI agent answer WhatsApp voice notes in 10 minutes",
+"source":"NeonTiger12",
+"link":"https://dev.to/denegraai/let-any-ai-agent-answer-whatsapp-voice-notes-in-10-minutes-2mei"
 }
 ],
 "archive":{
