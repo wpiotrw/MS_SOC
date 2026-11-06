@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-06T21:42:06Z",
+ "generated": "2026-11-06T23:13:45Z",
  "day": "2026-11-06",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-06)",
@@ -1009,28 +1009,6 @@
    ],
    "verdict": "differs"
   },
-  "MC1230889": {
-   "says": [
-    "2026-11-25"
-   ],
-   "others": [],
-   "moved": [
-    {
-     "was": "mid Sep 2026",
-     "now": "2026-11-25",
-     "text": "Retirement will complete in late November 2026 (previously mid-September)."
-    }
-   ],
-   "newer": [],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-mc1230889",
-     "name": "Outlook for Windows report retirement in the Exchange admin center"
-    }
-   ],
-   "verdict": "moved"
-  },
   "MC1221452": {
    "says": [
     "2026-06-25"
@@ -1942,6 +1920,28 @@
     }
    ],
    "verdict": "differs"
+  },
+  "MC1230889": {
+   "says": [
+    "2027-04-05"
+   ],
+   "others": [],
+   "moved": [
+    {
+     "was": "early Nov 2026",
+     "now": "2027-04-05",
+     "text": "Retirement will begin in early April 2027 (previously early November 2026)."
+    }
+   ],
+   "newer": [],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-mc1230889",
+     "name": "Outlook for Windows report retirement in the Exchange admin center"
+    }
+   ],
+   "verdict": "moved"
   },
   "MC1471964": {
    "says": [

@@ -5941,6 +5941,33 @@
 ],
 "log":[
 {
+"date":"2026-11-06",
+"id":"MC1230889",
+"what":"Message Center end date",
+"before":"2027-01-04",
+"after":"2027-05-31",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+},
+{
+"date":"2026-11-06",
+"id":"MC1230889",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+},
+{
+"date":"2026-11-06",
+"id":"MC1230889",
+"what":"Microsoft moved the date",
+"before":"early Nov 2026",
+"after":"early Apr 2027",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+},
+{
 "date":"2026-09-29",
 "id":"MC1230889",
 "what":"Act-by date",
@@ -5997,15 +6024,15 @@
 "label":"2 Nov 2026",
 "text":"Act by this date (Message Center)"
 },
-"MC1230889|retirement will begin in early previously mid#0":{
+"MC1230889|retirement will begin in early previously early#1":{
 "date":"2026-11-05",
 "label":"early Nov 2026",
-"text":"Retirement will begin in early November 2026 (previously mid-August)."
+"text":"Retirement will begin in early April 2027 (previously early November 2026)."
 },
-"MC1230889|retirement will complete in late previously mid#0":{
-"date":"2026-11-25",
-"label":"late Nov 2026",
-"text":"Retirement will complete in late November 2026 (previously mid-September)."
+"MC1230889|retirement will begin in early previously early#0":{
+"date":"2027-04-05",
+"label":"early Apr 2027",
+"text":"Retirement will begin in early April 2027 (previously early November 2026)."
 }
 },
 "moves":[],
@@ -6021,7 +6048,7 @@
 "found":"2026-10-09"
 }
 },
-"final":"2026-11-25",
+"final":"2027-04-05",
 "type":"Retirement",
 "tech":"Exchange",
 "posts":[
@@ -6723,14 +6750,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-03",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-04",
 "text":"August 1, 2026."
 },
@@ -6836,6 +6855,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-05",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-06",
 "text":"August 1, 2026."
 },
 {
@@ -7459,7 +7486,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-05",
+"seen":"2026-11-06",
 "text":"early February 2026."
 },
 {
@@ -7467,7 +7494,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-05",
+"seen":"2026-11-06",
 "text":"February 2027."
 },
 {
@@ -11208,7 +11235,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-05",
+"seen":"2026-11-06",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11216,7 +11243,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-05",
+"seen":"2026-11-06",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -18475,6 +18502,15 @@
 "title":"IMSI vs IMEI: What Your Phone Broadcasts and Who Can Read It",
 "source":"BleepingComputer",
 "link":"https://www.bleepingcomputer.com/news/security/imsi-vs-imei-what-your-phone-broadcasts-and-who-can-read-it/"
+},
+{
+"day":"2026-11-06",
+"cid":"c-mc1230889",
+"type":"milestone",
+"name":"Outlook for Windows report retirement in the Exchange admin center",
+"src":"MC1230889",
+"now":"early Apr 2027",
+"text":"Retirement will begin in early April 2027 (previously early November 2026)."
 }
 ],
 "archive":{
