@@ -13,7 +13,7 @@ manager: laurawi
 audience: Admin
 ms.service: purview
 ms.subservice: purview-information-protection
-ms.date: 2026-10-14T00:00:00.0000000Z
+ms.date: 2026-11-06T00:00:00.0000000Z
 ms.collection:
 - purview-compliance
 ms.topic: article
@@ -444,6 +444,8 @@ The simulated deployment runs like the WhatIf parameter for PowerShell, for a sp
 Simulation mode also lets you gradually increase the scope of your auto-labeling policy before deployment. For example, you might start with a single location, such as a SharePoint site, with a single document library. Then, with iterative changes, increase the scope to multiple sites, and then to another location, such as OneDrive.
 
 For details about the newer simulation overview, see [Review simulation results for auto-labeling policies](auto-label-simulation-results). **Sample items**, when displayed, shows the sampled item count. **Contextual summary** is available in supported portal experiences; viewing matched content requires the **Data Classification Content Viewer** role.
+
+If simulation shows a failure message or counts marked **(partial)**, see [Failed simulations and partial results](auto-label-simulation-results#failed-simulations-and-partial-results) and [simulation failure troubleshooting](/en-us/troubleshoot/microsoft-365/purview/sensitivity-labels/troubleshoot-auto-labeling-policies#simulation-failed-or-couldnt-be-started). Unavailable workload results aren't zero-match results, and restarting simulation doesn't guarantee that an error is resolved.
 
 Finally, you can use simulation mode to provide an approximation of the time needed to run your auto-labeling policy, to help you plan and schedule when to run it without simulation mode.
 

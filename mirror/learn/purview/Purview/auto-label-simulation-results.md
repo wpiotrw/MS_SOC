@@ -14,7 +14,7 @@ manager: laurawi
 audience: Admin
 ms.service: purview
 ms.subservice: purview-information-protection
-ms.date: 2026-10-14T00:00:00.0000000Z
+ms.date: 2026-11-06T00:00:00.0000000Z
 ms.collection:
 - purview-compliance
 ms.topic: article
@@ -78,9 +78,9 @@ On the **Simulation overview** page, the following key metrics about the policy 
 | Field | Description |
 | --- | --- |
 | **Label** | The sensitivity label that the policy applies to matched items. |
-| **Status** | Simulation status: **Simulation in progress**, **Simulation almost complete**, **Simulation complete**, **Simulation expiring soon**, **Expired**, or **Policy can't be published**. |
+| **Status** | Simulation status: **Simulation in progress**, **Simulation almost complete**, **Simulation complete**, **Simulation expiring soon**, **Expired**, **Policy can't be published**, or **Simulation failed**. If a failure banner is displayed, review it for more information. |
 | **Duration** | The length of time the simulation has been running in days and hours. |
-| **Matched items** | The total number of items that matched the policy conditions across all workloads. |
+| **Matched items** | The number of items that matched the policy conditions. A count marked **(partial)** includes only available workload results, not a complete total across all configured workloads. See Failed simulations and partial results. |
 | **Sample items** | When displayed, the number of sampled items available for review. Samples are retained for 30 days. See Preserve results before editing or rerunning. |
 | **Policy matches per rule** | Shows details about the policy rules and their matches:  - **Total Rules:** the number of rules in the policy, not the number of rules with matches.  - **Total Matches:** the number of items that matched rules. - **Rule name:** the name of the rule in the policy.  - **Matches:** the number of items that matched this rule.  - **Location:** The workload where matches occurred (Exchange, SharePoint, or OneDrive).  Use the per-rule match counts to identify which rules matched and whether each rule produces the expected results. |
 | **Matches by source** | A donut chart showing matches distributed across workloads, with an item count and percentage for each of the following workloads:  - **Exchange**: Email messages that matched the policy. Matched Exchange items are based on sampled data and might not represent all mailboxes in the policy scope.  - **SharePoint**: Files in SharePoint sites that matched.  - **OneDrive**: Files in OneDrive accounts that matched. |
@@ -91,6 +91,16 @@ On the **Simulation overview** page, the following key metrics about the policy 
 Note
 
 The **Matched items** count is an **estimate**, not a count of successfully labeled files. Enforcement results can differ because files or classification results change, other active policies affect the outcome, or labeling fails. For details, see [Simulation doesn't guarantee enforcement](auto-label-classification-simulation#simulation-doesnt-guarantee-enforcement).
+
+## Failed simulations and partial results
+
+In portal experiences that display simulation failure messages, **Simulation couldn't be started** means that the request to start a simulation job failed. **Simulation failed** means that a job encountered an error while running. Neither message means that the policy completed simulation with no matches.
+
+Valid results from other workloads can remain available. For example, Exchange can show matches while SharePoint and OneDrive show **Not available**. A count such as **100 (partial)** includes only the available results. Check **Matches by source** and the information icon beside a partial count, when displayed, to understand which results are included. **Not available** isn't a zero-match result.
+
+Before selecting **Restart simulation** in the page header, preserve any available results you need for comparison. Restarting tries the simulation again; it doesn't guarantee a fix. Review the new run's status and workload results before deciding whether the policy is ready to turn on.
+
+For the error messages, recovery steps, and information to collect if a failure persists, see [Simulation failed or couldn't be started](/en-us/troubleshoot/microsoft-365/purview/sensitivity-labels/troubleshoot-auto-labeling-policies#simulation-failed-or-couldnt-be-started). Simulation failures are separate from failures to apply or remove labels after a policy is turned on.
 
 ## Preserve results before editing or rerunning
 

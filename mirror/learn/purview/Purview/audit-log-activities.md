@@ -672,6 +672,7 @@ The following table lists the Microsoft Fabric activities in Power BI that the M
 | Exported a PostgreSQL database schema | ExportPostgreSQLDatabaseSchema | Generated when a user dumps a PostgreSQL database schema through the custom PG schema service (pgschema-based ALM flow). The audit log records caller identity, operation result, and the affected PostgreSQL database artifact. |
 | Get Items Sizes | GetItemsSize | Retrieved cached item sizes for the OneLake item-size report. |
 | Get connection by tenant admin | GetGatewayClusterDatasourceAsAdmin | A tenant admin retrieved the connection details. |
+| When tenant admin tests the connection status. | GetGatewayClusterDatasourceStatusAsAdmin | When tenant admin tests the connection status. |
 | Get on-demand billing limits | GetOnDemandBillingLimits | Generated when a capacity admin opens the On-demand billing page and the current billing categories and their 24-hour compute limits are returned for a Fabric capacity. |
 | Get on-demand billing quota | GetOnDemandBillingQuota | Generated when the On-demand billing experience loads and the subscription-level on-demand billing quota usage and limits are retrieved. |
 | Get BackupVault's Immutability state. | GetBackupVaultImmutability | Get BackupVault's Immutability state. |

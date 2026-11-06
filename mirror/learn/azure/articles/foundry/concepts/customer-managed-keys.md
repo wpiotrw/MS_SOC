@@ -24,7 +24,7 @@ ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Learn how customer-managed keys (CMKs) encrypt your data in Microsoft Foundry, which capabilities and compute layers they cover, and the effect of key revocation.
 ms.reviewer: jeffhollan
-ms.date: 2026-08-24T00:00:00.0000000Z
+ms.date: 2026-11-05T00:00:00.0000000Z
 ms.topic: concept-article
 ms.custom:
 - doc-kit-assisted
@@ -88,6 +88,7 @@ Depending on your Foundry resource configuration, the service might store servic
 
 | Foundry capability | CMK on Foundry-managed storage | CMK on customer-managed storage | Notes |
 | --- | --- | --- | --- |
+| Responses API | ✅ Supported | **N/A** (no bring-your-own storage support) | CMK protects eligible prompts, message history, and related content in service-managed storage when configured for the applicable resource. See Responses API service-managed storage. |
 | Prompt Agents | ❌ Not supported | ✅ Supported | Basic setup uses Microsoft-managed keys. For CMK, use bring-your-own resources and configure CMK separately on Azure Cosmos DB, Storage, and AI Search. |
 | Hosted Agents | ❌ Not supported | ◐ Partial | Basic setup uses Microsoft-managed keys. For CMK, use bring-your-own resources and configure CMK separately on Azure Cosmos DB, Storage, and AI Search. Hosted-agent sandbox compute is ephemeral, but each session has a persistent $HOME filesystem. $HOME is backed by platform-managed storage, and isn't encrypted using CMK, and can't currently be disabled. For more information, see: CMK coverage across the compute stack. |
 | Fine-tuning | ✅ Supported | **N/A** (no bring-your-own storage support) | Uploaded files and trained fine-tuned models are CMK-encrypted on Microsoft-managed storage accounts. Trained models are logically isolated by their Azure subscription. Model weights are CMK-unwrapped to instantiate model deployments. For details about the compute stack and training runtime, see CMK coverage across the compute stack. |
@@ -99,6 +100,12 @@ Depending on your Foundry resource configuration, the service might store servic
 | Content Understanding | **N/A** | ✅ Supported | Bring your own storage is required to use the Content Understanding capability. |
 | OpenAI Assistants (deprecated) | ❌ Not supported | **N/A** | This feature is deprecated and didn't support CMK in preview. |
 | Connected services, including Azure AI Search, Azure Logic Apps, and Azure Functions | **N/A** | **N/A** | Configure encryption keys separately from your Foundry resource. Every connected resource follows its own lifecycle for encryption management. |
+
+## Responses API service-managed storage
+
+For direct Responses API calls, customer-managed key encryption can protect eligible prompts, message history, and related content persisted in service-managed storage when CMK is configured for the applicable resource. You don't need to bring your own Azure Cosmos DB or Azure Blob Storage resource for this Responses API storage path.
+
+The Responses API encrypts content it stores in Azure Cosmos DB or Azure Blob Storage using the resource's customer-managed encryption-key data-encryption key. When it loads that content, it uses the corresponding data-encryption key to decrypt it.
 
 ## CMK coverage across the compute stack
 
