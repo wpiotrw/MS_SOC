@@ -1,19 +1,41 @@
 {
- "read": "2026-10-21T11:49Z",
+ "read": "2026-11-06T06:37Z",
  "source": "https://msadminroles.com/",
  "sourceLabel": "msadminroles.com",
  "sourceNote": "Daniel Bradley's msadminroles.com - built-in role definitions as his tenant reads them",
  "thereRead": null,
- "ourRead": "2026-10-21T11:48Z",
+ "ourRead": "2026-11-04T21:20Z",
  "keepDays": 90,
  "counts": {
-  "rolesThere": 145,
-  "rolesDiffering": 0,
-  "thereOnly": 0,
+  "rolesThere": 148,
+  "rolesDiffering": 1,
+  "thereOnly": 1,
   "oursOnly": 0
  },
- "roles": {},
+ "roles": {
+  "User": {
+   "templateId": "a0b1b346-4d3e-4e8b-98f8-753987be4970",
+   "there": [
+    "microsoft.directory/agentIdentityBlueprints/createAsOwner"
+   ],
+   "ours": [],
+   "firstNoticed": {
+    "microsoft.directory/agentIdentityBlueprints/createAsOwner": "2026-11-06"
+   },
+   "thereVersion": 2,
+   "thereSince": "2026-11-06"
+  }
+ },
  "events": [
+  {
+   "day": "2026-11-06",
+   "name": "User",
+   "change": "there-only",
+   "actions": [
+    "microsoft.directory/agentIdentityBlueprints/createAsOwner"
+   ],
+   "thereSince": "2026-11-06"
+  },
   {
    "day": "2026-10-21",
    "name": "Conditional Access Administrator",
