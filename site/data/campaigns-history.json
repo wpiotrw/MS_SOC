@@ -6731,14 +6731,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-03",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-04",
 "text":"August 1, 2026."
 },
@@ -6844,6 +6836,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-05",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-06",
 "text":"August 1, 2026."
 },
 {
@@ -7475,7 +7475,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-05",
+"seen":"2026-11-06",
 "text":"early February 2026."
 },
 {
@@ -7483,7 +7483,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-05",
+"seen":"2026-11-06",
 "text":"February 2027."
 },
 {
@@ -9492,6 +9492,30 @@
 "date":"2026-11-05",
 "group":"community",
 "found":"2026-11-06"
+},
+"https://dev.to/open-agentic-brain-and-memory/where-claude-code-codex-and-cursor-keep-your-chat-history-on-disk-and-how-to-read-it-hc3":{
+"title":"Where Claude Code, Codex and Cursor Keep Your Chat History on Disk, and How to Read It",
+"link":"https://dev.to/open-agentic-brain-and-memory/where-claude-code-codex-and-cursor-keep-your-chat-history-on-disk-and-how-to-read-it-hc3",
+"source":"NeonTiger12",
+"date":"2026-11-06",
+"group":"community",
+"found":"2026-11-06"
+},
+"https://thehackernews.com/2026/11/openai-launches-gpt-6-cyber-after-ai.html":{
+"title":"OpenAI Launches GPT-6 Cyber After AI Helps Find 81 Firefox Flaws, 948 Linux Exploits",
+"link":"https://thehackernews.com/2026/11/openai-launches-gpt-6-cyber-after-ai.html",
+"source":"Hacker News",
+"date":"2026-11-06",
+"group":"community",
+"found":"2026-11-06"
+},
+"https://www.bleepingcomputer.com/news/security/openais-new-gpt-6-cyber-ai-finds-81-firefox-flaws-948-linux-bugs/":{
+"title":"OpenAI's new GPT-6 Cyber AI finds 81 Firefox flaws, 948 Linux bugs",
+"link":"https://www.bleepingcomputer.com/news/security/openais-new-gpt-6-cyber-ai-finds-81-firefox-flaws-948-linux-bugs/",
+"source":"BleepingComputer",
+"date":"2026-11-06",
+"group":"community",
+"found":"2026-11-06"
 }
 },
 "final":"2026-12-15",
@@ -10469,6 +10493,14 @@
 "date":"2026-11-05",
 "group":"community",
 "found":"2026-11-06"
+},
+"https://www.bleepingcomputer.com/news/security/imsi-vs-imei-what-your-phone-broadcasts-and-who-can-read-it/":{
+"title":"IMSI vs IMEI: What Your Phone Broadcasts and Who Can Read It",
+"link":"https://www.bleepingcomputer.com/news/security/imsi-vs-imei-what-your-phone-broadcasts-and-who-can-read-it/",
+"source":"BleepingComputer",
+"date":"2026-11-06",
+"group":"community",
+"found":"2026-11-06"
 }
 },
 "final":"2027-07-01",
@@ -11192,7 +11224,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-05",
+"seen":"2026-11-06",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11200,7 +11232,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-05",
+"seen":"2026-11-06",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -18403,6 +18435,46 @@
 "title":"MC1540327: Action required: Prepare users who can’t use passkeys for SMS and voice retirement",
 "source":"MC - Merill",
 "link":"https://mc.merill.net/message/MC1540327"
+},
+{
+"day":"2026-11-06",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"Where Claude Code, Codex and Cursor Keep Your Chat History on Disk, and How to Read It",
+"source":"NeonTiger12",
+"link":"https://dev.to/open-agentic-brain-and-memory/where-claude-code-codex-and-cursor-keep-your-chat-history-on-disk-and-how-to-read-it-hc3"
+},
+{
+"day":"2026-11-06",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"OpenAI Launches GPT-6 Cyber After AI Helps Find 81 Firefox Flaws, 948 Linux Exploits",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/11/openai-launches-gpt-6-cyber-after-ai.html"
+},
+{
+"day":"2026-11-06",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"OpenAI's new GPT-6 Cyber AI finds 81 Firefox flaws, 948 Linux bugs",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/security/openais-new-gpt-6-cyber-ai-finds-81-firefox-flaws-948-linux-bugs/"
+},
+{
+"day":"2026-11-06",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"IMSI vs IMEI: What Your Phone Broadcasts and Who Can Read It",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/security/imsi-vs-imei-what-your-phone-broadcasts-and-who-can-read-it/"
 }
 ],
 "archive":{
