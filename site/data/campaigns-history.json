@@ -1,6 +1,92 @@
 {
 "updated":"2026-11-06",
 "campaigns":{
+"c-mc1540345":{
+"firstSeen":"2026-11-05",
+"lastSeen":"2026-11-06",
+"name":"Update permissions for Exchange Online Admin API",
+"status":"Active",
+"members":[
+"MC1540345",
+"item:MC1540345"
+],
+"log":[
+{
+"date":"2026-11-06",
+"id":"MC1540345",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Exchange Online Admin API v2.0 drops Exchange.ManageV2 and Exchange.ManageAsAppV2 on 1 December; apps must move to Exchange.AdminAPI.Manage / .ManageAsApp and get fresh admin consent",
+"title":"Exchange Online Admin API v2.0 drops Exchange.ManageV2 and Exchange.ManageAsAppV2 on 1 December; apps must move to Exchange.AdminAPI.Manage / .ManageAsApp and get fresh admin consent",
+"link":"https://deltapulse.app/item/MC1540345"
+}
+],
+"milestones":{
+"MC1540345|new permissions become available#0":{
+"date":"2026-11-01",
+"label":"1 Nov 2026",
+"text":"New permissions become available November 1, 2026."
+},
+"MC1540345|posted":{
+"date":"2026-11-05",
+"label":"5 Nov 2026",
+"text":"Posted: Update permissions for Exchange Online Admin API"
+},
+"MC1540345|microsoft is updating exchange online admin api v permission#0":{
+"date":"2026-11-15",
+"label":"Nov 2026",
+"text":"Microsoft is updating Exchange Online Admin API v2.0 permissions, replacing Exchange.ManageV2 and Exchange.ManageAsAppV2 with new permissions by November 2026."
+},
+"MC1540345|complete migration by#0":{
+"date":"2026-11-30",
+"label":"30 Nov 2026",
+"text":"Complete migration by November 30, 2026."
+},
+"MC1540345|deadline":{
+"date":"2026-12-01",
+"label":"1 Dec 2026",
+"text":"Exchange Online Admin API v2.0 drops Exchange.ManageV2 and Exchange.ManageAsAppV2 on 1 December; apps must move to Exchange.AdminAPI.Manage / .ManageAsApp and g"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1540345":{
+"title":"Update permissions for Exchange Online Admin API",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1540345",
+"source":"Message Center",
+"id":"MC1540345",
+"date":"2026-11-05",
+"updated":"2026-11-05",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://mc.merill.net/message/MC1540345":{
+"title":"Update permissions for Exchange Online Admin API",
+"link":"https://mc.merill.net/message/MC1540345",
+"source":"Message Center",
+"id":"MC1540345",
+"date":"2026-11-05",
+"updated":"2026-11-05",
+"group":"microsoft",
+"found":"2026-11-06"
+},
+"https://deltapulse.app/item/MC1540345":{
+"title":"Update permissions for Exchange Online Admin API",
+"link":"https://deltapulse.app/item/MC1540345",
+"source":"Main list source",
+"id":"MC1540345",
+"date":"2026-11-05",
+"group":"microsoft",
+"found":"2026-11-06"
+}
+},
+"final":"2026-12-01",
+"type":"Retirement",
+"tech":"Exchange",
+"posts":[
+"MC1540345"
+]
+},
 "c-item-mc1519855":{
 "firstSeen":"2026-10-22",
 "lastSeen":"2026-11-06",
@@ -16,9 +102,19 @@
 "MC1528000",
 "item:MC1528000",
 "MC1536049",
-"item:MC1536049"
+"item:MC1536049",
+"MC1540327"
 ],
 "log":[
+{
+"date":"2026-11-06",
+"id":"MC1540327",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Action required: Prepare users who can’t use passkeys for SMS and voice retirement",
+"title":"Prepare users who can’t use passkeys for SMS and voice retirement",
+"link":"https://mc.merill.net/message/MC1540327"
+},
 {
 "date":"2026-11-03",
 "id":"MC1536049",
@@ -27,15 +123,6 @@
 "after":"Microsoft-provided SMS and voice stop working for self-service password reset 50 days after the SMS/voice sign-in retirement reaches the tenant: from 1 February 2027 for most users, 1 July 2027 for Global Administrators and external users",
 "title":"Microsoft-provided SMS and voice stop working for self-service password reset 50 days after the SMS/voice sign-in retirement reaches the tenant: from 1 February 2027 for most users, 1 July 2027 for Global Administrators and external users",
 "link":"https://deltapulse.app/item/MC1536049"
-},
-{
-"date":"2026-10-30",
-"id":"MC1519855",
-"what":"Microsoft revised the post",
-"before":"2026-10-21",
-"after":"2026-10-30",
-"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
-"link":"https://deltapulse.app/item/MC1519855"
 },
 {
 "date":"2026-10-30",
@@ -61,6 +148,15 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated this post with additional information as the feature is now generally available.",
+"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"link":"https://deltapulse.app/item/MC1519855"
+},
+{
+"date":"2026-10-30",
+"id":"MC1519855",
+"what":"Microsoft revised the post",
+"before":"2026-10-21",
+"after":"2026-10-30",
 "title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
 "link":"https://deltapulse.app/item/MC1519855"
 },
@@ -163,6 +259,11 @@
 "date":"2026-11-03",
 "label":"3 Nov 2026",
 "text":"Posted: Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+},
+"MC1540327|posted":{
+"date":"2026-11-05",
+"label":"5 Nov 2026",
+"text":"Posted: Prepare users who can’t use passkeys for SMS and voice retirement"
 },
 "MC1325414|early previously early through mid previously mid#0":{
 "date":"2026-11-05",
@@ -418,6 +519,16 @@
 "date":"2026-11-04",
 "group":"community",
 "found":"2026-11-04"
+},
+"https://mc.merill.net/message/MC1540327":{
+"title":"Prepare users who can’t use passkeys for SMS and voice retirement",
+"link":"https://mc.merill.net/message/MC1540327",
+"source":"Message Center",
+"id":"MC1540327",
+"date":"2026-11-05",
+"updated":"2026-11-05",
+"group":"microsoft",
+"found":"2026-11-06"
 }
 },
 "final":"2027-07-01",
@@ -428,7 +539,8 @@
 "MC1400824",
 "MC1519855",
 "MC1528000",
-"MC1536049"
+"MC1536049",
+"MC1540327"
 ]
 },
 "c-mc1481315":{
@@ -446,6 +558,15 @@
 {
 "date":"2026-10-30",
 "id":"MC1481315",
+"what":"Message Center end date",
+"before":"2027-03-01",
+"after":"2027-05-03",
+"title":"Purview retires the DSPM classic and DSPM for AI classic experiences in mid to late March 2027 (moved again, from late January 2027)",
+"link":"https://deltapulse.app/item/MC1481315"
+},
+{
+"date":"2026-10-30",
+"id":"MC1481315",
 "what":"Deadline",
 "before":"2027-01-31",
 "after":"2027-03-31",
@@ -458,15 +579,6 @@
 "what":"Microsoft revised the post",
 "before":"2026-10-27",
 "after":"2026-10-30",
-"title":"Purview retires the DSPM classic and DSPM for AI classic experiences in mid to late March 2027 (moved again, from late January 2027)",
-"link":"https://deltapulse.app/item/MC1481315"
-},
-{
-"date":"2026-10-30",
-"id":"MC1481315",
-"what":"Message Center end date",
-"before":"2027-03-01",
-"after":"2027-05-03",
 "title":"Purview retires the DSPM classic and DSPM for AI classic experiences in mid to late March 2027 (moved again, from late January 2027)",
 "link":"https://deltapulse.app/item/MC1481315"
 },
@@ -681,6 +793,15 @@
 {
 "date":"2026-10-30",
 "id":"MC1446796",
+"what":"Date moved",
+"before":"20 Oct 2026",
+"after":"30 Oct 2026",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-10-30",
+"id":"MC1446796",
 "what":"Deadline",
 "before":"2026-10-30",
 "after":"2026-11-06",
@@ -693,15 +814,6 @@
 "what":"Microsoft revised the post",
 "before":"2026-10-20",
 "after":"2026-10-30",
-"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
-"link":"https://deltapulse.app/item/MC1446796"
-},
-{
-"date":"2026-10-30",
-"id":"MC1446796",
-"what":"Date moved",
-"before":"20 Oct 2026",
-"after":"30 Oct 2026",
 "title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
 "link":"https://deltapulse.app/item/MC1446796"
 },
@@ -2040,6 +2152,14 @@
 "date":"2026-11-04",
 "group":"community",
 "found":"2026-11-04"
+},
+"https://dev.to/volyte/how-to-install-n8n-on-a-vps-docker-free-https-3jeb":{
+"title":"How to Install n8n on a VPS (Docker + Free HTTPS)",
+"link":"https://dev.to/volyte/how-to-install-n8n-on-a-vps-docker-free-https-3jeb",
+"source":"NeonTiger12",
+"date":"2026-11-06",
+"group":"community",
+"found":"2026-11-06"
 }
 },
 "final":"2026-12-25",
@@ -5169,97 +5289,6 @@
 "MC1490899"
 ]
 },
-"c-mc1479516":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-06",
-"name":"Link preview retirement",
-"status":"No date",
-"members":[
-"MC1479516"
-],
-"log":[
-{
-"date":"2026-10-07",
-"id":"MC1479516",
-"what":"Title",
-"before":"Microsoft Outlook: Link preview retirement",
-"after":"(Updated) Microsoft Outlook: Link preview retirement",
-"title":"Microsoft Outlook: Link preview retirement",
-"link":"https://mc.merill.net/message/MC1479516"
-},
-{
-"date":"2026-10-07",
-"id":"MC1479516",
-"what":"Microsoft edited the post text",
-"before":"",
-"after":"see the post",
-"title":"Microsoft Outlook: Link preview retirement",
-"link":"https://mc.merill.net/message/MC1479516"
-},
-{
-"date":"2026-10-07",
-"id":"MC1479516",
-"what":"Microsoft revised the post",
-"before":"2026-09-25",
-"after":"2026-10-06",
-"title":"Outlook link previews are gone because the browser service that fetched them was deprecated; Microsoft now says why",
-"link":"https://deltapulse.app/item/MC1479516"
-},
-{
-"date":"2026-10-06",
-"id":"MC1479516",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the content.",
-"title":"Microsoft Outlook: Link preview retirement",
-"link":"https://mc.merill.net/message/MC1479516"
-},
-{
-"date":"2026-09-28",
-"id":"MC1479516",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Outlook link previews are gone because the browser service that fetched them was deprecated; Microsoft now says why",
-"title":"Outlook link previews are gone because the browser service that fetched them was deprecated; Microsoft now says why",
-"link":"https://deltapulse.app/item/MC1479516"
-}
-],
-"milestones":{
-"MC1479516|posted":{
-"date":"2026-09-25",
-"label":"25 Sep 2026",
-"text":"Posted: Microsoft Outlook: Link preview retirement"
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1479516":{
-"title":"Microsoft Outlook: Link preview retirement",
-"link":"https://mc.merill.net/message/MC1479516",
-"source":"Message Center",
-"id":"MC1479516",
-"date":"2026-09-25",
-"updated":"2026-10-06",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/MC1479516":{
-"title":"Microsoft Outlook: Link preview retirement",
-"link":"https://deltapulse.app/item/MC1479516",
-"source":"Main list source",
-"id":"MC1479516",
-"date":"2026-09-25",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":null,
-"type":"Retirement",
-"tech":"Exchange",
-"posts":[
-"MC1479516"
-]
-},
 "c-mc1481317":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-06",
@@ -5349,6 +5378,106 @@
 "tech":"Purview",
 "posts":[
 "MC1481317"
+]
+},
+"c-mc1479516":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-06",
+"name":"Link preview retirement",
+"status":"No date",
+"members":[
+"MC1479516"
+],
+"log":[
+{
+"date":"2026-11-06",
+"id":"MC1479516",
+"what":"Microsoft revised the post",
+"before":"2026-10-06",
+"after":"2026-09-25",
+"title":"Microsoft Outlook: Link preview retirement",
+"link":"https://mc.merill.net/message/MC1479516"
+},
+{
+"date":"2026-10-07",
+"id":"MC1479516",
+"what":"Title",
+"before":"Microsoft Outlook: Link preview retirement",
+"after":"(Updated) Microsoft Outlook: Link preview retirement",
+"title":"Microsoft Outlook: Link preview retirement",
+"link":"https://mc.merill.net/message/MC1479516"
+},
+{
+"date":"2026-10-07",
+"id":"MC1479516",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Microsoft Outlook: Link preview retirement",
+"link":"https://mc.merill.net/message/MC1479516"
+},
+{
+"date":"2026-10-07",
+"id":"MC1479516",
+"what":"Microsoft revised the post",
+"before":"2026-09-25",
+"after":"2026-10-06",
+"title":"Outlook link previews are gone because the browser service that fetched them was deprecated; Microsoft now says why",
+"link":"https://deltapulse.app/item/MC1479516"
+},
+{
+"date":"2026-10-06",
+"id":"MC1479516",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the content.",
+"title":"Microsoft Outlook: Link preview retirement",
+"link":"https://mc.merill.net/message/MC1479516"
+},
+{
+"date":"2026-09-28",
+"id":"MC1479516",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Outlook link previews are gone because the browser service that fetched them was deprecated; Microsoft now says why",
+"title":"Outlook link previews are gone because the browser service that fetched them was deprecated; Microsoft now says why",
+"link":"https://deltapulse.app/item/MC1479516"
+}
+],
+"milestones":{
+"MC1479516|posted":{
+"date":"2026-09-25",
+"label":"25 Sep 2026",
+"text":"Posted: Microsoft Outlook: Link preview retirement"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1479516":{
+"title":"Microsoft Outlook: Link preview retirement",
+"link":"https://mc.merill.net/message/MC1479516",
+"source":"Message Center",
+"id":"MC1479516",
+"date":"2026-09-25",
+"updated":"2026-10-06",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1479516":{
+"title":"Microsoft Outlook: Link preview retirement",
+"link":"https://deltapulse.app/item/MC1479516",
+"source":"Main list source",
+"id":"MC1479516",
+"date":"2026-09-25",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":null,
+"type":"Retirement",
+"tech":"Exchange",
+"posts":[
+"MC1479516"
 ]
 },
 "c-mc1478463":{
@@ -6618,14 +6747,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-03",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-04",
 "text":"August 1, 2026."
 },
@@ -6731,6 +6852,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-05",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-06",
 "text":"August 1, 2026."
 },
 {
@@ -6851,6 +6980,14 @@
 "date":"2026-10-27",
 "group":"community",
 "found":"2026-10-27"
+},
+"https://azure.microsoft.com/updates?id=577668":{
+"title":"[Launched] Generally Available: Azure Front Door TLS key exchange policy with post-quantum support",
+"link":"https://azure.microsoft.com/updates?id=577668",
+"source":"Azure Updates",
+"date":"2026-11-05",
+"group":"microsoft",
+"found":"2026-11-06"
 }
 },
 "final":"2026-12-31",
@@ -7274,22 +7411,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-04",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-04",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-05",
 "text":"early February 2026."
 },
@@ -7379,6 +7500,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-05",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-06",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-06",
 "text":"February 2027."
 },
 {
@@ -7802,57 +7939,6 @@
 "tech":"Windows",
 "posts":[
 "MC1172446"
-]
-},
-"c-mc1540345":{
-"firstSeen":"2026-11-05",
-"lastSeen":"2026-11-06",
-"name":"Update permissions for Exchange Online Admin API",
-"status":"Active",
-"members":[
-"MC1540345"
-],
-"log":[],
-"milestones":{
-"MC1540345|new permissions become available#0":{
-"date":"2026-11-01",
-"label":"1 Nov 2026",
-"text":"New permissions become available November 1, 2026."
-},
-"MC1540345|posted":{
-"date":"2026-11-05",
-"label":"5 Nov 2026",
-"text":"Posted: Update permissions for Exchange Online Admin API"
-},
-"MC1540345|complete migration by#0":{
-"date":"2026-11-30",
-"label":"30 Nov 2026",
-"text":"Complete migration by November 30, 2026."
-},
-"MC1540345|existing permissions are deprecated#0":{
-"date":"2026-12-01",
-"label":"1 Dec 2026",
-"text":"Existing permissions are deprecated December 1, 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1540345":{
-"title":"Update permissions for Exchange Online Admin API",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1540345",
-"source":"Message Center",
-"id":"MC1540345",
-"date":"2026-11-05",
-"updated":"2026-11-05",
-"group":"microsoft",
-"found":"2026-11-05"
-}
-},
-"final":"2026-12-01",
-"type":"Retirement",
-"tech":"Exchange",
-"posts":[
-"MC1540345"
 ]
 },
 "c-item-mc1454973":{
@@ -9390,6 +9476,22 @@
 "date":"2026-11-05",
 "group":"community",
 "found":"2026-11-05"
+},
+"https://mc.merill.net/message/MC1540330":{
+"title":"MC1540330: Opal (Frontier) - UBB Notification",
+"link":"https://mc.merill.net/message/MC1540330",
+"source":"MC - Merill",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-06"
+},
+"https://mc.merill.net/message/MC1540258":{
+"title":"MC1540258: Power Automate - Information regarding the end of support for Copilot in the designer for cloud flows or agent flows.",
+"link":"https://mc.merill.net/message/MC1540258",
+"source":"MC - Merill",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-06"
 }
 },
 "final":"2026-12-15",
@@ -9423,15 +9525,6 @@
 {
 "date":"2026-10-30",
 "id":"MC1519855",
-"what":"Microsoft revised the post",
-"before":"2026-10-21",
-"after":"2026-10-30",
-"title":"Microsoft Entra: Choose your own telephony provider now generally available",
-"link":"https://mc.merill.net/message/MC1519855"
-},
-{
-"date":"2026-10-30",
-"id":"MC1519855",
 "what":"Title",
 "before":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
 "after":"(Updated) Microsoft Entra: Choose your own telephony provider now generally available",
@@ -9453,6 +9546,15 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated this post with additional information as the feature is now generally available.",
+"title":"Microsoft Entra: Choose your own telephony provider now generally available",
+"link":"https://mc.merill.net/message/MC1519855"
+},
+{
+"date":"2026-10-30",
+"id":"MC1519855",
+"what":"Microsoft revised the post",
+"before":"2026-10-21",
+"after":"2026-10-30",
 "title":"Microsoft Entra: Choose your own telephony provider now generally available",
 "link":"https://mc.merill.net/message/MC1519855"
 },
@@ -10343,6 +10445,30 @@
 "date":"2026-11-05",
 "group":"community",
 "found":"2026-11-05"
+},
+"https://dev.to/ashwar_sadh_f7abe6f82c8e9/same-audio-four-request-ids-keying-idempotency-on-the-bytes-so-a-phone-can-resend-safely-2858":{
+"title":"Same audio, four request IDs: keying idempotency on the bytes so a phone can resend safely",
+"link":"https://dev.to/ashwar_sadh_f7abe6f82c8e9/same-audio-four-request-ids-keying-idempotency-on-the-bytes-so-a-phone-can-resend-safely-2858",
+"source":"NeonTiger12",
+"date":"2026-11-06",
+"group":"community",
+"found":"2026-11-06"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=578905":{
+"title":"Dynamics 365 Project Operations: Invoice usability enhancements",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578905",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-06"
+},
+"https://mc.merill.net/message/MC1540327":{
+"title":"MC1540327: Action required: Prepare users who can’t use passkeys for SMS and voice retirement",
+"link":"https://mc.merill.net/message/MC1540327",
+"source":"MC - Merill",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-06"
 }
 },
 "final":"2027-07-01",
@@ -10377,10 +10503,18 @@
 "MC1459133",
 "MC1469555",
 "item:entra-external-idp-passkeys-system-browser-ga",
-"item:569432",
-"item:MC1521615"
+"item:569432"
 ],
 "log":[
+{
+"date":"2026-11-06",
+"id":"MC1338816",
+"what":"Microsoft revised the post",
+"before":"2026-10-05",
+"after":"2026-06-03",
+"title":"New Outlook for Windows becomes available for GCC High and DoD",
+"link":"https://mc.merill.net/message/MC1338816"
+},
 {
 "date":"2026-10-31",
 "id":"MC1282568",
@@ -10994,22 +11128,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-04",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-04",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-05",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -11099,6 +11217,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-05",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-06",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-06",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11636,6 +11770,22 @@
 "date":"2026-11-04",
 "group":"community",
 "found":"2026-11-04"
+},
+"https://blog.darrenjrobinson.com/passkey-provider-aaguids-powershell-module-now-refreshes-automatically-every-week/":{
+"title":"Passkey Provider AAGUIDs PowerShell Module Now Refreshes Automatically Every Week",
+"link":"https://blog.darrenjrobinson.com/passkey-provider-aaguids-powershell-module-now-refreshes-automatically-every-week/",
+"source":"Darren Robinson (IAM)",
+"date":"2026-11-06",
+"group":"community",
+"found":"2026-11-06"
+},
+"https://mc.merill.net/message/MC1540327":{
+"title":"MC1540327: Action required: Prepare users who can’t use passkeys for SMS and voice retirement",
+"link":"https://mc.merill.net/message/MC1540327",
+"source":"MC - Merill",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-06"
 }
 },
 "final":"2027-05-25",
@@ -18135,6 +18285,124 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-06",
+"cid":"c-mc1540345",
+"type":"milestone",
+"name":"Update permissions for Exchange Online Admin API",
+"src":"MC1540345",
+"now":"Nov 2026",
+"text":"Microsoft is updating Exchange Online Admin API v2.0 permissions, replacing Exchange.ManageV2 and Exchange.ManageAsAppV2 with new permissions by November 2026."
+},
+{
+"day":"2026-11-06",
+"cid":"c-mc1540345",
+"type":"milestone",
+"name":"Update permissions for Exchange Online Admin API",
+"src":"MC1540345",
+"now":"1 Dec 2026",
+"text":"Exchange Online Admin API v2.0 drops Exchange.ManageV2 and Exchange.ManageAsAppV2 on 1 December; apps must move to Exchange.AdminAPI.Manage / .ManageAsApp and get fresh admin consent"
+},
+{
+"day":"2026-11-06",
+"cid":"c-mc1540345",
+"type":"material",
+"name":"Update permissions for Exchange Online Admin API",
+"group":"microsoft",
+"title":"Update permissions for Exchange Online Admin API",
+"source":"Main list source",
+"link":"https://deltapulse.app/item/MC1540345"
+},
+{
+"day":"2026-11-06",
+"cid":"c-mc1528007",
+"type":"material",
+"name":"Join button will require HTTPS meeting links",
+"group":"community",
+"title":"How to Install n8n on a VPS (Docker + Free HTTPS)",
+"source":"NeonTiger12",
+"link":"https://dev.to/volyte/how-to-install-n8n-on-a-vps-docker-free-https-3jeb"
+},
+{
+"day":"2026-11-06",
+"cid":"c-mc1293480",
+"type":"material",
+"name":"Retirement of legacy TLS versions for POP and IMAP connections",
+"group":"microsoft",
+"title":"[Launched] Generally Available: Azure Front Door TLS key exchange policy with post-quantum support",
+"source":"Azure Updates",
+"link":"https://azure.microsoft.com/updates?id=577668"
+},
+{
+"day":"2026-11-06",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"MC1540330: Opal (Frontier) - UBB Notification",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1540330"
+},
+{
+"day":"2026-11-06",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"MC1540258: Power Automate - Information regarding the end of support for Copilot in the designer for cloud flows or agent flows.",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1540258"
+},
+{
+"day":"2026-11-06",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Same audio, four request IDs: keying idempotency on the bytes so a phone can resend safely",
+"source":"NeonTiger12",
+"link":"https://dev.to/ashwar_sadh_f7abe6f82c8e9/same-audio-four-request-ids-keying-idempotency-on-the-bytes-so-a-phone-can-resend-safely-2858"
+},
+{
+"day":"2026-11-06",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Dynamics 365 Project Operations: Invoice usability enhancements",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578905"
+},
+{
+"day":"2026-11-06",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"MC1540327: Action required: Prepare users who can’t use passkeys for SMS and voice retirement",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1540327"
+},
+{
+"day":"2026-11-06",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Passkey Provider AAGUIDs PowerShell Module Now Refreshes Automatically Every Week",
+"source":"Darren Robinson (IAM)",
+"link":"https://blog.darrenjrobinson.com/passkey-provider-aaguids-powershell-module-now-refreshes-automatically-every-week/"
+},
+{
+"day":"2026-11-06",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"MC1540327: Action required: Prepare users who can’t use passkeys for SMS and voice retirement",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1540327"
 }
 ],
 "archive":{

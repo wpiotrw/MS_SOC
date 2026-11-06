@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-06T06:41:07Z",
+ "generated": "2026-11-06T13:14:46Z",
  "day": "2026-11-06",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-06)",
- "count": 39,
+ "count": 40,
  "byMc": {
   "MC1191578": {
    "says": [
@@ -639,11 +639,6 @@
    ],
    "newer": [
     {
-     "id": "MC1519855",
-     "date": "2026-10-21",
-     "title": "Microsoft Entra: Choose your own telephony provider now generally available"
-    },
-    {
      "id": "MC1528000",
      "date": "2026-10-27",
      "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
@@ -652,6 +647,11 @@
      "id": "MC1536049",
      "date": "2026-11-03",
      "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    },
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
     }
    ],
    "why": [],
@@ -710,11 +710,6 @@
    "moved": [],
    "newer": [
     {
-     "id": "MC1519855",
-     "date": "2026-10-21",
-     "title": "Microsoft Entra: Choose your own telephony provider now generally available"
-    },
-    {
      "id": "MC1528000",
      "date": "2026-10-27",
      "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
@@ -723,6 +718,11 @@
      "id": "MC1536049",
      "date": "2026-11-03",
      "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    },
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
     }
    ],
    "why": [],
@@ -808,6 +808,11 @@
      "id": "MC1536049",
      "date": "2026-11-03",
      "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    },
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
     }
    ],
    "why": [],
@@ -875,6 +880,11 @@
      "id": "MC1536049",
      "date": "2026-11-03",
      "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    },
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
     }
    ],
    "why": [],
@@ -925,6 +935,67 @@
      "post": "2026-05-28",
      "later": false,
      "link": "https://mc.merill.net/message/MC1325414"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1540327": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-06",
+     "src": "MC1325414",
+     "text": "Act by this date (Message Center)",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-07",
+     "src": "MC1325414",
+     "text": "November 7, 2026: Enforcement begins.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-09",
+     "src": "MC1325414",
+     "text": "Action is required before November 9, 2026.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2027-02-01",
+     "src": "MC1519855",
+     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
+     "post": "2026-10-21",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1519855"
     }
    ],
    "moved": [],
@@ -1024,9 +1095,7 @@
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
     }
    ],
-   "why": [
-    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
-   ],
+   "why": [],
    "campaigns": [
     {
      "id": "c-passkeys-by-default",
@@ -1092,9 +1161,7 @@
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
     }
    ],
-   "why": [
-    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
-   ],
+   "why": [],
    "campaigns": [
     {
      "id": "c-passkeys-by-default",
@@ -1165,9 +1232,7 @@
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
     }
    ],
-   "why": [
-    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
-   ],
+   "why": [],
    "campaigns": [
     {
      "id": "c-passkeys-by-default",
@@ -1238,9 +1303,7 @@
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
     }
    ],
-   "why": [
-    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
-   ],
+   "why": [],
    "campaigns": [
     {
      "id": "c-passkeys-by-default",
@@ -1338,9 +1401,7 @@
      "title": "Microsoft Entra: Choose your own telephony provider now generally available"
     }
    ],
-   "why": [
-    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
-   ],
+   "why": [],
    "campaigns": [
     {
      "id": "c-passkeys-by-default",
@@ -1417,9 +1478,7 @@
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
     }
    ],
-   "why": [
-    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
-   ],
+   "why": [],
    "campaigns": [
     {
      "id": "c-passkeys-by-default",
@@ -1490,9 +1549,7 @@
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
     }
    ],
-   "why": [
-    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
-   ],
+   "why": [],
    "campaigns": [
     {
      "id": "c-passkeys-by-default",
@@ -1545,9 +1602,7 @@
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
     }
    ],
-   "why": [
-    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
-   ],
+   "why": [],
    "campaigns": [
     {
      "id": "c-passkeys-by-default",
@@ -1610,9 +1665,7 @@
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
     }
    ],
-   "why": [
-    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
-   ],
+   "why": [],
    "campaigns": [
     {
      "id": "c-passkeys-by-default",
@@ -1667,9 +1720,7 @@
    ],
    "moved": [],
    "newer": [],
-   "why": [
-    "Auto-expanding archive mailboxes can grow to 3 TB instead of 1.5 TB for eligible licences (GCC, GCC High and DoD, mid-November to early December)"
-   ],
+   "why": [],
    "campaigns": [
     {
      "id": "c-passkeys-by-default",
