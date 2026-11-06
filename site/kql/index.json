@@ -65,6 +65,34 @@
   ]
  },
  {
+  "file": "articles/2026-11-05-find-microsoft-graph-api-requests-from-the-two.kql",
+  "title": "Find Microsoft Graph API requests from the two IP addresses, including searches and response status",
+  "date": "2026-11-05",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Threat actors use agentic AI tooling to find and abuse exposed secrets",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence and Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+  "incident": "auto-threat-actors-use-agentic-ai-tooling-to-2026-11-05"
+ },
+ {
+  "file": "articles/2026-11-05-find-available-microsoft-365-and-microsoft-azure-cloud.kql",
+  "title": "Find available Microsoft 365 and Microsoft Azure cloud activity details from the suspicious IP addresses",
+  "date": "2026-11-05",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "From the article: Threat actors use agentic AI tooling to find and abuse exposed secrets",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence and Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+  "incident": "auto-threat-actors-use-agentic-ai-tooling-to-2026-11-05"
+ },
+ {
   "file": "articles/2026-11-05-detection-4-trojanized-inno-installer-child-process-making.kql",
   "title": "Detection 4: Trojanized Inno Installer Child Process Making Outbound Network Connection During Setup Session",
   "date": "2026-11-05",
@@ -121,6 +149,51 @@
   "kind": "article",
   "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
   "link": "https://devsecopsdadattack.com/2026-11-05-detection-engineering-brief-thursday-november-5-2026/"
+ },
+ {
+  "file": "articles/2026-11-05-cloudstorageevents-table-to-identify-possible-exfiltration-f.kql",
+  "title": "CloudStorageEvents table to identify possible exfiltration from Storage Accounts.",
+  "date": "2026-11-05",
+  "product": "Sentinel",
+  "tables": [
+   "CloudStorageAggregatedEvents"
+  ],
+  "purpose": "From the article: Threat actors use agentic AI tooling to find and abuse exposed secrets",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence and Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+  "incident": "auto-threat-actors-use-agentic-ai-tooling-to-2026-11-05"
+ },
+ {
+  "file": "articles/2026-11-05-cloudauditevents-table-to-identify-suspicious-controlplane-o.kql",
+  "title": "CloudAuditEvents table to identify suspicious controlplane operations",
+  "date": "2026-11-05",
+  "product": "Sentinel",
+  "tables": [
+   "CloudAuditEvents"
+  ],
+  "purpose": "From the article: Threat actors use agentic AI tooling to find and abuse exposed secrets",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence and Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+  "incident": "auto-threat-actors-use-agentic-ai-tooling-to-2026-11-05"
+ },
+ {
+  "file": "articles/2026-11-05-advanced-hunting-queries.kql",
+  "title": "Advanced hunting queries",
+  "date": "2026-11-05",
+  "product": "Entra",
+  "tables": [
+   "EntraIdSpnSignInEvents"
+  ],
+  "purpose": "From the article: Threat actors use agentic AI tooling to find and abuse exposed secrets",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence and Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+  "incident": "auto-threat-actors-use-agentic-ai-tooling-to-2026-11-05"
  },
  {
   "file": "articles/2026-11-04-detection-1-trojanized-inno-setup-installer-spawning-scripti.kql",

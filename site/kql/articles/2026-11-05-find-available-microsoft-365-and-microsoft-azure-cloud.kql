@@ -1,0 +1,18 @@
+// title: Find available Microsoft 365 and Microsoft Azure cloud activity details from the suspicious IP addresses
+// date: 2026-11-05
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: From the article: Threat actors use agentic AI tooling to find and abuse exposed secrets
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/
+// kind: article
+// author: Microsoft Threat Intelligence and Microsoft Security Research · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let startTime = datetime(2026-10-28T00:00:00Z);
+let endTime = now();
+CloudAppEvents
+| where Timestamp between (startTime .. endTime)
+| where IPAddress in ("199.19.77.84")
+| project Timestamp, Application, CloudAppId = ApplicationId, ActionType, ActivityType,
+          AccountType, AccountDisplayName, AccountId, AccountObjectId, IPAddress, UserAgent,
+          ObjectName, ObjectType, ObjectId, ActivityObjects, ReportId, RawEventData
+| order by Timestamp asc

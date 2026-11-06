@@ -1,0 +1,12 @@
+// title: CloudStorageEvents table to identify possible exfiltration from Storage Accounts.
+// date: 2026-11-05
+// product: Sentinel
+// tables: CloudStorageAggregatedEvents
+// purpose: From the article: Threat actors use agentic AI tooling to find and abuse exposed secrets
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/
+// kind: article
+// author: Microsoft Threat Intelligence and Microsoft Security Research · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+CloudStorageAggregatedEvents
+| where IPAddress in   ('199.19.77.84','65.87.223.26')
+| where SuccessfulOperationsCount > 0
