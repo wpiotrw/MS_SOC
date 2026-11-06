@@ -215,6 +215,55 @@
      "says": "The Project usage report (Project activity) leaves Reports > Usage on 4 December 2026 with its history; export data before 20 November 2026 and use the Planner usage report."
     }
    ]
+  },
+  {
+   "key": "advanced-hunting-api-to-graph",
+   "ids": [
+    "MC1220762"
+   ],
+   "title": "MDE and Defender XDR Advanced Hunting APIs retire: move to Microsoft Graph runHuntingQuery",
+   "scriptable": true,
+   "checked": "2026-11-06",
+   "sdk": "Microsoft Graph PowerShell SDK (Microsoft.Graph.Authentication, .Applications, .Security)",
+   "blocks": [
+    {
+     "t": "Find apps that hold the legacy advanced hunting application permissions",
+     "kind": "read",
+     "scopes": "Application.Read.All",
+     "code": "# Read only. Lists every app granted an application permission on the two legacy APIs the retirement covers.\nConnect-MgGraph -Scopes 'Application.Read.All' -NoWelcome\nforeach ($name in 'WindowsDefenderATP', 'Microsoft Threat Protection') {\n    $api = Get-MgServicePrincipal -Filter \"displayName eq '$name'\" -Property Id, DisplayName, AppRoles\n    if (-not $api) { continue }\n    $roles = @{}; $api.AppRoles | ForEach-Object { $roles[$_.Id] = $_.Value }\n    Get-MgServicePrincipalAppRoleAssignedTo -ServicePrincipalId $api.Id -All |\n        Where-Object { $roles[$_.AppRoleId] -match 'Advanced' } |\n        Select-Object @{n='Api';e={$name}}, PrincipalDisplayName, PrincipalId, @{n='Permission';e={$roles[$_.AppRoleId]}}, CreatedDateTime\n}",
+     "src": [
+      "https://learn.microsoft.com/graph/api/serviceprincipal-list-approleassignedto?view=graph-rest-1.0",
+      "https://learn.microsoft.com/graph/api/serviceprincipal-list?view=graph-rest-1.0"
+     ]
+    },
+    {
+     "t": "Run the same hunting query through Microsoft Graph",
+     "kind": "read",
+     "scopes": "ThreatHunting.Read.All",
+     "code": "# Read only. The Graph replacement for the legacy advanced hunting API call.\nConnect-MgGraph -Scopes 'ThreatHunting.Read.All' -NoWelcome\n$params = @{\n    Query    = 'DeviceProcessEvents | where InitiatingProcessFileName =~ \"powershell.exe\" | project Timestamp, FileName, InitiatingProcessFileName | order by Timestamp desc | limit 10'\n    Timespan = 'P7D'\n}\n$r = Start-MgSecurityHuntingQuery -BodyParameter $params\n$r.Results | ForEach-Object { $_.AdditionalProperties }",
+     "src": [
+      "https://learn.microsoft.com/graph/api/security-security-runhuntingquery?view=graph-rest-1.0",
+      "https://learn.microsoft.com/powershell/module/microsoft.graph.security/start-mgsecurityhuntingquery?view=graph-powershell-1.0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "t": "Microsoft Learn: security: runHuntingQuery",
+     "u": "https://learn.microsoft.com/graph/api/security-security-runhuntingquery?view=graph-rest-1.0",
+     "says": "POST /security/runHuntingQuery runs a KQL advanced hunting query with an optional Timespan; least privileged permission ThreatHunting.Read.All, delegated or application."
+    },
+    {
+     "t": "Microsoft Learn: Start-MgSecurityHuntingQuery",
+     "u": "https://learn.microsoft.com/powershell/module/microsoft.graph.security/start-mgsecurityhuntingquery?view=graph-powershell-1.0",
+     "says": "The Microsoft Graph PowerShell cmdlet for runHuntingQuery, taking Query, Timespan and WorkspaceId in -BodyParameter."
+    },
+    {
+     "t": "Microsoft Learn: List appRoleAssignedTo",
+     "u": "https://learn.microsoft.com/graph/api/serviceprincipal-list-approleassignedto?view=graph-rest-1.0",
+     "says": "Lists the app role assignments granted for a resource service principal, i.e. which apps hold its application permissions."
+    }
+   ]
   }
  ]
 }
