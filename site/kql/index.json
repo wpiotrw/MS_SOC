@@ -16,6 +16,66 @@
   "repo": "Sergio Albea Threat Hunting KQL Queries"
  },
  {
+  "file": "articles/2026-11-06-detection-4-cve-2023-20198-exploitation-attempt-patterns.kql",
+  "title": "Detection 4: CVE-2023-20198 Exploitation Attempt Patterns in Cisco IOS Logs",
+  "date": "2026-11-06",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, November 6, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-06-detection-engineering-brief-friday-november-6-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-06-detection-engineering-brief-friday-november-6-2026/",
+  "cves": [
+   "CVE-2023-20198"
+  ]
+ },
+ {
+  "file": "articles/2026-11-06-detection-3-anomalous-sharepoint-operations-from-unexpected.kql",
+  "title": "Detection 3: Anomalous SharePoint Operations from Unexpected Source IPs Following ToolShell Activity",
+  "date": "2026-11-06",
+  "product": "Microsoft 365",
+  "tables": [
+   "OfficeActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, November 6, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-06-detection-engineering-brief-friday-november-6-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-06-detection-engineering-brief-friday-november-6-2026/"
+ },
+ {
+  "file": "articles/2026-11-06-detection-2-sharepoint-worker-process-spawning-anomalous-chi.kql",
+  "title": "Detection 2: SharePoint Worker Process Spawning Anomalous Child Processes",
+  "date": "2026-11-06",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, November 6, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-06-detection-engineering-brief-friday-november-6-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-06-detection-engineering-brief-friday-november-6-2026/"
+ },
+ {
+  "file": "articles/2026-11-06-detection-1-oauth-app-authenticated-actions-following-creden.kql",
+  "title": "Detection 1: OAuth App Authenticated Actions Following Credential Exposure",
+  "date": "2026-11-06",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs",
+   "SigninLogs"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, November 6, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-06-detection-engineering-brief-friday-november-6-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-06-detection-engineering-brief-friday-november-6-2026/"
+ },
+ {
   "file": "articles/2026-11-05-spanish-language-purchase-order-and-payroll-campaign-emails.kql",
   "title": "Spanish-language purchase order and payroll campaign emails by sender address",
   "date": "2026-11-05",

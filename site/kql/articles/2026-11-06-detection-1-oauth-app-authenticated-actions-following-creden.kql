@@ -1,0 +1,46 @@
+// title: Detection 1: OAuth App Authenticated Actions Following Credential Exposure
+// date: 2026-11-06
+// product: Entra
+// tables: AuditLogs, SigninLogs
+// purpose: From the article: Detection Engineering Brief - Friday, November 6, 2026
+// source: https://devsecopsdadattack.com/2026-11-06-detection-engineering-brief-friday-november-6-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 30d;
+let recentWindow = 7d;
+let sensitiveOps = dynamic(["Add member to role", "Update application", "Add application", "Consent to application", "Add service principal", "Update service principal", "Remove member from role", "Delete application", "Delete service principal"]);
+let firstSeenApps =
+    SigninLogs
+    | where TimeGenerated >= ago(lookback)
+    | where AppId != "" and ResultType == 0
+    | summarize
+        FirstSeen = min(TimeGenerated),
+        SigninCount = count(),
+        SeenIPAddresses = make_set(IPAddress, 10),
+        SeenUserAgents = make_set(UserAgent, 5)
+        by AppId, AppDisplayName
+    | where FirstSeen >= ago(recentWindow) and SigninCount <= 3;
+AuditLogs
+| where TimeGenerated >= ago(recentWindow)
+| where OperationName in (sensitiveOps)
+| extend
+    InitiatingAppId = tostring(InitiatedBy.app.appId),
+    InitiatingAppDisplayName = tostring(InitiatedBy.app.displayName),
+    InitiatingUserPrincipalName = tostring(InitiatedBy.user.userPrincipalName)
+| where InitiatingAppId != ""
+| join kind=inner firstSeenApps on $left.InitiatingAppId == $right.AppId
+| extend TargetResourcesSummary = tostring(TargetResources)
+| project
+    TimeGenerated,
+    OperationName,
+    Result,
+    InitiatingAppId,
+    InitiatingAppDisplayName,
+    InitiatingUserPrincipalName,
+    FirstSeen,
+    SigninCount,
+    SeenIPAddresses,
+    SeenUserAgents,
+    TargetResourcesSummary
+| order by TimeGenerated desc

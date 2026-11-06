@@ -1,0 +1,51 @@
+// title: Detection 3: Anomalous SharePoint Operations from Unexpected Source IPs Following ToolShell Activity
+// date: 2026-11-06
+// product: Microsoft 365
+// tables: OfficeActivity
+// purpose: From the article: Detection Engineering Brief - Friday, November 6, 2026
+// source: https://devsecopsdadattack.com/2026-11-06-detection-engineering-brief-friday-november-6-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 30d;
+let recentWindow = 3d;
+let sensitiveOps = dynamic([
+    "FileDownloaded", "FileSyncDownloadedFull", "SiteCollectionAdminAdded",
+    "SitePermissionsModified", "ListItemsViewed", "SearchQueryPerformed",
+    "FileAccessed", "FilePreviewed", "SharingInvitationCreated", "AddedToSecureLink"
+]);
+let historicIPs =
+    OfficeActivity
+    | where TimeGenerated between (ago(lookback) .. ago(recentWindow))
+    | where Workload == "SharePoint"
+    | where ClientIP != "" and ClientIP != "null"
+    | summarize KnownIPs = make_set(ClientIP, 500) by UserId;
+OfficeActivity
+| where TimeGenerated >= ago(recentWindow)
+| where Workload == "SharePoint"
+| where Operation in (sensitiveOps)
+| where ClientIP != "" and ClientIP != "null"
+| join kind=leftouter historicIPs on UserId
+| extend
+    IsNewUser = isnull(KnownIPs),
+    IsNewIP = isnull(KnownIPs) or not(set_has_element(KnownIPs, ClientIP))
+| where IsNewIP == true
+| summarize
+    DistinctOperations = dcount(Operation),
+    Operations = make_set(Operation, 20),
+    SiteUrls = make_set(SiteUrl, 10),
+    FileNames = make_set(SourceFileName, 10),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by UserId, ClientIP, IsNewUser
+| project
+    FirstSeen,
+    LastSeen,
+    UserId,
+    ClientIP,
+    IsNewUser,
+    DistinctOperations,
+    Operations,
+    SiteUrls,
+    FileNames
+| order by DistinctOperations desc, FirstSeen asc
