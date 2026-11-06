@@ -1743,6 +1743,147 @@
     }
    ],
    "kqlSearched": "2026-11-04"
+  },
+  {
+   "id": "artex-agentic-secret-abuse-2026-11",
+   "title": "ARTEX agentic AI framework hunts leaked app secrets on GitHub and turns them into service principal sign-ins, Key Vault exfiltration and Azure AI abuse",
+   "match": [
+    "ARTEX",
+    "agentic AI tooling"
+   ],
+   "areas": [
+    "Apps & OAuth",
+    "Identity attacks",
+    "M365 workloads"
+   ],
+   "status": "active",
+   "updated": "2026-11-06",
+   "by": "morning routine",
+   "summary": "Microsoft Threat Intelligence, which began seeing its GitHub secret searches in August 2026, describes an agentic AI offensive framework, ARTEX, that searches GitHub for leaked secrets tied to a target organization, cloud services or AI providers, then uses valid leaked application credentials to sign in as service principals to Entra ID tenants and connected Azure and Microsoft 365 resources. From there the agents harvest more credentials (storage keys, App Service settings, connection strings, publishing credentials, AKS credentials), read SharePoint, OneDrive and mailbox content, enumerate subscriptions and AI deployments, and exfiltrate Key Vault secrets. Failed Azure Resource Manager calls were corrected and retried within about a minute, and in one case the path from GitHub search to Key Vault exfiltration took five minutes. Microsoft names no Storm group and publishes no application IDs.",
+   "timeline": [
+    {
+     "date": "2026-10-28",
+     "text": "Earliest observed successful service principal sign-ins from 199.19.77[.]84 across multiple application IDs.",
+     "src": "Microsoft Security Blog"
+    },
+    {
+     "date": "2026-11-05",
+     "text": "Microsoft Security Blog publishes the analysis with IOCs, detections and five advanced hunting queries.",
+     "src": "Microsoft Security Blog"
+    }
+   ],
+   "rootCause": "Application secrets and API keys leaked in code repositories stayed valid; service principals holding them had broad Azure and Microsoft 365 reach and no Conditional Access for workload identities.",
+   "attacker": [
+    "GitHub searches combining the target organization name with secret, cloud-service or AI-provider keywords",
+    "Service principal sign-ins with leaked app credentials, mainly from 199.19.77[.]84 and the Tor exit node 199.19.77[.]18",
+    "Calls returning storage account keys, App Service settings, connection strings, publishing credentials, AI/ML datastores and AKS user credentials",
+    "SharePoint and OneDrive downloads, mailbox-item access and Microsoft Graph searches for content of interest",
+    "Enumeration of subscriptions, resource groups, permissions, AI model deployments and service configurations",
+    "Adaptive retries: HTTP 400 ARM requests corrected by API version or method and retried roughly 28, 60 and 80 seconds later",
+    "Tokens for a single-tenant OAuth app used to exfiltrate Key Vault secrets, search Azure DevOps for secrets and run Azure Run Command on VMs",
+    "Validation and possible abuse of compromised Azure AI services"
+   ],
+   "iocs": [
+    "199.19.77[.]84",
+    "199.19.77[.]18",
+    "65.87.223[.]26",
+    "157.22.126[.]128"
+   ],
+   "appsNote": "Microsoft names a multitenant application credential and a single-tenant OAuth application in the target organization but prints no application ID.",
+   "remediation": [
+    {
+     "text": "Block 199.19.77[.]84 as a named location in a Conditional Access policy for workload identities assigned to service principals, plus a user-scoped block policy; block the exact IP, not the whole ASN (workload identity policies need Workload ID Premium and cover single-tenant apps only).",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "contain"
+    },
+    {
+     "text": "For affected apps remove client secrets, certificates and federated credentials, including any the attacker added, and disable the service principal if needed; tokens already issued stay valid until they expire.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "contain"
+    },
+    {
+     "text": "Revoke Entra sessions, Azure DevOps PATs and SSH keys for affected users.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "contain"
+    },
+    {
+     "text": "Rotate every secret in any Key Vault the affected app could read, and credentials found in documents it accessed.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "eradicate"
+    },
+    {
+     "text": "Review service principal and non-interactive sign-in logs for both IPs, failures included; AADSTS7000215 or AADSTS7000222 followed by a success is urgent.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "investigate"
+    },
+    {
+     "text": "Review Azure Activity, Key Vault and Storage diagnostics, Entra audit, Azure DevOps audit and the Microsoft 365 unified audit log; check PAT creation and first use, federated service connections and pipeline changes.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "investigate"
+    },
+    {
+     "text": "Alert when one IP authenticates to three or more service principals with mixed results, or one app requests tokens for ARM, Key Vault, Storage and Graph within a short window.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "detect"
+    },
+    {
+     "text": "Enable Defender for Cloud plans for Resource Manager, Storage, Key Vault, App Service and Databases, apply least privilege to workload identities and move OAuth apps from secrets to managed identities.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "harden"
+    },
+    {
+     "text": "Turn on GitHub secret scanning with push protection for every organization repository and list the app registrations whose secrets appear in any scan result; rotate them before investigating further.",
+     "from": "ours",
+     "phase": "harden"
+    },
+    {
+     "text": "Inventory app registrations that still use client secrets and have Key Vault, Storage or Azure AI data-plane roles; put them first in the managed-identity migration.",
+     "from": "ours",
+     "phase": "harden"
+    }
+   ],
+   "microsoft": [
+    {
+     "what": "Threat intelligence analysis with IOCs, detections and five advanced hunting queries",
+     "title": "Threat actors use agentic AI tooling to find and abuse exposed secrets",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+     "date": "2026-11-05"
+    }
+   ],
+   "links": [
+    {
+     "text": "Microsoft Security Blog: Threat actors use agentic AI tooling to find and abuse exposed secrets",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
+     "date": "2026-11-05"
+    }
+   ],
+   "kqlSearched": "2026-11-06",
+   "apps": [
+    {
+     "name": "Multitenant application whose credential leaked",
+     "kind": "Other app in the tenant",
+     "did": "Its leaked credential was used for service principal sign-ins to Entra ID tenants and connected Azure and Microsoft 365 resources.",
+     "action": "Remove its client secrets, certificates and federated credentials, including attacker-added ones; disable the service principal if needed",
+     "src": "Microsoft Security Blog",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/"
+    },
+    {
+     "name": "Single-tenant OAuth application in the target organization",
+     "kind": "App registration",
+     "did": "The agents obtained tokens for it and used it to enumerate resources, exfiltrate Key Vault secrets, search Azure DevOps for secrets and use Azure Run Command on VMs.",
+     "action": "Remove its credentials, rotate every secret in the Key Vaults it could read, disable it if needed",
+     "src": "Microsoft Security Blog",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/"
+    }
+   ]
   }
  ]
 }
