@@ -1,7 +1,7 @@
 {
  "read": "2026-11-06",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 726,
+ "count": 723,
  "note": null,
  "messages": [
   {
@@ -1515,33 +1515,6 @@
     "What you need to do to prepare: Apply the Windows update released on or after January 13, 2026 to enable the mitigation and ensure that devices are secure."
    ],
    "bodyHash": "e61d3df7557a1b67"
-  },
-  {
-   "id": "MC1217640",
-   "title": "Microsoft Purview | Information Protection - Content Explorer: Unscanned data and Classification History summary metrics",
-   "services": [
-    "Microsoft 365 suite",
-    "Microsoft Purview"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-01-14",
-   "end": "2026-11-06",
-   "modified": "2026-11-04",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message"
-   ],
-   "summary": "Updated November 2, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. [Introduction] We’re enhancing Microsoft Purview Content Explorer with new summary metrics to improve visibility into scanning and classification activities. These updates will help admins identify unscanned files and monitor classification trends, enabling better data g…",
-   "when": "Public Preview: We have decided not to move forward with this change at this time. General Availability (Worldwide): We have decided not to move forward with this change at this time.",
-   "prepare": "No action is required. These metrics will automatically appear in Content Explorer. .",
-   "dates": [
-    "Updated November 2, 2026: We have decided not to move forward with this change at this time."
-   ],
-   "bodyHash": "38f32869d2cf3846"
   },
   {
    "id": "MC1217951",
@@ -5369,30 +5342,6 @@
     "Highlights for the Windows 11, version 25H2 update: This security update includes improvements that were a part of update KB5089573 (released May 26, 2026)."
    ],
    "bodyHash": "777eb343b0852dd5"
-  },
-  {
-   "id": "MC1385577",
-   "title": "Planned maintenance: Windows Autopatch service",
-   "services": [
-    "Windows Autopatch"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-09",
-   "end": "2026-11-06",
-   "modified": "2026-06-09",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "[What and Why] Planned maintenance for Windows Autopatch tenants is coming soon as part of ongoing security, reliability, and resiliency improvements to the service. You are receiving this message because your tenant might be included in this maintenance. [Rollout Schedule] Maintenance will only last about 2 hours. Different devices will undergo this maintenance between late June 2026 and the end …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Different devices will undergo this maintenance between late June 2026 and the end of September 2026."
-   ],
-   "bodyHash": "17ea53e2cc3d47e9"
   },
   {
    "id": "MC1385583",
@@ -14125,31 +14074,6 @@
     "What will happen: In November 2026, administrators can no longer add, remove, or modify Targeted release assignments."
    ],
    "bodyHash": "97f18f0d5d0dcf0b"
-  },
-  {
-   "id": "MC1490903",
-   "title": "'Record A Skill' Capability in PowerPoint Copilot",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-07",
-   "end": "2026-11-06",
-   "modified": "2026-10-07",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Microsoft is introducing a Record a Skill capability in Copilot for PowerPoint. This capability helps users create reusable skills by recording actions in PowerPoint, so they can more easily repeat common PowerPoint tasks with Copilot. Instead of manually recreating the same steps each time, users can record a workflow and use it as a repeatable skill. This can help users save time…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Rollout begins in early October 2026 and is expected to complete in early October 2026."
-   ],
-   "bodyHash": "e1ee6296349897ab"
   },
   {
    "id": "MC1490905",
@@ -25507,6 +25431,27 @@
    "id": "MC1540526",
    "type": "new",
    "title": "Microsoft Online Services Subprocessor Disclosure Update",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-06",
+   "id": "MC1217640",
+   "type": "removed",
+   "title": "Microsoft Purview | Information Protection - Content Explorer: Unscanned data and Classification History summary metrics",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-06",
+   "id": "MC1385577",
+   "type": "removed",
+   "title": "Planned maintenance: Windows Autopatch service",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-06",
+   "id": "MC1490903",
+   "type": "removed",
+   "title": "'Record A Skill' Capability in PowerPoint Copilot",
    "fields": {}
   }
  ]
