@@ -51,6 +51,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/secret-store-extens
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/secret-store-extension-troubleshooting
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-akv-secrets-provider
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops-argocd
+https://learn.microsoft.com/en-us/azure/azure-arc/kuber…
 https://learn.microsoft.com/en-us/azure/azure-arc/ku…
 https://learn.microsoft.com/en-us/azure/azure-arc/manage-agent-proxy-settings
 https://learn.microsoft.com/en-us/azure/azure-arc/multicloud-connector/multicloud-lifecycle-management
@@ -104,6 +105,7 @@ https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlog
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/usage
 https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/pri
 https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/private/github-local/github-local-overview
+https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/pri…
 https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/…
 https://learn.microsoft.com/en-us/azure/backup/whats-new
 https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets
@@ -142,6 +144,7 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/man
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/nutanix-bare-metal
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/reservati
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/reservation-exchange-policy-changes
+https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/reservati…
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/reserv…
 https://learn.microsoft.com/en-us/azure/cost-management-billing/savings-plan
 https://learn.microsoft.com/en-us/azure/cost-management-billing/savings-plan-overview
@@ -207,6 +210,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containe
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-databases-introduction
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-key-vault-introduction
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-servers-overview
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-sql-usage
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-storage-configure-malware-scan
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/connect-azure-environments-defender-portal
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/defender-for-cloud-defender-portal
@@ -219,6 +223,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/plan-
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-sensor-change-log
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/deploy-helm
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/disable-plans
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/disable-sql-on-machines
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/disable-vulnerability-findings-containers
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/enable-agentless-scanning-vms
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/enable-api-security-posture
@@ -271,6 +276,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/transition-disable-ru
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/transition-grouped-individual-recommendations
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/troubleshoot-sql-machines-guide
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-enable-servers-plan
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/update-defender-for-sql-extension
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/update-sql-machine-configuration
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/verify-machine-protection
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/verify-machine-protection-gov
@@ -400,6 +406,7 @@ https://learn.microsoft.com/en-us/azure/governance/resource-graph/changes/resour
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/changes/view-resource-changes
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/conc
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/concepts/guidance-for-throttled-requests
+https://learn.microsoft.com/en-us/azure/governance/resource-graph/conc…
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/c…
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/samples/advanced
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/samples/starter
@@ -505,6 +512,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines
 https://learn.microsoft.com/en-us/azure/virtual-machines/TOC
 https://learn.microsoft.com/en-us/azure/virtual-machines/attach-disk-portal
 https://learn.microsoft.com/en-us/azure/virtual-machines/automatic-vm-guest-patching
+https://learn.microsoft.com/en-us/azure/virtual-machines/availability
 https://learn.microsoft.com/en-us/azure/virtual-machines/boot-diagnostics
 https://learn.microsoft.com/en-us/azure/virtual-machines/capacity-reservation-associate-virtual-machine-scale-set
 https://learn.microsoft.com/en-us/azure/virtual-machines/capacity-reservation-associate-vm
@@ -519,7 +527,9 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/moderni
 https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/sku-lifecycle
 https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption-overview
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-enable-ultra-ssd
+https://learn.microsoft.com/en-us/azure/virtual-machines/disks-high-availability
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-instant-access-snapshots
+https://learn.microsoft.com/en-us/azure/virtual-machines/disks-redundancy
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared-enable
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-understand-billing
@@ -536,6 +546,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/linux/azure-hybrid-bene
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/azure-n-series-amd-gpu-driver-linux-installation-guide
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/endorsed-distros
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/n-series-driver-setup
+https://learn.microsoft.com/en-us/azure/virtual-machines/linux/tutorial-disaster-recovery
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/tutorial-manage-disks
 https://learn.microsoft.com/en-us/azure/virtual-machines/mdsv4-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/migration/sizes/previous-gen-series-capacity-limitations
@@ -544,6 +555,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/migration/sizes/sizes-v
 https://learn.microsoft.com/en-us/azure/virtual-machines/migration/sizes/sizes-v6-v7-migration-migrate
 https://learn.microsoft.com/en-us/azure/virtual-machines/migration/sizes/sizes-v6-v7-migration-plan
 https://learn.microsoft.com/en-us/azure/virtual-machines/ncads-h100-v5
+https://learn.microsoft.com/en-us/azure/virtual-machines/overview
 https://learn.microsoft.com/en-us/azure/virtual-machines/previous-gen-series-capacity-limitations
 https://learn.microsoft.com/en-us/azure/virtual-machines/restore-point-troubleshooting
 https://learn.microsoft.com/en-us/azure/virtual-machines/retirements-and-capacity-restrictions
@@ -613,6 +625,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/storage-optimized/laosv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/storage-optimized/lasv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/soft-delete-gallery
+https://learn.microsoft.com/en-us/azure/virtual-machines/trusted-launch-existing-vm
 https://learn.microsoft.com/en-us/azure/virtual-machines/use-premium-ssd-v2-with-availability-set
 https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-create-restore-points
 https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-create-restore-points-cli
@@ -621,5 +634,6 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/vm-applications
 https://learn.microsoft.com/en-us/azure/virtual-machines/vm-applications-create-app-scripts
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-amd-driver-setup
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-driver-setup
+https://learn.microsoft.com/en-us/azure/virtual-machines/windows/tutorial-disaster-recovery
 https://learn.microsoft.com/en-us/azure/virtual-machines/workloads/canonical/ubuntu-pro-in-place-scale-sets-upgrade
 https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/custom-rules-geo-based-ipv6

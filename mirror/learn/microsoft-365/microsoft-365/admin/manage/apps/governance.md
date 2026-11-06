@@ -303,7 +303,7 @@ Copilot Managed Runtime provides a separate control for externally built artifac
 
 ### External artifact deployment
 
-The **Allow external artifact deployment** setting controls whether developers can deploy artifacts built outside the Microsoft-managed build system. When it's on, [`ms app deploy --artifact <path>`](../../../managed-apps/developer/ms-cli-command-reference#ms-app-deploy) uploads and deploys an artifact without triggering a platform-managed build. When it's off, the CLI throws an error and directs the developer to contact an administrator.
+The **Allow external artifact deployment** setting controls whether developers can deploy artifacts built outside the Microsoft-managed build system. When it's on, [`ms app deploy --artifact <path>`](../../../copilot-managed-runtime/developer/apps/ms-cli-command-reference#ms-app-deploy) uploads and deploys an artifact without triggering a platform-managed build. When it's off, the CLI throws an error and directs the developer to contact an administrator.
 
 Important
 

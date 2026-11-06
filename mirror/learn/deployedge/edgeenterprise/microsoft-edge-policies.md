@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-10-27T00:00:00.0000000Z
+ms.date: 2026-11-04T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -58,15 +58,17 @@ This article applies to Microsoft Edge version 77 or later.
 
 ## New policies
 
-There are no new policies in Microsoft Edge version 158.
+There are no new policies in Microsoft Edge version 159.
 
-The following table lists the new policies for Microsoft Edge version 157.
+The following table lists the new policies for Microsoft Edge version 158.
 
 | Policy Name | Caption |
 | --- | --- |
-| [BlueprintGWAAvailability](microsoft-edge-policies/blueprintgwaavailability) | Control Blueprint GWA availability |
-| [CloudManagementEnrollmentToken](microsoft-edge-policies/cloudmanagementenrollmenttoken) | The enrollment token of cloud policy |
-| [CopilotOnSensitiveContentEnabled](microsoft-edge-policies/copilotonsensitivecontentenabled) | Allow Copilot to work on sensitive content in a protected session |
+| [AgentProfileEnabled](microsoft-edge-policies/agentprofileenabled) | Agent Profile Enabled |
+| [OutOfProcessSystemDnsResolutionEnabled](microsoft-edge-policies/outofprocesssystemdnsresolutionenabled) | Enable system DNS resolution outside of the network service |
+| [CommercialJourneysGetThingsDoneEnabled](microsoft-edge-policies/commercialjourneysgetthingsdoneenabled) | Enable Commercial Journeys (Get things done) in Microsoft Edge |
+| [CopilotBrowserUseAllowList](microsoft-edge-policies/copilotbrowseruseallowlist) | Allow Copilot browser use on specified URLs |
+| [CopilotBrowserUseBlockList](microsoft-edge-policies/copilotbrowseruseblocklist) | Block Copilot browser use on specified URLs |
 
 ## Deprecated policies
 
@@ -100,9 +102,14 @@ The following table lists all deprecated policies.
 
 ## Obsolete policies
 
-There are no obsoleted policies in Microsoft Edge version 158.
+There are no obsoleted policies in Microsoft Edge version 159.
 
-There are no obsoleted policies in Microsoft Edge version 157.
+The following table lists the obsoleted policies for Microsoft Edge version 158.
+
+| Policy Name | Caption |
+| --- | --- |
+| [BrowsingWithCopilotAllowList](microsoft-edge-policies/browsingwithcopilotallowlist) | Browsing with Copilot Allowed URLs (obsolete) |
+| [BrowsingWithCopilotBlockList](microsoft-edge-policies/browsingwithcopilotblocklist) | Browsing with Copilot Blocked URLs (obsolete) |
 
 ## Available policies
 
@@ -429,6 +436,7 @@ These tables list all of the browser-related group policies available in this re
 | Policy Name | Caption |
 | --- | --- |
 | [AllHttpAuthSchemesAllowedForOrigins](microsoft-edge-policies/allhttpauthschemesallowedfororigins) | List of origins that allow all HTTP authentication |
+| [AllHttpAuthSchemesAllowedForProxies](microsoft-edge-policies/allhttpauthschemesallowedforproxies) | List of proxy servers that allow all HTTP authentication schemes |
 | [AllowCrossOriginAuthPrompt](microsoft-edge-policies/allowcrossoriginauthprompt) | Allow cross-origin HTTP Authentication prompts |
 | [AuthAndroidNegotiateAccountType](microsoft-edge-policies/authandroidnegotiateaccounttype) | Account type for HTTP Negotiate authentication |
 | [AuthNegotiateDelegateAllowlist](microsoft-edge-policies/authnegotiatedelegateallowlist) | Specifies a list of servers that Microsoft Edge can delegate user credentials to |
@@ -446,6 +454,7 @@ These tables list all of the browser-related group policies available in this re
 
 | Policy Name | Caption |
 | --- | --- |
+| [AgentProfileEnabled](microsoft-edge-policies/agentprofileenabled) | Agent Profile Enabled |
 | [AutomaticProfileSwitchingSiteList](microsoft-edge-policies/automaticprofileswitchingsitelist) | Configure the automatic profile switching site list |
 | [EdgeBlockSignInEnabled](microsoft-edge-policies/edgeblocksigninenabled) | Block Sign In to Edge |
 | [EdgeDefaultProfileEnabled](microsoft-edge-policies/edgedefaultprofileenabled) | Default Profile Setting Enabled |
@@ -607,6 +616,7 @@ These tables list all of the browser-related group policies available in this re
 | [LoopbackNetworkAllowedForUrls](microsoft-edge-policies/loopbacknetworkallowedforurls) | Allow sites to make network requests to the local device. |
 | [LoopbackNetworkBlockedForUrls](microsoft-edge-policies/loopbacknetworkblockedforurls) | Block sites from making network requests to the local device. |
 | [NetworkPredictionOptions](microsoft-edge-policies/networkpredictionoptions) | Enable network prediction |
+| [OutOfProcessSystemDnsResolutionEnabled](microsoft-edge-policies/outofprocesssystemdnsresolutionenabled) | Enable system DNS resolution outside of the network service |
 | [QuicAllowed](microsoft-edge-policies/quicallowed) | Allow QUIC protocol |
 | [ZstdContentEncodingEnabled](microsoft-edge-policies/zstdcontentencodingenabled) | Enable zstd content encoding support (obsolete) |
 
@@ -890,8 +900,8 @@ These tables list all of the browser-related group policies available in this re
 | [BrowserNetworkTimeQueriesEnabled](microsoft-edge-policies/browsernetworktimequeriesenabled) | Allow queries to a Browser Network Time service |
 | [BrowserSignin](microsoft-edge-policies/browsersignin) | Browser sign-in settings |
 | [BrowsingDataLifetime](microsoft-edge-policies/browsingdatalifetime) | Browsing Data Lifetime Settings |
-| [BrowsingWithCopilotAllowList](microsoft-edge-policies/browsingwithcopilotallowlist) | Browsing with Copilot Allowed URLs |
-| [BrowsingWithCopilotBlockList](microsoft-edge-policies/browsingwithcopilotblocklist) | Browsing with Copilot Blocked URLs |
+| [BrowsingWithCopilotAllowList](microsoft-edge-policies/browsingwithcopilotallowlist) | Browsing with Copilot Allowed URLs (obsolete) |
+| [BrowsingWithCopilotBlockList](microsoft-edge-policies/browsingwithcopilotblocklist) | Browsing with Copilot Blocked URLs (obsolete) |
 | [BuiltInAIAPIsEnabled](microsoft-edge-policies/builtinaiapisenabled) | Allow pages to use the built-in AI APIs. |
 | [BuiltinCertificateVerifierEnabled](microsoft-edge-policies/builtincertificateverifierenabled) | Determines whether the built-in certificate verifier will be used to verify server certificates (obsolete) |
 | [CECPQ2Enabled](microsoft-edge-policies/cecpq2enabled) | CECPQ2 post-quantum key-agreement enabled for TLS (obsolete) |
@@ -907,6 +917,7 @@ These tables list all of the browser-related group policies available in this re
 | [CommandLineFlagSecurityWarningsEnabled](microsoft-edge-policies/commandlineflagsecuritywarningsenabled) | Enable security warnings for command-line flags |
 | [CommercialJourneysGetThingsDoneEnabled](microsoft-edge-policies/commercialjourneysgetthingsdoneenabled) | Enable Commercial Journeys (Get things done) in Microsoft Edge |
 | [ComponentUpdatesEnabled](microsoft-edge-policies/componentupdatesenabled) | Enable component updates in Microsoft Edge |
+| [ComponentUpdatesMode](microsoft-edge-policies/componentupdatesmode) | Configure component updates |
 | [ComposeInlineEnabled](microsoft-edge-policies/composeinlineenabled) | Control access to Microsoft 365 Copilot writing assistance in Microsoft Edge for Business |
 | [ConfigureDoNotTrack](microsoft-edge-policies/configuredonottrack) | Configure Do Not Track |
 | [ConfigureFriendlyURLFormat](microsoft-edge-policies/configurefriendlyurlformat) | Configure the default paste format of URLs copied from Microsoft Edge, and determine if additional formats will be available to users |
@@ -916,6 +927,8 @@ These tables list all of the browser-related group policies available in this re
 | [ConfigureShare](microsoft-edge-policies/configureshare) | Configure the Share experience |
 | [ConfigureViewInFileExplorer](microsoft-edge-policies/configureviewinfileexplorer) | Configure the View in File Explorer feature for SharePoint pages in Microsoft Edge |
 | [CopilotAddressBarSuggestionsEnabled](microsoft-edge-policies/copilotaddressbarsuggestionsenabled) | Enable Copilot address bar suggestions |
+| [CopilotBrowserUseAllowList](microsoft-edge-policies/copilotbrowseruseallowlist) | Allow Copilot browser use on specified URLs |
+| [CopilotBrowserUseBlockList](microsoft-edge-policies/copilotbrowseruseblocklist) | Block Copilot browser use on specified URLs |
 | [CopilotCoworkToolActionsEnabled](microsoft-edge-policies/copilotcoworktoolactionsenabled) | Allow Cowork to take actions on your behalf |
 | [CopilotNewTabPageEnabled](microsoft-edge-policies/copilotnewtabpageenabled) | Enable the Copilot new tab page |
 | [CopilotOnSensitiveContentEnabled](microsoft-edge-policies/copilotonsensitivecontentenabled) | Allow Copilot to work on sensitive content in a protected session |

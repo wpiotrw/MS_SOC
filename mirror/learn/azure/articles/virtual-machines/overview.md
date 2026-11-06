@@ -1,0 +1,239 @@
+---
+layout: Conceptual
+title: Overview of virtual machines in Azure - Azure Virtual Machines | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/azure/virtual-machines/overview
+breadcrumb_path: ../breadcrumb/azure-compute/toc.json
+feedback_help_link_url: https://learn.microsoft.com/answers/tags/94/azure-virtual-machines/
+feedback_help_link_type: get-help-at-qna
+feedback_product_url: https://feedback.azure.com/d365community/forum/ec2f1827-be25-ec11-b6e6-000d3a4f0f1c
+feedback_system: Standard
+permissioned-type: public
+recommendations: true
+recommendation_types:
+- Training
+- Certification
+uhfHeaderId: azure
+ms.suite: office
+author: mattmcinnes
+learn_banner_products:
+- azure-virtual-machines
+manager: rayoflores
+ms.reviewer: wwilliams
+ms.author: mattmcinnes
+ms.update-cycle: 1095-days
+ms.service: azure-virtual-machines
+description: Overview of virtual machines in Azure.
+ms.collection: linux
+ms.topic: overview
+ms.date: 2026-10-20T00:00:00.0000000Z
+ai-usage: ai-assisted
+locale: en-us
+document_id: b2eb34ae-f745-6449-ec8f-a1892bf26a20
+document_version_independent_id: 32d7726d-0fa3-d21b-2b67-054ecf5f6c31
+original_content_git_url: https://github.com/MicrosoftDocs/azure-compute-docs-pr/blob/live/articles/virtual-machines/overview.md
+site_name: Docs
+depot_name: Learn.azure-compute
+page_type: conceptual
+toc_rel: toc.json
+asset_id: virtual-machines/overview
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: articles/virtual-machines/overview.md
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2ed91286-6cf7-4b83-810d-75d0ee3b09dd
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/6735bd7e-4f7b-457d-b58c-29e6f0198677
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+platformId: 181648e9-e34d-8e04-f5a1-4f59f2b85998
+---
+
+# Overview of virtual machines in Azure - Azure Virtual Machines | Microsoft Learn
+
+**Applies to:** ✔️ Linux VMs ✔️ Windows VMs ✔️ Flexible scale sets
+
+Azure virtual machines (VMs) are one of several types of [on-demand, scalable computing resources](/en-us/azure/architecture/guide/technology-choices/compute-decision-tree) that Azure offers. Typically, you choose a virtual machine when you need more control over the computing environment than the other choices offer. This article gives you information about what you should consider before you create a virtual machine, how you create it, and how you manage it.
+
+An Azure virtual machine gives you the flexibility of virtualization without having to buy and maintain the physical hardware that runs it. However, you still need to maintain the virtual machine by performing tasks, such as configuring, patching, and installing the software that runs on it.
+
+Azure virtual machines can be used in various ways. Some examples are:
+
+- **Development and test** – Azure virtual machines offer a quick and easy way to create a computer with specific configurations required to code and test an application.
+- **Applications in the cloud** – Because demand for your application can fluctuate, it might make economic sense to run it on a virtual machine in Azure. You pay for extra virtual machines when you need them and shut them down when you don’t.
+- **Extended datacenter** – virtual machines in an Azure virtual network can easily be connected to your organization’s network.
+
+## What do I need to think about before creating a virtual machine?
+
+There's always a multitude of [design considerations](/en-us/azure/architecture/reference-architectures/n-tier/linux-vm) when you build out an application infrastructure in Azure. These aspects of a virtual machine are important to think about before you start:
+
+- The names of your resources
+- The location where the resources are stored
+- The size of the virtual machine
+- The maximum number of virtual machines that can be created
+- The operating system that the virtual machine runs
+- The configuration of the virtual machine after it starts
+- The related resources that the virtual machine needs
+
+Note
+
+Trusted Launch as default (TLaD) is generally available for new [Generation 2](generation-2) Virtual machines (VMs). With TLaD, any new Generation 2 VMs created through any client tools default to [Trusted Launch](trusted-launch) with secure boot and vTPM enabled. [Register for the TLaD](trusted-launch#general-availability-trusted-launch-as-default) to implement the default changes in your respective environment(s).
+
+## Parts of a VM and how they're billed
+
+When you create a virtual machine, you're also creating resources that support the virtual machine. These resources come with their own costs that should be considered.
+
+The default resources supporting a virtual machine and how they're billed are detailed in the following table:
+
+| Resource | Description | Cost |
+| --- | --- | --- |
+| Virtual network | For giving your virtual machine the ability to communicate with other resources | [Virtual Network pricing](https://azure.microsoft.com/pricing/details/virtual-network/) |
+| A virtual Network Interface Card (NIC) | For connecting to the virtual network | There's no separate cost for NICs. However, there's a limit to how many NICs you can use based on your [VM's size](sizes). Size your VM accordingly and reference [Virtual Machine pricing](https://azure.microsoft.com/pricing/details/virtual-machines/linux/). |
+| A private IP address and sometimes a public IP address. | For communication and data exchange on your network and with external networks | [IP Addresses pricing](https://azure.microsoft.com/pricing/details/ip-addresses/) |
+| Network security group (NSG) | For managing the network traffic to and from your VM. For example, you might need to open port 22 for SSH access, but you might want to block traffic to port 80. Blocking and allowing port access is done through the NSG. | There are no additional charges for network security groups in Azure. |
+| OS Disk and possibly separate disks for data. | It's a best practice to keep your data on a separate disk from your operating system, in case you ever have a VM fail, you can detach the data disk, and attach it to a new VM. | All new virtual machines have an operating system disk and a local disk.  Azure doesn't charge for local disk storage.  The operating system disk, which is usually 127GiB but is smaller for some images, is charged at the [regular rate for disks](https://azure.microsoft.com/pricing/details/managed-disks/).  You can see the cost for attach Premium (SSD based) and Standard (HDD) based disks to your virtual machines on the [managed disks pricing page](https://azure.microsoft.com/pricing/details/managed-disks/). |
+| In some cases, a license for the OS | For providing your virtual machine runs to run the OS | The cost varies based on the number of cores on your VM, so [size your VM accordingly](sizes). The cost can be reduced through the [Azure Hybrid Benefit](https://azure.microsoft.com/pricing/hybrid-benefit/#overview). |
+
+You can also choose to have Azure can create and store public and private SSH keys - Azure uses the public key in your VM and you use the private key when you access the VM over SSH. Otherwise, you need a username and password.
+
+By default, these resources are created in the same resource group as the VM.
+
+### Locations
+
+There are multiple [geographical regions](https://azure.microsoft.com/regions/) around the world where you can create Azure resources. Usually, the region is called **location** when you create a virtual machine. For a virtual machine, the location specifies where the virtual hard disks are stored.
+
+This table shows some of the ways you can get a list of available locations.
+
+| Method | Description |
+| --- | --- |
+| Azure portal | Select a location from the list when you create a virtual machine. |
+| Azure PowerShell | Use the [Get-AzLocation](/en-us/powershell/module/az.resources/get-azlocation) command. |
+| REST API | Use the [List locations](/en-us/rest/api/resources/subscriptions) operation. |
+| Azure CLI | Use the [az account list-locations](/en-us/cli/azure/account) operation. |
+
+## Availability
+
+There are multiple options to manage the availability of your virtual machines in Azure.
+
+- **[Availability Zones](/en-us/azure/reliability/availability-zones-overview)** are physically separated zones within an Azure region. Availability zones guarantee virtual machine connectivity to at least one instance at least 99.99% of the time when you have two or more instances deployed across two or more Availability Zones in the same Azure region.
+- **[Virtual Machine Scale Sets](../virtual-machine-scale-sets/overview)** let you create and manage a group of load balanced virtual machines. The number of virtual machine instances can automatically increase or decrease in response to demand or a defined schedule. Scale sets provide high availability to your applications, and allow you to centrally manage, configure, and update many virtual machines. Virtual machines in a scale set can also be deployed into multiple availability zones, a single availability zone, or regionally.
+
+For more information, see [Availability options for Azure virtual machines](availability) and [SLA for Azure virtual machines](https://azure.microsoft.com/support/legal/sla/virtual-machines/v1_9/).
+
+## Sizes and pricing
+
+The [size](sizes) of the virtual machine that you use is determined by the workload that you want to run. The size that you choose then determines factors such as processing power, memory, storage capacity, and network bandwidth. Azure offers a wide variety of sizes to support many types of uses.
+
+Azure charges an [hourly price](https://azure.microsoft.com/pricing/details/virtual-machines/linux/) based on the virtual machine’s size and operating system. For partial hours, Azure charges only for the minutes used. Storage is priced and charged separately.
+
+## Scaling to multiple VMs
+
+The number of virtual machines that your application uses can scale up and out to whatever is required to meet your needs. Azure offers several automatic scaling systems and instance types based on the size of your workload. For more information on scaling, [compare VM-based compute products.](compare-compute-products)
+
+## Virtual machine total core limits
+
+Your subscription has default [quota limits](/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits) in place that could impact the deployment of many virtual machines for your project. The current limit on a per subscription basis is 20 virtual machine total cores per region. Limits can be raised by [filing a support ticket requesting an increase](/en-us/azure/azure-portal/supportability/regional-quota-requests) Quota and capacity are checked separately during deployment. Even with approved quota, deployment can still fail if there isn't enough capacity in the target region or availability zone.
+
+## Managed disks
+
+Managed disks handles Azure Storage account creation and management in the background for you, and ensures that you don't have to worry about the scalability limits of the storage account. You specify the disk size and the performance tier (Standard or Premium), and Azure creates and manages the disk. As you add disks or scale the virtual machine up and down, you don't have to worry about the storage being used. If you're creating new virtual machines, [use the Azure CLI](linux/quick-create-cli) or the Azure portal to create virtual machines with Managed OS and data disks. If you have virtual machines with unmanaged disks, you can [convert your virtual machines to be backed with managed disks](linux/convert-unmanaged-to-managed-disks).
+
+You can also manage your custom images in one storage account per Azure region, and use them to create hundreds of virtual machines in the same subscription. For more information about managed disks, see the [managed disks Overview](managed-disks-overview).
+
+## Distributions
+
+Microsoft Azure supports various Linux and Windows distributions. You can find available distributions in the [marketplace](https://azuremarketplace.microsoft.com), Azure portal or by querying results using CLI, PowerShell, and REST APIs.
+
+This table shows some ways that you can find the information for an image.
+
+| Method | Description |
+| --- | --- |
+| Azure portal | The values are automatically specified for you when you select an image to use. |
+| Azure PowerShell | [Get-AzVMImagePublisher](/en-us/powershell/module/az.compute/get-azvmimagepublisher) -Location *location*[Get-AzVMImageOffer](/en-us/powershell/module/az.compute/get-azvmimageoffer) -Location *location* -Publisher *publisherName*[Get-AzVMImageSku](/en-us/powershell/module/az.compute/get-azvmimagesku) -Location *location* -Publisher *publisherName* -Offer *offerName* |
+| REST APIs | [List image publishers](/en-us/rest/api/compute/platformimages/platformimages-list-publishers)[List image offers](/en-us/rest/api/compute/platformimages/platformimages-list-publisher-offers)[List image skus](/en-us/rest/api/compute/platformimages/platformimages-list-publisher-offer-skus) |
+| Azure CLI | [az vm image list-publishers](/en-us/cli/azure/vm/image) --location *location*[az vm image list-offers](/en-us/cli/azure/vm/image) --location *location* --publisher *publisherName*[az vm image list-skus](/en-us/cli/azure/vm) --location *location* --publisher *publisherName* --offer *offerName* |
+
+Microsoft works closely with partners to ensure the images available are updated and optimized for an Azure runtime. For more information on Azure partner offers, see the [Azure Marketplace](https://azuremarketplace.microsoft.com/marketplace/apps?filters=partners%3Bvirtual-machine-images&amp;page=1)
+
+## Cloud-init
+
+Azure supports for [cloud-init](https://cloud-init.io/) across most Linux distributions that support it. We're actively working with our Linux partners to make cloud-init enabled images available in the Azure Marketplace. These images make your cloud-init deployments and configurations work seamlessly with virtual machines and virtual machine scale sets.
+
+For more information, see [Using cloud-init on Azure Linux virtual machines](linux/using-cloud-init).
+
+## Storage
+
+- [Introduction to Microsoft Azure Storage](/en-us/azure/storage/common/storage-introduction)
+- [Add a disk to a Linux virtual machine using the azure-cli](linux/add-disk)
+- [How to attach a data disk to a Linux virtual machine in the Azure portal](/en-us/azure/virtual-machines/linux/attach-disk-portal)
+
+### Local temporary storage
+
+Some Azure VM sizes include local temporary ephemeral storage, with some of the newer sizes using [Temporary local NVMe disks](enable-nvme-temp-faqs). Local temporary storage uses additional disks provisioned directly as local storage to an Azure virtual machine host, rather than on remote Azure Storage. This type of storage is best suited for data that does not need to be retained permanently, such as caches, buffers, and temporary files. Since data stored on these disks isn't backed up, it's lost when the VM is deallocated or deleted. The ephemeral storage is recreated on startup. Local ephemeral disks are different from [Ephemeral OS disks](ephemeral-os-disks#local-temporary-storage).
+
+Local temporary disks present just like other remote storage such as Premium SSD v2 disks, but have added performance benefits and don't count against the IOPS and throughput limits of the VM.
+
+The following lists key characteristics of local ephemeral storage:
+
+- **Ultra-low latency**: Read/write operations occur on hardware physically co-located with the VM's compute resources, minimizing network hops and enabling sub-millisecond response times.
+- **Superior IOPS and throughput**: Performance scales with the underlying local storage, often delivering 8-10 times higher IOPS than Standard HDDs when using Premium SSD as the base, with limits tied to the VM size (up to the NVMe disk capacity, capped at 2,040 GiB).
+
+Azure VM sizes featuring a 'd' in their naming convention - such as the Da***d***sv6, Ea***d***sv6, and FXm***d***sv2 series - include dedicated local NVMe storage. These sizes enable placing temporary files, swap space, or high-I/O components like SQL Server's `tempdb` database files on the ephemeral disk for enhanced performance.
+
+## Networking
+
+- [Virtual Network Overview](/en-us/azure/virtual-network/virtual-networks-overview)
+- [IP addresses in Azure](/en-us/azure/virtual-network/ip-services/public-ip-addresses)
+- [Opening ports to a Linux virtual machine in Azure](linux/nsg-quickstart)
+- [Create a Fully Qualified Domain Name in the Azure portal](create-fqdn)
+
+## Service disruptions
+
+At Microsoft, we work hard to make sure that our services are always available to you when you need them. Forces beyond our control sometimes impact us in ways that cause unplanned service disruptions.
+
+Microsoft provides a Service Level Agreement (SLA) for its services as a commitment for uptime and connectivity. The SLA for individual Azure services can be found at [Azure Service Level Agreements](https://azure.microsoft.com/support/legal/sla/).
+
+Azure already has many built-in platform features that support highly available applications. For more about these services, read [Disaster recovery and high availability for Azure applications](/en-us/azure/architecture/framework/resiliency/backup-and-recovery).
+
+### Zone failures
+
+For high availability during a zone failure, deploy multiple VMs across availability zones and configure application replication and traffic routing. For supported configurations, [Azure Site Recovery zone-to-zone disaster recovery](/en-us/azure/site-recovery/azure-to-azure-how-to-enable-zone-to-zone-disaster-recovery) provides another recovery option within a region.
+
+[Zone resilience for Azure VMs (Preview)](zone-resilience) lets you initiate failover of an eligible standalone zonal VM to another availability zone in the same region. The VM retains its resource identity and supported configuration.
+
+Important
+
+Zone resilience for Azure VMs is in preview. Use this preview only for evaluation and testing with nonproduction VMs. Don't use it for production VMs. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
+
+See the [preview limitations](zone-resilience#limitations).
+
+### Region-wide failures
+
+A whole region can experience an outage due to a major natural disaster or widespread service interruption. These outages are rare, but you must prepare for the possibility that an entire region is unavailable. If an entire region experiences a service disruption, the locally redundant copies of your data are temporarily unavailable. If you enabled geo-replication, three additional copies of your Azure Storage blobs and tables are stored in a different region. In the event of a complete regional outage or a disaster in which the primary region isn't recoverable, Azure remaps all of the DNS entries to the geo-replicated region.
+
+In the case of a service disruption of the entire region where your Azure virtual machine application is deployed, we provide the following guidance for Azure virtual machines.
+
+#### Option 1: Initiate a failover by using Azure Site Recovery
+
+You can configure Azure Site Recovery for your VMs so that you can recover your application with a single click in matter of minutes. You can replicate to Azure region of your choice and not restricted to paired regions. You can get started by [replicating your virtual machines](/en-us/azure/site-recovery/azure-to-azure-quickstart). You can [create a recovery plan](/en-us/azure/site-recovery/site-recovery-create-recovery-plans) so that you can automate the entire failover process for your application. You can [test your failovers](/en-us/azure/site-recovery/site-recovery-test-failover-to-azure) beforehand without impacting production application or the ongoing replication. In the event of a primary region disruption, you just [initiate a failover](/en-us/azure/site-recovery/site-recovery-failover) and bring your application in target region.
+
+#### Option 2: Wait for recovery
+
+In this case, no action on your part is required. Know that we're working diligently to restore service availability. You can see the current service status on our [Azure Service Health Dashboard](https://azure.microsoft.com/status/).
+
+This option is the best if you don't set up Azure Site Recovery, read-access geo-redundant storage, or geo-redundant storage prior to the disruption. If you set up geo-redundant storage or read-access geo-redundant storage for the storage account where your VM virtual hard drives (VHDs) are stored, you can look to recover the base image VHD and try to provision a new VM from it. This option isn't preferred because there are no guarantees of synchronization of data, which means this option isn't guaranteed to work.
+
+Note
+
+Be aware that you don't have any control over this process, and it will only occur for region-wide service disruptions. Because of this, you must also rely on other application-specific backup strategies to achieve the highest level of availability. For more information, see the section on [Data strategies for disaster recovery](/en-us/azure/architecture/reliability/disaster-recovery#disaster-recovery-plan).
+
+### Resources for service disruptions
+
+- Start [protecting your applications running on Azure virtual machines](/en-us/azure/site-recovery/azure-to-azure-quickstart) using Azure Site Recovery
+- To learn more about how to implement a disaster recovery and high availability strategy, see [Disaster recovery and high availability for Azure applications](/en-us/azure/architecture/framework/resiliency/backup-and-recovery).
+- To develop a detailed technical understanding of a cloud platform’s capabilities, see [Azure resiliency technical guidance](/en-us/azure/data-lake-store/data-lake-store-disaster-recovery-guidance).
+- If the instructions aren't clear, or if you would like Microsoft to do the operations on your behalf, contact [Customer Support](https://portal.azure.com/#blade/Microsoft_Azure_Support/HelpAndSupportBlade).
+
+## Data residency
+
+In Azure, the feature to enable storing customer data in a single region is currently only available in the Southeast Asia Region (Singapore) of the Asia Pacific Geo and Brazil South (Sao Paulo State) Region of Brazil Geo. For all other regions, customer data is stored in Geo. For more information, see [Trust Center](https://azure.microsoft.com/global-infrastructure/data-residency/).

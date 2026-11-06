@@ -19,7 +19,7 @@ f1.keywords:
 ms.author: mkaur
 author: mduelae
 manager: tapanm
-ms.date: 2026-09-28T00:00:00.0000000Z
+ms.date: 2026-11-05T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: how-to
@@ -481,6 +481,10 @@ Note
 The first time you invoke the server, you might be prompted to complete a one-time connection setup. Follow the provided URL to create the required connection, such as entering your API key for an `APIKey`-based server. When you finish, return to your agent and retry the prompt. After a successful invocation, the MCP server returns the tool output.
 
 Learn how to invoke approved BYO MCP servers from Claude Code, VS Code, and GitHub Copilot CLI in the [Set up Work IQ MCP Servers for coding agents](../add-mcp-tools-developer-experiences#connect-mcp-servers-to-developer-clients) section of the Work IQ MCP overview.
+
+Note
+
+Work IQ MCP provides tenant-level policy controls that help administrators govern how agents access and act on Microsoft 365 resources. To learn how to configure these controls, see [Policy governance for Work IQ MCP](/en-us/microsoft-365/copilot/extensibility/work-iq/mcp/policy-governance-mcp).
 
 ## Monitor and observe MCP server activity
 

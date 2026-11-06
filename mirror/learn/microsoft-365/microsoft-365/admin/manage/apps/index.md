@@ -44,8 +44,12 @@ item_type: Content
 source_path: microsoft-365/admin/manage/apps/index.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c389ea6b-b6a0-46df-93a1-1e21f25e19e7
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/19ada1b6-705b-4ed7-aad0-bffd1bd03dfa
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 platformId: f28e2172-f4f2-59dc-d9d2-58940d969e3d
 ---
 
@@ -66,7 +70,7 @@ Copilot Managed Runtime brings three audiences together around the same governed
 - **Makers and developers** build apps using tools and languages they already know.
 - **Administrators** govern apps across the tenant.
 
-To learn how people create apps across Cowork, Copilot Studio, and the CLI, see [What is Copilot Managed Runtime (preview)](../../../managed-apps/).
+To learn how people create apps across Cowork, Copilot Studio, and the CLI, see [What is Copilot Managed Runtime (preview)](../../../copilot-managed-runtime/).
 
 ## Key features
 
@@ -234,9 +238,9 @@ For detailed requirements and configuration guidance, see:
 ## Related information
 
 - [FAQ about Microsoft Copilot Managed Runtime (preview)](faq-about-apps)
-- [Create and manage apps across Microsoft 365 (preview)](../../../managed-apps/)
-- [Copilot Managed Runtime SDK overview (preview)](../../../managed-apps/developer/)
-- [Quickstart: Create an app with the CLI](../../../managed-apps/developer/quickstart-managed-apps-cli)
-- [Quickstart: Build an app with GitHub Copilot or Claude Code](../../../managed-apps/developer/quickstart-github-copilot)
+- [Create and manage apps across Microsoft 365 (preview)](../../../copilot-managed-runtime/)
+- [Copilot Managed Runtime SDK overview (preview)](../../../copilot-managed-runtime/developer/apps/)
+- [Quickstart: Create an app with the CLI](../../../copilot-managed-runtime/developer/apps/quickstart-managed-apps-cli)
+- [Quickstart: Build an app with GitHub Copilot or Claude Code](../../../copilot-managed-runtime/developer/apps/quickstart-github-copilot)
 - [Govern apps in Copilot Managed Runtime at scale](governance)
 - [Apps in Microsoft Copilot Studio (preview)](/en-us/microsoft-copilot-studio/apps-experience/apps-overview)

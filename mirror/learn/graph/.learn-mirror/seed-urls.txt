@@ -17,6 +17,7 @@ https://learn.microsoft.com/en-us/graph/api/entrarecoveryservices-snapshot-post-
 https://learn.microsoft.com/en-us/graph/api/filestoragecontainer-transferprincipalownership
 https://learn.microsoft.com/en-us/graph/api/impactedresource-addtag
 https://learn.microsoft.com/en-us/graph/api/impactedresource-removetag
+https://learn.microsoft.com/en-us/graph/api/permission-revokegrants
 https://learn.microsoft.com/en-us/graph/api/recommendation-addtag
 https://learn.microsoft.com/en-us/graph/api/recommendation-removetag
 https://learn.microsoft.com/en-us/graph/api/remotetena
@@ -48,8 +49,10 @@ https://learn.microsoft.com/en-us/graph/api/resources/clientcredentialauthentica
 https://learn.microsoft.com/en-us/graph/api/resources/cloudpc
 https://learn.microsoft.com/en-us/graph/api/resources/cloudpcprovisioningpolicy
 https://learn.microsoft.com/en-us/graph/api/resources/contentactivity
+https://learn.microsoft.com/en-us/graph/api/resources/deleteditemcontainer
 https://learn.microsoft.com/en-us/graph/api/resources/device
 https://learn.microsoft.com/en-us/graph/api/resources/directory
+https://learn.microsoft.com/en-us/graph/api/resources/directoryRoleManagementDeletedItemContainer
 https://learn.microsoft.com/en-us/graph/api/resources/directoryrolemanagementdeleteditemcontainer
 https://learn.microsoft.com/en-us/graph/api/resources/distributionlist
 https://learn.microsoft.com/en-us/graph/api/resources/embeddinginput
@@ -58,12 +61,15 @@ https://learn.microsoft.com/en-us/graph/api/resources/entrarecoveryservices-back
 https://learn.microsoft.com/en-us/graph/api/resources/entrarecoveryservices-recovery
 https://learn.microsoft.com/en-us/graph/api/resources/enums
 https://learn.microsoft.com/en-us/graph/api/resources/enums-security
+https://learn.microsoft.com/en-us/graph/api/resources/errorsettings
 https://learn.microsoft.com/en-us/graph/api/resources/evaluationerrordetail
+https://learn.microsoft.com/en-us/graph/api/resources/evaluationincompleteactivitymetadata
 https://learn.microsoft.com/en-us/graph/api/resources/exchangemessagetrace
 https://learn.microsoft.com/en-us/graph/api/resources/externaloriginresourceconnector
 https://learn.microsoft.com/en-us/graph/api/resources/externalsapacconnectioninfo
 https://learn.microsoft.com/en-us/graph/api/resources/federatedtokenvalidationpolicy
 https://learn.microsoft.com/en-us/graph/api/resources/fido2authenticationmethod
+https://learn.microsoft.com/en-us/graph/api/resources/filestoragecontainercustompropertyvalue
 https://learn.microsoft.com/en-us/graph/api/resources/group
 https://learn.microsoft.com/en-us/graph/api/resources/groupresource
 https://learn.microsoft.com/en-us/graph/api/resources/identitygovernance-lifecyclepolicy
@@ -72,6 +78,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/identitygovernance-timebas
 https://learn.microsoft.com/en-us/graph/api/resources/list
 https://learn.microsoft.com/en-us/graph/api/resources/m365capabilitybase
 https://learn.microsoft.com/en-us/graph/api/resources/mailboxFolder
+https://learn.microsoft.com/en-us/graph/api/resources/mailboxfolder
 https://learn.microsoft.com/en-us/graph/api/resources/microsoftappsfilestoragecontainerusage
 https://learn.microsoft.com/en-us/graph/api/resources/onlineMeetingBase
 https://learn.microsoft.com/en-us/graph/api/resources/onpasswordupdatecustomextension
@@ -81,6 +88,8 @@ https://learn.microsoft.com/en-us/graph/api/resources/planner
 https://learn.microsoft.com/en-us/graph/api/resources/policyscopebase
 https://learn.microsoft.com/en-us/graph/api/resources/privilegedaccessgroup
 https://learn.microsoft.com/en-us/graph/api/resources/processcontentmetadatabase
+https://learn.microsoft.com/en-us/graph/api/resources/provisionresponse
+https://learn.microsoft.com/en-us/graph/api/resources/relatedPerson
 https://learn.microsoft.com/en-us/graph/api/resources/resourceaccountkeyauthenticationmethod
 https://learn.microsoft.com/en-us/graph/api/resources/rolemanagementcustomcalloutextension
 https://learn.microsoft.com/en-us/graph/api/resources/security
@@ -112,6 +121,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/tenantgovernanceservices-a
 https://learn.microsoft.com/en-us/graph/api/resources/unifiedroot
 https://learn.microsoft.com/en-us/graph/api/resources/voiceauthenticationmethodconfiguration
 https://learn.microsoft.com/en-us/graph/api/resources/x509certificateauthenticationmethodconfiguration
+https://learn.microsoft.com/en-us/graph/api/resources/x509certificateauthenticationmetho…
 https://learn.microsoft.com/en-us/graph/api/re…
 https://learn.microsoft.com/en-us/graph/api/security-alert-createalert
 https://learn.microsoft.com/en-us/graph/api/security-alert-movealerts

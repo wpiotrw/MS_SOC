@@ -115,7 +115,7 @@ Administrators can block or delete an app and restrict connectors or connector a
 
 Yes. You can share an app directly with specific users or groups, including Microsoft Entra security groups, or through a **People in your organization** link. Direct sharing supports multiple recipients.
 
-Sharing grants access to the app, but it doesn't grant access to the app's underlying data. Recipients still need the appropriate source permissions and connections. You can revoke direct access or a sharing link later. For more information, see [Share your app](../../../managed-apps/developer/share-app).
+Sharing grants access to the app, but it doesn't grant access to the app's underlying data. Recipients still need the appropriate source permissions and connections. You can revoke direct access or a sharing link later. For more information, see [Share your app](../../../copilot-managed-runtime/developer/apps/share-app).
 
 ## What controls can administrators use to manage app sharing?
 

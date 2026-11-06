@@ -52,6 +52,7 @@ https://learn.microsoft.com/en-us/defender-endpoint/onboard-downlevel
 https://learn.microsoft.com/en-us/defender-endpoint/onboard-server
 https://learn.microsoft.com/en-us/defender-endpoint/respond-machine-alerts
 https://learn.microsoft.com/en-us/defender-endpoint/restrict-response-actions-high-value-assets
+https://learn.microsoft.com/en-us/defender-endpoint/run-analyzer-linux
 https://learn.microsoft.com/en-us/defender-endpoint/schedule-antivirus-scans-linux
 https://learn.microsoft.com/en-us/defender-endpoint/secure-controlled-configuration
 https://learn.microsoft.com/en-us/defender-endpoint/tamper-protection-linux-audit-mode

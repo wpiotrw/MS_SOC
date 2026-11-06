@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-10-01T00:00:00.0000000Z
+ms.date: 2026-11-04T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -18,7 +18,7 @@ ms.subservice: edge-admin
 ms.localizationpriority: high
 ms.collection: M365-modern-desktop
 ms.custom: 
-description: 'Windows and Mac documentation for supported Microsoft Edge Browser policy: Browsing with Copilot Allowed URLs'
+description: 'Windows and Mac documentation for supported Microsoft Edge Browser policy: Browsing with Copilot Allowed URLs (obsolete)'
 locale: en-us
 document_id: 095ff08a-84dc-0ef4-efa5-0e8edaf9b289
 document_version_independent_id: 095ff08a-84dc-0ef4-efa5-0e8edaf9b289
@@ -36,38 +36,35 @@ monikers: []
 item_type: Content
 source_path: edgeenterprise/microsoft-edge-policies/BrowsingWithCopilotAllowList.md
 cmProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5287f575-02f0-405f-92b7-800456526b0c
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 spProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 - https://authoring-docs-microsoft.poolparty.biz/devrel/06e86142-34c2-4b94-ab9c-9477c21f7152
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 platformId: dc7b8ca2-1eac-ca46-5399-e0a8d9795e6b
 ---
 
 # Microsoft Edge Browser Policy Documentation BrowsingWithCopilotAllowList | Microsoft Learn
 
-## Browsing with Copilot Allowed URLs
+## Browsing with Copilot Allowed URLs (obsolete)
+
+> 
+> OBSOLETE: This policy is obsolete and doesn't work after Microsoft Edge version 157.
 
 ## Supported versions
 
-- Windows: ≥ 148
-- macOS: ≥ 148
+- Windows: 148-157
+- macOS: 148-157
 - Android: Not supported
 - iOS: Not supported
 
 ## Description
 
-Allows you to define a list of URLs where browsing with Copilot is available. Users cannot modify this list.
+This policy is obsolete and has no effect starting with Microsoft Edge version 158.
 
-If you enable this policy, browsing with Copilot is available only on the sites specified in the list. To allow a broader set of sites while blocking specific exceptions, configure this policy together with the [BrowsingWithCopilotBlockList](browsingwithcopilotblocklist) policy. For example, you can include '\*' to allow all sites, and then use the block list to restrict access to specific URLs.
-
-You can define exceptions based on schemes, subdomains, ports, or origins. When multiple filters apply, the most specific match determines whether a URL is allowed or blocked. The block list takes precedence over the allow list.
-
-If you disable or do not configure this policy, browsing with Copilot is unavailable on all sites, even if the [AllowBrowsingWithCopilot](allowbrowsingwithcopilot) policy is enabled.
-
-Browsing with Copilot supports only HTTP and HTTPS protocols. Wildcards (\*) are supported, and subdomains are matched even without wildcards. This policy applies only to the site origin; any path specified in the URL pattern is ignored. For guidance on formatting URL patterns, see https://go.microsoft.com/fwlink/?linkid=2095322.
+Use the [CopilotBrowserUseAllowList](copilotbrowseruseallowlist) policy to control the URLs where Copilot browser use is allowed.
 
 ## Supported features
 
@@ -86,7 +83,7 @@ Browsing with Copilot supports only HTTP and HTTPS protocols. Wildcards (\*) are
 ### Group Policy (ADMX) info
 
 - GP unique name: BrowsingWithCopilotAllowList
-- GP name: Browsing with Copilot Allowed URLs
+- GP name: Browsing with Copilot Allowed URLs (obsolete)
 - GP path (Mandatory): Administrative Templates/Microsoft Edge
 - GP path (Recommended): N/A
 - GP ADMX file name: MSEdge.admx

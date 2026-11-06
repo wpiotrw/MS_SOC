@@ -12,14 +12,14 @@ ms.custom:
 - AdminSurgePortfolio
 - AdminTemplateSet
 ms.subservice: admin
-description: Learn how to connect an AI Gateway or Azure API Management instance to the Microsoft 365 admin center to discover and govern registered MCP servers.
+description: Learn how to connect Azure AI Gateway or a LiteLLM gateway to the Microsoft 365 admin center to discover and govern registered MCP servers.
 ai-usage: ai-assisted
 f1.keywords:
 - NOCSH
 ms.author: mkaur
 author: mduelae
 manager: tapanm
-ms.date: 2026-09-28T00:00:00.0000000Z
+ms.date: 2026-11-05T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: how-to
@@ -54,90 +54,132 @@ monikers: []
 item_type: Content
 source_path: agent365-docs/admin/manage-tools-gateway.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/bf4dbf7f-261c-4ae9-9fee-5989668a780a
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/302444b9-4a43-4841-8014-3d9e4251ff15
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1c4b5d48-3f26-4bd8-9592-816d9c1a3420
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/bebd8809-dac1-4c22-83e2-66d98af8a94d
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 platformId: 82e398ed-872d-3124-af2b-cb9518ab0ea3
 ---
 
 # Manage Tools Gateway in Microsoft 365 admin center | Microsoft Learn
 
-Connect your AI Gateway or Azure API Management (APIM) instance to the Microsoft 365 admin center to discover and govern the Model Context Protocol (MCP) servers registered with it. After a Global Administrator grants tenant-wide consent, the MCP servers appear on the **Tools** page, where administrators can manage them alongside other agent tools.
+Connect Azure AI Gateway or a LiteLLM gateway to Microsoft Agent 365 to discover and govern the Model Context Protocol (MCP) servers registered with the gateway. Agent 365 brings the registered MCP servers into the Tools experience, where administrators can review and govern them, monitor MCP server activity, and configure supported security protections for MCP tool calls.
+
+Agent 365 currently supports Azure AI Gateway and LiteLLM. Each gateway requires its own connection and configuration process.
+
+Use the section for your gateway to complete the connection and protection configuration. Then use the shared discovery and governance steps:
+
+- Connect Azure AI Gateway.
+- Connect LiteLLM.
+- Discover and govern MCP servers.
 
 Important
 
 - This feature is in preview.
 - Preview features aren't meant for production use and might have restricted functionality. These features are subject to [supplemental terms of use](/en-us/legal/microsoft-365/supplemental-terms), and are available before an official release so that customers can get early access and provide feedback.
 
-## Capabilities
+## Connect Azure AI Gateway
 
-As an administrator, you can:
+Use this section to connect Azure AI Gateway and, if needed, configure tool-call protection.
 
-- View MCP servers registered in the connected gateway.
-- Review MCP servers in the centralized tools inventory.
-- Apply governance policies and control availability for agents.
-- Automatically discover MCP servers added to the gateway later.
+### Azure AI Gateway prerequisites
 
-## Prerequisites
+Before you connect Azure AI Gateway, make sure that the gateway is configured, you have the Global Administrator role in Microsoft 365, and its MCP servers are registered. For detailed prerequisites, configuration, and governance guidance, see [Govern tools with Microsoft Agent 365 and Azure API Management (preview)](/en-us/azure/api-management/agent-365).
 
-Before you begin, make sure that:
+### Connect the Azure gateway to Microsoft 365
 
-- An AI Gateway or APIM instance is configured.
-- MCP servers are registered in the gateway.
-- A Global Administrator is available to grant consent.
-- You have access to the Microsoft 365 admin center.
+Note
 
-## Connect your gateway
+You must have the Global Administrator role to connect Azure AI Gateway. The AI Administrator role doesn't support this operation.
 
 1. Sign in to the [Microsoft 365 admin center](https://admin.microsoft.com/) as a Global Administrator.
 2. Go to **Agents** &gt; **Settings**.
 3. Select **Gateways**.
-4. Under **Gateways**, connect one of the following gateway types:
-    - **Microsoft Azure**: Turn on the toggle to connect an Azure API Management service or Azure AI Gateway. Review and accept the requested permissions. For Azure configuration and governance guidance, see [Govern tools with Microsoft Agent 365 and Azure API Management (preview)](https://go.microsoft.com/fwlink/?LinkId=2382608).
-    - **LiteLLM gateway**: Select **Connect a gateway**, and then enter the gateway name, gateway URL, and API key.
+4. Next to **Microsoft Azure**, turn on the toggle to connect an Azure API Management service or Azure AI Gateway.
+5. Review and accept the requested permissions.
 
-Consent is required once per tenant and applies to all MCP servers in the connected gateway. Individual servers don't require separate consent.
-
-## Review and govern MCP servers
-
-Discovery starts automatically after consent is granted and typically completes within a few minutes.
-
-1. In the Microsoft 365 admin center, go to **Agents** &gt; **Tools**.
-2. Filter the list by source, and then select **AI gateway** to review the discovered MCP servers.
-3. Apply governance policies to block or allow each server.
+You need to provide consent once per tenant, and it applies to all MCP servers in the connected gateway. Individual servers don't require separate consent.
 
 Note
 
-Tool-level granular control is supported for MCP servers registered in an AI Gateway tier in Azure API Management service. You can block or allow individual tools within a server instead of the entire server. For more information, see [Manage individual tools within an MCP server](manage-plugins-skills-mcp-servers#manage-individual-tools-within-an-mcp-server).
+After you connect the gateway, Agent 365 discovers the MCP servers registered with it and makes them available on the Tools page. Discovery might take a few minutes. Go to **Agents** &gt; **Tools** and refresh the page to view the discovered MCP servers. To manage the discovered MCP servers, see Discover and govern MCP servers.
 
-New MCP servers registered in the connected gateway are discovered automatically during subsequent refreshes.
+### Protect Azure AI Gateway tool calls with Microsoft Defender
 
-## Frequently asked questions
+To protect tool calls through Azure AI Gateway, configure the **Agent 365 tool threat protection** policy in the AI Gateway portal. The policy uses Microsoft Defender and Microsoft Purview to evaluate tool requests and results.
 
-**Is AI Gateway or APIM required?**
+For prerequisites and gateway-specific configuration steps, see [Protect tool calls with Defender and Purview in AI Gateway tier (preview)](/en-us/azure/api-management/ai-gateway-policy-tool-threat). This protection requires the AI Gateway tier in Azure API Management and a delegated Microsoft Entra ID user token. App-only service-to-service calls aren't supported.
 
-Yes. The Microsoft 365 admin center discovers only MCP servers registered in a connected AI Gateway or APIM instance.
+To monitor MCP server activity, see [Monitor and observe MCP server activity](manage-byo-mcp-server#monitor-and-observe-mcp-server-activity).
 
-**Who can grant consent?**
+## Connect LiteLLM
 
-A user assigned the Global Administrator role must complete the consent process.
+Microsoft Agent 365 lets you connect to a LiteLLM gateway to discover and govern its registered MCP servers and protect MCP tool calls. LiteLLM is a third-party AI gateway and isn't built or supported by Microsoft. For information about LiteLLM and registering MCP servers with its gateway, see [LiteLLM gateway](https://docs.litellm.ai/docs/mcp) in the LiteLLM documentation.
 
-**Is consent required for each MCP server?**
+### LiteLLM prerequisites
 
-No. Consent is granted once per tenant and applies to all MCP servers in the connected gateway.
+Before you begin, ensure that:
 
-**How long does discovery take?**
+- You have access to a LiteLLM gateway with registered MCP servers.
+- You have a gateway name, gateway URL, and API key for the LiteLLM proxy.
+- You have the Global Administrator role in Microsoft 365 to access the Microsoft 365 admin center. This requirement applies to Microsoft 365, not to roles in LiteLLM.
 
-MCP servers typically appear within a few minutes. If they don't appear, refresh the **Tools** page and allow more time.
+The following sections explain how to connect the LiteLLM gateway and configure protection for MCP tool calls. After setup, use the shared steps to discover and govern MCP servers.
 
-**Can the Microsoft 365 admin center discover MCP servers outside the connected gateway?**
+### Connect the LiteLLM gateway to Microsoft 365
 
-No. Only MCP servers registered in the connected gateway are discovered.
+1. Sign in to the [Microsoft 365 admin center](https://admin.microsoft.com/) with the Microsoft 365 administrator role listed in the prerequisites.
+2. Go to **Agents** &gt; **Settings** &gt; **Gateways**.
+3. Under **LiteLLM Gateway**, select **Connect gateway**.
+4. Enter the following information:
+    - **Gateway name**: A friendly name to identify this gateway in the Microsoft 365 admin center.
+    - **Gateway URL**: The URL of your LiteLLM proxy.
+    - **API key**: An API key for the LiteLLM proxy.
 
-**Are newly registered MCP servers discovered automatically?**
+You need to provide consent once per tenant, and it applies to all MCP servers in the connected gateway. Individual servers don't require separate consent.
 
-Yes. New MCP servers surface during the gateway discovery and refresh process.
+Note
+
+After you connect the LiteLLM gateway, Agent 365 discovers the MCP servers registered with it and makes them available on the **Tools** page. Discovery might take a few minutes. Go to **Agents** &gt; **Tools** and refresh the page to view the discovered MCP servers. To manage the discovered MCP servers, see Discover and govern MCP servers
+
+### Protect LiteLLM MCP tool calls
+
+Microsoft Agent 365 Guardrails uses Microsoft Defender to evaluate MCP tool calls that LiteLLM makes and provide runtime threat protection.
+
+Configure protection in this order:
+
+1. Create or identify the Microsoft Entra application that LiteLLM uses for the gateway.
+2. Complete the required Microsoft Entra configuration.
+3. Complete the corresponding configuration in LiteLLM.
+
+#### Create the app registration
+
+1. In the [Microsoft Entra admin center](https://entra.microsoft.com/), switch to the target tenant.
+2. Go to **App registrations**, and then select **New registration**.
+3. For the application name, enter `litellm-enterprise-api`.
+4. For **Supported account types**, select **Accounts in this organizational directory only**.
+5. Select **Register**.
+6. Copy the **Application (client) ID**, and keep it as `GATEWAY_API_APP_ID` for the LiteLLM configuration.
+
+Note
+
+If the gateway already has an appropriate API application, reuse the existing application instead of creating another one. Preserve its existing roles, assignments, credentials, and unrelated permissions.
+
+#### Configure LiteLLM
+
+After you complete the Microsoft Entra configuration, use `GATEWAY_API_APP_ID` to complete the corresponding gateway configuration. For LiteLLM configuration guidance, see [LiteLLM gateway](https://docs.litellm.ai/docs/mcp) in the LiteLLM documentation.
+
+## Discover and govern MCP servers
+
+After you connect Azure AI Gateway or LiteLLM, you can access MCP servers that register with the connected gateway through the **Tools** experience in the Microsoft 365 admin center. These discovery and governance steps are common to both gateways.
+
+1. In the Microsoft 365 admin center, go to **Agents** &gt; **Tools**.
+2. Filter the list by source, and then select the gateway whose MCP servers you want to view.
+3. Select an MCP server to review its details and the tools it exposes.
+
+You can block or allow an MCP server to manage its availability. For the common governance procedure, see [Block or allow an MCP server](manage-plugins-skills-mcp-servers#block-or-allow-an-mcp-server).
+
+For supported MCP servers, you can also manage the availability of individual tools. For more information, see [Manage individual tools within an MCP server](manage-plugins-skills-mcp-servers#manage-individual-tools-within-an-mcp-server).
