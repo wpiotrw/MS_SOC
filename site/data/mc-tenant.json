@@ -1273,22 +1273,22 @@
    "major": false,
    "actionBy": null,
    "start": "2025-12-10",
-   "end": "2026-12-31",
-   "modified": "2026-10-16",
+   "end": "2027-03-01",
+   "modified": "2026-11-06",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 16, 2026: We have updated the timeline. Thank you for your patience. We’re introducing the ability for organizations to customize Microsoft 365 profile cards by adding up to 10 custom properties sourced from external systems such as HR platforms. This enhancement helps enrich user profiles with relevant organizational details, improving discoverability and context for collaboration…",
-   "when": "General Availability (Worldwide): We will begin rolling out in November 2026 (previously October) and expect to complete in November 2026 (previously October).",
+   "summary": "Updated November 6, 2026: We have updated the timeline. Thank you for your patience. We’re introducing the ability for organizations to customize Microsoft 365 profile cards by adding up to 10 custom properties sourced from external systems such as HR platforms. This enhancement helps enrich user profiles with relevant organizational details, improving discoverability and context for collaboration…",
+   "when": "General Availability (Worldwide): We will begin rolling out in January 2027 (previously November 2026) and expect to complete in January 2027 (previously November 2026).",
    "prepare": "Review external systems for properties you want displayed on profile cards. Ingest these properties using a Microsoft Graph People connector. Configure visibility and enable properties in the Microsoft 365 admin center . Communicate this change to helpdesk staff and update internal documentation if needed.",
    "dates": [
-    "Updated October 16, 2026: We have updated the timeline.",
-    "When this will happen: General Availability (Worldwide): We will begin rolling out in November 2026 (previously October) and expect to complete in November 2026 (previously October)."
+    "Updated November 6, 2026: We have updated the timeline.",
+    "When this will happen: General Availability (Worldwide): We will begin rolling out in January 2027 (previously November 2026) and expect to complete in January 2027 (previously November 2026)."
    ],
-   "bodyHash": "433e56095afea679"
+   "bodyHash": "6d63634aae02d576"
   },
   {
    "id": "MC1194065",
@@ -2173,23 +2173,23 @@
    "major": true,
    "actionBy": "2026-11-02",
    "start": "2026-02-11",
-   "end": "2027-01-04",
-   "modified": "2026-08-28",
+   "end": "2027-05-31",
+   "modified": "2026-11-06",
    "tags": [
     "Admin impact",
     "Retirement",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated August 28, 2026: We have updated the timeline. Thank you for your patience. [Introduction] To streamline and modernize reporting experiences across Microsoft 365, we are retiring the Outlook for Windows Usage Report in the Exchange admin center (EAC) . Admins can continue accessing Outlook usage information in the Microsoft 365 admin center (MAC) , which offers a more complete and up‑to‑da…",
-   "when": "Retirement will begin in early November 2026 (previously mid-August). Retirement will complete in late November 2026 (previously mid-September).",
+   "summary": "Updated November 6, 2026: We have updated the timeline. Thank you for your patience. [Introduction] To streamline and modernize reporting experiences across Microsoft 365, we are retiring the Outlook for Windows Usage Report in the Exchange admin center (EAC) . Admins can continue accessing Outlook usage information in the Microsoft 365 admin center (MAC) , which offers a more complete and up‑to‑d…",
+   "when": "Retirement will begin in early April 2027 (previously early November 2026). Retirement will complete in early April 2027 (previously early November 2026).",
    "prepare": "No admin action is required. If your organization references the EAC usage report in documentation or internal processes, update those materials before the retirement is complete.",
    "dates": [
-    "Updated August 28, 2026: We have updated the timeline.",
-    "Retirement will begin in early November 2026 (previously mid-August).",
-    "Retirement will complete in late November 2026 (previously mid-September)."
+    "Updated November 6, 2026: We have updated the timeline.",
+    "Retirement will begin in early April 2027 (previously early November 2026).",
+    "Retirement will complete in early April 2027 (previously early November 2026)."
    ],
-   "bodyHash": "2fa3f7950cf055c4"
+   "bodyHash": "c26cb9a54659e4af"
   },
   {
    "id": "MC1231206",
@@ -4242,23 +4242,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-05-05",
-   "end": "2027-03-31",
-   "modified": "2026-07-17",
+   "end": "2027-07-30",
+   "modified": "2026-11-06",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated July 17, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are expanding Microsoft Purview DLP for Microsoft 365 Copilot and Copilot Chat to safeguard risks from external emails. This real-time control helps organizations mitigate data risks by preventing Microsoft 365 Copilot and Chat from processing emails from senders external to your organization. This …",
-   "when": "Public preview: We will begin rolling out in early June 2026 and expect to complete by late June 2026 . General availability (Worldwide): We will begin rolling out in late January 2027 (previously late July) and expect to complete by late February 2027 (previously late August).",
+   "summary": "Updated November 6, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are expanding Microsoft Purview DLP for Microsoft 365 Copilot and Copilot Chat to safeguard risks from external emails. This real-time control helps organizations mitigate data risks by preventing Microsoft 365 Copilot and Chat from processing emails from senders external to your organization. Th…",
+   "when": "Public preview: We will begin rolling out in early June 2026 and expect to complete by late June 2026 . General availability (Worldwide): We will begin rolling out in early June 2027 (previously late January) and expect to complete by late June 2027 (previously late February).",
    "prepare": "No action is required if you do not plan to use this capability. If you want to enable the feature: Create or update a DLP policy for Microsoft 365 Copilot in the Microsoft Purview portal. Review existing DLP configurations to understand potential Copilot impact. Ensure your admin account has the required DLP and Purview roles. Inform IT, security, and helpdesk teams about the new control. Update internal documentation related to AI governance an…",
    "dates": [
-    "Updated July 17, 2026: We have updated the timeline.",
+    "Updated November 6, 2026: We have updated the timeline.",
     "Public preview: We will begin rolling out in early June 2026 and expect to complete by late June 2026 .",
-    "General availability (Worldwide): We will begin rolling out in late January 2027 (previously late July) and expect to complete by late February 2027 (previously late August)."
+    "General availability (Worldwide): We will begin rolling out in early June 2027 (previously late January) and expect to complete by late June 2027 (previously late February)."
    ],
-   "bodyHash": "29dd657797c776f6"
+   "bodyHash": "08619c625f606f2f"
   },
   {
    "id": "MC1301827",
@@ -4429,22 +4429,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-05-12",
-   "end": "2026-11-30",
-   "modified": "2026-09-30",
+   "end": "2026-12-31",
+   "modified": "2026-11-06",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 30, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft is introducing a new Copilot chat pane in OneNote Mobile (iPhone) for users licensed with Microsoft 365 Copilot (Premium) . This update adds a new Summary feature that allows users to generate concise summaries of longer OneNote pages, as well as ask questions about their notes, directly…",
-   "when": "General Availability (Worldwide) : We will begin rolling out end of October 2026 (previously late September) and expect to complete end of October 2026 (previously mid-October). .",
+   "summary": "Updated November 6, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft is introducing a new Copilot chat pane in OneNote Mobile (iPhone) for users licensed with Microsoft 365 Copilot (Premium) . This update adds a new Summary feature that allows users to generate concise summaries of longer OneNote pages, as well as ask questions about their notes, directly w…",
+   "when": "General Availability (Worldwide) : We will begin rolling out end of November 2026 (previously end of October) and expect to complete end of November 2026 (previously end of October) . .",
    "prepare": "No admin action is required before rollout. Ensure that users who should access this feature are assigned a Microsoft 365 Copilot (Premium) license. Consider informing helpdesk staff and users about the availability of Copilot chat and the Summary feature in OneNote mobile. Review existing Microsoft 365 Copilot governance, compliance, and usage policies to ensure they align with your organization’s requirements.",
    "dates": [
-    "Updated September 30, 2026: We have updated the timeline.",
-    "General Availability (Worldwide) : We will begin rolling out end of October 2026 (previously late September) and expect to complete end of October 2026 (previously mid-October)."
+    "Updated November 6, 2026: We have updated the timeline.",
+    "General Availability (Worldwide) : We will begin rolling out end of November 2026 (previously end of October) and expect to complete end of November 2026 (previously end of October) ."
    ],
-   "bodyHash": "e7ff62b716bff17c"
+   "bodyHash": "e519b9b0262c29ae"
   },
   {
    "id": "MC1307982",
@@ -4585,22 +4585,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-05-13",
-   "end": "2026-11-30",
-   "modified": "2026-09-30",
+   "end": "2026-12-31",
+   "modified": "2026-11-06",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 30, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft is introducing a new Copilot chat pane in OneNote Mobile (Android) for users licensed with Microsoft 365 Copilot (Premium) . This update adds a new Summary feature that allows users to generate concise summaries of longer OneNote pages, as well as ask questions about their notes, directl…",
-   "when": "General Availability (Worldwide): We will begin rolling out end of October 2026 (previously late September) and expect to complete end of October 2026 (previously mid-October) .",
+   "summary": "Updated November 6, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft is introducing a new Copilot chat pane in OneNote Mobile (Android) for users licensed with Microsoft 365 Copilot (Premium) . This update adds a new Summary feature that allows users to generate concise summaries of longer OneNote pages, as well as ask questions about their notes, directly …",
+   "when": "General Availability (Worldwide): We will begin rolling out end of November 2026 (previously end of October) and expect to complete end of November 2026 (previously end of October) .",
    "prepare": "No admin action is required before rollout. Ensure that users who should access this feature are assigned a Microsoft 365 Copilot (Premium) license. Consider informing helpdesk staff and users about the availability of Copilot chat and the Summary feature in OneNote mobile. Review existing Microsoft 365 Copilot governance, compliance, and usage policies to ensure they align with your organization’s requirements.",
    "dates": [
-    "Updated September 30, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): We will begin rolling out end of October 2026 (previously late September) and expect to complete end of October 2026 (previously mid-October) ."
+    "Updated November 6, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We will begin rolling out end of November 2026 (previously end of October) and expect to complete end of November 2026 (previously end of October) ."
    ],
-   "bodyHash": "49ac307075e4e926"
+   "bodyHash": "ec54d10d78312ee1"
   },
   {
    "id": "MC1310552",
@@ -6036,22 +6036,22 @@
    "major": true,
    "actionBy": null,
    "start": "2026-06-26",
-   "end": "2026-11-30",
-   "modified": "2026-09-30",
+   "end": "2026-12-31",
+   "modified": "2026-11-06",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 30, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are introducing multimodal capture in Copilot Notebooks on Windows. This feature enables users to capture audio, images, and notes in a single experience and use Microsoft 365 Copilot to generate structured insights such as summaries, decisions, and action items. This helps users turn meetings,…",
+   "summary": "Updated November 6, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are introducing multimodal capture in Copilot Notebooks on Windows. This feature enables users to capture audio, images, and notes in a single experience and use Microsoft 365 Copilot to generate structured insights such as summaries, decisions, and action items. This helps users turn meetings, c…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 30, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Beginning end of October 2026 (previously late September) and expected to complete end of October 2026 (previously mid-October)."
+    "Updated November 6, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning end of November 2026 (previously end of October) and expected to complete end of November 2026 (previously end of October)."
    ],
-   "bodyHash": "a7ba119fa1c74b3e"
+   "bodyHash": "bd7d0b4f433b7bcc"
   },
   {
    "id": "MC1405556",
@@ -13911,30 +13911,6 @@
    "bodyHash": "7229e1899386aaf1"
   },
   {
-   "id": "MC1489590",
-   "title": "Dynamics 365 Project Operations - Assign task level calendar for precise planning",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-06",
-   "end": "2026-11-06",
-   "modified": "2026-10-06",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing the ability to assign task level calendar for precise planning in Dynamics 365 Project Operations. This feature will reach general availability on September 30, 2026. How does this affect me? This feature provides an experience to change the task calendar on the Customizable task details pane . To enable this feature, from project parameters select Enable Customize Task Pane . Wh…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach general availability on September 30, 2026."
-   ],
-   "bodyHash": "47bebb6ea83c5d8f"
-  },
-  {
    "id": "MC1489931",
    "title": "Microsoft 365 Backup: Activity Logs",
    "services": [
@@ -14485,7 +14461,7 @@
   },
   {
    "id": "MC1492166",
-   "title": "Microsoft Outlook: New event duplication capability",
+   "title": "(Updated) Microsoft Outlook: New event duplication capability",
    "services": [
     "Exchange Online"
    ],
@@ -14494,20 +14470,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-08",
-   "end": "2026-12-04",
-   "modified": "2026-10-08",
+   "end": "2027-01-11",
+   "modified": "2026-11-06",
    "tags": [
     "Feature update",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We are adding the ability to duplicate an event in Microsoft Outlook. From the event details, users can select Duplicate event to quickly create a new event based on an existing event without re-entering the same details. [Rollout schedule] General Availability (Worldwide, GCC, GCC High): Rollout began in late September 2026 and is expected to complete by late October 2026. [Impact …",
+   "summary": "Updated November 6, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are adding the ability to duplicate an event in Microsoft Outlook. From the event details, users can select Duplicate event to quickly create a new event based on an existing event without re-entering the same details. [Rollout schedule] General Availability (Worldwide, GCC, GCC High): Rollout be…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide, GCC, GCC High): Rollout began in late September 2026 and is expected to complete by late October 2026."
+    "Updated November 6, 2026: We have updated the timeline.",
+    "General Availability (Worldwide, GCC, GCC High): Rollout began in late September 2026 and is expected to complete by early December 2026 (previously late October)."
    ],
-   "bodyHash": "32012c60dfc362e1"
+   "bodyHash": "e43d139f348175da"
   },
   {
    "id": "MC1492276",
@@ -16279,21 +16257,20 @@
    "actionBy": null,
    "start": "2026-10-21",
    "end": "2026-12-31",
-   "modified": "2026-10-29",
+   "modified": "2026-11-06",
    "tags": [
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 28, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] The All Accounts view, also known as Unified Inbox, lets users see email from multiple connected accounts in a single inbox view in the new Outlook for Windows without merging their mailboxes. Each account's inbox stays separate, and All Accounts view brings messages together so users can triage ma…",
+   "summary": "Updated November 6, 2026: Admin controls for All Accounts view (Unified Inbox) are now available. We have added policy configuration guidance below. Thank you for your patience. [What and Why:] The All Accounts view, also known as Unified Inbox, lets users see email from multiple connected accounts in a single inbox view in the new Outlook for Windows without merging their mailboxes. Each account'…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 28, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): We began rolling out in late September 2026 and expect to complete by late November 2026 (previously late October).",
-    "New admin controls for Unified Inbox are planned for release later in October 2026."
+    "Updated November 6, 2026: Admin controls for All Accounts view (Unified Inbox) are now available.",
+    "General Availability (Worldwide): We began rolling out in late September 2026 and expect to complete by late November 2026 (previously late October)."
    ],
-   "bodyHash": "8de4cfc80db088bf"
+   "bodyHash": "bd64acc043266478"
   },
   {
    "id": "MC1519846",
@@ -16547,7 +16524,7 @@
    "actionBy": null,
    "start": "2026-10-22",
    "end": "2026-12-31",
-   "modified": "2026-11-03",
+   "modified": "2026-11-06",
    "tags": [
     "New feature",
     "Updated message"
@@ -16559,7 +16536,7 @@
     "Updated November 3, 2026: We have updated the timeline.",
     "General Availability (Worldwide): We began rolling in late October 2026 and expect to complete by late November 2026 (previously late October)."
    ],
-   "bodyHash": "ae13499e0b2503d2"
+   "bodyHash": "e1551395334b4cf7"
   },
   {
    "id": "MC1521613",
@@ -19132,6 +19109,34 @@
    "prepare": null,
    "dates": [],
    "bodyHash": "9b1604dd8680e947"
+  },
+  {
+   "id": "MC1542066",
+   "title": "Microsoft 365 Copilot: Changes to custom organizational data in MODS for Workforce Insights",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2026-11-18",
+   "start": "2026-11-06",
+   "end": "2027-01-18",
+   "modified": "2026-11-06",
+   "tags": [
+    "Admin impact",
+    "User impact"
+   ],
+   "summary": "[What and why] We're changing how the Workforce Insights agent receives custom organizational data from Microsoft 365 Organizational Data Service (MODS). The separate Workforce Insights endpoint in MODS will be retired. Going forward, organizational data will reach the Workforce Insights agent through the Microsoft 365 profile endpoint. The Workforce Insights agent is part of the Microsoft Frontie…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Workforce Insights endpoint retirement (Frontier preview) in MODS: Starting November 18, 2026.",
+    "After November 18, 2026 , the Workforce Insights endpoint will no longer be available as a destination in MODS.",
+    "If your organization currently sends custom non-public attributes to the Workforce Insights endpoint in MODS, complete these actions before November 18, 2026 : Identify what attributes you ingest to Workforce Insights endpoint today.",
+    "Complete the switch before November 18, 2026 ."
+   ],
+   "bodyHash": "7d3e3651ad827519"
   },
   {
    "id": "MC676299",
@@ -25452,6 +25457,173 @@
    "id": "MC1490903",
    "type": "removed",
    "title": "'Record A Skill' Capability in PowerPoint Copilot",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-06",
+   "id": "MC1193692",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365: Enrich profile cards with custom properties from third-party systems",
+   "fields": {
+    "end": [
+     "2026-12-31",
+     "2027-03-01"
+    ],
+    "bodyHash": [
+     "433e56095afea679",
+     "6d63634aae02d576"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-06",
+   "id": "MC1230889",
+   "type": "changed",
+   "title": "(Updated) Outlook for Windows report retirement in the Exchange admin center",
+   "fields": {
+    "end": [
+     "2027-01-04",
+     "2027-05-31"
+    ],
+    "bodyHash": [
+     "2fa3f7950cf055c4",
+     "c26cb9a54659e4af"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-06",
+   "id": "MC1301714",
+   "type": "changed",
+   "title": "Microsoft Purview | Data Loss Prevention- DLP to restrict processing external emails in M365 Copilot and Copilot Chat",
+   "fields": {
+    "end": [
+     "2027-03-31",
+     "2027-07-30"
+    ],
+    "bodyHash": [
+     "29dd657797c776f6",
+     "08619c625f606f2f"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-06",
+   "id": "MC1307979",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365 Copilot: Copilot chat pane and Summary feature in OneNote Mobile (iPhone)",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "e7ff62b716bff17c",
+     "e519b9b0262c29ae"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-06",
+   "id": "MC1309746",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365 Copilot: Copilot chat pane and Summary feature in OneNote Mobile (Android)",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "49ac307075e4e926",
+     "ec54d10d78312ee1"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-06",
+   "id": "MC1405506",
+   "type": "changed",
+   "title": "(Updated) Microsoft OneNote: Multimodal recording in Copilot Notebooks on Windows",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "a7ba119fa1c74b3e",
+     "bd7d0b4f433b7bcc"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-06",
+   "id": "MC1492166",
+   "type": "changed",
+   "title": "(Updated) Microsoft Outlook: New event duplication capability",
+   "fields": {
+    "title": [
+     "Microsoft Outlook: New event duplication capability",
+     "(Updated) Microsoft Outlook: New event duplication capability"
+    ],
+    "end": [
+     "2026-12-04",
+     "2027-01-11"
+    ],
+    "tags": [
+     [
+      "Feature update",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Feature update",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "32012c60dfc362e1",
+     "e43d139f348175da"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-06",
+   "id": "MC1519843",
+   "type": "changed",
+   "title": "(Updated) New Outlook for Windows: All Accounts view brings email into a single inbox view",
+   "fields": {
+    "bodyHash": [
+     "8de4cfc80db088bf",
+     "bd64acc043266478"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-06",
+   "id": "MC1521609",
+   "type": "changed",
+   "title": "(Updated) Create sales pitches with Copilot in PowerPoint",
+   "fields": {
+    "bodyHash": [
+     "ae13499e0b2503d2",
+     "e1551395334b4cf7"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-06",
+   "id": "MC1542066",
+   "type": "new",
+   "title": "Microsoft 365 Copilot: Changes to custom organizational data in MODS for Workforce Insights",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-06",
+   "id": "MC1489590",
+   "type": "removed",
+   "title": "Dynamics 365 Project Operations - Assign task level calendar for precise planning",
    "fields": {}
   }
  ]
