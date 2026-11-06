@@ -1,5 +1,21 @@
 [
  {
+  "file": "community/2026-11-06-hunting-query.kql",
+  "title": "Hunting query",
+  "date": "2026-11-06",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceTvmSoftwareInventory"
+  ],
+  "purpose": "Hunting query",
+  "source": "https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/4d8707240cee5b3a97958df44d42feb579cc2357/Microsoft_DefenderXDR/Identify%20Node.js%20installed%20Versions%20with%20queries%20to%20patch%20on%20Novembrer%2011%20HIGH-Severity%20Node.js%20Vulnerabilities.md",
+  "kind": "repo",
+  "author": "Sergio Albea",
+  "link": "https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/4d8707240cee5b3a97958df44d42feb579cc2357/Microsoft_DefenderXDR/Identify%20Node.js%20installed%20Versions%20with%20queries%20to%20patch%20on%20Novembrer%2011%20HIGH-Severity%20Node.js%20Vulnerabilities.md",
+  "license": "not stated",
+  "repo": "Sergio Albea Threat Hunting KQL Queries"
+ },
+ {
   "file": "articles/2026-11-05-spanish-language-purchase-order-and-payroll-campaign-emails.kql",
   "title": "Spanish-language purchase order and payroll campaign emails by sender address",
   "date": "2026-11-05",
@@ -43,7 +59,10 @@
   "kind": "article",
   "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
   "link": "https://detect.fyi/-add55da050ad?source=rss----d5fd8f494f6a---4",
-  "incident": "auto--2026-11-05"
+  "incident": "auto--2026-11-05",
+  "alsoIn": [
+   "repo"
+  ]
  },
  {
   "file": "articles/2026-11-05-detection-4-trojanized-inno-installer-child-process-making.kql",

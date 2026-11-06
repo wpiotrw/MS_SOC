@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-05T23:46:10Z",
- "day": "2026-11-05",
+ "generated": "2026-11-06T01:06:47Z",
+ "day": "2026-11-06",
  "spec": "5gf",
- "source": "site/data/campaigns.json (2026-11-05)",
+ "source": "site/data/campaigns.json (2026-11-06)",
  "count": 39,
  "byMc": {
   "MC1191578": {
@@ -10,14 +10,6 @@
     "2026-10-01"
    ],
    "others": [
-    {
-     "date": "2026-11-05",
-     "src": "MC1446796",
-     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
-     "post": "2026-08-03",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
     {
      "date": "2026-11-06",
      "src": "MC1446796",
@@ -49,6 +41,14 @@
      "post": "2026-09-09",
      "later": true,
      "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1485116"
     }
    ],
    "moved": [],
@@ -85,14 +85,6 @@
     "2027-04-01"
    ],
    "others": [
-    {
-     "date": "2026-11-05",
-     "src": "MC1446796",
-     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
     {
      "date": "2026-11-06",
      "src": "MC1446796",
@@ -157,7 +149,6 @@
   },
   "MC1446796": {
    "says": [
-    "2026-11-05",
     "2026-11-06",
     "2026-11-15",
     "2027-04-01"
@@ -181,11 +172,6 @@
     }
    ],
    "moved": [
-    {
-     "was": "Oct 2026",
-     "now": "2026-11-05",
-     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy"
-    },
     {
      "was": "30 Oct 2026",
      "now": "2026-11-06",
@@ -225,14 +211,6 @@
     "2027-04-01"
    ],
    "others": [
-    {
-     "date": "2026-11-05",
-     "src": "MC1446796",
-     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
     {
      "date": "2026-11-06",
      "src": "MC1446796",
@@ -301,14 +279,6 @@
    ],
    "others": [
     {
-     "date": "2026-11-05",
-     "src": "MC1446796",
-     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
      "date": "2026-11-06",
      "src": "MC1446796",
      "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
@@ -374,14 +344,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-05",
-     "src": "MC1446796",
-     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
      "date": "2026-11-06",
      "src": "MC1446796",
      "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
@@ -412,6 +374,14 @@
      "post": "2026-09-09",
      "later": false,
      "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1485116"
     }
    ],
    "moved": [],
@@ -448,14 +418,6 @@
     "2027-07-05"
    ],
    "others": [
-    {
-     "date": "2026-11-05",
-     "src": "MC1446796",
-     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
     {
      "date": "2026-11-06",
      "src": "MC1446796",
@@ -517,14 +479,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-05",
-     "src": "MC1446796",
-     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
      "date": "2026-11-06",
      "src": "MC1446796",
      "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
@@ -555,6 +509,14 @@
      "post": "2026-09-09",
      "later": false,
      "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1485116"
     }
    ],
    "moved": [],
@@ -574,14 +536,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-05",
-     "src": "MC1446796",
-     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
      "date": "2026-11-06",
      "src": "MC1446796",
      "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
@@ -612,6 +566,14 @@
      "post": "2026-09-09",
      "later": false,
      "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1485116"
     }
    ],
    "moved": [],
@@ -627,18 +589,361 @@
    ],
    "verdict": "differs"
   },
+  "MC1325414": {
+   "says": [
+    "2026-11-06",
+    "2026-11-07",
+    "2026-11-09",
+    "2026-11-15"
+   ],
+   "others": [
+    {
+     "date": "2027-02-01",
+     "src": "MC1519855",
+     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
+     "post": "2026-10-21",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1519855"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    },
+    {
+     "date": "2027-07-01",
+     "src": "MC1536049",
+     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    }
+   ],
+   "moved": [
+    {
+     "was": "mid Sep 2026",
+     "now": "2026-11-15",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
+    }
+   ],
+   "newer": [
+    {
+     "id": "MC1519855",
+     "date": "2026-10-21",
+     "title": "Microsoft Entra: Choose your own telephony provider now generally available"
+    },
+    {
+     "id": "MC1528000",
+     "date": "2026-10-27",
+     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
+    },
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1400824": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-06",
+     "src": "MC1325414",
+     "text": "Act by this date (Message Center)",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-07",
+     "src": "MC1325414",
+     "text": "November 7, 2026: Enforcement begins.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-09",
+     "src": "MC1325414",
+     "text": "Action is required before November 9, 2026.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2027-02-01",
+     "src": "MC1519855",
+     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
+     "post": "2026-10-21",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1519855"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1519855",
+     "date": "2026-10-21",
+     "title": "Microsoft Entra: Choose your own telephony provider now generally available"
+    },
+    {
+     "id": "MC1528000",
+     "date": "2026-10-27",
+     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
+    },
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1519855": {
+   "says": [
+    "2027-02-01",
+    "2027-07-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-06",
+     "src": "MC1325414",
+     "text": "Act by this date (Message Center)",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-07",
+     "src": "MC1325414",
+     "text": "November 7, 2026: Enforcement begins.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-09",
+     "src": "MC1325414",
+     "text": "Action is required before November 9, 2026.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2026-11-30",
+     "src": "MC1465763",
+     "text": "Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)",
+     "post": "2026-09-01",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1465763"
+    },
+    {
+     "date": "2027-07-01",
+     "src": "MC1426371",
+     "text": "1 Jul 2027 for Global Administrators and external users.",
+     "post": "2026-07-13",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1426371"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1528000",
+     "date": "2026-10-27",
+     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
+    },
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    },
+    {
+     "id": "c-sms-voice-retirement",
+     "name": "Microsoft-provided SMS and voice MFA retirement"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1528000": {
+   "says": [
+    "2027-02-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-06",
+     "src": "MC1325414",
+     "text": "Act by this date (Message Center)",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-07",
+     "src": "MC1325414",
+     "text": "November 7, 2026: Enforcement begins.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-09",
+     "src": "MC1325414",
+     "text": "Action is required before November 9, 2026.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1536049"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1536049": {
+   "says": [
+    "2027-02-01",
+    "2027-02-15",
+    "2027-03-22",
+    "2027-07-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-06",
+     "src": "MC1325414",
+     "text": "Act by this date (Message Center)",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-07",
+     "src": "MC1325414",
+     "text": "November 7, 2026: Enforcement begins.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-09",
+     "src": "MC1325414",
+     "text": "Action is required before November 9, 2026.",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "differs"
+  },
   "MC1230889": {
    "says": [
-    "2026-11-05",
     "2026-11-25"
    ],
    "others": [],
    "moved": [
-    {
-     "was": "mid Aug 2026",
-     "now": "2026-11-05",
-     "text": "Retirement will begin in early November 2026 (previously mid-August)."
-    },
     {
      "was": "mid Sep 2026",
      "now": "2026-11-25",
@@ -660,14 +965,6 @@
     "2026-06-25"
    ],
    "others": [
-    {
-     "date": "2026-11-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
     {
      "date": "2026-11-25",
      "src": "MC1459133",
@@ -699,6 +996,14 @@
      "post": "2026-08-07",
      "later": true,
      "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -736,14 +1041,6 @@
     "2027-05-25"
    ],
    "others": [
-    {
-     "date": "2026-11-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
     {
      "date": "2026-11-25",
      "src": "MC1459133",
@@ -810,14 +1107,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -848,6 +1137,14 @@
      "post": "2026-08-07",
      "later": false,
      "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -883,14 +1180,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -921,6 +1210,14 @@
      "post": "2026-08-07",
      "later": false,
      "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -960,14 +1257,6 @@
    ],
    "others": [
     {
-     "date": "2026-11-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -998,6 +1287,14 @@
      "post": "2026-08-07",
      "later": true,
      "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1282568"
     },
     {
      "date": "2026-11-30",
@@ -1062,14 +1359,6 @@
    ],
    "others": [
     {
-     "date": "2026-11-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -1100,6 +1389,14 @@
      "post": "2026-08-07",
      "later": true,
      "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -1135,14 +1432,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -1173,6 +1462,14 @@
      "post": "2026-08-07",
      "later": false,
      "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -1206,10 +1503,10 @@
   },
   "MC1450133": {
    "says": [
-    "2026-11-05",
     "2026-11-25",
     "2027-01-05",
-    "2027-02-15"
+    "2027-02-15",
+    "2027-02-25"
    ],
    "others": [
     {
@@ -1230,11 +1527,6 @@
     }
    ],
    "moved": [
-    {
-     "was": "late Oct 2026",
-     "now": "2026-11-05",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026)."
-    },
     {
      "was": "late Nov 2026",
      "now": "2027-01-05",
@@ -1270,14 +1562,6 @@
    ],
    "others": [
     {
-     "date": "2026-11-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
      "date": "2027-01-05",
      "src": "MC1450133",
      "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
@@ -1308,6 +1592,14 @@
      "post": "2026-04-16",
      "later": true,
      "link": "https://mc.merill.net/message/MC1282568"
+    },
+    {
+     "date": "2027-05-25",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -1332,14 +1624,6 @@
   "MC1469555": {
    "says": [],
    "others": [
-    {
-     "date": "2026-11-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
     {
      "date": "2026-11-25",
      "src": "MC1459133",
@@ -1371,6 +1655,14 @@
      "post": "2026-08-07",
      "later": false,
      "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -1382,368 +1674,6 @@
     {
      "id": "c-passkeys-by-default",
      "name": "Passkeys by default in Microsoft Entra ID"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1325414": {
-   "says": [
-    "2026-11-05",
-    "2026-11-06",
-    "2026-11-07",
-    "2026-11-09"
-   ],
-   "others": [
-    {
-     "date": "2027-02-01",
-     "src": "MC1519855",
-     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
-     "post": "2026-10-21",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1519855"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1536049",
-     "text": "We expect rollout to begin and complete in February 2027.",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1536049"
-    },
-    {
-     "date": "2027-03-22",
-     "src": "MC1536049",
-     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://deltapulse.app/item/MC1536049"
-    },
-    {
-     "date": "2027-07-01",
-     "src": "MC1536049",
-     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://deltapulse.app/item/MC1536049"
-    }
-   ],
-   "moved": [
-    {
-     "was": "early Sep 2026",
-     "now": "2026-11-05",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
-    },
-    {
-     "was": "mid Sep 2026",
-     "now": "2026-11-15",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
-    }
-   ],
-   "newer": [
-    {
-     "id": "MC1519855",
-     "date": "2026-10-21",
-     "title": "Microsoft Entra: Choose your own telephony provider now generally available"
-    },
-    {
-     "id": "MC1528000",
-     "date": "2026-10-27",
-     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
-    },
-    {
-     "id": "MC1536049",
-     "date": "2026-11-03",
-     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1400824": {
-   "says": [],
-   "others": [
-    {
-     "date": "2026-11-05",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-06",
-     "src": "MC1325414",
-     "text": "Act by this date (Message Center)",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-07",
-     "src": "MC1325414",
-     "text": "November 7, 2026: Enforcement begins.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-09",
-     "src": "MC1325414",
-     "text": "Action is required before November 9, 2026.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1519855",
-     "date": "2026-10-21",
-     "title": "Microsoft Entra: Choose your own telephony provider now generally available"
-    },
-    {
-     "id": "MC1528000",
-     "date": "2026-10-27",
-     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
-    },
-    {
-     "id": "MC1536049",
-     "date": "2026-11-03",
-     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1519855": {
-   "says": [
-    "2027-02-01",
-    "2027-07-01"
-   ],
-   "others": [
-    {
-     "date": "2026-11-05",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-06",
-     "src": "MC1325414",
-     "text": "Act by this date (Message Center)",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-07",
-     "src": "MC1325414",
-     "text": "November 7, 2026: Enforcement begins.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-09",
-     "src": "MC1325414",
-     "text": "Action is required before November 9, 2026.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-30",
-     "src": "MC1465763",
-     "text": "Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)",
-     "post": "2026-09-01",
-     "later": false,
-     "link": "https://deltapulse.app/item/MC1465763"
-    },
-    {
-     "date": "2027-07-01",
-     "src": "MC1426371",
-     "text": "1 Jul 2027 for Global Administrators and external users.",
-     "post": "2026-07-13",
-     "later": true,
-     "link": "https://deltapulse.app/item/MC1426371"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1528000",
-     "date": "2026-10-27",
-     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
-    },
-    {
-     "id": "MC1536049",
-     "date": "2026-11-03",
-     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    },
-    {
-     "id": "c-sms-voice-retirement",
-     "name": "Microsoft-provided SMS and voice MFA retirement"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1528000": {
-   "says": [
-    "2027-02-01"
-   ],
-   "others": [
-    {
-     "date": "2026-11-05",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-06",
-     "src": "MC1325414",
-     "text": "Act by this date (Message Center)",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-07",
-     "src": "MC1325414",
-     "text": "November 7, 2026: Enforcement begins.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-09",
-     "src": "MC1325414",
-     "text": "Action is required before November 9, 2026.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1536049",
-     "date": "2026-11-03",
-     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1536049": {
-   "says": [
-    "2027-02-01",
-    "2027-02-15",
-    "2027-03-22",
-    "2027-07-01"
-   ],
-   "others": [
-    {
-     "date": "2026-11-05",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-06",
-     "src": "MC1325414",
-     "text": "Act by this date (Message Center)",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-07",
-     "src": "MC1325414",
-     "text": "November 7, 2026: Enforcement begins.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-09",
-     "src": "MC1325414",
-     "text": "Action is required before November 9, 2026.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    }
-   ],
-   "moved": [],
-   "newer": [],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
     }
    ],
    "verdict": "differs"
