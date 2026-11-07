@@ -728,7 +728,7 @@
 },
 "https://www.microsoft.com/en-us/security/blog/2026/10/30/help-desk-impersonation-ad-cs-abuse-investigating-esc1-esc8-intrusion-paths/": {
 "iocs": [],
-"read": "2026-10-30"
+"read": "2026-11-07"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/": {
 "iocs": [
@@ -814,5 +814,50 @@
 ]
 ],
 "read": "2026-11-06"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/": {
+"iocs": [
+[
+"ip",
+"199.19.95.66",
+"IOC table: WISP C2 node \u00b7 2026-11-02 \u00b7 Active as of 2026-11-06"
+],
+[
+"ip",
+"199.19.95.67",
+"IOC table: WISP C2 node \u00b7 2026-11-02 \u00b7 Active as of 2026-11-06"
+],
+[
+"ip",
+"199.19.95.68",
+"IOC table: WISP C2 node \u00b7 2026-11-02 \u00b7 Active as of 2026-11-06"
+],
+[
+"ip",
+"91.92.240.238",
+"IOC table: ARTEX server \u00b7 2026-11-04 \u00b7 Active as of 2026-11-06"
+],
+[
+"ip",
+"85.11.168.45",
+"IOC table: ARTEX server \u00b7 2026-11-04 \u00b7 Active as of 2026-11-06"
+],
+[
+"ip",
+"85.11.167.52",
+"IOC table: C2 server \u00b7 2026-11-04 \u00b7 Active as of 2026-11-06"
+],
+[
+"ip",
+"178.16.54.129",
+"IOC table: ARTEX server \u00b7 2026-10-19 \u00b7 Active as of 2026-11-06"
+],
+[
+"ip",
+"31.77.229.35",
+"IOC table: ARTEX server \u00b7 2026-10-28 \u00b7 Active as of 2026-11-06"
+]
+],
+"read": "2026-11-07"
 }
 }
