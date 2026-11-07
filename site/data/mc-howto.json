@@ -264,6 +264,41 @@
      "says": "Lists the app role assignments granted for a resource service principal, i.e. which apps hold its application permissions."
     }
    ]
+  },
+  {
+   "key": "outlook-windows-usage-report-eac-retirement",
+   "ids": [
+    "MC1230889"
+   ],
+   "title": "Outlook for Windows usage report leaves the Exchange admin center (early April 2027)",
+   "scriptable": true,
+   "checked": "2026-11-07",
+   "sdk": "Microsoft Graph PowerShell SDK (Microsoft.Graph.Authentication)",
+   "dates": "Revised 06/11/2026: retirement begins and completes in early April 2027 (previously early November 2026). No admin action required; the same data stays in the Microsoft 365 admin center under Reports > Usage > Microsoft 365 Apps.",
+   "blocks": [
+    {
+     "t": "Read Outlook for Windows usage per user from the Microsoft 365 Apps usage report",
+     "kind": "read",
+     "scopes": "Reports.Read.All",
+     "code": "# Read only. The Microsoft 365 Apps user detail report carries an 'Outlook (Windows)' column - the data the EAC report showed.\n# Delegated use also needs a Microsoft Entra role allowed to read usage reports (for example Reports Reader).\nConnect-MgGraph -Scopes 'Reports.Read.All' -NoWelcome\nInvoke-MgGraphRequest -Method GET `\n    -Uri \"https://graph.microsoft.com/v1.0/reports/getM365AppUserDetail(period='D30')?`$format=text/csv\" `\n    -OutputFilePath .\\m365-apps-user-detail-D30.csv\n$rows = Import-Csv .\\m365-apps-user-detail-D30.csv\n$rows | Where-Object { $_.'Outlook (Windows)' -eq 'Yes' } |\n    Select-Object 'User Principal Name', 'Last Activity Date', 'Outlook (Windows)' |\n    Export-Csv .\\outlook-windows-users.csv -NoTypeInformation -Encoding UTF8",
+     "src": [
+      "https://learn.microsoft.com/graph/api/reportroot-getm365appuserdetail?view=graph-rest-1.0",
+      "https://learn.microsoft.com/microsoft-365/admin/activity-reports/microsoft365-apps-usage-ww?view=o365-worldwide"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "t": "Message Center MC1230889",
+     "u": "https://deltapulse.app/item/MC1230889",
+     "says": "The Outlook for Windows Usage Report is removed from the Exchange admin center in early April 2027 (moved on 6 November 2026 from early November 2026); usage stays available in the Microsoft 365 admin center; no admin action is required."
+    },
+    {
+     "t": "reportRoot: getM365AppUserDetail (Microsoft Learn)",
+     "u": "https://learn.microsoft.com/graph/api/reportroot-getm365appuserdetail?view=graph-rest-1.0",
+     "says": "Returns per-user Microsoft 365 Apps usage, including an 'Outlook (Windows)' column, with Reports.Read.All as the least privileged permission."
+    }
+   ]
   }
  ]
 }
