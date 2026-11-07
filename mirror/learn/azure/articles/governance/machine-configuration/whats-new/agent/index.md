@@ -67,6 +67,8 @@ The following table shows the releases for both platforms from most recent to ol
 
 | Platform | Version | Release date | Link |
 | --- | --- | --- | --- |
+| Windows | `1.29.123.0` | November 2026 | [Release notes](windows#1.29.123.0) |
+| Linux | `1.26.122` | November 2026 | [Release notes](linux#1.26.122) |
 | Windows | `1.29.122.0` | October 2026 | [Release notes](windows#1.29.122.0) |
 | Linux | `1.26.121` | October 2026 | [Release notes](linux#1.26.121) |
 | Windows | `1.29.119.0` | September 2026 | [Release notes](windows#1.29.119.0) |

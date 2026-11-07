@@ -693,6 +693,8 @@ The following table lists the Microsoft Fabric activities in Power BI that the M
 | Modified OneLake default tier | ModifiedDefaultTier | Modified OneLake default tier. |
 | Modified OneLake file soft-delete settings | ModifiedOneLakeFileSoftDeleteSettings | Generated when a workspace admin changes the OneLake file-level soft-delete retention settings (enable/disable, retention period). |
 | Planning session upgraded | PlanningSessionUpgraded | Session type is upgraded in planning workload. |
+| Power BI MCP tool called to modify the semantic model. | ModifiedByPowerBIMCP | Power BI MCP tool called to modify the semantic model. |
+| Power BI MCP tool called to read semantic model metadata. | ReadByPowerBIMCP | Power BI MCP tool called to read semantic model metadata. |
 | Recover an artifact | ArtifactRecovered | A user recovered a previously soft-deleted artifact, such as a gateway or gateway cluster member, restoring it to active state. |
 | Refreshed AWS Databricks Catalog Shortcuts | RefreshedAWSDatabricksCatalogShortcuts | Refreshed AWS Databricks Catalog shortcuts is an AWSDatabricksCatalog activity which is generated when the refresh-catalog-metadata operation re-syncs the already-mirrored shortcuts against the underlying AWS Databricks Unity Catalog. |
 | Retrieved artifact's Logical Id | ArtifactLogicalIdRetrieved | Retrieved artifact's Logical Id. |

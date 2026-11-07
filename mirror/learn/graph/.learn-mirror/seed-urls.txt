@@ -4,6 +4,7 @@ https://learn.microsoft.com/en-us/graph/api/accessdriftsummary-list
 https://learn.microsoft.com/en-us/graph/api/accesspackageresourceenvironment-get
 https://learn.microsoft.com/en-us/graph/api/accessreviewstage-acceptrecommendations
 https://learn.microsoft.com/en-us/graph/api/agentidentity-update-communicationconfiguration
+https://learn.microsoft.com/en-us/graph/api/approverdelegate-get
 https://learn.microsoft.com/en-us/graph/api/backuprestoreroot-list-activitylogs
 https://learn.microsoft.com/en-us/graph/api/crosstenantaccesspolicyconfigurationdefault-list-m365capabilities
 https://learn.microsoft.com/en-us/graph/api/crosstenantaccesspolicyconfigurationdefault-post-m365capabilities
@@ -35,6 +36,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/agentRiskDetection
 https://learn.microsoft.com/en-us/graph/api/resources/agentcommunicationconfiguration
 https://learn.microsoft.com/en-us/graph/api/resources/agentidentity
 https://learn.microsoft.com/en-us/graph/api/resources/agentidentityblueprintprincipal
+https://learn.microsoft.com/en-us/graph/api/resources/agentmetadata
 https://learn.microsoft.com/en-us/graph/api/resources/agentuser
 https://learn.microsoft.com/en-us/graph/api/resources/alert
 https://learn.microsoft.com/en-us/graph/api/resources/anonymouscalendarsharingfreebusydetail
@@ -48,6 +50,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/chunkoffsets
 https://learn.microsoft.com/en-us/graph/api/resources/clientcredentialauthenticationinfo
 https://learn.microsoft.com/en-us/graph/api/resources/cloudpc
 https://learn.microsoft.com/en-us/graph/api/resources/cloudpcprovisioningpolicy
+https://learn.microsoft.com/en-us/graph/api/resources/conditionalaccesspolicyplan
 https://learn.microsoft.com/en-us/graph/api/resources/contentactivity
 https://learn.microsoft.com/en-us/graph/api/resources/deleteditemcontainer
 https://learn.microsoft.com/en-us/graph/api/resources/device
@@ -84,6 +87,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/onlineMeetingBase
 https://learn.microsoft.com/en-us/graph/api/resources/onpasswordupdatecustomextension
 https://learn.microsoft.com/en-us/graph/api/resources/onpasswordupdatelistener
 https://learn.microsoft.com/en-us/graph/api/resources/onpremisespublishing
+https://learn.microsoft.com/en-us/graph/api/resources/place
 https://learn.microsoft.com/en-us/graph/api/resources/planner
 https://learn.microsoft.com/en-us/graph/api/resources/policyscopebase
 https://learn.microsoft.com/en-us/graph/api/resources/privilegedaccessgroup
@@ -117,11 +121,15 @@ https://learn.microsoft.com/en-us/graph/api/resources/smsauthenticationmethodcon
 https://learn.microsoft.com/en-us/graph/api/resources/synchronization-objectconnection
 https://learn.microsoft.com/en-us/graph/api/resources/synchronization-synchronizationjob
 https://learn.microsoft.com/en-us/graph/api/resources/teamworkcustomemoji
+https://learn.microsoft.com/en-us/graph/api/resources/telecomprovidersettings
 https://learn.microsoft.com/en-us/graph/api/resources/tenantgovernanceservices-actionstep
 https://learn.microsoft.com/en-us/graph/api/resources/unifiedroot
+https://learn.microsoft.com/en-us/graph/api/resources/user
+https://learn.microsoft.com/en-us/graph/api/resources/verifiablecrede…
 https://learn.microsoft.com/en-us/graph/api/resources/voiceauthenticationmethodconfiguration
 https://learn.microsoft.com/en-us/graph/api/resources/x509certificateauthenticationmethodconfiguration
 https://learn.microsoft.com/en-us/graph/api/resources/x509certificateauthenticationmetho…
+https://learn.microsoft.com/en-us/graph/api/res…
 https://learn.microsoft.com/en-us/graph/api/re…
 https://learn.microsoft.com/en-us/graph/api/security-alert-createalert
 https://learn.microsoft.com/en-us/graph/api/security-alert-movealerts
@@ -137,6 +145,7 @@ https://learn.microsoft.com/en-us/graph/api/unifiedroledefinition-delete
 https://learn.microsoft.com/en-us/graph/api/user-attest
 https://learn.microsoft.com/en-us/graph/api/userdatasecurityandgovernance-processcontent
 https://learn.microsoft.com/en-us/graph/api/userprotectionscopecontainer-compute
+https://learn.microsoft.com/en-us/graph/api…
 https://learn.microsoft.com/en-us/graph/applications-authenticationbehaviors
 https://learn.microsoft.com/en-us/graph/best-practices-concept
 https://learn.microsoft.com/en-us/graph/changenotifications-for-presence

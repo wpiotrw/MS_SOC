@@ -126,6 +126,7 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/change-cr
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/cloud-subscription
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/create-enterprise-subscription
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/direct-ea-administration
+https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/elevate-access-global-admin
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/mca-online-ea-transfer
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/microsoft-entra-id-free
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/subscription-transfer
@@ -219,6 +220,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/estim
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/integration-faq
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/known-limitations
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/manage-plans-defender-portal
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/move-environments-to-defender-portal
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-portal/plan-management-changes-defender-portal
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-sensor-change-log
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/deploy-helm
@@ -401,6 +403,10 @@ https://learn.microsoft.com/en-us/azure/governance/policy/samples/cis-linux/suse
 https://learn.microsoft.com/en-us/azure/governance/policy/samples/cis-linux/ubuntu-ado
 https://learn.microsoft.com/en-us/azure/governance/policy/samples/guest-configuration-baseline-cis-linux
 https://learn.microsoft.com/en-us/azure/governance/policy/samples/guest-configuration-baseline-linux
+https://learn.microsoft.com/en-us/azure/governance/policy/samples/guest-configuration-baseline-stig-linux
+https://learn.microsoft.com/en-us/azure/governance/policy/samples/stig-linux/oracle-ado
+https://learn.microsoft.com/en-us/azure/governance/policy/samples/stig-linux/rhel-ado
+https://learn.microsoft.com/en-us/azure/governance/policy/samples/stig-linux/ubuntu-ado
 https://learn.microsoft.com/en-us/azure/governance/resource-graph
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/changes/resource-graph-changes
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/changes/view-resource-changes
@@ -412,6 +418,8 @@ https://learn.microsoft.com/en-us/azure/governance/resource-graph/samples/advanc
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/samples/starter
 https://learn.microsoft.com/en-us/azure/governance/rhel-ado
 https://learn.microsoft.com/en-us/azure/governance/rocky-ado
+https://learn.microsoft.com/en-us/azure/governance/service-groups
+https://learn.microsoft.com/en-us/azure/governance/service-groups/best-practices
 https://learn.microsoft.com/en-us/azure/governance/service-groups/monitoring
 https://learn.microsoft.com/en-us/azure/governance/service-groups/overview
 https://learn.microsoft.com/en-us/azure/governance/suse-ado
@@ -636,4 +644,5 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-amd-dr
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-driver-setup
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/tutorial-disaster-recovery
 https://learn.microsoft.com/en-us/azure/virtual-machines/workloads/canonical/ubuntu-pro-in-place-scale-sets-upgrade
+https://learn.microsoft.com/en-us/azure/virtual-machines/zone-resilience
 https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/custom-rules-geo-based-ipv6

@@ -121,7 +121,7 @@ Warning
 
 During optimization, the optimizer evaluates your agent by invoking it against every task in your dataset. If your agent calls external tools—such as APIs, databases, or third-party services—those calls execute during each evaluation run. To avoid unintended side effects (charges, state mutations, or rate limiting), consider using test endpoints or mocking tool implementations during optimization.
 
-## Skill optimization
+## Skill optimization (preview)
 
 Skill optimization learns from recorded agent conversations to create skills or publish new versions of existing skills. For setup and usage, see [Optimize skills](../how-to/optimize-skills-from-traces).
 

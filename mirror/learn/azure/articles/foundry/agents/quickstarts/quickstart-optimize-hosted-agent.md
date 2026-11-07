@@ -24,7 +24,7 @@ ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Deploy and optimize a hosted agent by using the Azure Developer CLI, Python SDK, VS Code, or the Microsoft Foundry Skill.
-ms.date: 2026-09-03T00:00:00.0000000Z
+ms.date: 2026-11-05T00:00:00.0000000Z
 ms.topic: quickstart
 ms.subservice: foundry-agent-service
 ms.custom: mode-other, dev-focus, doc-kit-assisted
@@ -56,7 +56,7 @@ platformId: c997525c-f713-939d-fe74-b3c4d0ec7a94
 
 # Quickstart: Optimize a hosted agent - Microsoft Foundry | Microsoft Learn
 
-In this quickstart, you deploy the optimization sample agent, run the agent optimizer to improve its instructions, and deploy the winning candidate.
+In this quickstart, you deploy the optimization sample agent, run the agent optimizer to improve its instructions, deploy the winning candidate, and verify the result with an independent evaluation.
 
 For the concepts behind each step and the full end-to-end path, see the [optimization workflow](../concepts/agent-optimizer-overview#the-optimization-workflow).
 
@@ -68,9 +68,9 @@ Before you begin, you need:
 
 ::: zone pivot="azd"
 
-- [azd CLI](https://aka.ms/azd) (Azure Developer CLI).
+- [azd CLI](https://aka.ms/azd) (Azure Developer CLI) version 1.37.0 or later.
 - [Azure CLI](/en-us/cli/azure/install-azure-cli) for authentication.
-- The `microsoft.foundry` extension for azd (0.1.40-preview or later of the `azure.ai.agents` dependency):
+- The `microsoft.foundry` extension for azd. It includes the `azd ai agent` commands, such as `azd ai agent optimize`, but not the `azd ai eval` commands:
 
     ```bash
     azd ext install microsoft.foundry
@@ -80,6 +80,17 @@ Before you begin, you need:
 
     ```bash
     azd ext upgrade microsoft.foundry
+    ```
+- The `azure.ai.evaluations` extension for azd, which provides the `azd ai eval` commands. It requires azd 1.33.0 or later:
+
+    ```bash
+    azd ext install azure.ai.evaluations
+    ```
+
+    If already installed, upgrade:
+
+    ```bash
+    azd ext upgrade azure.ai.evaluations
     ```
 
 ::: zone-end
@@ -116,11 +127,16 @@ Before you begin, you need:
 - [Visual Studio Code](https://code.visualstudio.com/).
 - [Microsoft Foundry Toolkit for Visual Studio Code](https://aka.ms/foundrytk) version 1.6.4 or later, signed in to Azure. Foundry Toolkit installs and updates the [Microsoft Foundry Skill](../../how-to/develop/use-microsoft-foundry-skill) used by this workflow.
 - [GitHub Copilot in Visual Studio Code](https://code.visualstudio.com/docs/copilot/setup) with access to agent mode. Foundry Toolkit sends the Agent Optimizer request to GitHub Copilot after you select the agent workspace.
-- [Azure CLI](/en-us/cli/azure/install-azure-cli) and [Azure Developer CLI (AZD)](/en-us/azure/developer/azure-developer-cli/install-azd) installed and authenticated:
+- [Azure CLI](/en-us/cli/azure/install-azure-cli) and [Azure Developer CLI (AZD)](/en-us/azure/developer/azure-developer-cli/install-azd) version 1.37.0 or later, installed and authenticated:
 
     ```bash
     az login
     azd auth login
+    ```
+- The `azure.ai.evaluations` extension for AZD, if you want to generate evaluation assets with `azd ai eval generate`. It requires AZD 1.33.0 or later:
+
+    ```bash
+    azd ext install azure.ai.evaluations
     ```
 
 Tip
@@ -132,22 +148,33 @@ If you don't have Foundry Toolkit, [install it from the Visual Studio Code Marke
 ::: zone pivot="foundry-skills"
 
 - A coding agent host with the [Microsoft Foundry Skill](../../how-to/develop/use-microsoft-foundry-skill) installed.
-- [Azure CLI](/en-us/cli/azure/install-azure-cli) and [Azure Developer CLI (AZD)](/en-us/azure/developer/azure-developer-cli/install-azd) installed and authenticated:
+- [Azure CLI](/en-us/cli/azure/install-azure-cli) and [Azure Developer CLI (AZD)](/en-us/azure/developer/azure-developer-cli/install-azd) version 1.37.0 or later, installed and authenticated:
 
     ```bash
     az login
     azd auth login
     ```
-- The `microsoft.foundry` extension for AZD. Install it before you start the workflow:
+- The `microsoft.foundry` extension for AZD. It doesn't include the `azd ai eval` commands. Install it before you start the workflow:
 
     ```bash
     azd ext install microsoft.foundry
     ```
 
-    If it's already installed, upgrade it:
+    If it's already installed, upgrade it.
 
     ```bash
     azd ext upgrade microsoft.foundry
+    ```
+- The `azure.ai.evaluations` extension for AZD, which provides the `azd ai eval` commands that the workflow uses. It requires AZD 1.33.0 or later:
+
+    ```bash
+    azd ext install azure.ai.evaluations
+    ```
+
+    If it's already installed, upgrade it.
+
+    ```bash
+    azd ext upgrade azure.ai.evaluations
     ```
 
 ::: zone-end
@@ -167,7 +194,7 @@ azd ai agent init -t https://github.com/microsoft-foundry/foundry-samples/blob/m
 
 This template imports the [Optimization Customer Support sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/python/hosted-agents/bring-your-own/responses/optimization-customer-support), an optimization-ready Python hosted agent that uses the bring-your-own approach and the Responses protocol. It represents a consumer electronics support agent that handles order inquiries, returns, warranty claims, troubleshooting, complaints, recommendations, and escalation. The deliberately minimal baseline instruction makes the improvements from instruction optimization and skill discovery easy to compare.
 
-The sample calls `load_config()` to load baseline or candidate configuration and includes `.agent_configs/baseline/`, `eval.yaml`, full and quick evaluation datasets, container configuration, and the Foundry deployment manifest. The interactive flow imports these files and prompts for your Azure subscription, region, and model deployment settings.
+The sample calls `load_config()` to load baseline or candidate configuration and includes `.agent_configs/baseline/`, full and quick evaluation datasets, container configuration, and the Foundry deployment manifest. The interactive flow imports these files and prompts for your Azure subscription, region, and model deployment settings.
 
 Tip
 
@@ -201,65 +228,177 @@ Test the deployment:
 azd ai agent invoke "What is 2+2?"
 ```
 
-## Step 3: Generate evaluation suite and optimize
+Tip
 
-Generate an evaluation dataset and evaluators for your agent:
+The sample agent reads its model deployment name from the `MODEL_DEPLOYMENT_NAME` environment variable and defaults to `gpt-5.4-mini`. If you target an existing Foundry project that has no deployment with that name, `azd ai agent invoke` fails with a generic `agent error`. Add `MODEL_DEPLOYMENT_NAME` to the `env` section of the agent service in `azure.yaml`, set it to a chat model deployment in your project, and run `azd deploy` again.
 
-```bash
-azd ai agent eval generate
-```
+## Step 3: Generate evaluation assets
 
-This step creates `eval.yaml`, a test dataset, and scoring evaluators based on your agent's instructions. The optimizer uses these files to measure improvement.
+The optimizer scores candidates by using a dataset and evaluators that you provide. To create a measure that reflects how you judge your own agent, generate a dataset and a rubric evaluator by using the `azd ai eval` commands. Use the name of your deployed agent as the target. It's the `name` of the agent service in `azure.yaml`.
 
-Run the optimizer:
+In the following commands, replace `<generation-deployment>`, `<judge-deployment>`, `<eval-deployment>`, and `<optimization-deployment>` with names of model deployments in your Foundry project. Set each role explicitly.
 
 ```bash
-azd ai agent optimize --max-candidates 2
+azd ai eval generate \
+  --target <agent-name> \
+  --from prompt \
+  --generation-model <generation-deployment> \
+  --dataset-name support-tests \
+  --evaluator-name support-rubric \
+  --max-samples 15 \
+  --agent-instruction "A customer support agent for a consumer electronics company. It handles order inquiries, returns and refunds, warranty claims, device troubleshooting, complaints, product recommendations, and escalation to a human agent."
 ```
 
-The CLI prompts you to select an optimization model. To skip the prompt, pass it directly:
+The command generates the dataset and the evaluator in your Foundry project, downloads them to `evals/datasets/support-tests.jsonl` and `evals/evaluators/support-rubric.json`, and registers both in `evals/azure.eval.yaml`.
+
+Note
+
+The `--from` option applies only to the dataset. This step uses `--from prompt`, which generates the rows from the instruction that you pass with `--agent-instruction`. In version 1.0.0-beta.2 of the evaluations extension, `--from agent` can fail in the service with a data generation system error. If that happens in an interactive run, `generate` offers to submit another job that uses the prompt source only, and the default answer is No. By using `--no-prompt` or `-o json`, it doesn't retry. It ends with an error that tells you to rerun by using `--from prompt`. By using `--no-wait` and `--from agent`, it drops the agent source and submits the instruction alone, because it can't retry after it returns.
+
+Tip
+
+The sample's baseline instruction is deliberately a single sentence. By default, `generate` reads the baseline instructions in `.agent_configs/baseline/metadata.yaml`, so the rows it creates are generic. Pass `--agent-instruction` or `--agent-instruction-file` to describe what the agent should do. An explicit instruction takes precedence.
+
+Open the generated files and review them before you continue. If `generate` prints an input-quality warning, review the generated files with extra care. Edit rows or criteria that don't match how you want the agent to behave.
+
+## Step 4: Measure the baseline
+
+Set up an evaluation that scores the deployed agent, so that you can compare the optimized agent against the same measure later. The `generate` command prints the matching `init` command. The optimizer reuses this evaluation in Step 5. Add a judge model and a name:
 
 ```bash
-azd ai agent optimize --max-candidates 2 --optimize-model gpt-5
+azd ai eval init \
+  --target <agent-name> \
+  --source dataset \
+  --dataset support-tests \
+  --evaluation-level turn \
+  --evaluator builtin.task_completion \
+  --evaluator support-rubric \
+  --path ./evals \
+  --judge-model <judge-deployment> \
+  --name optimize-check
+
+azd ai eval create optimize-check
+azd ai eval run start --eval optimize-check --name baseline --wait
 ```
 
-The CLI detects your agent from `azure.yaml` and uses the generated `eval.yaml` automatically. With two candidates, optimization typically completes in about 8 minutes. Real-time progress is shown:
+The `init` command adds an evaluation service to `azure.yaml`. The `create` command registers the evaluation in your Foundry project. The run prints the pass rate and a per-evaluator summary:
 
 ```output
+TEST CASE RESULTS
+Total        15
+Passed        <n>
+Failed        <n>
+Errored       <n>
+Skipped       <n>
+Pass rate  <percent> (<n> passed / 15 total test cases)
+
+EVALUATOR RESULTS
+EVALUATOR       PASS  FAIL  SKIP  ERROR   SCORED  PASS RATE  MEAN SCORE
+...
+```
+
+Important
+
+A run scores the agent version that is current when the run starts, and the run output doesn't show which version that was. Run the baseline before you deploy an optimized candidate, and give each run a descriptive `--name`.
+
+## Step 5: Run the optimizer
+
+Run the optimizer with the evaluation that you set up in Step 4:
+
+```bash
+azd ai agent optimize \
+  --eval optimize-check \
+  --max-candidates 2 \
+  --eval-model <eval-deployment> \
+  --optimize-model <optimization-deployment>
+```
+
+The `--eval` option reuses the `optimize-check` evaluation that `azd ai eval init` added to your project. The optimizer takes the dataset and the evaluators from that evaluation, so you don't pass `--dataset` or `--evaluator`. It reuses only an evaluation that targets an agent and runs at the turn level on a dataset, as the Step 4 evaluation does.
+
+If you omit `--eval`, the CLI uses the evaluation in your project that targets the agent. If more than one evaluation targets the agent, the CLI prompts you to select one. With `--no-prompt`, it fails, so pass `--eval`. To select the evaluation from a configuration file, pass `--eval-config` with the path to the file, such as `evals/azure.eval.yaml`.
+
+To score candidates on a different dataset, pass `--dataset` with the path to a local JSONL file or with a registered dataset as `name:version`. To add evaluators, pass `--evaluator` once for each evaluator.
+
+Note
+
+The `azd ai agent optimize` command doesn't support the legacy agent `eval.yaml` file. The `azd ai agent eval` commands only print guidance for moving to `azd ai eval`. Create evaluation assets with `azd ai eval generate` and `azd ai eval init`.
+
+If you omit `--optimize-model`, the CLI prompts you to select a model. In unattended runs, pass `--eval-model` and `--optimize-model`. The CLI detects your agent from `azure.yaml`. A job with two candidates can take 15 to 20 minutes. The CLI shows progress as the job runs:
+
+```output
+  Note: Optimization creates candidate agents as draft versions.
+  Your live agent versions are not affected until you explicitly deploy a candidate.
+
 Optimizing agent "customer-support-py"...
-  Config: eval.yaml
+  Config: <evaluation-service>/optimize-check
   Baseline saved to .agent_configs/baseline/metadata.yaml
   Job ID: opt_162bd0f09....
-  Status: pending
+  Status: queued
   Portal: <OPTIMIZATION-JOB-URL>
 ```
 
-Use the portal URL to monitor your job in the Foundry portal.
+Use the portal URL to monitor your job in the Foundry portal. The `Config` line shows the source and the name of the evaluation that the optimizer reuses. The source is the evaluation service, or the configuration file when you pass `--eval-config`. To check the job from the terminal, run `azd ai agent optimize status <job-id>`.
 
-The *eval model* scores each response (any chat-completion model works). The *optimization model* (`--optimize-model`) generates improved candidates and must be from the [supported list](../concepts/agent-optimizer-overview#models) (gpt-5 family or DeepSeek). You can also set `optimization_model` under `options:` in `eval.yaml` to avoid passing the flag each time.
+The *eval model* scores each response (any chat-completion model works). The *optimization model* (`--optimize-model`) generates improved candidates and must be from the [supported list](../concepts/agent-optimizer-overview#models) (gpt-5 family or DeepSeek).
 
-## Step 4: Deploy the winner
+Tip
 
-The star (\*) in the output indicates the best candidate. Apply the optimized config locally, then deploy:
+The optimizer can improve an agent only when the baseline leaves room to improve. If the baseline already scores close to the maximum on your dataset, add harder cases, such as ambiguous requests, policy edge cases, and multistep problems, and run the job again.
+
+## Step 6: Deploy the winner
+
+The star (★) in the output indicates the best candidate.
+
+Important
+
+The `apply` command, and the `azd deploy` command that follows it, use the optimization job that your azd environment records for the agent. That's the job you started last for the agent. If you started another job after the one that produced your winning candidate, `apply` fails with a not-found error. Before you apply a candidate, check the recorded job:
+
+```bash
+azd env get-values
+```
+
+In the output, find `AGENT_<service-key>_OPTIMIZATION_JOB_ID`. To build `<service-key>`, take the agent service name from `azure.yaml`, convert it to uppercase, and replace hyphens and spaces with underscores. For example, the service name `optimization-customer-support-python-responses` becomes `OPTIMIZATION_CUSTOMER_SUPPORT_PYTHON_RESPONSES`.
+
+If the value isn't the ID of the job that produced your winning candidate, set it. The job ID appears in the output when you submit the job:
+
+```bash
+azd env set AGENT_<service-key>_OPTIMIZATION_JOB_ID <job-id>
+```
+
+This per-agent value takes precedence over `OPTIMIZE_LAST_OPERATION_ID`.
+
+Apply the optimized config locally, then deploy:
 
 ```bash
 azd ai agent optimize apply --candidate <candidate-id>
 azd deploy
 ```
 
-The `apply` command downloads the optimized configuration into `.agent_configs/<candidate_id>/` and updates your `azure.yaml` to use the new instructions. The `deploy` command pushes the optimized agent live using code deploy.
+The `apply` command downloads the optimized configuration into `.agent_configs/<candidate_id>/`, adds `OPTIMIZATION_CANDIDATE_ID` to your `azure.yaml` service environment, and prints a diff of the instructions. The `deploy` command pushes the optimized agent live using code deploy.
 
-Invoke your agent to verify the improvement:
+Note
+
+The `azd ai eval init` command in Step 4 added an evaluation service to `azure.yaml`, so `azd deploy` also deploys that service. It registers a new version of a dataset or evaluator when its local file changed.
+
+Invoke your agent to check the new behavior:
 
 ```bash
 azd ai agent invoke "What is your return policy?"
 ```
 
-You can also run evaluation to confirm the score improvement:
+## Step 7: Verify with an independent evaluation
+
+The optimizer scores candidates with its own evaluators on its own run. Confirm that the deployed agent improved by running the same evaluation that you ran in Step 4:
 
 ```bash
-azd ai agent eval run
+azd ai eval run start --eval optimize-check --name optimized --wait
 ```
+
+Compare the pass rate and each evaluator's results with the baseline run. To see why rows failed, run the `azd ai eval run output list ... --failed-only` command that the run prints under **Investigate**.
+
+An optimizer score gain doesn't guarantee a gain on an independent evaluation. If the optimized agent doesn't improve on the baseline, don't keep it. Review the failing rows, adjust the dataset or rubric, and run the optimizer again.
+
+To check the pass rate in a pipeline, add `--fail-on pass-rate=<0..1>` to `azd ai eval run start`. The command exits with code 1 when the run's pass rate is below that fraction. The check doesn't compare against the baseline run.
 
 ::: zone-end
 
@@ -275,7 +414,11 @@ This path assumes you already have the following resources in an existing Foundr
 - A registered training dataset.
 - A registered evaluator.
 
-Unlike the Azure Developer CLI flow described earlier, the Python SDK path doesn't scaffold a project or generate `eval.yaml`, a dataset, or evaluators for you. If you want the sample to create those assets automatically, use `azd ai agent eval generate` first.
+Note
+
+The `azd ai eval` commands keep their assets in `evals/azure.eval.yaml`, in the `datasets`, `evaluators`, and `evals` sections. The `azd ai agent optimize` command reuses an evaluation from that configuration by using `--eval` or `--eval-config`. This SDK path doesn't read it. It uses the registered dataset and evaluator that you reference in the code.
+
+Unlike the Azure Developer CLI flow described earlier, the Python SDK path doesn't scaffold a project or generate a dataset or evaluators for you. If you want to create those assets by using the Azure Developer CLI, install the `azure.ai.evaluations` extension with `azd ext install azure.ai.evaluations` (it requires azd 1.33.0 or later), and then run `azd ai eval generate`.
 
 ### 1. Create a `.env` file
 
@@ -544,7 +687,11 @@ This path assumes you already have the following resources in an existing Foundr
 - A registered training dataset.
 - A registered evaluator, such as the built-in `builtin.task_adherence` evaluator.
 
-Unlike the Azure Developer CLI flow described earlier, the .NET SDK path doesn't scaffold a project or generate `eval.yaml`, a dataset, or evaluators for you. If you want the sample to create those assets automatically, use `azd ai agent eval generate` first.
+Note
+
+The `azd ai eval` commands keep their assets in `evals/azure.eval.yaml`, in the `datasets`, `evaluators`, and `evals` sections. The `azd ai agent optimize` command reuses an evaluation from that configuration by using `--eval` or `--eval-config`. This SDK path doesn't read it. It uses the registered dataset and evaluator that you reference in the code.
+
+Unlike the Azure Developer CLI flow described earlier, the .NET SDK path doesn't scaffold a project or generate a dataset or evaluators for you. If you want to create those assets by using the Azure Developer CLI, install the `azure.ai.evaluations` extension with `azd ext install azure.ai.evaluations` (it requires azd 1.33.0 or later), and then run `azd ai eval generate`.
 
 ### 1. Set your environment variables
 
@@ -734,8 +881,8 @@ Foundry Toolkit includes a native Agent Optimization experience for deployed hos
 
     | Input | What to provide |
     | --- | --- |
-    | Evaluation metrics | Enter the metrics or evaluators to use. If you don't have them, choose whether to run `azd ai agent eval generate` or use the optimizer's built-in defaults. |
-    | Dataset | Select the optimization dataset. If you don't have one, choose whether to run `azd ai agent eval generate` or use the optimizer's built-in defaults. |
+    | Evaluation metrics | Enter the metrics or evaluators to use. If you don't have them, choose whether to generate them with `azd ai eval generate` (use `--from prompt` for the dataset). |
+    | Dataset | Select the optimization dataset. If you don't have one, choose whether to generate one with `azd ai eval generate` (use `--from prompt`). |
     | Maximum candidates | Enter the maximum number of candidates to generate, such as `2`. |
     | Optimization model | Select an existing deployment from the [supported optimization models](../concepts/agent-optimizer-overview#models). |
 
@@ -744,7 +891,6 @@ GitHub Copilot waits for these inputs before it starts optimization. The generat
 - Inspects the agent code in the selected workspace.
 - Initializes an AZD environment from existing `azure.yaml` and `.env` values if the project doesn't already have one.
 - Wires the agent for optimization and deploys the updated hosted agent.
-- Creates `eval.yaml` in the agent service folder.
 - Starts the optimization after you review and approve the proposed file changes and commands.
 
 After Copilot submits the job, return to the **Optimize** tab. The run appears under **Optimization runs**. The table shows its run ID, status, candidate count, baseline score, best score, and creation time.
@@ -769,6 +915,10 @@ If every candidate scores lower than the baseline, don't deploy a candidate. Kee
 
 Use this path in any coding agent host that supports the Microsoft Foundry Skill, such as GitHub Copilot in Visual Studio Code, Copilot CLI, or Claude Code. The skill resolves the agent context from `azure.yaml`, loads its Agent Optimizer workflow, and keeps candidate application and deployment behind review gates.
 
+Note
+
+The dedicated `azd ai eval` commands keep evaluation assets in `evals/azure.eval.yaml`, in `datasets`, `evaluators`, and `evals` sections. The `azd ai agent optimize` command doesn't support the legacy agent `eval.yaml` file. It reuses an evaluation from that configuration by using `--eval` or `--eval-config`. For guidance on datasets and evaluators, see [Create an evaluation dataset and evaluators](../how-to/create-optimizer-dataset).
+
 ### Step 1: Open the agent workspace
 
 Open an empty folder in your coding agent host. Confirm that the `microsoft-foundry` skill is available. If the skill isn't available, follow [Use the Microsoft Foundry Skill in coding agents](../../how-to/develop/use-microsoft-foundry-skill).
@@ -783,10 +933,15 @@ Python hosted agent. If this workspace doesn't contain an agent, initialize the
 customer support optimization sample from this template:
 https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/hosted-agents/bring-your-own/responses/optimization-customer-support/azure.yaml
 Resolve the AZD environment and hosted-agent service, verify that the agent is
-optimizer-ready, and deploy and invoke the baseline. Generate and show me the
-evaluation dataset, evaluators, and eval.yaml before running optimization.
-Verify that the project has a supported optimization model deployment, then run
-Agent Optimizer with two candidates. Stop after reporting the operation ID,
+optimizer-ready, and deploy and invoke the baseline. If the azd ai eval
+commands aren't available, run azd ext install azure.ai.evaluations first (it
+requires azd 1.33.0 or later). Generate the evaluation
+dataset and evaluators by using azd ai eval generate, with --from prompt for the
+dataset, and show me them. Set up the evaluation by using azd ai eval init and
+azd ai eval create, and run a baseline evaluation by using azd ai eval run
+start. Verify that the project has a supported optimization model deployment,
+then run Agent Optimizer with two candidates by reusing that evaluation with
+azd ai agent optimize --eval. Stop after reporting the operation ID,
 portal URL, candidate IDs, and scores. Don't apply or deploy a candidate yet.
 ```
 
@@ -801,11 +956,11 @@ Recommend the best optimization candidate and explain the score improvement.
 Summarize the candidate changes before applying anything. After I approve the
 candidate, apply it locally, show the source diff, and stop again before
 deployment. After I approve deployment, run azd deploy, invoke the agent with
-"What is your return policy?", and rerun the evaluation to confirm the
-improvement.
+"What is your return policy?", and rerun the same azd ai eval evaluation with a
+new run name. Compare it with the baseline run to confirm the improvement.
 ```
 
-The skill uses `azd ai agent optimize apply --candidate <candidate-id>` so you can review the optimized configuration locally. It deploys only after your approval, then invokes and evaluates the updated hosted agent.
+The skill uses `azd ai agent optimize apply --candidate <candidate-id>` so you can review the optimized configuration locally. It deploys only after your approval, then invokes the updated hosted agent and reruns the evaluation.
 
 ::: zone-end
 
@@ -825,8 +980,14 @@ Tip
 
 | Problem | Cause | Fix |
 | --- | --- | --- |
-| `azd ai agent optimize` command not found | Agent extension is missing or outdated. | Run `azd ext upgrade azure.ai.agents` and inspect `azd ai agent optimize --help`. |
-| `optimization_model is required` | Running in non-interactive mode without a model configured | Add `--optimize-model gpt-5` to the command, or set `optimization_model: gpt-5` under `options:` in `eval.yaml`. In interactive mode, the CLI prompts for model selection. |
+| `azd ai agent optimize` command not found | Agent extension is missing or outdated. | Run `azd ext install microsoft.foundry`, or `azd ext upgrade azure.ai.agents` if the agent extension is already installed. The agent extension requires azd 1.37.0 or later. Inspect `azd ai agent optimize --help`. |
+| `azd ai eval` command not found | The evaluations extension isn't installed. The `microsoft.foundry` extension doesn't include it. | Run `azd ext install azure.ai.evaluations`, or `azd ext upgrade azure.ai.evaluations` if it's already installed. The extension requires azd 1.33.0 or later. |
+| `azd ai agent invoke` fails with `agent error` and `An internal server error occurred` | The agent's model deployment doesn't exist in your project. The agent logs show `DeploymentNotFound`. | Run `azd ai agent monitor` to read the logs. Set `MODEL_DEPLOYMENT_NAME` in the agent service's `env` section in `azure.yaml` to an existing deployment, and run `azd deploy` again. |
+| `azd ai agent eval` prints that the legacy agent evaluation workflow was removed | The `azd ai agent eval` commands are deprecated and only print migration guidance. | Run `azd ext install azure.ai.evaluations`, and then use the `azd ai eval` commands, such as `azd ai eval generate`, `azd ai eval init`, and `azd ai eval run start`. |
+| `azd ai agent optimize` fails with `--dataset requires name:version for a registered dataset, or a local JSONL file` | You passed a registered dataset name without a version to `--dataset`. | Pass the registered dataset as `name:version`, or pass the path to a local JSONL file. |
+| `azd ai agent optimize` fails with `no evaluation matches the selected eval and agent` | The evaluation that `--eval` or `--eval-config` selects doesn't exist, or it doesn't target your agent. | Pass the name of an evaluation that targets the agent, such as the one that you create with `azd ai eval init --target <agent-name>`. |
+| `azd ai agent optimize apply` returns not found for a candidate | The candidate belongs to an earlier job, and `apply` uses the most recent job in the azd environment | Apply a candidate from the job you started last. |
+| `optimization_model is required` | Running in non-interactive mode without a model configured | Add `--optimize-model gpt-5` to the command, or set `optimization_model_configuration.model` in the optimization request file that you pass with `--config`. In interactive mode, the CLI prompts for model selection. |
 | Python script fails with `KeyError: 'DATASET_NAME'` or another missing variable | The script didn't load your `.env` file, or the variable is missing | Run the script from the same folder as `.env`, or export the required values in your shell before running `python optimize_hosted_agent.py`. |
 | Python script fails with `ResourceNotFound: The project does not exist` | `FOUNDRY_PROJECT_ENDPOINT` doesn't point to an existing Foundry project | Copy the project endpoint from the Foundry project's **Overview** page and update `FOUNDRY_PROJECT_ENDPOINT` in `.env`. |
 | Python script fails with `Optimization model deployment '<name>' not found` | `OPTIMIZATION_MODEL` is not the name of a deployed model in your Foundry project | Use the exact deployment name from **Build** &gt; **Deployments**, such as an existing `gpt-5` family or DeepSeek deployment in your project. |
@@ -847,4 +1008,5 @@ In this quickstart, you:
 
 - Deployed the optimization sample agent by using the customer-support template.
 - Ran the agent optimizer by using the Azure Developer CLI, Python SDK, .NET SDK, Visual Studio Code, or the Microsoft Foundry Skill.
-- Deployed the winning candidate and verified the improvement.
+- Generated an evaluation dataset and rubric evaluator by using `azd ai eval`.
+- Deployed the winning candidate and verified it with an independent evaluation that you can compare against the baseline.

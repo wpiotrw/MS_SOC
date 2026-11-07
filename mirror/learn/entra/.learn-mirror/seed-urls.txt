@@ -100,12 +100,16 @@ https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-cu
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-domain-controllers
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-configure-sign-in-every-time
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-customize-block-page
+https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-install-windows-client
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-manage-internet-access-profile
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-manage-users-groups-assignment
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-network-content-filtering
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-transport-layer-security-settings-managed-certificate
+https://learn.microsoft.com/en-us/entra/global-secure-access/reference-current-known-limitations
 https://learn.microsoft.com/en-us/entra/global-secure-access/reference-private-access-sensor-release-history
 https://learn.microsoft.com/en-us/entra/global-secure-access/reference-windows-client-release-history
+https://learn.microsoft.com/en-us/entra/global-secure-access/troubleshoot-global-secure-access-client-diagnostics-health-check
+https://learn.microsoft.com/en-us/entra/global-secure-access/troubleshoot-prompt-injection-protection
 https://learn.microsoft.com/en-us/entra/how-provisioning-to-active-directory-works
 https://learn.microsoft.com/en-us/entra/how-to-attribute-mapping-entra-to-active-directory
 https://learn.microsoft.com/en-us/entra/how-to-configure-entra-to-active-directory

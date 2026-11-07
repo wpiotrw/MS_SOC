@@ -65,6 +65,14 @@ To review the release notes for Windows (`Microsoft.GuestConfiguration.Configura
 
 The following sections of this article detail the notes for each release of the agent. The heading for each section includes the specific version for that release and the date for the release.
 
+## Version 1.26.122 - November 2026
+
+### Updated
+
+- Updated bundled PowerShell from version 7.4.20 (.NET 8) to 7.6.9 (.NET 10).
+- Moved OpenSSL from version 3.6.5 to version 3.5.9 on the long-term support (LTS) branch.
+- Updated Linux compatibility requirements. For details, see [Supported client types and Linux PowerShell compatibility](/en-us/azure/governance/machine-configuration/overview/01-overview-concepts#supported-client-types).
+
 ## Version 1.26.121 - October 2026
 
 ### Updated

@@ -37,9 +37,11 @@ source_path: concepts/permissions-reference.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/a72e95ff-4b4f-4cc1-90c6-7dcba67ff05f
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/24dc3ccd-591a-4415-a1fe-8759afafcb12
 platformId: 63f7b571-32d5-848f-5711-7fb3bd6b60cf
 ---
 
@@ -3380,6 +3382,15 @@ In some cases, an app may need extra properties to update some group properties 
 | Identifier | 546168c3-1183-4281-9491-fafb24dea37e | c1691a6d-99e2-4cfa-b4b5-9e4d67dc0f36 |
 | DisplayText | Read and write all group settings | Read and write all group settings that user can access |
 | Description | Allows the app to create, read, update, and delete on the list of tenant-level or group-specific group settings objects, without a signed-in user. | Allows the app to create, read, update, and delete on the list of tenant-level or group-specific group settings objects that you have access to in the organization, on behalf of the signed-in user. |
+| AdminConsentRequired | Yes | Yes |
+
+### HardDeletionSetting.ReadWrite.Enable
+
+| Category | Application | Delegated |
+| --- | --- | --- |
+| Identifier | 87f25f46-ce1e-47ed-935c-9d70b296f060 | 969ac762-bace-4685-8f56-a496211ea8e8 |
+| DisplayText | Enable hard deletion protection settings | Enable hard deletion protection settings |
+| Description | Allows the app to enable hard deletion protection settings on users, applications, groups, and service principals without a signed-in user. Requires Global Administrator or Backup Administrator role. | Allows the app to enable hard deletion protection settings on users, applications, groups, and service principals on behalf of the signed-in user. Requires Global Administrator or Backup Administrator role. |
 | AdminConsentRequired | Yes | Yes |
 
 ### HealthMonitoringAlert.Read.All
