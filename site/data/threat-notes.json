@@ -348,9 +348,9 @@
     "M365 workloads"
    ],
    "status": "active",
-   "updated": "2026-10-23",
+   "updated": "2026-11-07",
    "by": "morning routine",
-   "summary": "On 21 October Microsoft Threat Intelligence published its analysis of a large, AI-automated campaign by Storm-0940, which it describes as a China-state aligned actor active since 2021, using the open-source ARTEX penetration-testing framework. Microsoft says it assesses that Storm-0940 was responsible for the ConnectWise supply-chain compromise of the multi-tenant Cloud Backup application, and that the actor reached privileged cloud access in some cases less than three hours after first targeting. After taking control of ConnectWise application identities, the actor signed in to more than 2,250 downstream tenants through applications those customers had already trusted, and in some tenants moved on to Graph reconnaissance, credential additions to applications and privileged role changes, including one application that gave itself Global Administrator. Microsoft states this was not caused by a vulnerability in or compromise of Microsoft systems, and that a sign-in does not by itself prove data was accessed. The page does not say how the ConnectWise identities were first compromised.",
+   "summary": "On 21 October Microsoft Threat Intelligence published its analysis of a large, AI-automated campaign by Storm-0940, which it describes as a China-state aligned actor active since 2021, using the open-source ARTEX penetration-testing framework. Microsoft says it assesses that Storm-0940 was responsible for the ConnectWise supply-chain compromise of the multi-tenant Cloud Backup application, and that the actor reached privileged cloud access in some cases less than three hours after first targeting. After taking control of ConnectWise application identities, the actor signed in to more than 2,250 downstream tenants through applications those customers had already trusted, and in some tenants moved on to Graph reconnaissance, credential additions to applications and privileged role changes, including one application that gave itself Global Administrator. Microsoft states this was not caused by a vulnerability in or compromise of Microsoft systems, and that a sign-in does not by itself prove data was accessed. The page does not say how the ConnectWise identities were first compromised. On 6 November Microsoft reported a second, unrelated actor (Storm-3358) using the same ARTEX framework against the financial sector, so ARTEX tooling alone does not identify Storm-0940.",
    "timeline": [
     {
      "date": "2026-10-10",
@@ -370,6 +370,11 @@
     {
      "date": "2026-10-21",
      "text": "Microsoft publishes the attribution and the hunting and detection guidance.",
+     "src": "Microsoft Security blog"
+    },
+    {
+     "date": "2026-11-06",
+     "text": "Microsoft Threat Intelligence reports that a different actor, the financially motivated Cambodia-based cluster Storm-3358, has used ARTEX against financial-sector organizations since October 2026 (indicators first seen 19 October to 4 November). Microsoft does not link Storm-3358 to Storm-0940 or to the ConnectWise compromise; it cites the 21 October post only as background on ARTEX.",
      "src": "Microsoft Security blog"
     }
    ],
@@ -430,6 +435,12 @@
      "text": "An empty hunting result is not proof of no access: Microsoft says so explicitly, so check the audit trail as well.",
      "from": "ours",
      "phase": "investigate"
+    },
+    {
+     "text": "Do not attribute ARTEX-style activity (bursts of varied requests, rapid retries, Nmap/curl/headless Chromium traffic) to Storm-0940 by tooling alone; Microsoft now reports Storm-3358 using ARTEX too. Rely on Entra ID Protection \"Verified threat actor IP\" detections and sign-in-risk Conditional Access as Microsoft recommends.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/",
+     "phase": "detect"
     }
    ],
    "kql": [
@@ -444,6 +455,12 @@
      "title": "AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
      "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
      "date": "2026-10-21"
+    },
+    {
+     "what": "described",
+     "title": "ARTEX abuse expands as cybercriminals target financial sector",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/",
+     "date": "2026-11-06"
     }
    ],
    "links": [
@@ -456,6 +473,11 @@
      "text": "EntraIdSpnSignInEvents table reference",
      "url": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-entraidspnsigninevents-table",
      "date": "2026-10-22"
+    },
+    {
+     "text": "ARTEX abuse expands as cybercriminals target financial sector (Microsoft Threat Intelligence)",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/",
+     "date": "2026-11-06"
     }
    ],
    "apps": [
