@@ -6808,14 +6808,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-04",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-05",
 "text":"August 1, 2026."
 },
@@ -6905,6 +6897,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-06",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-07",
 "text":"August 1, 2026."
 },
 {
@@ -7528,7 +7528,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-06",
+"seen":"2026-11-07",
 "text":"early February 2026."
 },
 {
@@ -7536,7 +7536,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-06",
+"seen":"2026-11-07",
 "text":"February 2027."
 },
 {
@@ -9519,6 +9519,14 @@
 "date":"2026-11-06",
 "group":"community",
 "found":"2026-11-06"
+},
+"https://dev.to/bbt-id/cara-menyerahkan-pekerjaan-dari-osfoundry-ke-chat-claude-yang-tertaut-2cl7":{
+"title":"Cara menyerahkan pekerjaan dari osFoundry ke chat Claude yang tertaut",
+"link":"https://dev.to/bbt-id/cara-menyerahkan-pekerjaan-dari-osfoundry-ke-chat-claude-yang-tertaut-2cl7",
+"source":"NeonTiger12",
+"date":"2026-11-07",
+"group":"community",
+"found":"2026-11-07"
 }
 },
 "final":"2026-12-15",
@@ -11280,7 +11288,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-06",
+"seen":"2026-11-07",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11288,7 +11296,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-06",
+"seen":"2026-11-07",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -18676,6 +18684,16 @@
 "title":"MC1307979: Microsoft 365 Copilot: Copilot chat pane and Summary feature in OneNote Mobile (iPhone)",
 "source":"MC - Merill",
 "link":"https://mc.merill.net/message/MC1307979"
+},
+{
+"day":"2026-11-07",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"Cara menyerahkan pekerjaan dari osFoundry ke chat Claude yang tertaut",
+"source":"NeonTiger12",
+"link":"https://dev.to/bbt-id/cara-menyerahkan-pekerjaan-dari-osfoundry-ke-chat-claude-yang-tertaut-2cl7"
 }
 ],
 "archive":{
