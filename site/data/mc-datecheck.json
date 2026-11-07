@@ -1,597 +1,12 @@
 {
- "generated": "2026-11-06T23:13:45Z",
- "day": "2026-11-06",
+ "generated": "2026-11-07T00:18:28Z",
+ "day": "2026-11-07",
  "spec": "5gf",
- "source": "site/data/campaigns.json (2026-11-06)",
+ "source": "site/data/campaigns.json (2026-11-07)",
  "count": 40,
  "byMc": {
-  "MC1191578": {
-   "says": [
-    "2026-10-01"
-   ],
-   "others": [
-    {
-     "date": "2026-11-06",
-     "src": "MC1446796",
-     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
-     "post": "2026-08-03",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2027-04-01",
-     "src": "MC1227454",
-     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
-     "post": "2026-02-05",
-     "later": true,
-     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
-    },
-    {
-     "date": "2027-04-25",
-     "src": "MC1469960",
-     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
-     "post": "2026-09-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1469960"
-    },
-    {
-     "date": "2027-07-05",
-     "src": "MC1485116",
-     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
-     "post": "2026-10-01",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1485116"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1485116",
-     "date": "2026-10-01",
-     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
-    },
-    {
-     "id": "MC1486282",
-     "date": "2026-10-02",
-     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-    },
-    {
-     "id": "MC1486288",
-     "date": "2026-10-02",
-     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-    }
-   ],
-   "why": [
-    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
-   ],
-   "campaigns": [
-    {
-     "id": "c-mc676299",
-     "name": "Exchange Web Services (EWS) retirement update"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1227454": {
-   "says": [
-    "2027-04-01"
-   ],
-   "others": [
-    {
-     "date": "2026-11-06",
-     "src": "MC1446796",
-     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2027-04-25",
-     "src": "MC1469960",
-     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
-     "post": "2026-09-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1469960"
-    },
-    {
-     "date": "2027-07-05",
-     "src": "MC1485116",
-     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
-     "post": "2026-10-01",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1485116"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1485116",
-     "date": "2026-10-01",
-     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
-    },
-    {
-     "id": "MC1486282",
-     "date": "2026-10-02",
-     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-    },
-    {
-     "id": "MC1486288",
-     "date": "2026-10-02",
-     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-    }
-   ],
-   "why": [
-    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
-   ],
-   "campaigns": [
-    {
-     "id": "c-mc676299",
-     "name": "Exchange Web Services (EWS) retirement update"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1446796": {
-   "says": [
-    "2026-11-06",
-    "2026-11-15",
-    "2027-04-01"
-   ],
-   "others": [
-    {
-     "date": "2027-04-25",
-     "src": "MC1469960",
-     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
-     "post": "2026-09-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1469960"
-    },
-    {
-     "date": "2027-07-05",
-     "src": "MC1485116",
-     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
-     "post": "2026-10-01",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1485116"
-    }
-   ],
-   "moved": [
-    {
-     "was": "30 Oct 2026",
-     "now": "2026-11-06",
-     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing."
-    }
-   ],
-   "newer": [
-    {
-     "id": "MC1485116",
-     "date": "2026-10-01",
-     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
-    },
-    {
-     "id": "MC1486282",
-     "date": "2026-10-02",
-     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-    },
-    {
-     "id": "MC1486288",
-     "date": "2026-10-02",
-     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-    }
-   ],
-   "why": [
-    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
-   ],
-   "campaigns": [
-    {
-     "id": "c-mc676299",
-     "name": "Exchange Web Services (EWS) retirement update"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1447678": {
-   "says": [
-    "2027-04-01"
-   ],
-   "others": [
-    {
-     "date": "2026-11-06",
-     "src": "MC1446796",
-     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2027-04-25",
-     "src": "MC1469960",
-     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
-     "post": "2026-09-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1469960"
-    },
-    {
-     "date": "2027-07-05",
-     "src": "MC1485116",
-     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
-     "post": "2026-10-01",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1485116"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1485116",
-     "date": "2026-10-01",
-     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
-    },
-    {
-     "id": "MC1486282",
-     "date": "2026-10-02",
-     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-    },
-    {
-     "id": "MC1486288",
-     "date": "2026-10-02",
-     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-    }
-   ],
-   "why": [
-    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
-   ],
-   "campaigns": [
-    {
-     "id": "c-mc676299",
-     "name": "Exchange Web Services (EWS) retirement update"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1469960": {
-   "says": [
-    "2027-04-25"
-   ],
-   "others": [
-    {
-     "date": "2026-11-06",
-     "src": "MC1446796",
-     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2027-04-01",
-     "src": "MC1227454",
-     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
-     "post": "2026-02-05",
-     "later": false,
-     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
-    },
-    {
-     "date": "2027-07-05",
-     "src": "MC1485116",
-     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
-     "post": "2026-10-01",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1485116"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1485116",
-     "date": "2026-10-01",
-     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
-    },
-    {
-     "id": "MC1486282",
-     "date": "2026-10-02",
-     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-    },
-    {
-     "id": "MC1486288",
-     "date": "2026-10-02",
-     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-    }
-   ],
-   "why": [
-    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
-   ],
-   "campaigns": [
-    {
-     "id": "c-mc676299",
-     "name": "Exchange Web Services (EWS) retirement update"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1477180": {
-   "says": [],
-   "others": [
-    {
-     "date": "2026-11-06",
-     "src": "MC1446796",
-     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2027-04-01",
-     "src": "MC1227454",
-     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
-     "post": "2026-02-05",
-     "later": false,
-     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
-    },
-    {
-     "date": "2027-04-25",
-     "src": "MC1469960",
-     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
-     "post": "2026-09-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1469960"
-    },
-    {
-     "date": "2027-07-05",
-     "src": "MC1485116",
-     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
-     "post": "2026-10-01",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1485116"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1485116",
-     "date": "2026-10-01",
-     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
-    },
-    {
-     "id": "MC1486282",
-     "date": "2026-10-02",
-     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-    },
-    {
-     "id": "MC1486288",
-     "date": "2026-10-02",
-     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-    }
-   ],
-   "why": [
-    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
-   ],
-   "campaigns": [
-    {
-     "id": "c-mc676299",
-     "name": "Exchange Web Services (EWS) retirement update"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1485116": {
-   "says": [
-    "2027-07-05"
-   ],
-   "others": [
-    {
-     "date": "2026-11-06",
-     "src": "MC1446796",
-     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2027-04-01",
-     "src": "MC1227454",
-     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
-     "post": "2026-02-05",
-     "later": false,
-     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
-    },
-    {
-     "date": "2027-04-25",
-     "src": "MC1469960",
-     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
-     "post": "2026-09-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1469960"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1486282",
-     "date": "2026-10-02",
-     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-    },
-    {
-     "id": "MC1486288",
-     "date": "2026-10-02",
-     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-    }
-   ],
-   "why": [
-    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
-   ],
-   "campaigns": [
-    {
-     "id": "c-mc676299",
-     "name": "Exchange Web Services (EWS) retirement update"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1486282": {
-   "says": [],
-   "others": [
-    {
-     "date": "2026-11-06",
-     "src": "MC1446796",
-     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2027-04-01",
-     "src": "MC1227454",
-     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
-     "post": "2026-02-05",
-     "later": false,
-     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
-    },
-    {
-     "date": "2027-04-25",
-     "src": "MC1469960",
-     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
-     "post": "2026-09-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1469960"
-    },
-    {
-     "date": "2027-07-05",
-     "src": "MC1485116",
-     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
-     "post": "2026-10-01",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1485116"
-    }
-   ],
-   "moved": [],
-   "newer": [],
-   "why": [
-    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
-   ],
-   "campaigns": [
-    {
-     "id": "c-mc676299",
-     "name": "Exchange Web Services (EWS) retirement update"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1486288": {
-   "says": [],
-   "others": [
-    {
-     "date": "2026-11-06",
-     "src": "MC1446796",
-     "text": "Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
-     "date": "2027-04-01",
-     "src": "MC1227454",
-     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
-     "post": "2026-02-05",
-     "later": false,
-     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
-    },
-    {
-     "date": "2027-04-25",
-     "src": "MC1469960",
-     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
-     "post": "2026-09-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1469960"
-    },
-    {
-     "date": "2027-07-05",
-     "src": "MC1485116",
-     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
-     "post": "2026-10-01",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1485116"
-    }
-   ],
-   "moved": [],
-   "newer": [],
-   "why": [
-    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
-   ],
-   "campaigns": [
-    {
-     "id": "c-mc676299",
-     "name": "Exchange Web Services (EWS) retirement update"
-    }
-   ],
-   "verdict": "differs"
-  },
   "MC1325414": {
    "says": [
-    "2026-11-06",
     "2026-11-07",
     "2026-11-09",
     "2026-11-15"
@@ -667,14 +82,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-06",
-     "src": "MC1325414",
-     "text": "Act by this date (Message Center)",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
      "date": "2026-11-07",
      "src": "MC1325414",
      "text": "November 7, 2026: Enforcement begins.",
@@ -705,6 +112,14 @@
      "post": "2026-10-21",
      "later": false,
      "link": "https://mc.merill.net/message/MC1519855"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1536049"
     }
    ],
    "moved": [],
@@ -741,14 +156,6 @@
    ],
    "others": [
     {
-     "date": "2026-11-06",
-     "src": "MC1325414",
-     "text": "Act by this date (Message Center)",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
      "date": "2026-11-07",
      "src": "MC1325414",
      "text": "November 7, 2026: Enforcement begins.",
@@ -779,6 +186,14 @@
      "post": "2026-11-03",
      "later": false,
      "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1536049"
     },
     {
      "date": "2026-11-30",
@@ -834,14 +249,6 @@
    ],
    "others": [
     {
-     "date": "2026-11-06",
-     "src": "MC1325414",
-     "text": "Act by this date (Message Center)",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
      "date": "2026-11-07",
      "src": "MC1325414",
      "text": "November 7, 2026: Enforcement begins.",
@@ -872,6 +279,14 @@
      "post": "2026-11-03",
      "later": true,
      "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
     }
    ],
    "moved": [],
@@ -904,14 +319,6 @@
     "2027-07-01"
    ],
    "others": [
-    {
-     "date": "2026-11-06",
-     "src": "MC1325414",
-     "text": "Act by this date (Message Center)",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
     {
      "date": "2026-11-07",
      "src": "MC1325414",
@@ -958,14 +365,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-06",
-     "src": "MC1325414",
-     "text": "Act by this date (Message Center)",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
      "date": "2026-11-07",
      "src": "MC1325414",
      "text": "November 7, 2026: Enforcement begins.",
@@ -996,6 +395,14 @@
      "post": "2026-10-21",
      "later": false,
      "link": "https://mc.merill.net/message/MC1519855"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1536049"
     }
    ],
    "moved": [],
@@ -1005,6 +412,519 @@
     {
      "id": "c-item-mc1519855",
      "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1191578": {
+   "says": [
+    "2026-10-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-01",
+     "src": "MC1227454",
+     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
+     "post": "2026-02-05",
+     "later": true,
+     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
+    },
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1485116"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1485116",
+     "date": "2026-10-01",
+     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
+    },
+    {
+     "id": "MC1486282",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    },
+    {
+     "id": "MC1486288",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    }
+   ],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1227454": {
+   "says": [
+    "2027-04-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1485116"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1485116",
+     "date": "2026-10-01",
+     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
+    },
+    {
+     "id": "MC1486282",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    },
+    {
+     "id": "MC1486288",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    }
+   ],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1446796": {
+   "says": [
+    "2026-11-15",
+    "2027-04-01"
+   ],
+   "others": [
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1485116"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1485116",
+     "date": "2026-10-01",
+     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
+    },
+    {
+     "id": "MC1486282",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    },
+    {
+     "id": "MC1486288",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    }
+   ],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1447678": {
+   "says": [
+    "2027-04-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1485116"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1485116",
+     "date": "2026-10-01",
+     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
+    },
+    {
+     "id": "MC1486282",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    },
+    {
+     "id": "MC1486288",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    }
+   ],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1469960": {
+   "says": [
+    "2027-04-25"
+   ],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-01",
+     "src": "MC1227454",
+     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
+     "post": "2026-02-05",
+     "later": false,
+     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1485116"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1485116",
+     "date": "2026-10-01",
+     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
+    },
+    {
+     "id": "MC1486282",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    },
+    {
+     "id": "MC1486288",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    }
+   ],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1477180": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-01",
+     "src": "MC1227454",
+     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
+     "post": "2026-02-05",
+     "later": false,
+     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
+    },
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1485116"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1485116",
+     "date": "2026-10-01",
+     "title": "Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
+    },
+    {
+     "id": "MC1486282",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    },
+    {
+     "id": "MC1486288",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    }
+   ],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1485116": {
+   "says": [
+    "2027-07-05"
+   ],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-01",
+     "src": "MC1227454",
+     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
+     "post": "2026-02-05",
+     "later": false,
+     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
+    },
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1469960"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1486282",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    },
+    {
+     "id": "MC1486288",
+     "date": "2026-10-02",
+     "title": "Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+    }
+   ],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1486282": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-01",
+     "src": "MC1227454",
+     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
+     "post": "2026-02-05",
+     "later": false,
+     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
+    },
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1485116"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1486288": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1446796",
+     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2027-04-01",
+     "src": "MC1227454",
+     "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
+     "post": "2026-02-05",
+     "later": false,
+     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
+    },
+    {
+     "date": "2027-04-25",
+     "src": "MC1469960",
+     "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
+     "post": "2026-09-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1485116"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [
+    "Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc676299",
+     "name": "Exchange Web Services (EWS) retirement update"
     }
    ],
    "verdict": "differs"
