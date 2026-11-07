@@ -1,0 +1,46 @@
+// title: Detection 1: OAuth App Service Principal Actions Following Recent Consent Grant
+// date: 2026-11-07
+// product: Entra
+// tables: AuditLogs
+// purpose: From the article: Detection Engineering Brief - Saturday, November 7, 2026
+// source: https://devsecopsdadattack.com/2026-11-07-detection-engineering-brief-saturday-november-7-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 7d;
+let op_threshold = 10;
+let consent_apps = AuditLogs
+    | where TimeGenerated >= ago(lookback)
+    | where OperationName in ("Consent to application", "Add OAuth2PermissionGrant")
+    | where Result == "success"
+    | extend AppId = tostring(TargetResources[0].id)
+    | extend AppDisplayName = tostring(TargetResources[0].displayName)
+    | extend InitiatedByUPN = tostring(InitiatedBy.user.userPrincipalName)
+    | where isnotempty(AppId)
+    | project ConsentTime = TimeGenerated, AppId, AppDisplayName, InitiatedByUPN;
+let sp_activity = AuditLogs
+    | where TimeGenerated >= ago(lookback)
+    | where isnotempty(tostring(InitiatedBy.app.appId))
+    | extend SPAppId = tostring(InitiatedBy.app.appId)
+    | extend SPName = tostring(InitiatedBy.app.displayName)
+    | summarize
+        OperationCount = count(),
+        Operations = make_set(OperationName, 20),
+        FirstSeen = min(TimeGenerated),
+        LastSeen = max(TimeGenerated)
+        by SPAppId, SPName;
+consent_apps
+| join kind=inner sp_activity on $left.AppId == $right.SPAppId
+| where OperationCount > op_threshold
+| where FirstSeen >= ConsentTime
+| project
+    ConsentTime,
+    AppDisplayName,
+    AppId,
+    InitiatedByUPN,
+    SPName,
+    OperationCount,
+    Operations,
+    FirstSeen,
+    LastSeen
+| sort by OperationCount desc

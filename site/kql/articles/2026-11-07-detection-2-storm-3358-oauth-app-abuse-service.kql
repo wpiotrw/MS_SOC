@@ -1,0 +1,52 @@
+// title: Detection 2: Storm-3358 OAuth App Abuse - Service Principal Tenant Actions After Recent Consent
+// date: 2026-11-07
+// product: Entra
+// tables: AuditLogs
+// purpose: From the article: Detection Engineering Brief - Saturday, November 7, 2026
+// source: https://devsecopsdadattack.com/2026-11-07-detection-engineering-brief-saturday-november-7-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 14d;
+let sensitive_ops = dynamic([
+    "Add member to role",
+    "Add app role assignment to service principal",
+    "Update application",
+    "Add service principal credentials",
+    "Set delegation entry",
+    "Add delegated permission grant"
+]);
+let recently_consented = AuditLogs
+    | where TimeGenerated >= ago(lookback)
+    | where OperationName in ("Consent to application", "Add OAuth2PermissionGrant")
+    | where Result == "success"
+    | extend AppId = tostring(TargetResources[0].id)
+    | extend AppDisplayName = tostring(TargetResources[0].displayName)
+    | extend ConsentGrantedBy = tostring(InitiatedBy.user.userPrincipalName)
+    | where isnotempty(AppId)
+    | project ConsentTime = TimeGenerated, AppId, AppDisplayName, ConsentGrantedBy;
+let privileged_sp_ops = AuditLogs
+    | where TimeGenerated >= ago(lookback)
+    | where OperationName in (sensitive_ops)
+    | where isnotempty(tostring(InitiatedBy.app.appId))
+    | extend SPAppId = tostring(InitiatedBy.app.appId)
+    | extend SPName = tostring(InitiatedBy.app.displayName)
+    | extend TargetEntity = coalesce(
+        tostring(TargetResources[0].userPrincipalName),
+        tostring(TargetResources[0].displayName)
+      )
+    | project OpTime = TimeGenerated, SPAppId, SPName, OperationName, ResultType, TargetEntity;
+recently_consented
+| join kind=inner privileged_sp_ops on $left.AppId == $right.SPAppId
+| where OpTime > ConsentTime
+| project
+    ConsentTime,
+    OpTime,
+    AppDisplayName,
+    AppId,
+    ConsentGrantedBy,
+    SPName,
+    OperationName,
+    ResultType,
+    TargetEntity
+| sort by OpTime desc

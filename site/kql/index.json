@@ -42,6 +42,49 @@
   "incident": "storm-0940-artex-connectwise-2026-10"
  },
  {
+  "file": "articles/2026-11-07-detection-3-cve-2023-20198-probe-attempts-against.kql",
+  "title": "Detection 3: CVE-2023-20198 Probe Attempts Against Cisco IOS Devices",
+  "date": "2026-11-07",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, November 7, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-07-detection-engineering-brief-saturday-november-7-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-07-detection-engineering-brief-saturday-november-7-2026/"
+ },
+ {
+  "file": "articles/2026-11-07-detection-2-storm-3358-oauth-app-abuse-service.kql",
+  "title": "Detection 2: Storm-3358 OAuth App Abuse - Service Principal Tenant Actions After Recent Consent",
+  "date": "2026-11-07",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, November 7, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-07-detection-engineering-brief-saturday-november-7-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-07-detection-engineering-brief-saturday-november-7-2026/"
+ },
+ {
+  "file": "articles/2026-11-07-detection-1-oauth-app-service-principal-actions-following.kql",
+  "title": "Detection 1: OAuth App Service Principal Actions Following Recent Consent Grant",
+  "date": "2026-11-07",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, November 7, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-07-detection-engineering-brief-saturday-november-7-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-07-detection-engineering-brief-saturday-november-7-2026/"
+ },
+ {
   "file": "community/2026-11-06-hunting-query.kql",
   "title": "Hunting query",
   "date": "2026-11-06",
