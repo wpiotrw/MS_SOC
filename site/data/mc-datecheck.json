@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07T06:03:23Z",
+ "generated": "2026-11-07T06:45:12Z",
  "day": "2026-11-07",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-07)",
@@ -194,22 +194,6 @@
      "post": "2026-11-03",
      "later": false,
      "link": "https://deltapulse.app/item/MC1536049"
-    },
-    {
-     "date": "2026-11-30",
-     "src": "MC1465763",
-     "text": "Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)",
-     "post": "2026-09-01",
-     "later": false,
-     "link": "https://deltapulse.app/item/MC1465763"
-    },
-    {
-     "date": "2027-07-01",
-     "src": "MC1426371",
-     "text": "1 Jul 2027 for Global Administrators and external users.",
-     "post": "2026-07-13",
-     "later": true,
-     "link": "https://deltapulse.app/item/MC1426371"
     }
    ],
    "moved": [],
@@ -235,10 +219,6 @@
     {
      "id": "c-item-mc1519855",
      "name": "SSPR requires registered authentication methods"
-    },
-    {
-     "id": "c-sms-voice-retirement",
-     "name": "Microsoft-provided SMS and voice MFA retirement"
     }
    ],
    "verdict": "differs"
@@ -1292,11 +1272,6 @@
      "id": "MC1474104",
      "date": "2026-09-18",
      "title": "Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes"
-    },
-    {
-     "id": "MC1519855",
-     "date": "2026-10-21",
-     "title": "Microsoft Entra: Choose your own telephony provider now generally available"
     }
    ],
    "why": [],
@@ -1634,11 +1609,11 @@
    "others": [
     {
      "date": "2027-02-01",
-     "src": "MC1519855",
-     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
-     "post": "2026-10-21",
+     "src": "MC1426371",
+     "text": "As part of this transition, SMS and voice will no longer be available as multifactor authentication methods starting February 1, 2027 .",
+     "post": "2026-07-13",
      "later": true,
-     "link": "https://mc.merill.net/message/MC1519855"
+     "link": "https://mc.merill.net/message/MC1426371"
     },
     {
      "date": "2027-07-01",
@@ -1661,11 +1636,6 @@
      "id": "MC1474104",
      "date": "2026-09-18",
      "title": "Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes"
-    },
-    {
-     "id": "MC1519855",
-     "date": "2026-10-21",
-     "title": "Microsoft Entra: Choose your own telephony provider now generally available"
     }
    ],
    "why": [],
@@ -1700,13 +1670,7 @@
     }
    ],
    "moved": [],
-   "newer": [
-    {
-     "id": "MC1519855",
-     "date": "2026-10-21",
-     "title": "Microsoft Entra: Choose your own telephony provider now generally available"
-    }
-   ],
+   "newer": [],
    "why": [],
    "campaigns": [
     {

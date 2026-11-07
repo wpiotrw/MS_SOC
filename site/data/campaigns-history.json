@@ -1,6 +1,140 @@
 {
 "updated":"2026-11-07",
 "campaigns":{
+"c-mc1230889":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-07",
+"name":"Outlook for Windows report retirement in the Exchange admin center",
+"status":"Active",
+"members":[
+"MC1230889"
+],
+"log":[
+{
+"date":"2026-11-06",
+"id":"MC1230889",
+"what":"Message Center end date",
+"before":"2027-01-04",
+"after":"2027-05-31",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://mc.merill.net/message/MC1230889"
+},
+{
+"date":"2026-11-06",
+"id":"MC1230889",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://mc.merill.net/message/MC1230889"
+},
+{
+"date":"2026-11-06",
+"id":"MC1230889",
+"what":"Microsoft moved the date",
+"before":"early Nov 2026",
+"after":"early Apr 2027",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://mc.merill.net/message/MC1230889"
+},
+{
+"date":"2026-09-29",
+"id":"MC1230889",
+"what":"Act-by date",
+"before":"",
+"after":"2026-11-02",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+},
+{
+"date":"2026-09-28",
+"id":"MC1230889",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"(Updated) Outlook for Windows report retirement in the Exchange admin center",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+},
+{
+"date":"2026-08-28",
+"id":"MC1230889",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+},
+{
+"date":"2026-08-28",
+"id":"MC1230889",
+"what":"Microsoft moved the date",
+"before":"mid Aug 2026",
+"after":"early Nov 2026",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+},
+{
+"date":"2026-08-28",
+"id":"MC1230889",
+"what":"Microsoft moved the date",
+"before":"mid Sep 2026",
+"after":"late Nov 2026",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+}
+],
+"milestones":{
+"MC1230889|posted":{
+"date":"2026-02-11",
+"label":"11 Feb 2026",
+"text":"Posted: Outlook for Windows report retirement in the Exchange admin center"
+},
+"MC1230889|actionBy":{
+"date":"2026-11-02",
+"label":"2 Nov 2026",
+"text":"Act by this date (Message Center)"
+},
+"MC1230889|retirement will begin in early previously early#1":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"Retirement will begin in early April 2027 (previously early November 2026)."
+},
+"MC1230889|retirement will begin in early previously early#0":{
+"date":"2027-04-05",
+"label":"early Apr 2027",
+"text":"Retirement will begin in early April 2027 (previously early November 2026)."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889":{
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889",
+"source":"Message Center",
+"id":"MC1230889",
+"date":"2026-02-11",
+"updated":"2026-08-28",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1230889":{
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://mc.merill.net/message/MC1230889",
+"source":"Message Center",
+"id":"MC1230889",
+"date":"2026-02-11",
+"updated":"2026-11-06",
+"group":"microsoft",
+"found":"2026-11-07"
+}
+},
+"final":"2027-04-05",
+"type":"Retirement",
+"tech":"Exchange",
+"posts":[
+"MC1230889"
+]
+},
 "c-mc1540345":{
 "firstSeen":"2026-11-05",
 "lastSeen":"2026-11-07",
@@ -2160,6 +2294,22 @@
 "date":"2026-11-06",
 "group":"community",
 "found":"2026-11-06"
+},
+"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
+"title":"Completed HTTP and HTTPS proxy credential redaction.",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
+"source":"Microsoft Learn · What's new · Azure Arc",
+"date":"2026-03-24",
+"group":"microsoft",
+"found":"2026-11-07"
+},
+"https://dev.to/omaisali/mql5-webrequest-needs-an-https-url-whitelist-before-any-call-can-leave-the-terminal-2p2c":{
+"title":"MQL5 WebRequest needs an HTTPS URL whitelist before any call can leave the terminal",
+"link":"https://dev.to/omaisali/mql5-webrequest-needs-an-https-url-whitelist-before-any-call-can-leave-the-terminal-2p2c",
+"source":"NeonTiger12",
+"date":"2026-11-07",
+"group":"community",
+"found":"2026-11-07"
 }
 },
 "final":"2026-12-25",
@@ -4937,6 +5087,14 @@
 "date":"2026-11-05",
 "group":"community",
 "found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83844":{
+"title":"CVE-2026-83844 Windows Paint Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83844",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-06",
+"group":"microsoft",
+"found":"2026-11-07"
 }
 },
 "final":"2026-10-13",
@@ -5931,130 +6089,6 @@
 "MC1465771"
 ]
 },
-"c-mc1230889":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-07",
-"name":"Outlook for Windows report retirement in the Exchange admin center",
-"status":"Active",
-"members":[
-"MC1230889"
-],
-"log":[
-{
-"date":"2026-11-06",
-"id":"MC1230889",
-"what":"Message Center end date",
-"before":"2027-01-04",
-"after":"2027-05-31",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
-},
-{
-"date":"2026-11-06",
-"id":"MC1230889",
-"what":"Microsoft edited the post text",
-"before":"",
-"after":"see the post",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
-},
-{
-"date":"2026-11-06",
-"id":"MC1230889",
-"what":"Microsoft moved the date",
-"before":"early Nov 2026",
-"after":"early Apr 2027",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
-},
-{
-"date":"2026-09-29",
-"id":"MC1230889",
-"what":"Act-by date",
-"before":"",
-"after":"2026-11-02",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
-},
-{
-"date":"2026-09-28",
-"id":"MC1230889",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"(Updated) Outlook for Windows report retirement in the Exchange admin center",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
-},
-{
-"date":"2026-08-28",
-"id":"MC1230889",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the timeline.",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
-},
-{
-"date":"2026-08-28",
-"id":"MC1230889",
-"what":"Microsoft moved the date",
-"before":"mid Aug 2026",
-"after":"early Nov 2026",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
-},
-{
-"date":"2026-08-28",
-"id":"MC1230889",
-"what":"Microsoft moved the date",
-"before":"mid Sep 2026",
-"after":"late Nov 2026",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
-}
-],
-"milestones":{
-"MC1230889|posted":{
-"date":"2026-02-11",
-"label":"11 Feb 2026",
-"text":"Posted: Outlook for Windows report retirement in the Exchange admin center"
-},
-"MC1230889|actionBy":{
-"date":"2026-11-02",
-"label":"2 Nov 2026",
-"text":"Act by this date (Message Center)"
-},
-"MC1230889|retirement will begin in early previously early#1":{
-"date":"2026-11-05",
-"label":"early Nov 2026",
-"text":"Retirement will begin in early April 2027 (previously early November 2026)."
-},
-"MC1230889|retirement will begin in early previously early#0":{
-"date":"2027-04-05",
-"label":"early Apr 2027",
-"text":"Retirement will begin in early April 2027 (previously early November 2026)."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889":{
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889",
-"source":"Message Center",
-"id":"MC1230889",
-"date":"2026-02-11",
-"updated":"2026-08-28",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":"2027-04-05",
-"type":"Retirement",
-"tech":"Exchange",
-"posts":[
-"MC1230889"
-]
-},
 "c-mc1462922":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-07",
@@ -6529,6 +6563,14 @@
 "date":"2026-10-30",
 "group":"community",
 "found":"2026-10-31"
+},
+"https://mc.merill.net/message/MC1301714":{
+"title":"MC1301714: Microsoft Purview | Data Loss Prevention- DLP to restrict processing external emails in M365 Copilot and Copilot Chat",
+"link":"https://mc.merill.net/message/MC1301714",
+"source":"MC - Merill",
+"date":"2026-11-06",
+"group":"community",
+"found":"2026-11-07"
 }
 },
 "final":"2027-01-15",
@@ -6790,14 +6832,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-04",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-05",
 "text":"August 1, 2026."
 },
@@ -6887,6 +6921,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-06",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-07",
 "text":"August 1, 2026."
 },
 {
@@ -7438,22 +7480,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-05",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-05",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-06",
 "text":"early February 2026."
 },
@@ -7543,6 +7569,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-06",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-07",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-07",
 "text":"February 2027."
 },
 {
@@ -7966,80 +8008,6 @@
 "tech":"Windows",
 "posts":[
 "MC1172446"
-]
-},
-"c-item-mc1454973":{
-"firstSeen":"2026-10-23",
-"lastSeen":"2026-11-07",
-"name":"Manage Copilot connectors (Global setting) from Agent 365 - SetFederatedConnectors CLI toggle is retiring",
-"status":"Recently closed",
-"members":[
-"MC1454973",
-"item:MC1454973"
-],
-"log":[
-{
-"date":"2026-10-23",
-"id":"MC1454973",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"Copilot Connectors page starts enforcing the Allowed agent types setting on 30 October, moved from 5 October",
-"title":"Copilot Connectors page starts enforcing the Allowed agent types setting on 30 October, moved from 5 October",
-"link":"https://deltapulse.app/item/MC1454973"
-}
-],
-"milestones":{
-"MC1454973|posted":{
-"date":"2026-08-14",
-"label":"14 Aug 2026",
-"text":"Posted: Manage Copilot connectors (Global setting) from Agent 365 - SetFederatedConnectors CLI toggle is retiring"
-},
-"MC1454973|microsoft s update of moves every date in the post to#0":{
-"date":"2026-10-23",
-"label":"23 Oct 2026",
-"text":"Microsoft's update of 23 October 2026 moves every 5 October date in the post to 30 October 2026."
-},
-"MC1454973|microsoft s update of moves every date in the post to#1":{
-"date":"2026-10-30",
-"label":"30 Oct 2026",
-"text":"Microsoft's update of 23 October 2026 moves every 5 October date in the post to 30 October 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1454973":{
-"title":"Manage Copilot connectors (Global setting) from Agent 365 - SetFederatedConnectors CLI toggle is retiring",
-"link":"https://mc.merill.net/message/MC1454973",
-"source":"Message Center",
-"id":"MC1454973",
-"date":"2026-08-14",
-"updated":"2026-10-23",
-"group":"microsoft",
-"found":"2026-10-23"
-},
-"https://deltapulse.app/item/MC1454973":{
-"title":"Manage Copilot connectors (Global setting) from Agent 365 - SetFederatedConnectors CLI toggle is retiring",
-"link":"https://deltapulse.app/item/MC1454973",
-"source":"Main list source",
-"id":"MC1454973",
-"date":"2026-08-14",
-"group":"microsoft",
-"found":"2026-10-23"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/manage-global-exclusion-policies-for-linux-across-both-av-and/ba-p/4420127":{
-"title":"Manage global exclusion policies for Linux across both AV and EDR",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/manage-global-exclusion-policies-for-linux-across-both-av-and/ba-p/4420127",
-"source":"Microsoft Defender for Endpoint Blog",
-"date":"2025-06-05",
-"group":"microsoft",
-"found":"2026-10-30"
-}
-},
-"final":"2026-10-30",
-"type":"Retirement",
-"tech":"Copilot",
-"posts":[
-"MC1454973"
 ]
 },
 "c-item-defender-cross-tenant-delegated-admin-ga-2026-10-20":{
@@ -8693,6 +8661,14 @@
 "date":"2024-10-06",
 "group":"microsoft",
 "found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83844":{
+"title":"CVE-2026-83844 Windows Paint Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83844",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-06",
+"group":"microsoft",
+"found":"2026-11-07"
 }
 },
 "final":"2026-11-10",
@@ -9555,6 +9531,67 @@
 "MC1536101"
 ]
 },
+"c-item-mc1542066":{
+"firstSeen":"2026-11-07",
+"lastSeen":"2026-11-07",
+"name":"Changes to custom organizational data in MODS for Workforce Insights",
+"status":"Active",
+"members":[
+"MC1542066",
+"item:MC1542066"
+],
+"log":[
+{
+"date":"2026-11-07",
+"id":"MC1542066",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Workforce Insights endpoint in MODS retires 18 November; custom non-public attributes such as job level move to the Microsoft 365 profile endpoint and become visible to Copilot experiences",
+"title":"Workforce Insights endpoint in MODS retires 18 November; custom non-public attributes such as job level move to the Microsoft 365 profile endpoint and become visible to Copilot experiences",
+"link":"https://deltapulse.app/item/MC1542066"
+}
+],
+"milestones":{
+"MC1542066|posted":{
+"date":"2026-11-06",
+"label":"6 Nov 2026",
+"text":"Posted: Microsoft 365 Copilot: Changes to custom organizational data in MODS for Workforce Insights"
+},
+"MC1542066|after the workforce insights endpoint will no longer be avai#0":{
+"date":"2026-11-18",
+"label":"18 Nov 2026",
+"text":"After November 18, 2026 , the Workforce Insights endpoint will no longer be available as a destination in MODS."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1542066":{
+"title":"Microsoft 365 Copilot: Changes to custom organizational data in MODS for Workforce Insights",
+"link":"https://mc.merill.net/message/MC1542066",
+"source":"Message Center",
+"id":"MC1542066",
+"date":"2026-11-06",
+"updated":"2026-11-06",
+"group":"microsoft",
+"found":"2026-11-07"
+},
+"https://deltapulse.app/item/MC1542066":{
+"title":"Microsoft 365 Copilot: Changes to custom organizational data in MODS for Workforce Insights",
+"link":"https://deltapulse.app/item/MC1542066",
+"source":"Main list source",
+"id":"MC1542066",
+"date":"2026-11-06",
+"group":"microsoft",
+"found":"2026-11-07"
+}
+},
+"final":"2026-11-18",
+"type":"Retirement",
+"tech":"Copilot",
+"posts":[
+"MC1542066"
+]
+},
 "c-sms-voice-retirement":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-07",
@@ -9568,9 +9605,7 @@
 "MC1465763",
 "item:MC1465763",
 "MC1474104",
-"item:MC1474104",
-"item:entra-telephony-provider-configuration-2026-10-30",
-"MC1519855"
+"item:MC1474104"
 ],
 "log":[
 {
@@ -9703,11 +9738,6 @@
 "label":"18 Sep 2026",
 "text":"Posted: Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes"
 },
-"MC1519855|posted":{
-"date":"2026-10-21",
-"label":"21 Oct 2026",
-"text":"Posted: Microsoft Entra: Choose your own telephony provider now generally available"
-},
 "MC1426371|customers who need to continue to use sms or voice will be a#0":{
 "date":"2026-10-30",
 "label":"30 Oct 2026",
@@ -9718,10 +9748,10 @@
 "label":"end of Nov 2026",
 "text":"Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)"
 },
-"MC1519855|microsoft entra id now generally supports choose your own te#0":{
+"MC1426371|as part of this transition sms and voice will no longer be a#0":{
 "date":"2027-02-01",
 "label":"1 Feb 2027",
-"text":"Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by Fe"
+"text":"As part of this transition, SMS and voice will no longer be available as multifactor authentication methods starting February 1, 2027 ."
 },
 "MC1426371|for most users for global administrators and external users#1":{
 "date":"2027-07-01",
@@ -10528,6 +10558,22 @@
 "date":"2026-11-06",
 "group":"community",
 "found":"2026-11-06"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=578904":{
+"title":"Dynamics 365 Project Operations: Set invoice limits for time and material billing",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578904",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-06",
+"group":"community",
+"found":"2026-11-07"
+},
+"https://mc.merill.net/message/MC1307979":{
+"title":"MC1307979: Microsoft 365 Copilot: Copilot chat pane and Summary feature in OneNote Mobile (iPhone)",
+"link":"https://mc.merill.net/message/MC1307979",
+"source":"MC - Merill",
+"date":"2026-11-06",
+"group":"community",
+"found":"2026-11-07"
 }
 },
 "final":"2027-07-01",
@@ -10536,8 +10582,7 @@
 "posts":[
 "MC1426371",
 "MC1465763",
-"MC1474104",
-"MC1519855"
+"MC1474104"
 ]
 },
 "c-passkeys-by-default":{
@@ -11187,22 +11232,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-05",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-05",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-06",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -11292,6 +11321,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-06",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-07",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-07",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -18561,6 +18606,76 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-07",
+"cid":"c-mc1528007",
+"type":"material",
+"name":"Join button will require HTTPS meeting links",
+"group":"community",
+"title":"MQL5 WebRequest needs an HTTPS URL whitelist before any call can leave the terminal",
+"source":"NeonTiger12",
+"link":"https://dev.to/omaisali/mql5-webrequest-needs-an-https-url-whitelist-before-any-call-can-leave-the-terminal-2p2c"
+},
+{
+"day":"2026-11-07",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-83844 Windows Paint Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83844"
+},
+{
+"day":"2026-11-07",
+"cid":"c-mc1429010",
+"type":"material",
+"name":"Instances policy location in Microsoft Purview Data Loss Prevention",
+"group":"community",
+"title":"MC1301714: Microsoft Purview | Data Loss Prevention- DLP to restrict processing external emails in M365 Copilot and Copilot Chat",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1301714"
+},
+{
+"day":"2026-11-07",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-83844 Windows Paint Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83844"
+},
+{
+"day":"2026-11-07",
+"cid":"c-item-mc1542066",
+"type":"new",
+"name":"Changes to custom organizational data in MODS for Workforce Insights",
+"ctype":"Retirement",
+"tech":"Copilot",
+"next":"18 Nov 2026",
+"text":"We're changing how the Workforce Insights agent receives custom organizational data from Microsoft 365 Organizational Data Service (MODS)."
+},
+{
+"day":"2026-11-07",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Dynamics 365 Project Operations: Set invoice limits for time and material billing",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578904"
+},
+{
+"day":"2026-11-07",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"MC1307979: Microsoft 365 Copilot: Copilot chat pane and Summary feature in OneNote Mobile (iPhone)",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1307979"
 }
 ],
 "archive":{
@@ -20509,6 +20624,80 @@
 "tech":"SharePoint",
 "posts":[
 "MC1515940"
+]
+},
+"c-item-mc1454973":{
+"firstSeen":"2026-10-23",
+"lastSeen":"2026-11-07",
+"name":"Manage Copilot connectors (Global setting) from Agent 365 - SetFederatedConnectors CLI toggle is retiring",
+"status":"Archive",
+"members":[
+"MC1454973",
+"item:MC1454973"
+],
+"log":[
+{
+"date":"2026-10-23",
+"id":"MC1454973",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Copilot Connectors page starts enforcing the Allowed agent types setting on 30 October, moved from 5 October",
+"title":"Copilot Connectors page starts enforcing the Allowed agent types setting on 30 October, moved from 5 October",
+"link":"https://deltapulse.app/item/MC1454973"
+}
+],
+"milestones":{
+"MC1454973|posted":{
+"date":"2026-08-14",
+"label":"14 Aug 2026",
+"text":"Posted: Manage Copilot connectors (Global setting) from Agent 365 - SetFederatedConnectors CLI toggle is retiring"
+},
+"MC1454973|microsoft s update of moves every date in the post to#0":{
+"date":"2026-10-23",
+"label":"23 Oct 2026",
+"text":"Microsoft's update of 23 October 2026 moves every 5 October date in the post to 30 October 2026."
+},
+"MC1454973|microsoft s update of moves every date in the post to#1":{
+"date":"2026-10-30",
+"label":"30 Oct 2026",
+"text":"Microsoft's update of 23 October 2026 moves every 5 October date in the post to 30 October 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1454973":{
+"title":"Manage Copilot connectors (Global setting) from Agent 365 - SetFederatedConnectors CLI toggle is retiring",
+"link":"https://mc.merill.net/message/MC1454973",
+"source":"Message Center",
+"id":"MC1454973",
+"date":"2026-08-14",
+"updated":"2026-10-23",
+"group":"microsoft",
+"found":"2026-10-23"
+},
+"https://deltapulse.app/item/MC1454973":{
+"title":"Manage Copilot connectors (Global setting) from Agent 365 - SetFederatedConnectors CLI toggle is retiring",
+"link":"https://deltapulse.app/item/MC1454973",
+"source":"Main list source",
+"id":"MC1454973",
+"date":"2026-08-14",
+"group":"microsoft",
+"found":"2026-10-23"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/manage-global-exclusion-policies-for-linux-across-both-av-and/ba-p/4420127":{
+"title":"Manage global exclusion policies for Linux across both AV and EDR",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-for-endpoint/manage-global-exclusion-policies-for-linux-across-both-av-and/ba-p/4420127",
+"source":"Microsoft Defender for Endpoint Blog",
+"date":"2025-06-05",
+"group":"microsoft",
+"found":"2026-10-30"
+}
+},
+"final":"2026-10-30",
+"type":"Retirement",
+"tech":"Copilot",
+"posts":[
+"MC1454973"
 ]
 }
 }
