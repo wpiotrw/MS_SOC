@@ -1,0 +1,36 @@
+// title: Microsoft Defender XDR
+// date: 2026-11-07
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, SecurityEvent
+// purpose: From the article: ARTEX abuse expands as cybercriminals target financial sector
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/
+// kind: article
+// author: Microsoft Threat Intelligence · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let known_files = DeviceNetworkEvents
+    | where TimeGenerated between (ago(7d)..ago(1d))
+    | where InitiatingProcessFileName has "curl"
+    | extend url = extract("http[s]?:\\/\\/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+", 0,InitiatingProcessCommandLine)
+    | extend ip = extract("(\\b25[0-5]|\\b2[0-4][0-9]|\\b[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}[^ ]*", 0, InitiatingProcessCommandLine)
+    | extend remote_file = iif(isnotempty(url), url, ip)
+    | union (SecurityEvent
+    | where TimeGenerated between (ago(7d)..ago(1d))
+    | where EventID == 4688
+    | where CommandLine has "curl"
+    | extend url = extract("http[s]?:\\/\\/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+", 0,CommandLine)
+    | extend ip = extract("(\\b25[0-5]|\\b2[0-4][0-9]|\\b[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}[^ ]*", 0, CommandLine)
+    | extend remote_file = iif(isnotempty(url), url, ip))
+    | summarize by remote_file;
+    DeviceNetworkEvents
+    | where TimeGenerated > ago(1d)
+    | where InitiatingProcessFileName has "curl"
+    | extend url = extract("http[s]?:\\/\\/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+", 0,InitiatingProcessCommandLine)
+    | extend ip = extract("(\\b25[0-5]|\\b2[0-4][0-9]|\\b[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}[^ ]*", 0, InitiatingProcessCommandLine)
+    | extend remote_file = iif(isnotempty(url), url, ip)
+    | union (SecurityEvent
+    | where EventID == 4688
+    | where CommandLine has "curl"
+    | extend url = extract("http[s]?:\\/\\/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+", 0,CommandLine)
+    | extend ip = extract("(\\b25[0-5]|\\b2[0-4][0-9]|\\b[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}[^ ]*", 0, CommandLine)
+    | extend remote_file = iif(isnotempty(url), url, ip))
+    | where remote_file !in (known_files)

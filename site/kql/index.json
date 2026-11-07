@@ -1,5 +1,47 @@
 [
  {
+  "file": "articles/2026-11-07-microsoft-defender-xdr.kql",
+  "title": "Microsoft Defender XDR",
+  "date": "2026-11-07",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: ARTEX abuse expands as cybercriminals target financial sector",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
+  "file": "articles/2026-11-07-hunting-queries.kql",
+  "title": "Hunting queries",
+  "date": "2026-11-07",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: ARTEX abuse expands as cybercriminals target financial sector",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
+  "file": "articles/2026-11-07-hunting-queries-2.kql",
+  "title": "Hunting queries",
+  "date": "2026-11-07",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: ARTEX abuse expands as cybercriminals target financial sector",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
   "file": "community/2026-11-06-hunting-query.kql",
   "title": "Hunting query",
   "date": "2026-11-06",
