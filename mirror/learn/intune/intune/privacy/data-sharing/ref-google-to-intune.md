@@ -2,13 +2,12 @@
 layout: Conceptual
 title: Data Google sends to Intune - Microsoft Intune | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/intune/privacy/data-sharing/ref-google-to-intune
-author: paolomatarazzo
-ms.author: paoloma
+author: iceorbital
+ms.author: acabello
 breadcrumb_path: /intune/breadcrumb/toc.json
 uhfHeaderId: MSDocsHeader-Intune
 feedback_system: Standard
 ms.service: microsoft-intune
-manager: laurawi
 ms.collection:
 - M365-identity-device-management
 - privacy
