@@ -1,7 +1,7 @@
 {
  "read": "2026-11-08",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 723,
+ "count": 720,
  "note": null,
  "messages": [
   {
@@ -14307,81 +14307,6 @@
    "bodyHash": "a6d7b28701d78b25"
   },
   {
-   "id": "MC1492159",
-   "title": "Microsoft 365 Copilot in PowerPoint: 'Clarify my thinking' skill for Mac",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-08",
-   "end": "2026-11-08",
-   "modified": "2026-10-08",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Microsoft 365 Copilot in PowerPoint is introducing the built-in Clarify my thinking skill for PowerPoint on Mac. This skill was previously referred to as “GrillMe” and has been renamed to use more customer-friendly wording. With this skill, users can ask Copilot to answer questions that help sharpen their ideas and improve their presentation before sharing or presenting. This can h…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Rollout begins on October 8, 2026."
-   ],
-   "bodyHash": "a0dc11db7d88555e"
-  },
-  {
-   "id": "MC1492160",
-   "title": "Microsoft 365 Copilot in PowerPoint: 'Clarify my thinking' skill for web",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-08",
-   "end": "2026-11-08",
-   "modified": "2026-10-08",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Microsoft 365 Copilot in PowerPoint is introducing the built-in Clarify my thinking skill for PowerPoint on web. This skill was previously referred to as “GrillMe” and has been renamed to use more customer-friendly wording. With this skill, users can ask Copilot to answer questions that help sharpen their ideas and improve their presentation before sharing or presenting. This can h…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Rollout begins on October 8, 2026."
-   ],
-   "bodyHash": "1a880b202fd7b93a"
-  },
-  {
-   "id": "MC1492161",
-   "title": "Microsoft 365 Copilot in PowerPoint: 'Clarify my thinking' skill for desktop",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-08",
-   "end": "2026-11-08",
-   "modified": "2026-10-08",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Microsoft 365 Copilot in PowerPoint is introducing the built-in Clarify my thinking skill for PowerPoint on desktop. This skill was previously referred to as “GrillMe” and has been renamed to use more customer-friendly wording. With this skill, users can ask Copilot to answer questions that help sharpen their ideas and improve their presentation before sharing or presenting. This c…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Rollout begins on October 8, 2026."
-   ],
-   "bodyHash": "1019a19b007c177f"
-  },
-  {
    "id": "MC1492163",
    "title": "Microsoft API Hub: Zendesk OAuth tokens will require expiration and automatic refresh",
    "services": [
@@ -25242,6 +25167,27 @@
    "id": "MC1489590",
    "type": "removed",
    "title": "Dynamics 365 Project Operations - Assign task level calendar for precise planning",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-08",
+   "id": "MC1492159",
+   "type": "removed",
+   "title": "Microsoft 365 Copilot in PowerPoint: 'Clarify my thinking' skill for Mac",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-08",
+   "id": "MC1492160",
+   "type": "removed",
+   "title": "Microsoft 365 Copilot in PowerPoint: 'Clarify my thinking' skill for web",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-08",
+   "id": "MC1492161",
+   "type": "removed",
+   "title": "Microsoft 365 Copilot in PowerPoint: 'Clarify my thinking' skill for desktop",
    "fields": {}
   }
  ]

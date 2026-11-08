@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-08T00:36Z",
+ "updated": "2026-11-08T10:15Z",
  "baseline": "2026-10-10T08:35Z",
- "lastRead": "2026-11-08T00:36Z",
+ "lastRead": "2026-11-08T10:15Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
@@ -12,6 +12,149 @@
   "roles": 145
  },
  "events": [
+  {
+   "seen": "2026-11-08T10:15Z",
+   "day": "2026-11-08",
+   "surface": "action",
+   "name": "microsoft.directory/applications/sponsors/read",
+   "change": "removed",
+   "type": "",
+   "before": "",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T10:15Z",
+   "day": "2026-11-08",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/assignments/basic/update",
+   "change": "removed",
+   "type": "",
+   "before": "",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T10:15Z",
+   "day": "2026-11-08",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/assignments/create",
+   "change": "removed",
+   "type": "",
+   "before": "",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T10:15Z",
+   "day": "2026-11-08",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/assignments/delete",
+   "change": "removed",
+   "type": "",
+   "before": "",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T10:15Z",
+   "day": "2026-11-08",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/assignments/standard/read",
+   "change": "removed",
+   "type": "",
+   "before": "",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T10:15Z",
+   "day": "2026-11-08",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/configuration/basic/update",
+   "change": "removed",
+   "type": "",
+   "before": "",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T10:15Z",
+   "day": "2026-11-08",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/configuration/standard/read",
+   "change": "removed",
+   "type": "",
+   "before": "",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T10:15Z",
+   "day": "2026-11-08",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/definitions/basic/update",
+   "change": "removed",
+   "type": "",
+   "before": "",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T10:15Z",
+   "day": "2026-11-08",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/definitions/create",
+   "change": "removed",
+   "type": "",
+   "before": "",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T10:15Z",
+   "day": "2026-11-08",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/definitions/delete",
+   "change": "removed",
+   "type": "",
+   "before": "",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T10:15Z",
+   "day": "2026-11-08",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/definitions/standard/read",
+   "change": "removed",
+   "type": "",
+   "before": "",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T10:15Z",
+   "day": "2026-11-08",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/evaluateAssignedPolicies",
+   "change": "removed",
+   "type": "",
+   "before": "",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T10:15Z",
+   "day": "2026-11-08",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/evaluatePolicy",
+   "change": "removed",
+   "type": "",
+   "before": "",
+   "after": null,
+   "text": ""
+  },
   {
    "seen": "2026-11-06T23:09Z",
    "day": "2026-11-06",
