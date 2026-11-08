@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-08T00:36Z",
+ "updated": "2026-11-08T22:03Z",
  "baseline": "2026-10-18T20:23Z",
- "lastRead": "2026-11-08T00:36Z",
+ "lastRead": "2026-11-08T22:03Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
@@ -9,9 +9,53 @@
   "application": 779,
   "delegated": 871,
   "rsc": 60,
-  "roles": 148
+  "roles": 145
  },
  "events": [
+  {
+   "seen": "2026-11-08T22:03Z",
+   "day": "2026-11-08",
+   "surface": "role",
+   "name": "Resource Policy Administrator",
+   "change": "removed",
+   "type": "",
+   "before": "12 actions",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T22:03Z",
+   "day": "2026-11-08",
+   "surface": "role",
+   "name": "Resource Policy Evaluator",
+   "change": "removed",
+   "type": "",
+   "before": "1 actions",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T22:03Z",
+   "day": "2026-11-08",
+   "surface": "role",
+   "name": "Resource Policy Reader",
+   "change": "removed",
+   "type": "",
+   "before": "5 actions",
+   "after": null,
+   "text": ""
+  },
+  {
+   "seen": "2026-11-08T22:03Z",
+   "day": "2026-11-08",
+   "surface": "role",
+   "name": "User",
+   "change": "actions-removed",
+   "type": "",
+   "before": "microsoft.directory/agentIdentityBlueprints/createAsOwner",
+   "after": null,
+   "text": ""
+  },
   {
    "seen": "2026-11-07T13:03Z",
    "day": "2026-11-07",
