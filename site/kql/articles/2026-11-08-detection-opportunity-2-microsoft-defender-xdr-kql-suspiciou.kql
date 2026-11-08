@@ -1,0 +1,41 @@
+// title: Detection Opportunity 2 - Microsoft Defender XDR KQL — Suspicious Operator Activity
+// date: 2026-11-08
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: Fake Google Meet Updates, Abused RMM Tools, the AgtaBackup RAT Ecosystem & Campaign
+// source: https://detect.fyi/fake-google-meet-updates-abused-rmm-tools-the-agtabackup-rat-ecosystem-campaign-814b6f09541c?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: SIMKRA · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where Timestamp > ago(45d)
+| where FileName in~ (
+    "powershell.exe",
+    "pwsh.exe",
+    "cmd.exe",
+    "msiexec.exe",
+    "sc.exe",
+    "schtasks.exe"
+)
+| where
+    InitiatingProcessFolderPath endswith
+        @"\Google Meet\Agent\GoogleMeet.exe"
+    or ProcessCommandLine contains
+        "AgtaBackupAgent.msi"
+    or ProcessCommandLine contains
+        "AgtaBackupAgentSvc"
+    or ProcessCommandLine contains
+        "AgtaBackupAgentWatchdog"
+    or ProcessCommandLine contains
+        "AgtaBackupAgentGuardian"
+| project
+    Timestamp,
+    DeviceName,
+    AccountName,
+    FileName,
+    FolderPath,
+    ProcessCommandLine,
+    InitiatingProcessFileName,
+    InitiatingProcessFolderPath,
+    InitiatingProcessCommandLine
+| order by Timestamp desc

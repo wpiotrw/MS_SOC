@@ -1,5 +1,111 @@
 [
  {
+  "file": "articles/2026-11-08-detection-opportunity-2-microsoft-defender-xdr-kql-suspiciou.kql",
+  "title": "Detection Opportunity 2 - Microsoft Defender XDR KQL — Suspicious Operator Activity",
+  "date": "2026-11-08",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Fake Google Meet Updates, Abused RMM Tools, the AgtaBackup RAT Ecosystem & Campaign",
+  "source": "https://detect.fyi/fake-google-meet-updates-abused-rmm-tools-the-agtabackup-rat-ecosystem-campaign-814b6f09541c?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "SIMKRA · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/fake-google-meet-updates-abused-rmm-tools-the-agtabackup-rat-ecosystem-campaign-814b6f09541c?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-fake-google-meet-updates-abused-rmm-tool-2026-11-08"
+ },
+ {
+  "file": "articles/2026-11-08-detection-opportunity-1-microsoft-defender-xdr-kql-exact.kql",
+  "title": "Detection Opportunity 1 - Microsoft Defender XDR KQL — Exact IOC Hunting",
+  "date": "2026-11-08",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Fake Google Meet Updates, Abused RMM Tools, the AgtaBackup RAT Ecosystem & Campaign",
+  "source": "https://detect.fyi/fake-google-meet-updates-abused-rmm-tools-the-agtabackup-rat-ecosystem-campaign-814b6f09541c?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "SIMKRA · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/fake-google-meet-updates-abused-rmm-tools-the-agtabackup-rat-ecosystem-campaign-814b6f09541c?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-fake-google-meet-updates-abused-rmm-tool-2026-11-08"
+ },
+ {
+  "file": "articles/2026-11-08-detection-5-unauthenticated-rce-exploit-attempt-against-netw.kql",
+  "title": "Detection 5: Unauthenticated RCE Exploit Attempt Against Network Perimeter Device Management Interfaces",
+  "date": "2026-11-08",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 8, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-08-detection-engineering-brief-sunday-november-8-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-08-detection-engineering-brief-sunday-november-8-2026/"
+ },
+ {
+  "file": "articles/2026-11-08-detection-4-spoofed-business-service-sender-domain-bypassing.kql",
+  "title": "Detection 4: Spoofed Business-Service Sender Domain Bypassing Email Authentication Controls",
+  "date": "2026-11-08",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 8, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-08-detection-engineering-brief-sunday-november-8-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-08-detection-engineering-brief-sunday-november-8-2026/"
+ },
+ {
+  "file": "articles/2026-11-08-detection-3-storm-3358-artex-pattern-anomalous-oauth.kql",
+  "title": "Detection 3: Storm-3358 ARTEX Pattern: Anomalous OAuth App Grant Followed by Privileged Resource Access",
+  "date": "2026-11-08",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs",
+   "SigninLogs"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 8, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-08-detection-engineering-brief-sunday-november-8-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-08-detection-engineering-brief-sunday-november-8-2026/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
+  "file": "articles/2026-11-08-detection-2-agentic-service-principal-performing-bulk-tenant.kql",
+  "title": "Detection 2: Agentic Service Principal Performing Bulk Tenant Operations After OAuth Token Issuance",
+  "date": "2026-11-08",
+  "product": "Entra",
+  "tables": [
+   "AgentActivity",
+   "AuditLogs",
+   "AzureActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 8, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-08-detection-engineering-brief-sunday-november-8-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-08-detection-engineering-brief-sunday-november-8-2026/"
+ },
+ {
+  "file": "articles/2026-11-08-detection-1-compromised-oauth-app-performing-authenticated-t.kql",
+  "title": "Detection 1: Compromised OAuth App Performing Authenticated Tenant Actions After Token Grant",
+  "date": "2026-11-08",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 8, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-08-detection-engineering-brief-sunday-november-8-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-08-detection-engineering-brief-sunday-november-8-2026/"
+ },
+ {
   "file": "articles/2026-11-07-microsoft-defender-xdr.kql",
   "title": "Microsoft Defender XDR",
   "date": "2026-11-07",

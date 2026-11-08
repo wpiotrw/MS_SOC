@@ -1,0 +1,48 @@
+// title: Detection 1: Compromised OAuth App Performing Authenticated Tenant Actions After Token Grant
+// date: 2026-11-08
+// product: Entra
+// tables: AuditLogs
+// purpose: From the article: Detection Engineering Brief - Sunday, November 8, 2026
+// source: https://devsecopsdadattack.com/2026-11-08-detection-engineering-brief-sunday-november-8-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let TokenGrants = AuditLogs
+| where TimeGenerated > ago(1d)
+| where OperationName in ("Add OAuth2PermissionGrant", "Consent to application", "Add service principal")
+| where Result == "success"
+| extend AppId = tostring(TargetResources[0].id)
+| extend AppDisplayName = tostring(TargetResources[0].displayName)
+| extend GrantIP = tostring(InitiatedBy.user.ipAddress)
+| extend GrantorUPN = tostring(InitiatedBy.user.userPrincipalName)
+| where isnotempty(AppId)
+| project GrantTime = TimeGenerated, AppId, AppDisplayName, GrantIP, GrantorUPN, GrantCorrelationId = CorrelationId;
+let SensitiveOps = AuditLogs
+| where TimeGenerated > ago(1d)
+| where OperationName in (
+    "Add member to role",
+    "Update application",
+    "Add owner to application",
+    "Set federation settings on domain",
+    "Add delegated permission grant",
+    "Add service principal credentials"
+  )
+| where Result == "success"
+| where isnotempty(InitiatedBy.app.appId)
+| extend ActorAppId = tostring(InitiatedBy.app.appId)
+| extend ActorAppDisplayName = tostring(InitiatedBy.app.displayName)
+| project OpTime = TimeGenerated, ActorAppId, ActorAppDisplayName, OperationName, OpCorrelationId = CorrelationId;
+TokenGrants
+| join kind=inner SensitiveOps on $left.AppId == $right.ActorAppId
+| where OpTime between (GrantTime .. (GrantTime + 2h))
+| project
+    GrantTime,
+    OpTime,
+    AppId,
+    AppDisplayName,
+    GrantIP,
+    GrantorUPN,
+    OperationName,
+    ActorAppDisplayName,
+    GrantCorrelationId,
+    OpCorrelationId

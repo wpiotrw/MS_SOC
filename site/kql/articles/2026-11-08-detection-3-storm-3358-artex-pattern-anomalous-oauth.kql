@@ -1,0 +1,81 @@
+// title: Detection 3: Storm-3358 ARTEX Pattern: Anomalous OAuth App Grant Followed by Privileged Resource Access
+// date: 2026-11-08
+// product: Entra
+// tables: AuditLogs, SigninLogs
+// purpose: From the article: Detection Engineering Brief - Sunday, November 8, 2026
+// source: https://devsecopsdadattack.com/2026-11-08-detection-engineering-brief-sunday-november-8-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookbackDays = 30;
+let KnownIPs = SigninLogs
+| where TimeGenerated > ago(LookbackDays * 1d)
+| where ResultType == 0
+| summarize by IPAddress;
+let SuspectGrants = AuditLogs
+| where TimeGenerated > ago(1d)
+| where OperationName in (
+    "Add OAuth2PermissionGrant",
+    "Consent to application",
+    "Add app role assignment to service principal"
+  )
+| where Result == "success"
+| extend GrantorIP = tostring(InitiatedBy.user.ipAddress)
+| extend GrantorUPN = tostring(InitiatedBy.user.userPrincipalName)
+| where isnotempty(GrantorIP)
+| where GrantorIP !in (KnownIPs)
+| extend TargetAppId = tostring(TargetResources[0].id)
+| extend TargetAppDisplayName = tostring(TargetResources[0].displayName)
+| project
+    GrantTime = TimeGenerated,
+    GrantorIP,
+    GrantorUPN,
+    TargetAppId,
+    TargetAppDisplayName,
+    GrantOp = OperationName,
+    GrantCorrelationId = CorrelationId;
+let PrivOps = AuditLogs
+| where TimeGenerated > ago(1d)
+| where OperationName in (
+    "Add member to role",
+    "Add owner to application",
+    "Update application – Certificates and secrets management",
+    "Add service principal credentials",
+    "Set federation settings on domain"
+  )
+| where Result == "success"
+| where isnotempty(InitiatedBy.app.appId)
+| extend ActorId = tostring(InitiatedBy.app.appId)
+| extend ActorDisplayName = tostring(InitiatedBy.app.displayName)
+| project
+    OpTime = TimeGenerated,
+    ActorId,
+    ActorDisplayName,
+    PrivOp = OperationName,
+    OpCorrelationId = CorrelationId;
+SuspectGrants
+| join kind=inner PrivOps on $left.TargetAppId == $right.ActorId
+| where OpTime between (GrantTime .. (GrantTime + 6h))
+| summarize
+    PrivOps = make_set(PrivOp, 10),
+    OpTimes = make_set(OpTime, 10),
+    OpCorrelationIds = make_set(OpCorrelationId, 10)
+    by
+    GrantTime,
+    TargetAppId,
+    TargetAppDisplayName,
+    GrantorIP,
+    GrantorUPN,
+    GrantOp,
+    GrantCorrelationId
+| project
+    GrantTime,
+    TargetAppId,
+    TargetAppDisplayName,
+    GrantorIP,
+    GrantorUPN,
+    GrantOp,
+    PrivOps,
+    OpTimes,
+    GrantCorrelationId,
+    OpCorrelationIds

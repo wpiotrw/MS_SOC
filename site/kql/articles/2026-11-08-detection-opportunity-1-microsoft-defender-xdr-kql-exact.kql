@@ -1,0 +1,54 @@
+// title: Detection Opportunity 1 - Microsoft Defender XDR KQL — Exact IOC Hunting
+// date: 2026-11-08
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Fake Google Meet Updates, Abused RMM Tools, the AgtaBackup RAT Ecosystem & Campaign
+// source: https://detect.fyi/fake-google-meet-updates-abused-rmm-tools-the-agtabackup-rat-ecosystem-campaign-814b6f09541c?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: SIMKRA · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let startTime = datetime(2026-10-21);
+let targetHash =
+    "b0d8467f2f2ed6a104e45b828b8f3c9637f8cd73a66166c3441aefb336906e95";
+let lureDomain = "224meetgooglecomfskqcdzfcwh.com";
+let c2Domain = "cheapmovies.sbs";
+let c2IP = "189.12.226.77";
+union isfuzzy=true
+(
+    DeviceFileEvents
+    | where Timestamp >= startTime
+    | where SHA256 =~ targetHash
+        or FileName =~ "Google-Meet-0.1.76-x64.msi"
+        or FolderPath endswith
+            @"\Google Meet\Agent\GoogleMeet.exe"
+    | project Timestamp, DeviceName,
+        Evidence="File",
+        Detail=FolderPath
+),
+(
+    DeviceProcessEvents
+    | where Timestamp >= startTime
+    | where SHA256 =~ targetHash
+        or ProcessCommandLine contains
+            "Google-Meet-0.1.76-x64.msi"
+        or FolderPath endswith
+            @"\Google Meet\Agent\GoogleMeet.exe"
+    | project Timestamp, DeviceName,
+        Evidence="Process",
+        Detail=ProcessCommandLine
+),
+(
+    DeviceNetworkEvents
+    | where Timestamp >= startTime
+    | where RemoteIP == c2IP
+        or RemoteUrl contains lureDomain
+        or RemoteUrl contains c2Domain
+    | project Timestamp, DeviceName,
+        Evidence="Network",
+        Detail=strcat(
+            RemoteIP, ":",
+            tostring(RemotePort), " ",
+            RemoteUrl
+        )
+)
+| order by Timestamp desc

@@ -1,0 +1,42 @@
+// title: Detection 2: Agentic Service Principal Performing Bulk Tenant Operations After OAuth Token Issuance
+// date: 2026-11-08
+// product: Entra
+// tables: AgentActivity, AuditLogs, AzureActivity
+// purpose: From the article: Detection Engineering Brief - Sunday, November 8, 2026
+// source: https://devsecopsdadattack.com/2026-11-08-detection-engineering-brief-sunday-november-8-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let NewGrants = AuditLogs
+| where TimeGenerated > ago(1d)
+| where OperationName in ("Add OAuth2PermissionGrant", "Consent to application", "Add service principal")
+| where Result == "success"
+| extend SPId = tostring(TargetResources[0].id)
+| extend SPDisplayName = tostring(TargetResources[0].displayName)
+| where isnotempty(SPId)
+| project GrantTime = TimeGenerated, SPId, SPDisplayName;
+let AgentActivity = AzureActivity
+| where TimeGenerated > ago(1d)
+| where ActivityStatusValue == "Success"
+| where isnotempty(CallerIpAddress)
+| where isnotempty(Caller)
+| summarize
+    OpCount = count(),
+    DistinctOpTypes = dcount(OperationNameValue),
+    Operations = make_set(OperationNameValue, 20),
+    IPAddresses = make_set(CallerIpAddress, 10)
+    by Caller, bin(TimeGenerated, 10m)
+| where OpCount > 30 and DistinctOpTypes > 1
+| project WindowStart = TimeGenerated, Caller, OpCount, DistinctOpTypes, Operations, IPAddresses;
+NewGrants
+| join kind=inner AgentActivity on $left.SPId == $right.Caller
+| where WindowStart between (GrantTime .. (GrantTime + 4h))
+| project
+    GrantTime,
+    WindowStart,
+    SPId,
+    SPDisplayName,
+    OpCount,
+    DistinctOpTypes,
+    Operations,
+    IPAddresses
