@@ -41,6 +41,7 @@ https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/admin-con
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/checklist-for-installing-update-2609
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/cmpivot
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/community-hub
+https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/recover-sites
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/updates
 https://learn.microsoft.com/en-us/intune/configmgr/core/support/cmtrace
 https://learn.microsoft.com/en-us/intune/configmgr/core/support/tools
