@@ -910,7 +910,6 @@
 "status":"Active",
 "members":[
 "MC1191578",
-"item:MC1191578",
 "MC1227454",
 "MC1446796",
 "item:MC1446796",
@@ -1020,8 +1019,8 @@
 "what":"Message Center end date",
 "before":"2026-11-02",
 "after":"2026-10-21",
-"title":"Microsoft cancels the EWS block for Kiosk, F1 and F3 mailboxes that was due on 1 October 2026",
-"link":"https://deltapulse.app/item/MC1191578"
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://mc.merill.net/message/MC1191578"
 },
 {
 "date":"2026-10-16",
@@ -1029,8 +1028,8 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
-"title":"Microsoft cancels the EWS block for Kiosk, F1 and F3 mailboxes that was due on 1 October 2026",
-"link":"https://deltapulse.app/item/MC1191578"
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://mc.merill.net/message/MC1191578"
 },
 {
 "date":"2026-10-16",
@@ -5391,8 +5390,7 @@
 "name":"Targeted Release retirement",
 "status":"Active",
 "members":[
-"MC1490899",
-"item:MC1490899"
+"MC1490899"
 ],
 "log":[
 {
@@ -5411,10 +5409,10 @@
 "label":"7 Oct 2026",
 "text":"Posted: Microsoft 365: Targeted Release retirement"
 },
-"MC1490899|deadline":{
+"MC1490899|actionBy":{
 "date":"2026-10-31",
 "label":"31 Oct 2026",
-"text":"Message Center's act-by date; Targeted release enrolment changes are disabled in November 2026 and Targeted release retires in January 2027"
+"text":"Act by this date (Message Center)"
 },
 "MC1490899|administrators must update user enrollments and release pref#0":{
 "date":"2026-11-15",
@@ -6244,8 +6242,7 @@
 "status":"Recently closed",
 "members":[
 "MC1435782",
-"MC1458474",
-"item:MC1458474"
+"MC1458474"
 ],
 "log":[
 {
@@ -6297,11 +6294,6 @@
 "date":"2026-10-26",
 "label":"26 Oct 2026",
 "text":"Beginning on October 26, 2026, the affected positioning properties will no longer be honored and will stop functioning."
-},
-"MC1458474|deadline":{
-"date":"2026-10-31",
-"label":"31 Oct 2026",
-"text":"Custom CSS layout properties in company branding retiring"
 }
 },
 "moves":[],
@@ -6335,7 +6327,7 @@
 "found":"2026-10-30"
 }
 },
-"final":"2026-10-31",
+"final":"2026-10-26",
 "type":"Retirement",
 "tech":"Entra",
 "posts":[
@@ -6832,14 +6824,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-05",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-06",
 "text":"August 1, 2026."
 },
@@ -6937,6 +6921,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-07",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-08",
 "text":"August 1, 2026."
 },
 {
@@ -7395,6 +7387,14 @@
 "date":"2026-10-30",
 "group":"community",
 "found":"2026-10-31"
+},
+"https://dev.to/divakarupadhyay/class-object-fields-properties-and-methods-oop-concepts-in-c-2lbi":{
+"title":"Class, object, fields, properties and methods — OOP Concepts in C#",
+"link":"https://dev.to/divakarupadhyay/class-object-fields-properties-and-methods-oop-concepts-in-c-2lbi",
+"source":"NeonTiger12",
+"date":"2026-11-08",
+"group":"community",
+"found":"2026-11-08"
 }
 },
 "final":"2027-11-15",
@@ -7480,22 +7480,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-06",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-06",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-07",
 "text":"early February 2026."
 },
@@ -7601,6 +7585,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-07",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-08",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-08",
 "text":"February 2027."
 },
 {
@@ -8267,118 +8267,6 @@
 "tech":"Defender",
 "posts":[]
 },
-"c-item-intune-google-play-strong-integrity":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-08",
-"name":"Google Play Strong Integrity enforcement for Android 13+",
-"status":"Recently closed",
-"members":[
-"item:intune-google-play-strong-integrity",
-"item:android-play-integrity-strong-2026-10-31"
-],
-"log":[
-{
-"date":"2026-09-28",
-"id":"android-play-integrity-strong-2026-10-31",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"Google begins enforcing Strong Integrity in Play Integrity checks on 31 October",
-"title":"Google begins enforcing Strong Integrity in Play Integrity checks on 31 October",
-"link":"https://learn.microsoft.com/en-us/intune/whats-new/in-development"
-}
-],
-"milestones":{
-"android-play-integrity-strong-2026-10-31|deadline":{
-"date":"2026-10-31",
-"label":"31 Oct 2026",
-"text":"Google begins enforcing Strong Integrity in Play Integrity checks on 31 October"
-}
-},
-"moves":[],
-"materials":{
-"https://learn.microsoft.com/en-us/intune/whats-new/":{
-"title":"Google Play Strong Integrity enforcement for Android 13+",
-"link":"https://learn.microsoft.com/en-us/intune/whats-new/",
-"source":"Main list source",
-"id":"intune-google-play-strong-integrity",
-"date":"2026-07-01",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/intune/whats-new/in-development":{
-"title":"Play Integrity API strong integrity enforcement",
-"link":"https://learn.microsoft.com/en-us/intune/whats-new/in-development",
-"source":"Main list source",
-"id":"android-play-integrity-strong-2026-10-31",
-"date":"2026-09-25",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://dev.to/kordelis/your-app-unlocked-the-purchase-did-google-play-get-the-confirmation-51k5":{
-"title":"Your app unlocked the purchase. Did Google Play get the confirmation?",
-"link":"https://dev.to/kordelis/your-app-unlocked-the-purchase-did-google-play-get-the-confirmation-51k5",
-"source":"NeonTiger12",
-"date":"2026-10-23",
-"group":"community",
-"found":"2026-10-23"
-},
-"https://dev.to/theoliveirad/where-should-a-small-studio-launch-its-next-android-app-a-data-experiment-on-9644-google-play-apps-54bd":{
-"title":"Where should a small studio launch its next Android app? A data experiment on 9,644 Google Play apps",
-"link":"https://dev.to/theoliveirad/where-should-a-small-studio-launch-its-next-android-app-a-data-experiment-on-9644-google-play-apps-54bd",
-"source":"NeonTiger12",
-"date":"2026-11-03",
-"group":"community",
-"found":"2026-11-03"
-}
-},
-"final":"2026-10-31",
-"type":"Enforcement",
-"tech":"Intune",
-"posts":[]
-},
-"c-item-azure-blueprints-retirement":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-08",
-"name":"Azure Blueprints stops accepting new assignments on 31 October, and its resource locks stop working at full…",
-"status":"Active",
-"members":[
-"item:azure-blueprints-retirement"
-],
-"log":[],
-"milestones":{
-"azure-blueprints-retirement|ends modification of blueprint definitions and creation of n#0":{
-"date":"2026-10-31",
-"label":"31 Oct 2026",
-"text":"31 Oct 2026 ends modification of blueprint definitions and creation of new assignments"
-},
-"azure-blueprints-retirement|ends modification of blueprint definitions and creation of n#1":{
-"date":"2026-12-31",
-"label":"31 Dec 2026",
-"text":"31 Dec 2026 ends modification of existing assignments"
-},
-"azure-blueprints-retirement|ends modification of blueprint definitions and creation of n#2":{
-"date":"2027-01-31",
-"label":"31 Jan 2027",
-"text":"31 Jan 2027 is full retirement"
-}
-},
-"moves":[],
-"materials":{
-"https://learn.microsoft.com/en-us/azure/governance/blueprints/blueprint-retirement":{
-"title":"Azure Blueprints retirement",
-"link":"https://learn.microsoft.com/en-us/azure/governance/blueprints/blueprint-retirement",
-"source":"Main list source",
-"id":"azure-blueprints-retirement",
-"date":"2026-09-23",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":"2027-01-31",
-"type":"Retirement",
-"tech":"Azure",
-"posts":[]
-},
 "c-item-azure-functions-inprocess-eos":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-08",
@@ -8669,6 +8557,30 @@
 "date":"2026-11-06",
 "group":"microsoft",
 "found":"2026-11-07"
+},
+"https://dev.to/divakarupadhyay/core-objects-and-the-connected-model-adonet-2jff":{
+"title":"Core objects and the connected model — ADO.NET",
+"link":"https://dev.to/divakarupadhyay/core-objects-and-the-connected-model-adonet-2jff",
+"source":"NeonTiger12",
+"date":"2026-11-08",
+"group":"community",
+"found":"2026-11-08"
+},
+"https://dev.to/divakarupadhyay/net-framework-vs-net-core-vs-net-5-the-history-explained-net-internals-776":{
+"title":".NET Framework vs .NET Core vs .NET 5+ — the history explained — .NET Internals",
+"link":"https://dev.to/divakarupadhyay/net-framework-vs-net-core-vs-net-5-the-history-explained-net-internals-776",
+"source":"NeonTiger12",
+"date":"2026-11-08",
+"group":"community",
+"found":"2026-11-08"
+},
+"https://dev.to/divakarupadhyay/program-structure-modules-and-the-main-method-vbnet-49d5":{
+"title":"Program structure, modules and the Main method — VB.NET",
+"link":"https://dev.to/divakarupadhyay/program-structure-modules-and-the-main-method-vbnet-49d5",
+"source":"NeonTiger12",
+"date":"2026-11-08",
+"group":"community",
+"found":"2026-11-08"
 }
 },
 "final":"2026-11-10",
@@ -10619,6 +10531,15 @@
 ],
 "log":[
 {
+"date":"2026-11-08",
+"id":"MC1459133",
+"what":"Microsoft revised the post",
+"before":"2026-10-08",
+"after":"2026-08-21",
+"title":"Microsoft Entra ID: Passkey support for B2B users",
+"link":"https://mc.merill.net/message/MC1459133"
+},
+{
 "date":"2026-11-06",
 "id":"MC1338816",
 "what":"Microsoft revised the post",
@@ -11240,22 +11161,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-06",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-06",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-07",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -11361,6 +11266,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-07",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-08",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-08",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -18744,6 +18665,46 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-08",
+"cid":"c-mc1188230",
+"type":"material",
+"name":"Retirement of duplicative properties in passkey (FIDO2) authentication methods policy",
+"group":"community",
+"title":"Class, object, fields, properties and methods — OOP Concepts in C#",
+"source":"NeonTiger12",
+"link":"https://dev.to/divakarupadhyay/class-object-fields-properties-and-methods-oop-concepts-in-c-2lbi"
+},
+{
+"day":"2026-11-08",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"community",
+"title":"Core objects and the connected model — ADO.NET",
+"source":"NeonTiger12",
+"link":"https://dev.to/divakarupadhyay/core-objects-and-the-connected-model-adonet-2jff"
+},
+{
+"day":"2026-11-08",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"community",
+"title":".NET Framework vs .NET Core vs .NET 5+ — the history explained — .NET Internals",
+"source":"NeonTiger12",
+"link":"https://dev.to/divakarupadhyay/net-framework-vs-net-core-vs-net-5-the-history-explained-net-internals-776"
+},
+{
+"day":"2026-11-08",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"community",
+"title":"Program structure, modules and the Main method — VB.NET",
+"source":"NeonTiger12",
+"link":"https://dev.to/divakarupadhyay/program-structure-modules-and-the-main-method-vbnet-49d5"
 }
 ],
 "archive":{
@@ -20767,6 +20728,118 @@
 "posts":[
 "MC1454973"
 ]
+},
+"c-item-intune-google-play-strong-integrity":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-08",
+"name":"Google Play Strong Integrity enforcement for Android 13+",
+"status":"Archive",
+"members":[
+"item:intune-google-play-strong-integrity",
+"item:android-play-integrity-strong-2026-10-31"
+],
+"log":[
+{
+"date":"2026-09-28",
+"id":"android-play-integrity-strong-2026-10-31",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Google begins enforcing Strong Integrity in Play Integrity checks on 31 October",
+"title":"Google begins enforcing Strong Integrity in Play Integrity checks on 31 October",
+"link":"https://learn.microsoft.com/en-us/intune/whats-new/in-development"
+}
+],
+"milestones":{
+"android-play-integrity-strong-2026-10-31|deadline":{
+"date":"2026-10-31",
+"label":"31 Oct 2026",
+"text":"Google begins enforcing Strong Integrity in Play Integrity checks on 31 October"
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/intune/whats-new/":{
+"title":"Google Play Strong Integrity enforcement for Android 13+",
+"link":"https://learn.microsoft.com/en-us/intune/whats-new/",
+"source":"Main list source",
+"id":"intune-google-play-strong-integrity",
+"date":"2026-07-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/intune/whats-new/in-development":{
+"title":"Play Integrity API strong integrity enforcement",
+"link":"https://learn.microsoft.com/en-us/intune/whats-new/in-development",
+"source":"Main list source",
+"id":"android-play-integrity-strong-2026-10-31",
+"date":"2026-09-25",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://dev.to/kordelis/your-app-unlocked-the-purchase-did-google-play-get-the-confirmation-51k5":{
+"title":"Your app unlocked the purchase. Did Google Play get the confirmation?",
+"link":"https://dev.to/kordelis/your-app-unlocked-the-purchase-did-google-play-get-the-confirmation-51k5",
+"source":"NeonTiger12",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-23"
+},
+"https://dev.to/theoliveirad/where-should-a-small-studio-launch-its-next-android-app-a-data-experiment-on-9644-google-play-apps-54bd":{
+"title":"Where should a small studio launch its next Android app? A data experiment on 9,644 Google Play apps",
+"link":"https://dev.to/theoliveirad/where-should-a-small-studio-launch-its-next-android-app-a-data-experiment-on-9644-google-play-apps-54bd",
+"source":"NeonTiger12",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
+}
+},
+"final":"2026-10-31",
+"type":"Enforcement",
+"tech":"Intune",
+"posts":[]
+},
+"c-item-azure-blueprints-retirement":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-08",
+"name":"Azure Blueprints stops accepting new assignments on 31 October, and its resource locks stop working at full…",
+"status":"Archive",
+"members":[
+"item:azure-blueprints-retirement"
+],
+"log":[],
+"milestones":{
+"azure-blueprints-retirement|ends modification of blueprint definitions and creation of n#0":{
+"date":"2026-10-31",
+"label":"31 Oct 2026",
+"text":"31 Oct 2026 ends modification of blueprint definitions and creation of new assignments"
+},
+"azure-blueprints-retirement|ends modification of blueprint definitions and creation of n#1":{
+"date":"2026-12-31",
+"label":"31 Dec 2026",
+"text":"31 Dec 2026 ends modification of existing assignments"
+},
+"azure-blueprints-retirement|ends modification of blueprint definitions and creation of n#2":{
+"date":"2027-01-31",
+"label":"31 Jan 2027",
+"text":"31 Jan 2027 is full retirement"
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/governance/blueprints/blueprint-retirement":{
+"title":"Azure Blueprints retirement",
+"link":"https://learn.microsoft.com/en-us/azure/governance/blueprints/blueprint-retirement",
+"source":"Main list source",
+"id":"azure-blueprints-retirement",
+"date":"2026-09-23",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":"2027-01-31",
+"type":"Retirement",
+"tech":"Azure",
+"posts":[]
 }
 }
 }

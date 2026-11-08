@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-08T00:40:13Z",
+ "generated": "2026-11-08T06:44:15Z",
  "day": "2026-11-08",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-08)",
@@ -380,16 +380,14 @@
    "verdict": "differs"
   },
   "MC1191578": {
-   "says": [
-    "2026-10-01"
-   ],
+   "says": [],
    "others": [
     {
      "date": "2026-11-15",
      "src": "MC1446796",
      "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
      "post": "2026-08-03",
-     "later": true,
+     "later": false,
      "link": "https://mc.merill.net/message/MC1446796"
     },
     {
@@ -397,7 +395,7 @@
      "src": "MC1227454",
      "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
      "post": "2026-02-05",
-     "later": true,
+     "later": false,
      "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
     },
     {
@@ -405,7 +403,7 @@
      "src": "MC1469960",
      "text": "Beginning in early October 2026 and expected to complete by late April 2027.",
      "post": "2026-09-09",
-     "later": true,
+     "later": false,
      "link": "https://mc.merill.net/message/MC1469960"
     },
     {
@@ -413,7 +411,7 @@
      "src": "MC1485116",
      "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
      "post": "2026-10-01",
-     "later": true,
+     "later": false,
      "link": "https://mc.merill.net/message/MC1485116"
     }
    ],
@@ -444,7 +442,7 @@
      "name": "Exchange Web Services (EWS) retirement update"
     }
    ],
-   "verdict": "moved"
+   "verdict": "differs"
   },
   "MC1227454": {
    "says": [
