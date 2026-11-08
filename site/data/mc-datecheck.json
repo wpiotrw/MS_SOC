@@ -1,13 +1,12 @@
 {
- "generated": "2026-11-07T23:55:52Z",
- "day": "2026-11-07",
+ "generated": "2026-11-08T00:40:13Z",
+ "day": "2026-11-08",
  "spec": "5gf",
- "source": "site/data/campaigns.json (2026-11-07)",
+ "source": "site/data/campaigns.json (2026-11-08)",
  "count": 40,
  "byMc": {
   "MC1325414": {
    "says": [
-    "2026-11-07",
     "2026-11-09",
     "2026-11-15"
    ],
@@ -82,14 +81,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-07",
-     "src": "MC1325414",
-     "text": "November 7, 2026: Enforcement begins.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
      "date": "2026-11-09",
      "src": "MC1325414",
      "text": "Action is required before November 9, 2026.",
@@ -120,6 +111,14 @@
      "post": "2026-11-03",
      "later": false,
      "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1536049"
     }
    ],
    "moved": [],
@@ -155,14 +154,6 @@
     "2027-07-01"
    ],
    "others": [
-    {
-     "date": "2026-11-07",
-     "src": "MC1325414",
-     "text": "November 7, 2026: Enforcement begins.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
     {
      "date": "2026-11-09",
      "src": "MC1325414",
@@ -229,14 +220,6 @@
    ],
    "others": [
     {
-     "date": "2026-11-07",
-     "src": "MC1325414",
-     "text": "November 7, 2026: Enforcement begins.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
      "date": "2026-11-09",
      "src": "MC1325414",
      "text": "Action is required before November 9, 2026.",
@@ -264,6 +247,14 @@
      "date": "2027-03-22",
      "src": "MC1536049",
      "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    },
+    {
+     "date": "2027-07-01",
+     "src": "MC1536049",
+     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
      "post": "2026-11-03",
      "later": true,
      "link": "https://deltapulse.app/item/MC1536049"
@@ -299,14 +290,6 @@
     "2027-07-01"
    ],
    "others": [
-    {
-     "date": "2026-11-07",
-     "src": "MC1325414",
-     "text": "November 7, 2026: Enforcement begins.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
     {
      "date": "2026-11-09",
      "src": "MC1325414",
@@ -345,14 +328,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-07",
-     "src": "MC1325414",
-     "text": "November 7, 2026: Enforcement begins.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
      "date": "2026-11-09",
      "src": "MC1325414",
      "text": "Action is required before November 9, 2026.",
@@ -383,6 +358,14 @@
      "post": "2026-11-03",
      "later": false,
      "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1536049"
     }
    ],
    "moved": [],
