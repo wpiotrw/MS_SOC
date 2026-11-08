@@ -1,7 +1,7 @@
 ---
 layout: Conceptual
-title: Use a subagent in a Voice-based agent - Microsoft Foundry | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/use-subagent-voice-first-agent
+title: Use a delegate subagent in a voice-based agent - Microsoft Foundry | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/use-delegate-subagent-voice-agent
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
 feedback_help_link_type: get-help-at-qna
@@ -22,25 +22,25 @@ ms.author: pafarley
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
-description: Learn how to add, configure, and test a subagent that handles a focused task for a Voice-based agent in Microsoft Foundry.
-ms.date: 2026-09-22T00:00:00.0000000Z
+description: Learn how a voice-based agent delegates a focused task to a separate prompt or hosted agent in Microsoft Foundry.
+ms.date: 2026-11-05T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
 ms.custom: preview, doc-kit-assisted
 ai-usage: ai-assisted
 locale: en-us
-document_id: 97dfce7e-6541-a6f6-9b73-35783a7e9de2
-document_version_independent_id: ad281a53-2f22-b3d0-fc3c-88e6f9a94fe2
-original_content_git_url: https://github.com/MicrosoftDocs/azure-ai-docs-pr/blob/live/articles/foundry/agents/how-to/use-subagent-voice-first-agent.md
+document_id: 03c89ccf-e15c-9ecd-3621-c2eeebf445da
+document_version_independent_id: 41ef11ba-63f7-6a90-74fd-ab82c88b605c
+original_content_git_url: https://github.com/MicrosoftDocs/azure-ai-docs-pr/blob/live/articles/foundry/agents/how-to/use-delegate-subagent-voice-agent.md
 site_name: Docs
 depot_name: Learn.azure-ai
 page_type: conceptual
 toc_rel: ../../toc.json
-asset_id: foundry/agents/how-to/use-subagent-voice-first-agent
+asset_id: foundry/agents/how-to/use-delegate-subagent-voice-agent
 moniker_range_name: 
 monikers: []
 item_type: Content
-source_path: articles/foundry/agents/how-to/use-subagent-voice-first-agent.md
+source_path: articles/foundry/agents/how-to/use-delegate-subagent-voice-agent.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
@@ -52,24 +52,13 @@ spProducts:
 platformId: 964dc73d-8d1b-a895-2945-f2efc3fa88d9
 ---
 
-# Use a subagent in a Voice-based agent - Microsoft Foundry | Microsoft Learn
+# Use a delegate subagent in a voice-based agent - Microsoft Foundry | Microsoft Learn
 
-In this article, you use a subagent in a Voice-based agent, define when the agent delegates work to the subagent, and test the resulting voice experience.
+In this article, you configure a voice-based agent in Microsoft Foundry to delegate a focused task to a separate prompt or hosted agent, and then test the resulting voice experience.
 
-Important
+A **delegate subagent** is a separate Agent resource. The voice-based agent invokes it, receives its result, and remains the active behavior for the conversation. Use a delegate subagent for bounded work, such as research, analysis, content generation, or a specialist lookup. To compare delegate and inline subagents and choose a type, see [Subagents in voice-based agents](../concepts/voice-agent-subagents).
 
-Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
-
-## Introduction
-
-When creating a Voice-based agent, you can add one or more subagents that handle specific tasks. The main agent delegates requests to the subagent when the request matches the subagent's defined capabilities.
-
-The subagent can be Foundry prompt agents, or Foundry hosted agents.
-
-The following section shows how to create a prompt agent, and use it as a subagent for a Voice-based agent. You can also apply similar steps to a hosted agent.
-
-> 
-> Note: Subagents aren't supported for voice-based agents in projects configured with virtual network (VNet) isolation.
+The delegate subagent can be a Foundry prompt agent or hosted agent. The following sections create a prompt agent that writes poems and reference it from a voice-based agent. You can apply similar steps to a hosted agent.
 
 ## Prerequisites
 
@@ -113,9 +102,9 @@ $env:FOUNDRY_VOICE_MODEL = "gpt-realtime"
 
 Find the project endpoint on the **Overview** page of your project in the Foundry portal.
 
-## Create a subagent
+## Create a delegate subagent
 
-Create a prompt agent with one focused responsibility. The following example creates a subagent that writes poems based on a user's requested topic and style.
+Create a prompt agent with one focused responsibility. The following example creates a separate Agent resource that writes poems based on a user's requested topic and style.
 
 ```python
 import os
@@ -157,11 +146,11 @@ with (
 
 Reference: [Azure AI Projects client library for Python](https://aka.ms/azsdk/azure-ai-projects-v2/python/code).
 
-You can also create a subagent in the Microsoft Foundry portal or deploy a code-based hosted agent.
+You can also create a delegate subagent in the Foundry portal or deploy a code-based hosted agent.
 
-## Use the subagent in the Voice-based agent
+## Configure a delegate subagent in the voice-based agent
 
-Create the Voice-based agent by using the project endpoint. In `subagent_config`, identify the poetry agent by name and describe when the Voice-based agent delegates a request to it.
+Create the voice-based agent by using the project endpoint. In `subagent_config`, set `subagent_type` to `delegate`, identify the poetry agent by name, and describe when the voice-based agent delegates a request to it.
 
 ```python
 import os
@@ -175,9 +164,7 @@ from azure.ai.projects.models import (
     VoiceAgentDefinition,
     VoiceAgentInputTranscription,
     VoiceAgentServerVadTurnDetection,
-    VoiceAgentSubagent,
     VoiceAgentSubagentConfig,
-    VoiceAgentSubagentResponsePolicy,
 )
 from azure.identity import DefaultAzureCredential
 
@@ -213,18 +200,21 @@ definition = VoiceAgentDefinition(
         ),
     ),
     subagent_config=VoiceAgentSubagentConfig(
-        subagents=[
-            VoiceAgentSubagent(
-                agent_name="poetry-agent",
-                agent_capabilities=(
-                    "Writes original poems based on the requested topic, "
-                    "style, tone, and length."
-                ),
-                response_policy=VoiceAgentSubagentResponsePolicy(
-                    immediate_ack=True,
-                ),
-            )
-        ],
+        {
+            "subagent_type": "delegate",
+            "subagents": [
+                {
+                    "agent_name": "poetry-agent",
+                    "agent_capabilities": (
+                        "Writes original poems based on the requested topic, "
+                        "style, tone, and length."
+                    ),
+                    "response_policy": {
+                        "immediate_ack": True,
+                    },
+                }
+            ],
+        }
     ),
 )
 
@@ -249,9 +239,13 @@ with (
 
 Reference: [Azure AI Projects client library for Python](https://aka.ms/azsdk/azure-ai-projects-v2/python/code).
 
-## Talk to the voice agent
+A voice agent version uses either delegate or inline subagents. Don't mix the two modes in one `subagent_config`.
 
-Connect to the voice agent with the Microsoft Foundry SDK. The client streams microphone audio to the agent and plays the spoken response as it arrives. Use headphones to prevent the speaker output from feeding back into the microphone. Run the package installation command with the same Python environment that you use to run the client.
+The Python example initializes `VoiceAgentSubagentConfig` from a dictionary to send `subagent_type: delegate` explicitly. This approach also works with SDK versions that don't expose `subagent_type` as a generated model property.
+
+## Talk to the voice-based agent
+
+Connect to the voice-based agent with the Microsoft Foundry SDK. The client streams microphone audio to the agent and plays the spoken response as it arrives. Use headphones to prevent the speaker output from feeding back into the microphone. Run the package installation command with the same Python environment that you use to run the client.
 
 Create a file named `talk_to_voice_agent.py`:
 
@@ -362,12 +356,12 @@ python talk_to_voice_agent.py
 
 After the client connects, ask it to write a short poem about the sea. The voice agent delegates the request to `poetry-agent` and speaks the returned poem. Press `Ctrl+C` to disconnect.
 
-## Use the voice agent in the Foundry portal
+## Use the voice-based agent in the Foundry portal
 
-Open the voice agent in the playground to have a spoken conversation:
+Open the voice-based agent in the playground to have a spoken conversation:
 
 1. Sign in to the [Foundry portal](https://ai.azure.com).
-2. Open the project that contains the voice agent and subagent.
+2. Open the project that contains the voice-based agent and delegate subagent.
 3. Select **Build** &gt; **Agents**.
 4. Select **poetry-voice-agent**, and then select **Open in playground**.
 5. Start a voice session.
@@ -375,18 +369,18 @@ Open the voice agent in the playground to have a spoken conversation:
 
 The voice agent delegates the request to `poetry-agent` and speaks the returned poem.
 
-## Configure subagent behavior
+## Configure delegate subagent behavior
 
-The `subagent_config` object identifies the text agents that the Voice-based agent can consult. Each subagent must belong to the same Foundry project as the Voice-based agent. Configure at least one entry in the `subagents` array.
+The `subagent_config` object identifies separate text agents that the voice-based agent can consult. Each delegate subagent must belong to the same Foundry project as the voice-based agent. Configure at least one entry in the `subagents` array.
 
 | Property | Required | Description |
 | --- | --- | --- |
-| `agent_name` | Yes | Specifies the name of the subagent. |
+| `agent_name` | Yes | Specifies the name of the separate prompt or hosted agent. |
 | `agent_version` | No | Pins a specific subagent version. If you omit this property, the voice agent uses the active version. |
-| `agent_capabilities` | Yes | Describes the subagent's specialization. The voice agent uses this description to decide whether to forward a request. |
+| `agent_capabilities` | Yes | Describes the subagent's specialization. The voice agent uses this description to decide whether to delegate a request. |
 | `invoke_timeout_seconds` | No | Sets the invocation timeout from 5 through 1,200 seconds. If you omit this property, the service timeout applies. |
 
-Use the optional `response_policy` object to control what the voice agent says while it waits for a subagent:
+Use the optional `response_policy` object to control what the voice agent says while it waits for a delegated result:
 
 | Property | Description |
 | --- | --- |
@@ -400,7 +394,9 @@ Use the optional `response_policy` object to control what the voice agent says w
 
 In Python, use `datetime.timedelta` for `invoke_timeout_seconds`, `gap_filling_interval`, and `progress_update_interval`. The SDK serializes these values as seconds.
 
-## Apply subagent best practices
+## Apply delegate subagent best practices
 
-- Give each subagent one clearly defined capability.
-- Tune the agent's instructions to delegate requests to the subagent when appropriate.
+- Give each delegate subagent one clearly defined capability.
+- Use a delegate subagent for bounded work that returns a result to the active voice-based agent.
+- Tune the voice-based agent instructions and `agent_capabilities` together.
+- Use an [inline subagent](use-inline-subagent-voice-agent) when a specialist needs to own several subsequent conversation turns.

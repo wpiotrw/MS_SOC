@@ -23,7 +23,7 @@ ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Migrate from Voice Live with Foundry Agent Service to Microsoft Foundry voice agents. Compare architectures, preserve tools, and update WebSocket messages.
-ms.date: 2026-10-25T00:00:00.0000000Z
+ms.date: 2026-10-27T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
 ms.custom: preview, doc-kit-assisted
@@ -136,10 +136,10 @@ Decide which agent handles the conversation before you move configuration. Reusi
 | Migration approach | Use it when | What to change |
 | --- | --- | --- |
 | Create a model-backed voice agent | You want the voice agent to handle the conversation and call tools directly. | Adapt the instructions, select a supported model, and reconfigure tools for the voice agent. |
-| Keep the text agent as a subagent | You want to retain specialist reasoning, retrieval, or business logic in an existing prompt or hosted agent. | Configure `subagent_config` and specify when to delegate. The voice agent handles the conversation and consults the specialist as needed. |
+| Keep the text agent as a delegate subagent | You want to retain specialist reasoning, retrieval, or business logic in an existing prompt or hosted agent. | Configure a delegate subagent in `subagent_config` and specify when to delegate. The voice agent handles the conversation and consults the specialist as needed. |
 | Use a hosted conversation engine | Your hosted code must own the conversation logic for every turn. | Follow the separate [hosted conversation engine guide](../../how-to/voice-first-with-hosted-agent). The target needs the required `invocations_ws` Bridge Protocol implementation; a text endpoint alone isn't sufficient. |
 
-For the subagent approach, the subagent must be in the same project as the voice agent. Subagents aren't supported in VNet-isolated projects. Follow [Use a subagent in a voice-based agent](use-subagent-voice-first-agent) and test delegation, follow-up questions, and failure behavior.
+For the delegate subagent approach, the subagent must be in the same project as the voice agent. Follow [Use a delegate subagent in a voice-based agent](use-delegate-subagent-voice-agent) and test delegation, follow-up questions, and failure behavior.
 
 The rest of this article covers migration to a model-backed voice agent, with optional subagents. For a custom hosted voice application that exposes `invocations_ws`, see [Build a voice agent with hosted agents](build-voice-agent).
 
