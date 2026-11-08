@@ -299,6 +299,42 @@
      "says": "Returns per-user Microsoft 365 Apps usage, including an 'Outlook (Windows)' column, with Reports.Read.All as the least privileged permission."
     }
    ]
+  },
+  {
+   "key": "exchange-admin-api-v2-permissions",
+   "ids": [
+    "MC1540345"
+   ],
+   "title": "Exchange Online Admin API v2.0: find apps that still use Exchange.ManageV2 or Exchange.ManageAsAppV2",
+   "scriptable": true,
+   "checked": "2026-11-08",
+   "sdk": "Microsoft Graph PowerShell SDK (Microsoft.Graph.Authentication, .Applications, .Identity.SignIns)",
+   "dates": "Worldwide: the new permissions Exchange.AdminAPI.Manage and Exchange.AdminAPI.ManageAsApp are available from 01/11/2026, migration is due by 30/11/2026 and the old ones are deprecated on 01/12/2026; GCC, GCC High and DoD on 01/01/2027 (MC1540345). On 08/11/2026 the Learn authentication page still names only Exchange.ManageV2 and Exchange.ManageAsAppV2.",
+   "blocks": [
+    {
+     "t": "Find apps that hold the retiring Admin API permissions",
+     "kind": "read",
+     "scopes": "Application.Read.All, DelegatedPermissionGrant.Read.All",
+     "code": "# Read only. Lists every app that holds the Exchange Online Admin API v2.0 permissions retiring on 1 December 2026.\nConnect-MgGraph -Scopes 'Application.Read.All','DelegatedPermissionGrant.Read.All' -NoWelcome\n$exo = Get-MgServicePrincipal -Filter \"displayName eq 'Office 365 Exchange Online'\" -Property Id, DisplayName, AppRoles\n# App-only: Exchange.ManageAsAppV2 granted as an application permission\n$oldRole = $exo.AppRoles | Where-Object { $_.Value -eq 'Exchange.ManageAsAppV2' }\nGet-MgServicePrincipalAppRoleAssignedTo -ServicePrincipalId $exo.Id -All |\n    Where-Object { $_.AppRoleId -in $oldRole.Id } |\n    Select-Object PrincipalDisplayName, PrincipalId, CreatedDateTime\n# Delegated: Exchange.ManageV2 in an OAuth2 permission grant\nGet-MgOauth2PermissionGrant -Filter \"resourceId eq '$($exo.Id)'\" -All |\n    Where-Object { ($_.Scope -split ' ') -contains 'Exchange.ManageV2' } |\n    Select-Object ClientId, ConsentType, PrincipalId, Scope",
+     "src": [
+      "https://learn.microsoft.com/exchange/reference/admin-api-authentication",
+      "https://learn.microsoft.com/graph/api/serviceprincipal-list-approleassignedto?view=graph-rest-1.0",
+      "https://learn.microsoft.com/graph/api/oauth2permissiongrant-list?view=graph-rest-1.0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "t": "Message Center MC1540345: Update permissions for Exchange Online Admin API",
+     "u": "https://deltapulse.app/item/MC1540345",
+     "says": "Exchange.ManageV2 is replaced by Exchange.AdminAPI.Manage and Exchange.ManageAsAppV2 by Exchange.AdminAPI.ManageAsApp; the endpoints do not change, apps need the new permission, admin consent and their existing Exchange RBAC roles, and the old permissions are removed after testing."
+    },
+    {
+     "t": "Microsoft Learn: Authentication and authorization for the Exchange Online Admin API",
+     "u": "https://learn.microsoft.com/exchange/reference/admin-api-authentication",
+     "says": "The Admin API authentication page (preview) registers the app on Office 365 Exchange Online with Exchange.ManageV2 (delegated) or Exchange.ManageAsAppV2 (application) and requires Exchange RBAC roles; a valid token without them fails with 403."
+    }
+   ]
   }
  ]
 }
