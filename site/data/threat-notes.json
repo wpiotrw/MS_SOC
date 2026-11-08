@@ -1906,6 +1906,149 @@
      "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/"
     }
    ]
+  },
+  {
+   "id": "email-threat-landscape-q3-2026",
+   "title": "Microsoft's Q3 2026 email threat report: 7.3 billion phishing threats, device-code QR lure against law firms and an Agent Tesla campaign with passing SPF/DKIM/DMARC",
+   "match": [
+    "Email threat landscape",
+    "wekash",
+    "carloxmextos"
+   ],
+   "areas": [
+    "Identity attacks",
+    "M365 workloads"
+   ],
+   "status": "resolved",
+   "updated": "2026-11-08",
+   "by": "morning routine",
+   "summary": "Microsoft Threat Intelligence and the Defender Security Research Team counted about 7.3 billion email phishing threats from July to September 2026, nearly 3 billion of them in September (+41% on August). QR-code phishing fell 67% on Q2 while CAPTCHA-gated phishing nearly doubled from July to September, with SVG attachments carrying up to 65% of it. Two campaigns are described with indicators: a 19-20 August 'Salary Review' Word lure whose QR code led to a fake OneDrive page using device code phishing against over 10,000 users at 4,800 mostly US legal organizations, and a 21 September Spanish-language purchase-order and payroll campaign that delivered Agent Tesla to over 56,000 users at 8,100 organizations from a domain that passed SPF, DKIM and DMARC. In September tenant-level exception overrides applied to 63% of spoofed business-service messages with a recorded outcome, which Microsoft flags as a reason to review allow-lists.",
+   "timeline": [
+    {
+     "date": "2026-08-19",
+     "text": "'Salary Review' campaign from smtp@wekash[.]net via Amazon SES starts (to 20 August); QR code to a fake OneDrive device-code page.",
+     "src": "Microsoft Security Blog"
+    },
+    {
+     "date": "2026-09-21",
+     "text": "Spanish-language purchase order and payroll campaign from contacto06@carloxmextos[.]org delivers Agent Tesla.",
+     "src": "Microsoft Security Blog"
+    },
+    {
+     "date": "2026-11-05",
+     "text": "Microsoft publishes the Q3 2026 email threat landscape report with IOCs and two hunting queries.",
+     "src": "Microsoft Security Blog"
+    }
+   ],
+   "rootCause": "Phishing that rides trusted delivery paths: authenticated sender domains, spoofed business-service brands let through by broad tenant exception overrides, and device code flows that yield a session token without a password or a new MFA prompt.",
+   "attacker": [
+    "Spoofed business-service sender domains (about 129 million messages in Q3; DocuSign 29% of September)",
+    "QR codes in PDF, DOC/DOCX and email bodies leading to credential pages",
+    "CAPTCHA-gated phishing pages, mostly via SVG attachments",
+    "Device code phishing behind a fake OneDrive sign-in page (August campaign)",
+    "Nested RAR archive with a JavaScript downloader fetching a PowerShell payload, and a double-extension executable, both leading to Agent Tesla (September campaign)",
+    "Teams call attempts with personal-name display names (about 141,000 in Q3)"
+   ],
+   "iocs": [
+    "wekash[.]net",
+    "smtp@wekash[.]net",
+    "splace[.]co[.]za",
+    "hxxps://splace[.]co[.]za/0987643345678908765421234567890987654320987654321223456787654/onedrive/",
+    "carloxmextos[.]org",
+    "contacto06@carloxmextos[.]org",
+    "Your-Q3-Compensation-Summary.docx",
+    "Lincoln.ps1",
+    "Nomina 21.09.2026.xml.exe",
+    "BEDD2297739632DA8EE470367295FE976E55BE74D628DCAEE7FA98121EE530F1",
+    "CE832350C165522DB03DB040CA07917976D1A91F97E7016EA36DCC6B53E0EB13",
+    "F8B49891D15A578E4DE28FECF99D0D78DB6B2C3DA81CD51C931B8D128E60C187",
+    "C438B9A3BB67E2C10EFF0D01513422DC17DCE7C5508303A680E46F3DCEC886EF",
+    "72966B30BBD87E42C683D2AC7A42BB62021FC14389D508551432FFD70D62F33A"
+   ],
+   "remediation": [
+    {
+     "text": "Use Threat Explorer and the 'Investigate malicious email that was delivered in Microsoft 365' procedure to find and remove delivered messages from the two sender addresses; keep zero-hour auto purge on.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "contain"
+    },
+    {
+     "text": "Run the two EmailEvents queries for the campaign senders and review sign-ins of any recipient who clicked.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "investigate"
+    },
+    {
+     "text": "Review tenant- and user-level security exceptions; broad overrides let spoofed messages through.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "harden"
+    },
+    {
+     "text": "Apply the recommended EOP and Defender for Office 365 settings, Safe Links and Safe Attachments, Defender for Endpoint network protection and SmartScreen-capable browsers.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "harden"
+    },
+    {
+     "text": "Restrict external Teams access to who may chat or meet with outside parties and train users to verify external senders; run attack simulation training including Teams phishing.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "harden"
+    },
+    {
+     "text": "Require phishing-resistant MFA for privileged accounts through Conditional Access and move users to passwordless sign-in where supported; keep automatic attack disruption on in Defender XDR.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "harden"
+    },
+    {
+     "text": "Block the device code flow with a Conditional Access authentication-flows policy for everyone who has no documented need for it, since the August lure relied on it.",
+     "from": "ours",
+     "phase": "harden"
+    },
+    {
+     "text": "Alert on the Defender detections the report lists, among them 'Suspicious activity likely indicative of a connection to an adversary-in-the-middle (AiTM) phishing site' and 'Email messages containing malicious URL removed after delivery'.",
+     "from": "source",
+     "src": "Microsoft Security Blog",
+     "phase": "detect"
+    }
+   ],
+   "kqlPublished": [
+    {
+     "title": "Salary review campaign sender (19-20 August)",
+     "query": "EmailEvents\n| where SenderMailFromAddress == \"smtp@wekash.net\"",
+     "by": "Microsoft Threat Intelligence",
+     "src": "Microsoft Security Blog",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/",
+     "date": "2026-11-05",
+     "vendor": true
+    },
+    {
+     "title": "Purchase order and payroll campaign sender (21 September)",
+     "query": "EmailEvents\n| where SenderMailFromAddress == \"contacto06@carloxmextos.org\"",
+     "by": "Microsoft Threat Intelligence",
+     "src": "Microsoft Security Blog",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/",
+     "date": "2026-11-05",
+     "vendor": true
+    }
+   ],
+   "microsoft": [
+    {
+     "what": "Microsoft Threat Intelligence quarterly email threat report",
+     "title": "Email threat landscape: Q3 2026 trends and insights",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/",
+     "date": "2026-11-05"
+    }
+   ],
+   "links": [
+    {
+     "text": "Email threat landscape: Q3 2026 trends and insights",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/",
+     "date": "2026-11-05"
+    }
+   ]
   }
  ]
 }
