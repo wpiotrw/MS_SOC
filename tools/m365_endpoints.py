@@ -41,7 +41,8 @@ IMPACT = {
     "OtherNonPriorityChanges": ("Other change (notes, ports)", "none", "Less critical: a note or another attribute changed."),
 }
 AREA = {"Common": "Microsoft 365 Common and Office Online", "Exchange": "Exchange Online", "SharePoint": "SharePoint Online and OneDrive",
-        "Skype": "Microsoft Teams (and Skype for Business Online)"}
+        "Skype": "Microsoft Teams (and Skype for Business Online)",
+        "Unknown": "Service not stated (set removed - Microsoft named no service)"}
 
 
 def log(*a):
@@ -109,6 +110,15 @@ def main(argv):
     if latest not in firstSeen:
         firstSeen[latest] = today if st.get("version") else vday(latest)
     cur = {str(s["id"]) for s in sets}
+    # 8 XI 2026: a set Microsoft removed whole has no serviceArea in its "Remove" record, and it is gone from /endpoints -
+    # 7 changes showed an empty service (an unnamed, seemingly pressed "7" filter on the phone). Any other change record of
+    # the same set that names its service (current / previous) fills it; the rest stay "Unknown" and say so.
+    hist_area = {}
+    for c in changes:
+        for k in ("current", "previous"):
+            a = (c.get(k) or {}).get("serviceArea")
+            if a:
+                hist_area.setdefault(str(c.get("endpointSetId")), a)
     out_ch = []
     for c in changes:
         if str(c.get("version") or "") < KEEP_FROM:
@@ -116,7 +126,7 @@ def main(argv):
         sid = str(c.get("endpointSetId"))
         ks = known.get(sid) or {}
         prev, curv = c.get("previous") or {}, c.get("current") or {}
-        area = curv.get("serviceArea") or prev.get("serviceArea") or ks.get("serviceArea") or ""
+        area = curv.get("serviceArea") or prev.get("serviceArea") or ks.get("serviceArea") or hist_area.get(sid) or "Unknown"
         imps = [x.strip() for x in str(c.get("impact") or "").split(",") if x.strip()]
         add, rem = c.get("add") or {}, c.get("remove") or {}
         out_ch.append({

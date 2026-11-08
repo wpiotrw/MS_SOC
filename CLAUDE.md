@@ -46290,9 +46290,14 @@ odtad CZTERNASCIE (4-17).**
       if (v[2] != null) b.appendChild(el("span", "s5fp-n", n(v[2]))); b.setAttribute("aria-pressed", String(S.view === v[0])); nv.appendChild(b); });
     return nv;
   }
+  /* 8 XI 2026, owner: "you show the versions oddly - what is this at all?" Microsoft numbers every release of the list
+     YYYYMMDDNN: the date it was published, then NN = which release of that day (00 = the first). Said in words, not only
+     as the raw number. */
+  function vWords(v) { var m = /^(\d{4})(\d{2})(\d{2})(\d{2})$/.exec(String(v || "")); if (!m) return ""; var k = +m[4];
+    return m[3] + "/" + m[2] + "/" + m[1] + ", " + (k === 0 ? "1st" : k === 1 ? "2nd" : k === 2 ? "3rd" : (k + 1) + "th") + " release that day"; }
   function kpis() {
     var t = D.totals || {}, kp = el("div", "s5dv-kpis"), v0 = (D.versions || [])[0] || {};
-    [[D.version, "current version", "published " + dmy(D.versionDay)], [n(v0.n), "changes in it", n(v0.act) + " to act on"], [n(t.sets), "endpoint sets", n((t.byCategory || {}).Optimize) + " Optimize · " + n((t.byCategory || {}).Allow) + " Allow"],
+    [[dmy(D.versionDay), "current list, released by Microsoft", "version number " + D.version + " = " + vWords(D.version)], [n(v0.n), "changes in it", n(v0.act) + " to act on"], [n(t.sets), "endpoint sets", n((t.byCategory || {}).Optimize) + " Optimize · " + n((t.byCategory || {}).Allow) + " Allow"],
      [n(t.urls), "URLs", n(t.ips) + " IP ranges"]].forEach(function (x) { var d = el("div", "s5dv-kpi"); d.appendChild(el("b", null, x[0])); d.appendChild(el("span", "s5dv-kl", x[1])); d.appendChild(el("span", "s5dv-ks", x[2])); kp.appendChild(d); });
     return kp;
   }
@@ -46302,7 +46307,7 @@ odtad CZTERNASCIE (4-17).**
     fb.appendChild(el("span", "s5fo-tfl", "Service"));
     var areas = {}; (D.changes || []).filter(qOk).forEach(function (c) { areas[c.area] = (areas[c.area] || 0) + 1; });
     var ab = btn("All", "s5fo-tb", function () { S.area = ""; render(); }); ab.setAttribute("aria-pressed", String(!S.area)); fb.appendChild(ab);
-    Object.keys(areas).forEach(function (a) { var b = btn((D.areas || {})[a] || a, "s5fo-tb", function () { S.area = a; render(); }); b.setAttribute("aria-pressed", String(S.area === a)); b.appendChild(el("span", "s5fp-n", n(areas[a]))); fb.appendChild(b); });
+    Object.keys(areas).forEach(function (a) { var b = btn((D.areas || {})[a] || a || "Service not stated", "s5fo-tb", function () { S.area = a; render(); }); b.setAttribute("aria-pressed", String(!!a && S.area === a)); b.appendChild(el("span", "s5fp-n", n(areas[a]))); fb.appendChild(b); });
     fb.appendChild(el("span", "s5fo-tfl", "Impact"));
     [["", "All"], ["act", "Act"], ["tidy", "Tidy up"], ["check", "Check"], ["none", "No action"]].forEach(function (o) { var cnt = (D.changes || []).filter(qOk).filter(function (c) { return !o[0] || kindOf(c) === o[0]; }).length; if (o[0] && !cnt) return;
       var b = btn(o[1], "s5fo-tb", function () { S.imp = o[0]; render(); }); b.setAttribute("aria-pressed", String(S.imp === o[0])); b.appendChild(el("span", "s5fp-n", n(cnt))); fb.appendChild(b); });
@@ -46311,7 +46316,8 @@ odtad CZTERNASCIE (4-17).**
     var by = {}, order = []; L.forEach(function (c) { if (!by[c.version]) { by[c.version] = []; order.push(c.version); } by[c.version].push(c); });
     order.forEach(function (v, i) {
       var d = el("details", "s5ft-grp"); if (i < 2 || S.q) d.open = true;
-      var sm = el("summary", "s5ft-gs"); sm.appendChild(el("span", "s5ft-gn", dmy(by[v][0].day) + " · version " + v)); sm.appendChild(el("span", "s5fp-n", n(by[v].length) + " change" + (by[v].length === 1 ? "" : "s")));
+      var sm = el("summary", "s5ft-gs"); sm.appendChild(el("span", "s5ft-gn", "List released " + dmy(by[v][0].day))); sm.appendChild(el("span", "s5fp-n", n(by[v].length) + " change" + (by[v].length === 1 ? "" : "s")));
+      var vt = el("span", "s5ft-vn", "version " + v); vt.title = "Microsoft's version number = " + vWords(v); sm.appendChild(vt);
       var na = by[v].filter(function (c) { return kindOf(c) === "act"; }).length; if (na) sm.appendChild(el("span", "s5ft-st s5fu-act", na + " to act on"));
       d.appendChild(sm); var ol = el("ol", "s5ft-fl"); by[v].forEach(function (c) { ol.appendChild(row(c)); }); d.appendChild(ol); host.appendChild(d);
     });
@@ -46343,9 +46349,11 @@ odtad CZTERNASCIE (4-17).**
   function vHow(host) {
     var h = el("section", "s5ft-how"); h.appendChild(el("h3", null, "How it works"));
     var ol = el("ol");
-    ["Twice a day (05:25 and 15:25 UTC) GitHub Actions runs tools/m365_endpoints.py. It asks Microsoft's web service for the latest version of the Worldwide list (Microsoft asks for one check an hour at most).",
+    ["What a version is: Microsoft publishes the list of Microsoft 365 URLs and IP ranges (for firewalls and proxies) and numbers every release YYYYMMDDNN — the date it was published, then NN = which release of that day (00 = the first). 2026103000 = 30/10/2026, first release that day. A new version comes usually near the end of the month, sometimes in between (support or security needs).",
+     "Twice a day (05:25 and 15:25 UTC) GitHub Actions runs tools/m365_endpoints.py. It asks Microsoft's web service for the latest version of the Worldwide list (Microsoft asks for one check an hour at most).",
      "When the version moved, it reads every change record and the current list, and keeps every endpoint set it has seen, so a set Microsoft removed keeps its name and URLs here.",
      "Each change carries Microsoft's impact: an added IP or URL must be allowed before its effective date; a removal can be tidied up without a deadline; a move or a note needs no action.",
+     "A set Microsoft removed whole has no service in its last change record; the portal takes it from an earlier record of the same set, and says “Service not stated” when Microsoft never named one (5 old sets removed in 2024).",
      "Only the commercial (Worldwide) instance is read. GCC High, DoD and China have their own lists."].forEach(function (t) { ol.appendChild(el("li", null, t)); });
     h.appendChild(ol); host.appendChild(h);
     var vs = (D.versions || []).slice(0, 15), d = el("details", "s5ft-grp"); d.open = true; var sm = el("summary", "s5ft-gs"); sm.appendChild(el("span", "s5ft-gn", "Versions")); sm.appendChild(el("span", "s5fp-n", n(vs.length))); d.appendChild(sm);
@@ -50084,6 +50092,7 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 .s5gf-tab{max-width:100%}
 .s5gf-code{max-width:100%;box-sizing:border-box}
 .s5gf-lack summary{display:block}
+.s5ft-vn{display:inline-block;margin-left:8px;padding:1px 8px;border:1px solid color-mix(in srgb,var(--text) 30%,transparent);border-radius:999px;font:600 13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;opacity:.9}
 /* §5gg: the cross-check frame as an answer - bold conclusion, bullets, dates as big chips */
 .s5gf-dc{font-size:15px;line-height:1.5;color:var(--text)}
 .s5gf-dc-c{font-size:14.5px}
@@ -52218,6 +52227,22 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5gh — M365 endpoints: wersja slownie, usluga usunietych zestawow (8 XI 2026)
+
+Wlasciciel (zrzut z telefonu): „W M365 endpoints jakos dziwnie podajesz wersje. Co to w ogole jest?" — na tym samym
+zrzucie wcisnieta plakietka „7" bez nazwy w filtrze Service.
+- **Wersja:** Microsoft numeruje kazde wydanie listy adresow URL i zakresow IP Microsoft 365 jako YYYYMMDDNN — data
+  publikacji i NN = ktore wydanie tego dnia (00 = pierwsze); Learn „Microsoft 365 IP Address and URL web service"
+  (sprawdzone 8 XI). Kafel pokazuje teraz date („30/10/2026 · current list, released by Microsoft") i numer slownie
+  („version number 2026103000 = 30/10/2026, 1st release that day"); naglowek grupy: „List released <data>" +
+  plakietka z numerem (podpowiedz ze slownym opisem); „How it works" zaczyna sie od wyjasnienia numeru.
+- **Plakietka „7":** 7 rekordow zmian dotyczy zestawow usunietych w calosci — rekord „Remove" nie podaje uslugi, a
+  zestawu nie ma juz w /endpoints, wiec `area` bylo puste; pusty filtr wygladal na wcisniety (rowny „All").
+  `tools/m365_endpoints.py` bierze usluge z innych rekordow tego samego zestawu (33 → SharePoint, 27 → Teams/Skype),
+  reszta = `Unknown` „Service not stated (set removed - Microsoft named no service)" (5 zestawow usunietych 31/07/2024
+  i 02/09/2024: Stream, Azure Media). Liczby bez zmian: 46 zmian, 40 wersji, 62 zestawy; Microsoft nadal ma 2026103000.
+- **Testy:** WebKit 390: kafel, naglowki grup, filtr (5 uslug + „Service not stated" 5), bez przewijania w bok, 0 bledow.
 
 ### §5gg — Czytelnosc calego portalu: dolna granica rozmiaru, kontrast, ramka cross-check jako odpowiedz (3 XI 2026)
 
