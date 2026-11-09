@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-09T14:21:34Z",
+ "generated": "2026-11-09T19:59:47Z",
  "day": "2026-11-09",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-09)",
- "count": 40,
+ "count": 42,
  "byMc": {
   "MC1325414": {
    "says": [
@@ -391,6 +391,22 @@
      "link": "https://mc.merill.net/message/MC1446796"
     },
     {
+     "date": "2026-11-23",
+     "src": "MC1446796",
+     "text": "Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Tenant Access Policy",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
      "date": "2027-04-01",
      "src": "MC1227454",
      "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
@@ -405,14 +421,6 @@
      "post": "2026-09-09",
      "later": false,
      "link": "https://mc.merill.net/message/MC1469960"
-    },
-    {
-     "date": "2027-07-05",
-     "src": "MC1485116",
-     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
-     "post": "2026-10-01",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1485116"
     }
    ],
    "moved": [],
@@ -453,6 +461,22 @@
      "date": "2026-11-15",
      "src": "MC1446796",
      "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-23",
+     "src": "MC1446796",
+     "text": "Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Tenant Access Policy",
      "post": "2026-08-03",
      "later": false,
      "link": "https://mc.merill.net/message/MC1446796"
@@ -506,6 +530,8 @@
   "MC1446796": {
    "says": [
     "2026-11-15",
+    "2026-11-23",
+    "2026-11-25",
     "2027-04-01"
    ],
    "others": [
@@ -526,7 +552,18 @@
      "link": "https://mc.merill.net/message/MC1485116"
     }
    ],
-   "moved": [],
+   "moved": [
+    {
+     "was": "3 Nov 2026",
+     "now": "2026-11-23",
+     "text": "Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing."
+    },
+    {
+     "was": "early Nov 2026",
+     "now": "2026-11-25",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Tenant Access Policy"
+    }
+   ],
    "newer": [
     {
      "id": "MC1485116",
@@ -564,6 +601,22 @@
      "date": "2026-11-15",
      "src": "MC1446796",
      "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-23",
+     "src": "MC1446796",
+     "text": "Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Tenant Access Policy",
      "post": "2026-08-03",
      "later": false,
      "link": "https://mc.merill.net/message/MC1446796"
@@ -628,6 +681,22 @@
      "link": "https://mc.merill.net/message/MC1446796"
     },
     {
+     "date": "2026-11-23",
+     "src": "MC1446796",
+     "text": "Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Tenant Access Policy",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
      "date": "2027-04-01",
      "src": "MC1227454",
      "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
@@ -685,6 +754,22 @@
      "link": "https://mc.merill.net/message/MC1446796"
     },
     {
+     "date": "2026-11-23",
+     "src": "MC1446796",
+     "text": "Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Tenant Access Policy",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
      "date": "2027-04-01",
      "src": "MC1227454",
      "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
@@ -699,14 +784,6 @@
      "post": "2026-09-09",
      "later": false,
      "link": "https://mc.merill.net/message/MC1469960"
-    },
-    {
-     "date": "2027-07-05",
-     "src": "MC1485116",
-     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
-     "post": "2026-10-01",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1485116"
     }
    ],
    "moved": [],
@@ -747,6 +824,22 @@
      "date": "2026-11-15",
      "src": "MC1446796",
      "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-23",
+     "src": "MC1446796",
+     "text": "Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Tenant Access Policy",
      "post": "2026-08-03",
      "later": false,
      "link": "https://mc.merill.net/message/MC1446796"
@@ -804,6 +897,22 @@
      "link": "https://mc.merill.net/message/MC1446796"
     },
     {
+     "date": "2026-11-23",
+     "src": "MC1446796",
+     "text": "Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Tenant Access Policy",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
      "date": "2027-04-01",
      "src": "MC1227454",
      "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
@@ -818,14 +927,6 @@
      "post": "2026-09-09",
      "later": false,
      "link": "https://mc.merill.net/message/MC1469960"
-    },
-    {
-     "date": "2027-07-05",
-     "src": "MC1485116",
-     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
-     "post": "2026-10-01",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1485116"
     }
    ],
    "moved": [],
@@ -853,6 +954,22 @@
      "link": "https://mc.merill.net/message/MC1446796"
     },
     {
+     "date": "2026-11-23",
+     "src": "MC1446796",
+     "text": "Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1446796",
+     "text": "MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Tenant Access Policy",
+     "post": "2026-08-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1446796"
+    },
+    {
      "date": "2027-04-01",
      "src": "MC1227454",
      "text": "After April 1, 2027 , EWS access will be permanently removed with no re-enablement.",
@@ -867,14 +984,6 @@
      "post": "2026-09-09",
      "later": false,
      "link": "https://mc.merill.net/message/MC1469960"
-    },
-    {
-     "date": "2027-07-05",
-     "src": "MC1485116",
-     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
-     "post": "2026-10-01",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1485116"
     }
    ],
    "moved": [],
@@ -1657,6 +1766,91 @@
     {
      "id": "c-sms-voice-retirement",
      "name": "Microsoft-provided SMS and voice MFA retirement"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1481315": {
+   "says": [
+    "2027-01-25",
+    "2027-03-15",
+    "2027-03-25",
+    "2027-03-31"
+   ],
+   "others": [
+    {
+     "date": "2026-12-07",
+     "src": "MC1545691",
+     "text": "Effective December 7, 2026, we will retire the public preview experience for select non-Microsoft data sources in Microsoft Purview Data Security Posture Management (DSPM) through partner integrations.",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1545691"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1545691",
+     "date": "2026-11-09",
+     "title": ""
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-mc1481315",
+     "name": "DSPM-Copilot Readiness and Data Explorer"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1545691": {
+   "says": [
+    "2026-12-07"
+   ],
+   "others": [
+    {
+     "date": "2027-01-25",
+     "src": "MC1481315",
+     "text": "Retirement begins mid-March 2027 (previously late January 2027) and completes in late March 2027 (previously late January)",
+     "post": "2026-09-28",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1481315"
+    },
+    {
+     "date": "2027-03-15",
+     "src": "MC1481315",
+     "text": "Beginning mid-March 2027, Microsoft will start retiring the Microsoft Purview Data Security Posture Management (DSPM) classic and DSPM for AI classic experiences.",
+     "post": "2026-09-28",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1481315"
+    },
+    {
+     "date": "2027-03-25",
+     "src": "MC1481315",
+     "text": "Microsoft will retire Microsoft Purview DSPM classic and DSPM for AI classic experiences by late March 2027, unifying capabilities into a single current DSPM experience.",
+     "post": "2026-09-28",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1481315"
+    },
+    {
+     "date": "2027-03-31",
+     "src": "MC1481315",
+     "text": "Retirement begins mid-March 2027 (previously late January 2027) and completes in late March 2027 (previously late January), Worldwide, GCC, GCC High and DoD. The date shown is the end of March 2027.",
+     "post": "2026-09-28",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1481315"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [
+    "Purview retires the DSPM classic and DSPM for AI classic experiences in mid to late March 2027 (moved again, from late January 2027)"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc1481315",
+     "name": "DSPM-Copilot Readiness and Data Explorer"
     }
    ],
    "verdict": "differs"

@@ -686,7 +686,8 @@
 "571157",
 "RM571157",
 "MC1481315",
-"item:MC1481315"
+"item:MC1481315",
+"MC1545691"
 ],
 "log":[
 {
@@ -832,6 +833,16 @@
 "label":"30 Oct 2026",
 "text":"Microsoft updated the post on 30 October 2026: retirement begins mid-March 2027 (previously late January 2027) and completes in late March 2027 (previously late"
 },
+"MC1545691|posted":{
+"date":"2026-11-09",
+"label":"9 Nov 2026",
+"text":"Posted: Microsoft Purview: Retirement of select DSPM partner integrations"
+},
+"MC1545691|effective we will retire the public preview experience for s#0":{
+"date":"2026-12-07",
+"label":"7 Dec 2026",
+"text":"Effective December 7, 2026, we will retire the public preview experience for select non-Microsoft data sources in Microsoft Purview Data Security Posture Manage"
+},
 "MC1481315|microsoft updated the post on retirement begins mid previous#1":{
 "date":"2027-01-25",
 "label":"late Jan 2027",
@@ -893,6 +904,16 @@
 "updated":"2026-09-15",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1545691":{
+"title":"Microsoft Purview: Retirement of select DSPM partner integrations",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1545691",
+"source":"Message Center",
+"id":"MC1545691",
+"date":"2026-11-09",
+"updated":"2026-11-09",
+"group":"microsoft",
+"found":"2026-11-09"
 }
 },
 "final":"2027-03-31",
@@ -900,7 +921,8 @@
 "tech":"Purview",
 "posts":[
 "571157",
-"MC1481315"
+"MC1481315",
+"MC1545691"
 ]
 },
 "c-mc676299":{
@@ -923,6 +945,33 @@
 "item:exchange-online-ews-disablement-starts-2026-10-21"
 ],
 "log":[
+{
+"date":"2026-11-09",
+"id":"MC1446796",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-11-09",
+"id":"MC1446796",
+"what":"Date moved",
+"before":"6 Nov 2026",
+"after":"23 Nov 2026",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-11-09",
+"id":"MC1446796",
+"what":"Date moved",
+"before":"early Nov 2026",
+"after":"late Nov 2026",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
 {
 "date":"2026-10-30",
 "id":"MC1446796",
@@ -1321,20 +1370,25 @@
 "label":"30 Oct 2026",
 "text":"Updated 30 October 2026: Calendar Sharing via Microsoft 365 Cross-Tenant Access Policy completes rolling out by 6 November 2026 (previously 30 October)."
 },
-"MC1446796|cross tenant free busy mailtips will be available by and cal#0":{
-"date":"2026-11-05",
-"label":"early Nov 2026",
-"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tena"
-},
-"MC1446796|we will begin rolling out in and expect to complete by for f#1":{
+"MC1446796|updated calendar sharing via microsoft cross tenant access p#1":{
 "date":"2026-11-06",
 "label":"6 Nov 2026",
-"text":"Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing."
+"text":"Calendar Sharing via Microsoft 365 Cross-Tenant Access Policy completes rolling out by 6 November 2026 (previously 30 October)."
 },
 "MC1446796|microsoft cross tenant access policy will replace ews by#0":{
 "date":"2026-11-15",
 "label":"Nov 2026",
 "text":"Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026."
+},
+"MC1446796|we will begin rolling out in and expect to complete by for f#1":{
+"date":"2026-11-23",
+"label":"23 Nov 2026",
+"text":"Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing."
+},
+"MC1446796|cross tenant free busy mailtips will be available by and cal#0":{
+"date":"2026-11-25",
+"label":"late Nov 2026",
+"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Te"
 },
 "MC1227454|after ews access will be permanently removed with no re enab#0":{
 "date":"2027-04-01",
@@ -1360,6 +1414,22 @@
 "now":"30 Oct 2026",
 "seen":"2026-10-30",
 "text":"Updated 30 October 2026: Calendar Sharing via Microsoft 365 Cross-Tenant Access Policy completes rolling out by 6 November 2026 (previously 30 October)."
+},
+{
+"src":"MC1446796",
+"key":"we will begin rolling out in and expect to complete by for f#1",
+"was":"6 Nov 2026",
+"now":"23 Nov 2026",
+"seen":"2026-11-09",
+"text":"Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing."
+},
+{
+"src":"MC1446796",
+"key":"cross tenant free busy mailtips will be available by and cal#0",
+"was":"early Nov 2026",
+"now":"late Nov 2026",
+"seen":"2026-11-09",
+"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Te"
 }
 ],
 "materials":{
@@ -5535,6 +5605,14 @@
 "date":"2026-07-29",
 "group":"video",
 "found":"2026-10-09"
+},
+"https://www.youtube.com/watch?v=g0aKWuu_ktY":{
+"title":"AI Pillar Deep Dive - Insider Risk Management Swimlane Overview",
+"link":"https://www.youtube.com/watch?v=g0aKWuu_ktY",
+"source":"Microsoft Security",
+"date":"2026-11-09",
+"group":"video",
+"found":"2026-11-09"
 }
 },
 "final":"2026-12-08",
@@ -6571,6 +6649,14 @@
 "date":"2026-11-06",
 "group":"community",
 "found":"2026-11-07"
+},
+"https://www.youtube.com/watch?v=CghlABVbgRY":{
+"title":"AI Pillar Deep Dive - Data Loss Prevention Swimlane Overview",
+"link":"https://www.youtube.com/watch?v=CghlABVbgRY",
+"source":"Microsoft Security",
+"date":"2026-11-09",
+"group":"video",
+"found":"2026-11-09"
 }
 },
 "final":"2027-01-15",
@@ -6824,14 +6910,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-07",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-08",
 "text":"August 1, 2026."
 },
@@ -6913,6 +6991,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-08",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-09",
 "text":"August 1, 2026."
 },
 {
@@ -7552,7 +7638,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-08",
+"seen":"2026-11-09",
 "text":"early February 2026."
 },
 {
@@ -7560,7 +7646,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-08",
+"seen":"2026-11-09",
 "text":"February 2027."
 },
 {
@@ -11162,7 +11248,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-08",
+"seen":"2026-11-09",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11170,7 +11256,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-08",
+"seen":"2026-11-09",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -18702,6 +18788,55 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-09",
+"cid":"c-mc1481315",
+"type":"milestone",
+"name":"DSPM-Copilot Readiness and Data Explorer",
+"src":"MC1545691",
+"now":"7 Dec 2026",
+"text":"Effective December 7, 2026, we will retire the public preview experience for select non-Microsoft data sources in Microsoft Purview Data Security Posture Management (DSPM) through partner integrations"
+},
+{
+"day":"2026-11-09",
+"cid":"c-mc676299",
+"type":"moved",
+"name":"Exchange Web Services (EWS) retirement update",
+"src":"MC1446796",
+"was":"6 Nov 2026",
+"now":"23 Nov 2026",
+"text":"Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing."
+},
+{
+"day":"2026-11-09",
+"cid":"c-mc676299",
+"type":"moved",
+"name":"Exchange Web Services (EWS) retirement update",
+"src":"MC1446796",
+"was":"early Nov 2026",
+"now":"late Nov 2026",
+"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Tenant Access Policy"
+},
+{
+"day":"2026-11-09",
+"cid":"c-mc1481317",
+"type":"material",
+"name":"Microsoft Purview | Insider Risk Management: Retirement of Data Risk Graph",
+"group":"video",
+"title":"AI Pillar Deep Dive - Insider Risk Management Swimlane Overview",
+"source":"Microsoft Security",
+"link":"https://www.youtube.com/watch?v=g0aKWuu_ktY"
+},
+{
+"day":"2026-11-09",
+"cid":"c-mc1429010",
+"type":"material",
+"name":"Instances policy location in Microsoft Purview Data Loss Prevention",
+"group":"video",
+"title":"AI Pillar Deep Dive - Data Loss Prevention Swimlane Overview",
+"source":"Microsoft Security",
+"link":"https://www.youtube.com/watch?v=CghlABVbgRY"
 }
 ],
 "archive":{

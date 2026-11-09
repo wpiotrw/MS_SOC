@@ -14,6 +14,51 @@
   "incident": "agtabackup-rat-rmm-lure-2026"
  },
  {
+  "file": "articles/2026-11-09-detection-3-ssh-exploitation-scanning-spike-targeting-linux.kql",
+  "title": "Detection 3: SSH Exploitation Scanning Spike Targeting Linux Hosts - CVE-2026-123158",
+  "date": "2026-11-09",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceLogonEvents",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 9, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-09-detection-engineering-brief-monday-november-9-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-09-detection-engineering-brief-monday-november-9-2026/"
+ },
+ {
+  "file": "articles/2026-11-09-detection-2-service-principal-sign-in-spike-from.kql",
+  "title": "Detection 2: Service Principal Sign-In Spike from New IP After OAuth App Activity - Storm-3358 Pattern",
+  "date": "2026-11-09",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs",
+   "SigninLogs"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 9, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-09-detection-engineering-brief-monday-november-9-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-09-detection-engineering-brief-monday-november-9-2026/"
+ },
+ {
+  "file": "articles/2026-11-09-detection-1-oauth-app-permission-grant-followed-by.kql",
+  "title": "Detection 1: OAuth App Permission Grant Followed by Anomalous Service Principal Sign-In",
+  "date": "2026-11-09",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs",
+   "SigninLogs"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 9, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-09-detection-engineering-brief-monday-november-9-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-09-detection-engineering-brief-monday-november-9-2026/"
+ },
+ {
   "file": "articles/2026-11-08-detection-opportunity-2-microsoft-defender-xdr-kql-suspiciou.kql",
   "title": "Detection Opportunity 2 - Microsoft Defender XDR KQL — Suspicious Operator Activity",
   "date": "2026-11-08",

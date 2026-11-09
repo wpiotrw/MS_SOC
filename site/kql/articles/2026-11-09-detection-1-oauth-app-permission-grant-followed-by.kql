@@ -1,0 +1,44 @@
+// title: Detection 1: OAuth App Permission Grant Followed by Anomalous Service Principal Sign-In
+// date: 2026-11-09
+// product: Entra
+// tables: AuditLogs, SigninLogs
+// purpose: From the article: Detection Engineering Brief - Monday, November 9, 2026
+// source: https://devsecopsdadattack.com/2026-11-09-detection-engineering-brief-monday-november-9-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let GrantWindow = 2h;
+let BaselineDays = 30d;
+let RecentGrants = AuditLogs
+| where TimeGenerated > ago(7d)
+| where OperationName in ("Add app role assignment to service principal", "Consent to application", "Add OAuth2PermissionGrant")
+| where Result == "success"
+| extend AppId = tostring(TargetResources[0].id)
+| where isnotempty(AppId)
+| project GrantTime = TimeGenerated, AppId, GrantOperationName = OperationName, InitiatedByUPN = tostring(InitiatedBy.user.userPrincipalName);
+let KnownSPIPs = SigninLogs
+| where TimeGenerated between (ago(BaselineDays) .. ago(7d))
+| where ServicePrincipalId != ""
+| where ResultType == 0
+| summarize HistoricalSigninCount = count(), KnownIPs = make_set(IPAddress, 500) by AppId;
+let RecentSPSignins = SigninLogs
+| where TimeGenerated > ago(7d)
+| where ServicePrincipalId != ""
+| where ResultType == 0
+| where isnotempty(IPAddress)
+| project SigninTime = TimeGenerated, AppId, ServicePrincipalName, IPAddress;
+RecentGrants
+| join kind=inner RecentSPSignins on AppId
+| where SigninTime between (GrantTime .. (GrantTime + GrantWindow))
+| join kind=leftouter KnownSPIPs on AppId
+| where not(IPAddress in (KnownIPs))
+| project
+    GrantTime,
+    SigninTime,
+    AppId,
+    ServicePrincipalName,
+    InitiatedByUPN,
+    IPAddress,
+    GrantOperationName,
+    HistoricalSigninCount = coalesce(HistoricalSigninCount, 0)
+| order by GrantTime desc
