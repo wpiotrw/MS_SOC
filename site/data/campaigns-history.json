@@ -6792,14 +6792,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-06",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-07",
 "text":"August 1, 2026."
 },
@@ -6937,6 +6929,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-08",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-09",
 "text":"August 1, 2026."
 },
 {
@@ -7600,7 +7600,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-08",
+"seen":"2026-11-09",
 "text":"early February 2026."
 },
 {
@@ -7608,7 +7608,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-08",
+"seen":"2026-11-09",
 "text":"February 2027."
 },
 {
@@ -8930,77 +8930,6 @@
 "tech":"Exchange",
 "posts":[
 "MC1483974"
-]
-},
-"c-item-mc1488841":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-09",
-"name":"Update to default blocked file types in OwaMailboxPolicy",
-"status":"Active",
-"members":[
-"MC1488841",
-"item:MC1488841"
-],
-"log":[
-{
-"date":"2026-10-06",
-"id":"MC1488841",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"Outlook on the web and new Outlook will block .msix and .msixbundle attachments by default from early November, in every OWA mailbox policy",
-"title":"Outlook on the web and new Outlook will block .msix and .msixbundle attachments by default from early November, in every OWA mailbox policy",
-"link":"https://deltapulse.app/item/MC1488841"
-}
-],
-"milestones":{
-"MC1488841|posted":{
-"date":"2026-10-05",
-"label":"5 Oct 2026",
-"text":"Posted: Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy"
-},
-"MC1488841|deadline":{
-"date":"2026-11-01",
-"label":"1 Nov 2026",
-"text":"Microsoft states 'early November 2026' and no day; 1 November is this brief's marker for the start of that window (inferred)."
-},
-"MC1488841|general availability worldwide gcc gcc high dod rollout begi#0":{
-"date":"2026-11-05",
-"label":"early Nov 2026",
-"text":"Rollout begins in early November 2026 and is expected to complete by mid-November 2026."
-},
-"MC1488841|outlook on the web and new outlook for windows will block ms#0":{
-"date":"2026-11-15",
-"label":"Nov 2026",
-"text":"Outlook on the web and new Outlook for Windows will block .msix and .msixbundle file types by default in OwaMailboxPolicy starting November 2026 to enhance secu"
-}
-},
-"moves":[],
-"materials":{
-"https://deltapulse.app/item/MC1488841":{
-"title":"Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy",
-"link":"https://deltapulse.app/item/MC1488841",
-"source":"Main list source",
-"id":"MC1488841",
-"date":"2026-10-05",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1488841":{
-"title":"Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy",
-"link":"https://mc.merill.net/message/MC1488841",
-"source":"Message Center",
-"id":"MC1488841",
-"date":"2026-10-05",
-"updated":"2026-10-05",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":"2026-11-15",
-"type":"Rollout",
-"tech":"Exchange",
-"posts":[
-"MC1488841"
 ]
 },
 "c-item-mc1506318":{
@@ -11281,7 +11210,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-08",
+"seen":"2026-11-09",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11289,7 +11218,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-08",
+"seen":"2026-11-09",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -20901,6 +20830,77 @@
 "type":"Retirement",
 "tech":"Azure",
 "posts":[]
+},
+"c-item-mc1488841":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-09",
+"name":"Update to default blocked file types in OwaMailboxPolicy",
+"status":"Archive",
+"members":[
+"MC1488841",
+"item:MC1488841"
+],
+"log":[
+{
+"date":"2026-10-06",
+"id":"MC1488841",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Outlook on the web and new Outlook will block .msix and .msixbundle attachments by default from early November, in every OWA mailbox policy",
+"title":"Outlook on the web and new Outlook will block .msix and .msixbundle attachments by default from early November, in every OWA mailbox policy",
+"link":"https://deltapulse.app/item/MC1488841"
+}
+],
+"milestones":{
+"MC1488841|posted":{
+"date":"2026-10-05",
+"label":"5 Oct 2026",
+"text":"Posted: Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy"
+},
+"MC1488841|deadline":{
+"date":"2026-11-01",
+"label":"1 Nov 2026",
+"text":"Microsoft states 'early November 2026' and no day; 1 November is this brief's marker for the start of that window (inferred)."
+},
+"MC1488841|general availability worldwide gcc gcc high dod rollout begi#0":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"Rollout begins in early November 2026 and is expected to complete by mid-November 2026."
+},
+"MC1488841|outlook on the web and new outlook for windows will block ms#0":{
+"date":"2026-11-15",
+"label":"Nov 2026",
+"text":"Outlook on the web and new Outlook for Windows will block .msix and .msixbundle file types by default in OwaMailboxPolicy starting November 2026 to enhance secu"
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1488841":{
+"title":"Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy",
+"link":"https://deltapulse.app/item/MC1488841",
+"source":"Main list source",
+"id":"MC1488841",
+"date":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1488841":{
+"title":"Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy",
+"link":"https://mc.merill.net/message/MC1488841",
+"source":"Message Center",
+"id":"MC1488841",
+"date":"2026-10-05",
+"updated":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":"2026-11-15",
+"type":"Rollout",
+"tech":"Exchange",
+"posts":[
+"MC1488841"
+]
 }
 }
 }
