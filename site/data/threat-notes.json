@@ -2049,6 +2049,113 @@
      "date": "2026-11-05"
     }
    ]
+  },
+  {
+   "id": "agtabackup-rat-rmm-lure-2026",
+   "title": "AgtaBackup RAT: fake video-meeting installers enrol victims in signed RMM tools, then the attacker installs a .NET credential-stealing RAT",
+   "match": [
+    "AgtaBackup"
+   ],
+   "areas": [
+    "Identity attacks"
+   ],
+   "status": "active",
+   "updated": "2026-11-09",
+   "by": "morning routine",
+   "summary": "Unit 42 (Palo Alto Networks) documented the AgtaBackup RAT campaign on 28 September 2026, as reported by PCrisk on 16 October. A fake download page imitating a Microsoft Store listing for a video-conferencing app delivers a legitimately signed RMM installer (LogMeIn Resolve, ConnectWise ScreenConnect); once the victim accepts the UAC prompt the machine is enrolled in the attacker's RMM account. Hours or days later the attacker runs PowerShell through the RMM terminal to install the RAT, which steals browser credentials and cookies, logs keystrokes, takes screenshots and runs a hidden desktop. Detect FYI published a write-up on 8 November naming fake Google Meet updates as a lure; this routine could not open it (HTTP 403), so that detail is not confirmed here.",
+   "timeline": [
+    {
+     "date": "2026-09-28",
+     "text": "Unit 42 publishes its timely threat intel note on the AgtaBackup RAT campaign.",
+     "src": "PCrisk (citing Unit 42)"
+    },
+    {
+     "date": "2026-10-16",
+     "text": "PCrisk describes the chain, the persistence tasks and the binary names.",
+     "src": "PCrisk"
+    },
+    {
+     "date": "2026-11-08",
+     "text": "Detect FYI publishes 'Fake Google Meet Updates, Abused RMM Tools, the AgtaBackup RAT Ecosystem & Campaign' (not readable by this routine).",
+     "src": "Detect FYI"
+    }
+   ],
+   "rootCause": "A user installs a signed RMM agent from a fake meeting-app download page and accepts its UAC prompt, which hands the attacker remote administration of the device without any exploit.",
+   "attacker": [
+    "Imitates a Microsoft Store listing for a video-conferencing app to deliver a signed RMM installer (LogMeIn Resolve, ConnectWise ScreenConnect).",
+    "Enrols the device in an attacker-controlled RMM account and later runs PowerShell through the RMM terminal to install the RAT.",
+    "Persists through two SYSTEM scheduled tasks, AgtaBackupAgentWatchdog and AgtaBackupAgentGuardian, that run every minute and reinstall the service within 60 seconds.",
+    "Hides its service from standard admin tools with a restrictive security descriptor; main binary 'Credential Guard.exe', helpers 'Dell Window Guard.exe' and 'Dell.Virus.Guard.exe'.",
+    "Steals browser credentials and cookies (Chrome, Edge, Brave, Opera, Vivaldi, Firefox and others), logs keystrokes, takes screenshots and opens a hidden desktop session (AgtaBackstage).",
+    "Bypasses UAC by disabling the secure desktop in the registry and injecting keystrokes through a named pipe."
+   ],
+   "iocs": [
+    "Scheduled task AgtaBackupAgentWatchdog",
+    "Scheduled task AgtaBackupAgentGuardian",
+    "File Credential Guard.exe",
+    "File Dell Window Guard.exe",
+    "File Dell.Virus.Guard.exe"
+   ],
+   "remediation": [
+    {
+     "text": "Isolate any device where the AgtaBackupAgentWatchdog or AgtaBackupAgentGuardian task exists and remove the RMM agent the attacker enrolled; the tasks reinstall the service within 60 seconds, so delete the tasks before the service.",
+     "from": "source",
+     "src": "https://www.pcrisk.com/removal-guides/36043-agtabackup-rat",
+     "phase": "contain"
+    },
+    {
+     "text": "Revoke sessions and reset passwords for every user who signed in through a browser on an affected device, because the RAT harvests browser credentials and cookies; in Entra, use Revoke sessions on the user and review their sign-ins for token replay.",
+     "from": "ours",
+     "phase": "eradicate"
+    },
+    {
+     "text": "Hunt Defender for Endpoint for the two scheduled task names and the three binary names, and for RMM agents (ScreenConnect, LogMeIn Resolve) installed outside your own RMM tenant.",
+     "from": "ours",
+     "phase": "investigate"
+    },
+    {
+     "text": "Block or allow-list RMM software with Defender for Endpoint indicators or App Control so only the RMM product your organisation runs can install, and tell users meeting apps never require an update from a web page.",
+     "from": "ours",
+     "phase": "harden"
+    },
+    {
+     "text": "Alert on scheduled task creation with the AgtaBackup names (query below).",
+     "from": "ours",
+     "phase": "detect"
+    }
+   ],
+   "kql": [
+    {
+     "title": "AgtaBackup persistence tasks created (Defender XDR advanced hunting)",
+     "query": "DeviceEvents\n| where Timestamp > ago(30d)\n| where ActionType == \"ScheduledTaskCreated\"\n| where AdditionalFields has_any (\"AgtaBackupAgentWatchdog\", \"AgtaBackupAgentGuardian\")\n| project Timestamp, DeviceName, InitiatingProcessAccountName, InitiatingProcessFileName, InitiatingProcessCommandLine, AdditionalFields"
+    }
+   ],
+   "kqlSearched": "2026-11-09",
+   "microsoft": [
+    {
+     "what": "Microsoft described the same technique (signed RMM installers posing as Teams, Zoom or Google Meet) in an earlier campaign; it has not described AgtaBackup by name.",
+     "title": "Signed malware impersonating workplace apps deploys RMM backdoors",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/03/03/signed-malware-impersonating-workplace-apps-deploys-rmm-backdoors/",
+     "date": "2026-03-03"
+    }
+   ],
+   "links": [
+    {
+     "text": "PCrisk: AgtaBackup RAT (citing Unit 42)",
+     "url": "https://www.pcrisk.com/removal-guides/36043-agtabackup-rat",
+     "date": "2026-10-16"
+    },
+    {
+     "text": "Unit 42 timely threat intel: AgtaBackup RAT campaign (cited, not opened)",
+     "url": "https://github.com/PaloAltoNetworks/Unit42-timely-threat-intel/blob/main/2026-09-28-AgtaBackup-RAT-Campaign.txt",
+     "date": "2026-09-28"
+    },
+    {
+     "text": "Detect FYI: Fake Google Meet updates, abused RMM tools, the AgtaBackup RAT (HTTP 403, not read)",
+     "url": "https://detect.fyi/fake-google-meet-updates-abused-rmm-tools-the-agtabackup-rat-ecosystem-campaign-814b6f09541c",
+     "date": "2026-11-08"
+    }
+   ]
   }
  ]
 }
