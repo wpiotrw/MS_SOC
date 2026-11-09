@@ -1,7 +1,7 @@
 {
  "read": "2026-11-09",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 720,
+ "count": 723,
  "note": null,
  "messages": [
   {
@@ -219,22 +219,22 @@
    "major": false,
    "actionBy": null,
    "start": "2025-09-02",
-   "end": "2026-11-23",
-   "modified": "2026-09-09",
+   "end": "2027-03-05",
+   "modified": "2026-11-09",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 9, 2026: We have updated the timeline. Thank you for your patience. Introduction Microsoft Edge for Business will soon support Rewrite , a new feature powered by Microsoft 365 Copilot Chat. This capability helps users draft and rephrase editable text directly within Edge , enhancing productivity and writing quality. Users can access Rewrite by highlighting editable text and right…",
-   "when": "General Availability (Worldwide): We will begin rolling end of September 2026 (previously late August) and expect to complete rollout by late October 2026 .",
-   "prepare": "No admin action is required before rollout. We recommend: Reviewing your current DLP configurations to understand how they may impact Rewrite functionality. Notifying users about this new capability. Updating internal documentation to reflect this change.",
+   "summary": "Updated November 9, 2026: We have updated the timeline. Thank you for your patience. Introduction Microsoft Edge for Business will soon support Writing Assistance , a new feature powered by Microsoft 365 Copilot Chat. This capability helps users draft and rephrase editable text directly within Edge , enhancing productivity and writing quality. Users can access Writing Assistance by highlighting ed…",
+   "when": "General Availability (Worldwide): We will begin rolling late January 2027 (previously end of October 2026) and expect to complete rollout by late January 2027 (previously late October).",
+   "prepare": "No admin action is required before rollout. We recommend: Reviewing your current DLP configurations to understand how they may impact Writing Assistance functionality. Notifying users about this new capability. Updating internal documentation to reflect this change.",
    "dates": [
-    "Updated September 9, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): We will begin rolling end of September 2026 (previously late August) and expect to complete rollout by late October 2026 ."
+    "Updated November 9, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We will begin rolling late January 2027 (previously end of October 2026) and expect to complete rollout by late January 2027 (previously late October)."
    ],
-   "bodyHash": "da95b2987c2d1da1"
+   "bodyHash": "0bd6e2e1ed342399"
   },
   {
    "id": "MC1155311",
@@ -5159,22 +5159,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-06-01",
-   "end": "2026-12-30",
-   "modified": "2026-09-01",
+   "end": "2027-03-01",
+   "modified": "2026-11-09",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated September 1, 2026: We have updated the timeline. Thank you for your patience. [Introduction] To help organizations manage SharePoint storage more flexibly and avoid over-provisioning, Microsoft is introducing a pay-as-you-go, consumption-based billing model for SharePoint storage overages . This option allows you to pay only for the additional storage you actually use, rather than pre-purc…",
-   "when": "Public Preview (Worldwide): We completed rollout in June 2026. General Availability (WW): We expect to begin rolling out in early November 2026 (previously September) and to complete rolling by end of November 2026 (previously end of October).",
+   "summary": "Updated November 9, 2026: We have updated the timeline. Thank you for your patience. [Introduction] To help organizations manage SharePoint storage more flexibly and avoid over-provisioning, Microsoft is introducing a pay-as-you-go, consumption-based billing model for SharePoint storage overages . This option allows you to pay only for the additional storage you actually use, rather than pre-purch…",
+   "when": "Public Preview (Worldwide): We completed rollout in June 2026. General Availability (WW): We expect to begin rolling out in early January 2027 (previously early November) and to complete rolling by late January 2027 (previously end of November).",
    "prepare": "No immediate action is required. However, we recommend the following: Review your tenant’s current SharePoint storage usage in the SharePoint admin center > Active sites . Evaluate whether a consumption‑based model or manually purchased storage best fits your organization’s cost and governance preferences. If you plan to enable pay‑as‑you‑go billing: Ensure the appropriate Azure subscription and billing permissions are in place. Update internal d…",
    "dates": [
-    "Updated September 1, 2026: We have updated the timeline.",
+    "Updated November 9, 2026: We have updated the timeline.",
     "Public Preview (Worldwide): We completed rollout in June 2026.",
-    "General Availability (WW): We expect to begin rolling out in early November 2026 (previously September) and to complete rolling by end of November 2026 (previously end of October)."
+    "General Availability (WW): We expect to begin rolling out in early January 2027 (previously early November) and to complete rolling by late January 2027 (previously end of November)."
    ],
-   "bodyHash": "59ea532447c39ba3"
+   "bodyHash": "5dcc123a36f5082e"
   },
   {
    "id": "MC1332816",
@@ -7658,25 +7658,25 @@
    "actionBy": "2026-10-01",
    "start": "2026-08-03",
    "end": "2026-12-28",
-   "modified": "2026-10-30",
+   "modified": "2026-11-09",
    "tags": [
     "Admin impact",
     "Retirement",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 30, 2026: Gov rollout of this feature is paused at this time. We will communicate via Message center when we are ready to proceed. We apologize for any inconvenience. [What and Why:] Exchange Web Services (EWS) deprecation begins October 1, 2026 . Cross-tenant collaboration features — Free/Busy, MailTips, and Calendar Sharing — currently rely on EWS. Cross-tenant Free/Busy, MailTip…",
+   "summary": "Updated November 9, 2026: We have updated the timeline. Gov rollout of this feature is still paused at this time. We will communicate via Message center when we are ready to proceed. We apologize for any inconvenience. [What and Why:] Exchange Web Services (EWS) deprecation begins October 1, 2026 . Cross-tenant collaboration features — Free/Busy, MailTips, and Calendar Sharing — currently rely on …",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 30, 2026: Gov rollout of this feature is paused at this time.",
+    "Updated November 9, 2026: We have updated the timeline.",
     "Exchange Web Services (EWS) deprecation begins October 1, 2026 .",
-    "Cross-tenant Free/Busy, MailTips will be available by September 2026 and Calendar Sharing will be available by early November 2026 (previously end-October) via Microsoft 365 Cross-Tenant Access Policy, which replaces EWS-based cross-tenant collaboration.",
-    "Worldwide: We will begin rolling out in August 2026 and expect to complete by September 15, 2026 for Free/Busy, Mailtips and November 6, 2026 (previously October 30) for Calendar Sharing.",
+    "Cross-tenant Free/Busy, MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Tenant Access Policy, which replaces EWS-based cross-tenant collaboration.",
+    "Worldwide: We will begin rolling out in August 2026 and expect to complete by September 15, 2026 for Free/Busy, Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
     "What happens if I do nothing: Starting October 1, 2026, Exchange Web Services (EWS) will be gradually disabled in line with previous communications linked to this message.",
     "EWS access through this extension will remain available until the final EWS shutdown on April 1, 2027."
    ],
-   "bodyHash": "8c4ad53539bb290c"
+   "bodyHash": "88eea29a45ce0d28"
   },
   {
    "id": "MC1446797",
@@ -10080,32 +10080,6 @@
    "bodyHash": "f476be8f3eef8023"
   },
   {
-   "id": "MC1465777",
-   "title": "Enhanced Slide Navigation with Up and Down Arrow Keys in PPT Live",
-   "services": [
-    "Microsoft 365 apps",
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-01",
-   "end": "2026-11-09",
-   "modified": "2026-09-01",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why:] PowerPoint Live now supports the Up Arrow and Down Arrow keys for navigating between slides during a presentation. This enhancement gives presenters additional, familiar keyboard options and makes slide navigation easier and more intuitive. [Rollout schedule:] General Availability (Worldwide, GCC, GCC High, DoD): Rollout began in mid-August 2026 and is expected to be completed by e…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide, GCC, GCC High, DoD): Rollout began in mid-August 2026 and is expected to be completed by early September 2026."
-   ],
-   "bodyHash": "19450e79367c24cd"
-  },
-  {
    "id": "MC1465779",
    "title": "(Updated) Outlook for Mac: Sensitivity label recommendations and auto-labeling from attachments",
    "services": [
@@ -11729,22 +11703,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-16",
-   "end": "2026-11-27",
-   "modified": "2026-10-26",
+   "end": "2026-12-14",
+   "modified": "2026-11-09",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 26, 2026: We have updated the content. Thank you for your patience. [What and why] To improve transparency and troubleshooting for Microsoft Purview role-based access control (RBAC), we are enhancing audit logging for permission checks performed in the Microsoft Purview portal. These new audit records will provide administrators with clearer visibility into role and scoped-role aut…",
+   "summary": "Updated November 9, 2026: We have updated the timeline. Thank you for your patience. [What and why] To improve transparency and troubleshooting for Microsoft Purview role-based access control (RBAC), we are enhancing audit logging for permission checks performed in the Microsoft Purview portal. These new audit records will provide administrators with clearer visibility into role and scoped-role au…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 26, 2026: We have updated the content.",
-    "General Availability (Worldwide): Beginning in late September 2026 and expected to complete by late October 2026."
+    "Updated November 9, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in late September 2026 and expected to complete by mid-November 2026 (previously late October)."
    ],
-   "bodyHash": "596aebe3eada3555"
+   "bodyHash": "f034d524b2173b3a"
   },
   {
    "id": "MC1473156",
@@ -12756,22 +12730,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-25",
-   "end": "2026-12-31",
-   "modified": "2026-10-27",
+   "end": "2027-02-01",
+   "modified": "2026-11-09",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 27, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft is introducing support for Microsoft Agent 365 agents that implement the Agent2Agent (A2A) protocol, allowing them to be used as connected agents in declarative agents built with Microsoft 365 Agents Toolkit. This enhancement expands the types of external agent services that declarative ag…",
+   "summary": "Updated November 9, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft is introducing support for Microsoft Agent 365 agents that implement the Agent2Agent (A2A) protocol, allowing them to be used as connected agents in declarative agents built with Microsoft 365 Agents Toolkit. This enhancement expands the types of external agent services that declarative ag…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 27, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Began in late August 2026 ."
+    "Updated November 9, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Began in late August 2026 and is expected to complete by end of December 2026 ."
    ],
-   "bodyHash": "bfcccfe1f328e805"
+   "bodyHash": "b92152936882dfce"
   },
   {
    "id": "MC1479468",
@@ -15502,7 +15476,7 @@
    "actionBy": null,
    "start": "2026-10-15",
    "end": "2026-11-29",
-   "modified": "2026-10-15",
+   "modified": "2026-11-09",
    "tags": [
     "Admin impact",
     "New feature",
@@ -17583,7 +17557,7 @@
    "actionBy": null,
    "start": "2026-10-29",
    "end": "2026-12-28",
-   "modified": "2026-11-03",
+   "modified": "2026-11-09",
    "tags": [
     "New feature",
     "Updated message",
@@ -19062,6 +19036,111 @@
     "Complete the switch before November 18, 2026 ."
    ],
    "bodyHash": "7d3e3651ad827519"
+  },
+  {
+   "id": "MC1545691",
+   "title": "Microsoft Purview: Retirement of select DSPM partner integrations",
+   "services": [
+    "Microsoft Purview"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-11-09",
+   "end": "2027-01-08",
+   "modified": "2026-11-09",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] Effective December 7, 2026, we will retire the public preview experience for select non-Microsoft data sources in Microsoft Purview Data Security Posture Management (DSPM) through partner integrations. The affected partner integrations are Varonis for Salesforce data, BigID for Databricks, Cyera for Snowflake, and OneTrust for Google Cloud Platform (GCP). We are evolving Microsoft P…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Effective December 7, 2026, we will retire the public preview experience for select non-Microsoft data sources in Microsoft Purview Data Security Posture Management (DSPM) through partner integrations.",
+    "The affected partner integrations will no longer be available beginning December 7, 2026.",
+    "Beginning December 7, 2026: Organizations will no longer be able to connect the supported non-Microsoft data sources to Microsoft Purview DSPM through the affected partner integrations.",
+    "If your organization currently uses these integrations, we recommend reviewing related internal processes or dependencies and updating them as needed before December 7, 2026."
+   ],
+   "bodyHash": "ff3d5749e4ee5ebd"
+  },
+  {
+   "id": "MC1545694",
+   "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins",
+   "services": [
+    "Microsoft Entra"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-09",
+   "end": "2027-12-12",
+   "modified": "2026-11-09",
+   "tags": [
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We’re updating the passkey registration experience in My Sign-ins for users registering a passkey in Microsoft Authenticator . Users will see an additional checkbox and updated link text, along with steps to guide users to open Microsoft Authenticator and select the + button to begin registration. If users can’t complete registration directly in Authenticator , the updated link text…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Beginning in mid-November 2026 and expected to complete by end-November 2027."
+   ],
+   "bodyHash": "7d31b0ca70503af4"
+  },
+  {
+   "id": "MC1545695",
+   "title": "App Blocks in M365 Copilot",
+   "services": [
+    "Microsoft 365 Copilot Chat"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-09",
+   "end": "2026-12-07",
+   "modified": "2026-11-09",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "[What and Why:] App Blocks enables M365 Copilot Chat users to turn their requests and data into rich, interactive experiences directly within the conversation, including calculators, dashboards, forms, planners, visualizations, simulations, comparison tools, and other interactive apps. It helps users move beyond static responses to explore data, adjust inputs, visualize outcomes, and simulate work…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in late October 2026 and expect to complete by early November 2026."
+   ],
+   "bodyHash": "6c7c29566236ef8b"
+  },
+  {
+   "id": "MC1545696",
+   "title": "Microsoft OneDrive and SharePoint: Annotate sensitivity-label protected PDFs on the web",
+   "services": [
+    "Microsoft OneDrive",
+    "SharePoint Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-09",
+   "end": "2027-03-03",
+   "modified": "2026-11-09",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft OneDrive and SharePoint on the web will support annotation for PDFs encrypted with Microsoft Purview sensitivity labels. Users who have the appropriate editing usage rights will be able to annotate protected PDFs in their browser without removing the sensitivity label. The file's sensitivity label, encryption, and usage rights will be preserved when changes are saved. [Rol…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning in late January 2027 and expected to complete in late January 2027."
+   ],
+   "bodyHash": "915df0c3f99a6e9a"
   },
   {
    "id": "MC676299",
@@ -24960,6 +25039,117 @@
    "id": "MC1492161",
    "type": "removed",
    "title": "Microsoft 365 Copilot in PowerPoint: 'Clarify my thinking' skill for desktop",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-09",
+   "id": "MC1146821",
+   "type": "changed",
+   "title": "(Updated) Rewrite with Microsoft 365 Copilot Chat coming soon to Edge for Business users",
+   "fields": {
+    "end": [
+     "2026-11-23",
+     "2027-03-05"
+    ],
+    "bodyHash": [
+     "da95b2987c2d1da1",
+     "0bd6e2e1ed342399"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-09",
+   "id": "MC1330893",
+   "type": "changed",
+   "title": "(Updated) Pay-as-you-go consumption-based meter for your extra SharePoint storage needs",
+   "fields": {
+    "end": [
+     "2026-12-30",
+     "2027-03-01"
+    ],
+    "bodyHash": [
+     "59ea532447c39ba3",
+     "5dcc123a36f5082e"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-09",
+   "id": "MC1446796",
+   "type": "changed",
+   "title": "(Updated) Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+   "fields": {
+    "bodyHash": [
+     "8c4ad53539bb290c",
+     "88eea29a45ce0d28"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-09",
+   "id": "MC1473155",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: permissions audit log improvements",
+   "fields": {
+    "end": [
+     "2026-11-27",
+     "2026-12-14"
+    ],
+    "bodyHash": [
+     "596aebe3eada3555",
+     "f034d524b2173b3a"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-09",
+   "id": "MC1478975",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365 Copilot: Use Microsoft Agent 365 agents as connected agents in declarative agents",
+   "fields": {
+    "end": [
+     "2026-12-31",
+     "2027-02-01"
+    ],
+    "bodyHash": [
+     "bfcccfe1f328e805",
+     "b92152936882dfce"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-09",
+   "id": "MC1545691",
+   "type": "new",
+   "title": "Microsoft Purview: Retirement of select DSPM partner integrations",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-09",
+   "id": "MC1545694",
+   "type": "new",
+   "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-09",
+   "id": "MC1545695",
+   "type": "new",
+   "title": "App Blocks in M365 Copilot",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-09",
+   "id": "MC1545696",
+   "type": "new",
+   "title": "Microsoft OneDrive and SharePoint: Annotate sensitivity-label protected PDFs on the web",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-09",
+   "id": "MC1465777",
+   "type": "removed",
+   "title": "Enhanced Slide Navigation with Up and Down Arrow Keys in PPT Live",
    "fields": {}
   }
  ]
