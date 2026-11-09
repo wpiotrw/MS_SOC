@@ -13,14 +13,14 @@ feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=
 breadcrumb_path: /microsoft-365/breadcrumb/toc.json
 recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
-ms.author: cmcatee
-author: cmcatee-MSFT
-manager: scotv
+ms.author: dansimp
+author: Dansimp
+manager: dansimp
 ms.reviewer: kols
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: concept-article
-ms.service: microsoft-365-copilot
+ms.service: microsoft-copilot
 ms.localizationpriority: medium
 ms.collection:
 - M365-subscription-management
@@ -57,10 +57,8 @@ monikers:
 item_type: Content
 source_path: microsoft-365/admin/activity-reports/microsoft-copilot-usage.md
 cmProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/aea41c7c-4aab-4537-be31-cf69a45a8878
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 spProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3ac528d8-7a58-4a01-8499-095fc1c5fb1b
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 platformId: 54127370-2fc0-91fb-197f-10373247df65
 ---

@@ -13,13 +13,13 @@ feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=
 breadcrumb_path: /microsoft-365/breadcrumb/toc.json
 recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
-ms.author: cmcatee
-author: cmcatee-MSFT
-manager: scotv
+ms.author: dansimp
+author: Dansimp
+manager: dansimp
 ms.reviewer: kols
 audience: Admin
 ms.topic: concept-article
-ms.service: microsoft-365-copilot
+ms.service: microsoft-copilot
 ms.localizationpriority: medium
 ms.collection:
 - M365-subscription-management

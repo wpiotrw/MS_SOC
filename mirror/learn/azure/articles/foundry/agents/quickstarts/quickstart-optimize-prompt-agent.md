@@ -26,7 +26,7 @@ description: Optimize a prompt agent's instructions, function-calling tool descr
 ms.date: 2026-10-26T00:00:00.0000000Z
 ms.topic: quickstart
 ms.subservice: foundry-agent-service
-ms.custom: doc-kit-assisted, dev-focus
+ms.custom: dev-focus
 ai-usage: ai-assisted
 locale: en-us
 document_id: 8deb999c-7821-42b1-fcd8-cd17131ee06e
@@ -44,11 +44,11 @@ source_path: articles/foundry/agents/quickstarts/quickstart-optimize-prompt-agen
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: f179e4db-b660-57ac-2b2c-da8984897c83
 ---
 
@@ -75,7 +75,7 @@ Before you begin, you need:
 [![Screenshot of the Optimize tab for a prompt agent, with the Create optimization run button highlighted.](../media/quickstart/optimize-prompt-entry.png)](../media/quickstart/optimize-prompt-entry.png#lightbox)
 
 1. Go to the [Foundry portal](https://ai.azure.com) and open your project.
-2. Select **Agents**, and then select the prompt agent you want to optimize.
+2. Select **Build** &gt; **Agents**, and then select the prompt agent you want to optimize.
 3. Select the **Optimize** tab.
 4. Select **Create optimization run**.
 

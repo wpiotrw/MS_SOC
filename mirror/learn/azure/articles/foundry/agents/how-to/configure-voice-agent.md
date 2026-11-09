@@ -23,10 +23,10 @@ ms.author: sgilley
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
-description: Configure the model, instructions, greeting, audio, and tools for a voice-based agent in Microsoft Foundry.
+description: Configure the model, instructions, greeting, audio, telephone soundscape, and tools for a voice-based agent in Microsoft Foundry.
 ms.subservice: foundry-agent-service
 ms.topic: how-to
-ms.date: 2026-10-10T00:00:00.0000000Z
+ms.date: 2026-11-06T00:00:00.0000000Z
 ms.custom: preview
 ai-usage: ai-assisted
 zone_pivot_groups: voice-agent-config-method
@@ -56,7 +56,9 @@ platformId: 050cd1c3-7715-30d9-bfe0-9d24cc8ae971
 
 A voice-based agent in Microsoft Foundry Agent Service is an agent whose `kind` is `voice`. Its definition holds everything the service needs to run a spoken conversation: which model serves the session, what the agent says first, how it listens, how it sounds, and which tools it can call.
 
-This article shows you how to set each part of that definition. Every **create** or **update** action produces a new immutable agent version, so you can change configuration and roll back without changing the agent's endpoint. You can set these values with the Azure AI Projects client library, with `azure.yaml` and the Azure Developer CLI (`azd`), or visually in the Foundry portal playground. Select a configuration method to see the steps for that surface.
+This article shows you how to set each part of that definition. Every **create** or **update** action produces a new immutable agent version, so you can change configuration and roll back without changing the agent's endpoint. You can configure most values with the Azure AI Projects client library, with `azure.yaml` and the Azure Developer CLI (`azd`), or visually in the Foundry portal playground. Select a configuration method to see the steps for that surface.
+
+Telephone soundscape configuration is available through the Python, C#, and JavaScript SDKs. The Foundry portal, Azure CLI, and Azure Developer CLI (`azd`) don't support configuring it.
 
 Important
 
@@ -145,6 +147,7 @@ A voice agent definition includes these parts:
 | Behavior | `instructions`, `greeting`, `structured_inputs` | Tells the agent what to do and what to say first. |
 | Listening | `audio.input` | Sets input format, turn detection, noise reduction, and transcription. |
 | Speaking | `audio.output`, `output_modalities` | Sets the voice, locale, speed, and what the agent emits. |
+| Soundscape | `soundscape` | Adds background ambience and event cues to telephone calls. |
 | Actions | `tools`, `tool_choice`, `parallel_tool_calls` | Defines what the agent can do during a call. |
 | Latency | `interim_response` | Fills silence while the agent thinks or waits on a tool. |
 | Data | `store` | Controls whether conversations are persisted. |
@@ -352,7 +355,15 @@ Reference: [Azure AI Projects client library for Python](https://aka.ms/azsdk/az
 
 ### Reduce noise and echo
 
-Set `noise_reduction.type` to `near_field` for headsets and handsets, `far_field` for speakerphones and rooms, or `azure_deep_noise_suppression` for noisy environments such as contact centers. Set `noise_reduction` to `None` to disable it.
+Set `noise_reduction.type` based on the noise and speakers in your scenario:
+
+| `type` | Recommended scenario |
+| --- | --- |
+| `azure_deep_noise_suppression` | General-purpose background-noise suppression. |
+| `azure_deep_noise_suppression_headset` | Background speech causes unwanted turns or interruptions, such as in phone calls or headset conversations. |
+| `azure_personal_noise_suppression` | The agent needs to focus on one caller while other people speak nearby. |
+
+Test the selected mode with your channel's audio. Set `noise_reduction` to `None` to disable it.
 
 Set `echo_cancellation` when the agent's own output can be picked up by the caller's microphone. `reference_source` defaults to `server`. Use `client` with two interleaved input channels when your client supplies the reference signal.
 
@@ -409,6 +420,57 @@ audio_config.output = VoiceAgentAudioOutputConfig(
 Reference: [Azure AI Projects client library for Python](https://aka.ms/azsdk/azure-ai-projects-v2/python/code).
 
 The `output_modalities` setting defaults to `["audio"]`. Add `text` when your client also renders the transcript. Use `animation` and `avatar` only when you configure an avatar.
+
+## Configure telephone soundscape
+
+`soundscape` adds background ambience and event cues to telephone calls.
+
+| Track | Playback when configured |
+| --- | --- |
+| `background` | Loops during caller speech, agent speech, silence, and tool execution. |
+| `working` | Loops after a delay while a non-call-control tool is pending and no speech or another cue is queued or playing. |
+| `opening` | Plays once before the first agent speech. Caller speech can interrupt it. |
+| `transfer` | Plays after announcement speech finishes and before a committed call transfer. |
+| `closing` | Plays after farewell speech finishes and before a committed session end. |
+
+Supported built-in sounds are `office`, `call_center`, `busy_street`, `people_talking`, `street_and_metro_station`, `ding1`, and `ding2`. Custom audio sources aren't supported.
+
+`gain` ranges from 0 to 1 (default 1) and controls the track's volume independently of agent speech.
+
+`working.delay_ms` takes a `timedelta` from zero to 10 seconds (default one second). It delays the working sound, not tool execution.
+
+Enable quiet office ambience and a working loop with a one-second delay:
+
+```python
+from datetime import timedelta
+
+from azure.ai.projects.models import (
+    VoiceAgentSoundscapeConfig,
+    VoiceAgentSoundscapeSourceConfig,
+    VoiceAgentSoundscapeTrackConfig,
+    VoiceAgentSoundscapeWorkingTrackConfig,
+)
+
+definition.soundscape = VoiceAgentSoundscapeConfig(
+    background=VoiceAgentSoundscapeTrackConfig(
+        source=VoiceAgentSoundscapeSourceConfig(name="office"),
+        gain=0.1,
+    ),
+    working=VoiceAgentSoundscapeWorkingTrackConfig(
+        source=VoiceAgentSoundscapeSourceConfig(name="call_center"),
+        gain=0.2,
+        delay_ms=timedelta(milliseconds=1000),
+    ),
+)
+```
+
+Reference: [Azure AI Projects client library for Python](https://aka.ms/azsdk/azure-ai-projects-v2/python/code).
+
+Omit a track to disable it, or set `definition.soundscape = VoiceAgentSoundscapeConfig()` to disable all tracks. Don't use `null` or empty track objects. Setting `gain` to 0 only mutes a track; its scheduling and cue duration still apply.
+
+Save the complete desired definition as a new agent version, then test it with a new [telephone call](voice-agent-telephony-channels). Existing calls keep their configuration; `session.update` can't override soundscape.
+
+Browser WebRTC, direct WebSocket, and playground sessions don't render these sounds. Saved conversation recordings don't include them.
 
 ## Attach tools
 
@@ -768,6 +830,55 @@ Add `VoiceAgentAudioTimestampType.Word` to `OutputAudioTimestampTypes` when your
 
 `OutputModalities` defaults to audio. To request both audio and text, add `VoiceOutputModality.Audio` and `VoiceOutputModality.Text` to the collection. Use `Animation` and `Avatar` only when you configure an avatar.
 
+## Configure telephone soundscape
+
+`Soundscape` adds background ambience and event cues to telephone calls.
+
+| Property | Playback when configured |
+| --- | --- |
+| `Background` | Loops during caller speech, agent speech, silence, and tool execution. |
+| `Working` | Loops after a delay while a non-call-control tool is pending and no speech or another cue is queued or playing. |
+| `Opening` | Plays once before the first agent speech. Caller speech can interrupt it. |
+| `Transfer` | Plays after announcement speech finishes and before a committed call transfer. |
+| `Closing` | Plays after farewell speech finishes and before a committed session end. |
+
+Choose a `VoiceAgentSoundscapeSound` value: `Office`, `CallCenter`, `BusyStreet`, `PeopleTalking`, `StreetAndMetroStation`, `Ding1`, or `Ding2`. Custom audio sources aren't supported.
+
+`Gain` ranges from 0 to 1 (default 1) and controls the track's volume independently of agent speech.
+
+`Working.Delay` takes a `TimeSpan` from zero to 10 seconds (default one second). It delays the working sound, not tool execution.
+
+Enable quiet office ambience and a working loop with a one-second delay:
+
+```csharp
+using System;
+using Azure.AI.Projects.Agents;
+
+definition.Soundscape = new VoiceAgentSoundscapeConfig
+{
+    Background = new VoiceAgentSoundscapeTrackConfig(
+        new VoiceAgentSoundscapeSourceConfig(VoiceAgentSoundscapeSound.Office))
+    {
+        Gain = 0.1,
+    },
+    Working = new VoiceAgentSoundscapeWorkingTrackConfig(
+        new VoiceAgentSoundscapeSourceConfig(
+            VoiceAgentSoundscapeSound.CallCenter))
+    {
+        Gain = 0.2,
+        Delay = TimeSpan.FromMilliseconds(1000),
+    },
+};
+```
+
+Reference: [VoiceAgentSoundscapeConfig](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Projects.Agents/src/Generated/Models/VoiceAgentSoundscapeConfig.cs), [VoiceAgentSoundscapeWorkingTrackConfig](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Projects.Agents/src/Generated/Models/VoiceAgentSoundscapeWorkingTrackConfig.cs).
+
+Omit a track to disable it, or set `definition.Soundscape = new VoiceAgentSoundscapeConfig()` to disable all tracks. Don't send JSON `null` or empty track objects. Setting `Gain` to 0 only mutes a track; its scheduling and cue duration still apply.
+
+Save the complete desired definition as a new agent version, then test it with a new [telephone call](voice-agent-telephony-channels). Existing calls keep their configuration; `session.update` can't override soundscape.
+
+Browser WebRTC, direct WebSocket, and playground sessions don't render these sounds. Saved conversation recordings don't include them.
+
 ## Attach tools
 
 The `Tools` collection defines what the agent can do during a call. The service supports four kinds of tools:
@@ -1080,7 +1191,15 @@ Reference: [Realtime audio JavaScript sample](https://github.com/microsoft-found
 
 ### Reduce noise and echo
 
-Set `noise_reduction.type` to `near_field` for headsets and handsets, `far_field` for speakerphones and rooms, or `azure_deep_noise_suppression` for noisy environments such as contact centers. Set `noise_reduction` to `undefined` to disable it.
+Set `noise_reduction.type` based on the noise and speakers in your scenario:
+
+| `type` | Recommended scenario |
+| --- | --- |
+| `azure_deep_noise_suppression` | General-purpose background-noise suppression. |
+| `azure_deep_noise_suppression_headset` | Background speech causes unwanted turns or interruptions, such as in phone calls or headset conversations. |
+| `azure_personal_noise_suppression` | The agent needs to focus on one caller while other people speak nearby. |
+
+Test the selected mode with your channel's audio. Set `noise_reduction` to `undefined` to disable it.
 
 Set `echo_cancellation` when the agent's own output can be picked up by the caller's microphone. `reference_source` defaults to `server`. Use `client` with two interleaved input channels when your client supplies the reference signal.
 
@@ -1130,6 +1249,50 @@ audioConfig.output = {
 Reference: [Configure a voice agent JavaScript sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/javascript/voice-agents/configure-voice-agent).
 
 The `output_modalities` setting defaults to `["audio"]`. Add `text` when your client also renders the transcript. Use `animation` and `avatar` only when you configure an avatar.
+
+## Configure telephone soundscape
+
+`soundscape` adds background ambience and event cues to telephone calls.
+
+| Track | Playback when configured |
+| --- | --- |
+| `background` | Loops during caller speech, agent speech, silence, and tool execution. |
+| `working` | Loops after a delay while a non-call-control tool is pending and no speech or another cue is queued or playing. |
+| `opening` | Plays once before the first agent speech. Caller speech can interrupt it. |
+| `transfer` | Plays after announcement speech finishes and before a committed call transfer. |
+| `closing` | Plays after farewell speech finishes and before a committed session end. |
+
+Supported built-in sounds are `office`, `call_center`, `busy_street`, `people_talking`, `street_and_metro_station`, `ding1`, and `ding2`. Custom audio sources aren't supported.
+
+`gain` ranges from 0 to 1 (default 1) and controls the track's volume independently of agent speech.
+
+`working.delay_ms` is an integer from 0 to 10,000 milliseconds (default 1,000). It delays the working sound, not tool execution.
+
+Enable quiet office ambience and a working loop with a one-second delay:
+
+```javascript
+/** @type {import("@azure/ai-projects").VoiceAgentSoundscapeConfig} */
+const soundscape = {
+    background: {
+        source: { type: "built_in", name: "office" },
+        gain: 0.1,
+    },
+    working: {
+        source: { type: "built_in", name: "call_center" },
+        gain: 0.2,
+        delay_ms: 1000,
+    },
+};
+definition.soundscape = soundscape;
+```
+
+Reference: [Azure AI Projects client library for JavaScript](https://aka.ms/azsdk/azure-ai-projects-v2/javascript/code).
+
+Omit a track to disable it, or set `definition.soundscape = {}` to disable all tracks. Don't use `null` or empty track objects. Setting `gain` to 0 only mutes a track; its scheduling and cue duration still apply.
+
+Save the complete desired definition as a new agent version, then test it with a new [telephone call](voice-agent-telephony-channels). Existing calls keep their configuration; `session.update` can't override soundscape.
+
+Browser WebRTC, direct WebSocket, and playground sessions don't render these sounds. Saved conversation recordings don't include them.
 
 ## Attach tools
 
@@ -1344,7 +1507,7 @@ audio:
       type: audio/pcm
       rate: 24000
     noiseReduction:
-      type: near_field
+      type: azure_deep_noise_suppression_headset
     turnDetection:
       type: azure_semantic_vad
       threshold: 0.6

@@ -14,7 +14,7 @@ breadcrumb_path: /microsoft-365/breadcrumb/toc.json
 recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
 description: Learn how to monitor the operational health of apps created in your solution.
-ms.date: 2026-09-25T00:00:00.0000000Z
+ms.date: 2026-11-09T00:00:00.0000000Z
 author: arjunmayur
 ms.author: arjunmayur
 manager: alaug
@@ -136,7 +136,7 @@ You can create an alert for a specific app from either the **Monitor** page or t
 10. In the **Severity** list, select **Low**, **Medium**, or **High**.
 11. In the **Notification type**list, select one of the following options:
     - **None**: No email is sent. Return to the Monitor area to check the alert status.
-    - **Email**: All Global and Power Platform admins receive an email when the alert triggers. The email comes from **microsoft-noreply@microsoft.com**.
+    - **Email**: You can specify up to 5 users (including security groups) to receive an email when the alert triggers. The email comes from **microsoft-noreply@microsoft.com** for alerts with a 24 hour review period and **azure-noreply@microsoft** for alerts with a 1 hour review period.
 12. Select **Save**.
 
 ### Option 2: Create an alert from the All apps page
@@ -150,9 +150,9 @@ You can create an alert for a specific app from either the **Monitor** page or t
 
 ### When an alert triggers
 
-If you select to receive email notifications when any app triggers an alert, Global and Power Platform admins get an email notification.
+If you select to receive email notifications when any app triggers an alert, the user and/or groups you specified under the email notification option will get an email when the alert fires.
 
-In the **Monitor** experience, the **Triggered alerts** tab shows you a list of all the alerts in your tenant that have triggered. The **Last triggered** column updates to the latest time that the alert triggered. Clicking into a triggered alert shows you information about the alert rule configuration and what app triggered that alert. If an alert configured with a data review period of 1-hour hasn't triggered for more than 24 hours, the triggered alert disappears from the *Triggered alerts* list. If an alert was configured with a data review period of 24-hours and hasn't triggered for more than 48 hours, the triggered alert disappears from the list.
+In the **Monitor** experience, the **Triggered alerts** tab shows you a list of all the alerts in your tenant that triggered. The **Last triggered** column updates to the latest time that the alert triggered. Selecting a triggered alert shows you information about the alert rule configuration and what app triggered that alert. If an alert configured with a data review period of 1 hour didn't trigger for more than 24 hours, the triggered alert disappears from the *Triggered alerts* list. If an alert was configured with a data review period of 24 hours and didn't trigger for more than 48 hours, the triggered alert disappears from the list.
 
 ### How to manage alert rules
 
@@ -165,9 +165,9 @@ Follow these best practices:
 - **Start small**: Create a few high-value rules first, such as performance-open times, error rates, and usage spikes.
 - **Name consistently**: Use clear names like **Prod – Copilot Managed Runtime – Availability &lt; 90**.
 - **Set appropriate severity**: Use **High** for production-impacting metrics and **Medium** or **Low** for trend monitoring.
-- **Manage the 5-rule limit**: Delete obsolete rules.
+- **Manage the 10-rule limit**: Delete obsolete rules.
 - **Choose data review period wisely**: Use the 1-hour option for mission-critical applications where you need to know as soon as possible when operational health degrades. Notifications for these alerts are sent out much more frequently compared to the 24-hour option.
-- **Validate email routing**: Ensure recipients can receive emails from azure-noreply@microsoft.com.
+- **Validate email routing**: Ensure recipients can receive emails from **azure-noreply@microsoft.com** and **microsoft-noreply@microsoft.com**.
 
 ## FAQs
 
@@ -196,7 +196,7 @@ Time-based metrics report out the 75th percentile.
 
 ### How many alert rules can I turn on at one time?
 
-A tenant can have up to 5 alert rules at a time (including both active and disabled rules). This limit encourages a focused set of high-value alerts. Over time, review and retire alert rules as underlying issues are resolved. If you reach this limit, consider cleaning up or consolidating existing rules.
+A tenant can have up to 10 alert rules at a time (including both active and disabled rules). This limit encourages a focused set of high-value alerts. Over time, review and retire alert rules as underlying issues are resolved. If you reach this limit, consider cleaning up or consolidating existing rules.
 
 ### What's the difference between an alert rule and a triggered alert?
 
@@ -210,4 +210,4 @@ You must be a Global admin or Power Platform admin to create and manage alerts.
 
 ### Does the severity level affect how alerts are processed?
 
-The **Severity**, such as **Low**, **Medium**, or **High** is a classification label for triage and reporting. It doesn't change evaluation frequency or email notification behavior.
+The **Severity**, such as **Low**, **Medium**, or **High**, is a classification label for triage and reporting. It doesn't change evaluation frequency or email notification behavior.

@@ -17,10 +17,10 @@ description: Learn how to manage multiple Microsoft 365 tenants from a single lo
 customer-intent: As a Microsoft 365 administrator, I want to manage multiple tenants from a single location so that I can streamline administration tasks.
 f1.keywords:
 - NOCSH
-ms.author: dansimp
-author: Dansimp
+ms.author: erikre
+author: Erikre
 manager: dansimp
-ms.date: 2026-01-06T00:00:00.0000000Z
+ms.date: 2026-11-03T00:00:00.0000000Z
 audience: Admin
 ms.topic: how-to
 ms.service: m365-core
@@ -28,7 +28,6 @@ ms.subservice: tenant
 ms.localizationpriority: medium
 ms.collection:
 - Tier3
-- scotvorg
 - M365-subscription-management
 - Adm_O365
 - Adm_NonTOC
@@ -57,75 +56,121 @@ monikers:
 item_type: Content
 source_path: microsoft-365/admin/multi-tenant/manage.md
 cmProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
-- https://authoring-docs-microsoft.poolparty.biz/devrel/c4c18c0c-090d-4c28-a4be-9e6214a0c4fb
 spProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/b22d517c-92cf-4ee3-8dca-36c6cd062217
 platformId: 4227c7b3-37b7-0ec0-291a-c9cf9acd1023
 ---
 
 # Manage Multiple Tenants in the Microsoft 365 admin center - Microsoft 365 admin | Microsoft Learn
 
-[Multitenant management](/en-us/entra/identity/multi-tenant-organizations/overview) in the Microsoft 365 admin center offers a unified approach that allows partner administrators to manage all their tenants in a single location. This streamlined solution helps partners with [delegated administrator](/en-us/entra/identity/users/directory-delegated-administration-primer) roles efficiently manage multiple Microsoft 365 tenants. If you're a partner managing multiple tenants, you can:
+Multi-tenant management in the Microsoft 365 admin center gives partner and enterprise administrators a unified way to discover connected tenants, move between them, and manage supported capabilities from the **Tenants** scope. Tenant relationships preserve each tenant boundary while delegated access determines which tenants an administrator can open and which actions the administrator can perform.
 
-- Move quickly between tenants you manage
-- Assess service health, products, and billing across multiple tenants
-- On the **All tenants** page, quickly see the health of all your tenants' services, any open service requests, your products and billing, and the number of users in that tenant
+## Who should use this experience
+
+- Partners and managed service providers that administer customer tenants through Microsoft Partner Center.
+- Enterprise central IT teams that administer subsidiaries, regions, business units, or other Microsoft 365 tenants connected through Microsoft Entra Tenant Governance.
 
 ## Before you begin
 
-You must have the [Global Administrator](/en-us/entra/identity/role-based-access-control/permissions-reference#global-administrator) role assigned to perform this task.
+- Establish a supported tenant relationship. Partners use a customer relationship and Granular Delegated Admin Privileges (GDAP) in Partner Center. Enterprises use a directional governance relationship in Microsoft Entra Tenant Governance.
+- Assign the signed-in administrator an appropriate delegated role in each governed tenant. Available pages and actions can differ when role assignments differ across tenants.
+- Use the least-privileged role that completes the task. Some workload-specific actions require additional fine-grained permissions or licenses.
 
-Important
+Note
 
-Global Administrator is a highly privileged role. Limit its use to emergency scenarios when you can't use another role. For more information, see [About admin roles in the Microsoft 365 admin center](/en-us/microsoft-365/admin/add-users/about-admin-roles).
+Microsoft Entra Tenant Governance is different from Microsoft 365 multitenant organization collaboration. Tenant Governance establishes a governing-to-governed administrative relationship; it isn't a B2B guest-account model.
 
-## Move between tenants
+## Connect tenants for multi-tenant management
 
-1. In the [Microsoft 365 admin center](https://admin.cloud.microsoft/?#/homepage), select a tenant name.
+A connected tenant appears in the governing tenant after you establish an administrative relationship and the signed-in administrator has delegated access. The governing tenant is where administration begins. You access a governed tenant in delegated context.
 
-    ![Screenshot of Microsoft 365 admin center showing the multitenant switcher interface for managing multiple tenants.](../../media/macorgswitcher.png)
-2. Using the **Tenant switcher**, you can move quickly between tenants you manage.
+| Scenario | Relationship configured in | Connection model |
+| --- | --- | --- |
+| Partner / CSP | Microsoft Partner Center | Configure a customer relationship and GDAP with time-bound, role-scoped access. The partner tenant acts as the governing tenant. |
+| Enterprise | Microsoft Entra Tenant Governance | Create a directional relationship request from the governing tenant. The target tenant approves it, then delegated access is assigned. |
 
-    ![Screenshot of tenant switcher displaying list of managed tenants with search functionality in Microsoft 365 admin center.](../../media/yourtenantslist.png)
+### For partners: configure relationships in Partner Center
 
-## View the All tenants page
+Use Partner Center to establish the customer relationship and configure GDAP. The exact invitation and approval flow depends on the existing customer relationship and requested roles.
 
-1. In the [Microsoft 365 admin center](https://admin.cloud.microsoft/?#/homepage), in the navigation pane, select **All tenants**.
-2. On the **All tenants** page, take one or more of the following steps:
+1. In Partner Center, open the customer relationship or GDAP administration experience for the customer tenant.
+2. Create or update a GDAP relationship, select the Microsoft Entra roles required for the service, and set the relationship duration.
+3. Send the request to the customer and have an authorized customer administrator approve it.
+4. Assign approved delegated roles to the partner security groups that contain the administrators who manage the customer tenant.
+5. After the relationship and role assignment become active, sign in from the partner tenant and verify that the customer tenant appears in **Tenants** and the tenant switcher.
 
-    - Assess service health
-    - Review license usage
-    - Search for or select the tenant you want to manage
-    - Pin your most often visited tenant to the top of the list.
+For more information, see the following resources:
 
-If you mark a tenant as a favorite, the list automatically expands the tenant. Then you can immediately view the status details.
+- [Introduction to granular delegated admin privileges (GDAP)](/en-us/partner-center/customers/gdap-introduction)
+- [Add and manage multiple tenants in your Partner Center account](/en-us/partner-center/account-settings/multi-tenant-account)
 
-## View service health for all tenants
+### For enterprises: connect tenants with Microsoft Entra Tenant Governance
 
-The service health view shows you if any incidents or advisories are affecting the tenants. It also tells you how many of your managed tenants are affected.
+Microsoft Entra Tenant Governance uses a directional relationship between a governing tenant and a governed tenant. Establish the relationship pairwise for each tenant that central administrators need to manage.
 
-1. In the [Microsoft 365 admin center](https://admin.cloud.microsoft/?#/homepage), in the multitenant view, select **Service Health**.
-2. On the **Service health** page aggregated view, you can also see the total number of incidents, the total number of advisories affecting any of the managed tenants, and the number of services with active incidents. You can also see if any incidents and advisories affect your tenants.
+1. From the intended governing tenant, create a Tenant Governance relationship request for the target tenant.
+2. In the target tenant, have an authorized administrator review and approve the request.
+3. Configure delegated access and assign the appropriate roles to administrators in the governing tenant.
+4. Repeat the request-and-approval process for each additional governed tenant.
+5. Sign in from the governing tenant and verify that approved tenants appear in **Tenants** and the tenant switcher.
 
-    - You can use the filter option to view issues by issue type or by service.
-    - You can review issues under **All services** or **All issues** tabs.
+For more information, see the following resources:
 
-    ![Screenshot of multitenant service health page displaying incident summary and affected services across managed tenants.](../../media/multitenant-servicehealth.png)
-3. Select an incident on the **All services** or **All issues** tab to get more information about any incident on the **Overview** tab. Select the **Tenants affected** tab to get a list of the affected tenants.
+- [What is Microsoft Entra Tenant Governance?](/en-us/entra/id-governance/tenant-governance/overview)
+- [Configuration management in Microsoft Entra Tenant Governance](/en-us/entra/id-governance/tenant-governance/configuration-management)
 
-    ![Screenshot of tenants affected tab showing detailed list of tenants impacted by service health issue.](../../media/tenantsaffected.png)
+Note
 
-    You can export the list of affected tenants to CSV format so that admins can share it with support teams.
+**Security boundary**: Connecting tenants doesn't merge directories or remove tenant isolation. Administrators authenticate by using their governing-tenant identity, and delegated roles are honored in the selected governed tenant.
 
-## View a single tenant in the Microsoft 365 admin center
+## Open the **Tenants** experience
 
-You can return to the Microsoft 365 admin center for any of the tenants from the **All tenants** page.
+1. Sign in to the Microsoft 365 admin center with an account in the governing tenant.
+2. In the left navigation, select **Tenants**.
+3. Use the available pages to review the tenant estate and open supported multitenant experiences, such as **Tenants**, **Agents**, service health, and configuration management.
 
-1. In the [Microsoft 365 admin center](https://admin.cloud.microsoft/?#/homepage), in the navigation pane, select **All tenants**.
-2. Select the tenant name for which you want to view the Microsoft 365 admin center.
+The **Tenants** page provides a consolidated view of connected tenants and helps administrators search, select, and prioritize tenants. Available cards, columns, filters, and actions depend on roles and enabled capabilities.
 
-    The admin center opens for that tenant.
+## Switch between tenants
+
+Use the tenant switcher when you need to leave the consolidated governing-tenant view and work directly in one governed tenant. Switching changes the active tenant context while preserving the signed-in administrator’s identity and delegated access.
+
+1. In the Microsoft 365 admin center command bar, select the tenant switcher next to the current tenant name.
+2. Search for a tenant or select an eligible governed tenant from the list.
+3. Confirm the selection. The Microsoft 365 admin center opens in the selected tenant by using delegated access.
+4. Use the tenant switcher again to return to the governing tenant or move to another eligible governed tenant.
+
+Tip
+
+To return to consolidated multi-tenant pages, switch back to the governing tenant and select **Tenants**.
+
+### Tenant switcher features
+
+| Feature | What it provides |
+| --- | --- |
+| Same signed-in identity | Move between eligible tenants without signing out, opening a separate session, or maintaining a local account in every tenant. |
+| Delegated tenant context | Open the selected tenant using access granted through Partner Center or Microsoft Entra Tenant Governance. |
+| Search and selection | Search the list when many tenants are connected, then select the tenant that requires attention. |
+| Clear context cues | Use the active tenant name in the command bar to confirm context before changing settings. |
+| Governing and governed grouping | Distinguish the governing tenant from tenants available through delegated relationships. |
+| Fast return path | Switch back to the governing tenant for consolidated **Tenants** experiences, or move directly to another governed tenant. |
+
+### Understand tenant context before taking action
+
+- Confirm the tenant name in the command bar before changing configuration, licenses, users, agents, policies, or billing settings.
+- Role assignments are evaluated per governed tenant. A page or action available in one tenant might be read-only or unavailable in another tenant.
+- Switching tenant context doesn't automatically grant workload permissions. The administrator must have the role required by the target workload and operation.
+
+## Troubleshoot tenant visibility and switching
+
+| Issue | What to check |
+| --- | --- |
+| A tenant does not appear | Confirm that the Partner Center GDAP or Microsoft Entra Tenant Governance relationship is active, the request was approved, and delegated roles are assigned. |
+| A tenant appears but an action is unavailable | Compare delegated role assignments with the role required by the workload. Access can differ across governed tenants. |
+| A workload blocks access | Verify that the workload supports delegated administration and that the administrator has workload-specific permissions. |
+| The wrong tenant is active | Check the tenant name in the command bar, reopen the tenant switcher, and select the intended tenant. |

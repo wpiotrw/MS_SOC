@@ -25,7 +25,7 @@ ms.service: microsoft-foundry
 description: Use Teams Phone extensibility or Twilio with a Microsoft Foundry voice agent to receive phone calls and place outbound calls through the API.
 ms.subservice: foundry-agent-service
 ms.topic: how-to
-ms.date: 2026-09-25T00:00:00.0000000Z
+ms.date: 2026-11-06T00:00:00.0000000Z
 ms.custom: preview, doc-kit-assisted
 ai-usage: ai-assisted
 locale: en-us
@@ -42,12 +42,12 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/agents/how-to/voice-agent-telephony-channels.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 - https://authoring-docs-microsoft.poolparty.biz/devrel/54fcef21-b24a-4ef4-9c4a-a525c23ee9a3
+- https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 - https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 - https://authoring-docs-microsoft.poolparty.biz/devrel/8ab60220-e56b-41ff-a8bf-45b8d7ab716f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 platformId: e7238e76-94cc-920c-8b79-6dea2afe3253
 ---
@@ -55,6 +55,8 @@ platformId: e7238e76-94cc-920c-8b79-6dea2afe3253
 # Integrate telephony channels with a voice agent - Microsoft Foundry | Microsoft Learn
 
 Use [Teams Phone extensibility (TPE)](/en-us/azure/communication-services/concepts/interop/tpe/teams-phone-extensibility-overview) or Twilio to connect a phone number to your Microsoft Foundry voice agent. Receive inbound calls and place outbound calls through the call-job API.
+
+Add background ambience and event cues with [telephone soundscape](configure-voice-agent?pivots=python#configure-telephone-soundscape), configured through the Python, C#, or JavaScript SDK.
 
 Important
 
@@ -903,7 +905,7 @@ Both operations return the call record. To inspect the call's current status and
 
 Phone networks carry narrowband audio, so tune the agent for the channel:
 
-- Set `noise_reduction.type` to `azure_deep_noise_suppression` for contact center traffic.
+- Use `azure_deep_noise_suppression_headset` when background speech causes false turns or interruptions in phone calls. For single-caller sessions with competing nearby speakers, use `azure_personal_noise_suppression`. Keep `azure_deep_noise_suppression` for general-purpose background-noise suppression.
 - Increase `silence_duration_ms`. Callers on a phone pause more than callers at a keyboard.
 - Add `phrase_list` hints for the identifiers callers read aloud, such as order or policy numbers.
 - Attach the `end_conversation` system tool so the agent can end a completed call.

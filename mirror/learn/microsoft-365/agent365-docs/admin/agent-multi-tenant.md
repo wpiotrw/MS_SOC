@@ -18,7 +18,7 @@ f1.keywords:
 ms.author: mkaur
 author: mduelae
 manager: tapanm
-ms.date: 2026-07-17T00:00:00.0000000Z
+ms.date: 2026-11-09T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: concept-article
@@ -68,26 +68,28 @@ Important
 
 Multi-tenant agent management is in public preview. Preview features might change before general availability. This article describes only the capabilities available in the public preview.
 
-Multi-tenant agent management is a central control tower that lets partners and enterprise administrators govern agents across the tenants they administer from the Microsoft 365 admin center. With this experience, you can view agent inventory, add agents, install or block agents across multiple tenants, review risk and activity, and use the tenant switcher to move directly into a governed tenant without signing out or maintaining a separate account in that tenant.
+Multi-tenant agent management is a central control tower that partners and enterprise administrators use to govern agents across the tenants they administer from the Microsoft 365 admin center. With this experience, you can view agent inventory, add agents, and install or block agents across multiple tenants. You can also review risk and activity, and use the tenant switcher to move directly into a governed tenant without signing out or maintaining a separate account in that tenant.
 
-Use the multi-tenant experience to reduce repetitive administration, maintain a consistent rollout posture, and prioritize remediation across governed tenants. Actions are applied to each selected governed tenant and are subject to the administrator's delegated role in that tenant.
+Use the multi-tenant experience to reduce repetitive administration, maintain a consistent rollout posture, and prioritize remediation across governed tenants. Actions apply to each selected governed tenant and are subject to the administrator's delegated role in that tenant.
 
 ## Before you begin
 
-Make sure the following requirements are met:
+Ensure you meet the following requirements:
 
 - The governing tenant has an active relationship with at least one governed tenant. Partners establish GDAP relationships in Partner Center. Enterprises establish governance relationships through Microsoft Entra Tenant Governance. Learn more about [What is Microsoft Entra Tenant Governance? (preview)](/en-us/entra/id-governance/tenant-governance/overview).
 
     Important
 
-    Microsoft Entra Tenant Governance is not same as Multitenant Collaboration (MTO) in Microsoft 365.
+    Microsoft Entra Tenant Governance isn't the same as Multitenant Collaboration (MTO) in Microsoft 365.
 - The signed-in administrator has a supported delegated role in each governed tenant. Access and available actions can differ by tenant if role assignments differ.
 - Viewing and managing agents across connected tenants requires no additional licenses. Viewing agent risk and activity requires a Microsoft Agent 365 license assigned to the end user.
 
+For more information, see [Manage multiple tenants in the Microsoft 365 admin center](/en-us/microsoft-365/admin/multi-tenant/manage#before-you-begin).
+
 ## Who should use this experience
 
-- Microsoft's Partners that manage customer tenants using Partner Center.
-- Enterprises that manage multiple tenants and connected using Microsoft Entra Tenant Governance.
+- Microsoft partners that manage customer tenants by using Partner Center.
+- Enterprises that manage multiple tenants and connect by using Microsoft Entra Tenant Governance.
 
 ## Terminology
 
@@ -97,6 +99,8 @@ Make sure the following requirements are met:
 | Governed tenant | A tenant whose agents can be viewed and managed by authorized administrators in the governing tenant. |
 | GDAP | Granular Delegated Admin Privileges. Partners and Enterprises can use GDAP to receive time-bound, role-scoped access to managed tenants. |
 | Governance relationship | A CSP relationship established by partners with their customer tenants, or a directional Microsoft Entra Tenant Governance relationship between a governing tenant and a governed tenant. |
+
+For more information, see [Manage multiple tenants in the Microsoft 365 admin center](/en-us/microsoft-365/admin/multi-tenant/manage##connect-tenants-for-multi-tenant-management).
 
 ## How multi-tenant management differs from single-tenant management
 
@@ -122,22 +126,13 @@ Access to view and manage agents depends on the delegated role assigned in each 
 
 Important
 
-Use the least-privileged role that completes the task. Global Administrator is a highly privileged role and should be limited to scenarios where a less-privileged role can't be used.
+Use the least-privileged role that completes the task. Global Administrator is a highly privileged role. Limit its use to scenarios where you can't use a less-privileged role.
 
 ## Tenant switcher
 
 The tenant switcher is a key benefit for partners and enterprise administrators. It lets you move from the governing tenant directly into an eligible governed tenant and continue administration in that tenant's context. You don't need to sign out, use a separate browser session, or maintain a local administrator account in each governed tenant.
 
-1. In the Microsoft 365 admin center command bar, select the tenant switcher next to the current tenant name.
-
-    [![Screenshot that shows Tenant switcher control next to the current tenant name in the Microsoft 365 admin center command bar.](media/agents/agent-multi-tenant-04.png)](media/agents/agent-multi-tenant-04.png#lightbox)
-2. Search for or select the governed tenant that you want to administer.
-3. The Microsoft 365 admin center opens in the selected governed tenant by using your delegated access.
-4. Use the tenant switcher again to return to the governing tenant or move to another governed tenant.
-
-Use the tenant switcher when you need to work in one governed tenant. To return to the consolidated experience, use the tenant switcher to return to the governing tenant, and then select **All tenants**.
-
-[![Screenshot that shows Tenant switcher showing available governed tenants to move into or return to the governing tenant.](media/agents/agent-multi-tenant-01.png)](media/agents/agent-multi-tenant-01.png#lightbox)
+For more information, see [Manage multiple tenants in the Microsoft 365 admin center](/en-us/microsoft-365/admin/multi-tenant/manage#switch-between-tenants).
 
 ## Multi-tenant agent experience
 
@@ -164,14 +159,14 @@ The public preview lets you work with all eligible governed tenants or any selec
 
 ## Add an agent
 
-After reviewing the consolidated listing, an authorized administrator can add a custom agent to the agent inventory. Adding the agent makes it available for review and later installation in governed tenants; it does not automatically install the agent in other tenants.
+After reviewing the consolidated listing, an authorized administrator can add a custom agent to the agent inventory. Adding the agent makes it available for review and later installation in governed tenants; it doesn't automatically install the agent in other tenants.
 
 1. On the **Agents** page, select **Add agent**.
-2. Complete the steps shown in the **Add agent** pane for the agent that you are adding.
+2. Complete the steps shown in the **Add agent** pane for the agent that you're adding.
 3. Review the agent details and any permissions presented in the workflow.
 4. Complete the workflow, and then confirm that the agent appears in the **Agents** listing.
 
-[![Screenshot showing the 'Select tenants' pane.](media/agents/agent-multi-tenant-02.png)](media/agents/agent-multi-tenant-02.png#lightbox)
+[![Screenshot showing the Select tenants pane.](media/agents/agent-multi-tenant-02.png)](media/agents/agent-multi-tenant-02.png#lightbox)
 
 ## Review agent details
 
