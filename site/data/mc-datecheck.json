@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-09T19:59:47Z",
+ "generated": "2026-11-09T21:39:22Z",
  "day": "2026-11-09",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-09)",
@@ -1784,7 +1784,7 @@
      "text": "Effective December 7, 2026, we will retire the public preview experience for select non-Microsoft data sources in Microsoft Purview Data Security Posture Management (DSPM) through partner integrations.",
      "post": "2026-11-09",
      "later": false,
-     "link": "https://admin.microsoft.com/#/MessageCenter/:/messages/MC1545691"
+     "link": "https://msmessagecenter.com/MC1545691"
     }
    ],
    "moved": [],
@@ -1792,7 +1792,7 @@
     {
      "id": "MC1545691",
      "date": "2026-11-09",
-     "title": ""
+     "title": "Microsoft Purview: Retirement of select DSPM partner integrations"
     }
    ],
    "why": [],
