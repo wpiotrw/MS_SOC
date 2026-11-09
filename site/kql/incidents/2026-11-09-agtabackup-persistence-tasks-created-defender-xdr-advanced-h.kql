@@ -1,0 +1,14 @@
+// title: AgtaBackup persistence tasks created (Defender XDR advanced hunting)
+// date: 2026-11-09
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: Threat Research: AgtaBackup RAT: fake video-meeting installers enrol victims in signed RMM tools, then the attacker installs a .NET credential-stealing RAT
+// source: https://www.pcrisk.com/removal-guides/36043-agtabackup-rat
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where Timestamp > ago(30d)
+| where ActionType == "ScheduledTaskCreated"
+| where AdditionalFields has_any ("AgtaBackupAgentWatchdog", "AgtaBackupAgentGuardian")
+| project Timestamp, DeviceName, InitiatingProcessAccountName, InitiatingProcessFileName, InitiatingProcessCommandLine, AdditionalFields
