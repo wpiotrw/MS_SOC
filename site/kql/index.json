@@ -1,5 +1,19 @@
 [
  {
+  "file": "incidents/2026-11-09-agtabackup-persistence-tasks-created-defender-xdr-advanced-h.kql",
+  "title": "AgtaBackup persistence tasks created (Defender XDR advanced hunting)",
+  "date": "2026-11-09",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents"
+  ],
+  "purpose": "Threat Research: AgtaBackup RAT: fake video-meeting installers enrol victims in signed RMM tools, then the attacker installs a .NET credential-stealing RAT",
+  "source": "https://www.pcrisk.com/removal-guides/36043-agtabackup-rat",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "agtabackup-rat-rmm-lure-2026"
+ },
+ {
   "file": "articles/2026-11-08-detection-opportunity-2-microsoft-defender-xdr-kql-suspiciou.kql",
   "title": "Detection Opportunity 2 - Microsoft Defender XDR KQL — Suspicious Operator Activity",
   "date": "2026-11-08",
