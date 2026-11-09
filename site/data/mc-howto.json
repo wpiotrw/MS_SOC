@@ -335,6 +335,46 @@
      "says": "The Admin API authentication page (preview) registers the app on Office 365 Exchange Online with Exchange.ManageV2 (delegated) or Exchange.ManageAsAppV2 (application) and requires Exchange RBAC roles; a valid token without them fails with 403."
     }
    ]
+  },
+  {
+   "key": "sms-voice-retirement-phone-only-users",
+   "ids": [
+    "MC1540327"
+   ],
+   "title": "Prepare users who can't use passkeys for the Microsoft-provided SMS and voice retirement",
+   "scriptable": true,
+   "checked": "2026-11-09",
+   "sdk": "Microsoft Graph PowerShell SDK (Microsoft.Graph.Authentication, Microsoft.Graph.Reports)",
+   "dates": "01/02/2027 - Microsoft-provided SMS and voice stop completing MFA for non-admin users (rollout start); 01/07/2027 for Global Administrators and external users (MC1540327, published 05/11/2026).",
+   "blocks": [
+    {
+     "t": "Find users whose only MFA methods are SMS or voice",
+     "kind": "read",
+     "scopes": "AuditLog.Read.All",
+     "code": "# Read only. Lists users whose ONLY registered MFA methods are phone methods (SMS / voice).\n# They need another method (Authenticator push, passwordless phone sign-in or a TOTP code) before the\n# Microsoft-provided SMS and voice retirement reaches the tenant (from 1 February 2027; Global Administrators\n# and external users from 1 July 2027).\nConnect-MgGraph -Scopes 'AuditLog.Read.All' -NoWelcome\n$phone = '^(mobilePhone|alternateMobilePhone|officePhone)$'\n$rows = Get-MgReportAuthenticationMethodUserRegistrationDetail -All `\n    -Property UserPrincipalName, UserDisplayName, MethodsRegistered, IsMfaRegistered, IsAdmin\n$phoneOnly = $rows | Where-Object {\n    $m = @($_.MethodsRegistered)\n    $m.Count -gt 0 -and @($m | Where-Object { $_ -notmatch $phone }).Count -eq 0\n}\n$phoneOnly | Select-Object UserPrincipalName, UserDisplayName, IsAdmin, @{n='Methods';e={$_.MethodsRegistered -join ', '}} |\n    Export-Csv -Path .\\phone-only-mfa-users.csv -NoTypeInformation -Encoding UTF8\n\"{0} of {1} users have only phone methods registered\" -f @($phoneOnly).Count, @($rows).Count",
+     "src": [
+      "https://learn.microsoft.com/en-us/graph/api/authenticationmethodsroot-list-userregistrationdetails?view=graph-rest-1.0",
+      "https://learn.microsoft.com/en-us/graph/api/resources/userregistrationdetails?view=graph-rest-1.0"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "t": "Message Center MC1540327",
+     "u": "https://mc.merill.net/message/MC1540327",
+     "says": "Users whose only MFA methods are SMS or voice and who sign in where passkeys are not supported will be blocked once Microsoft-provided SMS and voice retire (from 1 February 2027; 1 July 2027 for Global Administrators and external users); admins should register Authenticator push, passwordless phone sign-in or TOTP for them, or set up a customer-managed telephony provider."
+    },
+    {
+     "t": "List userRegistrationDetails (Microsoft Graph v1.0)",
+     "u": "https://learn.microsoft.com/en-us/graph/api/authenticationmethodsroot-list-userregistrationdetails?view=graph-rest-1.0",
+     "says": "The authentication methods registration report lists each user's methodsRegistered; least privileged permission AuditLog.Read.All; PowerShell cmdlet Get-MgReportAuthenticationMethodUserRegistrationDetail."
+    },
+    {
+     "t": "SMS and voice retirement (Microsoft Learn)",
+     "u": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sms-voice-retirement",
+     "says": "Microsoft's page on the retirement of Microsoft-provided SMS and voice, linked from the post."
+    }
+   ]
   }
  ]
 }
