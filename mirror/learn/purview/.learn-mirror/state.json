@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/purview/information-barriers-multi-segment",
+  "cursor": "https://learn.microsoft.com/en-us/purview/sit-defn-china-resident-identity-card-number",
   "pages": {
     "https://learn.microsoft.com/en-us/purview/": {"etag":"\"pM7lo2Ogfx0nOpCUN9UwgmvSYtI=\"","gitCommitId":"b2daca1adc7f25d864a644952b8d40ba4a264e9f","path":"Purview/index.md","sourcePath":"Purview/index.yml","updatedAt":"2026-06-11T17:42:00.0000000Z"},
     "https://learn.microsoft.com/en-us/purview/abap-functions-deployment-guide": {"etag":"\"itH/yJtC1a+Zv+DpxHajb6Q+2mQ=\"","gitCommitId":"6ea0040ecf5ebdb1f913928e7b5f0e389b2a62ff","path":"Purview/abap-functions-deployment-guide.md","sourcePath":"Purview/abap-functions-deployment-guide.md","updatedAt":"2025-10-10T17:39:00.0000000Z"},

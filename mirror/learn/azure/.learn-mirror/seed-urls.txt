@@ -190,6 +190,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/cluster-security-dash
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/code-to-runtime-mapping
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-agentless-data-collection
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-cloud-security-posture-management
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-data-security-posture-prepare
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-defender-for-cosmos
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/concept-private-links
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/configure-private-endpoints
@@ -260,6 +261,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/recommendations-refer
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/recommendations-reference-data
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/recommendations-reference-identity-access
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/recommendations-reference-serverless-protection
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/regional-availability
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/release-notes-recommendations-alerts
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/remediate-vulnerability-findings-vm

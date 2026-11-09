@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/device-configuration/endpoint-security/antivirus",
+  "cursor": "https://learn.microsoft.com/en-us/intune/solutions/education/tutorial-school-deployment/reset-devices",
   "pages": {
     "https://learn.microsoft.com/en-us/intune/": {"etag":"\"4/Vz9W2r+0pMojWChIqgjnjsH5o=\"","gitCommitId":"0b2a8eb4fa304e6e4396b94abe89559824e6f48d","path":"intune/index.md","sourcePath":"intune/index.yml","updatedAt":"2026-11-06T18:35:00.0000000Z"},
     "https://learn.microsoft.com/en-us/intune/advanced-analytics": {"etag":"\"1rkBW/y1uNQoqzmnTynOi1SlvFQ=\"","gitCommitId":"d6622b325e51db6c120ce312514a20d1a2bd7ac5","path":"intune/advanced-analytics/index.md","redirectedTo":"https://learn.microsoft.com/en-us/intune/advanced-analytics/","sourcePath":"intune/advanced-analytics/index.md","updatedAt":"2026-06-17T17:35:00.0000000Z"},
