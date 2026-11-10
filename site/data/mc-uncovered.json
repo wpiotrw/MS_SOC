@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10T14:57:41Z",
+ "generated": "2026-11-10T21:36:57Z",
  "day": "2026-11-10",
  "spec": "5gi",
  "window": {
@@ -16,100 +16,8 @@
    "2026-11-10"
   ]
  },
- "mustCover": 20,
- "uncovered": [
-  {
-   "id": "MC1539002",
-   "title": "Microsoft Copilot Chat: Planner Agent task assignment, catch-up, and Copilot memory integration",
-   "why": [
-    "major",
-    "act by 2026-12-04",
-    "plan for change, admin impact"
-   ],
-   "action": "2026-12-04",
-   "tech": [
-    "Planner"
-   ],
-   "first": "2026-11-05",
-   "summary": "Microsoft Copilot Chat's Planner Agent is enhanced with task assignment, scheduled task catch-up, and memory integration to improve task management and personalized responses. Rolling out worldwide in December 2026, it supports shared basic plans, larger plans, and offers improved speed, reliability, and user control without admin action needed.",
-   "link": "https://msmessagecenter.com/MC1539002"
-  },
-  {
-   "id": "MC1539001",
-   "title": "Microsoft 365 admin center: Project usage report retirement",
-   "why": [
-    "major",
-    "act by 2026-12-04",
-    "retirement",
-    "plan for change, admin impact"
-   ],
-   "action": "2026-12-04",
-   "tech": [
-    "Project for the web"
-   ],
-   "first": "2026-11-05",
-   "summary": "The Project usage report in the Microsoft 365 admin center will be retired on December 4, 2026, due to the retirement of Project Online and Project for the web. Administrators should export needed data by November 20, 2026, and use the Planner usage report instead. The Project desktop client remains supported.",
-   "link": "https://msmessagecenter.com/MC1539001"
-  },
-  {
-   "id": "MC1546438",
-   "title": "Action may be required: Claude models in Copilot are coming into the EU Data Boundary and will be enabled by default",
-   "why": [
-    "major",
-    "act by 2026-12-09",
-    "plan for change, admin impact"
-   ],
-   "action": "2026-12-09",
-   "tech": [
-    "Microsoft 365 Copilot Chat"
-   ],
-   "first": "2026-11-10",
-   "summary": "Starting December 9, 2026, Claude models in Microsoft Copilot will be enabled by default for eligible EU and EFTA tenants, with data processing moved into the EU Data Boundary. Admins can opt out or limit access before that date via the Microsoft 365 admin center.",
-   "link": "https://msmessagecenter.com/MC1546438"
-  },
-  {
-   "id": "MC1537490",
-   "title": "Intelligent call delegation is planned to change from Frontier public to public preview (Ring 3.6) as early as Nov 17th",
-   "why": [
-    "plan for change, admin impact"
-   ],
-   "action": null,
-   "tech": [
-    "Microsoft Teams"
-   ],
-   "first": "2026-11-04",
-   "summary": "Intelligent call delegation moves from Frontier to public preview (Ring 3.6) starting Nov 17, 2026, using AI to screen calls and schedule via Microsoft Bookings. Rollout runs Nov-Dec 2026; general availability in Jan 2027. Usage-based billing requires admin spending policy setup in Microsoft 365 admin center.",
-   "link": "https://msmessagecenter.com/MC1537490"
-  },
-  {
-   "id": "MC1540258",
-   "title": "Power Automate - Information regarding the end of support for Copilot in the designer for cloud flows or agent flows.",
-   "why": [
-    "retirement"
-   ],
-   "action": null,
-   "tech": [
-    "Microsoft Power Automate"
-   ],
-   "first": "2026-11-05",
-   "summary": "Power Automate - Information regarding the end of support for Copilot in the designer for cloud flows or agent flows.",
-   "link": "https://msmessagecenter.com/MC1540258"
-  },
-  {
-   "id": "MC1540110",
-   "title": "Power Apps - Information regarding the end of support for AI-generated descriptions for model driven apps",
-   "why": [
-    "retirement"
-   ],
-   "action": null,
-   "tech": [
-    "Power Apps"
-   ],
-   "first": "2026-11-05",
-   "summary": "Power Apps - Information regarding the end of support for AI-generated descriptions for model driven apps",
-   "link": "https://msmessagecenter.com/MC1540110"
-  }
- ],
+ "mustCover": 21,
+ "uncovered": [],
  "skipped": [],
  "viaCampaign": [
   {
