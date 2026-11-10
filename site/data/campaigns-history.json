@@ -6976,14 +6976,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-08",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-09",
 "text":"August 1, 2026."
 },
@@ -7025,6 +7017,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-09",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-10",
 "text":"August 1, 2026."
 },
 {
@@ -7648,7 +7648,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-09",
+"seen":"2026-11-10",
 "text":"early February 2026."
 },
 {
@@ -7656,7 +7656,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-09",
+"seen":"2026-11-10",
 "text":"February 2027."
 },
 {
@@ -9511,6 +9511,22 @@
 "date":"2026-11-07",
 "group":"community",
 "found":"2026-11-07"
+},
+"https://dev.to/beanstechbr/guardrail-para-claude-gpt-e-proprio-1km4":{
+"title":"Guardrail para Claude, GPT e próprio",
+"link":"https://dev.to/beanstechbr/guardrail-para-claude-gpt-e-proprio-1km4",
+"source":"NeonTiger12",
+"date":"2026-11-10",
+"group":"community",
+"found":"2026-11-10"
+},
+"https://thehackernews.com/2026/11/anthropics-claude-fable-52-beats-gpt-6.html":{
+"title":"Anthropic's Claude Fable 5.2 Beats GPT-6 Cyber in Multi-Stage Cyberattack Benchmark",
+"link":"https://thehackernews.com/2026/11/anthropics-claude-fable-52-beats-gpt-6.html",
+"source":"Hacker News",
+"date":"2026-11-10",
+"group":"community",
+"found":"2026-11-10"
 }
 },
 "final":"2026-12-15",
@@ -9653,6 +9669,121 @@
 "tech":"Teams",
 "posts":[
 "MC1546409"
+]
+},
+"c-item-mc1546438":{
+"firstSeen":"2026-11-10",
+"lastSeen":"2026-11-10",
+"name":"Claude models in Copilot are coming into the EU Data Boundary and will be enabled by default",
+"status":"Active",
+"members":[
+"MC1546438",
+"item:MC1546438"
+],
+"log":[
+{
+"date":"2026-11-10",
+"id":"MC1546438",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Action may be required: Claude models in Copilot are coming into the EU Data Boundary and will be enabled by default",
+"title":"Claude models in Microsoft 365 Copilot are switched ON by default for EU and EFTA tenants on 9 December 2026, processed inside the EU Data Boundary - opt out before then",
+"link":"https://mc.merill.net/message/MC1546438"
+}
+],
+"milestones":{
+"MC1546438|posted":{
+"date":"2026-11-10",
+"label":"10 Nov 2026",
+"text":"Posted: Action may be required: Claude models in Copilot are coming into the EU Data Boundary and will be enabled by default"
+},
+"MC1546438|starting in early eligible organizations in the european uni#0":{
+"date":"2026-12-05",
+"label":"early Dec 2026",
+"text":"Starting in early December 2026, eligible organizations in the European Union (EU) and the European Free Trade Association (EFTA) will be able to use Claude mod"
+},
+"MC1546438|on microsoft will enable claude models for tenants that have#0":{
+"date":"2026-12-09",
+"label":"9 Dec 2026",
+"text":"On December 9, 2026, Microsoft will enable Claude models for tenants that haven't made a selection for Anthropic under AI providers operating as Microsoft subpr"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1546438":{
+"title":"Action may be required: Claude models in Copilot are coming into the EU Data Boundary and will be enabled by default",
+"link":"https://mc.merill.net/message/MC1546438",
+"source":"Message Center",
+"id":"MC1546438",
+"date":"2026-11-10",
+"updated":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-10"
+},
+"https://ourcloudnetwork.com/microsoft-will-enable-claude-in-copilot-by-default-for-eu-tenants/?utm_source=rss&utm_medium=rss&utm_campaign=microsoft-will-enable-claude-in-copilot-by-default-for-eu-tenants":{
+"title":"Microsoft will enable Claude in Copilot by default for EU tenants",
+"link":"https://ourcloudnetwork.com/microsoft-will-enable-claude-in-copilot-by-default-for-eu-tenants/?utm_source=rss&utm_medium=rss&utm_campaign=microsoft-will-enable-claude-in-copilot-by-default-for-eu-tenants",
+"source":"Ourcloudnetwork",
+"date":"2026-11-10",
+"group":"community",
+"found":"2026-11-10"
+}
+},
+"final":"2026-12-09",
+"type":"Enforcement",
+"tech":"Copilot",
+"posts":[
+"MC1546438"
+]
+},
+"c-item-mc1539001":{
+"firstSeen":"2026-11-10",
+"lastSeen":"2026-11-10",
+"name":"Microsoft 365 admin center retires the Project usage report on 4 December 2026 - export what you need by 20…",
+"status":"Active",
+"members":[
+"item:MC1539001"
+],
+"log":[
+{
+"date":"2026-11-05",
+"id":"MC1539001",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Microsoft 365 admin center: Project usage report retirement",
+"title":"Microsoft 365 admin center retires the Project usage report on 4 December 2026 - export what you need by 20 November",
+"link":"https://mc.merill.net/message/MC1539001"
+}
+],
+"milestones":{
+"MC1539001|is the retirement date and act by date on the post microsoft#1":{
+"date":"2026-11-20",
+"label":"20 Nov 2026",
+"text":"Microsoft recommends exporting data by 20 November 2026."
+},
+"MC1539001|is the retirement date and act by date on the post microsoft#0":{
+"date":"2026-12-04",
+"label":"4 Dec 2026",
+"text":"4 December 2026 is the retirement date and act-by date on the post"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1539001":{
+"title":"Microsoft 365 admin center: Project usage report retirement",
+"link":"https://mc.merill.net/message/MC1539001",
+"source":"Main list source",
+"id":"MC1539001",
+"date":"2026-11-05",
+"group":"microsoft",
+"found":"2026-11-10"
+}
+},
+"final":"2026-12-04",
+"type":"Retirement",
+"tech":"Microsoft 365",
+"posts":[
+"MC1539001"
 ]
 },
 "c-sms-voice-retirement":{
@@ -11336,7 +11467,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-09",
+"seen":"2026-11-10",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11344,7 +11475,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-09",
+"seen":"2026-11-10",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11976,6 +12107,14 @@
 "link":"https://mc.merill.net/message/MC1545694",
 "source":"MC - Merill",
 "date":"2026-11-09",
+"group":"community",
+"found":"2026-11-10"
+},
+"https://daily.entra.news/day/2026-11-10/":{
+"title":"Passkey guidance now separates password changes from lost-passkey account recovery — 10 November 2026",
+"link":"https://daily.entra.news/day/2026-11-10/",
+"source":"Daily Entra News",
+"date":"2026-11-10",
 "group":"community",
 "found":"2026-11-10"
 }
@@ -19073,6 +19212,56 @@
 "title":"MC1545694: Microsoft Entra: Updated passkey registration experience in My Sign-ins",
 "source":"MC - Merill",
 "link":"https://mc.merill.net/message/MC1545694"
+},
+{
+"day":"2026-11-10",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"Guardrail para Claude, GPT e próprio",
+"source":"NeonTiger12",
+"link":"https://dev.to/beanstechbr/guardrail-para-claude-gpt-e-proprio-1km4"
+},
+{
+"day":"2026-11-10",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"Anthropic's Claude Fable 5.2 Beats GPT-6 Cyber in Multi-Stage Cyberattack Benchmark",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/11/anthropics-claude-fable-52-beats-gpt-6.html"
+},
+{
+"day":"2026-11-10",
+"cid":"c-item-mc1546438",
+"type":"new",
+"name":"Claude models in Copilot are coming into the EU Data Boundary and will be enabled by default",
+"ctype":"Enforcement",
+"tech":"Copilot",
+"next":"early Dec 2026",
+"text":"Claude models from Anthropic in Microsoft Copilot are coming into the EU Data Boundary ."
+},
+{
+"day":"2026-11-10",
+"cid":"c-item-mc1539001",
+"type":"new",
+"name":"Microsoft 365 admin center retires the Project usage report on 4 December 2026 - export what you need by 20…",
+"ctype":"Retirement",
+"tech":"Microsoft 365",
+"next":"20 Nov 2026",
+"text":"Microsoft 365 admin center retires the Project usage report on 4 December 2026 - export what you need by 20 November"
+},
+{
+"day":"2026-11-10",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Passkey guidance now separates password changes from lost-passkey account recovery — 10 November 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-11-10/"
 }
 ],
 "archive":{
