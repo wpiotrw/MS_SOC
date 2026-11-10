@@ -1,7 +1,7 @@
 {
- "read": "2026-11-09",
+ "read": "2026-11-10",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 723,
+ "count": 729,
  "note": null,
  "messages": [
   {
@@ -13948,19 +13948,21 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-06",
-   "end": "2026-12-16",
-   "modified": "2026-10-06",
+   "end": "2027-01-11",
+   "modified": "2026-11-10",
    "tags": [
-    "Admin impact"
+    "Admin impact",
+    "Updated message"
    ],
-   "summary": "[What and why] Beginning in early November 2026, Microsoft Purview will roll out improvements to the setup and activation experience for inline collection and Data Loss Prevention (DLP) policies that protect interactions with unmanaged cloud apps in Microsoft Edge for Business . This update adds support for organizations that use Microsoft Intune multi-admin approval and provides clearer status in…",
+   "summary": "Updated November 9, 2026: We have updated the timeline. Thank you for your patience. [What and why] Beginning in late November 2026, Microsoft Purview will roll out improvements to the setup and activation experience for inline collection and Data Loss Prevention (DLP) policies that protect interactions with unmanaged cloud apps in Microsoft Edge for Business . This update adds support for organiz…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Beginning in early November 2026, Microsoft Purview will roll out improvements to the setup and activation experience for inline collection and Data Loss Prevention (DLP) policies that protect interactions with unmanaged cloud apps in Microsoft Edge for Busine",
-    "Worldwide: Beginning in early November 2026 and expected to complete by mid-November 2026."
+    "Updated November 9, 2026: We have updated the timeline.",
+    "Beginning in late November 2026, Microsoft Purview will roll out improvements to the setup and activation experience for inline collection and Data Loss Prevention (DLP) policies that protect interactions with unmanaged cloud apps in Microsoft Edge for Busines",
+    "Worldwide: Beginning in late November 2026 (previously early November) and expected to complete by early December 2026 (previously mid-November)."
    ],
-   "bodyHash": "32c26a1067699654"
+   "bodyHash": "b557439e0e1b13be"
   },
   {
    "id": "MC1490598",
@@ -14934,21 +14936,21 @@
    "actionBy": null,
    "start": "2026-10-13",
    "end": "2026-12-30",
-   "modified": "2026-11-04",
+   "modified": "2026-11-09",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated November 3, 2026: We’ve heard your feedback that you’d like more information about what’s changing in classic Outlook. To help end-users understand recent changes, we’re bringing back the What’s New in-app dialog. The dialog is designed to be nonintrusive and will appear automatically at most once per month in Production on Current Channel. Users can dismiss it at any time and reopen it la…",
+   "summary": "Updated November 9, 2026: We’ve heard your feedback that you’d like more information about what’s changing in classic Outlook. To help end-users understand recent changes, we’re bringing back the What’s New in-app dialog. The dialog is designed to be nonintrusive and will appear automatically at most once per month in Production on Current Channel. Users can dismiss it at any time and reopen it la…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated November 3, 2026: We’ve heard your feedback that you’d like more information about what’s changing in classic Outlook.",
-    "General Availability (Worldwide): Beginning in early November 2026 and expected to complete by late November 2026."
+    "Updated November 9, 2026: We’ve heard your feedback that you’d like more information about what’s changing in classic Outlook.",
+    "General Availability (Worldwide): Beginning in mid-November 2026 (previously early November) and expected to complete by late November 2026."
    ],
-   "bodyHash": "1483eb305a75ec99"
+   "bodyHash": "228c882e04599021"
   },
   {
    "id": "MC1506733",
@@ -19143,6 +19145,165 @@
    "bodyHash": "915df0c3f99a6e9a"
   },
   {
+   "id": "MC1546409",
+   "title": "Microsoft Teams: Retirement of off-network invitations to Teams Free",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-11-10",
+   "end": "2027-02-28",
+   "modified": "2026-11-10",
+   "tags": [
+    "Retirement"
+   ],
+   "summary": "[What and Why:] Microsoft Teams will retire the invitation flow that allows work or school users to invite people who cannot be found in Teams to create a Teams Free account and join a chat. This change retires the off-network invitation flow (via email or sharing a link to chat) only — not federation with Teams Free. [Rollout Schedule:] Worldwide: We will begin rolling out in early December 2026 …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Worldwide: We will begin rolling out in early December 2026 and expect to complete by late December 2026.",
+    "However, we recommend updating user guidance and helpdesk documentation before December 6, 2026, to reflect the following alternatives: For ongoing chat: If recipients do not have a Teams account, they can create a Teams Free account independently or get invit"
+   ],
+   "bodyHash": "a38ca2b2ab2533a1"
+  },
+  {
+   "id": "MC1546411",
+   "title": "Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-10",
+   "end": "2027-01-11",
+   "modified": "2026-11-10",
+   "tags": [
+    "Admin impact",
+    "Retirement"
+   ],
+   "summary": "[What and Why:] The Viva Learning usage report and The Viva Insights personal insights active-user trend chart will be retired from the Microsoft 365 admin center. For Viva Learning, admins can continue to access usage metrics in the Viva Learning app directly. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out on early November 2026 and expect to complete by mid-Novem…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out on early November 2026 and expect to complete by mid-November 2026."
+   ],
+   "bodyHash": "20f6583e3f83dfaa"
+  },
+  {
+   "id": "MC1546429",
+   "title": "Power BI retiring standalone Copilot experiences (preview)",
+   "services": [
+    "Power BI"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": "2026-12-08",
+   "start": "2026-11-10",
+   "end": "2026-12-10",
+   "modified": "2026-11-10",
+   "tags": [
+    "Retirement"
+   ],
+   "summary": "[What and Why:] Power BI will retire the preview standalone Copilot experience in early January 2027. This includes access from the Power BI Home page, Power BI mobile apps, Microsoft Teams, and app-scoped Copilot. Microsoft has announced Microsoft 365 Copilot in Power BI and Microsoft Fabric (preview), which brings Microsoft 365 Copilot into these products. Beginning December 8, 2026, Microsoft 3…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Power BI will retire the preview standalone Copilot experience in early January 2027.",
+    "Beginning December 8, 2026, Microsoft 365 Copilot in Power BI will be enabled by default.",
+    "Microsoft 365 Copilot default-on (Worldwide): December 8, 2026.",
+    "Retirement (Worldwide): Standalone Copilot will be retired in mid-January 2027.",
+    "Beginning December 8, 2026, Microsoft 365 Copilot in Power BI will be enabled by default, providing an alternative for continued AI-assisted analysis of Power BI data."
+   ],
+   "bodyHash": "d71f6f1fec8b18d8"
+  },
+  {
+   "id": "MC1546430",
+   "title": "'Add explainer video' Skill in PPT Copilot",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-10",
+   "end": "2026-12-10",
+   "modified": "2026-11-10",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "[What and Why:] Use the \"Add explainer video\" skill in Copilot for PowerPoint. This is a built-in skill rolling out as an experimental skill to Frontier users. Available on desktop, Mac, and web. [Rollout Schedule:] Frontier/Insider (Worldwide): We will begin rolling out on early November 2026 and expect to complete by mid November 2026. [Impact on Your Organization:] Ability to convert a static s…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Frontier/Insider (Worldwide): We will begin rolling out on early November 2026 and expect to complete by mid November 2026."
+   ],
+   "bodyHash": "983b8a1f9ba96086"
+  },
+  {
+   "id": "MC1546438",
+   "title": "Action may be required: Claude models in Copilot are coming into the EU Data Boundary and will be enabled by default",
+   "services": [
+    "Microsoft 365 Copilot Chat"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2026-12-09",
+   "start": "2026-11-10",
+   "end": "2027-02-22",
+   "modified": "2026-11-10",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why:] Claude models from Anthropic in Microsoft Copilot are coming into the EU Data Boundary . Starting in early December 2026, eligible organizations in the European Union (EU) and the European Free Trade Association (EFTA) will be able to use Claude models in Copilot with processing within the EU Data Boundary . Claude models are currently disabled by default for tenants in the EU and …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Starting in early December 2026, eligible organizations in the European Union (EU) and the European Free Trade Association (EFTA) will be able to use Claude models in Copilot with processing within the EU Data Boundary .",
+    "On December 9, 2026, Microsoft will enable Claude models for tenants that haven't made a selection for Anthropic under AI providers operating as Microsoft subprocessors in the Microsoft 365 admin center.",
+    "If you don't want Claude models enabled by default, an admin can opt out before December 9, 2026.",
+    "Early December 2026: Processing for Claude models in Copilot moves into the EU Data Boundary.",
+    "December 9, 2026: Microsoft enables Claude models for tenants that haven't made a selection, and the option to allow them only in Copilot in Microsoft 365 apps will be retired.",
+    "What will happen: If you haven't made a selection: Claude models will be enabled for all users on December 9, 2026."
+   ],
+   "bodyHash": "01cef789bd98d0b1"
+  },
+  {
+   "id": "MC1546447",
+   "title": "Microsoft Defender for Office 365: Updated recipient inclusion logic for threat protection policies",
+   "services": [
+    "Microsoft Defender XDR"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-10",
+   "end": "2027-01-04",
+   "modified": "2026-11-10",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Defender for Office 365 is updating how recipient inclusion conditions are evaluated when targeting threat protection policies. When a policy includes multiple recipient condition types, such as users, groups, and domains, policies will use Match any (OR) logic instead of Match all (AND) logic. This change simplifies policy targeting and reduces the risk that intended reci…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide) : We will begin rolling out in early December 2026 and expect to complete by early December 2026 ."
+   ],
+   "bodyHash": "83c2661a29511b0c"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -19461,64 +19622,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-10",
-   "id": "MC1462473",
-   "type": "changed",
-   "title": "(Updated) Microsoft Teams: PowerPoint Live introduces light mode for presenters",
-   "fields": {
-    "end": [
-     "2026-11-30",
-     "2026-12-31"
-    ],
-    "bodyHash": [
-     "20f5ceea16d1252b",
-     "e78e760c9a7bd855"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-10",
-   "id": "MC1492954",
-   "type": "new",
-   "title": "Microsoft Outlook: Themes by Copilot retirement",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-10",
-   "id": "MC1492955",
-   "type": "new",
-   "title": "Microsoft Planner: Introducing Local Custom Fields",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-10",
-   "id": "MC1492958",
-   "type": "new",
-   "title": "Microsoft Graph: New tenant controls for retirement of non-standard file API tokens",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-10",
-   "id": "MC1492959",
-   "type": "new",
-   "title": "Audio Overview Updates",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-10",
-   "id": "MC1493186",
-   "type": "new",
-   "title": "Microsoft Outlook for Android and iOS: Send Availability functionality restored",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-10",
-   "id": "MC1169587",
-   "type": "removed",
-   "title": "30-Day Reminder: Windows 11, version 23H2 (Home and Pro editions) will reach end of servicing on November 11, 2025",
-   "fields": {}
-  },
   {
    "date": "2026-10-11",
    "id": "MC1169914",
@@ -25150,6 +25253,85 @@
    "id": "MC1465777",
    "type": "removed",
    "title": "Enhanced Slide Navigation with Up and Down Arrow Keys in PPT Live",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1489971",
+   "type": "changed",
+   "title": "Microsoft Purview DLP: Improved setup and Intune multi-admin approval support for unmanaged apps in Edge for Business",
+   "fields": {
+    "end": [
+     "2026-12-16",
+     "2027-01-11"
+    ],
+    "tags": [
+     [
+      "Admin impact"
+     ],
+     [
+      "Admin impact",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "32c26a1067699654",
+     "b557439e0e1b13be"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1506730",
+   "type": "changed",
+   "title": "(Updated) Classic Outlook for Windows: Upcoming visual improvements and a more consistent Outlook experience",
+   "fields": {
+    "bodyHash": [
+     "1483eb305a75ec99",
+     "228c882e04599021"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1546409",
+   "type": "new",
+   "title": "Microsoft Teams: Retirement of off-network invitations to Teams Free",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1546411",
+   "type": "new",
+   "title": "Retirement of Viva Insights (personal insights) and Viva Learning usage reports",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1546429",
+   "type": "new",
+   "title": "Power BI retiring standalone Copilot experiences (preview)",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1546430",
+   "type": "new",
+   "title": "'Add explainer video' Skill in PPT Copilot",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1546438",
+   "type": "new",
+   "title": "Action may be required: Claude models in Copilot are coming into the EU Data Boundary and will be enabled by default",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1546447",
+   "type": "new",
+   "title": "Microsoft Defender for Office 365: Updated recipient inclusion logic for threat protection policies",
    "fields": {}
   }
  ]
