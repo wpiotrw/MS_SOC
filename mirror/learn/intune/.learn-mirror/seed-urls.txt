@@ -16,12 +16,17 @@ https://learn.microsoft.com/en-us/intune/app-management/deployment/enterprise-ap
 https://learn.microsoft.com/en-us/intune/app-management/deployment/manage-vpp-apple
 https://learn.microsoft.com/en-us/intune/app-management/deployment/management-agent-macos
 https://learn.microsoft.com/en-us/intune/app-management/protection/data-protection-framework
+https://learn.microsoft.com/en-us/intune/app-management/protection/mam-faq
 https://learn.microsoft.com/en-us/intune/app-management/protection/multiple-managed-accounts
 https://learn.microsoft.com/en-us/intune/app-management/ref-protected-apps
 https://learn.microsoft.com/en-us/intune/cloud-pki
 https://learn.microsoft.com/en-us/intune/cloud-pki/renew-ca
 https://learn.microsoft.com/en-us/intune/configmgr/comanage/how-to-monitor
 https://learn.microsoft.com/en-us/intune/configmgr/comanage/overview
+https://learn.microsoft.com/en-us/intune/configmgr/comanage/tutorial-co-manage-clients
+https://learn.microsoft.com/en-us/intune/configmgr/comanage/tutorial-co-manage-new-devices
+https://learn.microsoft.com/en-us/intune/configmgr/comanage/workloads
+https://learn.microsoft.com/en-us/intune/configmgr/core/clients/deploy/deploy-clients-to-windows-computers
 https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/cmg/cost
 https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/cmg/perf-scale
 https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/cmg/setup-cloud-management-gateway
@@ -41,6 +46,7 @@ https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/admin-con
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/checklist-for-installing-update-2609
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/cmpivot
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/community-hub
+https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/install-in-console-updates
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/recover-sites
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/manage/updates
 https://learn.microsoft.com/en-us/intune/configmgr/core/support/cmtrace
@@ -52,6 +58,7 @@ https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/38232642
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/38982839
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/39169655
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/39398030
+https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2603/40345593
 https://learn.microsoft.com/en-us/intune/configmgr/hotfix/2609/2377842
 https://learn.microsoft.com/en-us/intune/configmgr/mdm/deploy-use/create-pfx-certificate-profiles
 https://learn.microsoft.com/en-us/intune/configmgr/mdm/get-started/set-up-certificates-on-premises-mdm
@@ -59,6 +66,7 @@ https://learn.microsoft.com/en-us/intune/configmgr/mdt
 https://learn.microsoft.com/en-us/intune/configmgr/mdt/samples-guide
 https://learn.microsoft.com/en-us/intune/configmgr/osd/deploy-use/preprovision-bitlocker-in-windows-pe
 https://learn.microsoft.com/en-us/intune/configmgr/osd/understand/introduction-to-operating-system-deployment
+https://learn.microsoft.com/en-us/intune/configmgr/protect/deploy-use/defender-advanced-threat-protection
 https://learn.microsoft.com/en-us/intune/copilot
 https://learn.microsoft.com/en-us/intune/copilot/agents/change-review-agent
 https://learn.microsoft.com/en-us/intune/copilot/agents/vulnerability-remediation-agent
@@ -85,6 +93,7 @@ https://learn.microsoft.com/en-us/intune/device-enrollment/android/connect-manag
 https://learn.microsoft.com/en-us/intune/device-enrollment/android/ref-corporate-methods
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/manage-devices-tokens-macos
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/overview-automated-enrollment-apple
+https://learn.microsoft.com/en-us/intune/device-enrollment/apple/ref-automated-authentication-methods
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-account-driven-user
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-account-service-access
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-automated-ios
@@ -110,9 +119,11 @@ https://learn.microsoft.com/en-us/intune/device-management/inventory-and-status/
 https://learn.microsoft.com/en-us/intune/device-management/inventory-and-status/find-primary-user
 https://learn.microsoft.com/en-us/intune/device-management/inventory-and-status/rename-device
 https://learn.microsoft.com/en-us/intune/device-management/overview
+https://learn.microsoft.com/en-us/intune/device-management/reports/export-graph-apis
 https://learn.microsoft.com/en-us/intune/device-management/tools/deploy-remediations
 https://learn.microsoft.com/en-us/intune/device-management/tools/management-extension-windows
 https://learn.microsoft.com/en-us/intune/device-management/tools/run-powershell-scripts-windows
+https://learn.microsoft.com/en-us/intune/device-management/tools/run-shell-scripts-macos
 https://learn.microsoft.com/en-us/intune/device-management/tools/setup-teamviewer
 https://learn.microsoft.com/en-us/intune/device-management/tools/teamviewer-legacy
 https://learn.microsoft.com/en-us/intune/device-security/compliance/create-policy
@@ -257,6 +268,11 @@ https://learn.microsoft.com/en-us/intune/remote-help/plan
 https://learn.microsoft.com/en-us/intune/remote-help/start-session
 https://learn.microsoft.com/en-us/intune/solutions/azure-virtual-desktop-multi-session
 https://learn.microsoft.com/en-us/intune/solutions/tutorials/protect-email-unmanaged-devices
+https://learn.microsoft.com/en-us/intune/user-help/apps/managed-apps-android
+https://learn.microsoft.com/en-us/intune/user-help/compliance/password-requirements
+https://learn.microsoft.com/en-us/intune/user-help/device-actions/sync-device-windows
+https://learn.microsoft.com/en-us/intune/user-help/enrollment/data-visibility
+https://learn.microsoft.com/en-us/intune/user-help/enrollment/work-profile-android
 https://learn.microsoft.com/en-us/intune/user-help/security/setup-mobile-threat-defense
 https://learn.microsoft.com/en-us/intune/whats-new
 https://learn.microsoft.com/en-us/intune/whats-new/archive

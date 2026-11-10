@@ -42,11 +42,14 @@ https://learn.microsoft.com/en-us/graph/api/resources/alert
 https://learn.microsoft.com/en-us/graph/api/resources/anonymouscalendarsharingfreebusydetail
 https://learn.microsoft.com/en-us/graph/api/resources/anonymouscalendarsharingfreebusyreviewer
 https://learn.microsoft.com/en-us/graph/api/resources/anonymouscalendarsharingfreebusysimple
+https://learn.microsoft.com/en-us/graph/api/resources/appmanagementpolicy
 https://learn.microsoft.com/en-us/graph/api/resources/approverdelegate
 https://learn.microsoft.com/en-us/graph/api/resources/authentication
 https://learn.microsoft.com/en-us/graph/api/resources/authenticationbehaviors
 https://learn.microsoft.com/en-us/graph/api/resources/authenticationinfo
 https://learn.microsoft.com/en-us/graph/api/resources/chunkoffsets
+https://learn.microsoft.com/en-us/graph/api/resources/classificationgradingcontentlocation
+https://learn.microsoft.com/en-us/graph/api/resources/classificationgradingjobresponse
 https://learn.microsoft.com/en-us/graph/api/resources/clientcredentialauthenticationinfo
 https://learn.microsoft.com/en-us/graph/api/resources/cloudpc
 https://learn.microsoft.com/en-us/graph/api/resources/cloudpcprovisioningpolicy
@@ -96,6 +99,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/provisionresponse
 https://learn.microsoft.com/en-us/graph/api/resources/relatedPerson
 https://learn.microsoft.com/en-us/graph/api/resources/resourceaccountkeyauthenticationmethod
 https://learn.microsoft.com/en-us/graph/api/resources/rolemanagementcustomcalloutextension
+https://learn.microsoft.com/en-us/graph/api/resources/rolemanagementcustomcalloutexten…
 https://learn.microsoft.com/en-us/graph/api/resources/security
 https://learn.microsoft.com/en-us/graph/api/resources/security-alert
 https://learn.microsoft.com/en-us/graph/api/resources/security-auditdata-derived-types
@@ -125,6 +129,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/telecomprovidersettings
 https://learn.microsoft.com/en-us/graph/api/resources/tenantgovernanceservices-actionstep
 https://learn.microsoft.com/en-us/graph/api/resources/unifiedroot
 https://learn.microsoft.com/en-us/graph/api/resources/user
+https://learn.microsoft.com/en-us/graph/api/resources/verifiablecredentialsauthenticationmethodconfiguration…
 https://learn.microsoft.com/en-us/graph/api/resources/verifiablecrede…
 https://learn.microsoft.com/en-us/graph/api/resources/voiceauthenticationmethodconfiguration
 https://learn.microsoft.com/en-us/graph/api/resources/x509certificateauthenticationmethodconfiguration

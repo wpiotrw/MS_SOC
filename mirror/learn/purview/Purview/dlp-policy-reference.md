@@ -9,7 +9,7 @@ f1.keywords: CSH
 ms.author: kreagle
 author: k-reagle
 manager: laurawi
-ms.date: 2026-10-16T00:00:00.0000000Z
+ms.date: 2026-11-03T00:00:00.0000000Z
 audience: Admin
 ms.topic: reference
 ms.service: purview
@@ -255,7 +255,7 @@ A DLP policy can find and protect items that contain sensitive information acros
 | On-premises repositories (file shares and SharePoint) | No | Repository | data-at-rest | - [Learn about the data loss prevention on-premises repositories](dlp-on-premises-scanner-learn) - [Get started with data loss prevention for on-premises repositories](dlp-on-premises-scanner-get-started#get-started-with-data-loss-prevention-for-on-premises-repositories) |
 | Fabric and Power BI | No | Workspaces | data-in-use | No |
 | Non-Microsoft connected apps (preview) | No | Cloud app instance | data-at-rest | - [Use DLP and sensitivity label policies for non-Microsoft connected apps](dlp-non-microsoft-connected-applications) - Only available in the **Custom** policy template  - Set up a [Microsoft Defender for Cloud Apps connector](/en-us/defender-cloud-apps/enable-instant-visibility-protection-and-governance-actions-for-your-apps) |
-| Microsoft Copilot and Chat (preview) | [Yes (rolling out)](dlp-microsoft365-copilot-location-learn-about#admin-units) | Account or Distribution group | data-at-rest  data-in-use | - Only available in the **Custom** policy template |
+| Microsoft Copilot and Chat (preview) | [Yes (rolling out)](dlp-microsoft365-copilot-location-learn-about#admin-units) | Account or Distribution group | data-at-rest  data-in-use | - Only available in the **Custom** policy template - Administrative unit scoping also applies to Cowork. |
 | Managed cloud apps | No | Account or Distribution group | data-in-motion | - Only available in the **Custom** policy template |
 | Unmanaged cloud apps | No | Account or Distribution group | data-in-motion | - Only available in the **Custom** policy template |
 

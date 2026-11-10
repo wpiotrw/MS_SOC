@@ -105,6 +105,7 @@ https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlog
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/usage
 https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/pri
 https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/private/github-local/github-local-overview
+https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/private/github-local/github-local-overview…
 https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/pri…
 https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/…
 https://learn.microsoft.com/en-us/azure/backup/whats-new
@@ -386,6 +387,7 @@ https://learn.microsoft.com/en-us/azure/governance/definition-structure-basics
 https://learn.microsoft.com/en-us/azure/governance/guest-configuration-baseline-cis-linux
 https://learn.microsoft.com/en-us/azure/governance/guest-configuration-baseline-linux
 https://learn.microsoft.com/en-us/azure/governance/initiative-definition-structure
+https://learn.microsoft.com/en-us/azure/governance/machine-configuration/how-to/assign-security-baselines/remediate-security-baselines
 https://learn.microsoft.com/en-us/azure/governance/machine-configuration/overview/01-overview-concepts
 https://learn.microsoft.com/en-us/azure/governance/machine-configuration/whats-new/agent
 https://learn.microsoft.com/en-us/azure/governance/machine-configuration/whats-new/agent/linux
@@ -440,6 +442,8 @@ https://learn.microsoft.com/en-us/azure/sentinel
 https://learn.microsoft.com/en-us/azure/sentinel/anomalies-reference
 https://learn.microsoft.com/en-us/azure/sentinel/automation/create-playbooks
 https://learn.microsoft.com/en-us/azure/sentinel/automation/generate-playbook
+https://learn.microsoft.com/en-us/azure/sentinel/automation/migrate-playbooks-to-automation-rules
+https://learn.microsoft.com/en-us/azure/sentinel/automation/run-playbooks
 https://learn.microsoft.com/en-us/azure/sentinel/azure-storage-blob-connector-troubleshoot
 https://learn.microsoft.com/en-us/azure/sentinel/ci-cd-custom-content
 https://learn.microsoft.com/en-us/azure/sentinel/compare-analytics-rules-custom-detections
@@ -478,6 +482,7 @@ https://learn.microsoft.com/en-us/azure/sentinel/normalization-parsers-list
 https://learn.microsoft.com/en-us/azure/sentinel/normalization-schema-email
 https://learn.microsoft.com/en-us/azure/sentinel/normalization-schema-process-event
 https://learn.microsoft.com/en-us/azure/sentinel/quickstart-onboard
+https://learn.microsoft.com/en-us/azure/sentinel/sap/deploy-data-connector-agentless
 https://learn.microsoft.com/en-us/azure/sentinel/sap/deploy-sap-btp-solution
 https://learn.microsoft.com/en-us/azure/sentinel/sap/deployment-overview
 https://learn.microsoft.com/en-us/azure/sentinel/sap/prerequisites-for-deploying-sap-continuous-threat-monitoring
@@ -485,6 +490,7 @@ https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-agent-migrate
 https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-btp-security-content
 https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-btp-solution-overview
 https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-deploy-troubleshoot
+https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-solution-function-reference
 https://learn.microsoft.com/en-us/azure/sentinel/scoping
 https://learn.microsoft.com/en-us/azure/sentinel/sentinel-overview
 https://learn.microsoft.com/en-us/azure/sentinel/sentinel-solutions-catalog

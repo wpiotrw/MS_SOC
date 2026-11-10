@@ -7,12 +7,12 @@ feedback_system: Standard
 uhfHeaderId: MSDocsHeader-Purview
 f1.keywords:
 - CSH
-ms.author: kreagle
-author: k-reagle
+ms.author: nadiaw
+author: Nfortini
 manager: laurawi
-ms.date: 2026-10-16T00:00:00.0000000Z
+ms.date: 2026-11-09T00:00:00.0000000Z
 ai-usage: ai-assisted
-ms.custom: msecd-doc-authoring-1013
+ms.custom: msecd-doc-authoring-1032
 ms.update-cycle: 180-days
 audience: ITPro
 ms.topic: article
@@ -45,10 +45,8 @@ item_type: Content
 source_path: Purview/dlp-microsoft365-copilot-location-learn-about.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0fc65d4-7c73-4029-a261-7f99ff744363
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/b2daec57-5914-4967-8ed3-1d444897ba59
 platformId: f01964fa-3fed-e996-89bb-a6c29cdc5ab1
 ---
 
@@ -74,7 +72,7 @@ For information on licensing, see
 
 ## Permissions
 
-Accounts with one of the following roles or role groups can create or edit a DLP policy for the Microsoft 365 Copilot and Copilot Chat location:
+Accounts with one of the following roles or role groups can create or edit a DLP policy for the Microsoft Copilot, Copilot Chat, and Copilot Cowork location:
 
 - **Microsoft Entra AI Admin** - Role for managing all aspects of Microsoft 365 Copilot and AI-related enterprise services in Microsoft 365.
 - **Purview Data Security AI Admin** - Role for editing Data Loss Prevention policies related to Copilot and viewing AI content in Data Security Posture Management. This role doesn't have access to read prompts and responses of AI interactions.
@@ -97,7 +95,7 @@ To prevent Microsoft 365 Copilot, Copilot Chat, and Cowork from sending sensitiv
 1. Sign in to the [Microsoft Purview portal](https://purview.microsoft.com).
 2. Go to **Data Loss Prevention** &gt; **Policies** and select **+ Create policy**.
 3. Select the **Custom** template, then **Custom policy**.
-4. On the **Locations** page, set the **Microsoft 365 Copilot and Copilot Chat** location to on.
+4. On the **Locations** page, set the **Microsoft Copilot, Copilot Chat, and Copilot Cowork** location to on.
 5. Add a rule with the **Content contains** &gt; **Sensitive information types** condition and choose the SITs you want to detect.
 6. In the same rule, set the action to **Prevent Copilot from processing content** &gt; **Performing Web Searches**.
 7. Save and turn on the policy.
@@ -106,11 +104,11 @@ When a user prompt contains the configured SITs, Copilot and Cowork block extern
 
 ### Block SITs in web search use case example
 
-*Contoso wants employees to use Microsoft 365 Copilot for productivity, but doesn't want sensitive customer data sent to external web search providers when Copilot grounds responses on the web.*
+*Contoso wants employees to use Microsoft 365 Copilot or Cowork for productivity, but doesn't want sensitive customer data sent to external web search providers when Copilot grounds responses on the web.*
 
 To meet this business need, Contoso configures a DLP policy as follows:
 
-1. Targets the **Microsoft 365 Copilot and Copilot Chat** policy location.
+1. Targets the **Microsoft Copilot, Copilot Chat, and Copilot Cowork** policy location.
 2. Adds a rule with the **Content contains** &gt; **Sensitive information types** condition that detects the SITs representing sensitive customer data.
 3. Sets the rule action to **Prevent Copilot from processing content** &gt; **Performing Web Searches**.
 
@@ -118,9 +116,9 @@ When a user submits a prompt containing those SITs, Copilot doesn't send the pro
 
 ## Block sensitive information types in prompts
 
-This feature is in preview and is rolling out to all tenants with access to Microsoft 365 Copilot and Copilot Chat. Check whether rollout has reached your tenant. It's available in Microsoft 365 Copilot, Copilot Chat, Cowork, and Copilot in Word, Excel, and PowerPoint.
+This feature is in preview and is rolling out to all tenants with access to Microsoft 365 Copilot and Copilot Chat. Check whether rollout has reached your tenant. Cowork supports this feature, along with Microsoft 365 Copilot, Copilot Chat, and Copilot in Word, Excel, and PowerPoint.
 
-To set this up, create DLP policies that use the **Microsoft 365 Copilot and Copilot Chat** policy location with the **Content contains** &gt; **Sensitive information types** condition. This policy prevents Copilot and Cowork from returning a response when prompts contain sensitive data. Only out-of-the-box and custom SITs are currently supported.
+To set this up, create DLP policies that use the **Microsoft Copilot, Copilot Chat, and Copilot Cowork** policy location with the **Content contains** &gt; **Sensitive information types** condition. This policy prevents Copilot and Cowork from returning a response when prompts contain sensitive data. Only out-of-the-box and custom SITs are currently supported.
 
 Tip
 
@@ -128,17 +126,17 @@ During preview, the user messaging in Word, Excel, PowerPoint might not clearly 
 
 ### Block SITs in prompts use case example
 
-*Contoso encourages their employees to use Microsoft 365 Copilot to enhance productivity, but they don't want their users placing Canada physical addresses or EU debit card numbers into prompts.*
+*Contoso encourages their employees to use Microsoft 365 Copilot or Cowork to enhance productivity, but they don't want their users placing Canada physical addresses or EU debit card numbers into prompts.*
 
-To meet this business need, Contoso creates a DLP policy that targets the Microsoft 365 Copilot and Copilot Chat location and has a rule that uses the **Content contains** &gt; **Sensitive information types** &gt; **Canada physical addresses** or **EU debit card numbers** condition to identify prompts that contain those SITs. The actions in the rule are configured to **Restrict Copilot from processing content** &gt; **Processing prompts**.
+To meet this business need, Contoso creates a DLP policy that targets the Microsoft Copilot, Copilot Chat, and Copilot Cowork location and has a rule that uses the **Content contains** &gt; **Sensitive information types** &gt; **Canada physical addresses** or **EU debit card numbers** condition to identify prompts that contain those SITs. The actions in the rule are configured to **Restrict Copilot from processing content** &gt; **Processing prompts**.
 
-When a user attempts to submit a prompt that contains either of these sensitive information types, they receive a message indicating that the request can't be completed because it contains sensitive information that the organization has blocked Microsoft 365 Copilot from using.
+When a user attempts to submit a prompt that contains either of these sensitive information types, they receive a message indicating that the request can't be completed because it contains sensitive information that the organization has blocked Microsoft 365 Copilot or Cowork from using.
 
 ## Block files and emails with sensitivity labels from being processed
 
 This feature is available in Microsoft 365 Copilot, Copilot Chat, Cowork, and Copilot in Word, Excel, and PowerPoint.
 
-To set this up, create DLP policies that use the **Microsoft 365 Copilot and Copilot Chat** policy location with the **Content contains** &gt; **Sensitivity labels** condition to exclude items from being processed. Identified items still appear in the citations of the response, but Copilot and Cowork don't access or use the content of the item in the response.
+To set this up, create DLP policies that use the **Microsoft Copilot, Copilot Chat, and Copilot Cowork** policy location with the **Content contains** &gt; **Sensitivity labels** condition to exclude items from being processed. Identified items still appear in the citations of the response, but Copilot and Cowork don't access or use the content of the item in the response.
 
 ### Block items with sensitivity labels example use case
 
@@ -150,13 +148,13 @@ Contoso establishes and applies a sensitivity label taxonomy to their data. The 
 - **Public**
 - **Personal**
 
-They deploy Microsoft 365 Copilot and Copilot Chat to help users find and use Contoso enterprise information in their organization. They want to exclude personal data and highly confidential information from Microsoft 365 Copilot and Copilot Chat summaries. They create a DLP policy that uses the **Microsoft 365 Copilot and Copilot Chat** policy location with the **Content contains** &gt; **Sensitivity labels** condition to exclude items that have the **Personal** sensitivity label from being processed in the response summary and also to exclude items that have the **Highly Confidential** sensitivity label from being processed in the response summary.
+They deploy Microsoft 365 Copilot, Copilot Chat, and Cowork to help users find and use Contoso enterprise information in their organization. They want to exclude personal data and highly confidential information from Microsoft 365 Copilot, Copilot Chat, and Cowork summaries. They create a DLP policy that uses the **Microsoft Copilot, Copilot Chat, and Copilot Cowork** policy location with the **Content contains** &gt; **Sensitivity labels** condition to exclude items that have the **Personal** sensitivity label from being processed in the response summary and also to exclude items that have the **Highly Confidential** sensitivity label from being processed in the response summary.
 
 ### Coverage of email and file content
 
-The DLP for **Microsoft 365 Copilot and Copilot Chat** policy location supports specific content that Copilot processes across various experiences.
+The DLP for **Microsoft Copilot, Copilot Chat, and Copilot Cowork** policy location supports specific content that Copilot and Cowork process across various experiences.
 
-Microsoft 365 Copilot and Copilot Chat rule configured to protect items with sensitivity labels supports:
+A rule configured to protect items with sensitivity labels applies to Microsoft 365 Copilot, Copilot Chat, and Cowork and supports the following content:
 
 - File items, which are stored and items that are actively open. For more information on supported file types, see: [file types supported by sensitivity labels](sensitivity-labels-sharepoint-onedrive-files).
 - Emails sent on or after January 1, 2025.
@@ -170,7 +168,7 @@ When a file is open in Word, Excel, or PowerPoint and has a sensitivity label fo
 
 This feature is in preview. It applies to Microsoft 365 Copilot and Copilot Chat, including email summarization and reasoning experiences that use email data.
 
-To set this up, create DLP policies that use the **Microsoft 365 Copilot and Copilot Chat** policy location with the **Email is received from** &gt; **External users** condition. When the policy detects that an email was received from a sender outside your organization's accepted domains, Copilot excludes that email from grounding, summarization, and citation. Copilot continues to use internal Microsoft 365 data sources where permitted, and the user's access to the email itself isn't affected.
+To set this up, create DLP policies that use the **Microsoft Copilot, Copilot Chat, and Copilot Cowork** policy location with the **Email is received from** &gt; **External users** condition. When the policy detects that an email was received from a sender outside your organization's accepted domains, Copilot excludes that email from grounding, summarization, and citation. Copilot continues to use internal Microsoft 365 data sources where permitted, and the user's access to the email itself isn't affected.
 
 The policy evaluates email metadata only - specifically, the sender domain compared against your tenant's accepted domains. The body of the email isn't inspected.
 
@@ -178,30 +176,34 @@ The policy evaluates email metadata only - specifically, the sender domain compa
 
 *Contoso wants employees to keep using Microsoft 365 Copilot for productivity, but is concerned that external email could carry untrusted instructions or prompt-injection content. They want Copilot to ground responses only in trusted internal data.*
 
-To meet this need, Contoso creates a DLP policy that targets the Microsoft 365 Copilot and Copilot Chat location with a rule that uses the **Email is received from** &gt; **External users** condition. The action is configured to **Prevent Copilot from processing content**.
+To meet this need, Contoso creates a DLP policy that targets the Microsoft Copilot, Copilot Chat, and Copilot Cowork location with a rule that uses the **Email is received from** &gt; **External users** condition. The action is configured to **Prevent Copilot from processing content**.
 
 When a user prompts Copilot to summarize their inbox or reason over recent email, external emails are excluded from grounding. Copilot returns a response based on internal email and other permitted Microsoft 365 sources, and the user sees a message that some content was excluded by an organizational policy.
 
+Note
+
+Blocking external email isn't yet supported for Cowork.
+
 ## Files uploaded in prompts
 
-You can upload files when you craft a prompt for Microsoft 365 Copilot to analyze. DLP can't scan the contents of files that you upload directly into prompts, so evaluation of the uploaded file for sensitive data doesn't occur. DLP only checks the text you type into the prompt itself.
+You can upload files when you craft a prompt for Microsoft 365 Copilot and Cowork to analyze. DLP can't scan the contents of files that you upload directly into prompts, so evaluation of the uploaded file for sensitive data doesn't occur. DLP only checks the text you type into the prompt itself.
 
 ## Supported conditions and actions
 
-The **Microsoft 365 Copilot and Copilot Chat** policy location supports the following conditions and actions:
+The **Microsoft Copilot, Copilot Chat, and Copilot Cowork** policy location supports the following conditions and actions:
 
 | Conditions | Supported policy actions | Description |
 | --- | --- | --- |
-| **Content contains** &gt; **Sensitivity labels** | **Prevent Copilot from processing content** | Detects when a file or an email in Exchange has a chosen sensitivity label. Copilot and Cowork don't process the content of the item or use it in the response summary, but the item could be available in the citations of the response. |
-| **Content contains** &gt; **Sensitive information types** | **Prevent Copilot from processing content** &gt; **Processing prompts** | Detects when the text entered directly into a Copilot or Cowork prompt contains chosen sensitive information types. The experience doesn't respond to the prompt. The prompt isn't used for internal or web searches. |
-| **Content contains** &gt; **Sensitive information types** | **Prevent Copilot from processing content** &gt; **Performing Web Searches** | Detects when the text entered directly into a Copilot or Cowork prompt contains chosen sensitive information types. The experience blocks the use of external web search as a grounding source for that prompt. |
-| **Email is received from** &gt; **External users** | **Prevent Copilot from processing content** | Detects when an email was received from a sender outside your organization's accepted domains. The external email is excluded from being used by Copilot for grounding, summarization, or citation. Email body content isn't inspected; only sender metadata is evaluated. |
+| **Content contains** &gt; **Sensitivity labels** | **Prevent Copilot and Cowork from processing content** | Detects when a file or an email in Exchange has a chosen sensitivity label. Copilot and Cowork don't process the content of the item or use it in the response summary, but the item could be available in the citations of the response. |
+| **Content contains** &gt; **Sensitive information types** | **Prevent Copilot and Cowork from processing content** &gt; **Processing prompts** | Detects when the text entered directly into a Copilot or Cowork prompt contains chosen sensitive information types. The experience doesn't respond to the prompt. The prompt isn't used for internal or web searches. |
+| **Content contains** &gt; **Sensitive information types** | **Prevent Copilot and Cowork from processing content** &gt; **Performing Web Searches** | Detects when the text entered directly into a Copilot or Cowork prompt contains chosen sensitive information types. The experience blocks the use of external web search as a grounding source for that prompt. |
+| **Email is received from** &gt; **External users** | **Prevent Copilot from processing content** | Detects when an email was received from a sender outside your organization's accepted domains. The external email is excluded from being used by Copilot for grounding, summarization, or citation. Email body content isn't inspected; only sender metadata is evaluated.**Note:** Blocking external email isn't yet supported for Cowork. |
 
 Note
 
-All Microsoft 365 Copilot prompts run in the security context of the user who initiates the prompt. This means for a user to see an item in a prompt response, they must first have the necessary permissions to access the content of the item. You can then use the **Microsoft 365 Copilot and Copilot Chat** policy location feature to exclude items from being processed in the response summary.
+All Microsoft 365 Copilot prompts run in the security context of the user who initiates the prompt. This means for a user to see an item in a prompt response, they must first have the necessary permissions to access the content of the item. You can then use the **Microsoft Copilot, Copilot Chat, and Copilot Cowork** policy location feature to exclude items from being processed in the response summary.
 
-In Word, Excel, and PowerPoint the **Microsoft 365 Copilot and Copilot Chat** policy to prevent Copilot from processing content is evaluated at file open. If a sensitivity label is applied mid-session, the policy will be enforced starting the next time the file is opened.
+In Word, Excel, and PowerPoint the **Microsoft Copilot, Copilot Chat, and Copilot Cowork** policy to prevent Copilot from processing content is evaluated at file open. If a sensitivity label is applied mid-session, the policy will be enforced starting the next time the file is opened.
 
 ## Customize the link in Copilot policy tips
 
@@ -215,7 +217,7 @@ You don't need to create a new website for this setting. You can use an existing
 
 To customize the link:
 
-1. Create or edit a DLP policy for the **Microsoft Copilot and Chat** location.
+1. Create or edit a DLP policy for the **Microsoft Copilot, Copilot Chat, and Copilot Cowork** location.
 2. In the rule's user notification settings, turn on **Policy Tips**.
 3. Select **Provide a compliance URL for the end user to learn more about your organization's policies**.
 4. Enter the full URL of the existing page, including `https://` and the domain name. For example, enter `https://contoso.sharepoint.com/sites/compliance/data-handling`, not `/sites/compliance/data-handling`.
@@ -223,20 +225,25 @@ To customize the link:
 
 When the rule blocks an interaction, the **Learn about access restrictions** link opens the page that you specified. Only the link destination changes. The standard Copilot block message, the link text, and the DLP enforcement action remain unchanged. If you don't configure a compliance URL, the link continues to open Microsoft Learn.
 
+Note
+
+Customizing the link in Copilot policy tips isn't yet supported for Cowork.
+
 ## Availability
 
-- The **Microsoft 365 Copilot and Copilot Chat** policy location is only available in the **Custom** policy template.
-- When you select the **Microsoft 365 Copilot and Copilot Chat** policy location, all other locations for that policy are disabled.
-- DLP alerts, DLP notifications, and policy simulation mode are supported.
-- Updates to a DLP policy can take up to four hours to reflect in Microsoft 365 Copilot and Copilot Chat experience.
+- The **Microsoft Copilot, Copilot Chat, and Copilot Cowork** policy location is only available in the **Custom** policy template.
+- When you select the **Microsoft Copilot, Copilot Chat, and Copilot Cowork** policy location, all other locations for that policy are disabled.
+- DLP alerts and DLP notifications are supported.
+- Policy simulation mode is available for Microsoft 365 Copilot and Cowork.
+- Updates to a DLP policy can take up to four hours to reflect in the Microsoft Copilot, Copilot Chat, and Copilot Cowork experiences.
 
 ## Admin units
 
-The **Microsoft Copilot and Chat** policy location supports [administrative units](purview-admin-units). You can scope a Copilot DLP policy to a region or department and delegate policy management to administrators assigned to those units, without granting tenant-wide policy management permissions.
+The **Microsoft Copilot, Copilot Chat, and Copilot Cowork** policy location supports [administrative units](purview-admin-units) for Microsoft 365 Copilot, Copilot Chat, and Cowork. You can scope a DLP policy for these experiences to a region or department and delegate policy management to administrators assigned to those units, without granting tenant-wide policy management permissions.
 
 Note
 
-Administrative unit support for this location is rolling out. The option might not yet be available in your tenant.
+Administrative unit support for this location, including Cowork, is in preview and is rolling out. The option might not yet be available in your tenant.
 
 Tip
 
@@ -249,13 +256,13 @@ To scope a Copilot DLP policy:
 1. In the [Microsoft Purview portal](https://purview.microsoft.com), go to **Data Loss Prevention** &gt; **Policies** and select **+ Create policy**.
 2. Select the **Custom** template, then **Custom policy**, and enter a name and description.
 3. On the **Admin units** page, select the administrative units for the policy.
-4. Select the **Microsoft Copilot and Chat** location and choose the users and groups to include or exclude within the selected administrative units.
+4. Select the **Microsoft Copilot, Copilot Chat, and Copilot Cowork** location and choose the users and groups to include or exclude within the selected administrative units.
 5. Configure the rule conditions and actions, review the settings, and save the policy.
 
 An administrative unit restricted administrator can select only their assigned units and manage policies within that scope. An unrestricted administrator can scope policies to administrative units or keep **Full directory** to apply a policy across the organization. Existing tenant-wide policies continue to apply; using administrative units is optional.
 
 Important
 
-Copilot DLP policy scoping is based on the user who submits the prompt, not the owner of a file or email that Copilot accesses. For example, a policy scoped to the Finance administrative unit applies to Finance users' Copilot interactions, even when they access content owned by someone outside Finance. Other applicable DLP policies continue to apply.
+DLP policy scoping for Microsoft 365 Copilot, Copilot Chat, and Cowork is based on the user who submits the prompt, not the owner of a file or email that the experience accesses. For example, a policy scoped to the Finance administrative unit applies to Finance users' Copilot and Cowork interactions, even when they access content owned by someone outside Finance. Other applicable DLP policies continue to apply.
 
 DLP alerts and Activity explorer visibility follow the administrator's assigned administrative units and permissions. For details about policy management and investigation scope, see [Administrative unit restricted policies](dlp-policy-reference#administrative-unit-restricted-policies).

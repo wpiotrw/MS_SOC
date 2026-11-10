@@ -12,14 +12,14 @@ ms.subservice: purview-insider-risk-management
 ms.topic: how-to
 f1.keywords:
 - NOCSH
-ms.author: kreagle
+ms.author: joibarr
 author: k-reagle
 manager: laurawi
-ms.date: 2026-08-27T00:00:00.0000000Z
+ms.date: 2026-11-03T00:00:00.0000000Z
 audience: itpro
 ms.collection:
 - purview-compliance
-ms.custom: msecd-doc-authoring-1024, admindeeplinkCOMPLIANCE, sfi-image-nochange
+ms.custom: msecd-doc-authoring-1032, admindeeplinkCOMPLIANCE, sfi-image-nochange
 ai-usage: ai-assisted
 locale: en-us
 document_id: dadd3508-a993-e99a-0a41-0d2c669d3f4b
@@ -38,13 +38,13 @@ monikers: []
 item_type: Content
 source_path: Purview/insider-risk-management-activities.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/12ed19f9-ebdf-4c8a-8bcd-7a681836774d
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a764584-4f97-452b-8f1d-36f19b12f6ae
 platformId: 58b5d91f-4ed7-0714-5e55-6a33a8dfed73
 ---
 
@@ -59,6 +59,18 @@ To minimize insider risks in your organization, investigate potentially risky us
 ![Diagram that shows how Insider Risk Management alerts are generated.](media/insider-risk-management-alert-generation-chart.png)
 
 You can investigate these types of activities by using [User activity reports](insider-risk-management-reports) or with the **Triage Agent in Insider Risk Management** and **Standard alert** dashboards.
+
+## How alternate email addresses affect activity association
+
+Insider Risk Management uses alternate email addresses associated with a Microsoft Entra ID user object to associate activity with that user. These addresses include those in **Other mail**, which is also used to populate historical activity. This association helps provide a complete view of activity across alternate-email accounts associated with the Microsoft Entra ID user object.
+
+For example, an administrator account's Microsoft Entra ID user object might list the user's primary-account email address in **Other mail**. In this configuration, activity performed with the primary account can appear under the administrator account's Insider Risk Management profile. The profile under which activity appears doesn't necessarily identify the account that performed the activity.
+
+When investigating activity that appears under an unexpected profile, review the associated alternate email addresses in Microsoft Entra ID and the activity details to understand the account association.
+
+Note
+
+Changing or removing an alternate email address doesn't correct existing alerts or reassociate historical activity.
 
 ## Triaging alerts
 

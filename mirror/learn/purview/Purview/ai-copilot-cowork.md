@@ -5,13 +5,14 @@ canonicalUrl: https://learn.microsoft.com/en-us/purview/ai-copilot-cowork
 breadcrumb_path: /purview/breadcrumb/toc.json
 feedback_system: Standard
 uhfHeaderId: MSDocsHeader-Purview
-ms.author: TracyP
-author: MSFTTracyP
+ms.author: nadiaw
+author: Nfortini
 manager: laurawi
 ms.reviewer: minz
 ms.service: purview
 ms.update-cycle: 180-days
-ms.date: 2026-09-30T00:00:00.0000000Z
+ms.date: 2026-11-09T00:00:00.0000000Z
+ms.custom: msecd-doc-authoring-1032
 audience: Admin
 ms.topic: concept-article
 ms.collection:
@@ -139,7 +140,9 @@ If you're not already using sensitivity labels, see [Get started with sensitivit
 
 #### Sensitivity label inheritance
 
-If you use Cowork to create new content in Word, PowerPoint, and Outlook based on an item that has a sensitivity label applied, the sensitivity label from the source file is automatically inherited, with the label's protection setting.
+Cowork supports sensitivity label inheritance for new Word, Excel, PowerPoint, Outlook, and PDF content. When that content is based on a labeled item, it automatically inherits the source file's sensitivity label and protection setting.
+
+Labels configured with user-defined permissions (UDP) aren't supported yet. No label is applied when the label isn't available to the user, or for files over 50 MB.
 
 For example, Cowork creates a new Word document based on labeled data. The source content has the sensitivity label **Confidential\Anyone (unrestricted)** applied and that label is configured to apply a footer that displays "Confidential". The new content is automatically labeled **Confidential\Anyone (unrestricted)** with the same footer.
 
