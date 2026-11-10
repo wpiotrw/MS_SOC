@@ -375,6 +375,61 @@
      "says": "Microsoft's page on the retirement of Microsoft-provided SMS and voice, linked from the post."
     }
    ]
+  },
+  {
+   "key": "teams-devices-tac-to-pmp",
+   "ids": [
+    "MC1448373",
+    "MC1227622"
+   ],
+   "title": "Teams device management moves from the Teams admin center to the Teams Rooms Pro Management portal",
+   "scriptable": true,
+   "checked": "2026-11-10",
+   "sdk": "Microsoft Graph PowerShell SDK (Microsoft.Graph.Beta.Teams)",
+   "dates": "Public cloud: SIP, Teams Rooms on Android and panels leave the Teams admin center from mid-November to end of November 2026; phones from early December to 15 December 2026 (MC1448373, updated 29 October 2026). GCC-High and DoD by 15 December 2026, GCC by 30 January 2027.",
+   "blocks": [
+    {
+     "t": "List the Teams devices the Teams admin center still manages, by type and health",
+     "kind": "read",
+     "scopes": "TeamworkDevice.Read.All",
+     "code": "# Read only. Inventory of Teams devices (phones, Teams Rooms on Android, panels, SIP) as the Teams admin center sees them,\n# so you can check each one appears and is manageable in the Teams Rooms Pro Management portal before the cut-over.\nConnect-MgGraph -Scopes 'TeamworkDevice.Read.All' -NoWelcome\n$devices = Get-MgBetaTeamworkDevice -All\n$devices | Group-Object DeviceType | Sort-Object Count -Descending | Select-Object Name, Count\n$devices | Select-Object Id, DeviceType, HealthStatus, ActivityState, @{n='Model';e={$_.HardwareDetail.Model}} |\n  Export-Csv -Path .\\teams-devices-before-pmp.csv -NoTypeInformation",
+     "src": "https://learn.microsoft.com/powershell/module/microsoft.graph.beta.teams/get-mgbetateamworkdevice?view=graph-powershell-beta"
+    }
+   ],
+   "sources": [
+    {
+     "t": "Message Center MC1448373",
+     "u": "https://deltapulse.app/item/MC1448373",
+     "says": "Teams admin center device management is deprecated in phases from mid-November 2026; admins should verify every Teams Android device is visible and manageable in the Pro Management portal, update the Admin Agent and bring offline devices online."
+    },
+    {
+     "t": "Get-MgBetaTeamworkDevice (Microsoft Learn)",
+     "u": "https://learn.microsoft.com/powershell/module/microsoft.graph.beta.teams/get-mgbetateamworkdevice?view=graph-powershell-beta",
+     "says": "Lists Teams devices in the tenant through Microsoft Graph beta; least privileged permission TeamworkDevice.Read.All (delegated and application)."
+    },
+    {
+     "t": "Transitioning Teams Android device management to the Pro Management portal",
+     "u": "https://learn.microsoft.com/en-us/microsoftteams/rooms/aboutunifieddevicemanagement-pmp1",
+     "says": "Microsoft's migration guide linked from the post for prerequisites and readiness."
+    }
+   ]
+  },
+  {
+   "key": "purview-dspm-partner-integrations-retire",
+   "ids": [
+    "MC1545691"
+   ],
+   "title": "Purview DSPM partner integrations (Varonis for Salesforce, BigID for Databricks, Cyera for Snowflake, OneTrust for GCP) retire on 7 December 2026",
+   "scriptable": false,
+   "checked": "2026-11-10",
+   "why": "The integrations are public-preview partner connectors configured in the Purview portal; this routine found no documented Microsoft Graph, Exchange Online or Security & Compliance PowerShell surface that lists or removes them, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1545691",
+     "u": "https://deltapulse.app/item/MC1545691",
+     "says": "From 7 December 2026 data from the four preview DSPM partner integrations is no longer ingested, processed or displayed in Purview DSPM; other DSPM capabilities are not affected."
+    }
+   ]
   }
  ]
 }
