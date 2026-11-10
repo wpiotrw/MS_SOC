@@ -1,7 +1,7 @@
 {
  "read": "2026-11-10",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 729,
+ "count": 727,
  "note": null,
  "messages": [
   {
@@ -5938,34 +5938,6 @@
    "bodyHash": "2284dc5b58d70b0a"
   },
   {
-   "id": "MC1403410",
-   "title": "Microsoft Viva: Agent flexible query in Analytics Workbench",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-24",
-   "end": "2026-11-10",
-   "modified": "2026-09-04",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 4, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are introducing a flexible query capability in Microsoft Viva Insights Analytics Workbench that enables insights analysts to explore Microsoft 365 Copilot agent adoption using customizable, self-serve queries. Analysts can combine granular agent usage metrics with organizational attributes to un…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 4, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): We will begin rolling out in late September 2026 (previously late July) and expect to complete by early October 2026 (previously late August)."
-   ],
-   "bodyHash": "eec759eb22d243b8"
-  },
-  {
    "id": "MC1404319",
    "title": "(Updated) Microsoft Purview: Endpoint data loss prevention support for FTP and SFTP",
    "services": [
@@ -7706,35 +7678,6 @@
     "General Availability (GCC High and DoD): Beginning in early September 2026 and expected to complete in late October 2026 (previously late September)."
    ],
    "bodyHash": "7707df0090bb6f8f"
-  },
-  {
-   "id": "MC1446799",
-   "title": "(Updated) Microsoft Teams: Multilingual meeting recaps support personalized recap translation",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-03",
-   "end": "2026-11-10",
-   "modified": "2026-09-15",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 15, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are improving the multilingual meeting experience in Microsoft Teams by personalizing meeting recaps based on the language each participant selected during the meeting through translated captions or Teams Interpreter. After a meeting ends, users will initially see the meeting recap in the trans…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 15, 2026: We have updated the timeline.",
-    "Targeted Release: Beginning in early August 2026 and expected to complete by mid-August 2026.",
-    "General Availability (Worldwide, GCC, GCC High): Beginning in mid-August 2026 and expected to complete by early October 2026 (previously early September)."
-   ],
-   "bodyHash": "ae192491fff06de5"
   },
   {
    "id": "MC1446805",
@@ -25332,6 +25275,20 @@
    "id": "MC1546447",
    "type": "new",
    "title": "Microsoft Defender for Office 365: Updated recipient inclusion logic for threat protection policies",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1403410",
+   "type": "removed",
+   "title": "Microsoft Viva: Agent flexible query in Analytics Workbench",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1446799",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Multilingual meeting recaps support personalized recap translation",
    "fields": {}
   }
  ]
