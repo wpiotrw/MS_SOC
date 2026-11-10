@@ -1,5 +1,34 @@
 [
  {
+  "file": "articles/2026-11-10-detection-2-sap-netweaver-webshell-scanning-inbound-http.kql",
+  "title": "Detection 2: SAP NetWeaver Webshell Scanning - Inbound HTTP Requests to JSP and WAR Paths",
+  "date": "2026-11-10",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, November 10, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-10-detection-engineering-brief-tuesday-november-10-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-10-detection-engineering-brief-tuesday-november-10-2026/"
+ },
+ {
+  "file": "articles/2026-11-10-detection-1-ssh-exploitation-scanning-high-frequency-inbound.kql",
+  "title": "Detection 1: SSH Exploitation Scanning - High Frequency Inbound Connections CVE-2026-123158",
+  "date": "2026-11-10",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceLogonEvents",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, November 10, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-10-detection-engineering-brief-tuesday-november-10-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-10-detection-engineering-brief-tuesday-november-10-2026/"
+ },
+ {
   "file": "incidents/2026-11-09-agtabackup-persistence-tasks-created-defender-xdr-advanced-h.kql",
   "title": "AgtaBackup persistence tasks created (Defender XDR advanced hunting)",
   "date": "2026-11-09",
