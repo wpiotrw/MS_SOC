@@ -211,3 +211,23 @@ You must be a Global admin or Power Platform admin to create and manage alerts.
 ### Does the severity level affect how alerts are processed?
 
 The **Severity**, such as **Low**, **Medium**, or **High**, is a classification label for triage and reporting. It doesn't change evaluation frequency or email notification behavior.
+
+### I created an hourly alert rule, why can't I see any data or alert triggering right after?
+
+The first check runs after the first full hour, once there is at least one data point.
+
+### Why are there gaps in the hourly chart?
+
+An hour with no activity has no data point
+
+### Will I get an email every hour while the problem lasts?
+
+You'll get an email as soon as a low-latency alert fires, then a reminder every 4 hours while the issue continues. Reminders stop when the issue resolves or after 7 days, whichever comes first. If the issue comes back after it resolves, you'll get a new notification.
+
+### Can I see more the 24 hour, or export hourly data?
+
+No, the hourly chart covers the last 24 hours only and Monitor's data export feature only covers daily metric aggregates.
+
+### Can hourly alerts be opted into the 'When an alert fires' trigger on the Power Platform for Admins V2 Connector?
+
+At the moment, no, only alerts that have a 24-hour data review period can be opted in. Learn more: [Route alert notifications to any connector backed destination (preview)](/en-us/power-platform/admin/monitoring/alerts#route-alert-notifications-to-any-connector-backed-destination-preview)

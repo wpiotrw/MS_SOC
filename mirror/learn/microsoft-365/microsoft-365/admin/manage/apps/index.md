@@ -14,7 +14,7 @@ breadcrumb_path: /microsoft-365/breadcrumb/toc.json
 recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
 description: Copilot Managed Runtime brings developers, users, and admins together around governed apps. Discover the governance model and start building compliant apps today.
-ms.date: 2026-10-13T00:00:00.0000000Z
+ms.date: 2026-11-09T00:00:00.0000000Z
 author: mihaelablendea
 manager: zoraz
 ms.author: mihaelab
@@ -45,11 +45,11 @@ source_path: microsoft-365/admin/manage/apps/index.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c389ea6b-b6a0-46df-93a1-1e21f25e19e7
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/19ada1b6-705b-4ed7-aad0-bffd1bd03dfa
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: f28e2172-f4f2-59dc-d9d2-58940d969e3d
 ---
 
@@ -192,44 +192,17 @@ The Copilot Managed Runtime model is designed so that security and compliance co
 
 ## Licensing and billing
 
-Building apps consumes Copilot Credits and follows the spending policies and credit allocations you configure in the product where you create the apps. For running apps, administrators can configure separate spending policies and credit allocations in the Microsoft 365 admin center.
+Apps on Copilot Managed Runtime use consumption-based billing through Copilot Credits, and building an app is billed separately from running it:
 
-### Building apps
+- **Building** an app is billed through the tool the maker uses. Cowork and Copilot Code use spending policies in the Microsoft 365 admin center. Copilot Studio uses environment credits in the Power Platform admin center, or spending policies in the Microsoft 365 admin center for environments that have moved there as Copilot Studio cost management moves to the Microsoft 365 admin center. The CLI doesn't require a license for development.
+- **Running** an app requires either a Power Apps Premium license or Copilot Credits through a spending policy that includes Copilot Managed Runtime, which administrators set up per user in the Microsoft 365 admin center. Sharing an app gives people access to it, but it doesn't cover the cost of running it. Each person **running the app** also needs a Power Apps Premium license or must be included in a spending policy that includes Copilot Managed Runtime.
 
-| App creation experience | How build usage is billed | Where admins manage build costs |
-| --- | --- | --- |
-| Cowork | Copilot Credits through the creator's Cowork spending policy, per user. | Microsoft 365 admin center |
-| Copilot Studio (preview) | Copilot Credits through existing Copilot Studio billing, per environment. | Power Platform admin center (PPAC) |
-
-**Building in Cowork.** Cowork requires a Microsoft Copilot license, but the subscription doesn't include Cowork usage. Consumption is billed separately through Copilot Credits. Administrators must also enable usage-based billing and include the creator in a spending policy that selects Cowork. Making Cowork discoverable alone doesn't enable users to start using the app-building skill.
-
-**Building in Copilot Studio.** Apps are powered by the GitHub Copilot harness, so billable activity starts during creation, not only after publication, and includes natural-language authoring, testing, and evaluation.
-
-### Running apps
-
-Administrators can configure separate per-user spending policies and credit allocations for app runtime in the Microsoft 365 admin center. These policies apply to runtime usage billed through Copilot Credits, including for apps built in Copilot Studio, Cowork, and using the CLI. Configure runtime coverage for the people who will use the app, separately from the billing configuration used to build it.
-
-Note
-
-For users with a Power Apps Premium license, running apps doesn't consume Copilot Credits unless the app uses separately billed services such as Work IQ APIs or usage exceeds the applicable [Power Apps Premium API request limits](/en-us/power-platform/admin/api-request-limits-allocations). This runtime entitlement doesn't change build billing.
-
-Important
-
-For apps built in Copilot Studio, build billing is managed by environment in PPAC, but runtime usage billed through Copilot Credits is managed per user in the Microsoft 365 admin center. The environment-based billing model for Copilot Studio agent runtime does not apply to apps runtime.
-
-Note
-
-During preview, users who don't meet the credit requirements to run an app initially receive a warning. Access is blocked after the user completes 20 app operations or uses the app for five minutes, whichever occurs first.
-
-### Manage credits and control costs
-
-- **Microsoft 365 admin center:** Use **Copilot &gt; Cost management** to configure spending policies for managed applications, select covered users, groups, and services, set policy-level and per-user limits, and monitor consumption.
-- **Power Platform admin center:** See [Manage costs for agents powered by the GitHub Copilot harness](/en-us/power-platform/admin/manage-usage-github-copilot-harness) for more details.
+For setup steps, recommended policy patterns, cost examples, and troubleshooting, see [Manage licensing and Copilot Credits for apps on Copilot Managed Runtime](licensing-credits). For answers to common licensing questions, see the [Copilot Managed Runtime licensing FAQ](licensing-faq).
 
 For detailed requirements and configuration guidance, see:
 
 - [Manage Copilot Cowork for your organization](/en-us/microsoft-365/copilot/cowork/cowork-admin-governance)
-- [Copilot Credits Guide](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/ai/Copilot-Credits-Guide.pdf)
+- [Copilot Credits Guide](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/ai/CopilotCreditsGuide.pdf)
 - [Usage-based billing and cost management for Copilot Credits](/en-us/microsoft-365/copilot/usage-based-billing-overview-copilot-credits)
 - [Overview of billing for agents and workflows powered by the GitHub Copilot harness](/en-us/microsoft-copilot-studio/agents-experience/billing-credit-overview)
 - [Manage costs for agents powered by the GitHub Copilot harness](/en-us/power-platform/admin/manage-usage-github-copilot-harness)

@@ -21,7 +21,7 @@ ms.sitesec: library
 ms.localizationpriority: medium
 ms.author: direek
 author: WindowsCommunications
-ms.date: 2026-11-05T00:00:00.0000000Z
+ms.date: 2026-11-10T00:00:00.0000000Z
 locale: en-us
 document_id: 23a22fef-6025-c344-f03d-d8b2b87db03f
 document_version_independent_id: 23a22fef-6025-c344-f03d-d8b2b87db03f
@@ -39,11 +39,11 @@ monikers: []
 item_type: Content
 source_path: windows/release-information/status-windows-11-25H2.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/19ec6774-09b8-473e-a17e-b17b518bbad7
+- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ade36b61-c646-4bd8-87ee-f3a843461962
+- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 platformId: a266b635-a4c6-9c45-d46b-83459037ab56
 ---
 
@@ -74,13 +74,43 @@ See open issues, content updated in the last 30 days, and information on [safegu
 
 | Summary | Originating update | Status | Last updated |
 | --- | --- | --- | --- |
+| **USB audio devices might fail to start or produce no sound**Some USB Audio Class 1.0 devices display Code 10 or fail in multichannel audio modes after installing the Sept. 8 update | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5132061](https://support.microsoft.com/help/5132061) | 2026-11-10 09:32 PT |
 | **Remote Desktop connections might fail for non-admin users with error 0xC000000D**This issue affects non-admin users connecting through Remote Desktop with Administrator protection enabled. | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Resolved[KB5127936](https://support.microsoft.com/help/5127936) | 2026-10-28 22:02 PT |
 | **Devices might experience a black screen or desktop loading issues after sign-in**Microsoft has received reports of this issue occurring in some virtual desktop environments. | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved[KB5127648](https://support.microsoft.com/help/5127648) | 2026-10-13 10:13 PT |
 | **Applications which require AC-3 audio decoding might close unexpectedly**This issue is more likely to occur in legacy applications, and unlikely for many modern applications. | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Resolved[KB5127648](https://support.microsoft.com/help/5127648) | 2026-10-13 10:13 PT |
 | **Domain-joined devices might lose their secure trust relationship with the domain**Some Credential Guard protected machine accounts might be unable to sign in interactively will valid domain credentials. | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5124010](https://support.microsoft.com/help/5124010) | 2026-10-08 17:44 PT |
-| **USB audio devices might fail to start or produce no sound**Some USB Audio Class 1.0 devices display Code 10 or fail in multichannel audio modes after installing the Sept. 8 update | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Mitigated | 2026-09-29 10:12 PT |
 
 ## Issue details
+
+### November 2026
+
+#### USB audio devices might fail to start or produce no sound
+
+| **Status** | **Originating update** | **History** |
+| --- | --- | --- |
+ Resolved [KB5132061](https://support.microsoft.com/help/5132061) | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved: 2026-11-10, 10:00 PTOpened: 2026-11-09, 16:04 PT |
+
+After installing the September 8, 2026, Windows security update ([KB5124008](https://support.microsoft.com/help/5124008)), some [USB Audio Class 1.0](/en-us/windows-hardware/drivers/audio/usb-audio-class-system-driver--usbaudio-sys-) devices might fail to start or produce audio. Affected devices might experience one or more of the following symptoms: 
+
+- ​The device displays an error in Device Manager: "This device cannot start (Code 10).”
+- ​No audio output.
+- ​Volume controls are unresponsive or remain at zero.
+- ​Sound settings are unresponsive or unavailable.
+- ​Some devices might function in standard stereo configurations but fail when using multichannel audio features, including 8-channel or 3D audio modes. Some customers have reported that they're able to restore audio in these cases by switching to 2-channel mode. *(\*Note: This behavior is resolved in the out-of-band update released on September 14, 2026. See ****Resolution**** section below.)*
+
+This issue is limited to USB Audio Class 1.0 devices.
+
+**Resolution: **The symptoms experienced on devices using 8-channel or 3D audio modes (last bullet point in the list of symptoms documented in this entry) are resolved in the out-of-band (OOB) update released on September 14, 2026, and updates released after this date. The remaining symptoms are resolved in the Windows security update released on November 10, 2026 ([KB5132061](https://support.microsoft.com/help/5132061)) and later updates. We recommend you install the latest security update for your device as it contains important improvements and issue resolutions, including this one. 
+
+If you are an IT administrator that contacted [Microsoft Support for Business](https://support.microsoft.com/support-for-business) to obtain an immediate workaround, you do not need to use the [Known Issue Rollback (KIR)](/en-us/troubleshoot/windows-server/installing-updates-features-roles/known-issue-rollback) or special group policy to resolve this issue.
+
+**Affected platforms:**
+
+- ​Client: Windows 11, version 26H2; Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2; Windows 11, version 23H2; Windows 10, version 22H2; Windows 10, version 21H2; Windows 10 Enterprise LTSC 2019; Windows 10 Enterprise LTSC 2016
+
+- ​Server: Windows Server 2025; Windows Server 2022; Windows Server 2019; Windows Server 2016; Windows Server 2012 R2; Windows Server 2012
+
+Back to top
 
 ### October 2026
 
@@ -219,33 +249,6 @@ Then reset the secure channel using the following command:
 
 - ​Client: Windows 11, version 26H2; Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2
 - ​Server: None
-
-Back to top
-
-#### USB audio devices might fail to start or produce no sound
-
-| **Status** | **Originating update** | **History** |
-| --- | --- | --- |
- Mitigated | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Last updated: 2026-09-29, 10:12 PTOpened: 2026-09-25, 18:40 PT |
-
-After installing the September 8, 2026, Windows security update ([KB5124008](https://support.microsoft.com/help/5124008)), some [USB Audio Class 1.0](/en-us/windows-hardware/drivers/audio/usb-audio-class-system-driver--usbaudio-sys-) devices might fail to start or produce audio. Affected devices might experience one or more of the following symptoms: 
-
-- ​The device displays an error in Device Manager: "This device cannot start (Code 10).”
-- ​No audio output.
-- ​Volume controls are unresponsive or remain at zero.
-- ​Sound settings are unresponsive or unavailable.
-- ​Some devices might function in standard stereo configurations but fail when using multichannel audio features, including 8-channel or 3D audio modes. Some customers have reported that they're able to restore audio in these cases by switching to 2-channel mode. *(\*Note: This behavior is resolved in the out-of-band update released on September 14, 2026. See ****Resolution**** section below.)*
-
-This issue is limited to USB Audio Class 1.0 devices.
-
-**Microsoft Support: **IT administrators who need an immediate workaround for the symptoms not addressed yet by the OOB update should contact [Microsoft Support for Business](https://support.microsoft.com/support-for-business) for assistance. 
-
-**Resolution: **This issue is partially resolved in the out-of-band (OOB) update released on September 14, 2026, ([KB5129195](https://support.microsoft.com/help/5129195)), and updates released after this date. This OOB update resolves the symptoms experienced on devices using 8-channel or 3D audio modes (last bullet point in the list of symptoms documented in this entry). We are working to address the other symptoms and will update this documentation when more information is available. 
-
-**Affected platforms:**
-
-- ​Client: Windows 11, version 26H2; Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2; Windows 11, version 23H2; Windows 10, version 22H2; Windows 10, version 21H2; Windows 10 Enterprise LTSC 2019; Windows 10 Enterprise LTSC 2016
-- ​Server: Windows Server 2025; Windows Server 2022; Windows Server 2019; Windows Server 2016; Windows Server 2012 R2; Windows Server 2012
 
 Back to top
 

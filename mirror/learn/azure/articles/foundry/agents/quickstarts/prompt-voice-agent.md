@@ -23,8 +23,8 @@ ms.author: pafarley
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
-description: Create a managed voice-based prompt agent in Foundry Agent Service by using the Microsoft Foundry portal, the Microsoft Foundry SDK, or the Azure Developer CLI.
-ms.date: 2026-10-06T00:00:00.0000000Z
+description: Create a managed voice-based prompt agent in Foundry Agent Service by using the Microsoft Foundry portal, a voice agent template, the Microsoft Foundry SDK, or the Azure Developer CLI.
+ms.date: 2026-11-10T00:00:00.0000000Z
 ms.subservice: foundry-agent-service
 ms.topic: quickstart
 ms.custom: preview, doc-kit-assisted
@@ -44,12 +44,12 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/agents/quickstarts/prompt-voice-agent.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
 platformId: e41b0bfe-60a2-1223-768b-fc4ee35ed5cc
 ---
@@ -58,7 +58,7 @@ platformId: e41b0bfe-60a2-1223-768b-fc4ee35ed5cc
 
 In this quickstart, you create a voice-based prompt agent, open a live session, complete a spoken turn, and read the conversation back. Foundry Agent Service manages the voice orchestration, so you don't host a speech pipeline of your own.
 
-Choose your development tool. The **Foundry portal** path creates and tests the agent in the browser with no code. The **Python SDK** and **JavaScript/TypeScript SDK** paths install the Microsoft Foundry SDK, create the agent in code, and connect to a live session over a WebSocket. The **Azure Developer CLI** path uses `azd` to scaffold, provision, deploy, and test the agent without writing runtime code. The examples start with a managed real-time model. The SDK paths also include an example that uses your own model deployment.
+Choose your development tool. The **Foundry portal** path creates and tests the agent in the browser with no code. The **Foundry portal with templates** path starts from a ready-made agent for a common scenario, such as customer support or appointment scheduling, that you can try before you create it. The **Python SDK** and **JavaScript/TypeScript SDK** paths install the Microsoft Foundry SDK, create the agent in code, and connect to a live session over a WebSocket. The **Azure Developer CLI** path uses `azd` to scaffold, provision, deploy, and test the agent without writing runtime code. The examples start with a managed real-time model. The SDK paths also include an example that uses your own model deployment.
 
 Important
 
@@ -81,10 +81,16 @@ If you don't have an Azure subscription, create a [free account](https://azure.m
 - A voice model available to your project, such as `gpt-realtime`. Confirm model availability on the **Models** page of your Foundry project.
 - Access to the prompt voice agent preview in your Azure subscription. Confirm that the preview is available in your project's region before you start.
 
-::: zone pivot="portal"
+::: zone pivot="portal,portal-templates"
 
 - A supported browser with microphone and speaker access.
 - A microphone and speaker or headset for testing.
+
+::: zone-end
+
+::: zone pivot="portal-templates"
+
+- Optional: To connect a template to your own systems, an [MCP server connection](../how-to/tools/model-context-protocol) or a [toolbox](../how-to/tools/toolbox) in the same project.
 
 ::: zone-end
 
@@ -226,6 +232,98 @@ Confirm that:
 | The browser can't use the microphone | Allow microphone access for the portal origin and confirm the device isn't exclusively used by another app. |
 | The session starts but no audio is heard | Confirm the browser output device, system volume, selected voice compatibility, and that the session isn't muted. |
 | The start button remains unavailable | Save required configuration and resolve validation messages in the configuration pane. |
+
+::: zone-end
+
+::: zone pivot="portal-templates"
+
+A voice agent template is a complete agent definition for a common scenario, such as customer support, appointment scheduling, or order tracking. It includes a persona, a greeting, a voice, conversation stages built as [inline subagents](../how-to/use-inline-subagent-voice-agent), and the tools that each stage uses. You try the template before you create anything, choose which systems the agent connects to, and then customize the agent in the playground.
+
+Important
+
+Templates are examples. Review and test the instructions, tools, and data handling of an agent that you create from a template before you use it in production.
+
+## Browse the templates
+
+1. Sign in to the [Microsoft Foundry portal](https://ai.azure.com/).
+2. Open your project, and then select **Build** &gt; **Agents**.
+3. Select **New agent** &gt; **With agent template**. If the project doesn't have any agents yet, select **Browse templates**.
+4. On the **Agent templates** page, search for a template or filter the list by type. Voice templates have the **Voice** tag.
+
+Select a template card to open its details next to the list. The details show what the agent does, the systems it connects to, and a preview that you can talk to.
+
+## Try a template in the preview
+
+Use the **Template preview** to hear how an agent from the template behaves before you configure anything.
+
+When you select a template, Foundry prepares a preview agent in your project. The preview agent uses mock tools that return sample data, so you can try the whole conversation without connecting any system. Preparing the agent can take a few seconds the first time. Start a voice session from the preview and talk to the agent as a caller would.
+
+The preview agent works as follows:
+
+- It's a regular agent in your project, named after the template with a `-preview` suffix, for example `customer-support-preview`. If another agent already uses that name, Foundry adds a number, such as `customer-support-preview-2`.
+- Foundry reuses the same preview agent the next time you select the template. It doesn't update or delete the preview agent.
+- If you edit the preview agent in the playground, the preview uses your edited version. An edited preview agent might connect to real systems, and it doesn't receive later changes to the template.
+- The systems that you choose on the template page apply only to the agent that you create. They don't change the preview agent.
+
+You can delete a preview agent that you no longer need from the **Agents** page. Foundry creates a new one the next time you select the template.
+
+Some templates have no sample data for a system that they require. For these templates, the preview isn't available. Connect the required system, create the agent, and then try it in the playground.
+
+## Choose the systems the agent connects to
+
+Under **Systems this agent connects to**, the template lists each business system that its tools use, such as Salesforce or Zendesk. For each system, choose where the agent's tools come from:
+
+| Option | What the agent uses | When to use it |
+| --- | --- | --- |
+| **Mock tools** | A shared mock server that returns sample data. No setup is needed. | Try or demo the template. Use only fictional data. |
+| **MCP server** | An MCP server connection in your project. | Connect the agent to your own system through a remote MCP server. |
+| **Toolbox** | The default version of a toolbox in your project. | Reuse a managed set of tools that other agents also use. |
+
+A system marked **Required** has no mock tools. Connect an MCP server or a toolbox for it before you create the agent.
+
+The tool names in the template's instructions match the tools of the mock server. When you connect your own MCP server or toolbox, make sure that it provides tools with the same purpose, arguments, and results, or update the instructions after you create the agent. A toolbox can add a prefix to tool names. The template instructions already allow for prefixed names.
+
+If a template doesn't connect to any external system, the page shows **No tool configuration needed**. You can add tools after you create the agent.
+
+## Create the agent from the template
+
+1. Under **Name for your new agent**, enter a name, or leave the box empty to generate one. Use up to 63 letters, numbers, and hyphens. The name must start and end with a letter or number, and it can't be the name of an existing agent or of the template's preview agent.
+2. Select **Open in playground**.
+
+Foundry creates the agent in your project with the systems that you chose and opens it in the playground. Start a voice session and try the scenario again. If you connected real systems, use test records and confirm the tool calls in the conversation.
+
+## Customize the agent
+
+An agent that you create from a template is a regular voice-based agent. It's not linked to the template, so later changes to the template don't affect it, and your changes don't affect the template.
+
+In the playground, you can change the agent's model, voice, greeting, and instructions. Each save creates a new agent version. For the full set of options, see [Configure a voice agent](../how-to/configure-voice-agent).
+
+Most templates split the conversation into stages, such as identifying the caller's issue, troubleshooting, and escalating. Each stage is an inline subagent with its own instructions, tools, and handoff conditions. The tools that you choose on the template page belong to the stages that use them, not to the agent as a whole. To change what happens in a stage, which tools it can call, or when the conversation moves to another stage, see [Use an inline subagent in a voice-based agent](../how-to/use-inline-subagent-voice-agent).
+
+When you change the instructions, keep the rules that protect callers, such as confirming details before a tool submits anything and verifying identity before sharing account information. To refine the instructions further, see [Optimize voice agent instructions](../how-to/optimize-voice-agent-instructions).
+
+Before you use the agent with real callers:
+
+- Start with mock tools to confirm that the conversation flow fits your scenario, and then connect real systems one at a time.
+- Use only fictional data with mock tools. The mock server is shared and isn't meant for real customer information.
+- Give an MCP server or toolbox only the permissions that the template's tools need, and test with records that you can safely read and change.
+- Test with calls that represent your callers, including corrections, interruptions, and requests that the agent should decline.
+- Review the agent's tracing after each test call to confirm which stage answered and which tools it called. For more information, see [Voice agent tracing, monitoring, and evaluation](../concepts/voice-agent-observability).
+
+## Explore related examples on GitHub
+
+The [microsoft/voice-agent](https://github.com/microsoft/voice-agent) repository on GitHub has examples of voice-based agents for many of the same scenarios as the templates. Each example has a folder under [`samples`](https://github.com/microsoft/voice-agent/tree/main/samples), such as [`samples/example5_customer_support`](https://github.com/microsoft/voice-agent/tree/main/samples/example5_customer_support) for a customer support agent. Each folder contains:
+
+- `agent.json`: The agent definition, including the instructions, greeting, voice, stages, and tools.
+- `README.md`: What the example does, its stages and tools, and when to use it.
+
+The examples are maintained separately from the templates in the Foundry portal, so their instructions and tools can differ.
+
+Use the examples to:
+
+- See how a complete agent definition organizes stages, tools, and handoff conditions.
+- Start a code-first agent from an example definition. To create an agent from a definition by using the SDK, select the **Python SDK** or **JavaScript SDK** tab at the top of this quickstart.
+- Run the examples against the shared mock server or your own tools. The repository explains how to [connect real tools](https://github.com/microsoft/voice-agent/blob/main/docs/05_connect_real_tools.md).
 
 ::: zone-end
 

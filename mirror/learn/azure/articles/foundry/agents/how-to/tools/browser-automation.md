@@ -88,7 +88,7 @@ The Browser automation tool exposes a Model Context Protocol (MCP) tool set that
 | Inspect activity | Capture screenshots and inspect console messages and network requests. |
 | Extend control | Run JavaScript or Playwright code. Enable these tools only for reviewed scenarios. |
 
-For tool names, parameters, and limits, see the [browser tool reference](/en-us/app-testing/playwright-cloud-browsers/how-to-playwright-workspaces-remote-mcp#tool-reference).
+For tool names, parameters, and limits, see the [browser tool reference](/en-us/azure/app-testing/playwright-cloud-browsers/how-to-playwright-workspaces-remote-mcp#tool-reference).
 
 ## How it works
 
@@ -117,7 +117,7 @@ For your first run:
 2. **Add:** Add Browser automation tool to your agent.
 3. **Run:** Submit a task, watch in Live View, and verify the result.
 
-Follow the [quickstart](browser-automation-hosted-agent-quickstart) for setup and a runnable example.
+Follow the [quickstart](browser-automation-prompt-agent-quickstart) for setup and a runnable example.
 
 ## Supported scenarios and limitations
 
@@ -126,7 +126,6 @@ Browser automation tool supports browser-based workflows where an agent needs to
 ### Supported scenarios
 
 - **Navigate public websites and retrieve information:** Navigate public websites that don't require CAPTCHA, move across multiple pages, retrieve information, and return results with source links.
-- **CAPTCHA feedback:** If you're specifically facing issues with CAPTCHA, fill out this [form](https://forms.cloud.microsoft/r/feSSnFeQMq). We're working toward enabling agents to get verified.
 - **Sign in with user involvement:** If a site requires an email and password, the user can take control of the screen in Live View, sign in, and return control so the agent session can continue.
 - **Work with authenticated websites:** Access websites that require authentication using credentials stored in Azure Key Vault or by allowing the user to take control of the browser session.
 - **Complete forms with user involvement:** Complete multistep forms while maintaining browser session and form state. The agent can ask for clarification, continue filling the form, and request user approval before final submission. Users can also take control for manual interaction, such as signing in, completing MFA, or entering an OTP.

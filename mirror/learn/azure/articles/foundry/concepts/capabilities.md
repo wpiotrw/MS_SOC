@@ -26,7 +26,7 @@ description: Find where to start in Microsoft Foundry. Match your goal to a star
 ms.reviewer: sgilley
 ms.subservice: foundry-platform
 ms.topic: concept-article
-ms.date: 2026-08-12T00:00:00.0000000Z
+ms.date: 2026-11-06T00:00:00.0000000Z
 ai-usage: ai-assisted
 locale: en-us
 document_id: a84a1a74-5c71-265e-a271-88277260c23f
@@ -43,9 +43,11 @@ item_type: Content
 source_path: articles/foundry/concepts/capabilities.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72ad50a6-e5d1-4f69-a932-f6e56b7c7fd2
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/aea44af0-7df6-43cc-9752-e179f1a8a411
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 728f7c37-192a-571d-7284-97cb76bc108d
 ---
@@ -65,7 +67,8 @@ Find the row closest to what you're trying to do.
 | Send a prompt to a model, with no agent or tools | [Build with models and agents](../quickstarts/get-started-code) | The shortest path to a working call. Add an agent later only if you need tools or orchestration. |
 | Build my first agent | [Choose how to build](../what-is-foundry#start-by-building-an-agent) | Decides prompt agent versus hosted agent before you invest in either. That choice shapes everything after it. |
 | Host an agent I already wrote | [Deploy a hosted agent](../agents/quickstarts/quickstart-hosted-agent) | Runs your existing code or container with a managed endpoint, scaling, and identity. |
-| Use an open-source framework with Foundry | [Frameworks for hosted agents](../how-to/develop/framework-hosted-agents) | Shows how LangGraph, Microsoft Agent Framework, and Semantic Kernel map onto Foundry hosting. |
+| Use Agent Framework with Foundry | [Agent Framework hosting](../how-to/develop/framework-hosted-agents) | Shows how to host Microsoft Agent Framework agents on Foundry. |
+| Use LangGraph with Foundry | [LangGraph hosting](../how-to/develop/langchain-hosted-agents) | Shows how to host LangGraph agents with `langchain-azure-ai[hosting]`. |
 | Evaluate agent quality | [Evaluate generative AI apps](../how-to/evaluate-generative-ai-app) | Establishes a baseline score first, so later changes are measurable rather than anecdotal. |
 | Add observability | [Foundry Observability](observability) | Tracing, monitoring, and evaluation share one data model, so set them up together. |
 | Deploy and operate an application | [Set up CI/CD for agents](../agents/quickstarts/set-up-cicd-hosted-agent) | Gets a repeatable release path before you scale. For fleet-wide governance, see the [control plane](../control-plane/overview). |

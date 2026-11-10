@@ -237,13 +237,8 @@ Automatic VM guest patching, on-demand patch assessment and on-demand patch inst
 | Center-for-Internet-Security-Inc | cis-ubuntu | cis-ubuntulinux2204-l1-gen2 |
 | Center-for-Internet-Security-Inc | cis-ubuntu | cis-ubuntulinux2404-l1-gen1 |
 | Center-for-Internet-Security-Inc | cis-ubuntu | cis-ubuntulinux2404-l1-gen2 |
-| MicrosoftCblMariner | azure-linux-3 | azure-linux-3-gen2 |
-| MicrosoftCblMariner | cbl-mariner | cbl-mariner-1 |
-| MicrosoftCblMariner | cbl-mariner | 1-gen2 |
-| MicrosoftCblMariner | cbl-mariner | cbl-mariner-2 |
-| MicrosoftCblMariner | cbl-mariner | cbl-mariner-2-arm64 |
-| MicrosoftCblMariner | cbl-mariner | cbl-mariner-2-gen2 |
-| MicrosoftCblMariner | cbl-mariner | cbl-mariner-2-gen2-fips |
+| Microsoft | azurelinux-4 | 4 |
+| Microsoft | azurelinux-4 | 4-arm64 |
 | Microsoft-AKS | aks | aks-engine-ubuntu-1804-202112 |
 | Microsoft-DSVM | aml-workstation | ubuntu-20 |
 | Microsoft-DSVM | aml-workstation | ubuntu-20-gen2 |
