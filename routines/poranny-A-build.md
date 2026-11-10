@@ -366,6 +366,17 @@ Advanced filtering bar the whole portal uses. Gate items 80, 81 and 82.
 
 # STEP 2 — REPORT CONTENT — `CLAUDE.md` §8 IS BINDING IN FULL
 
+**Every Message Center post that MUST be described is described (`CLAUDE.md` §5gi, owner 10 Nov 2026: "did we catch
+MC1546438? I saw nothing in the sentences").** On 10 Nov the collector had MC1546438 (Claude models in Copilot enabled
+by default in the EU Data Boundary, major, act by 09/12/2026, Admin impact) and the run described 5 of the 8 new posts -
+not that one; over 30 days 27 of 76 such posts had no sentence. After the state is built and BEFORE the items are
+final, write the state to `site/data/<briefDate>.json` (or run on yesterday's file plus `MC_INDEX.json`) and run
+`python3 tools/mc_must_cover.py <briefDate> 7`. **Every post it lists becomes an item** (with `id` = its MC number,
+`why`, `action`, `deadline`) - or, when it truly does not concern this tenant, a line in `data/mc-skip.json`
+(`{"id": "MC...", "why": "<one sentence>", "day": "<briefDate>"}`) committed with the brief. A post is never left out
+in silence. Run it again after the items are written: the listed count must be 0; name the count in the reply.
+
+
 Rank findings: 1) breaking changes and items needing administrator action 2) retirements and deprecations with dates 3) new detections, analytics rules and hunting capabilities 4) GA 5) preview 6) security enhancements 7) KQL and schema changes.
 
 **Sections A-N are no longer duplicated here — they are `CLAUDE.md` §8**, verified to carry every heading, every URL and every rule this prompt held. Build them in order, each exactly as §8 describes. **Every table's last column is `Source`. Every bullet and card ends with its link.**

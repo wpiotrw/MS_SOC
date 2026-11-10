@@ -356,6 +356,16 @@ rewrite carries the same rules as the morning build.
 
 # STEP 4 — UPDATE TODAY'S BRIEF IN PLACE. NEVER PUBLISH A SEPARATE PAGE.
 
+**Every Message Center post that MUST be described is described (`CLAUDE.md` §5gi, owner 10 Nov 2026: "did we catch
+MC1546438? I saw nothing in the sentences").** On 10 Nov the collector had MC1546438 (Claude models in Copilot enabled
+by default in the EU Data Boundary, major, act by 09/12/2026, Admin impact) and the run described 5 of the 8 new posts -
+not that one; over 30 days 27 of 76 such posts had no sentence. Before the updated brief is final (this pass too: a post published during the day), write the state to `site/data/<briefDate>.json` (or run on yesterday's file plus `MC_INDEX.json`) and run
+`python3 tools/mc_must_cover.py <briefDate> 7`. **Every post it lists becomes an item** (with `id` = its MC number,
+`why`, `action`, `deadline`) - or, when it truly does not concern this tenant, a line in `data/mc-skip.json`
+(`{"id": "MC...", "why": "<one sentence>", "day": "<briefDate>"}`) committed with the brief. A post is never left out
+in silence. Run it again after the items are written: the listed count must be 0; name the count in the reply.
+
+
 **This run does not produce its own page. It produces today's brief, brought up to date.**
 
 **HARD GATE, checked on 31 Aug 2026 and failed.** That day's 15:25 pass appended `re-checked 15:25` to the dateline and republished — but the page carried **no `<section id="pmdelta">` at all**, and no `Microsoft SOC Delta 31 Aug 2026` artifact was published either. So the day's diff page had nothing to mirror and the reader could not see what the afternoon found. **Publishing without `<section id="pmdelta">` in `tab-today` is a FAILED run.** The section exists on every pass, including the quiet ones, where it carries the dated "nothing moved" line from 4c. Assert it in code before the Artifact call, not after.

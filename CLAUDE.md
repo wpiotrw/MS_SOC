@@ -45127,12 +45127,38 @@ odtad CZTERNASCIE (4-17).**
       sec.appendChild(el("p", "s5gf-fn", "Read " + dmy(C.day) + " by tools/mc_coverage.py: mc.merill.net (its published JSON), msmessagecenter.com (its sitemap of active posts and the RSS feed), DeltaPulse (its public MCP server), our tenant's Message Center (Microsoft Graph) and this portal's list. " + (C.note || "")));
     });
   }
+
+  /* §5gi (10 XI 2026, owner: "did we catch MC1546438? I saw nothing in the sentences - do we skip Copilot?"): the
+     collector had it, the routine did not describe it - 27 of 76 such posts in 30 days. /data/mc-uncovered.json
+     (tools/mc_must_cover.py) lists every post that must be described (major, act-by date, retirement, plan for change
+     with Admin impact) and is not; Today and Message Center show them in one amber frame, newest deadline first. */
+  var UC = null;
+  function ucBox(where) {
+    var p = document.getElementById(where); if (!p || !UC || !(UC.uncovered || []).length || p.querySelector(".s5gi-uc")) return;
+    var L = UC.uncovered, box = el("section", "s5gi-uc");
+    var h = el("div", "s5gf-dch"); h.appendChild(el("span", "s5gf-v s5gf-v-diff", "NOT IN THE BRIEF YET")); h.appendChild(el("b", "s5gf-ht", L.length + " Message Center post" + (L.length === 1 ? "" : "s") + " that need" + (L.length === 1 ? "s" : "") + " your attention and no sentence describes")); box.appendChild(h);
+    box.appendChild(el("p", "s5gf-lead", "The brief's sentences missed them. Each one is major, has an act-by date, retires something or changes something an admin must plan for — read it at the source."));
+    var ul = el("ul", "s5gf-ul");
+    L.forEach(function (x) { var li = el("li"); if (x.action) li.appendChild(el("span", "s5gf-d s5gf-d-o", "act by " + dmy(x.action))); li.appendChild(idBtn(x.id));
+      (x.why || []).filter(function (w) { return !/^act by/.test(w); }).forEach(function (w) { li.appendChild(el("span", "s5gi-why", w)); });
+      li.appendChild(el("span", "s5gf-t", x.title)); if (x.summary) li.appendChild(el("span", "s5gi-sum", x.summary));
+      var a2 = el("a", "s5gf-a", "Open at the source ↗"); a2.href = x.link; a2.target = "_blank"; a2.rel = "noopener"; li.appendChild(a2); ul.appendChild(li); });
+    box.appendChild(ul);
+    box.appendChild(el("p", "s5gf-fn", "Checked " + dmy(UC.day) + " over the briefs of the last " + ((UC.window || {}).days || 7) + " days: " + (UC.mustCover || 0) + " posts had to be described, " + L.length + " are not. The next morning run must describe each one or record why not."));
+    /* Today shows only its main block (.s5ci-today) and hides the other children of the panel - the frame goes inside it */
+    var host = p.querySelector(":scope > .s5ci-today") || p, anchor = host === p ? p.querySelector(":scope > .sec-head, :scope > .s5ca-head") : null;
+    if (anchor) host.insertBefore(box, anchor.nextSibling); else host.insertBefore(box, host.firstChild);
+    if (!box.getBoundingClientRect().height && host === p) { var vis = [].filter.call(p.children, function (c) { return c !== box && c.getBoundingClientRect().height > 0 && !c.classList.contains("s5ca-head"); })[0]; if (vis) vis.insertBefore(box, vis.firstChild); }
+  }
+  X.uncovered = function () { ucBox("tab-today"); ucBox("tab-mc"); };
   X.coverage = coverage;
   document.addEventListener("click", function (ev) { var t = ev.target.closest && ev.target.closest("#tabbtn-tab-mc"); if (t) setTimeout(coverage, 300); }, true);
+  document.addEventListener("click", function (ev) { var t = ev.target.closest && ev.target.closest("#tabbtn-tab-today, #tabbtn-tab-mc"); if (t) setTimeout(X.uncovered, 400); }, true);   /* §5gi */
 
   function start() {
     getJSON("/data/mc-datecheck.json", function (d) { DC = d || { byMc: {} }; later(scan, 1500); later(scan, 6000); later(scan, 12000); });
     getJSON("/data/mc-howto.json", function (d) { HW = d || { notes: [] }; });
+    getJSON("/data/mc-uncovered.json", function (d) { UC = d || null; later(X.uncovered, 1200); later(X.uncovered, 6000); });   /* §5gi */
     if (/^#(tab=mc|tab-mc|MC\d+)/.test(location.hash || "")) setTimeout(coverage, 1500);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 800); }); else setTimeout(start, 800);
@@ -50092,6 +50118,10 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 .s5gf-tab{max-width:100%}
 .s5gf-code{max-width:100%;box-sizing:border-box}
 .s5gf-lack summary{display:block}
+.s5gi-uc{margin:12px 0 16px;padding:12px 14px;border:2px solid #d69e2e;border-radius:14px;background:color-mix(in srgb,#d69e2e 9%,transparent);font-size:15px;line-height:1.5}
+.s5gi-why{display:inline-block;margin:0 4px;padding:1px 8px;border-radius:999px;background:#5d6d2f;color:#fff;font-weight:700;font-size:13px}
+.s5gi-sum{display:block;margin-top:3px;font-size:14.5px}
+.s5gi-uc .s5gf-ul>li{margin:10px 0}
 .s5ft-vn{display:inline-block;margin-left:8px;padding:1px 8px;border:1px solid color-mix(in srgb,var(--text) 30%,transparent);border-radius:999px;font:600 13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;opacity:.9}
 /* §5gg: the cross-check frame as an answer - bold conclusion, bullets, dates as big chips */
 .s5gf-dc{font-size:15px;line-height:1.5;color:var(--text)}
@@ -52227,6 +52257,28 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5gi — Posty MC, ktore musza byc opisane, a nie sa (10 XI 2026)
+
+Wlasciciel: „Czy nasze mechanizmy wykryly MC1546438? Merill? DeltaPulse? Nie widzialem w zdaniach zadnego info. Moze
+pomijamy w ogole Copilota?"
+- **Sprawdzone:** kolektor mial MC1546438 przy publikacji 06:47 UTC (mc.merill.net, msmessagecenter.com, nasz tenant;
+  DeltaPulse nie). Post: od 09/12/2026 modele Claude w Copilocie wlaczone domyslnie dla tenantow UE/EFTA, ktore nie
+  dokonaly wyboru (AI providers as Microsoft subprocessors w Microsoft 365 admin center), przetwarzanie w EU Data
+  Boundary; major, act by 09/12/2026, Admin impact. Byl jednym z 8 nowych postow dnia; rutyna opisala 5 z 8 — nie ten.
+  Copilot nie jest wykluczony (10+ pozycji Copilot w briefie). 30 dni: 27 z 76 postow, ktore powinny byc opisane, nie
+  mialo zdania; Copilot/AI 60% opisanych, reszta 66% — problem ogolny, nie tylko Copilota.
+- **Kontrola:** `tools/mc_must_cover.py` → `site/data/mc-uncovered.json`: post musi byc opisany, gdy jest nowy w oknie
+  7 dni i jest major, ma date dzialania, jest wycofaniem albo „plan for change" z Admin impact; jest opisany, gdy jego
+  numer stoi w pozycjach (items) ktoregokolwiek briefu z okna albo gdy inny post tej samej kampanii jest opisany
+  (`viaCampaign`); swiadome pominiecie = wpis w `data/mc-skip.json` z powodem. 10 XI: 20 musi, 6 nieopisanych
+  (MC1539002, MC1539001, MC1546438, MC1537490, MC1540258, MC1540110), 1 przez kampanie (MC1540327 → SSPR).
+- **Strona:** ramka „NOT IN THE BRIEF YET" w Today (wewnatrz `.s5ci-today` — inne dzieci panelu sa ukryte) i w
+  Message Center: termin jako plakietka, numer, powody, tytul, streszczenie, link do zrodla.
+- **Rutyna:** `poranny-A-build.md` (STEP 2) i `wieczorny-A-delta.md` (STEP 4): uruchom `mc_must_cover.py` przed
+  zamknieciem pozycji; kazdy wypisany post = pozycja albo wpis w `mc-skip.json`; po zapisaniu ponownie — 0; liczba w
+  odpowiedzi. Workflow „Campaign tracking" liczy plik po kazdej publikacji.
+- **Testy:** WebKit 390, Chromium 1400: ramka w Today i MC (6 wierszy), bez przewijania w bok, 0 bledow.
 
 ### §5gh — M365 endpoints: wersja slownie, usluga usunietych zestawow (8 XI 2026)
 
