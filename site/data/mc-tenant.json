@@ -1,7 +1,7 @@
 {
  "read": "2026-11-10",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 727,
+ "count": 729,
  "note": null,
  "messages": [
   {
@@ -5247,21 +5247,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-06-05",
-   "end": "2026-12-31",
-   "modified": "2026-10-13",
+   "end": "2027-08-16",
+   "modified": "2026-11-10",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 13, 2026: We have decided not to move forward with this change at this time. We will communicate via Message center when we are ready to proceed. We apologize for any inconvenience. [What and Why] We are introducing Policy Sync and Device Health AI skills for Microsoft Purview Endpoint Data Loss Prevention . These AI-powered capabilities provide real-time visibility into policy dep…",
+   "summary": "Updated November 10, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are introducing Policy Sync and Device Health AI skills for Microsoft Purview Endpoint Data Loss Prevention . These AI-powered capabilities provide real-time visibility into policy deployment across devices and help admins quickly identify and resolve sync issues. By using AI to surface root cau…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 13, 2026: We have decided not to move forward with this change at this time."
+    "Updated November 10, 2026: We have updated the timeline.",
+    "Public Preview: We will begin rolling out early June 2027 and expect to complete by early June 2027.",
+    "Worldwide: We will begin rolling out early July 2027 and expect to complete by rolling out early July 2027."
    ],
-   "bodyHash": "cd10d004792a2f4f"
+   "bodyHash": "23c2d9256bfcacb0"
   },
   {
    "id": "MC1384415",
@@ -9945,7 +9947,7 @@
   },
   {
    "id": "MC1465768",
-   "title": "Microsoft Teams: Users can temporarily pause all notifications",
+   "title": "(Updated) Microsoft Teams: Users can temporarily pause all notifications",
    "services": [
     "Microsoft Teams"
    ],
@@ -9954,20 +9956,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-01",
-   "end": "2026-12-21",
-   "modified": "2026-09-29",
+   "end": "2026-12-31",
+   "modified": "2026-11-10",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] Microsoft Teams will introduce a new capability that allows users to temporarily pause notifications for a selected period of time. This feature gives users greater control over interruptions, helps reduce notification overload, and enables focused work, meetings, and other activities without requiring changes to existing notification settings. [Rollout Schedule:] Targeted Release …",
+   "summary": "Updated November 10, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Teams will introduce a new capability that allows users to temporarily pause notifications for a selected period of time. This feature gives users greater control over interruptions, helps reduce notification overload, and enables focused work, meetings, and other activities without requ…",
    "when": null,
    "prepare": null,
    "dates": [
+    "Updated November 10, 2026: We have updated the timeline.",
     "Targeted Release (Worldwide): Rollout begins in mid-September 2026 and is expected to complete by early October 2026.",
-    "General Availability (Worldwide, GCC, GCC High, DoD): Rollout begins in early October 2026 and is expected to complete by late October 2026."
+    "General Availability (Worldwide, GCC, GCC High, DoD): Rollout begins in early October 2026 and is expected to complete by end November 2026 (previously late October)."
    ],
-   "bodyHash": "4829d37a09e9970d"
+   "bodyHash": "2e2a70be331e0c9f"
   },
   {
    "id": "MC1465770",
@@ -14932,7 +14936,7 @@
    "actionBy": null,
    "start": "2026-10-13",
    "end": "2027-01-01",
-   "modified": "2026-10-15",
+   "modified": "2026-11-10",
    "tags": [
     "Admin impact",
     "Feature update",
@@ -14940,15 +14944,15 @@
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 15, 2026: We have updated the timeline. If you are a tenant in a GCCH or DoD environment, you can safely ignore this message as you are not impacted. Thank you for your patience. [What and why] Microsoft Teams will soon support sharing video directly from OneDrive during Teams events. Organizers and producers using Manage what attendees see can load videos from OneDrive and present…",
+   "summary": "Updated November 10, 2026: We have updated the timeline. If you are a tenant in a GCCH or DoD environment, you can safely ignore this message as you are not impacted. Thank you for your patience. [What and why] Microsoft Teams will soon support sharing video directly from OneDrive during Teams events. Organizers and producers using Manage what attendees see can load videos from OneDrive and presen…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 15, 2026: We have updated the timeline.",
-    "Targeted Release (Worldwide): Rollout will begin in early November 2026 and end in early December 2026.",
+    "Updated November 10, 2026: We have updated the timeline.",
+    "Targeted Release (Worldwide): Rollout will begin in mid-November 2026 (previously early November) and end in early December 2026.",
     "General Availability (Worldwide, GCC): Rollout will begin in early December 2026 and is expected to complete by early December 2026."
    ],
-   "bodyHash": "04f4237301089806"
+   "bodyHash": "70ed56a6289c240e"
   },
   {
    "id": "MC1506735",
@@ -15109,7 +15113,7 @@
   },
   {
    "id": "MC1508234",
-   "title": "Microsoft Teams: Automatic recording and transcription options align with admin policies",
+   "title": "(Updated) Microsoft Teams: Automatic recording and transcription options align with admin policies",
    "services": [
     "Microsoft Teams"
    ],
@@ -15119,20 +15123,22 @@
    "actionBy": null,
    "start": "2026-10-14",
    "end": "2027-01-15",
-   "modified": "2026-10-14",
+   "modified": "2026-11-10",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Teams is updating the Record and transcribe automatically setting in Meeting options, so meeting organizers see only the automatic recording and transcription options permitted by their assigned Teams meeting policies. This change reduces confusion, improves policy compliance, and helps ensure organizers cannot select options that are unavailable based on organizational se…",
+   "summary": "Updated November 10, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Teams is updating the Record and transcribe automatically setting in Meeting options, so meeting organizers see only the automatic recording and transcription options permitted by their assigned Teams meeting policies. This change reduces confusion, improves policy compliance, and helps e…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Targeted Release: Beginning in early November 2026 and expected to complete by mid-November 2026.",
+    "Updated November 10, 2026: We have updated the timeline.",
+    "Targeted Release: Beginning in mid-November 2026 (previously early November) and expected to complete by end of November 2026 (previously mid-November).",
     "General Availability (Worldwide): Beginning in early December 2026 and expected to complete by mid-December 2026."
    ],
-   "bodyHash": "34e1ad82901c5ef5"
+   "bodyHash": "ce8026a81a9fe420"
   },
   {
    "id": "MC1508235",
@@ -16753,7 +16759,7 @@
   },
   {
    "id": "MC1526651",
-   "title": "Microsoft Teams: Malicious QR code detection in messages",
+   "title": "(Updated) Microsoft Teams: Malicious QR code detection in messages",
    "services": [
     "Microsoft Teams"
    ],
@@ -16762,20 +16768,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-26",
-   "end": "2026-12-13",
-   "modified": "2026-10-26",
+   "end": "2026-12-31",
+   "modified": "2026-11-10",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Teams is extending malicious URL protection to provide near-real-time detection of malicious destinations embedded in QR codes shared in messages. Teams will analyze QR code destinations to identify potential phishing and fraud threats and display an additional warning when malicious content is detected. [Rollout schedule] General Availability (Worldwide): Beginning in ear…",
+   "summary": "Updated November 10, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Teams is extending malicious URL protection to provide near-real-time detection of malicious destinations embedded in QR codes shared in messages. Teams will analyze QR code destinations to identify potential phishing and fraud threats and display an additional warning when malicious cont…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Beginning in early November 2026 and expected to complete in mid-November 2026."
+    "Updated November 10, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in mid-November 2026 (previously early November) and expected to complete by late November 2026 (previously mid-November)."
    ],
-   "bodyHash": "45abf8e3b76324e6"
+   "bodyHash": "25abdf968579118d"
   },
   {
    "id": "MC1526652",
@@ -17581,20 +17589,22 @@
    "actionBy": null,
    "start": "2026-10-29",
    "end": "2027-01-29",
-   "modified": "2026-11-05",
+   "modified": "2026-11-10",
    "tags": [
+    "Deferred feature",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated November 5, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Now users have the full power of Office in Microsoft Copilot app, so users can create, edit and collaborate on Word, Excel and PowerPoint files, without leaving the app. [Rollout Schedule:] General Availability (Worldwide): We have begun rolling out and expect to complete by mid-November 2026. [Imp…",
+   "summary": "Updated November 10, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Now users have the full power of Office in Microsoft Copilot app, so users can create, edit and collaborate on Word, Excel and PowerPoint files, without leaving the app. [Rollout Schedule:] General Availability (Worldwide): We have begun rolling out and expect to complete by mid-November 2026. Def…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated November 5, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): We have begun rolling out and expect to complete by mid-November 2026."
+    "Updated November 10, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We have begun rolling out and expect to complete by mid-November 2026.",
+    "Deferred release will start early December 2026."
    ],
-   "bodyHash": "961236e3aa8e39d0"
+   "bodyHash": "2c0a2df2682f7354"
   },
   {
    "id": "MC1530613",
@@ -18323,7 +18333,7 @@
   },
   {
    "id": "MC1537353",
-   "title": "Microsoft Teams: Invite attendees to register",
+   "title": "(Updated) Microsoft Teams: Invite attendees to register",
    "services": [
     "Microsoft Teams"
    ],
@@ -18333,19 +18343,21 @@
    "actionBy": null,
    "start": "2026-11-03",
    "end": "2027-01-30",
-   "modified": "2026-11-03",
+   "modified": "2026-11-10",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] Microsoft Teams is expanding the Invite to register experience for Teams events with registration enabled. Organizers can select people to receive an email invitation with a link to register for the event. [Rollout Schedule:] General Availability (Worldwide, GCC): We will begin rolling out in mid-November 2026 and expect to complete by late November 2026. [Impact on Your Organizati…",
+   "summary": "Updated November 10, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Teams is expanding the Invite to register experience for Teams events with registration enabled. Organizers can select people to receive an email invitation with a link to register for the event. [Rollout Schedule:] General Availability (Worldwide, GCC): We will begin rolling out in late…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide, GCC): We will begin rolling out in mid-November 2026 and expect to complete by late November 2026."
+    "Updated November 10, 2026: We have updated the timeline.",
+    "General Availability (Worldwide, GCC): We will begin rolling out in late November 2026 (previously mid-November) and expect to complete by late November 2026."
    ],
-   "bodyHash": "acb2c708e753dca6"
+   "bodyHash": "c12ea51e4818ba2f"
   },
   {
    "id": "MC1537406",
@@ -19245,6 +19257,60 @@
     "General Availability (Worldwide) : We will begin rolling out in early December 2026 and expect to complete by early December 2026 ."
    ],
    "bodyHash": "83c2661a29511b0c"
+  },
+  {
+   "id": "MC1547648",
+   "title": "The November 2026 Windows security update is now available",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-11-10",
+   "end": "2027-11-10",
+   "modified": "2026-11-10",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "The November 2026 security update is now available for all supported versions of Windows. We recommend that you install these updates promptly. For more information about the contents of this update, see the release notes, which are accessible from the Windows 11 update history page. To learn more about the different types of monthly quality updates, see Understanding Windows monthly updates . Hig…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "The November 2026 security update is now available for all supported versions of Windows.",
+    "Highlights for the Windows 11, version 26H2 update: This security update includes improvements that were part of update KB5127648 (released October 13, 2026).",
+    "Note: As part of the November 2026 Windows security release, standalone security updates are available for devices enrolled in hotpatch updates.",
+    "They are offered after the November 2026 hotpatch update is installed.",
+    "IMPORTANT: Because of minimal operations during the Western holidays and the upcoming new year, there will be no December 2026 non-security preview update in the second part of the month.",
+    "Normal monthly servicing for both security and non-security preview updates will resume in January 2027."
+   ],
+   "bodyHash": "dccaacded05336ac"
+  },
+  {
+   "id": "MC1547649",
+   "title": "Windows 11, version 23H2 Enterprise and Education editions have reached end of updates",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-10",
+   "end": "2027-11-10",
+   "modified": "2026-11-10",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "Today, November 10, 2026, Windows 11, version 23H2 Enterprise and Education editions have reached end of updates. The November 2026 Windows security update is the last update available for these editions. After this date, devices running these editions will no longer receive monthly security updates containing protections from the latest security threats. We recommend updating eligible devices run…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Today, November 10, 2026, Windows 11, version 23H2 Enterprise and Education editions have reached end of updates.",
+    "The November 2026 Windows security update is the last update available for these editions."
+   ],
+   "bodyHash": "eefb92d5988e2e36"
   },
   {
    "id": "MC676299",
@@ -25289,6 +25355,195 @@
    "id": "MC1446799",
    "type": "removed",
    "title": "(Updated) Microsoft Teams: Multilingual meeting recaps support personalized recap translation",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1381121",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | Endpoint Data Loss Prevention: Policy sync and device health AI skill",
+   "fields": {
+    "end": [
+     "2026-12-31",
+     "2027-08-16"
+    ],
+    "bodyHash": [
+     "cd10d004792a2f4f",
+     "23c2d9256bfcacb0"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1465768",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Users can temporarily pause all notifications",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Users can temporarily pause all notifications",
+     "(Updated) Microsoft Teams: Users can temporarily pause all notifications"
+    ],
+    "end": [
+     "2026-12-21",
+     "2026-12-31"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "4829d37a09e9970d",
+     "2e2a70be331e0c9f"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1506734",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Video sharing from OneDrive in Teams events",
+   "fields": {
+    "bodyHash": [
+     "04f4237301089806",
+     "70ed56a6289c240e"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1508234",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Automatic recording and transcription options align with admin policies",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Automatic recording and transcription options align with admin policies",
+     "(Updated) Microsoft Teams: Automatic recording and transcription options align with admin policies"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "34e1ad82901c5ef5",
+     "ce8026a81a9fe420"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1526651",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Malicious QR code detection in messages",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Malicious QR code detection in messages",
+     "(Updated) Microsoft Teams: Malicious QR code detection in messages"
+    ],
+    "end": [
+     "2026-12-13",
+     "2026-12-31"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "45abf8e3b76324e6",
+     "25abdf968579118d"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1530611",
+   "type": "changed",
+   "title": "(Updated) Office in Copilot brings the full power of Office into the Microsoft Copilot app",
+   "fields": {
+    "tags": [
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ],
+     [
+      "Deferred feature",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "961236e3aa8e39d0",
+     "2c0a2df2682f7354"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1537353",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Invite attendees to register",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Invite attendees to register",
+     "(Updated) Microsoft Teams: Invite attendees to register"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "acb2c708e753dca6",
+     "c12ea51e4818ba2f"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1547648",
+   "type": "new",
+   "title": "The November 2026 Windows security update is now available",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-10",
+   "id": "MC1547649",
+   "type": "new",
+   "title": "Windows 11, version 23H2 Enterprise and Education editions have reached end of updates",
    "fields": {}
   }
  ]

@@ -1,17 +1,138 @@
 {
- "updated": "2026-11-10T03:38Z",
+ "updated": "2026-11-10T21:20Z",
  "baseline": "2026-10-10T08:35Z",
- "lastRead": "2026-11-10T03:38Z",
+ "lastRead": "2026-11-10T21:20Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
-  "names": 1090,
-  "application": 779,
-  "delegated": 871,
+  "names": 1096,
+  "application": 788,
+  "delegated": 876,
   "rsc": 60,
   "roles": 145
  },
  "events": [
+  {
+   "seen": "2026-11-10T21:20Z",
+   "day": "2026-11-10",
+   "surface": "permission",
+   "name": "AutomationRules.Read.All",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to read all security automation rules and runs, without a signed-in user."
+  },
+  {
+   "seen": "2026-11-10T21:20Z",
+   "day": "2026-11-10",
+   "surface": "permission",
+   "name": "AutomationRules.ReadWrite.All",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to read and write all security automation rules, and read their runs, without a signed-in user."
+  },
+  {
+   "seen": "2026-11-10T21:20Z",
+   "day": "2026-11-10",
+   "surface": "permission",
+   "name": "CloudLicensing.ClaimLicenses.All",
+   "change": "added",
+   "type": "Application",
+   "before": null,
+   "after": "Application",
+   "text": "Allows an approved app to claim and unclaim supported product licenses for users in the tenant, without a signed-in user."
+  },
+  {
+   "seen": "2026-11-10T21:20Z",
+   "day": "2026-11-10",
+   "surface": "permission",
+   "name": "CopilotCostManagement-Assignment.Read.All",
+   "change": "type-added",
+   "type": "Application",
+   "before": null,
+   "after": "Application",
+   "text": "Allows the app to read which users and security groups each Copilot spending policy applies to, without a signed-in user. This exposes the identifiers of the security groups and the users that are targeted by each policy."
+  },
+  {
+   "seen": "2026-11-10T21:20Z",
+   "day": "2026-11-10",
+   "surface": "permission",
+   "name": "CopilotCostManagement-Assignment.ReadWrite.All",
+   "change": "type-added",
+   "type": "Application",
+   "before": null,
+   "after": "Application",
+   "text": "Allows the app to read and change which users and security groups each Copilot spending policy applies to, without a signed-in user. Adding or removing an assignment immediately changes which users are subject to that policy's spending limits, and may grant or remove their ability to consume Copilot credits. This also exposes the identifiers of the security groups targeted by each policy."
+  },
+  {
+   "seen": "2026-11-10T21:20Z",
+   "day": "2026-11-10",
+   "surface": "permission",
+   "name": "CopilotCostManagement-Policy.Read.All",
+   "change": "type-added",
+   "type": "Application",
+   "before": null,
+   "after": "Application",
+   "text": "Allows the app to read Copilot spending policies and their configuration without a signed-in user, including budget limits and alert thresholds. This also exposes the identities of the users who created and last modified each policy and of the users who receive its alert notifications."
+  },
+  {
+   "seen": "2026-11-10T21:20Z",
+   "day": "2026-11-10",
+   "surface": "permission",
+   "name": "CopilotCostManagement-Policy.ReadWrite.All",
+   "change": "type-added",
+   "type": "Application",
+   "before": null,
+   "after": "Application",
+   "text": "Allows the app to read, create, update, and delete Copilot spending policies without a signed-in user. It can set the initial audience, read and change alert recipients, and select a billing method. New or changed policies may take effect immediately and restrict user spending. The app can also see who created and last modified each policy."
+  },
+  {
+   "seen": "2026-11-10T21:20Z",
+   "day": "2026-11-10",
+   "surface": "permission",
+   "name": "CopilotCostManagement-Reports.Read.All",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to read the organization's aggregate Copilot cost data without a signed-in user, including its credit balance and usage and spending reports. It can also check Copilot cost export job status and download completed exports, which may contain full report details. This permission is separate from Reports.Read.All for Microsoft 365 Copilot usage reporting."
+  },
+  {
+   "seen": "2026-11-10T21:20Z",
+   "day": "2026-11-10",
+   "surface": "permission",
+   "name": "CopilotCostManagement.Read.All",
+   "change": "type-added",
+   "type": "Application",
+   "before": null,
+   "after": "Application",
+   "text": "Allows the app to read all organizational Copilot cost management data without a signed-in user, including any user's credit balance, per-user rankings and itemized usage, usage by security group, spending policies, their configuration and assignments, and the identities of policy creators, modifiers, and alert recipients. This is the broadest Copilot cost management read permission."
+  },
+  {
+   "seen": "2026-11-10T21:20Z",
+   "day": "2026-11-10",
+   "surface": "permission",
+   "name": "InfoProtectAttributeAssignment.Read",
+   "change": "added",
+   "type": "Delegated",
+   "before": null,
+   "after": "Delegated (consent: User)",
+   "text": "Allows the app to read the attribute values the signed-in user can apply to a document."
+  },
+  {
+   "seen": "2026-11-10T21:20Z",
+   "day": "2026-11-10",
+   "surface": "permission",
+   "name": "MCP.Server.Access",
+   "change": "added",
+   "type": "Delegated",
+   "before": null,
+   "after": "Delegated (consent: Admin)",
+   "text": "Allows the app to connect to and call the Microsoft Graph Model Context Protocol (MCP) server on behalf of the signed-in user."
+  },
   {
    "seen": "2026-11-08T10:15Z",
    "day": "2026-11-08",
