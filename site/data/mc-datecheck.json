@@ -1,384 +1,10 @@
 {
- "generated": "2026-11-09T21:39:22Z",
- "day": "2026-11-09",
+ "generated": "2026-11-10T02:54:38Z",
+ "day": "2026-11-10",
  "spec": "5gf",
- "source": "site/data/campaigns.json (2026-11-09)",
+ "source": "site/data/campaigns.json (2026-11-10)",
  "count": 42,
  "byMc": {
-  "MC1325414": {
-   "says": [
-    "2026-11-09",
-    "2026-11-15"
-   ],
-   "others": [
-    {
-     "date": "2027-02-01",
-     "src": "MC1519855",
-     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
-     "post": "2026-10-21",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1519855"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1536049",
-     "text": "We expect rollout to begin and complete in February 2027.",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1536049"
-    },
-    {
-     "date": "2027-03-22",
-     "src": "MC1536049",
-     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://deltapulse.app/item/MC1536049"
-    },
-    {
-     "date": "2027-07-01",
-     "src": "MC1536049",
-     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://deltapulse.app/item/MC1536049"
-    }
-   ],
-   "moved": [
-    {
-     "was": "mid Sep 2026",
-     "now": "2026-11-15",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
-    }
-   ],
-   "newer": [
-    {
-     "id": "MC1528000",
-     "date": "2026-10-27",
-     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
-    },
-    {
-     "id": "MC1536049",
-     "date": "2026-11-03",
-     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
-    },
-    {
-     "id": "MC1540327",
-     "date": "2026-11-05",
-     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1400824": {
-   "says": [],
-   "others": [
-    {
-     "date": "2026-11-09",
-     "src": "MC1325414",
-     "text": "Action is required before November 9, 2026.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2027-02-01",
-     "src": "MC1519855",
-     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
-     "post": "2026-10-21",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1519855"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1536049",
-     "text": "We expect rollout to begin and complete in February 2027.",
-     "post": "2026-11-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1536049"
-    },
-    {
-     "date": "2027-03-22",
-     "src": "MC1536049",
-     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
-     "post": "2026-11-03",
-     "later": false,
-     "link": "https://deltapulse.app/item/MC1536049"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1528000",
-     "date": "2026-10-27",
-     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
-    },
-    {
-     "id": "MC1536049",
-     "date": "2026-11-03",
-     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
-    },
-    {
-     "id": "MC1540327",
-     "date": "2026-11-05",
-     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1519855": {
-   "says": [
-    "2027-02-01",
-    "2027-07-01"
-   ],
-   "others": [
-    {
-     "date": "2026-11-09",
-     "src": "MC1325414",
-     "text": "Action is required before November 9, 2026.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1536049",
-     "text": "We expect rollout to begin and complete in February 2027.",
-     "post": "2026-11-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1536049"
-    },
-    {
-     "date": "2027-03-22",
-     "src": "MC1536049",
-     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
-     "post": "2026-11-03",
-     "later": false,
-     "link": "https://deltapulse.app/item/MC1536049"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1528000",
-     "date": "2026-10-27",
-     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
-    },
-    {
-     "id": "MC1536049",
-     "date": "2026-11-03",
-     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
-    },
-    {
-     "id": "MC1540327",
-     "date": "2026-11-05",
-     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1528000": {
-   "says": [
-    "2027-02-01"
-   ],
-   "others": [
-    {
-     "date": "2026-11-09",
-     "src": "MC1325414",
-     "text": "Action is required before November 9, 2026.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1536049",
-     "text": "We expect rollout to begin and complete in February 2027.",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1536049"
-    },
-    {
-     "date": "2027-03-22",
-     "src": "MC1536049",
-     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://deltapulse.app/item/MC1536049"
-    },
-    {
-     "date": "2027-07-01",
-     "src": "MC1536049",
-     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://deltapulse.app/item/MC1536049"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1536049",
-     "date": "2026-11-03",
-     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
-    },
-    {
-     "id": "MC1540327",
-     "date": "2026-11-05",
-     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1536049": {
-   "says": [
-    "2027-02-01",
-    "2027-02-15",
-    "2027-03-22",
-    "2027-07-01"
-   ],
-   "others": [
-    {
-     "date": "2026-11-09",
-     "src": "MC1325414",
-     "text": "Action is required before November 9, 2026.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1540327",
-     "date": "2026-11-05",
-     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1540327": {
-   "says": [],
-   "others": [
-    {
-     "date": "2026-11-09",
-     "src": "MC1325414",
-     "text": "Action is required before November 9, 2026.",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2027-02-01",
-     "src": "MC1519855",
-     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
-     "post": "2026-10-21",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1519855"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1536049",
-     "text": "We expect rollout to begin and complete in February 2027.",
-     "post": "2026-11-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1536049"
-    },
-    {
-     "date": "2027-03-22",
-     "src": "MC1536049",
-     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
-     "post": "2026-11-03",
-     "later": false,
-     "link": "https://deltapulse.app/item/MC1536049"
-    }
-   ],
-   "moved": [],
-   "newer": [],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "differs"
-  },
   "MC1191578": {
    "says": [],
    "others": [
@@ -995,6 +621,355 @@
     {
      "id": "c-mc676299",
      "name": "Exchange Web Services (EWS) retirement update"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1325414": {
+   "says": [
+    "2026-11-15"
+   ],
+   "others": [
+    {
+     "date": "2027-02-01",
+     "src": "MC1519855",
+     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
+     "post": "2026-10-21",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1519855"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    },
+    {
+     "date": "2027-07-01",
+     "src": "MC1536049",
+     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    }
+   ],
+   "moved": [
+    {
+     "was": "mid Sep 2026",
+     "now": "2026-11-15",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
+    }
+   ],
+   "newer": [
+    {
+     "id": "MC1528000",
+     "date": "2026-10-27",
+     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
+    },
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    },
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1400824": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2027-02-01",
+     "src": "MC1519855",
+     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
+     "post": "2026-10-21",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1519855"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1536049"
+    },
+    {
+     "date": "2027-07-01",
+     "src": "MC1536049",
+     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1536049"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1528000",
+     "date": "2026-10-27",
+     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
+    },
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    },
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1519855": {
+   "says": [
+    "2027-02-01",
+    "2027-07-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1536049"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1528000",
+     "date": "2026-10-27",
+     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
+    },
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    },
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1528000": {
+   "says": [
+    "2027-02-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    },
+    {
+     "date": "2027-07-01",
+     "src": "MC1536049",
+     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    },
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1536049": {
+   "says": [
+    "2027-02-01",
+    "2027-02-15",
+    "2027-03-22",
+    "2027-07-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1540327": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2027-02-01",
+     "src": "MC1519855",
+     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
+     "post": "2026-10-21",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1519855"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1536049"
+    },
+    {
+     "date": "2027-07-01",
+     "src": "MC1536049",
+     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1536049"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
     }
    ],
    "verdict": "differs"
