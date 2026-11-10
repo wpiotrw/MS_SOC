@@ -16,6 +16,15 @@
 ],
 "log":[
 {
+"date":"2026-11-09",
+"id":"MC1545691",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Purview DSPM partner integrations for Salesforce, Databricks, Snowflake and GCP retire on 7 December",
+"title":"Purview DSPM partner integrations for Salesforce, Databricks, Snowflake and GCP retire on 7 December",
+"link":"https://deltapulse.app/item/MC1545691"
+},
+{
 "date":"2026-10-30",
 "id":"MC1481315",
 "what":"Message Center end date",
@@ -258,6 +267,16 @@
 "date":"2026-11-09",
 "group":"microsoft",
 "found":"2026-11-09"
+},
+"https://mc.merill.net/message/MC1545691":{
+"title":"Microsoft Purview: Retirement of select DSPM partner integrations",
+"link":"https://mc.merill.net/message/MC1545691",
+"source":"Message Center",
+"id":"MC1545691",
+"date":"2026-11-09",
+"updated":"2026-11-09",
+"group":"microsoft",
+"found":"2026-11-10"
 }
 },
 "final":"2027-03-31",
@@ -267,682 +286,6 @@
 "571157",
 "MC1481315",
 "MC1545691"
-]
-},
-"c-mc1230889":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-10",
-"name":"Outlook for Windows report retirement in the Exchange admin center",
-"status":"Active",
-"members":[
-"MC1230889"
-],
-"log":[
-{
-"date":"2026-11-06",
-"id":"MC1230889",
-"what":"Message Center end date",
-"before":"2027-01-04",
-"after":"2027-05-31",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://mc.merill.net/message/MC1230889"
-},
-{
-"date":"2026-11-06",
-"id":"MC1230889",
-"what":"Microsoft edited the post text",
-"before":"",
-"after":"see the post",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://mc.merill.net/message/MC1230889"
-},
-{
-"date":"2026-11-06",
-"id":"MC1230889",
-"what":"Microsoft moved the date",
-"before":"early Nov 2026",
-"after":"early Apr 2027",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://mc.merill.net/message/MC1230889"
-},
-{
-"date":"2026-09-29",
-"id":"MC1230889",
-"what":"Act-by date",
-"before":"",
-"after":"2026-11-02",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
-},
-{
-"date":"2026-09-28",
-"id":"MC1230889",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"(Updated) Outlook for Windows report retirement in the Exchange admin center",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
-},
-{
-"date":"2026-08-28",
-"id":"MC1230889",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the timeline.",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
-},
-{
-"date":"2026-08-28",
-"id":"MC1230889",
-"what":"Microsoft moved the date",
-"before":"mid Aug 2026",
-"after":"early Nov 2026",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
-},
-{
-"date":"2026-08-28",
-"id":"MC1230889",
-"what":"Microsoft moved the date",
-"before":"mid Sep 2026",
-"after":"late Nov 2026",
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
-}
-],
-"milestones":{
-"MC1230889|posted":{
-"date":"2026-02-11",
-"label":"11 Feb 2026",
-"text":"Posted: Outlook for Windows report retirement in the Exchange admin center"
-},
-"MC1230889|actionBy":{
-"date":"2026-11-02",
-"label":"2 Nov 2026",
-"text":"Act by this date (Message Center)"
-},
-"MC1230889|retirement will begin in early previously early#1":{
-"date":"2026-11-05",
-"label":"early Nov 2026",
-"text":"Retirement will begin in early April 2027 (previously early November 2026)."
-},
-"MC1230889|retirement will begin in early previously early#0":{
-"date":"2027-04-05",
-"label":"early Apr 2027",
-"text":"Retirement will begin in early April 2027 (previously early November 2026)."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889":{
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889",
-"source":"Message Center",
-"id":"MC1230889",
-"date":"2026-02-11",
-"updated":"2026-08-28",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1230889":{
-"title":"Outlook for Windows report retirement in the Exchange admin center",
-"link":"https://mc.merill.net/message/MC1230889",
-"source":"Message Center",
-"id":"MC1230889",
-"date":"2026-02-11",
-"updated":"2026-11-06",
-"group":"microsoft",
-"found":"2026-11-07"
-}
-},
-"final":"2027-04-05",
-"type":"Retirement",
-"tech":"Exchange",
-"posts":[
-"MC1230889"
-]
-},
-"c-mc1540345":{
-"firstSeen":"2026-11-05",
-"lastSeen":"2026-11-10",
-"name":"Update permissions for Exchange Online Admin API",
-"status":"Active",
-"members":[
-"MC1540345",
-"item:MC1540345"
-],
-"log":[
-{
-"date":"2026-11-06",
-"id":"MC1540345",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"Exchange Online Admin API v2.0 drops Exchange.ManageV2 and Exchange.ManageAsAppV2 on 1 December; apps must move to Exchange.AdminAPI.Manage / .ManageAsApp and get fresh admin consent",
-"title":"Exchange Online Admin API v2.0 drops Exchange.ManageV2 and Exchange.ManageAsAppV2 on 1 December; apps must move to Exchange.AdminAPI.Manage / .ManageAsApp and get fresh admin consent",
-"link":"https://deltapulse.app/item/MC1540345"
-}
-],
-"milestones":{
-"MC1540345|new permissions become available#0":{
-"date":"2026-11-01",
-"label":"1 Nov 2026",
-"text":"New permissions become available November 1, 2026."
-},
-"MC1540345|posted":{
-"date":"2026-11-05",
-"label":"5 Nov 2026",
-"text":"Posted: Update permissions for Exchange Online Admin API"
-},
-"MC1540345|microsoft is updating exchange online admin api v permission#0":{
-"date":"2026-11-15",
-"label":"Nov 2026",
-"text":"Microsoft is updating Exchange Online Admin API v2.0 permissions, replacing Exchange.ManageV2 and Exchange.ManageAsAppV2 with new permissions by November 2026."
-},
-"MC1540345|complete migration by#0":{
-"date":"2026-11-30",
-"label":"30 Nov 2026",
-"text":"Complete migration by November 30, 2026."
-},
-"MC1540345|deadline":{
-"date":"2026-12-01",
-"label":"1 Dec 2026",
-"text":"Exchange Online Admin API v2.0 drops Exchange.ManageV2 and Exchange.ManageAsAppV2 on 1 December; apps must move to Exchange.AdminAPI.Manage / .ManageAsApp and g"
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1540345":{
-"title":"Update permissions for Exchange Online Admin API",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1540345",
-"source":"Message Center",
-"id":"MC1540345",
-"date":"2026-11-05",
-"updated":"2026-11-05",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://mc.merill.net/message/MC1540345":{
-"title":"Update permissions for Exchange Online Admin API",
-"link":"https://mc.merill.net/message/MC1540345",
-"source":"Message Center",
-"id":"MC1540345",
-"date":"2026-11-05",
-"updated":"2026-11-05",
-"group":"microsoft",
-"found":"2026-11-06"
-},
-"https://deltapulse.app/item/MC1540345":{
-"title":"Update permissions for Exchange Online Admin API",
-"link":"https://deltapulse.app/item/MC1540345",
-"source":"Main list source",
-"id":"MC1540345",
-"date":"2026-11-05",
-"group":"microsoft",
-"found":"2026-11-06"
-}
-},
-"final":"2026-12-01",
-"type":"Retirement",
-"tech":"Exchange",
-"posts":[
-"MC1540345"
-]
-},
-"c-item-mc1519855":{
-"firstSeen":"2026-10-22",
-"lastSeen":"2026-11-10",
-"name":"SSPR requires registered authentication methods",
-"status":"Active",
-"members":[
-"MC1325414",
-"MC1325414-enforcement",
-"item:MC1325414-enforcement",
-"MC1400824",
-"MC1519855",
-"item:MC1519855",
-"MC1528000",
-"item:MC1528000",
-"MC1536049",
-"item:MC1536049",
-"MC1540327"
-],
-"log":[
-{
-"date":"2026-11-06",
-"id":"MC1540327",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"Action required: Prepare users who can’t use passkeys for SMS and voice retirement",
-"title":"Prepare users who can’t use passkeys for SMS and voice retirement",
-"link":"https://mc.merill.net/message/MC1540327"
-},
-{
-"date":"2026-11-03",
-"id":"MC1536049",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Microsoft-provided SMS and voice stop working for self-service password reset 50 days after the SMS/voice sign-in retirement reaches the tenant: from 1 February 2027 for most users, 1 July 2027 for Global Administrators and external users",
-"title":"Microsoft-provided SMS and voice stop working for self-service password reset 50 days after the SMS/voice sign-in retirement reaches the tenant: from 1 February 2027 for most users, 1 July 2027 for Global Administrators and external users",
-"link":"https://deltapulse.app/item/MC1536049"
-},
-{
-"date":"2026-10-30",
-"id":"MC1519855",
-"what":"Title",
-"before":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
-"after":"(Updated) Microsoft Entra: Choose your own telephony provider now generally available",
-"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
-"link":"https://deltapulse.app/item/MC1519855"
-},
-{
-"date":"2026-10-30",
-"id":"MC1519855",
-"what":"Microsoft edited the post text",
-"before":"",
-"after":"see the post",
-"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
-"link":"https://deltapulse.app/item/MC1519855"
-},
-{
-"date":"2026-10-30",
-"id":"MC1519855",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated this post with additional information as the feature is now generally available.",
-"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
-"link":"https://deltapulse.app/item/MC1519855"
-},
-{
-"date":"2026-10-30",
-"id":"MC1519855",
-"what":"Microsoft revised the post",
-"before":"2026-10-21",
-"after":"2026-10-30",
-"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
-"link":"https://deltapulse.app/item/MC1519855"
-},
-{
-"date":"2026-10-30",
-"id":"MC1518029",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Entra adds risk-based CAPTCHA before an SMS or voice first-factor code is sent; rollout began mid-October and the timeline was revised 26 October",
-"title":"Entra adds risk-based CAPTCHA before an SMS or voice first-factor code is sent; rollout began mid-October and the timeline was revised 26 October",
-"link":"https://deltapulse.app/item/MC1518029"
-},
-{
-"date":"2026-10-28",
-"id":"MC1528000",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Reminder: Microsoft-provided SMS and voice authentication retires from 1 February 2027; users with only SMS or voice get one last use, then must register a passkey",
-"title":"Reminder: Microsoft-provided SMS and voice authentication retires from 1 February 2027; users with only SMS or voice get one last use, then must register a passkey",
-"link":"https://mc.merill.net/message/MC1528000"
-},
-{
-"date":"2026-10-26",
-"id":"MC1518029",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the timeline.",
-"title":"Entra adds risk-based CAPTCHA before an SMS or voice first-factor code is sent; rollout began mid-October and the timeline was revised 26 October",
-"link":"https://deltapulse.app/item/MC1518029"
-},
-{
-"date":"2026-10-22",
-"id":"MC1519855",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
-"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
-"link":"https://deltapulse.app/item/MC1519855"
-},
-{
-"date":"2026-08-04",
-"id":"MC1325414",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the timeline.",
-"title":"SSPR requires registered authentication methods",
-"link":"https://mc.merill.net/message/MC1325414"
-},
-{
-"date":"2026-05-28",
-"id":"MC1325414",
-"what":"Microsoft moved the date",
-"before":"early Sep 2026",
-"after":"early Nov 2026",
-"title":"SSPR requires registered authentication methods",
-"link":"https://mc.merill.net/message/MC1325414"
-},
-{
-"date":"2026-05-28",
-"id":"MC1325414",
-"what":"Microsoft moved the date",
-"before":"mid Sep 2026",
-"after":"mid Nov 2026",
-"title":"SSPR requires registered authentication methods",
-"link":"https://mc.merill.net/message/MC1325414"
-}
-],
-"milestones":{
-"MC1325414|posted":{
-"date":"2026-05-28",
-"label":"28 May 2026",
-"text":"Posted: SSPR requires registered authentication methods"
-},
-"MC1400824|posted":{
-"date":"2026-09-29",
-"label":"29 Sep 2026",
-"text":"Posted: Microsoft Entra: Self-service password reset CAPTCHA protection updated"
-},
-"MC1325414|sspr registration campaign begins prompting users and admini#0":{
-"date":"2026-10-05",
-"label":"5 Oct 2026",
-"text":"October 5, 2026: SSPR registration campaign begins prompting users and administrators to register authentication methods if SSPR setting requires registration a"
-},
-"MC1519855|posted":{
-"date":"2026-10-21",
-"label":"21 Oct 2026",
-"text":"Posted: Microsoft Entra: Choose your own telephony provider now generally available"
-},
-"MC1528000|posted":{
-"date":"2026-10-27",
-"label":"27 Oct 2026",
-"text":"Posted: Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
-},
-"MC1519855|is the general availability date microsoft states the retire#0":{
-"date":"2026-10-30",
-"label":"30 Oct 2026",
-"text":"30 October 2026 is the general-availability date Microsoft states"
-},
-"MC1536049|posted":{
-"date":"2026-11-03",
-"label":"3 Nov 2026",
-"text":"Posted: Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
-},
-"MC1540327|posted":{
-"date":"2026-11-05",
-"label":"5 Nov 2026",
-"text":"Posted: Prepare users who can’t use passkeys for SMS and voice retirement"
-},
-"MC1325414|early previously early through mid previously mid#0":{
-"date":"2026-11-05",
-"label":"early Nov 2026",
-"text":"Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
-},
-"MC1325414|actionBy":{
-"date":"2026-11-06",
-"label":"6 Nov 2026",
-"text":"Act by this date (Message Center)"
-},
-"MC1325414|enforcement begins#0":{
-"date":"2026-11-07",
-"label":"7 Nov 2026",
-"text":"November 7, 2026: Enforcement begins."
-},
-"MC1325414|action is required before#0":{
-"date":"2026-11-09",
-"label":"9 Nov 2026",
-"text":"Action is required before November 9, 2026."
-},
-"MC1325414|early previously early through mid previously mid#1":{
-"date":"2026-11-15",
-"label":"mid Nov 2026",
-"text":"Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
-},
-"MC1519855|microsoft entra id now generally supports choose your own te#0":{
-"date":"2027-02-01",
-"label":"1 Feb 2027",
-"text":"Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by Fe"
-},
-"MC1536049|we expect rollout to begin and complete in#0":{
-"date":"2027-02-15",
-"label":"Feb 2027",
-"text":"We expect rollout to begin and complete in February 2027."
-},
-"MC1536049|message center action required date days after the rollout s#0":{
-"date":"2027-03-22",
-"label":"22 Mar 2027",
-"text":"Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)"
-},
-"MC1536049|message center action required date days after the rollout s#2":{
-"date":"2027-07-01",
-"label":"1 Jul 2027",
-"text":"Global Administrators and external users follow a separate rollout from 1 July 2027."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1519855":{
-"title":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
-"link":"https://mc.merill.net/message/MC1519855",
-"source":"Message Center",
-"id":"MC1519855",
-"date":"2026-10-21",
-"updated":"2026-10-21",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://deltapulse.app/item/MC1519855":{
-"title":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
-"link":"https://deltapulse.app/item/MC1519855",
-"source":"Main list source",
-"id":"MC1519855",
-"date":"2026-10-21",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://azure.microsoft.com/updates?id=577273":{
-"title":"Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
-"link":"https://azure.microsoft.com/updates?id=577273",
-"source":"Azure Updates",
-"date":"2026-10-21",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
-"title":"General Availability - Enabling Email and SMS OTP MFA in Entra External ID Native Authentication",
-"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
-"source":"Microsoft Learn · What's new · Entra",
-"date":"2026-06-26",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://mc.merill.net/message/AZ577273":{
-"title":"AZ577273: Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
-"link":"https://mc.merill.net/message/AZ577273",
-"source":"MC - Merill",
-"date":"2026-10-21",
-"group":"community",
-"found":"2026-10-22"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500":{
-"title":"Free, offline tool: see each user's real passkey policy in Entra ID and who SMS retirement blocks",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500",
-"source":"Microsoft Entra Blog",
-"date":"2026-10-23",
-"group":"community",
-"found":"2026-10-23"
-},
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528000":{
-"title":"Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528000",
-"source":"Message Center",
-"id":"MC1528000",
-"date":"2026-10-27",
-"updated":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://mc.merill.net/message/MC1528000":{
-"title":"Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication",
-"link":"https://mc.merill.net/message/MC1528000",
-"source":"Message Center",
-"id":"MC1528000",
-"date":"2026-10-27",
-"updated":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://daily.entra.news/day/2026-10-27/":{
-"title":"Microsoft-provided SMS and voice face February 2027 Entra retirement deadline — 27 October 2026",
-"link":"https://daily.entra.news/day/2026-10-27/",
-"source":"Daily Entra News",
-"date":"2026-10-27",
-"group":"community",
-"found":"2026-10-28"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/bring-your-own-telephony-to-voice-agents-via-sip/ba-p/4562702":{
-"title":"Bring Your Own Telephony to Voice Agents via SIP",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/bring-your-own-telephony-to-voice-agents-via-sip/ba-p/4562702",
-"source":"Azure AI Foundry Blog",
-"date":"2026-10-29",
-"group":"microsoft",
-"found":"2026-10-30"
-},
-"https://mc.merill.net/message/MC1518029":{
-"title":"MC1518029: Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice authentication",
-"link":"https://mc.merill.net/message/MC1518029",
-"source":"MC - Merill",
-"date":"2026-10-29",
-"group":"community",
-"found":"2026-10-30"
-},
-"https://deltapulse.app/item/MC1518029":{
-"title":"Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice authentication",
-"link":"https://deltapulse.app/item/MC1518029",
-"source":"Main list source",
-"id":"MC1518029",
-"date":"2026-10-20",
-"group":"microsoft",
-"found":"2026-10-30"
-},
-"https://daily.entra.news/day/2026-10-29/":{
-"title":"Risk-based CAPTCHA expands Entra sign-in defenses as Cloud Sync guidance tightens prerequisites — 29 October 2026",
-"link":"https://daily.entra.news/day/2026-10-29/",
-"source":"Daily Entra News",
-"date":"2026-10-29",
-"group":"community",
-"found":"2026-10-30"
-},
-"https://daily.entra.news/day/2026-10-30/":{
-"title":"Choose-your-own telephony reaches general availability ahead of February 2027 SMS retirement — 30 October 2026",
-"link":"https://daily.entra.news/day/2026-10-30/",
-"source":"Daily Entra News",
-"date":"2026-10-30",
-"group":"community",
-"found":"2026-10-31"
-},
-"https://mc.merill.net/message/MC1325414":{
-"title":"SSPR requires registered authentication methods",
-"link":"https://mc.merill.net/message/MC1325414",
-"source":"Message Center",
-"id":"MC1325414",
-"date":"2026-05-28",
-"updated":"2026-05-28",
-"group":"microsoft",
-"found":"2026-11-03"
-},
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1400824":{
-"title":"Microsoft Entra: Self-service password reset CAPTCHA protection updated",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1400824",
-"source":"Message Center",
-"id":"MC1400824",
-"date":"2026-09-29",
-"updated":null,
-"group":"microsoft",
-"found":"2026-11-03"
-},
-"https://mc.merill.net/message/MC1536049":{
-"title":"Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)",
-"link":"https://mc.merill.net/message/MC1536049",
-"source":"Message Center",
-"id":"MC1536049",
-"date":"2026-11-03",
-"updated":"2026-11-03",
-"group":"microsoft",
-"found":"2026-11-03"
-},
-"https://deltapulse.app/item/MC1536049":{
-"title":"Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)",
-"link":"https://deltapulse.app/item/MC1536049",
-"source":"Main list source",
-"id":"MC1536049",
-"date":"2026-11-03",
-"group":"microsoft",
-"found":"2026-11-03"
-},
-"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
-"title":"Managed Home Screen exit lock task mode password now requires a device configuration profile",
-"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
-"source":"Microsoft Learn · What's new · Microsoft Intune",
-"date":"2026-06-08",
-"group":"microsoft",
-"found":"2026-11-03"
-},
-"https://janbakker.tech/how-to-setup-sms-or-voice-with-your-own-telecom-provider-in-microsoft-entra/":{
-"title":"How to set up SMS or voice with your own telecom provider in Microsoft Entra",
-"link":"https://janbakker.tech/how-to-setup-sms-or-voice-with-your-own-telecom-provider-in-microsoft-entra/",
-"source":"JanBakker Tech - EntraID",
-"date":"2026-11-03",
-"group":"community",
-"found":"2026-11-03"
-},
-"https://daily.entra.news/day/2026-11-03/":{
-"title":"Microsoft-provided SMS and voice SSPR retirement sets February 2027 recovery deadline — 3 November 2026",
-"link":"https://daily.entra.news/day/2026-11-03/",
-"source":"Daily Entra News",
-"date":"2026-11-03",
-"group":"community",
-"found":"2026-11-03"
-},
-"https://blog.admindroid.com/microsoft-entra-id-sms-voice-retirement-for-sspr/":{
-"title":"Microsoft Entra ID is Retiring SMS & Voice Authentication for SSPR",
-"link":"https://blog.admindroid.com/microsoft-entra-id-sms-voice-retirement-for-sspr/",
-"source":"AdminDroid Blog",
-"date":"2026-11-03",
-"group":"community",
-"found":"2026-11-03"
-},
-"https://thehackernews.com/2026/11/msecure-warns-users-to-change-passwords.html":{
-"title":"mSecure Warns Users to Change Passwords, Reset 2FA and Passkeys After Suspicious Activity",
-"link":"https://thehackernews.com/2026/11/msecure-warns-users-to-change-passwords.html",
-"source":"Hacker News",
-"date":"2026-11-04",
-"group":"community",
-"found":"2026-11-04"
-},
-"https://www.bleepingcomputer.com/news/security/msecure-password-manager-hack-prompts-password-reset-warnings/":{
-"title":"mSecure password manager hack prompts password reset warnings",
-"link":"https://www.bleepingcomputer.com/news/security/msecure-password-manager-hack-prompts-password-reset-warnings/",
-"source":"BleepingComputer",
-"date":"2026-11-04",
-"group":"community",
-"found":"2026-11-04"
-},
-"https://mc.merill.net/message/MC1540327":{
-"title":"Prepare users who can’t use passkeys for SMS and voice retirement",
-"link":"https://mc.merill.net/message/MC1540327",
-"source":"Message Center",
-"id":"MC1540327",
-"date":"2026-11-05",
-"updated":"2026-11-05",
-"group":"microsoft",
-"found":"2026-11-06"
-}
-},
-"final":"2027-07-01",
-"type":"Retirement",
-"tech":"Entra",
-"posts":[
-"MC1325414",
-"MC1400824",
-"MC1519855",
-"MC1528000",
-"MC1536049",
-"MC1540327"
 ]
 },
 "c-mc676299":{
@@ -965,6 +308,15 @@
 "item:exchange-online-ews-disablement-starts-2026-10-21"
 ],
 "log":[
+{
+"date":"2026-11-09",
+"id":"MC1446796",
+"what":"Microsoft revised the post",
+"before":"2026-10-30",
+"after":"2026-11-09",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
 {
 "date":"2026-11-09",
 "id":"MC1446796",
@@ -1732,6 +1084,682 @@
 "MC1477180"
 ]
 },
+"c-mc1230889":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-10",
+"name":"Outlook for Windows report retirement in the Exchange admin center",
+"status":"Active",
+"members":[
+"MC1230889"
+],
+"log":[
+{
+"date":"2026-11-06",
+"id":"MC1230889",
+"what":"Message Center end date",
+"before":"2027-01-04",
+"after":"2027-05-31",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://mc.merill.net/message/MC1230889"
+},
+{
+"date":"2026-11-06",
+"id":"MC1230889",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://mc.merill.net/message/MC1230889"
+},
+{
+"date":"2026-11-06",
+"id":"MC1230889",
+"what":"Microsoft moved the date",
+"before":"early Nov 2026",
+"after":"early Apr 2027",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://mc.merill.net/message/MC1230889"
+},
+{
+"date":"2026-09-29",
+"id":"MC1230889",
+"what":"Act-by date",
+"before":"",
+"after":"2026-11-02",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+},
+{
+"date":"2026-09-28",
+"id":"MC1230889",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"(Updated) Outlook for Windows report retirement in the Exchange admin center",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+},
+{
+"date":"2026-08-28",
+"id":"MC1230889",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+},
+{
+"date":"2026-08-28",
+"id":"MC1230889",
+"what":"Microsoft moved the date",
+"before":"mid Aug 2026",
+"after":"early Nov 2026",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+},
+{
+"date":"2026-08-28",
+"id":"MC1230889",
+"what":"Microsoft moved the date",
+"before":"mid Sep 2026",
+"after":"late Nov 2026",
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889"
+}
+],
+"milestones":{
+"MC1230889|posted":{
+"date":"2026-02-11",
+"label":"11 Feb 2026",
+"text":"Posted: Outlook for Windows report retirement in the Exchange admin center"
+},
+"MC1230889|actionBy":{
+"date":"2026-11-02",
+"label":"2 Nov 2026",
+"text":"Act by this date (Message Center)"
+},
+"MC1230889|retirement will begin in early previously early#1":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"Retirement will begin in early April 2027 (previously early November 2026)."
+},
+"MC1230889|retirement will begin in early previously early#0":{
+"date":"2027-04-05",
+"label":"early Apr 2027",
+"text":"Retirement will begin in early April 2027 (previously early November 2026)."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889":{
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1230889",
+"source":"Message Center",
+"id":"MC1230889",
+"date":"2026-02-11",
+"updated":"2026-08-28",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1230889":{
+"title":"Outlook for Windows report retirement in the Exchange admin center",
+"link":"https://mc.merill.net/message/MC1230889",
+"source":"Message Center",
+"id":"MC1230889",
+"date":"2026-02-11",
+"updated":"2026-11-06",
+"group":"microsoft",
+"found":"2026-11-07"
+}
+},
+"final":"2027-04-05",
+"type":"Retirement",
+"tech":"Exchange",
+"posts":[
+"MC1230889"
+]
+},
+"c-mc1540345":{
+"firstSeen":"2026-11-05",
+"lastSeen":"2026-11-10",
+"name":"Update permissions for Exchange Online Admin API",
+"status":"Active",
+"members":[
+"MC1540345",
+"item:MC1540345"
+],
+"log":[
+{
+"date":"2026-11-06",
+"id":"MC1540345",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Exchange Online Admin API v2.0 drops Exchange.ManageV2 and Exchange.ManageAsAppV2 on 1 December; apps must move to Exchange.AdminAPI.Manage / .ManageAsApp and get fresh admin consent",
+"title":"Exchange Online Admin API v2.0 drops Exchange.ManageV2 and Exchange.ManageAsAppV2 on 1 December; apps must move to Exchange.AdminAPI.Manage / .ManageAsApp and get fresh admin consent",
+"link":"https://deltapulse.app/item/MC1540345"
+}
+],
+"milestones":{
+"MC1540345|new permissions become available#0":{
+"date":"2026-11-01",
+"label":"1 Nov 2026",
+"text":"New permissions become available November 1, 2026."
+},
+"MC1540345|posted":{
+"date":"2026-11-05",
+"label":"5 Nov 2026",
+"text":"Posted: Update permissions for Exchange Online Admin API"
+},
+"MC1540345|microsoft is updating exchange online admin api v permission#0":{
+"date":"2026-11-15",
+"label":"Nov 2026",
+"text":"Microsoft is updating Exchange Online Admin API v2.0 permissions, replacing Exchange.ManageV2 and Exchange.ManageAsAppV2 with new permissions by November 2026."
+},
+"MC1540345|complete migration by#0":{
+"date":"2026-11-30",
+"label":"30 Nov 2026",
+"text":"Complete migration by November 30, 2026."
+},
+"MC1540345|deadline":{
+"date":"2026-12-01",
+"label":"1 Dec 2026",
+"text":"Exchange Online Admin API v2.0 drops Exchange.ManageV2 and Exchange.ManageAsAppV2 on 1 December; apps must move to Exchange.AdminAPI.Manage / .ManageAsApp and g"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1540345":{
+"title":"Update permissions for Exchange Online Admin API",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1540345",
+"source":"Message Center",
+"id":"MC1540345",
+"date":"2026-11-05",
+"updated":"2026-11-05",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://mc.merill.net/message/MC1540345":{
+"title":"Update permissions for Exchange Online Admin API",
+"link":"https://mc.merill.net/message/MC1540345",
+"source":"Message Center",
+"id":"MC1540345",
+"date":"2026-11-05",
+"updated":"2026-11-05",
+"group":"microsoft",
+"found":"2026-11-06"
+},
+"https://deltapulse.app/item/MC1540345":{
+"title":"Update permissions for Exchange Online Admin API",
+"link":"https://deltapulse.app/item/MC1540345",
+"source":"Main list source",
+"id":"MC1540345",
+"date":"2026-11-05",
+"group":"microsoft",
+"found":"2026-11-06"
+}
+},
+"final":"2026-12-01",
+"type":"Retirement",
+"tech":"Exchange",
+"posts":[
+"MC1540345"
+]
+},
+"c-item-mc1519855":{
+"firstSeen":"2026-10-22",
+"lastSeen":"2026-11-10",
+"name":"SSPR requires registered authentication methods",
+"status":"Active",
+"members":[
+"MC1325414",
+"MC1325414-enforcement",
+"item:MC1325414-enforcement",
+"MC1400824",
+"MC1519855",
+"item:MC1519855",
+"MC1528000",
+"item:MC1528000",
+"MC1536049",
+"item:MC1536049",
+"MC1540327"
+],
+"log":[
+{
+"date":"2026-11-06",
+"id":"MC1540327",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Action required: Prepare users who can’t use passkeys for SMS and voice retirement",
+"title":"Prepare users who can’t use passkeys for SMS and voice retirement",
+"link":"https://mc.merill.net/message/MC1540327"
+},
+{
+"date":"2026-11-03",
+"id":"MC1536049",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Microsoft-provided SMS and voice stop working for self-service password reset 50 days after the SMS/voice sign-in retirement reaches the tenant: from 1 February 2027 for most users, 1 July 2027 for Global Administrators and external users",
+"title":"Microsoft-provided SMS and voice stop working for self-service password reset 50 days after the SMS/voice sign-in retirement reaches the tenant: from 1 February 2027 for most users, 1 July 2027 for Global Administrators and external users",
+"link":"https://deltapulse.app/item/MC1536049"
+},
+{
+"date":"2026-10-30",
+"id":"MC1519855",
+"what":"Title",
+"before":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+"after":"(Updated) Microsoft Entra: Choose your own telephony provider now generally available",
+"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"link":"https://deltapulse.app/item/MC1519855"
+},
+{
+"date":"2026-10-30",
+"id":"MC1519855",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"link":"https://deltapulse.app/item/MC1519855"
+},
+{
+"date":"2026-10-30",
+"id":"MC1519855",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated this post with additional information as the feature is now generally available.",
+"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"link":"https://deltapulse.app/item/MC1519855"
+},
+{
+"date":"2026-10-30",
+"id":"MC1519855",
+"what":"Microsoft revised the post",
+"before":"2026-10-21",
+"after":"2026-10-30",
+"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"link":"https://deltapulse.app/item/MC1519855"
+},
+{
+"date":"2026-10-30",
+"id":"MC1518029",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Entra adds risk-based CAPTCHA before an SMS or voice first-factor code is sent; rollout began mid-October and the timeline was revised 26 October",
+"title":"Entra adds risk-based CAPTCHA before an SMS or voice first-factor code is sent; rollout began mid-October and the timeline was revised 26 October",
+"link":"https://deltapulse.app/item/MC1518029"
+},
+{
+"date":"2026-10-28",
+"id":"MC1528000",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Reminder: Microsoft-provided SMS and voice authentication retires from 1 February 2027; users with only SMS or voice get one last use, then must register a passkey",
+"title":"Reminder: Microsoft-provided SMS and voice authentication retires from 1 February 2027; users with only SMS or voice get one last use, then must register a passkey",
+"link":"https://mc.merill.net/message/MC1528000"
+},
+{
+"date":"2026-10-26",
+"id":"MC1518029",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"Entra adds risk-based CAPTCHA before an SMS or voice first-factor code is sent; rollout began mid-October and the timeline was revised 26 October",
+"link":"https://deltapulse.app/item/MC1518029"
+},
+{
+"date":"2026-10-22",
+"id":"MC1519855",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"title":"Entra makes Choose Your Own Telephony Provider generally available on 30 October; Microsoft-provided SMS and voice still retire 1 February 2027 (Global Administrators and external users 1 July 2027)",
+"link":"https://deltapulse.app/item/MC1519855"
+},
+{
+"date":"2026-08-04",
+"id":"MC1325414",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"SSPR requires registered authentication methods",
+"link":"https://mc.merill.net/message/MC1325414"
+},
+{
+"date":"2026-05-28",
+"id":"MC1325414",
+"what":"Microsoft moved the date",
+"before":"early Sep 2026",
+"after":"early Nov 2026",
+"title":"SSPR requires registered authentication methods",
+"link":"https://mc.merill.net/message/MC1325414"
+},
+{
+"date":"2026-05-28",
+"id":"MC1325414",
+"what":"Microsoft moved the date",
+"before":"mid Sep 2026",
+"after":"mid Nov 2026",
+"title":"SSPR requires registered authentication methods",
+"link":"https://mc.merill.net/message/MC1325414"
+}
+],
+"milestones":{
+"MC1325414|posted":{
+"date":"2026-05-28",
+"label":"28 May 2026",
+"text":"Posted: SSPR requires registered authentication methods"
+},
+"MC1400824|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: Microsoft Entra: Self-service password reset CAPTCHA protection updated"
+},
+"MC1325414|sspr registration campaign begins prompting users and admini#0":{
+"date":"2026-10-05",
+"label":"5 Oct 2026",
+"text":"October 5, 2026: SSPR registration campaign begins prompting users and administrators to register authentication methods if SSPR setting requires registration a"
+},
+"MC1519855|posted":{
+"date":"2026-10-21",
+"label":"21 Oct 2026",
+"text":"Posted: Microsoft Entra: Choose your own telephony provider now generally available"
+},
+"MC1528000|posted":{
+"date":"2026-10-27",
+"label":"27 Oct 2026",
+"text":"Posted: Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
+},
+"MC1519855|is the general availability date microsoft states the retire#0":{
+"date":"2026-10-30",
+"label":"30 Oct 2026",
+"text":"30 October 2026 is the general-availability date Microsoft states"
+},
+"MC1536049|posted":{
+"date":"2026-11-03",
+"label":"3 Nov 2026",
+"text":"Posted: Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+},
+"MC1540327|posted":{
+"date":"2026-11-05",
+"label":"5 Nov 2026",
+"text":"Posted: Prepare users who can’t use passkeys for SMS and voice retirement"
+},
+"MC1325414|early previously early through mid previously mid#0":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
+},
+"MC1325414|actionBy":{
+"date":"2026-11-06",
+"label":"6 Nov 2026",
+"text":"Act by this date (Message Center)"
+},
+"MC1325414|enforcement begins#0":{
+"date":"2026-11-07",
+"label":"7 Nov 2026",
+"text":"November 7, 2026: Enforcement begins."
+},
+"MC1325414|action is required before#0":{
+"date":"2026-11-09",
+"label":"9 Nov 2026",
+"text":"Action is required before November 9, 2026."
+},
+"MC1325414|early previously early through mid previously mid#1":{
+"date":"2026-11-15",
+"label":"mid Nov 2026",
+"text":"Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
+},
+"MC1519855|microsoft entra id now generally supports choose your own te#0":{
+"date":"2027-02-01",
+"label":"1 Feb 2027",
+"text":"Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by Fe"
+},
+"MC1536049|we expect rollout to begin and complete in#0":{
+"date":"2027-02-15",
+"label":"Feb 2027",
+"text":"We expect rollout to begin and complete in February 2027."
+},
+"MC1536049|message center action required date days after the rollout s#0":{
+"date":"2027-03-22",
+"label":"22 Mar 2027",
+"text":"Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)"
+},
+"MC1536049|message center action required date days after the rollout s#2":{
+"date":"2027-07-01",
+"label":"1 Jul 2027",
+"text":"Global Administrators and external users follow a separate rollout from 1 July 2027."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1519855":{
+"title":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1519855",
+"source":"Message Center",
+"id":"MC1519855",
+"date":"2026-10-21",
+"updated":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://deltapulse.app/item/MC1519855":{
+"title":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
+"link":"https://deltapulse.app/item/MC1519855",
+"source":"Main list source",
+"id":"MC1519855",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://azure.microsoft.com/updates?id=577273":{
+"title":"Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
+"link":"https://azure.microsoft.com/updates?id=577273",
+"source":"Azure Updates",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
+"title":"General Availability - Enabling Email and SMS OTP MFA in Entra External ID Native Authentication",
+"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Entra",
+"date":"2026-06-26",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://mc.merill.net/message/AZ577273":{
+"title":"AZ577273: Announcing: Choose Your Own Telephony (CYOT) for Microsoft Entra",
+"link":"https://mc.merill.net/message/AZ577273",
+"source":"MC - Merill",
+"date":"2026-10-21",
+"group":"community",
+"found":"2026-10-22"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500":{
+"title":"Free, offline tool: see each user's real passkey policy in Entra ID and who SMS retirement blocks",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-entra/free-offline-tool-see-each-user-s-real-passkey-policy-in-entra/m-p/4567261#M10500",
+"source":"Microsoft Entra Blog",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-23"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528000":{
+"title":"Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1528000",
+"source":"Message Center",
+"id":"MC1528000",
+"date":"2026-10-27",
+"updated":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://mc.merill.net/message/MC1528000":{
+"title":"Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1528000",
+"source":"Message Center",
+"id":"MC1528000",
+"date":"2026-10-27",
+"updated":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://daily.entra.news/day/2026-10-27/":{
+"title":"Microsoft-provided SMS and voice face February 2027 Entra retirement deadline — 27 October 2026",
+"link":"https://daily.entra.news/day/2026-10-27/",
+"source":"Daily Entra News",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-28"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/bring-your-own-telephony-to-voice-agents-via-sip/ba-p/4562702":{
+"title":"Bring Your Own Telephony to Voice Agents via SIP",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/bring-your-own-telephony-to-voice-agents-via-sip/ba-p/4562702",
+"source":"Azure AI Foundry Blog",
+"date":"2026-10-29",
+"group":"microsoft",
+"found":"2026-10-30"
+},
+"https://mc.merill.net/message/MC1518029":{
+"title":"MC1518029: Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice authentication",
+"link":"https://mc.merill.net/message/MC1518029",
+"source":"MC - Merill",
+"date":"2026-10-29",
+"group":"community",
+"found":"2026-10-30"
+},
+"https://deltapulse.app/item/MC1518029":{
+"title":"Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice authentication",
+"link":"https://deltapulse.app/item/MC1518029",
+"source":"Main list source",
+"id":"MC1518029",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-30"
+},
+"https://daily.entra.news/day/2026-10-29/":{
+"title":"Risk-based CAPTCHA expands Entra sign-in defenses as Cloud Sync guidance tightens prerequisites — 29 October 2026",
+"link":"https://daily.entra.news/day/2026-10-29/",
+"source":"Daily Entra News",
+"date":"2026-10-29",
+"group":"community",
+"found":"2026-10-30"
+},
+"https://daily.entra.news/day/2026-10-30/":{
+"title":"Choose-your-own telephony reaches general availability ahead of February 2027 SMS retirement — 30 October 2026",
+"link":"https://daily.entra.news/day/2026-10-30/",
+"source":"Daily Entra News",
+"date":"2026-10-30",
+"group":"community",
+"found":"2026-10-31"
+},
+"https://mc.merill.net/message/MC1325414":{
+"title":"SSPR requires registered authentication methods",
+"link":"https://mc.merill.net/message/MC1325414",
+"source":"Message Center",
+"id":"MC1325414",
+"date":"2026-05-28",
+"updated":"2026-05-28",
+"group":"microsoft",
+"found":"2026-11-03"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1400824":{
+"title":"Microsoft Entra: Self-service password reset CAPTCHA protection updated",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1400824",
+"source":"Message Center",
+"id":"MC1400824",
+"date":"2026-09-29",
+"updated":null,
+"group":"microsoft",
+"found":"2026-11-03"
+},
+"https://mc.merill.net/message/MC1536049":{
+"title":"Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)",
+"link":"https://mc.merill.net/message/MC1536049",
+"source":"Message Center",
+"id":"MC1536049",
+"date":"2026-11-03",
+"updated":"2026-11-03",
+"group":"microsoft",
+"found":"2026-11-03"
+},
+"https://deltapulse.app/item/MC1536049":{
+"title":"Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)",
+"link":"https://deltapulse.app/item/MC1536049",
+"source":"Main list source",
+"id":"MC1536049",
+"date":"2026-11-03",
+"group":"microsoft",
+"found":"2026-11-03"
+},
+"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
+"title":"Managed Home Screen exit lock task mode password now requires a device configuration profile",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"date":"2026-06-08",
+"group":"microsoft",
+"found":"2026-11-03"
+},
+"https://janbakker.tech/how-to-setup-sms-or-voice-with-your-own-telecom-provider-in-microsoft-entra/":{
+"title":"How to set up SMS or voice with your own telecom provider in Microsoft Entra",
+"link":"https://janbakker.tech/how-to-setup-sms-or-voice-with-your-own-telecom-provider-in-microsoft-entra/",
+"source":"JanBakker Tech - EntraID",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://daily.entra.news/day/2026-11-03/":{
+"title":"Microsoft-provided SMS and voice SSPR retirement sets February 2027 recovery deadline — 3 November 2026",
+"link":"https://daily.entra.news/day/2026-11-03/",
+"source":"Daily Entra News",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://blog.admindroid.com/microsoft-entra-id-sms-voice-retirement-for-sspr/":{
+"title":"Microsoft Entra ID is Retiring SMS & Voice Authentication for SSPR",
+"link":"https://blog.admindroid.com/microsoft-entra-id-sms-voice-retirement-for-sspr/",
+"source":"AdminDroid Blog",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://thehackernews.com/2026/11/msecure-warns-users-to-change-passwords.html":{
+"title":"mSecure Warns Users to Change Passwords, Reset 2FA and Passkeys After Suspicious Activity",
+"link":"https://thehackernews.com/2026/11/msecure-warns-users-to-change-passwords.html",
+"source":"Hacker News",
+"date":"2026-11-04",
+"group":"community",
+"found":"2026-11-04"
+},
+"https://www.bleepingcomputer.com/news/security/msecure-password-manager-hack-prompts-password-reset-warnings/":{
+"title":"mSecure password manager hack prompts password reset warnings",
+"link":"https://www.bleepingcomputer.com/news/security/msecure-password-manager-hack-prompts-password-reset-warnings/",
+"source":"BleepingComputer",
+"date":"2026-11-04",
+"group":"community",
+"found":"2026-11-04"
+},
+"https://mc.merill.net/message/MC1540327":{
+"title":"Prepare users who can’t use passkeys for SMS and voice retirement",
+"link":"https://mc.merill.net/message/MC1540327",
+"source":"Message Center",
+"id":"MC1540327",
+"date":"2026-11-05",
+"updated":"2026-11-05",
+"group":"microsoft",
+"found":"2026-11-06"
+}
+},
+"final":"2027-07-01",
+"type":"Retirement",
+"tech":"Entra",
+"posts":[
+"MC1325414",
+"MC1400824",
+"MC1519855",
+"MC1528000",
+"MC1536049",
+"MC1540327"
+]
+},
 "c-mc1450127":{
 "firstSeen":"2026-10-22",
 "lastSeen":"2026-11-10",
@@ -2409,8 +2437,7 @@
 "name":"Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
 "status":"Recently closed",
 "members":[
-"MC1526468",
-"item:MC1526468"
+"MC1526468"
 ],
 "log":[
 {
@@ -6893,14 +6920,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-07",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-08",
 "text":"August 1, 2026."
 },
@@ -7030,6 +7049,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-09",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-10",
 "text":"August 1, 2026."
 },
 {
@@ -7589,22 +7616,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-08",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-08",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-09",
 "text":"early February 2026."
 },
@@ -7694,6 +7705,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-09",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-10",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-10",
 "text":"February 2027."
 },
 {
@@ -8385,7 +8412,6 @@
 "MC1465692",
 "item:azure-functions-inprocess-eos",
 "item:dotnet8-powershell74-end-of-servicing",
-"item:msrc-cve-2026-70197-not-addressed-2026-10-19",
 "item:MC1525374"
 ],
 "log":[
@@ -8690,6 +8716,14 @@
 "date":"2026-11-08",
 "group":"community",
 "found":"2026-11-08"
+},
+"https://azure.microsoft.com/updates?id=575106":{
+"title":"Retirement: Support for .NET 8 and .NET 9 on Static Web Apps is ending November 10, 2026",
+"link":"https://azure.microsoft.com/updates?id=575106",
+"source":"Azure Updates",
+"date":"2026-11-09",
+"group":"microsoft",
+"found":"2026-11-10"
 }
 },
 "final":"2026-11-10",
@@ -9548,6 +9582,77 @@
 "tech":"Copilot",
 "posts":[
 "MC1542066"
+]
+},
+"c-item-mc1546409":{
+"firstSeen":"2026-11-10",
+"lastSeen":"2026-11-10",
+"name":"Retirement of off-network invitations to Teams Free",
+"status":"Active",
+"members":[
+"MC1546409",
+"item:MC1546409"
+],
+"log":[
+{
+"date":"2026-11-10",
+"id":"MC1546409",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Teams retires off-network email and link invitations that onboard outsiders to Teams Free in December; federation with existing Teams Free users stays",
+"title":"Teams retires off-network email and link invitations that onboard outsiders to Teams Free in December; federation with existing Teams Free users stays",
+"link":"https://deltapulse.app/item/MC1546409"
+}
+],
+"milestones":{
+"MC1546409|posted":{
+"date":"2026-11-10",
+"label":"10 Nov 2026",
+"text":"Posted: Microsoft Teams: Retirement of off-network invitations to Teams Free"
+},
+"MC1546409|we will begin rolling out in early and expect to complete by#0":{
+"date":"2026-12-05",
+"label":"early Dec 2026",
+"text":"We will begin rolling out in early December 2026 and expect to complete by late December 2026."
+},
+"MC1546409|however we recommend updating user guidance and helpdesk doc#0":{
+"date":"2026-12-06",
+"label":"6 Dec 2026",
+"text":"However, we recommend updating user guidance and helpdesk documentation before December 6, 2026, to reflect the following alternatives: For ongoing chat: If rec"
+},
+"MC1546409|we will begin rolling out in early and expect to complete by#1":{
+"date":"2026-12-25",
+"label":"late Dec 2026",
+"text":"We will begin rolling out in early December 2026 and expect to complete by late December 2026."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1546409":{
+"title":"Microsoft Teams: Retirement of off-network invitations to Teams Free",
+"link":"https://mc.merill.net/message/MC1546409",
+"source":"Message Center",
+"id":"MC1546409",
+"date":"2026-11-10",
+"updated":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-10"
+},
+"https://deltapulse.app/item/MC1546409":{
+"title":"Microsoft Teams: Retirement of off-network invitations to Teams Free",
+"link":"https://deltapulse.app/item/MC1546409",
+"source":"Main list source",
+"id":"MC1546409",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-10"
+}
+},
+"final":"2026-12-25",
+"type":"Retirement",
+"tech":"Teams",
+"posts":[
+"MC1546409"
 ]
 },
 "c-sms-voice-retirement":{
@@ -11199,22 +11304,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-08",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-08",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-09",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -11304,6 +11393,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-09",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-10",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-10",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11865,6 +11970,14 @@
 "date":"2026-11-09",
 "group":"community",
 "found":"2026-11-09"
+},
+"https://mc.merill.net/message/MC1545694":{
+"title":"MC1545694: Microsoft Entra: Updated passkey registration experience in My Sign-ins",
+"link":"https://mc.merill.net/message/MC1545694",
+"source":"MC - Merill",
+"date":"2026-11-09",
+"group":"community",
+"found":"2026-11-10"
 }
 },
 "final":"2027-05-25",
@@ -18930,6 +19043,36 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-10",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"Retirement: Support for .NET 8 and .NET 9 on Static Web Apps is ending November 10, 2026",
+"source":"Azure Updates",
+"link":"https://azure.microsoft.com/updates?id=575106"
+},
+{
+"day":"2026-11-10",
+"cid":"c-item-mc1546409",
+"type":"new",
+"name":"Retirement of off-network invitations to Teams Free",
+"ctype":"Retirement",
+"tech":"Teams",
+"next":"early Dec 2026",
+"text":"Microsoft Teams will retire the invitation flow that allows work or school users to invite people who cannot be found in Teams to create a Teams Free account and join a chat."
+},
+{
+"day":"2026-11-10",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"MC1545694: Microsoft Entra: Updated passkey registration experience in My Sign-ins",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1545694"
 }
 ],
 "archive":{
