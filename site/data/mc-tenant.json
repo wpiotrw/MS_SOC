@@ -1,7 +1,7 @@
 {
  "read": "2026-11-11",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 730,
+ "count": 727,
  "note": null,
  "messages": [
   {
@@ -547,108 +547,6 @@
     "General Availability: Rolling out mid-April 2026 (previously late March), expected to complete by mid-June 2026 (previously late April)."
    ],
    "bodyHash": "6dca683969541e35"
-  },
-  {
-   "id": "MC1183612",
-   "title": "Action Required to Enable Extended Security Update for local devices accessing Windows 365",
-   "services": [
-    "Windows"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": "2025-11-11",
-   "start": "2025-11-08",
-   "end": "2026-11-11",
-   "modified": "2025-11-08",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Windows 10 devices accessing Windows 365 Enterprise Cloud PCs and Windows 365 Frontline (Dedicated) Cloud PCs are automatically entitled to Windows 10 Extended Security Updates (ESU) under certain conditions. IT administrators must use Microsoft Intune or another MDM provider to deploy a custom policy that helps verify whether a device is enrolled in the Windows 10 ESU subscription program. Action…",
-   "when": null,
-   "prepare": "Ensure that the Windows 10 devices across your organization meet the above requirements in order to continue to be protected under the ESU offering. We advise taking action prior to November 11 in order to remain protected. See the",
-   "dates": [
-    "Action is required in order for these devices to install the upcoming November 2025 Windows security update, which will be available on November 11, 2025.",
-    "When will this happen: The upcoming November 2025 Windows security update will be available on November 11, 2025."
-   ],
-   "bodyHash": "6bd293354dec4a76"
-  },
-  {
-   "id": "MC1184889",
-   "title": "The November 2025 Windows security update is now available",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2025-11-11",
-   "end": "2026-11-11",
-   "modified": "2025-11-11",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "The November 2025 security update is now available for all supported versions of Windows. We recommend that you install these updates promptly. For more information about the contents of this update, see the release notes, which are easily accessible from the Windows 11 update history page. To learn more about the different types of monthly quality updates, see Windows monthly updates explained . …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "The November 2025 security update is now available for all supported versions of Windows.",
-    "Highlights for the Windows 11, version 25H2 update: This security update includes improvements that were a part of update KB5067036 (released October 28, 2025).",
-    "IMPORTANT Because of minimal operations during the Western holidays and the upcoming new year, there will be no December 2025 non-security preview update.",
-    "There will be a monthly security update for December 2025.",
-    "Normal monthly servicing for both security and non-security preview updates will resume in January 2026."
-   ],
-   "bodyHash": "2a7839bd4206daa7"
-  },
-  {
-   "id": "MC1184890",
-   "title": "Take Action: Out-of-band update to address ESU enrollment issue on Windows 10, version 22H2 devices",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-11-11",
-   "end": "2026-11-11",
-   "modified": "2025-11-11",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Microsoft has identified an issue in the Windows 10 Consumer Extended Security Update (ESU) enrollment process where the enrollment wizard may fail during enrollment. If you have a personal device running Windows 10 and have not yet enrolled your device in the Consumer ESU program, here are the steps you need to take to ensure you continue receiving security updates: Navigate to the Windows Update…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "You will receive the November 2025 security update and future Extended Security Updates via Windows Update."
-   ],
-   "bodyHash": "9bcdefe7ce0ead4d"
-  },
-  {
-   "id": "MC1184891",
-   "title": "Windows 11, version 23H2 (Home and Pro editions) has reached end of servicing",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-11-11",
-   "end": "2026-11-11",
-   "modified": "2025-11-11",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Today, November 11, 2025, Windows 11, version 23H2 ( Home and Pro editions) has reached end of servicing . The November 2025 monthly security update is the last update available for these editions. Devices running these editions will no longer receive monthly security and preview updates containing protections from the latest security threats. As always, we recommend that you update your devices t…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Today, November 11, 2025, Windows 11, version 23H2 ( Home and Pro editions) has reached end of servicing .",
-    "The November 2025 monthly security update is the last update available for these editions."
-   ],
-   "bodyHash": "d016a9170b89ee27"
   },
   {
    "id": "MC1185309",
@@ -11036,7 +10934,7 @@
   },
   {
    "id": "MC1470885",
-   "title": "M365 Copilot: Tell Copilot what you need directly from the Copilot button in Word, Excel, and PowerPoint",
+   "title": "(Updated) M365 Copilot: Tell Copilot what you need directly from the Copilot button in Word, Excel, and PowerPoint",
    "services": [
     "Microsoft 365 Copilot Chat",
     "Microsoft 365 apps"
@@ -11047,18 +10945,20 @@
    "actionBy": null,
    "start": "2026-09-11",
    "end": "2027-02-22",
-   "modified": "2026-09-11",
+   "modified": "2026-11-11",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] Microsoft is making Copilot more accessible within Word, Excel, and PowerPoint by adding a new prompt input directly to the Copilot button and providing contextual prompt experiences when users select content. This update helps users engage with Microsoft 365 Copilot without leaving their workflow, enabling faster content creation, editing, and task completion. This change supports…",
+   "summary": "Updated November 11, 2026: We have updated the content. Thank you for your patience. [What and Why:] Microsoft is making Copilot more accessible within Word, Excel, and PowerPoint by adding a new prompt input directly to the Copilot button and providing contextual prompt experiences when users select content. This update helps users engage with Microsoft 365 Copilot without leaving their workflow,…",
    "when": null,
    "prepare": null,
    "dates": [
+    "Updated November 11, 2026: We have updated the content.",
     "General Availability (Worldwide): Rollout begins September 2026 and is expected to complete by the end of December 2026."
    ],
-   "bodyHash": "ab25af585a629a1a"
+   "bodyHash": "b5ede0caee46d9e7"
   },
   {
    "id": "MC1470887",
@@ -17291,7 +17191,7 @@
   },
   {
    "id": "MC1529467",
-   "title": "Microsoft Windows: Updates to address compromised eMudhra certificate authority keys",
+   "title": "(Updated) Microsoft Windows: Updates to address compromised eMudhra certificate authority keys",
    "services": [
     "Microsoft 365 suite"
    ],
@@ -17301,18 +17201,20 @@
    "actionBy": null,
    "start": "2026-10-28",
    "end": "2026-11-28",
-   "modified": "2026-10-28",
+   "modified": "2026-11-11",
    "tags": [
     "Admin impact",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft is responding to an issue involving eight eMudhra intermediate certificate authority (CA) private keys, six associated with TLS and two with code signing. Because these keys could be recovered, they could potentially be used to create certificates or sign content that appeared to come from a trusted CA. The issue arose in eMudhra's certificate hierarchy and was not a compr…",
+   "summary": "Updated November 11, 2026: On November 16, 2026, an update will be released for Microsoft Edge and WebView2, delivered via the PKI Metadata component, which will fully remove default trust for the remaining roots (emSign Root CA - G1, emSign Root CA - C1, emSign ECC Root CA, and emSign Root TLS CA - G1). Devices check for PKI Metadata updates every 10 hours and shortly after each new app launch. F…",
    "when": null,
    "prepare": null,
    "dates": [
+    "Updated November 11, 2026: On November 16, 2026, an update will be released for Microsoft Edge and WebView2, delivered via the PKI Metadata component, which will fully remove default trust for the remaining roots (emSign Root CA - G1, emSign Root CA - C1, emSi",
     "General Availability (Worldwide, GCC, GCC High, DoD): Beginning in late October 2026 and expected to complete by late October 2026."
    ],
-   "bodyHash": "b606a8c6bb2041ef"
+   "bodyHash": "49e33c42b284ca8f"
   },
   {
    "id": "MC1529472",
@@ -19181,7 +19083,7 @@
   },
   {
    "id": "MC1546430",
-   "title": "'Add explainer video' Skill in PPT Copilot",
+   "title": "(Updated) 'Add explainer video' Skill in PPT Copilot",
    "services": [
     "Microsoft 365 apps"
    ],
@@ -19190,18 +19092,19 @@
    "major": false,
    "actionBy": null,
    "start": "2026-11-10",
-   "end": "2026-12-10",
-   "modified": "2026-11-10",
+   "end": "2027-02-01",
+   "modified": "2026-11-11",
    "tags": [
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[What and Why:] Use the \"Add explainer video\" skill in Copilot for PowerPoint. This is a built-in skill rolling out as an experimental skill to Frontier users. Available on desktop, Mac, and web. [Rollout Schedule:] Frontier/Insider (Worldwide): We will begin rolling out on early November 2026 and expect to complete by mid November 2026. [Impact on Your Organization:] Ability to convert a static s…",
+   "summary": "Updated November 11, 2026: Rollout is currently paused. We will communicate via Message center when we are ready to proceed. We apologize for any inconvenience. [What and Why:] Use the \"Add explainer video\" skill in Copilot for PowerPoint. This is a built-in skill rolling out as an experimental skill to Frontier users. Available on desktop, Mac, and web. [Rollout Schedule:] Frontier/Insider (World…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Frontier/Insider (Worldwide): We will begin rolling out on early November 2026 and expect to complete by mid November 2026."
+    "Updated November 11, 2026: Rollout is currently paused."
    ],
-   "bodyHash": "983b8a1f9ba96086"
+   "bodyHash": "325b603adee09259"
   },
   {
    "id": "MC1546438",
@@ -19335,6 +19238,35 @@
    "prepare": "To get more details about these updates view the following release notes: Current Channel. Monthly Enterprise Channel. Semi-Annual Enterprise Channel.",
    "dates": [],
    "bodyHash": "72cc4437700f6fbe"
+  },
+  {
+   "id": "MC1549242",
+   "title": "NTLM signing security improvements in Windows",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-11",
+   "end": "2027-11-11",
+   "modified": "2026-11-11",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why: New NTLM signing security improvements address CVE-2026-118737 . Starting November 2026, Windows updates enable clients to offer NTLM message signing by default for non-anonymous connections. This change helps reduce exposure to NTLM relay attacks and provides auditing to identify connections that aren’t using signing. To learn more and prepare for the next phase coming in May of 202…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Starting November 2026, Windows updates enable clients to offer NTLM message signing by default for non-anonymous connections.",
+    "Rollout schedule: Phase 1 (November 2026): Windows client devices begin offering NTLM signing on all connections by default.",
+    "Phase 2 (May 2027): Windows servers begin requiring NTLM signing by default.",
+    "By May 2027, clients that don’t offer signing will be rejected by secure servers.",
+    "Action required/recommendations: Install the November 2026 Windows updates or later to reduce exposure to NTLM relay attacks.",
+    "Require NTLM signing before it’s enabled by default in May 2027."
+   ],
+   "bodyHash": "9d4ecefe303d9f37"
   },
   {
    "id": "MC676299",
@@ -25587,6 +25519,124 @@
    "id": "MC1548054",
    "type": "new",
    "title": "Updates available for Microsoft 365 Apps for all channels",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-11",
+   "id": "MC1470885",
+   "type": "changed",
+   "title": "(Updated) M365 Copilot: Tell Copilot what you need directly from the Copilot button in Word, Excel, and PowerPoint",
+   "fields": {
+    "title": [
+     "M365 Copilot: Tell Copilot what you need directly from the Copilot button in Word, Excel, and PowerPoint",
+     "(Updated) M365 Copilot: Tell Copilot what you need directly from the Copilot button in Word, Excel, and PowerPoint"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "ab25af585a629a1a",
+     "b5ede0caee46d9e7"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-11",
+   "id": "MC1529467",
+   "type": "changed",
+   "title": "(Updated) Microsoft Windows: Updates to address compromised eMudhra certificate authority keys",
+   "fields": {
+    "title": [
+     "Microsoft Windows: Updates to address compromised eMudhra certificate authority keys",
+     "(Updated) Microsoft Windows: Updates to address compromised eMudhra certificate authority keys"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "b606a8c6bb2041ef",
+     "49e33c42b284ca8f"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-11",
+   "id": "MC1546430",
+   "type": "changed",
+   "title": "(Updated) 'Add explainer video' Skill in PPT Copilot",
+   "fields": {
+    "title": [
+     "'Add explainer video' Skill in PPT Copilot",
+     "(Updated) 'Add explainer video' Skill in PPT Copilot"
+    ],
+    "end": [
+     "2026-12-10",
+     "2027-02-01"
+    ],
+    "tags": [
+     [
+      "New feature"
+     ],
+     [
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "983b8a1f9ba96086",
+     "325b603adee09259"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-11",
+   "id": "MC1549242",
+   "type": "new",
+   "title": "NTLM signing security improvements in Windows",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-11",
+   "id": "MC1183612",
+   "type": "removed",
+   "title": "Action Required to Enable Extended Security Update for local devices accessing Windows 365",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-11",
+   "id": "MC1184889",
+   "type": "removed",
+   "title": "The November 2025 Windows security update is now available",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-11",
+   "id": "MC1184890",
+   "type": "removed",
+   "title": "Take Action: Out-of-band update to address ESU enrollment issue on Windows 10, version 22H2 devices",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-11",
+   "id": "MC1184891",
+   "type": "removed",
+   "title": "Windows 11, version 23H2 (Home and Pro editions) has reached end of servicing",
    "fields": {}
   }
  ]
