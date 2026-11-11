@@ -942,6 +942,17 @@ FEED_CHANNELS = (   # §5dz (16 X 2026): one RSS channel per technology the port
     ("windows", "Windows", ("windows", "ad fs", "active directory", "kerberos", "ntlm")),
     ("azure", "Azure", ("azure", "arc", "virtual desktop", "fslogix", "foundry", "defender for cloud")),
     ("copilot", "Copilot", ("copilot",)),
+    # §5gk (11 XI 2026): the technologies the portal groups by that had no channel
+    ("teams", "Teams", ("teams", "skype")),
+    ("sharepoint", "SharePoint and OneDrive", ("sharepoint", "onedrive")),
+    ("powerplatform", "Power Platform", ("power platform", "power apps", "power automate", "power bi", "dataverse", "copilot studio")),
+)
+FEED_SECTIONS = (   # §5gk: one RSS channel per portal section, site/feed-<key>.xml
+    ("mc", "Message Center", ()),
+    ("community", "Community articles", ()),
+    ("learn", "Microsoft Learn changes", ()),
+    ("threats", "Threat Research, MSRC CVEs and KQL", ()),
+    ("graph", "Graph, roles and first-party apps", ()),
 )
 
 
@@ -1126,6 +1137,83 @@ def write_feed(state, outdir, date, site_url="https://orange-ground-019f30603.7.
             src = e.get("url") or e.get("docSource")
             add("%s:%s:%s" % (w, e.get("id"), ch), "%s: %s" % (lab, e.get("kind") or "changed"), nm, place, src, ch,
                 desc(str(e.get("after") or e.get("description") or "")[:600], place, src), ["entra"])
+    # 8. §5gk (11 XI 2026, owner: "is our RSS full - does it carry everything the portal has, for someone who wants to
+    # use it?"). Until then the feed had sections 1-7 only; these portal sections were missing, each read from the
+    # file the tab itself reads: Community Articles, Graph API Radar, Graph API changes and Component versions (the
+    # "What changed" register, site/data/changes-7d.json), Threat Research stories (threats.json), MSRC CVEs
+    # (msrc-cves.json), the KQL library (kql-found.json), M365 endpoints versions (m365-endpoints.json) and First-party
+    # apps changes (state fpa.chg). Each item also gets a section key ("sec") for the section channels below.
+    chg = load("changes-7d.json")
+    TABS = {"Community Articles": ("community", "Community"), "Graph API Radar": ("radar", "Graph API Radar"),
+            "Graph API": ("graph", "Graph API"), "Component versions": ("components", "Component versions"),
+            "Microsoft Learn": ("learn", "Learn page")}   # every Learn change of the week, not only nt.recent (7 a week)
+    for r in chg.get("records") or []:
+        if r.get("tab") not in TABS:
+            continue
+        d = day(r.get("d"))
+        if not d or d < since or d > date:
+            continue
+        tab, lab = TABS[r["tab"]]
+        if not (r.get("t") or "").strip() or (tab == "learn" and not r.get("u")):   # bookkeeping rows ("area read: snapshot -> ok"), not changes
+            continue
+        place = site_url + "#tab=" + tab
+        h = _hl.sha1(("%s|%s|%s|%s" % (r.get("tab"), r.get("id"), r.get("k"), d)).encode()).hexdigest()[:12]
+        ttl = r.get("t") or r.get("id") or ""
+        if tab == "learn" and r.get("p"):   # "Entra: Reference credential management api", not the area alone
+            ttl = "%s: %s" % (r["p"], ttl)
+        add("%s:%s" % (tab, h), "%s: %s" % (lab, r.get("k") or "changed"), ttl, place, r.get("u"), d,
+            desc(" · ".join(str(x) for x in (r.get("p"), r.get("tc"), r.get("x")) if x), place, r.get("u"),
+                 " · ".join("%s: %s" % (f[0], f[1]) for f in (r.get("f") or [])[:4] if isinstance(f, (list, tuple)) and len(f) > 1)),
+            techs(r.get("p"), r.get("tc"), r.get("t")))
+    tj = load("threats.json")
+    for s in tj.get("stories") or []:
+        d = day(s.get("lastUpdate")) or day(s.get("firstSeen"))
+        if not d or d < since or d > date:
+            continue
+        place = site_url + "#tab=threats&s=" + _up.quote(str(s.get("id")), safe="")
+        add("threat:%s:%s" % (s.get("id"), d), "Threat Research", s.get("title") or s.get("id"), place, None, d,
+            desc(s.get("why") or "", place, None, " · ".join(x for x in ("first reported " + str(s.get("firstReported")) if s.get("firstReported") else "",
+                 ", ".join(s.get("cves") or [])[:200], ", ".join(s.get("sources") or [])[:200]) if x)),
+            techs(" ".join(s.get("areas") or []), s.get("title"), "defender"))
+    for cid, c in ((load("msrc-cves.json").get("cves") or {}).items()):
+        d = day(c.get("updated")) or day(c.get("released"))
+        if not d or d < since or d > date:
+            continue
+        place = site_url + "#tab=threats&cve=" + _up.quote(cid, safe="")
+        src = "https://msrc.microsoft.com/update-guide/vulnerability/" + cid
+        add("cve:%s:%s" % (cid, d), "MSRC CVE", "%s %s" % (cid, c.get("title") or ""), place, src, d,
+            desc("", place, src, " · ".join(x for x in (("CVSS " + str(c.get("cvss"))) if c.get("cvss") else "", c.get("severity"), c.get("impact"),
+                 "released " + str(c.get("released")) if c.get("released") else "") if x)), techs(c.get("title"), "msrc"))
+    for q in load("kql-found.json").get("queries") or []:
+        d = day(q.get("firstSeen")) or day(q.get("published"))
+        if not d or d < since or d > date:
+            continue
+        place = site_url + "#tab=hunting"
+        add("kql:%s" % q.get("key"), "KQL query", q.get("title") or q.get("key"), place, q.get("link"), d,
+            desc("Tables: " + ", ".join(q.get("tables") or []) if q.get("tables") else "", place, q.get("link"),
+                 " · ".join(x for x in (q.get("source"), q.get("articleTitle"), ", ".join(q.get("cves") or [])) if x)),
+            techs(q.get("product"), " ".join(q.get("tables") or []), "defender"))
+    epj = load("m365-endpoints.json")
+    for v in epj.get("versions") or []:
+        d = day(v.get("day"))
+        if not d or d < since or d > date:
+            continue
+        place = site_url + "#tab=m365ep"
+        src = "https://endpoints.office.com/changes/worldwide/0000000000?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7"
+        add("m365ep:%s" % v.get("version"), "M365 endpoints", "New list of Microsoft 365 URLs and IP ranges released %s (version %s): %s change%s, %s to act on"
+            % (d, v.get("version"), v.get("n"), "" if v.get("n") == 1 else "s", v.get("act")), place, src, d,
+            desc("Firewalls and proxies: compare your allow lists with the new version.", place, src), ["exchange", "teams", "sharepoint"])
+    for c in (st.get("fpa") or {}).get("chg") or []:
+        d = day(c.get("d"))
+        if not d or d < since or d > date:
+            continue
+        place = site_url + "#tab=fpa"
+        add("fpa:%s:%s:%s" % (c.get("id"), c.get("t"), d), "First-party app: %s" % (c.get("t") or "changed"), c.get("n") or c.get("id"), place, None, d,
+            desc(("was " + str(c.get("a")) + ", now " + str(c.get("b"))) if c.get("a") else "", place, None, "seen in: " + str(c.get("src") or "")), ["entra"])
+    SEC = {"mc": ("Message Center", "New"), "community": ("Community",), "learn": ("Learn", "Learn page"), "threats": ("Threat Research", "MSRC CVE", "KQL query"),
+           "graph": ("Graph", "Graph API", "Graph API Radar", "Role", "First-party app")}
+    for g, it in out.items():
+        it["sec"] = [k for k, pre in SEC.items() if any(it["kind"] == p or it["kind"].startswith(p + ":") for p in pre)]
     items = sorted(out.items(), key=lambda kv: (kv[1]["when"], kv[0]), reverse=True)
 
     def channel(fname, title, about, rows, cap):
@@ -1153,11 +1241,17 @@ def write_feed(state, outdir, date, site_url="https://orange-ground-019f30603.7.
         if not same:
             open(p, "w", encoding="utf-8").write(data)
         return len(rows)
-    what = "brief items due within 7 days and new ones, Message Center, campaigns, baselines, Learn changes, blogs, Graph and role changes - last 7 days"
-    n = channel("feed.xml", "Microsoft SOC Brief", "All channels: " + what, items, 400)
+    what = ("brief items due within 7 days and new ones, Message Center, campaigns, security baselines, Learn changes, blogs, "
+            "community articles, Threat Research, MSRC CVEs, KQL queries, Graph API Radar, Graph API and role changes, "
+            "M365 endpoints, first-party apps, component versions - last 7 days")
+    # §5gk: the cap was 400 and the feed carried 385 - every section now fits (a week is ~1 500 items)
+    n = channel("feed.xml", "Microsoft SOC Brief", "All channels: " + what, items, 3000)
     for key, name, _ in FEED_CHANNELS:
         channel("feed-%s.xml" % key, "Microsoft SOC Brief · %s" % name, "%s only: %s" % (name, what),
-                [kv for kv in items if key in kv[1]["tech"]], 200)
+                [kv for kv in items if key in kv[1]["tech"]], 1000)
+    for key, name, _ in FEED_SECTIONS:   # §5gk: one channel per portal section a reader may want alone
+        channel("feed-%s.xml" % key, "Microsoft SOC Brief · %s" % name, "%s only - last 7 days" % name,
+                [kv for kv in items if key in kv[1].get("sec", [])], 1000)
     return n
 
 
@@ -1172,7 +1266,7 @@ def head_extras(headline, date, root="/"):
     import html as _h
     links = ['<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - all" href="%sfeed.xml">' % root]
     links += ['<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - %s" href="%sfeed-%s.xml">'
-              % (_h.escape(name), root, key) for key, name, _ in FEED_CHANNELS]
+              % (_h.escape(name), root, key) for key, name, _ in FEED_CHANNELS + FEED_SECTIONS]
     ld = {"@context": "https://schema.org", "@type": "Article", "headline": str(headline)[:110],
           "author": [{"@type": "Person", "name": AUTHOR}]}
     if date:
@@ -1192,6 +1286,15 @@ def sign_page(page, date, root="/"):
         import html as _h
         css = "" if ".byline{" in page else "<style>.byline{margin:2px 0 6px;font-size:14px;font-weight:500}</style>\n"
         page = page[:head_end] + head_extras(_h.unescape(hl), date, root) + "\n" + css + page[head_end:]
+    # §5gk (11 XI 2026): a page signed before a channel existed gets the missing <link rel="alternate"> lines only
+    head_end = page.find("</head>")
+    if head_end > 0:
+        import html as _h2
+        miss = ['<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - %s" href="%sfeed-%s.xml">'
+                % (_h2.escape(name), root, key) for key, name, _ in FEED_CHANNELS + FEED_SECTIONS
+                if ('href="%sfeed-%s.xml"' % (root, key)) not in page[:head_end]]
+        if miss:
+            page = page[:head_end] + "\n".join(miss) + "\n" + page[head_end:]
     top = page.rfind('<header class="top"')
     if top < 0:
         top = page.find("<h1")                # /week/ has no masthead: the byline goes under its <h1>
@@ -6709,7 +6812,11 @@ def DIFF_HEAD_EXTRAS(day):
     """§5dz (16 X 2026): RSS channels and JSON-LD author, the same as mirror_artifact.head_extras()
     (keep FEEDS equal to FEED_CHANNELS there: feed.xml + one file per technology)."""
     FEEDS = (("entra", "Entra ID"), ("intune", "Intune"), ("defender", "Defender and Sentinel"), ("purview", "Purview"),
-             ("exchange", "Exchange Online"), ("windows", "Windows"), ("azure", "Azure"), ("copilot", "Copilot"))
+             ("exchange", "Exchange Online"), ("windows", "Windows"), ("azure", "Azure"), ("copilot", "Copilot"),
+             # §5gk (11 XI 2026): the new technology and section channels
+             ("teams", "Teams"), ("sharepoint", "SharePoint and OneDrive"), ("powerplatform", "Power Platform"),
+             ("mc", "Message Center"), ("community", "Community articles"), ("learn", "Microsoft Learn changes"),
+             ("threats", "Threat Research, MSRC CVEs and KQL"), ("graph", "Graph, roles and first-party apps"))
     links = ['<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - all" href="/feed.xml">']
     links += ['<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - %s" href="/feed-%s.xml">' % (n, k) for k, n in FEEDS]
     ld = {"@context": "https://schema.org", "@type": "Article", "headline": "Microsoft SOC - what changed %s" % day,
@@ -52270,6 +52377,27 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5gk — RSS obejmuje caly portal (11 XI 2026)
+
+Wlasciciel: „Czy nasz RSS jest pelny — odzwierciedla wszystko, co mamy w portalu, gdyby ktos chcial z niego
+skorzystac?"
+- **Stan przed zmiana:** `write_feed()` (§5dz) bral 7 dni z: pozycji briefu (terminy i nowe), Message Center,
+  kampanii, Security baselines, Learn tylko z `nt.recent` (7 wpisow/tydzien), blogow, zmian Graph i rol. **Brakowalo:**
+  Community Articles, Graph API Radar, zmian Graph API, Component versions, Threat Research, CVE z MSRC, biblioteki
+  KQL, M365 endpoints, First-party apps, pelnych zmian Learn; kanalow Teams, SharePoint/OneDrive, Power Platform.
+  Limit 400 pozycji przy 385 w kanale.
+- **Teraz (sekcja 8 w `write_feed()`):** czytane z tych samych plikow co zakladki — rejestr `changes-7d.json`
+  (Community, Graph API Radar, Graph API, Component versions, Microsoft Learn; bez wierszy technicznych bez tytulu
+  lub adresu), `threats.json`, `msrc-cves.json`, `kql-found.json`, `m365-endpoints.json`, `fpa.chg` ze stanu. Limit
+  `feed.xml` 3000, kanaly 1000. Nowe kanaly technologii: `feed-teams.xml`, `feed-sharepoint.xml`,
+  `feed-powerplatform.xml`; kanaly sekcji (`FEED_SECTIONS`): `feed-mc.xml`, `feed-community.xml`, `feed-learn.xml`,
+  `feed-threats.xml` (Threat Research + MSRC + KQL), `feed-graph.xml` (Graph, role, Radar, First-party apps).
+  `sign_page()` dopisuje brakujace `<link rel="alternate">` na stronie, ktora ma juz podpis; `DIFF_HEAD_EXTRAS` ma te
+  same kanaly.
+- **11 XI (stan 2026-11-11):** `feed.xml` 1 529 pozycji (~1,1 MB; bylo 385), 17 plikow, wszystkie poprawny XML;
+  Community 478, Learn 384, Graph API Radar 202, MSRC 46, KQL 35, Threat Research 6; M365 endpoints 0 i First-party
+  apps 0 (ostatnie zmiany starsze niz 7 dni — pojawia sie przy nastepnej). Drugi przebieg: „feeds: no change".
 
 ### §5gj — collect_nt.py: blog bez kanalu nie wywraca kolektora; pusty blog MDO (11 XI 2026)
 
