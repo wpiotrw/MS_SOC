@@ -26366,6 +26366,16 @@ Breakwater (Collector check 1365967): ok, 12 wpisow, kanal od korzenia witryny. 
 **11 XI 2026 (§5gn) wlasciciel dodal Cloud Coffee** (`https://www.cloudcoffee.ch/`, Entra, Global Secure Access, Exchange, KQL;
 ok. 1 artykul w miesiacu) z `RequiredFrom` 2026-11-12. Bez zmian w kodzie: `collect_community.py` czyta go metoda `rss-root`
 (kanal `/feed/` od korzenia witryny) — test 11 XI: ok, 5 wpisow w kanale, najnowszy 2026-11-11, 1 w oknie.
+**§5gn-b (11 XI 2026) — naprawa zrodel `failed` od 6 XI.** Od 6 XI piec blogow TechCommunity nie dawalo nic: strona kategorii
+(`/category/<nazwa>`) przekierowuje na logowanie, a kanaly `Category?category.id=` i `board.id=<kat>blog` odpowiadaja „Resource Not Found".
+Reguly `CUSTOM` wskazuja tablice, ktore odpowiadaja (sprawdzone 11 XI, po 20 wpisow): Entra Blog → `microsoft-entra-blog`, Defender for
+Endpoint → `MicrosoftDefenderATPBlog`, Security Baselines → `Microsoft-Security-Baselines`, Purview → `microsoft-purview-blog`.
+Usuniete z listy (decyzja wlasciciela „usun co trzeba"): **Microsoft Entra Community Hub** (kanal kategorii nie istnieje, te same wpisy co
+Entra Blog) i **Microsoft Security Experts Blog** (tablica `MicrosoftSecurityExperts` istnieje, ale ma 0 wpisow — przeniesiona jak MDO, §5gj).
+`fetch()`: danielengberg.com odpowiada 502 na pelny napis przegladarki (Chrome 128) i 200 na `Mozilla/5.0` — przy 403/429/502/503
+druga proba idzie z `UA_PLAIN` (BleepingComputer odwrotnie, §5cb — pierwsza proba bez zmian). Pelny przebieg 11 XI: 59 zrodel,
+57 przeczytanych, 1 `duplicate` (Security Baselines = wpis „Microsoft Security Blog", ktory wskazuje te sama tablice), 1 `failed`
+(MS365 News — serwer zrywa polaczenie; przerywane od 6 XI, w czesc dni ok), 294 artykuly w oknie (wczesniej 280).
 
 Przebieg poranny wola go w STEP 1b obok `collect_blogs.py`:
 `python3 collect_community.py <repo>/community_sources.json community_raw.json <najnowszy site/data/*.json>`
@@ -26413,6 +26423,7 @@ TODAY = datetime.date.fromisoformat(os.environ.get("SOC_DATE") or datetime.date.
 WINDOW = 14
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
       "Chrome/128.0.0.0 Safari/537.36")
+UA_PLAIN = "Mozilla/5.0"   # §5gn: second try when a site refuses the browser string
 TC = "https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/"
 FEED_SUFFIXES = ["/feed/", "/feed", "/rss/", "/rss", "/rss.xml", "/index.xml", "/atom.xml", "/feed.xml",
                  "/feed.rss", "/blog-feed.xml", "?format=rss", "/feeds/posts/default?alt=rss", "/blog/feed/",
@@ -26438,6 +26449,12 @@ CUSTOM = [
     ("https://techcommunity.microsoft.com/category/intune", [("feed", TC + "board?board.id=microsoftintuneblog"),
                                                              ("feed", TC + "board?board.id=IntuneCustomerSuccess")]),
     ("https://techcommunity.microsoft.com/t5/microsoft-entra/ct-p/MicrosoftEntra", [("feed", TC + "Category?category.id=Microsoft-Entra")]),
+    # §5gn (11 XI 2026): since 6 XI a category page sends to the sign-in page and no Category feed or <cat>blog board answers;
+    # the product blogs answer under these board ids (checked 11 XI: 20 posts each)
+    ("https://techcommunity.microsoft.com/category/microsoft-entra", [("feed", TC + "board?board.id=microsoft-entra-blog")]),
+    ("https://techcommunity.microsoft.com/category/microsoft-defender-for-endpoint", [("feed", TC + "board?board.id=MicrosoftDefenderATPBlog")]),
+    ("https://techcommunity.microsoft.com/category/security-baselines", [("feed", TC + "board?board.id=Microsoft-Security-Baselines")]),
+    ("https://techcommunity.microsoft.com/category/microsoft-purview", [("feed", TC + "board?board.id=microsoft-purview-blog")]),
     ("https://techcommunity.microsoft.com/t5/microsoft-security-experts/", [("feed", TC + "board?board.id=MicrosoftSecurityExperts"),
                                                                            ("feed", TC + "board?board.id=microsoft-security-experts-blog")]),
     ("https://techcommunity.microsoft.com/t5/microsoft-security-community/", [("feed", TC + "Category?category.id=microsoft-security"),
@@ -26453,12 +26470,13 @@ _TL = threading.local()   # per thread: the deadline of the source it reads, and
 def fetch(url, accept="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"):
     """(text, http status or error) - one retry; gzip handled; never raises."""
     last = None
+    ua = UA
     for _ in range(2):
         left = getattr(_TL, "deadline", time.time() + 60) - time.time()
         if left < 2:
             _TL.hit = True; return "", last or "time budget spent"
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": accept,
+            req = urllib.request.Request(url, headers={"User-Agent": ua, "Accept": accept,
                                                        "Accept-Language": "en-US,en;q=0.8",
                                                        "Accept-Encoding": "gzip"})
             with urllib.request.urlopen(req, timeout=min(25, left)) as r:
@@ -26469,7 +26487,11 @@ def fetch(url, accept="text/html,application/xhtml+xml,application/xml;q=0.9,*/*
                 return raw.decode(cs, "replace"), r.status
         except urllib.error.HTTPError as e:
             last = e.code
-            if e.code in (401, 403, 404, 410): break
+            if e.code in (404, 410): break
+            # §5gn (11 XI 2026): danielengberg.com answers 502 to the browser string and 200 to a plain one;
+            # BleepingComputer the other way round (§5cb) - the retry goes with the other string
+            if e.code == 401: break
+            if e.code in (403, 429, 502, 503): ua = UA_PLAIN
         except Exception as e:
             last = type(e).__name__ + (": " + str(e)[:60] if str(e) else "")
     return "", last

@@ -92,10 +92,6 @@
     "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-entra"
   },
   {
-    "SourceName": "Microsoft Entra Community Hub",
-    "SourceURL": "https://techcommunity.microsoft.com/t5/microsoft-entra/ct-p/MicrosoftEntra"
-  },
-  {
     "SourceName": "Darren Robinson (IAM)",
     "SourceURL": "https://blog.darrenjrobinson.com/"
   },
@@ -158,10 +154,6 @@
   {
     "SourceName": "Microsoft Security Community",
     "SourceURL": "https://techcommunity.microsoft.com/t5/microsoft-security-community/ct-p/MicrosoftSecurityCommunity"
-  },
-  {
-    "SourceName": "Microsoft Security Experts Blog",
-    "SourceURL": "https://techcommunity.microsoft.com/category/microsoft-security-product/blog/microsoftsecurityexperts"
   },
   {
     "SourceName": "Microsoft Intune Blog",
