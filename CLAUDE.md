@@ -22136,11 +22136,23 @@ def one(src):
     m = re.search(r"techcommunity\.microsoft\.com/category/([^/]+)/blog/([^/?#]+)", url, re.I)
     if m:
         cat, board = m.group(1), m.group(2)
+        empty = None
         for b in variants(board):
             xml, code = fetch(TC + "board?board.id=" + b)
             it = items(xml)
             if it:
                 rec.update(method="rss-board", feedId=b, status="ok", items=it); return rec
+            if xml and "<channel>" in xml and not empty:
+                empty = b
+        # 11 XI 2026: the Defender for Office 365 blog moved to "Redirected Communities" - its board feed answers with a
+        # valid channel and NO posts (its posts now come through the Defender XDR blog). That is a read source with
+        # nothing in it, said so - not a failure, and never a crash further on.
+        if empty:
+            rec.update(method="rss-board", feedId=empty, status="empty", items=[],
+                       note="the board feed answers with no posts - the blog is empty or was moved (Tech Community "
+                            "lists the Defender for Office 365 blog under Redirected Communities since Nov 2026; its "
+                            "posts come through the Defender XDR blog)")
+            return rec
         for c in variants(cat):
             xml, code = fetch(TC + "Category?category.id=" + c)
             it = items(xml)
@@ -22579,7 +22591,8 @@ def build_blogs():
     srcs=[];items=[]
     for b in raw:
         srcs.append({"name":b["name"],"listUrl":b["listUrl"],"feed":b["feedId"],
-                     "method":"rss" if b["method"].startswith("rss") else b["method"],
+                     # 11 XI 2026: a blog no feed answered has method None - .startswith crashed the whole collector
+                     "method":"rss" if (b.get("method") or "").startswith("rss") else (b.get("method") or "none"),
                      "status":b["status"],"note":b["note"],"tried":[]})
         for i in b["items"]:
             try: dt=datetime.date.fromisoformat(i["date"]) if i["date"] else None
@@ -23266,7 +23279,7 @@ z §5au na CALEJ stronie** — dwa paski nad jedna zakladka to dwie kontrolki je
       var age=nw?Math.round((new Date(D.briefDate)-new Date(nw))/86400000):null;
       var fresh=age===null?"undated":(age<=30?"current":(age<=120?"aging":"stale"));
       return {cells:[A(b.listUrl,b.name),
-        b.status==="ok"?'<span class="ntmeth m-rss">RSS</span>':'<span class="ntmeth m-snap">not read</span>',
+        b.status==="ok"?'<span class="ntmeth m-rss">RSS</span>':b.status==="empty"?'<span class="ntmeth m-snap" title="'+esc(b.note||"")+'">read, no posts (moved?)</span>':'<span class="ntmeth m-snap">not read</span>',   /* 11 XI 2026: the Defender for Office 365 blog moved - its feed answers empty */
         String(mine.length),String(mine.filter(function(x){return x.age!==null&&x.age<=13;}).length),
         esc(nw||"—"),
         '<span class="badge '+(fresh==="current"?"b-new":(fresh==="aging"?"b-upd":"b-dep"))+'">'+
@@ -52257,6 +52270,23 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5gj — collect_nt.py: blog bez kanalu nie wywraca kolektora; pusty blog MDO (11 XI 2026)
+
+Raport rutyny porannej 11 XI: „one collector crashed and was patched only in the run copy. collect_nt.py fails on a blog
+with method None (Defender for Office 365 blog unread)". Poprawka byla tylko w kopii roboczej rutyny — nastepnego dnia
+blad by wrocil, bo kod bierze sie z tego pliku (§0c).
+- **Przyczyna:** `build_blogs()` robil `b["method"].startswith("rss")`; blog, dla ktorego zaden kanal nie odpowiedzial,
+  ma `method: None` → `AttributeError`, caly kolektor stoi. Teraz `(b.get("method") or "")` i `method:"none"`.
+- **Dlaczego blog MDO nie mial kanalu:** Tech Community przeniosl „Microsoft Defender for Office 365 Blog" do
+  „Redirected Communities" (adres z listy przekierowuje na `/category/redirected-communities/...`); kanal tablicy
+  odpowiada poprawnym RSS bez ani jednego wpisu. Wpisy o MDO wychodza teraz w blogu Defender XDR
+  (`MicrosoftThreatProtectionBlog`, czytany; np. 27/10 „Part 4: See, investigate, and measure email and collaboration
+  attacks…", 26/10 Proofpoint ICES, 18/06 MDO Plan 1 w E3). Czytnik blogow (`one()`): tablica, ktora odpowiada
+  pustym kanalem, dostaje `status:"empty"` z notatka zamiast `failed`; strona pisze „read, no posts (moved?)".
+- **Testy (11 XI, siec):** MDO → empty / rss-board / 0, XDR → ok / 20, adres bez kanalu → failed / None; `build_blogs()`
+  na tym pliku przechodzi (nowa wersja), stara linia daje dokladnie `'NoneType' object has no attribute 'startswith'`.
+  Pozycja 81 bramki (notatka przy statusie innym niz ok) spelniona.
 
 ### §5gi — Posty MC, ktore musza byc opisane, a nie sa (10 XI 2026)
 
