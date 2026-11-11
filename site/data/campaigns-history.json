@@ -5441,6 +5441,166 @@
 "date":"2026-11-10",
 "group":"microsoft",
 "found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105544":{
+"title":"CVE-2026-105544 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105544",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109475":{
+"title":"CVE-2026-109475 .NET Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109475",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109476":{
+"title":"CVE-2026-109476 ASP.NET Core Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109476",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109478":{
+"title":"CVE-2026-109478 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109478",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109481":{
+"title":"CVE-2026-109481 ASP.NET Core Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109481",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114146":{
+"title":"CVE-2026-114146 ASP.NET Core Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114146",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114147":{
+"title":"CVE-2026-114147 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114147",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114149":{
+"title":"CVE-2026-114149 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114149",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114150":{
+"title":"CVE-2026-114150 ASP.NET Core Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114150",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114151":{
+"title":"CVE-2026-114151 Visual Studio Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114151",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114152":{
+"title":"CVE-2026-114152 Visual Studio Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114152",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114154":{
+"title":"CVE-2026-114154 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114154",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114155":{
+"title":"CVE-2026-114155 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114155",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114156":{
+"title":"CVE-2026-114156 ASP.NET Core Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114156",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114157":{
+"title":"CVE-2026-114157 ASP.NET Core Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114157",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114158":{
+"title":"CVE-2026-114158 Visual Studio Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114158",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114159":{
+"title":"CVE-2026-114159 Visual Studio Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114159",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-120006":{
+"title":"CVE-2026-120006 Aspire Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-120006",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118745":{
+"title":"CVE-2026-118745 Visual Studio Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118745",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118746":{
+"title":"CVE-2026-118746 .NET Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118746",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
 }
 },
 "final":"2026-10-13",
@@ -7171,14 +7331,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-08",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-09",
 "text":"August 1, 2026."
 },
@@ -7276,6 +7428,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-10",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-11",
 "text":"August 1, 2026."
 },
 {
@@ -7915,7 +8075,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-10",
+"seen":"2026-11-11",
 "text":"early February 2026."
 },
 {
@@ -7923,7 +8083,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-10",
+"seen":"2026-11-11",
 "text":"February 2027."
 },
 {
@@ -8991,6 +9151,126 @@
 "date":"2026-11-11",
 "group":"community",
 "found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105544":{
+"title":"CVE-2026-105544 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105544",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109475":{
+"title":"CVE-2026-109475 .NET Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109475",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109476":{
+"title":"CVE-2026-109476 ASP.NET Core Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109476",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109478":{
+"title":"CVE-2026-109478 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109478",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109481":{
+"title":"CVE-2026-109481 ASP.NET Core Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109481",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114146":{
+"title":"CVE-2026-114146 ASP.NET Core Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114146",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114147":{
+"title":"CVE-2026-114147 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114147",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114149":{
+"title":"CVE-2026-114149 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114149",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114150":{
+"title":"CVE-2026-114150 ASP.NET Core Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114150",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114154":{
+"title":"CVE-2026-114154 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114154",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114155":{
+"title":"CVE-2026-114155 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114155",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114156":{
+"title":"CVE-2026-114156 ASP.NET Core Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114156",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114157":{
+"title":"CVE-2026-114157 ASP.NET Core Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114157",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118746":{
+"title":"CVE-2026-118746 .NET Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118746",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://dev.to/jasmin_omanovic/upgrading-from-net-8-to-net-10-a-practical-checklist-5g3g":{
+"title":"Upgrading from .NET 8 to .NET 10: A Practical Checklist",
+"link":"https://dev.to/jasmin_omanovic/upgrading-from-net-8-to-net-10-a-practical-checklist-5g3g",
+"source":"NeonTiger12",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-11"
 }
 },
 "final":"2026-11-10",
@@ -9794,6 +10074,14 @@
 "date":"2026-11-10",
 "group":"community",
 "found":"2026-11-10"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-anthropic-claude-fable-5-2-in-microsoft-copilot/ba-p/4571829":{
+"title":"Available today: Anthropic Claude Fable 5.2 in Microsoft Copilot",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-anthropic-claude-fable-5-2-in-microsoft-copilot/ba-p/4571829",
+"source":"Microsoft Copilot Blog",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
 }
 },
 "final":"2026-12-15",
@@ -11051,6 +11339,54 @@
 "date":"2026-11-11",
 "group":"community",
 "found":"2026-11-11"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/build-a-dual-mode-voice-agent-in-microsoft-foundry-with-native/ba-p/4570650":{
+"title":"Build a dual-mode voice agent in Microsoft Foundry with native subagents",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/build-a-dual-mode-voice-agent-in-microsoft-foundry-with-native/ba-p/4570650",
+"source":"Azure AI Foundry Blog",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://dev.to/karactiftech/invoice-templates-by-industry-what-actually-changes-and-what-never-should-20b":{
+"title":"Invoice Templates by Industry: What Actually Changes (and What Never Should)",
+"link":"https://dev.to/karactiftech/invoice-templates-by-industry-what-actually-changes-and-what-never-should-20b",
+"source":"NeonTiger12",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-11"
+},
+"https://dev.to/karactiftech/international-invoices-and-currency-getting-paid-across-borders-without-surprises-34ao":{
+"title":"International Invoices and Currency: Getting Paid Across Borders Without Surprises",
+"link":"https://dev.to/karactiftech/international-invoices-and-currency-getting-paid-across-borders-without-surprises-34ao",
+"source":"NeonTiger12",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-11"
+},
+"https://dev.to/karactiftech/sales-tax-on-invoices-the-basics-before-you-add-a-tax-line-d86":{
+"title":"Sales Tax on Invoices: The Basics Before You Add a Tax Line",
+"link":"https://dev.to/karactiftech/sales-tax-on-invoices-the-basics-before-you-add-a-tax-line-d86",
+"source":"NeonTiger12",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-11"
+},
+"https://dev.to/karactiftech/credit-notes-and-refunds-how-to-correct-an-invoice-without-losing-the-paper-trail-ba1":{
+"title":"Credit Notes and Refunds: How to Correct an Invoice Without Losing the Paper Trail",
+"link":"https://dev.to/karactiftech/credit-notes-and-refunds-how-to-correct-an-invoice-without-losing-the-paper-trail-ba1",
+"source":"NeonTiger12",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-11"
+},
+"https://daily.entra.news/day/2026-11-11/":{
+"title":"MFA puts SMS and voice behind stronger methods ahead of February 2027 retirement — 11 November 2026",
+"link":"https://daily.entra.news/day/2026-11-11/",
+"source":"Daily Entra News",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-11"
 }
 },
 "final":"2027-07-01",
@@ -11766,7 +12102,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-10",
+"seen":"2026-11-11",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -11774,7 +12110,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-10",
+"seen":"2026-11-11",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -12421,6 +12757,14 @@
 "title":"Dynamics 365 Commerce: Design receipts using a modern, web-based designer in headquarters and print them on A4 paper or thermal printers from Store Commerce, supporting B2B scenarios",
 "link":"https://www.microsoft.com/microsoft-365/roadmap?id=573703",
 "source":"Microsoft 365 Roadmap",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-11"
+},
+"https://conditionalaccess.tech/articles/entra/Passkey/conditionalaccess-passkey-migration-guide.html":{
+"title":"Passkey Migration: A Practical Rollout Plan",
+"link":"https://conditionalaccess.tech/articles/entra/Passkey/conditionalaccess-passkey-migration-guide.html",
+"source":"Conditionalaccess Tech",
 "date":"2026-11-11",
 "group":"community",
 "found":"2026-11-11"
@@ -19936,6 +20280,436 @@
 "title":"Dynamics 365 Commerce: Design receipts using a modern, web-based designer in headquarters and print them on A4 paper or thermal printers from Store Commerce, supporting B2B scenarios",
 "source":"Microsoft 365 Roadmap",
 "link":"https://www.microsoft.com/microsoft-365/roadmap?id=573703"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-105544 .NET Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105544"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-109475 .NET Denial of Service Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109475"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-109476 ASP.NET Core Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109476"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-109478 ASP.NET Core Denial of Service Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109478"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-109481 ASP.NET Core Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109481"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-114146 ASP.NET Core Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114146"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-114147 ASP.NET Core Denial of Service Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114147"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-114149 ASP.NET Core Denial of Service Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114149"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-114150 ASP.NET Core Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114150"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-114151 Visual Studio Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114151"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-114152 Visual Studio Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114152"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-114154 ASP.NET Core Denial of Service Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114154"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-114155 .NET Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114155"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-114156 ASP.NET Core Security Feature Bypass Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114156"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-114157 ASP.NET Core Security Feature Bypass Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114157"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-114158 Visual Studio Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114158"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-114159 Visual Studio Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114159"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-120006 Aspire Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-120006"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-118745 Visual Studio Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118745"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-118746 .NET Security Feature Bypass Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118746"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-105544 .NET Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105544"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-109475 .NET Denial of Service Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109475"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-109476 ASP.NET Core Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109476"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-109478 ASP.NET Core Denial of Service Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109478"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-109481 ASP.NET Core Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109481"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-114146 ASP.NET Core Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114146"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-114147 ASP.NET Core Denial of Service Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114147"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-114149 ASP.NET Core Denial of Service Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114149"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-114150 ASP.NET Core Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114150"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-114154 ASP.NET Core Denial of Service Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114154"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-114155 .NET Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114155"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-114156 ASP.NET Core Security Feature Bypass Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114156"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-114157 ASP.NET Core Security Feature Bypass Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114157"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"microsoft",
+"title":"CVE-2026-118746 .NET Security Feature Bypass Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118746"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"community",
+"title":"Upgrading from .NET 8 to .NET 10: A Practical Checklist",
+"source":"NeonTiger12",
+"link":"https://dev.to/jasmin_omanovic/upgrading-from-net-8-to-net-10-a-practical-checklist-5g3g"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"microsoft",
+"title":"Available today: Anthropic Claude Fable 5.2 in Microsoft Copilot",
+"source":"Microsoft Copilot Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-anthropic-claude-fable-5-2-in-microsoft-copilot/ba-p/4571829"
+},
+{
+"day":"2026-11-11",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"microsoft",
+"title":"Build a dual-mode voice agent in Microsoft Foundry with native subagents",
+"source":"Azure AI Foundry Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/build-a-dual-mode-voice-agent-in-microsoft-foundry-with-native/ba-p/4570650"
+},
+{
+"day":"2026-11-11",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Invoice Templates by Industry: What Actually Changes (and What Never Should)",
+"source":"NeonTiger12",
+"link":"https://dev.to/karactiftech/invoice-templates-by-industry-what-actually-changes-and-what-never-should-20b"
+},
+{
+"day":"2026-11-11",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"International Invoices and Currency: Getting Paid Across Borders Without Surprises",
+"source":"NeonTiger12",
+"link":"https://dev.to/karactiftech/international-invoices-and-currency-getting-paid-across-borders-without-surprises-34ao"
+},
+{
+"day":"2026-11-11",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Sales Tax on Invoices: The Basics Before You Add a Tax Line",
+"source":"NeonTiger12",
+"link":"https://dev.to/karactiftech/sales-tax-on-invoices-the-basics-before-you-add-a-tax-line-d86"
+},
+{
+"day":"2026-11-11",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Credit Notes and Refunds: How to Correct an Invoice Without Losing the Paper Trail",
+"source":"NeonTiger12",
+"link":"https://dev.to/karactiftech/credit-notes-and-refunds-how-to-correct-an-invoice-without-losing-the-paper-trail-ba1"
+},
+{
+"day":"2026-11-11",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"MFA puts SMS and voice behind stronger methods ahead of February 2027 retirement — 11 November 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-11-11/"
+},
+{
+"day":"2026-11-11",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Passkey Migration: A Practical Rollout Plan",
+"source":"Conditionalaccess Tech",
+"link":"https://conditionalaccess.tech/articles/entra/Passkey/conditionalaccess-passkey-migration-guide.html"
 }
 ],
 "archive":{

@@ -1,0 +1,30 @@
+// title: Detection 4: Sn00py Ransomware: Mass File Rename or Extension Change by Single Process
+// date: 2026-11-11
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: Detection Engineering Brief - Wednesday, November 11, 2026
+// source: https://devsecopsdadattack.com/2026-11-11-detection-engineering-brief-wednesday-november-11-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let time_window = 5m;
+let rename_threshold = 100;
+let excluded_processes = dynamic(["robocopy.exe", "backup.exe", "veeam", "acronis"]);
+DeviceFileEvents
+| where Timestamp > ago(1h)
+| where ActionType == "FileRenamed"
+| where not(InitiatingProcessFileName has_any (excluded_processes))
+| extend FileExtension = extract(@"\.([^.]+)$", 1, FileName)
+| summarize
+    FileCount = count(),
+    DistinctFolders = dcount(FolderPath),
+    DistinctExtensions = dcount(FileExtension),
+    FirstSeen = min(Timestamp),
+    LastSeen = max(Timestamp),
+    InitiatingProcessFolderPath = any(InitiatingProcessFolderPath),
+    InitiatingProcessSHA256 = any(InitiatingProcessSHA256)
+    by InitiatingProcessFileName, DeviceName, bin(Timestamp, time_window)
+| where FileCount >= rename_threshold
+| extend DurationSeconds = datetime_diff('second', LastSeen, FirstSeen)
+| project FirstSeen, LastSeen, DeviceName, InitiatingProcessFileName, InitiatingProcessFolderPath, InitiatingProcessSHA256, FileCount, DistinctFolders, DistinctExtensions, DurationSeconds
+| extend AlertDetail = strcat("Process '", InitiatingProcessFileName, "' renamed ", FileCount, " files across ", DistinctFolders, " folders (", DistinctExtensions, " distinct extensions) in ", DurationSeconds, " seconds on '", DeviceName, "'")

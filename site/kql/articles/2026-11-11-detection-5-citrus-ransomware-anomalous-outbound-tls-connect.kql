@@ -1,0 +1,30 @@
+// title: Detection 5: Citrus Ransomware: Anomalous Outbound TLS Connection from Non-Browser Process Consistent with VLESS C2 Tunneling
+// date: 2026-11-11
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: Detection Engineering Brief - Wednesday, November 11, 2026
+// source: https://devsecopsdadattack.com/2026-11-11-detection-engineering-brief-wednesday-november-11-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let browser_processes = dynamic(["chrome.exe", "firefox.exe", "msedge.exe", "iexplore.exe", "safari", "opera.exe"]);
+let excluded_processes = dynamic(["svchost.exe", "MsMpEng.exe", "WindowsUpdate", "teams.exe", "onedrive.exe"]);
+let lookback = 24h;
+DeviceNetworkEvents
+| where Timestamp > ago(lookback)
+| where RemotePort in (443, 8443)
+| where ActionType == "ConnectionSuccess"
+| where not(InitiatingProcessFileName has_any (browser_processes))
+| where not(InitiatingProcessFileName has_any (excluded_processes))
+| summarize
+    ConnectionCount = count(),
+    DistinctRemoteIPs = dcount(RemoteIP),
+    BytesSent = sum(SentBytes),
+    BytesReceived = sum(ReceivedBytes),
+    InitiatingProcessFolderPath = any(InitiatingProcessFolderPath),
+    InitiatingProcessSHA256 = any(InitiatingProcessSHA256)
+    by InitiatingProcessFileName, DeviceName, RemoteUrl, RemoteIP
+| where ConnectionCount > 20 or BytesSent > 5000000
+| project DeviceName, InitiatingProcessFileName, InitiatingProcessFolderPath, InitiatingProcessSHA256, RemoteIP, RemoteUrl, ConnectionCount, DistinctRemoteIPs, BytesSent, BytesReceived
+| sort by BytesSent desc
+| extend AlertDetail = strcat("Process '", InitiatingProcessFileName, "' made ", ConnectionCount, " outbound TLS connections to '", RemoteIP, "' with ", BytesSent, " bytes sent from '", DeviceName, "'")

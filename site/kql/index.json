@@ -1,5 +1,75 @@
 [
  {
+  "file": "articles/2026-11-11-detection-5-citrus-ransomware-anomalous-outbound-tls-connect.kql",
+  "title": "Detection 5: Citrus Ransomware: Anomalous Outbound TLS Connection from Non-Browser Process Consistent with VLESS C2 Tunneling",
+  "date": "2026-11-11",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, November 11, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-11-detection-engineering-brief-wednesday-november-11-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-11-detection-engineering-brief-wednesday-november-11-2026/"
+ },
+ {
+  "file": "articles/2026-11-11-detection-4-sn00py-ransomware-mass-file-rename-or.kql",
+  "title": "Detection 4: Sn00py Ransomware: Mass File Rename or Extension Change by Single Process",
+  "date": "2026-11-11",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, November 11, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-11-detection-engineering-brief-wednesday-november-11-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-11-detection-engineering-brief-wednesday-november-11-2026/"
+ },
+ {
+  "file": "articles/2026-11-11-detection-3-n-central-post-exploitation-unexpected-child.kql",
+  "title": "Detection 3: N-central Post-Exploitation: Unexpected Child Process Spawned by N-central Service Account (XXE/RCE Indicator)",
+  "date": "2026-11-11",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, November 11, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-11-detection-engineering-brief-wednesday-november-11-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-11-detection-engineering-brief-wednesday-november-11-2026/"
+ },
+ {
+  "file": "articles/2026-11-11-detection-2-n-central-post-exploitation-privilege-escalation.kql",
+  "title": "Detection 2: N-central Post-Exploitation: Privilege Escalation via sudo or su Spawned from N-central Service Account",
+  "date": "2026-11-11",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, November 11, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-11-detection-engineering-brief-wednesday-november-11-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-11-detection-engineering-brief-wednesday-november-11-2026/"
+ },
+ {
+  "file": "articles/2026-11-11-detection-1-n-central-post-exploitation-new-local.kql",
+  "title": "Detection 1: N-central Post-Exploitation: New Local Account Created Following Service Account Activity",
+  "date": "2026-11-11",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, November 11, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-11-detection-engineering-brief-wednesday-november-11-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-11-detection-engineering-brief-wednesday-november-11-2026/"
+ },
+ {
   "file": "articles/2026-11-10-detection-2-sap-netweaver-webshell-scanning-inbound-http.kql",
   "title": "Detection 2: SAP NetWeaver Webshell Scanning - Inbound HTTP Requests to JSP and WAR Paths",
   "date": "2026-11-10",
