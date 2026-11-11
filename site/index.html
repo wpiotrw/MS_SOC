@@ -6439,6 +6439,40 @@ td>.offt+.ref{display:block}
 .s5er-l{gap:10px}
 .s5er-l > .s5er-r + .s5er-r{border-top:1px solid color-mix(in srgb,var(--text) 18%,transparent);padding-top:10px}
 #tab-overview .s5er-r .s5er-nm{font-size:16px;font-weight:700}
+/* §5gl - Overview sentences in groups: headings, no running numbers, one card per technology, quiet areas folded */
+#tab-overview .s5bk-sum.s5gl-on>.s5bk-h{display:none}
+.s5gl-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:4px 0 12px}
+.s5gl-sum{font-size:16px;font-weight:700;color:var(--text)}
+.s5gl-tog{font:inherit;font-size:14px;font-weight:700;padding:5px 12px;border-radius:999px;border:2px solid var(--accent);background:transparent;color:var(--text);cursor:pointer}
+.s5gl-tog:hover{background:color-mix(in srgb,var(--accent) 14%,transparent)}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3{display:flex!important;flex-wrap:wrap;align-items:flex-start;gap:12px;columns:auto;padding-left:0;margin:0}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li{flex:1 1 100%;min-width:0;max-width:100%;box-sizing:border-box;margin:0}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li[hidden]{display:none!important}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3 .s5fm-n{display:none}
+@media (min-width:900px){#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-t{flex:1 1 calc(50% - 6px);max-width:calc(50% - 6px)}}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-s{border:2px solid var(--accent)}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-h{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;border:0;background:transparent;padding:14px 2px 2px;margin-top:4px;border-top:2px solid var(--border);border-radius:0}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-h:first-child,#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-h-start{border-top:0;padding-top:2px}
+.s5gl-hn{font-size:19px;font-weight:800;color:var(--text)}
+.s5gl-hc{display:inline-block;min-width:26px;text-align:center;padding:1px 9px;border-radius:999px;background:var(--accent);color:#fff;font-weight:800;font-size:15px}
+.s5gl-hs{flex:1 1 100%;font-size:15px;color:var(--text)}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-q{display:none}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3.s5gl-open>li.s5gl-q{display:list-item}
+.s5gl-qb{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;width:100%;text-align:left;font:inherit;padding:10px 14px;border-radius:12px;border:1px dashed var(--border);background:transparent;color:var(--text);cursor:pointer}
+.s5gl-qb .s5gl-hn{font-size:16px}
+.s5gl-ql{font-size:15px;flex:1 1 200px}
+.s5gl-qa{font-size:14px;font-weight:700;padding:2px 10px;border-radius:999px;border:1px solid var(--border)}
+/* Identity surface: a surface with no change is a small box beside the one that moved, not an equal empty column */
+#tab-overview .s5bk-sum.s5gl-on .s5er-grid{display:flex!important;flex-wrap:wrap;gap:10px}
+#tab-overview .s5bk-sum.s5gl-on .s5er-grid>.s5er-box{flex:1 1 200px;min-width:0}
+#tab-overview .s5bk-sum.s5gl-on .s5er-grid>.s5er-box.s5er-hot{flex:3 1 460px}
+#tab-overview .s5bk-sum.s5gl-on .s5er-grid>.s5er-box:not(.s5er-hot){align-self:flex-start}
+.s5gl-dcb{display:none}
+#tab-overview .s5bk-sum.s5gl-on .s5gl-dcb{display:inline-block;margin:6px 0 2px;font:inherit;font-size:14px;font-weight:700;padding:3px 12px;border-radius:999px;border:1px solid #d69e2e;background:transparent;color:var(--text);cursor:pointer}
+#tab-overview .s5bk-sum.s5gl-on .s5gf-dc:not(.s5gl-dco)>.s5gf-ul,#tab-overview .s5bk-sum.s5gl-on .s5gf-dc:not(.s5gl-dco)>.s5gf-fn{display:none}
+.s5gl-bpn{margin:10px 0 0;padding-left:20px;font-size:15px;line-height:1.5;color:var(--text)}
+.s5gl-bpn>li{margin:2px 0}
+
 </style>
 <header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="byline">By Piotr Wiśniewski</p><p class="dateline"><b>Wednesday 11 November 2026</b> &middot; published 07:45 Warsaw &middot; 28 October &ndash; 11 November 2026 &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>33</b> deadlines in 60 days<span>&middot; 27 inside 30, 1 due today or tomorrow</span></a><a class="count" href="#graph"><b>977</b> undocumented at Microsoft<span>&middot; 977 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>10</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>126</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>23</b> changes since 10 Nov<span>&middot; 5 at Microsoft, 18 in this report</span></a><a class="count" href="#chg14"><b>2170</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <div class="wrap"><div class="tabpanel" id="tab-overview" data-tab="Overview" hidden><section id="elapsed-overview" data-nav="Just passed"><div class="sec-head"><h2>Section A</h2><p class="sec-title">Deadlines that passed in the last 7 days</p> <span class="sec-count">10</span></div><div class="sec-body"><p class="sec-note"><b>10</b> rows. A deadline stays here for seven days after it falls, then leaves the page for the state&#x27;s dropped list with a written reason rather than vanishing. They fell: <b>5</b> on 10 November, <b>1</b> on 8 November, <b>1</b> on 7 November, <b>1</b> on 6 November, <b>2</b> on 4 November.</p><div class="tw"><table><thead><tr><th>Item</th><th>Product</th><th>Deadline</th><th>Days</th><th>What it means</th><th>Status</th><th>Source</th></tr></thead><tbody><tr data-id="MC1492825" class="rowhot"><td>Windows 11 23H2 Enterprise and Education: Microsoft&#x27;s 30-day reminder names 10 November 2026 as the end of updates<span class="offt">30-Day Reminder: Windows 11, version 23H2 Enterprise and Education editions reach end of updates on November 10, 2026</span><span class="ref">MC1492825</span></td><td>Windows</td><td><span class="dt">2026-11-10</span></td><td><span class="dt">1 day ago</span></td><td>Published 9 October 2026 at 19:07 Warsaw. &#x27;On November 10, 2026, Windows 11, version 23H2 Enterprise and Education editions will reach end of updates. The November 2026 Windows security update will be the last update available for these editions.&#x27; After that date devices on these editions receive no monthly security updates. The 60-day reminder, MC1472443, named the month only.</td><td><span class="badge b-upd">Stay informed</span></td><td class="src"><a href="https://deltapulse.app/item/MC1492825" target="_blank" rel="noopener">Message Center</a></td></tr><tr data-id="dotnet8-powershell74-end-of-servicing" class="rowhot"><td>.NET 8 LTS and PowerShell 7.4 LTS end servicing on 10 November 2026 — the runtimes most SOC automation stands on<span class="offt">.NET 8 (LTS)</span><span class="ref">no MC/RM post — Learn only</span></td><td>Windows</td><td><span class="dt">2026-11-10</span></td><td><span class="dt">1 day ago</span></td><td>.NET 8 (LTS), PowerShell 7.4 (LTS) and Azure IoT Edge 1.5 (LTS) reach end of servicing on 10 November 2026.</td><td><span class="badge b-dep">Retirement</span></td><td class="src"><a href="https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2026" target="_blank" rel="noopener">Microsoft Learn</a></td></tr><tr data-id="MC1472443" class="rowhot"><td>Windows 11 23H2 Enterprise and Education reach end of updates in November — 60 days out<span class="offt">60-Day Reminder: Windows 11, version 23H2 Enterprise and Education editions reach end of updates</span><span class="ref">MC1472443</span></td><td>Windows</td><td><span class="dt">2026-11-10</span></td><td><span class="dt">1 day ago</span></td><td>Microsoft&#x27;s 60-day reminder that Windows 11 version 23H2 Enterprise and Education editions reach end of updates in November 2026.</td><td><span class="badge b-upd">Stay informed</span></td><td class="src"><a href="https://deltapulse.app/item/MC1472443" target="_blank" rel="noopener">Message Center</a></td></tr><tr data-id="azure-functions-inprocess-eos" class="rowhot"><td>Azure Functions in-process model loses support on 10 November 2026<span class="offt">Azure Functions In-process model end of support</span><span class="ref">no MC/RM post — Learn only</span></td><td>Azure</td><td><span class="dt">2026-11-10</span></td><td><span class="dt">1 day ago</span></td><td>The in-process model for .NET Azure Functions reaches end of support on 10 November 2026; workloads must move to the isolated worker model.</td><td><span class="badge b-dep">Retirement</span></td><td class="src"><a href="https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2026" target="_blank" rel="noopener">Microsoft Learn</a></td></tr><tr data-id="windows-11-23h2-enterprise-end-of-servicing" class="rowhot"><td>Windows 11 Enterprise and Education 23H2 stop receiving updates on 10 November 2026<span class="offt">Windows 11 Enterprise and Education, Version 23H2</span><span class="ref">MC1472443 · MC1492825 · MC1547649</span></td><td>Windows</td><td><span class="dt">2026-11-10</span></td><td><span class="dt">1 day ago</span></td><td>Windows 11 Enterprise, Education and IoT Enterprise version 23H2 reach end of servicing on 10 November 2026.</td><td><span class="badge b-dep">Retirement</span></td><td class="src"><a href="https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2026" target="_blank" rel="noopener">Message Center</a></td></tr><tr data-id="MC1481318" class="rowhot"><td>Alert tuning rules can be scoped to specific detection sources; existing rules keep applying to every source, custom detections included<span class="offt">Microsoft Defender XDR: Detection source support in alert tuning rules</span><span class="ref">MC1481318</span></td><td>Defender XDR</td><td><span class="dt">2026-11-08</span></td><td><span class="dt">3 days ago</span></td><td>Alert tuning rules in Defender XDR gain detection source selection and apply only to the selected sources; rules not updated keep applying to all detection sources under their selected service sources, including custom detections. Public preview from mid-October 2026, GA from mid-November 2026.</td><td><span class="badge b-prev">Preview</span></td><td class="src"><a href="https://deltapulse.app/item/MC1481318" target="_blank" rel="noopener">Message Center</a></td></tr><tr data-id="MC1325414-enforcement" class="rowhot"><td>SSPR registered-methods enforcement begins<span class="offt"></span><span class="ref">MC1325414</span></td><td>Entra</td><td><span class="dt">2026-11-07</span></td><td><span class="dt">4 days ago</span></td><td>Enforcement of the SSPR registered-methods requirement begins on 7 November 2026.</td><td><span class="badge b-dep">Retiring</span></td><td class="src"><a href="https://mc.merill.net/message/MC1325414" target="_blank" rel="noopener">Message Center</a></td></tr><tr data-id="MC1446796" class="rowhot"><td>Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled<span class="offt">(Updated) Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation</span><span class="ref">MC1446796</span></td><td>Exchange Online</td><td><span class="dt">2026-11-06</span></td><td><span class="dt">5 days ago</span></td><td>EWS deprecation began 1 October 2026 and is being rolled out gradually. Cross-tenant Free/Busy and MailTips via Microsoft 365 Cross-Tenant Access Policy were due by 15 September; Calendar Sharing moved on 30 October from 30 October to 6 November 2026 (available by early November, previously end-October). Government clouds paused. Tenants with Organization Relationships or Sharing Policies to other Microsoft 365 tenants are affected; hybrid and on-premises are out of scope. Setting EWSEnabled to True keeps EWS until the final shutdown on 1 April 2027.</td><td><span class="badge b-dep">Retiring</span></td><td class="src"><a href="https://deltapulse.app/item/MC1446796" target="_blank" rel="noopener">Message Center</a></td></tr><tr data-id="MC1506728" class="rowhot"><td>Entra stops auto-granting AgentIdentity.CreateAsManager to agent blueprints from 4 November; app-only agents that create their own identities need explicit admin consent or get 403<span class="offt">Microsoft Entra: Changes to AgentIdentity.CreateAsManager permission for agent identities</span><span class="ref">MC1506728</span></td><td>Entra</td><td><span class="dt">2026-11-04</span></td><td><span class="dt">7 days ago</span></td><td>Starting 4 November 2026 Microsoft Entra no longer automatically grants the AgentIdentity.CreateAsManager Microsoft Graph application permission to agent blueprint principals; an administrator must grant it through tenant-wide admin consent or an app-role assignment, which Microsoft says is possible from 16 October and fails if attempted earlier. An app-only request that relies on the automatic grant after enforcement fails with 403. Existing agent identities and blueprints are not removed, and agents authorised through a directory role are not affected.</td><td><span class="badge b-upd">Plan for change</span></td><td class="src"><a href="https://mc.merill.net/message/MC1506728" target="_blank" rel="noopener">Message Center</a></td></tr><tr data-id="MC1506733" class="rowhot"><td>From 4 November every default user can create agent blueprints unless &#x27;Users can create agent blueprints&#x27; is set to No<span class="offt">Action may be required: Review who can create agents in Microsoft Entra</span><span class="ref">MC1506733</span></td><td>Entra</td><td><span class="dt">2026-11-04</span></td><td><span class="dt">7 days ago</span></td><td>Starting 4 November 2026 users without any built-in or custom Entra role can create new agent blueprints unless an administrator turns off the new user setting &#x27;Users can create agent blueprints&#x27; under Default user role permissions. The setting can be changed now and takes effect when rollout begins. It is independent of &#x27;Users can register applications&#x27;; it does not change existing blueprints or who can create identities from them.</td><td><span class="badge b-upd">Plan for change</span></td><td class="src"><a href="https://mc.merill.net/message/MC1506733" target="_blank" rel="noopener">Message Center</a></td></tr></tbody></table></div></div></section></div><div class="tabpanel" id="tab-today" data-tab="Today" hidden><section id="top5"><div class="sec-head"><h2>Section B</h2><p class="sec-title">Top 7 of the day</p> <span class="sec-count">7</span></div><div class="sec-body"><p class="sec-note"><b>7</b> cards of <b>81</b> items in the 28 October to 11 November 2026 period. Weighting: a deadline inside 14 days at socWeight 2 or lower first, at most five of those, then the items first read today, then those first read or revised in the last two days, then socWeight 1-7, a tier-0 touch and the nearest deadline breaking a tie; one card per story, socWeight 4 or lower. <b>8</b> live items carry tier0Touch, <b>4</b> of them weight 1.</p><p class="sec-note">Weighted out of the cards and carried in full in New, Deadlines and their product deep dive, by identifier: <code>MC1529467</code>, <code>MC1421920</code>, <code>dotnet8-powershell74-end-of-servicing</code>, <code>MC1519855</code>, <code>MC1536049</code>, <code>MC1537494</code>, <code>MC1540345</code>.</p><div class="cards">
@@ -16568,7 +16602,8 @@ IdentityDirectoryEvents
     if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab")) setTimeout(boot, 160);
   }, true);
 })();</script>
-<script>/* ===========================================================================
+<script>
+/* ===========================================================================
    SCRIPT 17 — THE CATALOG SAYS HOW BIG IT IS, AND WHAT MOVED THIS WEEK
    (CLAUDE.md 5bc). ADDED, never a replacement: shell scripts 1-3 and added
    scripts 4-16 are untouched, byte for byte.
@@ -24283,6 +24318,10 @@ IdentityDirectoryEvents
       var lt = legacyBP(); bpBody.innerHTML = "";
       if (!lt) { bpBody.appendChild(el("p", "s5ci-note", "The by-product table is not in this brief.")); return false; }
       var heads = [].map.call(lt.querySelectorAll("thead th"), function (th) { return (th.textContent || "").trim(); });
+      /* §5gl (11 XI 2026, owner circled "In the window": what is it?): the column counts this product's items published or
+         revised inside the brief's window, so it says how many days that is */
+      var wd = win.publishedFrom ? Math.round((Date.parse(win.publishedTo || DAY) - Date.parse(win.publishedFrom)) / 864e5) + 1 : 0;
+      heads = heads.map(function (h) { return h === "In the window" && wd ? "Last " + wd + " days" : h; });
       var rows = [].slice.call(lt.querySelectorAll("tbody tr"));
       var t = el("div", "s5ci-t s5ci-tbp"); t.setAttribute("role", "table"); t.setAttribute("aria-label", "What's new, by product");
       t.style.setProperty("--s5ci-cols", String(heads.length));
@@ -24308,7 +24347,13 @@ IdentityDirectoryEvents
       bpBody.appendChild(t);
       if (rows.length > shown) { var mb = el("button", "s5ci-inl", "All " + rows.length + " products ›"); mb.type = "button";
         mb.addEventListener("click", function () { bp.__all = true; drawBP(); }); bpBody.appendChild(mb); }
-      bpBody.appendChild(el("p", "s5ci-note", "New today: first seen by this brief. In the window: every item of the brief's window. Community and Catalog: the last 7 days. A zero is a result, not a link."));
+      var bnl = el("ul", "s5ci-note s5gl-bpn");
+      [["New today", "first seen by today's brief"],
+       [wd ? "Last " + wd + " days" : "In the window", "this product's items published or revised " + (win.publishedFrom ? dmy(win.publishedFrom) + " \u2013 " + dmyl(win.publishedTo || DAY) + " (the brief's window)" : "in the brief's window")],
+       ["Due in 30 days", "items with a Microsoft date in the next 30 days"],
+       ["Community, Catalog", "the last 7 days"], ["0", "a zero is a result (nothing there), not a link"]].forEach(function (r) {
+        var li = el("li"); li.appendChild(el("b", null, r[0] + ": ")); li.appendChild(document.createTextNode(r[1])); bnl.appendChild(li); });
+      bpBody.appendChild(bnl);
       return true;
     }
     if (!drawBP()) setTimeout(drawBP, 2500);
@@ -33193,6 +33238,131 @@ IdentityDirectoryEvents
   function idleStart() { (window.requestIdleCallback ? function (f) { requestIdleCallback(f, { timeout: 12000 }); } : function (f) { setTimeout(f, 8000); })(start); }
   if (document.readyState === "complete") setTimeout(idleStart, 6000); else window.addEventListener("load", function () { setTimeout(idleStart, 6000); });
   window.__socSegs = pass;
-})();</script>
+})();
+/* §5gl (11 XI 2026, owner: "what happened to Overview, it is so unreadable... I do not know how to find my way in these
+   sections with sentences... empty sections? number 10: news of the day - why 10, and what is it about? why are there
+   more numbers in circles than one? a total mess"). The sentences stay exactly as their writers build them (same
+   nodes, same clicks, same data); this layer only arranges them, in groups with a heading each:
+   1 Start here (most urgent, biggest new item, campaign dates of the next 7 days) · 2 By technology (one card per
+   technology, nearest due date first) · 3 Watched areas with a change today · 4 Watched areas with no change (one
+   line, opens on a click). No running numbers: they read as a ranking of things that are not ranked, and a card with
+   two items carried two of them. "News of the day" says what it is. The previous layout is one click away and is
+   remembered per browser. Runs on the list's own child changes only (a few per load), never on the whole page. */
+(function () {
+  var KEY = "s5gl-prev";
+  function prev() { try { return localStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
+  function setPrev(v) { try { if (v) localStorage.setItem(KEY, "1"); else localStorage.removeItem(KEY); } catch (e) {} }
+  function mk(tag, cls, txt) { var x = document.createElement(tag); if (cls) x.className = cls; if (txt != null) x.textContent = txt; return x; }
+  var DAY = 864e5, now = new Date(); now.setHours(0, 0, 0, 0);
+  function due(li) {   /* nearest date shown in the item's pills, in days from today (999 = none) */
+    var m = 999;
+    [].forEach.call(li.querySelectorAll(".s5bk-pill [data-v]"), function (d) {
+      var p = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(d.getAttribute("data-v") || ""); if (!p) return;
+      var n = Math.round((new Date(+p[3], +p[2] - 1, +p[1]) - now) / DAY); if (n >= 0 && n < m) m = n;
+    });
+    /* the date wrapper (s5cz) may not have run yet: the pill text "due 15 Nov" / "due in 1 day (12 Nov)" says the same */
+    [].forEach.call(li.querySelectorAll(".s5bk-pill"), function (pl) {
+      var q = /\bdue\b[^0-9]*?(?:in \d+ days? \()?(\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*(?: (\d{4}))?/.exec(pl.textContent || ""); if (!q) return;
+      var mo = "JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(q[2]) / 3, y = q[3] ? +q[3] : now.getFullYear();
+      var d = new Date(y, mo, +q[1]); if (!q[3] && d - now < -60 * DAY) d = new Date(y + 1, mo, +q[1]);
+      var n = Math.round((d - now) / DAY); if (n >= 0 && n < m) m = n;
+    });
+    return m;
+  }
+  function key(li) { var k = li.querySelector(":scope > .s5bk-k"); return k ? (k.getAttribute("data-k0") || k.textContent).trim().replace(/:$/, "") : ""; }
+  function body(li) { var t = li.querySelector(":scope > .s5bk-it .s5bk-itt, :scope > .s5er-wrap, :scope > .s5cl-cv, :scope > .s5bk-it"); return t ? (t.textContent || "").trim() : ""; }
+  function quiet(li) {
+    if (li.querySelector(".s5er-box")) return !li.querySelector(".s5er-hot");
+    if (/^News of the day/i.test(key(li))) return false;
+    return /^(no |nothing new)/i.test(body(li));
+  }
+  var GROUPS = [
+    ["start", "Start here", "the most urgent date, the biggest new item and the campaign dates of the next 7 days"],
+    ["tech", "By technology", "one card per technology · the nearest due date first · a card can hold two items"],
+    ["watch", "Watched areas — changed today", "surfaces this portal checks every day: identity, Graph API, baselines, threats, endpoints, news"],
+    ["quiet", "No change today", ""]
+  ];
+  function wrapRenum() {   /* later writers renumber the list: the group headings are not sentences */
+    var f = window.__socRenum; if (!f || f.__s5gl) return;
+    var g = function (o) { [].forEach.call(o.querySelectorAll(":scope > .s5gl-h"), function (h) { h.remove(); }); return f(o); };
+    g.__s5gl = 1; window.__socRenum = g;
+  }
+  var busy = false;
+  function arrange(sum) {
+    var ol = sum.querySelector(":scope > .s5bk-3"); if (!ol) return;
+    wrapRenum(); busy = true;
+    [].forEach.call(ol.querySelectorAll(":scope > .s5gl-h"), function (h) { h.remove(); });
+    var on = !prev(); sum.classList.toggle("s5gl-on", on);
+    var bar = sum.querySelector(":scope > .s5gl-bar");
+    if (!bar) {
+      bar = mk("div", "s5gl-bar"); var tb = mk("button", "s5gl-tog"); tb.type = "button";
+      tb.addEventListener("click", function () { setPrev(!prev()); arrange(sum); });
+      bar.appendChild(mk("span", "s5gl-sum")); bar.appendChild(tb);
+      var h = sum.querySelector(":scope > .s5bk-h"); sum.insertBefore(bar, h ? h.nextSibling : ol);
+    }
+    bar.querySelector(".s5gl-tog").textContent = on ? "Show the previous layout (numbered sentences)" : "Show the grouped layout";
+    var G = { start: [], tech: [], watch: [], quiet: [] };
+    [].forEach.call(ol.children, function (li) {
+      li.classList.remove("s5gl-q", "s5gl-t", "s5gl-w", "s5gl-s"); li.style.order = "";
+      var k = key(li);
+      /* "News of the day" is the top item of Microsoft's own security news (its blogs and the MSRC guide) of the last two
+         days; the label now says so */
+      var kb = li.querySelector(":scope > .s5bk-k");
+      if (kb && /^News of the day/i.test(k)) { if (!kb.getAttribute("data-k0")) { kb.setAttribute("data-k0", kb.textContent); kb.title = "The top item of Microsoft's own security news (its blogs and the MSRC Security Update Guide) of the last two days"; }
+        kb.textContent = on ? "Microsoft security news" : kb.getAttribute("data-k0"); }
+      if (li.getAttribute("data-tech")) G.tech.push(li);
+      else if (/^(Most urgent|Biggest new item)/i.test(k) || li.classList.contains("s5cu-sen")) G[quiet(li) ? "quiet" : "start"].push(li);
+      else G[quiet(li) ? "quiet" : "watch"].push(li);
+    });
+    /* a cross-check frame (§5gf) keeps its verdict line in view; its list of dates opens on a click, so one
+       technology card does not grow to a screen and a half */
+    [].forEach.call(ol.querySelectorAll(".s5gf-dc"), function (d) {
+      if (d.querySelector(":scope > .s5gl-dcb")) return;
+      var ul = d.querySelector(":scope > .s5gf-ul"); if (!ul) return;
+      var bt = mk("button", "s5gl-dcb"); bt.type = "button"; var n = ul.children.length;
+      function lab() { bt.textContent = d.classList.contains("s5gl-dco") ? "Hide the dates \u25b4" : "Show the " + n + " date" + (n === 1 ? "" : "s") + " and their sources \u25be"; bt.setAttribute("aria-expanded", String(d.classList.contains("s5gl-dco"))); }
+      bt.addEventListener("click", function (ev) { ev.stopPropagation(); d.classList.toggle("s5gl-dco"); lab(); }); lab();
+      d.insertBefore(bt, ul);
+    });
+    if (on) {
+      G.tech.sort(function (a, b) { return due(a) - due(b); });
+      var o = 0;
+      GROUPS.forEach(function (g) {
+        var L = G[g[0]]; if (!L.length) return;
+        var h = mk("li", "s5gl-h s5gl-h-" + g[0]); h.setAttribute("role", "presentation"); h.style.order = String(++o * 100);
+        if (g[0] === "quiet") {
+          var qb = mk("button", "s5gl-qb"); qb.type = "button"; qb.setAttribute("aria-expanded", String(ol.classList.contains("s5gl-open")));
+          qb.appendChild(mk("span", "s5gl-hn", "No change today"));
+          qb.appendChild(mk("span", "s5gl-ql", L.map(key).join(" · ")));
+          qb.appendChild(mk("span", "s5gl-qa", ol.classList.contains("s5gl-open") ? "hide ▴" : "show ▾"));
+          qb.addEventListener("click", function () { ol.classList.toggle("s5gl-open"); arrange(sum); });
+          h.appendChild(qb);
+        } else {
+          var hh = mk("span", "s5gl-hn", g[1]); h.appendChild(hh); h.appendChild(mk("span", "s5gl-hc", String(L.length)));
+          if (g[2]) h.appendChild(mk("span", "s5gl-hs", g[2]));
+        }
+        ol.appendChild(h);
+        L.forEach(function (li, i) { li.style.order = String(o * 100 + i + 1); li.classList.add({ start: "s5gl-s", tech: "s5gl-t", watch: "s5gl-w", quiet: "s5gl-q" }[g[0]]); });
+      });
+      /* a technology filter (§5fo) is on: only that technology's cards, no headings */
+      if (ol.querySelector(":scope > li[data-tech][hidden]")) [].forEach.call(ol.querySelectorAll(":scope > .s5gl-h"), function (h) { h.hidden = true; });
+    }
+    bar.querySelector(".s5gl-sum").textContent = on ? [G.start.length + " to start with", G.tech.length + " technolog" + (G.tech.length === 1 ? "y" : "ies"), G.watch.length + " watched area" + (G.watch.length === 1 ? "" : "s") + " changed", G.quiet.length + " without a change"].join(" · ") : "";
+    setTimeout(function () { busy = false; }, 0);
+  }
+  var tmr = null;
+  function hook(k) {
+    var sum = document.querySelector("#tab-overview .s5bk-sum"), ol = sum && sum.querySelector(":scope > .s5bk-3");
+    if (!ol) { if (k < 120) setTimeout(function () { hook(k + 1); }, 500); return; }
+    if (ol.__s5gl) return; ol.__s5gl = 1;
+    arrange(sum);
+    new MutationObserver(function () { if (busy) return; clearTimeout(tmr); tmr = setTimeout(function () { arrange(sum); }, 250); }).observe(ol, { childList: true });
+    /* the technology chips (§5fo) hide items with the hidden attribute: headings follow */
+    var fb = sum.querySelector(".s5fo-tf"); if (fb) fb.addEventListener("click", function () { setTimeout(function () { arrange(sum); }, 0); });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { hook(0); }); else hook(0);
+  window.__s5gl = function () { var s = document.querySelector("#tab-overview .s5bk-sum"); if (s) arrange(s); };
+})();
+</script>
 </body>
 </html>
