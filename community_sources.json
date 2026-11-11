@@ -239,5 +239,10 @@
     "SourceName": "Daily Entra News",
     "SourceURL": "https://daily.entra.news/",
     "RequiredFrom": "2026-10-10"
+  },
+  {
+    "SourceName": "Cloud Coffee (cloudcoffee.ch)",
+    "SourceURL": "https://www.cloudcoffee.ch/",
+    "RequiredFrom": "2026-11-12"
   }
 ]

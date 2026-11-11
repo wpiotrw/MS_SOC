@@ -26363,6 +26363,9 @@ Security Experts Blog → najpierw `https://securitycommunity.microsoft.com/Blog
 zaden nie dal artykulow (portal bez kanalu RSS); blog jest na TechCommunity w nowej kategorii:
 `https://techcommunity.microsoft.com/category/microsoft-security-product/blog/microsoftsecurityexperts`.
 Breakwater (Collector check 1365967): ok, 12 wpisow, kanal od korzenia witryny. Workflow „Collector check" wypisuje stan obu.
+**11 XI 2026 (§5gn) wlasciciel dodal Cloud Coffee** (`https://www.cloudcoffee.ch/`, Entra, Global Secure Access, Exchange, KQL;
+ok. 1 artykul w miesiacu) z `RequiredFrom` 2026-11-12. Bez zmian w kodzie: `collect_community.py` czyta go metoda `rss-root`
+(kanal `/feed/` od korzenia witryny) — test 11 XI: ok, 5 wpisow w kanale, najnowszy 2026-11-11, 1 w oknie.
 
 Przebieg poranny wola go w STEP 1b obok `collect_blogs.py`:
 `python3 collect_community.py <repo>/community_sources.json community_raw.json <najnowszy site/data/*.json>`
