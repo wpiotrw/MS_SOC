@@ -26376,6 +26376,13 @@ Entra Blog) i **Microsoft Security Experts Blog** (tablica `MicrosoftSecurityExp
 druga proba idzie z `UA_PLAIN` (BleepingComputer odwrotnie, §5cb — pierwsza proba bez zmian). Pelny przebieg 11 XI: 59 zrodel,
 57 przeczytanych, 1 `duplicate` (Security Baselines = wpis „Microsoft Security Blog", ktory wskazuje te sama tablice), 1 `failed`
 (MS365 News — serwer zrywa polaczenie; przerywane od 6 XI, w czesc dni ok), 294 artykuly w oknie (wczesniej 280).
+**§5gn-c (11 XI 2026) — `#pmdelta` widoczny w widoku Today.** Rutyna wieczorna (11 XI, 22:27) zglosila: „the new Today view hides
+#pmdelta, so these rows can't be seen in the Today tab". Potwierdzone: §5ci `buildToday` chowa pelne sekcje zakladki za przyciskiem
+„Show the full sections", a sekcja ze zmianami od rana (wieczorny-A, 4c) jest jedna z nich. Teraz `buildToday` przenosi ja (cala, z
+`details.ntsec`, rozwinieta) do widoku, pod linie „N new since…", w pomaranczowej ramce `.s5gn-pm` — nic nie jest usuwane. Strona glowna
+jej nie ma (wieczor nie dotyka `site/index.html`, wieczorny-B pkt 5) — tam wieczor pokazuje zolty pasek „the afternoon pass found…" z
+odnosnikiem do strony zmian; poprawka dotyczy artefaktu dnia, ktory rutyna republikuje z sekcja. Test: Chromium 1400 i 2560, WebKit 390 —
+sekcja widoczna i rozwinieta, 0 przewijania w poziomie, 0 bledow JS; bramka OK; mobile_check 9,3 s.
 
 Przebieg poranny wola go w STEP 1b obok `collect_blogs.py`:
 `python3 collect_community.py <repo>/community_sources.json community_raw.json <najnowszy site/data/*.json>`
@@ -37758,6 +37765,13 @@ odtad CZTERNASCIE (4-17).**
       if (nDl) { lead.appendChild(document.createTextNode(", ")); var a2 = el("button", "s5ci-inl", nDl + " in Deadlines"); a2.type = "button"; a2.addEventListener("click", function () { goTab("deadlines"); }); lead.appendChild(a2); }
     }
     root.appendChild(lead);
+    /* §5gn-c (11 XI 2026): the evening pass writes <section id="pmdelta"> as the first section of this tab (routine
+       wieczorny-A, 4c); the view hid it with the other full sections, so the rows found since the morning could not be
+       seen ("the new Today view hides #pmdelta"). It is moved, whole and open, into the view - nothing is removed */
+    var pmd = p.querySelector("#pmdelta");
+    if (pmd) { var pmb = pmd.closest("details.ntsec") || pmd; if (pmb.tagName === "DETAILS") pmb.open = true;
+      [].forEach.call(pmb.querySelectorAll("details"), function (d) { d.open = true; });
+      pmb.classList.add("s5gn-pm"); root.appendChild(pmb); }
     if (t0Add.length) root.appendChild(el("p", "s5ci-lead s5dw-t0", "Top picks include " + t0Add.length + " new item" + (t0Add.length === 1 ? "" : "s") +
       " that touch" + (t0Add.length === 1 ? "es" : "") + " tier 0 (" + t0Add.map(function (id) { return (I[id].title || id).slice(0, 60); }).join("; ") + ") — added after the run's ten picks."));
     var cm = compMoves(PREV);
@@ -50874,6 +50888,9 @@ html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
 .s5dq-sw button[aria-pressed="true"]{background:#1d4ed8;border-color:#1d4ed8;color:#fff}
 .s5gm-sub{margin:4px 0 12px;padding-left:20px;font-size:15px;line-height:1.5;color:var(--text)}
 .s5gm-sub>li{margin:3px 0}
+/* §5gn-c: the evening pass rows in the Today view - a framed card, never folded away */
+#tab-today .s5ci .s5gn-pm{display:block!important;margin:10px 0 14px;border:2px solid #d97706;border-radius:12px;padding:10px 14px;background:color-mix(in srgb,#d97706 8%,transparent)}
+#tab-today .s5ci .s5gn-pm>summary,#tab-today .s5ci .s5gn-pm .sec-title{font-weight:700;font-size:16px;color:var(--text)}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
