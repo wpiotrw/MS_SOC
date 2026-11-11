@@ -47006,6 +47006,7 @@ odtad CZTERNASCIE (4-17).**
     var G = { start: [], tech: [], watch: [], quiet: [] };
     [].forEach.call(ol.children, function (li) {
       li.classList.remove("s5gl-q", "s5gl-t", "s5gl-w", "s5gl-s"); li.style.order = "";
+      li.classList.toggle("s5gl-one", !!li.getAttribute("data-tech") && !li.querySelector(":scope > .s5dw-also"));   /* no :has (5co) */
       var k = key(li);
       /* "News of the day" is the top item of Microsoft's own security news (its blogs and the MSRC guide) of the last two
          days; the label now says so */
@@ -50796,7 +50797,17 @@ td>.offt+.ref{display:block}
 #tab-overview .s5bk-sum.s5gl-on .s5bk-3>li{flex:1 1 100%;min-width:0;max-width:100%;box-sizing:border-box;margin:0}
 #tab-overview .s5bk-sum.s5gl-on .s5bk-3>li[hidden]{display:none!important}
 #tab-overview .s5bk-sum.s5gl-on .s5bk-3 .s5fm-n{display:none}
-@media (min-width:900px){#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-t{flex:1 1 calc(50% - 6px);max-width:calc(50% - 6px)}}
+/* §5gl-b (11 XI 2026, owner's screenshot on a wide screen: two cards side by side left a hole wherever one was taller):
+   a technology card is a full row, and its two items stand side by side inside it; the cross-check frames too */
+@media (min-width:1100px){
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-t{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 28px;align-items:start}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-t>.s5bk-k{grid-column:1 / -1;justify-self:start}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-one>.s5bk-it{grid-column:1 / -1}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-t>.s5gf-dc{margin:0}
+}
+/* watched areas: the label on its own line, the tiles across the full width */
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-w>.s5bk-it{display:block;margin-top:6px}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-idg{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
 #tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-s{border:2px solid var(--accent)}
 #tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-h{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;border:0;background:transparent;padding:14px 2px 2px;margin-top:4px;border-top:2px solid var(--border);border-radius:0}
 #tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-h:first-child,#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-h-start{border-top:0;padding-top:2px}
@@ -50809,10 +50820,10 @@ td>.offt+.ref{display:block}
 .s5gl-qb .s5gl-hn{font-size:16px}
 .s5gl-ql{font-size:15px;flex:1 1 200px}
 .s5gl-qa{font-size:14px;font-weight:700;padding:2px 10px;border-radius:999px;border:1px solid var(--border)}
-/* Identity surface: a surface with no change is a small box beside the one that moved, not an equal empty column */
+/* Identity surface (§5gl-b): the surfaces with no change are small boxes in one row above the one that moved, which takes the full width - no empty column beside it */
 #tab-overview .s5bk-sum.s5gl-on .s5er-grid{display:flex!important;flex-wrap:wrap;gap:10px}
-#tab-overview .s5bk-sum.s5gl-on .s5er-grid>.s5er-box{flex:1 1 200px;min-width:0}
-#tab-overview .s5bk-sum.s5gl-on .s5er-grid>.s5er-box.s5er-hot{flex:3 1 460px}
+#tab-overview .s5bk-sum.s5gl-on .s5er-grid>.s5er-box{flex:0 1 300px;min-width:0;order:-1}
+#tab-overview .s5bk-sum.s5gl-on .s5er-grid>.s5er-box.s5er-hot{flex:1 1 100%;order:0}
 #tab-overview .s5bk-sum.s5gl-on .s5er-grid>.s5er-box:not(.s5er-hot){align-self:flex-start}
 .s5gl-dcb{display:none}
 #tab-overview .s5gf-dc.s5gm-f .s5gl-dcb{display:inline-block;margin:6px 0 2px;font:inherit;font-size:14px;font-weight:700;padding:3px 12px;border-radius:999px;border:1px solid #d69e2e;background:transparent;color:var(--text);cursor:pointer}
@@ -52587,6 +52598,19 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5gl-b — Overview na szerokim ekranie: bez dziur miedzy kartami (11 XI 2026)
+
+Wlasciciel (zrzut z bardzo szerokiego ekranu): „jak zes przebudowal to overview, no popatrz?" — w §5gl karty technologii
+staly po dwie w rzedzie (od 900 px), wiec obok krotszej karty zostawala pusta dziura wysokosci dluzszej (Defender obok
+Entra z ramkami cross-check); w Identity surface dwie male ramki „0" staly obok wysokiej ramki Graph API, z pusta
+kolumna pod nimi; kafelki Security baselines / Graph API Radar byly waskie i wciete. Testowalem tylko 1400 i 390 px.
+- **Teraz:** karta technologii to caly wiersz, a jej dwie pozycje (i ramki cross-check) stoja obok siebie WEWNATRZ karty
+  (grid 2 kolumny od 1100 px; jedna pozycja = pelna szerokosc, klasa `s5gl-one` z JS — `:has` zabronione od §5co);
+  Identity surface: ramki bez zmiany w jednym niskim rzedzie NAD ramka, ktora sie ruszyla (ta na pelna szerokosc);
+  kafelki obszarow na pelnej szerokosci (`auto-fill, minmax(200px,1fr)`), etykieta w osobnej linii.
+- **Testy:** Chromium 1400, 2560, 3840 i WebKit 390: brak dziur, brak przewijania poziomego, 0 bledow JS; bramka OK;
+  mobile_check OK.
 
 ### §5gm — Czytelnosc zakladek: Graph API Radar, Message Center, karty Overview, M365 endpoints, Security baselines (11 XI 2026)
 
