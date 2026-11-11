@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11T06:16:36Z",
+ "generated": "2026-11-11T06:50:42Z",
  "day": "2026-11-11",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-11)",
@@ -1831,16 +1831,14 @@
    "verdict": "differs"
   },
   "MC1448379": {
-   "says": [
-    "2026-11-03"
-   ],
+   "says": [],
    "others": [
     {
      "date": "2027-03-31",
      "src": "MC1488839",
      "text": "Action required by 31 March 2027, read on the message page; it applies to organizations with Microsoft Entra ID Governance.",
      "post": "2026-10-05",
-     "later": true,
+     "later": false,
      "link": "https://msmessagecenter.com/MC1488839"
     }
    ],
@@ -1871,19 +1869,17 @@
      "name": "MemberOf rule operator retires"
     }
    ],
-   "verdict": "moved"
+   "verdict": "differs"
   },
   "MC1488834": {
-   "says": [
-    "2026-11-03"
-   ],
+   "says": [],
    "others": [
     {
      "date": "2027-03-31",
      "src": "MC1488839",
      "text": "Action required by 31 March 2027, read on the message page; it applies to organizations with Microsoft Entra ID Governance.",
      "post": "2026-10-05",
-     "later": true,
+     "later": false,
      "link": "https://msmessagecenter.com/MC1488839"
     }
    ],

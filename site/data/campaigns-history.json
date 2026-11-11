@@ -1,6 +1,75 @@
 {
 "updated":"2026-11-11",
 "campaigns":{
+"c-mc1547994":{
+"firstSeen":"2026-11-11",
+"lastSeen":"2026-11-11",
+"name":"Update your iOS/iPadOS Company Portal minimum version to v5.2608.0",
+"status":"Active",
+"members":[
+"MC1547994",
+"item:MC1547994"
+],
+"log":[
+{
+"date":"2026-11-11",
+"id":"MC1547994",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Intune raises the minimum iOS/iPadOS Company Portal to v5.2608.0 from early December; devices that block App Store installs need a pushed update",
+"title":"Intune raises the minimum iOS/iPadOS Company Portal to v5.2608.0 from early December; devices that block App Store installs need a pushed update",
+"link":"https://deltapulse.app/item/MC1547994"
+}
+],
+"milestones":{
+"MC1547994|posted":{
+"date":"2026-11-10",
+"label":"10 Nov 2026",
+"text":"Posted: Update your iOS/iPadOS Company Portal minimum version to v5.2608.0"
+},
+"MC1547994|early no day stated by microsoft#0":{
+"date":"2026-12-05",
+"label":"early Dec 2026",
+"text":"Early December 2026 (no day stated by Microsoft)"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1547994":{
+"title":"Update your iOS/iPadOS Company Portal minimum version to v5.2608.0",
+"link":"https://mc.merill.net/message/MC1547994",
+"source":"Message Center",
+"id":"MC1547994",
+"date":"2026-11-10",
+"updated":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://deltapulse.app/item/MC1547994":{
+"title":"Update your iOS/iPadOS Company Portal minimum version to v5.2608.0",
+"link":"https://deltapulse.app/item/MC1547994",
+"source":"Main list source",
+"id":"MC1547994",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
+"title":"Updated minimum supported version for iOS and iPadOS",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"date":"2026-09-28",
+"group":"microsoft",
+"found":"2026-11-11"
+}
+},
+"final":"2026-12-05",
+"type":"Support end",
+"tech":"Intune",
+"posts":[
+"MC1547994"
+]
+},
 "c-mc1481315":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-11",
@@ -1806,6 +1875,14 @@
 "updated":"2026-10-22",
 "group":"microsoft",
 "found":"2026-10-22"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/introducing-kimi-k3-1-pro-through-fireworks-on-microsoft-foundry/ba-p/4571875":{
+"title":"Introducing Kimi K3.1 Pro through Fireworks on Microsoft Foundry",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/introducing-kimi-k3-1-pro-through-fireworks-on-microsoft-foundry/ba-p/4571875",
+"source":"Azure AI Foundry Blog",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
 }
 },
 "final":null,
@@ -1998,10 +2075,8 @@
 "status":"Active",
 "members":[
 "MC1448379",
-"item:MC1448379",
 "MC1488834",
 "MC1488839",
-"item:MC1488834",
 "item:MC1488839",
 "MC1529463",
 "item:MC1529463"
@@ -2065,10 +2140,10 @@
 "label":"28 Oct 2026",
 "text":"Posted: Microsoft Entra ID: Final reminder to replace MemberOf rule operator configurations by November 3, 2026"
 },
-"MC1488834|deadline":{
+"MC1488839|for every other tenant the retirement stays mc mc#0":{
 "date":"2026-11-03",
 "label":"3 Nov 2026",
-"text":"Final reminder: the MemberOf rule operator stops processing on 3 November, and dynamic groups built on it freeze in their last state"
+"text":"For every other tenant the retirement stays 3 November 2026 (MC1448379, MC1488834)."
 },
 "MC1488839|action required by read on the message page it applies to or#0":{
 "date":"2027-03-31",
@@ -5214,6 +5289,158 @@
 "date":"2026-11-06",
 "group":"microsoft",
 "found":"2026-11-07"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102868":{
+"title":"CVE-2026-102868 Windows Shell Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102868",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105582":{
+"title":"CVE-2026-105582 Windows DWM Core Library Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105582",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105583":{
+"title":"CVE-2026-105583 Windows DWM Core Library Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105583",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105584":{
+"title":"CVE-2026-105584 Windows Inventory Backup Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105584",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105586":{
+"title":"CVE-2026-105586 Microsoft Windows SCSI Class System File Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105586",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105587":{
+"title":"CVE-2026-105587 Windows OLE DB Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105587",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105588":{
+"title":"CVE-2026-105588 Windows DHCP Server Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105588",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105589":{
+"title":"CVE-2026-105589 Windows Wireless Networking Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105589",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105590":{
+"title":"CVE-2026-105590 Windows Active Directory Certificate Services Security Feature Bypass",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105590",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-100204":{
+"title":"CVE-2026-100204 HEIF Image Extensions Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-100204",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108409":{
+"title":"CVE-2026-108409 Windows Overlay Filter Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108409",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108417":{
+"title":"CVE-2026-108417 Windows Remote Desktop Client Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108417",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108424":{
+"title":"CVE-2026-108424 Windows GDI Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108424",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108403":{
+"title":"CVE-2026-108403 Windows Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108403",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108411":{
+"title":"CVE-2026-108411 Microsoft ODBC Driver Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108411",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108415":{
+"title":"CVE-2026-108415 Windows File Server Resource Management Service Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108415",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108416":{
+"title":"CVE-2026-108416 Windows File Server Resource Management Service Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108416",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109463":{
+"title":"CVE-2026-109463 Windows DNS Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109463",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-66801":{
+"title":"CVE-2026-66801 Microsoft Xbox Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-66801",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
 }
 },
 "final":"2026-10-13",
@@ -6074,6 +6301,14 @@
 "date":"2026-10-14",
 "group":"community",
 "found":"2026-10-15"
+},
+"https://mc.merill.net/message/MC1547649":{
+"title":"MC1547649: Windows 11, version 23H2 Enterprise and Education editions have reached end of updates",
+"link":"https://mc.merill.net/message/MC1547649",
+"source":"MC - Merill",
+"date":"2026-11-10",
+"group":"community",
+"found":"2026-11-11"
 }
 },
 "final":"2027-10-12",
@@ -6699,6 +6934,14 @@
 "date":"2026-11-09",
 "group":"video",
 "found":"2026-11-09"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=579894":{
+"title":"Microsoft Edge: Expanded enforcement controls for Data Loss Prevention connectors",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=579894",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-11"
 }
 },
 "final":"2027-01-15",
@@ -6952,14 +7195,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-08",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-09",
 "text":"August 1, 2026."
 },
@@ -7057,6 +7292,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-10",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-11",
 "text":"August 1, 2026."
 },
 {
@@ -7342,6 +7585,14 @@
 "date":"2026-10-23",
 "group":"community",
 "found":"2026-10-24"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=573703":{
+"title":"Dynamics 365 Commerce: Design receipts using a modern, web-based designer in headquarters and print them on A4 paper or thermal printers from Store Commerce, supporting B2B scenarios",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=573703",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-11"
 }
 },
 "final":"2026-11-30",
@@ -7600,22 +7851,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-09",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-09",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-10",
 "text":"early February 2026."
 },
@@ -7721,6 +7956,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-10",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-11",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-11",
 "text":"February 2027."
 },
 {
@@ -8137,6 +8388,14 @@
 "date":"2026-10-14",
 "group":"community",
 "found":"2026-10-15"
+},
+"https://mc.merill.net/message/MC1547649":{
+"title":"MC1547649: Windows 11, version 23H2 Enterprise and Education editions have reached end of updates",
+"link":"https://mc.merill.net/message/MC1547649",
+"source":"MC - Merill",
+"date":"2026-11-10",
+"group":"community",
+"found":"2026-11-11"
 }
 },
 "final":null,
@@ -8724,6 +8983,14 @@
 "date":"2026-11-09",
 "group":"microsoft",
 "found":"2026-11-10"
+},
+"https://dev.to/zero_heartbeat_06a3625d7a/decompiling-pinvoke-and-dllimport-reading-a-net-assemblys-native-interop-1fjl":{
+"title":"Decompiling P/Invoke and DllImport: Reading a .NET Assembly''s Native Interop",
+"link":"https://dev.to/zero_heartbeat_06a3625d7a/decompiling-pinvoke-and-dllimport-reading-a-net-assemblys-native-interop-1fjl",
+"source":"NeonTiger12",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-11"
 }
 },
 "final":"2026-11-10",
@@ -10768,6 +11035,22 @@
 "date":"2026-11-06",
 "group":"community",
 "found":"2026-11-07"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=577876":{
+"title":"Dynamics 365 Project Operations: Optimize Project Operations - Allow to invoice future-dated transactions",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=577876",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-11"
+},
+"https://mc.merill.net/message/MC1509782":{
+"title":"MC1509782: Microsoft Entra ID: Updates to SMS and voice verification experiences in MFA flows",
+"link":"https://mc.merill.net/message/MC1509782",
+"source":"MC - Merill",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-11"
 }
 },
 "final":"2027-07-01",
@@ -11419,22 +11702,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-09",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-09",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-10",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -11540,6 +11807,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-10",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-11",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-11",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -12131,6 +12414,14 @@
 "link":"https://daily.entra.news/day/2026-11-03/",
 "source":"Daily Entra News",
 "date":"2026-11-03",
+"group":"community",
+"found":"2026-11-11"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=573703":{
+"title":"Dynamics 365 Commerce: Design receipts using a modern, web-based designer in headquarters and print them on A4 paper or thermal printers from Store Commerce, supporting B2B scenarios",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=573703",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-11",
 "group":"community",
 "found":"2026-11-11"
 }
@@ -19355,6 +19646,296 @@
 "title":"Microsoft-provided SMS and voice SSPR retirement sets February 2027 recovery deadline — 3 November 2026",
 "source":"Daily Entra News",
 "link":"https://daily.entra.news/day/2026-11-03/"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1547994",
+"type":"new",
+"name":"Update your iOS/iPadOS Company Portal minimum version to v5.2608.0",
+"ctype":"Support end",
+"tech":"Intune",
+"next":"early Dec 2026",
+"text":"Starting early December, the minimum iOS/iPadOS Company Portal version will be v5.2608.0 to support new Apple OS releases."
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1450127",
+"type":"material",
+"name":"End-of-support Android devices may not be manageable through the Pro Management Portal",
+"group":"microsoft",
+"title":"Introducing Kimi K3.1 Pro through Fireworks on Microsoft Foundry",
+"source":"Azure AI Foundry Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/introducing-kimi-k3-1-pro-through-fireworks-on-microsoft-foundry/ba-p/4571875"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-102868 Windows Shell Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102868"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-105582 Windows DWM Core Library Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105582"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-105583 Windows DWM Core Library Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105583"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-105584 Windows Inventory Backup Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105584"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-105586 Microsoft Windows SCSI Class System File Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105586"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-105587 Windows OLE DB Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105587"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-105588 Windows DHCP Server Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105588"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-105589 Windows Wireless Networking Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105589"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-105590 Windows Active Directory Certificate Services Security Feature Bypass",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105590"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-100204 HEIF Image Extensions Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-100204"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-108409 Windows Overlay Filter Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108409"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-108417 Windows Remote Desktop Client Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108417"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-108424 Windows GDI Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108424"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-108403 Windows Kernel Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108403"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-108411 Microsoft ODBC Driver Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108411"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-108415 Windows File Server Resource Management Service Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108415"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-108416 Windows File Server Resource Management Service Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108416"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-109463 Windows DNS Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109463"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-66801 Microsoft Xbox Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-66801"
+},
+{
+"day":"2026-11-11",
+"cid":"c-windows-11-24h2-end-of-servicing",
+"type":"material",
+"name":"Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026",
+"group":"community",
+"title":"MC1547649: Windows 11, version 23H2 Enterprise and Education editions have reached end of updates",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1547649"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1429010",
+"type":"material",
+"name":"Instances policy location in Microsoft Purview Data Loss Prevention",
+"group":"community",
+"title":"Microsoft Edge: Expanded enforcement controls for Data Loss Prevention connectors",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=579894"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1243549",
+"type":"material",
+"name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"group":"community",
+"title":"Dynamics 365 Commerce: Design receipts using a modern, web-based designer in headquarters and print them on A4 paper or thermal printers from Store Commerce, supporting B2B scenarios",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=573703"
+},
+{
+"day":"2026-11-11",
+"cid":"c-mc1172446",
+"type":"material",
+"name":"Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing",
+"group":"community",
+"title":"MC1547649: Windows 11, version 23H2 Enterprise and Education editions have reached end of updates",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1547649"
+},
+{
+"day":"2026-11-11",
+"cid":"c-item-azure-functions-inprocess-eos",
+"type":"material",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"group":"community",
+"title":"Decompiling P/Invoke and DllImport: Reading a .NET Assembly''s Native Interop",
+"source":"NeonTiger12",
+"link":"https://dev.to/zero_heartbeat_06a3625d7a/decompiling-pinvoke-and-dllimport-reading-a-net-assemblys-native-interop-1fjl"
+},
+{
+"day":"2026-11-11",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Dynamics 365 Project Operations: Optimize Project Operations - Allow to invoice future-dated transactions",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=577876"
+},
+{
+"day":"2026-11-11",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"MC1509782: Microsoft Entra ID: Updates to SMS and voice verification experiences in MFA flows",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1509782"
+},
+{
+"day":"2026-11-11",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Dynamics 365 Commerce: Design receipts using a modern, web-based designer in headquarters and print them on A4 paper or thermal printers from Store Commerce, supporting B2B scenarios",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=573703"
 }
 ],
 "archive":{
