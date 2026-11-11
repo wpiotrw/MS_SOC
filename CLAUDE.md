@@ -38002,6 +38002,10 @@ odtad CZTERNASCIE (4-17).**
       var lt = legacyBP(); bpBody.innerHTML = "";
       if (!lt) { bpBody.appendChild(el("p", "s5ci-note", "The by-product table is not in this brief.")); return false; }
       var heads = [].map.call(lt.querySelectorAll("thead th"), function (th) { return (th.textContent || "").trim(); });
+      /* §5gl (11 XI 2026, owner circled "In the window": what is it?): the column counts this product's items published or
+         revised inside the brief's window, so it says how many days that is */
+      var wd = win.publishedFrom ? Math.round((Date.parse(win.publishedTo || DAY) - Date.parse(win.publishedFrom)) / 864e5) + 1 : 0;
+      heads = heads.map(function (h) { return h === "In the window" && wd ? "Last " + wd + " days" : h; });
       var rows = [].slice.call(lt.querySelectorAll("tbody tr"));
       var t = el("div", "s5ci-t s5ci-tbp"); t.setAttribute("role", "table"); t.setAttribute("aria-label", "What's new, by product");
       t.style.setProperty("--s5ci-cols", String(heads.length));
@@ -38027,7 +38031,13 @@ odtad CZTERNASCIE (4-17).**
       bpBody.appendChild(t);
       if (rows.length > shown) { var mb = el("button", "s5ci-inl", "All " + rows.length + " products ›"); mb.type = "button";
         mb.addEventListener("click", function () { bp.__all = true; drawBP(); }); bpBody.appendChild(mb); }
-      bpBody.appendChild(el("p", "s5ci-note", "New today: first seen by this brief. In the window: every item of the brief's window. Community and Catalog: the last 7 days. A zero is a result, not a link."));
+      var bnl = el("ul", "s5ci-note s5gl-bpn");
+      [["New today", "first seen by today's brief"],
+       [wd ? "Last " + wd + " days" : "In the window", "this product's items published or revised " + (win.publishedFrom ? dmy(win.publishedFrom) + " \u2013 " + dmyl(win.publishedTo || DAY) + " (the brief's window)" : "in the brief's window")],
+       ["Due in 30 days", "items with a Microsoft date in the next 30 days"],
+       ["Community, Catalog", "the last 7 days"], ["0", "a zero is a result (nothing there), not a link"]].forEach(function (r) {
+        var li = el("li"); li.appendChild(el("b", null, r[0] + ": ")); li.appendChild(document.createTextNode(r[1])); bnl.appendChild(li); });
+      bpBody.appendChild(bnl);
       return true;
     }
     if (!drawBP()) setTimeout(drawBP, 2500);
@@ -46913,6 +46923,130 @@ odtad CZTERNASCIE (4-17).**
   if (document.readyState === "complete") setTimeout(idleStart, 6000); else window.addEventListener("load", function () { setTimeout(idleStart, 6000); });
   window.__socSegs = pass;
 })();
+/* §5gl (11 XI 2026, owner: "what happened to Overview, it is so unreadable... I do not know how to find my way in these
+   sections with sentences... empty sections? number 10: news of the day - why 10, and what is it about? why are there
+   more numbers in circles than one? a total mess"). The sentences stay exactly as their writers build them (same
+   nodes, same clicks, same data); this layer only arranges them, in groups with a heading each:
+   1 Start here (most urgent, biggest new item, campaign dates of the next 7 days) · 2 By technology (one card per
+   technology, nearest due date first) · 3 Watched areas with a change today · 4 Watched areas with no change (one
+   line, opens on a click). No running numbers: they read as a ranking of things that are not ranked, and a card with
+   two items carried two of them. "News of the day" says what it is. The previous layout is one click away and is
+   remembered per browser. Runs on the list's own child changes only (a few per load), never on the whole page. */
+(function () {
+  var KEY = "s5gl-prev";
+  function prev() { try { return localStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
+  function setPrev(v) { try { if (v) localStorage.setItem(KEY, "1"); else localStorage.removeItem(KEY); } catch (e) {} }
+  function mk(tag, cls, txt) { var x = document.createElement(tag); if (cls) x.className = cls; if (txt != null) x.textContent = txt; return x; }
+  var DAY = 864e5, now = new Date(); now.setHours(0, 0, 0, 0);
+  function due(li) {   /* nearest date shown in the item's pills, in days from today (999 = none) */
+    var m = 999;
+    [].forEach.call(li.querySelectorAll(".s5bk-pill [data-v]"), function (d) {
+      var p = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(d.getAttribute("data-v") || ""); if (!p) return;
+      var n = Math.round((new Date(+p[3], +p[2] - 1, +p[1]) - now) / DAY); if (n >= 0 && n < m) m = n;
+    });
+    /* the date wrapper (s5cz) may not have run yet: the pill text "due 15 Nov" / "due in 1 day (12 Nov)" says the same */
+    [].forEach.call(li.querySelectorAll(".s5bk-pill"), function (pl) {
+      var q = /\bdue\b[^0-9]*?(?:in \d+ days? \()?(\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*(?: (\d{4}))?/.exec(pl.textContent || ""); if (!q) return;
+      var mo = "JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(q[2]) / 3, y = q[3] ? +q[3] : now.getFullYear();
+      var d = new Date(y, mo, +q[1]); if (!q[3] && d - now < -60 * DAY) d = new Date(y + 1, mo, +q[1]);
+      var n = Math.round((d - now) / DAY); if (n >= 0 && n < m) m = n;
+    });
+    return m;
+  }
+  function key(li) { var k = li.querySelector(":scope > .s5bk-k"); return k ? (k.getAttribute("data-k0") || k.textContent).trim().replace(/:$/, "") : ""; }
+  function body(li) { var t = li.querySelector(":scope > .s5bk-it .s5bk-itt, :scope > .s5er-wrap, :scope > .s5cl-cv, :scope > .s5bk-it"); return t ? (t.textContent || "").trim() : ""; }
+  function quiet(li) {
+    if (li.querySelector(".s5er-box")) return !li.querySelector(".s5er-hot");
+    if (/^News of the day/i.test(key(li))) return false;
+    return /^(no |nothing new)/i.test(body(li));
+  }
+  var GROUPS = [
+    ["start", "Start here", "the most urgent date, the biggest new item and the campaign dates of the next 7 days"],
+    ["tech", "By technology", "one card per technology · the nearest due date first · a card can hold two items"],
+    ["watch", "Watched areas — changed today", "surfaces this portal checks every day: identity, Graph API, baselines, threats, endpoints, news"],
+    ["quiet", "No change today", ""]
+  ];
+  function wrapRenum() {   /* later writers renumber the list: the group headings are not sentences */
+    var f = window.__socRenum; if (!f || f.__s5gl) return;
+    var g = function (o) { [].forEach.call(o.querySelectorAll(":scope > .s5gl-h"), function (h) { h.remove(); }); return f(o); };
+    g.__s5gl = 1; window.__socRenum = g;
+  }
+  var busy = false;
+  function arrange(sum) {
+    var ol = sum.querySelector(":scope > .s5bk-3"); if (!ol) return;
+    wrapRenum(); busy = true;
+    [].forEach.call(ol.querySelectorAll(":scope > .s5gl-h"), function (h) { h.remove(); });
+    var on = !prev(); sum.classList.toggle("s5gl-on", on);
+    var bar = sum.querySelector(":scope > .s5gl-bar");
+    if (!bar) {
+      bar = mk("div", "s5gl-bar"); var tb = mk("button", "s5gl-tog"); tb.type = "button";
+      tb.addEventListener("click", function () { setPrev(!prev()); arrange(sum); });
+      bar.appendChild(mk("span", "s5gl-sum")); bar.appendChild(tb);
+      var h = sum.querySelector(":scope > .s5bk-h"); sum.insertBefore(bar, h ? h.nextSibling : ol);
+    }
+    bar.querySelector(".s5gl-tog").textContent = on ? "Show the previous layout (numbered sentences)" : "Show the grouped layout";
+    var G = { start: [], tech: [], watch: [], quiet: [] };
+    [].forEach.call(ol.children, function (li) {
+      li.classList.remove("s5gl-q", "s5gl-t", "s5gl-w", "s5gl-s"); li.style.order = "";
+      var k = key(li);
+      /* "News of the day" is the top item of Microsoft's own security news (its blogs and the MSRC guide) of the last two
+         days; the label now says so */
+      var kb = li.querySelector(":scope > .s5bk-k");
+      if (kb && /^News of the day/i.test(k)) { if (!kb.getAttribute("data-k0")) { kb.setAttribute("data-k0", kb.textContent); kb.title = "The top item of Microsoft's own security news (its blogs and the MSRC Security Update Guide) of the last two days"; }
+        kb.textContent = on ? "Microsoft security news" : kb.getAttribute("data-k0"); }
+      if (li.getAttribute("data-tech")) G.tech.push(li);
+      else if (/^(Most urgent|Biggest new item)/i.test(k) || li.classList.contains("s5cu-sen")) G[quiet(li) ? "quiet" : "start"].push(li);
+      else G[quiet(li) ? "quiet" : "watch"].push(li);
+    });
+    /* a cross-check frame (§5gf) keeps its verdict line in view; its list of dates opens on a click, so one
+       technology card does not grow to a screen and a half */
+    [].forEach.call(ol.querySelectorAll(".s5gf-dc"), function (d) {
+      if (d.querySelector(":scope > .s5gl-dcb")) return;
+      var ul = d.querySelector(":scope > .s5gf-ul"); if (!ul) return;
+      var bt = mk("button", "s5gl-dcb"); bt.type = "button"; var n = ul.children.length;
+      function lab() { bt.textContent = d.classList.contains("s5gl-dco") ? "Hide the dates \u25b4" : "Show the " + n + " date" + (n === 1 ? "" : "s") + " and their sources \u25be"; bt.setAttribute("aria-expanded", String(d.classList.contains("s5gl-dco"))); }
+      bt.addEventListener("click", function (ev) { ev.stopPropagation(); d.classList.toggle("s5gl-dco"); lab(); }); lab();
+      d.insertBefore(bt, ul);
+    });
+    if (on) {
+      G.tech.sort(function (a, b) { return due(a) - due(b); });
+      var o = 0;
+      GROUPS.forEach(function (g) {
+        var L = G[g[0]]; if (!L.length) return;
+        var h = mk("li", "s5gl-h s5gl-h-" + g[0]); h.setAttribute("role", "presentation"); h.style.order = String(++o * 100);
+        if (g[0] === "quiet") {
+          var qb = mk("button", "s5gl-qb"); qb.type = "button"; qb.setAttribute("aria-expanded", String(ol.classList.contains("s5gl-open")));
+          qb.appendChild(mk("span", "s5gl-hn", "No change today"));
+          qb.appendChild(mk("span", "s5gl-ql", L.map(key).join(" · ")));
+          qb.appendChild(mk("span", "s5gl-qa", ol.classList.contains("s5gl-open") ? "hide ▴" : "show ▾"));
+          qb.addEventListener("click", function () { ol.classList.toggle("s5gl-open"); arrange(sum); });
+          h.appendChild(qb);
+        } else {
+          var hh = mk("span", "s5gl-hn", g[1]); h.appendChild(hh); h.appendChild(mk("span", "s5gl-hc", String(L.length)));
+          if (g[2]) h.appendChild(mk("span", "s5gl-hs", g[2]));
+        }
+        ol.appendChild(h);
+        L.forEach(function (li, i) { li.style.order = String(o * 100 + i + 1); li.classList.add({ start: "s5gl-s", tech: "s5gl-t", watch: "s5gl-w", quiet: "s5gl-q" }[g[0]]); });
+      });
+      /* a technology filter (§5fo) is on: only that technology's cards, no headings */
+      if (ol.querySelector(":scope > li[data-tech][hidden]")) [].forEach.call(ol.querySelectorAll(":scope > .s5gl-h"), function (h) { h.hidden = true; });
+    }
+    bar.querySelector(".s5gl-sum").textContent = on ? [G.start.length + " to start with", G.tech.length + " technolog" + (G.tech.length === 1 ? "y" : "ies"), G.watch.length + " watched area" + (G.watch.length === 1 ? "" : "s") + " changed", G.quiet.length + " without a change"].join(" · ") : "";
+    setTimeout(function () { busy = false; }, 0);
+  }
+  var tmr = null;
+  function hook(k) {
+    var sum = document.querySelector("#tab-overview .s5bk-sum"), ol = sum && sum.querySelector(":scope > .s5bk-3");
+    if (!ol) { if (k < 120) setTimeout(function () { hook(k + 1); }, 500); return; }
+    if (ol.__s5gl) return; ol.__s5gl = 1;
+    arrange(sum);
+    new MutationObserver(function () { if (busy) return; clearTimeout(tmr); tmr = setTimeout(function () { arrange(sum); }, 250); }).observe(ol, { childList: true });
+    /* the technology chips (§5fo) hide items with the hidden attribute: headings follow */
+    var fb = sum.querySelector(".s5fo-tf"); if (fb) fb.addEventListener("click", function () { setTimeout(function () { arrange(sum); }, 0); });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { hook(0); }); else hook(0);
+  window.__s5gl = function () { var s = document.querySelector("#tab-overview .s5bk-sum"); if (s) arrange(s); };
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -50628,6 +50762,39 @@ td>.offt+.ref{display:block}
 .s5er-l{gap:10px}
 .s5er-l > .s5er-r + .s5er-r{border-top:1px solid color-mix(in srgb,var(--text) 18%,transparent);padding-top:10px}
 #tab-overview .s5er-r .s5er-nm{font-size:16px;font-weight:700}
+/* §5gl - Overview sentences in groups: headings, no running numbers, one card per technology, quiet areas folded */
+#tab-overview .s5bk-sum.s5gl-on>.s5bk-h{display:none}
+.s5gl-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:4px 0 12px}
+.s5gl-sum{font-size:16px;font-weight:700;color:var(--text)}
+.s5gl-tog{font:inherit;font-size:14px;font-weight:700;padding:5px 12px;border-radius:999px;border:2px solid var(--accent);background:transparent;color:var(--text);cursor:pointer}
+.s5gl-tog:hover{background:color-mix(in srgb,var(--accent) 14%,transparent)}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3{display:flex!important;flex-wrap:wrap;align-items:flex-start;gap:12px;columns:auto;padding-left:0;margin:0}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li{flex:1 1 100%;min-width:0;max-width:100%;box-sizing:border-box;margin:0}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li[hidden]{display:none!important}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3 .s5fm-n{display:none}
+@media (min-width:900px){#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-t{flex:1 1 calc(50% - 6px);max-width:calc(50% - 6px)}}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-s{border:2px solid var(--accent)}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-h{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;border:0;background:transparent;padding:14px 2px 2px;margin-top:4px;border-top:2px solid var(--border);border-radius:0}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-h:first-child,#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-h-start{border-top:0;padding-top:2px}
+.s5gl-hn{font-size:19px;font-weight:800;color:var(--text)}
+.s5gl-hc{display:inline-block;min-width:26px;text-align:center;padding:1px 9px;border-radius:999px;background:var(--accent);color:#fff;font-weight:800;font-size:15px}
+.s5gl-hs{flex:1 1 100%;font-size:15px;color:var(--text)}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-q{display:none}
+#tab-overview .s5bk-sum.s5gl-on .s5bk-3.s5gl-open>li.s5gl-q{display:list-item}
+.s5gl-qb{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;width:100%;text-align:left;font:inherit;padding:10px 14px;border-radius:12px;border:1px dashed var(--border);background:transparent;color:var(--text);cursor:pointer}
+.s5gl-qb .s5gl-hn{font-size:16px}
+.s5gl-ql{font-size:15px;flex:1 1 200px}
+.s5gl-qa{font-size:14px;font-weight:700;padding:2px 10px;border-radius:999px;border:1px solid var(--border)}
+/* Identity surface: a surface with no change is a small box beside the one that moved, not an equal empty column */
+#tab-overview .s5bk-sum.s5gl-on .s5er-grid{display:flex!important;flex-wrap:wrap;gap:10px}
+#tab-overview .s5bk-sum.s5gl-on .s5er-grid>.s5er-box{flex:1 1 200px;min-width:0}
+#tab-overview .s5bk-sum.s5gl-on .s5er-grid>.s5er-box.s5er-hot{flex:3 1 460px}
+#tab-overview .s5bk-sum.s5gl-on .s5er-grid>.s5er-box:not(.s5er-hot){align-self:flex-start}
+.s5gl-dcb{display:none}
+#tab-overview .s5bk-sum.s5gl-on .s5gl-dcb{display:inline-block;margin:6px 0 2px;font:inherit;font-size:14px;font-weight:700;padding:3px 12px;border-radius:999px;border:1px solid #d69e2e;background:transparent;color:var(--text);cursor:pointer}
+#tab-overview .s5bk-sum.s5gl-on .s5gf-dc:not(.s5gl-dco)>.s5gf-ul,#tab-overview .s5bk-sum.s5gl-on .s5gf-dc:not(.s5gl-dco)>.s5gf-fn{display:none}
+.s5gl-bpn{margin:10px 0 0;padding-left:20px;font-size:15px;line-height:1.5;color:var(--text)}
+.s5gl-bpn>li{margin:2px 0}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
@@ -52377,6 +52544,33 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5gl — Overview: zdania w grupach z naglowkami, bez numerow w kolkach (11 XI 2026)
+
+Wlasciciel (3 zrzuty Overview): „co sie stalo z zakladka overview, ze jest teraz tak nieczytelna... nie wiem, jak sie
+tu odnalezc w tych sekcjach ze zdaniami... jakies puste sekcje? albo nr 10: news of the day? czemu nr 10 i czego sie
+tyczy? czemu liczby w kolkach sa w wiecej niz 1? totalny balagan".
+- **Przyczyna:** jedna lista `ol.s5bk-3` (24 pozycje) z jednym licznikiem `__socRenum`: numer co zdanie, wiec karta
+  technologii z dwiema pozycjami miala dwa numery; numery sugerowaly ranking roznych rodzajow tresci; uklad w dwie
+  kolumny (`columns`) mieszal kolejnosc czytania; obszary bez zmian (M365 endpoints, Threat Research, Component
+  versions, puste ramki Roles 0 / First-party apps 0) zajmowaly tyle miejsca co zmiany.
+- **Teraz (SKRYPT 17, IIFE §5gl + appended.css):** warstwa prezentacji nad tymi samymi `li` (te same wezly, klikniecia
+  i dane; nic nie usuniete). Grupy z naglowkiem i licznikiem: **Start here** (Most urgent, Biggest new item, Campaigns —
+  daty 7 dni), **By technology** (jedna karta na technologie, najblizszy termin pierwszy; 2 kolumny od 900 px),
+  **Watched areas — changed today**, **No change today** (jedna linia z nazwami, rozwija sie klikiem). Numery w kolkach
+  ukryte. „News of the day" w tym ukladzie nazywa sie „Microsoft security news" (podpowiedz: najwazniejszy wpis z blogow
+  Microsoftu i MSRC z ostatnich 2 dni). Ramka cross-check (§5gf) w karcie pokazuje werdykt; lista dat pod przyciskiem
+  „Show the N dates and their sources". Identity surface: powierzchnia bez zmiany to mala ramka obok tej, ktora sie
+  ruszyla. Przycisk „Show the previous layout (numbered sentences)" wraca do starego ukladu (zapamietane w
+  `localStorage`, klucz `s5gl-prev`). Filtry technologii (§5fo) dzialaja; przy filtrze naglowki sa ukryte.
+- **Sortowanie:** z `data-v` dat w pigulkach, a gdy owijacz dat jeszcze nie przeszedl — z tekstu „due 15 Nov".
+- **Pozniejsze zdania:** warstwa slucha tylko zmian dzieci listy (MutationObserver na `ol`, bez poddrzewa); owija
+  `__socRenum`, zeby naglowki grup nie byly liczone jako zdania.
+- **„In the window" w karcie „What's new, by product":** naglowek kolumny to teraz „Last N days" (z `ST.window`,
+  dzis 15 dni: 28 X – 11 XI), a notatka pod tabela to lista wypunktowana z objasnieniem kazdej kolumny.
+- **Testy 11 XI:** bramka OK; 17 skryptow, 0 bledow skladni; Chromium 1400 i WebKit 390: 4 grupy, 0 widocznych numerow,
+  brak przewijania w poziomie, 0 bledow JS, rozwijanie „No change today", filtr Entra, przelacznik ukladu w obie strony;
+  mobile_check: Overview sentences 8,9 s (OK).
 
 ### §5gk — RSS obejmuje caly portal (11 XI 2026)
 
