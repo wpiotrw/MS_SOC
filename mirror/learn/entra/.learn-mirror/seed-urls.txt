@@ -108,6 +108,7 @@ https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-network-cont
 https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-transport-layer-security-settings-managed-certificate
 https://learn.microsoft.com/en-us/entra/global-secure-access/reference-current-known-limitations
 https://learn.microsoft.com/en-us/entra/global-secure-access/reference-private-access-sensor-release-history
+https://learn.microsoft.com/en-us/entra/global-secure-access/reference-version-history
 https://learn.microsoft.com/en-us/entra/global-secure-access/reference-windows-client-release-history
 https://learn.microsoft.com/en-us/entra/global-secure-access/troubleshoot-global-secure-access-client-diagnostics-health-check
 https://learn.microsoft.com/en-us/entra/global-secure-access/troubleshoot-prompt-injection-protection
@@ -141,6 +142,7 @@ https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-manage
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/groups-role-settings
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-how-to-use-audit-log
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/privileged-identity-management-custom-extensions
+https://learn.microsoft.com/en-us/entra/id-governance/sap
 https://learn.microsoft.com/en-us/entra/id-governance/scenarios/identity-governance-use-cases
 https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/configuration-management
 https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/overview
@@ -151,6 +153,7 @@ https://learn.microsoft.com/en-us/entra/id-protection/howto-identity-protection-
 https://learn.microsoft.com/en-us/entra/identity
 https://learn.microsoft.com/en-us/entra/identity-platform/concept-native-authentication
 https://learn.microsoft.com/en-us/entra/identity-platform/configurable-token-lifetimes
+https://learn.microsoft.com/en-us/entra/identity-platform/consent-types-developer
 https://learn.microsoft.com/en-us/entra/identity-platform/content-security-policy
 https://learn.microsoft.com/en-us/entra/identity-platform/howto-configure-app-instance-property-locks
 https://learn.microsoft.com/en-us/entra/identity-platform/permissions-consent-overview
@@ -172,6 +175,7 @@ https://learn.microsoft.com/en-us/entra/identity/app-provisioning/isv-automatic-
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/known-issues
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/manage-object-connections
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/object-connection-identifiers
+https://learn.microsoft.com/en-us/entra/identity/app-provisioning/plan-sap-user-source-and-target
 https://learn.microsoft.com/en-us/entra/identity/app-proxy/application-proxy-faq
 https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-fraud-costs
 https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-reliability
@@ -232,6 +236,7 @@ https://learn.microsoft.com/en-us/entra/identity/devices/macos-platform-sso-arch
 https://learn.microsoft.com/en-us/entra/identity/devices/sso-linux
 https://learn.microsoft.com/en-us/entra/identity/devices/troubleshoot-macos-platform-single-sign-on-extension
 https://learn.microsoft.com/en-us/entra/identity/devices/troubleshoot-primary-refresh-token
+https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/admin-consent-workflow-faq
 https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/application-properties
 https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/assign-user-or-group-access-portal
 https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/protect-against-consent-phishing
@@ -289,6 +294,7 @@ https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permi
 https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/whats-new
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/brivo-onair-identity-connector-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/chatwork-provisioning-tutorial
+https://learn.microsoft.com/en-us/entra/identity/saas-apps/goto-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/hibob-to-active-directory-user-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/mysdworxcom-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/salesforce-provisioning-tutorial
@@ -301,6 +307,8 @@ https://learn.microsoft.com/en-us/entra/identity/saas-apps/vonage-provisioning-t
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/zendesk-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/zscaler-provisioning-tutorial
 https://learn.microsoft.com/en-us/entra/identity/saas-apps/zscaler-zidentity-provisioning-tutorial
+https://learn.microsoft.com/en-us/entra/identity/users/groups-create-rule
+https://learn.microsoft.com/en-us/entra/identity/users/groups-dynamic-rule-member-of
 https://learn.microsoft.com/en-us/entra/identity/users/groups-sensitivity-labels
 https://learn.microsoft.com/en-us/entra/migrate-connect-sync-cloud-sync-tool
 https://learn.microsoft.com/en-us/entra/overview-provision-entra-id-to-active-directory

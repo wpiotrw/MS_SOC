@@ -1,3 +1,4 @@
+https://learn.microsoft.com/en-us/azure
 https://learn.microsoft.com/en-us/azure/ai-foundry
 https://learn.microsoft.com/en-us/azure/ai-foundry/agent-insights
 https://learn.microsoft.com/en-us/azure/ai-foundry/cloud-evaluation-simulate-conversations
@@ -54,6 +55,8 @@ https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops
 https://learn.microsoft.com/en-us/azure/azure-arc/kuber…
 https://learn.microsoft.com/en-us/azure/azure-arc/ku…
 https://learn.microsoft.com/en-us/azure/azure-arc/manage-agent-proxy-settings
+https://learn.microsoft.com/en-us/azure/azure-arc/multicloud-connector/multicloud-extended-security-updates
+https://learn.microsoft.com/en-us/azure/azure-arc/multicloud-connector/multicloud-extended-security-updates-sql-server
 https://learn.microsoft.com/en-us/azure/azure-arc/multicloud-connector/multicloud-lifecycle-management
 https://learn.microsoft.com/en-us/azure/azure-arc/network-requirements
 https://learn.microsoft.com/en-us/azure/azure-arc/overview
@@ -110,6 +113,7 @@ https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/pri…
 https://learn.microsoft.com/en-us/azure/azure-sovereign-clouds/…
 https://learn.microsoft.com/en-us/azure/backup/whats-new
 https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets
+https://learn.microsoft.com/en-us/azure/cost-management-
 https://learn.microsoft.com/en-us/azure/cost-management-billing
 https://learn.microsoft.com/en-us/azure/cost-management-billing/azure-hybrid-benefits
 https://learn.microsoft.com/en-us/azure/cost-management-billing/benefits/caco/manage-conditional-credit-offer
@@ -388,6 +392,7 @@ https://learn.microsoft.com/en-us/azure/governance/guest-configuration-baseline-
 https://learn.microsoft.com/en-us/azure/governance/guest-configuration-baseline-linux
 https://learn.microsoft.com/en-us/azure/governance/initiative-definition-structure
 https://learn.microsoft.com/en-us/azure/governance/machine-configuration/how-to/assign-security-baselines/remediate-security-baselines
+https://learn.microsoft.com/en-us/azure/governance/machine-configuration/overview/01-
 https://learn.microsoft.com/en-us/azure/governance/machine-configuration/overview/01-overview-concepts
 https://learn.microsoft.com/en-us/azure/governance/machine-configuration/whats-new/agent
 https://learn.microsoft.com/en-us/azure/governance/machine-configuration/whats-new/agent/linux
@@ -471,6 +476,7 @@ https://learn.microsoft.com/en-us/azure/sentinel/isv/sentinel-integration-guide
 https://learn.microsoft.com/en-us/azure/sentinel/manage-data-overview
 https://learn.microsoft.com/en-us/azure/sentinel/microsoft-sentinel-defender-portal
 https://learn.microsoft.com/en-us/azure/sentinel/microsoft-sentinel-onboard
+https://learn.microsoft.com/en-us/azure/sentinel/monitor-data-connector-health
 https://learn.microsoft.com/en-us/azure/sentinel/monitor-sap-system-health
 https://learn.microsoft.com/en-us/azure/sentinel/move-to-defender
 https://learn.microsoft.com/en-us/azure/sentinel/normalization
@@ -538,6 +544,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/boot-diagnostics
 https://learn.microsoft.com/en-us/azure/virtual-machines/capacity-reservation-associate-virtual-machine-scale-set
 https://learn.microsoft.com/en-us/azure/virtual-machines/capacity-reservation-associate-vm
 https://learn.microsoft.com/en-us/azure/virtual-machines/compute-gallery-migrate-china-regions
+https://learn.microsoft.com/en-us/azure/virtual-machines/compute-placement-score
 https://learn.microsoft.com/en-us/azure/virtual-machines/concepts-restore-points
 https://learn.microsoft.com/en-us/azure/virtual-machines/create-portal-availability-zone
 https://learn.microsoft.com/en-us/azure/virtual-machines/create-restore-points
@@ -649,6 +656,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/esv6-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/storage-optimized/laosv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/storage-optimized/lasv5-series
+https://learn.microsoft.com/en-us/azure/virtual-machines/sku-mix-placement-score
 https://learn.microsoft.com/en-us/azure/virtual-machines/soft-delete-gallery
 https://learn.microsoft.com/en-us/azure/virtual-machines/trusted-launch-existing-vm
 https://learn.microsoft.com/en-us/azure/virtual-machines/use-premium-ssd-v2-with-availability-set

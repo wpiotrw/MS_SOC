@@ -34,6 +34,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/accessreviewreviewerscope
 https://learn.microsoft.com/en-us/graph/api/resources/activitylogbase
 https://learn.microsoft.com/en-us/graph/api/resources/agentRiskDetection
 https://learn.microsoft.com/en-us/graph/api/resources/agentcommunicationconfiguration
+https://learn.microsoft.com/en-us/graph/api/resources/agenticsecurityroot
 https://learn.microsoft.com/en-us/graph/api/resources/agentidentity
 https://learn.microsoft.com/en-us/graph/api/resources/agentidentityblueprintprincipal
 https://learn.microsoft.com/en-us/graph/api/resources/agentmetadata
@@ -90,14 +91,17 @@ https://learn.microsoft.com/en-us/graph/api/resources/onlineMeetingBase
 https://learn.microsoft.com/en-us/graph/api/resources/onpasswordupdatecustomextension
 https://learn.microsoft.com/en-us/graph/api/resources/onpasswordupdatelistener
 https://learn.microsoft.com/en-us/graph/api/resources/onpremisespublishing
+https://learn.microsoft.com/en-us/graph/api/resources/organization
 https://learn.microsoft.com/en-us/graph/api/resources/place
 https://learn.microsoft.com/en-us/graph/api/resources/planner
 https://learn.microsoft.com/en-us/graph/api/resources/policyscopebase
 https://learn.microsoft.com/en-us/graph/api/resources/privilegedaccessgroup
+https://learn.microsoft.com/en-us/graph/api/resources/processcont
 https://learn.microsoft.com/en-us/graph/api/resources/processcontentmetadatabase
 https://learn.microsoft.com/en-us/graph/api/resources/provisionresponse
 https://learn.microsoft.com/en-us/graph/api/resources/relatedPerson
 https://learn.microsoft.com/en-us/graph/api/resources/resourceaccountkeyauthenticationmethod
+https://learn.microsoft.com/en-us/graph/api/resources/resourcequota
 https://learn.microsoft.com/en-us/graph/api/resources/rolemanagementcustomcalloutextension
 https://learn.microsoft.com/en-us/graph/api/resources/rolemanagementcustomcalloutexten…
 https://learn.microsoft.com/en-us/graph/api/resources/security
@@ -127,6 +131,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/synchronization-synchroniz
 https://learn.microsoft.com/en-us/graph/api/resources/teamworkcustomemoji
 https://learn.microsoft.com/en-us/graph/api/resources/telecomprovidersettings
 https://learn.microsoft.com/en-us/graph/api/resources/tenantgovernanceservices-actionstep
+https://learn.microsoft.com/en-us/graph/api/resources/unifiedroledefinition
 https://learn.microsoft.com/en-us/graph/api/resources/unifiedroot
 https://learn.microsoft.com/en-us/graph/api/resources/user
 https://learn.microsoft.com/en-us/graph/api/resources/verifiablecredentialsauthenticationmethodconfiguration…

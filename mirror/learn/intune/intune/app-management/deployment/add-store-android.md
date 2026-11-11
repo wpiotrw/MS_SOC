@@ -12,7 +12,6 @@ ms.collection:
 - M365-identity-device-management
 - Android
 - FocusArea_Apps_Store
-ms.reviewer: bryanke
 ms.subservice: apps
 description: Learn how to add Android store apps from the Google Play store to Microsoft Intune.
 ms.date: 2025-01-06T00:00:00.0000000Z

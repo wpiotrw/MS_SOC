@@ -12,7 +12,6 @@ ms.collection:
 - M365-identity-device-management
 - Android
 - FocusArea_Apps_LOB
-ms.reviewer: bryanke
 ms.subservice: apps
 description: Learn about how to add a Android line-of-business (LOB) app to Microsoft Intune.
 ms.date: 2026-05-11T00:00:00.0000000Z

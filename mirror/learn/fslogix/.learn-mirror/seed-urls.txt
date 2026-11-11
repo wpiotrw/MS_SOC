@@ -5,5 +5,6 @@ https://learn.microsoft.com/en-us/fslogix/how-to-configure-profile-container-azu
 https://learn.microsoft.com/en-us/fslogix/how-to-configure-profile-container-entra-id-hybrid
 https://learn.microsoft.com/en-us/fslogix/how-to-install-fslogix
 https://learn.microsoft.com/en-us/fslogix/overview
+https://learn.microsoft.com/en-us/fslogix/overview-release-note
 https://learn.microsoft.com/en-us/fslogix/overview-release-notes
 https://learn.microsoft.com/en-us/fslogix/reference-configuration-settings

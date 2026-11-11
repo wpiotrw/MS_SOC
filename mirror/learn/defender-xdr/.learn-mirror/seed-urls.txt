@@ -29,6 +29,8 @@ https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-graph
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-graphapiauditevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identityaccountinfo-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identitydirectoryevents-table
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identitylogonevents-table
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identityqueryevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-link-to-incident
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-messageevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-messageurlinfo-table
@@ -72,6 +74,7 @@ https://learn.microsoft.com/en-us/defender-xdr/investigate-non-human-identities
 https://learn.microsoft.com/en-us/defender-xdr/investigate-respond-container-threats
 https://learn.microsoft.com/en-us/defender-xdr/investigate-users
 https://learn.microsoft.com/en-us/defender-xdr/isoc-overview
+https://learn.microsoft.com/en-us/defender-xdr/manage-case-templates
 https://learn.microsoft.com/en-us/defender-xdr/manage-rbac
 https://learn.microsoft.com/en-us/defender-xdr/microsoft-threat-actor-naming
 https://learn.microsoft.com/en-us/defender-xdr/mto-distribution-profiles

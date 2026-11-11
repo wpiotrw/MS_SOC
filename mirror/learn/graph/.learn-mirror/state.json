@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/graph/outlook-share-or-delegate-calendar",
+  "cursor": "https://learn.microsoft.com/en-us/graph/unified-tenant-configuration-management-concept-overview",
   "pages": {
     "https://learn.microsoft.com/en-us/graph/alertsv1-alertsv2-migration": {"etag":"\"t50Zp4pJcqHKVbs5jjbRe0hRho0=\"","gitCommitId":"30bd5c818cf9b2f9608601d45580e9603ddfed75","path":"concepts/alertsv1-alertsv2-migration.md","sourcePath":"concepts/alertsv1-alertsv2-migration.md","updatedAt":"2026-09-26T00:40:00.0000000Z"},
     "https://learn.microsoft.com/en-us/graph/api/accessdriftsummary-list": {"etag":"\"DX/r9NmpEJr1toqmO1q/nOqGvtY=\"","gitCommitId":"92e5a3fe66b824b0455d7d9a3a736f4a6d7590de","path":"api-reference/beta/api/accessdriftsummary-list.md","redirectedTo":"https://learn.microsoft.com/en-us/graph/api/accessdriftsummary-list?view=graph-rest-beta","sourcePath":"api-reference/beta/api/accessdriftsummary-list.md","updatedAt":"2026-10-21T00:42:00.0000000Z"},
@@ -163,7 +163,7 @@
     "https://learn.microsoft.com/en-us/graph/toolkit/components/chat": {"etag":"\"79K19Eyd5CoPl7VClD1zhp/YBXA=\"","gitCommitId":"5db98dc9ead2df65776cb5d298c3ef31576d4289","path":"concepts/toolkit/components/chat.md","sourcePath":"concepts/toolkit/components/chat.md","updatedAt":"2026-09-29T00:46:00.0000000Z"},
     "https://learn.microsoft.com/en-us/graph/unified-tenant-configuration-management-concept-overview": {"etag":"\"mwRKU4BJHADRvEVh25SOXABCXQY=\"","gitCommitId":"be07c06366219681f321abfefee90ff81b97f0b5","path":"concepts/unified-tenant-configuration-management-concept-overview.md","sourcePath":"concepts/unified-tenant-configuration-management-concept-overview.md","updatedAt":"2026-03-27T00:45:00.0000000Z"},
     "https://learn.microsoft.com/en-us/graph/whats-new-earlier": {"etag":"\"MNOUJiUkkkU8g+F/EY/Nfwhmp9w=\"","gitCommitId":"89b74fb01622f28577188dd7b2d41068eab29286","path":"concepts/whats-new-earlier.md","sourcePath":"concepts/whats-new-earlier.md","updatedAt":"2026-11-07T00:45:00.0000000Z"},
-    "https://learn.microsoft.com/en-us/graph/whats-new-overview": {"etag":"\"S50YJRTAd8PFVYTXfRN3PnsX/qM=\"","gitCommitId":"eb0f6f4f6e417a61f29a1c58364b6a2745568131","path":"concepts/whats-new-overview.md","sourcePath":"concepts/whats-new-overview.md","updatedAt":"2026-11-10T00:40:00.0000000Z"},
+    "https://learn.microsoft.com/en-us/graph/whats-new-overview": {"etag":"\"zbB2fZqla8I3XucOsYhgSglBRO0=\"","gitCommitId":"866bfb1a82903ab1ff0691315b561b6ff776e5b3","path":"concepts/whats-new-overview.md","sourcePath":"concepts/whats-new-overview.md","updatedAt":"2026-11-10T23:40:00.0000000Z"},
     "https://learn.microsoft.com/en-us/graph/windowsupdates-concept-overview": {"etag":"\"viizvIlqpBuB/3vj1ASjBjifMYA=\"","gitCommitId":"ac55420c62dedb229f52ac963c7fbc629c4adcb3","path":"concepts/windowsupdates-concept-overview.md","sourcePath":"concepts/windowsupdates-concept-overview.md","updatedAt":"2026-10-23T00:41:00.0000000Z"}
   }
 }

@@ -50,6 +50,7 @@ https://learn.microsoft.com/en-us/defender-endpoint/network-isolation-exclusions
 https://learn.microsoft.com/en-us/defender-endpoint/offboard-machines
 https://learn.microsoft.com/en-us/defender-endpoint/onboard-downlevel
 https://learn.microsoft.com/en-us/defender-endpoint/onboard-server
+https://learn.microsoft.com/en-us/defender-endpoint/respond-file-alerts
 https://learn.microsoft.com/en-us/defender-endpoint/respond-machine-alerts
 https://learn.microsoft.com/en-us/defender-endpoint/restrict-response-actions-high-value-assets
 https://learn.microsoft.com/en-us/defender-endpoint/run-analyzer-linux

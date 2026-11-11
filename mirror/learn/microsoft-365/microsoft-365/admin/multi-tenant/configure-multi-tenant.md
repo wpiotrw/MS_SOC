@@ -20,7 +20,7 @@ f1.keywords:
 ms.author: erikre
 author: Erikre
 manager: dansimp
-ms.date: 2026-11-02T00:00:00.0000000Z
+ms.date: 2026-11-10T00:00:00.0000000Z
 audience: Admin
 ms.topic: how-to
 ms.service: m365-core
@@ -131,7 +131,11 @@ Depending on the selected baseline and its state, available actions can include:
 
 ### Tenants
 
-Use the Tenants page to view the tenants within the signed-in administrator's administrative purview, assign baselines, and monitor configuration state. The page can show assigned baselines, baseline drift status, the number of detected drifts, and the last monitored time. A tenant can have multiple assigned baselines. Expand a tenant node to view the baselines assigned to that tenant.
+Use the Tenants page to view the tenants within the signed-in administrator's administrative purview, assign baselines, and monitor configuration state. The page can show assigned baselines, baseline drift status, the number of detected drifts, and the last monitored time. Expand a tenant node to view the baselines assigned to that tenant.
+
+Important
+
+A tenant can have multiple assigned baselines.
 
 A tenant without an assigned baseline is shown as **Not monitored**. After you assign a baseline, background monitoring evaluates the tenant against the configuration defined in the baseline. A matching tenant is shown as **Compliant**. A tenant with one or more differences is shown as **Drifted**.
 
@@ -284,16 +288,3 @@ Use **Deployment results** from the Configuration management or **Tenants** expe
 - The settings that you can include in a baseline depend on the configuration resources that the service supports.
 - The administrator's ability to deploy, monitor, or remediate a setting depends on the fine-grained permissions granted for that workload and setting.
 - Monitoring results reflect the most recent completed monitoring run and might not immediately reflect a recent configuration change. Confirm exact monitoring cadence and freshness commitments before publication.
-
-## Items to validate before publication
-
-- Exact product title and capitalization for Configuration management and tenants.
-- Whether to describe the relationship prerequisite as GDAP for both enterprise and partner scenarios, or whether enterprise documentation should use a more specific Tenant Governance authorization term.
-- Exact delegated roles and fine-grained permissions for each supported configuration resource.
-- Monitoring cadence and expected time to first status after baseline assignment.
-- Behavior and customer guidance for unknown, monitoring errors, partial results, and unavailable tenants.
-- How the service resolves conflicts between multiple baselines assigned to the same tenant.
-- Baseline versioning, edit behavior, and the effect of updating a baseline that is already assigned.
-- Deployment and remediation result states, retries, rollback guidance, and audit history.
-- Supported workloads and settings at preview launch.
-- Final screenshot set, callouts, accessibility alt text, and data sanitization.

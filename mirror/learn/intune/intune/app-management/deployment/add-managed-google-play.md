@@ -12,11 +12,11 @@ ms.collection:
 - M365-identity-device-management
 - Android
 - FocusArea_Apps_Add
-ms.reviewer: ilwu
 ms.subservice: apps
 description: Understand how to synchronize and assign apps to Android Enterprise devices from the Managed Google Play store.
 ms.date: 2026-04-23T00:00:00.0000000Z
 ms.topic: how-to
+ms.reviewer: ilwu
 ai-usage: ai-assisted
 ms.custom: intune-classic
 locale: en-us

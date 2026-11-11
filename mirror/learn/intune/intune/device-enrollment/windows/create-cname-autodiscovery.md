@@ -10,7 +10,6 @@ feedback_system: Standard
 ms.service: microsoft-intune
 ms.collection:
 - M365-identity-device-management
-ms.reviewer: maholdaa
 ms.subservice: enrollment
 description: Simplify enrollment for users by enabling automatic discovery of the Intune enrollment server.
 ms.date: 2025-11-21T00:00:00.0000000Z
