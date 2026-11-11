@@ -44005,9 +44005,13 @@ odtad CZTERNASCIE (4-17).**
   var TF = { only: "", q: "" };
   function vTech(host) {
     var C = getCtl(), rows = techRows();
-    host.appendChild(el("p", "s5dv-sub", "Pick a technology: one list of what to check in your tenant to be compliant. CISA's policies come first — " +
-      "“Required” is what BOD 25-01 makes mandatory for US agencies, the best minimum for anyone — and every source that checks the same thing sits on the same row. " +
-      "Below them: Microsoft's Zero Trust Assessment, the Intune security baselines, Maester's other tests and Tenable's audit files. A row opens a card: why, where, CISA's steps, who checks it, links."));
+    /* §5gm (11 XI 2026): the explanation was one grey paragraph; the same words as four bullets with a bold lead */
+    var sbl = el("ul", "s5dv-sub s5gm-sub");
+    [["Pick a technology: ", "one list of what to check in your tenant to be compliant."],
+     ["CISA's policies come first. ", "“Required” is what BOD 25-01 makes mandatory for US agencies, the best minimum for anyone; every source that checks the same thing sits on the same row."],
+     ["Below them: ", "Microsoft's Zero Trust Assessment, the Intune security baselines, Maester's other tests and Tenable's audit files."],
+     ["A row opens a card: ", "why, where, CISA's steps, who checks it, links."]].forEach(function (x) { var li = el("li"); li.appendChild(el("b", null, x[0])); li.appendChild(document.createTextNode(x[1])); sbl.appendChild(li); });
+    host.appendChild(sbl);
     var grid = el("div", "s5fq-tiles");
     if (!S.tech || !rows.some(function (r) { return r.tech === S.tech; })) S.tech = (rows[0] || {}).tech || "";
     rows.forEach(function (r) {
@@ -44295,7 +44299,7 @@ odtad CZTERNASCIE (4-17).**
      [n(k.mapped), "With a Tenable counterpart", "CIS and SCuBA tests mapped by number", function () { go("tests", { F: { mapped: true } }); }],
      [n(k.events14), "Changes in 14 days", "new, changed, removed, versions", function () { go("history"); }]
     ].forEach(function (x) {
-      var b = btn("", "s5dv-kpi", x[3], "Open: " + x[1]); b.appendChild(el("b", null, x[0])); b.appendChild(el("span", "s5dv-kl", x[1])); b.appendChild(el("span", "s5dv-ks", x[2])); row.appendChild(b);
+      var b = btn("", "s5dv-kpi" + (String(x[0]) === "0" ? " s5gm-zero" : ""), x[3], "Open: " + x[1]); b.appendChild(el("b", null, x[0])); b.appendChild(el("span", "s5dv-kl", x[1])); b.appendChild(el("span", "s5dv-ks", x[2])); row.appendChild(b);
     });
     host.appendChild(row);
   }
@@ -45803,7 +45807,7 @@ odtad CZTERNASCIE (4-17).**
      [n(today.length), "changes in Graph today", "beta and v1.0"],
      [n((D.events || []).filter(function (e) { return e.promoted; }).length), "promoted to v1.0", "60 days"],
      [n(b.properties), "beta properties", n(b.entities) + " entity types · v1.0 " + n(v.properties)]
-    ].forEach(function (x) { var d = el("div", "s5dv-kpi"); d.appendChild(el("b", null, x[0])); d.appendChild(el("span", "s5dv-kl", x[1])); d.appendChild(el("span", "s5dv-ks", x[2])); kp.appendChild(d); });
+    ].forEach(function (x) { var d = el("div", "s5dv-kpi" + (String(x[0]) === "0" ? " s5gm-zero" : "")); d.appendChild(el("b", null, x[0])); d.appendChild(el("span", "s5dv-kl", x[1])); d.appendChild(el("span", "s5dv-ks", x[2])); kp.appendChild(d); });   /* §5gm: a zero is a small tile */
     return kp;
   }
   function fRow(e) {
@@ -46454,7 +46458,7 @@ odtad CZTERNASCIE (4-17).**
   function kpis() {
     var t = D.totals || {}, kp = el("div", "s5dv-kpis"), v0 = (D.versions || [])[0] || {};
     [[dmy(D.versionDay), "current list, released by Microsoft", "version number " + D.version + " = " + vWords(D.version)], [n(v0.n), "changes in it", n(v0.act) + " to act on"], [n(t.sets), "endpoint sets", n((t.byCategory || {}).Optimize) + " Optimize · " + n((t.byCategory || {}).Allow) + " Allow"],
-     [n(t.urls), "URLs", n(t.ips) + " IP ranges"]].forEach(function (x) { var d = el("div", "s5dv-kpi"); d.appendChild(el("b", null, x[0])); d.appendChild(el("span", "s5dv-kl", x[1])); d.appendChild(el("span", "s5dv-ks", x[2])); kp.appendChild(d); });
+     [n(t.urls), "URLs", n(t.ips) + " IP ranges"]].forEach(function (x) { var d = el("div", "s5dv-kpi" + (String(x[0]) === "0" ? " s5gm-zero" : "")); d.appendChild(el("b", null, x[0])); d.appendChild(el("span", "s5dv-kl", x[1])); d.appendChild(el("span", "s5dv-ks", x[2])); kp.appendChild(d); });
     return kp;
   }
   function vChanges(host) {
@@ -46971,6 +46975,20 @@ odtad CZTERNASCIE (4-17).**
     var g = function (o) { [].forEach.call(o.querySelectorAll(":scope > .s5gl-h"), function (h) { h.remove(); }); return f(o); };
     g.__s5gl = 1; window.__socRenum = g;
   }
+  /* §5gm (11 XI 2026): the same fold for every cross-check frame of Overview (the "Deadlines passed" card had one a
+     screen tall), not only those in the sentences */
+  function foldDc() {
+    [].forEach.call(document.querySelectorAll("#tab-overview .s5gf-dc"), function (d) {
+      if (d.querySelector(":scope > .s5gl-dcb")) return;
+      var ul = d.querySelector(":scope > .s5gf-ul"); if (!ul) return;
+      var bt = mk("button", "s5gl-dcb"); bt.type = "button"; var n = ul.children.length;
+      function lab() { bt.textContent = d.classList.contains("s5gl-dco") ? "Hide the dates \u25b4" : "Show the " + n + " date" + (n === 1 ? "" : "s") + " and their sources \u25be"; bt.setAttribute("aria-expanded", String(d.classList.contains("s5gl-dco"))); }
+      bt.addEventListener("click", function (ev) { ev.stopPropagation(); d.classList.toggle("s5gl-dco"); lab(); }); lab();
+      d.insertBefore(bt, ul); d.classList.add("s5gm-f");
+    });
+  }
+  [4000, 9000, 16000, 26000].forEach(function (t) { setTimeout(foldDc, t); });
+  document.addEventListener("click", function (ev) { if (ev.target.closest && ev.target.closest("#tabbtn-tab-overview")) setTimeout(foldDc, 600); }, true);
   var busy = false;
   function arrange(sum) {
     var ol = sum.querySelector(":scope > .s5bk-3"); if (!ol) return;
@@ -47000,14 +47018,7 @@ odtad CZTERNASCIE (4-17).**
     });
     /* a cross-check frame (§5gf) keeps its verdict line in view; its list of dates opens on a click, so one
        technology card does not grow to a screen and a half */
-    [].forEach.call(ol.querySelectorAll(".s5gf-dc"), function (d) {
-      if (d.querySelector(":scope > .s5gl-dcb")) return;
-      var ul = d.querySelector(":scope > .s5gf-ul"); if (!ul) return;
-      var bt = mk("button", "s5gl-dcb"); bt.type = "button"; var n = ul.children.length;
-      function lab() { bt.textContent = d.classList.contains("s5gl-dco") ? "Hide the dates \u25b4" : "Show the " + n + " date" + (n === 1 ? "" : "s") + " and their sources \u25be"; bt.setAttribute("aria-expanded", String(d.classList.contains("s5gl-dco"))); }
-      bt.addEventListener("click", function (ev) { ev.stopPropagation(); d.classList.toggle("s5gl-dco"); lab(); }); lab();
-      d.insertBefore(bt, ul);
-    });
+    foldDc();
     if (on) {
       G.tech.sort(function (a, b) { return due(a) - due(b); });
       var o = 0;
@@ -47046,6 +47057,19 @@ odtad CZTERNASCIE (4-17).**
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { hook(0); }); else hook(0);
   window.__s5gl = function () { var s = document.querySelector("#tab-overview .s5bk-sum"); if (s) arrange(s); };
+})();
+/* §5gm (11 XI 2026, owner: "do what is left" - the structural readability pass of Graph API Radar, Message Center,
+   Overview cards, M365 endpoints and Security baselines). "What this tab is for" (Radar, M365 endpoints) opened every
+   visit at a third of the first screen: it now shows its bold leads only, and the full explanation opens on a click on
+   its heading (Enter or Space too); the choice is remembered per browser. */
+(function () {
+  var K = "s5gm-intro", H = document.documentElement;
+  function get() { try { return localStorage.getItem(K) === "1"; } catch (e) { return false; } }
+  function set(v) { try { if (v) localStorage.setItem(K, "1"); else localStorage.removeItem(K); } catch (e) {} H.classList.toggle("s5gm-io", v); mark(); }
+  function mark() { [].forEach.call(document.querySelectorAll(".s5ft-intro > h3"), function (h) { h.tabIndex = 0; h.setAttribute("role", "button"); h.setAttribute("aria-expanded", String(H.classList.contains("s5gm-io"))); }); }
+  H.classList.toggle("s5gm-io", get());
+  document.addEventListener("click", function (ev) { var h = ev.target.closest && ev.target.closest(".s5ft-intro > h3"); if (h) set(!H.classList.contains("s5gm-io")); else if (ev.target.closest && ev.target.closest('[id^="tabbtn-"]')) setTimeout(mark, 900); }, true);
+  document.addEventListener("keydown", function (ev) { var h = ev.target.closest && ev.target.closest(".s5ft-intro > h3"); if (h && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); set(!H.classList.contains("s5gm-io")); } });
 })();
 ```
 
@@ -50791,10 +50815,29 @@ td>.offt+.ref{display:block}
 #tab-overview .s5bk-sum.s5gl-on .s5er-grid>.s5er-box.s5er-hot{flex:3 1 460px}
 #tab-overview .s5bk-sum.s5gl-on .s5er-grid>.s5er-box:not(.s5er-hot){align-self:flex-start}
 .s5gl-dcb{display:none}
-#tab-overview .s5bk-sum.s5gl-on .s5gl-dcb{display:inline-block;margin:6px 0 2px;font:inherit;font-size:14px;font-weight:700;padding:3px 12px;border-radius:999px;border:1px solid #d69e2e;background:transparent;color:var(--text);cursor:pointer}
-#tab-overview .s5bk-sum.s5gl-on .s5gf-dc:not(.s5gl-dco)>.s5gf-ul,#tab-overview .s5bk-sum.s5gl-on .s5gf-dc:not(.s5gl-dco)>.s5gf-fn{display:none}
+#tab-overview .s5gf-dc.s5gm-f .s5gl-dcb{display:inline-block;margin:6px 0 2px;font:inherit;font-size:14px;font-weight:700;padding:3px 12px;border-radius:999px;border:1px solid #d69e2e;background:transparent;color:var(--text);cursor:pointer}
+#tab-overview .s5gf-dc.s5gm-f:not(.s5gl-dco)>.s5gf-ul,#tab-overview .s5gf-dc.s5gm-f:not(.s5gl-dco)>.s5gf-fn{display:none}
 .s5gl-bpn{margin:10px 0 0;padding-left:20px;font-size:15px;line-height:1.5;color:var(--text)}
 .s5gl-bpn>li{margin:2px 0}
+/* §5gm - structural readability: Radar, Message Center, Overview cards, M365 endpoints, Security baselines */
+.s5ft-intro>h3{cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
+.s5ft-intro>h3::after{content:"Show the full explanation \25be";font-size:14px;font-weight:700;padding:2px 12px;border-radius:999px;border:1px solid var(--accent);color:var(--text)}
+html.s5gm-io .s5ft-intro>h3::after{content:"Hide the explanation \25b4"}
+html:not(.s5gm-io) .s5ft-intro>:not(h3):not(ul){display:none}
+html:not(.s5gm-io) .s5ft-intro>ul{margin:6px 0 0}
+html:not(.s5gm-io) .s5ft-intro>ul>li{font-size:0;line-height:0;margin:4px 0}
+html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
+.s5dv-kpi.s5gm-zero{padding:8px 12px;border-style:dashed}
+.s5dv-kpi.s5gm-zero b{font-size:18px;color:var(--text)}
+.s5bk-idtile:not(.s5bk-idhot){border-style:dashed}
+.s5bk-idtile:not(.s5bk-idhot) .s5bk-idn{font-size:18px}
+@media (min-width:1100px){#tab-radar .s5ft-fl,#tab-m365ep .s5ft-fl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}}
+@media (min-width:1101px){#tab-mc .mcb-colhead,#tab-mc .mcb-head{grid-template-columns:80px 74px 92px minmax(0,1fr) 190px 128px 150px}}
+@media (min-width:761px) and (max-width:1100px){#tab-mc .mcb-colhead,#tab-mc .mcb-head{grid-template-columns:80px 74px 92px minmax(0,1fr) 150px 150px}}
+#tab-mc .mcb-p{white-space:normal}
+.s5dq-sw button[aria-pressed="true"]{background:#1d4ed8;border-color:#1d4ed8;color:#fff}
+.s5gm-sub{margin:4px 0 12px;padding-left:20px;font-size:15px;line-height:1.5;color:var(--text)}
+.s5gm-sub>li{margin:3px 0}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
@@ -52544,6 +52587,26 @@ skryptu, jasny i ciemny motyw.
 `body`; budzil sie przy kazdym elemencie budowanym w czasie ladowania. Pomiar `mobile_check.py --cpu 4`: zdania Overview
 21-22 s z nim, 9-13 s bez niego. Teraz rozbijanie rusza dopiero po bezczynnosci strony, po otwarciu zakladki i po
 rozwinieciu sekcji — wynik 9,7-9,8 s (23 X: 12,7 s), chipy dalej na miejscu (248 linii).
+
+### §5gm — Czytelnosc zakladek: Graph API Radar, Message Center, karty Overview, M365 endpoints, Security baselines (11 XI 2026)
+
+Wlasciciel: „Ok to rob to co zostalo" (po §5gl; kolejnosc z §5gg). Przeglad zrzutow 1400 px i audytu czytelnosci.
+- **Message Center:** kolumna flag listy (`act by 22/03/2027`, `MAJOR`) miala 104 px i byla ucinana przez `.mcb-list`
+  (`overflow:hidden`) — po §5gg pigulki maja 13 px. Teraz 150 px (szeroki i sredni ekran), tekst pigulki moze sie
+  zawinac. Aktywny przycisk „Group by" (`.s5dq-sw`) mial kontrast 2,3:1 (bialy na jasnoniebieskim) — teraz #1d4ed8.
+- **„What this tab is for" (Graph API Radar, M365 endpoints, `.s5ft-intro`):** zajmowal trzecia czesc pierwszego
+  ekranu przy kazdej wizycie. Teraz widac tylko pogrubione naglowki punktow; pelne objasnienie i legenda statusow
+  po kliknieciu naglowka (tez Enter/Spacja), zapamietane w `localStorage` (`s5gm-intro`).
+- **Radar i M365 endpoints:** karty ustalen w dwoch kolumnach od 1100 px (`.s5ft-fl` grid).
+- **Kafelki z zerem** (`.s5dv-kpi` w Radar, M365 endpoints, Security baselines; `.s5bk-idtile` bez zmiany w Overview):
+  mniejsza liczba i przerywana ramka (`.s5gm-zero`) — zero jest wynikiem, ale nie konkuruje ze zmiana.
+- **Overview, karty:** ramka cross-check (§5gf) w kazdej karcie Overview (nie tylko w zdaniach §5gl) pokazuje werdykt,
+  lista dat pod przyciskiem — karta „Deadlines passed" nie ma juz ramki na pol ekranu.
+- **Security baselines:** szary akapit „Pick a technology…" to teraz 4 punkty z pogrubionym poczatkiem (`.s5gm-sub`).
+- **Testy 11 XI:** bramka OK; 17 skryptow, 0 bledow; Chromium 1400 i WebKit 390: MC 0 ucietych elementow listy (bylo 9
+  pigulek), brak przewijania poziomego, 0 bledow JS, intro zwiniete 158 px / rozwiniete 377 px (1400); mobile_check
+  Overview 10,8 s (OK). Pozostale „uciete" w pomiarze to celowo przewijana tabela pokrycia `.s5gf-tw` i naglowek
+  sekcji `sec-head` — tak samo na produkcji przed zmiana.
 
 ### §5gl — Overview: zdania w grupach z naglowkami, bez numerow w kolkach (11 XI 2026)
 
