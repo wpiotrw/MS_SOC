@@ -5813,6 +5813,10 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 .s5gf-tab{max-width:100%}
 .s5gf-code{max-width:100%;box-sizing:border-box}
 .s5gf-lack summary{display:block}
+.s5gi-uc{margin:12px 0 16px;padding:12px 14px;border:2px solid #d69e2e;border-radius:14px;background:color-mix(in srgb,#d69e2e 9%,transparent);font-size:15px;line-height:1.5}
+.s5gi-why{display:inline-block;margin:0 4px;padding:1px 8px;border-radius:999px;background:#5d6d2f;color:#fff;font-weight:700;font-size:13px}
+.s5gi-sum{display:block;margin-top:3px;font-size:14.5px}
+.s5gi-uc .s5gf-ul>li{margin:10px 0}
 .s5ft-vn{display:inline-block;margin-left:8px;padding:1px 8px;border:1px solid color-mix(in srgb,var(--text) 30%,transparent);border-radius:999px;font:600 13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;opacity:.9}
 /* §5gg: the cross-check frame as an answer - bold conclusion, bullets, dates as big chips */
 .s5gf-dc{font-size:15px;line-height:1.5;color:var(--text)}
@@ -9043,7 +9047,7 @@ td>.offt+.ref{display:block}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Tuesday 10 November 2026</b> &middot; published 08:10 Warsaw &middot; 27 October &ndash; 10 November 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>33</b> deadlines in 60 days<span>&middot; 26 inside 30, 5 due today or tomorrow</span></a><a class="count" href="#graph"><b>977</b> undocumented at Microsoft<span>&middot; 977 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>8</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>123</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>21</b> changes since 9 Nov<span>&middot; 6 at Microsoft, 15 in this report</span></a><a class="count" href="#chg14"><b>2165</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Wednesday 11 November 2026</b> &middot; published 07:45 Warsaw &middot; 28 October &ndash; 11 November 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>33</b> deadlines in 60 days<span>&middot; 27 inside 30, 1 due today or tomorrow</span></a><a class="count" href="#graph"><b>977</b> undocumented at Microsoft<span>&middot; 977 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>10</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>126</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>23</b> changes since 10 Nov<span>&middot; 5 at Microsoft, 18 in this report</span></a><a class="count" href="#chg14"><b>2170</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -9244,7 +9248,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 7 November 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 11 November 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
