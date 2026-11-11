@@ -430,6 +430,45 @@
      "says": "From 7 December 2026 data from the four preview DSPM partner integrations is no longer ingested, processed or displayed in Purview DSPM; other DSPM capabilities are not affected."
     }
    ]
+  },
+  {
+   "key": "copilot-claude-models-eu-data-boundary",
+   "ids": [
+    "MC1546438"
+   ],
+   "title": "Claude models in Copilot enabled by default for EU/EFTA tenants from 9 December 2026",
+   "scriptable": false,
+   "checked": "2026-11-11",
+   "why": "The switch is the 'AI providers operating as Microsoft subprocessors' page in the Microsoft 365 admin center (Copilot > Settings), set by an AI Administrator or Global Administrator; Microsoft Learn documents no Graph, Exchange Online or Teams PowerShell surface for it, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1546438",
+     "u": "https://mc.merill.net/message/MC1546438",
+     "says": "From 9 December 2026 Claude models in Copilot are enabled by default for eligible EU and EFTA tenants that made no choice, with processing in the EU Data Boundary; admins can opt out or limit access before then in the Microsoft 365 admin center."
+    },
+    {
+     "t": "Claude models from Anthropic in Microsoft Online Services",
+     "u": "https://learn.microsoft.com/copilot/implement/connect-to-ai-subprocessor",
+     "says": "Opting out or scoping access is done in the Microsoft 365 admin center under Copilot > Settings > AI providers operating as Microsoft subprocessors, by an AI Administrator or Global Administrator; access can be limited to users or Entra ID security groups."
+    }
+   ]
+  },
+  {
+   "key": "purview-dspm-classic-retirement",
+   "ids": [
+    "MC1481315"
+   ],
+   "title": "Purview DSPM classic and DSPM for AI classic retire, now mid- to late March 2027",
+   "scriptable": false,
+   "checked": "2026-11-11",
+   "why": "The retirement moves portal experiences (posture metrics, recommendations, reports) from the classic DSPM views to the current DSPM experience in the Purview portal; there is no admin setting to script, only runbooks to update.",
+   "sources": [
+    {
+     "t": "Message Center MC1481315",
+     "u": "https://mc.merill.net/message/MC1481315",
+     "says": "DSPM classic and DSPM for AI classic retire, with the date moved on 30 October 2026 to mid- to late March 2027; their capabilities move to the single current DSPM experience under Purview portal > Solutions > DSPM."
+    }
+   ]
   }
  ]
 }
