@@ -1,7 +1,7 @@
 {
- "read": "2026-11-10",
+ "read": "2026-11-11",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 729,
+ "count": 730,
  "note": null,
  "messages": [
   {
@@ -13723,7 +13723,7 @@
   },
   {
    "id": "MC1488841",
-   "title": "Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy",
+   "title": "(Updated) Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy",
    "services": [
     "Exchange Online"
    ],
@@ -13732,20 +13732,22 @@
    "major": true,
    "actionBy": null,
    "start": "2026-10-05",
-   "end": "2026-12-18",
-   "modified": "2026-10-05",
+   "end": "2027-01-25",
+   "modified": "2026-11-10",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] To enhance security in Outlook on the web and new Outlook for Windows, we are updating the default list of blocked file types in OwaMailboxPolicy. As part of this update, the .msix and .msixbundle file types will be added to the BlockedFileTypes list in the default OWA Mailbox policy and any custom policies created in your tenant. Most organizations are not expected to be affected b…",
+   "summary": "Updated November 10, 2026: We have updated the timeline. Thank you for your patience. [What and why] To enhance security in Outlook on the web and new Outlook for Windows, we are updating the default list of blocked file types in OwaMailboxPolicy. As part of this update, the .msix and .msixbundle file types will be added to the BlockedFileTypes list in the default OWA Mailbox policy and any custom…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide, GCC, GCC High, DoD): Rollout begins in early November 2026 and is expected to complete by mid-November 2026."
+    "Updated November 10, 2026: We have updated the timeline.",
+    "General Availability (Worldwide, GCC, GCC High, DoD): Rollout begins in early December 2026 (previously early November) and is expected to complete by mid-December 2026 (previously mid-November)."
    ],
-   "bodyHash": "40b655c09dc7e814"
+   "bodyHash": "966752f52e21db7b"
   },
   {
    "id": "MC1488844",
@@ -19313,6 +19315,28 @@
    "bodyHash": "eefb92d5988e2e36"
   },
   {
+   "id": "MC1548054",
+   "title": "Updates available for Microsoft 365 Apps for all channels",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-11",
+   "end": "2026-11-25",
+   "modified": "2026-11-11",
+   "tags": [
+    "Feature update"
+   ],
+   "summary": "We've released updates to the following update channels for Microsoft 365 Apps: Current Channel Monthly Enterprise Channel Semi-Annual Enterprise Channel [When this will happen:] We'll be gradually rolling out these updates of Microsoft 365 Apps to users on those update channels starting November 10th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are con…",
+   "when": "We'll be gradually rolling out these updates of Microsoft 365 Apps to users on those update channels starting November 10th, 2026 (PST).",
+   "prepare": "To get more details about these updates view the following release notes: Current Channel. Monthly Enterprise Channel. Semi-Annual Enterprise Channel.",
+   "dates": [],
+   "bodyHash": "72cc4437700f6fbe"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -19631,27 +19655,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-11",
-   "id": "MC1169914",
-   "type": "removed",
-   "title": "Activation keys for Windows 10 Extended Security Update might be incorrect",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-11",
-   "id": "MC1457226",
-   "type": "removed",
-   "title": "Microsoft OneDrive: Refreshed file browsing and filtering experience in OneDrive Web",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-11",
-   "id": "MC1466299",
-   "type": "removed",
-   "title": "Microsoft Planner: New Planner usage report in the Microsoft 365 admin center",
-   "fields": {}
-  },
   {
    "date": "2026-10-12",
    "id": "MC1311977",
@@ -25544,6 +25547,46 @@
    "id": "MC1547649",
    "type": "new",
    "title": "Windows 11, version 23H2 Enterprise and Education editions have reached end of updates",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-11",
+   "id": "MC1488841",
+   "type": "changed",
+   "title": "(Updated) Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy",
+   "fields": {
+    "title": [
+     "Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy",
+     "(Updated) Microsoft Outlook: Update to default blocked file types in OwaMailboxPolicy"
+    ],
+    "end": [
+     "2026-12-18",
+     "2027-01-25"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "40b655c09dc7e814",
+     "966752f52e21db7b"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-11",
+   "id": "MC1548054",
+   "type": "new",
+   "title": "Updates available for Microsoft 365 Apps for all channels",
    "fields": {}
   }
  ]
