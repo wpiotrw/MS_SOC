@@ -469,6 +469,45 @@
      "says": "DSPM classic and DSPM for AI classic retire, with the date moved on 30 October 2026 to mid- to late March 2027; their capabilities move to the single current DSPM experience under Purview portal > Solutions > DSPM."
     }
    ]
+  },
+  {
+   "key": "mods-workforce-insights-endpoint-retirement",
+   "ids": [
+    "MC1542066"
+   ],
+   "title": "MODS: the Workforce Insights endpoint retires on 18 November 2026; custom attributes move to the Microsoft 365 profile endpoint",
+   "scriptable": false,
+   "checked": "2026-11-12",
+   "why": "The switch is a destination choice inside Microsoft 365 Organizational Data Service when an administrator uploads organizational data (a .csv import in the admin center); the post and its linked documentation name no Graph, Exchange Online or Teams PowerShell surface for it, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1542066",
+     "u": "https://deltapulse.app/item/MC1542066",
+     "says": "After 18 November 2026 the Workforce Insights endpoint is no longer a destination in MODS; custom public attributes go to the Microsoft 365 profile endpoint, which must be selected explicitly, and non-public attributes need the private preview."
+    },
+    {
+     "t": "Import and manage your organizational data with a .csv file",
+     "u": "https://learn.microsoft.com/microsoft-365-apps/org-data-service/import/import-orgdata#update-or-make-other-changes-to-your-data",
+     "says": "Microsoft's page linked from the post for managing uploaded organizational data; this routine did not open it in this run."
+    }
+   ]
+  },
+  {
+   "key": "spo-odb-copilot-search-experience",
+   "ids": [
+    "MC1540513"
+   ],
+   "title": "SharePoint Online and OneDrive on the web move to the Copilot Search experience (GA from mid-January 2027)",
+   "scriptable": false,
+   "checked": "2026-11-12",
+   "why": "A change to the search user interface; the post says tenant- and site-level deferral options exist but Microsoft will publish their documentation before general availability, and it names no cmdlet or Graph setting, so no script is offered yet.",
+   "sources": [
+    {
+     "t": "Message Center MC1540513",
+     "u": "https://deltapulse.app/item/MC1540513",
+     "says": "SharePoint Online and OneDrive on the web adopt the Copilot Search interface (Frontier preview from mid-October 2026, GA mid-January to mid-April 2027); deferral is available at tenant and site level, with documentation to come before GA."
+    }
+   ]
   }
  ]
 }
