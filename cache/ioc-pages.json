@@ -859,5 +859,25 @@
 ]
 ],
 "read": "2026-11-07"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/": {
+"iocs": [
+[
+"domain",
+"gsocket.io",
+"IOC table: Installer retrieval target; successful retrieval not established"
+],
+[
+"domain",
+"cdn.gsocket.io",
+"IOC table: Download source associated with the AArch64 file below"
+],
+[
+"domain",
+"gsgg.b-cdn.net",
+"IOC table: Download source associated with the x86-64 file below"
+]
+],
+"read": "2026-11-12"
 }
 }
