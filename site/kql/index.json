@@ -1,5 +1,50 @@
 [
  {
+  "file": "articles/2026-11-11-staging-and-persistence-artifacts.kql",
+  "title": "Staging and persistence artifacts",
+  "date": "2026-11-11",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: The global socket: how threat actors are weaponizing GSocket for stealthy C2",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+  "kind": "article",
+  "author": "Yash Gund, Sumith Maniath and Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+  "incident": "auto-the-global-socket-how-threat-actors-are-2026-11-11"
+ },
+ {
+  "file": "articles/2026-11-11-mitigation-and-protection-guidance.kql",
+  "title": "Mitigation and protection guidance",
+  "date": "2026-11-11",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: The global socket: how threat actors are weaponizing GSocket for stealthy C2",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+  "kind": "article",
+  "author": "Yash Gund, Sumith Maniath and Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+  "incident": "auto-the-global-socket-how-threat-actors-are-2026-11-11"
+ },
+ {
+  "file": "articles/2026-11-11-installer-download-activity.kql",
+  "title": "Installer download activity",
+  "date": "2026-11-11",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: The global socket: how threat actors are weaponizing GSocket for stealthy C2",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+  "kind": "article",
+  "author": "Yash Gund, Sumith Maniath and Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+  "incident": "auto-the-global-socket-how-threat-actors-are-2026-11-11"
+ },
+ {
   "file": "articles/2026-11-11-detection-5-citrus-ransomware-anomalous-outbound-tls-connect.kql",
   "title": "Detection 5: Citrus Ransomware: Anomalous Outbound TLS Connection from Non-Browser Process Consistent with VLESS C2 Tunneling",
   "date": "2026-11-11",
@@ -68,6 +113,36 @@
   "kind": "article",
   "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
   "link": "https://devsecopsdadattack.com/2026-11-11-detection-engineering-brief-wednesday-november-11-2026/"
+ },
+ {
+  "file": "articles/2026-11-11-connections-to-observed-distribution-hosts.kql",
+  "title": "Connections to observed distribution hosts",
+  "date": "2026-11-11",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: The global socket: how threat actors are weaponizing GSocket for stealthy C2",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+  "kind": "article",
+  "author": "Yash Gund, Sumith Maniath and Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+  "incident": "auto-the-global-socket-how-threat-actors-are-2026-11-11"
+ },
+ {
+  "file": "articles/2026-11-11-advanced-hunting-queries.kql",
+  "title": "Advanced hunting queries",
+  "date": "2026-11-11",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: The global socket: how threat actors are weaponizing GSocket for stealthy C2",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+  "kind": "article",
+  "author": "Yash Gund, Sumith Maniath and Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+  "incident": "auto-the-global-socket-how-threat-actors-are-2026-11-11"
  },
  {
   "file": "articles/2026-11-10-detection-2-sap-netweaver-webshell-scanning-inbound-http.kql",
@@ -35379,6 +35454,62 @@
   "author": "Robert_Moriarty · Microsoft Sentinel Blog",
   "link": "https://techcommunity.microsoft.com/t5/microsoft-sentinel-blog/building-a-ccf-nested-api-pull-connector-a-technical-lab/ba-p/4537027",
   "incident": "auto-building-a-ccf-nested-api-pull-connector-2026-08-05"
+ },
+ {
+  "file": "articles/2026-07-15-4-identify-local-account-lateral-movement.kql",
+  "title": "4. Identify local account lateral movement",
+  "date": "2026-07-15",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceLogonEvents"
+  ],
+  "purpose": "From the article: New Privileged Token Context Telemetry Boosts Advanced Hunting in Microsoft Defender",
+  "source": "https://techcommunity.microsoft.com/t5/microsoft-defender-xdr-blog/new-privileged-token-context-telemetry-boosts-advanced-hunting/ba-p/4528613",
+  "kind": "article",
+  "author": "TalTzhori · Microsoft Defender XDR Blog",
+  "link": "https://techcommunity.microsoft.com/t5/microsoft-defender-xdr-blog/new-privileged-token-context-telemetry-boosts-advanced-hunting/ba-p/4528613"
+ },
+ {
+  "file": "articles/2026-07-15-3-monitor-certificate-based-logons.kql",
+  "title": "3. Monitor certificate-based logons",
+  "date": "2026-07-15",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceLogonEvents"
+  ],
+  "purpose": "From the article: New Privileged Token Context Telemetry Boosts Advanced Hunting in Microsoft Defender",
+  "source": "https://techcommunity.microsoft.com/t5/microsoft-defender-xdr-blog/new-privileged-token-context-telemetry-boosts-advanced-hunting/ba-p/4528613",
+  "kind": "article",
+  "author": "TalTzhori · Microsoft Defender XDR Blog",
+  "link": "https://techcommunity.microsoft.com/t5/microsoft-defender-xdr-blog/new-privileged-token-context-telemetry-boosts-advanced-hunting/ba-p/4528613"
+ },
+ {
+  "file": "articles/2026-07-15-2-detect-privilege-escalation-attempts.kql",
+  "title": "2. Detect privilege escalation attempts",
+  "date": "2026-07-15",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceLogonEvents"
+  ],
+  "purpose": "From the article: New Privileged Token Context Telemetry Boosts Advanced Hunting in Microsoft Defender",
+  "source": "https://techcommunity.microsoft.com/t5/microsoft-defender-xdr-blog/new-privileged-token-context-telemetry-boosts-advanced-hunting/ba-p/4528613",
+  "kind": "article",
+  "author": "TalTzhori · Microsoft Defender XDR Blog",
+  "link": "https://techcommunity.microsoft.com/t5/microsoft-defender-xdr-blog/new-privileged-token-context-telemetry-boosts-advanced-hunting/ba-p/4528613"
+ },
+ {
+  "file": "articles/2026-07-15-1-spot-suspicious-privileged-logons.kql",
+  "title": "1. Spot suspicious privileged logons",
+  "date": "2026-07-15",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceLogonEvents"
+  ],
+  "purpose": "From the article: New Privileged Token Context Telemetry Boosts Advanced Hunting in Microsoft Defender",
+  "source": "https://techcommunity.microsoft.com/t5/microsoft-defender-xdr-blog/new-privileged-token-context-telemetry-boosts-advanced-hunting/ba-p/4528613",
+  "kind": "article",
+  "author": "TalTzhori · Microsoft Defender XDR Blog",
+  "link": "https://techcommunity.microsoft.com/t5/microsoft-defender-xdr-blog/new-privileged-token-context-telemetry-boosts-advanced-hunting/ba-p/4528613"
  },
  {
   "file": "articles/2026-06-30-clickfix-stage-2-loaders-living-off-the-land.kql",

@@ -1,0 +1,16 @@
+// title: Staging and persistence artifacts
+// date: 2026-11-11
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: The global socket: how threat actors are weaponizing GSocket for stealthy C2
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/
+// kind: article
+// author: Yash Gund, Sumith Maniath and Microsoft Security Research · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceFileEvents
+| where Timestamp > ago(7d)
+| where FolderPath startswith "/dev/shm/.gs-"
+    or FileName in~ ("systemd-remount-d", ".gsn_ora", "defunct", "defunct.service")
+| project Timestamp, DeviceName, ActionType, FileName, FolderPath, SHA256,
+    InitiatingProcessFileName, InitiatingProcessCommandLine
+| order by Timestamp desc

@@ -1,0 +1,15 @@
+// title: Connections to observed distribution hosts
+// date: 2026-11-11
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: The global socket: how threat actors are weaponizing GSocket for stealthy C2
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/
+// kind: article
+// author: Yash Gund, Sumith Maniath and Microsoft Security Research · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where Timestamp > ago(7d)
+| where RemoteUrl has_any ("gsocket.io", "gsgg.b-cdn.net")
+| project Timestamp, DeviceName, ActionType, RemoteUrl, RemoteIP, RemotePort,
+    InitiatingProcessFileName, InitiatingProcessAccountName
+| order by Timestamp desc

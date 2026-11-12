@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-11T21:33:58Z",
- "day": "2026-11-11",
+ "generated": "2026-11-12T02:00:02Z",
+ "day": "2026-11-12",
  "spec": "5gf",
- "source": "site/data/campaigns.json (2026-11-11)",
- "count": 42,
+ "source": "site/data/campaigns.json (2026-11-12)",
+ "count": 44,
  "byMc": {
   "MC1191578": {
    "says": [],
@@ -1984,6 +1984,16 @@
      "id": "MC1169587",
      "date": "2026-09-29",
      "title": "30-Day Reminder: Windows 11, version 23H2 (Home and Pro editions) will reach end of servicing on November 11, 2025"
+    },
+    {
+     "id": "MC1172446",
+     "date": "2026-09-29",
+     "title": "Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing"
+    },
+    {
+     "id": "MC1184891",
+     "date": "2026-09-29",
+     "title": "Windows 11, version 23H2 (Home and Pro editions) has reached end of servicing"
     }
    ],
    "why": [],
@@ -1996,6 +2006,52 @@
    "verdict": "newer"
   },
   "MC1169587": {
+   "says": [],
+   "others": [
+    {
+     "date": "2027-10-12",
+     "src": "MC1471964",
+     "text": "Enterprise and Education editions remain supported until October 12, 2027.",
+     "post": "2026-09-14",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1471964"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-windows-11-24h2-end-of-servicing",
+     "name": "Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1172446": {
+   "says": [],
+   "others": [
+    {
+     "date": "2027-10-12",
+     "src": "MC1471964",
+     "text": "Enterprise and Education editions remain supported until October 12, 2027.",
+     "post": "2026-09-14",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1471964"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-windows-11-24h2-end-of-servicing",
+     "name": "Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1184891": {
    "says": [],
    "others": [
     {

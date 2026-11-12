@@ -1,0 +1,25 @@
+// title: 2. Detect privilege escalation attempts
+// date: 2026-07-15
+// product: Defender for Endpoint
+// tables: DeviceLogonEvents
+// purpose: From the article: New Privileged Token Context Telemetry Boosts Advanced Hunting in Microsoft Defender
+// source: https://techcommunity.microsoft.com/t5/microsoft-defender-xdr-blog/new-privileged-token-context-telemetry-boosts-advanced-hunting/ba-p/4528613
+// kind: article
+// author: TalTzhori · Microsoft Defender XDR Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 14d;
+let recent = 1d;
+let token_priv = "TokenHasDomainAdminSid";
+// Baseline: users who historically were DAs
+let baseline_users =
+DeviceLogonEvents
+| where Timestamp between (ago(lookback) .. ago(recent))
+| where InitiatingProcessFileName == "lsass.exe" // Token creation events
+| summarize DA_sids = make_set_if(AccountSid, AdditionalFields has token_priv),
+            non_DA_sids = make_set_if(AccountSid, AdditionalFields !has token_priv);
+// Recent: new users with DA token
+DeviceLogonEvents
+| where Timestamp > ago(recent)
+| where AdditionalFields has token_priv
+| where AccountSid in (baseline_users | project non_DA_sids) and
+        AccountSid !in (baseline_users | project DA_sids)

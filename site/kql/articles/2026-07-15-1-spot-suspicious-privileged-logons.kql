@@ -1,0 +1,27 @@
+// title: 1. Spot suspicious privileged logons
+// date: 2026-07-15
+// product: Defender for Endpoint
+// tables: DeviceLogonEvents
+// purpose: From the article: New Privileged Token Context Telemetry Boosts Advanced Hunting in Microsoft Defender
+// source: https://techcommunity.microsoft.com/t5/microsoft-defender-xdr-blog/new-privileged-token-context-telemetry-boosts-advanced-hunting/ba-p/4528613
+// kind: article
+// author: TalTzhori · Microsoft Defender XDR Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Token creation events
+let TokenCreateEvents =
+DeviceLogonEvents
+| where InitiatingProcessFileName == "lsass.exe" // Token creation events
+| where AdditionalFields has "TokenHasDomainAdminSid"
+| project DeviceId, AccountSid, AccountDomain, AccountName, LogonType, LogonId,
+          AdditionalFields, TokenTime = Timestamp;
+// Standard logon events
+DeviceLogonEvents
+| where ActionType == "LogonSuccess"
+| where InitiatingProcessFileName != "lsass.exe"  // filter out Token creation events
+| project DeviceId, AccountSid, AccountDomain, AccountName, LogonType, LogonId,
+          RemoteDeviceName, RemoteIP, Timestamp
+// Correlate both events (same logon, small time window)
+| join kind=inner TokenCreateEvents on DeviceId, AccountSid, AccountDomain, AccountName, LogonType, LogonId
+| where Timestamp between (TokenTime - 1s .. TokenTime + 1s)
+// Example filter (specific source device)
+| where RemoteDeviceName == "kali"
