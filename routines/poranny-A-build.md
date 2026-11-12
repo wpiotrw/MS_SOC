@@ -306,6 +306,14 @@ python3 extract_code.py CLAUDE.md .     # cuts every collector, collect_all.py a
 SOC_DATE=<briefDate> SOC_REPO=<the MS_SOC clone> SOC_REPOS=repos python3 collect_all.py .
 ```
 
+**Run it in the FOREGROUND and wait for it in the same reply (§5go, 12 Nov 2026).** Use the Bash tool with
+`timeout: 600000`, not `run_in_background`, and if one call is not enough, wait with a foreground `until` loop
+on `COLLECT_REPORT.json`. **Never end a reply while any command is still running.** The routine's run is marked
+finished at the first reply that ends, and the owner's completion e-mail goes out with THAT reply: on 12 Nov 2026
+`collect_all.py` ran in the background, the reply ended at 07:26 while it worked, and the brief was published at
+07:43–07:48 after the run already counted as finished, so no summary e-mail arrived. The whole routine, both
+parts, is one reply that ends only with the final summary.
+
 **`collect_all.py` (`CLAUDE.md` §5cc, new on 29 Sep 2026) runs EVERY collector, in the order CLAUDE.md
 keeps** — `probe_learn.py`, the documentation clones, `learn_changes.py`, `collect_blogs.py`,
 `collect_community.py`, `collect_nt.py`, `collect_fpa.py`, `collect_mc.py`, `collect_graph_diff.py`,

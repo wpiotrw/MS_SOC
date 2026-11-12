@@ -233,6 +233,13 @@ byte — never retype it, and never carry one forward from yesterday's page.
 `microsoftblogs_sources.json`, `community_sources.json` — by running `collect_all.py` (`CLAUDE.md` §5cc) with
 `SOC_DATE`, `SOC_REPO` and `SOC_REPOS=repos` set: `python3 extract_code.py CLAUDE.md . && python3 collect_all.py .`.
 It runs every collector in the order CLAUDE.md keeps and writes `COLLECT_REPORT.json`; never run a subset by hand.
+**Run it in the FOREGROUND and wait for it in the same reply (§5go, 12 Nov 2026).** Use the Bash tool with
+`timeout: 600000`, not `run_in_background`, and if one call is not enough, wait with a foreground `until` loop
+on `COLLECT_REPORT.json`. **Never end a reply while any command is still running.** The routine's run is marked
+finished at the first reply that ends, and the owner's completion e-mail goes out with THAT reply: on 12 Nov 2026
+`collect_all.py` ran in the background, the reply ended at 07:26 while it worked, and the brief was published at
+07:43–07:48 after the run already counted as finished, so no summary e-mail arrived. The whole routine, both
+parts, is one reply that ends only with the final summary.
 REPLACE the `nt` key of `soc-brief-state` with `NT.json`, `components` with `components.json`, the base of `mc.entries`
 with `MC_INDEX.json` (§5bo), `fpa`/`gdiff`/`gcmd` with `FPA.json`/`GRAPH_DIFF.json`/`GRAPH_CMDS.json`, and merge
 `community_raw.json`'s `readOn`, `sources`, `items`, `newToday`, `counts` and `rule` into the `community` key, keeping

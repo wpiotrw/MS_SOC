@@ -26383,6 +26383,14 @@ druga proba idzie z `UA_PLAIN` (BleepingComputer odwrotnie, §5cb — pierwsza p
 jej nie ma (wieczor nie dotyka `site/index.html`, wieczorny-B pkt 5) — tam wieczor pokazuje zolty pasek „the afternoon pass found…" z
 odnosnikiem do strony zmian; poprawka dotyczy artefaktu dnia, ktory rutyna republikuje z sekcja. Test: Chromium 1400 i 2560, WebKit 390 —
 sekcja widoczna i rozwinieta, 0 przewijania w poziomie, 0 bledow JS; bramka OK; mobile_check 9,3 s.
+**§5go (12 XI 2026) — Overview: znowu domyslnie uklad numerowany (5 XI).** Wlasciciel: uklad z grupami (§5gl) jest
+nieczytelny — brak numerow, puste miejsca. Porownanie archiwum (`site/history/2026-11-05-poranny.html.gz`) z biezaca strona
+pokazalo, ze uklad z 5 XI (dwie kolumny, numer w kolku, technologia w ramce, filtr SHOW) nadal jest w kodzie — za
+przyciskiem. Teraz jest domyslny; uklad z grupami otwiera „Show the grouped layout" (klucz `localStorage` `s5gl-grouped`;
+stary klucz `s5gl-prev` nie jest juz czytany). Test: Chromium 2000 i 3840, WebKit 390 — domyslnie 22 numery, przelaczenie
+w obie strony i po przeladowaniu, 0 przewijania w poziomie, 0 bledow JS; bramka OK; mobile_check 9,7 s.
+Rutyny (ten sam dzien): `collect_all.py` na pierwszym planie, odpowiedz konczy sie dopiero podsumowaniem — 12 XI kolektory
+szly w tle, przebieg zostal uznany za skonczony o 07:26, publikacja byla o 07:43–07:48 i e-mail z podsumowaniem nie przyszedl.
 
 Przebieg poranny wola go w STEP 1b obok `collect_blogs.py`:
 `python3 collect_community.py <repo>/community_sources.json community_raw.json <najnowszy site/data/*.json>`
@@ -46976,9 +46984,11 @@ odtad CZTERNASCIE (4-17).**
    two items carried two of them. "News of the day" says what it is. The previous layout is one click away and is
    remembered per browser. Runs on the list's own child changes only (a few per load), never on the whole page. */
 (function () {
-  var KEY = "s5gl-prev";
-  function prev() { try { return localStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
-  function setPrev(v) { try { if (v) localStorage.setItem(KEY, "1"); else localStorage.removeItem(KEY); } catch (e) {} }
+  /* §5go (12 XI 2026): owner - the grouped layout is unreadable; the numbered two-column layout (5 XI) is the default
+     again, the grouped one is opened by "Show the grouped layout" and remembered under its own key */
+  var KEY = "s5gl-grouped";
+  function prev() { try { return localStorage.getItem(KEY) !== "1"; } catch (e) { return true; } }
+  function setPrev(v) { try { if (v) localStorage.removeItem(KEY); else localStorage.setItem(KEY, "1"); } catch (e) {} }
   function mk(tag, cls, txt) { var x = document.createElement(tag); if (cls) x.className = cls; if (txt != null) x.textContent = txt; return x; }
   var DAY = 864e5, now = new Date(); now.setHours(0, 0, 0, 0);
   function due(li) {   /* nearest date shown in the item's pills, in days from today (999 = none) */
