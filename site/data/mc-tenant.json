@@ -1,7 +1,7 @@
 {
  "read": "2026-11-12",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 726,
+ "count": 724,
  "note": null,
  "messages": [
   {
@@ -5334,23 +5334,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-06-11",
-   "end": "2026-11-30",
-   "modified": "2026-10-15",
+   "end": "2027-02-01",
+   "modified": "2026-11-12",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 15, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Defender for Office 365 is introducing localization support for the default “Mark and notify” email template used in admin review and automated notification flows for user-reported messages. This update ensures that users receive notification emails in their preferred language based on the…",
+   "summary": "Updated November 12, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Microsoft Defender for Office 365 is introducing localization support for the default “Mark and notify” email template used in admin review and automated notification flows for user-reported messages. This update ensures that users receive notification emails in their preferred language based on th…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 15, 2026: We have updated the timeline.",
+    "Updated November 12, 2026: We have updated the timeline.",
     "Worldwide: Rollout begins in June 2026 and is expected to complete by end of September 2026 (previously late July).",
-    "GCC, GCC High, DoD: Rollout begins in mid-July 2026 and is expected to complete by end of October 2026 (previously end of September)."
+    "GCC, GCC High, DoD: Rollout begins in late November 2026 (previously mid-July) and is expected to complete by end of December 2026 (previously end of October)."
    ],
-   "bodyHash": "2f7f773a8fcf97ec"
+   "bodyHash": "d6e1dca07a478671"
   },
   {
    "id": "MC1387681",
@@ -5989,23 +5989,23 @@
    "major": true,
    "actionBy": null,
    "start": "2026-06-29",
-   "end": "2027-02-22",
-   "modified": "2026-10-15",
+   "end": "2027-04-12",
+   "modified": "2026-11-12",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 15, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are introducing a new Microsoft Teams Facilitator capability that proactively detects and resolves knowledge gaps during meetings. Facilitator can identify when participants ask questions or express uncertainty and retrieve and share relevant answers using web search in the meeting chat. This enh…",
+   "summary": "Updated November 12, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are introducing a new Microsoft Teams Facilitator capability that proactively detects and resolves knowledge gaps during meetings. Facilitator can identify when participants ask questions or express uncertainty and retrieve and share relevant answers using web search in the meeting chat. This en…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 15, 2026: We have updated the timeline.",
-    "Targeted Release: Beginning early December 2026 (previously early November) and expected to complete mid-December 2026 (previously mid-November).",
-    "General Availability (Worldwide): Beginning mid-December 2026 (previously mid-November) and expected to complete mid-January 2027 (previously mid-December 2026)."
+    "Updated November 12, 2026: We have updated the timeline.",
+    "Targeted Release: Beginning early February 2027 (previously early December) and expected to complete mid-February 2027 (previously mid-December).",
+    "General Availability (Worldwide): Beginning mid-February 2027 (previously mid-December) and expected to complete early March 2027 (previously mid-January)."
    ],
-   "bodyHash": "f6b09006efc5f87b"
+   "bodyHash": "5c84c441b73bf8fd"
   },
   {
    "id": "MC1411432",
@@ -8108,33 +8108,6 @@
     "This feature will reach public preview on October 30, 2026."
    ],
    "bodyHash": "4d5d9ebd4a2457bf"
-  },
-  {
-   "id": "MC1454373",
-   "title": "Frontier =COPILOT function in Excel will no longer be available",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-13",
-   "end": "2026-11-12",
-   "modified": "2026-08-13",
-   "tags": [
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Beginning September 14, 2026, the =COPILOT function in Microsoft Excel will no longer be available. This function is currently offered as a preview feature through the Insider and Frontier programs. Customers can continue using Copilot in Excel through the Copilot side pane, which provides many of the same AI-powered capabilities, including summarizing text, classifying data, gener…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Beginning September 14, 2026, the =COPILOT function in Microsoft Excel will no longer be available.",
-    "September 14, 2026: The =COPILOT function will be retired and will no longer be available in Excel.",
-    "Users will no longer be able to create new formulas using the =COPILOT function after September 14, 2026."
-   ],
-   "bodyHash": "930114acd650dc5a"
   },
   {
    "id": "MC1454378",
@@ -10880,32 +10853,6 @@
    "bodyHash": "74fe3dfa9a015e0e"
   },
   {
-   "id": "MC1470883",
-   "title": "Microsoft Outlook for iPad: Minimize email drafts and return to them later",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-11",
-   "end": "2026-11-12",
-   "modified": "2026-09-11",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and why] We're introducing a new Outlook for iPad capability that allows users to compose email in a new window and minimize an in-progress draft so they can return to it later. This improvement helps users multitask more efficiently while working in Outlook on iPad. [Rollout schedule] General Availability (Worldwide): Beginning in mid-September 2026 and expected to complete by mid-October 2…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Beginning in mid-September 2026 and expected to complete by mid-October 2026."
-   ],
-   "bodyHash": "a35841aba237c5f7"
-  },
-  {
    "id": "MC1470884",
    "title": "Microsoft Purview eDiscovery: Select user-owned SharePoint Embedded containers as a data source",
    "services": [
@@ -11959,32 +11906,6 @@
     "This feature will reach public preview on September 30, 2026."
    ],
    "bodyHash": "8467ef48ce1d134b"
-  },
-  {
-   "id": "MC1476237",
-   "title": "Microsoft Defender for Office 365: Remediation actions from the Teams message entity flyout",
-   "services": [
-    "Microsoft Defender XDR"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-21",
-   "end": "2026-11-12",
-   "modified": "2026-09-21",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and why] We are enhancing the Teams message entity flyout in Microsoft Defender for Office 365 to help security teams investigate and remediate malicious Teams messages more efficiently. Administrators will be able to submit messages to Microsoft and block external senders or associated domains from a single workflow, reducing the need to navigate between investigation experiences. [Rollout …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Beginning in late September 2026 and expected to complete by mid-October 2026."
-   ],
-   "bodyHash": "ed174b36a5ee1afe"
   },
   {
    "id": "MC1476319",
@@ -14398,31 +14319,6 @@
    "bodyHash": "f879ba7dd659c9f2"
   },
   {
-   "id": "MC1502773",
-   "title": "Dynamics 365 Sales - Information regarding the retirement of the Dynamics 365 Sales Insights standalone add-on",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-12",
-   "end": "2026-11-12",
-   "modified": "2026-10-12",
-   "tags": [
-    "Admin impact",
-    "User impact"
-   ],
-   "summary": "Starting November 1, 2026, Dynamics 365 Sales Insights as a standalone add-on will have reached end of support. Sales Insights is a legacy offering whose capabilities are already included in Sales Premium. Sales Premium delivers the Sales Insights capabilities at the same price as the Sales Enterprise + Sales Insights combination. It also includes Copilot Credits, additional Dataverse storage capa…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Starting November 1, 2026, Dynamics 365 Sales Insights as a standalone add-on will have reached end of support."
-   ],
-   "bodyHash": "7d91afb1cc16f92a"
-  },
-  {
    "id": "MC1505599",
    "title": "Microsoft Purview Audit: AuditLogQuery API generally available and Search-UnifiedAuditLog retiring",
    "services": [
@@ -15259,7 +15155,7 @@
   },
   {
    "id": "MC1509796",
-   "title": "Microsoft Teams: Enhanced channel meeting experience",
+   "title": "(Updated) Microsoft Teams: Enhanced channel meeting experience",
    "services": [
     "Microsoft Teams"
    ],
@@ -15269,22 +15165,24 @@
    "actionBy": null,
    "start": "2026-10-15",
    "end": "2027-11-30",
-   "modified": "2026-10-15",
+   "modified": "2026-11-12",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] Microsoft Teams is introducing enhancements for channel meetings to make it easier to schedule meetings in the right context and help teams discover relevant meetings across their channels. Users will be able to create channel meetings directly from the Teams calendar and create and manage channel meetings from classic Outlook for Windows. Channel members will be able to more easil…",
+   "summary": "Updated November 12, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Teams is introducing enhancements for channel meetings to make it easier to schedule meetings in the right context and help teams discover relevant meetings across their channels. Users will be able to create channel meetings directly from the Teams calendar and create and manage channel…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Public Preview (Worldwide): We will begin rolling out in early November 2026 and expect to complete by late November 2026.",
-    "General Availability (Worldwide): We will begin rolling out in mid-December 2026 and expect to complete by late January 2027.",
+    "Updated November 12, 2026: We have updated the timeline.",
+    "Public Preview (Worldwide): We will begin rolling out in mid-November 2026 (previously early November) and expect to complete by late November 2026.",
+    "General Availability (Worldwide): We will begin rolling out in late January 2027 (previously mid-December 2026) and expect to complete by late January 2027.",
     "General Availability (GCC): We will begin rolling out in mid-December 2026 and expect to complete by late July 2027.",
     "General Availability (GCC High): We will begin rolling out in mid-December 2026 and expect to complete by late August 2027.",
     "General Availability (DoD): We will begin rolling out in mid-December 2026 and expect to complete by late September 2027."
    ],
-   "bodyHash": "9b42de70607988e0"
+   "bodyHash": "bae48af0de2e5bcc"
   },
   {
    "id": "MC1509797",
@@ -19245,6 +19143,57 @@
     "Require NTLM signing before it’s enabled by default in May 2027."
    ],
    "bodyHash": "9d4ecefe303d9f37"
+  },
+  {
+   "id": "MC1550540",
+   "title": "Microsoft 365 Copilot: Copilot Workspaces is replacing standalone agent selection with agentic chat",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-12",
+   "end": "2027-03-02",
+   "modified": "2026-11-12",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft 365 Copilot Workspaces (formerly Copilot Notebooks) is moving to an agentic chat experience. As part of this change, Researcher, Analyst, and Designer will no longer be available as standalone agent options within Copilot Workspaces. Instead of selecting or switching between agents, users can describe what they need in plain language. Copilot will automatically apply the a…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Frontier preview: Rollout is planned to begin in December 2026 ."
+   ],
+   "bodyHash": "2365b9cd4e8cddd5"
+  },
+  {
+   "id": "MC1550542",
+   "title": "Microsoft Teams: Updated recording and transcript access setting behavior for town halls and webinars",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "preventOrFixIssue",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-12",
+   "end": "2026-12-16",
+   "modified": "2026-11-12",
+   "tags": [
+    "Admin impact",
+    "User impact"
+   ],
+   "summary": "[What and why] We are updating how the Who has access to the recording or transcript option appears for Microsoft Teams Events scheduling through the Events App including town halls and webinars. Currently, when AllowCloudRecording is set to false, this option does not appear for these events. After this change, the option will appear only when the applicable RecordingForTownhall or RecordingForWe…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning in early-November 2026 and expected to complete by mid-November 2026."
+   ],
+   "bodyHash": "913e76323ae105b5"
   },
   {
    "id": "MC676299",
@@ -25460,6 +25409,107 @@
    "id": "MC1529501",
    "type": "removed",
    "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1387578",
+   "type": "changed",
+   "title": "(Updated) Microsoft Defender for Office 365: Localized default mark and notify email template",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2027-02-01"
+    ],
+    "bodyHash": [
+     "2f7f773a8fcf97ec",
+     "d6e1dca07a478671"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1409304",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Facilitator proactively detects and resolves knowledge gaps in meetings",
+   "fields": {
+    "end": [
+     "2027-02-22",
+     "2027-04-12"
+    ],
+    "bodyHash": [
+     "f6b09006efc5f87b",
+     "5c84c441b73bf8fd"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1509796",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Enhanced channel meeting experience",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Enhanced channel meeting experience",
+     "(Updated) Microsoft Teams: Enhanced channel meeting experience"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "9b42de70607988e0",
+     "bae48af0de2e5bcc"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1550540",
+   "type": "new",
+   "title": "Microsoft 365 Copilot: Copilot Workspaces is replacing standalone agent selection with agentic chat",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1550542",
+   "type": "new",
+   "title": "Microsoft Teams: Updated recording and transcript access setting behavior for town halls and webinars",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1454373",
+   "type": "removed",
+   "title": "Frontier =COPILOT function in Excel will no longer be available",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1470883",
+   "type": "removed",
+   "title": "Microsoft Outlook for iPad: Minimize email drafts and return to them later",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1476237",
+   "type": "removed",
+   "title": "Microsoft Defender for Office 365: Remediation actions from the Teams message entity flyout",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1502773",
+   "type": "removed",
+   "title": "Dynamics 365 Sales - Information regarding the retirement of the Dynamics 365 Sales Insights standalone add-on",
    "fields": {}
   }
  ]

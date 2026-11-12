@@ -1,29 +1,18 @@
 {
- "read": "2026-11-12T07:07Z",
+ "read": "2026-11-12T17:37Z",
  "source": "our second tenant (tools/graph_sp.py)",
  "sourceLabel": "our developer tenant",
  "sourceNote": "built-in role definitions of our second (developer) tenant, read every 3 hours with the same app permissions",
- "thereRead": "2026-11-10T21:20Z",
- "ourRead": "2026-11-12T07:06Z",
+ "thereRead": "2026-11-12T17:37Z",
+ "ourRead": "2026-11-12T17:36Z",
  "keepDays": 90,
  "counts": {
-  "rolesThere": 145,
-  "rolesDiffering": 1,
+  "rolesThere": 148,
+  "rolesDiffering": 0,
   "thereOnly": 0,
-  "oursOnly": 1
+  "oursOnly": 0
  },
- "roles": {
-  "User": {
-   "templateId": "a0b1b346-4d3e-4e8b-98f8-753987be4970",
-   "there": [],
-   "ours": [
-    "microsoft.directory/agentIdentityBlueprints/createAsOwner"
-   ],
-   "firstNoticed": {},
-   "thereVersion": null,
-   "thereSince": null
-  }
- },
+ "roles": {},
  "events": [
   {
    "day": "2026-11-07",

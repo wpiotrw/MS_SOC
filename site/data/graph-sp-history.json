@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-12T07:06Z",
+ "updated": "2026-11-12T17:36Z",
  "baseline": "2026-10-10T08:35Z",
- "lastRead": "2026-11-12T07:06Z",
+ "lastRead": "2026-11-12T17:36Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
@@ -12,6 +12,149 @@
   "roles": 148
  },
  "events": [
+  {
+   "seen": "2026-11-12T17:36Z",
+   "day": "2026-11-12",
+   "surface": "action",
+   "name": "microsoft.directory/applications/sponsors/read",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Read sponsors of applications"
+  },
+  {
+   "seen": "2026-11-12T17:36Z",
+   "day": "2026-11-12",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/assignments/basic/update",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Update resource policy assignments basic properties."
+  },
+  {
+   "seen": "2026-11-12T17:36Z",
+   "day": "2026-11-12",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/assignments/create",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Create resource policy assignments."
+  },
+  {
+   "seen": "2026-11-12T17:36Z",
+   "day": "2026-11-12",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/assignments/delete",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Delete resource policy assignments."
+  },
+  {
+   "seen": "2026-11-12T17:36Z",
+   "day": "2026-11-12",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/assignments/standard/read",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Read resource policy assignments standard properties."
+  },
+  {
+   "seen": "2026-11-12T17:36Z",
+   "day": "2026-11-12",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/configuration/basic/update",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Update basic properties of the tenant-wide resource policy configuration, such as the privileged-read app ID."
+  },
+  {
+   "seen": "2026-11-12T17:36Z",
+   "day": "2026-11-12",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/configuration/standard/read",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Read standard properties of the tenant-wide resource policy configuration, such as the privileged-read app ID."
+  },
+  {
+   "seen": "2026-11-12T17:36Z",
+   "day": "2026-11-12",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/definitions/basic/update",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Update resource policy definitions basic properties."
+  },
+  {
+   "seen": "2026-11-12T17:36Z",
+   "day": "2026-11-12",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/definitions/create",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Create resource policy definitions."
+  },
+  {
+   "seen": "2026-11-12T17:36Z",
+   "day": "2026-11-12",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/definitions/delete",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Delete resource policy definitions."
+  },
+  {
+   "seen": "2026-11-12T17:36Z",
+   "day": "2026-11-12",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/definitions/standard/read",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Read resource policy definitions standard properties."
+  },
+  {
+   "seen": "2026-11-12T17:36Z",
+   "day": "2026-11-12",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/evaluateAssignedPolicies",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Evaluate all policies assigned to a resource."
+  },
+  {
+   "seen": "2026-11-12T17:36Z",
+   "day": "2026-11-12",
+   "surface": "action",
+   "name": "microsoft.directory/resourcePolicy/evaluatePolicy",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "",
+   "text": "Evaluate a specific resource policy against a supplied resource."
+  },
   {
    "seen": "2026-11-12T07:06Z",
    "day": "2026-11-12",
