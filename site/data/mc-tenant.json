@@ -1,7 +1,7 @@
 {
  "read": "2026-11-12",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 724,
+ "count": 726,
  "note": null,
  "messages": [
   {
@@ -547,30 +547,6 @@
     "General Availability: Rolling out mid-April 2026 (previously late March), expected to complete by mid-June 2026 (previously late April)."
    ],
    "bodyHash": "6dca683969541e35"
-  },
-  {
-   "id": "MC1185309",
-   "title": "Windows Autopatch for the US government: How to get started",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-11-12",
-   "end": "2026-11-12",
-   "modified": "2025-11-12",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "The power of automated Windows update management is coming to government SKUs. This cloud-based service has now been approved to be added to the Azure FedRAMP High Provisional Authorization to Operate. If you manage Government Community Cloud (GCC) devices, this service became part of Microsoft 365 Government this month. When will this happen: Windows Autopatch is available to US government organi…",
-   "when": null,
-   "prepare": "Review",
-   "dates": [
-    "When will this happen: Windows Autopatch is available to US government organizations starting November 2025."
-   ],
-   "bodyHash": "6b43eae0a2491412"
   },
   {
    "id": "MC1185445",
@@ -13982,7 +13958,7 @@
   },
   {
    "id": "MC1491832",
-   "title": "Take action to prevent RD Web Access rendering failures",
+   "title": "(UPDATED) Take action to prevent RD Web Access rendering failures",
    "services": [
     "Windows"
    ],
@@ -13990,17 +13966,21 @@
    "severity": "normal",
    "major": true,
    "actionBy": null,
-   "start": "2026-10-08",
-   "end": "2027-10-08",
-   "modified": "2026-10-08",
+   "start": "2026-11-12",
+   "end": "2027-11-12",
+   "modified": "2026-11-12",
    "tags": [
     "Admin impact"
    ],
-   "summary": "The Remote Desktop Web Access (RD Web Access) experience included with Windows Server relies on Extensible Stylesheet Language Transformations (XSLT) to render its web interface. Chromium-based and other browsers are disabling XSLT support in the short term. As browsers disable this feature, the RD Web Access experience included with Windows Server will no longer render as expected. Microsoft has …",
+   "summary": "Updated November 12, 2026: We are informing regarding November updates for Windows Server which address this change. What and why: The Remote Desktop Web Access (RD Web Access) experience included with Windows Server relies on Extensible Stylesheet Language Transformations (XSLT) to render its web interface. Across the industry, browsers are moving away from XSLT, with Chromium-based and other bro…",
    "when": null,
    "prepare": null,
-   "dates": [],
-   "bodyHash": "177c3a13a126354d"
+   "dates": [
+    "Updated November 12, 2026: We are informing regarding November updates for Windows Server which address this change.",
+    "To address this, the November 2026 Windows security update for supported versions of Windows Server provides an updated RD Web Access experience.",
+    "Rollout schedule: The November 2026 Windows security update was released November 10, 2026."
+   ],
+   "bodyHash": "1c24b4038669e30d"
   },
   {
    "id": "MC1492155",
@@ -19194,6 +19174,82 @@
     "General Availability (Worldwide, GCC, GCC High, DoD): Beginning in early-November 2026 and expected to complete by mid-November 2026."
    ],
    "bodyHash": "913e76323ae105b5"
+  },
+  {
+   "id": "MC1550796",
+   "title": "Windows Office Hours: November 19, 2026",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-12",
+   "end": "2027-11-12",
+   "modified": "2026-11-12",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "If you are an IT admin with questions about managing and updating Windows, we want to help. Every third Thursday of the month, we host a live chat-based event on the Tech Community called Windows Office Hours. Members of the Windows, Microsoft Intune, Windows Autopilot, Windows Autopatch, and Windows 365 engineering teams will be standing by to answer your questions. Want to attend the November 19…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "32f095e5c0f8a414"
+  },
+  {
+   "id": "MC1550797",
+   "title": "60-day reminder: Hardening changes for ReFS volumes on removable media",
+   "services": [
+    "Windows"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-12",
+   "end": "2027-11-12",
+   "modified": "2026-11-12",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why: Microsoft is making hardening changes to the Resilient File System (ReFS) . The changes improve the security posture of Windows by adding visibility into unsupported external ReFS configurations and by providing controls to block affected volumes. The changes apply to all supported Windows platforms in phases to allow your organization to review audit data and address dependencies. R…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Rollout schedule: October 2026 Windows security update (Audit phase; began October 13, 2026).",
+    "January 2027 Windows security update (Enforcement phase).",
+    "Action required/recommendations: UPDATE: Install the applicable Windows security update released on or after October 13, 2026 on supported devices.",
+    "If you configure no override, blocking becomes the default with the January 2027 security update."
+   ],
+   "bodyHash": "800ab0ae06313503"
+  },
+  {
+   "id": "MC1551001",
+   "title": "Prevent issues with NetApp SMB shares: Learn about new Windows Server security requirements",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-11-12",
+   "end": "2027-11-12",
+   "modified": "2026-11-12",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why: Microsoft introduced additional security requirements for LDAP authentication on Active Directory domain controllers starting with the October 13, 2026, Windows security updates. These changes require Kerberos service tickets used for LDAP authentication to match the LDAP service principal name SPNSPN registered on the target domain controller. This helps strengthen authentication se…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "What and why: Microsoft introduced additional security requirements for LDAP authentication on Active Directory domain controllers starting with the October 13, 2026, Windows security updates.",
+    "Rollout schedule: This change was introduced with Windows security updates released on October 13, 2026, and is included in subsequent updates.",
+    "Action required / recommendations: If you use affected NetApp configurations, review KB5134907 Access to NetApp SMB shares might fail after installing the October 2026 Windows security update , for full guidance.",
+    "Additional information: See KB5134907 Access to NetApp SMB shares might fail after installing the October 2026 Windows security update for complete guidance."
+   ],
+   "bodyHash": "ff8a417983b4df5f"
   },
   {
    "id": "MC676299",
@@ -25510,6 +25566,58 @@
    "id": "MC1502773",
    "type": "removed",
    "title": "Dynamics 365 Sales - Information regarding the retirement of the Dynamics 365 Sales Insights standalone add-on",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1491832",
+   "type": "changed",
+   "title": "(UPDATED) Take action to prevent RD Web Access rendering failures",
+   "fields": {
+    "title": [
+     "Take action to prevent RD Web Access rendering failures",
+     "(UPDATED) Take action to prevent RD Web Access rendering failures"
+    ],
+    "start": [
+     "2026-10-08",
+     "2026-11-12"
+    ],
+    "end": [
+     "2027-10-08",
+     "2027-11-12"
+    ],
+    "bodyHash": [
+     "177c3a13a126354d",
+     "1c24b4038669e30d"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1550796",
+   "type": "new",
+   "title": "Windows Office Hours: November 19, 2026",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1550797",
+   "type": "new",
+   "title": "60-day reminder: Hardening changes for ReFS volumes on removable media",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1551001",
+   "type": "new",
+   "title": "Prevent issues with NetApp SMB shares: Learn about new Windows Server security requirements",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1185309",
+   "type": "removed",
+   "title": "Windows Autopatch for the US government: How to get started",
    "fields": {}
   }
  ]
