@@ -26391,6 +26391,19 @@ stary klucz `s5gl-prev` nie jest juz czytany). Test: Chromium 2000 i 3840, WebKi
 w obie strony i po przeladowaniu, 0 przewijania w poziomie, 0 bledow JS; bramka OK; mobile_check 9,7 s.
 Rutyny (ten sam dzien): `collect_all.py` na pierwszym planie, odpowiedz konczy sie dopiero podsumowaniem — 12 XI kolektory
 szly w tle, przebieg zostal uznany za skonczony o 07:26, publikacja byla o 07:43–07:48 i e-mail z podsumowaniem nie przyszedl.
+**§5gp (12 XI 2026) — Overview „Brief v4" (przebudowa).** Wlasciciel: uklad nie do zaakceptowania, „sprawdz jak to robia
+profesjonalisci". Zasady: kolumna do czytania o stalej szerokosci (max 1240 px, tytul max 80ch, 45–85 znakow w wierszu), format
+Axios Smart Brevity (tytul + jedno zdanie „Why it matters"), najwazniejsze na gorze, szczegoly na zadanie. Warstwa prezentacji:
+CZYTA liste zdan (`ol.s5bk-3`) i buduje `.s5gp` obok; lista zostaje w stronie (ukryta). Glowna kolumna: jeden ciag numerow w
+trzech sekcjach — „Act this week" (termin <= 7 dni), „New since the last brief" (Biggest new item), „Coming later" (reszta wg
+terminu). Wpis: numer w kolku, technologia (kolorowa plakietka), termin (czerwony <= 2 dni, pomaranczowy <= 7, szary dalej), chipy MC
+(kopia klika oryginal), tytul (klik = to samo co stary przycisk: arkusz pozycji), „Why it matters"; konflikty dat jako plakietka i
+zwiniete `details`. Pasek boczny „Watched areas": Identity surface (liczby + 3 nazwy), Component versions, Campaigns (terminy),
+Security baselines, Threat Research, Graph API Radar — po linijce, „open ›" klika oryginal; obszary bez zmian w jednej linii.
+Filtr SHOW wlasny. Czcionki jak w portalu: tytul 16 px, tekst 15 px, plakietki 12,5 px. Przycisk „Show the previous layouts"
+(klucz `s5gp-off`) wraca do listy (§5go/§5gl). Bez `:has`. Test: Chromium 1400/2560/3840 (ciemny i jasny), WebKit 390 —
+15 numerow, 3 sekcje, 0 przewijania w poziomie, 0 bledow JS; filtr, tytul (arkusz), chip MC (Message Center), open › (Campaigns),
+przelaczanie i po przeladowaniu OK; bramka OK; mobile_check 9,2 s.
 
 Przebieg poranny wola go w STEP 1b obok `collect_blogs.py`:
 `python3 collect_community.py <repo>/community_sources.json community_raw.json <najnowszy site/data/*.json>`
@@ -47121,6 +47134,164 @@ odtad CZTERNASCIE (4-17).**
   document.addEventListener("click", function (ev) { var h = ev.target.closest && ev.target.closest(".s5ft-intro > h3"); if (h) set(!H.classList.contains("s5gm-io")); else if (ev.target.closest && ev.target.closest('[id^="tabbtn-"]')) setTimeout(mark, 900); }, true);
   document.addEventListener("keydown", function (ev) { var h = ev.target.closest && ev.target.closest(".s5ft-intro > h3"); if (h && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); set(!H.classList.contains("s5gm-io")); } });
 })();
+/* §5gp (12 XI 2026): Overview "Brief v4" - owner: "the layout needs a full rebuild, look how professionals do it".
+   One reading column of fixed width (45-85 characters a line), numbered entries in one order (Act this week -> New
+   since yesterday -> Coming later), each entry: number, technology badge, due badge, MC chips, bold title, one
+   "Why it matters" sentence (Axios Smart Brevity); the watched areas in a side rail "At a glance", one line each.
+   A presentation layer: it READS the sentence list (ol.s5bk-3) and builds .s5gp beside it; the list stays in the
+   page (hidden) and comes back with "Show the previous layouts". Nothing is removed. No :has (5co). */
+(function () {
+  var KEY = "s5gp-off", ON = true;
+  try { ON = localStorage.getItem(KEY) !== "1"; } catch (e) {}
+  var TC = { "copilot": "#7c3aed", "copilot studio": "#7c3aed", "graph": "#047857", "graph api": "#047857", "defender": "#b91c1c", "entra id": "#1d4ed8",
+    "exchange & outlook": "#0e7490", "teams": "#4338ca", "azure": "#0369a1", "microsoft 365": "#c2410c", "purview": "#9d174d", "intune": "#4d7c0f",
+    "windows": "#1e40af", "sharepoint": "#0f766e", "dynamics 365": "#6d28d9", "power platform": "#86198f" };
+  var RAIL = /^(identity surface|component version|campaigns|security baselines|threat research|graph api radar|m365 endpoints)/i;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function tx(n) { return n ? (n.innerText || n.textContent || "").replace(/\s+/g, " ").trim() : ""; }
+  function today() { var d = new Date(); d.setHours(0, 0, 0, 0); return d; }
+  function pd(s) { var m = /^(\d\d)\/(\d\d)\/(\d{4})$/.exec(s || ""); return m ? new Date(+m[3], +m[2] - 1, +m[1]) : null; }
+  function due(it, urgent) {
+    var best = null;
+    [].forEach.call(it.querySelectorAll(".s5bk-pill"), function (p) {
+      var t = tx(p).toLowerCase(); if (t.indexOf("due") !== 0) return;
+      if (/due today/.test(t)) best = today();
+      [].forEach.call(p.querySelectorAll("[data-v]"), function (x) { var d = pd(x.getAttribute("data-v")); if (d && (!best || d < best)) best = d; });
+    });
+    return best || (urgent ? today() : null);
+  }
+  function fmt(d) { return ("0" + d.getDate()).slice(-2) + "/" + ("0" + (d.getMonth() + 1)).slice(-2) + "/" + d.getFullYear(); }
+  function read(ol) {
+    var E = [], R = [];
+    [].forEach.call(ol.children, function (li) {
+      if (li.classList.contains("s5gl-h")) return;
+      var k = li.querySelector(":scope > .s5bk-k"), key = k ? (k.getAttribute("data-k0") || tx(k)) : "";
+      if (RAIL.test(key)) { R.push({ li: li, key: key }); return; }
+      var its = li.querySelectorAll(":scope > .s5bk-it"); if (!its.length) { R.push({ li: li, key: key }); return; }
+      var urgent = /most urgent/i.test(key), big = /biggest new/i.test(key);
+      [].forEach.call(its, function (it, i) {
+        var pills = [].map.call(it.querySelectorAll(".s5bk-pill"), tx);
+        var tech = li.getAttribute("data-tech") || (big ? "Graph API" : (pills.filter(function (p) { return !/^(due|new|one of)/i.test(p); })[0] || "Microsoft"));
+        E.push({ it: it, li: li, tech: tech, urgent: urgent, big: big, due: due(it, urgent),
+          title: tx(it.querySelector(".s5bk-itt")) || tx(it), why: tx(it.querySelector(".s5bk-its")),
+          mcs: [].slice.call(it.querySelectorAll(".mcchip")), dc: i === its.length - 1 ? [].slice.call(li.querySelectorAll(":scope > .s5gf-dc")) : [] });
+      });
+    });
+    return { E: E, R: R };
+  }
+  function badgeDue(d) {
+    if (!d) return el("span", "s5gp-due s5gp-dn", "no date");
+    var n = Math.round((d - today()) / 864e5), c = n <= 2 ? "s5gp-dr" : (n <= 7 ? "s5gp-da" : "s5gp-dg");
+    return el("span", "s5gp-due " + c, n < 0 ? "passed " + fmt(d) : (n === 0 ? "due today" : (n === 1 ? "due tomorrow" : "due " + fmt(d) + " · in " + n + " days")));
+  }
+  function entry(e, n) {
+    var li = el("li", "s5gp-it"); li.setAttribute("data-tech", e.tech);
+    li.appendChild(el("span", "s5gp-n", String(n)));
+    var b = el("div", "s5gp-b"), m = el("div", "s5gp-meta");
+    var tp = el("span", "s5gp-tp", e.tech); tp.style.background = TC[e.tech.toLowerCase()] || "#475569"; m.appendChild(tp);
+    m.appendChild(badgeDue(e.due));
+    e.mcs.forEach(function (c) { var k = c.cloneNode(true);   /* the chip's own listener is not cloned - the copy clicks the original */
+      k.addEventListener("click", function (ev) { ev.preventDefault(); ev.stopPropagation(); c.click(); });
+      k.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); c.click(); } });
+      m.appendChild(k); });
+    if (e.dc.length) m.appendChild(el("span", "s5gp-flag", e.dc.length === 1 ? "dates differ" : e.dc.length + " date conflicts"));
+    b.appendChild(m);
+    var h = el("button", "s5gp-t"); h.type = "button"; h.textContent = e.title; h.appendChild(el("span", "s5gp-go", " →"));
+    h.addEventListener("click", function () { e.it.click(); });
+    b.appendChild(h);
+    if (e.why) { var p = el("p", "s5gp-why"); p.appendChild(el("b", null, "Why it matters: ")); p.appendChild(document.createTextNode(e.why)); b.appendChild(p); }
+    e.dc.forEach(function (f) {
+      var d = el("details", "s5gp-dc"), s = el("summary"); s.appendChild(el("span", "s5gp-dcb", "Dates differ"));
+      s.appendChild(document.createTextNode(" " + tx(f).split(/ Show the /)[0].slice(0, 200))); d.appendChild(s);
+      var c = f.cloneNode(true); c.classList.remove("s5gm-f"); var bb = c.querySelector(".s5gl-dcb"); if (bb) bb.remove(); d.appendChild(c); b.appendChild(d);
+    });
+    li.appendChild(b); return li;
+  }
+  function group(t, sub, L, start) {
+    var s = el("section", "s5gp-g"), h = el("h3", "s5gp-gh", t); h.appendChild(el("span", "s5gp-cnt", String(L.length)));
+    s.appendChild(h); s.appendChild(el("p", "s5gp-sub", sub));
+    var ol = el("ol", "s5gp-list"); L.forEach(function (e, i) { ol.appendChild(entry(e, start + i)); }); s.appendChild(ol); return s;
+  }
+  function opener(li) { return li.querySelector(":scope > button.s5bk-it, :scope > .s5bk-it button, :scope a[href], :scope > .s5bk-it"); }
+  function tc(n) { return n ? (n.textContent || "").replace(/\s+/g, " ").trim() : ""; }   /* textContent: the list is hidden, innerText would lose the lines */
+  function railCard(r) {
+    var c = el("div", "s5gp-rc"), h = el("div", "s5gp-rh"), li = r.li, rows = [];
+    var key = /^component version/i.test(r.key) ? "Component versions" : r.key;
+    h.appendChild(el("span", null, key));
+    var o = li.querySelector(":scope > button.s5bk-it, :scope > .s5bk-it button, :scope > .s5bk-it a[href]");
+    if (o) { var a = el("button", "s5gp-open", "open ›"); a.type = "button"; a.addEventListener("click", function () { o.click(); }); h.appendChild(a); }
+    c.appendChild(h);
+    var boxes = li.querySelectorAll(".s5er-box");
+    if (boxes.length) {
+      [].forEach.call(boxes, function (bx) {
+        var nm = [].slice.call(bx.querySelectorAll(".s5er-nm, .s5fj-nm"), 0, 3).map(tc).join(", ");
+        rows.push({ n: tc(bx.querySelector(".s5er-n")), t: tc(bx.querySelector(".s5er-lab")) + " · " + tc(bx.querySelector(".s5er-sub")) + (nm ? " — " + nm : ""), go: bx.querySelector(".s5er-bh") });
+      });
+    } else if (li.querySelector(".s5es-rows")) {
+      var hd = li.querySelector(":scope > .s5bk-it"); if (hd) rows.push({ t: tc(hd) });
+      [].forEach.call(li.querySelectorAll(".s5es-rows > *"), function (x, i) {
+        if (i > 5 || !x.children.length) { if (x.children.length === 0 && tc(x)) rows.push({ t: tc(x) }); return; }
+        var b = x.querySelector("button, a[href]"); rows.push({ d: tc(x.children[0]), t: b ? tc(b) : tc(x.children[1] || x), go: b });
+      });
+    } else if (li.querySelector(".s5cl-c")) {
+      [].forEach.call(li.querySelectorAll(".s5cl-c"), function (x) { rows.push({ t: tc(x.querySelector(".s5cl-cn")) + " " + tc(x.querySelector(".s5cl-old")) + " → " + tc(x.querySelector(".s5cl-new")), go: x.querySelector(".s5cl-cn") }); });
+    } else {
+      var it = li.querySelector(":scope > .s5bk-it"), f = it && it.firstElementChild, t = tc(f && f.children.length < 6 ? f : it).split(/ (?=[A-Z][A-Z ]{4,}\d)/)[0];
+      var mm = /^(\d[\d,]*)\s+(.*)$/.exec(t); rows.push(mm ? { n: mm[1], t: mm[2] } : { t: t });
+    }
+    rows.forEach(function (x) {
+      var k = el(x.go ? "button" : "div", "s5gp-kv"); if (x.go) { k.type = "button"; k.addEventListener("click", function () { x.go.click(); }); }
+      if (x.d) k.appendChild(el("span", "s5gp-dd", x.d));
+      if (x.n) k.appendChild(el("b", x.n === "0" ? "s5gp-z" : "s5gp-hot", x.n));
+      k.appendChild(document.createTextNode(" " + x.t)); c.appendChild(k);
+    });
+    if (rows.length && rows.every(function (x) { return x.n === "0" || /^no new|^nothing/i.test(x.t); })) c.classList.add("s5gp-quiet");
+    return c;
+  }
+  var busy = false;
+  function build() {
+    var sum = document.querySelector("#tab-overview .s5bk-sum"), ol = sum && sum.querySelector(":scope > .s5bk-3"); if (!ol || !ol.children.length) return;
+    var D = read(ol); if (!D.E.length) return;
+    var T = today(), act = [], nw = [], later = [];
+    D.E.forEach(function (e) { if (e.due && (e.due - T) / 864e5 <= 7) act.push(e); else if (e.big) nw.push(e); else later.push(e); });
+    var by = function (a, b) { return (a.due ? +a.due : 9e15) - (b.due ? +b.due : 9e15); }; act.sort(by); later.sort(by);
+    var v = sum.querySelector(":scope > .s5gp") || el("div", "s5gp"); v.textContent = "";
+    var bar = el("div", "s5gp-bar"), tl = el("div", "s5gp-hd");
+    tl.appendChild(el("h3", "s5gp-h", "Today: " + D.E.length + " items"));
+    tl.appendChild(el("p", "s5gp-hs", act.length + " with a deadline in the next 7 days · " + nw.length + " big new change · " + later.length + " later. Numbers run in reading order."));
+    var sw = el("button", "s5gp-sw", "Show the previous layouts"); sw.type = "button"; sw.addEventListener("click", function () { set(false); });
+    tl.appendChild(sw); v.appendChild(tl);
+    var techs = {}; D.E.forEach(function (e) { techs[e.tech] = (techs[e.tech] || 0) + 1; });
+    bar.appendChild(el("b", "s5gp-show", "SHOW"));
+    var chips = [["All", D.E.length]].concat(Object.keys(techs).map(function (k) { return [k, techs[k]]; }));
+    chips.forEach(function (c) { var b = el("button", "s5gp-chip" + (c[0] === "All" ? " on" : ""), c[0] + " "); b.type = "button"; b.appendChild(el("span", "s5gp-cc", String(c[1])));
+      b.addEventListener("click", function () { [].forEach.call(bar.children, function (x) { x.classList && x.classList.remove("on"); }); b.classList.add("on");
+        [].forEach.call(v.querySelectorAll(".s5gp-it"), function (it) { it.hidden = c[0] !== "All" && it.getAttribute("data-tech") !== c[0]; });
+        [].forEach.call(v.querySelectorAll(".s5gp-g"), function (g) { g.hidden = !g.querySelector(".s5gp-it:not([hidden])"); }); });
+      bar.appendChild(b); });
+    v.appendChild(bar);
+    var grid = el("div", "s5gp-grid"), main = el("div", "s5gp-main"), n = 1;
+    if (act.length) { main.appendChild(group("Act this week", "a deadline in the next 7 days, nearest first", act, n)); n += act.length; }
+    if (nw.length) { main.appendChild(group("New since the last brief", "the biggest change Microsoft published since the previous brief", nw, n)); n += nw.length; }
+    if (later.length) main.appendChild(group("Coming later", "dated further out, nearest first; undated last", later, n));
+    var rail = el("aside", "s5gp-rail"); rail.appendChild(el("h3", "s5gp-gh", "Watched areas"));
+    var quiet = [];
+    D.R.forEach(function (r) { var c = railCard(r); if (c.classList.contains("s5gp-quiet")) quiet.push(r.key); else rail.appendChild(c); });
+    if (quiet.length) { var q = el("div", "s5gp-rc s5gp-quiet"); q.appendChild(el("div", "s5gp-rh", "No change today")); q.appendChild(el("div", "s5gp-kv", quiet.join(" · "))); rail.appendChild(q); }
+    grid.appendChild(main); grid.appendChild(rail); v.appendChild(grid);
+    if (!v.parentNode) sum.insertBefore(v, sum.firstChild);
+    sum.classList.toggle("s5gp-on", ON);
+    var ch = sum.closest(".s5ci-card"), h3 = ch && ch.querySelector(".s5ci-ch > h3");   /* the card title said "Today in N sentences" */
+    if (h3) { if (!h3.getAttribute("data-t0")) h3.setAttribute("data-t0", h3.textContent); h3.textContent = ON ? "Today\u2019s brief" : h3.getAttribute("data-t0"); }
+  }
+  function set(on) { ON = on; try { if (on) localStorage.removeItem(KEY); else localStorage.setItem(KEY, "1"); } catch (e) {}
+    var sum = document.querySelector("#tab-overview .s5bk-sum"); if (sum) sum.classList.toggle("s5gp-on", on);
+    var b = sum && sum.querySelector(".s5gp-back"); if (!on && sum && !b) { b = el("button", "s5gp-back", "Show the new brief layout"); b.type = "button"; b.addEventListener("click", function () { set(true); }); sum.insertBefore(b, sum.firstChild); }
+    if (b) b.hidden = on; try { build(); } catch (e) {} }
+  window.__s5gp = build;
+  [1500, 4000, 9000, 16000, 26000].forEach(function (t) { setTimeout(function () { try { build(); set(ON); } catch (e) {} }, t); });
+  document.addEventListener("click", function (ev) { if (ev.target.closest && ev.target.closest("#tabbtn-tab-overview")) setTimeout(function () { try { build(); } catch (e) {} }, 300); });
+})();
 ```
 
 **To NIE rozszerza listy dozwolonych zmian w trzech skryptach powloki.** `KIND_BADGE` (§5e) i trzy
@@ -50901,6 +51072,49 @@ html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
 /* §5gn-c: the evening pass rows in the Today view - a framed card, never folded away */
 #tab-today .s5ci .s5gn-pm{display:block!important;margin:10px 0 14px;border:2px solid #d97706;border-radius:12px;padding:10px 14px;background:color-mix(in srgb,#d97706 8%,transparent)}
 #tab-today .s5ci .s5gn-pm>summary,#tab-today .s5ci .s5gn-pm .sec-title{font-weight:700;font-size:16px;color:var(--text)}
+/* §5gp Overview "Brief v4" */
+#tab-overview .s5bk-sum.s5gp-on>:not(.s5gp):not(.s5gp-back){display:none!important}
+#tab-overview .s5bk-sum:not(.s5gp-on)>.s5gp{display:none}
+.s5gp{max-width:1240px;margin:0 auto;font-size:15px;line-height:1.5;color:var(--text)}
+.s5gp-hd{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin:4px 0 10px}
+.s5gp-h{font-size:22px;margin:0}.s5gp-hs{margin:0;color:var(--text);flex:1 1 320px}
+.s5gp-sw,.s5gp-back,.s5gp-open{font:inherit;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--accent);border-radius:999px;padding:3px 12px}
+.s5gp-back{margin:0 0 10px}
+.s5gp-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 18px;padding:8px 10px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+.s5gp-show{font-size:12px;letter-spacing:.06em;margin-right:4px}
+.s5gp-chip{font:inherit;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:999px;padding:3px 11px}
+.s5gp-chip.on{background:#1d4ed8;border-color:#1d4ed8;color:#fff}.s5gp-cc{opacity:.85;margin-left:2px}
+.s5gp-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:26px;align-items:start}
+@media (max-width:1100px){.s5gp-grid{grid-template-columns:minmax(0,1fr)}}
+.s5gp-g{margin:0 0 22px}.s5gp-g[hidden]{display:none}
+.s5gp-gh{font-size:18px;margin:0;display:flex;gap:8px;align-items:center}
+.s5gp-cnt{background:var(--surface-3);border-radius:999px;font-size:12px;padding:1px 9px}
+.s5gp-sub{margin:2px 0 8px;color:var(--text);font-size:14px}
+.s5gp-list{list-style:none;margin:0;padding:0;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+.s5gp-it{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;padding:14px 16px;border-top:1px solid var(--border)}
+.s5gp-it:first-child{border-top:0}.s5gp-it[hidden]{display:none}
+.s5gp-n{width:28px;height:28px;border-radius:50%;border:2px solid var(--accent);color:var(--accent);font-weight:700;display:grid;place-items:center;font-size:14px}
+.s5gp-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:5px}
+.s5gp-tp{color:#fff;font-weight:700;font-size:12.5px;padding:2px 10px;border-radius:999px}
+.s5gp-due{font-weight:700;font-size:12.5px;padding:2px 9px;border-radius:999px;border:1px solid;color:#fff}
+.s5gp-dr{background:#b91c1c;border-color:#b91c1c}.s5gp-da{background:#b45309;border-color:#b45309}.s5gp-dg{background:#475569;border-color:#475569}.s5gp-dn{background:transparent;color:var(--text);border-color:var(--border)}
+.s5gp-flag{background:#92400e;color:#fff;border-radius:999px;font-size:12px;font-weight:700;padding:2px 9px}
+.s5gp-t{display:block;text-align:left;font:inherit;font-size:16px;font-weight:700;line-height:1.4;color:var(--text);background:none;border:0;padding:0;margin:0 0 3px;cursor:pointer;max-width:80ch}
+.s5gp-t:hover{text-decoration:underline}.s5gp-go{color:var(--accent)}
+.s5gp-why{margin:0;max-width:85ch;font-size:15px;color:var(--text)}.s5gp-why b{font-weight:700}
+.s5gp-dc{margin-top:8px;border:1px solid #b45309;border-radius:10px;padding:6px 10px;font-size:14px}.s5gp-dc>summary{cursor:pointer;font-weight:600}
+.s5gp-dcb{background:#b45309;color:#fff;border-radius:999px;padding:1px 8px;font-weight:700;font-size:12px}
+.s5gp-dc .s5gf-ul,.s5gp-dc .s5gf-fn{display:block!important}
+.s5gp-rail{position:sticky;top:12px;display:flex;flex-direction:column;gap:10px}
+.s5gp-rail>.s5gp-gh{margin-bottom:0}
+.s5gp-rc{border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:10px 14px}
+.s5gp-rh{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.04em;display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:4px}
+.s5gp-open{text-transform:none;letter-spacing:0;padding:1px 9px}
+.s5gp-kv{display:block;width:100%;text-align:left;font:inherit;font-size:14.5px;line-height:1.45;padding:3px 0;background:none;border:0;color:var(--text)}button.s5gp-kv{cursor:pointer}button.s5gp-kv:hover{text-decoration:underline}.s5gp-kv>b{font-size:17px;margin-right:2px}
+.s5gp-hot{color:#d97706}.s5gp-z{color:var(--text)}
+.s5gp-dd{font:700 12px "IBM Plex Mono",monospace;padding:1px 7px;border-radius:6px;background:#b45309;color:#fff;margin-right:4px}
+.s5gp-quiet{border-style:dashed}
+@media (max-width:1100px){.s5gp-rail{position:static}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
