@@ -1,0 +1,177 @@
+---
+layout: Conceptual
+title: Windows Server Management enabled by Azure Arc - Azure Arc | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/azure/azure-arc/servers/windows-server-management-overview
+breadcrumb_path: ../../breadcrumb/azure-management/toc.json
+feedback_help_link_url: https://learn.microsoft.com/answers/tags/146/azure-arc/
+feedback_help_link_type: get-help-at-qna
+feedback_product_url: https://feedback.azure.com/d365community/forum/5c778dec-0625-ec11-b6e6-000d3a4f0858
+feedback_system: Standard
+permissioned-type: public
+recommendations: true
+recommendation_types:
+- Training
+- Certification
+uhfHeaderId: azure
+ms.suite: office
+author: davidsmatlak
+learn_banner_products:
+- azure
+ms.reviewer: davidsmatlak
+ms.author: davidsmatlak
+ms.service: azure-arc
+ms.subservice: servers-azure-arc
+description: Enrollment in Windows Server Management enabled by Azure Arc.
+ms.date: 2026-11-11T00:00:00.0000000Z
+ms.topic: concept-article
+ai-usage: ai-assisted
+locale: en-us
+document_id: 0716e5dd-9243-841f-46d9-38a4a5fd096c
+document_version_independent_id: e3584692-3efd-81a3-4884-14707da9eb60
+original_content_git_url: https://github.com/MicrosoftDocs/azure-management-docs-pr/blob/live/articles/azure-arc/servers/windows-server-management-overview.md
+site_name: Docs
+depot_name: Learn.azure-management
+page_type: conceptual
+toc_rel: toc.json
+asset_id: azure-arc/servers/windows-server-management-overview
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: articles/azure-arc/servers/windows-server-management-overview.md
+cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fc3f72c2-fb6f-4cea-95ee-b444e52254ee
+- https://authoring-docs-microsoft.poolparty.biz/devrel/beac614b-f66d-40ed-a947-3996de709333
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f12cf087-582d-48ac-a085-0c19adf1e391
+- https://authoring-docs-microsoft.poolparty.biz/devrel/9da05372-4706-43ec-a899-f436adab380d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+platformId: 2a86eb65-00f2-12d9-6a05-9d6789b50dfa
+---
+
+# Windows Server Management enabled by Azure Arc - Azure Arc | Microsoft Learn
+
+Windows Server Management enabled by Azure Arc offers customers with Windows Server licenses that have active Software Assurances or Windows Server licenses that are active subscription licenses the following key benefits.
+
+| Benefit | Supported Operating Systems | Description |
+| --- | --- | --- |
+| Azure Update Manager | Windows Server 2012 and later | Assess the update status and deploy updates to machines (one-time, recurring, maintenance windows) with visibility into update compliance and auditing. |
+| Azure Change Tracking and Inventory | Windows Server 2012 and later | Discovery of and changes to software, services/daemons, files, and registries of Azure Arc-enabled servers. |
+| Azure Machine Configuration | Windows Server 2012 and later | Configuration of machine properties for OS, app, and environment settings, with Azure Policy. Available natively with the Azure Connected Machine agent. |
+| Windows Admin Center in Azure for Arc | Windows Server 2016 and later | Securely manage hybrid machines from anywhere without needing a VPN, public IP address, or other inbound connectivity to your machine with RDP, Hyper-V management, event viewer, and much more. |
+| Remote Support | Windows Server 2016 and later | Offers customers with professional support the ability to grant JIT access with detailed execution transcripts and revocation rights. |
+| Network HUD | Windows Server 2025 only | A host networking diagnostics and operational tool. Runs spot checks, health checks, and cluster wide checks to make sure your host networking set-up is healthy and set up in an optimal and expected way. |
+| Best Practices Assessment | Windows Server 2016 and later | Collection and analysis of server data to generate issues and remediation guidance and performance improvements. |
+| Azure Site Recovery Configuration | Windows Server 2016 and later | Configuration of Azure Site Recovery to ensure business continuity, provides replication and data resilience for critical workloads. |
+| Azure File Sync | Windows Server 2016 and later | Arc-enabled Windows servers receive discounted per-server pricing for Azure File Sync. This benefit applies when running agents V22 or later, providing customers with a cost advantage. |
+
+Together, these capabilities provide robust governance, configuration, and remote management capabilities for Azure Arc-enabled server customers.
+
+Important
+
+Customers enrolled in Windows Server pay-as-you-go enabled by Azure Arc are enrolled in these benefits.
+
+## Billing
+
+Upon attestation, customers get access to the following services at no extra cost beyond networking, storage, and log ingestion costs:
+
+- Azure Update Manager
+- Azure Change Tracking and Inventory
+- Azure Machine Configuration
+- Windows Admin Center in Azure for Arc
+- Remote Support
+- Network HUD
+- Best Practices Assessment
+- Azure Site Recovery Configuration
+- Azure File Sync
+
+Azure Change Tracking and Inventory and Best Practices Assessment require a Log Analytics workspace that might incur data ingestion costs. While the configuration of Azure Site Recovery is included as a benefit, customers incur costs for the Azure Site Recovery service itself, including any storage, compute, and networking costs associated with the service.
+
+To be exempt from billing for these services, customers need to explicitly attest for their Azure Arc-enabled servers or enroll in Windows Server pay-as-you-go. Eligibility isn't inferred directly from the enablement to Azure Arc or from the licensing status for Azure Arc-enabled SQL Server instances connected to an Arc-enabled server.
+
+Customer invoices reflect both the complementary benefits included and the enrollment in these benefits through attestation or through Windows Server pay-as-you-go.
+
+Customers that aren't attesting or enrolled through Windows Server pay-as-you-go can purchase Azure Update Manager, Azure Change Tracking and Inventory, and Azure Machine Configuration for their Azure Arc-enabled servers. The other services aren't available through Azure Arc for non-SA and non-pay-as-you-go customers.
+
+Note
+
+[Windows Server hotpatching](/en-us/windows-server/get-started/enable-hotpatch-azure-arc-enabled-servers) is another service powered by Azure Arc. It is not subject to license and billing requirements listed in this article. Instead, Hotpatch is available to all customers running Windows Server 2025 when they Arc-enable their servers.
+
+## Requirements
+
+- Agent version: Connected Machine Agent version 1.47 or higher.
+- Operating systems: The Azure Arc-enabled server's operating system must be Windows Server 2012 or higher, with support for both Standard and Datacenter editions.
+- Networking: Supported connectivity methods include public endpoint, proxy, Azure Arc Gateway, and private endpoint. You don't need to allow any additional endpoints.
+- Licensing: The Azure Arc-enabled server must be officially licensed through a valid licensing channel. Unlicensed servers aren't eligible for these benefits. Azure Arc-enabled servers enrolled in Windows Server pay-as-you-go are automatically activated for these benefits.
+- Connectivity: The Azure Arc-enabled server must be *Connected* for enrollment. Disconnected and expired servers aren't eligible. Usage of the included benefits requires connectivity.
+- Regions: Activation is available in all regions where Azure Arc-enabled servers has regional availability except for US Gov Virginia, US Gov Arizona, China North 2, China North 3, and China East 2.
+- Environments: Supported environments include Hyper-V, VMware, SCVMM, Stack HCI, AVS, and bare-metal where servers are connected to Azure Arc.
+- Modes: Customers can use Monitor mode and extension allow lists or block lists with their attestation to Azure Arc-enabled servers.
+
+## Enrollment
+
+You can enroll in Windows Server Management enabled by Azure Arc through the Azure portal or by using PowerShell.
+
+# [Portal](#tab/portal)
+1. From your browser, sign in to the [Azure portal](https://portal.azure.com/), and then go to the **Azure Arc** page.
+2. In the service menu, under **Licenses**, select **Azure Benefits - Windows Server**.
+3. Select the Azure Arc-enabled servers that are eligible for enrollment in benefits and select **Activate benefits**.
+
+    [![Screenshot of Azure portal showing Windows Server benefits and licenses with benefits pop up.](media/windows-server-management-overview/windows-server-benefits.png)](media/windows-server-management-overview/windows-server-benefits.png#lightbox)
+4. Review the terms and check the checkbox to make the attestation.
+5. Select **Activate** to activate Azure benefits for the selected Azure Arc-enabled servers.
+
+Within ten minutes, the **Benefits** status for the eligible Azure Arc-enabled servers that you activated will change to **Activated**.
+
+# [PowerShell](#tab/powershell)
+Use the following PowerShell script for attestation at scale of Azure Arc-enabled servers to enroll in Windows Server Management enabled by Azure Arc. Be sure to replace the variables in the script with your values before running it.
+
+```powershell
+$subscriptionId    = '' #Your subscription id 
+$resourceGroupName = '' # your Resource Group 
+$machineName       = '' # Arc resource name 
+$location = "" # The region where the test machine is arc enabled. 
+
+$account       = Connect-AzAccount 
+$context       = Set-azContext -Subscription $subscriptionId 
+$profile       = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile 
+$profileClient = [Microsoft.Azure.Commands.ResourceManager.Common.rmProfileClient]::new( $profile ) 
+$token         = $profileClient.AcquireAccessToken($context.Subscription.TenantId) 
+$header = @{ 
+   'Content-Type'='application/json' 
+   'Authorization'='Bearer ' + $token.AccessToken 
+} 
+
+$uri = [System.Uri]::new( "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.HybridCompute/machines/$machineName/licenseProfiles/default?api-version=2023-10-03-preview" ) 
+$contentType = "application/json"  
+$data = @{         
+    location = $location; 
+    properties = @{ 
+        softwareAssurance = @{ 
+            softwareAssuranceCustomer= $true; 
+        }; 
+    }; 
+}; 
+$json = $data | ConvertTo-Json; 
+$response = Invoke-RestMethod -Method PUT -Uri $uri.AbsoluteUri -ContentType $contentType -Headers $header -Body $json; 
+$response.properties
+```
+
+---
+
+### Verify
+
+After enrollment, use [Azure Resource Graph Explorer](https://ms.portal.azure.com/#servicemenu/Microsoft_Azure_Resources/ResourceManager/resourcegraphexplorer) to verify Software Assurance attestation across your Azure Arc-enabled Windows servers. Select the subscriptions you want to check, and run the following query:
+
+```kusto
+Resources
+| where type =~ 'microsoft.hybridcompute/machines'
+| where properties.osType =~ 'Windows'
+| extend softwareAssurance = tobool(properties.licenseProfile.softwareAssurance.softwareAssuranceCustomer)
+| project name, resourceGroup, subscriptionId,
+    status = tostring(properties.status),
+    softwareAssuranceCustomer = tostring(softwareAssurance)
+| order by name asc
+```
+
+The `softwareAssuranceCustomer` column shows `"true"` for servers with Software Assurance attestation. A value of `"false"` or an empty string doesn't confirm attestation. To show only attested servers, add `| where softwareAssuranceCustomer == "true"` after the `project` operator and before the `order by` operator.

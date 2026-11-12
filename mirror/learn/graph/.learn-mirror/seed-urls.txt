@@ -114,6 +114,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/security-casemanagement-ca
 https://learn.microsoft.com/en-us/graph/api/resources/security-casemanagement-comment
 https://learn.microsoft.com/en-us/graph/api/resources/security-casemanagement-slapolicydefinition
 https://learn.microsoft.com/en-us/graph/api/resources/security-casemanagementroot
+https://learn.microsoft.com/en-us/graph/api/resources/security-contentmanagement-contentmanagementrepository
 https://learn.microsoft.com/en-us/graph/api/resources/security-detectionaction
 https://learn.microsoft.com/en-us/graph/api/resources/security-detectionrule
 https://learn.microsoft.com/en-us/graph/api/resources/security-ediscoveryHoldPolicy

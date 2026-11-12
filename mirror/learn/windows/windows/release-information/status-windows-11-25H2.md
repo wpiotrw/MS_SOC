@@ -21,7 +21,7 @@ ms.sitesec: library
 ms.localizationpriority: medium
 ms.author: direek
 author: WindowsCommunications
-ms.date: 2026-11-10T00:00:00.0000000Z
+ms.date: 2026-11-11T00:00:00.0000000Z
 locale: en-us
 document_id: 23a22fef-6025-c344-f03d-d8b2b87db03f
 document_version_independent_id: 23a22fef-6025-c344-f03d-d8b2b87db03f
@@ -74,7 +74,8 @@ See open issues, content updated in the last 30 days, and information on [safegu
 
 | Summary | Originating update | Status | Last updated |
 | --- | --- | --- | --- |
-| **USB audio devices might fail to start or produce no sound**Some USB Audio Class 1.0 devices display Code 10 or fail in multichannel audio modes after installing the Sept. 8 update | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5132061](https://support.microsoft.com/help/5132061) | 2026-11-10 09:32 PT |
+| **SQL Server linked server connections might remain open**Connections to external databases such as Oracle and PostgreSQL can accumulate over time | OS Build 26200.9711[KB5127648](https://support.microsoft.com/help/5127648)2026-10-13 | Confirmed | 2026-11-11 15:12 PT |
+| **USB audio devices might fail to start or produce no sound**Some USB Audio Class 1.0 devices display Code 10 or fail in multichannel audio modes after installing the Sept. 8 update | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5132061](https://support.microsoft.com/help/5132061) | 2026-11-10 10:27 PT |
 | **Remote Desktop connections might fail for non-admin users with error 0xC000000D**This issue affects non-admin users connecting through Remote Desktop with Administrator protection enabled. | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Resolved[KB5127936](https://support.microsoft.com/help/5127936) | 2026-10-28 22:02 PT |
 | **Devices might experience a black screen or desktop loading issues after sign-in**Microsoft has received reports of this issue occurring in some virtual desktop environments. | OS Build 26200.9278[KB5120998](https://support.microsoft.com/help/5120998)2026-08-27 | Resolved[KB5127648](https://support.microsoft.com/help/5127648) | 2026-10-13 10:13 PT |
 | **Applications which require AC-3 audio decoding might close unexpectedly**This issue is more likely to occur in legacy applications, and unlikely for many modern applications. | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Resolved[KB5127648](https://support.microsoft.com/help/5127648) | 2026-10-13 10:13 PT |
@@ -83,6 +84,29 @@ See open issues, content updated in the last 30 days, and information on [safegu
 ## Issue details
 
 ### November 2026
+
+#### SQL Server linked server connections might remain open
+
+| **Status** | **Originating update** | **History** |
+| --- | --- | --- |
+ Confirmed | OS Build 26200.9711[KB5127648](https://support.microsoft.com/help/5127648)2026-10-13 | Last updated: 2026-11-11, 15:12 PTOpened: 2026-11-11, 15:11 PT |
+
+After Windows updates released October 13, 2026 ([KB5127648](https://support.microsoft.com/help/5127648)), and later are installed on server devices, connections created by SQL Server linked server queries might remain open after the queries complete. As additional queries are performed, connections to external databases can accumulate instead of closing as expected. This can slow or degrade server performance after prolonged run time.
+
+This issue affects SQL Server linked server queries that use OLE DB providers to connect to external databases. Oracle and PostgreSQL connections are among those known to be affected. In affected environments, administrators might observe an increasing number of open connections to external databases, even when the associated SQL Server linked server queries are no longer running.
+
+If idle connections can be identified, it is possible to manually close them in order to temporarily relieve server load. It is also possible to temporarily restore system stability by restarting the SQL service. However, these steps can also interrupt active queries or transactions, and the problem can resurface again after sufficient operation time.
+
+**Workaround:** A mitigation is available for affected enterprise devices. To apply this mitigation in your organization, contact [Microsoft Support for business](https://support.microsoft.com/contactus).
+
+**Next steps**: We will address this issue with an out-of-band update that will be released in the next few days. We will update this documentation once the update is released.
+
+**Affected platforms:**
+
+- ​Client: Windows 11, version 26H1; Windows 11, version 25H2; Windows 11, version 24H2; Windows 11, version 23H2; Windows 10, version 1809; Windows 10 Enterprise LTSC 2019
+- ​Server: Windows Server 2025; Windows Server 2022; Windows Server, version 1809; Windows Server 2016; Windows Server 2012 R2; Windows Server 2012
+
+Back to top
 
 #### USB audio devices might fail to start or produce no sound
 

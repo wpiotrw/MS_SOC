@@ -55,6 +55,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-use-gitops
 https://learn.microsoft.com/en-us/azure/azure-arc/kuber…
 https://learn.microsoft.com/en-us/azure/azure-arc/ku…
 https://learn.microsoft.com/en-us/azure/azure-arc/manage-agent-proxy-settings
+https://learn.microsoft.com/en-us/azure/azure-arc/multicloud-connector/add-public-cloud
 https://learn.microsoft.com/en-us/azure/azure-arc/multicloud-connector/multicloud-extended-security-updates
 https://learn.microsoft.com/en-us/azure/azure-arc/multicloud-connector/multicloud-extended-security-updates-sql-server
 https://learn.microsoft.com/en-us/azure/azure-arc/multicloud-connector/multicloud-lifecycle-management
@@ -68,7 +69,11 @@ https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes-archive
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/api-extended-security-updates
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/automatic-agent-upgrade
+https://learn.microsoft.com/en-us/azure/azure-arc/servers/azcmagent
+https://learn.microsoft.com/en-us/azure/azure-arc/servers/azcmagent-authentication
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/azcmagent-connect
+https://learn.microsoft.com/en-us/azure/azure-arc/servers/azcmagent-disconnect
+https://learn.microsoft.com/en-us/azure/azure-arc/servers/azcmagent-reconnect
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/billing-extended-security-updates
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/billing-windows-server-pay-go
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/cloud-native/licensing-cost-management
@@ -81,9 +86,11 @@ https://learn.microsoft.com/en-us/azure/azure-arc/servers/manage-agent-proxy-set
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/plan-at-scale-deployment
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/prepare-extended-security-updates
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/prerequisites
+https://learn.microsoft.com/en-us/azure/azure-arc/servers/resolve-azure-advisor-recommendations
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/security-identity-authorization
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/tpm-backed-identity
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/troubleshoot-extended-security-updates
+https://learn.microsoft.com/en-us/azure/azure-arc/servers/windows-server-management-overview
 https://learn.microsoft.com/en-us/azure/azure-arc/system-center-virtual-machine-manager/administer-arc-scvmm
 https://learn.microsoft.com/en-us/azure/azure-arc/system-center-virtual-machine-manager/create-virtual-machine
 https://learn.microsoft.com/en-us/azure/azure-arc/system-center-virtual-machine-manager/delete-virtual-machine
@@ -124,6 +131,12 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/benefits/promos/
 https://learn.microsoft.com/en-us/azure/cost-management-billing/browse-redeem-consumption-promos
 https://learn.microsoft.com/en-us/azure/cost-management-billing/change-credit-card
 https://learn.microsoft.com/en-us/azure/cost-management-billing/create-enterprise-subscription
+https://learn.microsoft.com/en-us/azure/cost-management-billing/dataset-schema/cost-usage-details-ea
+https://learn.microsoft.com/en-us/azure/cost-management-billing/dataset-schema/cost-usage-details-mca
+https://learn.microsoft.com/en-us/azure/cost-management-billing/dataset-schema/cost-usage-details-mca-partner
+https://learn.microsoft.com/en-us/azure/cost-management-billing/dataset-schema/cost-usage-details-mca-partner-subscription
+https://learn.microsoft.com/en-us/azure/cost-management-billing/dataset-schema/price-sheet-ea
+https://learn.microsoft.com/en-us/azure/cost-management-billing/dataset-schema/price-sheet-mca
 https://learn.microsoft.com/en-us/azure/cost-management-billing/direct-ea-administration
 https://learn.microsoft.com/en-us/azure/cost-management-billing/keep-billing-accounts-active
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage-azure-credits
@@ -665,6 +678,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-create
 https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-create-restore-points-powershell
 https://learn.microsoft.com/en-us/azure/virtual-machines/vm-applications
 https://learn.microsoft.com/en-us/azure/virtual-machines/vm-applications-create-app-scripts
+https://learn.microsoft.com/en-us/azure/virtual-machines/vm-naming-conventions
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-amd-driver-setup
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-driver-setup
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/tutorial-disaster-recovery

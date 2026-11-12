@@ -20,7 +20,7 @@ breadcrumb_path: /graph/ref-breadcrumb/toc.json
 ms.service: microsoft-graph
 ms.topic: reference
 description: Represents a folder in a user's mailbox, such as inbox, drafts, or other user created folders.
-ms.date: 2026-08-06T00:00:00.0000000Z
+ms.date: 2026-10-20T00:00:00.0000000Z
 ms.localizationpriority: medium
 doc_type: resourcePageType
 locale: en-us
@@ -85,6 +85,7 @@ This resource supports [delta query](/en-us/graph/delta-query-overview) to track
 | childFolderCount | Int32 | The number of immediate child folders in the current folder. |
 | displayName | String | The display name of the folder. |
 | id | String | The unique identifier for the folder. |
+| isHidden | Boolean | Indicates whether the folder is hidden. The default value is `false`. This property can be set only when you create the folder; it can't be updated using PATCH. By default, [listing folders](../mailbox-list-folders) or [listing child folders](../mailboxfolder-list-childfolders) returns only folders that aren't hidden. To include hidden folders in the response, use the optional query parameter `includeHiddenFolders=true`. The response includes both hidden and nonhidden folders. If you use `$select` to limit the returned properties, include **isHidden** in the selection. |
 | parentFolderId | String | The unique identifier for the parent folder of this folder. |
 | totalItemCount | Int32 | The number of items in the folder. |
 | type | String | Describes the folder class type. |
@@ -109,6 +110,7 @@ The following JSON representation shows the resource type.
   "displayName": "String",
   "childFolderCount": "Int32",
   "id": "String (identifier)",
+  "isHidden": "Boolean",
   "parentFolderId": "String",
   "totalItemCount": "Int32",
   "wellKnownName": "String",

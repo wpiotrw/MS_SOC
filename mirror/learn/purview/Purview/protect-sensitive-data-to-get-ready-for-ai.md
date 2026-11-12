@@ -52,13 +52,13 @@ AI expands how organizations discover, access, summarize, and act on their dataâ
 
 Organizations can accelerate AI adoption by treating data readiness as a continuous operating model rather than a one-time deployment checkpoint. This approach helps ensure that the right people, apps, and agents can access the right data with the right permissions and protections as data, access, and AI usage evolve. Extending the same trusted foundation across supported human activity, AI apps, agents, and models enables organizations to:
 
-- Understanding where your sensitive data lives.
-- Gaining visibility into what data AI can access across apps, browsers, on-premises, file shares and other endpoints.
-- Scaling classification, policy creation, investigations, and compliance reporting to AI usage.
-- Ensuring the right permissions and controls are in place to help prevent oversharing.
-- Maintaining consistent protections as data grows and spreads across systems.
-- Proactively identifying and remediating issues before they become data security and/or compliance incidents.
-- Providing measurable proof of data protection to regulators, auditors, executives, and/or customers.
+- Understand where your sensitive data lives.
+- Gain visibility into what data AI can access across apps, browsers, on-premises, file shares and other endpoints.
+- Scale classification, policy creation, investigations, and compliance reporting to AI usage.
+- Ensure the right permissions and controls are in place to help prevent oversharing.
+- Maintain consistent protections as data grows and spreads across systems.
+- Proactively identify and remediate issues before they become data security and/or compliance incidents.
+- Provide measurable proof of data protection to regulators, auditors, executives, and/or customers.
 
 ## Solution
 
@@ -113,3 +113,9 @@ As AI use expands, organizations can strengthen confidence by combining preventi
 - Scale AI adoption with confidence by establishing protection for sensitive information as a foundation and continuously addressing data exposure as usage expands.
 - Maintain consistent protection at scale so teams can collaborate, adopt AI, an expand data use while policies continue to follow sensitive information across supported systems.
 - Increase executive confidence with demonstratable policy effectiveness and audit readiness across your organization.
+
+## Summary
+
+The recommended actions can help you secure your data, which is foundational to confidently adopting AI. Microsoft Purview can help you understand your data, protect what is sensitive, investigate data risks, and govern AI interactions.
+
+**By prioritizing data readiness, you can help identify and address protection gaps before AI apps and agents put your data to work.**

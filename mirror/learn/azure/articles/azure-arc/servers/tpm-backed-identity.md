@@ -23,7 +23,7 @@ ms.service: azure-arc
 ms.subservice: servers-azure-arc
 description: Learn how to connect Azure Arc-enabled servers using TPM-backed identity.
 ms.topic: how-to
-ms.date: 2026-10-18T00:00:00.0000000Z
+ms.date: 2026-11-09T00:00:00.0000000Z
 ai-usage: ai-generated
 locale: en-us
 document_id: 541b9988-f159-c236-4142-fdaec34a7bfe
@@ -61,6 +61,7 @@ In this article, you learn how to:
 - Enable TPM or vTPM when required.
 - Connect one or more machines to Azure Arc by using TPM-backed identity.
 - Verify that TPM-backed identity is enabled.
+- Recover an existing TPM-backed connection.
 
 ## Supported scenarios
 
@@ -247,3 +248,7 @@ azcmagent show
 ```
 
 ---
+
+## Recover an existing TPM-backed connection
+
+Starting with agent version 1.70, [`azcmagent reconnect`](azcmagent-reconnect) (preview) reattests the server's TPM credentials and rebuilds its local managed identity credentials without changing Azure identities or their role assignments.

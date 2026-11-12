@@ -91,6 +91,10 @@ Features in *preview* status are subject to change without notice, and might not
 
 - Removed support for the `$skip` query parameter in the [case management APIs](/en-us/graph/api/resources/security-casemanagementroot?view=graph-rest-beta&amp;preserve-view=true). Update affected requests to omit `$skip`.
 
+### Security | Content management
+
+- Added support for connecting and managing source-control repositories that deploy security content as code by using the [contentManagementRepository](/en-us/graph/api/resources/security-contentmanagement-contentmanagementrepository?view=graph-rest-beta&amp;preserve-view=true) resource.
+
 ### Security | Data security and compliance
 
 Added the [classificationGradingJobResponse](/en-us/graph/api/resources/classificationgradingjobresponse?view=graph-rest-beta&amp;preserve-view=true) resource type and [classificationGradingContentLocation](/en-us/graph/api/resources/classificationgradingcontentlocation?view=graph-rest-beta&amp;preserve-view=true) complex type to return matched text and surrounding context through the optional **contextText** property in classification grading results.

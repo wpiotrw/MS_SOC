@@ -23,7 +23,8 @@ ms.service: azure-arc
 ms.subservice: servers-azure-arc
 description: Identity and authorization for Azure Arc-enabled servers.
 ms.topic: concept-article
-ms.date: 2025-03-06T00:00:00.0000000Z
+ms.date: 2026-11-09T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: 913a787c-b294-91aa-494e-6a5fa80c7d26
 document_version_independent_id: 6e8ac557-99e4-61b9-e02e-e7dbff01bd6e
@@ -40,11 +41,11 @@ source_path: articles/azure-arc/servers/security-identity-authorization.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/beac614b-f66d-40ed-a947-3996de709333
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9da05372-4706-43ec-a899-f436adab380d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
 platformId: 089ae8c6-7b27-18bc-e96b-cbb50974f547
 ---
 
@@ -58,7 +59,7 @@ Every Azure Arc-enabled server has a system-assigned Microsoft Entra ID managed 
 
 Each Microsoft Entra ID directory has a finite limit for the number of objects it can store. A managed identity counts as one object in the directory. If you're planning a large deployment of Azure Arc-enabled servers, check the available quota in your Microsoft Entra ID directory first, and submit a support request to increase your quota if needed. You can see the available and used quota in the [List Organizations API](/en-us/graph/api/intune-onboarding-organization-list) response under the `directorySizeLimit` section.
 
-The managed identity is fully managed by the agent. As long as the agent stays connected to Azure, it handles rotating the credential automatically. The certificate backing the managed identity is valid for 90 days. The agent attempts to renew the certificate when it has 45 or fewer days of validity remaining. If the agent is offline long enough to expire, the agent becomes "expired" as well and won't connect to Azure. In this situation, automatic reconnection isn't possible and requires you to disconnect and reconnect the agent to Azure using an onboarding credential.
+The agent fully manages the managed identity. As long as the agent stays connected to Azure, it handles rotating the credential automatically. The certificate backing the managed identity is valid for 90 days. The agent attempts to renew the certificate when it has 45 or fewer days of validity remaining. If the agent is offline long enough for the certificate to expire, the agent becomes **Expired** and can't automatically restore its connection. For recovery options, see [Re-onboard expired Arc-enabled server](resolve-azure-advisor-recommendations#re-onboard-expired-arc-enabled-server).
 
 The managed identity certificate is stored on the local disk of the system. It’s important that you protect this file, because anyone in possession of this certificate can request a token from Microsoft Entra ID. The agent stores the certificate in `C:\ProgramData\AzureConnectedMachineAgent\Certs\` on Windows and `/var/opt/azcmagent/certs` on Linux. The agent automatically applies an access control list to this directory, restricting access to local administrators and the "himds" account. Don't modify access to the certificate files or modify the certificates on your own. If you think the credential for a system-assigned managed identity has been compromised, [disconnect](/en-us/azure/azure-arc/servers/azcmagent-disconnect) the agent from Azure and [connect](/en-us/azure/azure-arc/servers/azcmagent-connect) it again to generate a new identity and credential. Disconnecting the agent removes the resource in Azure, including its managed identity.
 

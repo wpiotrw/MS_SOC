@@ -53,6 +53,12 @@ These release notes provide information about security fixes that are included i
 
 Microsoft is aware of the recent exploits existing in the wild. We are actively working on releasing a security fix.
 
+## November 11, 2026
+
+Microsoft released the latest **Microsoft Edge for Android (Version 157.0.4341.53)** which incorporates the latest Security Updates of the Chromium project. The Chromium team reported that [CVE-2026-125350](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-125350) has an exploit in the wild, and this update contains a fix for it. For more information, see the [Security Update Guide](https://msrc.microsoft.com/update-guide).
+
+**Note:** CVE's will be added as soon as available.
+
 ## November 09, 2026
 
 Microsoft released the latest **Microsoft Edge for Android and iOS (Version 157.0.4341.42)** which incorporates the latest Security Updates of the Chromium project. For more information, see the [Security Update Guide](https://msrc.microsoft.com/update-guide).

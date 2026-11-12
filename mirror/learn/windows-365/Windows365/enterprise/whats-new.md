@@ -58,6 +58,14 @@ For information about Windows App and its features, see [What's new in Windows A
 
 For more information about public preview items, see [Public preview in Windows 365](../public-preview).
 
+## Week of November 9, 2026
+
+### Admin Alerting support for Windows 365 Government
+
+Windows 365 Admin Alerting is now generally available for Windows 365 Government in GCC and GCC High environments. IT administrators can use Admin Alerting to monitor Cloud PC conditions and receive notifications when configured alert conditions are triggered.
+
+To learn more, see [Alerts in Windows 365](/en-us/windows-365/enterprise/alerts).
+
 ## Week of November 2, 2026
 
 ### Auto-deprovisioning setting for Windows 365 Reserve Cloud PCs (Public Preview)

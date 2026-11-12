@@ -83,11 +83,13 @@ Alternatively, you can assign a custom role that includes the permissions of the
 
 When you resize a Microsoft Entra hybrid join bring-your-own-network Cloud PC, a second IP address must be available in the subnet for the Cloud PC to be resized.
 
-During the resizing operation, a second IP address is used when moving to the new size. This precaution makes sure that the Cloud PC can be rolled back to the original should an issue occur.
+During the resizing operation, a second IP address is used when moving to the new size. This precaution makes sure that the Cloud PC can be rolled back to the original should an issue occur. The second address is released a few minutes after the resize completes.
+
+If you use Windows 365 Disaster Recovery Plus with an Azure network connection as the backup network, the resize also rebuilds the Cloud PC’s backup, which needs a free IP address in the backup network’s subnet.
 
 To account for this precaution, you can:
 
-- Make sure that adequate IP addresses are available in the vNET for all Cloud PCs to be resized, or
+- Make sure that adequate IP addresses are available in the vNET for all Cloud PCs to be resized, including the backup network’s subnet if you use Disaster Recovery Plus, or
 - Stagger your resize operations to make sure that the address scope is maintained.
 
 If inadequate addresses are available, resize failures can occur.
