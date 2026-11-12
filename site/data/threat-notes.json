@@ -2156,6 +2156,130 @@
      "date": "2026-11-08"
     }
    ]
+  },
+  {
+   "id": "gsocket-linux-web-c2-2026-11",
+   "title": "GSocket (gs-netcat) as C2 on compromised Linux web servers: relay traffic through the Global Socket Relay Network leaves no attacker IP to block",
+   "match": [
+    "GSocket",
+    "gs-netcat"
+   ],
+   "areas": [
+    "Vulnerabilities"
+   ],
+   "status": "active",
+   "updated": "2026-11-12",
+   "by": "morning routine",
+   "summary": "Microsoft Threat Intelligence published on 11 November 2026 that multiple unrelated threat actors use the open-source GSocket client (gs-netcat) as command and control on Linux servers. Attackers gain remote code execution through an internet-facing web application (PHP and cPanel hosting, Apache, Java and Node web apps), fetch a script with curl, stage the client in /dev/shm and disguise it with kernel-thread-like names. Persistence is layered across cron, systemd units, shell profiles and watchdogs. Both the host and the operator connect outbound to the public Global Socket Relay Network, so there is no attacker-owned IP or domain to block. Defender for Endpoint detections rose 356.2% over the March 2026 baseline across March to August 2026; in a few incidents attackers tried CVE-2026-43284 (Dirty Frag) for root.",
+   "timeline": [
+    {
+     "date": "2026-03-01",
+     "text": "Start of the Defender for Endpoint telemetry period Microsoft analysed (March to August 2026); GSocket detections later rose 356.2% over the March baseline.",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/"
+    },
+    {
+     "date": "2026-11-11",
+     "text": "Microsoft Security Blog publishes the analysis, IOCs, detection names and advanced hunting queries.",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/"
+    }
+   ],
+   "rootCause": "An unpatched internet-facing web application allows remote code execution, and unrestricted outbound traffic lets the installed GSocket client reach the public relay network.",
+   "attacker": [
+    "Exploits an internet-facing web application for remote code execution and runs a remote script fetched with curl.",
+    "Profiles the host, picks the GSocket client for its architecture (x86-64 or AArch64) and stages it under /dev/shm/.gs-0/.",
+    "Masquerades the process with kernel-thread-like names such as [kaluad] and removes staging files.",
+    "Persists through cron, systemd units with service-like names (systemd-remount-d, defunct.service), shell profiles and watchdogs.",
+    "Delivers the shared secret by stdout, a temporary file, Telegram (GS_TG_TOKEN, GS_TG_CHATID), Discord or a webhook.",
+    "In a few incidents attempts CVE-2026-43284 (Dirty Frag) to escalate from the web-service account to root."
+   ],
+   "iocs": [
+    "gsocket[.]io (distribution, not attacker C2)",
+    "cdn.gsocket[.]io (distribution)",
+    "gsgg.b-cdn[.]net (distribution)",
+    "hxxps://gsocket[.]io/y",
+    "hxxps://gsgg.b-cdn[.]net/bin/gs-netcat_mini-linux-x86_64",
+    "hxxps://cdn.gsocket[.]io/bin/gs-netcat_mini-linux-aarch64",
+    "/dev/shm/.gs-0/gs-netcat_mini-linux-x86_64",
+    "/dev/shm/.gs-0/gs-netcat_mini-linux-aarch64",
+    "/tmp/systemd-remount-d",
+    "/usr/bin/systemd-remount-d",
+    "/tmp/.gsn_ora",
+    "SHA256 d94f75a70b5cabaf786ac57177ed841732e62bdcc9a29e06e5b41d9be567bcfa (x86-64 payload)",
+    "SHA256 f95c4d029e6784e3849b4d1e2e2ae1a661187236ef7c5d487c71158a290a03b5 (AArch64 payload)",
+    "SHA256 55d141bb2f62c527c3fea3413b8429fed7d52633d0b123b5e611bfa42165229f (systemd-remount-d)",
+    "SHA256 12450bafc7a4398040e1ad3a16dbf4dbc79b6a8f83ef306c4f0f73f59886f06c (/tmp/.gsn_ora)"
+   ],
+   "remediation": [
+    {
+     "text": "On an affected host remove the GSocket client, its persistence (cron entries, systemd units, shell profile lines, watchdogs) and staged files, then verify outbound relay connections have stopped.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+     "phase": "eradicate"
+    },
+    {
+     "text": "Patch and harden internet-facing web applications, CMS platforms, plugins and application servers; remove unused components and restrict upload and admin paths.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+     "phase": "harden"
+    },
+    {
+     "text": "Apply deny-by-default egress on internet-facing servers, allow only required destinations and monitor relay connections.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+     "phase": "harden"
+    },
+    {
+     "text": "Mount temporary and memory-backed directories as non-executable where feasible and alert on execution from hidden or world-writable paths.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+     "phase": "harden"
+    },
+    {
+     "text": "Prioritise local privilege-escalation patches (CVE-2026-43284) on internet-facing Linux servers.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+     "phase": "harden"
+    },
+    {
+     "text": "Enable Microsoft Defender for Endpoint on Linux with real-time and cloud-delivered protection and behaviour monitoring of web-service child processes.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+     "phase": "detect"
+    },
+    {
+     "text": "Run Microsoft's published advanced hunting queries for GSocket process activity, installer downloads and the staging paths across every onboarded Linux server for the last 30 days, and isolate any match before removing the client.",
+     "from": "ours",
+     "phase": "investigate"
+    },
+    {
+     "text": "Add a custom detection on DeviceProcessEvents for command lines containing gsocket.io, gs-netcat or GS_TG_TOKEN on Linux devices, so a new installation raises an incident rather than waiting for a hunt.",
+     "from": "ours",
+     "phase": "detect"
+    }
+   ],
+   "kql": [
+    {
+     "title": "Processes running from the GSocket staging path (Defender XDR advanced hunting)",
+     "query": "DeviceProcessEvents\n| where Timestamp > ago(30d)\n| where FolderPath startswith \"/dev/shm/.gs-\" or ProcessCommandLine has_any (\"gs-netcat\", \"gsocket.io\", \"GS_TG_TOKEN\")\n| project Timestamp, DeviceName, AccountName, FolderPath, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessCommandLine\n| order by Timestamp desc"
+    }
+   ],
+   "kqlPublished": [],
+   "kqlSearched": "2026-11-12",
+   "microsoft": [
+    {
+     "what": "Microsoft Threat Intelligence analysis with IOCs, Defender detection names and advanced hunting queries",
+     "title": "The global socket: how threat actors are weaponizing GSocket for stealthy C2",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+     "date": "2026-11-11"
+    }
+   ],
+   "links": [
+    {
+     "text": "Microsoft Security Blog: The global socket: how threat actors are weaponizing GSocket for stealthy C2",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+     "date": "2026-11-11"
+    }
+   ]
   }
  ]
 }
