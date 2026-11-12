@@ -1,0 +1,38 @@
+// title: Detection 3: Malicious Browser Extension Written to Profile Directory Outside Update Process
+// date: 2026-11-12
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: Detection Engineering Brief - Thursday, November 12, 2026
+// source: https://devsecopsdadattack.com/2026-11-12-detection-engineering-brief-thursday-november-12-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceFileEvents
+| where TimeGenerated >= ago(7d)
+| where ActionType in ("FileCreated", "FileModified")
+| where (
+    FileName in~ ("manifest.json", "background.js", "content.js")
+    or FolderPath contains "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\"
+    or FolderPath contains "\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default\\Extensions\\"
+    or FolderPath contains "\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\"
+)
+| where InitiatingProcessFileName !in~ (
+    "chrome.exe",
+    "msedge.exe",
+    "firefox.exe",
+    "GoogleUpdate.exe",
+    "MicrosoftEdgeUpdate.exe",
+    "setup.exe",
+    "msiexec.exe"
+)
+| project
+    TimeGenerated,
+    DeviceName,
+    AccountName,
+    FolderPath,
+    FileName,
+    SHA256,
+    InitiatingProcessFileName,
+    InitiatingProcessCommandLine,
+    ActionType
+| sort by TimeGenerated desc

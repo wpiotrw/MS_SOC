@@ -1,0 +1,49 @@
+// title: Detection 2: GSocket Outbound C2 Connection Persisting After Patch Window
+// date: 2026-11-12
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Thursday, November 12, 2026
+// source: https://devsecopsdadattack.com/2026-11-12-detection-engineering-brief-thursday-november-12-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 7d;
+let gsocket_names = dynamic(["gs-netcat", "gsocket", "gs-sftp", "gs-mount"]);
+let gsocket_exec = DeviceProcessEvents
+| where TimeGenerated >= ago(lookback)
+| where FileName in~ (gsocket_names)
+    or ProcessCommandLine has_any (gsocket_names)
+| summarize
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated),
+    ExecCount = count(),
+    DistinctDays = dcount(bin(TimeGenerated, 1d)),
+    AccountName = any(AccountName)
+    by DeviceName, FileName, ProcessCommandLine;
+let gsocket_net = DeviceNetworkEvents
+| where TimeGenerated >= ago(lookback)
+| where InitiatingProcessFileName in~ (gsocket_names)
+    or InitiatingProcessCommandLine has_any (gsocket_names)
+| summarize
+    NetCount = count(),
+    DistinctRemoteIPs = dcount(RemoteIP),
+    SampleRemoteIPs = make_set(RemoteIP, 5)
+    by DeviceName, InitiatingProcessFileName;
+gsocket_exec
+| join kind=inner gsocket_net on DeviceName
+| extend DaySpan = datetime_diff('day', LastSeen, FirstSeen)
+| where ExecCount > 1 or DistinctDays > 1
+| project
+    DeviceName,
+    FileName,
+    ProcessCommandLine,
+    AccountName,
+    FirstSeen,
+    LastSeen,
+    DaySpan,
+    DistinctDays,
+    ExecCount,
+    NetCount,
+    DistinctRemoteIPs,
+    SampleRemoteIPs
+| sort by DistinctDays desc, ExecCount desc

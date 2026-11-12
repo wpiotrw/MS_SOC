@@ -14,6 +14,82 @@
   "incident": "gsocket-linux-web-c2-2026-11"
  },
  {
+  "file": "articles/2026-11-12-detection-5-sn00py-ransomware-mass-file-encryption-activity.kql",
+  "title": "Detection 5: Sn00py Ransomware Mass File Encryption Activity",
+  "date": "2026-11-12",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 12, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-12-detection-engineering-brief-thursday-november-12-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-detection-engineering-brief-thursday-november-12-2026/"
+ },
+ {
+  "file": "articles/2026-11-12-detection-4-gpustack-authentication-bypass-exploit-attempt-c.kql",
+  "title": "Detection 4: GPUStack Authentication Bypass Exploit Attempt (CVE-2026-102895)",
+  "date": "2026-11-12",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 12, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-12-detection-engineering-brief-thursday-november-12-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-detection-engineering-brief-thursday-november-12-2026/"
+ },
+ {
+  "file": "articles/2026-11-12-detection-3-malicious-browser-extension-written-to-profile.kql",
+  "title": "Detection 3: Malicious Browser Extension Written to Profile Directory Outside Update Process",
+  "date": "2026-11-12",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 12, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-12-detection-engineering-brief-thursday-november-12-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-detection-engineering-brief-thursday-november-12-2026/"
+ },
+ {
+  "file": "articles/2026-11-12-detection-2-gsocket-outbound-c2-connection-persisting-after.kql",
+  "title": "Detection 2: GSocket Outbound C2 Connection Persisting After Patch Window",
+  "date": "2026-11-12",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 12, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-12-detection-engineering-brief-thursday-november-12-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-detection-engineering-brief-thursday-november-12-2026/",
+  "incident": "gsocket-linux-web-c2-2026-11"
+ },
+ {
+  "file": "articles/2026-11-12-detection-1-gsocket-binary-execution-on-linux-host.kql",
+  "title": "Detection 1: GSocket Binary Execution on Linux Host",
+  "date": "2026-11-12",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 12, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-12-detection-engineering-brief-thursday-november-12-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-detection-engineering-brief-thursday-november-12-2026/",
+  "incident": "gsocket-linux-web-c2-2026-11"
+ },
+ {
   "file": "articles/2026-11-11-staging-and-persistence-artifacts.kql",
   "title": "Staging and persistence artifacts",
   "date": "2026-11-11",

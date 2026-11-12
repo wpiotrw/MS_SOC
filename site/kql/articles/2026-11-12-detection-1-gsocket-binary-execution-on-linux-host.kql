@@ -1,0 +1,51 @@
+// title: Detection 1: GSocket Binary Execution on Linux Host
+// date: 2026-11-12
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents, Syslog
+// purpose: From the article: Detection Engineering Brief - Thursday, November 12, 2026
+// source: https://devsecopsdadattack.com/2026-11-12-detection-engineering-brief-thursday-november-12-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 1d;
+let gsocket_names = dynamic(["gs-netcat", "gsocket", "gs-sftp", "gs-mount"]);
+let gsocket_procs = DeviceProcessEvents
+| where TimeGenerated >= ago(lookback)
+| where FileName in~ (gsocket_names)
+    or ProcessCommandLine has_any (gsocket_names)
+| project DeviceName, ProcessTime = TimeGenerated, FileName, ProcessCommandLine, InitiatingProcessFileName, AccountName;
+let gsocket_net = DeviceNetworkEvents
+| where TimeGenerated >= ago(lookback)
+| where InitiatingProcessFileName in~ (gsocket_names)
+    or InitiatingProcessCommandLine has_any (gsocket_names)
+| project DeviceName, NetTime = TimeGenerated, RemoteIP, RemotePort, InitiatingProcessFileName;
+let mde_hits = gsocket_procs
+| join kind=inner gsocket_net on DeviceName
+| where NetTime >= ProcessTime and NetTime <= ProcessTime + 5m
+| project
+    Source = "MDE",
+    TimeGenerated = ProcessTime,
+    DeviceName,
+    FileName,
+    ProcessCommandLine,
+    InitiatingProcessFileName,
+    AccountName,
+    RemoteIP,
+    RemotePort;
+let syslog_hits = Syslog
+| where TimeGenerated >= ago(lookback)
+| where SyslogMessage has_any (gsocket_names)
+| project
+    Source = "Syslog",
+    TimeGenerated,
+    DeviceName = Computer,
+    FileName = "",
+    ProcessCommandLine = "",
+    InitiatingProcessFileName = "",
+    AccountName = "",
+    RemoteIP = "",
+    RemotePort = int(null),
+    SyslogMessage
+| extend RemotePort = toint(RemotePort);
+union mde_hits, syslog_hits
+| sort by TimeGenerated desc
