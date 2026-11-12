@@ -16631,7 +16631,8 @@ IdentityDirectoryEvents
     if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab")) setTimeout(boot, 160);
   }, true);
 })();</script>
-<script>/* ===========================================================================
+<script>
+/* ===========================================================================
    SCRIPT 17 — THE CATALOG SAYS HOW BIG IT IS, AND WHAT MOVED THIS WEEK
    (CLAUDE.md 5bc). ADDED, never a replacement: shell scripts 1-3 and added
    scripts 4-16 are untouched, byte for byte.
@@ -33288,9 +33289,11 @@ IdentityDirectoryEvents
    two items carried two of them. "News of the day" says what it is. The previous layout is one click away and is
    remembered per browser. Runs on the list's own child changes only (a few per load), never on the whole page. */
 (function () {
-  var KEY = "s5gl-prev";
-  function prev() { try { return localStorage.getItem(KEY) === "1"; } catch (e) { return false; } }
-  function setPrev(v) { try { if (v) localStorage.setItem(KEY, "1"); else localStorage.removeItem(KEY); } catch (e) {} }
+  /* §5go (12 XI 2026): owner - the grouped layout is unreadable; the numbered two-column layout (5 XI) is the default
+     again, the grouped one is opened by "Show the grouped layout" and remembered under its own key */
+  var KEY = "s5gl-grouped";
+  function prev() { try { return localStorage.getItem(KEY) !== "1"; } catch (e) { return true; } }
+  function setPrev(v) { try { if (v) localStorage.removeItem(KEY); else localStorage.setItem(KEY, "1"); } catch (e) {} }
   function mk(tag, cls, txt) { var x = document.createElement(tag); if (cls) x.className = cls; if (txt != null) x.textContent = txt; return x; }
   var DAY = 864e5, now = new Date(); now.setHours(0, 0, 0, 0);
   function due(li) {   /* nearest date shown in the item's pills, in days from today (999 = none) */
@@ -33422,6 +33425,7 @@ IdentityDirectoryEvents
   H.classList.toggle("s5gm-io", get());
   document.addEventListener("click", function (ev) { var h = ev.target.closest && ev.target.closest(".s5ft-intro > h3"); if (h) set(!H.classList.contains("s5gm-io")); else if (ev.target.closest && ev.target.closest('[id^="tabbtn-"]')) setTimeout(mark, 900); }, true);
   document.addEventListener("keydown", function (ev) { var h = ev.target.closest && ev.target.closest(".s5ft-intro > h3"); if (h && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); set(!H.classList.contains("s5gm-io")); } });
-})();</script>
+})();
+</script>
 </body>
 </html>
