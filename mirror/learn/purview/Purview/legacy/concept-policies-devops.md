@@ -13,7 +13,9 @@ ms.reviewer: vlrodrig
 ms.service: purview
 ms.subservice: purview-data-governance-classic
 ms.topic: concept-article
-ms.date: 2025-02-24T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 locale: en-us
 document_id: 43002407-1048-7d52-b846-ff317f5bac14
 document_version_independent_id: 43002407-1048-7d52-b846-ff317f5bac14
@@ -32,14 +34,18 @@ item_type: Content
 source_path: Purview/legacy/concept-policies-devops.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/cbe4ca68-43ac-4375-aba5-5945a6394c20
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ced846cc-6a3c-4c8f-9dfb-3de0e90e2742
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 61707078-fd56-f26c-85c7-298193a2bf9c
 ---
 
 # Microsoft Purview DevOps policies concepts | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Note
 

@@ -11,12 +11,12 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: sidontha
-ms.date: 2026-06-29T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
 ms.subservice: purview-data-governance
-ms.custom: msecd-doc-authoring-1015
+ms.custom: msecd-doc-authoring-1030
 ms.localizationpriority: medium
 ms.collection:
 - tier2
@@ -43,14 +43,20 @@ item_type: Content
 source_path: Purview/unified-catalog-disaster-recovery.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
 platformId: 33e15ad6-a188-1abf-6eef-508073fb8c9c
 ---
 
 # Disaster Recovery for Microsoft Purview Unified Catalog | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article provides guidance on backup and recovery strategy when using [Microsoft Purview Unified Catalog](unified-catalog) in production deployment. The scope of this article is to cover manual business continuity and disaster recovery (BCDR) methods that you can set up using APIs.
 

@@ -13,8 +13,9 @@ ms.reviewer: shjia
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: tutorial
-ms.date: 2024-06-06T00:00:00.0000000Z
-ms.custom: template-how-to, ignite-fall-2021
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: template-how-to, ignite-fall-2021, msecd-doc-authoring-1030
 locale: en-us
 document_id: 308ca7da-7174-f911-fa30-5f1322a56a40
 document_version_independent_id: 308ca7da-7174-f911-fa30-5f1322a56a40
@@ -34,15 +35,17 @@ source_path: Purview/register-scan-azure-sql-managed-instance.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/768b4698-4866-4946-8059-08ef5f568fcb
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 - https://authoring-docs-microsoft.poolparty.biz/devrel/48a90357-592c-4146-a92b-4c2dcc560cbf
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 04c22821-9259-ff1e-40ce-fd117638502f
 ---
 
 # Connect to and manage Azure SQL Managed Instance | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register and Azure SQL Managed Instance, as well as how to authenticate and interact with the Azure SQL Managed Instance in Microsoft Purview. For more information about Microsoft Purview, read the [introductory article](purview).
 

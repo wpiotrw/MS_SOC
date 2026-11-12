@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2024-09-01T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: Get step-by-step guidance on how to configure a data quality scan for a Microsoft Fabric shortcut data asset in Microsoft Purview Unified Catalog.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: f5f8f8e7-3e57-0358-09b9-5769b09d9d26
 document_version_independent_id: f5f8f8e7-3e57-0358-09b9-5769b09d9d26
@@ -39,17 +40,19 @@ monikers: []
 item_type: Content
 source_path: Purview/unified-catalog-data-quality-fabric-shortcut-databases.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/8f37329d-5c2f-4d50-b9b8-aa5cf54dbffe
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/e7cd09c2-9e9a-4f0d-b160-c15783f45b1f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/e13db295-3de6-46d5-bcdf-8785a76e3843
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1d337399-0ca4-4b4c-acef-8df37820e018
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 platformId: d2e909f2-fc12-1235-04c0-1de696cc4132
 ---
 
 # Set Up Data Quality for Fabric Shortcut Databases in Unified Catalog | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Shortcuts are objects in Microsoft OneLake that point to other storage locations. The location can be internal or external to OneLake. The shortcut target path is the location the shortcut points to. The shortcut path is where the shortcut appears. Shortcuts appear as folders in OneLake, and any workload or service with access to OneLake can use them.
 

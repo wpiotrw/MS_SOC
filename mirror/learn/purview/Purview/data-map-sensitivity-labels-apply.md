@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: blessonj
-ms.date: 2025-07-09T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: Learn how to create sensitivity labels and automatically apply them to your data during a scan in Microsoft Purview Data Map.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: b8f2c29a-9437-82dd-6789-56787c3160d7
 document_version_independent_id: b8f2c29a-9437-82dd-6789-56787c3160d7
@@ -40,14 +41,16 @@ item_type: Content
 source_path: Purview/data-map-sensitivity-labels-apply.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
 platformId: 5b02e8ca-ab25-dd8d-61b1-33066a5a8254
 ---
 
 # Apply sensitivity labels to your data in Microsoft Purview Data Map (preview) | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Important
 

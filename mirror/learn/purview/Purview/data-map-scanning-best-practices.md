@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: blessonj
-ms.date: 2023-11-02T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: Get best practices for registering and scanning various data sources in Microsoft Purview Data Map.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: e1fdf038-ec73-eafd-9899-ec2646b84b17
 document_version_independent_id: e1fdf038-ec73-eafd-9899-ec2646b84b17
@@ -46,6 +47,10 @@ platformId: 1f7ad89e-c1c7-1443-4c02-3b4094294eaa
 ---
 
 # Best practices for scanning data sources in Microsoft Purview Data Map | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Microsoft Purview Data Map supports automated scanning of on-premises, multicloud, and software as a service (SaaS) data sources.
 

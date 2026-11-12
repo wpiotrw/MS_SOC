@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2025-04-15T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -45,6 +47,10 @@ platformId: eea8be9d-626e-9f17-7260-ecb1d6bed995
 ---
 
 # Classic Data Stewardship Report in Unified Catalog | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 As described in the [insights concepts](concept-insights), the data stewardship report is part of the "Health" section of Data Estate Insights. This report offers a one-stop shop experience for data, governance, and quality focused users like chief data officers and data stewards to get actionable insights into key areas of gap in their data estate.
 

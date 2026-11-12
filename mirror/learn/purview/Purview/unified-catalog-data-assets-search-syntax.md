@@ -11,7 +11,7 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: blessonj
-ms.date: 2026-04-24T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,6 +21,7 @@ search.appverid:
 - MET150
 - MOE150
 ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 description: Learn about keyword search syntax, operators, and field-scoped search for finding data assets in Microsoft Purview Unified Catalog.
 locale: en-us
 document_id: 6cb28a78-a5e1-762a-82d5-ffc5c23bd5af
@@ -46,6 +47,10 @@ platformId: 1890408a-2675-8060-ce4b-1f4d7df9890e
 ---
 
 # Keyword search syntax | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 When you search for data assets, you can use keywords, operators, and field-scoped queries to find exactly the data you need. This article describes the supported query syntax so you can build precise, effective searches.
 

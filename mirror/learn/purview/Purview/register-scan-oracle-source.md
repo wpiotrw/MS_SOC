@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: pragyarathi
-ms.date: 2026-04-20T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -45,6 +47,10 @@ platformId: 134f8513-163e-e4da-22bb-94bc65b2553c
 ---
 
 # Connect to and manage Oracle in Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register Oracle, and how to authenticate and interact with Oracle in Microsoft Purview. For more information about Microsoft Purview, read the [introductory article](purview).
 

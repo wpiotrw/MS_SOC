@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: pragyarathi
-ms.date: 2022-12-30T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: Learn how Microsoft Purview solutions can deliver a modern data governance experience for your organization.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: 5755f8ae-1957-379d-1f36-1d7eba7a9bba
 document_version_independent_id: 5755f8ae-1957-379d-1f36-1d7eba7a9bba
@@ -46,6 +47,10 @@ platformId: b9127c15-bc9f-9773-4c2e-5d21933871cf
 ---
 
 # Manually apply classifications on assets in Microsoft Purview Data Map | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article discusses how to manually apply classifications on assets in Microsoft Purview Data Map.
 

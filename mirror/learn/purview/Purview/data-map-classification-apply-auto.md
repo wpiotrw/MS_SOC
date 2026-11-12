@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: pragyarathi
-ms.date: 2025-03-25T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -39,14 +41,16 @@ item_type: Content
 source_path: Purview/data-map-classification-apply-auto.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/12ed19f9-ebdf-4c8a-8bcd-7a681836774d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a764584-4f97-452b-8f1d-36f19b12f6ae
 platformId: 2be69dc2-3edf-f599-d9b2-c9a37d5f2fee
 ---
 
 # Automatically Apply Classifications on Data Map Assets | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 After data sources are [registered](data-map-data-sources-register-manage#register-a-new-source) in Microsoft Purview Data Map, the next step is to [scan](data-map-scan-ingestion) the data sources. The scanning process establishes a connection to the data source, captures technical metadata, and can automatically classify data using either the [supported system classifications](data-map-classification-supported-list) or [rules for your custom classifications](data-map-classification-custom#custom-classification-rules).
 

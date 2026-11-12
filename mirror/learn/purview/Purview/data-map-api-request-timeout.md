@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: blessonj
-ms.date: 2025-05-01T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -45,6 +47,10 @@ platformId: 39509ca0-2610-e40a-9d43-f3c5c1b869b9
 ---
 
 # Troubleshoot Microsoft Purview Data Map API request timeout exceptions | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Applies to Microsoft Purview Data Map API returned HTTP 408 request timeout.
 

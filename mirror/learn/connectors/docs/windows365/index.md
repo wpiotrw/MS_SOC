@@ -37,7 +37,7 @@ spProducts:
 platformId: 47b159a8-11ed-a7be-0940-bd1750351ffb
 ---
 
-# Windows 365 (Preview)
+# Windows 365
 
 ![](https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/releases/v1.0.1793/1.0.1793.4581/windows365/icon.png)
 Windows 365 is a cloud-based service that automatically creates a new type of Windows virtual machine (Cloud PCs) for your end users. Each Cloud PC is assigned to an individual user as a dedicated Windows device. Windows 365 provides the productivity, security, and collaboration benefits of Microsoft 365.
@@ -63,12 +63,23 @@ This connector is available in the following products and regions:
 | Privacy policy | https://privacy.microsoft.com/en-us/privacystatement |
 | Categories | IT Operations;Productivity |
 
+Windows 365 is a cloud-based service that automatically creates a new type of Windows virtual machine (Cloud PCs) for your end users. Each Cloud PC is assigned to an individual user as a dedicated Windows device. Windows 365 provides the productivity, security, and collaboration benefits of Microsoft 365.
+
+This connector is available in the following products and regions:
+
 | **Service** | **Class** | **Regions** |
 | --- | --- | --- |
-| **Copilot Studio** | Premium | All [Power Automate regions](/en-us/flow/regions-overview) |
-| **Logic Apps** | Premium | All [Logic Apps regions](https://azure.microsoft.com/global-infrastructure/services/?products=logic-apps&amp;regions=all) |
-| **Power Apps** | Premium | All [Power Apps regions](/en-us/powerapps/administrator/regions-overview#what-regions-are-available) |
-| **Power Automate** | Premium | All [Power Automate regions](/en-us/flow/regions-overview) |
+| **Copilot Studio** | Premium | All [Power Automate regions](/en-us/flow/regions-overview) except the following: - US Government (GCC) - US Government (GCC High) - China Cloud operated by 21Vianet - US Department of Defense (DoD) |
+| **Logic Apps** | Standard | All [Logic Apps regions](https://azure.microsoft.com/global-infrastructure/services/?products=logic-apps&amp;regions=all) except the following: - Azure Government regions - Azure China regions - US Department of Defense (DoD) |
+| **Power Apps** | Premium | All [Power Apps regions](/en-us/powerapps/administrator/regions-overview#what-regions-are-available) except the following: - US Government (GCC) - US Government (GCC High) - China Cloud operated by 21Vianet - US Department of Defense (DoD) |
+| **Power Automate** | Premium | All [Power Automate regions](/en-us/flow/regions-overview) except the following: - US Government (GCC) - US Government (GCC High) - China Cloud operated by 21Vianet - US Department of Defense (DoD) |
+
+| Connector Metadata | - |
+| --- | --- |
+| Publisher | Microsoft |
+| Website | https://www.microsoft.com/en-us/windows-365 |
+| Privacy policy | https://privacy.microsoft.com/en-us/privacystatement |
+| Categories | IT Operations;Productivity |
 
 | **Contact** | - |
 | --- | --- |
@@ -76,227 +87,217 @@ This connector is available in the following products and regions:
 | URL | /en-us/connectors/windows365 |
 | Email | W365powerplatform@microsoft.com |
 
-## Known issues and limitations
-
-The Windows 365 connector is currently in Public Preview.
-
-Microsoft wants to make sure that a connector is stable before we release it to general availability. Until that time, the connector is in preview. Previews are provided "as is," "with all faults," and "as available". They're excluded from service level agreements (SLAs), but are made available on a preview basis so that you can get early access and provide feedback. [Learn more about preview features and how to enable them](/en-us/power-platform/admin/what-are-preview-features-how-do-i-enable-them). Previews might not be covered by customer support. They might be discontinued at any time without notice and might not be released into general availability.
-
-We encourage you to try out the preview connectors and provide feedback. This will help us stabilize and improve the connectors. You can use the [product forums](https://powerusers.microsoft.com/t5/Using-Connectors/bd-p/ConnectingToData) for sharing issues and feedback. Microsoft support might not be available for preview features, including connectors, but we'll try to provide support on a best-effort basis.
-
-To learn more, please visit the [Connectors in preview FAQ](/en-us/connectors/custom-connectors/preview-connector-faq).
-
-## General limits
+# General limits
 
 1. Capabilities and limitations are consistent with the underlying [Graph API](/en-us/graph/api/resources/cloudpc-api-overview?view=graph-rest-1.0).
 2. When needing to call something on the Graph beta endpoint, use the HTTP request action.
 
-## Actions:
+# Actions:
 
-### List Cloud PCs
+**List Cloud PCs**
 
-**Operation ID:** ListCloudPCs
+Operation ID: ListCloudPCs
 
 This action allows you to list Cloud PCs.
 
-**Parameters**
+Parameters
 
 | Name | Required | Type | Description |
 | --- | --- | --- | --- |
-| **$select** | No | string | $select allows you to choose which properties are returned from Graph. |
-| **$filter** | No | string | $filter allows you to get a just subset of a collection from Graph. |
+| $select | No | string | $select allows you to choose which properties are returned from Graph. |
+| $filter | No | string | $filter allows you to get a just subset of a collection from Graph. |
 
-**Returns**
+Returns
 
 | Name | Type | Description |
 | --- | --- | --- |
-| **aadDeviceId** | String | The Microsoft Entra device ID for the Cloud PC, also known as the Azure Active Directory (Azure AD) device ID, that consists of 32 characters in a GUID format. Generated on a VM joined to Microsoft Entra ID. Read-only. |
-| **diskEncryptionState** | String | Shows disk encryption state. |
-| **displayName** | String | The display name for the Cloud PC. Maximum length is 64 characters. Read-only. |
-| **gracePeriodEndDateTime** | DateTimeOffset | The date and time when the grace period ends and reprovisioning or deprovisioning happen. Required only if the status is inGracePeriod. The timestamp is shown in ISO 8601 format and Coordinated Universal Time (UTC). For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. |
-| **id** | String | The unique identifier of the customer-facing Cloud PC entity that consists of 32 characters in a GUID format. Read-only. |
-| **imageDisplayName** | String | The name of the operating system image used for the Cloud PC. Maximum length is 50 characters. Only letters (A-Z, a-z), numbers (0-9), and special characters (-,\_,.) are allowed for this property. The property value can't begin or end with an underscore. Read-only. |
-| **lastModifiedDateTime** | DateTimeOffset | The last modified date and time of the Cloud PC. The timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. |
-| **managedDeviceId** | String | The Intune enrolled device ID for the Cloud PC that consists of 32 characters in a GUID format. The **managedDeviceId** property of Windows 365 Business Cloud PCs is always null as Windows 365 Business Cloud PCs aren't Intune-enrolled automatically by Windows 365. Read-only. |
-| **managedDeviceName** | String | The Intune enrolled device name for the Cloud PC. The **managedDeviceName** property of Windows 365 Business Cloud PCs is always null as Windows 365 Business Cloud PCs aren't Intune-enrolled automatically by Windows 365. Read-only. |
-| **onPremisesConnectionName** | String | The on-premises connection that applied during the provisioning of Cloud PCs. Read-only. |
-| **provisioningPolicyId** | String | The provisioning policy ID for the Cloud PC that consists of 32 characters in a GUID format. A policy defines the type of Cloud PC the user wants to create. Read-only. |
-| **provisioningPolicyName** | String | The provisioning policy that applied during the provisioning of Cloud PCs. Maximum length is 120 characters. Read-only. |
-| **provisioningType** | String | Shows provisioning type. |
-| **servicePlanId** | String | The service plan ID for the Cloud PC that consists of 32 characters in a GUID format. For more information about service plans, see [Product names and service plan identifiers for licensing](/en-us/entra/identity/users/licensing-service-plan-reference). Read-only. |
-| **servicePlanName** | String | The service plan name for the customer-facing Cloud PC entity. Read-only. |
-| **servicePlanType** | String | Shows plan type. |
-| **userPrincipalName** | String | The user principal name (UPN) of the user assigned to the Cloud PC. Maximum length is 113 characters. For more information on username policies, see [Password policies and account restrictions in Microsoft Entra ID](/en-us/entra/identity/authentication/concept-sspr-policy#username-policies). Read-only. |
+| aadDeviceId | String | The Microsoft Entra device ID for the Cloud PC, also known as the Azure Active Directory (Azure AD) device ID, that consists of 32 characters in a GUID format. Generated on a VM joined to Microsoft Entra ID. Read-only. |
+| diskEncryptionState | String | Shows disk encryption state. |
+| displayName | String | The display name for the Cloud PC. Maximum length is 64 characters. Read-only. |
+| gracePeriodEndDateTime | DateTimeOffset | The date and time when the grace period ends and reprovisioning or deprovisioning happen. Required only if the status is inGracePeriod. The timestamp is shown in ISO 8601 format and Coordinated Universal Time (UTC). For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. |
+| id | String | The unique identifier of the customer-facing Cloud PC entity that consists of 32 characters in a GUID format. Read-only. |
+| imageDisplayName | String | The name of the operating system image used for the Cloud PC. Maximum length is 50 characters. Only letters (A-Z, a-z), numbers (0-9), and special characters (-,\_,.) are allowed for this property. The property value can't begin or end with an underscore. Read-only. |
+| lastModifiedDateTime | DateTimeOffset | The last modified date and time of the Cloud PC. The timestamp type represents date and time information using ISO 8601 format and is always in UTC. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. |
+| managedDeviceId | String | The Intune enrolled device ID for the Cloud PC that consists of 32 characters in a GUID format. The **managedDeviceId** property of Windows 365 Business Cloud PCs is always null as Windows 365 Business Cloud PCs aren't Intune-enrolled automatically by Windows 365. Read-only. |
+| managedDeviceName | String | The Intune enrolled device name for the Cloud PC. The **managedDeviceName** property of Windows 365 Business Cloud PCs is always null as Windows 365 Business Cloud PCs aren't Intune-enrolled automatically by Windows 365. Read-only. |
+| onPremisesConnectionName | String | The on-premises connection that applied during the provisioning of Cloud PCs. Read-only. |
+| provisioningPolicyId | String | The provisioning policy ID for the Cloud PC that consists of 32 characters in a GUID format. A policy defines the type of Cloud PC the user wants to create. Read-only. |
+| provisioningPolicyName | String | The provisioning policy that applied during the provisioning of Cloud PCs. Maximum length is 120 characters. Read-only. |
+| provisioningType | String | Shows provisioning type. |
+| servicePlanId | String | The service plan ID for the Cloud PC that consists of 32 characters in a GUID format. For more information about service plans, see [Product names and service plan identifiers for licensing](/en-us/entra/identity/users/licensing-service-plan-reference). Read-only. |
+| servicePlanName | String | The service plan name for the customer-facing Cloud PC entity. Read-only. |
+| servicePlanType | String | Shows plan type. |
+| userPrincipalName | String | The user principal name (UPN) of the user assigned to the Cloud PC. Maximum length is 113 characters. For more information on username policies, see [Password policies and account restrictions in Microsoft Entra ID](/en-us/entra/identity/authentication/concept-sspr-policy#username-policies). Read-only. |
 
-### Get provisioning policies
+**Get provisioning policies**
 
-**Operation ID:** GetProvisioningPoliciesV1
+Operation ID: GetProvisioningPoliciesV1
 
 This action allows you to return information about the provisioning policies.
 
-**Parameters**
+Parameters
 
 | Name | Required | Type | Description |
 | --- | --- | --- | --- |
-| **$select** | No | String | $select allows you to choose which properties are returned from Graph. |
-| **$filter** | No | String | $filter allows you to get a just subset of a collection from Graph. |
-| **$expand** | No | String | $expand allows you to return related resources from Graph. |
+| $select | No | String | $select allows you to choose which properties are returned from Graph. |
+| $filter | No | String | $filter allows you to get a just subset of a collection from Graph. |
+| $expand | No | String | $expand allows you to return related resources from Graph. |
 
-**Returns**
+Returns
 
 Use $expand with a value of assignments to see the returned values below:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| **cloudPCNamingTemplate** | String | The template used to name Cloud PCs provisioned using this policy. The template can contain custom text and replacement tokens, including %USERNAME:x% and %RAND:x%, which represent the user's name and a randomly generated number, respectively. For example, CPC-%USERNAME:4%-%RAND:5% means that the name of the Cloud PC starts with CPC-, followed by a four-character username, a - character, and then five random characters. The total length of the text generated by the template can't exceed 15 characters. |
-| **description** | String | The provisioning policy description. |
-| **displayName** | String | The display name for the provisioning policy. |
-| **domainJoinConfiguration** | [cloudPcDomainJoinConfiguration](/en-us/graph/api/resources/cloudpcdomainjoinconfiguration?view=graph-rest-1.0) collection | Specifies a list ordered by priority on how Cloud PCs join Microsoft Entra ID (Azure AD). |
-| **enableSingleSignOn** | Boolean | True if the provisioned Cloud PC can be accessed by single sign-on. False indicates that the provisioned Cloud PC doesn't support this feature. The default value is false. Windows 365 users can use single sign-on to authenticate to Microsoft Entra ID with passwordless options (for example, FIDO keys) to access their Cloud PC |
-| **id** | String | The unique identifier associated with the provisioning policy. This ID is auto populated during the creation of a new provisioning policy. Read-only. |
-| **imageDisplayName** | String | The display name of the operating system image that is used for provisioning. For example, Windows 11 Preview + Microsoft 365 Apps 23H2 23H2. |
-| **imageId** | String | The unique identifier that represents an operating system image that is used for provisioning new Cloud PCs. The format for a gallery type image is: {publisherName\_offerName\_skuName}. Supported values for each of the parameters are:<br>- publisher: Microsoftwindowsdesktop<br>- offer: windows-ent-cpc<br>- sku: 21h1-ent-cpc-m365, 21h1-ent-cpc-os, 20h2-ent-cpc-m365, 20h2-ent-cpc-os, 20h1-ent-cpc-m365, 20h1-ent-cpc-os, 19h2-ent-cpc-m365, and 19h2-ent-cpc-os |
-| **imageType** | [cloudPcProvisioningPolicyImageType](/en-us/graph/api/resources/cloudpcprovisioningpolicy?view=graph-rest-1.0#cloudpcprovisioningpolicyimagetype-values) | The type of operating system image (custom or gallery) that is used for provisioning on Cloud PCs. Possible values are: gallery, custom. The default value is gallery. |
+| cloudPCNamingTemplate | String | The template used to name Cloud PCs provisioned using this policy. The template can contain custom text and replacement tokens, including %USERNAME:x% and %RAND:x%, which represent the user's name and a randomly generated number, respectively. For example, CPC-%USERNAME:4%-%RAND:5% means that the name of the Cloud PC starts with CPC-, followed by a four-character username, a - character, and then five random characters. The total length of the text generated by the template can't exceed 15 characters. |
+| description | String | The provisioning policy description. |
+| displayName | String | The display name for the provisioning policy. |
+| domainJoinConfiguration | [cloudPcDomainJoinConfiguration](/en-us/graph/api/resources/cloudpcdomainjoinconfiguration?view=graph-rest-1.0) collection | Specifies a list ordered by priority on how Cloud PCs join Microsoft Entra ID (Azure AD). |
+| enableSingleSignOn | Boolean | True if the provisioned Cloud PC can be accessed by single sign-on. False indicates that the provisioned Cloud PC doesn't support this feature. The default value is false. Windows 365 users can use single sign-on to authenticate to Microsoft Entra ID with passwordless options (for example, FIDO keys) to access their Cloud PC |
+| id | String | The unique identifier associated with the provisioning policy. This ID is auto populated during the creation of a new provisioning policy. Read-only. |
+| imageDisplayName | String | The display name of the operating system image that is used for provisioning. For example, Windows 11 Preview + Microsoft 365 Apps 23H2 23H2. |
+| imageId | String | The unique identifier that represents an operating system image that is used for provisioning new Cloud PCs. The format for a gallery type image is: {publisherName\_offerName\_skuName}. Supported values for each of the parameters are:<br><br>- publisher: Microsoftwindowsdesktop<br>- offer: windows-ent-cpc<br>- sku: 21h1-ent-cpc-m365, 21h1-ent-cpc-os, 20h2-ent-cpc-m365, 20h2-ent-cpc-os, 20h1-ent-cpc-m365, 20h1-ent-cpc-os, 19h2-ent-cpc-m365, and 19h2-ent-cpc-os |
+| imageType | [cloudPcProvisioningPolicyImageType](/en-us/graph/api/resources/cloudpcprovisioningpolicy?view=graph-rest-1.0#cloudpcprovisioningpolicyimagetype-values) | The type of operating system image (custom or gallery) that is used for provisioning on Cloud PCs. Possible values are: gallery, custom. The default value is gallery. |
 
-### Get a provisioning policy
+**Get a provisioning policy**
 
-**Operation ID:** GetAProvisioningPolicyV1
+Operation ID: GetAProvisioningPolicyV1
 
 This action allows you to get the details of a specific provisioning policy.
 
-**Parameters**
+Parameters
 
 | Name | Required | Type | Description |
 | --- | --- | --- | --- |
-| **Provisioning policy ID** | Yes | String | The ID of the provisioning policy. Must be included. |
-| **$select** | No | String | $select allows you to choose which properties are returned from Graph. |
-| **$filter** | No | String | $filter allows you to get a just subset of a collection from Graph. |
+| Provisioning policy ID | Yes | String | The ID of the provisioning policy. Must be included. |
+| $select | No | String | $select allows you to choose which properties are returned from Graph. |
+| $filter | No | String | $filter allows you to get a just subset of a collection from Graph. |
 
-**Returns**
+Returns
 
 The outputs of this operation are dynamic.
 
-### Create a provisioning policy
+**Create a provisioning policy**
 
-**Operation ID:** CreateAProvisioningPolicyV1
+Operation ID: CreateAProvisioningPolicyV1
 
 This action allows you to create a provisioning policy.
 
-**Parameters**
+Parameters
 
 | Name | Required | Type | Description |
 | --- | --- | --- | --- |
-| **Name** | Yes | String | The provisioning policy that applied during the provisioning of Cloud PCs. Maximum length is 120 characters |
-| **Description** | Yes | String | The provisioning policy description. |
-| **Domain join configuration** | Yes |  |  |
-| **Image ID** | Yes | String | This is the image ID you want to use for provisioning Cloud PCs. |
-| **Image display name** | Yes | String | The name of the operating system image used for the Cloud PC. Maximum length is 50 characters. Only letters (A-Z, a-z), numbers (0-9), and special characters (-,\_,.) are allowed for this property. The property value can't begin or end with an underscore. |
-| **Image type** | Yes | String | Custom or Gallery. |
-| **Provisioning type** | Yes | String | Shared or dedicated. |
-| **Windows setting/locale** | Yes | String | Provide the language/locale you’d like to use. Windows 365 provides over 30 such languages/region pairs. |
+| Name | Yes | String | The provisioning policy that applied during the provisioning of Cloud PCs. Maximum length is 120 characters |
+| Description | Yes | String | The provisioning policy description. |
+| Domain join configuration | Yes |  |  |
+| Image ID | Yes | String | This is the image ID you want to use for provisioning Cloud PCs. |
+| Image display name | Yes | String | The name of the operating system image used for the Cloud PC. Maximum length is 50 characters. Only letters (A-Z, a-z), numbers (0-9), and special characters (-,\_,.) are allowed for this property. The property value can't begin or end with an underscore. |
+| Image type | Yes | String | Custom or Gallery. |
+| Provisioning type | Yes | String | Shared or dedicated. |
+| Windows setting/locale | Yes | String | Provide the language/locale you’d like to use. Windows 365 provides over 30 such languages/region pairs. |
 
 You can also add other fields from Graph under Advanced parameters.
 
-**Returns**
+Returns
 
 The outputs of this operation are dynamic.
 
-### Assign a provisioning policy to a group
+**Assign a provisioning policy to a group**
 
-**Operation ID:** AssignAProvisioningPolicyToAGroupV1
+Operation ID: AssignAProvisioningPolicyToAGroupV1
 
 This action allows you to assign a group to a provisioning policy.
 
-**Parameters**
+Parameters
 
 | Name | Required | Type | Description |
 | --- | --- | --- | --- |
-| **Provisioning policy ID** | Yes | String | This is the provisioning policy ID that you would like to assign a group to. |
-| **Assignments - ID** |  |  |  |
-| **Assignments – Target Group ID** | Yes | String | User group from Entra ID. |
+| Provisioning policy ID | Yes | String | This is the provisioning policy ID that you would like to assign a group to. |
+| Assignments - ID |  |  |  |
+| Assignments – Target Group ID | Yes | String | User group from Entra ID. |
 
-**Returns**
+Returns
 
 The outputs of this operation are dynamic.
 
-### Update a provisioning policy
+**Update a provisioning policy**
 
-**Operation ID:** UpdateAProvisioningPolicyV1
+Operation ID: UpdateAProvisioningPolicyV1
 
 This action allows you to update a provisioning policy.
 
-**Parameters**
+Parameters
 
 | Name | Required | Type | Description |
 | --- | --- | --- | --- |
-| **Provisioning policy ID** | Yes | String | This is the provisioning policy ID of the provisioning policy you want to update. |
-| **Description** | No | String | This is what the provisioning policy description will be updated to. |
+| Provisioning policy ID | Yes | String | This is the provisioning policy ID of the provisioning policy you want to update. |
+| Description | No | String | This is what the provisioning policy description will be updated to. |
 
 You can also add other fields from Graph under Advanced parameters.
 
-**Returns**
+Returns
 
 The outputs of this operation are dynamic.
 
-### Get a provisioning policy
+**Get a provisioning policy**
 
-**Operation ID:** GetAProvisioningPolicyV1
+Operation ID: GetAProvisioningPolicyV1
 
 This action allows you to get the details of a provisioning policy.
 
-**Parameters**
+Parameters
 
 | Name | Required | Type | Description |
 | --- | --- | --- | --- |
-| **Provisioning policy ID** | Yes | String | The provisioning policy ID for the Cloud PC that consists of 32 characters in a GUID format. A policy defines the type of Cloud PC the user wants to create. |
-| **$select** | No | String | $select allows you to choose which properties are returned from Graph. |
-| **$expand** | No | String | $expand allows you to return related resources from Graph. |
+| Provisioning policy ID | Yes | String | The provisioning policy ID for the Cloud PC that consists of 32 characters in a GUID format. A policy defines the type of Cloud PC the user wants to create. |
+| $select | No | String | $select allows you to choose which properties are returned from Graph. |
+| $expand | No | String | $expand allows you to return related resources from Graph. |
 
 You can also add other fields from Graph under Advanced parameters.
 
-**Returns**
+Returns
 
 The outputs of this operation are dynamic.
 
-### Start a remote action
+**Start a remote action**
 
-**Operation ID:** RemoteActions
+Operation ID: RemoteActions
 
 This action allows you to start a remote action on a Cloud PC.
 
-**Parameters**
+Parameters
 
 | Name | Required | Type | Description |
 | --- | --- | --- | --- |
-| **Cloud PC ID** | Yes | String | This allows you to specify which Cloud PC ID you want to target with a remote action. |
-| **Remote action** | Yes | String | This allows you to choose when remote action you want to take on a Cloud PC. |
-| **Remote action – snapshot ID** | No | String | If you’re choosing to restore a Cloud PC, you must also provide a snapshot ID. |
-| **Remote action – Display name** | No | String | If you’re choosing to rename a Cloud PC, you must also provide a display name. |
+| Cloud PC ID | Yes | String | This allows you to specify which Cloud PC ID you want to target with a remote action. |
+| Remote action | Yes | String | This allows you to choose when remote action you want to take on a Cloud PC. |
+| Remote action – snapshot ID | No | String | If you’re choosing to restore a Cloud PC, you must also provide a snapshot ID. |
+| Remote action – Display name | No | String | If you’re choosing to rename a Cloud PC, you must also provide a display name. |
 
-**Returns**
+Returns
 
 If successful, this returns a 204 No Content response code.
 
-### Send a Microsoft Graph HTTP request
+**Send a Microsoft Graph HTTP request**
 
-**Operation ID:** HttpRequest
+Operation ID: HttpRequest
 
 This action allows you to call Graph directly and customize the call.
 
-**Parameters**
+Parameters
 
 | Name | Required | Type | Description |
 | --- | --- | --- | --- |
-| **URI** | Yes | String | This allows you to specify which URI to call, for example: `https://graph.microsoft.com/v1.0/deviceManagement/virtualEndpoint/auditEvents` |
-| **Method** | Yes | String | This allows you to define the call method. |
+| URI | Yes | String | This allows you to specify which URI to call, for example: https://graph.microsoft.com/v1.0/deviceManagement/virtualEndpoint/auditEvents |
+| Method | Yes | String | This allows you to define the call method. |
 
 You can also add other fields (headers, body, etc.) under Advanced parameters.
 
-**Returns**
+Returns
 
 The outputs of this operation are dynamic.
 
-## Triggers:
+# Triggers:
 
 All of the scenarios are part of one trigger, which is selectable in the trigger body itself.
 
@@ -307,120 +308,114 @@ All of the scenarios are part of one trigger, which is selectable in the trigger
 | When a new provisioning policy is created | Allows you to start a flow when a provisioning policy is created. |
 | When a Cloud PC is created | This trigger allows you to start a flow when a Cloud PC is created. |
 
-### When a provisioning policy or Cloud PC is updated
+**When a provisioning policy or Cloud PC is updated (deprecated)**
 
-**Operation ID:** Webhook
+Operation ID: Webhook
 
-This trigger fires when a provisioning policy or Cloud PC is updated.
+This trigger fires when a provisioning policy or Cloud PC is updated. This trigger can continue to be used for existing flows, but there will be no new updates to it in the future. We recommend using the new triggers.
 
-**Parameters**
-
-| Name | Required | Type | Description |
-| --- | --- | --- | --- |
-| **Scenario** | Yes | Dropdown | You can choose between the supported scenarios:<br>1. When a Cloud PC is created<br>2. When a new provisioning policy is created<br>3. When a provisioning policy is updated<br>4. When a remote action on a Cloud PC completes<br>5. When a remote action on a Cloud PC is triggered |
-
-**Returns**
-
-The outputs of this operation are dynamic.
-
-## 9/15 doc updates:
-
-1. Add “deprecated” to title of “**When a provisioning policy or Cloud PC is updated (deprecated)” trigger**
-2. Add underneath its section: “This trigger can continue to be used for existing flows, but there will be no new updates to it in the future. We recommend using the new triggers.”
-3. Add new docs for new triggers as follows:
-
-### When a new provisioning policy is created
-
-**Operation ID:** WebhookProvisioningPolicyCreated
-
-**Parameters:**
+Parameters
 
 | Name | Required | Type | Description |
 | --- | --- | --- | --- |
-| **Filter provisioning policy name** | No | String | This allows you to set filters if you want to trigger the flow based on a policy name pattern. For example, if your organization uses provisioning policy name templates and you want to trigger your flow based off of that, you can specify the template here. |
-| **Filter provisioning policy ID** | No | String | This allows you to select a single or multiple specific policy IDs on which to trigger this flow. |
-| **Filter provisioning type** | No | String | This allows you to select a single or multiple specific provisioning types on which to trigger this flow. For example, you may want to trigger a flow just for Windows 365 Enterprise provisioning policies. |
+| Scenario | Yes | Dropdown | You can choose between the supported scenarios:<br><br>1. When a Cloud PC is created<br>2. When a new provisioning policy is created<br>3. When a provisioning policy is updated<br>4. When a remote action on a Cloud PC completes<br>5. When a remote action on a Cloud PC is triggered |
 
-**Returns**
+Returns
 
 The outputs of this operation are dynamic.
 
-### When a Cloud PC is created
+**When a new provisioning policy is created**
 
-**Operation ID:** WebhookCloudPcProvisioned
+Operation ID: WebhookProvisioningPolicyCreated
+
+Parameters:
+
+| Name | Required | Type | Description |
+| --- | --- | --- | --- |
+| Filter provisioning policy name | No | String | This allows you to set filters if you want to trigger the flow based on a policy name pattern. For example, if your organization uses provisioning policy name templates and you want to trigger your flow based off of that, you can specify the template here. |
+| Filter provisioning policy ID | No | String | This allows you to select a single or multiple specific policy IDs on which to trigger this flow. |
+| Filter provisioning type | No | String | This allows you to select a single or multiple specific provisioning types on which to trigger this flow. For example, you may want to trigger a flow just for Windows 365 Enterprise provisioning policies. |
+
+Returns
+
+The outputs of this operation are dynamic.
+
+**When a Cloud PC is created**
+
+Operation ID: WebhookCloudPcProvisioned
 
 This trigger allows you to trigger a flow based on when a Cloud PC is created.
 
-**Parameters**
+Parameters
 
 | Name | Required | Type | Description |
 | --- | --- | --- | --- |
-| **Filter provisioning type** | No | String | This allows you to specify which Windows 365 edition triggers this flow. You can specify multiple types in the filter in an “OR” relationship. |
+| Filter provisioning type | No | String | This allows you to specify which Windows 365 edition triggers this flow. You can specify multiple types in the filter in an “OR” relationship. |
 
-**Returns**
+Returns
 
 The outputs of this operation are dynamic.
 
-### When a provisioning policy is updated
+**When a provisioning policy is updated**
 
-**Operation ID:** WebhookProvisioningPolicyUpdated
+Operation ID: WebhookProvisioningPolicyUpdated
 
 This trigger allows you to trigger a flow based on when a provisioning policy is updated.
 
-**Parameters**
+Parameters
 
 | Name | Required | Type | Description |
 | --- | --- | --- | --- |
-| **Filter provisioning policy name** | No | String | This allows you to select a single or multiple specific policy names on which to trigger this flow. |
-| **Filter provisioning policy ID** | No | String | This allows you to select a single or multiple specific policy IDs on which to trigger this flow. |
-| **Filter provisioning type** | No | String | This allows you to select a single or multiple specific provisioning types on which to trigger this flow. For example, you may want to trigger a flow just for Windows 365 Enterprise provisioning policies. |
+| Filter provisioning policy name | No | String | This allows you to select a single or multiple specific policy names on which to trigger this flow. |
+| Filter provisioning policy ID | No | String | This allows you to select a single or multiple specific policy IDs on which to trigger this flow. |
+| Filter provisioning type | No | String | This allows you to select a single or multiple specific provisioning types on which to trigger this flow. For example, you may want to trigger a flow just for Windows 365 Enterprise provisioning policies. |
 
-**Returns**
+Returns
 
 | Name | Type | Description |
 | --- | --- | --- |
-| **provisioningPolicyId** | String | The provisioning policy ID that was updated. Consists of 32 characters in a GUID format. |
-| **provisioningPolicyName** | String | The provisioning policy name that was updated. |
+| provisioningPolicyId | String | The provisioning policy ID that was updated. Consists of 32 characters in a GUID format. |
+| provisioningPolicyName | String | The provisioning policy name that was updated. |
 
-### When a remote action on a Cloud PC is triggered
+**When a remote action on a Cloud PC is triggered**
 
-**Operation ID:** WebhookCloudPcRemoteActionTriggered
+Operation ID: WebhookCloudPcRemoteActionTriggered
 
 This trigger allows you to trigger a flow based on when a remote action on a Cloud PC is triggered.
 
-**Parameters**
+Parameters
 
 | Name | Required | Type | Description |
 | --- | --- | --- | --- |
-| **Filter provisioning type** | No | String | This allows you to select a single or multiple specific provisioning types on which to trigger this flow. For example, you may want to trigger a remote action flow just for Cloud PCs that are related to Windows 365 Enterprise provisioning policies. |
+| Filter provisioning type | No | String | This allows you to select a single or multiple specific provisioning types on which to trigger this flow. For example, you may want to trigger a remote action flow just for Cloud PCs that are related to Windows 365 Enterprise provisioning policies. |
 
-**Returns**
+Returns
 
 | Name | Type | Description |
 | --- | --- | --- |
-| **CloudPcId** | String | The Cloud PC ID that had its remote action complete. |
-| **provisioningType** | String | The provisioning type, which shows the Windows 365 Cloud PC edition. |
-| **actionType** | String | The type of remote action, for example a restart. |
+| CloudPcId | String | The Cloud PC ID that had its remote action complete. |
+| provisioningType | String | The provisioning type, which shows the Windows 365 Cloud PC edition. |
+| actionType | String | The type of remote action, for example a restart. |
 
-### When a remote action on a Cloud PC completes
+**When a remote action on a Cloud PC completes**
 
-**Operation ID:** Webhook.CloudPC.ActionCompleted
+Operation ID: Webhook.CloudPC.ActionCompleted
 
 This trigger allows you to trigger a flow based on when a remote action on a Cloud PC completes.
 
-**Parameters**
+Parameters
 
 | Name | Required | Type | Description |
 | --- | --- | --- | --- |
-| **Filter provisioning type** | No | String | This allows you to select a single or multiple specific provisioning types on which to trigger this flow. For example, you may want to trigger a remote action flow just for Cloud PCs that are related to Windows 365 Enterprise provisioning policies. |
+| Filter provisioning type | No | String | This allows you to select a single or multiple specific provisioning types on which to trigger this flow. For example, you may want to trigger a remote action flow just for Cloud PCs that are related to Windows 365 Enterprise provisioning policies. |
 
-**Returns**
+Returns
 
 | Name | Type | Description |
 | --- | --- | --- |
-| **CloudPcId** | String | The Cloud PC ID that had its remote action complete. |
-| **provisioningType** | String | The provisioning type, which shows the Windows 365 Cloud PC edition. |
-| **actionType** | String | The type of remote action, for example a restart. |
+| CloudPcId | String | The Cloud PC ID that had its remote action complete. |
+| provisioningType | String | The provisioning type, which shows the Windows 365 Cloud PC edition. |
+| actionType | String | The type of remote action, for example a restart. |
 
 ## Throttling Limits
 
@@ -438,7 +433,7 @@ This trigger allows you to trigger a flow based on when a remote action on a Clo
 | Get a provisioning policy | Gets a specific provisioning policy. |
 | Get provisioning policies | Gets a list of provisioning policies. |
 | List Cloud PCs | List CloudPCs |
-| Send a Microsoft Graph HTTP request (Preview) | Construct a Microsoft Graph REST API request |
+| Send a Microsoft Graph HTTP request | Construct a Microsoft Graph REST API request |
 | Start a remote action | Start a remote action on a Cloud PC. |
 | Update a provisioning policy | Updates a provisioning policy. |
 
@@ -695,7 +690,7 @@ List CloudPCs
 | Enable single sign-on | connectionSetting.enableSingleSignOn | boolean | Specifies whether the provisioning policy has enabled SSO for Cloud PCs. |
 | partnerAgentInstallResults | partnerAgentInstallResults | array of string | partnerAgentInstallResults |
 
-### Send a Microsoft Graph HTTP request (Preview)
+### Send a Microsoft Graph HTTP request
 
 - Operation ID:
     - HttpRequest

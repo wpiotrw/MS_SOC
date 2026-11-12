@@ -11,7 +11,7 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2026-02-05T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: how-to
 ms.service: purview
@@ -21,6 +21,7 @@ search.appverid:
 - MET150
 - MOE150
 ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 description: Find step-by-step guidance to configure data quality scans in Microsoft Purview Unified Catalog for Snowflake data.
 locale: en-us
 document_id: 96e4d19f-1075-e6a5-0616-0c9c08af4f73
@@ -46,6 +47,10 @@ platformId: 0dd766e3-7a2e-4926-3102-15967d37fe17
 ---
 
 # Set Up Data Quality for Snowflake Data in Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article walks you through how to register a Snowflake source, run a Data Map scan, and configure a data quality connection in Microsoft Purview Unified Catalog. After you complete these steps, you can profile your Snowflake data and run data quality scans.
 

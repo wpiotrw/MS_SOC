@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: chigupta
-ms.date: 2025-05-21T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: Learn how to connect to a Power BI tenant in a cross-tenant scenario. You use Microsoft Purview to scan and manage your Power BI tenant source.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: 89baf2ec-68a7-10cd-7aee-47be9fca8a38
 document_version_independent_id: 89baf2ec-68a7-10cd-7aee-47be9fca8a38
@@ -48,6 +49,10 @@ platformId: b56fac87-c62d-cb7e-2f52-47ebe9dcd417
 ---
 
 # Connect to and manage a Power BI tenant in Microsoft Purview (cross-tenant) | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register a Power BI tenant in a cross-tenant scenario, and how to authenticate and interact with the tenant in Microsoft Purview. If you're unfamiliar with the service, see [Learn about Microsoft Purview](purview).
 

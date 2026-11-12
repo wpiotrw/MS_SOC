@@ -11,12 +11,13 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: chigupta
-ms.date: 2026-04-28T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
 ms.subservice: purview-data-map
 ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 ms.collection: 
 search.appverid:
 - MET150
@@ -39,17 +40,19 @@ monikers: []
 item_type: Content
 source_path: Purview/register-scan-fabric-tenant.md
 cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/e7cd09c2-9e9a-4f0d-b160-c15783f45b1f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/d3197845-b4ce-44c6-a237-cd4be160e76c
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
 spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1d337399-0ca4-4b4c-acef-8df37820e018
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://authoring-docs-microsoft.poolparty.biz/devrel/aea905fb-0a9d-4d46-b30f-e9cbaf772d1b
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
 platformId: b5ed30ef-f1f6-eaf7-ad19-61779897af0a
 ---
 
 # Connect to your Microsoft Fabric tenant in same tenant as Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register a Microsoft Fabric tenant that's in **the same tenant** as your Microsoft Purview resource, and how to authenticate and interact with the Fabric source in Microsoft Purview. For more information about Microsoft Purview in general, read the [introductory article](purview).
 

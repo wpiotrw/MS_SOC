@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: blessonj
-ms.date: 2025-05-01T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: This tutorial describes the APIs available with the Atlas 2.2 upgrade for use with Microsoft Purview Data Map.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: 91ac044d-e34c-23d5-9b03-ff99472c0a61
 document_version_independent_id: 91ac044d-e34c-23d5-9b03-ff99472c0a61
@@ -46,6 +47,10 @@ platformId: 5a194af6-adde-3aab-2ece-63f65fedb674
 ---
 
 # Use APIs available with Atlas 2.2. with Data Map | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 In this tutorial, learn to programmatically interact with new Atlas 2.2 APIs with Microsoft Purview Data Map.
 

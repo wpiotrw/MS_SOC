@@ -11,13 +11,13 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2026-07-17T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
 ms.subservice: purview-data-governance
 ai-usage: ai-assisted
-ms.custom: msecd-doc-authoring-1017
+ms.custom: msecd-doc-authoring-1030
 ms.collection: 
 search.appverid:
 - MET150
@@ -41,12 +41,18 @@ item_type: Content
 source_path: Purview/unified-catalog-data-quality-rules.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/8b896464-3b7d-4e1f-84b0-9bb45aeb5f64
+- https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/b1d2d671-9549-46e8-918c-24349120dbf5
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 platformId: 9c34ccee-c15e-c192-1aad-1cec853bc4f3
 ---
 
 # Create Data Quality Rules in Unified Catalog | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Data quality measures the integrity of data in an organization. You assess data quality by using data quality scores. Microsoft Purview Unified Catalog generates scores based on the assessment of the data against rules that you define.
 

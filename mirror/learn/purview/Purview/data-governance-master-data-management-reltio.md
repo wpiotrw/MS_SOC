@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2024-09-14T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: Learn how to deploy the Microsoft Purview and Reltio integration as a master data management (MDM) solution for your data estate governance.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: bb3b8a8f-6649-89e8-1b8b-fc655e4a4db3
 document_version_independent_id: bb3b8a8f-6649-89e8-1b8b-fc655e4a4db3
@@ -46,6 +47,10 @@ platformId: 0b67fb0b-1787-cd23-b792-84d4ff524d3a
 ---
 
 # Microsoft Purview and Reltio Master Data Management (MDM) | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Reltio Integration for Microsoft Purview is implemented through our Reltio Integration Hub (RIH). The integration consists of Reltio and Microsoft Purview connections and recipes to read the tenant business config from Reltio and create corresponding objects in Microsoft Purview.
 

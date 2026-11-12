@@ -13,7 +13,9 @@ ms.reviewer: jingwang
 ms.service: purview
 ms.subservice: purview-data-governance-classic
 ms.topic: how-to
-ms.date: 2025-02-26T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 locale: en-us
 document_id: e66bc8d0-8b05-5152-e50c-dcc1babe57a9
 document_version_independent_id: e66bc8d0-8b05-5152-e50c-dcc1babe57a9
@@ -31,15 +33,19 @@ monikers: []
 item_type: Content
 source_path: Purview/legacy/how-to-link-azure-data-share.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/7cf8f81d-2989-4e5d-aa91-5191d10a3323
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/7cf8f81d-2989-4e5d-aa91-5191d10a3323
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1cb9c90f-9a3f-4389-8367-0a20c542621f
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1cb9c90f-9a3f-4389-8367-0a20c542621f
 platformId: 6033a107-7b6b-5ef5-3118-aabda7691fe2
 ---
 
 # Connect to Azure Data Share | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Note
 

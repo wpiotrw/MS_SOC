@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2026-05-13T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: how-to
 ms.service: purview
@@ -47,6 +49,10 @@ platformId: 32afd03b-2a03-8b3d-a5fa-2aea9c5044a7
 ---
 
 # Data Quality for Azure Databricks Unity Catalog in Microsoft Purview Unified Catalog | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article explains how to configure Microsoft Purview to scan Azure Databricks Unity Catalog metadata and set up a data quality connection for profiling and scanning your Databricks data. It covers prerequisites, supported assets, Data Map scan configuration, and connection setup. Use this guide if you're a data quality steward or admin who manages Azure Databricks data governance in Microsoft Purview.
 

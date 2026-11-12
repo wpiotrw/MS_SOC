@@ -3,6 +3,14 @@ layout: FAQ
 title: Sensitivity labels in Microsoft Purview Data Map FAQ (preview) | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/purview/data-map-sensitivity-labels-faq
 summary: >
+  <div class="IMPORTANT">
+
+  <p>Important</p>
+
+  <p>Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the <a href="https://aka.ms/DG-Deprecation">Microsoft Purview data governance retirement announcement</a>.</p>
+
+  </div>
+
   <p>This article lists frequently asked questions about sensitivity labeling in the Microsoft Purview Data Map, with their answers and links to more information.</br></br></p>
 
   <blockquote>
@@ -28,8 +36,9 @@ ms.reviewer: blessonj
 ms.service: purview
 ms.subservice: purview-data-governance
 ms.topic: faq
-ms.date: 2025-07-09T00:00:00.0000000Z
-ms.custom: sfi-ga-flagged
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: sfi-ga-flagged, msecd-doc-authoring-1030
 locale: en-us
 document_id: 221ad067-d2b1-e5bd-faf4-ef300c5ed371
 document_version_independent_id: 221ad067-d2b1-e5bd-faf4-ef300c5ed371
@@ -54,6 +63,10 @@ platformId: 103cf34a-b33b-6742-0d46-affa1bb1d2de
 ---
 
 # Sensitivity labels in Microsoft Purview Data Map FAQ (preview) | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article lists frequently asked questions about sensitivity labeling in the Microsoft Purview Data Map, with their answers and links to more information.
 

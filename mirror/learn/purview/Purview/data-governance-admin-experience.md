@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: sidontha
-ms.date: 2026-03-29T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -47,6 +49,10 @@ platformId: 18aa6329-aa85-ac3a-5ac1-ec1770739da0
 ---
 
 # Managing Unified Catalog with the Data Governance Admin Experience | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 In the data governance admin experience, you can manage the data governance settings that apply to Microsoft Purview Unified Catalog in one place. Users who hold the [Data Governance Administrator role](data-governance-roles-permissions#unified-catalog-permissions) can set Unified Catalog roles and permissions, configure self-service analytics (preview), and manage other settings described in this article.
 

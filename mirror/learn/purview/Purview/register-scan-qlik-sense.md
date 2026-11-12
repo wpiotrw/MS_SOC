@@ -13,8 +13,9 @@ ms.reviewer: jingwang
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: how-to
-ms.date: 2024-06-04T00:00:00.0000000Z
-ms.custom: template-how-to
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: template-how-to, msecd-doc-authoring-1030
 locale: en-us
 document_id: 982348f0-95e0-5902-c71e-fe3f8a930de4
 document_version_independent_id: 982348f0-95e0-5902-c71e-fe3f8a930de4
@@ -39,6 +40,10 @@ platformId: 61b82962-482f-3f01-39f0-bae7941a98a2
 ---
 
 # Connect to and manage Qlik Sense | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register Qlik Sense, and how to authenticate and interact with Qlik Sense in Microsoft Purview. For more information about Microsoft Purview, read the [introductory article](purview).
 

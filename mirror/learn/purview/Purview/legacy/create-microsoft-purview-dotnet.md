@@ -14,8 +14,9 @@ ms.service: purview
 ms.subservice: purview-data-governance-classic
 ms.devlang: csharp
 ms.topic: quickstart
-ms.date: 2025-02-26T00:00:00.0000000Z
-ms.custom: mode-api, devx-track-dotnet
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: mode-api, devx-track-dotnet, msecd-doc-authoring-1030
 locale: en-us
 document_id: d765a9c7-0ac1-2ba6-2f7c-5eeddaf333e3
 document_version_independent_id: d765a9c7-0ac1-2ba6-2f7c-5eeddaf333e3
@@ -35,15 +36,17 @@ source_path: Purview/legacy/create-microsoft-purview-dotnet.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7696cda6-0510-47f6-8302-71bb5d2e28cf
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 - https://authoring-docs-microsoft.poolparty.biz/devrel/69c76c32-967e-4c65-b89a-74cc527db725
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: b73655d6-8319-e13c-f596-3da9c9b67d9d
 ---
 
 # Quickstart: Create Microsoft Purview (formerly Azure Purview) account using .NET SDK | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Note
 

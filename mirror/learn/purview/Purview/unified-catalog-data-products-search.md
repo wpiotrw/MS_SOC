@@ -11,7 +11,7 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: sidontha
-ms.date: 2026-05-21T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,6 +21,7 @@ search.appverid:
 - MET150
 - MOE150
 ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 description: Learn how to search for data products and view data assets in Microsoft Purview Unified Catalog.
 locale: en-us
 document_id: 60aa2fe0-a0b7-90f0-bba9-d96046ce3e8e
@@ -40,14 +41,20 @@ item_type: Content
 source_path: Purview/unified-catalog-data-products-search.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/12ed19f9-ebdf-4c8a-8bcd-7a681836774d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c6f99e62-1cf6-4b71-af9b-649b05f80cce
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a764584-4f97-452b-8f1d-36f19b12f6ae
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3f56b378-07a9-4fa1-afe8-9889fdc77628
 platformId: 381cdd53-6f66-25e2-3a00-4bce39d781a5
 ---
 
 # Search for Data Products in Unified Catalog | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to search and browse Microsoft Purview Unified Catalog to find data products.
 

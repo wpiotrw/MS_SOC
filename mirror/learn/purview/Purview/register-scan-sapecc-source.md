@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: pragyarathi
-ms.date: 2025-06-25T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: Learn how to connect to SAP ECC in Microsoft Purview, and use Microsoft Purview's features to scan and manage your SAP ECC source.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: 52a50faf-77e4-87dd-034e-3b27f59061d7
 document_version_independent_id: 52a50faf-77e4-87dd-034e-3b27f59061d7
@@ -48,6 +49,10 @@ platformId: f6b981f2-9e4c-d459-4d6b-6f63af5acefe
 ---
 
 # Connect to and manage an SAP ECC source in Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register SAP ECC, and how to authenticate and interact with SAP ECC in Microsoft Purview. For more information about Microsoft Purview, read the [introductory article](purview).
 

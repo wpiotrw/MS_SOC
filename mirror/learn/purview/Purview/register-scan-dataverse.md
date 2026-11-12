@@ -13,10 +13,12 @@ ms.reviewer: shjia
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: how-to
-ms.date: 2026-02-02T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 ms.custom:
 - template-how-to
 - sfi-image-nochange
+- msecd-doc-authoring-1030
 locale: en-us
 document_id: 18844b16-53d5-6335-4305-9eca0b195cd6
 document_version_independent_id: 18844b16-53d5-6335-4305-9eca0b195cd6
@@ -43,6 +45,10 @@ platformId: 12d3d168-665d-3f79-b116-cf0b2251d4af
 ---
 
 # Connect to and manage Microsoft Dataverse in Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines the process to register and govern a Microsoft Dataverse environment data source in Microsoft Purview including instructions to authenticate and interact with the Microsoft Dataverse source.
 

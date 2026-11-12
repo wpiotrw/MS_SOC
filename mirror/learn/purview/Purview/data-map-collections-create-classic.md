@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: blessonj
-ms.date: 2025-05-01T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: Learn how to create a collection and add permissions, register sources, and register assets to collections in the classic Data Map experience.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: 3ec7ac87-7eb2-8302-e15c-2b25c2ba29f7
 document_version_independent_id: 3ec7ac87-7eb2-8302-e15c-2b25c2ba29f7
@@ -46,6 +47,10 @@ platformId: 27110b47-8942-a731-f519-46b7b7c6e360
 ---
 
 # Create a collection in classic Microsoft Purview Data Map | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Collections are the Microsoft Purview Data Map's tool to manage ownership and access control across assets, sources, and information. They also organize your sources and assets into categories that are customized to match your management experience with your data. This guide takes you through setting up your first collection and collection admin to prepare your Microsoft Purview environment for your organization.
 

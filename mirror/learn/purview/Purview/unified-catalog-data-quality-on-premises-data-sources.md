@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2026-04-26T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -49,6 +51,10 @@ platformId: 371f0019-6ff1-75b2-5d0a-540670cc5f0e
 ---
 
 # Data quality for on-premises data sources in Unified Catalog (preview) | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 On-premises data source data quality refers to the ability to assess, monitor, score, and improve the quality of data that resides inside enterprise-owned infrastructure such as on-premises SQL Server and on-premises Oracle. These datasets are stored within a customer’s private network environment rather than in cloud platforms.
 

@@ -11,7 +11,7 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2026-05-10T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,6 +21,7 @@ search.appverid:
 - MET150
 - MOE150
 ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 description: Learn how to set up data integration runtime Kubernetes for data quality in Microsoft Purview Unified Catalog (preview)
 locale: en-us
 document_id: 37e4c2dc-df5b-23cf-b7b0-1c1d8842a02c
@@ -40,16 +41,16 @@ item_type: Content
 source_path: Purview/unified-catalog-data-integration-runtime-kubernetes.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/cbe4ca68-43ac-4375-aba5-5945a6394c20
-- https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ced846cc-6a3c-4c8f-9dfb-3de0e90e2742
-- https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
 platformId: e1f6bb5c-2210-d9d4-839d-0f5db4961add
 ---
 
 # Set up data integration runtime Kubernetes in Unified Catalog (preview) | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Microsoft Purview Data Quality for on-premises data sources enables organizations to assess, monitor, and improve the quality of data stored within internal systems such as databases and legacy platforms. It supports rule-based validation, error detection, and remediation workflows, while ensuring compliance with organizational policies. By integrating with existing infrastructure, it delivers consistent data quality insights and governance across both on-premises and cloud environments.
 

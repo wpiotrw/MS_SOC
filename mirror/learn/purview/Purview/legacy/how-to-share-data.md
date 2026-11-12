@@ -17,7 +17,9 @@ ms.custom:
 - references_regions
 - devx-track-azurepowershell
 - sfi-image-nochange
-ms.date: 2024-09-24T00:00:00.0000000Z
+- msecd-doc-authoring-1030
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: a36f53d2-34f9-ded1-0ae6-ddbb2d5ecf05
 document_version_independent_id: a36f53d2-34f9-ded1-0ae6-ddbb2d5ecf05
@@ -37,15 +39,17 @@ source_path: Purview/legacy/how-to-share-data.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7cf8f81d-2989-4e5d-aa91-5191d10a3323
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5c1f3bfc-fced-4ad1-b4e6-b7200832734d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1cb9c90f-9a3f-4389-8367-0a20c542621f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5017978e-5a12-4c31-bdfd-1880eb1a780b
 platformId: d374f716-5225-0a3c-f071-ab6872abaac2
 ---
 
 # How to share data | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Note
 

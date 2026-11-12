@@ -13,8 +13,9 @@ ms.reviewer: jingwang
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: how-to
-ms.date: 2022-08-03T00:00:00.0000000Z
-ms.custom: template-how-to
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: template-how-to, msecd-doc-authoring-1030
 locale: en-us
 document_id: 94aa1d86-8fdf-d7e0-6af7-a1277a84a86c
 document_version_independent_id: 94aa1d86-8fdf-d7e0-6af7-a1277a84a86c
@@ -39,6 +40,10 @@ platformId: 597e7257-0b6e-bad0-8a7d-415a76242252
 ---
 
 # Connect to and manage HDFS | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register Hadoop Distributed File System (HDFS), and how to authenticate and interact with HDFS in Microsoft Purview. For more information about Microsoft Purview, read the [introductory article](purview).
 

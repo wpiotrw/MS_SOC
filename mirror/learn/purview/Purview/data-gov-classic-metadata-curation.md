@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: jife
-ms.date: 2024-06-11T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -45,6 +47,10 @@ platformId: 29f19fbc-1aa2-7a6e-d10e-0306575a76f3
 ---
 
 # Metadata curation in Microsoft Purview Data Map | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article describes how users can update and curate the metadata of an asset in the Microsoft Purview Data Map. Data assets in the map automatically have technical metadata like name and schema, but users can also add other information like descriptions and contacts. This extra information allows other users to better understand data assets so they can discover, govern, and use them.
 

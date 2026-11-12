@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: nidought
-ms.date: 2025-04-11T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -45,6 +47,10 @@ platformId: 2de10a18-45bb-c4a3-8e68-235f02e55e51
 ---
 
 # Data Observability in Microsoft Purview Unified Catalog (preview) | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Data observability in Microsoft Purview Unified Catalog provides a bird's eye view into the health of the data estate as data flows between sources. Data stewards, experts, and those accountable for data health can view their data estate in a single screen, providing the ability to view the lineage of data assets all the way up to the structure of the governance domains. This single view helps users understand where data starts and ends, what the issues are, and where there's an effect on reporting obligations.
 

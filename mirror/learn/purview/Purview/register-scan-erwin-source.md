@@ -13,11 +13,13 @@ ms.reviewer: jingwang
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: how-to
-ms.date: 2023-04-20T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 ms.custom:
 - template-how-to
 - ignite-fall-2021
 - sfi-image-nochange
+- msecd-doc-authoring-1030
 locale: en-us
 document_id: 4745a9d5-9d38-8302-ef1b-c1bab547aca2
 document_version_independent_id: 4745a9d5-9d38-8302-ef1b-c1bab547aca2
@@ -42,6 +44,10 @@ platformId: 3489330a-7344-a6d3-3db8-b840c04e3a9a
 ---
 
 # Connect to and manage erwin Mart servers | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register erwin Mart servers, and how to authenticate and interact with erwin Mart Servers in Microsoft Purview. For more information about Microsoft Purview, read the [introductory article](purview).
 

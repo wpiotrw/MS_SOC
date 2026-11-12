@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: blessonj
-ms.date: 2024-04-30T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: Learn how to authenticate APIs to access the contents of your Microsoft Purview.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: 07dfe94b-c677-de6d-7839-d34aec00e2fa
 document_version_independent_id: 07dfe94b-c677-de6d-7839-d34aec00e2fa
@@ -40,12 +41,18 @@ item_type: Content
 source_path: Purview/data-gov-api-rest-data-plane.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: cf119bf6-4295-6cf4-7988-acd08c461daf
 ---
 
 # API authentication for Microsoft Purview data planes | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 In this tutorial, you learn how to authenticate for the [Microsoft Purview data plane APIs](/en-us/rest/api/purview/). Anyone who wants to submit data to Microsoft Purview, include Microsoft Purview as part of an automated process, or build their own user experience on Microsoft Purview can use the APIs to do so.
 

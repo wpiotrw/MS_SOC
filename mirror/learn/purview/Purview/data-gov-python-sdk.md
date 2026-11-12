@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: blessonj
-ms.date: 2025-05-01T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: This tutorial describes how to use the Microsoft Purview Python SDK to scan data and search the catalog.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: ae4ec796-21a6-6dfb-5cb5-7b6da1944da4
 document_version_independent_id: ae4ec796-21a6-6dfb-5cb5-7b6da1944da4
@@ -46,6 +47,10 @@ platformId: d63cd397-c7d1-de00-f067-9855c2e3f7f1
 ---
 
 # How to use Microsoft Purview Python SDK | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This tutorial will introduce you to using the Microsoft Purview Python SDK. You can use the SDK to do all the most common Microsoft Purview operations programmatically, rather than through the Microsoft Purview governance portal.
 

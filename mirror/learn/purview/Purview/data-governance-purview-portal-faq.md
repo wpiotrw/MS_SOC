@@ -2,11 +2,20 @@
 layout: FAQ
 title: Frequently asked questions for data governance in the new Microsoft Purview | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/purview/data-governance-purview-portal-faq
-summary: ''
+summary: >
+  <div class="IMPORTANT">
+
+  <p>Important</p>
+
+  <p>Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the <a href="https://aka.ms/DG-Deprecation">Microsoft Purview data governance retirement announcement</a>.</p>
+
+  </div>
 breadcrumb_path: /purview/breadcrumb/toc.json
 feedback_system: Standard
 uhfHeaderId: MSDocsHeader-Purview
-ms.date: 2025-09-19T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 f1.keywords:
 - NOCSH
 ms.author: chvukosw
@@ -46,6 +55,10 @@ platformId: 5c140e45-7365-c3cd-6b04-5528c3574577
 ---
 
 # Frequently asked questions for data governance in the new Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 ## Where is the new portal?
 

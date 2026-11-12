@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: pragyarathi
-ms.date: 2026-05-19T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: Learn how to use Microsoft Purview to scan and manage your Azure Databricks Unity Catalog.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: 4b5f81de-b1bf-3528-f216-17a1acf8571f
 document_version_independent_id: 4b5f81de-b1bf-3528-f216-17a1acf8571f
@@ -48,6 +49,10 @@ platformId: dad34276-c59a-d3eb-720e-14b2bc6f0c55
 ---
 
 # Connect to and manage Azure Databricks Unity Catalog in Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register Azure Databricks, and how to authenticate and interact with Azure Databricks Unity Catalog in Microsoft Purview. For more information about Microsoft Purview, see the [introductory article](purview).
 

@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2026-04-24T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -45,6 +47,10 @@ platformId: 0b0dbe60-e1c5-fc65-82ca-cc2e76720bfe
 ---
 
 # Master Data Management in Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Master data management (MDM) serves as a foundational element to build comprehensive data governance framework. Master data management creates a source of truth for your data, so you can check your key assets against this source of truth to confirm your data is trustworthy. You do this by creating a deduplicated set of master data records, a golden standard by which to measure your data. The standardization process you use to create this set of master data records differs across organizations, and Microsoft Purview integrates with partner solutions to offer helpful strategies.
 

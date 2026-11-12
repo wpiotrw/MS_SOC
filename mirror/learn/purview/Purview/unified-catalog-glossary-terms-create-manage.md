@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: sidontha
-ms.date: 2026-05-20T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -47,6 +49,10 @@ platformId: 1c74f45b-ad38-0b3b-2464-41f525e0744d
 ---
 
 # Create and Manage Glossary Terms in Unified Catalog | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 [Glossary terms](unified-catalog-glossary-terms) in Microsoft Purview Unified Catalog provide a vocabulary for business users. These terms allow users to discover and work with data in the vocabulary that is more familiar to them, rather than using abstract technical jargon inherited from data sources.
 

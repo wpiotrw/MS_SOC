@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: sidontha
-ms.date: 2026-06-23T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -47,6 +49,10 @@ platformId: f540faf2-9d53-8621-43b3-0421b48e9c09
 ---
 
 # Migrate Classic Glossary Terms and Enable Asset Curation in Unified Catalog (Preview) | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Microsoft Purview Unified Catalog provides a centralized place for creating and managing [glossary terms](unified-catalog-glossary-terms) for both business concepts and data assets. If you created [glossary terms for data assets and columns](how-to-create-manage-glossary-term) in the classic data governance glossary experience, you can start migrating them into the unified glossary experience in Unified Catalog.
 

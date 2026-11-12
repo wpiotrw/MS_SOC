@@ -2,6 +2,6 @@
   "version": 1,
   "cursor": "https://learn.microsoft.com/en-us/iis/application-frameworks/install-and-configure-php-on-iis/configure-smtp-e-mail-in-iis-7-and-above",
   "pages": {
-    "https://learn.microsoft.com/en-us/iis/application-frameworks/install-and-configure-php-on-iis/configure-smtp-e-mail-in-iis-7-and-above": {"etag":"\"uDhcDAm+sfrjZCkfryIm79Bf/uQ=\"","gitCommitId":"0755b0f9dab91054025830b0c5ab3611cabab1dd","path":"iis/application-frameworks/install-and-configure-php-on-iis/configure-smtp-e-mail-in-iis-7-and-above.md","sourcePath":"iis/application-frameworks/install-and-configure-php-on-iis/configure-smtp-e-mail-in-iis-7-and-above.md","updatedAt":"2025-03-22T01:33:00.0000000Z"}
+    "https://learn.microsoft.com/en-us/iis/application-frameworks/install-and-configure-php-on-iis/configure-smtp-e-mail-in-iis-7-and-above": {"etag":"\"2HbHn3tyH3WDR9QHWPasvFACSbY=\"","gitCommitId":"f63acb7824ffcf231f153ced60dee4d642c27ad2","path":"iis/index.md","redirectedTo":"https://learn.microsoft.com/en-us/iis/","sourcePath":"iis/index.yml","updatedAt":"2024-04-11T18:43:00.0000000Z"}
   }
 }

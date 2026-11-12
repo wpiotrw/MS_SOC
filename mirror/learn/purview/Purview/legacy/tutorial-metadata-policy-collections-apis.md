@@ -15,8 +15,10 @@ ms.subservice: purview-data-governance-classic
 ms.custom:
 - has-azure-ad-ps-ref
 - azure-ad-ref-level-one-done
+- msecd-doc-authoring-1030
 ms.topic: tutorial
-ms.date: 2025-02-24T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: d78f945f-26af-a41d-96af-4fee1767c57a
 document_version_independent_id: d78f945f-26af-a41d-96af-4fee1767c57a
@@ -35,12 +37,18 @@ item_type: Content
 source_path: Purview/legacy/tutorial-metadata-policy-collections-apis.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: d3b03a96-98ed-32dd-510a-e1278ddbbb94
 ---
 
 # Learn about Microsoft Purview collections metadata policy and roles APIs | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Note
 

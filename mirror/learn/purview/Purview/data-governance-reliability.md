@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: sidontha
-ms.date: 2024-01-24T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -46,6 +48,10 @@ platformId: 511936e8-c59b-e08f-ec43-6831307220f3
 ---
 
 # Reliability in Microsoft Purview for Data Governance | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article describes reliability support in Purview for governance experiences. It covers both regional resiliency with availability zones and disaster recovery and business continuity. For a more detailed overview of reliability principles in Microsoft Azure, see [Azure reliability](/en-us/azure/well-architected/reliability/).
 

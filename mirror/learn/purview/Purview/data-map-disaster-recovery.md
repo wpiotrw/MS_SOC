@@ -11,12 +11,12 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: pragyarathi
-ms.date: 2026-07-20T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
 ms.subservice: purview-data-map
-ms.custom: msecd-doc-authoring-1017
+ms.custom: msecd-doc-authoring-1030
 ms.localizationpriority: medium
 ms.collection:
 - tier2
@@ -44,15 +44,17 @@ source_path: Purview/data-map-disaster-recovery.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f488294d-f483-456e-94e3-755f933b811b
-- https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 - https://authoring-docs-microsoft.poolparty.biz/devrel/02662057-0b9b-40f4-a3c7-537125b6d283
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
 platformId: ecce4c03-1189-f2c1-f1dd-7f1b68aa46b1
 ---
 
 # Disaster Recovery for Microsoft Purview Data Map | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article provides backup and recovery guidance for data governance admins who use [Microsoft Purview Data Map](data-map) in a production deployment. It covers manual business continuity and disaster recovery (BCDR) methods. Before you begin, review the prerequisites described first in this article. For detailed BCDR steps for Unified Catalog, see [Disaster recovery for Unified Catalog (manual)](unified-catalog-disaster-recovery).
 

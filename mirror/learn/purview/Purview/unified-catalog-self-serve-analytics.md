@@ -11,7 +11,7 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2026-06-23T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -22,7 +22,7 @@ search.appverid:
 - MOE150
 ai-usage: ai-assisted
 description: Get step-by-step instructions for using metadata in Microsoft Purview Unified Catalog for analytics and insights.
-ms.custom: sfi-image-nochange, msecd-doc-authoring-1015
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: 1509f59c-d8b2-e9e9-4145-c8428ce2d892
 document_version_independent_id: 1509f59c-d8b2-e9e9-4145-c8428ce2d892
@@ -40,17 +40,21 @@ monikers: []
 item_type: Content
 source_path: Purview/unified-catalog-self-serve-analytics.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5c1f3bfc-fced-4ad1-b4e6-b7200832734d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/20ed8455-bc18-4537-87a4-83784e7b2a39
-- https://authoring-docs-microsoft.poolparty.biz/devrel/d3197845-b4ce-44c6-a237-cd4be160e76c
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/e7cd09c2-9e9a-4f0d-b160-c15783f45b1f
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5017978e-5a12-4c31-bdfd-1880eb1a780b
-- https://authoring-docs-microsoft.poolparty.biz/devrel/9a7f703b-30bb-4d62-9eb4-97213f571849
-- https://authoring-docs-microsoft.poolparty.biz/devrel/aea905fb-0a9d-4d46-b30f-e9cbaf772d1b
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1d337399-0ca4-4b4c-acef-8df37820e018
 platformId: 638ee4aa-7fd8-472e-7ec3-8983c86f5804
 ---
 
 # Self-Serve Analytics in Unified Catalog | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Self-serve analytics and insights refer to data, tools, and platforms that enable business users to access, analyze, and generate insights from data independently. Microsoft Purview data governance publishes a domain model of metadata into Microsoft Fabric OneLake and Microsoft Azure Data Lake Storage Gen2, so you can analyze and generate insights by bringing your own tools and compute. Self-serve analytics of data governance metadata is valuable in driving continuous improvement of your data estate health management and fostering a data-driven culture across your organization by democratizing access to data estate insights and health management.
 

@@ -13,12 +13,12 @@ ms.reviewer: pragyarathi
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: how-to
-ms.date: 2026-05-07T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 ai-usage: ai-assisted
 ms.custom:
 - references_regions
 - ignite-fall-2021
-- msecd-doc-authoring-1012
+- msecd-doc-authoring-1030
 - sfi-image-nochange
 - sfi-ropc-blocked
 locale: en-us
@@ -45,6 +45,10 @@ platformId: 6afafec9-f041-ebd4-1d06-6f8bc0943210
 ---
 
 # Amazon RDS Multicloud scanning connector for Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 The Multicloud Scanning Connector for Microsoft Purview allows you to explore your organizational data across cloud providers, including Amazon Web Services, in addition to Azure storage services.
 

@@ -13,8 +13,9 @@ ms.reviewer: sidnotha
 ms.service: purview
 ms.subservice: purview-data-map-classic
 ms.topic: how-to
-ms.date: 2025-02-26T00:00:00.0000000Z
-ms.custom: template-how-to
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: template-how-to, msecd-doc-authoring-1030
 locale: en-us
 document_id: f7a44644-be26-50db-cf74-84c0458a0585
 document_version_independent_id: f7a44644-be26-50db-cf74-84c0458a0585
@@ -33,16 +34,16 @@ item_type: Content
 source_path: Purview/legacy/how-to-workflow-asset-curation.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/3f837592-9b7c-422c-82fa-3523042264d7
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://authoring-docs-microsoft.poolparty.biz/devrel/f37b967c-efb8-47e1-9b0d-0ab7670e3db4
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: a41a3c53-2676-7e84-6fac-4cd7969b8044
 ---
 
 # Asset curation approval workflow | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Note
 

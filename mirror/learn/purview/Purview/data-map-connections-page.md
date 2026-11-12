@@ -13,7 +13,9 @@ ms.reviewer: blessonj
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: concept-article
-ms.date: 2024-09-10T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 locale: en-us
 document_id: 5759620e-8d81-9787-0377-557a3682552a
 document_version_independent_id: 5759620e-8d81-9787-0377-557a3682552a
@@ -38,6 +40,10 @@ platformId: 9a0d9309-b321-19df-31b5-dfee49210748
 ---
 
 # Data map connections page | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 The **Connections** page in the Microsoft Purview Data Map is a page for creating unique connections to services to use more of Microsoft Purview Data Map's features.
 

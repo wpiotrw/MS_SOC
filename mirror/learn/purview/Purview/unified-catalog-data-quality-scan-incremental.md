@@ -11,7 +11,7 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2026-05-15T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,6 +21,7 @@ search.appverid:
 - MET150
 - MOE150
 ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 description: Use time-based filter to scan data quality incrementally in Microsoft Purview Unified Catalog.
 locale: en-us
 document_id: c7bca066-645a-e079-701b-ef25a7e5d795
@@ -40,16 +41,16 @@ item_type: Content
 source_path: Purview/unified-catalog-data-quality-scan-incremental.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
-- https://authoring-docs-microsoft.poolparty.biz/devrel/20ed8455-bc18-4537-87a4-83784e7b2a39
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
-- https://authoring-docs-microsoft.poolparty.biz/devrel/9a7f703b-30bb-4d62-9eb4-97213f571849
 platformId: 3591e637-d51c-9322-4c7b-286f1ef65aa3
 ---
 
 # Incremental Data Quality Scan in Unified Catalog | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Microsoft Purview Data Quality supports incremental data quality scans by using time-based filtering. By using incremental scans, you can choose between full scans, incremental scans, or both when you run data quality rules on data assets.
 

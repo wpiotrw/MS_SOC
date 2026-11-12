@@ -13,8 +13,9 @@ ms.reviewer: chigupta
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: concept-article
-ms.date: 2026-01-22T00:00:00.0000000Z
-ms.custom: template-how-to
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: template-how-to, msecd-doc-authoring-1030
 locale: en-us
 document_id: d7ed1630-07da-8ea7-8d2f-a23a6176af21
 document_version_independent_id: d7ed1630-07da-8ea7-8d2f-a23a6176af21
@@ -32,15 +33,19 @@ monikers: []
 item_type: Content
 source_path: Purview/register-scan-postgresql.md
 cmProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/982661b3-cc41-45b1-b21d-18b4b6937344
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/982661b3-cc41-45b1-b21d-18b4b6937344
 spProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/bbee35d0-ba85-4062-b9c2-388c328eb4fa
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/bbee35d0-ba85-4062-b9c2-388c328eb4fa
 platformId: 005b781d-051c-0be9-3ecc-ace72a7c290a
 ---
 
 # Connect to and manage PostgreSQL | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register PostgreSQL, and how to authenticate and interact with PostgreSQL in Microsoft Purview. For more information about Microsoft Purview, read the [introductory article](purview).
 

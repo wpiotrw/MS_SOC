@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: blessonj
-ms.date: 2025-09-30T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: Learn how to create and manage self-hosted integration runtimes in Microsoft Purview.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: a61a5cc0-9e9f-6a78-4840-b6ef558fbbdb
 document_version_independent_id: a61a5cc0-9e9f-6a78-4840-b6ef558fbbdb
@@ -46,6 +47,10 @@ platformId: ec7e3895-b48c-c3a1-6aa1-7be57d1532db
 ---
 
 # Create and manage self-hosted integration runtimes in Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 The integration runtime (IR) is the compute infrastructure that Microsoft Purview uses to power data scan across different network environments.
 

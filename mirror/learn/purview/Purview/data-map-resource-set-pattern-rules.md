@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: blessonj
-ms.date: 2025-05-01T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -47,6 +49,10 @@ platformId: 97302e93-adcc-604e-e1d0-2f8a9e35a9d6
 ---
 
 # Create resource set pattern rules in Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 At-scale data processing systems typically store a single table in storage as multiple files. This concept is represented in Microsoft Purview by using resource sets. A resource set is a single object in Microsoft Purview Unified Catalog that represents a large number of assets in storage. To learn more, see [Understanding resource sets](data-map-resource-sets).
 

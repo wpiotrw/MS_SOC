@@ -13,8 +13,9 @@ ms.reviewer: nayenama
 ms.service: purview
 ms.subservice: purview-data-governance-classic
 ms.topic: how-to
-ms.date: 2024-04-17T00:00:00.0000000Z
-ms.custom: sfi-image-nochange
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: 33acbd81-de88-e353-0b54-01d7d536445d
 document_version_independent_id: 33acbd81-de88-e353-0b54-01d7d536445d
@@ -39,6 +40,10 @@ platformId: 6b5e8328-df16-5756-95a7-13c883e53a6b
 ---
 
 # Classic Microsoft Purview governance portal | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Note
 

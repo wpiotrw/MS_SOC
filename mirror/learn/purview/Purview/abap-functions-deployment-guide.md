@@ -13,7 +13,9 @@ ms.reviewer: jingwant
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: install-set-up-deploy
-ms.date: 2022-08-03T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 locale: en-us
 document_id: 82ec4adf-5f0f-8c9c-9f0c-a8f13a249776
 document_version_independent_id: 82ec4adf-5f0f-8c9c-9f0c-a8f13a249776
@@ -40,6 +42,10 @@ platformId: b665c3e3-8fc8-4435-ef5a-4d6fb69c7fba
 ---
 
 # SAP ABAP function module deployment guide - Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 When you scan [SAP ECC](register-scan-sapecc-source), [SAP S/4HANA](register-scan-saps4hana-source), and [SAP BW](register-scan-sap-bw) sources in Microsoft Purview, you need to create the dependent ABAP function module in your SAP server. Microsoft Purview invokes this function module to extract the metadata from your SAP system during scan.
 

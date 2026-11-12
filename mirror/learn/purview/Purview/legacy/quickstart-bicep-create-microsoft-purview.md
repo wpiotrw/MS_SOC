@@ -10,11 +10,12 @@ author: chvukosw
 ms.author: chvukosw
 manager: laurawi
 ms.reviewer: jife
-ms.date: 2025-02-26T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 ms.topic: quickstart
 ms.service: purview
 ms.subservice: purview-data-governance-classic
-ms.custom: devx-track-bicep
+ms.custom: devx-track-bicep, msecd-doc-authoring-1030
 locale: en-us
 document_id: e651d4d2-9333-8d1e-06a6-81e818ca1b27
 document_version_independent_id: e651d4d2-9333-8d1e-06a6-81e818ca1b27
@@ -40,6 +41,10 @@ platformId: 75685b63-f739-6574-92af-0ff4808e6141
 ---
 
 # Quickstart: Create a Microsoft Purview (formerly Azure Purview) account using a Bicep file | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Note
 

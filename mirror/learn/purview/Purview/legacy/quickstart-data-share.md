@@ -13,8 +13,9 @@ ms.reviewer: sidnotha
 ms.service: purview
 ms.subservice: purview-data-governance-classic
 ms.topic: quickstart
-ms.custom: references_regions, devx-track-azurepowershell
-ms.date: 2024-09-24T00:00:00.0000000Z
+ms.custom: references_regions, devx-track-azurepowershell, msecd-doc-authoring-1030
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: c0df742e-104f-a11a-5b1f-4216347cc175
 document_version_independent_id: c0df742e-104f-a11a-5b1f-4216347cc175
@@ -34,15 +35,17 @@ source_path: Purview/legacy/quickstart-data-share.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7cf8f81d-2989-4e5d-aa91-5191d10a3323
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1cb9c90f-9a3f-4389-8367-0a20c542621f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 24d6dbd8-9e89-f370-bef1-c94a137ed0ce
 ---
 
 # Quickstart - Share data | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Note
 

@@ -13,8 +13,9 @@ ms.reviewer: shjia
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: how-to
-ms.date: 2026-03-13T00:00:00.0000000Z
-ms.custom: template-how-to, ignite-fall-2021
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: template-how-to, ignite-fall-2021, msecd-doc-authoring-1030
 locale: en-us
 document_id: 1bdb53ed-7b8c-b719-0a27-c93ad910cdf1
 document_version_independent_id: 1bdb53ed-7b8c-b719-0a27-c93ad910cdf1
@@ -32,17 +33,19 @@ monikers: []
 item_type: Content
 source_path: Purview/register-scan-azure-postgresql.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/cf9527be-7cdf-4bdd-8574-272df09987d3
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/cf9527be-7cdf-4bdd-8574-272df09987d3
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/e87f9e59-cf8f-4272-9365-9d20f2c3efe5
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/e87f9e59-cf8f-4272-9365-9d20f2c3efe5
 platformId: d4424d1b-0fc2-6df7-276e-31f248978728
 ---
 
 # Connect to and manage an Azure Database for PostgreSQL | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register an Azure Database for PostgreSQL deployed with single server deployment option, and how to authenticate and interact with an Azure Database for PostgreSQL in Microsoft Purview. For more information about Microsoft Purview, read the [introductory article](purview).
 

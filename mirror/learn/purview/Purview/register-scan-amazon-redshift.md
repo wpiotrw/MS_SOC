@@ -13,10 +13,12 @@ ms.reviewer: jingwang
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: how-to
-ms.date: 2023-09-15T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 ms.custom:
 - template-how-to
 - sfi-image-nochange
+- msecd-doc-authoring-1030
 locale: en-us
 document_id: 7dc8ef8c-9a04-0a65-1552-c663e0732ffa
 document_version_independent_id: 7dc8ef8c-9a04-0a65-1552-c663e0732ffa
@@ -41,6 +43,10 @@ platformId: 8e514b6a-d9a2-e9d2-a356-5df130c77721
 ---
 
 # Amazon Redshift multicloud scanning connector for Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 #### Scanning capabilities
 

@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: chigupta
-ms.date: 2025-05-21T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -49,6 +51,10 @@ platformId: f37c5512-6838-8736-69f8-18ba3f2d6741
 ---
 
 # Connect to and manage dedicated SQL pools (formerly SQL DW) in Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register dedicated SQL pools (formerly SQL DW), and how to authenticate and interact with dedicated SQL pools in Microsoft Purview. For more information about Microsoft Purview, read the [introductory article](purview).
 

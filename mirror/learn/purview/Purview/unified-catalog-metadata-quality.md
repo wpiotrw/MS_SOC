@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2024-04-15T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -45,6 +47,10 @@ platformId: 1473a061-9079-a9dd-b287-b1c40f15056e
 ---
 
 # Metadata Quality in Unified Catalog | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Metadata quality is a low-code or no-code experience for data stewards and members of the Chief Data Officer’s office, to write any logic to test the metadata health and quality. Data stewards can write complex logic without worrying about coding, and immediately see results in Microsoft Purview Unified Catalog. Metadata quality comes with a set of predefined logic for each control, that you can read about in [the health controls article](unified-catalog-controls). As a data steward, you can add more rules to the existing logic, and at the next refresh of the health controls, the new metadata quality logic applies to the metadata based on the scope, such as data product, governance domain, or other entity.
 

@@ -14,8 +14,9 @@ ms.service: purview
 ms.subservice: purview-data-governance-classic
 ms.devlang: python
 ms.topic: quickstart
-ms.date: 2022-06-17T00:00:00.0000000Z
-ms.custom: mode-api, devx-track-python
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: mode-api, devx-track-python, msecd-doc-authoring-1030
 locale: en-us
 document_id: ca1c5876-8ff1-548a-e61b-0cdf11ef05c9
 document_version_independent_id: ca1c5876-8ff1-548a-e61b-0cdf11ef05c9
@@ -40,6 +41,10 @@ platformId: 392ec56d-873d-2ca3-9439-7c3721cd4c21
 ---
 
 # Quickstart: Create a Microsoft Purview (formerly Azure Purview) account using Python | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Note
 

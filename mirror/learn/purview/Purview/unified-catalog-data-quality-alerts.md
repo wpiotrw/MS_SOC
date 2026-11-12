@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2024-04-08T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: Learn how to use data quality alerts and notifications in Microsoft Purview Unified Catalog to notify users when data quality misses expectations, so they can drive quick resolutions.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: df6495cd-a7be-2df5-dcaa-e3b41d502d2c
 document_version_independent_id: df6495cd-a7be-2df5-dcaa-e3b41d502d2c
@@ -46,6 +47,10 @@ platformId: 8b47102e-f98a-b140-3997-ba70d3b984f7
 ---
 
 # Data Quality Alerts in Unified Catalog | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Data quality alerts notify you about important events or unexpected behavior detected around the quality of the data. When you create alerts for data assets, you receive email notifications about data quality scores.
 

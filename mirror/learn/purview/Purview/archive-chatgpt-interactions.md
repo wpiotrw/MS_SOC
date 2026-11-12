@@ -9,7 +9,7 @@ description: Learn how to register ChatGPT Enterprise workspaces as a data sourc
 ms.author: chvukosw
 author: chvukosw
 manager: laurawi
-ms.date: 2026-06-19T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: how-to
 ms.service: purview
@@ -17,7 +17,7 @@ ms.subservice: purview-data-map
 ms.collection:
 - purview-compliance
 ai-usage: ai-assisted
-ms.custom: msecd-doc-authoring-1014
+ms.custom: msecd-doc-authoring-1030
 locale: en-us
 document_id: afd71880-25c4-b6f2-e50e-6bf365b713ac
 document_version_independent_id: afd71880-25c4-b6f2-e50e-6bf365b713ac
@@ -42,6 +42,10 @@ platformId: 15ee698e-eaa1-4c79-d89c-c9f6a14085e0
 ---
 
 # Connect to and manage ChatGPT Enterprise AI interactions in Microsoft Purview (preview) | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register ChatGPT Enterprise workspaces as a data source in [Microsoft Purview](purview). This connector allows you to discover and govern interactions with ChatGPT Enterprise AI across your organization. Before you start, ensure you have the required permissions, billing configuration, and a ChatGPT Enterprise plan as described in the Prerequisites section.
 

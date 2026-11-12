@@ -11,7 +11,7 @@ ms.author: pragyarathi
 author: pragyarathi04
 manager: laurawi
 ms.reviewer: blessonj
-ms.date: 2026-10-01T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: overview
 ms.service: purview
@@ -47,6 +47,10 @@ platformId: e9fb5b8a-18d1-222f-3960-31545065613f
 ---
 
 # Microsoft Purview Data Map overview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Microsoft Purview Data Map is the foundation for data discovery and data governance in Microsoft Purview. It captures metadata about data in analytics, software-as-a-service (SaaS), and operational systems across hybrid, on-premises, and multicloud environments. Built-in scanning and classification keep the Data Map up to date.
 

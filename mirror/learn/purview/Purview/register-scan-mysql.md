@@ -13,8 +13,9 @@ ms.reviewer: jingwang
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: how-to
-ms.date: 2023-07-18T00:00:00.0000000Z
-ms.custom: template-how-to
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: template-how-to, msecd-doc-authoring-1030
 locale: en-us
 document_id: be32f146-dcc1-4b3e-c23a-d7069a8cbe81
 document_version_independent_id: be32f146-dcc1-4b3e-c23a-d7069a8cbe81
@@ -39,6 +40,10 @@ platformId: 221f1e66-7755-57af-0fec-77f0d8fced30
 ---
 
 # Connect to and manage MySQL | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register MySQL, and how to authenticate and interact with MySQL in Microsoft Purview. For more information about Microsoft Purview, read the [introductory article](purview).
 

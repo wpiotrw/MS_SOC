@@ -14,8 +14,9 @@ ms.service: purview
 ms.subservice: purview-data-governance-classic
 ms.devlang: csharp
 ms.topic: quickstart
-ms.date: 2024-09-24T00:00:00.0000000Z
-ms.custom: mode-api, references-regions, devx-track-azurepowershell, devx-track-dotnet
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: mode-api, references-regions, devx-track-azurepowershell, devx-track-dotnet, msecd-doc-authoring-1030
 locale: en-us
 document_id: 33a09cd4-3a52-2bff-5ed9-4b82a5706f89
 document_version_independent_id: 33a09cd4-3a52-2bff-5ed9-4b82a5706f89
@@ -44,6 +45,10 @@ platformId: 3e78e363-53bf-df25-7697-59fc2bd40690
 ---
 
 # Quickstart: Share data using the .NET SDK | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Note
 

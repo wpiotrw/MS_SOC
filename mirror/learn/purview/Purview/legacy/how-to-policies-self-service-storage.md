@@ -13,8 +13,9 @@ ms.reviewer: blessonj
 ms.service: purview
 ms.subservice: purview-data-governance-classic
 ms.topic: how-to
-ms.date: 2025-02-26T00:00:00.0000000Z
-ms.custom: references_regions, event-tier1-build-2022
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: references_regions, event-tier1-build-2022, msecd-doc-authoring-1030
 locale: en-us
 document_id: d328b844-a568-2671-7f86-aad3db3018d7
 document_version_independent_id: d328b844-a568-2671-7f86-aad3db3018d7
@@ -33,12 +34,18 @@ item_type: Content
 source_path: Purview/legacy/how-to-policies-self-service-storage.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 8a0dff65-3465-fd12-84f5-b6a6bbc7c550
 ---
 
 # Self-service policies for Azure Storage (preview) | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Note
 

@@ -13,8 +13,9 @@ ms.reviewer: pragyarathi
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: how-to
-ms.date: 2026-04-27T00:00:00.0000000Z
-ms.custom: template-how-to
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: template-how-to, msecd-doc-authoring-1030
 locale: en-us
 document_id: 256c04b2-f4fc-044e-33a4-9e6a86d304ab
 document_version_independent_id: 256c04b2-f4fc-044e-33a4-9e6a86d304ab
@@ -39,6 +40,10 @@ platformId: a990abc9-acfe-e9ba-a771-156fe5d2106f
 ---
 
 # Connect to and manage SAP HANA | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register SAP HANA, and how to authenticate and interact with SAP HANA in Microsoft Purview. For more information about Microsoft Purview, read the [introductory article](purview).
 

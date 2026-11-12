@@ -13,10 +13,12 @@ ms.reviewer: shjia
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: how-to
-ms.date: 2024-03-21T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 ms.custom:
 - template-how-to
 - sfi-image-nochange
+- msecd-doc-authoring-1030
 locale: en-us
 document_id: 010714f6-f8d5-191b-8aa4-146ef3dfbf6b
 document_version_independent_id: 010714f6-f8d5-191b-8aa4-146ef3dfbf6b
@@ -45,6 +47,10 @@ platformId: 91e31d2d-f3d7-bae1-d38f-30f12e2225bf
 ---
 
 # Connect to and manage Azure Arc-enabled SQL Server | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article shows how to register an Azure Arc-enabled SQL Server instance. It also shows how to authenticate and interact with Azure Arc-enabled SQL Server in Microsoft Purview. For more information about Microsoft Purview, read the [introductory article](purview).
 

@@ -11,7 +11,7 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2026-05-10T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,6 +21,7 @@ search.appverid:
 - MET150
 - MOE150
 ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 description: Learn about data quality thresholds for data quality rules and data assets in Microsoft Purview Unified Catalog.
 locale: en-us
 document_id: 02f0189a-a448-343d-3230-f57f104703ba
@@ -46,6 +47,10 @@ platformId: a2ed5839-dff3-c4c4-2bb8-06b2e7b992d1
 ---
 
 # Data Quality Thresholds for data quality rules in Microsoft Purview Data Governance | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 A data quality threshold is a predefined limit that determines whether data meets an acceptable level of quality. In simple terms, it answers the question: How good is good enough?
 

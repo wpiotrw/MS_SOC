@@ -13,8 +13,9 @@ ms.reviewer: vamahtani
 ms.topic: how-to
 ms.service: purview
 ms.subservice: purview-data-map
-ms.custom: devx-track-extended-java
-ms.date: 2024-10-08T00:00:00.0000000Z
+ms.custom: devx-track-extended-java, msecd-doc-authoring-1030
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: 235d40b9-40c3-eb93-bc39-6ab7058b521e
 document_version_independent_id: 235d40b9-40c3-eb93-bc39-6ab7058b521e
@@ -33,14 +34,16 @@ item_type: Content
 source_path: Purview/troubleshoot-kubernetes-integration-runtime.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/a3955c7b-f5ee-420d-aff5-d7119738f38b
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://authoring-docs-microsoft.poolparty.biz/devrel/b31948f4-2f38-404b-ac93-c3c8c5b3ae33
 platformId: d0ba3a28-cd69-99c9-e3e1-8f2d77eddc0c
 ---
 
 # Troubleshoot a Kubernetes supported self-hosted integration runtime | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article covers the details for troubleshooting the new self-hosted integration runtime that is Kubernetes-based for Linux.
 

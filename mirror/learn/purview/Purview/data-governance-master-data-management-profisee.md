@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: mannan
-ms.date: 2024-06-07T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: Learn how to deploy the Microsoft Purview and Profisee integration as a master data management (MDM) solution for your data estate governance.
-ms.custom: sfi-image-nochange
+ms.custom: sfi-image-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: ad1e1a46-369e-4f58-dda3-312d62243415
 document_version_independent_id: ad1e1a46-369e-4f58-dda3-312d62243415
@@ -40,14 +41,16 @@ item_type: Content
 source_path: Purview/data-governance-master-data-management-profisee.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 3204d4e0-e199-5ca4-c2bb-b18819e3ba40
 ---
 
 # Microsoft Purview and Profisee Master Data Management (MDM) | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Enterprise systems can have multiple sources of master data—the common data that's shared across systems. This fact can become apparent when you catalog data sources. Examples of master data include customer, product, location, asset, and vendor data. When you use Profisee to merge, validate, and correct your master data, you can make that data effective. Specifically, you can use it to build a common trusted platform for analytics and operational improvement. By using the governance definitions, insights, and expertise that are detailed in Microsoft Purview, you can build your platform effectively.
 

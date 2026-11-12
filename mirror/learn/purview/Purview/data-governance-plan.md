@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: nidought
-ms.date: 2025-02-19T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -47,6 +49,10 @@ platformId: df980667-bec0-2b34-ed83-3488d2880a07
 ---
 
 # Plan for data governance with Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Before you get started with data governance, your information technology and data management teams should review important planning activities and considerations. Thoroughly understanding and planning for deployment helps ensure that your implementation and use of features in Microsoft Purview Unified Catalog and Microsoft Purview Data Map go smoothly and align with best practices.
 

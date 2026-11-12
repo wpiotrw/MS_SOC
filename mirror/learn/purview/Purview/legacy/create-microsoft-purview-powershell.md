@@ -10,11 +10,12 @@ author: chvukosw
 ms.author: chvukosw
 manager: laurawi
 ms.reviewer: nayenama
-ms.date: 2025-02-26T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 ms.topic: quickstart
 ms.service: purview
 ms.subservice: purview-data-governance-classic
-ms.custom: devx-track-azurepowershell, mode-api, devx-track-azurecli
+ms.custom: devx-track-azurepowershell, mode-api, devx-track-azurecli, msecd-doc-authoring-1030
 ms.devlang: azurecli
 locale: en-us
 document_id: fec382b8-2545-f529-00d0-31561d2b1ae3
@@ -40,6 +41,10 @@ platformId: e4ed5d3a-8fc7-8e66-f4d8-3b82523bc315
 ---
 
 # Quickstart: Create a Microsoft Purview (formerly Azure Purview) account with PowerShell/Azure CLI | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Note
 

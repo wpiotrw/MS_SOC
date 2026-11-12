@@ -2,7 +2,14 @@
 layout: FAQ
 title: Frequently Asked Questions About Microsoft Purview Data Governance Solutions | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/purview/data-governance-faq
-summary: ''
+summary: >
+  <div class="IMPORTANT">
+
+  <p>Important</p>
+
+  <p>Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the <a href="https://aka.ms/DG-Deprecation">Microsoft Purview data governance retirement announcement</a>.</p>
+
+  </div>
 breadcrumb_path: /purview/breadcrumb/toc.json
 feedback_system: Standard
 uhfHeaderId: MSDocsHeader-Purview
@@ -13,7 +20,9 @@ manager: laurawi
 ms.service: purview
 ms.subservice: purview-data-governance
 ms.topic: faq
-ms.date: 2024-05-16T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 locale: en-us
 document_id: 9bf3f0b7-61d0-f57b-c243-a9d65d941271
 document_version_independent_id: 9bf3f0b7-61d0-f57b-c243-a9d65d941271
@@ -38,6 +47,10 @@ platformId: 52ba990f-ec6e-9b4e-5909-3834d521383b
 ---
 
 # Frequently Asked Questions About Microsoft Purview Data Governance Solutions | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 ## Overview
 

@@ -15,7 +15,7 @@ ms.service: windows
 ms.topic: hub-page
 author: WindowsCommunications
 ms.author: direek
-ms.date: 2026-11-11T00:00:00.0000000Z
+ms.date: 2026-11-12T00:00:00.0000000Z
 ms.localizationpriority: medium
 locale: en-us
 document_id: 3105e4c0-7e83-7f42-7f1a-e0504b23afc9
@@ -81,9 +81,9 @@ Overview
 
 ### Message center
 
+- [Windows Office Hours: November 19, 2026](https://techcommunity.microsoft.com/event/windowsevents/windows-office-hours-november-19-2026/4561237)
+- [60-day reminder: Hardening changes for ReFS volumes on removable media](https://support.microsoft.com/servicing/os/windows/docs/2026/10/hardening-changes-for-refs-volumes-on-removable-media)
 - [NTLM signing security improvements in Windows](https://support.microsoft.com/help/5135557)
-- [The November 2026 Windows security update is now available](https://support.microsoft.com/help/5132061)
-- [Windows 11, version 23H2 Enterprise and Education editions have reached end of updates](/en-us/lifecycle/products/windows-11-enterprise-and-education)
 - [See more](/en-us/windows/release-information/windows-message-center)
 
 ### Windows 11, version 26H2

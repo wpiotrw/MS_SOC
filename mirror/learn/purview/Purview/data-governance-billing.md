@@ -11,7 +11,9 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: jife
-ms.date: 2026-04-24T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -45,6 +47,10 @@ platformId: c92b8549-3c9d-a8df-c9ab-b06166516c89
 ---
 
 # Billing in Microsoft Purview Data Governance | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Microsoft Purview data governance solutions include [Microsoft Purview Unified Catalog](unified-catalog) and [Microsoft Purview Data Map](data-map). For Unified Catalog, you pay for governed assets and data health management capabilities. The billing for these components operates on a pay-as-you-go model. There's no cost to scan assets into Microsoft Purview Data Map when certain billing conditions are met. This article explains how to prepare for billing and how data governance capabilities are charged.
 

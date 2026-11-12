@@ -13,12 +13,14 @@ ms.reviewer: chigupta
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: concept-article
-ms.date: 2026-01-22T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 ms.custom:
 - template-how-to
 - ignite-fall-2021
 - references_regions
 - sfi-image-nochange
+- msecd-doc-authoring-1030
 locale: en-us
 document_id: abe9897d-f748-5c9a-e886-93acba39a3ba
 document_version_independent_id: abe9897d-f748-5c9a-e886-93acba39a3ba
@@ -37,16 +39,20 @@ item_type: Content
 source_path: Purview/register-scan-azure-blob-storage-source.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ea957f26-244e-4bd1-9b19-105f0a0a73d6
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/85dd85bb-c2e5-412e-96b2-f2765a3fe51c
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 48ca97c6-b662-b36b-0267-520dfb505bbf
 ---
 
 # Discover and govern Azure Blob Storage | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines the process to register and govern Azure Blob Storage accounts in Microsoft Purview including instructions to authenticate and interact with the Azure Blob Storage source
 

@@ -11,7 +11,7 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: chigupta
-ms.date: 2026-04-28T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -25,6 +25,7 @@ description: Learn how to connect to a Microsoft Fabric tenant that's in a diffe
 ms.custom:
 - sfi-image-nochange
 - sfi-ropc-nochange
+- msecd-doc-authoring-1030
 locale: en-us
 document_id: b0f17d91-f950-74ad-5a5d-51ba3d836dd5
 document_version_independent_id: b0f17d91-f950-74ad-5a5d-51ba3d836dd5
@@ -42,17 +43,19 @@ monikers: []
 item_type: Content
 source_path: Purview/register-scan-fabric-tenant-cross-tenant.md
 cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/e7cd09c2-9e9a-4f0d-b160-c15783f45b1f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/d3197845-b4ce-44c6-a237-cd4be160e76c
 spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1d337399-0ca4-4b4c-acef-8df37820e018
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
-- https://authoring-docs-microsoft.poolparty.biz/devrel/aea905fb-0a9d-4d46-b30f-e9cbaf772d1b
 platformId: bb862c3f-ae17-b52b-576d-7747ab733a25
 ---
 
 # Connect to and manage a Microsoft Fabric tenant (cross-tenant) | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register a Microsoft Fabric tenant that's in **a different tenant** from your Microsoft Purview resource, and how to authenticate and interact with the Fabric source in Microsoft Purview. For more information about Microsoft Purview in general, read the [introductory article](purview).
 

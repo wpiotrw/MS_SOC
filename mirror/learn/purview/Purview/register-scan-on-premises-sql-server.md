@@ -13,11 +13,13 @@ ms.reviewer: shjia
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: how-to
-ms.date: 2026-03-20T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 ms.custom:
 - template-how-to
 - ignite-fall-2021
 - sfi-image-nochange
+- msecd-doc-authoring-1030
 locale: en-us
 document_id: 50ded0e8-415b-cc5d-b2a3-4819949dc24e
 document_version_independent_id: 50ded0e8-415b-cc5d-b2a3-4819949dc24e
@@ -44,6 +46,10 @@ platformId: 19cc64ca-ac0d-410a-eec9-4d5f08d4359b
 ---
 
 # Connect to and manage on-premises SQL server instances | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register on-premises SQL server instances, and how to authenticate and interact with an on-premises SQL server instance in Microsoft Purview. For more information about Microsoft Purview, read the [introductory article](purview).
 

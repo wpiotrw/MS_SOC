@@ -11,7 +11,8 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: blessonj
-ms.date: 2025-05-01T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,7 +22,7 @@ search.appverid:
 - MET150
 - MOE150
 description: This article describes how to get lineage from Airflow into Microsoft Purview.
-ms.custom: sfi-ropc-nochange
+ms.custom: sfi-ropc-nochange, msecd-doc-authoring-1030
 locale: en-us
 document_id: 3cf9d46c-e7aa-3740-06b6-88e65bfe649e
 document_version_independent_id: 3cf9d46c-e7aa-3740-06b6-88e65bfe649e
@@ -48,6 +49,10 @@ platformId: 7d9842e2-d3d7-5153-fdb7-97ee144ea6a2
 ---
 
 # Lineage from Airflow into Microsoft Purview (preview) | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 [Airflow](https://airflow.apache.org/) is an open-source workflow automation and scheduling platform that can be used to author and manage data pipelines. Microsoft Purview supports collecting Airflow lineage by integrating with [OpenLineage](https://openlineage.io/), an open framework for data lineage collection and analysis. Learn about how Airflow works with OpenLineage from [here](https://openlineage.io/docs/integrations/airflow/).
 

@@ -11,7 +11,7 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: sidontha
-ms.date: 2026-05-21T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
@@ -21,6 +21,7 @@ search.appverid:
 - MET150
 - MOE150
 ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 description: Understand how to browse and search for data assets in Microsoft Purview Unified Catalog.
 locale: en-us
 document_id: dfa280b5-c9a2-889b-677e-cde210a1f505
@@ -46,6 +47,10 @@ platformId: cd30af3c-35df-7b94-8e4c-a38baab5ce96
 ---
 
 # Search for and Manage Data Assets in Unified Catalog | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 After data is scanned and ingested into the Microsoft Purview Data Map, data consumers need to easily find the data they need for their analytics or governance workloads. Data discovery can be time consuming because you might not know where to find the data that you want. Even after finding the data, you might have doubts about whether you can trust the data and take a dependency on it.
 

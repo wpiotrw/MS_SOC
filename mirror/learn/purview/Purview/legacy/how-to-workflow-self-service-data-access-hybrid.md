@@ -13,10 +13,12 @@ ms.reviewer: nayenama
 ms.service: purview
 ms.subservice: purview-data-map-classic
 ms.topic: how-to
-ms.date: 2025-02-26T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
 ms.custom:
 - template-how-to
 - sfi-image-nochange
+- msecd-doc-authoring-1030
 locale: en-us
 document_id: 630745bd-dd5c-f297-02ba-dc0e6f99bd30
 document_version_independent_id: 630745bd-dd5c-f297-02ba-dc0e6f99bd30
@@ -35,12 +37,18 @@ item_type: Content
 source_path: Purview/legacy/how-to-workflow-self-service-data-access-hybrid.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: bde9adc7-f96d-89ef-19e1-7c32e4912e8b
 ---
 
 # Self-service hybrid data access workflows | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Note
 

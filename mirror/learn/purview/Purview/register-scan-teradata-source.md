@@ -13,8 +13,9 @@ ms.reviewer: jingwang
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: how-to
-ms.date: 2023-04-20T00:00:00.0000000Z
-ms.custom: template-how-to, ignite-fall-2021
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: template-how-to, ignite-fall-2021, msecd-doc-authoring-1030
 locale: en-us
 document_id: 6acb965c-21aa-4ab6-4f0d-d74835592614
 document_version_independent_id: 6acb965c-21aa-4ab6-4f0d-d74835592614
@@ -39,6 +40,10 @@ platformId: 9f096ad3-0bc8-48a4-25e1-2ae68b811737
 ---
 
 # Connect to and manage Teradata | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register Teradata, and how to authenticate and interact with Teradata in Microsoft Purview. For more information about Microsoft Purview, read the [introductory article](purview).
 

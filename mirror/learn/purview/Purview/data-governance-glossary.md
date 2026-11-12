@@ -19,7 +19,9 @@ ms.subservice: purview-data-governance
 search.appverid:
 - MET150
 ms.collection: purview-compliance
-ms.date: 2025-11-07T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1030
 locale: en-us
 document_id: bacf8d59-c380-36ae-b0b7-8ebf77860050
 document_version_independent_id: bacf8d59-c380-36ae-b0b7-8ebf77860050
@@ -38,12 +40,18 @@ item_type: Content
 source_path: Purview/data-governance-glossary.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 84565843-2a77-7a11-b37c-c3da422c70f5
 ---
 
 # Microsoft Purview Data Governance glossary | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This glossary provides a brief description of important terms and concepts for the Microsoft Purview data governance experience.
 

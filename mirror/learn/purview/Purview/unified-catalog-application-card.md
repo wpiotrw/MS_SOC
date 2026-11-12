@@ -9,13 +9,13 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: jife
-ms.date: 2026-06-01T00:00:00.0000000Z
+ms.date: 2026-10-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: concept-article
 ms.service: purview
 ms.subservice: purview-data-governance
 ms.collection: msec-ai-copilot
-ms.custom: responsible-ai-transparency
+ms.custom: responsible-ai-transparency, msecd-doc-authoring-1030
 ai-usage: ai-assisted
 description: Learn about the AI features in Microsoft Purview Unified Catalog, including intended uses, limitations, evaluations, and best practices for responsible use.
 locale: en-us
@@ -35,17 +35,21 @@ monikers: []
 item_type: Content
 source_path: Purview/unified-catalog-application-card.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/12ed19f9-ebdf-4c8a-8bcd-7a681836774d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c6f99e62-1cf6-4b71-af9b-649b05f80cce
-- https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a764584-4f97-452b-8f1d-36f19b12f6ae
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3f56b378-07a9-4fa1-afe8-9889fdc77628
-- https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 platformId: 8bf5fd33-73a7-2c37-8724-dc02ec4bd8c2
 ---
 
 # Application card for Microsoft Purview Unified Catalog | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 ## What is an Application or Platform Card?
 

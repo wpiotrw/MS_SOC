@@ -13,8 +13,9 @@ ms.reviewer: karashah
 ms.service: purview
 ms.subservice: purview-data-map
 ms.topic: how-to
-ms.date: 2026-03-24T00:00:00.0000000Z
-ms.custom: template-how-to
+ms.date: 2026-10-13T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: template-how-to, msecd-doc-authoring-1030
 locale: en-us
 document_id: 272bde83-02d5-d9b2-cc8b-1adc9aa8a6eb
 document_version_independent_id: 272bde83-02d5-d9b2-cc8b-1adc9aa8a6eb
@@ -39,6 +40,10 @@ platformId: 5ec577b3-01b2-2b8f-966e-312ba2513216
 ---
 
 # Connect to and manage Snowflake in Microsoft Purview | Microsoft Learn
+
+Important
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article outlines how to register Snowflake, and how to authenticate and interact with Snowflake in Microsoft Purview. For more information about Microsoft Purview, read the [Microsoft Purview overview](purview).
 

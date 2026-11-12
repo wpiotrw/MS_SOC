@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-11-04T00:00:00.0000000Z
+ms.date: 2026-11-12T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -58,15 +58,18 @@ This article applies to Microsoft Edge version 77 or later.
 
 ## New policies
 
-There are no new policies in Microsoft Edge version 159.
+The following table lists the new policies for Microsoft Edge version 159.
+
+| Policy Name | Caption |
+| --- | --- |
+| [EnableProxyOverrideRulesForAllUsers](microsoft-edge-policies/enableproxyoverriderulesforallusers) | Allow proxy override rules for unaffiliated users |
 
 The following table lists the new policies for Microsoft Edge version 158.
 
 | Policy Name | Caption |
 | --- | --- |
-| [AgentProfileEnabled](microsoft-edge-policies/agentprofileenabled) | Agent Profile Enabled |
 | [OutOfProcessSystemDnsResolutionEnabled](microsoft-edge-policies/outofprocesssystemdnsresolutionenabled) | Enable system DNS resolution outside of the network service |
-| [CommercialJourneysGetThingsDoneEnabled](microsoft-edge-policies/commercialjourneysgetthingsdoneenabled) | Enable Commercial Journeys (Get things done) in Microsoft Edge |
+| [ComponentUpdatesMode](microsoft-edge-policies/componentupdatesmode) | Configure component updates |
 | [CopilotBrowserUseAllowList](microsoft-edge-policies/copilotbrowseruseallowlist) | Allow Copilot browser use on specified URLs |
 | [CopilotBrowserUseBlockList](microsoft-edge-policies/copilotbrowseruseblocklist) | Block Copilot browser use on specified URLs |
 
@@ -83,6 +86,7 @@ The following table lists all deprecated policies.
 | [MicrosoftOfficeMenuEnabled](microsoft-edge-policies/microsoftofficemenuenabled) | Allow users to access the Microsoft Office menu (deprecated) |
 | [ShowOfficeShortcutInFavoritesBar](microsoft-edge-policies/showofficeshortcutinfavoritesbar) | Show Microsoft Office shortcut in favorites bar (deprecated) |
 | [NewPDFReaderEnabled](microsoft-edge-policies/newpdfreaderenabled) | Microsoft Edge built-in PDF reader powered by Adobe Acrobat enabled (deprecated) |
+| [PerformanceDetectorEnabled](microsoft-edge-policies/performancedetectorenabled) | Performance Detector Enabled (deprecated) |
 | [ProxyBypassList](microsoft-edge-policies/proxybypasslist) | Configure proxy bypass rules (deprecated) |
 | [ProxyMode](microsoft-edge-policies/proxymode) | Configure proxy server settings (deprecated) |
 | [ProxyPacUrl](microsoft-edge-policies/proxypacurl) | Set the proxy .pac file URL (deprecated) |
@@ -454,7 +458,6 @@ These tables list all of the browser-related group policies available in this re
 
 | Policy Name | Caption |
 | --- | --- |
-| [AgentProfileEnabled](microsoft-edge-policies/agentprofileenabled) | Agent Profile Enabled |
 | [AutomaticProfileSwitchingSiteList](microsoft-edge-policies/automaticprofileswitchingsitelist) | Configure the automatic profile switching site list |
 | [EdgeBlockSignInEnabled](microsoft-edge-policies/edgeblocksigninenabled) | Block Sign In to Edge |
 | [EdgeDefaultProfileEnabled](microsoft-edge-policies/edgedefaultprofileenabled) | Default Profile Setting Enabled |
@@ -664,7 +667,7 @@ These tables list all of the browser-related group policies available in this re
 | [EfficiencyModeOnPowerEnabled](microsoft-edge-policies/efficiencymodeonpowerenabled) | Enable efficiency mode when the device is connected to a power source |
 | [ExtensionsPerformanceDetectorEnabled](microsoft-edge-policies/extensionsperformancedetectorenabled) | Extensions Performance Detector enabled |
 | [IntensiveWakeUpThrottlingEnabled](microsoft-edge-policies/intensivewakeupthrottlingenabled) | Control the IntensiveWakeUpThrottling feature |
-| [PerformanceDetectorEnabled](microsoft-edge-policies/performancedetectorenabled) | Performance Detector Enabled |
+| [PerformanceDetectorEnabled](microsoft-edge-policies/performancedetectorenabled) | Performance Detector Enabled (deprecated) |
 | [PinBrowserEssentialsToolbarButton](microsoft-edge-policies/pinbrowseressentialstoolbarbutton) | Pin browser essentials toolbar button |
 | [RAMResourceControlsEnabled](microsoft-edge-policies/ramresourcecontrolsenabled) | Enable RAM (memory) resource controls |
 | [StartupBoostEnabled](microsoft-edge-policies/startupboostenabled) | Enable startup boost |
@@ -741,6 +744,7 @@ These tables list all of the browser-related group policies available in this re
 
 | Policy Name | Caption |
 | --- | --- |
+| [EnableProxyOverrideRulesForAllUsers](microsoft-edge-policies/enableproxyoverriderulesforallusers) | Allow proxy override rules for unaffiliated users |
 | [PacMyIpAddressIPv4ProbeAddress](microsoft-edge-policies/pacmyipaddressipv4probeaddress) | Set the IPv4 route-probe address for PAC scripts |
 | [PacMyIpAddressIPv6ProbeAddress](microsoft-edge-policies/pacmyipaddressipv6probeaddress) | Set the IPv6 route-probe address for PAC scripts |
 | [ProxyBypassList](microsoft-edge-policies/proxybypasslist) | Configure proxy bypass rules (deprecated) |
@@ -915,10 +919,9 @@ These tables list all of the browser-related group policies available in this re
 | [CloudManagementEnrollmentToken](microsoft-edge-policies/cloudmanagementenrollmenttoken) | The enrollment token of cloud policy |
 | [CollectionsServicesAndExportsBlockList](microsoft-edge-policies/collectionsservicesandexportsblocklist) | Block access to a specified list of services and export targets in Collections (obsolete) |
 | [CommandLineFlagSecurityWarningsEnabled](microsoft-edge-policies/commandlineflagsecuritywarningsenabled) | Enable security warnings for command-line flags |
-| [CommercialJourneysGetThingsDoneEnabled](microsoft-edge-policies/commercialjourneysgetthingsdoneenabled) | Enable Commercial Journeys (Get things done) in Microsoft Edge |
 | [ComponentUpdatesEnabled](microsoft-edge-policies/componentupdatesenabled) | Enable component updates in Microsoft Edge |
 | [ComponentUpdatesMode](microsoft-edge-policies/componentupdatesmode) | Configure component updates |
-| [ComposeInlineEnabled](microsoft-edge-policies/composeinlineenabled) | Control access to Microsoft 365 Copilot writing assistance in Microsoft Edge for Business |
+| [ComposeInlineEnabled](microsoft-edge-policies/composeinlineenabled) | Commercial Writing |
 | [ConfigureDoNotTrack](microsoft-edge-policies/configuredonottrack) | Configure Do Not Track |
 | [ConfigureFriendlyURLFormat](microsoft-edge-policies/configurefriendlyurlformat) | Configure the default paste format of URLs copied from Microsoft Edge, and determine if additional formats will be available to users |
 | [ConfigureKeyboardShortcuts](microsoft-edge-policies/configurekeyboardshortcuts) | Configure the list of commands for which to disable keyboard shortcuts |
@@ -929,9 +932,8 @@ These tables list all of the browser-related group policies available in this re
 | [CopilotAddressBarSuggestionsEnabled](microsoft-edge-policies/copilotaddressbarsuggestionsenabled) | Enable Copilot address bar suggestions |
 | [CopilotBrowserUseAllowList](microsoft-edge-policies/copilotbrowseruseallowlist) | Allow Copilot browser use on specified URLs |
 | [CopilotBrowserUseBlockList](microsoft-edge-policies/copilotbrowseruseblocklist) | Block Copilot browser use on specified URLs |
-| [CopilotCoworkToolActionsEnabled](microsoft-edge-policies/copilotcoworktoolactionsenabled) | Allow Cowork to take actions on your behalf |
+| [CopilotCoworkToolActionsEnabled](microsoft-edge-policies/copilotcoworktoolactionsenabled) | Allow Copilot to take browser actions on your behalf. |
 | [CopilotNewTabPageEnabled](microsoft-edge-policies/copilotnewtabpageenabled) | Enable the Copilot new tab page |
-| [CopilotOnSensitiveContentEnabled](microsoft-edge-policies/copilotonsensitivecontentenabled) | Allow Copilot to work on sensitive content in a protected session |
 | [CpuPerformanceTierOverride](microsoft-edge-policies/cpuperformancetieroverride) | Override for the CPU performance tier |
 | [CreatePasskeysInICloudKeychain](microsoft-edge-policies/createpasskeysinicloudkeychain) | Control whether passkey creation will default to iCloud Keychain. |
 | [CredentialProviderPromoEnabled](microsoft-edge-policies/credentialproviderpromoenabled) | Allows users to be shown the Credential Provider Extension promo |
