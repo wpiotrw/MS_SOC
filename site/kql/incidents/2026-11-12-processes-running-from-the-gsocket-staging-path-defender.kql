@@ -1,0 +1,14 @@
+// title: Processes running from the GSocket staging path (Defender XDR advanced hunting)
+// date: 2026-11-12
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Threat Research: GSocket (gs-netcat) as C2 on compromised Linux web servers: relay traffic through the Global Socket Relay Network leaves no attacker IP to block
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where FolderPath startswith "/dev/shm/.gs-" or ProcessCommandLine has_any ("gs-netcat", "gsocket.io", "GS_TG_TOKEN")
+| project Timestamp, DeviceName, AccountName, FolderPath, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessCommandLine
+| order by Timestamp desc

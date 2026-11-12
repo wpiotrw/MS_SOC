@@ -2078,8 +2078,7 @@
 "MC1488834",
 "MC1488839",
 "item:MC1488839",
-"MC1529463",
-"item:MC1529463"
+"MC1529463"
 ],
 "log":[
 {
@@ -2216,8 +2215,7 @@
 "name":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
 "status":"No date",
 "members":[
-"MC1474124",
-"item:MC1474124"
+"MC1474124"
 ],
 "log":[
 {
@@ -3324,8 +3322,7 @@
 "name":"Review who can create agents in Microsoft Entra",
 "status":"Active",
 "members":[
-"MC1506733",
-"item:MC1506733"
+"MC1506733"
 ],
 "log":[
 {
@@ -3398,8 +3395,7 @@
 "members":[
 "item:graph-agentidentity-rw-patch-any-sp",
 "item:graph-ep-agentidentity-readwrite-all-2026-09-25",
-"MC1506728",
-"item:MC1506728"
+"MC1506728"
 ],
 "log":[
 {
@@ -3417,11 +3413,6 @@
 "date":"2026-10-13",
 "label":"13 Oct 2026",
 "text":"Posted: Microsoft Entra: Changes to AgentIdentity.CreateAsManager permission for agent identities"
-},
-"MC1506728|deadline":{
-"date":"2026-11-04",
-"label":"4 Nov 2026",
-"text":"Microsoft names 4 November as the start; rollout runs early to late November 2026"
 },
 "MC1506728|beginning in early and expected to complete by late#0":{
 "date":"2026-11-05",
@@ -7356,14 +7347,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-09",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-10",
 "text":"August 1, 2026."
 },
@@ -7461,6 +7444,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-11",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-12",
 "text":"August 1, 2026."
 },
 {
@@ -8036,22 +8027,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-10",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-10",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-11",
 "text":"early February 2026."
 },
@@ -8141,6 +8116,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-11",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-12",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-12",
 "text":"February 2027."
 },
 {
@@ -10023,6 +10014,14 @@
 "date":"2026-11-11",
 "group":"microsoft",
 "found":"2026-11-11"
+},
+"https://mc.merill.net/message/MC1470885":{
+"title":"MC1470885: M365 Copilot: Tell Copilot what you need directly from the Copilot button in Word, Excel, and PowerPoint",
+"link":"https://mc.merill.net/message/MC1470885",
+"source":"MC - Merill",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-12"
 }
 },
 "final":"2026-12-15",
@@ -11328,6 +11327,14 @@
 "date":"2026-11-11",
 "group":"community",
 "found":"2026-11-11"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=579903":{
+"title":"Dynamics 365 Customer Insights - Journeys: Send each message only once with deduplication for SMS and custom channels",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=579903",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-12",
+"group":"community",
+"found":"2026-11-12"
 }
 },
 "final":"2027-07-01",
@@ -12011,22 +12018,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-10",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-10",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-11",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -12116,6 +12107,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-11",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-12",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-12",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -12709,6 +12716,14 @@
 "date":"2026-11-11",
 "group":"community",
 "found":"2026-11-11"
+},
+"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
+"title":"Added azcmagent reconnect (preview) to restore a machine's connection to its existing A",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
+"source":"Microsoft Learn · What's new · Azure Arc",
+"date":"2026-03-24",
+"group":"microsoft",
+"found":"2026-11-12"
 }
 },
 "final":"2027-05-25",
@@ -20701,6 +20716,26 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-12",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"MC1470885: M365 Copilot: Tell Copilot what you need directly from the Copilot button in Word, Excel, and PowerPoint",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1470885"
+},
+{
+"day":"2026-11-12",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Dynamics 365 Customer Insights - Journeys: Send each message only once with deduplication for SMS and custom channels",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=579903"
 }
 ],
 "archive":{
