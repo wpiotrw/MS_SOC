@@ -1,7 +1,7 @@
 {
- "read": "2026-11-11",
+ "read": "2026-11-12",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 727,
+ "count": 726,
  "note": null,
  "messages": [
   {
@@ -17355,28 +17355,6 @@
    "bodyHash": "b1bea3ff8ce3b874"
   },
   {
-   "id": "MC1529501",
-   "title": "Updates available for Microsoft 365 Apps for Current Channel",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-28",
-   "end": "2026-11-11",
-   "modified": "2026-10-28",
-   "tags": [
-    "Feature update"
-   ],
-   "summary": "We've released updates to the following update channel for Microsoft 365 Apps: Current Channel [When this will happen:] We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting October 28th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are configured to automatically update from the Office Content Delivery…",
-   "when": "We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting October 28th, 2026 (PST).",
-   "prepare": "To get more details about this update view the following release notes: Current Channel.",
-   "dates": [],
-   "bodyHash": "0c284a6acde890f4"
-  },
-  {
    "id": "MC1530443",
    "title": "Policy-based in-box app removal extended to multi-session environments",
    "services": [
@@ -19587,168 +19565,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-12",
-   "id": "MC1311977",
-   "type": "removed",
-   "title": "(Updated) Security Detection Report in Teams Admin Center",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-12",
-   "id": "MC1314949",
-   "type": "removed",
-   "title": "(Updated) Microsoft Viva Copilot Analytics: Daily Copilot usage snapshot with fresh data",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-12",
-   "id": "MC1323266",
-   "type": "removed",
-   "title": "(Updated) Power BI integration with Microsoft 365 Copilot",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-12",
-   "id": "MC1420897",
-   "type": "removed",
-   "title": "(Updated) Viva Glint: Copilot-enhanced topic assignment for employee feedback comments",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-12",
-   "id": "MC1446804",
-   "type": "removed",
-   "title": "SharePoint Pages: Flexible Section Authoring Improvements",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-12",
-   "id": "MC1477999",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: Removing Copilot from the chat list",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-12",
-   "id": "MC1253753",
-   "type": "changed",
-   "title": "(Updated) Whiteboards created in Teams channels will now be stored in SharePoint",
-   "fields": {
-    "title": [
-     "Whiteboards created in Teams channels will now be stored in SharePoint",
-     "(Updated) Whiteboards created in Teams channels will now be stored in SharePoint"
-    ],
-    "end": [
-     "2027-04-30",
-     "2026-10-16"
-    ],
-    "bodyHash": [
-     "cff350e85fed50c3",
-     "53c53f5424b688b1"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-12",
-   "id": "MC1325441",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview | Data Lifecycle Management - Archive SharePoint files under retention",
-   "fields": {
-    "end": [
-     "2026-12-14",
-     "2027-01-11"
-    ],
-    "bodyHash": [
-     "224b486021d71e6c",
-     "b42ab09c49723e92"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-12",
-   "id": "MC1387526",
-   "type": "changed",
-   "title": "Microsoft 365 Backup: Full workload backup for SharePoint, OneDrive, and Exchange",
-   "fields": {
-    "end": [
-     "2026-11-16",
-     "2027-04-30"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-12",
-   "id": "MC1392571",
-   "type": "changed",
-   "title": "(Updated) Connect Teams meeting to existing Planner Plans",
-   "fields": {
-    "end": [
-     "2026-11-30",
-     "2027-03-01"
-    ],
-    "bodyHash": [
-     "a508bc42b73cf3e8",
-     "3325f24086e350b3"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-12",
-   "id": "MC1472601",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview: Archive SharePoint files under retention policies",
-   "fields": {
-    "end": [
-     "2026-12-14",
-     "2027-02-15"
-    ],
-    "bodyHash": [
-     "cb4356bbd9e425e8",
-     "88eeb3c998717e56"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-12",
-   "id": "MC1483528",
-   "type": "changed",
-   "title": "Dynamics 365 and Power Platform– Information about storage validation for Dataverse-only tenants",
-   "fields": {
-    "tags": [
-     [
-      "Admin impact"
-     ],
-     [
-      "Admin impact",
-      "Updated message"
-     ]
-    ],
-    "bodyHash": [
-     "ca0bad41aa728cdf",
-     "c9f6439016e6fd72"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-12",
-   "id": "MC1502773",
-   "type": "new",
-   "title": "Dynamics 365 Sales - Information regarding the retirement of the Dynamics 365 Sales Insights standalone add-on",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-12",
-   "id": "MC796790",
-   "type": "changed",
-   "title": "(Updated) Unified management of app and agent availability and installation in Teams, Outlook, and the Microsoft 365 app",
-   "fields": {
-    "end": [
-     "2026-10-30",
-     "2026-12-31"
-    ]
-   }
-  },
   {
    "date": "2026-10-13",
    "id": "MC1429018",
@@ -25637,6 +25453,13 @@
    "id": "MC1184891",
    "type": "removed",
    "title": "Windows 11, version 23H2 (Home and Pro editions) has reached end of servicing",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-12",
+   "id": "MC1529501",
+   "type": "removed",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
    "fields": {}
   }
  ]

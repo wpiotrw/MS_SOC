@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-11T06:10Z",
+ "updated": "2026-11-12T07:06Z",
  "baseline": "2026-10-10T08:35Z",
- "lastRead": "2026-11-11T06:10Z",
+ "lastRead": "2026-11-12T07:06Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
@@ -9,9 +9,53 @@
   "application": 788,
   "delegated": 876,
   "rsc": 60,
-  "roles": 145
+  "roles": 148
  },
  "events": [
+  {
+   "seen": "2026-11-12T07:06Z",
+   "day": "2026-11-12",
+   "surface": "role",
+   "name": "Resource Policy Administrator",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "12 actions",
+   "text": "Users in this role have full permissions to create, read, update, delete, and evaluate resource policies, their assignments, and the tenant-wide resource policy configuration in Microsoft Graph. This role is intended for senior and compliance administrators who are responsible for the entire lifecycle of resource access policies. Assigning this role grants comprehensive control over how resource p"
+  },
+  {
+   "seen": "2026-11-12T07:06Z",
+   "day": "2026-11-12",
+   "surface": "role",
+   "name": "Resource Policy Evaluator",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "1 actions",
+   "text": "Users in this role can evaluate resource policies to understand their impact and outcome. This role does not grant any read or write access to the policy definitions or assignments themselves, making it ideal for developers, testers, and automated tools that need to perform policy validation as part of a development or CI/CD pipeline."
+  },
+  {
+   "seen": "2026-11-12T07:06Z",
+   "day": "2026-11-12",
+   "surface": "role",
+   "name": "Resource Policy Reader",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "5 actions",
+   "text": "Users in this role have read-only access to resource policy definitions, assignments, and the tenant-wide resource policy configuration in Microsoft Graph. They can also evaluate policies to understand their impact, making this role ideal for audit, compliance, and support personnel who need to validate and troubleshoot policies without the ability to modify them."
+  },
+  {
+   "seen": "2026-11-12T07:06Z",
+   "day": "2026-11-12",
+   "surface": "role",
+   "name": "User",
+   "change": "actions-added",
+   "type": "",
+   "before": null,
+   "after": "microsoft.directory/agentIdentityBlueprints/createAsOwner",
+   "text": ""
+  },
   {
    "seen": "2026-11-10T21:20Z",
    "day": "2026-11-10",
