@@ -554,7 +554,7 @@
   "microsoft-windows-server-2025-stig-scap-benchmark-scap-benchmark": "2026-10-05",
   "microsoft-windows-server-2022-stig-scap-benchmark-scap-benchmark": "2026-10-05"
  },
- "checked": "2026-11-11",
+ "checked": "2026-11-12",
  "intune": [
   {
    "baseline": "Microsoft Windows 11 STIG SCAP Benchmark",
