@@ -26404,6 +26404,10 @@ Filtr SHOW wlasny. Czcionki jak w portalu: tytul 16 px, tekst 15 px, plakietki 1
 (klucz `s5gp-off`) wraca do listy (§5go/§5gl). Bez `:has`. Test: Chromium 1400/2560/3840 (ciemny i jasny), WebKit 390 —
 15 numerow, 3 sekcje, 0 przewijania w poziomie, 0 bledow JS; filtr, tytul (arkusz), chip MC (Message Center), open › (Campaigns),
 przelaczanie i po przeladowaniu OK; bramka OK; mobile_check 9,2 s.
+**§5gp-b (12 XI 2026)** — wlasciciel: kolumna na srodku marnuje szeroki ekran, „po dwa zdania w wierszu". Teraz cala
+szerokosc: wpisy to osobne karty w siatce 2 kolumn (od 900 px szerokosci widoku), karty w jednym wierszu maja te sama wysokosc
+(`align-items:stretch`), numery ida wierszami; ostatnia karta sekcji o nieparzystej liczbie pozycji zajmuje caly wiersz (`.s5gp-wide`). Pasek „Watched areas" z prawej od 1500 px widoku, ponizej jako siatka kart.
+Szerokosci liczone `@container` na `.s5gp` (nie na oknie — panel boczny portalu zajmuje swoje).
 
 Przebieg poranny wola go w STEP 1b obok `collect_blogs.py`:
 `python3 collect_community.py <repo>/community_sources.json community_raw.json <najnowszy site/data/*.json>`
@@ -47210,7 +47214,7 @@ odtad CZTERNASCIE (4-17).**
   function group(t, sub, L, start) {
     var s = el("section", "s5gp-g"), h = el("h3", "s5gp-gh", t); h.appendChild(el("span", "s5gp-cnt", String(L.length)));
     s.appendChild(h); s.appendChild(el("p", "s5gp-sub", sub));
-    var ol = el("ol", "s5gp-list"); L.forEach(function (e, i) { ol.appendChild(entry(e, start + i)); }); s.appendChild(ol); return s;
+    var ol = el("ol", "s5gp-list"); L.forEach(function (e, i) { var x = entry(e, start + i); if (i === L.length - 1 && L.length % 2) x.classList.add("s5gp-wide"); ol.appendChild(x); }); s.appendChild(ol); return s;
   }
   function opener(li) { return li.querySelector(":scope > button.s5bk-it, :scope > .s5bk-it button, :scope a[href], :scope > .s5bk-it"); }
   function tc(n) { return n ? (n.textContent || "").replace(/\s+/g, " ").trim() : ""; }   /* textContent: the list is hidden, innerText would lose the lines */
@@ -51075,7 +51079,7 @@ html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
 /* §5gp Overview "Brief v4" */
 #tab-overview .s5bk-sum.s5gp-on>:not(.s5gp):not(.s5gp-back){display:none!important}
 #tab-overview .s5bk-sum:not(.s5gp-on)>.s5gp{display:none}
-.s5gp{max-width:1240px;margin:0 auto;font-size:15px;line-height:1.5;color:var(--text)}
+.s5gp{container-type:inline-size;font-size:15px;line-height:1.5;color:var(--text)}
 .s5gp-hd{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin:4px 0 10px}
 .s5gp-h{font-size:22px;margin:0}.s5gp-hs{margin:0;color:var(--text);flex:1 1 320px}
 .s5gp-sw,.s5gp-back,.s5gp-open{font:inherit;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--accent);border-radius:999px;padding:3px 12px}
@@ -51084,28 +51088,31 @@ html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
 .s5gp-show{font-size:12px;letter-spacing:.06em;margin-right:4px}
 .s5gp-chip{font:inherit;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:999px;padding:3px 11px}
 .s5gp-chip.on{background:#1d4ed8;border-color:#1d4ed8;color:#fff}.s5gp-cc{opacity:.85;margin-left:2px}
-.s5gp-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:26px;align-items:start}
-@media (max-width:1100px){.s5gp-grid{grid-template-columns:minmax(0,1fr)}}
+/* §5gp-b (owner, 12 XI): the full width, two entries a row; the cards of a row are equally tall (no holes); the rail
+   stands at the right when the width allows, under the list otherwise, as a grid of cards */
+.s5gp-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;align-items:start}
+@container (min-width:1500px){.s5gp-grid{grid-template-columns:minmax(0,1fr) 360px}}
+@container (max-width:1499px){.s5gp-rail{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));align-items:stretch}.s5gp-rail>.s5gp-gh{grid-column:1 / -1}}
 .s5gp-g{margin:0 0 22px}.s5gp-g[hidden]{display:none}
 .s5gp-gh{font-size:18px;margin:0;display:flex;gap:8px;align-items:center}
 .s5gp-cnt{background:var(--surface-3);border-radius:999px;font-size:12px;padding:1px 9px}
 .s5gp-sub{margin:2px 0 8px;color:var(--text);font-size:14px}
-.s5gp-list{list-style:none;margin:0;padding:0;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
-.s5gp-it{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;padding:14px 16px;border-top:1px solid var(--border)}
-.s5gp-it:first-child{border-top:0}.s5gp-it[hidden]{display:none}
+.s5gp-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:stretch}
+@container (min-width:900px){.s5gp-list{grid-template-columns:repeat(2,minmax(0,1fr))}.s5gp-it.s5gp-wide{grid-column:1 / -1}}
+.s5gp-it{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;padding:14px 16px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}.s5gp-it[hidden]{display:none}
 .s5gp-n{width:28px;height:28px;border-radius:50%;border:2px solid var(--accent);color:var(--accent);font-weight:700;display:grid;place-items:center;font-size:14px}
 .s5gp-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:5px}
 .s5gp-tp{color:#fff;font-weight:700;font-size:12.5px;padding:2px 10px;border-radius:999px}
 .s5gp-due{font-weight:700;font-size:12.5px;padding:2px 9px;border-radius:999px;border:1px solid;color:#fff}
 .s5gp-dr{background:#b91c1c;border-color:#b91c1c}.s5gp-da{background:#b45309;border-color:#b45309}.s5gp-dg{background:#475569;border-color:#475569}.s5gp-dn{background:transparent;color:var(--text);border-color:var(--border)}
 .s5gp-flag{background:#92400e;color:#fff;border-radius:999px;font-size:12px;font-weight:700;padding:2px 9px}
-.s5gp-t{display:block;text-align:left;font:inherit;font-size:16px;font-weight:700;line-height:1.4;color:var(--text);background:none;border:0;padding:0;margin:0 0 3px;cursor:pointer;max-width:80ch}
+.s5gp-t{display:block;text-align:left;font:inherit;font-size:16px;font-weight:700;line-height:1.4;color:var(--text);background:none;border:0;padding:0;margin:0 0 3px;cursor:pointer}
 .s5gp-t:hover{text-decoration:underline}.s5gp-go{color:var(--accent)}
-.s5gp-why{margin:0;max-width:85ch;font-size:15px;color:var(--text)}.s5gp-why b{font-weight:700}
+.s5gp-why{margin:0;font-size:15px;color:var(--text)}.s5gp-why b{font-weight:700}
 .s5gp-dc{margin-top:8px;border:1px solid #b45309;border-radius:10px;padding:6px 10px;font-size:14px}.s5gp-dc>summary{cursor:pointer;font-weight:600}
 .s5gp-dcb{background:#b45309;color:#fff;border-radius:999px;padding:1px 8px;font-weight:700;font-size:12px}
 .s5gp-dc .s5gf-ul,.s5gp-dc .s5gf-fn{display:block!important}
-.s5gp-rail{position:sticky;top:12px;display:flex;flex-direction:column;gap:10px}
+.s5gp-rail{display:flex;flex-direction:column;gap:10px}
 .s5gp-rail>.s5gp-gh{margin-bottom:0}
 .s5gp-rc{border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:10px 14px}
 .s5gp-rh{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.04em;display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:4px}
@@ -51114,7 +51121,6 @@ html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
 .s5gp-hot{color:#d97706}.s5gp-z{color:var(--text)}
 .s5gp-dd{font:700 12px "IBM Plex Mono",monospace;padding:1px 7px;border-radius:6px;background:#b45309;color:#fff;margin-right:4px}
 .s5gp-quiet{border-style:dashed}
-@media (max-width:1100px){.s5gp-rail{position:static}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
