@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-12T17:40:55Z",
+ "generated": "2026-11-12T21:36:07Z",
  "day": "2026-11-12",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-12)",
- "count": 44,
+ "count": 46,
  "byMc": {
   "MC1191578": {
    "says": [],
@@ -672,11 +672,6 @@
    ],
    "newer": [
     {
-     "id": "MC1528000",
-     "date": "2026-10-27",
-     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
-    },
-    {
      "id": "MC1536049",
      "date": "2026-11-03",
      "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
@@ -685,6 +680,11 @@
      "id": "MC1540327",
      "date": "2026-11-05",
      "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    },
+    {
+     "id": "MC1550537",
+     "date": "2026-11-12",
+     "title": "Prepare custom authentication strengths for SMS and voice retirement"
     }
    ],
    "why": [],
@@ -743,11 +743,6 @@
    "moved": [],
    "newer": [
     {
-     "id": "MC1528000",
-     "date": "2026-10-27",
-     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
-    },
-    {
      "id": "MC1536049",
      "date": "2026-11-03",
      "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
@@ -756,6 +751,11 @@
      "id": "MC1540327",
      "date": "2026-11-05",
      "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    },
+    {
+     "id": "MC1550537",
+     "date": "2026-11-12",
+     "title": "Prepare custom authentication strengths for SMS and voice retirement"
     }
    ],
    "why": [],
@@ -801,11 +801,6 @@
    "moved": [],
    "newer": [
     {
-     "id": "MC1528000",
-     "date": "2026-10-27",
-     "title": "Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
-    },
-    {
      "id": "MC1536049",
      "date": "2026-11-03",
      "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
@@ -814,6 +809,11 @@
      "id": "MC1540327",
      "date": "2026-11-05",
      "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    },
+    {
+     "id": "MC1550537",
+     "date": "2026-11-12",
+     "title": "Prepare custom authentication strengths for SMS and voice retirement"
     }
    ],
    "why": [],
@@ -874,6 +874,11 @@
      "id": "MC1540327",
      "date": "2026-11-05",
      "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    },
+    {
+     "id": "MC1550537",
+     "date": "2026-11-12",
+     "title": "Prepare custom authentication strengths for SMS and voice retirement"
     }
    ],
    "why": [],
@@ -908,6 +913,11 @@
      "id": "MC1540327",
      "date": "2026-11-05",
      "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    },
+    {
+     "id": "MC1550537",
+     "date": "2026-11-12",
+     "title": "Prepare custom authentication strengths for SMS and voice retirement"
     }
    ],
    "why": [],
@@ -958,6 +968,54 @@
      "date": "2027-07-01",
      "src": "MC1536049",
      "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1536049"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1550537",
+     "date": "2026-11-12",
+     "title": "Prepare custom authentication strengths for SMS and voice retirement"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1550537": {
+   "says": [
+    "2027-02-01",
+    "2027-07-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
      "post": "2026-11-03",
      "later": false,
      "link": "https://deltapulse.app/item/MC1536049"
@@ -1829,6 +1887,28 @@
     }
    ],
    "verdict": "differs"
+  },
+  "MC1506290": {
+   "says": [
+    "2027-01-15"
+   ],
+   "others": [],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1550797",
+     "date": "2026-11-12",
+     "title": "60-day reminder: Hardening changes for ReFS volumes on removable media"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-mc1506290",
+     "name": "Hardening changes for ReFS volumes on removable media"
+    }
+   ],
+   "verdict": "newer"
   },
   "MC1448379": {
    "says": [],
