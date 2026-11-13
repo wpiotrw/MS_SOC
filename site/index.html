@@ -33933,6 +33933,7 @@ IdentityDirectoryEvents
     d.appendChild(s);
     var b = el("div", "s5ms-isb");
     if (is.impact) { var ip = el("p", "s5ms-imp"); ip.appendChild(el("b", null, "Impact: ")); ip.appendChild(document.createTextNode(is.impact)); b.appendChild(ip); }
+    if (is.refs && is.refs.length) { var rr = el("div", "s5ms-ref"); rr.appendChild(el("b", null, "Numbers named in its updates: ")); is.refs.forEach(function (x) { rr.appendChild(idBadge(x)); }); b.appendChild(rr); }
     var a = el("div", "s5ms-links"); a.appendChild(link(ADM + is.id, "Open " + is.id + " in the admin center")); b.appendChild(a);
     (is.posts || []).forEach(function (p, n) {
       if (n === 0) { b.appendChild(postBlock(p, true)); return; }
