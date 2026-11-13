@@ -1,0 +1,15 @@
+// title: SCKit – Generated PowerShell Loader Artifacts
+// date: 2026-11-13
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: SCKit abuses ScreenConnect to deploy remote access and target technician sessions
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/
+// kind: article
+// author: Microsoft Security Research, Sagar Patil and Jeremiah Jasmin · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceFileEvents
+| where Timestamp > ago(30d)
+| where FileName matches regex @"(?i)^k[0-9a-f]{32}\.ps1$"
+| project Timestamp, DeviceId, DeviceName,
+ActionType, FileName, FolderPath, SHA256,
+InitiatingProcessFileName

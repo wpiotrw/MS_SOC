@@ -1,5 +1,110 @@
 [
  {
+  "file": "articles/2026-11-13-toolkit-command-lines-and-cookie-query-activity.kql",
+  "title": "Toolkit command lines and cookie-query activity",
+  "date": "2026-11-13",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: SCKit abuses ScreenConnect to deploy remote access and target technician sessions",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Sagar Patil and Jeremiah Jasmin · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+  "incident": "connectwise-cloud-backup-2026-10"
+ },
+ {
+  "file": "articles/2026-11-13-sckit-generated-powershell-loader-artifacts.kql",
+  "title": "SCKit – Generated PowerShell Loader Artifacts",
+  "date": "2026-11-13",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: SCKit abuses ScreenConnect to deploy remote access and target technician sessions",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Sagar Patil and Jeremiah Jasmin · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+  "incident": "connectwise-cloud-backup-2026-10"
+ },
+ {
+  "file": "articles/2026-11-13-relaytrap-scheduled-task-events.kql",
+  "title": "RelayTrap scheduled-task events",
+  "date": "2026-11-13",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents"
+  ],
+  "purpose": "From the article: SCKit abuses ScreenConnect to deploy remote access and target technician sessions",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Sagar Patil and Jeremiah Jasmin · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+  "incident": "connectwise-cloud-backup-2026-10"
+ },
+ {
+  "file": "articles/2026-11-13-registry-values-referencing-relaytrap.kql",
+  "title": "Registry values referencing RelayTrap",
+  "date": "2026-11-13",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceRegistryEvents"
+  ],
+  "purpose": "From the article: SCKit abuses ScreenConnect to deploy remote access and target technician sessions",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Sagar Patil and Jeremiah Jasmin · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+  "incident": "connectwise-cloud-backup-2026-10"
+ },
+ {
+  "file": "articles/2026-11-13-microsoft-defender-antivirus-path-exclusion-writes.kql",
+  "title": "Microsoft Defender Antivirus path-exclusion writes",
+  "date": "2026-11-13",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceRegistryEvents"
+  ],
+  "purpose": "From the article: SCKit abuses ScreenConnect to deploy remote access and target technician sessions",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Sagar Patil and Jeremiah Jasmin · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+  "incident": "connectwise-cloud-backup-2026-10"
+ },
+ {
+  "file": "articles/2026-11-13-known-installer-archive-and-uploader-files.kql",
+  "title": "Known installer, archive, and uploader files",
+  "date": "2026-11-13",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: SCKit abuses ScreenConnect to deploy remote access and target technician sessions",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Sagar Patil and Jeremiah Jasmin · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+  "incident": "connectwise-cloud-backup-2026-10"
+ },
+ {
+  "file": "articles/2026-11-13-advanced-hunting-queries.kql",
+  "title": "Advanced hunting queries",
+  "date": "2026-11-13",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: SCKit abuses ScreenConnect to deploy remote access and target technician sessions",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+  "kind": "article",
+  "author": "Microsoft Security Research, Sagar Patil and Jeremiah Jasmin · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
+  "incident": "connectwise-cloud-backup-2026-10"
+ },
+ {
   "file": "incidents/2026-11-12-processes-running-from-the-gsocket-staging-path-defender.kql",
   "title": "Processes running from the GSocket staging path (Defender XDR advanced hunting)",
   "date": "2026-11-12",
@@ -12,6 +117,79 @@
   "kind": "incident-note",
   "author": "Threat Research analysis (the morning analysis)",
   "incident": "gsocket-linux-web-c2-2026-11"
+ },
+ {
+  "file": "articles/2026-11-12-validate-before-you-deploy.kql",
+  "title": "Validate before you deploy",
+  "date": "2026-11-12",
+  "product": "Entra",
+  "tables": [
+   "AADNonInteractiveUserSignInLogs",
+   "AADServicePrincipalSignInLogs",
+   "AuditLogs",
+   "SigninLogs"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Two Things Called SharePoint",
+  "source": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/"
+ },
+ {
+  "file": "articles/2026-11-12-validate-before-you-deploy-2.kql",
+  "title": "Validate before you deploy",
+  "date": "2026-11-12",
+  "product": "Sentinel",
+  "tables": [
+   "W3CIISLog"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Two Things Called SharePoint",
+  "source": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/"
+ },
+ {
+  "file": "articles/2026-11-12-the-inno-engine-itself.kql",
+  "title": "the Inno engine itself",
+  "date": "2026-11-12",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Two Things Called SharePoint",
+  "source": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/"
+ },
+ {
+  "file": "articles/2026-11-12-one-last-homonym-sunday-d4-email-spoofing-filters.kql",
+  "title": "One last homonym: Sunday D4 (email spoofing) filters SenderMailFromDomain for brand names.",
+  "date": "2026-11-12",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Two Things Called SharePoint",
+  "source": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/"
+ },
+ {
+  "file": "articles/2026-11-12-lightning-round-names-with-nothing-behind-them.kql",
+  "title": "⚡ Lightning Round: Names With Nothing Behind Them",
+  "date": "2026-11-12",
+  "product": "Sentinel",
+  "tables": [
+   "W3CIISLog"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Two Things Called SharePoint",
+  "source": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/"
  },
  {
   "file": "articles/2026-11-12-detection-5-sn00py-ransomware-mass-file-encryption-activity.kql",
@@ -88,6 +266,138 @@
   "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
   "link": "https://devsecopsdadattack.com/2026-11-12-detection-engineering-brief-thursday-november-12-2026/",
   "incident": "gsocket-linux-web-c2-2026-11"
+ },
+ {
+  "file": "articles/2026-11-12-coalesce-only-skips-nulls-an-empty-hostname-would.kql",
+  "title": "coalesce() only skips nulls. An empty HostName would win.",
+  "date": "2026-11-12",
+  "product": "Sentinel",
+  "tables": [
+   "Syslog"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Two Things Called SharePoint",
+  "source": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/"
+ },
+ {
+  "file": "articles/2026-11-12-act-ii-two-things-called-sharepoint.kql",
+  "title": "🥈 Act II: Two Things Called SharePoint",
+  "date": "2026-11-12",
+  "product": "Microsoft 365",
+  "tables": [
+   "OfficeActivity"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Two Things Called SharePoint",
+  "source": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/"
+ },
+ {
+  "file": "articles/2026-11-12-act-ii-two-things-called-sharepoint-2.kql",
+  "title": "🥈 Act II: Two Things Called SharePoint",
+  "date": "2026-11-12",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents",
+   "OfficeActivity",
+   "W3CIISLog"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Two Things Called SharePoint",
+  "source": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/"
+ },
+ {
+  "file": "articles/2026-11-12-act-i-two-things-called-sign-in-two.kql",
+  "title": "🥇 Act I: Two Things Called “Sign-In,” Two Things Called “the App”",
+  "date": "2026-11-12",
+  "product": "Entra",
+  "tables": [
+   "AADServicePrincipalSignInLogs",
+   "AuditLogs",
+   "MicrosoftGraphActivityLogs"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Two Things Called SharePoint",
+  "source": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/"
+ },
+ {
+  "file": "articles/2026-11-12-3b-does-the-token-join-land.kql",
+  "title": "3b. Does the token join land?",
+  "date": "2026-11-12",
+  "product": "Entra",
+  "tables": [
+   "AADServicePrincipalSignInLogs",
+   "MicrosoftGraphActivityLogs"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Two Things Called SharePoint",
+  "source": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/"
+ },
+ {
+  "file": "articles/2026-11-12-3a-are-graph-activity-logs-flowing-at-all.kql",
+  "title": "3a. Are Graph activity logs flowing at all, and how much of it",
+  "date": "2026-11-12",
+  "product": "Entra",
+  "tables": [
+   "MicrosoftGraphActivityLogs"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Two Things Called SharePoint",
+  "source": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/"
+ },
+ {
+  "file": "articles/2026-11-12-3-is-the-endpoint-sensor-on-the-farm.kql",
+  "title": "3. Is the endpoint sensor on the farm servers?",
+  "date": "2026-11-12",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Two Things Called SharePoint",
+  "source": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/"
+ },
+ {
+  "file": "articles/2026-11-12-2-whose-sharepoint-does-officeactivity-actually-cover.kql",
+  "title": "2. Whose SharePoint does OfficeActivity actually cover?",
+  "date": "2026-11-12",
+  "product": "Microsoft 365",
+  "tables": [
+   "OfficeActivity"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Two Things Called SharePoint",
+  "source": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/"
+ },
+ {
+  "file": "articles/2026-11-12-2-which-identifier-does-a-consent-event-s.kql",
+  "title": "2. Which identifier does a consent event's target actually hold?",
+  "date": "2026-11-12",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "From the article: KQL Detection of the Week: Two Things Called SharePoint",
+  "source": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/"
  },
  {
   "file": "articles/2026-11-11-staging-and-persistence-artifacts.kql",

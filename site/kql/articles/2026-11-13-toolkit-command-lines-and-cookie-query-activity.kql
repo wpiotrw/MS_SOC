@@ -1,0 +1,20 @@
+// title: Toolkit command lines and cookie-query activity
+// date: 2026-11-13
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: SCKit abuses ScreenConnect to deploy remote access and target technician sessions
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/
+// kind: article
+// author: Microsoft Security Research, Sagar Patil and Jeremiah Jasmin · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceProcessEvents
+| where Timestamp > ago(14d)
+| where ProcessCommandLine contains "/EadF.php"
+    or ProcessCommandLine contains "SCKit"
+    or ProcessCommandLine contains "RelayTrap"
+    or ProcessCommandLine contains "Panel-Lateral"
+    or ProcessCommandLine contains "ToolboxRelayUploader"
+    or ProcessCommandLine contains ".ASPXAUTH"
+    or ProcessCommandLine contains "c=Exploited"
+| project Timestamp, DeviceId, DeviceName, FileName,
+    ProcessCommandLine, InitiatingProcessFileName, ReportId

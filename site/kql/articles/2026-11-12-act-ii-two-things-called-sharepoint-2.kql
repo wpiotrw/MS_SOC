@@ -1,0 +1,116 @@
+// title: 🥈 Act II: Two Things Called SharePoint
+// date: 2026-11-12
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents, OfficeActivity, W3CIISLog
+// purpose: From the article: KQL Detection of the Week: Two Things Called SharePoint
+// source: https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 7d;
+let followOnWindow = 30m;
+// ============================================================
+// STAGE 1: THE REQUEST THE FARM ACTUALLY RECEIVED.
+// On-prem SharePoint Server is an IIS application. Its requests
+// live in W3CIISLog, not in the Microsoft 365 unified audit log
+// behind OfficeActivity.
+// ============================================================
+let ToolPanePosts =
+    W3CIISLog
+    | where TimeGenerated >= ago(lookback)
+    | where csMethod == "POST"
+    | where csUriStem contains "/_layouts/" and csUriStem endswith "/ToolPane.aspx"
+    // The spoofed referer is the auth bypass. Legitimate web-part
+    // editing doesn't arrive from the sign-out page.
+    | extend SignOutReferer = csReferer contains "/_layouts/SignOut.aspx",
+             EditMode       = csUriQuery contains "DisplayMode=Edit"
+    // Broad on purpose for hunting: partial matches are kept, but
+    // labelled separately from the complete exploit shape.
+    | where SignOutReferer or EditMode
+    | extend RequestShape = case(
+          SignOutReferer and EditMode, "FullExploitShape",
+          SignOutReferer,              "SpoofedRefererOnly",
+                                       "EditModeOnly")
+    | extend Host = tolower(tostring(split(Computer, ".")[0]))
+    | project RequestTime = TimeGenerated, Host, Computer, sSiteName, cIP,
+              csUserAgent, csUriStem, csUriQuery, csReferer,
+              Status = tostring(scStatus), RequestShape;
+// ============================================================
+// STAGE 2: WHAT HAPPENED ON THAT HOST AFTERWARD.
+// The IIS log and the endpoint sensor share no host identifier,
+// so both sides normalize to the SHORT name. That's best-effort:
+// two machines in different domains can share a short name.
+// Full names are kept in the output so an analyst can confirm.
+// If you maintain a host mapping (a watchlist of IIS Computer to
+// Defender DeviceId), join on that instead.
+// ============================================================
+let W3wpChildren =
+    DeviceProcessEvents
+    | where Timestamp >= ago(lookback)
+    | where InitiatingProcessFileName =~ "w3wp.exe"
+    // August's scoping fix: the worker names its application pool in -ap.
+    | extend AppPool = extract(@'-ap\s+"([^"]+)"', 1, InitiatingProcessCommandLine)
+    | where AppPool contains "SharePoint" or AppPool contains "SecurityTokenService"
+    | extend Host = tolower(tostring(split(DeviceName, ".")[0]))
+    | project ChildTime = Timestamp, Host, DeviceName,
+              Child = strcat(FileName, " :: ", ProcessCommandLine, " [", AppPool, "]");
+// Original ToolShell dropped spinstall0.aspx via PowerShell, so the
+// writer isn't restricted to w3wp.exe.
+let LayoutsWrites =
+    DeviceFileEvents
+    | where Timestamp >= ago(lookback)
+    | where ActionType in ("FileCreated", "FileModified")
+    | where FolderPath contains @"\TEMPLATE\LAYOUTS\"
+    | where FileName endswith ".aspx" or FileName endswith ".ashx" or FileName endswith ".asmx"
+    | extend Host = tolower(tostring(split(DeviceName, ".")[0]))
+    | project WriteTime = Timestamp, Host, DeviceName,
+              Written = strcat(InitiatingProcessFileName, " -> ", FolderPath);
+// ============================================================
+// CORRELATE → CONSTRAIN → COLLAPSE, each in its own CTE, so a
+// follow-on event outside the window can't erase the request.
+// ============================================================
+let ChildrenAfter =
+    ToolPanePosts
+    | project Host, RequestTime, cIP
+    | join kind=inner W3wpChildren on Host
+    | where ChildTime between (RequestTime .. (RequestTime + followOnWindow))
+    | summarize Children = make_set(Child, 10), ChildDevices = make_set(DeviceName, 5)
+        by Host, RequestTime, cIP;
+let WritesAfter =
+    ToolPanePosts
+    | project Host, RequestTime, cIP
+    | join kind=inner LayoutsWrites on Host
+    | where WriteTime between (RequestTime .. (RequestTime + followOnWindow))
+    | summarize Writes = make_set(Written, 10), WriteDevices = make_set(DeviceName, 5)
+        by Host, RequestTime, cIP;
+// ============================================================
+// THE VERDICT.
+// A 200 says IIS returned a successful response. It doesn't say
+// the bypass worked or that anything executed. A full-shape 200
+// with no child and no write is CONSISTENT with fileless
+// exploitation; it isn't positive evidence of it.
+// ============================================================
+ToolPanePosts
+| join kind=leftouter ChildrenAfter on Host, RequestTime, cIP
+| join kind=leftouter WritesAfter   on Host, RequestTime, cIP
+| extend HasChild = iff(isnull(Children), false, array_length(Children) > 0),
+         HasWrite = iff(isnull(Writes),   false, array_length(Writes)   > 0)
+| extend Verdict = case(
+      HasWrite,                                                 "ToolPaneThenLayoutsWrite",
+      HasChild,                                                 "ToolPaneThenW3wpChild",
+      RequestShape == "FullExploitShape" and Status == "200",  "ToolPaneExploitShapeHTTP200",
+      RequestShape == "FullExploitShape",                      "ToolPaneExploitShapeNon200",
+      RequestShape == "SpoofedRefererOnly",                    "ToolPaneSpoofedRefererOnly",
+                                                                "ToolPaneEditModeOnly")
+| extend Severity = case(
+      Verdict == "ToolPaneThenLayoutsWrite",    1,
+      Verdict == "ToolPaneThenW3wpChild",       1,
+      Verdict == "ToolPaneExploitShapeHTTP200", 2,
+      Verdict == "ToolPaneExploitShapeNon200",  3,
+      Verdict == "ToolPaneSpoofedRefererOnly",  3,
+                                                5)
+| project
+    Severity, Verdict, RequestShape, RequestTime, Computer, sSiteName, cIP, Status,
+    csUriStem, csUriQuery, csReferer, csUserAgent,
+    Children, ChildDevices, Writes, WriteDevices
+| order by Severity asc, RequestTime desc

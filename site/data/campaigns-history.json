@@ -51,10 +51,10 @@
 "label":"12 Jan 2027",
 "text":"January 12, 2027."
 },
-"MC1551896|deadline":{
+"MC1551896|on all editions of windows server will reach the end of exte#0":{
 "date":"2027-01-13",
 "label":"13 Jan 2027",
-"text":"13 January 2027 as printed in this 60-day reminder; Microsoft's 90-day reminder MC1507705 printed 12 January 2027."
+"text":"On January 13, 2027, all editions of Windows Server 2016 will reach the end of extended support."
 },
 "MC1507705|the windows security update will be the last update availabl#0":{
 "date":"2027-01-15",
@@ -5485,14 +5485,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-11",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-12",
 "text":"August 1, 2026."
 },
@@ -5550,6 +5542,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-12",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-13",
 "text":"August 1, 2026."
 },
 {
@@ -6099,7 +6099,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-12",
+"seen":"2026-11-13",
 "text":"early February 2026."
 },
 {
@@ -6107,7 +6107,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-12",
+"seen":"2026-11-13",
 "text":"February 2027."
 },
 {
@@ -10123,7 +10123,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-12",
+"seen":"2026-11-13",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10131,7 +10131,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-12",
+"seen":"2026-11-13",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {

@@ -1,0 +1,16 @@
+// title: Microsoft Defender Antivirus path-exclusion writes
+// date: 2026-11-13
+// product: Defender for Endpoint
+// tables: DeviceRegistryEvents
+// purpose: From the article: SCKit abuses ScreenConnect to deploy remote access and target technician sessions
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/
+// kind: article
+// author: Microsoft Security Research, Sagar Patil and Jeremiah Jasmin · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceRegistryEvents
+| where Timestamp > ago(14d)
+| where ActionType == "RegistryValueSet"
+| where RegistryKey contains @"\Windows Defender\Exclusions\Paths"
+| project Timestamp, DeviceId, DeviceName, RegistryKey,
+    RegistryValueName, RegistryValueData,
+    InitiatingProcessFileName, ReportId

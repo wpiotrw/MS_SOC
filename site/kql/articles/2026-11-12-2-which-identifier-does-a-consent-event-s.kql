@@ -1,0 +1,27 @@
+// title: 2. Which identifier does a consent event's target actually hold?
+// date: 2026-11-12
+// product: Entra
+// tables: AuditLogs
+// purpose: From the article: KQL Detection of the Week: Two Things Called SharePoint
+// source: https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// 2. Which identifier does a consent event's target actually hold?
+let Consented =
+    AuditLogs
+    | where TimeGenerated >= ago(90d)
+    | where OperationName == "Consent to application"
+    | project TargetId = tostring(TargetResources[0].id);
+let Actors =
+    AuditLogs
+    | where TimeGenerated >= ago(90d)
+    | extend SpObjectId  = tostring(InitiatedBy.app.servicePrincipalId),
+             ClientAppId = tostring(InitiatedBy.app.appId)
+    | where isnotempty(ClientAppId)
+    | distinct SpObjectId, ClientAppId;
+union
+    (Actors | where SpObjectId in (Consented)
+        | summarize Matches = dcount(SpObjectId)  | extend JoinKey = "servicePrincipalId (object ID)"),
+    (Actors | where ClientAppId in (Consented)
+        | summarize Matches = dcount(ClientAppId) | extend JoinKey = "appId (client ID)")

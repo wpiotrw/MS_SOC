@@ -1,0 +1,130 @@
+// title: 🥇 Act I: Two Things Called “Sign-In,” Two Things Called “the App”
+// date: 2026-11-12
+// product: Entra
+// tables: AADServicePrincipalSignInLogs, AuditLogs, MicrosoftGraphActivityLogs
+// purpose: From the article: KQL Detection of the Week: Two Things Called SharePoint
+// source: https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Named boundaries: easy to move for a retrospective test or to
+// match a rule's schedule.
+let DetectionStart = ago(1d);
+let BaselineStart  = ago(30d);
+let WriteMethods   = dynamic(["POST", "PATCH", "PUT", "DELETE"]);
+// ============================================================
+// STAGE 1: WHERE AN APP SIGNS IN AS ITSELF.
+// A leaked client secret is redeemed with the client-credentials
+// flow. Entra writes that sign-in to AADServicePrincipalSignInLogs.
+// Neither user sign-in table (interactive or non-interactive)
+// records it.
+// ============================================================
+let SPSignIns =
+    AADServicePrincipalSignInLogs
+    | where TimeGenerated >= BaselineStart
+    | where ResultType == "0"
+    | project TimeGenerated, ServicePrincipalId, ServicePrincipalName, AppId,
+              IPAddress, ResourceDisplayName, UniqueTokenIdentifier,
+              CredentialKeyId = ServicePrincipalCredentialKeyId,
+              CredentialType  = ClientCredentialType;
+// Every place each app redeemed a credential from during the
+// baseline (BaselineStart up to DetectionStart). Not "ever."
+let KnownOrigins =
+    SPSignIns
+    | where TimeGenerated < DetectionStart
+    | distinct ServicePrincipalId, IPAddress;
+let Established =
+    SPSignIns
+    | where TimeGenerated < DetectionStart
+    | summarize PriorSignIns = count(), PriorOrigins = dcount(IPAddress)
+        by ServicePrincipalId;
+// ============================================================
+// STAGE 2: A KNOWN APP FROM A NEW PLACE.
+// The app, its permissions, and its consent are all old. The
+// origin of the credential redemption is the thing that's new.
+// ============================================================
+let NewOriginSignIns =
+    SPSignIns
+    | where TimeGenerated >= DetectionStart
+    | join kind=leftanti KnownOrigins on ServicePrincipalId, IPAddress;
+// ============================================================
+// STAGE 3: WHAT THOSE TOKENS DID.
+// Each Graph request carries the ID of the token it used
+// (SignInActivityId = UniqueTokenIdentifier). That's an identity
+// join to the exact sign-in that minted the token: the strongest
+// evidence in this query.
+// A write METHOD is an attempt. A 2xx response is stronger
+// evidence that the change happened, though still not proof for
+// asynchronous or $batch requests.
+// ============================================================
+let GraphByToken =
+    MicrosoftGraphActivityLogs
+    | where TimeGenerated >= DetectionStart
+    | where isnotempty(SignInActivityId)
+    | extend IsWrite = RequestMethod in (WriteMethods)
+    | summarize
+        GraphRequests         = count(),
+        GraphWriteAttempts    = countif(IsWrite),
+        GraphSuccessfulWrites = countif(IsWrite and ResponseStatusCode between (200 .. 299)),
+        GraphPaths            = make_set(tostring(parse_url(RequestUri).Path), 15)
+      by SignInActivityId;
+// App-level CONTEXT, not origin attribution: directory changes by
+// the same service principal in the detection window, from any
+// origin. servicePrincipalId is the SP's OBJECT ID, the same
+// identifier space as ServicePrincipalId in the sign-in log.
+// appId is not.
+let AppLevelDirectoryActivity =
+    AuditLogs
+    | where TimeGenerated >= DetectionStart
+    | extend ActorSpId = tostring(InitiatedBy.app.servicePrincipalId)
+    | where isnotempty(ActorSpId)
+    | summarize AppLevelDirChanges = count(), AppLevelDirOps = make_set(OperationName, 20)
+        by ActorSpId;
+// ============================================================
+// THE VERDICT.
+// Severity follows the strength of the link to the new origin:
+// token-correlated activity first, app-level context after.
+// ============================================================
+NewOriginSignIns
+| join kind=leftouter GraphByToken
+    on $left.UniqueTokenIdentifier == $right.SignInActivityId
+| summarize
+    FirstSeen             = min(TimeGenerated),
+    LastSeen              = max(TimeGenerated),
+    SignIns               = count(),
+    Tokens                = dcount(UniqueTokenIdentifier),
+    Resources             = make_set(ResourceDisplayName, 10),
+    CredentialKeyIds      = make_set(CredentialKeyId, 5),
+    CredentialTypes       = make_set(CredentialType, 5),
+    GraphRequests         = sum(GraphRequests),
+    GraphWriteAttempts    = sum(GraphWriteAttempts),
+    GraphSuccessfulWrites = sum(GraphSuccessfulWrites),
+    SampleGraphPaths      = take_any(GraphPaths)
+  by ServicePrincipalId, ServicePrincipalName, AppId, IPAddress
+| lookup kind=leftouter Established on ServicePrincipalId
+| lookup kind=leftouter AppLevelDirectoryActivity on $left.ServicePrincipalId == $right.ActorSpId
+| extend GraphRequests         = coalesce(GraphRequests, tolong(0)),
+         GraphWriteAttempts    = coalesce(GraphWriteAttempts, tolong(0)),
+         GraphSuccessfulWrites = coalesce(GraphSuccessfulWrites, tolong(0)),
+         AppLevelDirChanges    = coalesce(AppLevelDirChanges, tolong(0)),
+         IsEstablished         = isnotnull(PriorSignIns)
+| extend Verdict = case(
+      not(IsEstablished),                  "NoBaseline",
+      GraphSuccessfulWrites > 0,           "NewOriginTokenGraphWritesSucceeded",
+      GraphWriteAttempts > 0,              "NewOriginTokenGraphWriteAttempts",
+      GraphRequests > 0,                   "NewOriginTokenGraphReads",
+      AppLevelDirChanges > 0,              "NewOriginWithAppLevelDirectoryActivity",
+                                           "NewOriginNoActivityObserved")
+| extend Severity = case(
+      Verdict == "NewOriginTokenGraphWritesSucceeded",     1,
+      Verdict == "NewOriginTokenGraphWriteAttempts",       2,
+      Verdict == "NewOriginTokenGraphReads",               3,
+      Verdict == "NewOriginWithAppLevelDirectoryActivity", 4,
+      Verdict == "NewOriginNoActivityObserved",            5,
+                                                           6)
+| project
+    Severity, Verdict, FirstSeen, LastSeen, ServicePrincipalName, ServicePrincipalId,
+    AppId, IPAddress, PriorOrigins, PriorSignIns, CredentialKeyIds, CredentialTypes,
+    SignIns, Tokens, Resources, GraphRequests, GraphWriteAttempts,
+    GraphSuccessfulWrites, SampleGraphPaths, AppLevelDirChanges, AppLevelDirOps
+| order by Severity asc, FirstSeen desc

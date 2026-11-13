@@ -1,0 +1,44 @@
+// title: coalesce() only skips nulls. An empty HostName would win.
+// date: 2026-11-12
+// product: Sentinel
+// tables: Syslog
+// purpose: From the article: KQL Detection of the Week: Two Things Called SharePoint
+// source: https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 7d;
+Syslog
+| where TimeGenerated >= ago(lookback)
+| where SyslogMessage matches regex
+    @"%(SYS-5-CONFIG_P|SEC_LOGIN-5-WEBLOGIN_SUCCESS|WEBUI-6-INSTALL_OPERATION_INFO)"
+| extend Signal = case(
+      SyslogMessage contains "SEP_webui_wsma_http",    "ConfiguredViaWebUI",
+      SyslogMessage contains "WEBLOGIN_SUCCESS",       "WebUILogin",
+      SyslogMessage contains "INSTALL_OPERATION_INFO", "WebUIInstallOperation",
+                                                       "")
+| where isnotempty(Signal)
+| extend WebUser     = extract(@"\[user:\s*([^\]]+)\]", 1, SyslogMessage),
+         WebSource   = extract(@"\[Source:\s*([^\]]+)\]", 1, SyslogMessage),
+         InstallFile = extract(@"Install Operation:\s*ADD\s+(\S+)", 1, SyslogMessage),
+         // coalesce() only skips nulls. An empty HostName would win.
+         Device      = iff(isnotempty(HostName), HostName, HostIP)
+| summarize
+    FirstSeen      = min(TimeGenerated),
+    LastSeen       = max(TimeGenerated),
+    Events         = count(),
+    Signals        = make_set(Signal),
+    WebUsers       = make_set_if(WebUser, isnotempty(WebUser), 10),
+    WebSources     = make_set_if(WebSource, isnotempty(WebSource), 10),
+    InstalledFiles = make_set_if(InstallFile, isnotempty(InstallFile), 10)
+  by Device
+// These verdicts say which messages were OBSERVED in the window,
+// not in what order. A login and a config push could be days apart.
+| extend Verdict = case(
+      array_length(InstalledFiles) > 0,                  "WebUIInstallAddObserved",
+      set_has_element(Signals, "WebUIInstallOperation"), "WebUIInstallOperationOther",
+      set_has_element(Signals, "ConfiguredViaWebUI")
+        and set_has_element(Signals, "WebUILogin"),      "WebUILoginAndProgrammaticConfigObserved",
+      set_has_element(Signals, "ConfiguredViaWebUI"),    "ProgrammaticConfigViaWebUI",
+                                                         "WebUILoginOnly")
+| order by FirstSeen desc

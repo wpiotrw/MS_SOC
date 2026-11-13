@@ -1,0 +1,13 @@
+// title: 🥈 Act II: Two Things Called SharePoint
+// date: 2026-11-12
+// product: Microsoft 365
+// tables: OfficeActivity
+// purpose: From the article: KQL Detection of the Week: Two Things Called SharePoint
+// source: https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+OfficeActivity
+| where RecordType == "SharePointFileOperation"
+| where not(UserAgent has_any (knownClientPatterns))
+...

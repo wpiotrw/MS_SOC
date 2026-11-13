@@ -1,0 +1,16 @@
+// title: RelayTrap scheduled-task events
+// date: 2026-11-13
+// product: Defender for Endpoint
+// tables: DeviceEvents
+// purpose: From the article: SCKit abuses ScreenConnect to deploy remote access and target technician sessions
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/
+// kind: article
+// author: Microsoft Security Research, Sagar Patil and Jeremiah Jasmin · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceEvents
+| where Timestamp > ago(14d)
+| where ActionType contains "ScheduledTask"
+| where AdditionalFields contains "RelayTrap"
+    or AdditionalFields contains "TrapWatch"
+| project Timestamp, DeviceId, DeviceName, ActionType,
+    AdditionalFields, InitiatingProcessFileName, ReportId

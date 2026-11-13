@@ -1,0 +1,21 @@
+// title: 3b. Does the token join land?
+// date: 2026-11-12
+// product: Entra
+// tables: AADServicePrincipalSignInLogs, MicrosoftGraphActivityLogs
+// purpose: From the article: KQL Detection of the Week: Two Things Called SharePoint
+// source: https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// 3b. Does the token join land?
+MicrosoftGraphActivityLogs
+| where TimeGenerated >= ago(1d)
+| where isnotempty(ServicePrincipalId) and isnotempty(SignInActivityId)
+| take 5000
+| join kind=leftouter (
+    AADServicePrincipalSignInLogs
+    | where TimeGenerated >= ago(2d)
+    | distinct UniqueTokenIdentifier
+    | extend Matched = true
+  ) on $left.SignInActivityId == $right.UniqueTokenIdentifier
+| summarize Requests = count(), JoinedToSignIn = countif(Matched == true)

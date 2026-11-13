@@ -1,0 +1,18 @@
+// title: Advanced hunting queries
+// date: 2026-11-13
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: SCKit abuses ScreenConnect to deploy remote access and target technician sessions
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/
+// kind: article
+// author: Microsoft Security Research, Sagar Patil and Jeremiah Jasmin · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where Timestamp > ago(14d)
+| where RemoteUrl has_any (
+    "ns.mo7sen.dev", "sc.payproofkit.com",
+    "newnewnew.gotdns.org", "soxnewwork.homedns.org",
+    "cdn007-digitaldownloads.com")
+    or RemoteIP in ("185.99.255.28", "155.94.150.39")
+| project Timestamp, DeviceId, DeviceName, RemoteUrl, RemoteIP,
+    InitiatingProcessFileName, InitiatingProcessCommandLine, ReportId

@@ -1,0 +1,46 @@
+// title: the Inno engine itself
+// date: 2026-11-12
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: KQL Detection of the Week: Two Things Called SharePoint
+// source: https://devsecopsdadattack.com/2026-11-12-KQL-Detection-of-the-Week-Two-Things-Called-SharePoint/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let lookback = 7d;
+let Interpreters = dynamic([
+    "powershell.exe", "pwsh.exe", "cmd.exe", "wscript.exe", "cscript.exe",
+    "mshta.exe", "rundll32.exe", "regsvr32.exe", "certutil.exe",
+    "bitsadmin.exe", "curl.exe", "msiexec.exe", "schtasks.exe"
+]);
+DeviceProcessEvents
+| where Timestamp >= ago(lookback)
+// The Inno engine: <name>.tmp in %TEMP%\is-XXXXX.tmp\, started by
+// the stub with /SL5="$hwnd,size,offset,<stub path>".
+| where InitiatingProcessFileName endswith ".tmp"
+| where InitiatingProcessFolderPath matches regex @"(?i)\\is-[a-z0-9]+\.tmp\\"
+| where InitiatingProcessCommandLine contains "/SL5="
+// The stub relaunching itself elevated, and Inno's own uninstaller.
+| where not(ProcessCommandLine contains "/SPAWNWND=")
+| where not(FileName matches regex @"(?i)^unins\d{3}\.exe$")
+| extend IsInterpreter = FileName in~ (Interpreters),
+         RunsFromUserPath = FolderPath matches regex @"(?i)\\(AppData|Temp|Downloads|Users\\Public)\\"
+                            and not(FolderPath matches regex @"(?i)\\is-[a-z0-9]+\.tmp\\")
+| where IsInterpreter or RunsFromUserPath
+| extend StubPath = extract(@"/SL5=""[^""]*,([A-Za-z]:\\[^""]+)""", 1, InitiatingProcessCommandLine)
+// One row per engine PROCESS: device ID + PID + creation time.
+// DeviceId, not DeviceName, because names get reused.
+| summarize
+    FirstChild  = min(Timestamp),
+    ChildCount  = count(),
+    Children    = make_set(strcat(FileName, " :: ", ProcessCommandLine), 20),
+    // SHA256 isn't always populated, so SHA1 comes along too.
+    ChildSHA256 = make_set_if(SHA256, isnotempty(SHA256), 20),
+    ChildSHA1   = make_set_if(SHA1, isnotempty(SHA1), 20)
+  by DeviceId, DeviceName, AccountName,
+     EngineId      = InitiatingProcessId,
+     EngineCreated = InitiatingProcessCreationTime,
+     Engine        = InitiatingProcessFileName,
+     Stub          = InitiatingProcessParentFileName,
+     StubPath
+| order by FirstChild desc
