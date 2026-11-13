@@ -26444,6 +26444,14 @@ na czas warszawski i pokazuje "in N min" albo czerwone "time passed". `api/ms-st
 30 -> 60 wierszy (wiersz Teams byl uciety na "priva"). Testy: Chromium 1600 ciemny, 1100 jasny, WebKit 390; 0 bledow JS;
 bramka OK; mobile_check OK (8,8 s).
 
+**§5gr-f (13 XI 2026)** — Piotr: "pod smokiem piszesz 1 i jak klikne to jest jeden", "moze go po prostu nie rozbijamy".
+Plakietka M365 i pigulka karty M365 licza teraz WSZYSTKIE otwarte zgloszenia z Service health (incydenty + advisories
+razem, "Microsoft 365 · N open", krotko "M365 · N open"; podzial zostaje w oknie, w sekcji Service health). Kolor: z RSS
+jak dotad (czerwony/pomaranczowy), a gdy RSS mowi OK lub nie dziala, a Service health ma cos otwartego - co najmniej
+"degraded". Gdy Service health nie da sie odczytac - liczba z RSS jak przed zmiana. Funkcje `openIssues()`, `view(s)`,
+`cnt(s)` przed `badgeText`. Liczby moga roznic sie od pulse.azureme.pl: tu licza sie wszystkie nierozwiazane
+advisories, takze te bez aktualizacji od tygodni (13 XI: 10 otwartych = 2 incydenty + 8 advisories).
+
 **§5gr-e (13 XI 2026)** — Piotr: numery incydentow (MO1550821, EX1550543) i MC w oknie statusu, w osobnej sekcji; bez
 sekretu, przez federated credential. Publiczny kanal i `status.cloud.microsoft/api/posts/*` NIE podaja numerow (sprawdzone
 13 XI); ma je Service health dzierzawy. `.github/workflows/ms-health.yml` (co ~10 min, `*/10`) loguje sie jak graph-radar
@@ -47422,10 +47430,29 @@ odtad CZTERNASCIE (4-17).**
   function dt(iso) { try { return new Date(iso).toLocaleString("en-GB", { timeZone: "Europe/Warsaw", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }); } catch (e) { return ""; } }
   function human(s) { return s ? s.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, function (c) { return c.toUpperCase(); }).replace(/ ([A-Z])/g, function (m, c) { return " " + c.toLowerCase(); }) : ""; }
   var LAB = { ok: "OK", warn: "degraded", bad: "interruption", error: "status unknown" };
+  /* §5gr-f (owner, 13 XI): "under the dragon it says 1, and the window shows one" - the M365 count came from the public
+     status feed, which carries only the one current headline item. Microsoft's own count is in Service health: every
+     open issue, incident AND advisory together (owner: "we don't split it"; the split stays inside the window). When
+     Service health was read, the M365 badge and its card count every open issue there; the colour is red/orange from
+     the feed as before, and at least "degraded" when Service health has an open issue the feed does not show. When
+     Service health is unavailable, the feed's own count is used as before. */
+  function openIssues() {
+    var H = data && data.health;
+    return H && H.ok ? (H.issues || []).filter(function (i) { return !i.isResolved; }) : null;
+  }
+  function view(s) {
+    if (!s || s.key !== "m365") return s;
+    var L = openIssues(); if (!L) return s;
+    var v = {}; for (var k in s) v[k] = s[k];
+    v.open = L.length; v.unit = "open";
+    if (!v.state || v.state === "error" || v.state === "ok") v.state = L.length ? "warn" : "ok";
+    return v;
+  }
+  function cnt(s) { return s.unit === "open" ? s.open + " open" : s.open + (s.open === 1 ? " incident" : " incidents"); }
   function badgeText(s) {
     if (!s || s.state === "error") return s ? s.name + " · status unknown" : "status unknown";
     if (s.state === "ok") return s.name + " · OK";
-    return s.name + " · " + s.open + (s.open === 1 ? " incident" : " incidents");
+    return s.name + " · " + cnt(s);
   }
   /* §5gr-c (owner, 13 XI): the badges stayed at 296 px while the sticky header shrank on scroll (405 -> 219 px) and lay
      over the menu; the logo was centred in the column, leaving an empty field above the dragon; on a phone the row sat
@@ -47466,11 +47493,12 @@ odtad CZTERNASCIE (4-17).**
     box.textContent = "";
     var row = el("div", "s5ms-row");
     var svc = data && data.services ? data.services : [{ key: "m365", name: "Microsoft 365", state: "error" }, { key: "azure", name: "Azure", state: "error" }];
-    svc.forEach(function (s) {
-      var b = el("button", "s5ms-b s5ms-" + (s.state || "error")); b.type = "button";
-      b.setAttribute("aria-label", s.name + ": " + (LAB[s.state] || "status unknown") + " - open the details");
+    svc.forEach(function (s0) {
+      var s = view(s0), b = el("button", "s5ms-b s5ms-" + (s.state || "error")); b.type = "button";
+      b.setAttribute("aria-label", s.name + ": " + (s.unit === "open" ? s.open + " open issues in Service health" : (LAB[s.state] || "status unknown")) + " - open the details");
+      if (s.unit === "open") b.title = "Open issues in Microsoft 365 Service health: incidents and advisories together";
       b.appendChild(el("i")); b.appendChild(el("span", "s5ms-full", badgeText(s)));
-      b.appendChild(el("span", "s5ms-short", (s.key === "m365" ? "M365" : s.name) + " · " + (!s.state || s.state === "error" ? "?" : (s.state === "ok" ? "OK" : s.open + (s.open === 1 ? " incident" : " incidents")))));
+      b.appendChild(el("span", "s5ms-short", (s.key === "m365" ? "M365" : s.name) + " · " + (!s.state || s.state === "error" ? "?" : (s.state === "ok" ? "OK" : cnt(s)))));
       b.addEventListener("click", function () { openWin(s.key); }); row.appendChild(b);
     });
     box.appendChild(row);
@@ -47609,11 +47637,11 @@ odtad CZTERNASCIE (4-17).**
       { key: "m365", name: "Microsoft 365", state: "error", page: "https://status.cloud.microsoft/", admin: "https://admin.microsoft.com/#/servicehealth", feed: "https://status.cloud.microsoft/api/feed/mac" },
       { key: "azure", name: "Azure", state: "error", page: "https://azure.status.microsoft/en-us/status", admin: "https://portal.azure.com/#blade/Microsoft_Azure_Health/AzureHealthBrowseBlade", feed: "https://rssfeed.azure.status.microsoft/en-us/status/feed/" }];
     svc.sort(function (a, b) { return a.key === k ? -1 : (b.key === k ? 1 : 0); });
-    svc.forEach(function (s) {
-      var c = el("section", "s5ms-card s5ms-c-" + (s.state || "error")), h = el("h3");
-      h.appendChild(el("span", "s5ms-pill s5ms-p-" + (s.state || "error"), s.state === "ok" ? "No active incidents" : (s.state === "error" ? "Status unknown" : (s.open === 1 ? "1 active incident" : s.open + " active incidents"))));
+    svc.forEach(function (s0) {
+      var s = view(s0), c = el("section", "s5ms-card s5ms-c-" + (s.state || "error")), h = el("h3");
+      h.appendChild(el("span", "s5ms-pill s5ms-p-" + (s.state || "error"), s.unit === "open" ? (s.open ? s.open + " open in Service health" : "Nothing open in Service health") : (s.state === "ok" ? "No active incidents" : (s.state === "error" ? "Status unknown" : (s.open === 1 ? "1 active incident" : s.open + " active incidents")))));
       h.appendChild(document.createTextNode(s.name)); c.appendChild(h);
-      if (s.state === "error") c.appendChild(el("p", "s5ms-p", "This portal could not read Microsoft's status feed" + (s.error ? " (" + s.error + ")" : "") + ". Open Microsoft's own pages below."));
+      if (s0.state === "error" || !s0.state) c.appendChild(el("p", "s5ms-p", "This portal could not read Microsoft's status feed" + (s.error ? " (" + s.error + ")" : "") + ". Open Microsoft's own pages below."));
       else if (!s.items || !s.items.length) c.appendChild(el("p", "s5ms-p", "Microsoft's status feed lists no current incident" + (s.built ? " (feed built " + hm(s.built) + " Warsaw)" : "") + "."));
       (s.items || []).forEach(function (it) {
         var w = el("div", "s5ms-it"), t = el("div", "s5ms-ih");
