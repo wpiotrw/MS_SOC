@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13T17:18:39Z",
+ "generated": "2026-11-13T21:31:38Z",
  "day": "2026-11-13",
  "spec": "5gi",
  "window": {
@@ -16,7 +16,7 @@
    "2026-11-13"
   ]
  },
- "mustCover": 19,
+ "mustCover": 20,
  "uncovered": [],
  "skipped": [],
  "viaCampaign": [],
