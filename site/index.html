@@ -16688,7 +16688,8 @@ IdentityDirectoryEvents
     if (ev.target && ev.target.closest && ev.target.closest("nav.anchors .tab")) setTimeout(boot, 160);
   }, true);
 })();</script>
-<script>/* ===========================================================================
+<script>
+/* ===========================================================================
    SCRIPT 17 — THE CATALOG SAYS HOW BIG IT IS, AND WHAT MOVED THIS WEEK
    (CLAUDE.md 5bc). ADDED, never a replacement: shell scripts 1-3 and added
    scripts 4-16 are untouched, byte for byte.
@@ -19511,7 +19512,7 @@ IdentityDirectoryEvents
     }
     if (spec.diff) {
       var a = el("a", "s5bn-diff", "Everything that moved here, field by field, on the changes page →");
-      a.href = (onSite() ? "/diff/" : "https://orange-ground-019f30603.7.azurestaticapps.net/diff/") + "#" + spec.diff;
+      a.href = (onSite() ? "/diff/" : "https://guardzilla.azureme.pl/diff/") + "#" + spec.diff;
       box.appendChild(a);
     }
     var ph = panel.querySelector(".panelhead");
@@ -33678,6 +33679,7 @@ IdentityDirectoryEvents
   window.__s5gp = build;
   [1500, 4000, 9000, 16000, 26000].forEach(function (t) { setTimeout(function () { try { build(); set(ON); } catch (e) {} }, t); });
   document.addEventListener("click", function (ev) { if (ev.target.closest && ev.target.closest("#tabbtn-tab-overview")) setTimeout(function () { try { build(); } catch (e) {} }, 300); });
-})();</script>
+})();
+</script>
 </body>
 </html>
