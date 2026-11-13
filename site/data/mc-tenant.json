@@ -1,7 +1,7 @@
 {
  "read": "2026-11-13",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 729,
+ "count": 726,
  "note": null,
  "messages": [
   {
@@ -1031,34 +1031,6 @@
     "Join us December 10, 2025, at 8:00 AM PST for a live Ask Microsoft Anything (AMA) session focused on updating Secure Boot certificates on your Windows devices before they expire in June 2026."
    ],
    "bodyHash": "69ce72adca5e5489"
-  },
-  {
-   "id": "MC1192260",
-   "title": "(Updated) Microsoft Purview | Compliance Manager - AI Powered Regulatory Templates",
-   "services": [
-    "Microsoft Purview"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-12-05",
-   "end": "2026-11-13",
-   "modified": "2026-08-26",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message"
-   ],
-   "summary": "Updated August 26, 2026: We have updated the timeline. Thank you for your patience. [Introduction] To help organizations streamline compliance efforts across multi-cloud environments, Microsoft Purview Compliance Manager is introducing AI Powered Regulatory Templates . This feature enables customers to convert complex regulatory PDF documents into actionable controls, making it easier to create as…",
-   "when": "Public Preview: Rollout begins mid-November 2025; expected to complete by end of November 2025. General Availability (Worldwide): Rollout begins early October 2026 (previously early August); expected to complete by mid-October 2026 (previously late August).",
-   "prepare": "No action is required to enable this feature. Once available, you may: Use the new template creation option to streamline assessment setup. Review internal documentation if you maintain guidance on regulatory assessments. Share this update with compliance teams to explore its benefits. .",
-   "dates": [
-    "Updated August 26, 2026: We have updated the timeline.",
-    "Public Preview: Rollout begins mid-November 2025; expected to complete by end of November 2025.",
-    "General Availability (Worldwide): Rollout begins early October 2026 (previously early August); expected to complete by mid-October 2026 (previously late August)."
-   ],
-   "bodyHash": "62902dec82b36e80"
   },
   {
    "id": "MC1192661",
@@ -4714,37 +4686,6 @@
     "General Availability (Worldwide): Rollout will begin in mid-August 2026 (previously mid-July) and is expected to complete by end of November 2026 (previously end of October)."
    ],
    "bodyHash": "6d4fc4a050a4f9ab"
-  },
-  {
-   "id": "MC1317839",
-   "title": "(Updated) Microsoft Teams: Attend Microsoft webinars from Teams Rooms on Android",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-05-21",
-   "end": "2026-11-13",
-   "modified": "2026-06-15",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated June 15, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Microsoft Teams Rooms on Android (MTR-A) will support joining webinars and structured meetings with a dedicated attendee experience. Structured meetings are meetings where organizers restrict presenter permissions and assign attendee roles. This update enables room devices to join these event types as …",
-   "when": "General Availability (Worldwide): Rollout begins in late June 2026 and is expected to complete by mid-July 2026. GCC: Rollout begins in late June 2026 and is expected to complete by early July 2026. GCC-H: Rollout begins in late August 2026 and is expected to complete by early September 2026. DoD: Rollout begins in late September 2026 and is expected to complete by early October 2026.",
-   "prepare": "Ensure your Teams Rooms on Android devices are: Enabled and actively managed. Licensed with Teams Rooms Pro (validated at join time)/. Update Teams Rooms devices to the latest available version. Review internal guidance for meeting organizers to: Add rooms as attendees where appropriate. Configure meeting options to allow desired attendee interactions (chat, reactions, etc.). . Communicate this update to helpdesk and user communities, especially …",
-   "dates": [
-    "Updated June 15, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Rollout begins in late June 2026 and is expected to complete by mid-July 2026.",
-    "GCC: Rollout begins in late June 2026 and is expected to complete by early July 2026.",
-    "GCC-H: Rollout begins in late August 2026 and is expected to complete by early September 2026.",
-    "DoD: Rollout begins in late September 2026 and is expected to complete by early October 2026."
-   ],
-   "bodyHash": "ff9e08f367fea97f"
   },
   {
    "id": "MC1318295",
@@ -9334,35 +9275,6 @@
     "General Availability (Worldwide): Rollout begins in early-October 2026 and is expected to complete by mid-October 2026."
    ],
    "bodyHash": "580dd58c0beb96e7"
-  },
-  {
-   "id": "MC1462469",
-   "title": "Microsoft Teams and Google Calendar sync retirement",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": "2026-10-01",
-   "start": "2026-08-26",
-   "end": "2026-11-13",
-   "modified": "2026-08-26",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "[What and why] Microsoft is retiring calendar syncing between Microsoft Teams and Google Workspace. After this retirement, organizations will no longer be able to synchronize calendars between the two services using the calendar sync capability available through the Admin app in Teams. This change allows us to focus our investments on supported integration experiences, including the Microsoft Team…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Retirement: October 2026.",
-    "We began notifying affected customers in August 2026.",
-    "Calendar syncing between Microsoft Teams and Google Workspace will no longer be supported starting in October 2026.",
-    "To prepare for this retirement, administrators should: Notify affected users that calendar synchronization will stop in October 2026."
-   ],
-   "bodyHash": "9f68d1fac8882bf7"
   },
   {
    "id": "MC1462470",
@@ -25418,6 +25330,27 @@
    "id": "MC1551151",
    "type": "new",
    "title": "Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice multi-factor authentication",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-13",
+   "id": "MC1192260",
+   "type": "removed",
+   "title": "(Updated) Microsoft Purview | Compliance Manager - AI Powered Regulatory Templates",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-13",
+   "id": "MC1317839",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Attend Microsoft webinars from Teams Rooms on Android",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-13",
+   "id": "MC1462469",
+   "type": "removed",
+   "title": "Microsoft Teams and Google Calendar sync retirement",
    "fields": {}
   }
  ]
