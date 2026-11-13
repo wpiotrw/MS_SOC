@@ -12,10 +12,10 @@ ms.subservice: purview-insider-risk-management
 ms.topic: how-to
 f1.keywords:
 - NOCSH
-ms.author: kreagle
+ms.author: joibarr
 author: k-reagle
 manager: laurawi
-ms.date: 2026-06-25T00:00:00.0000000Z
+ms.date: 2026-11-13T00:00:00.0000000Z
 audience: itpro
 ms.collection:
 - highpri
@@ -23,7 +23,7 @@ ms.collection:
 - m365solution-insiderrisk
 - m365initiative-compliance
 - highpri
-ms.custom: admindeeplinkCOMPLIANCE, msecd-doc-authoring-1014
+ms.custom: admindeeplinkCOMPLIANCE, msecd-doc-authoring-1032
 ai-usage: ai-assisted
 locale: en-us
 document_id: 814e5dca-c2de-65ad-a809-69b803fb3a76
@@ -64,6 +64,21 @@ Policy timeframes in Microsoft Purview Insider Risk Management let you set past 
     Note
 
     For email activities, the past activity detection period is 10 days.
+
+## Group membership changes during the activation window
+
+Removing a user from a security group included in a policy might not immediately stop risk scoring for that user. Membership changes can take time to process. Until the service processes the change, activities can continue to receive risk scores and contribute to alerts.
+
+Once the service determines that the user is no longer included in the policy, scoring and alerting stop for that policy. New activities no longer generate or update alerts for that policy.
+
+The service continues to collect and store activities for the remainder of the user's existing activation window. These activities can appear in Activity Explorer. Group removal doesn't automatically remove existing alerts or their previously captured data.
+
+An exception applies to these policy templates when the user's account has already been deleted:
+
+- *Data theft by departing users*
+- *Security policy violations by departing users*
+
+For these deleted accounts, the service can't verify whether the user is still included in the policy. Monitoring continues during the remaining activation window. Activities received during that window can still result in alerts.
 
 ## Configure policy timeframes
 

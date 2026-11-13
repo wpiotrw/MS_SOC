@@ -12,14 +12,14 @@ ms.subservice: purview-insider-risk-management
 ms.topic: how-to
 f1.keywords:
 - NOCSH
-ms.author: kreagle
+ms.author: joibarr
 author: k-reagle
 manager: laurawi
-ms.date: 2026-06-22T00:00:00.0000000Z
+ms.date: 2026-11-13T00:00:00.0000000Z
 audience: itpro
 ms.collection:
 - purview-compliance
-ms.custom: msecd-doc-authoring-1014, admindeeplinkCOMPLIANCE, sfi-image-nochange
+ms.custom: msecd-doc-authoring-1032, admindeeplinkCOMPLIANCE, sfi-image-nochange
 ai-usage: ai-assisted
 locale: en-us
 document_id: fafa165a-2720-7d2e-ca0c-95f97ad9c6a9
@@ -180,6 +180,16 @@ To remove a user from in-scope status in all Insider Risk Management policies, c
 Note
 
 Removing a user from in-scope status might take several minutes. When the process completes, the user doesn't appear on the **Users dashboard**. If the removed user has active alerts or cases, the user remains on the **Users dashboard** and the user details show that they are no longer in-scope for a policy.
+
+### Removing a user from a policy's security group
+
+Removing a user from a security group included in a policy is different from selecting **Stop scoring activity for users**. Group membership changes can take time to process. Until the service processes the change, activities can continue to receive risk scores and contribute to alerts.
+
+Once the service determines that the user is no longer included in the policy, scoring and alerting stop for that policy. Existing alerts no longer receive activity-based updates from that policy.
+
+The service continues to collect and store activities for the remainder of the user's existing activation window. These activities can appear in Activity Explorer. Group removal doesn't automatically remove existing alerts or their previously captured data.
+
+For the deleted-account exception in specific departing-user templates, see [Set policy timeframes in Insider Risk Management](insider-risk-management-settings-policy-timeframes).
 
 ## Run automated tasks with Power Automate flows for a user
 

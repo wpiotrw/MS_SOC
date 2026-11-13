@@ -39,12 +39,12 @@ item_type: Content
 source_path: Purview/sensitivity-labels-versions.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/3e34b70d-bca0-4369-a01b-71d1edfd427b
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/19e6356c-ba1e-4d22-9557-6222c183f04d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/e2c9f30c-00ec-44c0-846c-b20dbfb3283f
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/8ca32b3f-fa14-46df-b09a-9c4a591d6396
 - https://authoring-docs-microsoft.poolparty.biz/devrel/01e6eca5-e701-4cd9-a21f-56c9258f473e
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/702271fe-87d7-4493-828b-2d6fde3de8ab
 2PlusCloud:
 - M365
 - Azure
@@ -117,7 +117,7 @@ Note
 
 For Windows and the Semi-Annual Enterprise Channel, the minimum supported version numbers might not yet be released. [Learn more](/en-us/officeupdates/update-history-microsoft365-apps-by-date#supported-versions)
 
-| Capability | Outlook for Windows | Outlook for Mac | Outlook on iOS | Outlook on Android | Outlook on the web | New Outlook for Windows^\*^ |
+| Capability | Outlook for Windows | Outlook for Mac^\*\*\*^ | Outlook on iOS | Outlook on Android | Outlook on the web | New Outlook for Windows^\*^ |
 | --- | --- | --- | --- | --- | --- | --- |
 | Manually apply, change, or remove label  - [Files and emails](https://support.microsoft.com/office/apply-sensitivity-labels-to-your-files-and-email-in-office-2f96e7cd-d5a4-403b-8bd7-4cc636bae0f9) | Current Channel: 1910+  Monthly Enterprise Channel: 1910+  Semi-Annual Enterprise Channel: 2002+ | 16.21+ | 4.7.1+ | 4.0.39+ | Yes | Yes |
 | Manually apply, change, or remove label  - [Calendar items](sensitivity-labels-meetings) | Current Channel: 2302+  Monthly Enterprise Channel: 2302+  Semi-Annual Enterprise Channel: 2402+ | 16.70+ ^\*\*^ | 4.2331.0+ | 4.2326.1+ | Yes | Yes |
@@ -187,6 +187,8 @@ Tenant admins must opt in to enable sensitivity labels in OneNote within their t
 ^\*^ For information about the new Outlook for Windows, see [Getting started with the new Outlook for Windows](https://support.microsoft.com/office/getting-started-with-the-new-outlook-for-windows-656bb8d9-5a60-49b2-a98b-ba7822bc7627)
 
 ^\*\*^ Requires the [new Outlook for Mac](https://support.microsoft.com/office/the-new-outlook-for-mac-6283be54-e74d-434e-babb-b70cefc77439)
+
+^\*\*\*^ For Outlook for Mac, sensitivity labels for on-premises mailboxes require version 16.112 or later.
 
 ## Future releases
 

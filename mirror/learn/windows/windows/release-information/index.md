@@ -15,7 +15,7 @@ ms.service: windows
 ms.topic: hub-page
 author: WindowsCommunications
 ms.author: direek
-ms.date: 2026-11-12T00:00:00.0000000Z
+ms.date: 2026-11-13T00:00:00.0000000Z
 ms.localizationpriority: medium
 locale: en-us
 document_id: 3105e4c0-7e83-7f42-7f1a-e0504b23afc9
@@ -81,9 +81,9 @@ Overview
 
 ### Message center
 
-- [Take action to prevent RD Web Access rendering failures (Updated)](https://support.microsoft.com/help/5130994)
-- [Windows Office Hours: November 19, 2026](https://techcommunity.microsoft.com/event/windowsevents/windows-office-hours-november-19-2026/4561237)
-- [60-day reminder: Hardening changes for ReFS volumes on removable media](https://support.microsoft.com/servicing/os/windows/docs/2026/10/hardening-changes-for-refs-volumes-on-removable-media)
+- [Out-of-band update released to address Windows licensing and activation errors](/en-us/windows/release-information/windows-message-center#5089)
+- [60-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 13, 2027](/en-us/lifecycle/products/windows-10-enterprise-ltsc-2021)
+- [60-Day Reminder: Windows Server 2016 reaches the end of extended support on January 13, 2027](/en-us/lifecycle/products/windows-server-2016)
 - [See more](/en-us/windows/release-information/windows-message-center)
 
 ### Windows 11, version 26H2

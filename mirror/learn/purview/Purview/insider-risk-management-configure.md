@@ -12,10 +12,10 @@ ms.subservice: purview-insider-risk-management
 ms.topic: get-started
 f1.keywords:
 - NOCSH
-ms.author: kreagle
+ms.author: joibarr
 author: k-reagle
 manager: laurawi
-ms.date: 2025-11-14T00:00:00.0000000Z
+ms.date: 2026-11-13T00:00:00.0000000Z
 audience: itpro
 ms.collection:
 - highpri
@@ -26,6 +26,8 @@ ms.collection:
 ms.custom:
 - admindeeplinkCOMPLIANCE
 - sfi-ga-nochange
+- msecd-doc-authoring-1032
+ai-usage: ai-assisted
 locale: en-us
 document_id: 9ae0ab35-8913-1821-5588-6481b8303445
 document_version_independent_id: 9ae0ab35-8913-1821-5588-6481b8303445
@@ -44,9 +46,11 @@ item_type: Content
 source_path: Purview/insider-risk-management-configure.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 platformId: 66f7c5b0-e0e8-3df7-7fa0-d61dc8477d47
 ---
@@ -361,6 +365,10 @@ To create a custom trigger or indicator for a non-Microsoft workload, see [Custo
         Note
 
         Guest accounts aren't supported.
+
+        Note
+
+        Removing a user from an included security group can take time to process. Until the service processes the change, activities can continue to receive risk scores and contribute to alerts. Once the service determines that the user is no longer included in the policy, scoring and alerting stop for that policy. Activity monitoring continues for the remainder of the user's existing activation window. Existing alerts and their previously captured data remain. For details and the exception for deleted accounts in specific departing-user templates, see [Set policy timeframes in Insider Risk Management](insider-risk-management-settings-policy-timeframes).
     - **Adaptive scope**. This option appears if you select the **Include specific users and groups** option. Select **Add or edit adaptive scopes** to [apply an adaptive scope to the policy](purview-adaptive-scopes). You must create the adaptive scope before you create or edit the policy. If the policy is also [scoped by one or more admin units](purview-admin-units), the adaptive scopes available to you are limited by the admin units. [Learn how adaptive scopes work together with admin units](purview-adaptive-scopes#how-adaptive-scopes-work-with-microsoft-entra-administrative-units).
     - **Add or edit priority user groups**. This option appears only if you choose the *Data leaks by priority users* template. Select this option, then add or edit priority user groups.
 
