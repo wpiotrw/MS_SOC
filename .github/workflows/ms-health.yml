@@ -6,9 +6,13 @@ name: Microsoft 365 Service health
 # tools/ms_health.py keeps only issues of origin "microsoft" (the repository and the page are public).
 # The result goes to the branch "status-data" as ONE orphan commit, force-pushed: no history grows, and no other
 # workflow reacts (they all watch main). api/ms-status reads it from raw.githubusercontent.com.
+# 5gr-g (13 XI): GitHub dropped most "*/10" runs (one scheduled run between 16:26 and 23:30). Now ONE run keeps
+# reading every 5 minutes for ~50 minutes and then starts the next run itself (workflow_dispatch with github.token is
+# allowed to start a workflow). The hourly cron only restarts the chain if it ever breaks; concurrency keeps one run.
+# Public repository: GitHub-hosted runner minutes are free.
 on:
   schedule:
-    - cron: "*/10 * * * *"     # GitHub may start a scheduled run some minutes late
+    - cron: "7 * * * *"
   push:
     branches: [main]
     paths:
@@ -19,6 +23,7 @@ on:
 permissions:
   id-token: write
   contents: write
+  actions: write
 
 concurrency:
   group: ms-health
@@ -27,28 +32,37 @@ concurrency:
 jobs:
   health:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 58
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 1
-      - name: Service health (developer tenant, read-only)
+      - name: Read Service health every 5 minutes and publish to the branch status-data
         env:
           AZURE_TENANT_ID: ${{ vars.DEV_TENANT_ID }}
           AZURE_CLIENT_ID: ${{ vars.DEV_CLIENT_ID }}
-        run: python3 tools/ms_health.py "$RUNNER_TEMP/ms-health.json"
-      - name: Publish to the branch status-data
+          GH_TOKEN: ${{ github.token }}
         run: |
-          set -euo pipefail
-          python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print('ok', d.get('ok'), 'issues', len(d.get('issues') or []))" "$RUNNER_TEMP/ms-health.json"
-          D="$RUNNER_TEMP/sd"; mkdir -p "$D"; cd "$D"
-          git init -q -b status-data
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          cp "$RUNNER_TEMP/ms-health.json" ms-health.json
-          printf '%s\n' "Data for the MS_SOC status window (api/ms-status). Written by .github/workflows/ms-health.yml on main; force-pushed, one commit." > README.md
-          git add ms-health.json README.md
-          git commit -q -m "data: Microsoft 365 Service health $(date -u +%F' '%H:%M) UTC"
-          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
-          for i in 1 2 3; do git push -q -f origin status-data && break; sleep 5; done
+          set -uo pipefail
+          D="$RUNNER_TEMP/sd"; mkdir -p "$D"
+          git -C "$D" init -q -b status-data
+          git -C "$D" config user.name "github-actions[bot]"
+          git -C "$D" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C "$D" remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          printf '%s\n' "Data for the MS_SOC status window (api/ms-status). Written by .github/workflows/ms-health.yml on main; force-pushed, one commit." > "$D/README.md"
+          END=$(( $(date +%s) + 50*60 ))
+          while :; do
+            python3 tools/ms_health.py "$D/ms-health.json" || true
+            python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print('ok', d.get('ok'), 'issues', len(d.get('issues') or []))" "$D/ms-health.json" || true
+            ( cd "$D" && rm -rf .git/refs/heads/status-data && git add ms-health.json README.md \
+              && git commit -q -m "data: Microsoft 365 Service health $(date -u +%F' '%H:%M) UTC" \
+              && for i in 1 2 3; do git push -q -f origin status-data && break; sleep 5; done ) || echo "publish failed"
+            [ $(( $(date +%s) + 300 )) -lt "$END" ] || break
+            sleep 300
+          done
+      - name: Start the next run (keeps the 5-minute chain going)
+        if: always() && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run ms-health.yml --ref main -R "${{ github.repository }}" || echo "could not start the next run; the hourly cron restarts the chain"
