@@ -26425,6 +26425,15 @@ read"); Chromium 1600/1100 (jasny), WebKit 390; Esc zamyka okno; 0 bledow JS, 0 
 kolumny numeru 28 px. `.s5ci-pick{overflow-x:clip;overflow-wrap:anywhere}`, `.s5ci-pick>.s5gf-dc{grid-column:1 / -1}`.
 mobile_check: OK (9,2–9,4 s).
 
+**§5gr-c (13 XI 2026)** — Piotr: znaczniki "podazaja za przewijaniem", nachodza na menu, puste pole nad smokiem, zle na telefonie.
+Przyczyna: pudelko mialo stale `top:296px` w lepkim naglowku, ktory po przewinieciu kurczy sie do ~219 px (klasa `.compact`),
+wiec wystawalo poza naglowek nad menu; logo bylo wysrodkowane w pionie (pusta przestrzen nad nim). Teraz `place()` liczy
+pozycje od dolu obrazka logo (+8 px), logo dostaje `.s5ms-up` (wyrownanie do gory), przy `.compact` pudelko przechodzi w
+`.s5ms-compact` (krotkie etykiety "M365 · 1 incident", "Azure · OK" w jednym wierszu, 24 px, bez linii meta). Ponizej
+1360 px szerokosci (logo `.s5cx-logo` niewidoczne): tryb `.s5ms-inline` zaraz po `.title-row` (telefon: przewija sie razem ze strona).
+MutationObserver na klasie naglowka + scroll/resize przez rAF. Testy: 1600/2560 px (pudelko w naglowku przy normalnym i
+zwinietym), 1300 px, WebKit 390; 0 bledow JS; bramka OK; mobile_check OK (10,6 s).
+
 **§5gq (13 XI 2026) — wlasna domena `guardzilla.azureme.pl`.** OVH, strefa DNS azureme.pl: CNAME `guardzilla` →
 `orange-ground-019f30603.7.azurestaticapps.net.` (DNS domeny obsluguje OVH: NS `dns101.ovh.net`, `ns101.ovh.net`; brak rekordu CAA).
 Azure, Static Web App → Custom domains → „Custom domain on other DNS", walidacja CNAME (ok. 30 min), darmowy certyfikat
@@ -47390,18 +47399,38 @@ odtad CZTERNASCIE (4-17).**
     if (s.state === "ok") return s.name + " · OK";
     return s.name + " · " + s.open + (s.open === 1 ? " incident" : " incidents");
   }
+  /* §5gr-c (owner, 13 XI): the badges stayed at 296 px while the sticky header shrank on scroll (405 -> 219 px) and lay
+     over the menu; the logo was centred in the column, leaving an empty field above the dragon; on a phone the row sat
+     above the logo. Now: the logo stands at the top of its column and the badges right under it, measured from the
+     logo's bottom on every scroll/resize; in the shrunk header one short row (no time, no Refresh - those stay in the
+     window); on a phone and on narrow screens the row stands under the title block, before the search. */
+  var raf = 0;
   function place() {
     if (!box) return;
-    var logo = document.querySelector("a.s5cx-logo");
+    var logo = document.querySelector("a.s5cx-logo"), head = logo ? logo.parentNode : document.querySelector("header.top");
     var side = !!(logo && getComputedStyle(logo).display !== "none" && logo.getBoundingClientRect().width > 150);
     box.classList.toggle("s5ms-side", side); box.classList.toggle("s5ms-inline", !side);
+    if (logo) logo.classList.toggle("s5ms-up", side);
+    if (side) {
+      if (box.parentNode !== head) head.insertBefore(box, logo.nextSibling);
+      box.classList.toggle("s5ms-compact", head.classList.contains("compact"));
+      var pics = [].filter.call(logo.querySelectorAll("video, img"), function (x) { return x.getBoundingClientRect().height > 20; });
+      var bottom = pics.length ? Math.max.apply(null, pics.map(function (x) { return x.getBoundingClientRect().bottom; })) : logo.getBoundingClientRect().top + 160;
+      box.style.top = Math.round(bottom - head.getBoundingClientRect().top + 8) + "px";
+    } else {
+      box.classList.remove("s5ms-compact"); box.style.top = "";
+      var tr = document.querySelector("header.top .top-inner > .title-row");
+      if (tr && box.previousElementSibling !== tr) tr.parentNode.insertBefore(box, tr.nextSibling);
+      else if (!tr && head && box.parentNode !== head) head.insertBefore(box, head.firstChild);
+    }
   }
+  function later() { if (!raf) raf = requestAnimationFrame(function () { raf = 0; place(); }); }
   function mount() {
     if (box && box.isConnected) return box;
-    var logo = document.querySelector("a.s5cx-logo"), top = logo ? logo.parentNode : document.querySelector("header.top, .top");
-    if (!top) return null;
+    var head = document.querySelector("header.top"); if (!head) return null;
     box = el("div", "s5ms"); box.setAttribute("role", "group"); box.setAttribute("aria-label", "Microsoft service status");
-    if (logo) top.insertBefore(box, logo.nextSibling); else top.insertBefore(box, top.firstChild);
+    head.insertBefore(box, head.firstChild);
+    try { new MutationObserver(later).observe(head, { attributes: true, attributeFilter: ["class"] }); } catch (e) {}
     place(); return box;
   }
   function render() {
@@ -47412,7 +47441,8 @@ odtad CZTERNASCIE (4-17).**
     svc.forEach(function (s) {
       var b = el("button", "s5ms-b s5ms-" + (s.state || "error")); b.type = "button";
       b.setAttribute("aria-label", s.name + ": " + (LAB[s.state] || "status unknown") + " - open the details");
-      b.appendChild(el("i")); b.appendChild(document.createTextNode(badgeText(s)));
+      b.appendChild(el("i")); b.appendChild(el("span", "s5ms-full", badgeText(s)));
+      b.appendChild(el("span", "s5ms-short", (s.key === "m365" ? "M365" : s.name) + " · " + (!s.state || s.state === "error" ? "?" : (s.state === "ok" ? "OK" : s.open + (s.open === 1 ? " incident" : " incidents")))));
       b.addEventListener("click", function () { openWin(s.key); }); row.appendChild(b);
     });
     box.appendChild(row);
@@ -47420,7 +47450,7 @@ odtad CZTERNASCIE (4-17).**
     meta.appendChild(el("span", "s5ms-when", busy ? "checking…" : (data ? "Microsoft status · checked " + hm(data.checked) + " Warsaw" : (failed ? "Microsoft status could not be read at " + hm(new Date(failed).toISOString()) + " Warsaw" : "Microsoft status · not checked yet"))));
     var r = el("button", "s5ms-r", "↻ Refresh"); r.type = "button"; r.disabled = busy; r.title = "Check Microsoft's status now";
     r.addEventListener("click", function () { load(true); }); meta.appendChild(r);
-    box.appendChild(meta);
+    box.appendChild(meta); place();
     if (ov && ov.isConnected && !ov.hidden) fillWin(ov.getAttribute("data-k"));
   }
   function load(force) {
@@ -47485,7 +47515,7 @@ odtad CZTERNASCIE (4-17).**
     if (!data || Date.now() - last > EVERY) load(false);
   }
   function closeWin() { if (ov) ov.hidden = true; }
-  window.addEventListener("resize", function () { place(); });
+  window.addEventListener("resize", later); window.addEventListener("scroll", later, { passive: true });
   document.addEventListener("visibilitychange", function () { if (!document.hidden && Date.now() - last > EVERY) load(false); });
   setInterval(function () { if (!document.hidden) load(false); }, EVERY);
   setTimeout(function () { render(); load(false); }, 1500);
@@ -51299,9 +51329,14 @@ html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
 .s5ci-pick{overflow-x:clip;overflow-wrap:anywhere}   /* a long cmdlet name (Get-MgReportAuthenticationMethodUserRegistrationDetail) could not wrap; clip is the safety net */
 /* §5gr Microsoft 365 / Azure status under the logo */
 .s5ms{z-index:6;font-family:inherit}
-.s5ms.s5ms-side{position:absolute;left:0;top:296px;width:300px;padding:0 12px;box-sizing:border-box}
-.s5ms.s5ms-inline{position:relative;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:8px 0 4px;padding:0 20px}
-@media (max-width:600px){.s5ms.s5ms-inline{padding:0 12px}}
+.s5ms.s5ms-side{position:absolute;left:0;top:176px;width:300px;padding:0 12px;box-sizing:border-box}
+header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
+.s5ms-short{display:none}
+.s5ms-compact .s5ms-full{display:none}.s5ms-compact .s5ms-short{display:inline}
+.s5ms.s5ms-compact .s5ms-row{flex-direction:row;flex-wrap:nowrap;justify-content:center}
+.s5ms-compact .s5ms-meta{display:none}
+.s5ms-compact .s5ms-b{font-size:12px;padding:4px 10px}
+.s5ms.s5ms-inline{position:relative;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:4px 0 10px}
 .s5ms-row{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
 .s5ms-side .s5ms-row{flex-direction:column;align-items:stretch}
 .s5ms-b{display:inline-flex;align-items:center;justify-content:center;gap:7px;font:inherit;font-size:13px;font-weight:700;line-height:1.2;padding:6px 12px;border-radius:999px;border:1px solid;cursor:pointer;color:#fff}
