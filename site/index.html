@@ -6567,6 +6567,32 @@ header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
 .s5ms-ih{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:16px}
 .s5ms-pub{font-size:14px;margin:2px 0 4px}
 .s5ms-it ul{margin:4px 0 0 20px;padding:0}.s5ms-it li{margin:3px 0}
+/* §5gr-d: key facts first, in their own filled frame; affected services and other details in their own sections */
+.s5ms-key{margin:8px 0 10px;border:2px solid #f59e0b;background:rgba(245,158,11,.12);border-radius:10px;padding:10px 12px}
+.s5ms-k-bad{border-color:#ef4444;background:rgba(239,68,68,.12)}.s5ms-k-ok{border-color:#10b981;background:rgba(16,185,129,.12)}
+.s5ms-kh{font-weight:800;font-size:16px;margin:0 0 6px}
+.s5ms-kr{display:grid;grid-template-columns:170px minmax(0,1fr);gap:10px;align-items:start;padding:7px 0;border-top:1px solid rgba(127,127,127,.35)}
+.s5ms-kh+.s5ms-kr{border-top:0}
+.s5ms-kl{display:inline-block;justify-self:start;background:#92400e;color:#fff;font-weight:700;font-size:13.5px;line-height:1.3;border-radius:999px;padding:4px 11px}
+.s5ms-k-bad .s5ms-kl{background:#991b1b}.s5ms-k-ok .s5ms-kl{background:#065f46}
+.s5ms-kv{min-width:0;font-size:15.5px;line-height:1.5;overflow-wrap:anywhere}.s5ms-kv p{margin:0 0 4px}.s5ms-kv p:last-child{margin:0}
+.s5ms-nx{font-size:18px;margin-right:8px}
+.s5ms-rel{display:inline-block;background:#1e3a8a;color:#fff;font-weight:700;font-size:13.5px;border-radius:999px;padding:2px 10px;vertical-align:2px}
+.s5ms-rel.s5ms-late{background:#991b1b}
+.s5ms-orig{margin-top:3px;font-size:14px;color:var(--text);opacity:.85}
+.s5ms-sec{margin:12px 0 4px;padding-top:10px;border-top:2px solid var(--border)}
+.s5ms-sh{margin:0 0 6px;font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px}
+.s5ms-cnt{background:#334155;color:#fff;border-radius:999px;font-size:13px;padding:1px 9px}
+.s5ms-intro{margin:0 0 8px;font-size:15px}
+.s5ms-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.s5ms-chip{font:600 13.5px/1.3 var(--sans);background:#1e3a8a;color:#fff;border:0;border-radius:999px;padding:4px 11px;cursor:pointer;max-width:100%;overflow-wrap:anywhere;text-align:left}
+.s5ms-chip:hover,.s5ms-chip:focus-visible{background:#1d4ed8;outline:2px solid #93c5fd;outline-offset:1px}
+.s5ms-sv{padding:8px 0;border-top:1px solid var(--border);overflow-wrap:anywhere}.s5ms-sv:first-child{border-top:0}
+.s5ms-sv b{display:block;font-size:15.5px;margin:0 0 2px}.s5ms-sv p{margin:0;font-size:15px;line-height:1.5}
+.s5ms-flash{animation:s5msfl 1.6s ease-out}
+@keyframes s5msfl{0%{background:rgba(59,130,246,.35)}100%{background:transparent}}
+.s5ms-op{margin:0 0 6px;font-size:15px;overflow-wrap:anywhere}
+@media (max-width:640px){.s5ms-kr{grid-template-columns:1fr;gap:4px}}
 .s5ms-p{margin:4px 0}
 .s5ms-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .s5ms-l{border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:3px 12px;text-decoration:none;font-weight:600;font-size:13.5px}
@@ -33806,6 +33832,39 @@ IdentityDirectoryEvents
       .then(function () { busy = false; last = Date.now(); render(); });
   }
   function link(href, txt) { var a = el("a", "s5ms-l", txt + " ›"); a.href = href; a.target = "_blank"; a.rel = "noopener noreferrer"; return a; }
+  var KEYS = [[/^user impact$/i, "User impact", 1], [/^scope of impact$/i, "Scope of impact", 2], [/^next update( by)?$/i, "Next update", 3, 1],
+    [/^(current|final) status$/i, null, 4], [/^estimated (time to resolve|resolution)/i, null, 5], [/^workaround$/i, "Workaround", 6],
+    [/^(preliminary )?root cause$/i, null, 7], [/^start time$/i, "Start time", 8], [/^end time$/i, "End time", 9]];
+  function parseLines(lines) {
+    var keys = [], svc = [], intro = [], other = [], cur = null;
+    lines.forEach(function (ln) {
+      var dash = /^-\s*/.test(ln), t = ln.replace(/^-\s*/, ""), m = /^([^:]{2,70}):\s*(.*)$/.exec(t), hit = null;
+      if (m && !dash) {
+        var nm = m[1].trim();
+        KEYS.forEach(function (k) { if (!hit && k[0].test(nm)) hit = k; });
+        if (hit) { cur = { label: hit[1] || nm.replace(/^./, function (c) { return c.toUpperCase(); }).replace(/ S/, " s"), o: hit[2], next: !!hit[3], t: [m[2]] }; keys.push(cur); return; }
+        if (/^more info(rmation)?$/i.test(nm)) { intro.push(m[2]); cur = { intro: 1 }; return; }
+      }
+      if (m && dash) { svc.push({ n: m[1].trim(), t: m[2] }); cur = null; return; }
+      if (cur && cur.t) { cur.t.push(t); return; }
+      if (cur && cur.intro) { intro.push(t); return; }
+      other.push(m ? { n: m[1].trim(), t: m[2] } : { t: t });
+    });
+    keys.sort(function (a, b) { return a.o - b.o; });
+    return { keys: keys, svc: svc, intro: intro, other: other };
+  }
+  function nextUpd(txt) {
+    var m = /([A-Z][a-z]+ \d{1,2},? \d{4}),? at (\d{1,2}):(\d{2}) ?(AM|PM)? ?UTC/i.exec(txt || "");
+    if (!m) return null;
+    var d = new Date(m[1].replace(",", "") + " 00:00:00 UTC"); if (isNaN(d)) return null;
+    var h = +m[2] % 12 + (/pm/i.test(m[4] || "") ? 12 : 0); if (!m[4]) h = +m[2];
+    d = new Date(d.getTime() + (h * 60 + +m[3]) * 6e4);
+    var w = d.toLocaleString("en-GB", { timeZone: "Europe/Warsaw", weekday: "short", day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" });
+    var mins = Math.round((d - Date.now()) / 6e4), rel = "", late = false;
+    if (mins > 0) rel = "in " + (mins >= 120 ? Math.round(mins / 60) + " h" : mins + " min");
+    else { late = true; rel = "time passed " + (-mins >= 120 ? Math.round(-mins / 60) + " h" : -mins + " min") + " ago - Microsoft may post the update late"; }
+    return { w: w, rel: rel, late: late };
+  }
   function fillWin(k) {
     var d = ov.querySelector(".s5ms-dlg"); d.textContent = "";
     var x = el("button", "s5ms-x", "Close ✕"); x.type = "button"; x.addEventListener("click", closeWin); d.appendChild(x);
@@ -33829,13 +33888,46 @@ IdentityDirectoryEvents
         t.appendChild(el("span", "s5ms-pill s5ms-p-" + (it.level === "resolved" ? "ok" : it.level), it.status ? human(it.status) : (it.level === "resolved" ? "Resolved" : "Incident")));
         t.appendChild(el("b", null, it.title || s.name)); w.appendChild(t);
         if (it.published) w.appendChild(el("div", "s5ms-pub", "Posted " + dt(it.published) + " Warsaw"));
-        var ul = el("ul");
-        (it.lines || []).forEach(function (ln) {
-          var li = el("li"), m = /^-?\s*([^:]{2,70}):\s*(.*)$/.exec(ln);
-          if (m) { li.appendChild(el("b", null, m[1] + ": ")); li.appendChild(document.createTextNode(m[2])); } else li.textContent = ln.replace(/^-\s*/, "");
-          ul.appendChild(li);
-        });
-        if (ul.children.length) w.appendChild(ul);
+        /* §5gr-d (owner, 13 XI): "user impact, scope of impact, next update - all in the same font, it gets lost; you have
+           to scroll to see them; they belong at the top, in a separate section". The lines are split into: key facts
+           (a filled frame first, labelled badges, next update also in Warsaw time), affected services ("- Name: text"
+           lines, with jump chips) and other details. */
+        var P = parseLines(it.lines || []), lv = it.level === "resolved" ? "ok" : (it.level || "warn");
+        if (P.keys.length) {
+          var kb = el("div", "s5ms-key s5ms-k-" + lv);
+          kb.appendChild(el("div", "s5ms-kh", "Key facts"));
+          P.keys.forEach(function (k) {
+            var row = el("div", "s5ms-kr"), v = el("div", "s5ms-kv");
+            row.appendChild(el("span", "s5ms-kl", k.label));
+            if (k.next) {
+              var nx = nextUpd(k.t[0]);
+              if (nx) { var big = el("b", "s5ms-nx", nx.w + " Warsaw"); v.appendChild(big);
+                if (nx.rel) v.appendChild(el("span", "s5ms-rel" + (nx.late ? " s5ms-late" : ""), nx.rel));
+                v.appendChild(el("div", "s5ms-orig", k.t.join(" "))); }
+              else v.appendChild(el("p", null, k.t.join(" ")));
+            } else k.t.forEach(function (t) { v.appendChild(el("p", null, t)); });
+            row.appendChild(v); kb.appendChild(row);
+          });
+          w.appendChild(kb);
+        }
+        if (P.svc.length) {
+          var sv = el("div", "s5ms-sec"), sh = el("h4", "s5ms-sh", "Affected services ");
+          sh.appendChild(el("span", "s5ms-cnt", String(P.svc.length))); sv.appendChild(sh);
+          P.intro.forEach(function (t) { sv.appendChild(el("p", "s5ms-intro", t)); });
+          var chips = el("div", "s5ms-chips"), list = el("div", "s5ms-svl");
+          P.svc.forEach(function (x) {
+            var e = el("div", "s5ms-sv"); e.appendChild(el("b", null, x.n)); e.appendChild(el("p", null, x.t)); list.appendChild(e);
+            var b = el("button", "s5ms-chip", x.n); b.type = "button";
+            b.addEventListener("click", function () { e.scrollIntoView({ block: "center", behavior: "smooth" }); e.classList.remove("s5ms-flash"); void e.offsetWidth; e.classList.add("s5ms-flash"); });
+            chips.appendChild(b);
+          });
+          sv.appendChild(chips); sv.appendChild(list); w.appendChild(sv);
+        } else if (P.intro.length) { var si = el("div", "s5ms-sec"); P.intro.forEach(function (t) { si.appendChild(el("p", "s5ms-intro", t)); }); w.appendChild(si); }
+        if (P.other.length) {
+          var ot = el("div", "s5ms-sec"); ot.appendChild(el("h4", "s5ms-sh", "Other details"));
+          P.other.forEach(function (x) { var q = el("p", "s5ms-op"); if (x.n) { q.appendChild(el("b", null, x.n + ": ")); } q.appendChild(document.createTextNode(x.t)); ot.appendChild(q); });
+          w.appendChild(ot);
+        }
         c.appendChild(w);
       });
       var L = el("div", "s5ms-links");
