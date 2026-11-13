@@ -1,7 +1,7 @@
 {
  "read": "2026-11-13",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 726,
+ "count": 730,
  "note": null,
  "messages": [
   {
@@ -13346,7 +13346,7 @@
   },
   {
    "id": "MC1486295",
-   "title": "Microsoft OneDrive and SharePoint: Generate smart tables of contents for PDFs on the web with Copilot",
+   "title": "(Updated) Microsoft OneDrive and SharePoint: Generate smart tables of contents for PDFs on the web with Copilot",
    "services": [
     "Microsoft OneDrive",
     "SharePoint Online"
@@ -13356,23 +13356,20 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-02",
-   "end": "2027-01-29",
-   "modified": "2026-10-06",
+   "end": "2026-11-20",
+   "modified": "2026-11-13",
    "tags": [
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] We are introducing Smart Table of Contents (Smart TOC) in the Microsoft OneDrive and SharePoint PDF viewer on the web for users with a Microsoft 365 Copilot license. When a PDF does not already contain a table of contents, users can ask Copilot to generate a hierarchical, clickable structure that makes it easier to navigate long documents and move between sections. This feature is …",
+   "summary": "Updated November 13, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. [What and Why:] We are introducing Smart Table of Contents (Smart TOC) in the Microsoft OneDrive and SharePoint PDF viewer on the web for users with a Microsoft 365 Copilot license. When a PDF does not already contain a table of contents, users can ask Copilot to genera…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Targeted Release (Worldwide): Rollout will begin in early December 2026 and is expected to complete by mid-December 2026.",
-    "General Availability (Worldwide): Rollout will begin in mid-December 2026 and is expected to complete by late December 2026.",
-    "General Availability (GCC): Rollout will begin in mid-December 2026 and is expected to complete by late December 2026.",
-    "General Availability (GCC High): Rollout will begin in mid-December 2026 and is expected to complete by late December 2026.",
-    "General Availability (DoD): Rollout will begin in mid-December 2026 and is expected to complete by late December 2026."
+    "Updated November 13, 2026: We have decided not to move forward with this change at this time."
    ],
-   "bodyHash": "e2d4b9fec41c1e40"
+   "bodyHash": "6da540be9b03c205"
   },
   {
    "id": "MC1486397",
@@ -19240,6 +19237,107 @@
     "Worldwide: Beginning in mid-November 2026."
    ],
    "bodyHash": "f6cd304fec9cd16b"
+  },
+  {
+   "id": "MC1551896",
+   "title": "60-Day Reminder: Windows Server 2016 reaches the end of extended support on January 13, 2027",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-13",
+   "end": "2027-11-13",
+   "modified": "2026-11-13",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "On January 13, 2027, all editions of Windows Server 2016 will reach the end of extended support. The January 2027 Windows security update will be the last update provided during extended support. After that date, monthly security updates will continue only for Windows Server 2016 devices enrolled in Extended Security Updates (ESU) . Support for Windows Server 2016 Essentials features , including R…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "On January 13, 2027, all editions of Windows Server 2016 will reach the end of extended support.",
+    "The January 2027 Windows security update will be the last update provided during extended support.",
+    "Support for Windows Server 2016 Essentials features , including Remote Web Access and related Essentials-specific functionality, also ends on January 13, 2027."
+   ],
+   "bodyHash": "15625910343c38ea"
+  },
+  {
+   "id": "MC1551897",
+   "title": "60-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 13, 2027",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-13",
+   "end": "2027-11-13",
+   "modified": "2026-11-13",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "On January 13, 2027, Windows 10 Enterprise LTSC 2021 will reach the end of mainstream support. The January 2027 Windows security update will be the last update provided during mainstream support. After that date, monthly security updates will continue only for Windows 10 Enterprise LTSC 2021 devices enrolled in Extended Security Updates (ESU) . To help keep your devices protected and supported, we…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "On January 13, 2027, Windows 10 Enterprise LTSC 2021 will reach the end of mainstream support.",
+    "The January 2027 Windows security update will be the last update provided during mainstream support.",
+    "If your organization cannot complete its transition before January 13, 2027, ESU options are available for up to three years to help keep eligible devices protected while you complete your transition."
+   ],
+   "bodyHash": "8f0c48f826c50681"
+  },
+  {
+   "id": "MC1551898",
+   "title": "Out-of-band update released to address Windows licensing and activation errors",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-11-13",
+   "end": "2027-11-13",
+   "modified": "2026-11-13",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "Microsoft has released a new Windows out-of-band (OOB) update today, November 13, 2026, to address an issue that affects a limited number of enterprise devices after installing the November 2026 Windows security update. Certain Windows licensing and activation operations using the Software Licensing Management Tool (SLMGR) might fail with error 0x80041008 (Invalid parameter). This primarily affect…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Microsoft has released a new Windows out-of-band (OOB) update today, November 13, 2026, to address an issue that affects a limited number of enterprise devices after installing the November 2026 Windows security update.",
+    "This cumulative update includes the improvements from the November 2026 Windows security update."
+   ],
+   "bodyHash": "011fe7d4476644f3"
+  },
+  {
+   "id": "MC1552365",
+   "title": "Dynamics 365 Field Service: Preserve actual booking End Time when completion is recorded later",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-13",
+   "end": "2026-12-23",
+   "modified": "2026-11-13",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "We are announcing the ability to Preserve actual booking End Time when completion is recorded later in Dynamics 365 Field Service. This feature will reach public preview on November 22, 2026. How does this affect me? This feature allows Field Service administrators to choose whether completion by the booked resource automatically changes the booking End Time. Admins complete bookings later can pre…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "This feature will reach public preview on November 22, 2026."
+   ],
+   "bodyHash": "94e66896fb1e823c"
   },
   {
    "id": "MC676299",
@@ -25351,6 +25449,65 @@
    "id": "MC1462469",
    "type": "removed",
    "title": "Microsoft Teams and Google Calendar sync retirement",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-13",
+   "id": "MC1486295",
+   "type": "changed",
+   "title": "(Updated) Microsoft OneDrive and SharePoint: Generate smart tables of contents for PDFs on the web with Copilot",
+   "fields": {
+    "title": [
+     "Microsoft OneDrive and SharePoint: Generate smart tables of contents for PDFs on the web with Copilot",
+     "(Updated) Microsoft OneDrive and SharePoint: Generate smart tables of contents for PDFs on the web with Copilot"
+    ],
+    "end": [
+     "2027-01-29",
+     "2026-11-20"
+    ],
+    "tags": [
+     [
+      "New feature",
+      "User impact"
+     ],
+     [
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "e2d4b9fec41c1e40",
+     "6da540be9b03c205"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-13",
+   "id": "MC1551896",
+   "type": "new",
+   "title": "60-Day Reminder: Windows Server 2016 reaches the end of extended support on January 13, 2027",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-13",
+   "id": "MC1551897",
+   "type": "new",
+   "title": "60-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 13, 2027",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-13",
+   "id": "MC1551898",
+   "type": "new",
+   "title": "Out-of-band update released to address Windows licensing and activation errors",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-13",
+   "id": "MC1552365",
+   "type": "new",
+   "title": "Dynamics 365 Field Service: Preserve actual booking End Time when completion is recorded later",
    "fields": {}
   }
  ]
