@@ -6587,6 +6587,8 @@ header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
 .s5ms-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
 .s5ms-chip{font:600 13.5px/1.3 var(--sans);background:#1e3a8a;color:#fff;border:0;border-radius:999px;padding:4px 11px;cursor:pointer;max-width:100%;overflow-wrap:anywhere;text-align:left}
 .s5ms-chip:hover,.s5ms-chip:focus-visible{background:#1d4ed8;outline:2px solid #93c5fd;outline-offset:1px}
+.s5ms-feedh{margin:16px 0 6px;padding-top:12px;border-top:2px solid var(--border)}
+.s5ms-fold{margin:10px 0 0}.s5ms-fh{display:block;font-weight:400;font-size:14px;color:var(--text);margin:4px 0 0;overflow-wrap:anywhere}.s5ms-fold[open] .s5ms-fh{display:none}
 .s5ms-sv{padding:8px 0;border-top:1px solid var(--border);overflow-wrap:anywhere}.s5ms-sv:first-child{border-top:0}
 .s5ms-sv b{display:block;font-size:15.5px;margin:0 0 2px}.s5ms-sv p{margin:0;font-size:15px;line-height:1.5}
 .s5ms-flash{animation:s5msfl 1.6s ease-out}
@@ -33790,19 +33792,27 @@ IdentityDirectoryEvents
      Service health was read, the M365 badge and its card count every open issue there; the colour is red/orange from
      the feed as before, and at least "degraded" when Service health has an open issue the feed does not show. When
      Service health is unavailable, the feed's own count is used as before. */
-  function openIssues() {
-    var H = data && data.health;
-    return H && H.ok ? (H.issues || []).filter(function (i) { return !i.isResolved; }) : null;
+  /* §5gr-g (owner, 13 XI, 23:34): "pulse.azureme.pl shows 2 incidents and you 10" - same source (Graph Service health),
+     different counting. Now as pulse: the badge counts open INCIDENTS (Microsoft's own classification); advisories are
+     named in the window: "recent" = updated in the last 7 days (counted, as on pulse), "older" = still open but no update
+     for 7+ days (kept, folded, not counted). */
+  var FRESH = 7 * 864e5;
+  function sorts() {
+    var H = data && data.health; if (!H || !H.ok) return null;
+    var o = (H.issues || []).filter(function (i) { return !i.isResolved; }), now = Date.now();
+    var inc = o.filter(function (i) { return i.classification === "incident"; }), adv = o.filter(function (i) { return i.classification !== "incident"; });
+    function fresh(i) { var t = Date.parse(i.modified || i.start || ""); return isNaN(t) || now - t <= FRESH; }
+    return { inc: inc, adv: adv.filter(fresh), old: adv.filter(function (i) { return !fresh(i); }), done: (H.issues || []).filter(function (i) { return i.isResolved; }) };
   }
   function view(s) {
     if (!s || s.key !== "m365") return s;
-    var L = openIssues(); if (!L) return s;
+    var S = sorts(); if (!S) return s;
     var v = {}; for (var k in s) v[k] = s[k];
-    v.open = L.length; v.unit = "open";
-    if (!v.state || v.state === "error" || v.state === "ok") v.state = L.length ? "warn" : "ok";
+    v.open = S.inc.length; v.adv = S.adv.length; v.unit = "inc";
+    if (!v.state || v.state === "error" || v.state === "ok") v.state = S.inc.length ? "warn" : "ok";
     return v;
   }
-  function cnt(s) { return s.unit === "open" ? s.open + " open" : s.open + (s.open === 1 ? " incident" : " incidents"); }
+  function cnt(s) { return s.open + (s.open === 1 ? " incident" : " incidents"); }
   function badgeText(s) {
     if (!s || s.state === "error") return s ? s.name + " · status unknown" : "status unknown";
     if (s.state === "ok") return s.name + " · OK";
@@ -33849,8 +33859,8 @@ IdentityDirectoryEvents
     var svc = data && data.services ? data.services : [{ key: "m365", name: "Microsoft 365", state: "error" }, { key: "azure", name: "Azure", state: "error" }];
     svc.forEach(function (s0) {
       var s = view(s0), b = el("button", "s5ms-b s5ms-" + (s.state || "error")); b.type = "button";
-      b.setAttribute("aria-label", s.name + ": " + (s.unit === "open" ? s.open + " open issues in Service health" : (LAB[s.state] || "status unknown")) + " - open the details");
-      if (s.unit === "open") b.title = "Open issues in Microsoft 365 Service health: incidents and advisories together";
+      b.setAttribute("aria-label", s.name + ": " + (s.unit === "inc" ? cnt(s) + " open in Service health" : (LAB[s.state] || "status unknown")) + " - open the details");
+      if (s.unit === "inc") b.title = "Service health: " + cnt(s) + " open · " + s.adv + (s.adv === 1 ? " advisory" : " advisories") + " updated in the last 7 days";
       b.appendChild(el("i")); b.appendChild(el("span", "s5ms-full", badgeText(s)));
       b.appendChild(el("span", "s5ms-short", (s.key === "m365" ? "M365" : s.name) + " · " + (!s.state || s.state === "error" ? "?" : (s.state === "ok" ? "OK" : cnt(s)))));
       b.addEventListener("click", function () { openWin(s.key); }); row.appendChild(b);
@@ -33943,13 +33953,13 @@ IdentityDirectoryEvents
     return w;
   }
   function issueBlock(is, linked) {
-    var d = el("details", "s5ms-is" + (is.isResolved ? " s5ms-is-done" : "")); if (linked) d.open = true;
+    var d = el("details", "s5ms-is" + (is.isResolved ? " s5ms-is-done" : "")); /* §5gr-g: one line each, click to open */
     var s = el("summary", "s5ms-ish");
     s.appendChild(idBadge(is.id));
     s.appendChild(el("span", "s5ms-pill s5ms-p-" + (is.isResolved ? "ok" : (/interruption/i.test(is.status) ? "bad" : "warn")), human(is.status || (is.isResolved ? "resolved" : "open"))));
     s.appendChild(el("span", "s5ms-kind", is.classification === "incident" ? "Incident" : "Advisory"));
     s.appendChild(el("b", "s5ms-ist", is.title || ""));
-    s.appendChild(el("span", "s5ms-ism", (is.service || "") + (is.feature ? " · " + is.feature : "") + (is.start ? " · since " + dt(is.start) + " Warsaw" : "") + (is.modified ? " · last update " + dt(is.modified) + " Warsaw" : "") + (linked ? " · this is the incident above" : "")));
+    s.appendChild(el("span", "s5ms-ism", (is.service || "") + (is.feature ? " · " + is.feature : "") + (is.start ? " · since " + dt(is.start) + " Warsaw" : "") + (is.modified ? " · last update " + dt(is.modified) + " Warsaw" : "") + (linked ? " · the current headline on Microsoft's status page, details below" : "")));
     d.appendChild(s);
     var b = el("div", "s5ms-isb");
     if (is.impact) { var ip = el("p", "s5ms-imp"); ip.appendChild(el("b", null, "Impact: ")); ip.appendChild(document.createTextNode(is.impact)); b.appendChild(ip); }
@@ -33964,19 +33974,19 @@ IdentityDirectoryEvents
   }
   function healthSec(linkedIds) {
     var H = data && data.health, sec = el("div", "s5ms-sec s5ms-hs");
-    var sh = el("h4", "s5ms-sh", "Service health · incident numbers"); sec.appendChild(sh);
+    var sh = el("h4", "s5ms-sh", "Open now in Service health"); sec.appendChild(sh);
     if (!H || !H.ok) { sec.appendChild(el("p", "s5ms-intro", "Service health could not be read" + (H && H.error ? " (" + H.error + ")" : "") + ". Open Service health in the admin center below.")); return sec; }
     var age = H.generated ? Math.round((Date.now() - new Date(H.generated)) / 6e4) : null;
-    sec.appendChild(el("p", "s5ms-intro", "From Service health of the Microsoft 365 admin center (issues Microsoft publishes to every tenant), read every ~10 minutes" + (H.generated ? " · last read " + hm(H.generated) + " Warsaw" + (age != null ? " (" + age + " min ago)" : "") : "") + "."));
-    var L = H.issues || [], inc = L.filter(function (i) { return !i.isResolved && i.classification === "incident"; }),
-      adv = L.filter(function (i) { return !i.isResolved && i.classification !== "incident"; }), done = L.filter(function (i) { return i.isResolved; });
+    sec.appendChild(el("p", "s5ms-intro", "From Service health of the Microsoft 365 admin center (issues Microsoft publishes to every tenant), read every ~5 minutes" + (H.generated ? " · last read " + hm(H.generated) + " Warsaw" + (age != null ? " (" + age + " min ago)" : "") : "") + "."));
+    var L = H.issues || [], S = sorts();
     function grp(title, arr, open) {
       if (!arr.length) return;
       var g = el("details", "s5ms-grp"); g.open = !!open; var gs = el("summary", "s5ms-grps", title + " "); gs.appendChild(el("span", "s5ms-cnt", String(arr.length))); g.appendChild(gs);
       arr.forEach(function (i) { g.appendChild(issueBlock(i, linkedIds.indexOf(i.id) >= 0)); }); sec.appendChild(g);
     }
     if (!L.length) sec.appendChild(el("p", "s5ms-intro", "No open Microsoft incident or advisory in Service health."));
-    grp("Open incidents", inc, true); grp("Open advisories", adv, false); grp("Resolved in the last " + (H.keepDays || 3) + " days", done, false);
+    grp("Open incidents", S.inc, true); grp("Open advisories · updated in the last 7 days", S.adv, true);
+    grp("Older advisories · still open, no update for 7+ days", S.old, false); grp("Resolved in the last " + (H.keepDays || 3) + " days", S.done, false);
     return sec;
   }
   function fillWin(k) {
@@ -33993,7 +34003,7 @@ IdentityDirectoryEvents
     svc.sort(function (a, b) { return a.key === k ? -1 : (b.key === k ? 1 : 0); });
     svc.forEach(function (s0) {
       var s = view(s0), c = el("section", "s5ms-card s5ms-c-" + (s.state || "error")), h = el("h3");
-      h.appendChild(el("span", "s5ms-pill s5ms-p-" + (s.state || "error"), s.unit === "open" ? (s.open ? s.open + " open in Service health" : "Nothing open in Service health") : (s.state === "ok" ? "No active incidents" : (s.state === "error" ? "Status unknown" : (s.open === 1 ? "1 active incident" : s.open + " active incidents")))));
+      h.appendChild(el("span", "s5ms-pill s5ms-p-" + (s.state || "error"), s.unit === "inc" ? cnt(s) + " · " + s.adv + (s.adv === 1 ? " advisory" : " advisories") : (s.state === "ok" ? "No active incidents" : (s.state === "error" ? "Status unknown" : (s.open === 1 ? "1 active incident" : s.open + " active incidents")))));
       h.appendChild(document.createTextNode(s.name)); c.appendChild(h);
       if (s0.state === "error" || !s0.state) c.appendChild(el("p", "s5ms-p", "This portal could not read Microsoft's status feed" + (s.error ? " (" + s.error + ")" : "") + ". Open Microsoft's own pages below."));
       else if (!s.items || !s.items.length) c.appendChild(el("p", "s5ms-p", "Microsoft's status feed lists no current incident" + (s.built ? " (feed built " + hm(s.built) + " Warsaw)" : "") + "."));
@@ -34027,8 +34037,9 @@ IdentityDirectoryEvents
           w.appendChild(kb);
         }
         if (P.svc.length) {
-          var sv = el("div", "s5ms-sec"), sh = el("h4", "s5ms-sh", "Affected services ");
-          sh.appendChild(el("span", "s5ms-cnt", String(P.svc.length))); sv.appendChild(sh);
+          /* §5gr-g: folded - 20 services with a paragraph each made the window a long scroll */
+          var sv = el("details", "s5ms-grp s5ms-fold"), sh = el("summary", "s5ms-grps", "Affected services ");
+          sh.appendChild(el("span", "s5ms-cnt", String(P.svc.length))); sh.appendChild(el("span", "s5ms-fh", P.svc.map(function (x) { return x.n; }).join(" · "))); sv.appendChild(sh);
           P.intro.forEach(function (t) { sv.appendChild(el("p", "s5ms-intro", t)); });
           var chips = el("div", "s5ms-chips"), list = el("div", "s5ms-svl");
           P.svc.forEach(function (x) {
@@ -34040,7 +34051,7 @@ IdentityDirectoryEvents
           sv.appendChild(chips); sv.appendChild(list); w.appendChild(sv);
         } else if (P.intro.length) { var si = el("div", "s5ms-sec"); P.intro.forEach(function (t) { si.appendChild(el("p", "s5ms-intro", t)); }); w.appendChild(si); }
         if (P.other.length) {
-          var ot = el("div", "s5ms-sec"); ot.appendChild(el("h4", "s5ms-sh", "Other details"));
+          var ot = el("details", "s5ms-grp s5ms-fold"), os = el("summary", "s5ms-grps", "Other details "); os.appendChild(el("span", "s5ms-cnt", String(P.other.length))); ot.appendChild(os);
           P.other.forEach(function (x) { var q = el("p", "s5ms-op"); if (x.n) { q.appendChild(el("b", null, x.n + ": ")); } q.appendChild(document.createTextNode(x.t)); ot.appendChild(q); });
           w.appendChild(ot);
         }
@@ -34049,7 +34060,10 @@ IdentityDirectoryEvents
           var after = kb0 || pb0 || t; w.insertBefore(rf, after.nextSibling); }
         c.appendChild(w);
       });
-      if (s.key === "m365") { var lk = []; (s.items || []).forEach(function (it) { (it.ids || []).forEach(function (x) { lk.push(x); }); }); c.appendChild(healthSec(lk)); }
+      if (s.key === "m365") { /* §5gr-g: the list of what is open now goes first, the headline incident's details after it */
+        var lk = []; (s.items || []).forEach(function (it) { (it.ids || []).forEach(function (x) { lk.push(x); }); });
+        var hs = healthSec(lk), first = c.querySelector(":scope > .s5ms-it, :scope > .s5ms-p"); c.insertBefore(hs, first ? first : null);
+        if (first) { var hh = el("h4", "s5ms-sh s5ms-feedh", "Current headline on Microsoft's status page"); c.insertBefore(hh, first); } }
       var L = el("div", "s5ms-links");
       L.appendChild(link(s.page, s.key === "azure" ? "Azure status page" : "Microsoft status page"));
       L.appendChild(link(s.admin, s.key === "azure" ? "Azure Service Health (portal)" : "Service health in the Microsoft 365 admin center"));
