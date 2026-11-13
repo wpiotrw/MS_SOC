@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13T06:42:54Z",
+ "generated": "2026-11-13T06:31:45Z",
  "day": "2026-11-13",
  "spec": "5gi",
  "window": {
@@ -12,19 +12,13 @@
    "2026-11-09",
    "2026-11-10",
    "2026-11-11",
-   "2026-11-12"
+   "2026-11-12",
+   "2026-11-13"
   ]
  },
- "mustCover": 15,
+ "mustCover": 19,
  "uncovered": [],
  "skipped": [],
- "viaCampaign": [
-  {
-   "id": "MC1540327",
-   "by": "MC1325414",
-   "campaign": "SSPR requires registered authentication methods",
-   "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
-  }
- ],
+ "viaCampaign": [],
  "rule": "new in the window and major, or with an act-by date, or a retirement, or a plan for change with Admin impact"
 }
