@@ -1,7 +1,7 @@
 {
- "read": "2026-11-12",
+ "read": "2026-11-13",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 726,
+ "count": 729,
  "note": null,
  "messages": [
   {
@@ -19252,6 +19252,84 @@
    "bodyHash": "ff8a417983b4df5f"
   },
   {
+   "id": "MC1551147",
+   "title": "Microsoft Word: Retirement of legacy compatibility settings",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-13",
+   "end": "2026-12-13",
+   "modified": "2026-11-13",
+   "tags": [
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and Why:] We are retiring a set of compatibility options in Microsoft Word (desktop app) for documents in Compatibility Mode. These settings help preserve how documents were laid out in older versions of Word. We are introducing this change in phases to simplify how Word handles document layout and provide a more consistent experience across platforms. Learn more . Rollout schedule: Word for…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Rollout schedule: Word for Windows starting December 2026; Word for Mac starting early 2027.",
+    "We will begin rolling out on early December 2026 and expect to complete by late December 2026.",
+    "General Availability (GCC): We will begin rolling out on late December 2026 and expect to complete by early January 2027.",
+    "General Availability (GCC High): We will begin rolling out on late December 2026 and expect to complete by early January 2027.",
+    "General Availability (DoD): We will begin rolling out on late December 2026 and expect to complete by early January 2027."
+   ],
+   "bodyHash": "ef3ce521b3587b60"
+  },
+  {
+   "id": "MC1551148",
+   "title": "[Outlook for iOS and Android] Copilot Chat in Outlook UX improvements",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-13",
+   "end": "2026-12-13",
+   "modified": "2026-11-13",
+   "tags": [
+    "Feature update"
+   ],
+   "summary": "[What and Why:] Copilot Chat in Outlook on iOS and Android is getting updated! We are refreshing the Microsoft 365 Copilot Chat experience in Outlook mobile to deliver a more consistent and intuitive experience across Microsoft 365 apps, with improvements to the chat interface, suggested prompts, response presentation, and navigation between chat views - making it easier for users to interact with…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out on mid December 2026 and expect to complete by late January 2027."
+   ],
+   "bodyHash": "ce0940444a84b132"
+  },
+  {
+   "id": "MC1551151",
+   "title": "Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice multi-factor authentication",
+   "services": [
+    "Microsoft Entra"
+   ],
+   "category": "preventOrFixIssue",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-13",
+   "end": "2026-12-30",
+   "modified": "2026-11-13",
+   "tags": [
+    "Admin impact",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Entra ID is adding safeguards to protect telephony-based multifactor authentication (MFA) from automated fraudulent activity. Some users who use SMS or voice for MFA may be asked to complete a risk-based anti-bot verification step (CAPTCHA) before Microsoft sends an SMS verification code or initiates a verification call. This change is separate from the planned retirement …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Worldwide: Beginning in mid-November 2026."
+   ],
+   "bodyHash": "f6cd304fec9cd16b"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -19570,305 +19648,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-13",
-   "id": "MC1429018",
-   "type": "changed",
-   "title": "(Updated) Microsoft Teams: Meeting memory file generation",
-   "fields": {
-    "title": [
-     "(Updated) Microsoft Teams: AI meeting archive file generation",
-     "(Updated) Microsoft Teams: Meeting memory file generation"
-    ],
-    "bodyHash": [
-     "26b39d47da42befb",
-     "4f9b5c170e706861"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1505599",
-   "type": "new",
-   "title": "Microsoft Purview Audit: AuditLogQuery API generally available and Search-UnifiedAuditLog retiring",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1505607",
-   "type": "new",
-   "title": "Outlook: Reply With a Template in Rules",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1505609",
-   "type": "new",
-   "title": "Microsoft 365 Copilot and Power Apps: Retirement of App Builder agent and vibe.powerapps.com",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1505610",
-   "type": "new",
-   "title": "Public CDN is becoming optional during Brand Center setup",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1326509",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview: Information Protection- File Labeler and File Viewer for MacOS",
-   "fields": {
-    "end": [
-     "2026-12-31",
-     "2027-12-31"
-    ],
-    "bodyHash": [
-     "d7f02f8e1f19996e",
-     "a9a68a752376aa78"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1381121",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview | Endpoint Data Loss Prevention: Policy sync and device health AI skill",
-   "fields": {
-    "end": [
-     "2026-11-30",
-     "2026-12-31"
-    ],
-    "bodyHash": [
-     "202309558c2dac08",
-     "cd10d004792a2f4f"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1437671",
-   "type": "changed",
-   "title": "(Updated) Microsoft Entra: Allow password change after secure sign-in with My Sign-Ins",
-   "fields": {
-    "title": [
-     "(Updated) Microsoft Entra: Authenticated password change in My Sign-Ins",
-     "(Updated) Microsoft Entra: Allow password change after secure sign-in with My Sign-Ins"
-    ],
-    "bodyHash": [
-     "d31a2c63ebaa6b23",
-     "ccff28253537e460"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1440972",
-   "type": "changed",
-   "title": "(Updated) Microsoft Edge: Upgraded Copilot new tab page",
-   "fields": {
-    "bodyHash": [
-     "e7f0d2bf0640e489",
-     "9ca342977f1972aa"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1441784",
-   "type": "changed",
-   "title": "(Updated) Microsoft Copilot for Outlook: New Copilot entry point in Classic Outlook",
-   "fields": {
-    "end": [
-     "2026-12-21",
-     "2027-01-11"
-    ],
-    "bodyHash": [
-     "a2f058448a9820d1",
-     "e8fec5285e81f2cd"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1469329",
-   "type": "changed",
-   "title": "Build apps in Microsoft Copilot Studio and Copilot Cowork",
-   "fields": {
-    "bodyHash": [
-     "088bb54113f25cab",
-     "83558180d797f447"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1473153",
-   "type": "changed",
-   "title": "(Updated) Microsoft Teams: New centralized experience for organizing important resources in chats and channels",
-   "fields": {
-    "end": [
-     "2026-11-13",
-     "2026-11-23"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1473155",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview: permissions audit log improvements",
-   "fields": {
-    "title": [
-     "Microsoft Purview: permissions audit log improvements",
-     "(Updated) Microsoft Purview: permissions audit log improvements"
-    ],
-    "tags": [
-     [
-      "Admin impact",
-      "New feature",
-      "User impact"
-     ],
-     [
-      "Admin impact",
-      "New feature",
-      "Updated message",
-      "User impact"
-     ]
-    ],
-    "bodyHash": [
-     "a9c2764073c42921",
-     "51d35ff96ab33385"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1484010",
-   "type": "changed",
-   "title": "Microsoft Teams: Hide organizer names in calendar view on Teams Panels",
-   "fields": {
-    "end": [
-     "2026-11-09",
-     "2026-11-23"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1506229",
-   "type": "new",
-   "title": "Dynamics 365 Apps - Add users without licenses to activity recipient fields (preview)",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1506286",
-   "type": "new",
-   "title": "Notice: The October 2026 Scan Cab for Microsoft updates is delayed",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1506287",
-   "type": "new",
-   "title": "AD FS Distributed Key Manager (DKM) container ACL hardening begins today",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1506288",
-   "type": "new",
-   "title": "The October 2026 Windows security update is now available",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1506289",
-   "type": "new",
-   "title": "Windows 11, version 24H2 (Home and Pro) and Windows 10 LTSB 2016 have reached end of updates",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1506290",
-   "type": "new",
-   "title": "Hardening changes for ReFS volumes on removable media",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1506291",
-   "type": "new",
-   "title": "Manage Administrator protection within Windows 11 security baseline",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1506727",
-   "type": "new",
-   "title": "Microsoft Agent 365: Expanded access to Microsoft agent usage and activity insights in Microsoft 365 admin center",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1506728",
-   "type": "new",
-   "title": "Microsoft Entra: Changes to AgentIdentity.CreateAsManager permission for agent identities",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1506730",
-   "type": "new",
-   "title": "Classic Outlook for Windows: Upcoming visual improvements and a more consistent Outlook experience",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1506733",
-   "type": "new",
-   "title": "Action may be required: Review who can create agents in Microsoft Entra",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1506734",
-   "type": "new",
-   "title": "Microsoft Teams: Video sharing from OneDrive in Teams events",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1506735",
-   "type": "new",
-   "title": "Microsoft Planner: AI-generated status reports in Planner Agent",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC999442",
-   "type": "changed",
-   "title": "Microsoft Purview | Data Lifecycle Management: Retention based on “last accessed” for OneDrive and SharePoint files",
-   "fields": {
-    "end": [
-     "2027-03-15",
-     "2027-05-03"
-    ],
-    "bodyHash": [
-     "c2be8b37c55b8743",
-     "607aa04fed6a0caa"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-13",
-   "id": "MC1171745",
-   "type": "removed",
-   "title": "Hotpatch efficiency unlocked: Smaller update size ",
-   "fields": {}
-  },
   {
    "date": "2026-10-14",
    "id": "MC1450134",
@@ -25618,6 +25397,27 @@
    "id": "MC1185309",
    "type": "removed",
    "title": "Windows Autopatch for the US government: How to get started",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-13",
+   "id": "MC1551147",
+   "type": "new",
+   "title": "Microsoft Word: Retirement of legacy compatibility settings",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-13",
+   "id": "MC1551148",
+   "type": "new",
+   "title": "[Outlook for iOS and Android] Copilot Chat in Outlook UX improvements",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-13",
+   "id": "MC1551151",
+   "type": "new",
+   "title": "Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice multi-factor authentication",
    "fields": {}
   }
  ]

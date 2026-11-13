@@ -1,5 +1,5 @@
 {
- "read": "2026-11-12T17:37Z",
+ "read": "2026-11-13T06:37Z",
  "source": "https://msadminroles.com/",
  "sourceLabel": "msadminroles.com",
  "sourceNote": "Daniel Bradley's msadminroles.com - built-in role definitions as his tenant reads them",
@@ -8,12 +8,103 @@
  "keepDays": 90,
  "counts": {
   "rolesThere": 149,
-  "rolesDiffering": 0,
-  "thereOnly": 0,
+  "rolesDiffering": 4,
+  "thereOnly": 6,
   "oursOnly": 0
  },
- "roles": {},
+ "roles": {
+  "AI Administrator": {
+   "templateId": "d2562ede-74db-457e-a7b6-544e236ebb61",
+   "there": [
+    "microsoft.directory/agentIdentities/idJagConfiguration/update",
+    "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update"
+   ],
+   "ours": [],
+   "firstNoticed": {
+    "microsoft.directory/agentIdentities/idJagConfiguration/update": "2026-11-13",
+    "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update": "2026-11-13"
+   },
+   "thereVersion": 11,
+   "thereSince": "2026-11-12"
+  },
+  "Agent ID Administrator": {
+   "templateId": "db506228-d27e-4b7d-95e5-295956d6615f",
+   "there": [
+    "microsoft.directory/agentIdentities/idJagConfiguration/update",
+    "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update"
+   ],
+   "ours": [],
+   "firstNoticed": {
+    "microsoft.directory/agentIdentities/idJagConfiguration/update": "2026-11-13",
+    "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update": "2026-11-13"
+   },
+   "thereVersion": 10,
+   "thereSince": "2026-11-12"
+  },
+  "Global Administrator": {
+   "templateId": "62e90394-69f5-4237-9190-012177145e10",
+   "there": [
+    "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update"
+   ],
+   "ours": [],
+   "firstNoticed": {
+    "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update": "2026-11-13"
+   },
+   "thereVersion": 10,
+   "thereSince": "2026-11-12"
+  },
+  "User": {
+   "templateId": "a0b1b346-4d3e-4e8b-98f8-753987be4970",
+   "there": [
+    "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update"
+   ],
+   "ours": [],
+   "firstNoticed": {
+    "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update": "2026-11-13"
+   },
+   "thereVersion": 7,
+   "thereSince": "2026-11-12"
+  }
+ },
  "events": [
+  {
+   "day": "2026-11-13",
+   "name": "AI Administrator",
+   "change": "there-only",
+   "actions": [
+    "microsoft.directory/agentIdentities/idJagConfiguration/update",
+    "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update"
+   ],
+   "thereSince": "2026-11-12"
+  },
+  {
+   "day": "2026-11-13",
+   "name": "Agent ID Administrator",
+   "change": "there-only",
+   "actions": [
+    "microsoft.directory/agentIdentities/idJagConfiguration/update",
+    "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update"
+   ],
+   "thereSince": "2026-11-12"
+  },
+  {
+   "day": "2026-11-13",
+   "name": "Global Administrator",
+   "change": "there-only",
+   "actions": [
+    "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update"
+   ],
+   "thereSince": "2026-11-12"
+  },
+  {
+   "day": "2026-11-13",
+   "name": "User",
+   "change": "there-only",
+   "actions": [
+    "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update"
+   ],
+   "thereSince": "2026-11-12"
+  },
   {
    "day": "2026-11-12",
    "name": "User",
