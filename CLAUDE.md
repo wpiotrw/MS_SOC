@@ -26487,6 +26487,13 @@ wiersz flex, wiec etykieta i kazdy kawalek tekstu byly osobnymi elementami. Tera
 bez lamania) + JEDEN `span.s5gp-dct` (lamie sie, `min-width:0`), tekst z werdyktu i zdania `.s5gf-lead` ("Other date ·
 This post gives …").
 
+**§5gr-k (14 XI 2026)** — Piotr: "skoro widzisz, ze cos sie nie zmienilo od ostatniego briefu, to nie zajmuj tyle miejsca,
+bo to psuje widok; umieszczaj to na koncu sekcji". Watched areas: test "bez zmian" czyta tez tekst samego obszaru
+(`/^(no |nothing)/i` na `.s5bk-it` albo tresci bez numeru `.s5fm-n` i etykiety `.s5bk-k`; "no component moved since…" wczesniej nie lapalo sie, bo
+liczylo sie tylko "No new…"/"Nothing…" w `.s5bk-it`). Male obszary bez zmian wychodza z siatki dwa-w-rzedzie (gdzie
+rozciagaly sie do wysokosci sasiada) do zwartego paska pod nia: naglowek "No change since the last brief" z licznikiem,
+`ul.s5gp-areas.s5gp-qlist` (flex, karty po ok. 320 px). Szeroki obszar bez zmian (ramki tozsamosci) zostaje ostatni w siatce.
+
 **§5gr-e (13 XI 2026)** — Piotr: numery incydentow (MO1550821, EX1550543) i MC w oknie statusu, w osobnej sekcji; bez
 sekretu, przez federated credential. Publiczny kanal i `status.cloud.microsoft/api/posts/*` NIE podaja numerow (sprawdzone
 13 XI); ma je Service health dzierzawy. `.github/workflows/ms-health.yml` (co ~10 min, `*/10`) loguje sie jak graph-radar
@@ -47434,13 +47441,28 @@ odtad CZTERNASCIE (4-17).**
     if (keep) addJump(tl);
     else if (D.R.length) {
       var ar = el("section", "s5gp-g s5gp-ars"), ah = el("h3", "s5gp-gh", "Watched areas"); ah.appendChild(el("span", "s5gp-cnt", String(D.R.length)));
-      ar.appendChild(ah); ar.appendChild(el("p", "s5gp-sub", "surfaces this portal checks every day, with all their detail; areas with no change are last"));
-      var ul = el("ul", "s5gp-areas"), q = [];
-      D.R.forEach(function (r) { var quietA = /^no new|^nothing/i.test(tc(r.li.querySelector(":scope > .s5bk-it")) ) || (r.li.querySelector(".s5er-box") && !r.li.querySelector(".s5er-hot"));
-        (quietA ? q : MOVED).push(r.li); if (quietA) r.li.classList.add("s5gp-aq"); if (r.li.querySelector(".s5er-box")) r.li.classList.add("s5gp-awide"); });
+      ar.appendChild(ah); ar.appendChild(el("p", "s5gp-sub", "surfaces this portal checks every day, with all their detail; areas with no change since the last brief are in the short strip at the end"));
+      /* §5gr-k (owner, 14 XI): "if nothing changed since the last brief, don't take so much space - it spoils the whole
+         portal; put it at the end of the section". The quiet test also reads the area's own text ("no component moved
+         since…" was missed: only "No new…"/"Nothing…" in .s5bk-it counted). Quiet small areas leave the two-per-row grid
+         (where they stretched to the height of their neighbour) for a compact strip under it; a quiet wide area (the
+         identity boxes) stays last in the grid. */
+      var ul = el("ul", "s5gp-areas"), q = [], qs = [];
+      D.R.forEach(function (r) {
+        var body = [].map.call(r.li.childNodes, function (n) { return n.classList && (n.classList.contains("s5fm-n") || n.classList.contains("s5bk-k")) ? "" : (n.textContent || ""); }).join(" ").replace(/\s+/g, " ").trim(), wide = !!r.li.querySelector(".s5er-box");
+        var quietA = /^(no |nothing\b)/i.test(tc(r.li.querySelector(":scope > .s5bk-it")) || body) || (wide && !r.li.querySelector(".s5er-hot"));
+        if (wide) r.li.classList.add("s5gp-awide"); if (quietA) r.li.classList.add("s5gp-aq");
+        (quietA ? (wide ? q : qs) : MOVED).push(r.li);
+      });
       MOVED = MOVED.concat(q);
-      MOVED.forEach(function (li) { var ph = document.createComment("s5gp"); li.parentNode.insertBefore(ph, li); li.__s5gpPh = ph; ul.appendChild(li); });
-      ar.appendChild(ul); v.appendChild(ar);
+      function mv(li, to) { var ph = document.createComment("s5gp"); li.parentNode.insertBefore(ph, li); li.__s5gpPh = ph; to.appendChild(li); }
+      MOVED.forEach(function (li) { mv(li, ul); });
+      if (ul.children.length) ar.appendChild(ul);
+      if (qs.length) {
+        var qh = el("h4", "s5gp-qh", "No change since the last brief "); qh.appendChild(el("span", "s5gp-cnt", String(qs.length))); ar.appendChild(qh);
+        var qul = el("ul", "s5gp-areas s5gp-qlist"); qs.forEach(function (li) { mv(li, qul); }); ar.appendChild(qul); MOVED = MOVED.concat(qs);
+      }
+      v.appendChild(ar);
       addJump(tl);
     }
     if (!v.parentNode) sum.insertBefore(v, sum.firstChild);
@@ -51647,6 +51669,11 @@ html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
 @container (min-width:900px){.s5gp-areas{grid-template-columns:repeat(2,minmax(0,1fr))}.s5gp-areas>li.s5gp-awide{grid-column:1 / -1}}
 .s5gp-areas>li{display:block;border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:14px 16px;margin:0;scroll-margin-top:90px;font-size:15px}
 .s5gp-areas>li.s5gp-aq{border-style:dashed}
+/* §5gr-k: quiet areas in a compact strip at the end of Watched areas */
+.s5gp-qh{margin:18px 0 8px;font-size:16px;font-weight:800;display:flex;gap:8px;align-items:center}
+.s5gp-areas.s5gp-qlist{display:flex!important;flex-wrap:wrap;gap:10px;align-items:flex-start}
+.s5gp-qlist>li{flex:1 1 320px;min-width:0;padding:10px 14px!important;font-size:14.5px!important}
+.s5gp-qlist>li>.s5bk-k{margin:0 0 6px!important}
 .s5gp-areas>li>.s5fm-n{display:none!important}
 /* §5gr-b: the phone page scrolled 31 px sideways in Today: a cross-check frame inside a pick fell into the 28 px number column, and the pick carried invisible overflow */
 .s5ci-pick>.s5gf-dc{grid-column:1 / -1;min-width:0}
