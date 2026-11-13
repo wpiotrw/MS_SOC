@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13T06:42:51Z",
+ "generated": "2026-11-13T06:51:49Z",
  "day": "2026-11-13",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-13)",
@@ -930,7 +930,10 @@
    "verdict": "differs"
   },
   "MC1540327": {
-   "says": [],
+   "says": [
+    "2027-02-01",
+    "2027-07-01"
+   ],
    "others": [
     {
      "date": "2026-11-15",
@@ -939,14 +942,6 @@
      "post": "2026-05-28",
      "later": false,
      "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2027-02-01",
-     "src": "MC1519855",
-     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
-     "post": "2026-10-21",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1519855"
     },
     {
      "date": "2027-02-15",
@@ -960,14 +955,6 @@
      "date": "2027-03-22",
      "src": "MC1536049",
      "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
-     "post": "2026-11-03",
-     "later": false,
-     "link": "https://deltapulse.app/item/MC1536049"
-    },
-    {
-     "date": "2027-07-01",
-     "src": "MC1536049",
-     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
      "post": "2026-11-03",
      "later": false,
      "link": "https://deltapulse.app/item/MC1536049"

@@ -13,6 +13,15 @@
 ],
 "log":[
 {
+"date":"2026-11-12",
+"id":"MC1550797",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"ReFS on removable media: audit phase since the October 2026 update, blocking becomes the default with the January 2027 Windows security update",
+"title":"ReFS on removable media: audit phase since the October 2026 update, blocking becomes the default with the January 2027 Windows security update",
+"link":"https://deltapulse.app/item/MC1550797"
+},
+{
 "date":"2026-10-14",
 "id":"MC1506290",
 "what":"Entered the brief (New)",
@@ -119,10 +128,20 @@
 "MC1536049",
 "item:MC1536049",
 "MC1540327",
+"item:MC1540327",
 "MC1550537",
 "item:MC1550537"
 ],
 "log":[
+{
+"date":"2026-11-12",
+"id":"MC1550537",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Custom authentication strengths that allow SMS or voice but not passkeys will block sign-in when SMS and voice retire: from 1 February 2027 for users, from 1 July 2027 for Global Administrators and external users",
+"title":"Custom authentication strengths that allow SMS or voice but not passkeys will block sign-in when SMS and voice retire: from 1 February 2027 for users, from 1 July 2027 for Global Administrators and external users",
+"link":"https://msmessagecenter.com/MC1550537"
+},
 {
 "date":"2026-11-06",
 "id":"MC1540327",
@@ -5321,14 +5340,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-10",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-11",
 "text":"August 1, 2026."
 },
@@ -5434,6 +5445,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-12",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-13",
 "text":"August 1, 2026."
 },
 {
@@ -6097,7 +6116,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-12",
+"seen":"2026-11-13",
 "text":"early February 2026."
 },
 {
@@ -6105,7 +6124,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-12",
+"seen":"2026-11-13",
 "text":"February 2027."
 },
 {
@@ -9325,6 +9344,14 @@
 "date":"2026-11-12",
 "group":"community",
 "found":"2026-11-12"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/one-user-no-one-drive-no-phone-no-teams-no-security-no-365/m-p/4572616#M570":{
+"title":"One user, no one-drive, no phone, no teams, no security, no 365",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/one-user-no-one-drive-no-phone-no-teams-no-security-no-365/m-p/4572616#M570",
+"source":"Microsoft Security Community",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-13"
 }
 },
 "final":"2027-07-01",
@@ -9361,6 +9388,15 @@
 "item:569432"
 ],
 "log":[
+{
+"date":"2026-11-13",
+"id":"MC1437671",
+"what":"Microsoft revised the post",
+"before":"2026-10-13",
+"after":"2026-07-23",
+"title":"My Sign-Ins will let a user with a passkey, FIDO2 key or Windows Hello set a new password without knowing the old one; rollout slips to the end of October and runs to the end of November, and the switch is tenant-wide only",
+"link":"https://mc.merill.net/message/MC1437671"
+},
 {
 "date":"2026-11-08",
 "id":"MC1459133",
@@ -10088,7 +10124,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-12",
+"seen":"2026-11-13",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10096,7 +10132,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-12",
+"seen":"2026-11-13",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10714,6 +10750,14 @@
 "date":"2026-03-24",
 "group":"microsoft",
 "found":"2026-11-12"
+},
+"https://daily.entra.news/day/2026-11-12/":{
+"title":"Default agent-identity inactivity policy is now documented with custom-domain passkey details — 12 November 2026",
+"link":"https://daily.entra.news/day/2026-11-12/",
+"source":"Daily Entra News",
+"date":"2026-11-12",
+"group":"community",
+"found":"2026-11-13"
 }
 },
 "final":"2027-05-25",
@@ -18796,6 +18840,26 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-13",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"One user, no one-drive, no phone, no teams, no security, no 365",
+"source":"Microsoft Security Community",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/one-user-no-one-drive-no-phone-no-teams-no-security-no-365/m-p/4572616#M570"
+},
+{
+"day":"2026-11-13",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Default agent-identity inactivity policy is now documented with custom-domain passkey details — 12 November 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-11-12/"
 }
 ],
 "archive":{
