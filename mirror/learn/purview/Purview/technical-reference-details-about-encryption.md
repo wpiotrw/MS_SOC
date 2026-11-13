@@ -10,7 +10,7 @@ f1.keywords:
 ms.author: kreagle
 author: k-reagle
 manager: laurawi
-ms.date: 2025-02-13T00:00:00.0000000Z
+ms.date: 2026-11-12T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: purview
@@ -42,12 +42,12 @@ item_type: Content
 source_path: Purview/technical-reference-details-about-encryption.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://authoring-docs-microsoft.poolparty.biz/devrel/e93f3d5f-c77d-4365-a7fb-c9f2234416c7
 - https://authoring-docs-microsoft.poolparty.biz/devrel/6ab06385-661e-4214-8870-bbe4071c960d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0b654e73-5728-4af3-8c2e-17bfbf4c9f23
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/62e8d07a-cc62-4934-b30b-e168a571e51d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/131ba09e-4280-4ae7-8622-1f9f1c0daad1
-- https://authoring-docs-microsoft.poolparty.biz/devrel/11529658-843a-40bd-b2f8-5eed118be619
 platformId: 7df9fccf-a8eb-b96a-0834-a82640c8d379
 ---
 
@@ -161,3 +161,5 @@ Microsoft 365 responds to a connection request by first attempting to connect us
 | TLS\_ECDHE\_RSA\_WITH\_AES\_128\_GCM\_SHA256 | 1.2 |
 | TLS\_ECDHE\_RSA\_WITH\_AES\_256\_CBC\_SHA384 | 1.2 |
 | TLS\_ECDHE\_RSA\_WITH\_AES\_128\_CBC\_SHA256 | 1.2 |
+
+[!Note] Legacy TLS cipher suites may appear in external security scans of Exchange Online endpoints due to compatibility requirements for legacy SMTP AUTH client submission protocol. These cipher suites are retained for specific opt-in legacy TLS scenarios and aren't used for standard SMTP connections, which negotiate the strongest mutually supported TLS version and cipher suite.

@@ -71,7 +71,7 @@ Choose the permission or permissions marked as least privileged for this API. Us
 | --- | --- | --- |
 | Delegated (work or school account) | LifecyclePolicies-Guests.ReadWrite.All | Not available. |
 | Delegated (personal Microsoft account) | Not supported. | Not supported. |
-| Application | LifecyclePolicies-Guests.ReadWrite.All | Not available. |
+| Application | Not supported. | Not supported. |
 
 ## HTTP request
 

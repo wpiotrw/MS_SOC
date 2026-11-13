@@ -14,7 +14,7 @@ ms.topic: article
 zone_pivot_groups: windows-app-connections-cloud-services
 author: hilarybr
 ms.author: avdcontent
-ms.date: 2026-09-11T00:00:00.0000000Z
+ms.date: 2026-11-12T00:00:00.0000000Z
 locale: en-us
 document_id: 592bac75-f03d-2c64-2f52-a8688a0630a0
 document_version_independent_id: 592bac75-f03d-2c64-2f52-a8688a0630a0
@@ -756,7 +756,7 @@ The following table shows which security features are available on each platform
 
 | Feature | Windows | macOS | iOS/iPadOS | Android/Chrome OS | Webbrowser |
 | --- | --- | --- | --- | --- | --- |
-| Screen capture protection | ✅ | ✅ | ✅¹ | ✅¹ | ❌ |
+| Screen capture protection | ✅ | ✅ | ✅¹ | ✅¹ | ✅⁴ |
 | Watermarking | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Input Protection | ✅³ | ❌ | ❌ | ❌ | ❌ |
 | Display Protection | ✅³ | ❌ | ❌ | ❌ | ❌ |
@@ -765,6 +765,7 @@ The following table shows which security features are available on each platform
 1. Requires [Microsoft Intune Mobile Application Management](/en-us/windows-app/require-device-security-compliance-intune). Not available for Chrome OS.
 2. Requires Windows App on Windows version 2.0.379.0 or later. For more information, see [Microsoft Entra Conditional Access token protection](/en-us/entra/identity/conditional-access/concept-token-protection).
 3. In preview. Available only when you connect to Windows 365 or Azure Virtual Desktop, and requires Windows App on Windows version 2.0.1236.0 or later together with Cloud PC or session host configuration. Input Protection also requires the Windows Cloud Input Protect MSI on the device. Not applicable to Microsoft Dev Box.
+4. Requires Microsoft Edge for Business on Windows, version 134.0.3124.51 or later, with an Intune MAM app protection policy that targets Microsoft Edge and a Conditional Access policy that requires app protection. For more information, see [Pattern 3: Web endpoints (browser access)](/en-us/azure/virtual-desktop/screen-capture-protection#pattern-3-web-endpoints-browser-access).
 
 ::: zone-end
 
@@ -935,7 +936,7 @@ The following table shows which Windows App settings you can manage centrally us
 | Local drive/storage redirection | ❌ | ❌ | ✅ | ✅ | ✅ | ❌ |
 | Microphone redirection | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ |
 | Printer redirection | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
-| Screen capture protection | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ |
+| Screen capture protection | ❌ | ❌ | ✅ | ✅ | ✅ | ❌ |
 
 1. Supported for Windows App in a web browser using Microsoft Edge only.
 

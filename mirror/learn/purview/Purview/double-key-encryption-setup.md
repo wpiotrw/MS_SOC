@@ -86,7 +86,7 @@ When you're done, you can encrypt documents and files using DKE. For information
 
 Install these prerequisites on the computer where you want to install the DKE service.
 
-**.NET 8.0 SDK**. Download and install the SDK from [Download .NET 8.0](https://dotnet.microsoft.com/download/dotnet/8.0).
+**.NET 10.0 SDK**. Download and install the SDK from [Download .NET 10.0](https://dotnet.microsoft.com/download/dotnet/10.0).
 
 **Visual Studio Code**. Download Visual Studio Code from [https://code.visualstudio.com/](https://code.visualstudio.com). Once installed, run Visual Studio Code and select **View** &gt; **Extensions**. Install these extensions.
 
@@ -350,7 +350,7 @@ To publish the key store, create an Azure App Service instance to host your DKE 
 2. Create a new or select an existing resource group.
 3. Provide a name for the instance, e.g. contosodke1. This name does not match the name in the config file. The value you provide for the name is also the WebAppInstanceName.
 4. In pricing plan, select a size that allows custom domains, e.g. Basic B1.
-5. For **Publish**, select **code**, and for **Runtime stack**, select **.NET 8 (LTS)**.
+5. For **Publish**, select **code**, and for **Runtime stack**, select **.NET 10 (LTS)**.
 6. Select **Review + create**
 
 For example:
@@ -389,7 +389,7 @@ for example, ftp
 
     The output window displays the directory where the publish was deployed.
 
-    For example: `customer-key-store\src\customer-key-store\bin\Debug\net8.0\publish\`
+    For example: `customer-key-store\src\customer-key-store\bin\Debug\net10.0\publish\`
 5. Send all files in the publish directory to a .zip file. When creating the .zip file, make sure that all files in the directory are at the root level of the .zip file.
 6. Drag and drop the .zip file you created to the ZipDeployUI site you opened before.
 

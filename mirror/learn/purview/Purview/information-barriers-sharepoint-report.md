@@ -5,7 +5,7 @@ canonicalUrl: https://learn.microsoft.com/en-us/purview/information-barriers-sha
 breadcrumb_path: /purview/breadcrumb/toc.json
 feedback_system: Standard
 uhfHeaderId: MSDocsHeader-Purview
-ms.date: 2026-09-21T00:00:00.0000000Z
+ms.date: 2026-10-27T00:00:00.0000000Z
 description: Learn how to find noncompliant sites after Information Barriers policies change.
 ms.author: srmuppana
 author: srmuppana
@@ -46,10 +46,8 @@ item_type: Content
 source_path: Purview/information-barriers-sharepoint-report.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9d7be3ef-f27c-4c7f-9eba-67c3cd429995
-- https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/feeb50f3-b677-44f9-b3a6-5f2f58182b0d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 platformId: 7fb64938-82ae-be2d-9075-597faba93b8e
 ---
 
@@ -83,6 +81,8 @@ Microsoft recommends that you use roles with the fewest permissions. Minimizing 
 
 1. You must use the latest version of the [SharePoint Online Management Shell](https://go.microsoft.com/fwlink/p/?LinkId=255251). If you installed a previous version of the SharePoint Online Management Shell, go to **Add or remove programs** and uninstall *SharePoint Online Management Shell*. Then, install the latest version. To learn more, see [Get started with SharePoint Online Management Shell](/en-us/powershell/sharepoint/sharepoint-online/connect-sharepoint-online).
 2. Connect to SharePoint Online as a [Global Administrator or SharePoint Administrator](/en-us/sharepoint/sharepoint-admin-role?toc=%2Fpurview%2Ftoc.json&amp;bc=%2Fpurview%2Fbreadcrumb%2Ftoc.json) in Microsoft 365. For more information, see [Getting started with SharePoint Online Management Shell](/en-us/powershell/sharepoint/sharepoint-online/connect-sharepoint-online?toc=%2Fpurview%2Ftoc.json&amp;bc=%2Fpurview%2Fbreadcrumb%2Ftoc.json).
+
+    Users with the [SharePoint Embedded Administrator](/en-us/sharepoint/dev/embedded/admin/admin-overview?toc=%2Fpurview%2Ftoc.json&amp;bc=%2Fpurview%2Fbreadcrumb%2Ftoc.json#admin-roles) role can also run the report and update segments for user-owned containers. If they don't also have SharePoint site administration permissions, the report is scoped to SharePoint Embedded containers and excludes SharePoint sites and OneDrive accounts.
 3. Run the following command to build the report:
 
     ```PowerShell

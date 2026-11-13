@@ -567,6 +567,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/memory-
 https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/modernization-guide
 https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts/sku-lifecycle
 https://learn.microsoft.com/en-us/azure/virtual-machines/disk-encryption-overview
+https://learn.microsoft.com/en-us/azure/virtual-machines/disks-deploy-premium-v2
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-enable-ultra-ssd
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-high-availability
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-instant-access-snapshots

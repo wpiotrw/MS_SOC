@@ -41,21 +41,17 @@ monikers:
 item_type: Content
 source_path: api-reference/beta/resources/agenticsecurityroot.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 - https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
+- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 platformId: 8fcdae5e-2043-7213-9ad8-88393b33bf73
 ---
 
 # agenticSecurityRoot resource type - Microsoft Graph beta | Microsoft Learn
 
 Namespace: microsoft.graph
-
-Important
-
-APIs under the `/beta` version in Microsoft Graph are subject to change. Use of these APIs in production applications is not supported. To determine whether an API is available in v1.0, use the **Version** selector.
 
 Provides access to playbook definitions and agentic security sessions. Use its child collections; reading, updating, or deleting this container directly isn't supported.
 

@@ -32,6 +32,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/accessreviewinstancedecisi
 https://learn.microsoft.com/en-us/graph/api/resources/accessreviewinstancedecisionitemresource
 https://learn.microsoft.com/en-us/graph/api/resources/accessreviewreviewerscope
 https://learn.microsoft.com/en-us/graph/api/resources/activitylogbase
+https://learn.microsoft.com/en-us/graph/api/resources/activitymetadata
 https://learn.microsoft.com/en-us/graph/api/resources/agentRiskDetection
 https://learn.microsoft.com/en-us/graph/api/resources/agentcommunicationconfiguration
 https://learn.microsoft.com/en-us/graph/api/resources/agenticsecurityroot
@@ -87,6 +88,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/m365capabilitybase
 https://learn.microsoft.com/en-us/graph/api/resources/mailboxFolder
 https://learn.microsoft.com/en-us/graph/api/resources/mailboxfolder
 https://learn.microsoft.com/en-us/graph/api/resources/microsoftappsfilestoragecontainerusage
+https://learn.microsoft.com/en-us/graph/api/resources/networkaccess-webfilteringpolicy
 https://learn.microsoft.com/en-us/graph/api/resources/onlineMeetingBase
 https://learn.microsoft.com/en-us/graph/api/resources/onpasswordupdatecustomextension
 https://learn.microsoft.com/en-us/graph/api/resources/onpasswordupdatelistener
@@ -106,6 +108,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/rolemanagementcustomcallou
 https://learn.microsoft.com/en-us/graph/api/resources/rolemanagementcustomcalloutexten…
 https://learn.microsoft.com/en-us/graph/api/resources/security
 https://learn.microsoft.com/en-us/graph/api/resources/security-alert
+https://learn.microsoft.com/en-us/graph/api/resources/security-alerttemplate
 https://learn.microsoft.com/en-us/graph/api/resources/security-auditdata-derived-types
 https://learn.microsoft.com/en-us/graph/api/resources/security-auditlogquery
 https://learn.microsoft.com/en-us/graph/api/resources/security-auditlogrecordtype
@@ -121,6 +124,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/security-ediscoveryHoldPol
 https://learn.microsoft.com/en-us/graph/api/resources/security-ediscoveryaddtoreviewsetoperation
 https://learn.microsoft.com/en-us/graph/api/resources/security-incidentconfiguration
 https://learn.microsoft.com/en-us/graph/api/resources/security-processevidence
+https://learn.microsoft.com/en-us/graph/api/resources/security-ruleschedule
 https://learn.microsoft.com/en-us/graph/api/resources/security-sensorcandidate
 https://learn.microsoft.com/en-us/graph/api/resources/security-useraccount
 https://learn.microsoft.com/en-us/graph/api/resources/security-userevidence

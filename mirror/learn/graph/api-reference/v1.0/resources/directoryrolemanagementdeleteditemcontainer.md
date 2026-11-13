@@ -41,11 +41,11 @@ monikers:
 item_type: Content
 source_path: api-reference/v1.0/resources/directoryrolemanagementdeleteditemcontainer.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
+- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 platformId: 827da2df-b551-3a74-22bf-f551f955e80f
 ---
 
@@ -61,7 +61,7 @@ Inherits from [entity](entity).
 
 | Method | Return type | Description |
 | --- | --- | --- |
-| [List roleDefinitions](../directoryrolemanagementdeleteditemcontainer-list-roledefinitions) | [unifiedRoleDefinition](unifiedroledefinition) collection | List soft-deleted custom role definitions. |
+| [List deleted roleDefinitions](../directoryrolemanagementdeleteditemcontainer-list-roledefinitions) | [unifiedRoleDefinition](unifiedroledefinition) collection | List soft-deleted custom role definitions. |
 
 ## Properties
 

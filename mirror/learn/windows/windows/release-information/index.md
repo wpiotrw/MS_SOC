@@ -81,9 +81,9 @@ Overview
 
 ### Message center
 
+- [Take action to prevent RD Web Access rendering failures (Updated)](https://support.microsoft.com/help/5130994)
 - [Windows Office Hours: November 19, 2026](https://techcommunity.microsoft.com/event/windowsevents/windows-office-hours-november-19-2026/4561237)
 - [60-day reminder: Hardening changes for ReFS volumes on removable media](https://support.microsoft.com/servicing/os/windows/docs/2026/10/hardening-changes-for-refs-volumes-on-removable-media)
-- [NTLM signing security improvements in Windows](https://support.microsoft.com/help/5135557)
 - [See more](/en-us/windows/release-information/windows-message-center)
 
 ### Windows 11, version 26H2

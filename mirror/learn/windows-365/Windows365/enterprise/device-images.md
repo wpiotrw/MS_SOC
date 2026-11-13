@@ -115,10 +115,8 @@ There are three sets of images available to choose from across the different ver
 - Search and Start settings
 - Service/features settings
 - Install and set up Windows Subsystem for Linux (WSL) with a WSL Ubuntu
-- A bash script to configure the user environment in WSL Ubuntu
-- Installation of the same developer tools within the WSL environment
 - If an uninstall of the 3rd-party dev tools is desired, [this script](https://github.com/microsoft/Windows365-PSScripts/tree/main/DevReadyImage-Uninstaller) can be used to uninstall them.
-- Developer tools installation, including PowerShell 7, Visual Studio Code (with extensions ms-vscode.powershell, ms-python.python, ms-vscode-remote.remote-wsl, github.vscode-pull-request-github, ms-edgedevtools.vscode-edge-devtools, and mspythondeprem.python-dependency-remediation), PowerToys, Python, Node.js, npm, nvm, git, GitHub, GitHub Copilot CLI (with Work IQ and Windows Dev Skills), Oh My Posh, UV tools, Azure CLI, .NET Runtime, .NET SDK, Intelligent Terminal, Coreutils, and WinApp CLI. The versions of each tool available in the image is below:
+- Developer tools installation, including PowerShell 7, Visual Studio Code (with extensions ms-vscode.powershell, ms-python.python, ms-vscode-remote.remote-wsl, github.vscode-pull-request-github, ms-edgedevtools.vscode-edge-devtools, and mspythondeprem.python-dependency-remediation), PowerToys, Python, Node.js, npm, nvm, git, GitHub, GitHub Copilot CLI (with Work IQ and Windows Dev Skills), Oh My Posh, UV tools, Azure CLI, .NET Runtime, .NET SDK, Intelligent Terminal, Coreutils, and WinApp CLI. The versions of each tool available in the image is below (tool versions will be updated here monthly):
 
 | # | Tool Name | Current Version |
 | --- | --- | --- |
@@ -139,29 +137,32 @@ There are three sets of images available to choose from across the different ver
 | 9 | git | 2.55.0.windows.5 |
 | 10 | GitHub (gh) | 2.102.0 |
 | 11 | GitHub Copilot CLI | 1.0.97 |
-| 12 | Work IQ (GitHub Copilot CLI Plugin) | V2.0.2 |
-| 13 | Oh my posh | 31.8.0.0 |
-| 14 | UV tools | 0.13.0 (4ecd0eff2，2026-10-09，x86\_64-pc-windows-msvc) |
-| 15 | Azure CLI | 2.91.0 |
-| 16 | .NET Runtime | Microsoft.AspNetCore.App 10.0.13 |
-| 17 | .NET SDK | 10.0.402 |
-| 18 | Unix Core Utils | 0.11.0 |
-| 19 | WinAppCLI | 0.7.1 |
-| 20 | Windows Dev Skill (GitHub Copilot CLI Plugin) | v0.7.1 |
-| 21 | Intelligent Terminal | 0.2.2572.0 |
+| 12 | GitHub Copilot | 1.1.34 |
+| 13 | Work IQ (GitHub Copilot CLI Plugin) | V2.0.2 |
+| 14 | Oh my posh | 31.8.0.0 |
+| 15 | UV tools | 0.13.0 (4ecd0eff2，2026-10-09，x86\_64-pc-windows-msvc) |
+| 16 | Azure CLI | 2.91.0 |
+| 17 | .NET Runtime | Microsoft.AspNetCore.App 10.0.13 |
+| 18 | .NET SDK | 10.0.402 |
+| 19 | Unix Core Utils | 0.11.0 |
+| 20 | WinAppCLI | 0.7.1 |
+| 21 | Windows Dev Skill (GitHub Copilot CLI Plugin) | v0.7.1 |
+| 22 | Intelligent Terminal | 0.2.2572.0 |
 
 Note
 
-1. This image is available for Windows 365 Enterprise and Windows 365 Flex Dedicated mode.
-2. Customers are responsible for managing and maintaining third-party applications installed on the VM image, including monitoring for vulnerabilities, applying security updates, configuring settings, and ensuring compliance with organizational security and compliance requirements.
-3. Preinstalled third-party applications included in the image are not currently manageable through Intune as packaged applications. Customers who require Intune-based application lifecycle management should uninstall the preinstalled applications and redeploy them through Intune.
-4. This image is not supported on 2 vCPU or GPU licenses because they do not support nested virtualization.
+> 
+> 1. Some editions of the Windows operating system, like N or long term service channel (LTSC) editions, aren't supported. For best results when you create a custom image, use one of the Cloud PC gallery images as a starting template.
+> 
+
+1. Customers are responsible for managing and maintaining third-party applications installed on the VM image, including monitoring for vulnerabilities, applying security updates, configuring settings, and ensuring compliance with organizational security and compliance requirements.
+2. Preinstalled third-party applications included in the image are not currently manageable through Intune as packaged applications. Customers who require Intune-based application lifecycle management should uninstall the preinstalled applications and redeploy them through Intune.
+3. This image is not supported on 2 vCPU or GPU licenses because they do not support nested virtualization.
+4. The latest tool versions will be installed on a monthly cadence in the table above
 
 ### Gallery image update cycle
 
-All supported Windows 365 gallery images are updated monthly after the security patch release schedule of Windows Servicing & Delivery. This update happens around the middle of each month. Updated Windows 365 images are made available in Intune for provisioning around the end of the third week of the month.
-
-Each updated image includes:
+All supported Windows 365 gallery images are updated monthly after the security patch release schedule of Windows Servicing & Delivery. This update happens around the middle of each month. Updated Windows 365 images are made available in Intune for provisioning around the end of the third week of the month. Each updated image includes:
 
 - [Windows 10/11 monthly image updates](https://support.microsoft.com/topic/windows-10-release-on-azure-marketplace-update-history-da826e21-45ae-f6b9-de71-5f0ee2ec1563)
 - [Microsoft 365 Apps security updates](/en-us/officeupdates/microsoft365-apps-security-updates) and [feature updates](/en-us/officeupdates/monthly-enterprise-channel)

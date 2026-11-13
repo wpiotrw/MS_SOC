@@ -759,6 +759,10 @@ Namespace: microsoft.graph.security
 | downloadText |
 | downloadFile |
 | unknownFutureValue |
+| copyToClipboard |
+| pasteFromClipboard |
+| print |
+| accessDebugTools |
 
 ### userActivityType values
 
@@ -769,6 +773,10 @@ Namespace: microsoft.graph.security
 | downloadText |
 | downloadFile |
 | unknownFutureValue |
+| copyToClipboard |
+| pasteFromClipboard |
+| print |
+| accessDebugTools |
 
 ### labelActionSource values
 
