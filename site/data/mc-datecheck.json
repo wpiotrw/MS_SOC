@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-13T17:18:35Z",
+ "generated": "2026-11-13T21:35:30Z",
  "day": "2026-11-13",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-13)",
- "count": 43,
+ "count": 46,
  "byMc": {
   "MC1191578": {
    "says": [],
@@ -1871,6 +1871,112 @@
     {
      "id": "c-mc1481315",
      "name": "DSPM-Copilot Readiness and Data Explorer"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1235720": {
+   "says": [
+    "2027-01-12"
+   ],
+   "others": [
+    {
+     "date": "2027-01-13",
+     "src": "MC1551896",
+     "text": "13 January 2027 as printed in this 60-day reminder; Microsoft's 90-day reminder MC1507705 printed 12 January 2027.",
+     "post": "2026-11-13",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1551896"
+    },
+    {
+     "date": "2027-01-15",
+     "src": "MC1507705",
+     "text": "The January 2027 Windows security update will be the last update available for this version.",
+     "post": "2026-10-14",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1507705"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1507705",
+     "date": "2026-10-14",
+     "title": "90-Day Reminder: Windows Server 2016 will reach end of updates on January 12, 2027"
+    },
+    {
+     "id": "MC1551896",
+     "date": "2026-11-13",
+     "title": "60-Day Reminder: Windows Server 2016 reaches the end of extended support on January 13, 2027"
+    }
+   ],
+   "why": [
+    "Windows Server 2016 ends extended support on 13 January 2027 (60-day reminder) - the 90-day reminder MC1507705 said 12 January"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc1235720",
+     "name": "Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1507705": {
+   "says": [
+    "2027-01-12",
+    "2027-01-15"
+   ],
+   "others": [
+    {
+     "date": "2027-01-13",
+     "src": "MC1551896",
+     "text": "13 January 2027 as printed in this 60-day reminder; Microsoft's 90-day reminder MC1507705 printed 12 January 2027.",
+     "post": "2026-11-13",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1551896"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1551896",
+     "date": "2026-11-13",
+     "title": "60-Day Reminder: Windows Server 2016 reaches the end of extended support on January 13, 2027"
+    }
+   ],
+   "why": [
+    "Windows Server 2016 ends extended support on 13 January 2027 (60-day reminder) - the 90-day reminder MC1507705 said 12 January"
+   ],
+   "campaigns": [
+    {
+     "id": "c-mc1235720",
+     "name": "Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1551896": {
+   "says": [
+    "2027-01-12",
+    "2027-01-13"
+   ],
+   "others": [
+    {
+     "date": "2027-01-15",
+     "src": "MC1507705",
+     "text": "The January 2027 Windows security update will be the last update available for this version.",
+     "post": "2026-10-14",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1507705"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-mc1235720",
+     "name": "Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support"
     }
    ],
    "verdict": "differs"

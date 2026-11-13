@@ -1,6 +1,135 @@
 {
 "updated":"2026-11-13",
 "campaigns":{
+"c-mc1235720":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-13",
+"name":"Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support",
+"status":"Active",
+"members":[
+"item:windows-server-2016-eos",
+"MC1235720",
+"MC1507705",
+"item:MC1507705",
+"MC1551896",
+"item:MC1551896"
+],
+"log":[
+{
+"date":"2026-09-28",
+"id":"MC1235720",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support",
+"title":"Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1235720"
+}
+],
+"milestones":{
+"MC1235720|posted":{
+"date":"2026-02-20",
+"label":"20 Feb 2026",
+"text":"Posted: Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support"
+},
+"MC1235720|here are the upcoming end of support dates to note windows e#0":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Here are the upcoming end-of-support dates to note: Windows 10 Enterprise LTSB 2016 : October 13, 2026."
+},
+"MC1507705|posted":{
+"date":"2026-10-14",
+"label":"14 Oct 2026",
+"text":"Posted: Windows Server 2016 will reach end of updates on January 12, 2027"
+},
+"MC1551896|posted":{
+"date":"2026-11-13",
+"label":"13 Nov 2026",
+"text":"Posted: Windows Server 2016 reaches the end of extended support on January 13, 2027"
+},
+"MC1235720|#0":{
+"date":"2027-01-12",
+"label":"12 Jan 2027",
+"text":"January 12, 2027."
+},
+"MC1551896|deadline":{
+"date":"2027-01-13",
+"label":"13 Jan 2027",
+"text":"13 January 2027 as printed in this 60-day reminder; Microsoft's 90-day reminder MC1507705 printed 12 January 2027."
+},
+"MC1507705|the windows security update will be the last update availabl#0":{
+"date":"2027-01-15",
+"label":"Jan 2027",
+"text":"The January 2027 Windows security update will be the last update available for this version."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1235720":{
+"title":"Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1235720",
+"source":"Message Center",
+"id":"MC1235720",
+"date":"2026-02-20",
+"updated":"2026-02-20",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2027":{
+"title":"Windows Server 2016 end of support",
+"link":"https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2027",
+"source":"Main list source",
+"id":"windows-server-2016-eos",
+"date":"2026-01-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1506289":{
+"title":"MC1506289: Windows 11, version 24H2 (Home and Pro) and Windows 10 LTSB 2016 have reached end of updates",
+"link":"https://mc.merill.net/message/MC1506289",
+"source":"MC - Merill",
+"date":"2026-10-13",
+"group":"community",
+"found":"2026-10-14"
+},
+"https://mc.merill.net/message/MC1507705":{
+"title":"Windows Server 2016 will reach end of updates on January 12, 2027",
+"link":"https://mc.merill.net/message/MC1507705",
+"source":"Message Center",
+"id":"MC1507705",
+"date":"2026-10-14",
+"updated":"2026-10-14",
+"group":"microsoft",
+"found":"2026-11-13"
+},
+"https://deltapulse.app/item/MC1551896":{
+"title":"Windows Server 2016 reaches the end of extended support on January 13, 2027",
+"link":"https://deltapulse.app/item/MC1551896",
+"source":"Message Center",
+"id":"MC1551896",
+"date":"2026-11-13",
+"updated":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-13"
+},
+"https://deltapulse.app/item/MC1507705":{
+"title":"Windows Server 2016 will reach end of updates on January 12, 2027",
+"link":"https://deltapulse.app/item/MC1507705",
+"source":"Main list source",
+"id":"MC1507705",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-11-13"
+}
+},
+"final":"2027-01-15",
+"type":"Support end",
+"tech":"Windows",
+"posts":[
+"MC1235720",
+"MC1507705",
+"MC1551896"
+]
+},
 "c-mc1506290":{
 "firstSeen":"2026-10-13",
 "lastSeen":"2026-11-13",
@@ -580,6 +709,14 @@
 "updated":null,
 "group":"microsoft",
 "found":"2026-11-12"
+},
+"https://mc.merill.net/message/MC1551151":{
+"title":"MC1551151: Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice multi-factor authentication",
+"link":"https://mc.merill.net/message/MC1551151",
+"source":"MC - Merill",
+"date":"2026-11-13",
+"group":"community",
+"found":"2026-11-13"
 }
 },
 "final":"2027-07-01",
@@ -5356,14 +5493,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-11",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-12",
 "text":"August 1, 2026."
 },
@@ -5421,6 +5550,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-12",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-13",
 "text":"August 1, 2026."
 },
 {
@@ -5755,80 +5892,6 @@
 "MC1243549"
 ]
 },
-"c-mc1235720":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-13",
-"name":"Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support",
-"status":"Active",
-"members":[
-"item:windows-server-2016-eos",
-"MC1235720"
-],
-"log":[
-{
-"date":"2026-09-28",
-"id":"MC1235720",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support",
-"title":"Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1235720"
-}
-],
-"milestones":{
-"MC1235720|posted":{
-"date":"2026-02-20",
-"label":"20 Feb 2026",
-"text":"Posted: Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support"
-},
-"MC1235720|here are the upcoming end of support dates to note windows e#0":{
-"date":"2026-10-13",
-"label":"13 Oct 2026",
-"text":"Here are the upcoming end-of-support dates to note: Windows 10 Enterprise LTSB 2016 : October 13, 2026."
-},
-"MC1235720|#0":{
-"date":"2027-01-12",
-"label":"12 Jan 2027",
-"text":"January 12, 2027."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1235720":{
-"title":"Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1235720",
-"source":"Message Center",
-"id":"MC1235720",
-"date":"2026-02-20",
-"updated":"2026-02-20",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2027":{
-"title":"Windows Server 2016 end of support",
-"link":"https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2027",
-"source":"Main list source",
-"id":"windows-server-2016-eos",
-"date":"2026-01-01",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1506289":{
-"title":"MC1506289: Windows 11, version 24H2 (Home and Pro) and Windows 10 LTSB 2016 have reached end of updates",
-"link":"https://mc.merill.net/message/MC1506289",
-"source":"MC - Merill",
-"date":"2026-10-13",
-"group":"community",
-"found":"2026-10-14"
-}
-},
-"final":"2027-01-12",
-"type":"Support end",
-"tech":"Windows",
-"posts":[
-"MC1235720"
-]
-},
 "c-mc1188230":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-13",
@@ -6052,7 +6115,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-12",
+"seen":"2026-11-13",
 "text":"early February 2026."
 },
 {
@@ -6060,7 +6123,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-12",
+"seen":"2026-11-13",
 "text":"February 2027."
 },
 {
@@ -9352,6 +9415,22 @@
 "date":"2026-11-11",
 "group":"community",
 "found":"2026-11-13"
+},
+"https://mc.merill.net/message/MC1551151":{
+"title":"MC1551151: Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice multi-factor authentication",
+"link":"https://mc.merill.net/message/MC1551151",
+"source":"MC - Merill",
+"date":"2026-11-13",
+"group":"community",
+"found":"2026-11-13"
+},
+"https://thehackernews.com/2026/11/silentair-hijacks-asian-telecom.html":{
+"title":"SilentAir Hijacks Asian Telecom Networks to Intercept SMS 2FA Codes and Spy on Taiwanese Users",
+"link":"https://thehackernews.com/2026/11/silentair-hijacks-asian-telecom.html",
+"source":"Hacker News",
+"date":"2026-11-13",
+"group":"community",
+"found":"2026-11-13"
 }
 },
 "final":"2027-07-01",
@@ -10060,7 +10139,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-12",
+"seen":"2026-11-13",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10068,7 +10147,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-12",
+"seen":"2026-11-13",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -18860,6 +18939,125 @@
 "title":"Default agent-identity inactivity policy is now documented with custom-domain passkey details — 12 November 2026",
 "source":"Daily Entra News",
 "link":"https://daily.entra.news/day/2026-11-12/"
+},
+{
+"day":"2026-11-13",
+"cid":"c-mc1235720",
+"type":"milestone",
+"name":"Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support",
+"src":"MC1551896",
+"now":"13 Jan 2027",
+"text":"13 January 2027 as printed in this 60-day reminder; Microsoft's 90-day reminder MC1507705 printed 12 January 2027."
+},
+{
+"day":"2026-11-13",
+"cid":"c-item-mc1519855",
+"type":"material",
+"name":"SSPR requires registered authentication methods",
+"group":"community",
+"title":"MC1551151: Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice multi-factor authentication",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1551151"
+},
+{
+"day":"2026-11-13",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-94522 Windows Kernel Transaction Manager Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-94522"
+},
+{
+"day":"2026-11-13",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-112765 Windows Print Spooler Components Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-112765"
+},
+{
+"day":"2026-11-13",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-108401 Remote Desktop Services Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108401"
+},
+{
+"day":"2026-11-13",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-109473 Windows Kernel Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109473"
+},
+{
+"day":"2026-11-13",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-119396 Windows Remote Access API Tampering Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119396"
+},
+{
+"day":"2026-11-13",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-119853 Remote Access API Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119853"
+},
+{
+"day":"2026-11-13",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-119861 Windows Internet Connection Sharing (ICS) Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119861"
+},
+{
+"day":"2026-11-13",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-119988 Windows SMB Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119988"
+},
+{
+"day":"2026-11-13",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"MC1551151: Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice multi-factor authentication",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1551151"
+},
+{
+"day":"2026-11-13",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"SilentAir Hijacks Asian Telecom Networks to Intercept SMS 2FA Codes and Spy on Taiwanese Users",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/11/silentair-hijacks-asian-telecom.html"
 }
 ],
 "archive":{
@@ -23205,6 +23403,70 @@
 "date":"2026-11-12",
 "group":"community",
 "found":"2026-11-12"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-94522":{
+"title":"CVE-2026-94522 Windows Kernel Transaction Manager Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-94522",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-112765":{
+"title":"CVE-2026-112765 Windows Print Spooler Components Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-112765",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108401":{
+"title":"CVE-2026-108401 Remote Desktop Services Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108401",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109473":{
+"title":"CVE-2026-109473 Windows Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109473",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119396":{
+"title":"CVE-2026-119396 Windows Remote Access API Tampering Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119396",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119853":{
+"title":"CVE-2026-119853 Remote Access API Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119853",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119861":{
+"title":"CVE-2026-119861 Windows Internet Connection Sharing (ICS) Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119861",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119988":{
+"title":"CVE-2026-119988 Windows SMB Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119988",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-13"
 }
 },
 "final":"2026-10-13",
