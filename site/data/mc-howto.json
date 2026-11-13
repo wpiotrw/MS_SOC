@@ -508,6 +508,40 @@
      "says": "SharePoint Online and OneDrive on the web adopt the Copilot Search interface (Frontier preview from mid-October 2026, GA mid-January to mid-April 2027); deferral is available at tenant and site level, with documentation to come before GA."
     }
    ]
+  },
+  {
+   "key": "copilot-scheduled-prompts-native",
+   "ids": [
+    "MC1550533"
+   ],
+   "title": "Scheduled prompts in Microsoft 365 Copilot move from Power Platform to native Copilot scheduling; the Power Platform experience retires 31 December 2026",
+   "scriptable": false,
+   "checked": "2026-11-13",
+   "why": "Users create, pause and delete their own schedules in Tasks > Scheduled in the Microsoft 365 Copilot app; the post names no Graph, Exchange Online or Teams PowerShell surface for listing or controlling them, and this routine found none to document.",
+   "sources": [
+    {
+     "t": "Message Center MC1550533",
+     "u": "https://deltapulse.app/item/MC1550533",
+     "says": "Scheduled prompts run on native Copilot scheduling, also where Power Automate is disabled, with 10 active and 50 total schedules per user; the Power Platform-based experience retires 31 December 2026 and some schedules must be recreated."
+    }
+   ]
+  },
+  {
+   "key": "planner-agent-assignment-catchup-memory",
+   "ids": [
+    "MC1539002"
+   ],
+   "title": "Planner Agent in Copilot Chat gains task assignment, scheduled catch-up and Copilot memory from early December 2026",
+   "scriptable": false,
+   "checked": "2026-11-13",
+   "why": "The post says Planner Agent availability is managed in the Microsoft 365 admin center (Agents) and the new capabilities are on by default with no admin action; it names no PowerShell or Graph surface, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1539002",
+     "u": "https://deltapulse.app/item/MC1539002",
+     "says": "Task assignment, scheduled task catch-up and memory integration are enabled by default for users with access to Planner Agent; admins manage availability and pinning (AI Administrator role) in the Microsoft 365 admin center."
+    }
+   ]
   }
  ]
 }
