@@ -26481,6 +26481,12 @@ Next update z "in N h"; na telefonie 2 kolumny); "User impact" (impactDescriptio
 komunikatu, `parseLines`); "Related numbers". Pod "More" (zwiniete): tekst ze strony statusu z Key facts i uslugami
 (jesli to naglowek strony) oraz wszystkie zachowane komunikaty Service health. Czas zostaje warszawski, jak w calym portalu.
 
+**§5gr-j (14 XI 2026)** — Piotr: w karcie Overview (dwie w rzedzie) ramka "Dates differ" sie nie miesci - etykieta
+scisnieta do kolumny liter, tekst sklejony ("OTHER DATECross-check of"). Przyczyna: ogolna regula robi z naglowka `summary`
+wiersz flex, wiec etykieta i kazdy kawalek tekstu byly osobnymi elementami. Teraz `summary` = etykieta (`flex:none`,
+bez lamania) + JEDEN `span.s5gp-dct` (lamie sie, `min-width:0`), tekst z werdyktu i zdania `.s5gf-lead` ("Other date ·
+This post gives …").
+
 **§5gr-e (13 XI 2026)** — Piotr: numery incydentow (MO1550821, EX1550543) i MC w oknie statusu, w osobnej sekcji; bez
 sekretu, przez federated credential. Publiczny kanal i `status.cloud.microsoft/api/posts/*` NIE podaja numerow (sprawdzone
 13 XI); ma je Service health dzierzawy. `.github/workflows/ms-health.yml` (co ~10 min, `*/10`) loguje sie jak graph-radar
@@ -47326,8 +47332,13 @@ odtad CZTERNASCIE (4-17).**
     b.appendChild(h);
     if (e.why) { var p = el("p", "s5gp-why"); p.appendChild(el("b", null, "Why it matters: ")); p.appendChild(document.createTextNode(e.why)); b.appendChild(p); }
     e.dc.forEach(function (f) {
+      /* §5gr-j (owner, 14 XI): in a two-per-row card the badge shrank to a column of letters ("Dat/es/diff/er") and the
+         text ran together ("OTHER DATECross-check of…") - the portal's summary row is flex, so every node was a flex
+         item. Now: badge (no wrap) + ONE text span that wraps, built from the verdict and the lead sentence. */
       var d = el("details", "s5gp-dc"), s = el("summary"); s.appendChild(el("span", "s5gp-dcb", "Dates differ"));
-      s.appendChild(document.createTextNode(" " + tx(f).split(/ Show the /)[0].slice(0, 200))); d.appendChild(s);
+      var fv = f.querySelector(".s5gf-v"), fl = f.querySelector(".s5gf-lead");
+      var st = (fv ? fv.textContent.trim().toLowerCase().replace(/^./, function (c) { return c.toUpperCase(); }) + " · " : "") + (fl ? fl.textContent.trim() : tx(f).split(/ Show the /)[0]);
+      s.appendChild(el("span", "s5gp-dct", st.slice(0, 220))); d.appendChild(s);
       var c = f.cloneNode(true); c.classList.remove("s5gm-f"); var bb = c.querySelector(".s5gl-dcb"); if (bb) bb.remove(); d.appendChild(c); b.appendChild(d);
     });
     li.appendChild(b); return li;
@@ -51773,7 +51784,8 @@ header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
 .s5gp-t:hover{text-decoration:underline}.s5gp-go{color:var(--accent)}
 .s5gp-why{margin:0;font-size:15px;color:var(--text)}.s5gp-why b{font-weight:700}
 .s5gp-dc{margin-top:8px;border:1px solid #b45309;border-radius:10px;padding:6px 10px;font-size:14px}.s5gp-dc>summary{cursor:pointer;font-weight:600}
-.s5gp-dcb{background:#b45309;color:#fff;border-radius:999px;padding:1px 8px;font-weight:700;font-size:12px}
+.s5gp-dcb{background:#b45309;color:#fff;border-radius:999px;padding:1px 8px;font-weight:700;font-size:12px;flex:none;white-space:nowrap}
+.s5gp-dc>summary{flex-wrap:wrap}.s5gp-dct{flex:1 1 220px;min-width:0;overflow-wrap:anywhere;font-weight:600}
 .s5gp-dc .s5gf-ul,.s5gp-dc .s5gf-fn{display:block!important}
 .s5gp-rail{display:flex;flex-direction:column;gap:10px}
 .s5gp-rail>.s5gp-gh{margin-bottom:0}
