@@ -26444,6 +26444,24 @@ na czas warszawski i pokazuje "in N min" albo czerwone "time passed". `api/ms-st
 30 -> 60 wierszy (wiersz Teams byl uciety na "priva"). Testy: Chromium 1600 ciemny, 1100 jasny, WebKit 390; 0 bledow JS;
 bramka OK; mobile_check OK (8,8 s).
 
+**§5gr-e (13 XI 2026)** — Piotr: numery incydentow (MO1550821, EX1550543) i MC w oknie statusu, w osobnej sekcji; bez
+sekretu, przez federated credential. Publiczny kanal i `status.cloud.microsoft/api/posts/*` NIE podaja numerow (sprawdzone
+13 XI); ma je Service health dzierzawy. `.github/workflows/ms-health.yml` (co ~10 min, `*/10`) loguje sie jak graph-radar
+(aplikacja "MS-SOC Dev tenant reader", `ServiceHealth.Read.All` aplikacyjne, nadal Piotr 13 XI), `tools/ms_health.py`
+czyta `GET /v1.0/admin/serviceAnnouncement/issues`, zostawia TYLKO `origin == microsoft` (repo i strona publiczne),
+nierozwiazane + zmienione w 3 dni, 12 najnowszych postow jako tekst; zapis na galaz `status-data` jako JEDEN osierocony
+commit force-push (historia nie rosnie, inne workflowy patrza tylko na main). `api/ms-status` czyta
+`raw.githubusercontent.com/wpiotrw/MS_SOC/status-data/ms-health.json` (zmienna `MS_HEALTH_URL` tylko do testow),
+dopasowuje numery do incydentu z RSS (tytul z `/api/posts/mac`, "User impact" = `impactDescription`, numery w tekscie,
+issue wskazujace juz dopasowany numer) i dodaje `extra`: uslugi konsumenckie (`/api/posts/m365Consumer`) i Power Platform
+(`/api/posts/ppac`). Okno: odznaki numerow w naglowku incydentu (link `admin.microsoft.com/AdminPortal/home#/servicehealth/:/alerts/<ID>`,
+MC -> Message center i mc.merill.net), sekcja "References" zaraz pod "Key facts", sekcja "Service health · incident
+numbers" (Open incidents otwarte, advisories i rozwiazane z 3 dni zwiniete; najnowsza aktualizacja z Key facts, starsze
+zwiniete), karty "Microsoft 365 consumer services" i "Power Platform", odnosniki Downdetector (dane Downdetector tylko
+platne - Downdetector Explorer/API; X API tez platne, Piotr: na razie nie). Klucz "Next steps" dodany. Testy na danych
+przykladowych (MO1550821 + EX1550543 + advisory + rozwiazany) i bez danych (404 -> "could not be read"): Chromium 1600,
+WebKit 390, 0 bledow JS; bramka OK; mobile_check OK (9,3 s).
+
 **§5gq (13 XI 2026) — wlasna domena `guardzilla.azureme.pl`.** OVH, strefa DNS azureme.pl: CNAME `guardzilla` →
 `orange-ground-019f30603.7.azurestaticapps.net.` (DNS domeny obsluguje OVH: NS `dns101.ovh.net`, `ns101.ovh.net`; brak rekordu CAA).
 Azure, Static Web App → Custom domains → „Custom domain on other DNS", walidacja CNAME (ok. 30 min), darmowy certyfikat
@@ -47474,7 +47492,7 @@ odtad CZTERNASCIE (4-17).**
   function link(href, txt) { var a = el("a", "s5ms-l", txt + " ›"); a.href = href; a.target = "_blank"; a.rel = "noopener noreferrer"; return a; }
   var KEYS = [[/^user impact$/i, "User impact", 1], [/^scope of impact$/i, "Scope of impact", 2], [/^next update( by)?$/i, "Next update", 3, 1],
     [/^(current|final) status$/i, null, 4], [/^estimated (time to resolve|resolution)/i, null, 5], [/^workaround$/i, "Workaround", 6],
-    [/^(preliminary )?root cause$/i, null, 7], [/^start time$/i, "Start time", 8], [/^end time$/i, "End time", 9]];
+    [/^(preliminary )?root cause$/i, null, 7], [/^next steps?$/i, "Next steps", 7.5], [/^start time$/i, "Start time", 8], [/^end time$/i, "End time", 9]];
   function parseLines(lines) {
     var keys = [], svc = [], intro = [], other = [], cur = null;
     lines.forEach(function (ln) {
@@ -47505,6 +47523,79 @@ odtad CZTERNASCIE (4-17).**
     else { late = true; rel = "time passed " + (-mins >= 120 ? Math.round(-mins / 60) + " h" : -mins + " min") + " ago - Microsoft may post the update late"; }
     return { w: w, rel: rel, late: late };
   }
+  /* §5gr-e (owner, 13 XI): incident numbers (MO1550821, EX1550543) and MC references in the window, in their own
+     sections. Numbers come from Service health of the developer tenant (workflow ms-health, federated credential),
+     only issues Microsoft publishes to every tenant. Also the consumer services and Power Platform, and Downdetector
+     links (its data is paid only, so links, no copied numbers). */
+  var ADM = "https://admin.microsoft.com/AdminPortal/home#/servicehealth/:/alerts/";
+  function hIssue(id) { var L = data && data.health && data.health.issues || []; for (var i = 0; i < L.length; i++) if (L[i].id === id) return L[i]; return null; }
+  function idBadge(id) { var a = el("a", "s5ms-id" + (/^MC/.test(id) ? " s5ms-id-mc" : ""), id); a.target = "_blank"; a.rel = "noopener noreferrer";
+    a.href = /^MC/.test(id) ? "https://admin.microsoft.com/AdminPortal/home#/MessageCenter/:/messages/" + id : ADM + id;
+    a.title = /^MC/.test(id) ? "Open " + id + " in the Message center of the Microsoft 365 admin center" : "Open " + id + " in Service health of the Microsoft 365 admin center"; return a; }
+  function refs(ids) {
+    var sec = el("div", "s5ms-sec"), sh = el("h4", "s5ms-sh", "References "); sh.appendChild(el("span", "s5ms-cnt", String(ids.length))); sec.appendChild(sh);
+    ids.forEach(function (id) {
+      var r = el("div", "s5ms-ref"), is = hIssue(id); r.appendChild(idBadge(id));
+      var d = el("div", "s5ms-refd");
+      if (/^MC/.test(id)) { d.appendChild(el("span", null, "Message center post · ")); d.appendChild(link("https://mc.merill.net/message/" + id, "read it on mc.merill.net")); }
+      else if (is) { d.appendChild(el("b", null, (is.service || "") + (is.feature ? " · " + is.feature : ""))); d.appendChild(el("span", null, " · " + (is.classification === "incident" ? "incident" : "advisory") + " · " + human(is.status || "") + (is.start ? " · since " + dt(is.start) + " Warsaw" : ""))); }
+      else d.appendChild(el("span", null, "Incident number in Service health of the Microsoft 365 admin center"));
+      r.appendChild(d); sec.appendChild(r);
+    });
+    return sec;
+  }
+  function postBlock(p, full) {
+    var w = el("div", "s5ms-post"), hd = el("div", "s5ms-posth", (p.type === "quick" ? "Quick update" : "Update") + " · " + dt(p.at) + " Warsaw");
+    w.appendChild(hd);
+    p = { at: p.at, type: p.type, lines: (p.lines || []).filter(function (t) { return !/^title:/i.test(t); }) };
+    var P = parseLines(p.lines || []);
+    if (full && P.keys.length) {
+      var kb = el("div", "s5ms-key s5ms-k-warn");
+      P.keys.forEach(function (k) { var row = el("div", "s5ms-kr"), v = el("div", "s5ms-kv"); row.appendChild(el("span", "s5ms-kl", k.label));
+        if (k.next) { var nx = nextUpd(k.t[0]); if (nx) { v.appendChild(el("b", "s5ms-nx", nx.w + " Warsaw")); if (nx.rel) v.appendChild(el("span", "s5ms-rel" + (nx.late ? " s5ms-late" : ""), nx.rel)); v.appendChild(el("div", "s5ms-orig", k.t.join(" "))); } else v.appendChild(el("p", null, k.t.join(" "))); }
+        else k.t.forEach(function (t) { v.appendChild(el("p", null, t)); });
+        row.appendChild(v); kb.appendChild(row); });
+      w.appendChild(kb);
+      P.svc.concat(P.other).forEach(function (x) { var q = el("p", "s5ms-op"); if (x.n) q.appendChild(el("b", null, x.n + ": ")); q.appendChild(document.createTextNode(x.t)); w.appendChild(q); });
+    } else (p.lines || []).forEach(function (t) { var m = /^([^:]{2,70}):\s*(.*)$/.exec(t), q = el("p", "s5ms-op"); if (m) { q.appendChild(el("b", null, m[1] + ": ")); q.appendChild(document.createTextNode(m[2])); } else q.textContent = t; w.appendChild(q); });
+    return w;
+  }
+  function issueBlock(is, linked) {
+    var d = el("details", "s5ms-is" + (is.isResolved ? " s5ms-is-done" : "")); if (linked) d.open = true;
+    var s = el("summary", "s5ms-ish");
+    s.appendChild(idBadge(is.id));
+    s.appendChild(el("span", "s5ms-pill s5ms-p-" + (is.isResolved ? "ok" : (/interruption/i.test(is.status) ? "bad" : "warn")), human(is.status || (is.isResolved ? "resolved" : "open"))));
+    s.appendChild(el("span", "s5ms-kind", is.classification === "incident" ? "Incident" : "Advisory"));
+    s.appendChild(el("b", "s5ms-ist", is.title || ""));
+    s.appendChild(el("span", "s5ms-ism", (is.service || "") + (is.feature ? " · " + is.feature : "") + (is.start ? " · since " + dt(is.start) + " Warsaw" : "") + (is.modified ? " · last update " + dt(is.modified) + " Warsaw" : "") + (linked ? " · this is the incident above" : "")));
+    d.appendChild(s);
+    var b = el("div", "s5ms-isb");
+    if (is.impact) { var ip = el("p", "s5ms-imp"); ip.appendChild(el("b", null, "Impact: ")); ip.appendChild(document.createTextNode(is.impact)); b.appendChild(ip); }
+    var a = el("div", "s5ms-links"); a.appendChild(link(ADM + is.id, "Open " + is.id + " in the admin center")); b.appendChild(a);
+    (is.posts || []).forEach(function (p, n) {
+      if (n === 0) { b.appendChild(postBlock(p, true)); return; }
+      if (n === 1) { var more = el("details", "s5ms-older"); more.appendChild(el("summary", null, "Earlier updates (" + ((is.postCount || is.posts.length) - 1) + ")")); b.appendChild(more); b.__more = more; }
+      b.__more.appendChild(postBlock(p, false));
+    });
+    d.appendChild(b); return d;
+  }
+  function healthSec(linkedIds) {
+    var H = data && data.health, sec = el("div", "s5ms-sec s5ms-hs");
+    var sh = el("h4", "s5ms-sh", "Service health · incident numbers"); sec.appendChild(sh);
+    if (!H || !H.ok) { sec.appendChild(el("p", "s5ms-intro", "Service health could not be read" + (H && H.error ? " (" + H.error + ")" : "") + ". Open Service health in the admin center below.")); return sec; }
+    var age = H.generated ? Math.round((Date.now() - new Date(H.generated)) / 6e4) : null;
+    sec.appendChild(el("p", "s5ms-intro", "From Service health of the Microsoft 365 admin center (issues Microsoft publishes to every tenant), read every ~10 minutes" + (H.generated ? " · last read " + hm(H.generated) + " Warsaw" + (age != null ? " (" + age + " min ago)" : "") : "") + "."));
+    var L = H.issues || [], inc = L.filter(function (i) { return !i.isResolved && i.classification === "incident"; }),
+      adv = L.filter(function (i) { return !i.isResolved && i.classification !== "incident"; }), done = L.filter(function (i) { return i.isResolved; });
+    function grp(title, arr, open) {
+      if (!arr.length) return;
+      var g = el("details", "s5ms-grp"); g.open = !!open; var gs = el("summary", "s5ms-grps", title + " "); gs.appendChild(el("span", "s5ms-cnt", String(arr.length))); g.appendChild(gs);
+      arr.forEach(function (i) { g.appendChild(issueBlock(i, linkedIds.indexOf(i.id) >= 0)); }); sec.appendChild(g);
+    }
+    if (!L.length) sec.appendChild(el("p", "s5ms-intro", "No open Microsoft incident or advisory in Service health."));
+    grp("Open incidents", inc, true); grp("Open advisories", adv, false); grp("Resolved in the last " + (H.keepDays || 3) + " days", done, false);
+    return sec;
+  }
   function fillWin(k) {
     var d = ov.querySelector(".s5ms-dlg"); d.textContent = "";
     var x = el("button", "s5ms-x", "Close ✕"); x.type = "button"; x.addEventListener("click", closeWin); d.appendChild(x);
@@ -47526,7 +47617,9 @@ odtad CZTERNASCIE (4-17).**
       (s.items || []).forEach(function (it) {
         var w = el("div", "s5ms-it"), t = el("div", "s5ms-ih");
         t.appendChild(el("span", "s5ms-pill s5ms-p-" + (it.level === "resolved" ? "ok" : it.level), it.status ? human(it.status) : (it.level === "resolved" ? "Resolved" : "Incident")));
-        t.appendChild(el("b", null, it.title || s.name)); w.appendChild(t);
+        t.appendChild(el("b", null, it.title || s.name));
+        (it.ids || []).forEach(function (id) { t.appendChild(idBadge(id)); });
+        w.appendChild(t);
         if (it.published) w.appendChild(el("div", "s5ms-pub", "Posted " + dt(it.published) + " Warsaw"));
         /* §5gr-d (owner, 13 XI): "user impact, scope of impact, next update - all in the same font, it gets lost; you have
            to scroll to see them; they belong at the top, in a separate section". The lines are split into: key facts
@@ -47568,13 +47661,35 @@ odtad CZTERNASCIE (4-17).**
           P.other.forEach(function (x) { var q = el("p", "s5ms-op"); if (x.n) { q.appendChild(el("b", null, x.n + ": ")); } q.appendChild(document.createTextNode(x.t)); ot.appendChild(q); });
           w.appendChild(ot);
         }
+        var ids = (it.ids || []).slice(); (it.lines || []).join(" ").replace(/\b(?:[A-Z]{2}\d{6,8})\b/g, function (x) { if (ids.indexOf(x) < 0) ids.push(x); return x; });
+        if (ids.length) { var rf = refs(ids), kb0 = w.querySelector(":scope > .s5ms-key"), pb0 = w.querySelector(":scope > .s5ms-pub");
+          var after = kb0 || pb0 || t; w.insertBefore(rf, after.nextSibling); }
         c.appendChild(w);
       });
+      if (s.key === "m365") { var lk = []; (s.items || []).forEach(function (it) { (it.ids || []).forEach(function (x) { lk.push(x); }); }); c.appendChild(healthSec(lk)); }
       var L = el("div", "s5ms-links");
       L.appendChild(link(s.page, s.key === "azure" ? "Azure status page" : "Microsoft status page"));
       L.appendChild(link(s.admin, s.key === "azure" ? "Azure Service Health (portal)" : "Service health in the Microsoft 365 admin center"));
       L.appendChild(link(s.feed, "RSS feed"));
+      L.appendChild(link(s.key === "azure" ? "https://downdetector.com/status/windows-azure/" : "https://downdetector.com/status/microsoft-365/", "Downdetector (user reports)"));
       c.appendChild(L); d.appendChild(c);
+    });
+    (data && data.extra || []).forEach(function (x) {
+      var c = el("section", "s5ms-card s5ms-c-" + (x.state || "error")), h = el("h3");
+      h.appendChild(el("span", "s5ms-pill s5ms-p-" + (x.state || "error"), x.state === "ok" ? "No issues" : (x.state === "error" ? "Status unknown" : (x.items.length === 1 ? "1 service with an issue" : x.items.length + " services with an issue"))));
+      h.appendChild(document.createTextNode(x.name)); c.appendChild(h);
+      if (x.state === "ok") c.appendChild(el("p", "s5ms-p", x.key === "consumer" ? "All " + (x.total || "") + " consumer services (Outlook.com, OneDrive personal, Teams free, Copilot…) are operational." : "Power Platform reports no issue."));
+      else if (x.state === "error") c.appendChild(el("p", "s5ms-p", "This part of Microsoft's status page could not be read."));
+      (x.items || []).forEach(function (it) {
+        var w = el("div", "s5ms-it"), t = el("div", "s5ms-ih");
+        t.appendChild(el("span", "s5ms-pill s5ms-p-warn", it.status || "Issue")); t.appendChild(el("b", null, it.service + (it.title ? " · " + it.title : ""))); w.appendChild(t);
+        if (it.updated) w.appendChild(el("div", "s5ms-pub", "Updated " + dt(it.updated) + " Warsaw"));
+        var P = parseLines(it.lines || []);
+        if (P.keys.length) { var kb = el("div", "s5ms-key s5ms-k-warn"); P.keys.forEach(function (k) { var row = el("div", "s5ms-kr"), v = el("div", "s5ms-kv"); row.appendChild(el("span", "s5ms-kl", k.label)); k.t.forEach(function (tt) { v.appendChild(el("p", null, tt)); }); row.appendChild(v); kb.appendChild(row); }); w.appendChild(kb); }
+        P.svc.concat(P.other).forEach(function (q) { var pp = el("p", "s5ms-op"); if (q.n) pp.appendChild(el("b", null, q.n + ": ")); pp.appendChild(document.createTextNode(q.t)); w.appendChild(pp); });
+        c.appendChild(w);
+      });
+      var L2 = el("div", "s5ms-links"); L2.appendChild(link(x.page, "Microsoft status page")); c.appendChild(L2); d.appendChild(c);
     });
     d.appendChild(el("p", "s5ms-sub", "Microsoft's public pages show broad incidents only. Issues that touch some tenants only are listed in Service health of your own tenant."));
   }
@@ -51467,6 +51582,26 @@ header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
 @keyframes s5msfl{0%{background:rgba(59,130,246,.35)}100%{background:transparent}}
 .s5ms-op{margin:0 0 6px;font-size:15px;overflow-wrap:anywhere}
 @media (max-width:640px){.s5ms-kr{grid-template-columns:1fr;gap:4px}}
+/* §5gr-e: incident numbers, references, Service health, extra services */
+.s5ms-id{display:inline-block;background:#0f172a;color:#fff!important;font:700 13.5px/1.3 var(--mono,monospace);border-radius:6px;padding:3px 9px;text-decoration:none;border:2px solid #f59e0b}
+.s5ms-id:hover,.s5ms-id:focus-visible{background:#1e293b;outline:2px solid #93c5fd}
+.s5ms-id-mc{border-color:#3b82f6}
+.s5ms-ref{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;padding:6px 0;border-top:1px solid var(--border)}.s5ms-ref:first-of-type{border-top:0}
+.s5ms-refd{font-size:15px;min-width:0;overflow-wrap:anywhere}
+.s5ms-hs{border-top:2px solid #f59e0b}
+.s5ms-grp{margin:6px 0;border:1px solid var(--border);border-radius:10px;padding:6px 10px}
+.s5ms-grps{cursor:pointer;font-weight:800;font-size:15.5px;padding:4px 0}
+.s5ms-is{border-top:1px solid var(--border);padding:8px 0}
+.s5ms-ish{cursor:pointer;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;list-style-position:outside}
+.s5ms-ist{flex:1 1 100%;font-size:15.5px}
+.s5ms-ism{flex:1 1 100%;font-size:14px;color:var(--text)}
+.s5ms-kind{background:#334155;color:#fff;font-weight:700;font-size:13px;border-radius:999px;padding:2px 9px}
+.s5ms-is-done .s5ms-ist{opacity:.9}
+.s5ms-isb{padding:6px 0 0 4px}
+.s5ms-imp{margin:0 0 6px;font-size:15px;overflow-wrap:anywhere}
+.s5ms-post{border-left:3px solid var(--border);padding:4px 0 4px 10px;margin:8px 0}
+.s5ms-posth{font-weight:700;font-size:14.5px;margin:0 0 4px}
+.s5ms-older>summary{cursor:pointer;font-weight:700;font-size:15px;margin:6px 0}
 .s5ms-p{margin:4px 0}
 .s5ms-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .s5ms-l{border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:3px 12px;text-decoration:none;font-weight:600;font-size:13.5px}

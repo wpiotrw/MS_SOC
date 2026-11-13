@@ -65,14 +65,74 @@ async function read(f) {
   return out;
 }
 
+/* 5gr-e (13 XI 2026): incident numbers and their history. The public feed names none; Service health of our developer
+   tenant does. .github/workflows/ms-health.yml (federated credential, no secret) writes it every ~10 minutes to the
+   branch status-data, keeping only issues Microsoft publishes to every tenant (origin "microsoft"). Also the consumer
+   services and Power Platform from status.cloud.microsoft (the same JSON the status page itself reads). Each part
+   fails on its own: the badges never wait for, or break on, these extras. */
+const HEALTH = process.env.MS_HEALTH_URL || "https://raw.githubusercontent.com/wpiotrw/MS_SOC/status-data/ms-health.json";
+const POSTS = "https://status.cloud.microsoft/api/posts/";
+async function getJson(url) {
+  const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), T_OUT);
+  try {
+    const r = await fetch(url, { signal: ctl.signal, headers: { "User-Agent": "MS_SOC status badge (+https://guardzilla.azureme.pl/)", Accept: "application/json" } });
+    if (r.status !== 200) throw new Error("HTTP " + r.status);
+    return await r.json();
+  } finally { clearTimeout(t); }
+}
+function plain(s) { return lines(String(s || "").replace(/\n/g, "<br>")); }
+const IDRE = /\b(?:[A-Z]{2}\d{6,8})\b/g;
+function norm(s) { return String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim(); }
+async function health() {
+  try {
+    const h = await getJson(HEALTH + "?t=" + Math.floor(Date.now() / 60000));
+    return { ok: !!h.ok, generated: h.generated || null, error: h.error || null, keepDays: h.keepDays || 3,
+      issues: (h.issues || []).slice(0, 40) };
+  } catch (e) { return { ok: false, error: "the Service health data could not be read (" + String(e.message || e).slice(0, 80) + ")", issues: [] }; }
+}
+async function extras() {
+  const out = [];
+  const [cons, ppac, mac] = await Promise.all(["m365Consumer", "ppac", "mac"].map((k) => getJson(POSTS + k).catch(() => null)));
+  if (Array.isArray(cons)) {
+    const bad = cons.filter((x) => x && x.Status && !/^(operational|available)$/i.test(x.Status));
+    out.push({ key: "consumer", name: "Microsoft 365 consumer services", page: "https://status.cloud.microsoft/",
+      state: bad.length ? "warn" : "ok", total: cons.length,
+      items: bad.map((x) => ({ service: x.ServiceDisplayName, status: x.Status, title: x.Title || "", updated: x.LastUpdatedTime, lines: plain(x.Message) })) });
+  } else out.push({ key: "consumer", name: "Microsoft 365 consumer services", page: "https://status.cloud.microsoft/", state: "error" });
+  if (ppac && typeof ppac === "object") {
+    const okp = !ppac.Status || /^(operational|available)$/i.test(ppac.Status) || !ppac.Title;
+    out.push({ key: "ppac", name: "Power Platform", page: "https://status.cloud.microsoft/", state: okp ? "ok" : "warn",
+      items: okp ? [] : [{ service: "Power Platform", status: ppac.Status, title: ppac.Title || "", updated: ppac.LastUpdatedTime, lines: plain(ppac.Message) }] });
+  } else out.push({ key: "ppac", name: "Power Platform", page: "https://status.cloud.microsoft/", state: "error" });
+  return { extra: out, macTitle: mac && mac.Title ? mac.Title : null };
+}
+function link(services, h, macTitle) {
+  const m = services.find((s) => s.key === "m365"); if (!m || !m.items) return;
+  const issues = h.issues || [], byId = {}; issues.forEach((i) => { byId[i.id] = i; });
+  m.items.forEach((it) => {
+    const ids = new Set(), txt = (it.lines || []).join(" ");
+    (txt.match(IDRE) || []).forEach((x) => ids.add(x));
+    const imp = (it.lines || []).map((l) => /^user impact:\s*(.*)$/i.exec(l)).filter(Boolean).map((x) => norm(x[1]))[0];
+    issues.forEach((i) => {
+      if (i.isResolved !== (it.level === "resolved")) return;
+      if ((macTitle && norm(i.title) === norm(macTitle)) || norm(i.title) === norm(it.title) || (imp && norm(i.impact) === imp)) ids.add(i.id);
+    });
+    // an issue that names one already linked (EX1550543 tracked under MO1550821) is linked too
+    issues.forEach((i) => { const t = JSON.stringify(i.posts || []) + " " + (i.impact || ""); [...ids].forEach((x) => { if (t.indexOf(x) >= 0) ids.add(i.id); }); });
+    issues.forEach((i) => { if (ids.has(i.id)) { const t = JSON.stringify(i.posts || []); (t.match(IDRE) || []).forEach((x) => ids.add(x)); } });
+    it.ids = [...ids].sort((a, b) => (a.slice(0, 2) === "MO" ? -1 : 0) - (b.slice(0, 2) === "MO" ? -1 : 0));
+  });
+}
+
 module.exports = async function (context, req) {
   const now = Date.now(), force = req && req.query && req.query.refresh === "1";
   // ?refresh=1 skips the cache, but no more often than every 20 s (the Refresh button cannot hammer Microsoft)
   if (!CACHE || now - CACHE.t > TTL || (force && now - CACHE.t > 20000)) {
-    const services = await Promise.all(FEEDS.map(read));
-    CACHE = { t: now, data: { checked: new Date(now).toISOString(), ttlSeconds: TTL / 1000, services } };
+    const [services, h, x] = await Promise.all([Promise.all(FEEDS.map(read)), health(), extras().catch(() => ({ extra: [] }))]);
+    try { link(services, h, x.macTitle); } catch (e) { /* the links are an extra */ }
+    CACHE = { t: now, data: { checked: new Date(now).toISOString(), ttlSeconds: TTL / 1000, services, health: h, extra: x.extra || [] } };
   }
   context.res = { status: 200, headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "public, max-age=60" },
     body: JSON.stringify(CACHE.data) };
 };
-module.exports._test = { parse, lines, level };
+module.exports._test = { parse, lines, level, link, norm };

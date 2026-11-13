@@ -1,0 +1,54 @@
+name: Microsoft 365 Service health
+
+# CLAUDE.md 5gr-e (13 XI 2026): incident numbers (MO..., EX...) and their history for the status window. The public
+# status feed names no number; Service health of our developer tenant does. Signs in with the federated credential of
+# GitHub Actions (no secret): app "MS-SOC Dev tenant reader", permission ServiceHealth.Read.All (application).
+# tools/ms_health.py keeps only issues of origin "microsoft" (the repository and the page are public).
+# The result goes to the branch "status-data" as ONE orphan commit, force-pushed: no history grows, and no other
+# workflow reacts (they all watch main). api/ms-status reads it from raw.githubusercontent.com.
+on:
+  schedule:
+    - cron: "*/10 * * * *"     # GitHub may start a scheduled run some minutes late
+  push:
+    branches: [main]
+    paths:
+      - 'tools/ms_health.py'
+      - '.github/workflows/ms-health.yml'
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: write
+
+concurrency:
+  group: ms-health
+  cancel-in-progress: false
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Service health (developer tenant, read-only)
+        env:
+          AZURE_TENANT_ID: ${{ vars.DEV_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ vars.DEV_CLIENT_ID }}
+        run: python3 tools/ms_health.py "$RUNNER_TEMP/ms-health.json"
+      - name: Publish to the branch status-data
+        run: |
+          set -euo pipefail
+          python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print('ok', d.get('ok'), 'issues', len(d.get('issues') or []))" "$RUNNER_TEMP/ms-health.json"
+          D="$RUNNER_TEMP/sd"; mkdir -p "$D"; cd "$D"
+          git init -q -b status-data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp "$RUNNER_TEMP/ms-health.json" ms-health.json
+          printf '%s\n' "Data for the MS_SOC status window (api/ms-status). Written by .github/workflows/ms-health.yml on main; force-pushed, one commit." > README.md
+          git add ms-health.json README.md
+          git commit -q -m "data: Microsoft 365 Service health $(date -u +%F' '%H:%M) UTC"
+          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          for i in 1 2 3; do git push -q -f origin status-data && break; sleep 5; done
