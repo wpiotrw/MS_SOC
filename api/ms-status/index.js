@@ -27,7 +27,7 @@ function lines(desc) {
   const html = unent(desc);                                   // the description is escaped HTML
   return html.split(/<\s*(?:br|\/?div|\/?p|\/?li)[^>]*>/i)
     .map((x) => unent(x.replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim())
-    .filter(Boolean).slice(0, 30).map((x) => x.slice(0, 600));
+    .filter(Boolean).slice(0, 60).map((x) => x.slice(0, 2000));
 }
 function level(status, title) {
   const s = (status + " " + title).toLowerCase();
