@@ -6612,6 +6612,14 @@ header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
 .s5ms-t-inc{border-left-color:#b91c1c}.s5ms-t-adv{border-left-color:#1d4ed8}.s5ms-t-done{border-left-color:#047857}
 .s5ms-ish{cursor:pointer;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;list-style-position:outside}
 .s5ms-ist0{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.s5ms-adm{margin-left:auto;font-weight:700;font-size:14px}
+.s5ms-is{padding:12px 14px!important;margin:0 0 10px!important}
+.s5ms-is>.s5ms-ist{display:block;font-size:17px;margin:8px 0 6px}
+.s5ms-fg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 16px;margin:4px 0 8px}
+.s5ms-fl{font-size:13.5px;font-weight:700;color:var(--text);opacity:.85}
+.s5ms-fv{font-size:15px;font-weight:600;overflow-wrap:anywhere}
+.s5ms-fv .s5ms-rel{margin-left:6px}
+@media (max-width:700px){.s5ms-fg{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .s5ms-type{color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;border-radius:6px;padding:4px 10px}
 .s5ms-ty-inc{background:#b91c1c}.s5ms-ty-adv{background:#1d4ed8}.s5ms-ty-old{background:#475569}.s5ms-ty-done{background:#047857}
 .s5ms-ish .s5ms-id{font-size:15.5px;padding:3px 10px}
@@ -33923,7 +33931,7 @@ IdentityDirectoryEvents
     d = new Date(d.getTime() + (h * 60 + +m[3]) * 6e4);
     var w = d.toLocaleString("en-GB", { timeZone: "Europe/Warsaw", weekday: "short", day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" });
     var mins = Math.round((d - Date.now()) / 6e4), rel = "", late = false;
-    if (mins > 0) rel = "in " + (mins >= 120 ? Math.round(mins / 60) + " h" : mins + " min");
+    if (mins > 0) rel = "in " + (mins >= 2880 ? Math.round(mins / 1440) + " days" : (mins >= 120 ? Math.round(mins / 60) + " h" : mins + " min"));
     else { late = true; rel = "time passed " + (-mins >= 120 ? Math.round(-mins / 60) + " h" : -mins + " min") + " ago - Microsoft may post the update late"; }
     return { w: w, rel: rel, late: late };
   }
@@ -33971,36 +33979,49 @@ IdentityDirectoryEvents
      (Open now / Incidents / Advisories / Older advisories / Resolved); the headline from Microsoft's status page is
      not a separate block any more - it sits inside the row of its own number (marked "On Microsoft's status page").
      Status, key facts, chips and number badges are neutral. */
-  function issueBlock(is, rss, kind) {
-    var d = el("details", "s5ms-is s5ms-t-" + kind); d.setAttribute("data-f", kind);
-    var s = el("summary", "s5ms-ish"), top = el("span", "s5ms-ist0"), inc = is.classification === "incident";
-    top.appendChild(el("span", "s5ms-type s5ms-ty-" + kind, kind === "done" ? (inc ? "Incident · resolved" : "Advisory · resolved") : (inc ? "Incident" : (kind === "old" ? "Advisory · older" : "Advisory"))));
+  /* §5gr-i (owner, 13 XI, 23:52, with pulse.azureme.pl as the model): the facts show without a click - type with its
+     place ("Incident 1 of 2"), number, state, admin-center link; a grid Service / Start / Last update (with the number
+     of the update) / Next update; User impact and Current status from the newest update; related numbers. Older updates,
+     the status-page text and the affected services stay under "More". */
+  function issueBlock(is, rss, kind, nth, tot) {
+    var d = el("div", "s5ms-is s5ms-t-" + kind); d.setAttribute("data-f", kind);
+    var top = el("div", "s5ms-ist0"), inc = is.classification === "incident";
+    var lab = kind === "done" ? (inc ? "Incident · resolved" : "Advisory · resolved") : (inc ? "Incident" : (kind === "old" ? "Advisory · older" : "Advisory"));
+    top.appendChild(el("span", "s5ms-type s5ms-ty-" + kind, lab + (tot > 1 ? " " + nth + " of " + tot : "")));
     top.appendChild(idBadge(is.id));
     top.appendChild(el("span", "s5ms-st", human(is.status || "")));
     if (rss) top.appendChild(el("span", "s5ms-onpg", "On Microsoft's status page"));
-    s.appendChild(top);
-    s.appendChild(el("b", "s5ms-ist", is.title || ""));
+    var ad = link(ADM + is.id, "Admin center ↗"); ad.classList.add("s5ms-adm"); top.appendChild(ad);
+    d.appendChild(top);
+    d.appendChild(el("b", "s5ms-ist", is.title || ""));
+    var P0 = is.posts && is.posts[0] ? parseLines((is.posts[0].lines || []).filter(function (t) { return !/^title:/i.test(t); })) : { keys: [] };
+    function key(re) { for (var i = 0; i < P0.keys.length; i++) if (re.test(P0.keys[i].label)) return P0.keys[i]; return null; }
+    var nk = key(/^next update/i), nx = nk ? nextUpd(nk.t[0]) : null;
     var age = is.modified ? Math.floor((Date.now() - Date.parse(is.modified)) / 864e5) : null;
-    s.appendChild(el("span", "s5ms-ism", (is.service || "") + (is.feature && is.feature !== is.service ? " · " + is.feature : "") + (is.start ? " · since " + dt(is.start) + " Warsaw" : "") + (is.modified ? " · last update " + dt(is.modified) + " Warsaw" : "") + (kind === "old" && age != null ? " · no update for " + age + " days" : "")));
-    d.appendChild(s);
-    var b = el("div", "s5ms-isb");
-    if (rss) b.appendChild(rss);
-    if (is.impact) { var ip = el("p", "s5ms-imp"); ip.appendChild(el("b", null, "Impact: ")); ip.appendChild(document.createTextNode(is.impact)); b.appendChild(ip); }
-    if (is.refs && is.refs.length) { var rr = el("div", "s5ms-ref"); rr.appendChild(el("b", null, "Numbers named in its updates: ")); is.refs.forEach(function (x) { rr.appendChild(idBadge(x)); }); b.appendChild(rr); }
-    var a = el("div", "s5ms-links"); a.appendChild(link(ADM + is.id, "Open " + is.id + " in the admin center")); b.appendChild(a);
-    var n = is.postCount || (is.posts || []).length, more = null;
-    (is.posts || []).forEach(function (p, i) {
-      if (i === 0 && !rss) { b.appendChild(postBlock(p, true)); return; }
-      if (!more) { more = el("details", "s5ms-older"); more.appendChild(el("summary", null, rss ? "Updates in Service health (" + n + ")" : "Earlier updates (" + (n - 1) + ")")); b.appendChild(more); }
-      more.appendChild(postBlock(p, i === 0));
-    });
-    d.appendChild(b); return d;
+    var fg = el("div", "s5ms-fg");
+    function f(l, v, extra) { var c = el("div", "s5ms-fc"); c.appendChild(el("div", "s5ms-fl", l)); var vv = el("div", "s5ms-fv", v || "—"); if (extra) vv.appendChild(extra); c.appendChild(vv); fg.appendChild(c); }
+    f("Service", (is.service || "") + (is.feature && is.feature !== is.service ? " · " + is.feature : ""));
+    f("Start", is.start ? dt(is.start) + " Warsaw" : "");
+    f(is.isResolved ? "Ended" : "Last update", (is.isResolved && is.end ? dt(is.end) : (is.modified ? dt(is.modified) : "")) + " Warsaw" + (is.postCount ? " · update no. " + is.postCount : "") + (kind === "old" && age != null ? " · " + age + " days ago" : ""));
+    f("Next update", is.isResolved ? "none - resolved" : (nx ? nx.w + " Warsaw" : (nk ? nk.t.join(" ") : "not given")), nx && nx.rel ? el("span", "s5ms-rel" + (nx.late ? " s5ms-late" : ""), nx.rel) : null);
+    d.appendChild(fg);
+    var ui = is.impact || (key(/user impact/i) || { t: [] }).t.join(" ");
+    if (ui) { var ip = el("p", "s5ms-imp"); ip.appendChild(el("b", null, "User impact: ")); ip.appendChild(document.createTextNode(ui)); d.appendChild(ip); }
+    var cs = key(/(current|final) status/i);
+    if (cs) { var cp = el("p", "s5ms-imp"); cp.appendChild(el("b", null, cs.label + ": ")); cp.appendChild(document.createTextNode(cs.t.join(" "))); d.appendChild(cp); }
+    if (is.refs && is.refs.length) { var rr = el("div", "s5ms-ref"); rr.appendChild(el("b", null, "Related numbers: ")); is.refs.forEach(function (x) { rr.appendChild(idBadge(x)); }); d.appendChild(rr); }
+    var more = el("details", "s5ms-older"), n = is.postCount || (is.posts || []).length;
+    more.appendChild(el("summary", null, "More: " + [rss ? "status-page text and affected services" : "", n ? "updates in Service health (" + n + ")" : ""].filter(Boolean).join(" · ")));
+    if (rss) more.appendChild(rss);
+    (is.posts || []).forEach(function (p, i) { more.appendChild(postBlock(p, i === 0)); });
+    if (rss || n) d.appendChild(more);
+    return d;
   }
   var FIL = "open";
   function listSec(S, rssFor) {
     var H = data.health, sec = el("div", "s5ms-ls");
     var age = H.generated ? Math.round((Date.now() - new Date(H.generated)) / 6e4) : null;
-    sec.appendChild(el("p", "s5ms-intro", "From Service health of the Microsoft 365 admin center (issues Microsoft publishes to every tenant), read every ~5 minutes" + (H.generated ? " · last read " + hm(H.generated) + " Warsaw" + (age != null ? " (" + age + " min ago)" : "") : "") + ". A row opens its details."));
+    sec.appendChild(el("p", "s5ms-intro", "From Service health of the Microsoft 365 admin center (issues Microsoft publishes to every tenant), read every ~5 minutes" + (H.generated ? " · last read " + hm(H.generated) + " Warsaw" + (age != null ? " (" + age + " min ago)" : "") : "") + "."));
     var G = [["open", "Open now", S.inc.length + S.adv.length], ["inc", "Incidents", S.inc.length], ["adv", "Advisories", S.adv.length],
       ["old", "Older advisories", S.old.length], ["done", "Resolved · " + (H.keepDays || 3) + " days", S.done.length]];
     var bar = el("div", "s5ms-fb"), list = el("div", "s5ms-lst"), empty = el("p", "s5ms-intro", "Nothing in this group now.");
@@ -34008,7 +34029,7 @@ IdentityDirectoryEvents
     function apply() {
       [].forEach.call(bar.children, function (x) { x.setAttribute("aria-pressed", String(x.getAttribute("data-f") === FIL)); });
       var n = 0;
-      [].forEach.call(list.children, function (x) { var f = x.getAttribute("data-f"), on = FIL === "open" ? (f === "inc" || f === "adv") : f === FIL; x.hidden = !on; if (on && x.tagName === "DETAILS") n++; });
+      [].forEach.call(list.children, function (x) { var f = x.getAttribute("data-f"), on = FIL === "open" ? (f === "inc" || f === "adv") : f === FIL; x.hidden = !on; if (on && x.classList.contains("s5ms-is")) n++; });
       empty.hidden = n > 0;
     }
     G.forEach(function (g) {
@@ -34018,7 +34039,7 @@ IdentityDirectoryEvents
     [["inc", "Incidents", S.inc], ["adv", "Advisories · updated in the last 7 days", S.adv], ["old", "Older advisories · still open, no update for 7+ days", S.old], ["done", "Resolved in the last " + (H.keepDays || 3) + " days", S.done]].forEach(function (g) {
       if (!g[2].length) return;
       var hd = el("div", "s5ms-lh s5ms-lh-" + g[0], g[1] + " "); hd.setAttribute("data-f", g[0]); hd.appendChild(el("span", "s5ms-cnt", String(g[2].length))); list.appendChild(hd);
-      g[2].forEach(function (i) { list.appendChild(issueBlock(i, rssFor[i.id] || null, g[0])); });
+      g[2].forEach(function (i, k) { list.appendChild(issueBlock(i, rssFor[i.id] || null, g[0], k + 1, g[2].length)); });
     });
     sec.appendChild(bar); sec.appendChild(list); sec.appendChild(empty); apply();
     return sec;
