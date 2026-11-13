@@ -1,9 +1,9 @@
 {
-"updated":"2026-11-12",
+"updated":"2026-11-13",
 "campaigns":{
 "c-mc1506290":{
 "firstSeen":"2026-10-13",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Hardening changes for ReFS volumes on removable media",
 "status":"Active",
 "members":[
@@ -104,7 +104,7 @@
 },
 "c-item-mc1519855":{
 "firstSeen":"2026-10-22",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"SSPR requires registered authentication methods",
 "status":"Active",
 "members":[
@@ -577,7 +577,7 @@
 },
 "c-mc1547994":{
 "firstSeen":"2026-11-11",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Update your iOS/iPadOS Company Portal minimum version to v5.2608.0",
 "status":"Active",
 "members":[
@@ -646,7 +646,7 @@
 },
 "c-mc1481315":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"DSPM-Copilot Readiness and Data Explorer",
 "status":"Active",
 "members":[
@@ -933,7 +933,7 @@
 },
 "c-mc676299":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Exchange Web Services (EWS) retirement update",
 "status":"Active",
 "members":[
@@ -1729,7 +1729,7 @@
 },
 "c-mc1230889":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Outlook for Windows report retirement in the Exchange admin center",
 "status":"Active",
 "members":[
@@ -1863,7 +1863,7 @@
 },
 "c-mc1540345":{
 "firstSeen":"2026-11-05",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Update permissions for Exchange Online Admin API",
 "status":"Active",
 "members":[
@@ -1949,7 +1949,7 @@
 },
 "c-mc1450127":{
 "firstSeen":"2026-10-22",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"End-of-support Android devices may not be manageable through the Pro Management Portal",
 "status":"No date",
 "members":[
@@ -2012,7 +2012,7 @@
 },
 "c-mc1448373":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Teams device management transition from Teams admin center to Teams Rooms Pro management portal",
 "status":"Recently closed",
 "members":[
@@ -2188,7 +2188,7 @@
 },
 "c-mc1488834":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"MemberOf rule operator retires",
 "status":"Active",
 "members":[
@@ -2329,7 +2329,7 @@
 },
 "c-mc1474124":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
 "status":"No date",
 "members":[
@@ -2384,7 +2384,7 @@
 },
 "c-mc1528013":{
 "firstSeen":"2026-10-28",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"SharePoint Server access through the mobile apps will be retired",
 "status":"Active",
 "members":[
@@ -2446,7 +2446,7 @@
 },
 "c-mc1528009":{
 "firstSeen":"2026-10-28",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Retirement of selected Search Analytics capabilities",
 "status":"Active",
 "members":[
@@ -2512,7 +2512,7 @@
 },
 "c-mc1528007":{
 "firstSeen":"2026-10-28",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Join button will require HTTPS meeting links",
 "status":"Active",
 "members":[
@@ -2624,7 +2624,7 @@
 },
 "c-mc1526468":{
 "firstSeen":"2026-10-26",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
 "status":"Recently closed",
 "members":[
@@ -2733,7 +2733,7 @@
 },
 "c-mc1220762":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"MDE and XDR Advanced Hunting APIs retiring; migrate to Microsoft Graph Security API",
 "status":"Active",
 "members":[
@@ -2831,7 +2831,7 @@
 },
 "c-mc1519861":{
 "firstSeen":"2026-10-21",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Copilot Prioritize feature will be retired",
 "status":"Active",
 "members":[
@@ -2947,7 +2947,7 @@
 },
 "c-mc1515929":{
 "firstSeen":"2026-10-20",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"GitHub app consolidation and legacy GitHub app deprecation",
 "status":"Active",
 "members":[
@@ -3028,7 +3028,7 @@
 },
 "c-mc1469565":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
 "status":"Active",
 "members":[
@@ -3119,7 +3119,7 @@
 },
 "c-mc1511071":{
 "firstSeen":"2026-10-16",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Review property changes for Exchange Online scenarios",
 "status":"Active",
 "members":[
@@ -3200,7 +3200,7 @@
 },
 "c-mc1509780":{
 "firstSeen":"2026-10-16",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Intune ending support for Windows MDM-only enrollment CNAME auto-discovery",
 "status":"Active",
 "members":[
@@ -3277,93 +3277,9 @@
 "MC1509780"
 ]
 },
-"c-mc1508562":{
-"firstSeen":"2026-10-15",
-"lastSeen":"2026-11-12",
-"name":"NTLMv1 hardening changes might affect network connections on devices without Credential Guard",
-"status":"Recently closed",
-"members":[
-"MC1508562",
-"item:MC1508562"
-],
-"log":[
-{
-"date":"2026-10-16",
-"id":"MC1508562",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"October security update switches NTLMv1-derived SSO credentials from audit to block on devices without Credential Guard",
-"title":"October security update switches NTLMv1-derived SSO credentials from audit to block on devices without Credential Guard",
-"link":"https://deltapulse.app/item/MC1508562"
-}
-],
-"milestones":{
-"MC1508562|microsoft enabled auditing of ntlmv derived credential use o#0":{
-"date":"2025-08-25",
-"label":"late Aug 2025",
-"text":"Microsoft enabled auditing of NTLMv1-derived credential use on Windows 11, version 24H2 and later versions, starting in late August 2025."
-},
-"MC1508562|beginning with the security update windows uses enforce mode#0":{
-"date":"2026-10-13",
-"label":"13 Oct 2026",
-"text":"If the registry key BlockNtlmv1SSO has not been previously configured.” The October update shipped on 13 October 2026, so no future date governs it."
-},
-"MC1508562|posted":{
-"date":"2026-10-15",
-"label":"15 Oct 2026",
-"text":"Posted: Take action: NTLMv1 hardening changes might affect network connections on devices without Credential Guard"
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1508562":{
-"title":"Take action: NTLMv1 hardening changes might affect network connections on devices without Credential Guard",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1508562",
-"source":"Message Center",
-"id":"MC1508562",
-"date":"2026-10-15",
-"updated":"2026-10-15",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://techcommunity.microsoft.com/t5/fslogix-blog/action-required-windows-kerberos-hardening-rc4-may-affect/ba-p/4506378":{
-"title":"Action required: Windows Kerberos hardening (RC4) may affect FSLogix profiles on SMB storage",
-"link":"https://techcommunity.microsoft.com/t5/fslogix-blog/action-required-windows-kerberos-hardening-rc4-may-affect/ba-p/4506378",
-"source":"FSLogix Blog",
-"date":"2026-03-27",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://mc.merill.net/message/MC1508562":{
-"title":"Take action: NTLMv1 hardening changes might affect network connections on devices without Credential Guard",
-"link":"https://mc.merill.net/message/MC1508562",
-"source":"Message Center",
-"id":"MC1508562",
-"date":"2026-10-15",
-"updated":"2026-10-15",
-"group":"microsoft",
-"found":"2026-10-16"
-},
-"https://deltapulse.app/item/MC1508562":{
-"title":"Take action: NTLMv1 hardening changes might affect network connections on devices without Credential Guard",
-"link":"https://deltapulse.app/item/MC1508562",
-"source":"Main list source",
-"id":"MC1508562",
-"date":"2026-10-15",
-"group":"microsoft",
-"found":"2026-10-16"
-}
-},
-"final":"2026-10-13",
-"type":"Enforcement",
-"tech":"Windows",
-"posts":[
-"MC1508562"
-]
-},
 "c-item-mc1476122":{
 "firstSeen":"2026-10-12",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Microsoft‑managed CA policy will be enforced soon — Require risk remediation for high‑risk users",
 "status":"No date",
 "members":[
@@ -3436,7 +3352,7 @@
 },
 "c-mc1506733":{
 "firstSeen":"2026-10-13",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Review who can create agents in Microsoft Entra",
 "status":"Active",
 "members":[
@@ -3507,7 +3423,7 @@
 },
 "c-mc1506728":{
 "firstSeen":"2026-10-13",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Changes to AgentIdentity.CreateAsManager permission for agent identities",
 "status":"Active",
 "members":[
@@ -3606,7 +3522,7 @@
 },
 "c-item-win11-26h2-security-baseline-v2-2026-10-08":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Manage Administrator protection within Windows 11 security baseline",
 "status":"Released",
 "members":[
@@ -3678,1987 +3594,9 @@
 "MC1506291"
 ]
 },
-"c-mc1442510":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
-"name":"AD FS DKM container ACL hardening begins in October 2026",
-"status":"Recently closed",
-"members":[
-"MC1442510",
-"MC1456735",
-"MC1471963",
-"MC1506287",
-"item:MC1506287"
-],
-"log":[
-{
-"date":"2026-10-14",
-"id":"MC1506287",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"AD FS DKM container ACL hardening is now in enforcement with the October Windows security update",
-"title":"AD FS DKM container ACL hardening is now in enforcement with the October Windows security update",
-"link":"https://mc.merill.net/message/MC1506287"
-},
-{
-"date":"2026-09-28",
-"id":"MC1442510",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"90-Day Reminder: AD FS DKM container ACL hardening begins in October 2026",
-"title":"AD FS DKM container ACL hardening begins in October 2026",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1442510"
-}
-],
-"milestones":{
-"MC1471963|install the windows security update or a later windows updat#0":{
-"date":"2026-07-14",
-"label":"14 Jul 2026",
-"text":"Install the July 14, 2026 Windows security update or a later Windows update on AD FS servers."
-},
-"MC1442510|posted":{
-"date":"2026-07-29",
-"label":"29 Jul 2026",
-"text":"Posted: AD FS DKM container ACL hardening begins in October 2026"
-},
-"MC1456735|posted":{
-"date":"2026-08-17",
-"label":"17 Aug 2026",
-"text":"Posted: AD FS DKM container ACL hardening enforcement (CVE-2026-56155)"
-},
-"MC1471963|posted":{
-"date":"2026-09-14",
-"label":"14 Sep 2026",
-"text":"Posted: AD FS DKM container ACL hardening begins in October 2026"
-},
-"MC1506287|posted":{
-"date":"2026-10-13",
-"label":"13 Oct 2026",
-"text":"Posted: AD FS Distributed Key Manager (DKM) container ACL hardening begins today"
-},
-"MC1506287|enforcement started with the update tracked in mc and mc#0":{
-"date":"2026-10-13",
-"label":"13 Oct 2026",
-"text":"Enforcement started with the 13 October 2026 update; tracked in MC1456735 and MC1471963"
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1442510":{
-"title":"AD FS DKM container ACL hardening begins in October 2026",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1442510",
-"source":"Message Center",
-"id":"MC1442510",
-"date":"2026-07-29",
-"updated":"2026-07-29",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1456735":{
-"title":"AD FS DKM container ACL hardening enforcement (CVE-2026-56155)",
-"link":"https://mc.merill.net/message/MC1456735",
-"source":"Message Center",
-"id":"MC1456735",
-"date":"2026-08-17",
-"updated":"2026-08-17",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1456735 · MC1471963":{
-"title":"AD FS DKM container ACL hardening enforcement (CVE-2026-56155)",
-"link":"https://mc.merill.net/message/MC1456735 · MC1471963",
-"source":"Message Center",
-"id":"MC1456735 · MC1471963",
-"date":"2026-08-17",
-"updated":"2026-08-17",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1471963":{
-"title":"AD FS DKM container ACL hardening begins in October 2026",
-"link":"https://mc.merill.net/message/MC1471963",
-"source":"Message Center",
-"id":"MC1471963",
-"date":"2026-09-14",
-"updated":"2026-09-14",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/MC1471963":{
-"title":"AD FS DKM container ACL hardening begins in October 2026",
-"link":"https://deltapulse.app/item/MC1471963",
-"source":"Main list source",
-"id":"MC1471963",
-"date":"2026-09-14",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/":{
-"title":"Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
-"link":"https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
-"source":"Microsoft Security Blog",
-"date":"2026-09-30",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/supporting-cvss-v4-score-for-cve-for-enhanced-vulnerability/ba-p/4391439":{
-"title":"Supporting CVSS V4 score for CVE for Enhanced Vulnerability Assessment",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/supporting-cvss-v4-score-for-cve-for-enhanced-vulnerability/ba-p/4391439",
-"source":"Defender Vulnerability Management Blog",
-"date":"2025-03-20",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-cve-2024-0012-cve-2024-9474-affecting-pan-os-using/ba-p/4338896":{
-"title":"Guidance for CVE-2024-0012, CVE-2024-9474 affecting PAN-OS using Microsoft Security capabilities",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-cve-2024-0012-cve-2024-9474-affecting-pan-os-using/ba-p/4338896",
-"source":"Defender Vulnerability Management Blog",
-"date":"2024-11-26",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-regresshion-cve-2024-6387-using-microsoft/ba-p/4185940":{
-"title":"Guidance for handling “regreSSHion” (CVE-2024-6387) using Microsoft Security capabilities",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-regresshion-cve-2024-6387-using-microsoft/ba-p/4185940",
-"source":"Defender Vulnerability Management Blog",
-"date":"2024-07-25",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
-"title":"Strengthened TLS certificate validation to address CVE-2026-47632.",
-"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
-"source":"Microsoft Learn · What's new · Azure Arc",
-"date":"2026-03-24",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint":{
-"title":"CVE exceptions",
-"link":"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint",
-"source":"Microsoft Learn · What's new · Defender Vulnerability Management",
-"date":"2026-09-16",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62744":{
-"title":"CVE-2026-62744 Microsoft Windows Media Foundation Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62744",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68875":{
-"title":"CVE-2026-68875 Windows NTFS Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68875",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68878":{
-"title":"CVE-2026-68878 Windows Fast FAT Driver Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68878",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69281":{
-"title":"CVE-2026-69281 Windows License Manager Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69281",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69337":{
-"title":"CVE-2026-69337 Windows Registry Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69337",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69451":{
-"title":"CVE-2026-69451 Windows Management Instrumentation Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69451",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69582":{
-"title":"CVE-2026-69582 Windows Volume Manager Extension Driver Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69582",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69693":{
-"title":"CVE-2026-69693 Windows Device Association Broker Service Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69693",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69732":{
-"title":"CVE-2026-69732 Windows Link Layer Topology Discovery Protocol Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69732",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72979":{
-"title":"CVE-2026-72979 Windows DHCP Server Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72979",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72982":{
-"title":"CVE-2026-72982 Windows Netlogon Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72982",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68880":{
-"title":"CVE-2026-68880 Windows Win32k Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68880",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69277":{
-"title":"CVE-2026-69277 Microsoft Local Security Authority (LSA) Server Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69277",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69301":{
-"title":"CVE-2026-69301 Windows Win32k Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69301",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69322":{
-"title":"CVE-2026-69322 Microsoft Windows Search Component Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69322",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69324":{
-"title":"CVE-2026-69324 Windows Performance Monitor Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69324",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69340":{
-"title":"CVE-2026-69340 Windows NTFS Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69340",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69385":{
-"title":"CVE-2026-69385 Windows TCP/IP Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69385",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69433":{
-"title":"CVE-2026-69433 Windows Error Reporting Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69433",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69571":{
-"title":"CVE-2026-69571 Windows USB Audio Class driver (usbaudio.sys) Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69571",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12727":{
-"title":"Chromium: CVE-2025-12727 Inappropriate implementation in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12727",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-12",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12441":{
-"title":"Chromium: CVE-2025-12441 Out of bounds read in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12441",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-12",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12433":{
-"title":"Chromium: CVE-2025-12433 Inappropriate implementation in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12433",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-12",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12432":{
-"title":"Chromium: CVE-2025-12432 Race in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12432",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-12",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12429":{
-"title":"Chromium: CVE-2025-12429 Inappropriate implementation in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12429",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-12",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12428":{
-"title":"Chromium: CVE-2025-12428 Type Confusion in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12428",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-12",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506287":{
-"title":"AD FS Distributed Key Manager (DKM) container ACL hardening begins today",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506287",
-"source":"Message Center",
-"id":"MC1506287",
-"date":"2026-10-13",
-"updated":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-13"
-},
-"https://mc.merill.net/message/MC1506287":{
-"title":"AD FS Distributed Key Manager (DKM) container ACL hardening begins today",
-"link":"https://mc.merill.net/message/MC1506287",
-"source":"Message Center",
-"id":"MC1506287",
-"date":"2026-10-13",
-"updated":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-103572":{
-"title":"CVE-2026-103572 Visual Studio Tools for Applications and SQL Server Management Studio Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-103572",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105725":{
-"title":"CVE-2026-105725 Windows Security App Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105725",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105727":{
-"title":"CVE-2026-105727 Microsoft Dynamics 365 Business Central Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105727",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105728":{
-"title":"CVE-2026-105728 Dynamics Business Central Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105728",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108400":{
-"title":"CVE-2026-108400 HEVC Video Extensions Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108400",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108457":{
-"title":"CVE-2026-108457 Microsoft Windows PDF Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108457",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108468":{
-"title":"CVE-2026-108468 Windows Installer Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108468",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102227":{
-"title":"CVE-2026-102227 Windows Resilient File System (ReFS) Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102227",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102229":{
-"title":"CVE-2026-102229 Visual Studio Code Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102229",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102231":{
-"title":"CVE-2026-102231 Visual Studio Code Security Feature Bypass Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102231",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102232":{
-"title":"CVE-2026-102232 Visual Studio Code Security Feature Bypass Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102232",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102233":{
-"title":"CVE-2026-102233 Visual Studio Code Security Feature Bypass Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102233",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102234":{
-"title":"CVE-2026-102234 Visual Studio Code Security Feature Bypass Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102234",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102235":{
-"title":"CVE-2026-102235 Visual Studio Code Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102235",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102238":{
-"title":"CVE-2026-102238 Visual Studio Code Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102238",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70098":{
-"title":"CVE-2026-70098 Visual Studio Code Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70098",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96956":{
-"title":"CVE-2026-96956 SQL Server Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96956",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69366":{
-"title":"CVE-2026-69366 Windows Kernel Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69366",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69676":{
-"title":"CVE-2026-69676 Windows Kerberos Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69676",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70584":{
-"title":"CVE-2026-70584 Windows Core Messaging Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70584",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68825":{
-"title":"CVE-2026-68825 Windows Bind Filter Driver Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68825",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-77499":{
-"title":"CVE-2026-77499 Windows DHCP Server Denial of Service Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-77499",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72937":{
-"title":"CVE-2026-72937 Windows Storage Port Driver Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72937",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62697":{
-"title":"CVE-2026-62697 Windows Push Notifications Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62697",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69351":{
-"title":"CVE-2026-69351 Windows Universal Plug and Play (UPnP) Device Host Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69351",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69620":{
-"title":"CVE-2026-69620 Windows DHCP Server Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69620",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69334":{
-"title":"CVE-2026-69334 Windows Volume Manager Extension Driver Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69334",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-81352":{
-"title":"CVE-2026-81352 Web Media Extensions Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-81352",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-32176":{
-"title":"CVE-2026-32176 SQL Server Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-32176",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105723":{
-"title":"CVE-2026-105723 Windows Distributed File System (DFS) Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105723",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70095":{
-"title":"CVE-2026-70095 Windows iSCSI Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70095",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70245":{
-"title":"CVE-2026-70245 Windows Ancillary Function Driver for WinSock Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70245",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-84019":{
-"title":"CVE-2026-84019 Windows Advanced Rasterization Platform Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-84019",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85868":{
-"title":"CVE-2026-85868 Windows Common Log File System Driver Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85868",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85870":{
-"title":"CVE-2026-85870 Windows Common Log File System Driver Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85870",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102188":{
-"title":"CVE-2026-102188 Windows Storage Port Driver Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102188",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105718":{
-"title":"CVE-2026-105718 Microsoft Excel Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105718",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-15",
-"group":"microsoft",
-"found":"2026-10-16"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106258":{
-"title":"Chromium CVE-2026-106258: Uninitialized resource",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106258",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106263":{
-"title":"Chromium CVE-2026-106263: Improper input validation",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106263",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106264":{
-"title":"Chromium CVE-2026-106264: Missing authorization",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106264",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106268":{
-"title":"Chromium CVE-2026-106268: Use after free",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106268",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106270":{
-"title":"Chromium CVE-2026-106270: Incorrect authorization",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106270",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106271":{
-"title":"Chromium CVE-2026-106271: Missing authorization",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106271",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106273":{
-"title":"Chromium CVE-2026-106273: Uninitialized resource",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106273",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106274":{
-"title":"Chromium CVE-2026-106274: Incorrect reference resolution",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106274",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106276":{
-"title":"Chromium CVE-2026-106276: UI misrepresentation",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106276",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106278":{
-"title":"Chromium CVE-2026-106278: Use after free",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106278",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108465":{
-"title":"CVE-2026-108465 Windows Update Delivery Optimization Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108465",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83831":{
-"title":"CVE-2026-83831 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83831",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85890":{
-"title":"CVE-2026-85890 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85890",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85897":{
-"title":"CVE-2026-85897 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85897",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85898":{
-"title":"CVE-2026-85898 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85898",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96198":{
-"title":"CVE-2026-96198 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96198",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96199":{
-"title":"CVE-2026-96199 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96199",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106287":{
-"title":"Chromium CVE-2026-106287: Information loss",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106287",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106288":{
-"title":"Chromium CVE-2026-106288: Missing authorization",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106288",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-80092":{
-"title":"CVE-2026-80092 Microsoft Identity Web Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-80092",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-19",
-"group":"microsoft",
-"found":"2026-10-20"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70197":{
-"title":"CVE-2026-70197 .NET Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70197",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-19",
-"group":"microsoft",
-"found":"2026-10-20"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96913":{
-"title":"CVE-2026-96913 Windows Kernel Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96913",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-20",
-"group":"microsoft",
-"found":"2026-10-20"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70074":{
-"title":"CVE-2026-70074 Windows DNS Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70074",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-20",
-"group":"microsoft",
-"found":"2026-10-20"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83839":{
-"title":"CVE-2026-83839 Windows Hyper-V Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83839",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-20",
-"group":"microsoft",
-"found":"2026-10-20"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83782":{
-"title":"CVE-2026-83782 Windows Shell Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83782",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-20",
-"group":"microsoft",
-"found":"2026-10-20"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102204":{
-"title":"CVE-2026-102204 Windows Subsystem for Linux Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102204",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-20",
-"group":"microsoft",
-"found":"2026-10-20"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70337":{
-"title":"CVE-2026-70337 Microsoft PowerShell Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70337",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-20",
-"group":"microsoft",
-"found":"2026-10-20"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-61359":{
-"title":"CVE-2026-61359 Windows Storage Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-61359",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-21",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83709":{
-"title":"CVE-2026-83709 Windows NTLM Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83709",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-21",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69902":{
-"title":"CVE-2026-69902 Windows NTFS Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69902",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-21",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-97785":{
-"title":"CVE-2026-97785 AAD App Proxy Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-97785",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-22",
-"group":"microsoft",
-"found":"2026-10-23"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96251":{
-"title":"CVE-2026-96251 Microsoft PowerShell Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96251",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-22",
-"group":"microsoft",
-"found":"2026-10-23"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96303":{
-"title":"CVE-2026-96303 Microsoft PowerShell Security Feature Bypass Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96303",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-22",
-"group":"microsoft",
-"found":"2026-10-23"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83862":{
-"title":"CVE-2026-83862 Windows Network Load Balancing Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83862",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-23",
-"group":"microsoft",
-"found":"2026-10-24"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102208":{
-"title":"CVE-2026-102208 Windows Win32 Kernel Subsystem Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102208",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-23",
-"group":"microsoft",
-"found":"2026-10-24"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102870":{
-"title":"CVE-2026-102870 ASP.NET Core Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102870",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-25",
-"group":"microsoft",
-"found":"2026-10-26"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114148":{
-"title":"CVE-2026-114148 ASP.NET Core Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114148",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-25",
-"group":"microsoft",
-"found":"2026-10-26"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-111497":{
-"title":"CVE-2026-111497 Google: CVE-2026-111497 Buffer overflow vulnerability in the Brotli decoder",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-111497",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-25",
-"group":"microsoft",
-"found":"2026-10-26"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83519":{
-"title":"CVE-2026-83519 Windows Error Reporting Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83519",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-26",
-"group":"microsoft",
-"found":"2026-10-26"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70054":{
-"title":"CVE-2026-70054 Windows NetBIOS Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70054",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-26",
-"group":"microsoft",
-"found":"2026-10-26"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69923":{
-"title":"CVE-2026-69923 Windows AI Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69923",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-26",
-"group":"microsoft",
-"found":"2026-10-26"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96311":{
-"title":"CVE-2026-96311 Windows Network List Service Tampering Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96311",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-26",
-"group":"microsoft",
-"found":"2026-10-26"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69926":{
-"title":"CVE-2026-69926 Desktop Window Manager Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69926",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-26",
-"group":"microsoft",
-"found":"2026-10-26"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96234":{
-"title":"CVE-2026-96234 .NET Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96234",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-26",
-"group":"microsoft",
-"found":"2026-10-26"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70338":{
-"title":"CVE-2026-70338 Microsoft PowerShell Security Feature Bypass Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70338",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-26",
-"group":"microsoft",
-"found":"2026-10-27"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70277":{
-"title":"CVE-2026-70277 Windows Fast FAT File System Driver Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70277",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-27"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70161":{
-"title":"CVE-2026-70161 .NET Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70161",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-27"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70007":{
-"title":"CVE-2026-70007 .NET Framework Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70007",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-27"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96225":{
-"title":"CVE-2026-96225 .NET Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96225",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-27"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-20942":{
-"title":"CVE-2026-20942 Microsoft Edge (Chromium-based) Spoofing Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-20942",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-27"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-88078":{
-"title":"CVE-2026-88078 Microsoft Edge (Chromium-based) Spoofing Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-88078",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-27"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96196":{
-"title":"CVE-2026-96196 Microsoft Edge (Chromium-based) Security Feature Bypass Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96196",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-27"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69473":{
-"title":"CVE-2026-69473 Windows Kernel Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69473",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-27"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69284":{
-"title":"CVE-2026-69284 Windows DCOM Server Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69284",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-27"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62765":{
-"title":"CVE-2026-62765 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62765",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62740":{
-"title":"CVE-2026-62740 Windows Imaging Component Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62740",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62877":{
-"title":"CVE-2026-62877 Windows Win32k Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62877",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-19175":{
-"title":"CVE-2026-19175 Use after free in Payments",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-19175",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78891":{
-"title":"Chromium: CVE-2026-78891 Buffer overflow in WebRTC",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78891",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78892":{
-"title":"Chromium: CVE-2026-78892 Incorrect authorization in Chromoting",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78892",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78893":{
-"title":"Chromium: CVE-2026-78893 Information leak in QUIC",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78893",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78894":{
-"title":"Chromium: CVE-2026-78894 Race condition in Payments",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78894",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78895":{
-"title":"Chromium: CVE-2026-78895 Information leak in Paint",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78895",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78896":{
-"title":"Chromium: CVE-2026-78896 Information leak in StorageAccessAPI",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78896",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78897":{
-"title":"Chromium: CVE-2026-78897 Missing authorization in BrowserTag",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78897",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78898":{
-"title":"Chromium: CVE-2026-78898 Incorrect authorization in Downloads",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78898",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78899":{
-"title":"Chromium: CVE-2026-78899 Use after free in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78899",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78900":{
-"title":"Chromium: CVE-2026-78900 Improper input validation in Media",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78900",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78901":{
-"title":"Chromium: CVE-2026-78901 Race condition in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78901",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78903":{
-"title":"Chromium: CVE-2026-78903 Incomplete cleanup in SiteIsolation",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78903",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78904":{
-"title":"Chromium: CVE-2026-78904 Type confusion in ANGLE",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78904",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78905":{
-"title":"Chromium: CVE-2026-78905 Type confusion in ANGLE",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78905",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78906":{
-"title":"Chromium: CVE-2026-78906 Race condition in ANGLE",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78906",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78907":{
-"title":"Chromium: CVE-2026-78907 Incorrect authorization in WebProtect",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78907",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78908":{
-"title":"Chromium: CVE-2026-78908 Information leak in Canvas",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78908",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-28",
-"group":"microsoft",
-"found":"2026-10-28"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118147":{
-"title":"CVE-2026-118147 Visual Studio Spoofing Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118147",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-30",
-"group":"microsoft",
-"found":"2026-10-30"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69446":{
-"title":"CVE-2026-69446 Microsoft Edge (Chromium-based) Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69446",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-30",
-"group":"microsoft",
-"found":"2026-10-30"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118304":{
-"title":"Chromium: CVE-2026-118304 Improper input validation in SVG",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118304",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118313":{
-"title":"Chromium: CVE-2026-118313 Use after free in Video",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118313",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118311":{
-"title":"Chromium: CVE-2026-118311 Memory corruption in Media",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118311",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118317":{
-"title":"Chromium: CVE-2026-118317 Memory corruption in HTML",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118317",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118315":{
-"title":"Chromium: CVE-2026-118315 Improper input validation in SVG",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118315",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118312":{
-"title":"Chromium: CVE-2026-118312 Memory corruption in Paint",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118312",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118316":{
-"title":"Chromium: CVE-2026-118316 Improper input validation in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118316",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118318":{
-"title":"Chromium: CVE-2026-118318 Improper access control in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118318",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118308":{
-"title":"Chromium: CVE-2026-118308 Use after free in SVG",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118308",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118310":{
-"title":"Chromium: CVE-2026-118310 Improper input validation in Views",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118310",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118305":{
-"title":"Chromium: CVE-2026-118305 Memory corruption in Turbolev",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118305",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118307":{
-"title":"Chromium: CVE-2026-118307 Use after free in Paint",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118307",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118306":{
-"title":"Chromium: CVE-2026-118306 Memory corruption in FileSystem",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118306",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118319":{
-"title":"Chromium: CVE-2026-118319 Memory corruption in Skia",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118319",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118322":{
-"title":"Chromium: CVE-2026-118322 Memory corruption in ANGLE",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118322",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118328":{
-"title":"Chromium: CVE-2026-118328 Improper input validation in WebRTC",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118328",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118327":{
-"title":"Chromium: CVE-2026-118327 Memory corruption in Media",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118327",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118332":{
-"title":"Chromium: CVE-2026-118332 Improper input validation in Compositing",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118332",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118320":{
-"title":"Chromium: CVE-2026-118320 Memory corruption in V8",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118320",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-31",
-"group":"microsoft",
-"found":"2026-10-31"
-},
-"https://dev.to/guidance_white/cve-2026-68582-how-a-share-link-lets-you-read-someone-elses-kanban-board-vikunja-bola-48nc":{
-"title":"CVE-2026-68582: How a Share Link Lets You Read Someone Else's Kanban Board (Vikunja BOLA)",
-"link":"https://dev.to/guidance_white/cve-2026-68582-how-a-share-link-lets-you-read-someone-elses-kanban-board-vikunja-bola-48nc",
-"source":"NeonTiger12",
-"date":"2026-10-31",
-"group":"community",
-"found":"2026-10-31"
-},
-"https://dev.to/ioneyrezende/cve-2026-105483-when-an-ipv4-address-is-checked-as-a-dns-name-3bkk":{
-"title":"CVE-2026-105483: when an IPv4 address is checked as a DNS name",
-"link":"https://dev.to/ioneyrezende/cve-2026-105483-when-an-ipv4-address-is-checked-as-a-dns-name-3bkk",
-"source":"NeonTiger12",
-"date":"2026-11-02",
-"group":"community",
-"found":"2026-11-02"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119260":{
-"title":"Chromium CVE-2026-119260: Use after free",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119260",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118321":{
-"title":"Chromium CVE-2026-118321: Use after free",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118321",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118314":{
-"title":"Chromium CVE-2026-118314: Incorrect reference resolution",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118314",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118309":{
-"title":"Chromium CVE-2026-118309: Incorrect reference resolution",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118309",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119261":{
-"title":"Chromium CVE-2026-119261: Improper input validation",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119261",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119262":{
-"title":"Chromium CVE-2026-119262: Improper input validation",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119262",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119263":{
-"title":"Chromium CVE-2026-119263: Memory corruption",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119263",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119264":{
-"title":"Chromium CVE-2026-119264: Memory corruption",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119264",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119265":{
-"title":"Chromium CVE-2026-119265: Memory corruption",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119265",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119266":{
-"title":"Chromium CVE-2026-119266: Use after free",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119266",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119267":{
-"title":"Chromium CVE-2026-119267: Memory corruption",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119267",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119268":{
-"title":"Chromium CVE-2026-119268: Integer overflow",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119268",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119269":{
-"title":"Chromium CVE-2026-119269: Use after free",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119269",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119270":{
-"title":"Chromium CVE-2026-119270: Improper input validation",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119270",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119271":{
-"title":"Chromium CVE-2026-119271: Use after free",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119271",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119272":{
-"title":"Chromium CVE-2026-119272: Out of bounds read",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119272",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76024":{
-"title":"Chromium CVE-2026-76024: Memory corruption",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76024",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76025":{
-"title":"Chromium CVE-2026-76025: Use after free",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76025",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76026":{
-"title":"Chromium CVE-2026-76026: Memory corruption",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76026",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76027":{
-"title":"Chromium CVE-2026-76027: Memory corruption",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76027",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-04",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://dev.to/olgabyte/apt-vulnerability-cve-2026-109518-enables-root-level-attacks-via-malicious-http-traffic-on-1o27":{
-"title":"APT Vulnerability (CVE-2026-109518) Enables Root-Level Attacks via Malicious HTTP Traffic on Debian/Ubuntu Derivatives",
-"link":"https://dev.to/olgabyte/apt-vulnerability-cve-2026-109518-enables-root-level-attacks-via-malicious-http-traffic-on-1o27",
-"source":"NeonTiger12",
-"date":"2026-11-05",
-"group":"community",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83844":{
-"title":"CVE-2026-83844 Windows Paint Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83844",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-06",
-"group":"microsoft",
-"found":"2026-11-07"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102868":{
-"title":"CVE-2026-102868 Windows Shell Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102868",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105582":{
-"title":"CVE-2026-105582 Windows DWM Core Library Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105582",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105583":{
-"title":"CVE-2026-105583 Windows DWM Core Library Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105583",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105584":{
-"title":"CVE-2026-105584 Windows Inventory Backup Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105584",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105586":{
-"title":"CVE-2026-105586 Microsoft Windows SCSI Class System File Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105586",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105587":{
-"title":"CVE-2026-105587 Windows OLE DB Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105587",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105588":{
-"title":"CVE-2026-105588 Windows DHCP Server Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105588",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105589":{
-"title":"CVE-2026-105589 Windows Wireless Networking Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105589",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105590":{
-"title":"CVE-2026-105590 Windows Active Directory Certificate Services Security Feature Bypass",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105590",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-100204":{
-"title":"CVE-2026-100204 HEIF Image Extensions Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-100204",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108409":{
-"title":"CVE-2026-108409 Windows Overlay Filter Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108409",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108417":{
-"title":"CVE-2026-108417 Windows Remote Desktop Client Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108417",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108424":{
-"title":"CVE-2026-108424 Windows GDI Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108424",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108403":{
-"title":"CVE-2026-108403 Windows Kernel Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108403",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108411":{
-"title":"CVE-2026-108411 Microsoft ODBC Driver Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108411",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108415":{
-"title":"CVE-2026-108415 Windows File Server Resource Management Service Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108415",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108416":{
-"title":"CVE-2026-108416 Windows File Server Resource Management Service Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108416",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109463":{
-"title":"CVE-2026-109463 Windows DNS Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109463",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-66801":{
-"title":"CVE-2026-66801 Microsoft Xbox Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-66801",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105544":{
-"title":"CVE-2026-105544 .NET Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105544",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109475":{
-"title":"CVE-2026-109475 .NET Denial of Service Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109475",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109476":{
-"title":"CVE-2026-109476 ASP.NET Core Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109476",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109478":{
-"title":"CVE-2026-109478 ASP.NET Core Denial of Service Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109478",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109481":{
-"title":"CVE-2026-109481 ASP.NET Core Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109481",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114146":{
-"title":"CVE-2026-114146 ASP.NET Core Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114146",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114147":{
-"title":"CVE-2026-114147 ASP.NET Core Denial of Service Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114147",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114149":{
-"title":"CVE-2026-114149 ASP.NET Core Denial of Service Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114149",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114150":{
-"title":"CVE-2026-114150 ASP.NET Core Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114150",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114151":{
-"title":"CVE-2026-114151 Visual Studio Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114151",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114152":{
-"title":"CVE-2026-114152 Visual Studio Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114152",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114154":{
-"title":"CVE-2026-114154 ASP.NET Core Denial of Service Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114154",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114155":{
-"title":"CVE-2026-114155 .NET Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114155",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114156":{
-"title":"CVE-2026-114156 ASP.NET Core Security Feature Bypass Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114156",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114157":{
-"title":"CVE-2026-114157 ASP.NET Core Security Feature Bypass Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114157",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114158":{
-"title":"CVE-2026-114158 Visual Studio Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114158",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114159":{
-"title":"CVE-2026-114159 Visual Studio Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114159",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-120006":{
-"title":"CVE-2026-120006 Aspire Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-120006",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118745":{
-"title":"CVE-2026-118745 Visual Studio Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118745",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118746":{
-"title":"CVE-2026-118746 .NET Security Feature Bypass Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118746",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://thehackernews.com/2026/11/critical-pre-auth-mongodb-flaw-cve-2026.html":{
-"title":"Critical Pre-Auth MongoDB Flaw (CVE-2026-118383) Can Crash Lagging Servers on Failover",
-"link":"https://thehackernews.com/2026/11/critical-pre-auth-mongodb-flaw-cve-2026.html",
-"source":"Hacker News",
-"date":"2026-11-12",
-"group":"community",
-"found":"2026-11-12"
-}
-},
-"final":"2026-10-13",
-"type":"Enforcement",
-"tech":"Windows",
-"posts":[
-"MC1442510",
-"MC1456735",
-"MC1471963",
-"MC1506287"
-]
-},
 "c-mc1505599":{
 "firstSeen":"2026-10-13",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"AuditLogQuery API generally available and Search-UnifiedAuditLog retiring",
 "status":"Active",
 "members":[
@@ -5733,7 +3671,7 @@
 },
 "c-mc1492958":{
 "firstSeen":"2026-10-10",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"New tenant controls for retirement of non-standard file API tokens",
 "status":"Active",
 "members":[
@@ -5814,7 +3752,7 @@
 },
 "c-mc1492954":{
 "firstSeen":"2026-10-10",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Themes by Copilot retirement",
 "status":"Recently closed",
 "members":[
@@ -5880,7 +3818,7 @@
 },
 "c-mc1490911":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Retiring legacy sign-in implementation on Windows",
 "status":"Active",
 "members":[
@@ -5936,7 +3874,7 @@
 },
 "c-mc1490899":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Targeted Release retirement",
 "status":"Active",
 "members":[
@@ -5997,7 +3935,7 @@
 },
 "c-mc1481317":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Microsoft Purview | Insider Risk Management: Retirement of Data Risk Graph",
 "status":"Active",
 "members":[
@@ -6096,7 +4034,7 @@
 },
 "c-mc1479516":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Link preview retirement",
 "status":"No date",
 "members":[
@@ -6196,7 +4134,7 @@
 },
 "c-mc1478463":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Teams user reporting enabled by default",
 "status":"Recently closed",
 "members":[
@@ -6266,7 +4204,7 @@
 },
 "c-mc1278920":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Office 2021 desktop apps and LTSC 2021 reach end of support",
 "status":"No date",
 "members":[
@@ -6333,7 +4271,7 @@
 },
 "c-mc1278920-2":{
 "firstSeen":"2026-10-21",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Support for Office LTSC 2021, and additional apps will end on October 13, 2026",
 "status":"Active",
 "members":[
@@ -6401,7 +4339,7 @@
 },
 "c-windows-11-24h2-end-of-servicing":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026",
 "status":"Active",
 "members":[
@@ -6558,7 +4496,7 @@
 },
 "c-mc1470881":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Removing pay-as-you-go requirements for Edge for Business DLP unmanaged app protections",
 "status":"Recently closed",
 "members":[
@@ -6612,7 +4550,7 @@
 },
 "c-mc1470871":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"User.ReadBasic.All will no longer allow reading user app role assignments and license details",
 "status":"No date",
 "members":[
@@ -6648,7 +4586,7 @@
 },
 "c-mc1462922":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Admin app retiring in Teams, Outlook and Microsoft365.com",
 "status":"Recently closed",
 "members":[
@@ -6704,7 +4642,7 @@
 },
 "c-mc1462813":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Prepare for the removal of WMIC from Windows 11",
 "status":"No date",
 "members":[
@@ -6750,7 +4688,7 @@
 },
 "c-mc1459132":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Windows Information Protection and Application Guard retire in Microsoft Edge",
 "status":"No date",
 "members":[
@@ -6796,7 +4734,7 @@
 },
 "c-mc1435782":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Retirement of custom CSS positioning properties in custom branding",
 "status":"Recently closed",
 "members":[
@@ -6896,7 +4834,7 @@
 },
 "c-mc1452374":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Retirement of the Other features page in Exchange admin center",
 "status":"Active",
 "members":[
@@ -6952,7 +4890,7 @@
 },
 "c-mc1448328":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Plan for Windows 10 Enterprise LTSC 2021 end of support",
 "status":"Active",
 "members":[
@@ -7024,7 +4962,7 @@
 },
 "c-mc1429010":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Instances policy location in Microsoft Purview Data Loss Prevention",
 "status":"Active",
 "members":[
@@ -7149,7 +5087,7 @@
 },
 "c-mc1248389":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Retirement of -Credential parameter when connecting to Exchange Online PowerShell",
 "status":"Active",
 "members":[
@@ -7209,7 +5147,7 @@
 },
 "c-mc1422061":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Conditional Access custom controls become read-only",
 "status":"Active",
 "members":[
@@ -7265,7 +5203,7 @@
 },
 "c-mc1293480":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Retirement of legacy TLS versions for POP and IMAP connections",
 "status":"Active",
 "members":[
@@ -7399,14 +5337,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-10",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-11",
 "text":"August 1, 2026."
 },
@@ -7512,6 +5442,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-12",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-13",
 "text":"August 1, 2026."
 }
 ],
@@ -7635,7 +5573,7 @@
 },
 "c-mc1243549":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
 "status":"Active",
 "members":[
@@ -7800,7 +5738,7 @@
 },
 "c-mc1235720":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support",
 "status":"Active",
 "members":[
@@ -7874,7 +5812,7 @@
 },
 "c-mc1188230":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Retirement of duplicative properties in passkey (FIDO2) authentication methods policy",
 "status":"Active",
 "members":[
@@ -7989,7 +5927,7 @@
 },
 "c-mc1182696":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Application Guard for Office is being removed",
 "status":"Active",
 "members":[
@@ -8063,22 +6001,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-11",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-11",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-12",
 "text":"early February 2026."
 },
@@ -8200,6 +6122,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-12",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-13",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-13",
 "text":"February 2027."
 }
 ],
@@ -8224,7 +6162,7 @@
 },
 "c-mc985483":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"New default passcode in the Create Meeting API",
 "status":"Active",
 "members":[
@@ -8280,7 +6218,7 @@
 },
 "c-mc1430531":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Meeting Insight is retiring",
 "status":"No date",
 "members":[
@@ -8326,7 +6264,7 @@
 },
 "c-mc1409303":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Microsoft Edge enforces screen capture restrictions for sensitivity-labeled PDFs in OneDrive and SharePoint",
 "status":"No date",
 "members":[
@@ -8380,7 +6318,7 @@
 },
 "c-mc1303719":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Upcoming changes to federatedTokenValidationPolicy default settings",
 "status":"No date",
 "members":[
@@ -8435,7 +6373,7 @@
 },
 "c-mc1223829":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Upcoming Conditional Access change: Improved enforcement for policies with resource exclusions",
 "status":"No date",
 "members":[
@@ -8507,7 +6445,7 @@
 },
 "c-mc1172447":{
 "firstSeen":"2026-10-14",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Windows 10 has reached end of support",
 "status":"No date",
 "members":[
@@ -8551,7 +6489,7 @@
 },
 "c-item-defender-cross-tenant-delegated-admin-ga-2026-10-20":{
 "firstSeen":"2026-10-21",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Cross-tenant delegated administration in Defender is generally available, extends to Sentinel and runs on…",
 "status":"No date",
 "members":[
@@ -8588,7 +6526,7 @@
 },
 "c-item-azure-arc-akv-secrets-provider-extension-retirement-202":{
 "firstSeen":"2026-10-11",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret…",
 "status":"Active",
 "members":[
@@ -8655,7 +6593,7 @@
 },
 "c-item-azure-ea-billing-roles-work-school-accounts-2026-11-16":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Enterprise Agreement billing roles: new assignments must use work or school accounts from 16 November, a…",
 "status":"Active",
 "members":[
@@ -8698,7 +6636,7 @@
 },
 "c-item-mda-file-policies-retirement":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Defender for Cloud Apps file policies retire",
 "status":"Active",
 "members":[
@@ -8742,7 +6680,7 @@
 },
 "c-item-sentinel-automatic-onboarding-managed-customers":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Microsoft starts onboarding Sentinel tenants to the Defender portal automatically and picks the primary…",
 "status":"Active",
 "members":[
@@ -8775,7 +6713,7 @@
 },
 "c-item-sentinel-azure-portal-retirement-2027":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Microsoft Sentinel in the Azure portal retires",
 "status":"Active",
 "members":[
@@ -8808,7 +6746,7 @@
 },
 "c-item-azure-functions-inprocess-eos":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
 "status":"Recently closed",
 "members":[
@@ -9267,7 +7205,7 @@
 },
 "c-item-azure-linux-osguard-aks-retirement":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Azure Linux with OS Guard support in AKS ends",
 "status":"Active",
 "members":[
@@ -9300,7 +7238,7 @@
 },
 "c-item-mc1474111":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Retirement of Microsoft 365 Companion apps",
 "status":"Active",
 "members":[
@@ -9356,7 +7294,7 @@
 },
 "c-item-mc1387814":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"RTMP-In port and domain changes required",
 "status":"Active",
 "members":[
@@ -9435,7 +7373,7 @@
 },
 "c-item-mdi-auto-sensor-v3-windows-auditing-default":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Microsoft Defender for Identity auto-activation and auto-auditing automatic enablement",
 "status":"No date",
 "members":[
@@ -9510,7 +7448,7 @@
 },
 "c-item-mc1483974":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Upgrade ExchangeOnlineManagement PowerShell Module to Version 3.10.1 or Later",
 "status":"Active",
 "members":[
@@ -9600,7 +7538,7 @@
 },
 "c-item-mc1506318":{
 "firstSeen":"2026-10-14",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
 "status":"Active",
 "members":[
@@ -10088,7 +8026,7 @@
 },
 "c-item-mc1542066":{
 "firstSeen":"2026-11-07",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Changes to custom organizational data in MODS for Workforce Insights",
 "status":"Active",
 "members":[
@@ -10149,7 +8087,7 @@
 },
 "c-item-mc1546409":{
 "firstSeen":"2026-11-10",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Retirement of off-network invitations to Teams Free",
 "status":"Active",
 "members":[
@@ -10220,7 +8158,7 @@
 },
 "c-item-mc1546438":{
 "firstSeen":"2026-11-10",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Claude models in Copilot are coming into the EU Data Boundary and will be enabled by default",
 "status":"Active",
 "members":[
@@ -10285,7 +8223,7 @@
 },
 "c-item-mc1539001":{
 "firstSeen":"2026-11-10",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Microsoft 365 admin center retires the Project usage report on 4 December 2026 - export what you need by 20…",
 "status":"Active",
 "members":[
@@ -10335,7 +8273,7 @@
 },
 "c-sms-voice-retirement":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Microsoft-provided SMS and voice MFA retirement",
 "status":"Active",
 "members":[
@@ -11400,7 +9338,7 @@
 },
 "c-passkeys-by-default":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Passkeys by default in Microsoft Entra ID",
 "status":"Active",
 "members":[
@@ -12054,22 +9992,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-11",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-11",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-12",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -12191,6 +10113,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-12",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-13",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-13",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 }
 ],
@@ -12792,7 +10730,7 @@
 },
 "c-comp-entra-connect-sync":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Entra Connect Sync — version support",
 "status":"Active",
 "members":[],
@@ -20808,12 +18746,62 @@
 "title":"Critical Pre-Auth MongoDB Flaw (CVE-2026-118383) Can Crash Lagging Servers on Failover",
 "source":"Hacker News",
 "link":"https://thehackernews.com/2026/11/critical-pre-auth-mongodb-flaw-cve-2026.html"
+},
+{
+"day":"2026-11-13",
+"cid":"c-mc1293480",
+"type":"moved",
+"name":"Retirement of legacy TLS versions for POP and IMAP connections",
+"src":"MC1293480",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"text":"August 1, 2026."
+},
+{
+"day":"2026-11-13",
+"cid":"c-mc1182696",
+"type":"moved",
+"name":"Application Guard for Office is being removed",
+"src":"MC1182696",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"text":"early February 2026."
+},
+{
+"day":"2026-11-13",
+"cid":"c-mc1182696",
+"type":"moved",
+"name":"Application Guard for Office is being removed",
+"src":"MC1182696",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"text":"February 2027."
+},
+{
+"day":"2026-11-13",
+"cid":"c-passkeys-by-default",
+"type":"moved",
+"name":"Passkeys by default in Microsoft Entra ID",
+"src":"MC1221452",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-13",
+"cid":"c-passkeys-by-default",
+"type":"moved",
+"name":"Passkeys by default in Microsoft Entra ID",
+"src":"MC1221452",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 }
 ],
 "archive":{
 "c-mc1478819":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Windows Deployment Services (WDS): Hands-free deployment hardening (Phase 2)",
 "status":"Archive",
 "members":[
@@ -21882,7 +19870,7 @@
 },
 "c-mc1483538":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"Windows settings backup is now enabled by default for eligible devices",
 "status":"Archive",
 "members":[
@@ -23010,7 +20998,7 @@
 },
 "c-mc1465771":{
 "firstSeen":"2026-10-09",
-"lastSeen":"2026-11-12",
+"lastSeen":"2026-11-13",
 "name":"DLP alerts will be set as behaviors by default",
 "status":"Archive",
 "members":[
@@ -23101,6 +21089,2070 @@
 "posts":[
 "MC1172446"
 ]
+},
+"c-mc1508562":{
+"firstSeen":"2026-10-15",
+"lastSeen":"2026-11-13",
+"name":"NTLMv1 hardening changes might affect network connections on devices without Credential Guard",
+"status":"Archive",
+"members":[
+"MC1508562",
+"item:MC1508562"
+],
+"log":[
+{
+"date":"2026-10-16",
+"id":"MC1508562",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"October security update switches NTLMv1-derived SSO credentials from audit to block on devices without Credential Guard",
+"title":"October security update switches NTLMv1-derived SSO credentials from audit to block on devices without Credential Guard",
+"link":"https://deltapulse.app/item/MC1508562"
+}
+],
+"milestones":{
+"MC1508562|microsoft enabled auditing of ntlmv derived credential use o#0":{
+"date":"2025-08-25",
+"label":"late Aug 2025",
+"text":"Microsoft enabled auditing of NTLMv1-derived credential use on Windows 11, version 24H2 and later versions, starting in late August 2025."
+},
+"MC1508562|beginning with the security update windows uses enforce mode#0":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"If the registry key BlockNtlmv1SSO has not been previously configured.” The October update shipped on 13 October 2026, so no future date governs it."
+},
+"MC1508562|posted":{
+"date":"2026-10-15",
+"label":"15 Oct 2026",
+"text":"Posted: Take action: NTLMv1 hardening changes might affect network connections on devices without Credential Guard"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1508562":{
+"title":"Take action: NTLMv1 hardening changes might affect network connections on devices without Credential Guard",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1508562",
+"source":"Message Center",
+"id":"MC1508562",
+"date":"2026-10-15",
+"updated":"2026-10-15",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://techcommunity.microsoft.com/t5/fslogix-blog/action-required-windows-kerberos-hardening-rc4-may-affect/ba-p/4506378":{
+"title":"Action required: Windows Kerberos hardening (RC4) may affect FSLogix profiles on SMB storage",
+"link":"https://techcommunity.microsoft.com/t5/fslogix-blog/action-required-windows-kerberos-hardening-rc4-may-affect/ba-p/4506378",
+"source":"FSLogix Blog",
+"date":"2026-03-27",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://mc.merill.net/message/MC1508562":{
+"title":"Take action: NTLMv1 hardening changes might affect network connections on devices without Credential Guard",
+"link":"https://mc.merill.net/message/MC1508562",
+"source":"Message Center",
+"id":"MC1508562",
+"date":"2026-10-15",
+"updated":"2026-10-15",
+"group":"microsoft",
+"found":"2026-10-16"
+},
+"https://deltapulse.app/item/MC1508562":{
+"title":"Take action: NTLMv1 hardening changes might affect network connections on devices without Credential Guard",
+"link":"https://deltapulse.app/item/MC1508562",
+"source":"Main list source",
+"id":"MC1508562",
+"date":"2026-10-15",
+"group":"microsoft",
+"found":"2026-10-16"
+}
+},
+"final":"2026-10-13",
+"type":"Enforcement",
+"tech":"Windows",
+"posts":[
+"MC1508562"
+],
+"archivedOn":"2026-11-13"
+},
+"c-mc1442510":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-13",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"status":"Archive",
+"members":[
+"MC1442510",
+"MC1456735",
+"MC1471963",
+"MC1506287",
+"item:MC1506287"
+],
+"log":[
+{
+"date":"2026-10-14",
+"id":"MC1506287",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"AD FS DKM container ACL hardening is now in enforcement with the October Windows security update",
+"title":"AD FS DKM container ACL hardening is now in enforcement with the October Windows security update",
+"link":"https://mc.merill.net/message/MC1506287"
+},
+{
+"date":"2026-09-28",
+"id":"MC1442510",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"90-Day Reminder: AD FS DKM container ACL hardening begins in October 2026",
+"title":"AD FS DKM container ACL hardening begins in October 2026",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1442510"
+}
+],
+"milestones":{
+"MC1471963|install the windows security update or a later windows updat#0":{
+"date":"2026-07-14",
+"label":"14 Jul 2026",
+"text":"Install the July 14, 2026 Windows security update or a later Windows update on AD FS servers."
+},
+"MC1442510|posted":{
+"date":"2026-07-29",
+"label":"29 Jul 2026",
+"text":"Posted: AD FS DKM container ACL hardening begins in October 2026"
+},
+"MC1456735|posted":{
+"date":"2026-08-17",
+"label":"17 Aug 2026",
+"text":"Posted: AD FS DKM container ACL hardening enforcement (CVE-2026-56155)"
+},
+"MC1471963|posted":{
+"date":"2026-09-14",
+"label":"14 Sep 2026",
+"text":"Posted: AD FS DKM container ACL hardening begins in October 2026"
+},
+"MC1506287|posted":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Posted: AD FS Distributed Key Manager (DKM) container ACL hardening begins today"
+},
+"MC1506287|enforcement started with the update tracked in mc and mc#0":{
+"date":"2026-10-13",
+"label":"13 Oct 2026",
+"text":"Enforcement started with the 13 October 2026 update; tracked in MC1456735 and MC1471963"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1442510":{
+"title":"AD FS DKM container ACL hardening begins in October 2026",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1442510",
+"source":"Message Center",
+"id":"MC1442510",
+"date":"2026-07-29",
+"updated":"2026-07-29",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1456735":{
+"title":"AD FS DKM container ACL hardening enforcement (CVE-2026-56155)",
+"link":"https://mc.merill.net/message/MC1456735",
+"source":"Message Center",
+"id":"MC1456735",
+"date":"2026-08-17",
+"updated":"2026-08-17",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1456735 · MC1471963":{
+"title":"AD FS DKM container ACL hardening enforcement (CVE-2026-56155)",
+"link":"https://mc.merill.net/message/MC1456735 · MC1471963",
+"source":"Message Center",
+"id":"MC1456735 · MC1471963",
+"date":"2026-08-17",
+"updated":"2026-08-17",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1471963":{
+"title":"AD FS DKM container ACL hardening begins in October 2026",
+"link":"https://mc.merill.net/message/MC1471963",
+"source":"Message Center",
+"id":"MC1471963",
+"date":"2026-09-14",
+"updated":"2026-09-14",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1471963":{
+"title":"AD FS DKM container ACL hardening begins in October 2026",
+"link":"https://deltapulse.app/item/MC1471963",
+"source":"Main list source",
+"id":"MC1471963",
+"date":"2026-09-14",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/":{
+"title":"Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
+"link":"https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+"source":"Microsoft Security Blog",
+"date":"2026-09-30",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/supporting-cvss-v4-score-for-cve-for-enhanced-vulnerability/ba-p/4391439":{
+"title":"Supporting CVSS V4 score for CVE for Enhanced Vulnerability Assessment",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/supporting-cvss-v4-score-for-cve-for-enhanced-vulnerability/ba-p/4391439",
+"source":"Defender Vulnerability Management Blog",
+"date":"2025-03-20",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-cve-2024-0012-cve-2024-9474-affecting-pan-os-using/ba-p/4338896":{
+"title":"Guidance for CVE-2024-0012, CVE-2024-9474 affecting PAN-OS using Microsoft Security capabilities",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-cve-2024-0012-cve-2024-9474-affecting-pan-os-using/ba-p/4338896",
+"source":"Defender Vulnerability Management Blog",
+"date":"2024-11-26",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-regresshion-cve-2024-6387-using-microsoft/ba-p/4185940":{
+"title":"Guidance for handling “regreSSHion” (CVE-2024-6387) using Microsoft Security capabilities",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-regresshion-cve-2024-6387-using-microsoft/ba-p/4185940",
+"source":"Defender Vulnerability Management Blog",
+"date":"2024-07-25",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
+"title":"Strengthened TLS certificate validation to address CVE-2026-47632.",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
+"source":"Microsoft Learn · What's new · Azure Arc",
+"date":"2026-03-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint":{
+"title":"CVE exceptions",
+"link":"https://learn.microsoft.com/en-us/defender-endpoint/whats-new-in-microsoft-defender-endpoint",
+"source":"Microsoft Learn · What's new · Defender Vulnerability Management",
+"date":"2026-09-16",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62744":{
+"title":"CVE-2026-62744 Microsoft Windows Media Foundation Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62744",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68875":{
+"title":"CVE-2026-68875 Windows NTFS Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68875",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68878":{
+"title":"CVE-2026-68878 Windows Fast FAT Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68878",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69281":{
+"title":"CVE-2026-69281 Windows License Manager Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69281",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69337":{
+"title":"CVE-2026-69337 Windows Registry Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69337",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69451":{
+"title":"CVE-2026-69451 Windows Management Instrumentation Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69451",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69582":{
+"title":"CVE-2026-69582 Windows Volume Manager Extension Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69582",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69693":{
+"title":"CVE-2026-69693 Windows Device Association Broker Service Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69693",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69732":{
+"title":"CVE-2026-69732 Windows Link Layer Topology Discovery Protocol Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69732",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72979":{
+"title":"CVE-2026-72979 Windows DHCP Server Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72979",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72982":{
+"title":"CVE-2026-72982 Windows Netlogon Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72982",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68880":{
+"title":"CVE-2026-68880 Windows Win32k Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68880",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69277":{
+"title":"CVE-2026-69277 Microsoft Local Security Authority (LSA) Server Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69277",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69301":{
+"title":"CVE-2026-69301 Windows Win32k Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69301",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69322":{
+"title":"CVE-2026-69322 Microsoft Windows Search Component Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69322",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69324":{
+"title":"CVE-2026-69324 Windows Performance Monitor Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69324",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69340":{
+"title":"CVE-2026-69340 Windows NTFS Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69340",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69385":{
+"title":"CVE-2026-69385 Windows TCP/IP Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69385",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69433":{
+"title":"CVE-2026-69433 Windows Error Reporting Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69433",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69571":{
+"title":"CVE-2026-69571 Windows USB Audio Class driver (usbaudio.sys) Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69571",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12727":{
+"title":"Chromium: CVE-2025-12727 Inappropriate implementation in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12727",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12441":{
+"title":"Chromium: CVE-2025-12441 Out of bounds read in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12441",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12433":{
+"title":"Chromium: CVE-2025-12433 Inappropriate implementation in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12433",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12432":{
+"title":"Chromium: CVE-2025-12432 Race in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12432",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12429":{
+"title":"Chromium: CVE-2025-12429 Inappropriate implementation in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12429",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12428":{
+"title":"Chromium: CVE-2025-12428 Type Confusion in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-12428",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-12",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506287":{
+"title":"AD FS Distributed Key Manager (DKM) container ACL hardening begins today",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1506287",
+"source":"Message Center",
+"id":"MC1506287",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-13"
+},
+"https://mc.merill.net/message/MC1506287":{
+"title":"AD FS Distributed Key Manager (DKM) container ACL hardening begins today",
+"link":"https://mc.merill.net/message/MC1506287",
+"source":"Message Center",
+"id":"MC1506287",
+"date":"2026-10-13",
+"updated":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-103572":{
+"title":"CVE-2026-103572 Visual Studio Tools for Applications and SQL Server Management Studio Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-103572",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105725":{
+"title":"CVE-2026-105725 Windows Security App Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105725",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105727":{
+"title":"CVE-2026-105727 Microsoft Dynamics 365 Business Central Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105727",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105728":{
+"title":"CVE-2026-105728 Dynamics Business Central Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105728",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108400":{
+"title":"CVE-2026-108400 HEVC Video Extensions Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108400",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108457":{
+"title":"CVE-2026-108457 Microsoft Windows PDF Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108457",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108468":{
+"title":"CVE-2026-108468 Windows Installer Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108468",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102227":{
+"title":"CVE-2026-102227 Windows Resilient File System (ReFS) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102227",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102229":{
+"title":"CVE-2026-102229 Visual Studio Code Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102229",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102231":{
+"title":"CVE-2026-102231 Visual Studio Code Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102231",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102232":{
+"title":"CVE-2026-102232 Visual Studio Code Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102232",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102233":{
+"title":"CVE-2026-102233 Visual Studio Code Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102233",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102234":{
+"title":"CVE-2026-102234 Visual Studio Code Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102234",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102235":{
+"title":"CVE-2026-102235 Visual Studio Code Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102235",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102238":{
+"title":"CVE-2026-102238 Visual Studio Code Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102238",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70098":{
+"title":"CVE-2026-70098 Visual Studio Code Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70098",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96956":{
+"title":"CVE-2026-96956 SQL Server Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96956",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69366":{
+"title":"CVE-2026-69366 Windows Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69366",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69676":{
+"title":"CVE-2026-69676 Windows Kerberos Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69676",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70584":{
+"title":"CVE-2026-70584 Windows Core Messaging Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70584",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68825":{
+"title":"CVE-2026-68825 Windows Bind Filter Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-68825",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-77499":{
+"title":"CVE-2026-77499 Windows DHCP Server Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-77499",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72937":{
+"title":"CVE-2026-72937 Windows Storage Port Driver Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72937",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62697":{
+"title":"CVE-2026-62697 Windows Push Notifications Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62697",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69351":{
+"title":"CVE-2026-69351 Windows Universal Plug and Play (UPnP) Device Host Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69351",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69620":{
+"title":"CVE-2026-69620 Windows DHCP Server Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69620",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69334":{
+"title":"CVE-2026-69334 Windows Volume Manager Extension Driver Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69334",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-81352":{
+"title":"CVE-2026-81352 Web Media Extensions Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-81352",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-32176":{
+"title":"CVE-2026-32176 SQL Server Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-32176",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105723":{
+"title":"CVE-2026-105723 Windows Distributed File System (DFS) Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105723",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70095":{
+"title":"CVE-2026-70095 Windows iSCSI Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70095",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70245":{
+"title":"CVE-2026-70245 Windows Ancillary Function Driver for WinSock Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70245",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-84019":{
+"title":"CVE-2026-84019 Windows Advanced Rasterization Platform Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-84019",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85868":{
+"title":"CVE-2026-85868 Windows Common Log File System Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85868",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85870":{
+"title":"CVE-2026-85870 Windows Common Log File System Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85870",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102188":{
+"title":"CVE-2026-102188 Windows Storage Port Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102188",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105718":{
+"title":"CVE-2026-105718 Microsoft Excel Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105718",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-15",
+"group":"microsoft",
+"found":"2026-10-16"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106258":{
+"title":"Chromium CVE-2026-106258: Uninitialized resource",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106258",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106263":{
+"title":"Chromium CVE-2026-106263: Improper input validation",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106263",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106264":{
+"title":"Chromium CVE-2026-106264: Missing authorization",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106264",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106268":{
+"title":"Chromium CVE-2026-106268: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106268",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106270":{
+"title":"Chromium CVE-2026-106270: Incorrect authorization",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106270",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106271":{
+"title":"Chromium CVE-2026-106271: Missing authorization",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106271",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106273":{
+"title":"Chromium CVE-2026-106273: Uninitialized resource",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106273",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106274":{
+"title":"Chromium CVE-2026-106274: Incorrect reference resolution",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106274",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106276":{
+"title":"Chromium CVE-2026-106276: UI misrepresentation",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106276",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106278":{
+"title":"Chromium CVE-2026-106278: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106278",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108465":{
+"title":"CVE-2026-108465 Windows Update Delivery Optimization Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108465",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83831":{
+"title":"CVE-2026-83831 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83831",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85890":{
+"title":"CVE-2026-85890 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85890",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85897":{
+"title":"CVE-2026-85897 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85897",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85898":{
+"title":"CVE-2026-85898 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85898",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96198":{
+"title":"CVE-2026-96198 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96198",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96199":{
+"title":"CVE-2026-96199 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96199",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106287":{
+"title":"Chromium CVE-2026-106287: Information loss",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106287",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106288":{
+"title":"Chromium CVE-2026-106288: Missing authorization",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-106288",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-80092":{
+"title":"CVE-2026-80092 Microsoft Identity Web Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-80092",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-19",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70197":{
+"title":"CVE-2026-70197 .NET Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70197",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-19",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96913":{
+"title":"CVE-2026-96913 Windows Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96913",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70074":{
+"title":"CVE-2026-70074 Windows DNS Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70074",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83839":{
+"title":"CVE-2026-83839 Windows Hyper-V Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83839",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83782":{
+"title":"CVE-2026-83782 Windows Shell Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83782",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102204":{
+"title":"CVE-2026-102204 Windows Subsystem for Linux Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102204",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70337":{
+"title":"CVE-2026-70337 Microsoft PowerShell Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70337",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-20",
+"group":"microsoft",
+"found":"2026-10-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-61359":{
+"title":"CVE-2026-61359 Windows Storage Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-61359",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83709":{
+"title":"CVE-2026-83709 Windows NTLM Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83709",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69902":{
+"title":"CVE-2026-69902 Windows NTFS Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69902",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-97785":{
+"title":"CVE-2026-97785 AAD App Proxy Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-97785",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-22",
+"group":"microsoft",
+"found":"2026-10-23"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96251":{
+"title":"CVE-2026-96251 Microsoft PowerShell Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96251",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-22",
+"group":"microsoft",
+"found":"2026-10-23"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96303":{
+"title":"CVE-2026-96303 Microsoft PowerShell Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96303",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-22",
+"group":"microsoft",
+"found":"2026-10-23"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83862":{
+"title":"CVE-2026-83862 Windows Network Load Balancing Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83862",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-23",
+"group":"microsoft",
+"found":"2026-10-24"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102208":{
+"title":"CVE-2026-102208 Windows Win32 Kernel Subsystem Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102208",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-23",
+"group":"microsoft",
+"found":"2026-10-24"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102870":{
+"title":"CVE-2026-102870 ASP.NET Core Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102870",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-25",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114148":{
+"title":"CVE-2026-114148 ASP.NET Core Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114148",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-25",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-111497":{
+"title":"CVE-2026-111497 Google: CVE-2026-111497 Buffer overflow vulnerability in the Brotli decoder",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-111497",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-25",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83519":{
+"title":"CVE-2026-83519 Windows Error Reporting Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83519",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70054":{
+"title":"CVE-2026-70054 Windows NetBIOS Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70054",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69923":{
+"title":"CVE-2026-69923 Windows AI Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69923",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96311":{
+"title":"CVE-2026-96311 Windows Network List Service Tampering Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96311",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69926":{
+"title":"CVE-2026-69926 Desktop Window Manager Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69926",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96234":{
+"title":"CVE-2026-96234 .NET Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96234",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70338":{
+"title":"CVE-2026-70338 Microsoft PowerShell Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70338",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70277":{
+"title":"CVE-2026-70277 Windows Fast FAT File System Driver Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70277",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70161":{
+"title":"CVE-2026-70161 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70161",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70007":{
+"title":"CVE-2026-70007 .NET Framework Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70007",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96225":{
+"title":"CVE-2026-96225 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96225",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-20942":{
+"title":"CVE-2026-20942 Microsoft Edge (Chromium-based) Spoofing Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-20942",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-88078":{
+"title":"CVE-2026-88078 Microsoft Edge (Chromium-based) Spoofing Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-88078",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96196":{
+"title":"CVE-2026-96196 Microsoft Edge (Chromium-based) Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96196",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69473":{
+"title":"CVE-2026-69473 Windows Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69473",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69284":{
+"title":"CVE-2026-69284 Windows DCOM Server Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69284",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62765":{
+"title":"CVE-2026-62765 Microsoft Edge (Chromium-based) Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62765",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62740":{
+"title":"CVE-2026-62740 Windows Imaging Component Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62740",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62877":{
+"title":"CVE-2026-62877 Windows Win32k Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62877",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-19175":{
+"title":"CVE-2026-19175 Use after free in Payments",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-19175",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78891":{
+"title":"Chromium: CVE-2026-78891 Buffer overflow in WebRTC",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78891",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78892":{
+"title":"Chromium: CVE-2026-78892 Incorrect authorization in Chromoting",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78892",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78893":{
+"title":"Chromium: CVE-2026-78893 Information leak in QUIC",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78893",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78894":{
+"title":"Chromium: CVE-2026-78894 Race condition in Payments",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78894",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78895":{
+"title":"Chromium: CVE-2026-78895 Information leak in Paint",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78895",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78896":{
+"title":"Chromium: CVE-2026-78896 Information leak in StorageAccessAPI",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78896",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78897":{
+"title":"Chromium: CVE-2026-78897 Missing authorization in BrowserTag",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78897",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78898":{
+"title":"Chromium: CVE-2026-78898 Incorrect authorization in Downloads",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78898",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78899":{
+"title":"Chromium: CVE-2026-78899 Use after free in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78899",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78900":{
+"title":"Chromium: CVE-2026-78900 Improper input validation in Media",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78900",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78901":{
+"title":"Chromium: CVE-2026-78901 Race condition in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78901",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78903":{
+"title":"Chromium: CVE-2026-78903 Incomplete cleanup in SiteIsolation",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78903",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78904":{
+"title":"Chromium: CVE-2026-78904 Type confusion in ANGLE",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78904",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78905":{
+"title":"Chromium: CVE-2026-78905 Type confusion in ANGLE",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78905",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78906":{
+"title":"Chromium: CVE-2026-78906 Race condition in ANGLE",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78906",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78907":{
+"title":"Chromium: CVE-2026-78907 Incorrect authorization in WebProtect",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78907",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78908":{
+"title":"Chromium: CVE-2026-78908 Information leak in Canvas",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78908",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-28",
+"group":"microsoft",
+"found":"2026-10-28"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118147":{
+"title":"CVE-2026-118147 Visual Studio Spoofing Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118147",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-30",
+"group":"microsoft",
+"found":"2026-10-30"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69446":{
+"title":"CVE-2026-69446 Microsoft Edge (Chromium-based) Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69446",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-30",
+"group":"microsoft",
+"found":"2026-10-30"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118304":{
+"title":"Chromium: CVE-2026-118304 Improper input validation in SVG",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118304",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118313":{
+"title":"Chromium: CVE-2026-118313 Use after free in Video",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118313",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118311":{
+"title":"Chromium: CVE-2026-118311 Memory corruption in Media",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118311",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118317":{
+"title":"Chromium: CVE-2026-118317 Memory corruption in HTML",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118317",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118315":{
+"title":"Chromium: CVE-2026-118315 Improper input validation in SVG",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118315",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118312":{
+"title":"Chromium: CVE-2026-118312 Memory corruption in Paint",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118312",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118316":{
+"title":"Chromium: CVE-2026-118316 Improper input validation in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118316",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118318":{
+"title":"Chromium: CVE-2026-118318 Improper access control in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118318",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118308":{
+"title":"Chromium: CVE-2026-118308 Use after free in SVG",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118308",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118310":{
+"title":"Chromium: CVE-2026-118310 Improper input validation in Views",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118310",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118305":{
+"title":"Chromium: CVE-2026-118305 Memory corruption in Turbolev",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118305",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118307":{
+"title":"Chromium: CVE-2026-118307 Use after free in Paint",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118307",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118306":{
+"title":"Chromium: CVE-2026-118306 Memory corruption in FileSystem",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118306",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118319":{
+"title":"Chromium: CVE-2026-118319 Memory corruption in Skia",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118319",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118322":{
+"title":"Chromium: CVE-2026-118322 Memory corruption in ANGLE",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118322",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118328":{
+"title":"Chromium: CVE-2026-118328 Improper input validation in WebRTC",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118328",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118327":{
+"title":"Chromium: CVE-2026-118327 Memory corruption in Media",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118327",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118332":{
+"title":"Chromium: CVE-2026-118332 Improper input validation in Compositing",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118332",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118320":{
+"title":"Chromium: CVE-2026-118320 Memory corruption in V8",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118320",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-31",
+"group":"microsoft",
+"found":"2026-10-31"
+},
+"https://dev.to/guidance_white/cve-2026-68582-how-a-share-link-lets-you-read-someone-elses-kanban-board-vikunja-bola-48nc":{
+"title":"CVE-2026-68582: How a Share Link Lets You Read Someone Else's Kanban Board (Vikunja BOLA)",
+"link":"https://dev.to/guidance_white/cve-2026-68582-how-a-share-link-lets-you-read-someone-elses-kanban-board-vikunja-bola-48nc",
+"source":"NeonTiger12",
+"date":"2026-10-31",
+"group":"community",
+"found":"2026-10-31"
+},
+"https://dev.to/ioneyrezende/cve-2026-105483-when-an-ipv4-address-is-checked-as-a-dns-name-3bkk":{
+"title":"CVE-2026-105483: when an IPv4 address is checked as a DNS name",
+"link":"https://dev.to/ioneyrezende/cve-2026-105483-when-an-ipv4-address-is-checked-as-a-dns-name-3bkk",
+"source":"NeonTiger12",
+"date":"2026-11-02",
+"group":"community",
+"found":"2026-11-02"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119260":{
+"title":"Chromium CVE-2026-119260: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119260",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118321":{
+"title":"Chromium CVE-2026-118321: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118321",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118314":{
+"title":"Chromium CVE-2026-118314: Incorrect reference resolution",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118314",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118309":{
+"title":"Chromium CVE-2026-118309: Incorrect reference resolution",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118309",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119261":{
+"title":"Chromium CVE-2026-119261: Improper input validation",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119261",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119262":{
+"title":"Chromium CVE-2026-119262: Improper input validation",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119262",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119263":{
+"title":"Chromium CVE-2026-119263: Memory corruption",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119263",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119264":{
+"title":"Chromium CVE-2026-119264: Memory corruption",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119264",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119265":{
+"title":"Chromium CVE-2026-119265: Memory corruption",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119265",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119266":{
+"title":"Chromium CVE-2026-119266: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119266",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119267":{
+"title":"Chromium CVE-2026-119267: Memory corruption",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119267",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119268":{
+"title":"Chromium CVE-2026-119268: Integer overflow",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119268",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119269":{
+"title":"Chromium CVE-2026-119269: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119269",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119270":{
+"title":"Chromium CVE-2026-119270: Improper input validation",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119270",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119271":{
+"title":"Chromium CVE-2026-119271: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119271",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119272":{
+"title":"Chromium CVE-2026-119272: Out of bounds read",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119272",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76024":{
+"title":"Chromium CVE-2026-76024: Memory corruption",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76024",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76025":{
+"title":"Chromium CVE-2026-76025: Use after free",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76025",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76026":{
+"title":"Chromium CVE-2026-76026: Memory corruption",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76026",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76027":{
+"title":"Chromium CVE-2026-76027: Memory corruption",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-76027",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-04",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://dev.to/olgabyte/apt-vulnerability-cve-2026-109518-enables-root-level-attacks-via-malicious-http-traffic-on-1o27":{
+"title":"APT Vulnerability (CVE-2026-109518) Enables Root-Level Attacks via Malicious HTTP Traffic on Debian/Ubuntu Derivatives",
+"link":"https://dev.to/olgabyte/apt-vulnerability-cve-2026-109518-enables-root-level-attacks-via-malicious-http-traffic-on-1o27",
+"source":"NeonTiger12",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83844":{
+"title":"CVE-2026-83844 Windows Paint Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83844",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-06",
+"group":"microsoft",
+"found":"2026-11-07"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102868":{
+"title":"CVE-2026-102868 Windows Shell Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102868",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105582":{
+"title":"CVE-2026-105582 Windows DWM Core Library Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105582",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105583":{
+"title":"CVE-2026-105583 Windows DWM Core Library Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105583",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105584":{
+"title":"CVE-2026-105584 Windows Inventory Backup Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105584",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105586":{
+"title":"CVE-2026-105586 Microsoft Windows SCSI Class System File Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105586",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105587":{
+"title":"CVE-2026-105587 Windows OLE DB Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105587",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105588":{
+"title":"CVE-2026-105588 Windows DHCP Server Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105588",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105589":{
+"title":"CVE-2026-105589 Windows Wireless Networking Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105589",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105590":{
+"title":"CVE-2026-105590 Windows Active Directory Certificate Services Security Feature Bypass",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105590",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-100204":{
+"title":"CVE-2026-100204 HEIF Image Extensions Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-100204",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108409":{
+"title":"CVE-2026-108409 Windows Overlay Filter Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108409",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108417":{
+"title":"CVE-2026-108417 Windows Remote Desktop Client Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108417",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108424":{
+"title":"CVE-2026-108424 Windows GDI Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108424",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108403":{
+"title":"CVE-2026-108403 Windows Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108403",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108411":{
+"title":"CVE-2026-108411 Microsoft ODBC Driver Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108411",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108415":{
+"title":"CVE-2026-108415 Windows File Server Resource Management Service Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108415",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108416":{
+"title":"CVE-2026-108416 Windows File Server Resource Management Service Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-108416",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109463":{
+"title":"CVE-2026-109463 Windows DNS Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109463",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-66801":{
+"title":"CVE-2026-66801 Microsoft Xbox Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-66801",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105544":{
+"title":"CVE-2026-105544 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105544",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109475":{
+"title":"CVE-2026-109475 .NET Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109475",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109476":{
+"title":"CVE-2026-109476 ASP.NET Core Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109476",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109478":{
+"title":"CVE-2026-109478 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109478",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109481":{
+"title":"CVE-2026-109481 ASP.NET Core Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109481",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114146":{
+"title":"CVE-2026-114146 ASP.NET Core Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114146",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114147":{
+"title":"CVE-2026-114147 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114147",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114149":{
+"title":"CVE-2026-114149 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114149",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114150":{
+"title":"CVE-2026-114150 ASP.NET Core Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114150",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114151":{
+"title":"CVE-2026-114151 Visual Studio Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114151",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114152":{
+"title":"CVE-2026-114152 Visual Studio Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114152",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114154":{
+"title":"CVE-2026-114154 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114154",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114155":{
+"title":"CVE-2026-114155 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114155",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114156":{
+"title":"CVE-2026-114156 ASP.NET Core Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114156",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114157":{
+"title":"CVE-2026-114157 ASP.NET Core Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114157",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114158":{
+"title":"CVE-2026-114158 Visual Studio Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114158",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114159":{
+"title":"CVE-2026-114159 Visual Studio Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114159",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-120006":{
+"title":"CVE-2026-120006 Aspire Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-120006",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118745":{
+"title":"CVE-2026-118745 Visual Studio Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118745",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118746":{
+"title":"CVE-2026-118746 .NET Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118746",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://thehackernews.com/2026/11/critical-pre-auth-mongodb-flaw-cve-2026.html":{
+"title":"Critical Pre-Auth MongoDB Flaw (CVE-2026-118383) Can Crash Lagging Servers on Failover",
+"link":"https://thehackernews.com/2026/11/critical-pre-auth-mongodb-flaw-cve-2026.html",
+"source":"Hacker News",
+"date":"2026-11-12",
+"group":"community",
+"found":"2026-11-12"
+}
+},
+"final":"2026-10-13",
+"type":"Enforcement",
+"tech":"Windows",
+"posts":[
+"MC1442510",
+"MC1456735",
+"MC1471963",
+"MC1506287"
+],
+"archivedOn":"2026-11-13"
 }
 }
 }

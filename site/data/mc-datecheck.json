@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-12T23:45:19Z",
- "day": "2026-11-12",
+ "generated": "2026-11-13T01:27:35Z",
+ "day": "2026-11-13",
  "spec": "5gf",
- "source": "site/data/campaigns.json (2026-11-12)",
- "count": 46,
+ "source": "site/data/campaigns.json (2026-11-13)",
+ "count": 43,
  "byMc": {
   "MC1191578": {
    "says": [],
@@ -2170,83 +2170,6 @@
     {
      "id": "c-mc1278920-2",
      "name": "Support for Office LTSC 2021, and additional apps will end on October 13, 2026"
-    }
-   ],
-   "verdict": "newer"
-  },
-  "MC1442510": {
-   "says": [],
-   "others": [],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1456735",
-     "date": "2026-08-17",
-     "title": "AD FS DKM container ACL hardening enforcement (CVE-2026-56155)"
-    },
-    {
-     "id": "MC1471963",
-     "date": "2026-09-14",
-     "title": "30-Day Reminder: AD FS DKM container ACL hardening begins in October 2026"
-    },
-    {
-     "id": "MC1506287",
-     "date": "2026-10-13",
-     "title": "AD FS Distributed Key Manager (DKM) container ACL hardening begins today"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-mc1442510",
-     "name": "AD FS DKM container ACL hardening begins in October 2026"
-    }
-   ],
-   "verdict": "newer"
-  },
-  "MC1456735": {
-   "says": [],
-   "others": [],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1471963",
-     "date": "2026-09-14",
-     "title": "30-Day Reminder: AD FS DKM container ACL hardening begins in October 2026"
-    },
-    {
-     "id": "MC1506287",
-     "date": "2026-10-13",
-     "title": "AD FS Distributed Key Manager (DKM) container ACL hardening begins today"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-mc1442510",
-     "name": "AD FS DKM container ACL hardening begins in October 2026"
-    }
-   ],
-   "verdict": "newer"
-  },
-  "MC1471963": {
-   "says": [
-    "2026-07-14"
-   ],
-   "others": [],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1506287",
-     "date": "2026-10-13",
-     "title": "AD FS Distributed Key Manager (DKM) container ACL hardening begins today"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-mc1442510",
-     "name": "AD FS DKM container ACL hardening begins in October 2026"
     }
    ],
    "verdict": "newer"
