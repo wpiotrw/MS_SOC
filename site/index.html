@@ -6526,6 +6526,46 @@ html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
 .s5gp-areas>li{display:block;border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:14px 16px;margin:0;scroll-margin-top:90px;font-size:15px}
 .s5gp-areas>li.s5gp-aq{border-style:dashed}
 .s5gp-areas>li>.s5fm-n{display:none!important}
+/* §5gr-b: the phone page scrolled 31 px sideways in Today: a cross-check frame inside a pick fell into the 28 px number column, and the pick carried invisible overflow */
+.s5ci-pick>.s5gf-dc{grid-column:1 / -1;min-width:0}
+.s5ci-pick{overflow-x:clip;overflow-wrap:anywhere}   /* a long cmdlet name (Get-MgReportAuthenticationMethodUserRegistrationDetail) could not wrap; clip is the safety net */
+/* §5gr Microsoft 365 / Azure status under the logo */
+.s5ms{z-index:6;font-family:inherit}
+.s5ms.s5ms-side{position:absolute;left:0;top:296px;width:300px;padding:0 12px;box-sizing:border-box}
+.s5ms.s5ms-inline{position:relative;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:8px 0 4px;padding:0 20px}
+@media (max-width:600px){.s5ms.s5ms-inline{padding:0 12px}}
+.s5ms-row{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.s5ms-side .s5ms-row{flex-direction:column;align-items:stretch}
+.s5ms-b{display:inline-flex;align-items:center;justify-content:center;gap:7px;font:inherit;font-size:13px;font-weight:700;line-height:1.2;padding:6px 12px;border-radius:999px;border:1px solid;cursor:pointer;color:#fff}
+.s5ms-b>i{width:10px;height:10px;border-radius:50%;flex:none;display:inline-block}
+.s5ms-ok{background:#065f46;border-color:#10b981}.s5ms-ok>i{background:#34d399}
+.s5ms-warn{background:#92400e;border-color:#f59e0b}.s5ms-warn>i{background:#fbbf24;box-shadow:0 0 0 3px rgba(251,191,36,.35)}
+.s5ms-bad{background:#991b1b;border-color:#ef4444}.s5ms-bad>i{background:#fca5a5;box-shadow:0 0 0 3px rgba(248,113,113,.4)}
+.s5ms-error{background:#475569;border-color:#64748b}.s5ms-error>i{background:#cbd5e1}
+.s5ms-b:hover{filter:brightness(1.12)}
+.s5ms-meta{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;justify-content:center;margin-top:6px;font-size:12.5px;color:var(--text)}
+.s5ms-inline .s5ms-meta{margin-top:0}
+.s5ms-r{font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--accent);border-radius:999px;padding:2px 10px}
+.s5ms-r:disabled{opacity:.6;cursor:progress}
+.s5ms-ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;display:flex;align-items:flex-start;justify-content:center;padding:56px 16px;overflow:auto}
+.s5ms-ov[hidden]{display:none}
+.s5ms-dlg{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:16px;max-width:900px;width:100%;padding:18px 22px;font-size:15px;line-height:1.5;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.s5ms-dlg h2{margin:0 0 4px;font-size:22px}
+.s5ms-sub{margin:0 0 12px;font-size:14px}
+.s5ms-x{float:right;font:inherit;font-size:13px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:8px;padding:3px 10px}
+.s5ms-card{border:2px solid var(--border);border-radius:12px;padding:12px 14px;margin:0 0 12px}
+.s5ms-c-ok{border-color:#10b981}.s5ms-c-warn{border-color:#f59e0b}.s5ms-c-bad{border-color:#ef4444}.s5ms-c-error{border-color:#64748b;border-style:dashed}
+.s5ms-card>h3{margin:0 0 8px;font-size:17px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.s5ms-pill{font-size:12.5px;font-weight:700;border-radius:999px;padding:2px 10px;color:#fff}
+.s5ms-p-ok{background:#047857}.s5ms-p-warn{background:#b45309}.s5ms-p-bad{background:#b91c1c}.s5ms-p-error{background:#475569}
+.s5ms-it{border-top:1px solid var(--border);padding:8px 0 4px}.s5ms-it:first-of-type{border-top:0}
+.s5ms-ih{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:16px}
+.s5ms-pub{font-size:14px;margin:2px 0 4px}
+.s5ms-it ul{margin:4px 0 0 20px;padding:0}.s5ms-it li{margin:3px 0}
+.s5ms-p{margin:4px 0}
+.s5ms-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.s5ms-l{border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:3px 12px;text-decoration:none;font-weight:600;font-size:13.5px}
+.s5ms-l:hover{text-decoration:underline}
 .s5gp-areas>li>.s5bk-k{display:inline-block;margin:0 0 8px;background:#1d4ed8;color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;padding:3px 12px;border-radius:999px}
 @container (min-width:900px){.s5gp-areas .s5er-grid{display:grid!important;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:12px;align-items:start}.s5gp-areas .s5er-grid>.s5er-box{width:auto!important;max-width:none!important;flex:none!important}.s5gp-areas .s5er-grid>.s5er-box:first-child{grid-row:1 / span 9}}
 /* §5gp-b (owner, 12 XI): the full width, two entries a row; the cards of a row are equally tall (no holes); the rail
@@ -33679,6 +33719,126 @@ IdentityDirectoryEvents
   window.__s5gp = build;
   [1500, 4000, 9000, 16000, 26000].forEach(function (t) { setTimeout(function () { try { build(); set(ON); } catch (e) {} }, t); });
   document.addEventListener("click", function (ev) { if (ev.target.closest && ev.target.closest("#tabbtn-tab-overview")) setTimeout(function () { try { build(); } catch (e) {} }, 300); });
+})();
+/* §5gr (13 XI 2026): Microsoft 365 and Azure service status under the logo. Data: /api/ms-status (api/ms-status,
+   a Static Web Apps function that reads Microsoft's public status feeds - they send no CORS header, so the page cannot).
+   Two badges (green OK / amber degradation / red interruption / grey unknown), "checked HH:MM" and a Refresh button
+   next to them (owner: the refresh belongs by the badges too, not only in the window); a click on a badge opens the
+   window with the incidents, their affected services and links to Microsoft. Refresh: on load, every 5 minutes while
+   the tab is visible, on return to the tab after 5 minutes, and by the buttons (?refresh=1, the function limits it). */
+(function () {
+  var API = "/api/ms-status", EVERY = 300000, last = 0, data = null, busy = false, box = null, ov = null, failed = 0;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function hm(iso) { try { return new Date(iso).toLocaleTimeString("en-GB", { timeZone: "Europe/Warsaw", hour: "2-digit", minute: "2-digit" }); } catch (e) { return ""; } }
+  function dt(iso) { try { return new Date(iso).toLocaleString("en-GB", { timeZone: "Europe/Warsaw", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }); } catch (e) { return ""; } }
+  function human(s) { return s ? s.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^./, function (c) { return c.toUpperCase(); }).replace(/ ([A-Z])/g, function (m, c) { return " " + c.toLowerCase(); }) : ""; }
+  var LAB = { ok: "OK", warn: "degraded", bad: "interruption", error: "status unknown" };
+  function badgeText(s) {
+    if (!s || s.state === "error") return s ? s.name + " · status unknown" : "status unknown";
+    if (s.state === "ok") return s.name + " · OK";
+    return s.name + " · " + s.open + (s.open === 1 ? " incident" : " incidents");
+  }
+  function place() {
+    if (!box) return;
+    var logo = document.querySelector("a.s5cx-logo");
+    var side = !!(logo && getComputedStyle(logo).display !== "none" && logo.getBoundingClientRect().width > 150);
+    box.classList.toggle("s5ms-side", side); box.classList.toggle("s5ms-inline", !side);
+  }
+  function mount() {
+    if (box && box.isConnected) return box;
+    var logo = document.querySelector("a.s5cx-logo"), top = logo ? logo.parentNode : document.querySelector("header.top, .top");
+    if (!top) return null;
+    box = el("div", "s5ms"); box.setAttribute("role", "group"); box.setAttribute("aria-label", "Microsoft service status");
+    if (logo) top.insertBefore(box, logo.nextSibling); else top.insertBefore(box, top.firstChild);
+    place(); return box;
+  }
+  function render() {
+    if (!mount()) return;
+    box.textContent = "";
+    var row = el("div", "s5ms-row");
+    var svc = data && data.services ? data.services : [{ key: "m365", name: "Microsoft 365", state: "error" }, { key: "azure", name: "Azure", state: "error" }];
+    svc.forEach(function (s) {
+      var b = el("button", "s5ms-b s5ms-" + (s.state || "error")); b.type = "button";
+      b.setAttribute("aria-label", s.name + ": " + (LAB[s.state] || "status unknown") + " - open the details");
+      b.appendChild(el("i")); b.appendChild(document.createTextNode(badgeText(s)));
+      b.addEventListener("click", function () { openWin(s.key); }); row.appendChild(b);
+    });
+    box.appendChild(row);
+    var meta = el("div", "s5ms-meta");
+    meta.appendChild(el("span", "s5ms-when", busy ? "checking…" : (data ? "Microsoft status · checked " + hm(data.checked) + " Warsaw" : (failed ? "Microsoft status could not be read at " + hm(new Date(failed).toISOString()) + " Warsaw" : "Microsoft status · not checked yet"))));
+    var r = el("button", "s5ms-r", "↻ Refresh"); r.type = "button"; r.disabled = busy; r.title = "Check Microsoft's status now";
+    r.addEventListener("click", function () { load(true); }); meta.appendChild(r);
+    box.appendChild(meta);
+    if (ov && ov.isConnected && !ov.hidden) fillWin(ov.getAttribute("data-k"));
+  }
+  function load(force) {
+    if (busy) return; busy = true; render();
+    fetch(API + (force ? "?refresh=1" : ""), { cache: force ? "no-store" : "default", credentials: "same-origin" })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (j) { data = j; failed = 0; })
+      .catch(function () { data = null; failed = Date.now(); })
+      .then(function () { busy = false; last = Date.now(); render(); });
+  }
+  function link(href, txt) { var a = el("a", "s5ms-l", txt + " ›"); a.href = href; a.target = "_blank"; a.rel = "noopener noreferrer"; return a; }
+  function fillWin(k) {
+    var d = ov.querySelector(".s5ms-dlg"); d.textContent = "";
+    var x = el("button", "s5ms-x", "Close ✕"); x.type = "button"; x.addEventListener("click", closeWin); d.appendChild(x);
+    d.appendChild(el("h2", null, "Microsoft service status"));
+    var sub = el("p", "s5ms-sub", "Public status of Microsoft 365 and Azure, read from Microsoft's status feeds" +
+      (data ? " · checked " + hm(data.checked) + " Warsaw" : "") + " · refreshes every 5 minutes while this page is open");
+    var r = el("button", "s5ms-r", busy ? "checking…" : "↻ Refresh"); r.type = "button"; r.disabled = busy; r.addEventListener("click", function () { load(true); });
+    sub.appendChild(document.createTextNode(" ")); sub.appendChild(r); d.appendChild(sub);
+    var svc = data && data.services ? data.services.slice() : [
+      { key: "m365", name: "Microsoft 365", state: "error", page: "https://status.cloud.microsoft/", admin: "https://admin.microsoft.com/#/servicehealth", feed: "https://status.cloud.microsoft/api/feed/mac" },
+      { key: "azure", name: "Azure", state: "error", page: "https://azure.status.microsoft/en-us/status", admin: "https://portal.azure.com/#blade/Microsoft_Azure_Health/AzureHealthBrowseBlade", feed: "https://rssfeed.azure.status.microsoft/en-us/status/feed/" }];
+    svc.sort(function (a, b) { return a.key === k ? -1 : (b.key === k ? 1 : 0); });
+    svc.forEach(function (s) {
+      var c = el("section", "s5ms-card s5ms-c-" + (s.state || "error")), h = el("h3");
+      h.appendChild(el("span", "s5ms-pill s5ms-p-" + (s.state || "error"), s.state === "ok" ? "No active incidents" : (s.state === "error" ? "Status unknown" : (s.open === 1 ? "1 active incident" : s.open + " active incidents"))));
+      h.appendChild(document.createTextNode(s.name)); c.appendChild(h);
+      if (s.state === "error") c.appendChild(el("p", "s5ms-p", "This portal could not read Microsoft's status feed" + (s.error ? " (" + s.error + ")" : "") + ". Open Microsoft's own pages below."));
+      else if (!s.items || !s.items.length) c.appendChild(el("p", "s5ms-p", "Microsoft's status feed lists no current incident" + (s.built ? " (feed built " + hm(s.built) + " Warsaw)" : "") + "."));
+      (s.items || []).forEach(function (it) {
+        var w = el("div", "s5ms-it"), t = el("div", "s5ms-ih");
+        t.appendChild(el("span", "s5ms-pill s5ms-p-" + (it.level === "resolved" ? "ok" : it.level), it.status ? human(it.status) : (it.level === "resolved" ? "Resolved" : "Incident")));
+        t.appendChild(el("b", null, it.title || s.name)); w.appendChild(t);
+        if (it.published) w.appendChild(el("div", "s5ms-pub", "Posted " + dt(it.published) + " Warsaw"));
+        var ul = el("ul");
+        (it.lines || []).forEach(function (ln) {
+          var li = el("li"), m = /^-?\s*([^:]{2,70}):\s*(.*)$/.exec(ln);
+          if (m) { li.appendChild(el("b", null, m[1] + ": ")); li.appendChild(document.createTextNode(m[2])); } else li.textContent = ln.replace(/^-\s*/, "");
+          ul.appendChild(li);
+        });
+        if (ul.children.length) w.appendChild(ul);
+        c.appendChild(w);
+      });
+      var L = el("div", "s5ms-links");
+      L.appendChild(link(s.page, s.key === "azure" ? "Azure status page" : "Microsoft status page"));
+      L.appendChild(link(s.admin, s.key === "azure" ? "Azure Service Health (portal)" : "Service health in the Microsoft 365 admin center"));
+      L.appendChild(link(s.feed, "RSS feed"));
+      c.appendChild(L); d.appendChild(c);
+    });
+    d.appendChild(el("p", "s5ms-sub", "Microsoft's public pages show broad incidents only. Issues that touch some tenants only are listed in Service health of your own tenant."));
+  }
+  function openWin(k) {
+    if (!ov) {
+      ov = el("div", "s5ms-ov"); ov.hidden = true;
+      var d = el("div", "s5ms-dlg"); d.setAttribute("role", "dialog"); d.setAttribute("aria-modal", "true"); d.setAttribute("aria-label", "Microsoft service status");
+      ov.appendChild(d); document.body.appendChild(ov);
+      ov.addEventListener("click", function (e) { if (e.target === ov) closeWin(); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape" && ov && !ov.hidden) closeWin(); });
+    }
+    ov.setAttribute("data-k", k || "m365"); fillWin(k); ov.hidden = false;
+    var x = ov.querySelector(".s5ms-x"); if (x) x.focus();
+    if (!data || Date.now() - last > EVERY) load(false);
+  }
+  function closeWin() { if (ov) ov.hidden = true; }
+  window.addEventListener("resize", function () { place(); });
+  document.addEventListener("visibilitychange", function () { if (!document.hidden && Date.now() - last > EVERY) load(false); });
+  setInterval(function () { if (!document.hidden) load(false); }, EVERY);
+  setTimeout(function () { render(); load(false); }, 1500);
+  setTimeout(place, 6000);
+  window.__s5ms = { load: load, open: openWin };
 })();
 </script>
 </body>
