@@ -22,6 +22,15 @@
   },
   "routes": [
     {
+      "route": "/api/ms-status",
+      "allowedRoles": [
+        "anonymous"
+      ],
+      "headers": {
+        "Cache-Control": "public, max-age=60"
+      }
+    },
+    {
       "route": "/api/*",
       "allowedRoles": [
         "owner"
