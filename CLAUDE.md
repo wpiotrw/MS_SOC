@@ -26449,7 +26449,7 @@ sekretu, przez federated credential. Publiczny kanal i `status.cloud.microsoft/a
 13 XI); ma je Service health dzierzawy. `.github/workflows/ms-health.yml` (co ~10 min, `*/10`) loguje sie jak graph-radar
 (aplikacja "MS-SOC Dev tenant reader", `ServiceHealth.Read.All` aplikacyjne, nadal Piotr 13 XI), `tools/ms_health.py`
 czyta `GET /v1.0/admin/serviceAnnouncement/issues`, zostawia TYLKO `origin == microsoft` (repo i strona publiczne),
-nierozwiazane + zmienione w 3 dni, 12 najnowszych postow jako tekst; zapis na galaz `status-data` jako JEDEN osierocony
+nierozwiazane + zmienione w 3 dni, 12 najnowszych postow jako tekst, `refs` = numery ze WSZYSTKICH postow (MO1550821 ma 31; EX1550543 nie ma w Service health naszej dzierzawy, mogl pasc w starszym poscie); zapis na galaz `status-data` jako JEDEN osierocony
 commit force-push (historia nie rosnie, inne workflowy patrza tylko na main). `api/ms-status` czyta
 `raw.githubusercontent.com/wpiotrw/MS_SOC/status-data/ms-health.json` (zmienna `MS_HEALTH_URL` tylko do testow),
 dopasowuje numery do incydentu z RSS (tytul z `/api/posts/mac`, "User impact" = `impactDescription`, numery w tekscie,
@@ -47571,6 +47571,7 @@ odtad CZTERNASCIE (4-17).**
     d.appendChild(s);
     var b = el("div", "s5ms-isb");
     if (is.impact) { var ip = el("p", "s5ms-imp"); ip.appendChild(el("b", null, "Impact: ")); ip.appendChild(document.createTextNode(is.impact)); b.appendChild(ip); }
+    if (is.refs && is.refs.length) { var rr = el("div", "s5ms-ref"); rr.appendChild(el("b", null, "Numbers named in its updates: ")); is.refs.forEach(function (x) { rr.appendChild(idBadge(x)); }); b.appendChild(rr); }
     var a = el("div", "s5ms-links"); a.appendChild(link(ADM + is.id, "Open " + is.id + " in the admin center")); b.appendChild(a);
     (is.posts || []).forEach(function (p, n) {
       if (n === 0) { b.appendChild(postBlock(p, true)); return; }

@@ -26,6 +26,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 KEEP_DAYS = 3
 POSTS = 12
+IDRE = re.compile(r"\b[A-Z]{2}\d{6,8}\b")
 G = "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/issues"
 
 
@@ -59,6 +60,9 @@ def slim(i):
         "posts": [{"at": p.get("createdDateTime"), "type": p.get("postType"),
                    "lines": text(((p.get("description") or {}).get("content")) or "")} for p in posts],
         "postCount": len(i.get("posts") or []),
+        # numbers named in ANY post (also the older ones whose text is not kept): "tracked under EX1550543"
+        "refs": sorted({x for p in (i.get("posts") or []) for x in IDRE.findall(((p.get("description") or {}).get("content")) or "")}
+                       - {i.get("id")}),
     }
 
 

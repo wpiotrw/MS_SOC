@@ -118,8 +118,9 @@ function link(services, h, macTitle) {
       if ((macTitle && norm(i.title) === norm(macTitle)) || norm(i.title) === norm(it.title) || (imp && norm(i.impact) === imp)) ids.add(i.id);
     });
     // an issue that names one already linked (EX1550543 tracked under MO1550821) is linked too
-    issues.forEach((i) => { const t = JSON.stringify(i.posts || []) + " " + (i.impact || ""); [...ids].forEach((x) => { if (t.indexOf(x) >= 0) ids.add(i.id); }); });
-    issues.forEach((i) => { if (ids.has(i.id)) { const t = JSON.stringify(i.posts || []); (t.match(IDRE) || []).forEach((x) => ids.add(x)); } });
+    const named = (i) => JSON.stringify(i.posts || []) + " " + (i.impact || "") + " " + (i.refs || []).join(" ");
+    issues.forEach((i) => { const t = named(i); [...ids].forEach((x) => { if (t.indexOf(x) >= 0) ids.add(i.id); }); });
+    issues.forEach((i) => { if (ids.has(i.id)) { (named(i).match(IDRE) || []).forEach((x) => ids.add(x)); } });
     it.ids = [...ids].sort((a, b) => (a.slice(0, 2) === "MO" ? -1 : 0) - (b.slice(0, 2) === "MO" ? -1 : 0));
   });
 }
