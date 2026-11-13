@@ -4,7 +4,7 @@
 |---|---|
 | Autor | Piotr Wiśniewski |
 | Repozytorium | [github.com/wpiotrw/MS_SOC](https://github.com/wpiotrw/MS_SOC) |
-| Strona | [orange-ground-019f30603.7.azurestaticapps.net](https://orange-ground-019f30603.7.azurestaticapps.net/) |
+| Strona | [guardzilla.azureme.pl](https://guardzilla.azureme.pl/) |
 | Źródło prawdy dla kodu i reguł | `CLAUDE.md` (ten plik tylko opisuje całość i to, czego nie ma w `CLAUDE.md`) |
 
 Codzienny portal zmian Microsoftu dla SOC: brief poranny (strona główna), strona zmian `/diff/`, przegląd tygodnia `/week/`, kanał RSS `/feed.xml`. Treść budują zadania Claude (scheduled task i routines) według `CLAUDE.md`; GitHub Actions publikuje katalog `site/` w Azure Static Web Apps.
@@ -239,8 +239,9 @@ Zasady, które trzymają całość w ryzach (szczegóły w `CLAUDE.md`):
 
 | Pole | Wartość |
 |---|---|
-| Adres | https://orange-ground-019f30603.7.azurestaticapps.net/ |
+| Adres | https://guardzilla.azureme.pl/ (własna domena, domyślna od 13 XI 2026); adres wygenerowany https://orange-ground-019f30603.7.azurestaticapps.net/ przekierowuje na nią |
 | Nazwa zasobu (z nazwy hosta i workflow) | `orange-ground-019f30603` |
+| Własna domena | `guardzilla.azureme.pl`: rekord CNAME `guardzilla` → `orange-ground-019f30603.7.azurestaticapps.net.` w strefie DNS `azureme.pl` u OVH; w Azure Custom domains → *Custom domain on other DNS* (walidacja CNAME) i **Set default** ([Set up a custom domain](https://learn.microsoft.com/azure/static-web-apps/custom-domain-external), [Manage the default domain](https://learn.microsoft.com/azure/static-web-apps/custom-domain-default)); certyfikat TLS darmowy, odnawiany przez Azure |
 | Wdrożenie | GitHub Actions, [`Azure/static-web-apps-deploy@v1`](https://github.com/Azure/static-web-apps-deploy) ([konfiguracja wdrożenia](https://learn.microsoft.com/azure/static-web-apps/build-configuration)), `action: upload`, `app_location: /site`, `skip_app_build: true` (strona jest gotowym HTML, nic się nie buduje) |
 | Sekret w GitHub (Settings → Secrets and variables → Actions) | `AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_GROUND_019F30603` — [token wdrożeniowy SWA](https://learn.microsoft.com/azure/static-web-apps/deployment-token-management) |
 | Konfiguracja strony | `site/staticwebapp.config.json` ([opis pliku](https://learn.microsoft.com/azure/static-web-apps/configuration)): `navigationFallback` → `/index.html` z wyłączeniem `/diff/*`, `/history/*`, `/data/*`, `*.json`; nagłówki `cache-control: public, max-age=300, must-revalidate`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: no-referrer`; typy MIME dla `.json` i `.html` |
@@ -1261,15 +1262,15 @@ Wszystkie kanały to RSS 2.0 (Really Simple Syndication), kodowanie UTF-8, pod a
 
 | Kanał | Adres | Co zawiera |
 |---|---|---|
-| Wszystko | [/feed.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed.xml) | wszystkie pozycje z 7 dni, najwyżej 400 (najnowsze pierwsze) |
-| Entra ID | [/feed-entra.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-entra.xml) | Entra, dostęp warunkowy (Conditional Access), External ID, uwierzytelnianie, Graph API i role |
-| Intune | [/feed-intune.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-intune.xml) | Intune, Autopilot |
-| Defender i Sentinel | [/feed-defender.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-defender.xml) | Defender XDR, MDE, MDI, MDO, MDCA, Sentinel, Threat Intelligence, Exposure Management, MSRC |
-| Purview | [/feed-purview.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-purview.xml) | Purview, DLP, Information Protection, eDiscovery |
-| Exchange Online | [/feed-exchange.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-exchange.xml) | Exchange Online, Outlook, EWS |
-| Windows | [/feed-windows.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-windows.xml) | Windows, Windows Server, AD FS, Active Directory, Kerberos, NTLM |
-| Azure | [/feed-azure.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-azure.xml) | Azure, Azure Arc, Azure Virtual Desktop, FSLogix, AI Foundry, Defender for Cloud |
-| Copilot | [/feed-copilot.xml](https://orange-ground-019f30603.7.azurestaticapps.net/feed-copilot.xml) | Microsoft 365 Copilot, Copilot Studio |
+| Wszystko | [/feed.xml](https://guardzilla.azureme.pl/feed.xml) | wszystkie pozycje z 7 dni, najwyżej 400 (najnowsze pierwsze) |
+| Entra ID | [/feed-entra.xml](https://guardzilla.azureme.pl/feed-entra.xml) | Entra, dostęp warunkowy (Conditional Access), External ID, uwierzytelnianie, Graph API i role |
+| Intune | [/feed-intune.xml](https://guardzilla.azureme.pl/feed-intune.xml) | Intune, Autopilot |
+| Defender i Sentinel | [/feed-defender.xml](https://guardzilla.azureme.pl/feed-defender.xml) | Defender XDR, MDE, MDI, MDO, MDCA, Sentinel, Threat Intelligence, Exposure Management, MSRC |
+| Purview | [/feed-purview.xml](https://guardzilla.azureme.pl/feed-purview.xml) | Purview, DLP, Information Protection, eDiscovery |
+| Exchange Online | [/feed-exchange.xml](https://guardzilla.azureme.pl/feed-exchange.xml) | Exchange Online, Outlook, EWS |
+| Windows | [/feed-windows.xml](https://guardzilla.azureme.pl/feed-windows.xml) | Windows, Windows Server, AD FS, Active Directory, Kerberos, NTLM |
+| Azure | [/feed-azure.xml](https://guardzilla.azureme.pl/feed-azure.xml) | Azure, Azure Arc, Azure Virtual Desktop, FSLogix, AI Foundry, Defender for Cloud |
+| Copilot | [/feed-copilot.xml](https://guardzilla.azureme.pl/feed-copilot.xml) | Microsoft 365 Copilot, Copilot Studio |
 
 Kanał technologii wybiera pozycje po słowach z produktu i obszaru pozycji briefu, z technologii posta Message Center,
 z technologii kampanii i z nazwy źródła bloga (lista `FEED_CHANNELS` w `mirror_artifact.py`, `CLAUDE.md` §5dz).
@@ -1556,6 +1557,7 @@ Nadanie uprawnienia (PowerShell, konto z Cloud Application Administrator + Privi
 | 2026-11-03 | §5gg — czytelność całego portalu: dolna granica rozmiaru tekstu wygenerowana z pomiaru wszystkich zakładek (opis ≥ 14 px, plakietki ≥ 13 px), jaśniejszy `--faint`, ciemniejsze wypełnienia pod białym tekstem; ramka cross-check jako odpowiedź (wniosek, potem punktory); narzędzia `tools/ui_audit/readability_audit.py` i `overflow_check.py`. Mały tekst: Overview 34% → 13%, Radar 62% → 17%, M365 endpoints 53% → 12%. |
 | 2026-11-08 | §5gh — M365 endpoints: data wydania zamiast surowego numeru wersji i numer YYYYMMDDNN wyjaśniony słownie (data + które wydanie tego dnia); usługa usuniętych zestawów brana z ich wcześniejszych rekordów, a gdy Microsoft jej nie podał — „Service not stated” (wcześniej pusta, wciśnięta plakietka „7” w filtrze). |
 | 2026-11-10 | §5gi — posty MC, które muszą być opisane (major, termin działania, wycofanie, plan for change z Admin impact), a nie mają zdania w briefie: `tools/mc_must_cover.py` → `site/data/mc-uncovered.json`, ramka „NOT IN THE BRIEF YET” w Today i Message Center, reguła dla rutyn porannej i wieczornej, świadome pominięcia w `data/mc-skip.json`. Powód: MC1546438 (modele Claude w Copilocie, EU Data Boundary) był zebrany, ale nieopisany; 30 dni: 27 z 76 takich postów bez zdania. |
+| 2026-11-13 | §5gq — Własna domena **https://guardzilla.azureme.pl/** (CNAME w OVH, walidacja i certyfikat w Azure, ustawiona jako domyślna — stary adres `orange-ground-…` przekierowuje); w kodzie adres w RSS, stronie tygodnia, linku do strony zmian, rutynie wieczornej i narzędziu audytu. Nazwa workflow wdrożenia bez zmian. |
 | 2026-11-12 | §5gp-c — Overview: obszary obserwowane (Identity surface z uprawnieniami i endpointami GET/POST/PATCH/DELETE, Component versions, Campaigns, Security baselines, Threat Research, Graph API Radar, M365 endpoints) wracają w pełnej treści — oryginalne bloki w sekcji „Watched areas” na całą szerokość zamiast skrótów w pasku bocznym; karty pozycji znów mają „Most urgent” / „Biggest new item” i wszystkie plakietki; poprawka terminów na telefonie. |
 | 2026-11-12 | §5gp-b — Overview na całą szerokość: dwie karty w wierszu o równej wysokości (bez dziur), numery idą wierszami, nieparzysta ostatnia karta sekcji zajmuje cały wiersz; „Watched areas” z prawej na szerokim ekranie, pod listą na węższym. |
 | 2026-11-12 | §5gp — Overview przebudowany („Brief v4”): stała kolumna do czytania, numerowane wpisy w sekcjach Act this week / New since the last brief / Coming later, plakietka technologii i terminu, tytuł + „Why it matters”; obszary obserwowane w bocznym pasku „Watched areas”. Poprzednie układy pod przyciskiem „Show the previous layouts”. |

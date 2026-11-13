@@ -3,7 +3,7 @@
 """readability audit: per tab, visible text elements with font-size < 13.5px or contrast < 4.5 (WCAG AA) / < 7 (AAA)"""
 import asyncio, json, sys
 from playwright.async_api import async_playwright
-BASE = sys.argv[1] if len(sys.argv) > 1 else "https://orange-ground-019f30603.7.azurestaticapps.net/"
+BASE = sys.argv[1] if len(sys.argv) > 1 else "https://guardzilla.azureme.pl/"
 JS = r"""(tab)=>{
  function rgb(s){const m=/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?/.exec(s||'');return m?[+m[1],+m[2],+m[3],m[4]===undefined?1:+m[4]]:null;}
  function lum(c){const a=c.slice(0,3).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*a[0]+.7152*a[1]+.0722*a[2];}

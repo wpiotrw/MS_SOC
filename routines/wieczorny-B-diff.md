@@ -2,7 +2,7 @@
 
 # ROLE
 
-You write the CHANGES page for `https://orange-ground-019f30603.7.azurestaticapps.net/diff/`.
+You write the CHANGES page for `https://guardzilla.azureme.pl/diff/`.
 
 **You do not build a second brief and you do not mirror any page. You compute the differences
 between two states and publish only those.** The owner put it in one sentence on 2 Sep 2026:

@@ -780,7 +780,7 @@ def write_history(outdir, date, days=14):
     return len(hist)
 
 
-def write_week(state, outdir, date, site_url="https://orange-ground-019f30603.7.azurestaticapps.net/"):
+def write_week(state, outdir, date, site_url="https://guardzilla.azureme.pl/"):
     """§5bi R8/R6: site/week/index.html — the week in one page, printable to PDF: per-day
     counts from the last 7 daily files, the ten items due soonest, new items of the week,
     and Microsoft changes in Graph permissions and roles in 7 days. Static HTML, no script,
@@ -956,7 +956,7 @@ FEED_SECTIONS = (   # §5gk: one RSS channel per portal section, site/feed-<key>
 )
 
 
-def write_feed(state, outdir, date, site_url="https://orange-ground-019f30603.7.azurestaticapps.net/"):
+def write_feed(state, outdir, date, site_url="https://guardzilla.azureme.pl/"):
     """§5bh R3, rebuilt §5dz (16 X 2026, owner: "full-value RSS"): site/feed.xml (everything) and one channel per
     technology, site/feed-<key>.xml (FEED_CHANNELS). Each item carries the brief's "why it matters" sentence (or the
     source's own summary), a link to the place in the portal and a link to the Microsoft source. What goes in:
@@ -26408,6 +26408,15 @@ przelaczanie i po przeladowaniu OK; bramka OK; mobile_check 9,2 s.
 szerokosc: wpisy to osobne karty w siatce 2 kolumn (od 900 px szerokosci widoku), karty w jednym wierszu maja te sama wysokosc
 (`align-items:stretch`), numery ida wierszami; ostatnia karta sekcji o nieparzystej liczbie pozycji zajmuje caly wiersz (`.s5gp-wide`). Pasek „Watched areas" z prawej od 1500 px widoku, ponizej jako siatka kart.
 Szerokosci liczone `@container` na `.s5gp` (nie na oknie — panel boczny portalu zajmuje swoje).
+**§5gq (13 XI 2026) — wlasna domena `guardzilla.azureme.pl`.** OVH, strefa DNS azureme.pl: CNAME `guardzilla` →
+`orange-ground-019f30603.7.azurestaticapps.net.` (DNS domeny obsluguje OVH: NS `dns101.ovh.net`, `ns101.ovh.net`; brak rekordu CAA).
+Azure, Static Web App → Custom domains → „Custom domain on other DNS", walidacja CNAME (ok. 30 min), darmowy certyfikat
+(wazny do 14 V 2027, odnawiany przez Azure), potem **Set default**: zapytania na adres `orange-ground-…` sa przekierowywane na
+`guardzilla.azureme.pl` (Microsoft Learn: custom-domain-default; sprawdzone w przegladarce 13 XI). Adresu wygenerowanego nie da sie
+usunac. W kodzie: `site_url` w `write_week`/`write_feed` i link do strony zmian = nowa domena; guid w RSS nie zawiera domeny
+(np. `mc:MC1551151`), wiec czytniki nie dubluja wpisow. Nazwy pliku workflow `azure-static-web-apps-orange-ground-019f30603.yml`
+i sekretu NIE zmieniamy — to tozsamosc wdrozenia.
+
 **§5gp-c (12 XI 2026)** — wlasciciel: pasek boczny byl malo widoczny i streszczal obszary wlasnymi slowami (zginely nazwy
 API, metody DELETE/POST, wersja Authenticatora); w kartach brakowalo „Most urgent"/„Biggest new item" i innych faktow zdania.
 Teraz: pasek boczny usuniety; ORYGINALNE bloki obszarow (li z listy, z wlasnym markupem i listenerami) sa PRZENOSZONE w calosci
@@ -33178,7 +33187,7 @@ odtad CZTERNASCIE (4-17).**
     }
     if (spec.diff) {
       var a = el("a", "s5bn-diff", "Everything that moved here, field by field, on the changes page →");
-      a.href = (onSite() ? "/diff/" : "https://orange-ground-019f30603.7.azurestaticapps.net/diff/") + "#" + spec.diff;
+      a.href = (onSite() ? "/diff/" : "https://guardzilla.azureme.pl/diff/") + "#" + spec.diff;
       box.appendChild(a);
     }
     var ph = panel.querySelector(".panelhead");
