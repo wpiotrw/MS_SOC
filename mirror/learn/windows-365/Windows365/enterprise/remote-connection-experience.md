@@ -31,8 +31,12 @@ item_type: Content
 source_path: Windows365/enterprise/remote-connection-experience.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
+- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/a72e95ff-4b4f-4cc1-90c6-7dcba67ff05f
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
+- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/24dc3ccd-591a-4415-a1fe-8759afafcb12
 platformId: 7f594d56-8597-7b5c-db07-7b9fcc44e1f0
 ---
 
@@ -40,10 +44,11 @@ platformId: 7f594d56-8597-7b5c-db07-7b9fcc44e1f0
 
 The **Remote Connection Experience** settings apply just in time as a user connects to a targeted Cloud PC. Remote Connection Experience supports targeting to device groups or all devices. 
 
-The **Remote Connection Experience** page lets IT administrators manage the following settings for the device:
+IT administrators can manage the following connection settings and related protection capabilities for Cloud PCs:
 
 - **Context-based redirections (preview):** By using authentication context, admins can define when specific client capabilities should be allowed or restricted based on factors such as user role, device compliance, or network location. [Learn more about context-based redirections](/en-us/windows-365/enterprise/context-based-redirections)
-- **Input protection (preview):** Blocks input from local admin like keyboard, pen from entering the remote session. Only input generated within the remote session is accepted, improving isolation and reducing risk of interference.
+- **Input protection (preview):** Helps protect keyboard input from keylogger malware on supported Windows endpoints. [Learn more about Input Protection](input-protection).
+- **Display Protection:** Helps protect Cloud PC session video from screen capture malware on supported Windows endpoints. Configure it separately under **IO Protection** in Microsoft Intune. [Learn more about Display Protection](display-protection).
 - **Default display settings:** IT admins can configure default display settings (single display or all displays) for Windows 365 Cloud PCs. Users can override admin defaults with their own display preferences via the Windows App client (for Windows and MacOS only).
 
 ## Add a new setting

@@ -42,9 +42,9 @@ monikers:
 item_type: Content
 source_path: api-reference/v1.0/api/userdatasecurityandgovernance-processcontent.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 platformId: d129a20a-e586-459d-e8e8-60c28202644e
 ---
 
@@ -102,6 +102,12 @@ The following table lists the parameters that are required when you call this ac
 | Parameter | Type | Description |
 | --- | --- | --- |
 | contentToProcess | [processContentRequest](resources/processcontentrequest) | Required. The object containing the content entries and metadata (activity, device, application) to be evaluated for the specified user. |
+
+For file content, use a [processFileMetadata](resources/processfilemetadata) entry in **contentEntries**. To supply sensitivity label metadata, include its inherited **sensitivityLabels** collection with one or more [currentLabel](resources/currentlabel) objects. Use an array even when you supply only one label. Providing this metadata doesn't apply or change labels on the file.
+
+Omit **sensitivityLabels**, or supply an empty collection, when you don't provide caller-supplied label metadata. Neither case removes a label from the content.
+
+Supply label metadata only for activities supported by this API. Requests that assert labels for unsupported activities may be rejected. Schema inheritance doesn't establish activity support.
 
 ## Response
 
@@ -1350,6 +1356,172 @@ Content-Type: application/json
 {
   "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#microsoft.graph.processContentResponse",
   "protectionScopeState": "modified",
+  "policyActions": [
+    {
+      "@odata.type": "#microsoft.graph.restrictAccessAction",
+      "action": "restrictAccess",
+      "restrictionAction": "block"
+    }
+  ],
+  "processingErrors": []
+}
+```
+
+### Example 5: File content with one sensitivity label
+
+#### Request
+
+The following example supplies one sensitivity label metadata object for a file content entry. The **sensitivityLabels** property is a collection, so the single object is enclosed in an array. The identifiers and label values in this example are fictitious.
+
+```http
+POST https://graph.microsoft.com/v1.0/users/5def8f26-aff8-4db6-a08c-0fcf8f1aa2ba/dataSecurityAndGovernance/processContent
+Content-Type: application/json
+
+{
+  "contentToProcess": {
+    "contentEntries": [
+      {
+        "@odata.type": "#microsoft.graph.processFileMetadata",
+        "identifier": "project-proposal",
+        "content": {
+          "@odata.type": "#microsoft.graph.textContent",
+          "data": "Draft project proposal."
+        },
+        "name": "Project proposal.docx",
+        "isTruncated": false,
+        "createdDateTime": "2026-10-01T09:00:00Z",
+        "modifiedDateTime": "2026-10-01T09:00:00Z",
+        "ownerId": "5def8f26-aff8-4db6-a08c-0fcf8f1aa2ba",
+        "sensitivityLabels": [
+          {
+            "id": "f7c86e4a-e462-4bbb-a0f0-078c10aa2898",
+            "applicationMode": "manual"
+          }
+        ]
+      }
+    ],
+    "activityMetadata": {
+      "activity": "uploadFile"
+    },
+    "deviceMetadata": {
+      "deviceType": "managed",
+      "operatingSystemSpecifications": {
+        "operatingSystemPlatform": "Windows 11",
+        "operatingSystemVersion": "10.0.26100.0"
+      }
+    },
+    "integratedAppMetadata": {
+      "name": "Microsoft 365 Copilot",
+      "version": "1.0.0"
+    },
+    "protectedAppMetadata": {
+      "name": "Microsoft 365 Copilot in Word",
+      "version": "1.0.0",
+      "applicationLocation": {
+        "@odata.type": "#microsoft.graph.policyLocationApplication",
+        "value": "Copilot.M365.Word"
+      }
+    }
+  }
+}
+```
+
+#### Response
+
+The following example shows a response when an applicable data protection policy requires blocking the submitted content. The returned actions depend on the applicable policies, not the number of labels supplied.
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#microsoft.graph.processContentResponse",
+  "protectionScopeState": "notModified",
+  "policyActions": [
+    {
+      "@odata.type": "#microsoft.graph.restrictAccessAction",
+      "action": "restrictAccess",
+      "restrictionAction": "block"
+    }
+  ],
+  "processingErrors": []
+}
+```
+
+### Example 6: File content with two sensitivity labels
+
+#### Request
+
+The following example supplies two distinct sensitivity label metadata objects for the same file content entry. Both objects are in the inherited **sensitivityLabels** collection; each has its own label identifier and application mode. The collection describes caller-supplied metadata and doesn't apply multiple labels to the file.
+
+```http
+POST https://graph.microsoft.com/v1.0/users/5def8f26-aff8-4db6-a08c-0fcf8f1aa2ba/dataSecurityAndGovernance/processContent
+Content-Type: application/json
+
+{
+  "contentToProcess": {
+    "contentEntries": [
+      {
+        "@odata.type": "#microsoft.graph.processFileMetadata",
+        "identifier": "project-proposal",
+        "content": {
+          "@odata.type": "#microsoft.graph.textContent",
+          "data": "Draft project proposal."
+        },
+        "name": "Project proposal.docx",
+        "isTruncated": false,
+        "createdDateTime": "2026-10-01T09:00:00Z",
+        "modifiedDateTime": "2026-10-01T09:00:00Z",
+        "ownerId": "5def8f26-aff8-4db6-a08c-0fcf8f1aa2ba",
+        "sensitivityLabels": [
+          {
+            "id": "8d14c2db-3e52-4345-af62-4ee3e65bff9e",
+            "applicationMode": "automatic"
+          },
+          {
+            "id": "f7c86e4a-e462-4bbb-a0f0-078c10aa2898",
+            "applicationMode": "manual"
+          }
+        ]
+      }
+    ],
+    "activityMetadata": {
+      "activity": "uploadFile"
+    },
+    "deviceMetadata": {
+      "deviceType": "managed",
+      "operatingSystemSpecifications": {
+        "operatingSystemPlatform": "Windows 11",
+        "operatingSystemVersion": "10.0.26100.0"
+      }
+    },
+    "integratedAppMetadata": {
+      "name": "Microsoft 365 Copilot",
+      "version": "1.0.0"
+    },
+    "protectedAppMetadata": {
+      "name": "Microsoft 365 Copilot in Word",
+      "version": "1.0.0",
+      "applicationLocation": {
+        "@odata.type": "#microsoft.graph.policyLocationApplication",
+        "value": "Copilot.M365.Word"
+      }
+    }
+  }
+}
+```
+
+#### Response
+
+The following example shows a response when an applicable data protection policy requires blocking the submitted content. Supplying two labels doesn't by itself determine the response.
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#microsoft.graph.processContentResponse",
+  "protectionScopeState": "notModified",
   "policyActions": [
     {
       "@odata.type": "#microsoft.graph.restrictAccessAction",

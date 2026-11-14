@@ -11,7 +11,7 @@ keywords:
 author: hinallur
 ms.author: hinallur
 manager: bobroudebush
-ms.date: 2026-09-24T00:00:00.0000000Z
+ms.date: 2026-11-13T00:00:00.0000000Z
 ms.topic: whats-new
 ms.service: windows-365
 ms.subservice: windows-365-enterprise
@@ -65,6 +65,12 @@ For more information about public preview items, see [Public preview in Windows 
 Windows 365 Admin Alerting is now generally available for Windows 365 Government in GCC and GCC High environments. IT administrators can use Admin Alerting to monitor Cloud PC conditions and receive notifications when configured alert conditions are triggered.
 
 To learn more, see [Alerts in Windows 365](/en-us/windows-365/enterprise/alerts).
+
+### Export Windows 365 monitoring data to Azure Monitor (Public Preview)
+
+Windows 365 now supports exporting Cloud PC connection, connection error, and network logs to Azure Monitor. Administrators can send these logs to Azure Storage, Azure Event Hubs, or Log Analytics for longer retention, custom analysis, and troubleshooting.
+
+For more information, see [Send Windows 365 log data to Azure Storage, Event Hub, or Log Analytics](w365diagnosticsettings).
 
 ## Week of November 2, 2026
 
@@ -220,7 +226,7 @@ To learn more, see [Cloud PC configurations](/en-us/windows-365/enterprise/cloud
 
 ### Display Protection for Windows 365 (Public Preview)
 
-Display Protection for Windows 365 is now available in public preview. Display Protection helps protect sensitive content displayed during Cloud PC sessions by securing the display path between the Cloud PC and supported endpoint devices. Administrators can configure the level of display protection in Microsoft Intune. For more information, see [Display Protection for Windows 365 and Azure Virtual Desktop](/en-us/windows-365/enterprise/windows-cloud-display-protection).
+Display Protection for Windows 365 is now available in public preview. Display Protection helps protect sensitive content displayed during Cloud PC sessions by securing the display path between the Cloud PC and supported endpoint devices. Administrators can configure the level of display protection in Microsoft Intune. For more information, see [Display Protection for Windows 365 and Azure Virtual Desktop](/en-us/windows-365/enterprise/display-protection).
 
 ### Cloud PC recovery is now available for Windows 365 Government
 

@@ -39,6 +39,7 @@ https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-overview
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-changes
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-schema-tables
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-security-copilot-threat-hunting-assistant
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-synthetic-media-detection-events
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-take-action
 https://learn.microsoft.com/en-us/defender-xdr/alerts-incidents-correlation
 https://learn.microsoft.com/en-us/defender-xdr/api-advanced-hunting

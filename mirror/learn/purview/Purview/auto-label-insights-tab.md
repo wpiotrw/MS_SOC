@@ -14,7 +14,7 @@ manager: laurawi
 audience: Admin
 ms.service: purview
 ms.subservice: purview-information-protection
-ms.date: 2026-10-12T00:00:00.0000000Z
+ms.date: 2026-10-26T00:00:00.0000000Z
 ms.collection:
 - purview-compliance
 ms.topic: article
@@ -99,15 +99,35 @@ Policy-level enforcement metrics and the **Labeled items** view report only file
 | --- | --- |
 | **Sensitivity label** | The sensitivity label applied by the policy. |
 | **Status** | The current status of the policy. |
-| **Turn on date** | The activation date and time displayed by the portal. Don't use this field as an immutable record of the policy's first activation. |
-| **Total labeled to date** | The total number of SharePoint and OneDrive files labeled by the policy. |
+| **Turn on date** | The activation date and time displayed by the portal. Don't use this field as an immutable record of the policy's first activation. If the policy was edited after it was turned on, this date can show the most recent edit. |
+| **Total labeled to date** | The number of SharePoint and OneDrive files that have a label applied by this policy. For removal policies, it's the number of files the policy removed the label from. This is a current count, not a running total. It can decrease, for example when labeled files are deleted, and it isn't reset when you edit the policy. Updates aren't immediate. |
 | **Duration** | The number of days calculated from the displayed enforcement turn-on date. |
 | **Last simulated results** | The results of the most recent simulation before enforcement was turned on. |
 | **Completed on** | The date when the most recent simulation completed. |
-| **Count of auto-labeled and failed files** | A donut chart showing files processed in the last 30 days: - **Labeled (green):** Files that were successfully labeled.  - **Failed (red):** Files that matched but couldn't be labeled. |
+| **Count of auto-labeled and failed files** | A donut chart showing this policy's labeling activity in the last 30 days. A file that's labeled more than once is counted each time, so this chart isn't a count of unique files. - **Labeled (green):** Files that were successfully labeled.  - **Failed (red):** Files that matched but couldn't be labeled. |
 | **Labeling failures** | The card shows the total number of failed items and the **Top 3 failure reasons**, sorted by volume. For more information, see [Resolve auto-labeling failures in SharePoint and OneDrive files](/en-us/troubleshoot/microsoft-365/purview/sensitivity-labels/auto-labeling-failures-sharepoint-onedrive). |
 | **Top 10 sensitive info types** | The table lists the sensitive information types (SITs) most frequently detected when this policy applied labels during the last 30 days. It includes the **Files labeled** count for each SIT. |
 | **Labels per source** | To identify whether failures are concentrated to a specific workload, **Labels per source** shows a breakdown of labeled and failed item counts for SharePoint and OneDrive. |
+
+## Why Total labeled to date and the 30-day counts differ
+
+These metrics measure different things. Total labeled to date is a current count of files. The 30-day counts show labeling activity.
+
+### Total labeled to date is lower than the 30-day count
+
+This difference is expected when:
+
+- Some files were labeled more than once, for example a label was applied and then changed.
+- Labeled files were deleted. Their earlier activity still appears in the 30-day count.
+
+### Total labeled to date is higher than the 30-day count
+
+This difference is expected when:
+
+- The policy has been on for more than 30 days, so earlier labeling is outside the 30-day window. The displayed turn-on date can show the most recent edit instead of the first time the policy was turned on.
+- Recent activity hasn't appeared yet. Activity data can take time to appear. For more information, see [Get started with Activity explorer](data-classification-activity-explorer).
+
+Total labeled to date might stay higher after a few days for a policy that was turned on less than 30 days ago. If so, contact Microsoft Support.
 
 For the daily trend, select **View details** and open **Overview** in the newer full review experience. **Labeling activity overview** shows separate successful and failed series for the last 30 days. For removal policies, the chart is **Label removal activity overview**. This chart isn't part of the newer Insights layout.
 

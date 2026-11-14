@@ -4,8 +4,10 @@ https://learn.microsoft.com/en-us/entra/agent-id/create-blueprint
 https://learn.microsoft.com/en-us/entra/agent-id/disable-agent-identities
 https://learn.microsoft.com/en-us/entra/agent-id/govern-agent-access-azure-postgresql
 https://learn.microsoft.com/en-us/entra/agent-id/secure-mcp-server-with-entra-id
+https://learn.microsoft.com/en-us/entra/agent-id/understand-agent-sso-provisioning-authorization
 https://learn.microsoft.com/en-us/entra/agent-id/what-is-microsoft-entra-agent-id
 https://learn.microsoft.com/en-us/entra/architecture/governance-deployment-employee-access
+https://learn.microsoft.com/en-us/entra/architecture/governance-deployment-privileged-identities
 https://learn.microsoft.com/en-us/entra/backup
 https://learn.microsoft.com/en-us/entra/backup/backup-difference-report-recovery-model
 https://learn.microsoft.com/en-us/entra/backup/configure-hard-deletion-protection
@@ -30,6 +32,7 @@ https://learn.microsoft.com/en-us/entra/external-id/customers/plan-your-migratio
 https://learn.microsoft.com/en-us/entra/external-id/customers/plan-your-migratio…
 https://learn.microsoft.com/en-us/entra/external-id/customers/samples-ciam-all
 https://learn.microsoft.com/en-us/entra/external-id/direct-federation
+https://learn.microsoft.com/en-us/entra/external-id/tenant-restrictions-v2
 https://learn.microsoft.com/en-us/entra/external-id/whats-new-docs
 https://learn.microsoft.com/en-us/entra/fundamentals/agent-id/what-is-microsoft-entra-agent-id
 https://learn.microsoft.com/en-us/entra/fundamentals/backup/overview
@@ -146,7 +149,17 @@ https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-manage
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/privileged-identity-management-custom-extensions
 https://learn.microsoft.com/en-us/entra/id-governance/sap
 https://learn.microsoft.com/en-us/entra/id-governance/scenarios/identity-governance-use-cases
+https://learn.microsoft.com/en-us/entra/id-governance/scenarios/least-privileged
+https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/configuration-baseline-templates
+https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/configuration-deployments
 https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/configuration-management
+https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/how-to-create-configuration-deployment
+https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/how-to-create-monitor
+https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/how-to-create-snapshots
+https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/how-to-see-monitor-results
+https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/how-to-set-up-permissions-tenant-monitoring
+https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/how-to-update-delete-monitor
+https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/how-to-use-configuration-baseline-templates
 https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/licensing
 https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/overview
 https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/resource-policy-concepts
@@ -162,6 +175,7 @@ https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/resource
 https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/resource-policy-service-limits
 https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/resource-policy-test-troubleshoot
 https://learn.microsoft.com/en-us/entra/id-governance/tenant-governance/resource-policy-tutorial-portal
+https://learn.microsoft.com/en-us/entra/id-governance/using-multi-stage-reviews
 https://learn.microsoft.com/en-us/entra/id-governance/workflow-custom-triggers
 https://learn.microsoft.com/en-us/entra/id-protection/concept-identity-protection-risks
 https://learn.microsoft.com/en-us/entra/id-protection/howto-export-risk-data
@@ -206,6 +220,8 @@ https://learn.microsoft.com/en-us/entra/identity/authentication/concept-mandator
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-passkey-browser-authentication-federated-identity-provider
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-password-ban-bad
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-phone-providers
+https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sms-voice-retirement
+https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sms-voice-retirement-experience
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sms-voice-retirement-faq
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-howitworks
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-writeback

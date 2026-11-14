@@ -196,6 +196,7 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/supported-paymen
 https://learn.microsoft.com/en-us/azure/cost-management-billing/toc
 https://learn.microsoft.com/en-us/azure/cost-management-billing/understand-ea-roles
 https://learn.microsoft.com/en-us/azure/cost-management-billing/understand/pay-bill
+https://learn.microsoft.com/en-us/azure/cost-management-…
 https://learn.microsoft.com/en-us/azure/data-explorer/provision-entra-id-app
 https://learn.microsoft.com/en-us/azure/data-explorer/release-notes-cloud
 https://learn.microsoft.com/en-us/azure/defender-for-cloud
@@ -407,6 +408,7 @@ https://learn.microsoft.com/en-us/azure/governance/initiative-definition-structu
 https://learn.microsoft.com/en-us/azure/governance/machine-configuration/how-to/assign-security-baselines/remediate-security-baselines
 https://learn.microsoft.com/en-us/azure/governance/machine-configuration/overview/01-
 https://learn.microsoft.com/en-us/azure/governance/machine-configuration/overview/01-overview-concepts
+https://learn.microsoft.com/en-us/azure/governance/machine-configuration/overview/01-…
 https://learn.microsoft.com/en-us/azure/governance/machine-configuration/whats-new/agent
 https://learn.microsoft.com/en-us/azure/governance/machine-configuration/whats-new/agent/linux
 https://learn.microsoft.com/en-us/azure/governance/machine-configuration/whats-new/agent/windows
@@ -686,3 +688,4 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/windows/tutorial-disast
 https://learn.microsoft.com/en-us/azure/virtual-machines/workloads/canonical/ubuntu-pro-in-place-scale-sets-upgrade
 https://learn.microsoft.com/en-us/azure/virtual-machines/zone-resilience
 https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/custom-rules-geo-based-ipv6
+https://learn.microsoft.com/en-us/azure/…

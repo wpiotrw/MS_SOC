@@ -62,6 +62,14 @@ Tip
 
 See [What's new in documentation](whats-new-documentation), where we highlight new and updated articles for Azure Virtual Desktop.
 
+## November 2026
+
+Here's what changed in November 2026:
+
+#### RemoteApp enhancements are now generally available
+
+RemoteApp enhancements are now generally available for Azure Virtual Desktop. Built on a new server-first approach with first-class support for RemoteApps in Windows, RemoteApp enhancements improve application functionality gaps and addresses longstanding windowing and integration issues. RemoteApps more closely behave like local applications, with improvements to moving and resizing windows, Windows Snap, window appearance, z-ordering, and full-screen behavior. For more information, see [RemoteApp enhancements](/en-us/azure/virtual-desktop/remoteapp-enhancements).
+
 ## October 2026
 
 Here's what changed in October 2026:
@@ -149,7 +157,7 @@ RDP Shortpath via TURN is now available in public preview in Azure Government, e
 
 ### Display Protection for Azure Virtual Desktop (Public Preview)
 
-Display Protection for Azure Virtual Desktop is now available in public preview. Display Protection helps protect sensitive content displayed during remote sessions by securing the display path between the session host and supported endpoint devices. Administrators can configure the required level of display protection for their host pools in the Azure portal. For more information, see [Display Protection for Windows 365 and Azure Virtual Desktop](/en-us/windows-365/enterprise/windows-cloud-display-protection).
+Display Protection for Azure Virtual Desktop is now available in public preview. Display Protection helps protect sensitive content displayed during remote sessions by securing the display path between the session host and supported endpoint devices. Administrators can configure the required level of display protection for their host pools in the Azure portal. For more information, see [Display Protection for Windows 365 and Azure Virtual Desktop](/en-us/windows-365/enterprise/display-protection).
 
 ### New guidance on Windows update management methodologies for session hosts
 

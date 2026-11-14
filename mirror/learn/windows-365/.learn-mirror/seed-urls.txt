@@ -15,10 +15,12 @@ https://learn.microsoft.com/en-us/windows-365/enterprise/cloud-pc-size-recommend
 https://learn.microsoft.com/en-us/windows-365/enterprise/context-based-redirections
 https://learn.microsoft.com/en-us/windows-365/enterprise/create-provisioning-policy
 https://learn.microsoft.com/en-us/windows-365/enterprise/device-images
+https://learn.microsoft.com/en-us/windows-365/enterprise/display-protection
 https://learn.microsoft.com/en-us/windows-365/enterprise/end-grace-period
 https://learn.microsoft.com/en-us/windows-365/enterprise/enhanced-resiliency-mhn
 https://learn.microsoft.com/en-us/windows-365/enterprise/gpu-cloud-pc
 https://learn.microsoft.com/en-us/windows-365/enterprise/identity-authentication
+https://learn.microsoft.com/en-us/windows-365/enterprise/input-protection
 https://learn.microsoft.com/en-us/windows-365/enterprise/introduction-windows-365-flex
 https://learn.microsoft.com/en-us/windows-365/enterprise/introduction-windows-365-reserve
 https://learn.microsoft.com/en-us/windows-365/enterprise/known-issues-enterprise
@@ -35,6 +37,7 @@ https://learn.microsoft.com/en-us/windows-365/enterprise/teams-on-cloud-pc
 https://learn.microsoft.com/en-us/windows-365/enterprise/understanding-network-connectivity-flows-cloud-side
 https://learn.microsoft.com/en-us/windows-365/enterprise/understanding-remote-desktop-protocol-traffic
 https://learn.microsoft.com/en-us/windows-365/enterprise/view-provisioning-policy
+https://learn.microsoft.com/en-us/windows-365/enterprise/w365diagnosticsettings
 https://learn.microsoft.com/en-us/windows-365/enterprise/whats-new
 https://learn.microsoft.com/en-us/windows-365/enterprise/windows-365-deployment-guidance
 https://learn.microsoft.com/en-us/windows-365/enterprise/windows-365-flex-snapshot-based-reset

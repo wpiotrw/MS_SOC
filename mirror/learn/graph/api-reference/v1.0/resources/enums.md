@@ -43,12 +43,12 @@ item_type: Content
 source_path: api-reference/v1.0/resources/enums.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/8a94907f-2511-4271-b5ca-ec7f2e75067c
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bffa8e88-f633-409d-a24d-083bdbc68872
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 platformId: c8d0799f-5b56-6f0e-1f54-a4a688d7ac29
 ---
 
@@ -1075,6 +1075,7 @@ Namespace: microsoft.graph
 | Member |
 | --- |
 | sapIag |
+| sapAc |
 | unknownFutureValue |
 
 ### accessReviewInstanceDecisionItemApplyResult values
@@ -4445,6 +4446,15 @@ Possible values for user account types (group membership), per Windows definitio
 | Member |
 | --- |
 | equals |
+| unknownFutureValue |
+
+### applicationMode values
+
+| Member |
+| --- |
+| manual |
+| automatic |
+| recommended |
 | unknownFutureValue |
 
 ---

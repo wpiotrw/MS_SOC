@@ -1,7 +1,7 @@
 ---
 layout: Conceptual
 title: Display Protection for Windows 365 and Azure Virtual Desktop | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/windows-365/enterprise/windows-cloud-display-protection
+canonicalUrl: https://learn.microsoft.com/en-us/windows-365/enterprise/display-protection
 breadcrumb_path: /windows-365/breadcrumb/toc.json
 feedback_system: Standard
 feedback_product_url: https://feedbackportal.microsoft.com/feedback/forum/6ab53114-95ab-ec11-9840-000d3a1c7d74
@@ -12,7 +12,7 @@ author: Fragnightmist
 ms.author: ryclar
 ai-usage: ai-assisted
 manager: pratikshah
-ms.date: 2026-10-28T00:00:00.0000000Z
+ms.date: 2026-11-13T00:00:00.0000000Z
 ms.topic: how-to
 ms.service: windows-365
 ms.subservice: windows-365-enterprise
@@ -20,34 +20,30 @@ ms.localizationpriority: high
 locale: en-us
 document_id: 86c3fb60-8ee9-bb4d-bfbc-c0876deb8cc0
 document_version_independent_id: 86c3fb60-8ee9-bb4d-bfbc-c0876deb8cc0
-original_content_git_url: https://github.com/MicrosoftDocs/windows-cloud-pr/blob/live/Windows365/enterprise/windows-cloud-display-protection.md
+original_content_git_url: https://github.com/MicrosoftDocs/windows-cloud-pr/blob/live/Windows365/enterprise/display-protection.md
 site_name: Docs
 depot_name: Learn.Windows365
 page_type: conceptual
 toc_rel: toc.json
 feedback_help_link_type: ''
 feedback_help_link_url: ''
-asset_id: enterprise/windows-cloud-display-protection
+asset_id: enterprise/display-protection
 moniker_range_name: 
 monikers: []
 item_type: Content
-source_path: Windows365/enterprise/windows-cloud-display-protection.md
+source_path: Windows365/enterprise/display-protection.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
-- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/cd440f3c-1b78-40a7-97ba-aa00a1d79df7
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
-- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
-platformId: c2caa5f8-b652-fabd-630b-48078c5a95aa
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c828f7e0-89b4-459c-9bae-d7ab1c4bd9ad
+platformId: 2e86bc41-75cb-54ad-691a-077d316027f0
 ---
 
 # Display Protection for Windows 365 and Azure Virtual Desktop | Microsoft Learn
-
-Important
-
-Display protection is in preview. For legal terms that apply to features that are in beta, preview, or otherwise not yet released into general availability, see the [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/). Visit this page to learn more about [previews in Windows 365](../public-preview)
 
 **Applies to:**
 
@@ -69,7 +65,7 @@ For background on these security levels, see [PlayReady security levels](/en-us/
 
 Note
 
-Input protection is a separate component of Input and Output Protection that protects keyboard input against keylogger threats. Input protection is configured independently from display protection. For more information, see [Input Protection](windows-cloud-input-protection).
+Input protection is in public preview and is a separate component of Input and Output Protection that protects keyboard input against keylogger threats. Input protection is configured independently from display protection. For more information, see [Input Protection (preview)](input-protection).
 
 ## How display protection works
 
@@ -106,7 +102,7 @@ Before you configure display protection, ensure the following requirements are m
 
 ## Configure display protection
 
-Enable display protection only for the Cloud PCs or Azure Virtual Desktop session hosts you want to include in preview validation. Use the relevant configuration path for Azure Virtual Desktop or Windows 365.
+Enable display protection for the Cloud PCs or Azure Virtual Desktop session hosts you want to protect. Use the relevant configuration path for Azure Virtual Desktop or Windows 365.
 
 ### Display protection levels
 
@@ -182,6 +178,6 @@ For help with connection errors, see [Troubleshoot connection errors](/en-us/tro
 
 ## Related features
 
-- [Input Protection](windows-cloud-input-protection): Protects keyboard input against keylogger threats. Input protection is a separate component of Input and Output Protection and is configured independently from display protection.
+- [Input Protection (preview)](input-protection): Protects keyboard input against keylogger threats. Input protection is a separate component of Input and Output Protection and is configured independently from display protection.
 - [Enable screen capture protection](/en-us/azure/virtual-desktop/screen-capture-protection?context=/windows-365/context/pr-context): A separate screen capture protection feature for Azure Virtual Desktop.
 - [Watermarking](watermarking): Adds visible watermarks to remote sessions to discourage photo-based screen capture.

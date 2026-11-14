@@ -1,7 +1,7 @@
 ---
 layout: Conceptual
-title: Input Protection | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/windows-365/enterprise/windows-cloud-input-protection
+title: Input Protection (preview) | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/windows-365/enterprise/input-protection
 breadcrumb_path: /windows-365/breadcrumb/toc.json
 feedback_system: Standard
 feedback_product_url: https://feedbackportal.microsoft.com/feedback/forum/6ab53114-95ab-ec11-9840-000d3a1c7d74
@@ -13,33 +13,35 @@ ms.author: ryclar
 manager: pratikshah
 ms.service: windows-365
 ms.topic: how-to
-ms.date: 2026-07-21T00:00:00.0000000Z
+ms.date: 2026-11-12T00:00:00.0000000Z
 ms.subservice: windows-365-enterprise
 locale: en-us
 document_id: 90ee0215-42d8-e93c-05d1-64b0844036a7
 document_version_independent_id: 90ee0215-42d8-e93c-05d1-64b0844036a7
-original_content_git_url: https://github.com/MicrosoftDocs/windows-cloud-pr/blob/live/Windows365/enterprise/windows-cloud-input-protection.md
+original_content_git_url: https://github.com/MicrosoftDocs/windows-cloud-pr/blob/live/Windows365/enterprise/input-protection.md
 site_name: Docs
 depot_name: Learn.Windows365
 page_type: conceptual
 toc_rel: toc.json
 feedback_help_link_type: ''
 feedback_help_link_url: ''
-asset_id: enterprise/windows-cloud-input-protection
+asset_id: enterprise/input-protection
 moniker_range_name: 
 monikers: []
 item_type: Content
-source_path: Windows365/enterprise/windows-cloud-input-protection.md
+source_path: Windows365/enterprise/input-protection.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
+- https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
-platformId: 2cec60ce-d2a8-266e-88da-c7f9fada7f97
+- https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
+platformId: 1eaf79fb-46b2-58db-75a1-bf1c89e52560
 ---
 
-# Input Protection | Microsoft Learn
+# Input Protection (preview) | Microsoft Learn
 
 Important
 
@@ -83,6 +85,7 @@ This feature supports the following configurations:
 
     - [Windows x64](https://go.microsoft.com/fwlink/?linkid=2336167)
     - [Windows ARM 64](https://go.microsoft.com/fwlink/?linkid=2342309)
+3. A restart of the physical Windows 11 endpoint may be required after installing the MSI. If the installer requests a restart, restart the endpoint before connecting to the protected Cloud PC or session host through Windows App. Restarting Windows App alone doesn't replace a required device restart.
 
 ## Register the endpoint device
 
@@ -146,6 +149,8 @@ After you enable input protection, confirm that enforcement works as expected:
 To monitor input protection across your tenant, use [Cloud PC monitoring](cloud-pc-monitoring-overview) (preview) and review the `KeyboardInputProtectionState` connection event on the **Connection health** page. For steps, see [Monitor Input and Output Protection](windows-cloud-io-protection#monitor-input-and-output-protection).
 
 ## Troubleshoot input protection
+
+If connections remain blocked after MSI installation, check whether the installer requested a restart. If it did, restart the physical Windows 11 endpoint, and then try connecting again.
 
 If a connection fails or the MSI doesn't install as expected, collect the following information before you contact Microsoft support:
 

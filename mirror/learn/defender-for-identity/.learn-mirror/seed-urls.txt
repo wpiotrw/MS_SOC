@@ -1,4 +1,5 @@
 https://learn.microsoft.com/en-us/defender-for-identity
+https://learn.microsoft.com/en-us/defender-for-identity/alerts-mdi-classic
 https://learn.microsoft.com/en-us/defender-for-identity/alerts-xdr
 https://learn.microsoft.com/en-us/defender-for-identity/configure-scoped-access
 https://learn.microsoft.com/en-us/defender-for-identity/custom-account-correlation-rules

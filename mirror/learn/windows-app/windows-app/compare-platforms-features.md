@@ -179,11 +179,12 @@ The following table compares which display features are supported on which platf
 | --- | --- | --- | --- | --- | --- | --- |
 | Dynamic resolution | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ |
 | External monitor | ✅ | ✅ | ✅ | ✅¹ | ❌ | ❌ |
-| Multiple monitors | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Multiple monitors | ✅ | ✅ | ❌ | ✅² | ❌ | ❌ |
 | Selected monitors | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ |
 | Smart sizing | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 
 1. Depends on the capabilities of the local device.
+2. Supported on ChromeOS devices only.
 
 The following table provides a description for each of the display features:
 
@@ -201,15 +202,16 @@ The following table provides a description for each of the display features:
 
 The following table compares which display features are supported on which platforms:
 
-| Feature | Windows | macOS | iOS/iPadOS | Android/Chrome OS |
-| --- | --- | --- | --- | --- |
-| Dynamic resolution | ✅ | ✅ | ❌ | ❌ |
-| External display | ✅ | ✅ | ✅ | ✅¹ |
-| Multiple displays | ✅ | ✅ | ❌ | ❌ |
-| Selected displays | ✅ | ❌ | ✅ | ❌ |
-| Smart sizing | ✅ | ✅ | ❌ | ❌ |
+| Feature | Windows | macOS | iOS/iPadOS | Android/Chrome OS | - |
+| --- | --- | --- | --- | --- | --- |
+| Dynamic resolution | ✅ | ✅ | ❌ | ❌ |  |
+| External display | ✅ | ✅ | ✅ | ✅¹ |  |
+| Multiple monitors | ✅ | ✅ | ❌ | ✅² | ❌ |
+| Selected displays | ✅ | ❌ | ✅ | ❌ |  |
+| Smart sizing | ✅ | ✅ | ❌ | ❌ |  |
 
 1. Depends on the capabilities of the local device.
+2. Supported on ChromeOS devices only.
 
 The following table provides a description for each of the display features:
 

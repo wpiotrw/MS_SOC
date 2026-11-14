@@ -58,6 +58,8 @@ This is an abstract type from which the following resources derive:
 - [processConversationMetadata](processconversationmetadata)
 - [processFileMetadata](processfilemetadata)
 
+The optional **sensitivityLabels** property contains a collection of caller-supplied sensitivity label metadata. Represent each supplied label as a [currentLabel](currentlabel) object, including when you supply only one label. The collection is inherited by the derived metadata types. If you omit the property or supply an empty collection, you don't provide caller-supplied label metadata. Providing this metadata doesn't apply or change labels on the content, and an empty collection doesn't remove labels.
+
 ## Properties
 
 | Property | Type | Description |
@@ -70,6 +72,7 @@ This is an abstract type from which the following resources derive:
 | length | Int64 | The length of the original content in bytes. |
 | modifiedDateTime | DateTimeOffset | Required. Timestamp indicating when the original content was last modified. For ephemeral content like messages, this might be the same as `createdDateTime`. |
 | name | String | Required. A descriptive name for the content (for example, file name, web page title, "Chat Message"). |
+| sensitivityLabels | [currentLabel](currentlabel) collection | Caller-supplied sensitivity labels describing the content. |
 | sequenceNumber | Int64 | A sequence number indicating the order in which content was generated or should be processed, required when `correlationId` is used. |
 
 ## Relationships
@@ -91,7 +94,12 @@ The following JSON representation shows the resource type.
   "length": "Int64",
   "isTruncated": "Boolean",
   "createdDateTime": "String (timestamp)",
-  "modifiedDateTime": "String (timestamp)"
+  "modifiedDateTime": "String (timestamp)",
+  "sensitivityLabels": [
+    {
+      "@odata.type": "microsoft.graph.currentLabel"
+    }
+  ]
 }
 ```
 

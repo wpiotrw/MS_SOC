@@ -37,6 +37,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/agentRiskDetection
 https://learn.microsoft.com/en-us/graph/api/resources/agentcommunicationconfiguration
 https://learn.microsoft.com/en-us/graph/api/resources/agenticsecurityroot
 https://learn.microsoft.com/en-us/graph/api/resources/agentidentity
+https://learn.microsoft.com/en-us/graph/api/resources/agentidentityblueprint
 https://learn.microsoft.com/en-us/graph/api/resources/agentidentityblueprintprincipal
 https://learn.microsoft.com/en-us/graph/api/resources/agentmetadata
 https://learn.microsoft.com/en-us/graph/api/resources/agentuser
@@ -44,6 +45,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/alert
 https://learn.microsoft.com/en-us/graph/api/resources/anonymouscalendarsharingfreebusydetail
 https://learn.microsoft.com/en-us/graph/api/resources/anonymouscalendarsharingfreebusyreviewer
 https://learn.microsoft.com/en-us/graph/api/resources/anonymouscalendarsharingfreebusysimple
+https://learn.microsoft.com/en-us/graph/api/resources/application
 https://learn.microsoft.com/en-us/graph/api/resources/appmanagementpolicy
 https://learn.microsoft.com/en-us/graph/api/resources/approverdelegate
 https://learn.microsoft.com/en-us/graph/api/resources/authentication
@@ -104,6 +106,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/provisionresponse
 https://learn.microsoft.com/en-us/graph/api/resources/relatedPerson
 https://learn.microsoft.com/en-us/graph/api/resources/resourceaccountkeyauthenticationmethod
 https://learn.microsoft.com/en-us/graph/api/resources/resourcequota
+https://learn.microsoft.com/en-us/graph/api/resources/riskdetail
 https://learn.microsoft.com/en-us/graph/api/resources/rolemanagementcustomcalloutextension
 https://learn.microsoft.com/en-us/graph/api/resources/rolemanagementcustomcalloutexten…
 https://learn.microsoft.com/en-us/graph/api/resources/security

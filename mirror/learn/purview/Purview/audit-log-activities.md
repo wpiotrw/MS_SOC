@@ -2330,6 +2330,7 @@ The following table lists the user and admin activities in Viva Glint that the M
 | Enabled Advanced Configuration Access | UserAdvConfigEnabled | A Company Admin user enabled Advanced Configuration access in Viva Glint. |
 | Enabled Glint to Insights integration | GlintToInsightsIntegrationEnabled | A user enabled importing Viva Insights data in Viva Glint |
 | Executed Data Apps Job | GlintDataAppsJobRun | Viva Glint Advanced Configuration Data app and Upload activity. |
+| Executed user hard delete | GlintExecutedUserHardDelete | User hard deletion complete in Viva Glint. |
 | Exported agentic campaign policy violations | VivaGlintAgenticPolicyViolationsExported | Agentic campaign policy violations export activity. |
 | Exported agentic campaign topic analysis | VivaGlintAgenticTopicAnalysisExported | Agentic campaign topic analysis export activity. |
 | Exported all agentic campaign data | VivaGlintAgenticAllDataExported | Agentic campaign raw data export activity. |
@@ -2359,6 +2360,7 @@ The following table lists the user and admin activities in Viva Glint that the M
 | Updated agentic policy | PolicyUpdated | An agentic policy was updated. |
 | Updated agentic settings | AgenticSettingsUpdated | Agentic settings were updated. |
 | Updated Glint to Insights integration | GlintToInsightsIntegrationUpdated | A user updated the configuration for importing Viva Insights data in Viva Glint |
+| Updated retain data for deleted users setting | GlintRetainDeletedUserDataSet | A user updated the configuration for retaining user data after hard deletion. |
 | Viewed As | ViewAs | Admins' "View As" another user activity. |
 
 ## Viva Goals activities
