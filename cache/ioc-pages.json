@@ -19,7 +19,7 @@
 },
 "https://specterops.io/blog/2026/11/06/app-registrations-vs-service-principals/": {
 "iocs": [],
-"read": "2026-11-06"
+"read": "2026-11-14"
 },
 "https://thehackernews.com/2026/10/attackers-use-microsoft-teams-it.html": {
 "iocs": [
@@ -788,7 +788,7 @@
 "IOC table: Email address \u00b7 Sender address used for both observed lure variations \u00b7 2026-09-21 \u00b7 2026-09-21"
 ]
 ],
-"read": "2026-11-06"
+"read": "2026-11-14"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/": {
 "iocs": [
@@ -813,7 +813,7 @@
 "In the text: The sign-ins primarily came from two IP addresses: 199.19.77[.]84 and 199.19.77[.]18."
 ]
 ],
-"read": "2026-11-06"
+"read": "2026-11-14"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/": {
 "iocs": [
