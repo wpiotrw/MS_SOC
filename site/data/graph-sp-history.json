@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-14T06:17Z",
+ "updated": "2026-11-14T20:00Z",
  "baseline": "2026-10-10T08:35Z",
- "lastRead": "2026-11-14T06:17Z",
+ "lastRead": "2026-11-14T20:00Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
@@ -9,9 +9,64 @@
   "application": 788,
   "delegated": 876,
   "rsc": 60,
-  "roles": 148
+  "roles": 149
  },
  "events": [
+  {
+   "seen": "2026-11-14T20:00Z",
+   "day": "2026-11-14",
+   "surface": "role",
+   "name": "AI Administrator",
+   "change": "actions-added",
+   "type": "",
+   "before": null,
+   "after": "microsoft.directory/agentIdentities/idJagConfiguration/update, microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update",
+   "text": ""
+  },
+  {
+   "seen": "2026-11-14T20:00Z",
+   "day": "2026-11-14",
+   "surface": "role",
+   "name": "Agent ID Administrator",
+   "change": "actions-added",
+   "type": "",
+   "before": null,
+   "after": "microsoft.directory/agentIdentities/idJagConfiguration/update, microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update",
+   "text": ""
+  },
+  {
+   "seen": "2026-11-14T20:00Z",
+   "day": "2026-11-14",
+   "surface": "role",
+   "name": "B2B Policy Administrator",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "0 actions",
+   "text": "Create, read, update, and delete B2B management policies, and set the tenant-default policy."
+  },
+  {
+   "seen": "2026-11-14T20:00Z",
+   "day": "2026-11-14",
+   "surface": "role",
+   "name": "Global Administrator",
+   "change": "actions-added",
+   "type": "",
+   "before": null,
+   "after": "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update",
+   "text": ""
+  },
+  {
+   "seen": "2026-11-14T20:00Z",
+   "day": "2026-11-14",
+   "surface": "role",
+   "name": "User",
+   "change": "actions-added",
+   "type": "",
+   "before": null,
+   "after": "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update",
+   "text": ""
+  },
   {
    "seen": "2026-11-12T17:36Z",
    "day": "2026-11-12",
