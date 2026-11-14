@@ -1,7 +1,7 @@
 {
  "read": "2026-11-14",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 736,
+ "count": 735,
  "note": null,
  "messages": [
   {
@@ -12275,33 +12275,6 @@
     "General Availability (Worldwide): Rollout begins in early October 2026 and is expected to complete by late October 2026."
    ],
    "bodyHash": "ce09a372fe9f2bbc"
-  },
-  {
-   "id": "MC1478965",
-   "title": "(Updated) Microsoft Purview: Data Lifecycle Management – Retention for Copilot Memory",
-   "services": [
-    "Microsoft Purview"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-24",
-   "end": "2026-11-14",
-   "modified": "2026-10-22",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message"
-   ],
-   "summary": "Updated October 22, 2026: We have updated the content. Thank you for your patience. [What and Why:] Microsoft Purview Data Lifecycle Management is introducing retention support for Microsoft 365 Copilot memory. With this update, organizations will be able to retain saved memories from Copilot memory for compliance, governance, and investigation purposes. When memory items are updated or deleted, h…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated October 22, 2026: We have updated the content.",
-    "Global: Completed in October 2026."
-   ],
-   "bodyHash": "6552e1830ac7bfe1"
   },
   {
    "id": "MC1478966",
@@ -25703,6 +25676,13 @@
    "id": "MC1552397",
    "type": "new",
    "title": "Microsoft SharePoint: Resources web part and Announcements capabilities expand to all sites",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-14",
+   "id": "MC1478965",
+   "type": "removed",
+   "title": "(Updated) Microsoft Purview: Data Lifecycle Management – Retention for Copilot Memory",
    "fields": {}
   }
  ]
