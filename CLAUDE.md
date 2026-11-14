@@ -26494,6 +26494,15 @@ liczylo sie tylko "No new…"/"Nothing…" w `.s5bk-it`). Male obszary bez zmian
 rozciagaly sie do wysokosci sasiada) do zwartego paska pod nia: naglowek "No change since the last brief" z licznikiem,
 `ul.s5gp-areas.s5gp-qlist` (flex, karty po ok. 320 px). Szeroki obszar bez zmian (ramki tozsamosci) zostaje ostatni w siatce.
 
+**§5gr-l (14 XI 2026, 22:32)** — Piotr: "portal caly czas pokazuje otwarty incydent, choc na status.cloud.microsoft nie ma
+zadnego i wszystkie produkty dzialaja normalnie; odswiezanie nie pomaga". Przyczyna: gdy nic sie nie dzieje, Microsoft
+zostawia w kanale RSS JEDEN staly wpis "Microsoft Admin Center" ze stanem `Available` ("This site is updated when service
+issues are preventing..."), a `level()` w `api/ms-status` liczyl kazdy wpis bez "restored/resolved" jako incydent ("warn").
+Teraz `level()` zwraca "info" dla Available / ServiceOperational / Operational / Normal; takie wpisy wypadaja z `items`
+(nie licza sie i nie pokazuja), a funkcja dodaje `note`. Uwaga: plakietka M365 liczy incydenty z Service health (§5gr-g),
+wiec moze pokazac incydent, ktorego strona statusu nie ma (14 XI: IT1549049 Intune, otwarty od 12 XI) - to zgodne z
+Service health, nie blad.
+
 **§5gr-e (13 XI 2026)** — Piotr: numery incydentow (MO1550821, EX1550543) i MC w oknie statusu, w osobnej sekcji; bez
 sekretu, przez federated credential. Publiczny kanal i `status.cloud.microsoft/api/posts/*` NIE podaja numerow (sprawdzone
 13 XI); ma je Service health dzierzawy. `.github/workflows/ms-health.yml` (co ~10 min, `*/10`) loguje sie jak graph-radar

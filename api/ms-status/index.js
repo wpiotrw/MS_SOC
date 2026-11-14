@@ -30,6 +30,9 @@ function lines(desc) {
     .filter(Boolean).slice(0, 60).map((x) => x.slice(0, 2000));
 }
 function level(status, title) {
+  // 5gr-l (14 XI): when nothing is wrong, Microsoft keeps ONE standing item in the feed with <status>Available</status>
+  // ("This site is updated when service issues are preventing..."). It is not an incident: "info", not counted, not shown.
+  if (/^\s*(available|serviceoperational|operational|normal)\s*$/i.test(status || "")) return "info";
   const s = (status + " " + title).toLowerCase();
   if (/restored|resolved|falsepositive|false positive|postincident|post-incident|mitigated/.test(s)) return "resolved";
   if (/interruption|outage|unavailable|down\b/.test(s)) return "bad";
@@ -55,6 +58,9 @@ async function read(f) {
     const txt = await r.text();
     if (r.status !== 200 || !/<rss[\s>]/i.test(txt)) { out.state = "error"; out.error = "HTTP " + r.status; return out; }
     const p = parse(txt);
+    const info = p.items.filter((i) => i.level === "info");
+    p.items = p.items.filter((i) => i.level !== "info");
+    if (info.length) out.note = "Microsoft's status page reports all services available";
     const open = p.items.filter((i) => i.level !== "resolved");
     out.items = p.items; out.built = p.built;
     out.state = open.some((i) => i.level === "bad") ? "bad" : (open.length ? "warn" : "ok");
