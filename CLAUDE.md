@@ -26510,6 +26510,11 @@ Microsoft 365 services shown as available" oraz "Service health of our tenant - 
 ze strona publiczna podaje tylko szerokie awarie. Podpowiedz plakietki zaczyna sie wtedy od "Status page: no incident, all
 services available · Service health of our tenant: ...". Czytamy jedna dzierzawe (deweloperska), stad "our tenant".
 
+**§5gr-n (14 XI 2026, 23:09, telefon)** — Piotr: "gdzie to info o braku incydentow na stronie health? nie widze tego".
+Bylo tylko w oknie. Teraz takze zaraz pod plakietkami: przycisk `.s5ms-note` (niebieski pasek z lewej) "Status page: no
+incident. Our tenant's Service health: 1 incident still open (IT1549049) ›", otwiera okno M365. Tylko gdy kanal strony
+statusu jest pusty i OK, a Service health ma otwarty incydent; schowany w zwinietym naglowku (`.s5ms-compact`).
+
 **§5gr-e (13 XI 2026)** — Piotr: numery incydentow (MO1550821, EX1550543) i MC w oknie statusu, w osobnej sekcji; bez
 sekretu, przez federated credential. Publiczny kanal i `status.cloud.microsoft/api/posts/*` NIE podaja numerow (sprawdzone
 13 XI); ma je Service health dzierzawy. `.github/workflows/ms-health.yml` (co ~10 min, `*/10`) loguje sie jak graph-radar
@@ -47588,6 +47593,17 @@ odtad CZTERNASCIE (4-17).**
       b.addEventListener("click", function () { openWin(s.key); }); row.appendChild(b);
     });
     box.appendChild(row);
+    /* §5gr-n (owner, 14 XI, phone): "where is the info about no incidents on the status page? I don't see it" - it was
+       only inside the window. Now also right under the badges, tappable, whenever the status page has no incident but
+       Service health of our tenant still has one open */
+    var m0 = svc.filter(function (x) { return x.key === "m365"; })[0], mv0 = m0 ? view(m0) : null, S0 = sorts();
+    if (m0 && mv0 && mv0.unit === "inc" && S0 && S0.inc.length && m0.state === "ok" && (!m0.items || !m0.items.length)) {
+      var nt = el("button", "s5ms-note"); nt.type = "button";
+      nt.appendChild(el("b", null, "Status page: no incident. "));
+      nt.appendChild(document.createTextNode("Our tenant's Service health: " + cnt(mv0) + " still open (" + S0.inc.map(function (i) { return i.id; }).join(", ") + ") ›"));
+      nt.title = "Microsoft's public status page lists only widespread outages; smaller incidents stay open in each tenant's Service health. Open the details.";
+      nt.addEventListener("click", function () { openWin("m365"); }); box.appendChild(nt);
+    }
     var meta = el("div", "s5ms-meta");
     meta.appendChild(el("span", "s5ms-when", busy ? "checking…" : (data ? "Microsoft status · checked " + hm(data.checked) + " Warsaw" : (failed ? "Microsoft status could not be read at " + hm(new Date(failed).toISOString()) + " Warsaw" : "Microsoft status · not checked yet"))));
     var r = el("button", "s5ms-r", "↻ Refresh"); r.type = "button"; r.disabled = busy; r.title = "Check Microsoft's status now";
@@ -51711,7 +51727,9 @@ header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
 .s5ms-short{display:none}
 .s5ms-compact .s5ms-full{display:none}.s5ms-compact .s5ms-short{display:inline}
 .s5ms.s5ms-compact .s5ms-row{flex-direction:row;flex-wrap:nowrap;justify-content:center}
-.s5ms-compact .s5ms-meta{display:none}
+.s5ms-compact .s5ms-meta,.s5ms-compact .s5ms-note{display:none}
+.s5ms-note{display:block;width:100%;margin:6px 0 0;padding:5px 9px;font:inherit;font-size:13.5px;line-height:1.35;text-align:left;color:var(--text);background:transparent;border:1px solid var(--border);border-left:5px solid #1d4ed8;border-radius:8px;cursor:pointer}
+.s5ms-note:hover,.s5ms-note:focus-visible{border-color:#1d4ed8}
 .s5ms-compact .s5ms-b{font-size:12px;padding:4px 10px}
 .s5ms.s5ms-inline{position:relative;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:4px 0 10px}
 .s5ms-row{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
