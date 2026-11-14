@@ -1,6 +1,82 @@
 {
 "updated":"2026-11-14",
 "campaigns":{
+"c-mc1552387":{
+"firstSeen":"2026-11-14",
+"lastSeen":"2026-11-14",
+"name":"Microsoft Defender for Identity classic alerts (Remote code execution attempt and pass-the-hash)",
+"status":"Active",
+"members":[
+"MC1552387",
+"item:MC1552387"
+],
+"log":[
+{
+"date":"2026-11-14",
+"id":"MC1552387",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Defender for Identity retires two classic alerts at the end of November: Remote code execution attempt and Suspected identity theft (pass-the-hash)",
+"title":"Defender for Identity retires two classic alerts at the end of November: Remote code execution attempt and Suspected identity theft (pass-the-hash)",
+"link":"https://deltapulse.app/item/MC1552387"
+}
+],
+"milestones":{
+"MC1552387|posted":{
+"date":"2026-11-13",
+"label":"13 Nov 2026",
+"text":"Posted: Retired: Microsoft Defender for Identity classic alerts (Remote code execution attempt and pass-the-hash)"
+},
+"MC1552387|general availability worldwide gcc gcc high dod we will begi#0":{
+"date":"2026-11-25",
+"label":"late Nov 2026",
+"text":"We will begin rolling out in late November 2026 and expect to complete by late November 2026."
+},
+"MC1552387|microsoft defender for identity mdi is retiring two classic #0":{
+"date":"2026-11-30",
+"label":"end of Nov 2026",
+"text":"Microsoft Defender for Identity (MDI) is retiring two classic alerts at the end of November 2026: Remote code execution attempt (RCE) and Suspected identity the"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1552387":{
+"title":"Retired: Microsoft Defender for Identity classic alerts (Remote code execution attempt and pass-the-hash)",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1552387",
+"source":"Message Center",
+"id":"MC1552387",
+"date":"2026-11-13",
+"updated":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://mc.merill.net/message/MC1552387":{
+"title":"Retired: Microsoft Defender for Identity classic alerts (Remote code execution attempt and pass-the-hash)",
+"link":"https://mc.merill.net/message/MC1552387",
+"source":"Message Center",
+"id":"MC1552387",
+"date":"2026-11-13",
+"updated":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://deltapulse.app/item/MC1552387":{
+"title":"Retired: Microsoft Defender for Identity classic alerts (Remote code execution attempt and pass-the-hash)",
+"link":"https://deltapulse.app/item/MC1552387",
+"source":"Main list source",
+"id":"MC1552387",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+}
+},
+"final":"2026-11-30",
+"type":"Retirement",
+"tech":"Defender",
+"posts":[
+"MC1552387"
+]
+},
 "c-mc1235720":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-14",
@@ -15,6 +91,15 @@
 "item:MC1551896"
 ],
 "log":[
+{
+"date":"2026-11-13",
+"id":"MC1551896",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Windows Server 2016 ends extended support on 13 January 2027 (60-day reminder) - the 90-day reminder MC1507705 said 12 January",
+"title":"Windows Server 2016 ends extended support on 13 January 2027 (60-day reminder) - the 90-day reminder MC1507705 said 12 January",
+"link":"https://deltapulse.app/item/MC1551896"
+},
 {
 "date":"2026-09-28",
 "id":"MC1235720",
@@ -119,6 +204,24 @@
 "date":"2026-10-14",
 "group":"microsoft",
 "found":"2026-11-13"
+},
+"https://mc.merill.net/message/MC1551896":{
+"title":"Windows Server 2016 reaches the end of extended support on January 13, 2027",
+"link":"https://mc.merill.net/message/MC1551896",
+"source":"Message Center",
+"id":"MC1551896",
+"date":"2026-11-13",
+"updated":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://mc.merill.net/message/MC1551897":{
+"title":"MC1551897: 60-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 13, 2027",
+"link":"https://mc.merill.net/message/MC1551897",
+"source":"MC - Merill",
+"date":"2026-11-13",
+"group":"community",
+"found":"2026-11-14"
 }
 },
 "final":"2027-01-15",
@@ -250,8 +353,6 @@
 "MC1325414-enforcement",
 "item:MC1325414-enforcement",
 "MC1400824",
-"MC1519855",
-"item:MC1519855",
 "MC1528000",
 "item:MC1528000",
 "MC1536049",
@@ -405,20 +506,10 @@
 "label":"5 Oct 2026",
 "text":"October 5, 2026: SSPR registration campaign begins prompting users and administrators to register authentication methods if SSPR setting requires registration a"
 },
-"MC1519855|posted":{
-"date":"2026-10-21",
-"label":"21 Oct 2026",
-"text":"Posted: Microsoft Entra: Choose your own telephony provider now generally available"
-},
 "MC1528000|posted":{
 "date":"2026-10-27",
 "label":"27 Oct 2026",
 "text":"Posted: Microsoft Entra ID: Reminder to migrate from Microsoft-provided SMS and voice authentication"
-},
-"MC1519855|is the general availability date microsoft states the retire#0":{
-"date":"2026-10-30",
-"label":"30 Oct 2026",
-"text":"30 October 2026 is the general-availability date Microsoft states"
 },
 "MC1536049|posted":{
 "date":"2026-11-03",
@@ -460,10 +551,10 @@
 "label":"mid Nov 2026",
 "text":"Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
 },
-"MC1519855|microsoft entra id now generally supports choose your own te#0":{
+"MC1528000|microsoft provided sms and voice authentication will retire #0":{
 "date":"2027-02-01",
 "label":"1 Feb 2027",
-"text":"Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by Fe"
+"text":"Microsoft-provided SMS and voice authentication will retire starting February 1, 2027."
 },
 "MC1536049|we expect rollout to begin and complete in#0":{
 "date":"2027-02-15",
@@ -725,10 +816,10 @@
 "posts":[
 "MC1325414",
 "MC1400824",
-"MC1519855",
 "MC1528000",
 "MC1536049",
-"MC1540327"
+"MC1540327",
+"MC1550537"
 ]
 },
 "c-mc1547994":{
@@ -791,6 +882,14 @@
 "date":"2026-09-28",
 "group":"microsoft",
 "found":"2026-11-11"
+},
+"https://learn.microsoft.com/en-us/windows-365/whats-new":{
+"title":"iOS and iPadOS now support screen capture protection via Microsoft Intune Mobile Application Management (MAM)",
+"link":"https://learn.microsoft.com/en-us/windows-365/whats-new",
+"source":"Microsoft Learn · What's new · Windows 365",
+"date":"2026-02-02",
+"group":"microsoft",
+"found":"2026-11-14"
 }
 },
 "final":"2026-12-05",
@@ -4638,6 +4737,14 @@
 "updated":null,
 "group":"microsoft",
 "found":"2026-11-12"
+},
+"https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/capping-tempdb-in-sql-server-2025-resource-governor-in-standard/ba-p/4573219":{
+"title":"Capping tempdb in SQL Server 2025: Resource Governor in Standard Edition",
+"link":"https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/capping-tempdb-in-sql-server-2025-resource-governor-in-standard/ba-p/4573219",
+"source":"Microsoft Security Community",
+"date":"2026-11-13",
+"group":"community",
+"found":"2026-11-14"
 }
 },
 "final":"2027-10-12",
@@ -5107,6 +5214,14 @@
 "date":"2026-10-14",
 "group":"community",
 "found":"2026-10-15"
+},
+"https://mc.merill.net/message/MC1551897":{
+"title":"MC1551897: 60-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 13, 2027",
+"link":"https://mc.merill.net/message/MC1551897",
+"source":"MC - Merill",
+"date":"2026-11-13",
+"group":"community",
+"found":"2026-11-14"
 }
 },
 "final":"2027-01-12",
@@ -5461,14 +5576,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-11",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-12",
 "text":"August 1, 2026."
 },
@@ -5590,6 +5697,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-13",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-14",
 "text":"August 1, 2026."
 },
 {
@@ -6179,7 +6294,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-13",
+"seen":"2026-11-14",
 "text":"early February 2026."
 },
 {
@@ -6187,7 +6302,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-13",
+"seen":"2026-11-14",
 "text":"February 2027."
 },
 {
@@ -6567,52 +6682,6 @@
 "tech":"Windows",
 "posts":[
 "MC1172447"
-]
-},
-"c-mc1552387":{
-"firstSeen":"2026-11-14",
-"lastSeen":"2026-11-14",
-"name":"Microsoft Defender for Identity classic alerts (Remote code execution attempt and pass-the-hash)",
-"status":"Active",
-"members":[
-"MC1552387"
-],
-"log":[],
-"milestones":{
-"MC1552387|posted":{
-"date":"2026-11-13",
-"label":"13 Nov 2026",
-"text":"Posted: Retired: Microsoft Defender for Identity classic alerts (Remote code execution attempt and pass-the-hash)"
-},
-"MC1552387|general availability worldwide gcc gcc high dod we will begi#0":{
-"date":"2026-11-25",
-"label":"late Nov 2026",
-"text":"We will begin rolling out in late November 2026 and expect to complete by late November 2026."
-},
-"MC1552387|microsoft defender for identity mdi is retiring two classic #0":{
-"date":"2026-11-30",
-"label":"end of Nov 2026",
-"text":"Microsoft Defender for Identity (MDI) is retiring two classic alerts at the end of November 2026: Remote code execution attempt (RCE) and Suspected identity the"
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1552387":{
-"title":"Retired: Microsoft Defender for Identity classic alerts (Remote code execution attempt and pass-the-hash)",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1552387",
-"source":"Message Center",
-"id":"MC1552387",
-"date":"2026-11-13",
-"updated":"2026-11-13",
-"group":"microsoft",
-"found":"2026-11-14"
-}
-},
-"final":"2026-11-30",
-"type":"Retirement",
-"tech":"Defender",
-"posts":[
-"MC1552387"
 ]
 },
 "c-item-defender-cross-tenant-delegated-admin-ga-2026-10-20":{
@@ -8390,6 +8459,14 @@
 "date":"2026-11-05",
 "group":"microsoft",
 "found":"2026-11-10"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=577854":{
+"title":"Dynamics 365 Finance: Build reports with Project to profit data model",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=577854",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-13",
+"group":"community",
+"found":"2026-11-14"
 }
 },
 "final":"2026-12-04",
@@ -10249,7 +10326,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-13",
+"seen":"2026-11-14",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10257,7 +10334,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-13",
+"seen":"2026-11-14",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10883,6 +10960,14 @@
 "date":"2026-11-12",
 "group":"community",
 "found":"2026-11-13"
+},
+"https://entra.news/p/which-passkey-should-your-users-get":{
+"title":"Which Passkey Should Your Users Get? The FIDO Alliance CTO on Passkeys and Post-Quantum Cryptography",
+"link":"https://entra.news/p/which-passkey-should-your-users-get",
+"source":"Entra.news",
+"date":"2026-11-14",
+"group":"community",
+"found":"2026-11-14"
 }
 },
 "final":"2027-05-25",
@@ -19164,6 +19249,235 @@
 "tech":"Defender",
 "next":"late Nov 2026",
 "text":"Microsoft Defender for Identity (MDI) is retiring two classic alerts at the end of November 2026: Remote code execution attempt (RCE) and Suspected identity theft (pass-the-hash) ."
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1552387",
+"type":"material",
+"name":"Microsoft Defender for Identity classic alerts (Remote code execution attempt and pass-the-hash)",
+"group":"microsoft",
+"title":"Retired: Microsoft Defender for Identity classic alerts (Remote code execution attempt and pass-the-hash)",
+"source":"Main list source",
+"link":"https://deltapulse.app/item/MC1552387"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1235720",
+"type":"material",
+"name":"Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support",
+"group":"community",
+"title":"MC1551897: 60-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 13, 2027",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1551897"
+},
+{
+"day":"2026-11-14",
+"cid":"c-item-mc1519855",
+"type":"milestone",
+"name":"SSPR requires registered authentication methods",
+"src":"MC1528000",
+"now":"1 Feb 2027",
+"text":"Microsoft-provided SMS and voice authentication will retire starting February 1, 2027."
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-95922 Windows Graphics Kernel Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95922"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-95942 Windows Graphics Kernel Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95942"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-95953 Windows Graphics Kernel Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95953"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96126 Windows Graphics Kernel Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96126"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96144 Windows Graphics Kernel Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96144"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96150 Microsoft Windows Codecs Library Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96150"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-88217 Windows Graphics Kernel Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-88217"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-95932 Windows Graphics Kernel Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95932"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-95948 Windows Graphics Kernel Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95948"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-113749 Microsoft Windows Codecs Library Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-113749"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-125342: Uninitialized resource",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-125342"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-125344: Type confusion",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-125344"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-125348: Out of bounds write",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-125348"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-126840: Out of bounds write",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-126840"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-126841: Out of bounds read",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-126841"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium CVE-2026-126843: Type confusion",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-126843"
+},
+{
+"day":"2026-11-14",
+"cid":"c-windows-11-24h2-end-of-servicing",
+"type":"material",
+"name":"Windows 11, version 24H2 and Windows 10 LTSB 2016 reaching end of updates on October 13, 2026",
+"group":"community",
+"title":"Capping tempdb in SQL Server 2025: Resource Governor in Standard Edition",
+"source":"Microsoft Security Community",
+"link":"https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/capping-tempdb-in-sql-server-2025-resource-governor-in-standard/ba-p/4573219"
+},
+{
+"day":"2026-11-14",
+"cid":"c-mc1448328",
+"type":"material",
+"name":"Plan for Windows 10 Enterprise LTSC 2021 end of support",
+"group":"community",
+"title":"MC1551897: 60-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 13, 2027",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1551897"
+},
+{
+"day":"2026-11-14",
+"cid":"c-item-mc1539001",
+"type":"material",
+"name":"Microsoft 365 admin center retires the Project usage report on 4 December 2026 - export what you need by 20…",
+"group":"community",
+"title":"Dynamics 365 Finance: Build reports with Project to profit data model",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=577854"
+},
+{
+"day":"2026-11-14",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Which Passkey Should Your Users Get? The FIDO Alliance CTO on Passkeys and Post-Quantum Cryptography",
+"source":"Entra.news",
+"link":"https://entra.news/p/which-passkey-should-your-users-get"
 }
 ],
 "archive":{
@@ -21533,6 +21847,14 @@
 "date":"2026-10-15",
 "group":"microsoft",
 "found":"2026-10-16"
+},
+"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
+"title":"Moved non-elevated network checks into HIMDS and redacted proxy credentials returned through the public IPC endpoint.",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
+"source":"Microsoft Learn · What's new · Azure Arc",
+"date":"2026-03-24",
+"group":"microsoft",
+"found":"2026-11-14"
 }
 },
 "final":"2026-10-13",
@@ -23573,6 +23895,134 @@
 "date":"2026-11-13",
 "group":"microsoft",
 "found":"2026-11-13"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95922":{
+"title":"CVE-2026-95922 Windows Graphics Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95922",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95942":{
+"title":"CVE-2026-95942 Windows Graphics Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95942",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95953":{
+"title":"CVE-2026-95953 Windows Graphics Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95953",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96126":{
+"title":"CVE-2026-96126 Windows Graphics Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96126",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96144":{
+"title":"CVE-2026-96144 Windows Graphics Kernel Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96144",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96150":{
+"title":"CVE-2026-96150 Microsoft Windows Codecs Library Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96150",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-88217":{
+"title":"CVE-2026-88217 Windows Graphics Kernel Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-88217",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95932":{
+"title":"CVE-2026-95932 Windows Graphics Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95932",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95948":{
+"title":"CVE-2026-95948 Windows Graphics Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95948",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-113749":{
+"title":"CVE-2026-113749 Microsoft Windows Codecs Library Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-113749",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-125342":{
+"title":"Chromium CVE-2026-125342: Uninitialized resource",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-125342",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-125344":{
+"title":"Chromium CVE-2026-125344: Type confusion",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-125344",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-125348":{
+"title":"Chromium CVE-2026-125348: Out of bounds write",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-125348",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-126840":{
+"title":"Chromium CVE-2026-126840: Out of bounds write",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-126840",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-126841":{
+"title":"Chromium CVE-2026-126841: Out of bounds read",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-126841",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-126843":{
+"title":"Chromium CVE-2026-126843: Type confusion",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-126843",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-13",
+"group":"microsoft",
+"found":"2026-11-14"
 }
 },
 "final":"2026-10-13",
