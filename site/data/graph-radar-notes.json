@@ -31,6 +31,95 @@
     "\"actionsAndDestinations\" conditional access Graph"
    ],
    "articles": []
+  },
+  "defaultUserRolePermissions|allowedToCreateAgentIdentityBlueprints": {
+   "title": "Users can register agent identity blueprints",
+   "what": "The switch behind 'Users can register agent identity blueprints' in Default user role permissions of the authorization policy. It is separate from 'Users can register applications', so blocking app registrations does not block blueprints. Three community articles describe it; Microsoft has not put it in $metadata yet.",
+   "uses": [
+    "Set it to false so that only admins (or apps with AgentIdentityBlueprint.Create) create agent identity blueprints - the same reason most tenants block app registrations",
+    "Add it to the tenant baseline next to allowedToCreateApps, allowedToCreateTenants and allowedToCreateSecurityGroups",
+    "Audit: read it before 04/11/2026, the date from which Jan Bakker writes that every user without a role can create blueprints unless it is off",
+    "PATCH /policies/authorizationPolicy/authorizationPolicy with Policy.ReadWrite.Authorization (beta only for now)"
+   ],
+   "basis": "article",
+   "checked": "2026-11-14",
+   "articles": [
+    {
+     "title": "Prevent users from creating new agent identity blueprints",
+     "url": "https://janbakker.tech/prevent-users-from-creating-new-agent-identity-blueprints/",
+     "by": "Jan Bakker",
+     "date": "2026-10-16",
+     "rel": "names-it",
+     "says": "From 4 November 2026, every user without an Entra role can create agent identity blueprints unless an admin turns this off, either in Entra admin center > Users > User settings > 'Users can register agent identity blueprints' = No, or by sending a PATCH to beta authorizationPolicy with allowedToCreateAgentIdentityBlueprints=false (Policy.ReadWrite.Authorization). The property is only on the beta endpoint for now (based on MC1506733).",
+     "kind": "community-blog",
+     "key": "jan"
+    },
+    {
+     "title": "Microsoft Entra Lets Users Create Agent Blueprints by Default",
+     "url": "https://lazyadmin.nl/?p=13228",
+     "by": "Rudy Mens (LazyAdmin)",
+     "date": "2026-10-14",
+     "rel": "names-it",
+     "says": "The new setting 'Users can create agent blueprints' is on by default and lives in authorizationPolicy as allowedToCreateAgentIdentityBlueprints, which is beta-only, undocumented and may still be renamed. It takes effect as the rollout reaches each tenant, from 4 November to late November 2026, and you can switch it off in User settings or through a beta PATCH; users who still need to create blueprints can be given the Agent ID Developer role.",
+     "tested": "The toggle showed up in the author's tenant only after a hard refresh (Ctrl+F5); the author suggests a two-account test but gives no result for it.",
+     "kind": "community-blog",
+     "key": "rudy"
+    },
+    {
+     "title": "Entra Disable User Creation of Agent Identity Blueprints",
+     "url": "https://blog.icewolf.ch/archive/2026/10/22/entra-disable-user-creation-of-agent-identity-blueprints/",
+     "by": "Andres Bohren",
+     "date": "2026-10-22",
+     "rel": "names-it",
+     "says": "'Users can register agent identity blueprints' is on by default. The post turns it off with Microsoft Graph PowerShell by sending a PATCH to beta policies/authorizationPolicy/authorizationPolicy that sets defaultUserRolePermissions.allowedToCreateAgentIdentityBlueprints=$false.",
+     "tested": "Read defaultUserRolePermissions with a GET, sent the PATCH, then read it again; the screenshots show the setting off ('Now it's turned off').",
+     "kind": "community-blog",
+     "key": "andres"
+    },
+    {
+     "title": "Entra: Disable user creation of Agent Identity Blueprints",
+     "url": "https://blog.icewolf.ch/archive/2026/10/22/entra-disable-user-creation-of-agent-identity-blueprints/",
+     "by": "Andres Bohren",
+     "date": "2026-10-22",
+     "rel": "names-it",
+     "key": "icewolf",
+     "kind": "community-blog",
+     "says": "Reads the beta authorizationPolicy with Invoke-MgGraphRequest, PATCHes defaultUserRolePermissions with allowedToCreateAgentIdentityBlueprints = $false and reads it back.",
+     "tested": "Ran the GET, the PATCH and the GET again in his tenant; reports 'Now it's turned off'."
+    }
+   ],
+   "by": "morning routine",
+   "values": [
+    {
+     "name": "allowedToCreateAgentIdentityBlueprints",
+     "type": "Boolean",
+     "accepted": "true, false",
+     "what": "true lets users without an Entra role create agent identity blueprints; false limits it to admins and holders of AgentIdentityBlueprint.Create. Our tenant returns true (the default since the November 2026 rollout). The sources set it on the beta endpoint only.",
+     "src": "icewolf jan rudy andres"
+    }
+   ],
+   "examples": [
+    {
+     "title": "Stop users from creating agent identity blueprints",
+     "what": "Sets the default user role permission to false; existing blueprints are not removed.",
+     "method": "PATCH",
+     "uri": "https://graph.microsoft.com/beta/policies/authorizationPolicy/authorizationPolicy",
+     "scopes": [
+      "Policy.ReadWrite.Authorization"
+     ],
+     "body": {
+      "defaultUserRolePermissions": {
+       "allowedToCreateAgentIdentityBlueprints": false
+      }
+     },
+     "tested": "Andres Bohren ran this PATCH (as a PowerShell hashtable through Invoke-MgGraphRequest) and read the policy back: the setting was off. We did not run it.",
+     "src": "icewolf"
+    }
+   ],
+   "caveats": [
+    "Beta only: v1.0 does not return the property yet.",
+    "Turning it off does not delete blueprints users already created; list them separately."
+   ]
   }
  }
 }

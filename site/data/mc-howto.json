@@ -542,6 +542,50 @@
      "says": "Task assignment, scheduled task catch-up and memory integration are enabled by default for users with access to Planner Agent; admins manage availability and pinning (AI Administrator role) in the Microsoft 365 admin center."
     }
    ]
+  },
+  {
+   "key": "viva-engage-teams-townhall-creation-retirement",
+   "ids": [
+    "MC1552394"
+   ],
+   "title": "Viva Engage stops creating Teams town hall events on 7 December 2026",
+   "scriptable": false,
+   "checked": "2026-11-14",
+   "why": "The post retires a user-facing event-creation option in the Viva Engage client; it names no admin setting, and this routine found no Graph, Exchange Online or Teams PowerShell surface that controls it, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1552394",
+     "u": "https://deltapulse.app/item/MC1552394",
+     "says": "From 7 December 2026 users can no longer create Teams town hall events from Viva Engage; scheduled events still run, and organisers move to Engage events or Teams town halls."
+    }
+   ]
+  },
+  {
+   "key": "defender-urbac-auto-activation",
+   "ids": [
+    "MC1537494"
+   ],
+   "title": "Defender unified RBAC is switched on automatically for the Defender and Sentinel portal experiences",
+   "scriptable": false,
+   "checked": "2026-11-14",
+   "why": "Microsoft documents activation, deactivation and role import for Defender unified RBAC only in the Defender portal (System > Permissions > Workload settings); this routine found no documented Graph or PowerShell surface for workload activation, and Learn states that PowerShell keeps using Exchange Online RBAC, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1537494",
+     "u": "https://deltapulse.app/item/MC1537494",
+     "says": "Tenants are auto-enabled for the new Microsoft Defender RBAC model after an in-portal notice."
+    },
+    {
+     "t": "Activate Microsoft Defender unified RBAC (Microsoft Learn)",
+     "u": "https://learn.microsoft.com/defender-xdr/activate-defender-rbac",
+     "says": "Activation and deactivation are toggles under System > Permissions > Microsoft Defender XDR > Roles > Workload settings, and need at least Security Administrator."
+    },
+    {
+     "t": "Unified RBAC permissions for Defender for Office 365 (Microsoft Learn)",
+     "u": "https://learn.microsoft.com/defender-office-365/defender-office-365-unified-rbac-permissions",
+     "says": "Unified RBAC applies only to the Defender portal; PowerShell continues to use Exchange Online RBAC."
+    }
+   ]
   }
  ]
 }
