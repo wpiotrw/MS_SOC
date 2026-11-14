@@ -6289,7 +6289,125 @@ html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
 @container (min-width:900px){.s5gp-areas{grid-template-columns:repeat(2,minmax(0,1fr))}.s5gp-areas>li.s5gp-awide{grid-column:1 / -1}}
 .s5gp-areas>li{display:block;border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:14px 16px;margin:0;scroll-margin-top:90px;font-size:15px}
 .s5gp-areas>li.s5gp-aq{border-style:dashed}
+/* §5gr-k: quiet areas in a compact strip at the end of Watched areas */
+.s5gp-qh{margin:18px 0 8px;font-size:16px;font-weight:800;display:flex;gap:8px;align-items:center}
+.s5gp-areas.s5gp-qlist{display:flex!important;flex-wrap:wrap;gap:10px;align-items:flex-start}
+.s5gp-qlist>li{flex:1 1 320px;min-width:0;padding:10px 14px!important;font-size:14.5px!important}
+.s5gp-qlist>li>.s5bk-k{margin:0 0 6px!important}
 .s5gp-areas>li>.s5fm-n{display:none!important}
+/* §5gr-b: the phone page scrolled 31 px sideways in Today: a cross-check frame inside a pick fell into the 28 px number column, and the pick carried invisible overflow */
+.s5ci-pick>.s5gf-dc{grid-column:1 / -1;min-width:0}
+.s5ci-pick{overflow-x:clip;overflow-wrap:anywhere}   /* a long cmdlet name (Get-MgReportAuthenticationMethodUserRegistrationDetail) could not wrap; clip is the safety net */
+/* §5gr Microsoft 365 / Azure status under the logo */
+.s5ms{z-index:6;font-family:inherit}
+.s5ms.s5ms-side{position:absolute;left:0;top:176px;width:300px;padding:0 12px;box-sizing:border-box}
+header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
+.s5ms-short{display:none}
+.s5ms-compact .s5ms-full{display:none}.s5ms-compact .s5ms-short{display:inline}
+.s5ms.s5ms-compact .s5ms-row{flex-direction:row;flex-wrap:nowrap;justify-content:center}
+.s5ms-compact .s5ms-meta{display:none}
+.s5ms-compact .s5ms-b{font-size:12px;padding:4px 10px}
+.s5ms.s5ms-inline{position:relative;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:4px 0 10px}
+.s5ms-row{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.s5ms-side .s5ms-row{flex-direction:column;align-items:stretch}
+.s5ms-b{display:inline-flex;align-items:center;justify-content:center;gap:7px;font:inherit;font-size:13px;font-weight:700;line-height:1.2;padding:6px 12px;border-radius:999px;border:1px solid;cursor:pointer;color:#fff}
+.s5ms-b>i{width:10px;height:10px;border-radius:50%;flex:none;display:inline-block}
+.s5ms-ok{background:#065f46;border-color:#10b981}.s5ms-ok>i{background:#34d399}
+.s5ms-warn{background:#92400e;border-color:#f59e0b}.s5ms-warn>i{background:#fbbf24;box-shadow:0 0 0 3px rgba(251,191,36,.35)}
+.s5ms-bad{background:#991b1b;border-color:#ef4444}.s5ms-bad>i{background:#fca5a5;box-shadow:0 0 0 3px rgba(248,113,113,.4)}
+.s5ms-error{background:#475569;border-color:#64748b}.s5ms-error>i{background:#cbd5e1}
+.s5ms-b:hover{filter:brightness(1.12)}
+.s5ms-meta{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;justify-content:center;margin-top:6px;font-size:12.5px;color:var(--text)}
+.s5ms-inline .s5ms-meta{margin-top:0}
+.s5ms-r{font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--accent);border-radius:999px;padding:2px 10px}
+.s5ms-r:disabled{opacity:.6;cursor:progress}
+.s5ms-ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;display:flex;align-items:flex-start;justify-content:center;padding:56px 16px;overflow:auto}
+.s5ms-ov[hidden]{display:none}
+.s5ms-dlg{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:16px;max-width:900px;width:100%;padding:18px 22px;font-size:15px;line-height:1.5;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.s5ms-dlg h2{margin:0 0 4px;font-size:22px}
+.s5ms-sub{margin:0 0 12px;font-size:14px}
+.s5ms-x{float:right;font:inherit;font-size:13px;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:8px;padding:3px 10px}
+.s5ms-card{border:2px solid var(--border);border-radius:12px;padding:12px 14px;margin:0 0 12px}
+.s5ms-c-error{border-style:dashed}   /* §5gr-h: card frames neutral; the state is in the header pill */
+.s5ms-card>h3{margin:0 0 8px;font-size:17px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.s5ms-pill{font-size:12.5px;font-weight:700;border-radius:999px;padding:2px 10px;color:#fff}
+.s5ms-p-ok{background:#047857}.s5ms-p-warn{background:#b45309}.s5ms-p-bad{background:#b91c1c}.s5ms-p-error{background:#475569}
+.s5ms-it{border-top:1px solid var(--border);padding:8px 0 4px}.s5ms-it:first-of-type{border-top:0}
+.s5ms-ih{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:16px}
+.s5ms-pub{font-size:14px;margin:2px 0 4px}
+.s5ms-it ul{margin:4px 0 0 20px;padding:0}.s5ms-it li{margin:3px 0}
+/* §5gr-d: key facts first, in their own filled frame; affected services and other details in their own sections */
+.s5ms-key{margin:8px 0 10px;border:1px solid var(--border);background:rgba(127,127,127,.08);border-radius:10px;padding:10px 12px}
+.s5ms-kh{font-weight:800;font-size:16px;margin:0 0 6px}
+.s5ms-kr{display:grid;grid-template-columns:170px minmax(0,1fr);gap:10px;align-items:start;padding:7px 0;border-top:1px solid rgba(127,127,127,.35)}
+.s5ms-kh+.s5ms-kr{border-top:0}
+.s5ms-kl{display:inline-block;justify-self:start;background:#334155;color:#fff;font-weight:700;font-size:13.5px;line-height:1.3;border-radius:999px;padding:4px 11px}
+.s5ms-kv{min-width:0;font-size:15.5px;line-height:1.5;overflow-wrap:anywhere}.s5ms-kv p{margin:0 0 4px}.s5ms-kv p:last-child{margin:0}
+.s5ms-nx{font-size:18px;margin-right:8px}
+.s5ms-rel{display:inline-block;background:#334155;color:#fff;font-weight:700;font-size:13.5px;border-radius:999px;padding:2px 10px;vertical-align:2px}
+.s5ms-rel.s5ms-late{background:#991b1b}
+.s5ms-orig{margin-top:3px;font-size:14px;color:var(--text);opacity:.85}
+.s5ms-sec{margin:12px 0 4px;padding-top:10px;border-top:2px solid var(--border)}
+.s5ms-sh{margin:0 0 6px;font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px}
+.s5ms-cnt{background:#334155;color:#fff;border-radius:999px;font-size:13px;padding:1px 9px}
+.s5ms-intro{margin:0 0 8px;font-size:15px}
+.s5ms-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.s5ms-chip{font:600 13.5px/1.3 var(--sans);background:#334155;color:#fff;border:0;border-radius:999px;padding:4px 11px;cursor:pointer;max-width:100%;overflow-wrap:anywhere;text-align:left}
+.s5ms-chip:hover,.s5ms-chip:focus-visible{background:#475569;outline:2px solid #93c5fd;outline-offset:1px}
+.s5ms-feedh{margin:16px 0 6px;padding-top:12px;border-top:2px solid var(--border)}
+.s5ms-fold{margin:10px 0 0}.s5ms-fh{display:block;font-weight:400;font-size:14px;color:var(--text);margin:4px 0 0;overflow-wrap:anywhere}.s5ms-fold[open] .s5ms-fh{display:none}
+.s5ms-sv{padding:8px 0;border-top:1px solid var(--border);overflow-wrap:anywhere}.s5ms-sv:first-child{border-top:0}
+.s5ms-sv b{display:block;font-size:15.5px;margin:0 0 2px}.s5ms-sv p{margin:0;font-size:15px;line-height:1.5}
+.s5ms-flash{animation:s5msfl 1.6s ease-out}
+@keyframes s5msfl{0%{background:rgba(59,130,246,.35)}100%{background:transparent}}
+.s5ms-op{margin:0 0 6px;font-size:15px;overflow-wrap:anywhere}
+@media (max-width:640px){.s5ms-kr{grid-template-columns:1fr;gap:4px}}
+/* §5gr-e: incident numbers, references, Service health, extra services */
+.s5ms-id{display:inline-block;background:#0f172a;color:#fff!important;font:700 13.5px/1.3 var(--mono,monospace);border-radius:6px;padding:3px 9px;text-decoration:none;border:1px solid #64748b}
+.s5ms-id:hover,.s5ms-id:focus-visible{background:#1e293b;outline:2px solid #93c5fd}
+.s5ms-ref{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;padding:6px 0;border-top:1px solid var(--border)}.s5ms-ref:first-of-type{border-top:0}
+.s5ms-refd{font-size:15px;min-width:0;overflow-wrap:anywhere}
+.s5ms-grp{margin:6px 0;border:1px solid var(--border);border-radius:10px;padding:6px 10px}
+.s5ms-grps{cursor:pointer;font-weight:800;font-size:15.5px;padding:4px 0}
+/* §5gr-h: one list, type label + large number first; the type colour is the only colour in a row */
+.s5ms-fb{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.s5ms-fbb{font:inherit;font-size:14px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:999px;padding:4px 12px;display:inline-flex;align-items:center;gap:6px}
+.s5ms-fbb[aria-pressed="true"]{background:#334155;border-color:#334155;color:#fff}
+.s5ms-fbn{font-size:13px;font-weight:800;border-radius:999px;padding:0 8px;background:rgba(127,127,127,.25)}
+.s5ms-fb-inc .s5ms-fbn{background:#b91c1c;color:#fff}.s5ms-fb-adv .s5ms-fbn{background:#1d4ed8;color:#fff}
+.s5ms-lh{font-weight:800;font-size:15.5px;margin:12px 0 4px;display:flex;align-items:center;gap:8px}
+.s5ms-lh[hidden],.s5ms-is[hidden],.s5ms-ih[hidden],.s5ms-pub[hidden]{display:none}
+.s5ms-is{border:1px solid var(--border);border-left:6px solid #64748b;border-radius:8px;padding:8px 10px;margin:0 0 6px}
+.s5ms-t-inc{border-left-color:#b91c1c}.s5ms-t-adv{border-left-color:#1d4ed8}.s5ms-t-done{border-left-color:#047857}
+.s5ms-ish{cursor:pointer;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;list-style-position:outside}
+.s5ms-ist0{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.s5ms-adm{margin-left:auto;font-weight:700;font-size:14px}
+.s5ms-is{padding:12px 14px!important;margin:0 0 10px!important}
+.s5ms-is>.s5ms-ist{display:block;font-size:17px;margin:8px 0 6px}
+.s5ms-fg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 16px;margin:4px 0 8px}
+.s5ms-fl{font-size:13.5px;font-weight:700;color:var(--text);opacity:.85}
+.s5ms-fv{font-size:15px;font-weight:600;overflow-wrap:anywhere}
+.s5ms-fv .s5ms-rel{margin-left:6px}
+@media (max-width:700px){.s5ms-fg{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.s5ms-type{color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;border-radius:6px;padding:4px 10px}
+.s5ms-ty-inc{background:#b91c1c}.s5ms-ty-adv{background:#1d4ed8}.s5ms-ty-old{background:#475569}.s5ms-ty-done{background:#047857}
+.s5ms-ish .s5ms-id{font-size:15.5px;padding:3px 10px}
+.s5ms-st{font-weight:700;font-size:14.5px}
+.s5ms-onpg{font-size:13px;font-weight:700;border:1px solid var(--border);border-radius:999px;padding:2px 10px}
+.s5ms-in{border:0;padding:4px 0 6px}.s5ms-inh{font-weight:800;font-size:14.5px;margin:4px 0 0}
+.s5ms-ist{flex:1 1 100%;font-size:16px}
+.s5ms-ism{flex:1 1 100%;font-size:14px;color:var(--text)}
+.s5ms-kind{background:#334155;color:#fff;font-weight:700;font-size:13px;border-radius:999px;padding:2px 9px}
+.s5ms-is-done .s5ms-ist{opacity:.9}
+.s5ms-isb{padding:6px 0 0 4px}
+.s5ms-imp{margin:0 0 6px;font-size:15px;overflow-wrap:anywhere}
+.s5ms-post{border-left:3px solid var(--border);padding:4px 0 4px 10px;margin:8px 0}
+.s5ms-posth{font-weight:700;font-size:14.5px;margin:0 0 4px}
+.s5ms-older>summary{cursor:pointer;font-weight:700;font-size:15px;margin:6px 0}
+.s5ms-p{margin:4px 0}
+.s5ms-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.s5ms-l{border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:3px 12px;text-decoration:none;font-weight:600;font-size:13.5px}
+.s5ms-l:hover{text-decoration:underline}
 .s5gp-areas>li>.s5bk-k{display:inline-block;margin:0 0 8px;background:#1d4ed8;color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;padding:3px 12px;border-radius:999px}
 @container (min-width:900px){.s5gp-areas .s5er-grid{display:grid!important;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:12px;align-items:start}.s5gp-areas .s5er-grid>.s5er-box{width:auto!important;max-width:none!important;flex:none!important}.s5gp-areas .s5er-grid>.s5er-box:first-child{grid-row:1 / span 9}}
 /* §5gp-b (owner, 12 XI): the full width, two entries a row; the cards of a row are equally tall (no holes); the rail
@@ -6313,7 +6431,8 @@ html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
 .s5gp-t:hover{text-decoration:underline}.s5gp-go{color:var(--accent)}
 .s5gp-why{margin:0;font-size:15px;color:var(--text)}.s5gp-why b{font-weight:700}
 .s5gp-dc{margin-top:8px;border:1px solid #b45309;border-radius:10px;padding:6px 10px;font-size:14px}.s5gp-dc>summary{cursor:pointer;font-weight:600}
-.s5gp-dcb{background:#b45309;color:#fff;border-radius:999px;padding:1px 8px;font-weight:700;font-size:12px}
+.s5gp-dcb{background:#b45309;color:#fff;border-radius:999px;padding:1px 8px;font-weight:700;font-size:12px;flex:none;white-space:nowrap}
+.s5gp-dc>summary{flex-wrap:wrap}.s5gp-dct{flex:1 1 220px;min-width:0;overflow-wrap:anywhere;font-weight:600}
 .s5gp-dc .s5gf-ul,.s5gp-dc .s5gf-fn{display:block!important}
 .s5gp-rail{display:flex;flex-direction:column;gap:10px}
 .s5gp-rail>.s5gp-gh{margin-bottom:0}
@@ -9169,7 +9288,7 @@ html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Friday 13 November 2026</b> &middot; published 07:55 Warsaw &middot; 30 October &ndash; 13 November 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>36</b> deadlines in 60 days<span>&middot; 26 inside 30, 0 due today or tomorrow</span></a><a class="count" href="#graph"><b>977</b> undocumented at Microsoft<span>&middot; 977 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>9</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>125</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>24</b> changes since 12 Nov<span>&middot; 6 at Microsoft, 18 in this report</span></a><a class="count" href="#chg14"><b>1683</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Saturday 14 November 2026</b> &middot; published 07:48 Warsaw &middot; 31 October &ndash; 14 November 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>40</b> deadlines in 60 days<span>&middot; 28 inside 30, 5 due today or tomorrow</span></a><a class="count" href="#graph"><b>977</b> undocumented at Microsoft<span>&middot; 977 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>8</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>126</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>20</b> changes since 13 Nov<span>&middot; 6 at Microsoft, 14 in this report</span></a><a class="count" href="#chg14"><b>1996</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -9212,7 +9331,7 @@ A tabbed application, not one long document: each tab shows its panel, hides the
 Markup:
 
 ```html
-<div class="tabpanel" id="tab-today" data-tab="Today" hidden>
+<div class="tabpanel" id="tab-today" data-tab="Today" hidden><section id="pmdelta" data-nav="Since morning"><div class="sec-head"><h2>Section B</h2><p class="sec-title">Changes since the 07:55 pass</p></div><div class="sec-body"><p class="sec-note">Passes represented: evening <b>22:31</b> Warsaw, against this morning&rsquo;s 07:55 pass of the same brief. <span class="badge b-new">6</span> rows, all of them Microsoft or a vendor moving; no new tier-0 item; one component version moved (tvOS <del>27.2</del> &rarr; <ins>27.2.1</ins>). The short view of this pass is the <a href="https://claude.ai/artifact/NsbUtEyA3GjQjquW8Pa8QS" id="pmdelta-link" target="_blank" rel="noopener">Microsoft SOC Delta 13 Nov 2026 (evening)</a>.</p><ul class="pmchecked"><li><b>Re-read</b> &mdash; 13 collectors, 0 failed: Learn areas and 10 mirrors, Microsoft blogs, community sources, Message Center index, feed, DeltaPulse and tenant, Graph deployment map, devx permissions, 13 components, watched pages; DeltaPulse change history for today.</li><li><b>Unchanged</b> &mdash; Graph permissions and Entra roles: this morning&rsquo;s unmerged 13 November devx sync is now merged (#1694, 9f88bf8) with the same three permissions changed, so the catalog does not move; no role moved.</li><li><b>Message Center</b> &mdash; 3 posts published after the morning pass, all three now items; 2 posts revised (MC1486295 cancelled, MC1536065 rescheduled). The two 60-day reminders print 13 January 2027 where the 90-day reminders printed 12 January; the older items keep the date their own post printed. Confirm in your own tenant.</li><li><b>Community leads, not sources</b> &mdash; the community list was re-read; no lead is confirmed on a Microsoft page read in this pass, so none is an item. See Community Articles.</li></ul><p class="difflegend"><span><del>removed</del> what Microsoft took out</span><span><ins>added</ins> what Microsoft put in</span></p><div class="tw"><table><thead><tr><th>Change type</th><th>Item</th><th>Product</th><th>When</th><th>What changed (before &rarr; after)</th><th>SOC impact</th><th>Source</th></tr></thead><tbody><tr data-id="MC1551896"><td><span class="badge b-new">New at source</span></td><td>Windows Server 2016 ends extended support on 13 January 2027 (60-day reminder) - the 90-day reminder MC1507705 said 12 January<span class="offt">60-Day Reminder: Windows Server 2016 reaches the end of extended support on January 13, 2027</span><span class="ref">MC1551896</span></td><td>Windows Server</td><td><span class="dt">2026-11-13</span> 22:31</td><td><ins>published 2026-11-13</ins> &mdash; end of extended support printed as <del>12 January 2027</del> (90-day reminder MC1507705) &rarr; <ins>13 January 2027</ins></td><td>Tier-0 hosts still on Server 2016 (DCs, AD FS, AD CS, Entra Connect) lose security updates after the January 2027 update unless enrolled in ESU.</td><td class="src"><a href="https://deltapulse.app/item/MC1551896" target="_blank" rel="noopener">Message Center</a></td></tr><tr data-id="MC1551897"><td><span class="badge b-new">New at source</span></td><td>Windows 10 Enterprise LTSC 2021 ends mainstream support on 13 January 2027 (60-day reminder) - the 90-day reminder MC1507706 said 12 January<span class="offt">60-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 13, 2027</span><span class="ref">MC1551897</span></td><td>Windows</td><td><span class="dt">2026-11-13</span> 22:31</td><td><ins>published 2026-11-13</ins> &mdash; end of updates printed as <del>12 January 2027</del> (90-day reminder MC1507706) &rarr; <ins>13 January 2027</ins></td><td>Kiosk, OT and specialised LTSC 2021 devices stop getting fixes after January 2027 without ESU.</td><td class="src"><a href="https://deltapulse.app/item/MC1551897" target="_blank" rel="noopener">Message Center</a></td></tr><tr data-id="MC1551898"><td><span class="badge b-new">New at source</span></td><td>Out-of-band Windows update fixes SLMGR licensing and KMS activation failures (error 0x80041008) caused by the November 2026 security update<span class="offt">Out-of-band update released to address Windows licensing and activation errors</span><span class="ref">MC1551898</span></td><td>Windows</td><td><span class="dt">2026-11-13</span> 22:31</td><td><ins>published 2026-11-13</ins> &mdash; optional OOB update: KB5136489 (Server 2025), KB5136487 (2022), KB5136490 (2019 / LTSC 2019), KB5136483 (Windows 11 23H2), KB5136493 (Windows 10 22H2 ESU / LTSC 2021)</td><td>Scripted slmgr.vbs / KMS activation fails with 0x80041008 after the November update; already-activated devices are unaffected. Reliability, not a vulnerability.</td><td class="src"><a href="https://deltapulse.app/item/MC1551898" target="_blank" rel="noopener">Message Center</a></td></tr><tr data-id="MC1486295"><td><span class="badge b-upd">Revised at source</span></td><td>OneDrive and SharePoint: Copilot smart table of contents for PDFs on the web is cancelled<span class="offt">(Updated) Microsoft OneDrive and SharePoint: Generate smart tables of contents for PDFs on the web with Copilot</span><span class="ref">MC1486295</span></td><td>SharePoint</td><td><span class="dt">2026-11-13</span> 22:31</td><td>Targeted Release: <del>Rollout will begin in early December 2026</del> &rarr; <ins>We have decided not to move forward with this change at this time</ins></td><td>None: a user-initiated Copilot feature that will not ship; drop it from any change plan.</td><td class="src"><a href="https://deltapulse.app/item/MC1486295" target="_blank" rel="noopener">Message Center</a></td></tr><tr data-id="MC1536065"><td><span class="badge b-upd">Revised at source</span></td><td>Copilot suggests switching to another Copilot mode mid-chat: a Deferred-audience rollout is added<span class="offt">(Updated) Microsoft 365 Copilot: Suggestions to continue in another Copilot experience</span><span class="ref">MC1536065</span></td><td>Copilot</td><td><span class="dt">2026-11-13</span> 22:31</td><td><del>General Availability (Worldwide): mid to late November 2026</del> &rarr; <ins>Standard (Worldwide): mid to late November 2026; Deferred (Worldwide): mid to late December 2026</ins></td><td>No security effect; timing only. No admin action required by Microsoft.</td><td class="src"><a href="https://deltapulse.app/item/MC1536065" target="_blank" rel="noopener">Message Center</a></td></tr><tr data-id="cmp-apple-tvos"><td><span class="badge b-new">New at source</span></td><td>tvOS 27.2.1 is listed in Apple&rsquo;s security releases table<span class="ref">apple-tvos</span></td><td>Apple</td><td><span class="dt">2026-11-13</span> 22:31</td><td>current build <del>27.2</del> &rarr; <ins>27.2.1</ins>, released <span class="dt">2026-11-13</span></td><td>Apple TV devices in meeting rooms or signage take the update; not a Microsoft change.</td><td class="src"><a href="https://support.apple.com/en-us/100100" target="_blank" rel="noopener">Apple security releases</a></td></tr></tbody></table></div></div></section>
   <section id="top5"> … </section>
   <section id="delta" data-nav="Changes"> … </section>
 </div>
@@ -9370,7 +9489,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 13 November 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 14 November 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
