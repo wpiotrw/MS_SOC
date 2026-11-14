@@ -1,0 +1,23 @@
+// title: Detection 2: SCKit - ScreenConnect Logon Targeting Privileged or Technician Accounts
+// date: 2026-11-14
+// product: Defender for Endpoint
+// tables: DeviceLogonEvents
+// purpose: From the article: Detection Engineering Brief - Saturday, November 14, 2026
+// source: https://devsecopsdadattack.com/2026-11-14-detection-engineering-brief-saturday-november-14-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookbackDays = 14d;
+let TechnicianPatterns = dynamic(["tech", "admin", "helpdesk", "support", "svc"]);
+DeviceLogonEvents
+| where Timestamp > ago(LookbackDays)
+| where InitiatingProcessFileName has_any ("ScreenConnect.ClientService.exe", "ScreenConnect.WindowsClient.exe")
+| where LogonType in (10, 3)
+| where AccountName has_any (TechnicianPatterns)
+| summarize LogonCount = count(),
+    FirstSeen = min(Timestamp),
+    LastSeen = max(Timestamp),
+    Devices = make_set(DeviceName),
+    RemoteIPs = make_set(RemoteIP)
+    by AccountName, InitiatingProcessFileName
+| order by LogonCount desc

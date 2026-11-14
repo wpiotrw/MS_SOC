@@ -1,0 +1,32 @@
+// title: Detection 1: SCKit - ScreenConnect Spawning Suspicious Child Processes
+// date: 2026-11-14
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Saturday, November 14, 2026
+// source: https://devsecopsdadattack.com/2026-11-14-detection-engineering-brief-saturday-november-14-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookbackHours = 48h;
+let SuspiciousChildren = dynamic(["cmd.exe", "powershell.exe", "wscript.exe", "mshta.exe", "net.exe", "certutil.exe", "bitsadmin.exe", "rundll32.exe"]);
+let ScreenConnectParents = dynamic(["ScreenConnect.ClientService.exe", "ScreenConnect.WindowsClient.exe"]);
+let ScreenConnectProcs = DeviceProcessEvents
+| where Timestamp > ago(LookbackHours)
+| where InitiatingProcessFileName has_any (ScreenConnectParents)
+| where FileName in~ (SuspiciousChildren)
+| project DeviceId, DeviceName, AccountName, Timestamp, ChildProcess = FileName,
+    ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessCommandLine;
+let NetworkFollowOn = DeviceNetworkEvents
+| where Timestamp > ago(LookbackHours)
+| where InitiatingProcessFileName in~ (SuspiciousChildren)
+| where RemotePort !in (80, 443)
+| project DeviceId, NetTimestamp = Timestamp, RemoteUrl, RemoteIP, RemotePort, InitiatingProcessFileName;
+ScreenConnectProcs
+| join kind=leftouter (
+    NetworkFollowOn
+) on DeviceId
+| where isnull(NetTimestamp) or NetTimestamp between (Timestamp .. (Timestamp + 5m))
+| project Timestamp, DeviceName, AccountName, InitiatingProcessFileName,
+    InitiatingProcessCommandLine, ChildProcess, ProcessCommandLine,
+    NetTimestamp, RemoteUrl, RemoteIP, RemotePort
+| order by Timestamp desc

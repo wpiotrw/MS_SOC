@@ -1,0 +1,45 @@
+// title: Detection 4: ESXi Ransomware - Hypervisor Shell Enable and Mass VM Shutdown
+// date: 2026-11-14
+// product: Sentinel
+// tables: Syslog
+// purpose: From the article: Detection Engineering Brief - Saturday, November 14, 2026
+// source: https://devsecopsdadattack.com/2026-11-14-detection-engineering-brief-saturday-november-14-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let LookbackHours = 48h;
+let CorrelationWindow = 30m;
+let ShellEnableEvents = Syslog
+| where TimeGenerated > ago(LookbackHours)
+| where SyslogMessage has_any (
+    "ESXi Shell for the ESXi",
+    "shell.set --enabled true",
+    "vim-cmd hostsvc/enable_ssh",
+    "vim-cmd hostsvc/enable_esx_shell",
+    "SSH login enabled",
+    "ESXi Shell is enabled"
+  )
+| project ShellTime = TimeGenerated, HostName, ShellMsg = SyslogMessage;
+let VMShutdownEvents = Syslog
+| where TimeGenerated > ago(LookbackHours)
+| where SyslogMessage has_any (
+    "vim-cmd vmsvc/power.off",
+    "vim-cmd vmsvc/power.shutdown",
+    "powerOff",
+    "Powering off virtual machine",
+    "esxcli vm process kill"
+  )
+| project ShutdownTime = TimeGenerated, HostName, ShutdownMsg = SyslogMessage;
+ShellEnableEvents
+| join kind=inner (
+    VMShutdownEvents
+) on HostName
+| where ShutdownTime between (ShellTime .. (ShellTime + CorrelationWindow))
+| summarize ShellTime = min(ShellTime),
+    ShellMsg = any(ShellMsg),
+    FirstShutdown = min(ShutdownTime),
+    LastShutdown = max(ShutdownTime),
+    ShutdownCount = count(),
+    ShutdownSamples = make_set(ShutdownMsg, 5)
+    by HostName
+| order by ShutdownCount desc
