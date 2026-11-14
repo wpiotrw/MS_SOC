@@ -1,7 +1,7 @@
 {
- "read": "2026-11-13",
+ "read": "2026-11-14",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 730,
+ "count": 736,
  "note": null,
  "messages": [
   {
@@ -7729,7 +7729,7 @@
   },
   {
    "id": "MC1450128",
-   "title": "Microsoft Purview: Adaptive scopes add lifecycle status evaluation controls for recipients and site owners",
+   "title": "(Updated) Microsoft Purview: Adaptive scopes add lifecycle status evaluation controls for recipients and site owners",
    "services": [
     "Microsoft Purview"
    ],
@@ -7738,21 +7738,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-07",
-   "end": "2026-12-13",
-   "modified": "2026-08-07",
+   "end": "2027-05-31",
+   "modified": "2026-11-14",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Purview is introducing lifecycle status evaluation controls for adaptive scopes. This update gives administrators explicit control over whether active, inactive, and soft-deleted recipients and site owners are included in adaptive scope membership. With this change, newly created adaptive scopes will evaluate only active recipients and site owners by default. Administrator…",
+   "summary": "Updated November 13, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Purview is introducing lifecycle status evaluation controls for adaptive scopes. This update gives administrators explicit control over whether active, inactive, and soft-deleted recipients and site owners are included in adaptive scope membership. With this change, newly created adaptive…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Public Preview: Beginning in mid-September 2026 and expected to complete in early October 2026.",
-    "General Availability (Worldwide): Beginning in mid-October 2026 and expected to complete in mid-November 2026."
+    "Updated November 13, 2026: We have updated the timeline.",
+    "Public Preview: Beginning in December 2026 (previously mid-September) and expected to complete in December 2026 (previously early October).",
+    "General Availability (Worldwide): Beginning in April 2027 (previously mid-October 2026) and expected to complete in April 2027 (previously mid-November 2026)."
    ],
-   "bodyHash": "589f2f9a36c5f319"
+   "bodyHash": "3d47f0397ca3e500"
   },
   {
    "id": "MC1450133",
@@ -9103,11 +9105,12 @@
    "actionBy": null,
    "start": "2026-08-25",
    "end": "2026-12-31",
-   "modified": "2026-08-25",
+   "modified": "2026-11-14",
    "tags": [
-    "Admin impact"
+    "Admin impact",
+    "Updated message"
    ],
-   "summary": "Starting this fall, Dynamics 365, Power Platform, and Dataverse roadmap content is joining the AI at Work roadmap , giving customers a single destination to discover upcoming capabilities, track rollout progress, and plan adoption across Microsoft's business applications, productivity, and AI portfolio. As part of this transition, Release Planner will retire on November 15, 2026. Microsoft is also…",
+   "summary": "Release Planner is now retired. To stay informed about upcoming capabilities and prepare your organization for feature rollout and adoption, use the resources shared below. To view product availability for Dynamics 365, Power Platform and Copilot Studio, visit the new Learn page at https://aka.ms/d365-product-availability . Starting this fall, Dynamics 365, Power Platform, and Dataverse roadmap co…",
    "when": "September 2026: New Dynamics 365, Power Platform, and Dataverse roadmap items begin publishing directly to the AI at Work roadmap. Fall 2026: Existing roadmap items with Public Preview or General Availability dates on or after June 1, 2026 transition from Release Planner to the AI at Work roadmap. By November 15, 2026: Release Planner retires. The AI at Work roadmap becomes Microsoft's primary destination for public roadmap information.",
    "prepare": "In September, begin using the AI at Work roadmap as your primary destination for roadmap planning. Review internal processes, documentation, bookmarks, and communications that currently reference Release Planner, Release Plans, or release wave announcements. Configure roadmap filters, RSS subscriptions, and CSV exports to support your organization's planning processes. Evaluate the Release Communications MCP Server if your organization integrates…",
    "dates": [
@@ -9118,7 +9121,7 @@
     "Key changes include: Release Planner will retire on November 15, 2026.",
     "New Release Plans will no longer be published on Microsoft Learn beginning in September 2026."
    ],
-   "bodyHash": "703826bd0b46e0e4"
+   "bodyHash": "ca783e88944f2fa3"
   },
   {
    "id": "MC1461574",
@@ -14623,7 +14626,7 @@
    "actionBy": null,
    "start": "2026-10-13",
    "end": "2027-01-01",
-   "modified": "2026-11-10",
+   "modified": "2026-11-14",
    "tags": [
     "Admin impact",
     "Feature update",
@@ -14631,15 +14634,15 @@
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated November 10, 2026: We have updated the timeline. If you are a tenant in a GCCH or DoD environment, you can safely ignore this message as you are not impacted. Thank you for your patience. [What and why] Microsoft Teams will soon support sharing video directly from OneDrive during Teams events. Organizers and producers using Manage what attendees see can load videos from OneDrive and presen…",
+   "summary": "Updated November 13, 2026: We have updated the content. If you are a tenant in a GCCH or DoD environment, you can safely ignore this message as you are not impacted. Thank you for your patience. [What and why] Microsoft Teams will soon support sharing video directly from OneDrive during Teams events that are optimized for scale (previously called town halls). Organizers and producers using Manage …",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated November 10, 2026: We have updated the timeline.",
+    "Updated November 13, 2026: We have updated the content.",
     "Targeted Release (Worldwide): Rollout will begin in mid-November 2026 (previously early November) and end in early December 2026.",
     "General Availability (Worldwide, GCC): Rollout will begin in early December 2026 and is expected to complete by early December 2026."
    ],
-   "bodyHash": "70ed56a6289c240e"
+   "bodyHash": "e9a3d7dddd83f151"
   },
   {
    "id": "MC1506735",
@@ -14856,7 +14859,7 @@
   },
   {
    "id": "MC1508238",
-   "title": "Microsoft Purview | Information Protection: Sensitivity labels for Microsoft Entra security groups",
+   "title": "(Updated) Microsoft Purview | Information Protection: Sensitivity labels for Microsoft Entra security groups",
    "services": [
     "Microsoft 365 suite",
     "Microsoft Purview"
@@ -14866,20 +14869,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-14",
-   "end": "2026-12-30",
-   "modified": "2026-10-14",
+   "end": "2027-02-26",
+   "modified": "2026-11-14",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Purview is introducing sensitivity labels for Microsoft Entra cloud security groups. This capability extends label-based protection currently available for Microsoft 365 groups and SharePoint sites to cloud security groups. With this change, organizations can apply published Microsoft Purview sensitivity labels directly to security groups and automatically enforce membersh…",
+   "summary": "Updated November 13, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Purview is introducing sensitivity labels for Microsoft Entra cloud security groups. This capability extends label-based protection currently available for Microsoft 365 groups and SharePoint sites to cloud security groups. With this change, organizations can apply published Microsoft Pur…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Beginning in mid-November 2026 and expected to complete in late November 2026."
+    "Updated November 13, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in mid-January 2027 (previously mid-November 2026) and expected to complete in mid-January 2027 (previously late November 2026)."
    ],
-   "bodyHash": "944c78c06b3661cf"
+   "bodyHash": "fe1bdacf5a58e697"
   },
   {
    "id": "MC1508562",
@@ -19317,7 +19322,7 @@
   },
   {
    "id": "MC1552365",
-   "title": "Dynamics 365 Field Service: Preserve actual booking End Time when completion is recorded later",
+   "title": "Dynamics 365 Field Service - Preserve actual booking End Time when completion is recorded later",
    "services": [
     "Dynamics 365 Apps"
    ],
@@ -19327,7 +19332,7 @@
    "actionBy": null,
    "start": "2026-11-13",
    "end": "2026-12-23",
-   "modified": "2026-11-13",
+   "modified": "2026-11-14",
    "tags": [
     "New feature"
    ],
@@ -19338,6 +19343,159 @@
     "This feature will reach public preview on November 22, 2026."
    ],
    "bodyHash": "94e66896fb1e823c"
+  },
+  {
+   "id": "MC1552387",
+   "title": "Retired: Microsoft Defender for Identity classic alerts (Remote code execution attempt and pass-the-hash)",
+   "services": [
+    "Microsoft Defender XDR"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": "2026-11-30",
+   "start": "2026-11-13",
+   "end": "2026-12-30",
+   "modified": "2026-11-13",
+   "tags": [
+    "Retirement"
+   ],
+   "summary": "[What and Why:] Microsoft Defender for Identity (MDI) is retiring two classic alerts at the end of November 2026: Remote code execution attempt (RCE) and Suspected identity theft (pass-the-hash) . This update aligns detection workflows with current Microsoft Defender XDR and endpoint monitoring capabilities. [Rollout Schedule:] General Availability (Worldwide, GCC, GCC High, DoD): We will begin ro…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Microsoft Defender for Identity (MDI) is retiring two classic alerts at the end of November 2026: Remote code execution attempt (RCE) and Suspected identity theft (pass-the-hash) .",
+    "General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out in late November 2026 and expect to complete by late November 2026.",
+    "Before the end of November 2026: - Create an Advanced Hunting custom detection rule for RCE scenarios using the published query."
+   ],
+   "bodyHash": "400ebf912a0a2416"
+  },
+  {
+   "id": "MC1552390",
+   "title": "Microsoft Teams: Manage call groups on Mobile",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-13",
+   "end": "2027-01-17",
+   "modified": "2026-11-13",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "[What and Why:] Call groups let colleagues answer calls on a user's behalf, but changing one today means going to the desktop. When availability changes, for example when a backup contact is out or a new teammate needs to cover, users often notice while they are away from their desks and cannot update their call group from the phone where they take their calls. We're introducing the ability to cre…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out on early December 2026 and expect to complete by mid December 2026."
+   ],
+   "bodyHash": "220a222f423c2817"
+  },
+  {
+   "id": "MC1552391",
+   "title": "Microsoft Teams: Copilot in the Queues app on Mobile",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-13",
+   "end": "2027-01-17",
+   "modified": "2026-11-13",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "[What and Why:] After a customer call, calling reps or supervisor leads often need to know what was discussed. They might be following up on a missed call, picking up a conversation a colleague handled, or checking how a call went. Getting those details usually means going through the call itself, which takes time, especially on Mobile. We're introducing Copilot in the Queues app on Microsoft Team…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out on early December 2026 and expect to complete by mid December 2026.",
+    "Targeted Release (Worldwide): We will begin rolling out on late November 2026 and expect to complete by early December 2026."
+   ],
+   "bodyHash": "33cc579934055718"
+  },
+  {
+   "id": "MC1552392",
+   "title": "Microsoft Teams: Automatic recording indicator for call queue calls on Mobile",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-13",
+   "end": "2027-03-18",
+   "modified": "2026-11-13",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "[What and Why:] When an organization automatically records its call queue calls, calling reps need to know at a glance that the call is being recorded and that this is controlled by the organization. For call queue calls that are automatically recorded by the organization, Microsoft Teams on Mobile will clearly indicate that recording and transcription have started automatically and cannot be stop…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out on early December 2026 and expect to complete by mid-December 2026."
+   ],
+   "bodyHash": "30e82c2424662779"
+  },
+  {
+   "id": "MC1552394",
+   "title": "Microsoft Viva Engage: Retirement of Teams town hall event creation",
+   "services": [
+    "Microsoft Viva"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2026-12-07",
+   "start": "2026-11-13",
+   "end": "2027-01-08",
+   "modified": "2026-11-13",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] We are retiring the option to create Microsoft Teams town hall events from Viva Engage. Starting December 7, 2026 , users will no longer be able to create new Teams town hall events from Engage. Organizers should use the new Events experience in Viva Engage or Microsoft Teams to create events. [Rollout schedule] December 7, 2026: Users will no longer be able to create Teams town hal…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Starting December 7, 2026 , users will no longer be able to create new Teams town hall events from Engage.",
+    "December 7, 2026: Users will no longer be able to create Teams town hall events from Viva Engage.",
+    "We recommend that you: Inform event organizers and communications teams about this change before December 7, 2026 ."
+   ],
+   "bodyHash": "cad177d2867fd3cd"
+  },
+  {
+   "id": "MC1552397",
+   "title": "Microsoft SharePoint: Resources web part and Announcements capabilities expand to all sites",
+   "services": [
+    "SharePoint Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-13",
+   "end": "2027-01-29",
+   "modified": "2026-11-13",
+   "tags": [
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We are expanding the Resources web part and Announcements capabilities to all SharePoint sites, making it easier for organizations to share important links and updates with employees. Site owners will have more flexibility to curate relevant resources and communicate important information. [Rollout schedule] General Availability (Worldwide): Rollout will begin in mid-November 2026 a…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout will begin in mid-November 2026 and is expected to complete by late November 2026.",
+    "General Availability (GCC, DoD): Rollout will begin in mid-December 2026 and is expected to complete by late December 2026."
+   ],
+   "bodyHash": "22b57c451023f106"
   },
   {
    "id": "MC676299",
@@ -19658,122 +19816,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-14",
-   "id": "MC1450134",
-   "type": "changed",
-   "title": "(Updated) Microsoft Entra: Windows Hello for Business and macOS Platform SSO as standalone MFA factors",
-   "fields": {
-    "end": [
-     "2026-12-20",
-     "2027-01-29"
-    ],
-    "bodyHash": [
-     "0e1c2dd8a2a4ae48",
-     "09fd88cca3dc5101"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-14",
-   "id": "MC1506982",
-   "type": "new",
-   "title": "Updates available for Microsoft 365 Apps for all channels",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-14",
-   "id": "MC1447681",
-   "type": "removed",
-   "title": "Microsoft Viva Engage: Custom branding for tenant-wide visual identity",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-14",
-   "id": "MC1462472",
-   "type": "removed",
-   "title": "Microsoft 365 Copilot: Draft Outlook emails directly in Copilot Chat on mobile",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-14",
-   "id": "MC1472032",
-   "type": "removed",
-   "title": "Microsoft 365 Copilot: Insights Copilot Analytics cowork adoption impact",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-14",
-   "id": "MC1507520",
-   "type": "new",
-   "title": "The October 2026 Scan Cab is available",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-14",
-   "id": "MC1507520",
-   "type": "changed",
-   "title": "(Updated) The October 2026 Scan Cab is available",
-   "fields": {
-    "title": [
-     "The October 2026 Scan Cab is available",
-     "(Updated) The October 2026 Scan Cab is available"
-    ],
-    "bodyHash": [
-     "cc2872ceffba4d73",
-     "eeeedb3a9069c47a"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-14",
-   "id": "MC1507704",
-   "type": "new",
-   "title": "Windows Server 2022 has reached end of mainstream support",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-14",
-   "id": "MC1507705",
-   "type": "new",
-   "title": "90-Day Reminder: Windows Server 2016 will reach end of updates on January 12, 2027",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-14",
-   "id": "MC1507706",
-   "type": "new",
-   "title": "90-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 12, 2027",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-14",
-   "id": "MC1172445",
-   "type": "removed",
-   "title": "The October 2025 Windows security update is now available",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-14",
-   "id": "MC1172446",
-   "type": "removed",
-   "title": "Windows 11, version 22H2 (Enterprise & Education editions) has reached end of servicing",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-14",
-   "id": "MC1172447",
-   "type": "removed",
-   "title": "Windows 10 has reached end of support",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-14",
-   "id": "MC1483566",
-   "type": "removed",
-   "title": "Updates available for Microsoft 365 Apps for Current Channel",
-   "fields": {}
-  },
   {
    "date": "2026-10-15",
    "id": "MC1508229",
@@ -25508,6 +25550,159 @@
    "id": "MC1552365",
    "type": "new",
    "title": "Dynamics 365 Field Service: Preserve actual booking End Time when completion is recorded later",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-14",
+   "id": "MC1450128",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: Adaptive scopes add lifecycle status evaluation controls for recipients and site owners",
+   "fields": {
+    "title": [
+     "Microsoft Purview: Adaptive scopes add lifecycle status evaluation controls for recipients and site owners",
+     "(Updated) Microsoft Purview: Adaptive scopes add lifecycle status evaluation controls for recipients and site owners"
+    ],
+    "end": [
+     "2026-12-13",
+     "2027-05-31"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "589f2f9a36c5f319",
+     "3d47f0397ca3e500"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-14",
+   "id": "MC1461529",
+   "type": "changed",
+   "title": "Release Planner Retirement: D365, Power Platform, and Dataverse Move to AI at Work",
+   "fields": {
+    "tags": [
+     [
+      "Admin impact"
+     ],
+     [
+      "Admin impact",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "703826bd0b46e0e4",
+     "ca783e88944f2fa3"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-14",
+   "id": "MC1506734",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Video sharing from OneDrive in Teams events",
+   "fields": {
+    "bodyHash": [
+     "70ed56a6289c240e",
+     "e9a3d7dddd83f151"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-14",
+   "id": "MC1508238",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | Information Protection: Sensitivity labels for Microsoft Entra security groups",
+   "fields": {
+    "title": [
+     "Microsoft Purview | Information Protection: Sensitivity labels for Microsoft Entra security groups",
+     "(Updated) Microsoft Purview | Information Protection: Sensitivity labels for Microsoft Entra security groups"
+    ],
+    "end": [
+     "2026-12-30",
+     "2027-02-26"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "944c78c06b3661cf",
+     "fe1bdacf5a58e697"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-14",
+   "id": "MC1552365",
+   "type": "changed",
+   "title": "Dynamics 365 Field Service - Preserve actual booking End Time when completion is recorded later",
+   "fields": {
+    "title": [
+     "Dynamics 365 Field Service: Preserve actual booking End Time when completion is recorded later",
+     "Dynamics 365 Field Service - Preserve actual booking End Time when completion is recorded later"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-14",
+   "id": "MC1552387",
+   "type": "new",
+   "title": "Retired: Microsoft Defender for Identity classic alerts (Remote code execution attempt and pass-the-hash)",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-14",
+   "id": "MC1552390",
+   "type": "new",
+   "title": "Microsoft Teams: Manage call groups on Mobile",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-14",
+   "id": "MC1552391",
+   "type": "new",
+   "title": "Microsoft Teams: Copilot in the Queues app on Mobile",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-14",
+   "id": "MC1552392",
+   "type": "new",
+   "title": "Microsoft Teams: Automatic recording indicator for call queue calls on Mobile",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-14",
+   "id": "MC1552394",
+   "type": "new",
+   "title": "Microsoft Viva Engage: Retirement of Teams town hall event creation",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-14",
+   "id": "MC1552397",
+   "type": "new",
+   "title": "Microsoft SharePoint: Resources web part and Announcements capabilities expand to all sites",
    "fields": {}
   }
  ]

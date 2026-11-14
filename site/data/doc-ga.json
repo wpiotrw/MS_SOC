@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13T23:34:18Z",
+ "generated": "2026-11-14T06:20:26Z",
  "source": "tools/doc_ga.py (CLAUDE.md 5eo)",
  "sources": [
   {
@@ -13,9 +13,9 @@
    "name": "Microsoft Entra documentation",
    "url": "https://github.com/MicrosoftDocs/entra-docs",
    "state": "ok",
-   "commits": 57,
+   "commits": 58,
    "events": 6,
-   "since": "2026-09-14"
+   "since": "2026-09-15"
   }
  ],
  "events": [
