@@ -879,5 +879,45 @@
 ]
 ],
 "read": "2026-11-12"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/": {
+"iocs": [
+[
+"domain",
+"ns.mo7sen.dev",
+"IOC table: Decoder, bundle, script, and utility retrieval"
+],
+[
+"domain",
+"sc.payproofkit.com",
+"IOC table: Unauthorized ScreenConnect panel and installer source"
+],
+[
+"domain",
+"cdn007-digitaldownloads.com",
+"IOC table: Campaign infrastructure; configured installer source"
+],
+[
+"domain",
+"newnewnew.gotdns.org",
+"IOC table: Associated ScreenConnect relay"
+],
+[
+"domain",
+"soxnewwork.homedns.org",
+"IOC table: Associated ScreenConnect relay"
+],
+[
+"ip",
+"185.99.255.28",
+"IOC table: Unauthorized ScreenConnect server and installer source"
+],
+[
+"ip",
+"155.94.150.39",
+"IOC table: Address associated with the unauthorized panel"
+]
+],
+"read": "2026-11-13"
 }
 }
