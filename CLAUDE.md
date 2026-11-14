@@ -26503,6 +26503,13 @@ Teraz `level()` zwraca "info" dla Available / ServiceOperational / Operational /
 wiec moze pokazac incydent, ktorego strona statusu nie ma (14 XI: IT1549049 Intune, otwarty od 12 XI) - to zgodne z
 Service health, nie blad.
 
+**§5gr-m (14 XI 2026, 22:41)** — Piotr: "napiszmy, ze na stronach health nie ma incydentu, ale w tenantach, ktore sprawdzamy,
+incydent dalej jest niezamkniety". Gdy kanal strony statusu nie ma wpisow (stan OK), a Service health ma otwarte incydenty,
+karta M365 pokazuje na gorze ramke `.s5ms-split` (niebieski pasek z lewej): "Microsoft's status page - No incident, all
+Microsoft 365 services shown as available" oraz "Service health of our tenant - N incident(s) still open: <numery>" i zdanie,
+ze strona publiczna podaje tylko szerokie awarie. Podpowiedz plakietki zaczyna sie wtedy od "Status page: no incident, all
+services available · Service health of our tenant: ...". Czytamy jedna dzierzawe (deweloperska), stad "our tenant".
+
 **§5gr-e (13 XI 2026)** — Piotr: numery incydentow (MO1550821, EX1550543) i MC w oknie statusu, w osobnej sekcji; bez
 sekretu, przez federated credential. Publiczny kanal i `status.cloud.microsoft/api/posts/*` NIE podaja numerow (sprawdzone
 13 XI); ma je Service health dzierzawy. `.github/workflows/ms-health.yml` (co ~10 min, `*/10`) loguje sie jak graph-radar
@@ -47575,7 +47582,7 @@ odtad CZTERNASCIE (4-17).**
     svc.forEach(function (s0) {
       var s = view(s0), b = el("button", "s5ms-b s5ms-" + (s.state || "error")); b.type = "button";
       b.setAttribute("aria-label", s.name + ": " + (s.unit === "inc" ? cnt(s) + " open in Service health" : (LAB[s.state] || "status unknown")) + " - open the details");
-      if (s.unit === "inc") b.title = "Service health: " + cnt(s) + " open · " + s.adv + (s.adv === 1 ? " advisory" : " advisories") + " updated in the last 7 days";
+      if (s.unit === "inc") b.title = ((!s0.items || !s0.items.length) && s0.state === "ok" ? "Status page: no incident, all services available · " : "") + "Service health of our tenant: " + cnt(s) + " open · " + s.adv + (s.adv === 1 ? " advisory" : " advisories") + " updated in the last 7 days";
       b.appendChild(el("i")); b.appendChild(el("span", "s5ms-full", badgeText(s)));
       b.appendChild(el("span", "s5ms-short", (s.key === "m365" ? "M365" : s.name) + " · " + (!s.state || s.state === "error" ? "?" : (s.state === "ok" ? "OK" : cnt(s)))));
       b.addEventListener("click", function () { openWin(s.key); }); row.appendChild(b);
@@ -47764,6 +47771,16 @@ odtad CZTERNASCIE (4-17).**
       h.appendChild(el("span", "s5ms-pill s5ms-p-" + (s.state || "error"), s.unit === "inc" ? cnt(s) + " · " + s.adv + (s.adv === 1 ? " advisory" : " advisories") : (s.state === "ok" ? "No active incidents" : (s.state === "error" ? "Status unknown" : (s.open === 1 ? "1 active incident" : s.open + " active incidents")))));
       h.appendChild(document.createTextNode(s.name)); c.appendChild(h);
       if (s0.state === "error" || !s0.state) c.appendChild(el("p", "s5ms-p", "This portal could not read Microsoft's status feed" + (s.error ? " (" + s.error + ")" : "") + ". Open Microsoft's own pages below."));
+      else if ((!s.items || !s.items.length) && S && S.inc.length) {
+        /* §5gr-m (owner, 14 XI): "write that the status page has no incident, but in the tenant we checked it is still
+           open" - the public page lists only widespread outages; Service health of a tenant keeps the rest open */
+        var sp = el("div", "s5ms-p s5ms-split"), r1 = el("div", "s5ms-kr"), r2 = el("div", "s5ms-kr");
+        r1.appendChild(el("span", "s5ms-kl", "Microsoft's status page")); r1.appendChild(el("span", "s5ms-kv", "No incident - all Microsoft 365 services shown as available" + (s.built ? " (checked " + hm(s.built) + " Warsaw)" : "")));
+        r2.appendChild(el("span", "s5ms-kl", "Service health of our tenant")); var v2 = el("span", "s5ms-kv", cnt(s) + " still open: "); S.inc.forEach(function (i) { v2.appendChild(idBadge(i.id)); v2.appendChild(document.createTextNode(" ")); }); r2.appendChild(v2);
+        sp.appendChild(r1); sp.appendChild(r2);
+        sp.appendChild(el("p", "s5ms-sn", "The public page lists only widespread outages. Incidents that touch fewer customers are published only in each tenant's Service health, so they stay open there while the public page shows everything as available."));
+        c.appendChild(sp);
+      }
       else if (!s.items || !s.items.length) c.appendChild(el("p", "s5ms-p", "Microsoft's status feed lists no current incident" + (s.built ? " (feed built " + hm(s.built) + " Warsaw)" : "") + "."));
       (s.items || []).forEach(function (it) {
         var w = el("div", "s5ms-it"), t = el("div", "s5ms-ih");
@@ -47826,7 +47843,7 @@ odtad CZTERNASCIE (4-17).**
         else c.appendChild(w);
       });
       if (s.key === "m365") {
-        var first = c.querySelector(":scope > .s5ms-it, :scope > .s5ms-p");
+        var first = c.querySelector(":scope > .s5ms-it, :scope > .s5ms-p:not(.s5ms-split)");   /* §5gr-m: the page-vs-tenant box stays above the list */
         if (S) { c.insertBefore(listSec(S, rssFor), first);
           if (c.querySelector(":scope > .s5ms-it")) c.insertBefore(el("h4", "s5ms-sh s5ms-feedh", "Also on Microsoft's status page (no number found)"), c.querySelector(":scope > .s5ms-it")); }
         else c.appendChild(healthSec());
@@ -51743,6 +51760,8 @@ header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
 .s5ms-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
 .s5ms-chip{font:600 13.5px/1.3 var(--sans);background:#334155;color:#fff;border:0;border-radius:999px;padding:4px 11px;cursor:pointer;max-width:100%;overflow-wrap:anywhere;text-align:left}
 .s5ms-chip:hover,.s5ms-chip:focus-visible{background:#475569;outline:2px solid #93c5fd;outline-offset:1px}
+.s5ms-split{border:1px solid var(--border);border-left:6px solid #1d4ed8;border-radius:10px;padding:10px 12px;margin:6px 0 10px}
+.s5ms-split .s5ms-kr{margin:0 0 6px}.s5ms-sn{margin:6px 0 0;font-size:14.5px}
 .s5ms-feedh{margin:16px 0 6px;padding-top:12px;border-top:2px solid var(--border)}
 .s5ms-fold{margin:10px 0 0}.s5ms-fh{display:block;font-weight:400;font-size:14px;color:var(--text);margin:4px 0 0;overflow-wrap:anywhere}.s5ms-fold[open] .s5ms-fh{display:none}
 .s5ms-sv{padding:8px 0;border-top:1px solid var(--border);overflow-wrap:anywhere}.s5ms-sv:first-child{border-top:0}
