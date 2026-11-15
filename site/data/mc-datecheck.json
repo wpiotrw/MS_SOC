@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-15T10:50:35Z",
+ "generated": "2026-11-15T12:27:34Z",
  "day": "2026-11-15",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-15)",
- "count": 44,
+ "count": 45,
  "byMc": {
   "MC1191578": {
    "says": [],
@@ -625,347 +625,19 @@
    ],
    "verdict": "differs"
   },
-  "MC1325414": {
-   "says": [
-    "2026-11-15"
-   ],
-   "others": [
-    {
-     "date": "2027-02-01",
-     "src": "MC1528000",
-     "text": "Microsoft-provided SMS and voice authentication will retire starting February 1, 2027.",
-     "post": "2026-10-27",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1528000"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1536049",
-     "text": "We expect rollout to begin and complete in February 2027.",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1536049"
-    },
-    {
-     "date": "2027-03-22",
-     "src": "MC1536049",
-     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://deltapulse.app/item/MC1536049"
-    },
-    {
-     "date": "2027-07-01",
-     "src": "MC1536049",
-     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://deltapulse.app/item/MC1536049"
-    }
-   ],
-   "moved": [
-    {
-     "was": "mid Sep 2026",
-     "now": "2026-11-15",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
-    }
-   ],
-   "newer": [
-    {
-     "id": "MC1536049",
-     "date": "2026-11-03",
-     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
-    },
-    {
-     "id": "MC1540327",
-     "date": "2026-11-05",
-     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
-    },
-    {
-     "id": "MC1550537",
-     "date": "2026-11-12",
-     "title": "Prepare custom authentication strengths for SMS and voice retirement"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1400824": {
-   "says": [],
-   "others": [
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2027-02-01",
-     "src": "MC1528000",
-     "text": "Microsoft-provided SMS and voice authentication will retire starting February 1, 2027.",
-     "post": "2026-10-27",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1528000"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1536049",
-     "text": "We expect rollout to begin and complete in February 2027.",
-     "post": "2026-11-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1536049"
-    },
-    {
-     "date": "2027-03-22",
-     "src": "MC1536049",
-     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
-     "post": "2026-11-03",
-     "later": false,
-     "link": "https://deltapulse.app/item/MC1536049"
-    },
-    {
-     "date": "2027-07-01",
-     "src": "MC1536049",
-     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
-     "post": "2026-11-03",
-     "later": false,
-     "link": "https://deltapulse.app/item/MC1536049"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1536049",
-     "date": "2026-11-03",
-     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
-    },
-    {
-     "id": "MC1540327",
-     "date": "2026-11-05",
-     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
-    },
-    {
-     "id": "MC1550537",
-     "date": "2026-11-12",
-     "title": "Prepare custom authentication strengths for SMS and voice retirement"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1528000": {
-   "says": [
-    "2027-02-01"
-   ],
-   "others": [
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1536049",
-     "text": "We expect rollout to begin and complete in February 2027.",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1536049"
-    },
-    {
-     "date": "2027-03-22",
-     "src": "MC1536049",
-     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://deltapulse.app/item/MC1536049"
-    },
-    {
-     "date": "2027-07-01",
-     "src": "MC1536049",
-     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
-     "post": "2026-11-03",
-     "later": true,
-     "link": "https://deltapulse.app/item/MC1536049"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1536049",
-     "date": "2026-11-03",
-     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
-    },
-    {
-     "id": "MC1540327",
-     "date": "2026-11-05",
-     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
-    },
-    {
-     "id": "MC1550537",
-     "date": "2026-11-12",
-     "title": "Prepare custom authentication strengths for SMS and voice retirement"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1536049": {
-   "says": [
-    "2027-02-01",
-    "2027-02-15",
-    "2027-03-22",
-    "2027-07-01"
-   ],
-   "others": [
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1540327",
-     "date": "2026-11-05",
-     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
-    },
-    {
-     "id": "MC1550537",
-     "date": "2026-11-12",
-     "title": "Prepare custom authentication strengths for SMS and voice retirement"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1540327": {
-   "says": [
-    "2027-02-01",
-    "2027-07-01"
-   ],
-   "others": [
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1536049",
-     "text": "We expect rollout to begin and complete in February 2027.",
-     "post": "2026-11-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1536049"
-    },
-    {
-     "date": "2027-03-22",
-     "src": "MC1536049",
-     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
-     "post": "2026-11-03",
-     "later": false,
-     "link": "https://deltapulse.app/item/MC1536049"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1550537",
-     "date": "2026-11-12",
-     "title": "Prepare custom authentication strengths for SMS and voice retirement"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1550537": {
-   "says": [
-    "2027-02-01",
-    "2027-07-01"
-   ],
-   "others": [
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1536049",
-     "text": "We expect rollout to begin and complete in February 2027.",
-     "post": "2026-11-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1536049"
-    },
-    {
-     "date": "2027-03-22",
-     "src": "MC1536049",
-     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
-     "post": "2026-11-03",
-     "later": false,
-     "link": "https://deltapulse.app/item/MC1536049"
-    }
-   ],
-   "moved": [],
-   "newer": [],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "differs"
-  },
   "MC1221452": {
    "says": [
     "2026-06-25"
    ],
    "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1545694",
+     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
     {
      "date": "2026-11-25",
      "src": "MC1459133",
@@ -997,23 +669,10 @@
      "post": "2026-08-07",
      "later": true,
      "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
    "newer": [
-    {
-     "id": "MC1450133",
-     "date": "2026-08-07",
-     "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
-    },
     {
      "id": "MC1459133",
      "date": "2026-08-21",
@@ -1023,6 +682,11 @@
      "id": "MC1469555",
      "date": "2026-09-09",
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
     }
    ],
    "why": [],
@@ -1041,6 +705,14 @@
    ],
    "others": [
     {
+     "date": "2026-11-15",
+     "src": "MC1545694",
+     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -1076,11 +748,6 @@
    "moved": [],
    "newer": [
     {
-     "id": "MC1450133",
-     "date": "2026-08-07",
-     "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
-    },
-    {
      "id": "MC1459133",
      "date": "2026-08-21",
      "title": "Microsoft Entra ID: Passkey support for B2B users"
@@ -1089,77 +756,11 @@
      "id": "MC1469555",
      "date": "2026-09-09",
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-passkeys-by-default",
-     "name": "Passkeys by default in Microsoft Entra ID"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1338816": {
-   "says": [],
-   "others": [
-    {
-     "date": "2026-11-25",
-     "src": "MC1459133",
-     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
-     "post": "2026-08-21",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1459133"
     },
     {
-     "date": "2027-01-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1450133",
-     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-25",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1282568"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1450133",
-     "date": "2026-08-07",
-     "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
-    },
-    {
-     "id": "MC1459133",
-     "date": "2026-08-21",
-     "title": "Microsoft Entra ID: Passkey support for B2B users"
-    },
-    {
-     "id": "MC1469555",
-     "date": "2026-09-09",
-     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
     }
    ],
    "why": [],
@@ -1175,6 +776,14 @@
    "says": [],
    "others": [
     {
+     "date": "2026-11-15",
+     "src": "MC1545694",
+     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -1205,23 +814,10 @@
      "post": "2026-08-07",
      "later": false,
      "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
    "newer": [
-    {
-     "id": "MC1450133",
-     "date": "2026-08-07",
-     "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
-    },
     {
      "id": "MC1459133",
      "date": "2026-08-21",
@@ -1231,6 +827,11 @@
      "id": "MC1469555",
      "date": "2026-09-09",
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
     }
    ],
    "why": [],
@@ -1250,6 +851,14 @@
    ],
    "others": [
     {
+     "date": "2026-11-15",
+     "src": "MC1545694",
+     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -1282,29 +891,32 @@
      "link": "https://mc.merill.net/message/MC1450133"
     },
     {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1282568"
-    },
-    {
      "date": "2026-11-30",
      "src": "MC1465763",
      "text": "Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)",
      "post": "2026-09-01",
      "later": false,
      "link": "https://deltapulse.app/item/MC1465763"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1536049"
     }
    ],
    "moved": [],
    "newer": [
-    {
-     "id": "MC1450133",
-     "date": "2026-08-07",
-     "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
-    },
     {
      "id": "MC1459133",
      "date": "2026-08-21",
@@ -1316,14 +928,24 @@
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
     },
     {
-     "id": "MC1465763",
-     "date": "2026-09-01",
-     "title": "Microsoft Entra: Prepare for Microsoft to disable unused or unsuccessful SMS first-factor sign-in"
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
     },
     {
-     "id": "MC1474104",
-     "date": "2026-09-18",
-     "title": "Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes"
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    },
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    },
+    {
+     "id": "MC1550537",
+     "date": "2026-11-12",
+     "title": "Prepare custom authentication strengths for SMS and voice retirement"
     }
    ],
    "why": [],
@@ -1345,6 +967,14 @@
    ],
    "others": [
     {
+     "date": "2026-11-15",
+     "src": "MC1545694",
+     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -1375,23 +1005,10 @@
      "post": "2026-08-07",
      "later": true,
      "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
    "newer": [
-    {
-     "id": "MC1450133",
-     "date": "2026-08-07",
-     "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
-    },
     {
      "id": "MC1459133",
      "date": "2026-08-21",
@@ -1401,6 +1018,11 @@
      "id": "MC1469555",
      "date": "2026-09-09",
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
     }
    ],
    "why": [],
@@ -1416,6 +1038,14 @@
    "says": [],
    "others": [
     {
+     "date": "2026-11-15",
+     "src": "MC1545694",
+     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -1446,23 +1076,10 @@
      "post": "2026-08-07",
      "later": false,
      "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
    "newer": [
-    {
-     "id": "MC1450133",
-     "date": "2026-08-07",
-     "title": "Microsoft Entra: Users can register a passkey or passwordless sign-in as their first multifactor authentication method"
-    },
     {
      "id": "MC1459133",
      "date": "2026-08-21",
@@ -1472,6 +1089,11 @@
      "id": "MC1469555",
      "date": "2026-09-09",
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
     }
    ],
    "why": [],
@@ -1492,6 +1114,14 @@
    ],
    "others": [
     {
+     "date": "2026-11-15",
+     "src": "MC1545694",
+     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
      "date": "2027-05-05",
      "src": "MC1282568",
      "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
@@ -1506,6 +1136,14 @@
      "post": "2026-04-16",
      "later": true,
      "link": "https://mc.merill.net/message/MC1282568"
+    },
+    {
+     "date": "2027-11-15",
+     "src": "MC1545694",
+     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
     }
    ],
    "moved": [
@@ -1525,6 +1163,11 @@
      "id": "MC1469555",
      "date": "2026-09-09",
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
     }
    ],
    "why": [],
@@ -1541,6 +1184,14 @@
     "2026-11-25"
    ],
    "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1545694",
+     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
     {
      "date": "2027-01-05",
      "src": "MC1450133",
@@ -1572,14 +1223,6 @@
      "post": "2026-04-16",
      "later": true,
      "link": "https://mc.merill.net/message/MC1282568"
-    },
-    {
-     "date": "2027-05-25",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -1588,6 +1231,11 @@
      "id": "MC1469555",
      "date": "2026-09-09",
      "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
     }
    ],
    "why": [],
@@ -1601,6 +1249,70 @@
   },
   "MC1469555": {
    "says": [],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1545694",
+     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-11-25",
+     "src": "MC1459133",
+     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
+     "post": "2026-08-21",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1459133"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1545694": {
+   "says": [
+    "2026-11-15",
+    "2027-11-15"
+   ],
    "others": [
     {
      "date": "2026-11-25",
@@ -1654,6 +1366,57 @@
    ],
    "verdict": "differs"
   },
+  "MC1325414": {
+   "says": [
+    "2026-11-15"
+   ],
+   "others": [],
+   "moved": [
+    {
+     "was": "mid Sep 2026",
+     "now": "2026-11-15",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
+    }
+   ],
+   "newer": [
+    {
+     "id": "MC1400824",
+     "date": "2026-09-29",
+     "title": "(Updated) Microsoft Entra: Self-service password reset CAPTCHA protection updated"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1400824": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-11-15",
+     "src": "MC1325414",
+     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
+     "post": "2026-05-28",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1325414"
+    }
+   ],
+   "moved": [],
+   "newer": [],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
+    }
+   ],
+   "verdict": "differs"
+  },
   "MC1465763": {
    "says": [
     "2026-11-30"
@@ -1661,19 +1424,35 @@
    "others": [
     {
      "date": "2027-02-01",
-     "src": "MC1426371",
-     "text": "As part of this transition, SMS and voice will no longer be available as multifactor authentication methods starting February 1, 2027 .",
-     "post": "2026-07-13",
+     "src": "MC1519855",
+     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
+     "post": "2026-10-21",
      "later": true,
-     "link": "https://mc.merill.net/message/MC1426371"
+     "link": "https://mc.merill.net/message/MC1519855"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
     },
     {
      "date": "2027-07-01",
-     "src": "MC1426371",
-     "text": "1 Jul 2027 for Global Administrators and external users.",
-     "post": "2026-07-13",
+     "src": "MC1536049",
+     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
+     "post": "2026-11-03",
      "later": true,
-     "link": "https://deltapulse.app/item/MC1426371"
+     "link": "https://deltapulse.app/item/MC1536049"
     }
    ],
    "moved": [
@@ -1685,9 +1464,19 @@
    ],
    "newer": [
     {
-     "id": "MC1474104",
-     "date": "2026-09-18",
-     "title": "Microsoft Entra ID: Follow-up on SMS first-factor sign-in retirement and upcoming changes"
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    },
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    },
+    {
+     "id": "MC1550537",
+     "date": "2026-11-12",
+     "title": "Prepare custom authentication strengths for SMS and voice retirement"
     }
    ],
    "why": [],
@@ -1713,12 +1502,303 @@
      "link": "https://deltapulse.app/item/MC1465763"
     },
     {
-     "date": "2027-07-01",
-     "src": "MC1426371",
-     "text": "1 Jul 2027 for Global Administrators and external users.",
-     "post": "2026-07-13",
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
      "later": true,
-     "link": "https://deltapulse.app/item/MC1426371"
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    },
+    {
+     "date": "2027-07-01",
+     "src": "MC1536049",
+     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    },
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    },
+    {
+     "id": "MC1550537",
+     "date": "2026-11-12",
+     "title": "Prepare custom authentication strengths for SMS and voice retirement"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-sms-voice-retirement",
+     "name": "Microsoft-provided SMS and voice MFA retirement"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1519855": {
+   "says": [
+    "2027-02-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-30",
+     "src": "MC1465763",
+     "text": "Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)",
+     "post": "2026-09-01",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1465763"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    },
+    {
+     "date": "2027-07-01",
+     "src": "MC1536049",
+     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    },
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    },
+    {
+     "id": "MC1550537",
+     "date": "2026-11-12",
+     "title": "Prepare custom authentication strengths for SMS and voice retirement"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-sms-voice-retirement",
+     "name": "Microsoft-provided SMS and voice MFA retirement"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1528000": {
+   "says": [
+    "2027-02-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-30",
+     "src": "MC1465763",
+     "text": "Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)",
+     "post": "2026-09-01",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1465763"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    },
+    {
+     "date": "2027-07-01",
+     "src": "MC1536049",
+     "text": "Global Administrators and external users follow a separate rollout from 1 July 2027.",
+     "post": "2026-11-03",
+     "later": true,
+     "link": "https://deltapulse.app/item/MC1536049"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1536049",
+     "date": "2026-11-03",
+     "title": "Microsoft Entra ID: Microsoft-provided SMS and voice authentication to retire for self-service password reset (SSPR)"
+    },
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    },
+    {
+     "id": "MC1550537",
+     "date": "2026-11-12",
+     "title": "Prepare custom authentication strengths for SMS and voice retirement"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-sms-voice-retirement",
+     "name": "Microsoft-provided SMS and voice MFA retirement"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1536049": {
+   "says": [
+    "2027-02-01",
+    "2027-02-15",
+    "2027-03-22",
+    "2027-07-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-30",
+     "src": "MC1465763",
+     "text": "Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)",
+     "post": "2026-09-01",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1465763"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1540327",
+     "date": "2026-11-05",
+     "title": "Action required: Prepare users who can’t use passkeys for SMS and voice retirement"
+    },
+    {
+     "id": "MC1550537",
+     "date": "2026-11-12",
+     "title": "Prepare custom authentication strengths for SMS and voice retirement"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-sms-voice-retirement",
+     "name": "Microsoft-provided SMS and voice MFA retirement"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1540327": {
+   "says": [
+    "2027-02-01",
+    "2027-07-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-30",
+     "src": "MC1465763",
+     "text": "Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)",
+     "post": "2026-09-01",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1465763"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1536049"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1550537",
+     "date": "2026-11-12",
+     "title": "Prepare custom authentication strengths for SMS and voice retirement"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-sms-voice-retirement",
+     "name": "Microsoft-provided SMS and voice MFA retirement"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1550537": {
+   "says": [
+    "2027-02-01",
+    "2027-07-01"
+   ],
+   "others": [
+    {
+     "date": "2026-11-30",
+     "src": "MC1465763",
+     "text": "Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)",
+     "post": "2026-09-01",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1465763"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1536049",
+     "text": "We expect rollout to begin and complete in February 2027.",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1536049"
+    },
+    {
+     "date": "2027-03-22",
+     "src": "MC1536049",
+     "text": "Message Center action-required date 22 March 2027 (50 days after the 1 February 2027 rollout start)",
+     "post": "2026-11-03",
+     "later": false,
+     "link": "https://deltapulse.app/item/MC1536049"
     }
    ],
    "moved": [],
