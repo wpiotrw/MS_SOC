@@ -586,6 +586,29 @@
      "says": "Unified RBAC applies only to the Defender portal; PowerShell continues to use Exchange Online RBAC."
     }
    ]
+  },
+  {
+   "key": "copilot-ubb-access-requests-setting",
+   "ids": [
+    "MC1546354",
+    "MC1479277"
+   ],
+   "title": "Copilot usage-based billing experiences (Cowork, Code, Autopilot): new access-request setting replaces the discover-and-use setting at the end of January 2027",
+   "scriptable": false,
+   "checked": "2026-11-15",
+   "why": "The post and the Learn page it links describe the new “Access requests to usage-based billing experiences” setting only in the Microsoft 365 admin center (Copilot > Settings) and name no Graph, Exchange Online or Teams PowerShell surface for it, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1546354",
+     "u": "https://deltapulse.app/item/MC1546354",
+     "says": "The new admin setting arrives mid-November 2026, a custom guidance URL option mid-December, and enforcement with retirement of the old setting at the end of January 2027 (end of February for deferred release); it does not enable billing by itself."
+    },
+    {
+     "t": "Access requests to usage-based billing experiences",
+     "u": "https://learn.microsoft.com/copilot/implement/request-access-usage-based-billing-experiences",
+     "says": "The Learn page the post links for configuring the setting; Microsoft says it will be updated in mid-December for the custom URL."
+    }
+   ]
   }
  ]
 }
