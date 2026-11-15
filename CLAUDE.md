@@ -26515,6 +26515,15 @@ Bylo tylko w oknie. Teraz takze zaraz pod plakietkami: przycisk `.s5ms-note` (ni
 incident. Our tenant's Service health: 1 incident still open (IT1549049) ›", otwiera okno M365. Tylko gdy kanal strony
 statusu jest pusty i OK, a Service health ma otwarty incydent; schowany w zwinietym naglowku (`.s5ms-compact`).
 
+**§5gr-o (15 XI 2026, 01:13)** — Piotr: "tej wiadomosci o braku incydentow w ogole nie widac; moze zielona zaokraglona ramka?"
+i "o Azure piszesz w zielonej ramce, a o M365 nie?". Kolor i tekst plakietki M365 sa teraz jak Azure: wedlug strony statusu
+Microsoftu (zielona "Microsoft 365 · OK", gdy strona nie ma incydentu); liczba incydentow Service health tylko wtedy, gdy
+strona statusu ma incydent albo jest nieczytelna. Incydent otwarty tylko w naszej dzierzawie: osobny wypelniony przycisk
+`.s5ms-note` (zaokraglony, bursztynowy, kropka) "Our tenant · 1 incident still open in Service health (IT1549049) ›" pod
+plakietkami; otwiera okno. Pigulka karty M365: "Status page OK · our tenant: 1 incident · 4 advisories".
+Zapisane 15 XI o 01:20 z `[skip ci]`: Code refresh i tak stanalby na pozycji 104 bramki (brief z 14 XI przy dniu 15 XI w UTC);
+na strone wchodzi z porannym briefem, ktory tnie skrypty i CSS z CLAUDE.md.
+
 **§5gr-e (13 XI 2026)** — Piotr: numery incydentow (MO1550821, EX1550543) i MC w oknie statusu, w osobnej sekcji; bez
 sekretu, przez federated credential. Publiczny kanal i `status.cloud.microsoft/api/posts/*` NIE podaja numerow (sprawdzone
 13 XI); ma je Service health dzierzawy. `.github/workflows/ms-health.yml` (co ~10 min, `*/10`) loguje sie jak graph-radar
@@ -47536,13 +47545,15 @@ odtad CZTERNASCIE (4-17).**
     var S = sorts(); if (!S) return s;
     var v = {}; for (var k in s) v[k] = s[k];
     v.open = S.inc.length; v.adv = S.adv.length; v.unit = "inc";
-    if (!v.state || v.state === "error" || v.state === "ok") v.state = S.inc.length ? "warn" : "ok";
+    /* §5gr-o (owner, 15 XI): "Azure gets a green frame and M365 not?" - the badge colour follows Microsoft's status page
+       for both; an incident open only in our tenant's Service health gets its own button under the badges */
+    if (!v.state || v.state === "error") v.state = S.inc.length ? "warn" : "ok";
     return v;
   }
   function cnt(s) { return s.open + (s.open === 1 ? " incident" : " incidents"); }
   function badgeText(s) {
     if (!s || s.state === "error") return s ? s.name + " · status unknown" : "status unknown";
-    if (s.state === "ok") return s.name + " · OK";
+    if (s.state === "ok") return s.name + " · OK";   /* §5gr-o: OK = Microsoft's status page has no incident */
     return s.name + " · " + cnt(s);
   }
   /* §5gr-c (owner, 13 XI): the badges stayed at 296 px while the sticky header shrank on scroll (405 -> 219 px) and lay
@@ -47587,7 +47598,7 @@ odtad CZTERNASCIE (4-17).**
     svc.forEach(function (s0) {
       var s = view(s0), b = el("button", "s5ms-b s5ms-" + (s.state || "error")); b.type = "button";
       b.setAttribute("aria-label", s.name + ": " + (s.unit === "inc" ? cnt(s) + " open in Service health" : (LAB[s.state] || "status unknown")) + " - open the details");
-      if (s.unit === "inc") b.title = ((!s0.items || !s0.items.length) && s0.state === "ok" ? "Status page: no incident, all services available · " : "") + "Service health of our tenant: " + cnt(s) + " open · " + s.adv + (s.adv === 1 ? " advisory" : " advisories") + " updated in the last 7 days";
+      if (s.unit === "inc") b.title = (s.state === "ok" ? "Microsoft's status page: no incident, all services available · " : "") + "Service health of our tenant: " + cnt(s) + " open · " + s.adv + (s.adv === 1 ? " advisory" : " advisories") + " updated in the last 7 days";
       b.appendChild(el("i")); b.appendChild(el("span", "s5ms-full", badgeText(s)));
       b.appendChild(el("span", "s5ms-short", (s.key === "m365" ? "M365" : s.name) + " · " + (!s.state || s.state === "error" ? "?" : (s.state === "ok" ? "OK" : cnt(s)))));
       b.addEventListener("click", function () { openWin(s.key); }); row.appendChild(b);
@@ -47598,9 +47609,9 @@ odtad CZTERNASCIE (4-17).**
        Service health of our tenant still has one open */
     var m0 = svc.filter(function (x) { return x.key === "m365"; })[0], mv0 = m0 ? view(m0) : null, S0 = sorts();
     if (m0 && mv0 && mv0.unit === "inc" && S0 && S0.inc.length && m0.state === "ok" && (!m0.items || !m0.items.length)) {
-      var nt = el("button", "s5ms-note"); nt.type = "button";
-      nt.appendChild(el("b", null, "Status page: no incident. "));
-      nt.appendChild(document.createTextNode("Our tenant's Service health: " + cnt(mv0) + " still open (" + S0.inc.map(function (i) { return i.id; }).join(", ") + ") ›"));
+      var nt = el("button", "s5ms-note"); nt.type = "button"; nt.appendChild(el("i"));
+      var ntx = el("span", "s5ms-ntx"); ntx.appendChild(el("b", null, "Our tenant · " + cnt(mv0) + " still open"));
+      ntx.appendChild(document.createTextNode(" in Service health (" + S0.inc.map(function (i) { return i.id; }).join(", ") + ") ›")); nt.appendChild(ntx);
       nt.title = "Microsoft's public status page lists only widespread outages; smaller incidents stay open in each tenant's Service health. Open the details.";
       nt.addEventListener("click", function () { openWin("m365"); }); box.appendChild(nt);
     }
@@ -47784,7 +47795,7 @@ odtad CZTERNASCIE (4-17).**
       var s = view(s0), c = el("section", "s5ms-card s5ms-c-" + (s.state || "error")), h = el("h3");
       var S = s.key === "m365" ? sorts() : null, byId = {}, rssFor = {};
       if (S) S.inc.concat(S.adv, S.old, S.done).forEach(function (i) { byId[i.id] = i; });
-      h.appendChild(el("span", "s5ms-pill s5ms-p-" + (s.state || "error"), s.unit === "inc" ? cnt(s) + " · " + s.adv + (s.adv === 1 ? " advisory" : " advisories") : (s.state === "ok" ? "No active incidents" : (s.state === "error" ? "Status unknown" : (s.open === 1 ? "1 active incident" : s.open + " active incidents")))));
+      h.appendChild(el("span", "s5ms-pill s5ms-p-" + (s.state || "error"), s.unit === "inc" ? (s.state === "ok" ? "Status page OK · our tenant: " : "") + cnt(s) + " · " + s.adv + (s.adv === 1 ? " advisory" : " advisories") : (s.state === "ok" ? "No active incidents" : (s.state === "error" ? "Status unknown" : (s.open === 1 ? "1 active incident" : s.open + " active incidents")))));
       h.appendChild(document.createTextNode(s.name)); c.appendChild(h);
       if (s0.state === "error" || !s0.state) c.appendChild(el("p", "s5ms-p", "This portal could not read Microsoft's status feed" + (s.error ? " (" + s.error + ")" : "") + ". Open Microsoft's own pages below."));
       else if ((!s.items || !s.items.length) && S && S.inc.length) {
@@ -51728,8 +51739,9 @@ header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
 .s5ms-compact .s5ms-full{display:none}.s5ms-compact .s5ms-short{display:inline}
 .s5ms.s5ms-compact .s5ms-row{flex-direction:row;flex-wrap:nowrap;justify-content:center}
 .s5ms-compact .s5ms-meta,.s5ms-compact .s5ms-note{display:none}
-.s5ms-note{display:block;width:100%;margin:6px 0 0;padding:5px 9px;font:inherit;font-size:13.5px;line-height:1.35;text-align:left;color:var(--text);background:transparent;border:1px solid var(--border);border-left:5px solid #1d4ed8;border-radius:8px;cursor:pointer}
-.s5ms-note:hover,.s5ms-note:focus-visible{border-color:#1d4ed8}
+.s5ms-note{display:flex;align-items:center;gap:8px;width:100%;margin:6px 0 0;padding:5px 12px;font:inherit;font-size:13.5px;line-height:1.35;text-align:left;color:#fff;background:#78350f;border:2px solid #f59e0b;border-radius:999px;cursor:pointer}
+.s5ms-ntx{flex:1 1 auto;min-width:0}.s5ms-note>i{flex:none;width:10px;height:10px;border-radius:50%;background:#fbbf24}
+.s5ms-note:hover,.s5ms-note:focus-visible{background:#92400e}
 .s5ms-compact .s5ms-b{font-size:12px;padding:4px 10px}
 .s5ms.s5ms-inline{position:relative;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:4px 0 10px}
 .s5ms-row{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
