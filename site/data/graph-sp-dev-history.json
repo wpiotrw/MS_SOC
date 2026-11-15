@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-15T01:03Z",
+ "updated": "2026-11-15T10:47Z",
  "baseline": "2026-10-18T20:23Z",
- "lastRead": "2026-11-15T01:03Z",
+ "lastRead": "2026-11-15T10:47Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
@@ -12,6 +12,50 @@
   "roles": 148
  },
  "events": [
+  {
+   "seen": "2026-11-15T10:47Z",
+   "day": "2026-11-15",
+   "surface": "role",
+   "name": "AI Administrator",
+   "change": "actions-added",
+   "type": "",
+   "before": null,
+   "after": "microsoft.directory/agentIdentities/idJagConfiguration/update, microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update",
+   "text": ""
+  },
+  {
+   "seen": "2026-11-15T10:47Z",
+   "day": "2026-11-15",
+   "surface": "role",
+   "name": "Agent ID Administrator",
+   "change": "actions-added",
+   "type": "",
+   "before": null,
+   "after": "microsoft.directory/agentIdentities/idJagConfiguration/update, microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update",
+   "text": ""
+  },
+  {
+   "seen": "2026-11-15T10:47Z",
+   "day": "2026-11-15",
+   "surface": "role",
+   "name": "Global Administrator",
+   "change": "actions-added",
+   "type": "",
+   "before": null,
+   "after": "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update",
+   "text": ""
+  },
+  {
+   "seen": "2026-11-15T10:47Z",
+   "day": "2026-11-15",
+   "surface": "role",
+   "name": "User",
+   "change": "actions-added",
+   "type": "",
+   "before": null,
+   "after": "microsoft.directory/agentIdentityBlueprintPrincipals/idJagConfiguration/update",
+   "text": ""
+  },
   {
    "seen": "2026-11-12T17:37Z",
    "day": "2026-11-12",

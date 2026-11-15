@@ -1,7 +1,7 @@
 {
  "read": "2026-11-15",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 735,
+ "count": 731,
  "note": null,
  "messages": [
   {
@@ -148,35 +148,6 @@
     "General Availability (Worldwide): We will begin rolling out mid-July 2025 (previously late June) and expect to complete by mid-November 2026 (previously end of September)."
    ],
    "bodyHash": "82781181f2fb9dc6"
-  },
-  {
-   "id": "MC1117115",
-   "title": "(Updated) Updates to custom scripting in sites and Classic Publishing site creation",
-   "services": [
-    "SharePoint Online"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2025-07-18",
-   "end": "2026-11-15",
-   "modified": "2026-07-29",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "Updated message"
-   ],
-   "summary": "Updated January 29, 2026: We are updating this post as a reminder. Upcoming SharePoint Online changes may impact your organization. Please review the below. We are implementing the following changes to custom scripting and classic publishing in SharePoint Online. 1. Disablement of custom scripting Custom scripting will be disabled by default (setting DenyAddAndCustomizePages to 1 or $true) for sit…",
-   "when": "Both changes, the extended custom scripting governance and the new classic publishing restrictions, will take effect starting September 15, 2025 .",
-   "prepare": "We recommend taking the following actions to prepare for these upcoming changes. . 1. Inform owners of the classic publishing sites in your organization of these upcoming changes. Promote switching to use of Modern sites. Refer to this guide . 2. The following tenant-level opt-out operation, used to allow custom scripting changes in classic publishing sites, will be retired starting March 15, 2026. Please ensure appropriate actions are taken ahea…",
-   "dates": [
-    "Updated January 29, 2026: We are updating this post as a reminder.",
-    "Both changes, the extended custom scripting governance and the new classic publishing restrictions, will take effect starting September 15, 2025 .",
-    "The following tenant-level opt-out operation, used to allow custom scripting changes in classic publishing sites, will be retired starting March 15, 2026.",
-    "The DelayDenyAddAndCustomizePagesEnforcementOnClassicPublishingSites command is scheduled to end starting on March 15, 2026, while all other commands are expected to remain functional beyond that date."
-   ],
-   "bodyHash": "120c14757fee08fc"
   },
   {
    "id": "MC1127222",
@@ -376,34 +347,6 @@
     "General Availability (Worldwide): Begins in mid-November 2026 (previously mid-October), completes by end of November 2026 (previously end of October)."
    ],
    "bodyHash": "789c9b0855c436ef"
-  },
-  {
-   "id": "MC1173930",
-   "title": "Microsoft SharePoint and OneDrive: General availability of tenant rename with no scale limitations",
-   "services": [
-    "Microsoft OneDrive",
-    "SharePoint Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-10-16",
-   "end": "2026-11-15",
-   "modified": "2025-10-16",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "Organizations undergoing rebranding, mergers, acquisitions, divestitures, or tenant consolidations often need their SharePoint domain name in URLs to reflect their new identity. The SharePoint Online Tenant Rename feature enables this change. We are announcing general availability of advanced tenant rename with no site count limitation. With this update, the feature is now accessible to all custom…",
-   "when": "General availability begins worldwide on October 16, 2025. Rollout started in early October and is expected to complete by mid-October 2025.",
-   "prepare": "Confirm total site count using the SharePoint admin center (SPAC) or PowerShell before scheduling. Licensing requirement: Tenants with site count greater than 10,000 must have SAM licenses purchased for all users in the organization. Review unsupported features or limitations (such as Hub site limitations, vanity domains, third-party integrations). Communicate any impact to site owners using public documentation. Validate custom scripts, PowerShe…",
-   "dates": [
-    "When this will happen: General availability begins worldwide on October 16, 2025.",
-    "Rollout started in early October and is expected to complete by mid-October 2025."
-   ],
-   "bodyHash": "68dc1abd6c6f3572"
   },
   {
    "id": "MC1181209",
@@ -4819,31 +4762,6 @@
     "General Availability (Worldwide): Rollout begins in mid-June 2026 and is expected to complete by end of October 2026 (previously mid-September)."
    ],
    "bodyHash": "293ad68be0121997"
-  },
-  {
-   "id": "MC1324289",
-   "title": "[EDU] Free upgrade path to Windows 11 Pro Education for K-12",
-   "services": [
-    "Windows 365"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-05-27",
-   "end": "2026-11-15",
-   "modified": "2026-05-27",
-   "tags": [
-    "Admin impact",
-    "User impact"
-   ],
-   "summary": "[Introduction] Microsoft is introducing a free upgrade path for eligible K‑12 education tenants to move devices from Windows 11 Home to Windows 11 Pro Education. This enables organizations to standardize on Pro Education and apply enterprise-grade management, security, and policy controls on eligible devices. [When this will happen:] General Availability (Worldwide): Rollout will begin in late Jun…",
-   "when": "General Availability (Worldwide): Rollout will begin in late June 2026 and is expected to complete by mid-October 2026.",
-   "prepare": "The school domain must be verified as Academic. The organization segment must be K‑12 only. Admin must sign in using a school IT administrator account associated with a valid K‑12 Education tenant and Academic Entra ID domain. Admin must run the provided upgrade script. Restart the device to complete the upgrade. [EDU] Free upgrade path to Windows 11 Pro Education for K‑12 — Instructions: Sign in to the device using a local account. Launch an ele…",
-   "dates": [
-    "General Availability (Worldwide): Rollout will begin in late June 2026 and is expected to complete by mid-October 2026."
-   ],
-   "bodyHash": "b220a62474a316df"
   },
   {
    "id": "MC1325414",
@@ -12459,32 +12377,6 @@
     "General Availability (WW): We will begin rolling out on late September 2026 and expect to complete by late September 2026."
    ],
    "bodyHash": "b23cc9b4e2ab26fc"
-  },
-  {
-   "id": "MC1479508",
-   "title": "Microsoft Planner: Meeting-created plans will expire after 180 days of inactivity",
-   "services": [
-    "Planner"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-09-25",
-   "end": "2026-11-15",
-   "modified": "2026-09-25",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Planner plans created from Teams meetings can remain unused long after the meeting ends. To reduce clutter and improve lifecycle management, meeting-created Planner plans with no task activity for 180 consecutive days will automatically expire and be deleted. Only the Planner plan and Planner-specific data are removed. Tasks in Loop and meeting notes remain intact and accessible. […",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): We will begin rolling out in early October 2026 and expect to complete by mid-October 2026."
-   ],
-   "bodyHash": "9ae394c9e34440de"
   },
   {
    "id": "MC1479509",
@@ -25349,6 +25241,34 @@
    "id": "MC1478965",
    "type": "removed",
    "title": "(Updated) Microsoft Purview: Data Lifecycle Management – Retention for Copilot Memory",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-15",
+   "id": "MC1117115",
+   "type": "removed",
+   "title": "(Updated) Updates to custom scripting in sites and Classic Publishing site creation",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-15",
+   "id": "MC1173930",
+   "type": "removed",
+   "title": "Microsoft SharePoint and OneDrive: General availability of tenant rename with no scale limitations",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-15",
+   "id": "MC1324289",
+   "type": "removed",
+   "title": "[EDU] Free upgrade path to Windows 11 Pro Education for K-12",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-15",
+   "id": "MC1479508",
+   "type": "removed",
+   "title": "Microsoft Planner: Meeting-created plans will expire after 180 days of inactivity",
    "fields": {}
   }
  ]
