@@ -778,6 +778,24 @@ def main(argv):
             for rid in (mid, "item:" + mid):
                 if rid in recs:
                     claimed[rid].append(dfn["id"])
+    # CLAUDE.md 5gs (owner, 15 XI 2026: "do we collect EVERY Message Center post of a campaign?"): a defined campaign also
+    # JOINS by rule - "join": [{"title": regex, "tech": "Entra", "not": regex}]. Measured that day: the SMS/voice
+    # retirement held 3 of its posts and 4 more (MC1528000, MC1536049, MC1540327, MC1550537) sat in an automatic
+    # campaign named after SSPR; passkeys missed MC1545694. A post matched here leaves the automatic grouping like a
+    # listed member does, so it cannot stay in the wrong campaign.
+    for dfn in defs:
+        for rule in dfn.get("join") or []:
+            rx_t = re.compile(rule.get("title") or "(?!)", re.I)
+            rx_n = re.compile(rule["not"], re.I) if rule.get("not") else None
+            tech = rule.get("tech")
+            for rid, r in recs.items():
+                t = r.get("title") or ""
+                if r["src"] not in ("MC", "Roadmap", "item") or not rx_t.search(t) or (rx_n and rx_n.search(t)):
+                    continue
+                if tech and (r.get("tech") or "") != tech:
+                    continue
+                if dfn["id"] not in claimed[rid]:
+                    claimed[rid].append(dfn["id"])
     shared = {rid for rid, lst in claimed.items() if len(lst) > 1}
     KW = {dfn["id"]: re.compile("|".join(re.escape(k) for k in dfn.get("keywords") or ["."]), re.I) for dfn in defs}
 
@@ -902,6 +920,10 @@ def main(argv):
                     sh = {a for a in anc_of(r) & p["core"] if aown[a] <= 1}
                     ok = bool(sh) and (bool(sh & p["retired"])
                                        or bool(toks(shrink(r["title"] + " " + (r.get("ourTitle") or ""))) & p["sig"]))
+                dfc = c.get("defined") or {}
+                if ok and dfc:   # 5gs: a defined campaign joins only posts of its own technology and never one it excludes
+                    if (dfc.get("tech") and r.get("tech") and r["tech"] != dfc["tech"]) or base_of(r["id"]) in (dfc.get("exclude") or []):
+                        ok = False
                 if ok:
                     joins[r["id"]].append(c["id"])
     cby = {c["id"]: c for c in camps}

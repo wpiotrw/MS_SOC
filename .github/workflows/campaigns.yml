@@ -23,6 +23,7 @@ on:
       - 'tools/mc_datecheck.py'   # 5gf
       - 'tools/mc_coverage.py'    # 5gf
       - 'tools/mc_must_cover.py'  # 5gi
+      - 'tools/mc_related.py'     # 5gs
       - 'data/mc-skip.json'       # 5gi
       - 'campaigns.json'
       - 'youtube_sources.json'
@@ -56,6 +57,10 @@ jobs:
           python3 tools/mc_datecheck.py || true
           timeout 600 python3 tools/mc_coverage.py || true
           python3 tools/mc_must_cover.py || true   # 5gi
+      # CLAUDE.md 5gs (15 XI 2026): related Message Center posts for every post, removed ones too (campaign, numbers
+      # named in the text, story key, close wording in the same service) - the MC tab's "Related posts" and "Show related"
+      - name: Related Message Center posts (CLAUDE.md 5gs)
+        run: python3 tools/mc_related.py || true
       # CLAUDE.md 5eu (21 X 2026): community KQL repositories (kql_sources.json), once a day; never fails the job
       - name: Community KQL repositories (CLAUDE.md 5eu)
         run: timeout 1500 python3 tools/kql_repos.py || true
@@ -69,6 +74,7 @@ jobs:
           git add site/data/campaigns.json site/data/campaigns-history.json site/kql
           git add site/data/mc-datecheck.json site/data/mc-coverage.json 2>/dev/null || true   # 5gf
           git add site/data/mc-uncovered.json 2>/dev/null || true   # 5gi
+          git add site/data/mc-related.json 2>/dev/null || true   # 5gs
           git add cache/kql-repos.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "No change."; else
             python3 tools/stamp.py campaigns || true; git add site/data/fresh   # CLAUDE.md 5cz

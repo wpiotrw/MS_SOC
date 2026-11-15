@@ -26532,6 +26532,25 @@ odkladana jest tylko wymiana kodu (`git checkout -- site/index.html`, ponowny `f
 "Code swap postponed"), bez `stamp.py code`; reszta sie commituje i wdraza. Kazda inna czerwona pozycja dalej przewraca
 przebieg. Nowy kod wchodzi z porannym briefem.
 
+**§5gs (15 XI 2026, 13:10)** — Piotr: "czy umiemy do kazdej kampanii zebrac WSZYSTKIE MC, ktore jej dotycza, i podawac liste
+powiazanych MC (jak mc.ai-news.cz 'Similar posts')? czy na liscie MC - nowe, stare, zaktualizowane i USUNIETE - linkujemy
+powiazane? wyszukiwarka z przelacznikiem, a klik w glowny MC daje widok calej grupy". Zmierzone tego dnia: kampania SMS/voice
+miala 3 z 8 swoich postow (MC1528000, MC1536049, MC1540327, MC1550537 i MC1519855 siedzialy w kampanii automatycznej nazwanej
+od SSPR), passkeys nie mialo MC1545694, a MC1338816 (Outlook) siedzial w passkeys. Przyczyna: posty dolaczaly sie tylko po
+numerze MC albo po akronimie (EWS, DKM), a slowa kluczowe definicji wlasciciela sluzyly wylacznie do dzielenia zdan.
+(1) `tools/campaigns.py` + `campaigns.json`: definicja moze miec `join` [{title: regex, tech, not}] - pasujacy post (MC, Roadmap,
+pozycja briefu) dolacza i wychodzi z grupowania automatycznego; `exclude` [numery]; dolaczanie po numerze/akronimie do kampanii
+zdefiniowanej tylko w jej `tech`. SSPR (MC1325414, MC1400824) zdefiniowane osobno, pod starym id `c-item-mc1519855` (historia).
+(2) `tools/mc_related.py` (workflow `campaigns.yml`, po kampaniach) pisze `site/data/mc-related.json`: dla kazdego posta, takze
+USUNIETEGO z Message Center tenanta (log `changes` w `mc-tenant.json`), powiazane posty z JEDNYM powodem, najmocniejszy pierwszy:
+`camp` ta sama kampania, `cites`/`citedby` numer w tekscie, `story` ten sam storyKey, `similar` ta sama usluga i bliskie
+brzmienie (TF-IDF tytul+streszczenie, cosinus >= 0,30, najwyzej 5). 15 XI: 1196 postow, 735 z powiazanymi, 148 usunietych.
+(3) Zakladka Message Center: widok `Removed`; w rozwinietym wpisie sekcja "Related posts · N" pogrupowana po powodzie (kampania
+z linkiem), "Show this post and all N related as a list" (`S.grp`, `relList()`); przelacznik "Show related" przy szukajce
+(`S.rel`, `relSearch()`: kazde trafienie, pod nim jego powiazane); `window.__socMcRel` {ready, rel, title, removed, group, show}.
+(4) Ctrl K: przelacznik "Show related MC" (to samo ustawienie `soc.mc.showRelated`), pod trafieniami MC ich powiazane i linia
+otwierajaca cala grupe w zakladce MC.
+
 **§5gr-e (13 XI 2026)** — Piotr: numery incydentow (MO1550821, EX1550543) i MC w oknie statusu, w osobnej sekcji; bez
 sekretu, przez federated credential. Publiczny kanal i `status.cloud.microsoft/api/posts/*` NIE podaja numerow (sprawdzone
 13 XI); ma je Service health dzierzawy. `.github/workflows/ms-health.yml` (co ~10 min, `*/10`) loguje sie jak graph-radar
@@ -31710,7 +31729,45 @@ odtad CZTERNASCIE (4-17).**
     var inner = el("div", "s5bi-skin");
     var q = el("input", "s5bi-skq"); q.type = "search"; q.placeholder = "Search every tab and the catalog — MC number, product, permission, role…"; q.setAttribute("aria-label", "Search every tab");
     var res = el("ul", "s5bi-skr"); var foot = el("p", "s5bi-skf", "↑ ↓ to move · Enter to open · Esc to close");
-    inner.appendChild(q); inner.appendChild(res); inner.appendChild(foot); dlg.appendChild(inner); document.body.appendChild(dlg);
+    /* §5gs (15 XI 2026, owner: "when I search for an MC, show its related posts too - with a switch"): with "Show related
+       MC" on, the Message Center posts among the top hits are followed by their related posts (data/mc-related.json: same
+       campaign, numbers named in the text, same story, close wording) and by a line that opens the whole group as a list
+       in the Message Center tab. The switch is the same one as in the tab (one setting, kept in this browser). */
+    var relOn = false; try { relOn = localStorage.getItem("soc.mc.showRelated") === "1"; } catch (x) {}
+    var RELG = null, RELP = null;
+    function relLoad() {
+      if (RELP || !window.fetch || !onSite()) return RELP;
+      RELP = fetch("/data/mc-related.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) { RELG = j; if (relOn && q.value.trim()) q.dispatchEvent(new Event("input")); return j; }, function () { return null; });
+      return RELP;
+    }
+    var rtog = el("button", "mcb-reltog s5bi-reltog"); rtog.type = "button"; rtog.appendChild(el("i")); rtog.appendChild(el("span", null, "Show related MC"));
+    rtog.title = "Also list the Message Center posts related to the posts found: same campaign, numbers named in the text, same story, close wording";
+    rtog.setAttribute("aria-pressed", relOn ? "true" : "false");
+    rtog.addEventListener("click", function () { relOn = !relOn; rtog.setAttribute("aria-pressed", relOn ? "true" : "false");
+      try { localStorage.setItem("soc.mc.showRelated", relOn ? "1" : "0"); } catch (x) {}
+      if (relOn) relLoad(); q.dispatchEvent(new Event("input")); q.focus(); });
+    var RWHYG = { camp: "same campaign", cites: "named in it", citedby: "names it", story: "same change", similar: "similar" };
+    function openMc(fn) { openTab("mc"); var n = 0; (function t() { if (window.__socMcRel && window.__socMcRel.ready()) { fn(window.__socMcRel); return; } if (++n < 40) setTimeout(t, 150); })(); }
+    function relHits(found) {
+      if (!relOn || !RELG || !RELG.rel) return [];
+      var ids = [], out = [];
+      found.slice(0, 6).forEach(function (h) { (String(h.t).match(/\bMC\d{5,8}\b/g) || []).forEach(function (id) { if (ids.indexOf(id) < 0 && ids.length < 3 && RELG.rel[id]) ids.push(id); }); });
+      ids.forEach(function (id) {
+        var L = RELG.rel[id] || [];
+        out.push({ tn: "Related to " + id, t: id + " and its " + L.length + " related post" + (L.length === 1 ? "" : "s") + " — open them as one list in Message Center", l: "", rel: 2,
+          fn: function () { openMc(function (M) { M.group(id); }); } });
+        L.slice(0, 8).forEach(function (x) {
+          var p = (RELG.posts || {})[x[0]] || [];
+          out.push({ tn: "\u21b3 " + (RWHYG[x[1]] || x[1]), t: x[0] + " · " + (p[0] || "") + (p[3] === "removed" ? " · removed from Message Center" : ""), l: "", rel: 1,
+            fn: function () { openMc(function (M) { M.show(x[0]); }); } });
+        });
+        if (L.length > 8) out.push({ tn: "\u21b3 +" + (L.length - 8) + " more", t: "Open all related posts of " + id + " in Message Center", l: "", rel: 1, fn: function () { openMc(function (M) { M.group(id); }); } });
+      });
+      return out;
+    }
+    inner.appendChild(q); inner.appendChild(rtog); inner.appendChild(res); inner.appendChild(foot); dlg.appendChild(inner); document.body.appendChild(dlg);
+    if (relOn) relLoad();
     var hits = [], cur = 0, last = null, partial = false;
     function close() { dlg.hidden = true; dlg.classList.remove("s5fv-anch"); inner.style.cssText = ""; if (last && last.focus) last.focus(); }
     function go(h) {
@@ -31737,7 +31794,7 @@ odtad CZTERNASCIE (4-17).**
     function paint() {
       res.textContent = "";
       hits.forEach(function (h, i) {
-        var li = el("li", i === cur ? "on" : ""); li.setAttribute("role", "option"); li.setAttribute("aria-selected", i === cur ? "true" : "false");
+        var li = el("li", (i === cur ? "on" : "") + (h.rel ? " s5bi-relhit" + (h.rel === 2 ? " s5bi-relhead" : "") : "")); li.setAttribute("role", "option"); li.setAttribute("aria-selected", i === cur ? "true" : "false");
         li.appendChild(el("span", "s5bi-skt", h.tn));
         /* §5fv (30 X 2026, owner: "I type aaa and see eMudhra rows - the filter does not work"): the row matched far into
            its text (an ID or a hash), beyond the 160 characters shown. The line now shows the text AROUND the first hit,
@@ -31778,6 +31835,7 @@ odtad CZTERNASCIE (4-17).**
       partial = false;
       hits = !words.length ? [] : pick(starts);
       if (words.length && !hits.length) { hits = pick(function (x, w) { return x.l.indexOf(w) >= 0; }); partial = hits.length > 0; }
+      if (words.length && hits.length) { var rh = relHits(hits); if (rh.length) hits = hits.concat(rh); }   /* §5gs */
       hits.q = words; cur = 0; paint();
       foot.textContent = !words.length ? "↑ ↓ to move · Enter to open · Esc to close" : !hits.length ? "Nothing in the portal starts with “" + q.value.trim() + "”." :
         (partial ? "No word starts with “" + q.value.trim() + "” — showing text that contains it · " : hits.length + (hits.length === 30 ? "+" : "") + " found · ") + "↑ ↓ · Enter · Esc";
@@ -33636,14 +33694,18 @@ odtad CZTERNASCIE (4-17).**
   }
 
   /* ---------------- state of the browser ---------------- */
-  var S = { view: "all", svc: "", cat: "", flag: "", src: "", type: "MC", q: "", day: "", kind: "", shown: PAGE, open: "" };
+  var S = { view: "all", svc: "", cat: "", flag: "", src: "", type: "MC", q: "", day: "", kind: "", shown: PAGE, open: "", grp: "", rel: false };
+  try { S.rel = localStorage.getItem("soc.mc.showRelated") === "1"; } catch (x) {}
   var TEN = null;   /* site/data/mc-tenant.json once read: {read, count} */
   var VIEWS = [
     ["action", "Needs action", "posts with a date to act by, soonest first"],
     ["new", "New since previous brief", "first seen by this brief"],
     ["revised", "Revised", "changed at source in the last 7 days"],
-    ["all", "All", "every post, newest activity first"]];
+    ["all", "All", "every post, newest activity first"],
+    ["removed", "Removed", "posts Microsoft took down from Message Center (our tenant's change log), with their related posts"]];
   function inView(r, v) {
+    if (r.gone) return v === "removed";   /* §5gs: a post known only from the tenant's removal log lives in Removed */
+    if (v === "removed") return !!r.removed;
     if (v === "action") return !!r.dl;
     if (v === "new") return r.isNew;
     if (v === "revised") return !!r.rev && r.rev >= addDays(DAY, -7);
@@ -33778,7 +33840,8 @@ odtad CZTERNASCIE (4-17).**
     if (S.cat) act.push(["cat", "category: " + S.cat]);
     if (S.flag) act.push(["flag", { action: "date to act by", major: "major change", high: "high severity", late: "caught late" }[S.flag]]);
     if (S.src) act.push(["src", "source: " + SRC[S.src]]);
-    if (S.q) act.push(["q", "text: “" + S.q + "”"]);
+    if (S.q) act.push(["q", "text: “" + S.q + (S.rel && REL ? "” + related posts" : "”")]);
+    if (S.grp) act.push(["grp", "related to " + S.grp]);
     if (S.day) act.push(["day", (S.kind === "upd" ? "updated " : S.kind === "new" ? "published " : "active ") +
       (S.day === "7d" ? "in the last 7 days (" + dm(addDays(DAY, -6)) + " – " + dmy(DAY) + ")" : "on " + dmy(S.day))]);
     banner.textContent = "";
@@ -33801,7 +33864,7 @@ odtad CZTERNASCIE (4-17).**
     var go = el("button", "mcb-go", "\u2193 Results \u00b7 " + n); go.type = "button"; go.title = "Scroll to the posts this filter shows (§5em)";
     go.addEventListener("click", toResults); banner.appendChild(go);
     var c = el("button", "mcb-clear", "Clear all"); c.type = "button";
-    c.addEventListener("click", function () { S.svc = S.cat = S.flag = S.src = S.q = S.day = S.kind = ""; qIn.value = ""; S.shown = PAGE; render(); });
+    c.addEventListener("click", function () { S.svc = S.cat = S.flag = S.src = S.q = S.day = S.kind = S.grp = ""; qIn.value = ""; S.shown = PAGE; render(); });
     banner.appendChild(c);
     pinTop();
   }
@@ -33834,6 +33897,7 @@ odtad CZTERNASCIE (4-17).**
     if (r.dl && S.view !== "action") pl.appendChild(pill(r.dl < DAY ? "past" : "dl", "act by " + dm(r.dl), "Microsoft: act by " + dmy(r.dl)));
     if (r.major) pl.appendChild(pill("maj", "MAJOR"));
     if (r.high) pl.appendChild(pill("high", "HIGH"));
+    if (r.removed) pl.appendChild(pill("rmv", "REMOVED " + dm(r.removed), "Taken down from Message Center on " + dmy(r.removed) + " (our tenant's change log)"));
     head.appendChild(pl);
     head.addEventListener("click", function () { toggle(li, r); });
     li.appendChild(head);
@@ -33884,6 +33948,7 @@ odtad CZTERNASCIE (4-17).**
     kv("Open at", ln);
     box.appendChild(dl);
     if (window.__socMcX) { try { var hw = window.__socMcX.howto(r.id); if (hw) box.appendChild(hw); } catch (x2) {} }   /* §5gf: Use it - PowerShell */
+    try { var rb = relBox(r); if (rb) box.appendChild(rb); } catch (x3) { if (window.console) console.error("[5gs related]", x3); }
     var tools = el("div", "mcb-tools");
     var cp = el("button", "mcb-btn", "Copy link to this post"); cp.type = "button";
     cp.addEventListener("click", function () {
@@ -34053,11 +34118,129 @@ odtad CZTERNASCIE (4-17).**
     fetch("/data/mc-tenant.json", { cache: "no-cache" }).then(function (x) { return x.ok ? x.json() : null; })
       .then(function (j) { try { mergeTenant(j); } catch (e) { if (window.console) console.error("[5by tenant]", e); } }, function () {});
   }
+  /* ---------- §5gs (15 XI 2026): related Message Center posts ----------
+     Owner: "can we list every MC that belongs to a campaign or a rollout, like mc.ai-news.cz shows 'Similar posts'? And on
+     our list - new, old, updated, removed - do we link the related ones? When I search for an MC I want its related posts
+     too, with a switch, and a click on the main post shows the whole group." data/mc-related.json (tools/mc_related.py,
+     the campaigns workflow) gives every post its related posts with ONE reason each, strongest first: same campaign,
+     named in the text, names this one, same story in the brief, close wording in the same service. Removed posts come
+     from our tenant's change log and get their own view. */
+  var REL = null, relTog = null;
+  var RWHY = [["camp", "Same campaign"], ["cites", "Named in this post"], ["citedby", "Posts that name this one"],
+              ["story", "Same change in other sources"], ["similar", "Similar posts · same service, close wording"]];
+  function relOf(id) { return REL && REL.rel && REL.rel[id] || []; }
+  function recOf(id) {
+    if (BYID[id]) return BYID[id];
+    var p = REL && REL.posts && REL.posts[id]; if (!p) return null;
+    var r = { e: { id: id, title: p[0] }, id: id, rm: false, title: p[0] || "", tech: p[1] ? canonAll(String(p[1]).split(/,\s*/)) : [], cat: "",
+      major: false, high: false, pub: iso(p[2]), rev: "", dl: "", act: "", isNew: false, late: "", src: ["tenant"], key: "",
+      removed: iso(p[4]) || (p[3] ? DAY : ""), gone: true, hay: "" };
+    r.hay = (id + " " + r.title + " " + r.tech.join(" ")).toLowerCase();
+    BYID[id] = r; ALL.push(r); return r;
+  }
+  function readRel() {
+    if (!onSite() || !window.fetch) return;
+    fetch("/data/mc-related.json", { cache: "no-cache" }).then(function (x) { return x.ok ? x.json() : null; }).then(function (j) {
+      if (!j || !j.posts) return;
+      REL = j;
+      Object.keys(j.posts).forEach(function (id) {
+        var p = j.posts[id]; if (p[3] !== "removed") return;
+        if (BYID[id]) BYID[id].removed = iso(p[4]) || DAY; else recOf(id);
+      });
+      if (relTog) { relTog.disabled = false; relTog.title = "Also list the posts related to each search hit: same campaign, numbers named in the text, same story, close wording (" + (j.counts || {}).withRelated + " posts have related posts)"; }
+      render();
+    }, function () {});
+  }
+  function relLine(id, why, small) {
+    var x = recOf(id); if (!x) return null;
+    var li = el("li", "mcb-rl" + (x.removed ? " is-rm" : ""));
+    var b = el("button", "mcb-rid", id); b.type = "button"; b.title = "Open " + id + " in this list";
+    b.addEventListener("click", function (ev) { ev.stopPropagation(); show(id); });
+    li.appendChild(b);
+    li.appendChild(el("span", "mcb-rt", x.title || id));
+    var m = [x.tech.slice(0, 1).join(""), x.pub ? dm(x.pub) + " " + x.pub.slice(0, 4) : ""].filter(Boolean).join(" · ");
+    if (m) li.appendChild(el("span", "mcb-rm", m));
+    if (x.removed) li.appendChild(pill("rmv", "REMOVED"));
+    if (small) li.appendChild(el("span", "mcb-rwhy", small));
+    return li;
+  }
+  function campOf(id) { var c = REL && REL.inCamp && REL.inCamp[id]; return c && c.length ? c : []; }
+  function relBox(r) {
+    if (!REL) return null;
+    var L = relOf(r.id), box = el("section", "mcb-relbox");
+    var h = el("div", "mcb-relh"); h.appendChild(el("b", null, "Related posts · " + L.length));
+    if (L.length) { var all = el("button", "mcb-btn mcb-relall", "Show this post and all " + L.length + " related as a list"); all.type = "button";
+      all.addEventListener("click", function () { S.grp = r.id; S.shown = 400; render(); toResults(); }); h.appendChild(all); }
+    box.appendChild(h);
+    if (!L.length) { box.appendChild(el("p", "mcb-none", "No related post found: no campaign, no number named in either direction, no story and no post of the same service with close wording.")); return box; }
+    RWHY.forEach(function (w) {
+      var ids = L.filter(function (x) { return x[1] === w[0]; }).map(function (x) { return x[0]; }); if (!ids.length) return;
+      var g = el("div", "mcb-relg"), lab = w[1];
+      var hd = el("p", "mcb-relgh");
+      if (w[0] === "camp") { campOf(r.id).forEach(function (cid, i) { var c = REL.camps[cid]; if (!c) return;
+          var a0 = el("a", "mcb-relcamp", c[0] + " ›"); a0.href = "#tab=campaigns&c=" + encodeURIComponent(cid); a0.title = "Open the campaign"; if (i) hd.appendChild(document.createTextNode(" · ")); hd.appendChild(a0); });
+        hd.insertBefore(el("span", null, lab + " — "), hd.firstChild); }
+      else hd.appendChild(el("span", null, lab));
+      hd.appendChild(el("span", "mcb-cn", String(ids.length)));
+      g.appendChild(hd);
+      var ul = el("ul", "mcb-rlist"), N = 6;
+      ids.slice(0, N).forEach(function (id) { var x = relLine(id); if (x) ul.appendChild(x); });
+      g.appendChild(ul);
+      if (ids.length > N) { var mb = el("button", "mcb-btn", "Show " + (ids.length - N) + " more"); mb.type = "button";
+        mb.addEventListener("click", function () { ids.slice(N).forEach(function (id) { var x = relLine(id); if (x) ul.appendChild(x); }); mb.remove(); }); g.appendChild(mb); }
+      box.appendChild(g);
+    });
+    return box;
+  }
+  /* the whole group of one post: the post, then its related posts by reason - every row opens like any row of the list */
+  function relList(seed) {
+    var L = relOf(seed.id);
+    info.textContent = ""; info.appendChild(el("b", null, (L.length + 1) + " posts")); info.appendChild(document.createTextNode(" — " + seed.id + " and every post related to it, strongest reason first"));
+    list.appendChild(colHead());
+    var h0 = el("li", "mcb-g mcb-relseed"); h0.appendChild(el("span", null, "The post")); list.appendChild(h0);
+    var li0 = rowOf(seed); li0.classList.add("mcb-seedrow"); list.appendChild(li0);
+    RWHY.forEach(function (w) {
+      var ids = L.filter(function (x) { return x[1] === w[0]; }).map(function (x) { return x[0]; }); if (!ids.length) return;
+      var lab = w[1]; if (w[0] === "camp") { var cs = campOf(seed.id).map(function (c) { return (REL.camps[c] || [c])[0]; }); if (cs.length) lab += " — " + cs.join(" · "); }
+      var h = el("li", "mcb-g mcb-relgrp"); h.appendChild(el("span", null, lab)); h.appendChild(el("span", "mcb-cn", String(ids.length))); list.appendChild(h);
+      ids.forEach(function (id) { var x = recOf(id); if (!x) return; var li = rowOf(x); li.classList.add("mcb-relrow"); list.appendChild(li); if (S.open === id) toggle(li, x, true); });
+    });
+    if (S.open === seed.id) toggle(li0, seed, true);
+  }
+  /* a search with "Show related" on: each hit, then its related posts right under it, indented and labelled */
+  function relSearch(rows) {
+    var shown = rows.slice(0, S.shown), seen = {}, extra = 0;
+    shown.forEach(function (r) { seen[r.id] = 1; });
+    info.textContent = ""; info.appendChild(el("b", null, rows.length + " post" + (rows.length === 1 ? "" : "s") + " match"));
+    info.appendChild(document.createTextNode(" — " + ACT.join(", ") + " · each hit is followed by its related posts"));
+    list.appendChild(colHead());
+    shown.forEach(function (r) {
+      var li = rowOf(r); li.classList.add("mcb-hitrow"); list.appendChild(li); if (S.open === r.id) toggle(li, r, true);
+      var L = relOf(r.id).filter(function (x) { return !seen[x[0]]; });
+      if (!L.length) return;
+      var g = el("li", "mcb-relblock"), ul = el("ul", "mcb-rlist");
+      var hd = el("p", "mcb-relgh"); hd.appendChild(el("span", null, "Related to " + r.id)); hd.appendChild(el("span", "mcb-cn", String(L.length)));
+      var gb = el("button", "mcb-btn", "Show as a list"); gb.type = "button"; gb.addEventListener("click", function () { S.grp = r.id; S.shown = 400; render(); toResults(); }); hd.appendChild(gb);
+      g.appendChild(hd);
+      L.slice(0, 8).forEach(function (x) { var why = (RWHY.filter(function (w) { return w[0] === x[1]; })[0] || [0, x[1]])[1].split(" · ")[0];
+        var l = relLine(x[0], x[1], why); if (l) { ul.appendChild(l); extra++; } });
+      if (L.length > 8) { var mb = el("button", "mcb-btn", "Show " + (L.length - 8) + " more"); mb.type = "button";
+        mb.addEventListener("click", function () { L.slice(8).forEach(function (x) { var l = relLine(x[0], x[1], (RWHY.filter(function (w) { return w[0] === x[1]; })[0] || [0, x[1]])[1].split(" · ")[0]); if (l) ul.appendChild(l); }); mb.remove(); }); g.appendChild(ul); g.appendChild(mb); }
+      else g.appendChild(ul);
+      list.appendChild(g);
+    });
+    if (rows.length > S.shown) { var more = el("li", "mcb-morebox"), b = el("button", "mcb-btn", "Show " + Math.min(PAGE, rows.length - S.shown) + " more (" + (rows.length - S.shown) + " left)");
+      b.type = "button"; b.addEventListener("click", function () { S.shown += PAGE; render(); }); more.appendChild(b); list.appendChild(more); }
+  }
+  window.__socMcRel = { ready: function () { return !!REL; }, rel: relOf, title: function (id) { var x = recOf(id); return x ? x.title : ""; },
+    removed: function (id) { var x = recOf(id); return x ? x.removed : ""; },
+    group: function (id) { if (!BYID[id] && !recOf(id)) return false; S.view = BYID[id].gone ? "removed" : "all"; S.svc = S.cat = S.flag = S.src = S.q = S.day = S.kind = ""; if (qIn) qIn.value = ""; S.grp = id; S.open = ""; S.shown = 400; render(); setTimeout(toResults, 60); return true; },
+    show: function (id) { return show(id); } };
   var qIn;
   function render() {
     renderViews(); renderBar();
     var rows = sorted(ALL.filter(function (r) { return pass(r); }));
-    renderBanner(rows.length); arrange();
+    renderBanner(S.grp && REL && BYID[S.grp] ? relOf(S.grp).length + 1 : rows.length); arrange();
     var v = VIEWS.filter(function (x) { return x[0] === S.view; })[0];
     /* §5em: by technology needs more than 6 posts (below that the list is grouped by week) - the line says which one is shown */
     var gtxt = window.__socFam && window.__socFam.mode() === "tech" ? (rows.length > 6 ? " · grouped by technology" : " · grouped by week (6 or fewer posts)") : " · grouped by week";
@@ -34070,6 +34253,8 @@ odtad CZTERNASCIE (4-17).**
     }
     renderFresh(); renderGrid();
     list.textContent = "";
+    if (S.grp && REL && BYID[S.grp]) { relList(BYID[S.grp]); return; }
+    if (S.q && S.rel && REL && rows.length) { relSearch(rows); return; }
     if (!rows.length) {
       /* §5em: a search inside a narrow view (Needs action, New, Revised) used to say "no post matches" while All had it */
       var inAll = S.view !== "all" ? ALL.filter(function (r) { return pass(r, null, "all"); }).length : 0, em = el("li", "mcb-empty");
@@ -34133,6 +34318,14 @@ odtad CZTERNASCIE (4-17).**
     qIn = el("input", "mcb-q"); qIn.type = "search"; qIn.placeholder = "Find MC number, title or service"; qIn.setAttribute("aria-label", "Find in Message Center");
     var tmr; qIn.addEventListener("input", function () { clearTimeout(tmr); tmr = setTimeout(function () { S.q = qIn.value.trim(); S.shown = PAGE; render(); }, 160); });
     hd.appendChild(qIn);
+    /* §5gs: "Show related" - a search also lists the posts related to each hit (campaign, numbers, story, close wording) */
+    relTog = el("button", "mcb-reltog"); relTog.type = "button"; relTog.disabled = true;
+    relTog.appendChild(el("i")); relTog.appendChild(el("span", null, "Show related"));
+    relTog.title = "Related posts are read from data/mc-related.json";
+    relTog.setAttribute("aria-pressed", S.rel ? "true" : "false");
+    relTog.addEventListener("click", function () { S.rel = !S.rel; relTog.setAttribute("aria-pressed", S.rel ? "true" : "false");
+      try { localStorage.setItem("soc.mc.showRelated", S.rel ? "1" : "0"); } catch (x) {} S.shown = PAGE; render(); });
+    hd.appendChild(relTog);
     root.appendChild(hd);
     var fd = el("details", "mcb-facets"); var fs = el("summary", null, "Filter by service, category, flag, source");
     fd.appendChild(fs); bar = el("div", "mcb-bar"); fd.appendChild(bar);
@@ -34151,7 +34344,7 @@ odtad CZTERNASCIE (4-17).**
     var strip = p.querySelector(":scope > .s5bn"), head = p.querySelector(":scope > .panelhead");
     var after = strip || head;
     if (after && after.parentNode === p) p.insertBefore(root, after.nextSibling); else p.insertBefore(root, p.firstChild);
-    render(); readTenant();
+    render(); readTenant(); readRel();
     try { dayTiles(); } catch (x) { if (window.console) console.error("[5ei tiles]", x); }
     /* the tab's number is the number of POSTS, not of table rows (Sections A-D counted 746
        rows for 414 posts on 26 IX 2026); same precedent as the First-party apps tab */
@@ -34313,7 +34506,7 @@ odtad CZTERNASCIE (4-17).**
   /* SCRIPT 16 and §5bn call in here: an MC number or a product opens the browser */
   function show(id) {
     var r = BYID[id]; if (!r) return false;
-    S.view = "all"; S.svc = S.cat = S.flag = S.src = S.q = S.day = S.kind = ""; if (qIn) qIn.value = ""; S.type = r.rm ? "RM" : "MC";
+    S.view = r.gone ? "removed" : "all"; S.svc = S.cat = S.flag = S.src = S.q = S.day = S.kind = S.grp = ""; if (qIn) qIn.value = ""; S.type = r.rm ? "RM" : "MC";
     var rows = sorted(ALL.filter(function (x) { return pass(x); }));
     var i = rows.indexOf(r); S.shown = Math.max(PAGE, Math.ceil((i + 1) / PAGE) * PAGE); S.open = id;
     render();
@@ -48112,6 +48305,32 @@ details.s5ei-day[data-kf="new"] .s5ei-tile:not(.s5ei-new),details.s5ei-day[data-
 .mcb-g{display:flex;align-items:center;gap:8px;padding:6px 12px;background:var(--surface-2);border-top:1px solid var(--border);font:700 11.5px/1.4 var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
 .mcb-g:first-child{border-top:0}
 .mcb-row{border-top:1px solid var(--border)}
+.s5bi-reltog{margin:8px 12px 4px}
+.s5bi-skr li.s5bi-relhit{margin-left:18px;border-left:3px solid #1d4ed8;padding-left:8px}
+.s5bi-skr li.s5bi-relhead{margin-left:8px;font-weight:700}
+/* §5gs: related Message Center posts, Removed view, Show related */
+.mcb-reltog{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:999px;padding:5px 12px;white-space:nowrap}
+.mcb-reltog>i{width:30px;height:16px;border-radius:999px;background:#64748b;position:relative;flex:none}
+.mcb-reltog>i::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#fff;transition:left .15s}
+.mcb-reltog[aria-pressed="true"]{border-color:#1d4ed8}.mcb-reltog[aria-pressed="true"]>i{background:#1d4ed8}.mcb-reltog[aria-pressed="true"]>i::after{left:16px}
+.mcb-reltog:disabled{opacity:.55;cursor:default}
+.mcb-p.rmv{background:#7f1d1d;color:#fff}
+.mcb-relbox{margin:12px 0 4px;border:1px solid var(--border);border-left:5px solid #1d4ed8;border-radius:10px;padding:10px 12px}
+.mcb-relh{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:0 0 6px;font-size:16px}
+.mcb-relgh{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin:8px 0 4px;font-weight:800;font-size:14.5px}
+.mcb-relcamp{font-weight:800}
+.mcb-rlist{list-style:none;margin:0;padding:0}
+.mcb-rl{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:5px 0;border-top:1px solid var(--border);font-size:14.5px}
+.mcb-rl:first-child{border-top:0}
+.mcb-rid{font:700 14px/1.2 var(--mono,ui-monospace,monospace);cursor:pointer;border:1px solid #64748b;background:transparent;color:var(--accent);border-radius:6px;padding:2px 8px;flex:none}
+.mcb-rt{flex:1 1 260px;min-width:0;overflow-wrap:anywhere}
+.mcb-rm{font-size:13.5px;opacity:.9;white-space:nowrap}
+.mcb-rwhy{font-size:13px;font-weight:700;border:1px solid var(--border);border-radius:999px;padding:1px 8px;white-space:nowrap}
+.mcb-rl.is-rm .mcb-rt{text-decoration:line-through;text-decoration-thickness:1px}
+.mcb-relblock{list-style:none;margin:0 0 6px 28px;padding:4px 10px 6px;border-left:4px solid #1d4ed8;background:rgba(127,127,127,.06)}
+.mcb-row.mcb-relrow{margin-left:22px;border-left:4px solid #1d4ed8}
+.mcb-row.mcb-seedrow{border-left:4px solid #b45309}
+@media (max-width:760px){.mcb-relblock{margin-left:8px}.mcb-row.mcb-relrow{margin-left:6px}.mcb-rm{white-space:normal}}
 .mcb-g+.mcb-row{border-top:0}
 .mcb-head{display:grid;grid-template-columns:56px 92px minmax(0,1fr) auto;gap:4px 12px;align-items:baseline;width:100%;padding:8px 12px;border:0;background:none;color:var(--text);text-align:left;font:inherit;cursor:pointer}
 .mcb-head:hover{background:var(--surface-2)}
