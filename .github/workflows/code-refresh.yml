@@ -96,18 +96,35 @@ jobs:
           python3 tools/changes_page.py site | tee changes.log || true
           if grep -q 'wrote\|records' changes.log && [ -n "$(git status --porcelain -- site/diff site/week site/data/changes-7d.json site/history)" ]; then echo "changed=1" >> "$GITHUB_OUTPUT"; else echo "changed=0" >> "$GITHUB_OUTPUT"; fi
 
+      # CLAUDE.md 5gr-p (15 XI 2026): between 00:00 UTC and the morning brief the page still carries yesterday's brief, so
+      # gate item 104 (class A) stops any new page code - right, the page must not look like today's. But it failed the
+      # WHOLE job (e-mails at 02:06 and 02:07, feeds/MSRC/changes not published). Now, when 104 is the ONLY failing item,
+      # just the code swap is postponed: site/index.html goes back to the committed page, the feeds step runs again on it,
+      # and everything else is committed and deployed. The morning brief takes the new code from CLAUDE.md. Any other
+      # failing item still fails the job.
       - name: Gate (mirror mode - class B reported, not blocking)
+        id: gate
         if: steps.swap.outputs.changed == '1'
-        run: python3 .refresh/gate.py site/index.html site --mirror --doc CLAUDE.md
+        run: |
+          set -uo pipefail
+          python3 .refresh/gate.py site/index.html site --mirror --doc CLAUDE.md | tee gate.log; rc=${PIPESTATUS[0]}
+          if [ "$rc" -ne 0 ] && grep -qE '^PRZEBIEG NIEUDANY — 1 pozycji: 104$' gate.log; then
+            echo "::notice title=Code swap postponed::The page still carries yesterday's brief (gate item 104); the next brief publishes the new page code."
+            git checkout -- site/index.html
+            python3 tools/feed_refresh.py CLAUDE.md site .refresh > /dev/null || true
+            echo "code swap postponed until the next brief (gate 104)" > refresh.log
+            echo "postponed=1" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          exit "$rc"
 
       - name: Commit the refreshed page
-        if: steps.swap.outputs.changed == '1' || steps.ret.outputs.changed == '1' || steps.feeds.outputs.changed == '1' || steps.msrc.outputs.changed == '1' || steps.changes.outputs.changed == '1' || steps.anchors.outputs.changed == '1'
+        if: (steps.swap.outputs.changed == '1' && steps.gate.outputs.postponed != '1') || steps.ret.outputs.changed == '1' || steps.feeds.outputs.changed == '1' || steps.msrc.outputs.changed == '1' || steps.changes.outputs.changed == '1' || steps.anchors.outputs.changed == '1'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # CLAUDE.md 5cz: when the page code changed (header frame, About) - not for a retention-only commit
-          if [ "${{ steps.swap.outputs.changed }}" = "1" ]; then python3 tools/stamp.py code || true; fi
+          if [ "${{ steps.swap.outputs.changed }}" = "1" ] && [ "${{ steps.gate.outputs.postponed }}" != "1" ]; then python3 tools/stamp.py code || true; fi
           git add site/index.html
           git add -A -- site/diff site/week
           git add -A -- 'site/feed*.xml'

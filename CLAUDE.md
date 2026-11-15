@@ -26524,6 +26524,14 @@ plakietkami; otwiera okno. Pigulka karty M365: "Status page OK · our tenant: 1 
 Zapisane 15 XI o 01:20 z `[skip ci]`: Code refresh i tak stanalby na pozycji 104 bramki (brief z 14 XI przy dniu 15 XI w UTC);
 na strone wchodzi z porannym briefem, ktory tnie skrypty i CSS z CLAUDE.md.
 
+**§5gr-p (15 XI 2026, 09:14)** — Piotr dostal w nocy maile "Code refresh: All jobs have failed" (02:06 i 02:07; trzeci,
+01:17, to moje reczne uruchomienie). Przyczyna: od 00:00 UTC do porannego briefu strona niesie brief z wczoraj, wiec pozycja
+104 bramki (klasa A) zatrzymuje kazdy nowy kod strony - slusznie - ale przewracala CALY przebieg, a z nim publikacje kanalow
+RSS, MSRC i strony zmian, wywolanych commitami danych. Teraz w `code-refresh.yml`: gdy 104 jest JEDYNA czerwona pozycja,
+odkladana jest tylko wymiana kodu (`git checkout -- site/index.html`, ponowny `feed_refresh.py`, `postponed=1`, ostrzezenie
+"Code swap postponed"), bez `stamp.py code`; reszta sie commituje i wdraza. Kazda inna czerwona pozycja dalej przewraca
+przebieg. Nowy kod wchodzi z porannym briefem.
+
 **§5gr-e (13 XI 2026)** — Piotr: numery incydentow (MO1550821, EX1550543) i MC w oknie statusu, w osobnej sekcji; bez
 sekretu, przez federated credential. Publiczny kanal i `status.cloud.microsoft/api/posts/*` NIE podaja numerow (sprawdzone
 13 XI); ma je Service health dzierzawy. `.github/workflows/ms-health.yml` (co ~10 min, `*/10`) loguje sie jak graph-radar
