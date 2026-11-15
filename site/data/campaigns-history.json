@@ -4550,6 +4550,14 @@
 "date":"2026-10-30",
 "group":"community",
 "found":"2026-10-30"
+},
+"https://dev.to/sorin_stiuriuc/why-regex-tokenization-and-inherited-css-break-seo-and-accessibility-checkers-1ola":{
+"title":"Why Regex Tokenization and Inherited CSS Break SEO and Accessibility Checkers",
+"link":"https://dev.to/sorin_stiuriuc/why-regex-tokenization-and-inherited-css-break-seo-and-accessibility-checkers-1ola",
+"source":"NeonTiger12",
+"date":"2026-11-15",
+"group":"community",
+"found":"2026-11-15"
 }
 },
 "final":"2026-10-26",
@@ -5057,14 +5065,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-13",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-14",
 "text":"August 1, 2026."
 },
@@ -5122,6 +5122,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-14",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-15",
 "text":"August 1, 2026."
 },
 {
@@ -5663,7 +5671,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-14",
+"seen":"2026-11-15",
 "text":"early February 2026."
 },
 {
@@ -5671,7 +5679,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-14",
+"seen":"2026-11-15",
 "text":"February 2027."
 },
 {
@@ -7674,6 +7682,14 @@
 "date":"2026-11-11",
 "group":"community",
 "found":"2026-11-12"
+},
+"https://dev.to/timofeus_248d45d3902a91a3/my-ai-page-builder-couldnt-see-its-own-pages-heres-how-i-gave-it-eyes-and-free-gpt-61-sol-16e7":{
+"title":"My AI page builder couldn't see its own pages. Here's how I gave it eyes (and free GPT-6.1 Sol)",
+"link":"https://dev.to/timofeus_248d45d3902a91a3/my-ai-page-builder-couldnt-see-its-own-pages-heres-how-i-gave-it-eyes-and-free-gpt-61-sol-16e7",
+"source":"NeonTiger12",
+"date":"2026-11-15",
+"group":"community",
+"found":"2026-11-15"
 }
 },
 "final":"2026-12-15",
@@ -9807,7 +9823,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-14",
+"seen":"2026-11-15",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9815,7 +9831,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-14",
+"seen":"2026-11-15",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -19606,6 +19622,36 @@
 "title":"Microsoft Entra: Updated passkey registration experience in My Sign-ins",
 "source":"Main list source",
 "link":"https://deltapulse.app/item/MC1545694"
+},
+{
+"day":"2026-11-15",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"community",
+"title":"The Integrity Risk Behind CVE-2026-115624",
+"source":"NeonTiger12",
+"link":"https://dev.to/andreagomez/the-integrity-risk-behind-cve-2026-115624-2ffd"
+},
+{
+"day":"2026-11-15",
+"cid":"c-mc1435782",
+"type":"material",
+"name":"Retirement of custom CSS positioning properties in custom branding",
+"group":"community",
+"title":"Why Regex Tokenization and Inherited CSS Break SEO and Accessibility Checkers",
+"source":"NeonTiger12",
+"link":"https://dev.to/sorin_stiuriuc/why-regex-tokenization-and-inherited-css-break-seo-and-accessibility-checkers-1ola"
+},
+{
+"day":"2026-11-15",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"My AI page builder couldn't see its own pages. Here's how I gave it eyes (and free GPT-6.1 Sol)",
+"source":"NeonTiger12",
+"link":"https://dev.to/timofeus_248d45d3902a91a3/my-ai-page-builder-couldnt-see-its-own-pages-heres-how-i-gave-it-eyes-and-free-gpt-61-sol-16e7"
 }
 ],
 "archive":{
@@ -24158,6 +24204,14 @@
 "source":"Microsoft Learn · What's new · Entra",
 "date":"2026-06-26",
 "group":"microsoft",
+"found":"2026-11-15"
+},
+"https://dev.to/andreagomez/the-integrity-risk-behind-cve-2026-115624-2ffd":{
+"title":"The Integrity Risk Behind CVE-2026-115624",
+"link":"https://dev.to/andreagomez/the-integrity-risk-behind-cve-2026-115624-2ffd",
+"source":"NeonTiger12",
+"date":"2026-11-15",
+"group":"community",
 "found":"2026-11-15"
 }
 },
