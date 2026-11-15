@@ -351,7 +351,6 @@
 "members":[
 "MC1325414",
 "MC1325414-enforcement",
-"item:MC1325414-enforcement",
 "MC1400824",
 "MC1528000",
 "item:MC1528000",
@@ -5520,14 +5519,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-12",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-13",
 "text":"August 1, 2026."
 },
@@ -5649,6 +5640,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-14",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-15",
 "text":"August 1, 2026."
 },
 {
@@ -6238,7 +6237,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-14",
+"seen":"2026-11-15",
 "text":"early February 2026."
 },
 {
@@ -6246,7 +6245,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-14",
+"seen":"2026-11-15",
 "text":"February 2027."
 },
 {
@@ -10270,7 +10269,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-14",
+"seen":"2026-11-15",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10278,7 +10277,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-14",
+"seen":"2026-11-15",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -24035,6 +24034,14 @@
 "date":"2026-11-13",
 "group":"microsoft",
 "found":"2026-11-14"
+},
+"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
+"title":"Public Preview - Prevent unauthorized changes to AD groups with AD group enforcement",
+"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Entra",
+"date":"2026-06-26",
+"group":"microsoft",
+"found":"2026-11-15"
 }
 },
 "final":"2026-10-13",
