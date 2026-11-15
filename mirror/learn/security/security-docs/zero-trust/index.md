@@ -13,7 +13,7 @@ description: Learn about Zero Trust, a security strategy that assumes breach and
 ms.service: security
 ms.subservice: zero-trust
 ms.topic: hub-page
-ms.date: 2026-05-05T00:00:00.0000000Z
+ms.date: 2026-11-10T00:00:00.0000000Z
 locale: en-us
 document_id: 624b3329-cc27-fe94-e6ed-d13ef4f659b2
 document_version_independent_id: d603f3e6-bb85-ff8f-d639-415b2b149a6d
@@ -31,9 +31,11 @@ source_path: security-docs/zero-trust/index.yml
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/a3955c7b-f5ee-420d-aff5-d7119738f38b
 - https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/43093068-2dda-408b-b3fe-dfd705c84f78
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/b31948f4-2f38-404b-ac93-c3c8c5b3ae33
 - https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
+- https://authoring-docs-microsoft.poolparty.biz/devrel/e453d60d-ba7e-43bc-8028-ec38e6b62512
 platformId: d30ef382-af12-2b73-b9c4-f2a45565ebe6
 ---
 
@@ -108,6 +110,18 @@ Enable comprehensive visibility and automated threat response across your enviro
 
 ![](/en-us/security/media/hubpage/github.png)[Developer guidance](/en-us/security/zero-trust/develop/overview)
 Embed Zero Trust principles into your development workflow and applications.
+
+## Choose another starting point
+
+Enter the security guidance through the standard, architecture, transformation, product, or best-practice lens that matches your current work.
+
+### Start with your current priority
+
+- [Start with a security standard or framework](/en-us/security/zero-trust/security-standards-and-frameworks)
+- [Plan with Microsoft Cybersecurity Reference Architectures](/en-us/security/zero-trust/microsoft-reference-architecture)
+- [Plan AI security transformation](/en-us/security/saf/scenarios/ai-security/overview)
+- [Connect Microsoft security products to outcomes](/en-us/security/zero-trust/security-platform)
+- [Review Microsoft security best practices](/en-us/security/zero-trust/security-best-practices-overview)
 
 ## Secure key business scenarios
 
