@@ -84,6 +84,7 @@ https://learn.microsoft.com/en-us/intune/device-configuration/settings-catalog
 https://learn.microsoft.com/en-us/intune/device-configuration/settings-catalog/configure-platform-sso-during-enrollment
 https://learn.microsoft.com/en-us/intune/device-configuration/settings-catalog/ref-android-settings
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/apple-ddm-app-settings
+https://learn.microsoft.com/en-us/intune/device-configuration/templates/configure-local-actions-android
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/configure-oemconfig-android
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/configure-wired-networks
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-device-restrictions-android-enterprise
@@ -157,6 +158,7 @@ https://learn.microsoft.com/en-us/intune/device-security/security-configurations
 https://learn.microsoft.com/en-us/intune/device-security/security-configurations/ios-ipados-personal
 https://learn.microsoft.com/en-us/intune/device-security/security-configurations/ios-ipados-supervised
 https://learn.microsoft.com/en-us/intune/device-updates/android/setup-samsung-knox
+https://learn.microsoft.com/en-us/intune/device-updates/maintenance-windows
 https://learn.microsoft.com/en-us/intune/epm/create-elevation-rules
 https://learn.microsoft.com/en-us/intune/epm/deployment-planning
 https://learn.microsoft.com/en-us/intune/epm/manage-elevation-settings

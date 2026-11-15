@@ -489,6 +489,7 @@ https://learn.microsoft.com/en-us/azure/sentinel/isv/create-custom-connector-bui
 https://learn.microsoft.com/en-us/azure/sentinel/isv/publish-sentinel-solutions
 https://learn.microsoft.com/en-us/azure/sentinel/isv/sentinel-integration-guide
 https://learn.microsoft.com/en-us/azure/sentinel/manage-data-overview
+https://learn.microsoft.com/en-us/azure/sentinel/manage-table-tiers-retention
 https://learn.microsoft.com/en-us/azure/sentinel/microsoft-sentinel-defender-portal
 https://learn.microsoft.com/en-us/azure/sentinel/microsoft-sentinel-onboard
 https://learn.microsoft.com/en-us/azure/sentinel/monitor-data-connector-health
