@@ -609,6 +609,45 @@
      "says": "The Learn page the post links for configuring the setting; Microsoft says it will be updated in mid-December for the custom URL."
     }
    ]
+  },
+  {
+   "key": "release-planner-retirement-ai-at-work",
+   "ids": [
+    "MC1461529"
+   ],
+   "title": "Release Planner retires; Dynamics 365, Power Platform and Dataverse roadmap content moves to the AI at Work roadmap",
+   "scriptable": false,
+   "checked": "2026-11-16",
+   "why": "The post retires a public planning website and moves its content to another roadmap site and a Learn page; there is no tenant setting, so no Graph, Exchange Online or Teams PowerShell surface applies.",
+   "sources": [
+    {
+     "t": "Message Center MC1461529",
+     "u": "https://deltapulse.app/item/MC1461529",
+     "says": "Release Planner is retired; roadmap content for Dynamics 365, Power Platform and Dataverse is published on the AI at Work roadmap and product availability on a Learn page."
+    }
+   ]
+  },
+  {
+   "key": "copilot-business-usage-based-billing-default",
+   "ids": [
+    "MC1476200"
+   ],
+   "title": "Microsoft 365 Copilot Business: usage-based billing on by default for new tenants' purchases, 4,000 Copilot credits per user per month",
+   "scriptable": false,
+   "checked": "2026-11-16",
+   "why": "Usage-based billing and its spending policy are created and managed in Cost Management in the Microsoft 365 admin center (backed by a pay-as-you-go Azure resource); this routine found no documented Graph, Exchange Online or Teams PowerShell cmdlet for that spending policy, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1476200",
+     "u": "https://deltapulse.app/item/MC1476200",
+     "says": "From mid-November 2026 eligible new Copilot Business purchases by new tenants get usage-based billing by default with a 4,000-credit per user per month limit; existing tenants are not changed and can enable it in Cost Management."
+    },
+    {
+     "t": "Usage-based billing and cost management for Copilot Credits",
+     "u": "https://learn.microsoft.com/microsoft-365/copilot/usage-based-billing-overview-copilot-credits",
+     "says": "Microsoft's Learn page the post links for how usage-based billing and spending policies work."
+    }
+   ]
   }
  ]
 }
