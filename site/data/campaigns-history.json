@@ -713,7 +713,6 @@
 "name":"Exchange Web Services (EWS) retirement update",
 "status":"Active",
 "members":[
-"MC1191578",
 "MC1227454",
 "MC1446796",
 "item:MC1446796",
@@ -727,15 +726,6 @@
 "item:exchange-online-ews-disablement-starts-2026-10-21"
 ],
 "log":[
-{
-"date":"2026-11-09",
-"id":"MC1446796",
-"what":"Microsoft revised the post",
-"before":"2026-10-30",
-"after":"2026-11-09",
-"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
-"link":"https://deltapulse.app/item/MC1446796"
-},
 {
 "date":"2026-11-09",
 "id":"MC1446796",
@@ -760,6 +750,15 @@
 "what":"Date moved",
 "before":"early Nov 2026",
 "after":"late Nov 2026",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-11-09",
+"id":"MC1446796",
+"what":"Microsoft revised the post",
+"before":"2026-10-30",
+"after":"2026-11-09",
 "title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
 "link":"https://deltapulse.app/item/MC1446796"
 },
@@ -1071,11 +1070,6 @@
 }
 ],
 "milestones":{
-"MC1191578|posted":{
-"date":"2025-12-02",
-"label":"2 Dec 2025",
-"text":"Posted: Update to EWS Access for Kiosk / Frontline Worker Licenses"
-},
 "MC1227454|posted":{
 "date":"2026-02-05",
 "label":"5 Feb 2026",
@@ -1495,12 +1489,12 @@
 "type":"Retirement",
 "tech":"Exchange",
 "posts":[
-"MC1191578",
 "MC1227454",
 "MC1446796",
 "MC1447678",
 "MC1469960",
-"MC1477180"
+"MC1477180",
+"MC1485116"
 ]
 },
 "c-mc1230889":{
@@ -5041,14 +5035,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-13",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-14",
 "text":"August 1, 2026."
 },
@@ -5178,6 +5164,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-15",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-16",
 "text":"August 1, 2026."
 },
 {
@@ -5767,7 +5761,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-15",
+"seen":"2026-11-16",
 "text":"early February 2026."
 },
 {
@@ -5775,7 +5769,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-15",
+"seen":"2026-11-16",
 "text":"February 2027."
 },
 {
@@ -9124,6 +9118,22 @@
 "date":"2026-10-30",
 "group":"video",
 "found":"2026-11-15"
+},
+"https://dev.to/hassan_khachab_324723d7f9/hi-everyone-i-want-to-create-a-video-animation-that-appear-for-phone-streams-behind-them-if-they-14g2":{
+"title":"Hi everyone, i want to create a video animation that appear for phone streams behind them if they get a big gift. i made some researches i new that this is not possible for phone streams, is that right? do anybody have anyidea. Thanks",
+"link":"https://dev.to/hassan_khachab_324723d7f9/hi-everyone-i-want-to-create-a-video-animation-that-appear-for-phone-streams-behind-them-if-they-14g2",
+"source":"NeonTiger12",
+"date":"2026-11-16",
+"group":"community",
+"found":"2026-11-16"
+},
+"https://dev.to/screenparcel/app-store-connect-wants-1206x2622-match-the-required-iphone-screenshot-slot-1nkl":{
+"title":"App Store Connect Wants 1206 2622? Match the Required iPhone Screenshot Slot",
+"link":"https://dev.to/screenparcel/app-store-connect-wants-1206x2622-match-the-required-iphone-screenshot-slot-1nkl",
+"source":"NeonTiger12",
+"date":"2026-11-16",
+"group":"community",
+"found":"2026-11-16"
 }
 },
 "final":"2027-07-01",
@@ -9919,7 +9929,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-15",
+"seen":"2026-11-16",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9927,7 +9937,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-15",
+"seen":"2026-11-16",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -19711,6 +19721,26 @@
 "type":"closed",
 "name":"SSPR requires registered authentication methods",
 "final":"mid Nov 2026"
+},
+{
+"day":"2026-11-16",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Hi everyone, i want to create a video animation that appear for phone streams behind them if they get a big gift. i made some researches i new that this is not possible for phone streams, is that right? do anybody have anyidea. Thanks",
+"source":"NeonTiger12",
+"link":"https://dev.to/hassan_khachab_324723d7f9/hi-everyone-i-want-to-create-a-video-animation-that-appear-for-phone-streams-behind-them-if-they-14g2"
+},
+{
+"day":"2026-11-16",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"App Store Connect Wants 1206 2622? Match the Required iPhone Screenshot Slot",
+"source":"NeonTiger12",
+"link":"https://dev.to/screenparcel/app-store-connect-wants-1206x2622-match-the-required-iphone-screenshot-slot-1nkl"
 }
 ],
 "archive":{
