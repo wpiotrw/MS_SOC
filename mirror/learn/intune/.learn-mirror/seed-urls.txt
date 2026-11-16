@@ -105,6 +105,7 @@ https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-automated
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-automated-tv-os
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/setup-automated-vision-os
 https://learn.microsoft.com/en-us/intune/device-enrollment/apple/tutorial-automated-ios
+https://learn.microsoft.com/en-us/intune/device-enrollment/guide
 https://learn.microsoft.com/en-us/intune/device-enrollment/guide-linux
 https://learn.microsoft.com/en-us/intune/device-enrollment/setup-enrollment-manager
 https://learn.microsoft.com/en-us/intune/device-enrollment/setup-time-grouping
@@ -284,12 +285,16 @@ https://learn.microsoft.com/en-us/intune/user-help/apps/install-apps-windows
 https://learn.microsoft.com/en-us/intune/user-help/apps/managed-apps-android
 https://learn.microsoft.com/en-us/intune/user-help/apps/managed-apps-ios
 https://learn.microsoft.com/en-us/intune/user-help/company-portal
+https://learn.microsoft.com/en-us/intune/user-help/company-portal/website
 https://learn.microsoft.com/en-us/intune/user-help/compliance/password-requirements
 https://learn.microsoft.com/en-us/intune/user-help/compliance/update-settings-android
 https://learn.microsoft.com/en-us/intune/user-help/compliance/update-settings-windows
+https://learn.microsoft.com/en-us/intune/user-help/compliance/validate-compliance-android
 https://learn.microsoft.com/en-us/intune/user-help/compliance/validate-device-access-windows
+https://learn.microsoft.com/en-us/intune/user-help/device-actions/sync-device-ios
 https://learn.microsoft.com/en-us/intune/user-help/device-actions/sync-device-windows
 https://learn.microsoft.com/en-us/intune/user-help/diagnostics/collect-logs-ios
+https://learn.microsoft.com/en-us/intune/user-help/diagnostics/disable-battery-optimization-android
 https://learn.microsoft.com/en-us/intune/user-help/enrollment/data-visibility
 https://learn.microsoft.com/en-us/intune/user-help/enrollment/enroll-company-portal-macos
 https://learn.microsoft.com/en-us/intune/user-help/enrollment/enroll-entrust-datacard-ios
@@ -298,6 +303,7 @@ https://learn.microsoft.com/en-us/intune/user-help/enrollment/enroll-work-profil
 https://learn.microsoft.com/en-us/intune/user-help/enrollment/work-profile-android
 https://learn.microsoft.com/en-us/intune/user-help/security/setup-mobile-threat-defense
 https://learn.microsoft.com/en-us/intune/user-help/troubleshooting/troubleshoot-device-access-windows
+https://learn.microsoft.com/en-us/intune/user-help/unenrollment/unenroll-android
 https://learn.microsoft.com/en-us/intune/whats-new
 https://learn.microsoft.com/en-us/intune/whats-new/archive
 https://learn.microsoft.com/en-us/intune/whats-new/in-development
