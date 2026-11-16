@@ -15,22 +15,22 @@
    "major": false,
    "actionBy": null,
    "start": "2025-02-19",
-   "end": "2027-02-22",
-   "modified": "2026-10-16",
+   "end": "2027-03-01",
+   "modified": "2026-11-16",
    "tags": [
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 16, 2026: We have updated the timeline. Thank you for your patience. Microsoft Teams Events invite emails will be separated based on the role of the participant. Event organizers will get an email explaining the specific roles of participants in the event. Similarly, each presenter will get a separate calendar invite, allowing the organizers of town halls to maintain separate invit…",
-   "when": "Targeted Release: We will begin rolling out early December 2026 (previously early November) and expect to complete by mid-December 2026 (previously mid-November). General Availability (Worldwide, GCC, GCC High): We will begin rolling out mid-December 2026 (previously mid-November) and expect to complete by mid-January 2027 (previously mid-December).",
+   "summary": "Updated November 16, 2026: We have updated the timeline. Thank you for your patience. Microsoft Teams Events invite emails will be separated based on the role of the participant. Event organizers will get an email explaining the specific roles of participants in the event. Similarly, each presenter will get a separate calendar invite, allowing the organizers of town halls to maintain separate invi…",
+   "when": "Targeted Release: We will begin rolling out early January 2027 (previously early December 2026) and expect to complete by mid-January 2027 (previously mid-December 2026). General Availability (Worldwide, GCC, GCC High): We will begin rolling out mid-January 2027 (previously mid-December 2026) and expect to complete by late January 2027 (previously mid-January).",
    "prepare": "This rollout will happen automatically with no admin action required. You may want to notify your users about this change and update any relevant documentation as appropriate.",
    "dates": [
-    "Updated October 16, 2026: We have updated the timeline.",
-    "Targeted Release: We will begin rolling out early December 2026 (previously early November) and expect to complete by mid-December 2026 (previously mid-November).",
-    "General Availability (Worldwide, GCC, GCC High): We will begin rolling out mid-December 2026 (previously mid-November) and expect to complete by mid-January 2027 (previously mid-December)."
+    "Updated November 16, 2026: We have updated the timeline.",
+    "Targeted Release: We will begin rolling out early January 2027 (previously early December 2026) and expect to complete by mid-January 2027 (previously mid-December 2026).",
+    "General Availability (Worldwide, GCC, GCC High): We will begin rolling out mid-January 2027 (previously mid-December 2026) and expect to complete by late January 2027 (previously mid-January)."
    ],
-   "bodyHash": "b9fad6c11ecd9b39"
+   "bodyHash": "a1039a8ee79a68b3"
   },
   {
    "id": "MC1045221",
@@ -11150,21 +11150,21 @@
    "actionBy": null,
    "start": "2026-09-18",
    "end": "2026-12-28",
-   "modified": "2026-10-26",
+   "modified": "2026-11-16",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 26, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're introducing a new MessageContents table in Advanced Hunting for Microsoft Teams messages. This new table helps security operations teams investigate threats in Teams by providing access to Teams message snippets and associated message metadata during threat investigations. This capability enha…",
+   "summary": "Updated November 16, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're introducing a new MessageContents table in Advanced Hunting for Microsoft Teams messages. This new table helps security operations teams investigate threats in Teams by providing access to Teams message snippets and associated message metadata during threat investigations. This capability enh…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 26, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Beginning in late September 2026 and expected to complete by mid-November 2026 (previously mid-October)."
+    "Updated November 16, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in late September 2026 and expected to complete by late November 2026 (previously mid-November)."
    ],
-   "bodyHash": "153464fe6e3e2c3c"
+   "bodyHash": "380d410705d0ed01"
   },
   {
    "id": "MC1474107",
@@ -13043,7 +13043,7 @@
   },
   {
    "id": "MC1489942",
-   "title": "Microsoft Viva Insights: New Power BI report publishing capabilities for leaders",
+   "title": "(Updated) Microsoft Viva Insights: New Power BI report publishing capabilities for leaders",
    "services": [
     "Microsoft Viva"
    ],
@@ -13052,21 +13052,23 @@
    "major": true,
    "actionBy": null,
    "start": "2026-10-06",
-   "end": "2026-12-25",
-   "modified": "2026-10-06",
+   "end": "2027-02-01",
+   "modified": "2026-11-16",
    "tags": [
     "Admin impact",
     "Feature update",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We are expanding report publishing capabilities in Microsoft Viva Insights to include leaders, such as chief officers, managers, and their delegates. As part of this update, in Viva Feature Access Management, the Analyst report publish setting will be renamed to Report publish . This setting, which is on by default , will continue to be managed by Global Admins and Insights Admins, …",
+   "summary": "Updated November 16, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are expanding report publishing capabilities in Microsoft Viva Insights to include leaders, such as chief officers, managers, and their delegates. As part of this update, in Viva Feature Access Management, the Analyst report publish setting will be renamed to Report publish . This setting, which…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide and GCC): Rollout begins in early November 2026 and is expected to complete by late November 2026."
+    "Updated November 16, 2026: We have updated the timeline.",
+    "General Availability (Worldwide and GCC): Rollout begins in mid-December 2026 (previously early November) and is expected to complete by end of December 2026 (previously late November)."
    ],
-   "bodyHash": "ce4d33411a559faa"
+   "bodyHash": "f578a56d28928c1d"
   },
   {
    "id": "MC1489971",
@@ -18653,7 +18655,7 @@
    "actionBy": null,
    "start": "2026-11-13",
    "end": "2026-12-30",
-   "modified": "2026-11-13",
+   "modified": "2026-11-16",
    "tags": [
     "Admin impact",
     "User impact"
@@ -18664,7 +18666,7 @@
    "dates": [
     "Worldwide: Beginning in mid-November 2026."
    ],
-   "bodyHash": "f6cd304fec9cd16b"
+   "bodyHash": "abf42b2557e7a3d6"
   },
   {
    "id": "MC1551896",
@@ -24649,6 +24651,81 @@
    "type": "removed",
    "title": "(Updated) Co-organizer experience updates in Teams Webinars and Townhalls",
    "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1009930",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Distinguish invites among Attendee, Presenter, and Co-organizer emails",
+   "fields": {
+    "end": [
+     "2027-02-22",
+     "2027-03-01"
+    ],
+    "bodyHash": [
+     "b9fad6c11ecd9b39",
+     "a1039a8ee79a68b3"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1474106",
+   "type": "changed",
+   "title": "(Updated) Microsoft Defender for Office 365: New MessageContents table in Advanced Hunting for Microsoft Teams messages",
+   "fields": {
+    "bodyHash": [
+     "153464fe6e3e2c3c",
+     "380d410705d0ed01"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1489942",
+   "type": "changed",
+   "title": "(Updated) Microsoft Viva Insights: New Power BI report publishing capabilities for leaders",
+   "fields": {
+    "title": [
+     "Microsoft Viva Insights: New Power BI report publishing capabilities for leaders",
+     "(Updated) Microsoft Viva Insights: New Power BI report publishing capabilities for leaders"
+    ],
+    "end": [
+     "2026-12-25",
+     "2027-02-01"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "ce4d33411a559faa",
+     "f578a56d28928c1d"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1551151",
+   "type": "changed",
+   "title": "Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice multi-factor authentication",
+   "fields": {
+    "bodyHash": [
+     "f6cd304fec9cd16b",
+     "abf42b2557e7a3d6"
+    ]
+   }
   }
  ]
 }
