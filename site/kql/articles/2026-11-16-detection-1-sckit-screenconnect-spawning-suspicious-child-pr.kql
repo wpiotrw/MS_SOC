@@ -1,0 +1,22 @@
+// title: Detection 1: SCKit - ScreenConnect Spawning Suspicious Child Processes with Outbound Network Activity
+// date: 2026-11-16
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Monday, November 16, 2026
+// source: https://devsecopsdadattack.com/2026-11-16-detection-engineering-brief-monday-november-16-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ScreenConnectChildren = DeviceProcessEvents
+| where InitiatingProcessFileName has_any ("ScreenConnect.ClientService.exe", "ScreenConnect.WindowsClient.exe", "ScreenConnect.WindowsBackstageShell.exe")
+| where FileName has_any ("cmd.exe", "powershell.exe", "wscript.exe", "cscript.exe", "mshta.exe", "rundll32.exe", "regsvr32.exe", "certutil.exe", "bitsadmin.exe", "net.exe", "nltest.exe")
+| project DeviceName, AccountName, InitiatingProcessFileName, ChildProcess = FileName, ProcessCommandLine, SpawnTime = Timestamp, ChildProcessId = ProcessId;
+let ChildNetworkEvents = DeviceNetworkEvents
+| where RemotePort !in (443, 80)
+| project DeviceName, RemoteIP, RemotePort, NetTime = Timestamp, NetInitiatingProcessId = InitiatingProcessId, NetInitiatingProcessFileName = InitiatingProcessFileName;
+ScreenConnectChildren
+| join kind=inner ChildNetworkEvents on DeviceName
+| where NetInitiatingProcessId == ChildProcessId
+| where NetTime between (SpawnTime .. (SpawnTime + 5m))
+| project DeviceName, AccountName, InitiatingProcessFileName, ChildProcess, ProcessCommandLine, SpawnTime, ChildProcessId, RemoteIP, RemotePort, NetTime
+| order by SpawnTime desc

@@ -1,0 +1,15 @@
+// title: Detection 4: ESXi Ransomware - Bulk VM Power-Off or Snapshot Deletion Commands from Unexpected Sources
+// date: 2026-11-16
+// product: Sentinel
+// tables: Syslog
+// purpose: From the article: Detection Engineering Brief - Monday, November 16, 2026
+// source: https://devsecopsdadattack.com/2026-11-16-detection-engineering-brief-monday-november-16-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+Syslog
+| where TimeGenerated > ago(24h)
+| where SyslogMessage has_any ("vim-cmd vmsvc/power.off", "vim-cmd vmsvc/snapshot.removeall", "PowerOffVM_Task", "RemoveAllSnapshots_Task", "vim-cmd vmsvc/destroy", "esxcli vm process kill")
+| summarize EventCount = count(), Commands = make_set(SyslogMessage, 20), ProcessNames = make_set(ProcessName, 10) by HostName, HostIP, bin(TimeGenerated, 10m)
+| where EventCount >= 3
+| order by EventCount desc

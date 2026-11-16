@@ -1,5 +1,81 @@
 [
  {
+  "file": "articles/2026-11-16-detection-5-downthedrain-browser-process-spawning-shell-inte.kql",
+  "title": "Detection 5: DownTheDRAIN - Browser Process Spawning Shell Interpreter Followed by File Write on macOS",
+  "date": "2026-11-16",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 16, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-16-detection-engineering-brief-monday-november-16-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-16-detection-engineering-brief-monday-november-16-2026/"
+ },
+ {
+  "file": "articles/2026-11-16-detection-4-esxi-ransomware-bulk-vm-power-off.kql",
+  "title": "Detection 4: ESXi Ransomware - Bulk VM Power-Off or Snapshot Deletion Commands from Unexpected Sources",
+  "date": "2026-11-16",
+  "product": "Sentinel",
+  "tables": [
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 16, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-16-detection-engineering-brief-monday-november-16-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-16-detection-engineering-brief-monday-november-16-2026/"
+ },
+ {
+  "file": "articles/2026-11-16-detection-3-retadup-coffeeloader-executable-written-to-remov.kql",
+  "title": "Detection 3: Retadup/CoffeeLoader - Executable Written to Removable Media Followed by Execution from Removable Drive Path",
+  "date": "2026-11-16",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 16, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-16-detection-engineering-brief-monday-november-16-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-16-detection-engineering-brief-monday-november-16-2026/"
+ },
+ {
+  "file": "articles/2026-11-16-detection-2-sckit-screenconnect-parent-process-initiating-in.kql",
+  "title": "Detection 2: SCKit - ScreenConnect Parent Process Initiating Interactive Logon Events Targeting Technician Sessions",
+  "date": "2026-11-16",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceLogonEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 16, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-16-detection-engineering-brief-monday-november-16-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-16-detection-engineering-brief-monday-november-16-2026/",
+  "incident": "msp360-screenconnect-rmm-phishing-2026-07"
+ },
+ {
+  "file": "articles/2026-11-16-detection-1-sckit-screenconnect-spawning-suspicious-child-pr.kql",
+  "title": "Detection 1: SCKit - ScreenConnect Spawning Suspicious Child Processes with Outbound Network Activity",
+  "date": "2026-11-16",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 16, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-16-detection-engineering-brief-monday-november-16-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-16-detection-engineering-brief-monday-november-16-2026/",
+  "incident": "msp360-screenconnect-rmm-phishing-2026-07"
+ },
+ {
   "file": "articles/2026-11-14-detection-5-esxi-ransomware-anomalous-authentication-to-hype.kql",
   "title": "Detection 5: ESXi Ransomware - Anomalous Authentication to Hypervisor Management Interfaces",
   "date": "2026-11-14",
