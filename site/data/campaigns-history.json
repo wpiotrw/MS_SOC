@@ -346,7 +346,7 @@
 "c-mc1547994":{
 "firstSeen":"2026-11-11",
 "lastSeen":"2026-11-16",
-"name":"Update your iOS/iPadOS Company Portal minimum version to v5.2608.0",
+"name":"Update your iOS/iPadOS and macOS Company Portal minimum version to v5.2608.0",
 "status":"Active",
 "members":[
 "MC1547994",
@@ -354,12 +354,21 @@
 ],
 "log":[
 {
+"date":"2026-11-16",
+"id":"MC1547994",
+"what":"Microsoft revised the post",
+"before":"2026-11-10",
+"after":"2026-11-16",
+"title":"Intune raises the minimum iOS/iPadOS and macOS Company Portal to v5.2608.0 from early February 2027; devices that block App Store installs need a pushed update",
+"link":"https://deltapulse.app/item/MC1547994"
+},
+{
 "date":"2026-11-11",
 "id":"MC1547994",
 "what":"Entered the brief (New)",
 "before":"",
 "after":"Intune raises the minimum iOS/iPadOS Company Portal to v5.2608.0 from early December; devices that block App Store installs need a pushed update",
-"title":"Intune raises the minimum iOS/iPadOS Company Portal to v5.2608.0 from early December; devices that block App Store installs need a pushed update",
+"title":"Intune raises the minimum iOS/iPadOS and macOS Company Portal to v5.2608.0 from early February 2027; devices that block App Store installs need a pushed update",
 "link":"https://deltapulse.app/item/MC1547994"
 }
 ],
@@ -367,12 +376,17 @@
 "MC1547994|posted":{
 "date":"2026-11-10",
 "label":"10 Nov 2026",
-"text":"Posted: Update your iOS/iPadOS Company Portal minimum version to v5.2608.0"
+"text":"Posted: Update your iOS/iPadOS and macOS Company Portal minimum version to v5.2608.0"
 },
-"MC1547994|early no day stated by microsoft#0":{
+"MC1547994|early previously early no day stated by microsoft#1":{
 "date":"2026-12-05",
 "label":"early Dec 2026",
-"text":"Early December 2026 (no day stated by Microsoft)"
+"text":"Early February 2027 (previously early December 2026"
+},
+"MC1547994|early previously early no day stated by microsoft#0":{
+"date":"2027-02-05",
+"label":"early Feb 2027",
+"text":"Early February 2027 (previously early December 2026"
 }
 },
 "moves":[],
@@ -413,7 +427,7 @@
 "found":"2026-11-14"
 }
 },
-"final":"2026-12-05",
+"final":"2027-02-05",
 "type":"Support end",
 "tech":"Intune",
 "posts":[
@@ -5067,14 +5081,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-14",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-15",
 "text":"August 1, 2026."
 },
@@ -5140,6 +5146,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-15",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-16",
 "text":"August 1, 2026."
 },
 {
@@ -5697,7 +5711,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-15",
+"seen":"2026-11-16",
 "text":"early February 2026."
 },
 {
@@ -5705,7 +5719,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-15",
+"seen":"2026-11-16",
 "text":"February 2027."
 },
 {
@@ -9865,7 +9879,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-15",
+"seen":"2026-11-16",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9873,7 +9887,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-15",
+"seen":"2026-11-16",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -19741,6 +19755,24 @@
 "title":"App Store Connect Wants 1206 2622? Match the Required iPhone Screenshot Slot",
 "source":"NeonTiger12",
 "link":"https://dev.to/screenparcel/app-store-connect-wants-1206x2622-match-the-required-iphone-screenshot-slot-1nkl"
+},
+{
+"day":"2026-11-16",
+"cid":"c-mc1547994",
+"type":"milestone",
+"name":"Update your iOS/iPadOS and macOS Company Portal minimum version to v5.2608.0",
+"src":"MC1547994",
+"now":"early Dec 2026",
+"text":"Early February 2027 (previously early December 2026"
+},
+{
+"day":"2026-11-16",
+"cid":"c-mc1547994",
+"type":"milestone",
+"name":"Update your iOS/iPadOS and macOS Company Portal minimum version to v5.2608.0",
+"src":"MC1547994",
+"now":"early Feb 2027",
+"text":"Early February 2027 (previously early December 2026"
 }
 ],
 "archive":{
