@@ -1,21 +1,13 @@
 {
- "generated": "2026-11-15T21:34:04Z",
- "day": "2026-11-15",
+ "generated": "2026-11-16T00:20:39Z",
+ "day": "2026-11-16",
  "spec": "5gf",
- "source": "site/data/campaigns.json (2026-11-15)",
- "count": 45,
+ "source": "site/data/campaigns.json (2026-11-16)",
+ "count": 44,
  "byMc": {
   "MC1191578": {
    "says": [],
    "others": [
-    {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
     {
      "date": "2026-11-23",
      "src": "MC1446796",
@@ -47,6 +39,14 @@
      "post": "2026-09-09",
      "later": false,
      "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1485116"
     }
    ],
    "moved": [],
@@ -83,14 +83,6 @@
     "2027-04-01"
    ],
    "others": [
-    {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
     {
      "date": "2026-11-23",
      "src": "MC1446796",
@@ -155,7 +147,6 @@
   },
   "MC1446796": {
    "says": [
-    "2026-11-15",
     "2026-11-23",
     "2026-11-25",
     "2027-04-01"
@@ -224,14 +215,6 @@
    ],
    "others": [
     {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
      "date": "2026-11-23",
      "src": "MC1446796",
      "text": "Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
@@ -299,14 +282,6 @@
    ],
    "others": [
     {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
      "date": "2026-11-23",
      "src": "MC1446796",
      "text": "Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
@@ -372,14 +347,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
      "date": "2026-11-23",
      "src": "MC1446796",
      "text": "Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
@@ -410,6 +377,14 @@
      "post": "2026-09-09",
      "later": false,
      "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1485116"
     }
    ],
    "moved": [],
@@ -446,14 +421,6 @@
     "2027-07-05"
    ],
    "others": [
-    {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
     {
      "date": "2026-11-23",
      "src": "MC1446796",
@@ -515,14 +482,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
      "date": "2026-11-23",
      "src": "MC1446796",
      "text": "Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
@@ -553,6 +512,14 @@
      "post": "2026-09-09",
      "later": false,
      "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1485116"
     }
    ],
    "moved": [],
@@ -572,14 +539,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-15",
-     "src": "MC1446796",
-     "text": "Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026.",
-     "post": "2026-08-03",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1446796"
-    },
-    {
      "date": "2026-11-23",
      "src": "MC1446796",
      "text": "Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
@@ -610,6 +569,14 @@
      "post": "2026-09-09",
      "later": false,
      "link": "https://mc.merill.net/message/MC1469960"
+    },
+    {
+     "date": "2027-07-05",
+     "src": "MC1485116",
+     "text": "Beginning in early October 2026 and expected to complete by early July 2027.",
+     "post": "2026-10-01",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1485116"
     }
    ],
    "moved": [],
@@ -630,14 +597,6 @@
     "2026-06-25"
    ],
    "others": [
-    {
-     "date": "2026-11-15",
-     "src": "MC1545694",
-     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
-     "post": "2026-11-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
     {
      "date": "2026-11-25",
      "src": "MC1459133",
@@ -669,6 +628,14 @@
      "post": "2026-08-07",
      "later": true,
      "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -705,14 +672,6 @@
    ],
    "others": [
     {
-     "date": "2026-11-15",
-     "src": "MC1545694",
-     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -743,6 +702,14 @@
      "post": "2026-08-07",
      "later": false,
      "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-11-15",
+     "src": "MC1545694",
+     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
     }
    ],
    "moved": [],
@@ -770,19 +737,11 @@
      "name": "Passkeys by default in Microsoft Entra ID"
     }
    ],
-   "verdict": "differs"
+   "verdict": "moved"
   },
   "MC1423108": {
    "says": [],
    "others": [
-    {
-     "date": "2026-11-15",
-     "src": "MC1545694",
-     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
     {
      "date": "2026-11-25",
      "src": "MC1459133",
@@ -814,6 +773,14 @@
      "post": "2026-08-07",
      "later": false,
      "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -851,14 +818,6 @@
    ],
    "others": [
     {
-     "date": "2026-11-15",
-     "src": "MC1545694",
-     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
-     "post": "2026-11-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -889,6 +848,14 @@
      "post": "2026-08-07",
      "later": true,
      "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1282568"
     },
     {
      "date": "2026-11-30",
@@ -967,14 +934,6 @@
    ],
    "others": [
     {
-     "date": "2026-11-15",
-     "src": "MC1545694",
-     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
-     "post": "2026-11-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -1005,6 +964,14 @@
      "post": "2026-08-07",
      "later": true,
      "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -1038,14 +1005,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-15",
-     "src": "MC1545694",
-     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -1076,6 +1035,14 @@
      "post": "2026-08-07",
      "later": false,
      "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -1113,14 +1080,6 @@
     "2027-02-25"
    ],
    "others": [
-    {
-     "date": "2026-11-15",
-     "src": "MC1545694",
-     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
     {
      "date": "2027-05-05",
      "src": "MC1282568",
@@ -1185,14 +1144,6 @@
    ],
    "others": [
     {
-     "date": "2026-11-15",
-     "src": "MC1545694",
-     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
      "date": "2027-01-05",
      "src": "MC1450133",
      "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
@@ -1218,6 +1169,14 @@
     },
     {
      "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1282568"
+    },
+    {
+     "date": "2027-05-25",
      "src": "MC1282568",
      "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
      "post": "2026-04-16",
@@ -1251,14 +1210,6 @@
    "says": [],
    "others": [
     {
-     "date": "2026-11-15",
-     "src": "MC1545694",
-     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
      "date": "2026-11-25",
      "src": "MC1459133",
      "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
@@ -1289,6 +1240,14 @@
      "post": "2026-08-07",
      "later": false,
      "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -1310,7 +1269,6 @@
   },
   "MC1545694": {
    "says": [
-    "2026-11-15",
     "2027-11-15"
    ],
    "others": [
@@ -1362,57 +1320,6 @@
     {
      "id": "c-passkeys-by-default",
      "name": "Passkeys by default in Microsoft Entra ID"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1325414": {
-   "says": [
-    "2026-11-15"
-   ],
-   "others": [],
-   "moved": [
-    {
-     "was": "mid Sep 2026",
-     "now": "2026-11-15",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September)."
-    }
-   ],
-   "newer": [
-    {
-     "id": "MC1400824",
-     "date": "2026-09-29",
-     "title": "(Updated) Microsoft Entra: Self-service password reset CAPTCHA protection updated"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1400824": {
-   "says": [],
-   "others": [
-    {
-     "date": "2026-11-15",
-     "src": "MC1325414",
-     "text": "Early November 2026 (previously Early September) through mid-November 2026 (previously mid-September).",
-     "post": "2026-05-28",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1325414"
-    }
-   ],
-   "moved": [],
-   "newer": [],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-item-mc1519855",
-     "name": "SSPR requires registered authentication methods"
     }
    ],
    "verdict": "differs"
@@ -2281,6 +2188,28 @@
     {
      "id": "c-mc1435782",
      "name": "Retirement of custom CSS positioning properties in custom branding"
+    }
+   ],
+   "verdict": "newer"
+  },
+  "MC1325414": {
+   "says": [
+    "2026-11-15"
+   ],
+   "others": [],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1400824",
+     "date": "2026-09-29",
+     "title": "(Updated) Microsoft Entra: Self-service password reset CAPTCHA protection updated"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-item-mc1519855",
+     "name": "SSPR requires registered authentication methods"
     }
    ],
    "verdict": "newer"
