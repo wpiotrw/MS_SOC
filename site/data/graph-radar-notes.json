@@ -120,6 +120,113 @@
     "Beta only: v1.0 does not return the property yet.",
     "Turning it off does not delete blueprints users already created; list them separately."
    ]
+  },
+  "appManagementApplicationConfiguration|federatedIdentityCredentials": {
+   "title": "App management policy: rules for federated identity credentials",
+   "what": "A new restriction in the tenant's app management policy (applicationRestrictions). The name says the policy can now govern federated identity credentials (workload identity federation, for example GitHub Actions or Kubernetes) on app registrations. Nothing published yet. Rechecked on 16 November 2026: Microsoft Learn still names no such restriction (the search returns only the federatedIdentityCredential object and its PowerShell cmdlets), so the meaning stays inferred from the name.",
+   "uses": [
+    "When documented: allow federated credentials only from issuers you trust (your GitHub organization, your clusters)",
+    "Inventory today: list apps with federated credentials and their issuers - the restriction will act on them"
+   ],
+   "basis": "name",
+   "checked": "2026-11-16",
+   "articles": [
+    {
+     "title": "terraform-provider-microsoft365 - scripts/powershell/applications/config/policy-comprehensive.json",
+     "url": "https://github.com/deploymenttheory/terraform-provider-microsoft365/blob/main/scripts/powershell/applications/config/policy-comprehensive.json",
+     "by": "deploymenttheory (ShocOne)",
+     "date": "2026-02-02",
+     "rel": "names-it",
+     "key": "deploymenttheory",
+     "says": "A tenant app management policy JSON lists applicationRestrictions.federatedIdentityCredentials as null, next to audiences, redirectUris and trustedSubjectNameAndIssuers (also null).",
+     "kind": "code-tool"
+    }
+   ],
+   "by": "morning routine",
+   "searched": [
+    "appManagementApplicationConfiguration federatedIdentityCredentials trustedSubjectNameAndIssuers app management policy (Microsoft Learn MCP search)"
+   ]
+  },
+  "appManagementApplicationConfiguration|trustedSubjectNameAndIssuers": {
+   "title": "App management policy: trusted certificate subjects and issuers",
+   "what": "A new restriction in the app management policy. The name says certificates on app registrations could be limited to trusted subject names and issuers - a step beyond the 'trusted certificate authorities' restriction Microsoft introduced in 2023. Nothing published for this property. Rechecked on 16 November 2026: Microsoft Learn still names no such restriction (the search returns only the federatedIdentityCredential object and its PowerShell cmdlets), so the meaning stays inferred from the name.",
+   "uses": [
+    "When documented: accept app certificates only from your own CA and with expected subject names",
+    "Inventory today: which apps use certificates, from which issuers"
+   ],
+   "basis": "name",
+   "checked": "2026-11-16",
+   "articles": [
+    {
+     "title": "Introducing Trusted Certificate Authorities (public preview) in App management policy",
+     "url": "https://devblogs.microsoft.com/identity/?p=1305",
+     "by": "Microsoft Identity blog",
+     "date": "2023-11-09",
+     "rel": "feature",
+     "says": "This November 2023 post announces a public preview of trusted certificate authority restrictions in app management policy: admins define trusted issuer chains (certificateBasedApplicationConfiguration) and then block app certificates from other issuers, including self-signed ones. It requires Workload ID premium, allows up to 5 trusted CAs per policy, and checks existing apps only when they rotate certificates. The post does not mention trustedSubjectNameAndIssuers by name.",
+     "kind": "microsoft-article"
+    },
+    {
+     "title": "terraform-provider-microsoft365 - scripts/powershell/applications/config/policy-comprehensive.json",
+     "url": "https://github.com/deploymenttheory/terraform-provider-microsoft365/blob/main/scripts/powershell/applications/config/policy-comprehensive.json",
+     "by": "deploymenttheory (ShocOne)",
+     "date": "2026-02-02",
+     "rel": "names-it",
+     "key": "deploymenttheory",
+     "says": "Lists applicationRestrictions.trustedSubjectNameAndIssuers as null in a tenant app management policy JSON.",
+     "kind": "code-tool"
+    },
+    {
+     "title": "Azure/ARO-HCP - dev-infrastructure/modules/entra/app.bicep and templates/geneva-identities.bicep (application property for SNI authentication)",
+     "url": "https://github.com/Azure/ARO-HCP/blob/main/dev-infrastructure/templates/geneva-identities.bicep",
+     "by": "Microsoft / Red Hat ARO-HCP team",
+     "date": "",
+     "rel": "feature",
+     "key": "azure",
+     "says": "Sets a property with the same name on an application (Microsoft.Graph/applications@beta, not the policy) to [{authorityId, subjectName}] when SNI is used. The module describes it as 'Trusted subject name and issuer pairs for SNI authentication'.",
+     "kind": "code-tool"
+    },
+    {
+     "title": "Azure/ARO-HCP - docs/ci/dev-mock-identities.md (historical note on SNI)",
+     "url": "https://github.com/Azure/ARO-HCP/blob/main/docs/ci/dev-mock-identities.md",
+     "by": "Microsoft / Red Hat ARO-HCP team",
+     "date": "2026-10-21",
+     "rel": "feature",
+     "key": "azure",
+     "says": "Says an earlier setup configured SNI (trustedSubjectNameAndIssuers) on apps. That fails for self-signed certificates when the client sends the chain (AADSTS7000213) and caused a CI-wide auth outage, so the apps now use pinned keyCredentials.",
+     "tested": "Used in their CI: SNI sign-ins failed with AADSTS7000213 for self-signed certs sent with the chain",
+     "kind": "code-tool"
+    },
+    {
+     "title": "Configure an App Registration in the Microsoft CORP tenant to trust certificates based on Subject Name + Issuer (Microsoft Q&A)",
+     "url": "https://learn.microsoft.com/en-us/answers/questions/5773842/configure-an-app-registration-in-the-microsoft-cor",
+     "by": "Nick Andres (question), Sridevi Machavarapu (Microsoft External Staff, answer)",
+     "date": "2026-02-13",
+     "rel": "doc",
+     "key": "learnmicrosoftcom",
+     "says": "Does not name the property. A Microsoft External Staff answer says trusting certificates by subject name and issuer is not supported for app registrations, and that no portal setting, Graph API parameter or tenant policy enables it.",
+     "kind": "qa-forum"
+    }
+   ],
+   "by": "morning routine",
+   "searched": [
+    "appManagementApplicationConfiguration federatedIdentityCredentials trustedSubjectNameAndIssuers app management policy (Microsoft Learn MCP search)"
+   ]
+  },
+  "appManagementServicePrincipalConfiguration|credentials": {
+   "title": "App management policy: credentials on service principals",
+   "what": "A new restriction for service principals (enterprise applications) in the app management policy. Nothing published yet. Rechecked on 16 November 2026: Microsoft Learn still names no such restriction (the search returns only the federatedIdentityCredential object and its PowerShell cmdlets), so the meaning stays inferred from the name.",
+   "uses": [
+    "Inventory today: service principals that carry their own secrets or certificates - a common place for forgotten credentials",
+    "When documented: block new credentials on service principals the way the policy already can for app registrations"
+   ],
+   "basis": "name",
+   "checked": "2026-11-16",
+   "articles": [],
+   "by": "morning routine",
+   "searched": [
+    "appManagementApplicationConfiguration federatedIdentityCredentials trustedSubjectNameAndIssuers app management policy (Microsoft Learn MCP search)"
+   ]
   }
  }
 }
