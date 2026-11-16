@@ -26551,6 +26551,11 @@ z linkiem), "Show this post and all N related as a list" (`S.grp`, `relList()`);
 (4) Ctrl K: przelacznik "Show related MC" (to samo ustawienie `soc.mc.showRelated`), pod trafieniami MC ich powiazane i linia
 otwierajaca cala grupe w zakladce MC.
 
+**§5gs-b (16 XI 2026, 09:21)** — Piotr: "w zakladce New totalnie sie wszystko rozjechalo". Ramka sprawdzenia dat (`.s5gf-dc`)
+jest dzieckiem wiersza listy New i Deadlines (`.s5ci-tr`, siatka szesciu kolumn) i trafiala do kolumny daty (104 px): litery po
+dwie w wierszu, ramka na kilka ekranow. Po §5gs wiecej postow dzieli kampanie, wiec wiecej wierszy niesie ramke (16 XI: New 6,
+Deadlines 2, Overview 1). Regula `.s5ci-tr>.s5gf-dc,.s5gp-it>.s5gf-dc{grid-column:1 / -1}` - ramka na cala szerokosc wiersza.
+
 **§5gr-e (13 XI 2026)** — Piotr: numery incydentow (MO1550821, EX1550543) i MC w oknie statusu, w osobnej sekcji; bez
 sekretu, przez federated credential. Publiczny kanal i `status.cloud.microsoft/api/posts/*` NIE podaja numerow (sprawdzone
 13 XI); ma je Service health dzierzawy. `.github/workflows/ms-health.yml` (co ~10 min, `*/10`) loguje sie jak graph-radar
@@ -51957,6 +51962,11 @@ html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
 .s5gp-areas>li>.s5fm-n{display:none!important}
 /* §5gr-b: the phone page scrolled 31 px sideways in Today: a cross-check frame inside a pick fell into the 28 px number column, and the pick carried invisible overflow */
 .s5ci-pick>.s5gf-dc{grid-column:1 / -1;min-width:0}
+/* §5gs-b (16 XI 2026, owner: "the New tab fell apart"): the date cross-check box is also a child of the list ROWS of New
+   and Deadlines (.s5ci-tr, a 6-column grid), where it landed in the 104 px date column; since 5gs more posts share a
+   campaign, so more rows carry the box. It spans the whole row wherever its parent is a grid row. */
+.s5ci-tr>.s5gf-dc,.s5gp-it>.s5gf-dc{grid-column:1 / -1;min-width:0}
+.s5gf-dc{max-width:100%;box-sizing:border-box}
 .s5ci-pick{overflow-x:clip;overflow-wrap:anywhere}   /* a long cmdlet name (Get-MgReportAuthenticationMethodUserRegistrationDetail) could not wrap; clip is the safety net */
 /* §5gr Microsoft 365 / Azure status under the logo */
 .s5ms{z-index:6;font-family:inherit}
