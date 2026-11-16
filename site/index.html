@@ -6559,6 +6559,11 @@ html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
 .s5gp-areas>li>.s5fm-n{display:none!important}
 /* §5gr-b: the phone page scrolled 31 px sideways in Today: a cross-check frame inside a pick fell into the 28 px number column, and the pick carried invisible overflow */
 .s5ci-pick>.s5gf-dc{grid-column:1 / -1;min-width:0}
+/* §5gs-b (16 XI 2026, owner: "the New tab fell apart"): the date cross-check box is also a child of the list ROWS of New
+   and Deadlines (.s5ci-tr, a 6-column grid), where it landed in the 104 px date column; since 5gs more posts share a
+   campaign, so more rows carry the box. It spans the whole row wherever its parent is a grid row. */
+.s5ci-tr>.s5gf-dc,.s5gp-it>.s5gf-dc{grid-column:1 / -1;min-width:0}
+.s5gf-dc{max-width:100%;box-sizing:border-box}
 .s5ci-pick{overflow-x:clip;overflow-wrap:anywhere}   /* a long cmdlet name (Get-MgReportAuthenticationMethodUserRegistrationDetail) could not wrap; clip is the safety net */
 /* §5gr Microsoft 365 / Azure status under the logo */
 .s5ms{z-index:6;font-family:inherit}
