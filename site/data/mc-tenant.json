@@ -1,7 +1,7 @@
 {
  "read": "2026-11-16",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 730,
+ "count": 714,
  "note": null,
  "messages": [
   {
@@ -1386,35 +1386,6 @@
     "Starting in April 2026, Enforcement mode will be enabled on all Windows domain controllers by default, and in July 2026 Audit mode will be removed, leaving Enforcement mode as the only option."
    ],
    "bodyHash": "53ff664d2ff0fe36"
-  },
-  {
-   "id": "MC1218713",
-   "title": "(Updated) Microsoft Teams: Organization evaluation score for apps and agents",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-01-16",
-   "end": "2026-11-16",
-   "modified": "2026-07-06",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated July 6, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Today, admins must manually review trust and compliance information for Teams apps and agents to determine whether they meet their organization’s security, privacy, and compliance requirements. To make this process more scalable and consistent, Teams will introduce a centralized evaluation experience. A…",
-   "when": "Targeted release/Preview: We will begin rollout in late February 2026 and expect to complete by the end of March 2026 . General Availability (Worldwide and GCC): We will begin rollout in late September 2026 (previously early July) and expect to complete by early October 2026 (previously end of July).",
-   "prepare": "No action is required. This feature will be available automatically in the Teams admin center . Admins may choose to review their approval workflows once the feature becomes available.",
-   "dates": [
-    "Updated July 6, 2026: We have updated the timeline.",
-    "Targeted release/Preview: We will begin rollout in late February 2026 and expect to complete by the end of March 2026 .",
-    "General Availability (Worldwide and GCC): We will begin rollout in late September 2026 (previously early July) and expect to complete by early October 2026 (previously end of July)."
-   ],
-   "bodyHash": "958dc8c5116996b1"
   },
   {
    "id": "MC1218934",
@@ -5245,34 +5216,6 @@
    "bodyHash": "728808c989b1bced"
   },
   {
-   "id": "MC1388706",
-   "title": "(Updated) Microsoft 365 Copilot: Legal agent available in Frontier worldwide",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-12",
-   "end": "2026-11-16",
-   "modified": "2026-10-07",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated October 7, 2026: We have updated the timeline and content. GA release will now be tracked separately in an upcoming MC post. Thank you for your patience. [What and Why] Microsoft is expanding the availability of Copilot for Legal in Microsoft 365 Copilot in Word to Frontier users worldwide in Public Preview. Copilot for Legal was previously released in Frontier preview for users located in…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated October 7, 2026: We have updated the timeline and content.",
-    "Frontier Preview: Available starting in mid-June 2026 ."
-   ],
-   "bodyHash": "4d9726c688b092fe"
-  },
-  {
    "id": "MC1388719",
    "title": "(Updated) Microsoft Teams: Granular channel notification settings",
    "services": [
@@ -5786,34 +5729,6 @@
    "bodyHash": "13fa6ae25de3dc6e"
   },
   {
-   "id": "MC1409042",
-   "title": "(Updated) Microsoft OneNote: Copilot notebook available in OneNote on Mac",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-06-29",
-   "end": "2026-11-16",
-   "modified": "2026-09-23",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 23, 2026: We have updated the timeline. Thank you for your patience. [What and Why] Copilot Notebook, a new Copilot-powered workspace in OneNote, helps users organize, reason over, and take action on their content. This feature brings advanced Copilot capabilities directly into OneNote on Mac , enabling users to generate insights, structure ideas, and work more effectively within…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 23, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): We will begin rolling out in late August 2026 (previously mid-August) and expect to complete by mid-October 2026 (previously early September)."
-   ],
-   "bodyHash": "875d11e3b26cd325"
-  },
-  {
    "id": "MC1409304",
    "title": "(Updated) Microsoft Teams: Facilitator proactively detects and resolves knowledge gaps in meetings",
    "services": [
@@ -5980,33 +5895,6 @@
    "bodyHash": "ac98c583c6e14bc3"
   },
   {
-   "id": "MC1413304",
-   "title": "(Updated) Viva Engage: New Recent feed in Home",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-03",
-   "end": "2026-11-16",
-   "modified": "2026-09-11",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 11, 2026: We have updated the content. Thank you for your patience. [What and Why:] Microsoft is introducing a new Recent feed in Viva Engage Home, giving users a chronological view of content from followed communities, followed people, and priority communications. This enhancement complements the existing For you feed, which continues to provide personalized content recommendati…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 11, 2026: We have updated the content.",
-    "General Availability (Worldwide): Beginning in mid-August 2026 (previously early August); expected to complete by early October 2026 (previously late August)."
-   ],
-   "bodyHash": "b59f12168edb948f"
-  },
-  {
    "id": "MC1418035",
    "title": "Secure Boot Office Hours in July for virtualized and OEM environments",
    "services": [
@@ -6137,34 +6025,6 @@
    "bodyHash": "8cc6fbd81731bc2d"
   },
   {
-   "id": "MC1420901",
-   "title": "(Updated) Notebooks in the M365 Copilot App",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-08",
-   "end": "2026-11-16",
-   "modified": "2026-09-14",
-   "tags": [
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 14, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We’re updating the Notebooks experience in the Microsoft 365 Copilot app to help users keep project work organized across conversations. Notebooks bring chats, generated content, and reference materials together in a lightweight, persistent workspace so users can stay in context and move work for…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 14, 2026: We have updated the timeline.",
-    "General Availability Worldwide: Rollout will begin in late September 2026 (previously late August) and is expected to be complete by early October 2026 (previously early September).",
-    "We recommend that you: Inform helpdesk and support teams that licensed users may see Notebooks in the Microsoft 365 Copilot app beginning in late August 2026."
-   ],
-   "bodyHash": "3a781d134cae8500"
-  },
-  {
    "id": "MC1421755",
    "title": "Windows Office Hours: July 16, 2026",
    "services": [
@@ -6213,35 +6073,6 @@
     "Retirement completion: Surveys agent is no longer available for new users as of August 31, 2026 (removed from Agent Store) Existing users who have already acquired Surveys Agent are expected to lose access by end of December 2026."
    ],
    "bodyHash": "0d72cd007558f90a"
-  },
-  {
-   "id": "MC1422060",
-   "title": "(Updated) Microsoft Defender for Office 365: Prompt injection protection for email",
-   "services": [
-    "Microsoft Defender XDR"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-09",
-   "end": "2026-11-16",
-   "modified": "2026-09-02",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 2, 2026: We have updated the timeline. Thank you for your patience. [What and Why] We are introducing prompt injection protection for email in Microsoft Defender for Office 365 . This capability detects and blocks malicious prompt injection content embedded in email messages that attempt to manipulate AI assistants and agents. It helps protect enterprise data by identifying attac…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 2, 2026: We have updated the timeline.",
-    "Public Preview: Beginning early July 2026 and expected to complete by early September 2026.",
-    "General Availability (Worldwide): Beginning early October 2026 (previously early September) and expected to complete by early October 2026 (previously early September)."
-   ],
-   "bodyHash": "ffd5629b3a330dfa"
   },
   {
    "id": "MC1422061",
@@ -6527,33 +6358,6 @@
    "bodyHash": "fe6ccc50e6b97d4d"
   },
   {
-   "id": "MC1429017",
-   "title": "Microsoft Purview: Enhanced user profile in Insider Risk Management alerts",
-   "services": [
-    "Microsoft Purview"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-15",
-   "end": "2026-11-16",
-   "modified": "2026-07-15",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Microsoft is enhancing the user profile experience within Microsoft Purview Insider Risk Management alerts by surfacing additional user and risk-related attributes directly within the alert investigation workflow. This helps investigators access key contextual information without leaving the alert experience while maintaining privacy-by-design protections such as pseudonymization, …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Public Preview: Began late June 2026 ; expected to complete by mid-July 2026.",
-    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning early October 2026 ; expected to complete by mid-October 2026."
-   ],
-   "bodyHash": "5ac89d8aaebdc9a6"
-  },
-  {
    "id": "MC1429018",
    "title": "(Updated) Microsoft Teams: Meeting memory file generation",
    "services": [
@@ -6607,33 +6411,6 @@
     "After this date, Windows Server 2022 will transition to extended support, which includes security updates at no additional cost, and will continue to receive monthly security updates through October 14, 2031."
    ],
    "bodyHash": "55a0838d927cb65b"
-  },
-  {
-   "id": "MC1430534",
-   "title": "Microsoft Purview: Insider Risk Management - Expanding note capabilities across alerts and cases",
-   "services": [
-    "Microsoft Purview"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-17",
-   "end": "2026-11-16",
-   "modified": "2026-07-17",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Microsoft is expanding note-taking capabilities in Microsoft Purview Insider Risk Management (IRM) alerts and cases to improve investigator collaboration and auditability. Analysts and investigators will be able to add notes directly to alerts and cases, while system-generated notes will automatically capture key investigation events such as status changes and user assignments. Thi…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Public Preview: Began in late June 2026 ; expected to complete by mid-July 2026.",
-    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning in late September 20266 ; expected to complete by mid-October 2026."
-   ],
-   "bodyHash": "73b1193d3394d7e1"
   },
   {
    "id": "MC1430536",
@@ -7587,37 +7364,6 @@
    "bodyHash": "2a3849d2d51802ff"
   },
   {
-   "id": "MC1449174",
-   "title": "Microsoft Teams: Microsoft Teams live chat retirement",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": "2026-10-05",
-   "start": "2026-08-06",
-   "end": "2026-11-16",
-   "modified": "2026-08-06",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "[What and why] Microsoft Teams live chat is being retired. Starting in August 2026, new customers will no longer be able to set up Microsoft Teams live chat. Starting in October 2026, Microsoft Teams live chat will no longer be supported and will stop relaying customer chat messages from websites to Teams. This retirement allows us to focus investments on newer customer engagement and communicatio…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Starting in August 2026, new customers will no longer be able to set up Microsoft Teams live chat.",
-    "Starting in October 2026, Microsoft Teams live chat will no longer be supported and will stop relaying customer chat messages from websites to Teams.",
-    "Early August 2026 : New customers can no longer set up Microsoft Teams live chat.",
-    "Early October 2026 : Microsoft Teams live chat support ends and the service stops relaying customer chat messages.",
-    "Rollout completion is expected by mid-October 2026 .",
-    "Beginning in early August 2026, new customers will no longer be able to configure Microsoft Teams live chat."
-   ],
-   "bodyHash": "5177dfb500bda87e"
-  },
-  {
    "id": "MC1449180",
    "title": "(Updated) Microsoft Purview: Data Loss Prevention and auto-labeling support for non-Microsoft applications",
    "services": [
@@ -8083,33 +7829,6 @@
    "bodyHash": "071082ca5ca5e3e0"
   },
   {
-   "id": "MC1454996",
-   "title": "(Updated) Copilot Chat can float over your Outlook iPad and Mac window",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-14",
-   "end": "2026-11-16",
-   "modified": "2026-09-11",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 11, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We are introducing the ability to pop out Copilot Chat into a separate floating window in Outlook for Mac and iPad. This enhancement gives users greater flexibility when working with Copilot Chat alongside Outlook, making it easier to switch contexts, manage email, and access Outlook controls whi…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 11, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Rollout begins in late August 2026 (previously mid-August) and is expected to complete by mid-October 2026 (previously mid-September)."
-   ],
-   "bodyHash": "dbff5fd722fb23df"
-  },
-  {
    "id": "MC1455013",
    "title": "(Updated) Microsoft Purview: Data Lifecycle Management- Azure PST Import",
    "services": [
@@ -8561,34 +8280,6 @@
    "bodyHash": "adc4a9b8bc24526a"
   },
   {
-   "id": "MC1458484",
-   "title": "Filter Messages by Events on Outlook Mobile",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-21",
-   "end": "2026-11-16",
-   "modified": "2026-10-21",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and why:] We're introducing a new Events message filter in Outlook that helps users quickly find calendar invitations and event-related messages in their mailbox. Users can select Events from the filter drop-down menu to view meeting invitations and related event communications in one place. This update helps users more easily locate meeting requests, stay organized, and respond to invitatio…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Rollout will begin in late August 2026 and is expected to complete by late September 2026.",
-    "General Availability (GCC): Rollout will begin in late August 2026 and is expected to complete by late September 2026.",
-    "General Availability (GCC High): Rollout will begin in late August 2026 and is expected to complete by late September 2026."
-   ],
-   "bodyHash": "b837650cea1fb5ca"
-  },
-  {
    "id": "MC1458947",
    "title": "Preparing the Windows ecosystem for next-generation code signing",
    "services": [
@@ -8809,34 +8500,6 @@
     "Skill and ribbon button in PowerPoint for Windows, Mac and web: rollout will start in mid-October 2026 and is expected to complete by end of October 2026."
    ],
    "bodyHash": "60244b2a9408edad"
-  },
-  {
-   "id": "MC1461153",
-   "title": "(Updated) Microsoft Teams: Add multiple steps when building a workflow from scratch",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-24",
-   "end": "2026-11-16",
-   "modified": "2026-09-15",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 15, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Users will soon be able to build richer, end-to-end automations in Workflows for Microsoft Teams by adding multiple actions within a single workflow. Instead of creating and managing separate workflows for individual tasks, users can design automated processes that perform several actions in sequ…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 15, 2026: We have updated the timeline.",
-    "Targeted Release (Worldwide): Rollout will begin in early September 2026 and is expected to complete by early September 2026.",
-    "General Availability (Worldwide): Rollout will begin in early September 2026 and is expected to complete by early October 2026 (previously mid-September)."
-   ],
-   "bodyHash": "86c2bd820362d98e"
   },
   {
    "id": "MC1461154",
@@ -9850,34 +9513,6 @@
     "General Availability (Worldwide): Beginning early October 2026 and expected to complete by late November 2026 (previously late October)."
    ],
    "bodyHash": "c1288cbffdfebbf3"
-  },
-  {
-   "id": "MC1466751",
-   "title": "(Updated) Microsoft Teams: Lobby visibility will align with the \"Who can admit from lobby\" meeting option",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-03",
-   "end": "2026-11-16",
-   "modified": "2026-09-09",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 9, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're updating the Microsoft Teams meeting lobby experience to improve privacy and align lobby visibility with existing meeting controls. Today, the Who can admit from lobby option determines which meeting roles can admit people from the lobby, but it does not control who can see participants waiti…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 9, 2026: We have updated the timeline.",
-    "General Availability (Worldwide, GCC): Beginning in early September 2026 and expected to complete by early October 2026 (previously mid-September)."
-   ],
-   "bodyHash": "f490da04a6462737"
   },
   {
    "id": "MC1466753",
@@ -12012,33 +11647,6 @@
     "Opt out before October 25, 2026, if desired."
    ],
    "bodyHash": "c9dfe50fd33609d1"
-  },
-  {
-   "id": "MC1478467",
-   "title": "Microsoft Purview | Data Loss Prevention: Admin-configurable compliance URL in M365 Copilot data access messages",
-   "services": [
-    "Microsoft Purview"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-24",
-   "end": "2026-11-16",
-   "modified": "2026-09-24",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and Why:] We are introducing a new Microsoft Purview Data Loss Prevention (DLP) capability that allows administrators to configure the destination URL for the Learn about access restrictions link displayed in Microsoft 365 Copilot data access messages . This enhancement enables organizations to direct users to internal compliance guidance, data governance resources, or support content that i…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Beginning in late September 2026 and expected to complete by late September 2026.",
-    "General Availability (GCC, GCC High, DoD): Beginning in late September 2026 and expected to complete by mid-October 2026."
-   ],
-   "bodyHash": "43b0d4cdd975d9ec"
   },
   {
    "id": "MC1478819",
@@ -15030,32 +14638,6 @@
     "General Availability (Worldwide): Beginning in early December 2026 (previously early November) and expected to complete by mid-December 2026 (previously mid-November)."
    ],
    "bodyHash": "80ce2f8b60c3fdd1"
-  },
-  {
-   "id": "MC1509803",
-   "title": "Microsoft PowerPoint: Publish and unpublish controls for official brand kits",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-15",
-   "end": "2026-11-16",
-   "modified": "2026-10-15",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] We're introducing publish and unpublish controls for Official Brand Kits in Microsoft PowerPoint. This update gives Brand Managers greater control over the lifecycle and availability of brand assets within their organization. With these new controls, Brand Managers can temporarily remove a Brand Kit from end user access without deleting it or changing editor permissions. When the Br…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Beginning in mid-October 2026 and expected to complete in mid-October 2026."
-   ],
-   "bodyHash": "5dc023671b6838b3"
   },
   {
    "id": "MC1510951",
@@ -19368,34 +18950,6 @@
     "We will not provide APIs for programmatically creating, reading, updating and deleting public folders after October 2026 (also see Security Related Updates in Exchange Online )."
    ],
    "bodyHash": "2c5c0f4a4c03d9a5"
-  },
-  {
-   "id": "MC688109",
-   "title": "(Updated) Co-organizer experience updates in Teams Webinars and Townhalls",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2023-11-08",
-   "end": "2026-11-16",
-   "modified": "2026-09-02",
-   "tags": [
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 2, 2026: We have updated the timeline. Thank you for your patience. Scheduling, setting up, and managing an event is not a simple task. Which is why we allow co-organizer to be added to the event so they can work alongside or on behalf of the organizer. So far co-organizers were able to set up event theming, manage registration, meeting options, view reports and more but were not…",
-   "when": "Targeted release: We will begin rolling out mid-January 2025 (previously early January) and expect to complete by mid-January 2025 (previously mid-December). General Availability (Worldwide, GCC): We will begin rolling out mid-June 2026 (previously early March) and expect to complete by early October 2026 (previously end of August). The co-organizer experience update will go live with the GA of the Teams Events app (MC1227087). Both existing flow…",
-   "prepare": "Nothing required to prepare.",
-   "dates": [
-    "Updated September 2, 2026: We have updated the timeline.",
-    "Targeted release: We will begin rolling out mid-January 2025 (previously early January) and expect to complete by mid-January 2025 (previously mid-December).",
-    "General Availability (Worldwide, GCC): We will begin rolling out mid-June 2026 (previously early March) and expect to complete by early October 2026 (previously end of August)."
-   ],
-   "bodyHash": "6c00864a5faabb1c"
   },
   {
    "id": "MC716267",
@@ -24982,6 +24536,118 @@
    "id": "MC1509121",
    "type": "removed",
    "title": "Choose the data sources AI-powered Data Enrichment uses, including CRM notes",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1218713",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Organization evaluation score for apps and agents",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1388706",
+   "type": "removed",
+   "title": "(Updated) Microsoft 365 Copilot: Legal agent available in Frontier worldwide",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1409042",
+   "type": "removed",
+   "title": "(Updated) Microsoft OneNote: Copilot notebook available in OneNote on Mac",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1413304",
+   "type": "removed",
+   "title": "(Updated) Viva Engage: New Recent feed in Home",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1420901",
+   "type": "removed",
+   "title": "(Updated) Notebooks in the M365 Copilot App",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1422060",
+   "type": "removed",
+   "title": "(Updated) Microsoft Defender for Office 365: Prompt injection protection for email",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1429017",
+   "type": "removed",
+   "title": "Microsoft Purview: Enhanced user profile in Insider Risk Management alerts",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1430534",
+   "type": "removed",
+   "title": "Microsoft Purview: Insider Risk Management - Expanding note capabilities across alerts and cases",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1449174",
+   "type": "removed",
+   "title": "Microsoft Teams: Microsoft Teams live chat retirement",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1454996",
+   "type": "removed",
+   "title": "(Updated) Copilot Chat can float over your Outlook iPad and Mac window",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1458484",
+   "type": "removed",
+   "title": "Filter Messages by Events on Outlook Mobile",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1461153",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Add multiple steps when building a workflow from scratch",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1466751",
+   "type": "removed",
+   "title": "(Updated) Microsoft Teams: Lobby visibility will align with the \"Who can admit from lobby\" meeting option",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1478467",
+   "type": "removed",
+   "title": "Microsoft Purview | Data Loss Prevention: Admin-configurable compliance URL in M365 Copilot data access messages",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC1509803",
+   "type": "removed",
+   "title": "Microsoft PowerPoint: Publish and unpublish controls for official brand kits",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-16",
+   "id": "MC688109",
+   "type": "removed",
+   "title": "(Updated) Co-organizer experience updates in Teams Webinars and Townhalls",
    "fields": {}
   }
  ]

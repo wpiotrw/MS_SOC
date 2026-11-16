@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-16T01:02Z",
+ "updated": "2026-11-16T11:07Z",
  "baseline": "2026-10-10T08:35Z",
- "lastRead": "2026-11-16T01:02Z",
+ "lastRead": "2026-11-16T11:07Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
@@ -9,9 +9,20 @@
   "application": 788,
   "delegated": 876,
   "rsc": 60,
-  "roles": 149
+  "roles": 148
  },
  "events": [
+  {
+   "seen": "2026-11-16T11:07Z",
+   "day": "2026-11-16",
+   "surface": "role",
+   "name": "B2B Policy Administrator",
+   "change": "removed",
+   "type": "",
+   "before": "0 actions",
+   "after": null,
+   "text": ""
+  },
   {
    "seen": "2026-11-14T20:00Z",
    "day": "2026-11-14",
