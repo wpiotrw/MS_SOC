@@ -55,16 +55,14 @@ item_type: Content
 source_path: agent365-docs/admin/manage-byo-mcp-server.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/302444b9-4a43-4841-8014-3d9e4251ff15
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/bebd8809-dac1-4c22-83e2-66d98af8a94d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 platformId: e7e46de8-8003-24d7-98a1-d232cf6ddb9c
 ---
 
 # Bring your own (BYO) MCP server in Microsoft 365 admin center | Microsoft Learn
 
-The Bring Your Own (BYO) MCP server feature enables organizations to register their own remote Model Context Protocol (MCP) servers with Microsoft Agent 365 for centralized governance and observability.
+By using the Bring Your Own (BYO) MCP server feature, your organization can register its own remote Model Context Protocol (MCP) servers with Microsoft Agent 365 for centralized governance and observability.
 
 Important
 
@@ -80,6 +78,8 @@ Supported client surfaces during preview are Copilot Studio, Visual Studio Code,
 ## How a BYO MCP server works
 
 A BYO MCP server follows this developer-to-admin flow so that remote MCP servers are reviewed and governed before agents can access them:
+
+Registration and approval in this flow apply to the MCP server, not to a whole plugin package. They don't automatically approve agents or plugins that use the server. Don't assume these controls apply across all products or connected components.
 
 1. **A developer registers the server** through the Agent 365 CLI and provides the server URL, authentication type, and tools to expose. For more information, see Register a remote MCP server.
 2. **An IT admin reviews the request** in the Microsoft 365 admin center and approves or rejects it. After approval, the admin grants the required Microsoft Entra permissions for the server. For more information, see [Review and approve MCP requests](manage-plugins-skills-mcp-servers#review-and-approve-mcp-requests).
@@ -110,9 +110,9 @@ Complete the following tasks:
 
 ### Developer prerequisites
 
-Before registering a remote MCP server, make sure:
+Before registering a remote MCP server, ensure that you:
 
-- You have installed the Agent 365 CLI version 1.1.165-preview or later.
+- Installed the Agent 365 CLI version 1.1.165-preview or later.
 - The Agent 365 service principal is provisioned in your tenant. If you can't find the service principal associated with app ID `ea9ffc3e-8a23-4a7d-836d-234d7c7565c1`, provision it by using the following resources:
 
     - [Set up the service principal](../developer/tooling#set-up-service-principal).
@@ -138,7 +138,7 @@ Choose one of the following methods to register your MCP server with Agent 365:
 
 Important
 
-The examples in this section use *zava.com* as a fictional domain and generic server and tool names for illustration. Replace these values with your actual server URL, name, and tool identifiers.
+The following examples use *zava.com* as a fictional domain and generic server and tool names for illustration. Replace these values with your actual server URL, name, and tool identifiers.
 
 The following examples show how to register an MCP server by using the Agent 365 CLI with different authentication types.
 
@@ -347,9 +347,9 @@ After successful registration, submit the MCP server for admin review in the Mic
 
 ## Evaluate MCP servers
 
-You can evaluate the quality of your MCP tool definitions with the [`a365 develop-mcp evaluate`](../developer/reference/cli/develop-mcp#develop-mcp-evaluate) command. This command inspects your server's tool schemas and generates a report with actionable guidance for improving tool names, descriptions, and parameter schemas.
+You can evaluate the quality of your MCP tool definitions by using the [`a365 develop-mcp evaluate`](../developer/reference/cli/develop-mcp#develop-mcp-evaluate) command. This command inspects your server's tool schemas and generates a report with actionable guidance for improving tool names, descriptions, and parameter schemas.
 
-The semantic checks are scored by a coding agent CLI (GitHub Copilot CLI or Claude Code) that runs *locally on your machine*, under your own account and AI subscription. This command doesn't send tool-schema data to Microsoft.
+The coding agent CLI (GitHub Copilot CLI or Claude Code) that runs *locally on your machine*, under your own account and AI subscription, scores the semantic checks. This command doesn't send tool-schema data to Microsoft.
 
 Important
 
@@ -360,10 +360,10 @@ You don't need an admin role to run the evaluation. It runs locally against the 
 ### Prerequisites
 
 - Install the [Agent 365 CLI](../developer/agent-365-cli#install-the-agent-365-cli).
-- For semantic (AI) scoring, one locally installed coding agent CLI:
-    - **GitHub Copilot CLI**: Install with `npm install -g @github/copilot` (Node.js 18 or later). This is the standalone `copilot` binary, not the `gh copilot` GitHub CLI extension.
+- For semantic (AI) scoring, install one coding agent CLI locally:
+    - **GitHub Copilot CLI**: Install with `npm install -g @github/copilot` (Node.js 18 or later). This CLI is the standalone `copilot` binary, not the `gh copilot` GitHub CLI extension.
     - **Claude Code**: Install with `npm install -g @anthropic-ai/claude-code`, or follow [Claude Code install](https://docs.claude.com/claude-code).
-- If neither agent is installed, the command still runs the deterministic checks and writes the checklist, then stops so you can score the semantic checks with your own LLM (bring-your-own-LLM). Pass `--eval-engine none` to skip agent probing entirely.
+- If you don't install either agent, the command still runs the deterministic checks and writes the checklist, then stops so you can score the semantic checks with your own LLM (bring-your-own-LLM). Pass `--eval-engine none` to skip agent probing entirely.
 
 ### How the evaluation works
 
@@ -373,16 +373,16 @@ The command runs a five-step pipeline and logs progress as shown in the followin
 | --- | --- |
 | 1. Discover tools | Connects to the MCP server, calls `tools/list`, and captures each tool's schema. |
 | 2. Generate checklist | Writes `<server-name>_checklist.json` to the output directory. |
-| 3. Run semantic evaluation | Hands the checklist to the selected coding agent for scoring. Skipped when `--eval-engine none` or no agent is available. |
+| 3. Run semantic evaluation | Hands the checklist to the selected coding agent for scoring. Skips when you specify `--eval-engine none` or no agent is available. |
 | 4. Analyze | Aggregates per-tool and overall scores and determines the maturity level. |
 | 5. Write reports | Produces `<server-name>_eval_report.html` and `<server-name>_eval_report.json`. |
 
 Each check is one of two types:
 
-- **Deterministic**: Rule-based logic in the CLI; pass or fail is exact and needs no AI (for example, "tool name isn't empty").
+- **Deterministic**: Rule-based logic in the CLI; pass or fail is exact and doesn't need AI (for example, "tool name isn't empty").
 - **Semantic**: Scored by the coding agent, with a `reason` string explaining the judgment.
 
-The run is idempotent. Re-running the same command reuses an existing `<server-name>_checklist.json` and skips server discovery, which is how the bring-your-own-LLM round trip works: score the checklist yourself, then rerun to resume. Delete the checklist file to force a fresh discovery after you change your tool schemas.
+The run is idempotent. Re-running the same command reuses an existing `<server-name>_checklist.json` and skips server discovery. This process supports the bring-your-own-LLM round trip: score the checklist yourself, then rerun to resume. Delete the checklist file to force a fresh discovery after you change your tool schemas.
 
 ### Examples
 
@@ -451,10 +451,10 @@ The following table summarizes the key governance controls:
 | Control | Description |
 | --- | --- |
 | Approval or rejection | An admin approves or rejects each BYO MCP server before it can be used. |
-| Server-level block | An admin can block approved servers at any time. Runtime enforcement prevents agents from invoking blocked servers. |
-| Tool-level block | An admin can allow or block individual tools within a BYO server instead of the whole server. This capability is rolling out for supported MCP servers registered on Agent 365. Support for BYO MCP servers is planned for a future release. For more information, see [Manage individual tools within an MCP server](manage-plugins-skills-mcp-servers#manage-individual-tools-within-an-mcp-server). |
+| Server-level block | An admin can block an approved server. The Agent 365 Tooling Gateway prevents supported clients from invoking the blocked server through the gateway. |
+| Tool-level block | Individual tool blocking for BYO MCP servers is planned for a future release. Tool-level controls are rolling out for other supported MCP server types registered on Agent 365. For more information, see [Manage individual tools within an MCP server](manage-plugins-skills-mcp-servers#manage-individual-tools-within-an-mcp-server). |
 | Tools snapshot | An admin can view the tools declared by each MCP server. |
-| Runtime enforcement | Blocked MCP servers can't be invoked at runtime across any client surface. |
+| Runtime enforcement | The Agent 365 Tooling Gateway enforces server blocking for invocations routed through the gateway from supported clients. Don't assume blocking prevents direct access to the underlying server endpoint. |
 | Delete | An admin can delete a registered BYO MCP server that's no longer needed. For more information, see Delete a BYO MCP server. |
 
 ## Use an approved MCP server
@@ -488,7 +488,7 @@ Work IQ MCP provides tenant-level policy controls that help administrators gover
 
 ## Monitor and observe MCP server activity
 
-Use [Microsoft Defender advanced hunting](/en-us/defender-xdr/advanced-hunting-overview) to track and analyze MCP server invocations. This process shows which agents invoke which MCP servers, when the invocations occur, and other metadata that can help you detect unusual or unauthorized usage.
+Use [Microsoft Defender advanced hunting](/en-us/defender-xdr/advanced-hunting-overview) to track and analyze MCP server invocations routed through the Agent 365 Tooling Gateway. This process shows which agents invoke which MCP servers, when the invocations occur, and other metadata that can help you detect unusual or unauthorized usage. This telemetry doesn't provide complete monitoring coverage for every plugin or every component in a plugin package.
 
 The following KQL query provides a sample for Defender advanced hunting:
 
@@ -502,7 +502,7 @@ This query returns details including agent name, MCP server name, and invocation
 
 ## Delete a BYO MCP server
 
-You can delete a registered BYO MCP server from the Microsoft 365 admin center when it's no longer needed. Deleting a server removes it from the registry, and agents can no longer invoke it.
+You can delete a registered BYO MCP server from the Microsoft 365 admin center when it's no longer needed. Deleting the registration removes the server from the registry, and agents can no longer invoke it through the Agent 365 Tooling Gateway. Don't treat deletion of the registration as shutting down the remote service, revoking its credentials, or preventing direct access to its endpoint.
 
 To delete a BYO MCP server, follow these steps:
 

@@ -35,12 +35,12 @@ item_type: Content
 source_path: virtual-desktop/deploy/session-hosts/ephemeral-os-disks.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/2ed91286-6cf7-4b83-810d-75d0ee3b09dd
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/6735bd7e-4f7b-457d-b58c-29e6f0198677
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 8a56bb74-9e32-6bd2-2409-a0e8732767f0
 ---
 
@@ -105,7 +105,7 @@ To configure a session host with ephemeral OS disks using the Azure portal:
 | **Resource group** | Select an existing resource group, or select **Create new** and enter a name. |
 | **Host pool name** | Enter a name for the host pool, such as **hp01**. |
 | **Location** | Select the Azure region where you want to create your host pool. |
-| **Deployment scope** | Select Regional to store the host pool's metadata in a regional database within the Azure region you selected for Location, or Geographical to store it in the geographical database serving that region. Geographical is the default. This option only appears when the region you select for Location supports regional host pools. Deployment scope can't be changed after the host pool is created. |
+| **Deployment scope** | Select Regional to store the host pool's metadata in a regional database within the Azure region you selected for Location, or Geographical to store it in the geographical database serving that region. Deployment scope can't be changed after the host pool is created. |
 | **Validation environment** | Select **Yes** to create a host pool that is used as a [validation environment](../../configure-validation-environment).Select **No** (*default*) to create a host pool that isn't used as a validation environment. |
 | **Preferred app group type** | Select the [preferred application group type](../../terminology#application-groups) for this host pool: **Desktop** or **RemoteApp**. A desktop application group is created automatically when you use the Azure portal. |
 | **Host pool type** | Select **Pooled**. Pooled is the only host pool type supported with session host configuration and ephemeral OS disks. |

@@ -67,6 +67,8 @@ platformId: 501986be-05a9-6909-026d-0f1ffe0a0bbc
 
 The Microsoft 365 admin center provides governance and lifecycle management capabilities for agents through the [Agent Registry](agent-registry-overview). These capabilities enable administrators to manage agent visibility, access, distribution, and retirement across the tenant.
 
+These actions apply to the selected agent. If the agent is included in a plugin, don't assume the action also applies to the whole plugin package, its skills, shared MCP servers, or connections. Agent approval or blocking doesn't necessarily grant or revoke connected-service permissions or credentials. To manage plugins, skills, and MCP servers, use [**Agents** &gt; **Tools**](manage-plugins-skills-mcp-servers).
+
 ## Agent actions
 
 Note
@@ -75,7 +77,7 @@ Microsoft 365 for government Community Cloud High (GCCH) and Government Communit
 
 | Agent actions | Description |
 | --- | --- |
-| **Install and uninstall** | Install an agent for users so it's ready to use without manual installation by end users. Admin can uninstall a previously installed agent. |
+| **Install and uninstall** | Install an agent for users without requiring manual installation by end users. Users might still need to sign in or configure connections, depending on the agent and its connected services. Admin can uninstall a previously installed agent. |
 | **Activate** | Activate an agent and allow only selected users or groups to create instances of it. |
 | **Block and unblock** | Restrict access to an agent across the organization, preventing any user from using it. |
 | **Delete, restore, and permanently delete** | Delete an agent with a 30-day recovery window, restore a deleted agent, or permanently delete it before the recovery window ends. |

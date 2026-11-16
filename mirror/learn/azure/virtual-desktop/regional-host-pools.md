@@ -36,11 +36,9 @@ source_path: virtual-desktop/regional-host-pools.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/2ed91286-6cf7-4b83-810d-75d0ee3b09dd
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/6735bd7e-4f7b-457d-b58c-29e6f0198677
 platformId: 19fa899a-05f8-7a5d-6903-3cc01836a253
 ---
 
@@ -58,11 +56,23 @@ Errors and checkpoints are not being reported into Log Analytics for regional se
 
 ### What are the benefits of Regional host pools?
 
-The main benefits of the new regional host pools are the increased resiliency inherent in the underlying infrastructure architecture. As well as the control provided allowing you to define your data sovereignty requirements by aligning your host pool metadata with each of the Azure regions supported. We strongly recommend that when this service becomes generally available that you create all new host pools as regional host pools to take full advantage of these benefits. As well as consider transitioning your existing geographical host pools over to regional.
+The main benefits of the new regional host pools are the increased resiliency inherent in the underlying infrastructure architecture. As well as the control provided allowing you to define your data sovereignty requirements by aligning your host pool metadata with each of the Azure regions supported. **We strongly recommend that when this service becomes generally available** **in the regions you require, that you create all new host pools as regional host pools to take full advantage of these benefits**. As well as consider transitioning your existing geographical host pools over to regional.
 
 ### Where can you use Regional host pools?
 
-Two regions are currently supported: East US 2 and Central US. When this service reaches general availability, it commences a gradual rolling deployment across multiple Azure regions. See [Data Locations for Azure Virtual Desktop](/en-us/azure/virtual-desktop/data-locations) for available regions supporting Regional databases.
+Regional host pools are available in Azure regions where Azure Virtual Desktop regional infrastructure has been deployed. Regional availability is expanding in phases.
+
+The deployment scopes available when you create a host pool depend on the Azure region you select for the host pool location:
+
+- If both Regional and Geographical are available, select the deployment scope you want to use.
+- If only Regional is available, Regional is selected automatically.
+- If only Geographical is available, Geographical is selected automatically.
+
+See [Data Locations for Azure Virtual Desktop](/en-us/azure/virtual-desktop/data-locations) for available regions supporting Regional databases.
+
+### Existing geographical host pools
+
+Existing host pools aren't affected as more Azure regions begin supporting Regional deployment. Azure Virtual Desktop is working toward transitioning existing geographical host pool metadata to regional infrastructure. More information about availability and the transition process will be provided as the capability rolls out.
 
 ### Limitations of Regional host pools
 
@@ -74,15 +84,15 @@ As the metadata for new regional host pools exists within a separate set of infr
 
 The new DeploymentScope parameter has been added to the [5.4.5-preview version of the Az.DesktopVirtualization module](https://powershellgallery.com/packages/Az.DesktopVirtualization/5.4.5-preview). Once installed you just need to add the -DeploymentScope parameter to your PowerShell commands. When creating a new regional host pool your command would include:
 
-`New-AzWvdHostPool -DeploymentScope Regional....`
+`New-AzWvdHostPool -DeploymentScope Regional...`
 
 If you're deploying a normal geographical host pool use the value of Geographical in place of Regional. This parameter isn't required, so if this is not set the deployment defaults to Geographical.
 
 ##### Azure portal
 
-There's only one new step required to create a new regional host pool. A new field called Deployment Scope (Preview) has been introduced. This parameter controls whether the Azure Virtual Desktop objects being created are geographical or regional. This drop-down box has two options: geographical or regional. Selecting geographical will create existing geographical host pools. Selecting regional creates new regional host pools. This dropdown box is only active if you have selected an Azure region that also has the new regional infrastructure present, currently only East US 2, and Central US during preview.
+There's only one new step required to create a new regional host pool. A new field called Deployment Scope has been introduced. This parameter controls whether the Azure Virtual Desktop objects being created are geographical or regional. This drop-down box has two options: regional (recommended) and geographical (not recommended). Selecting geographical will create existing geographical host pools. Selecting regional creates new regional host pools.
 
-![Screenshot of regional host pools setting in the Intune portal.](media/regional-host-pools/image.png)
+![Screenshot of regional host pools setting in the Intune portal.](media/regional-host-pools/regional-host-pools-deployment-scope.png)
 
 To create a regional host pool using the Azure portal:
 
@@ -96,8 +106,8 @@ To create a regional host pool using the Azure portal:
 | **Subscription** | In the dropdown list, select the subscription where you want to create the host pool. |
 | **Resource group** | Select an existing resource group, or select **Create new** and enter a name. |
 | **Host pool name** | Enter a name for the host pool, such as **hp01**. |
-| **Location** | Select the Azure region where you want to create your host pool. During the preview only East US 2 and Central US support regional host pools. Select either of these regions. When selecting any other region the Deployment Scope field is not shown. |
-| **Deployment scope** | Select Regional to create a regional host pool. This drop-down box is only active when selecting either East US 2 or Central US. Selecting geographical will result in a normal geographical host pool. |
+| **Location** | Select the Azure region where you want to create your host pool. |
+| **Deployment scope** | Select Regional to create a regional host pool. |
 | **Validation environment** | Select whether you want this host pool to be a validation host pool or not. |
 | **Preferred app group type** | Select the [preferred application group type](terminology#application-groups) for this host pool: **Desktop** or **RemoteApp**. A desktop application group is created automatically when you use the Azure portal. |
 | **Host pool type** | Select whether you want your host pool to be **Pooled** or **Personal**.If you select **Pooled**, two new options appear for **Load balancing algorithm** and **Max session limit**.<br><br>Expand this section for the pooled options.<br>- For **Load balancing algorithm**, choose either **breadth-first** or **depth-first**, based on your usage pattern.- For **Max session limit**, enter the maximum number of users that you want load-balanced to a single session host. For more information, see [Host pool load-balancing algorithms](host-pool-load-balancing).<br>If you select **Personal**, two new options appear for **Assignment type** and **Assign multiple desktops to a single user**.<br><br>Expand this section for the personal options.<br>For **Assignment type**, select **Automatic** for the service to assign any personal desktop not already assigned to a user, or select **Direct** to assign a specific personal desktop to a user. With the **Direct** assignment type you can also check the box to **Assign multiple desktops to a single user**. For more information, see [Assign multiple personal desktops to a single user](configure-host-pool-personal-desktop-assignment-type#assign-multiple-personal-desktops-to-a-single-user). |

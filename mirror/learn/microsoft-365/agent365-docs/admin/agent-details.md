@@ -396,6 +396,8 @@ You can export the **Active users** table to a CSV file. The table also supports
 
 These signals let you monitor adoption, measure impact, and identify agents that need your attention. Agents that need your attention might include high exception rates, low active-users counts, and long run-times. Activity metrics currently support Microsoft Copilot Agent Builder, SharePoint, and Microsoft 365 Agents Toolkit agent types.
 
+These metrics describe usage of the selected agent for the supported agent types and surfaces. They don't provide monitoring coverage for every plugin or every component in a plugin package.
+
 Important
 
 Agent activity metrics in Agent 365 might not match the metrics in the Microsoft 365 Copilot Agents usage report because the two experiences measure usage across different surfaces:

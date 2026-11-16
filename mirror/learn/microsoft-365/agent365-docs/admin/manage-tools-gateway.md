@@ -68,6 +68,8 @@ platformId: 82e398ed-872d-3124-af2b-cb9518ab0ea3
 
 Connect Azure AI Gateway or a LiteLLM gateway to Microsoft Agent 365 to discover and govern the Model Context Protocol (MCP) servers registered with the gateway. Agent 365 brings the registered MCP servers into the Tools experience, where administrators can review and govern them, monitor MCP server activity, and configure supported security protections for MCP tool calls.
 
+Gateway discovery and governance apply to MCP servers registered with the connected gateway and supported by the integration. Don't assume the gateway covers every MCP integration or calls made outside that gateway.
+
 Agent 365 currently supports Azure AI Gateway and LiteLLM. Each gateway requires its own connection and configuration process.
 
 Use the section for your gateway to complete the connection and protection configuration. Then use the shared discovery and governance steps:

@@ -19,7 +19,7 @@ f1.keywords:
 ms.author: mkaur
 author: mduelae
 manager: tapanm
-ms.date: 2026-10-14T00:00:00.0000000Z
+ms.date: 2026-11-06T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: how-to
@@ -66,7 +66,7 @@ platformId: 3ace7e56-441d-f3f6-6cf1-e3df613dd436
 
 # Manage plugins, skills, and MCP servers in Microsoft 365 admin center | Microsoft Learn
 
-Plugins are packaged integrations that extend agents with reusable capabilities, including skills, Model Context Protocol (MCP) servers, and connectors. Skills provide reusable instructions or workflows that help agents perform tasks consistently. For definitions of these and other tool types, see [Key concepts](agent-tools-overview#key-concepts) in the Agent Tools overview.
+[Plugins](/en-us/plugins) are packaged integrations that extend agents with reusable capabilities, including skills, Model Context Protocol (MCP) servers, and connectors. Skills provide reusable instructions or workflows that help agents perform tasks consistently. For definitions of these and other tool types, see [Key concepts](agent-tools-overview#key-concepts) in the Agent Tools overview.
 
 This article explains how to upload, install, uninstall, and delete plugins and skills; manage plugin availability; review access requests; and govern MCP servers in the [Microsoft 365 admin center](https://admin.microsoft.com/).
 
@@ -85,11 +85,11 @@ To manage plugin availability at the organization level, follow these steps:
 3. Under the installation settings, choose which publisher categories users can access: **Microsoft**, **your organization**, or **certified external publishers**.
 4. Select a category to allow users to discover and install plugins from that publisher type.
 
-If a category isn't selected, affected plugins remain discoverable but display the message: "This plugin is blocked by your organization's policy."
+If you don't select a category, affected plugins remain discoverable but display the message: "This plugin is blocked by your organization's policy."
 
 ## Manage plugin availability for users
 
-Administrators can control who can use an individual plugin in the Microsoft 365 admin center.
+Administrators can control who can use an individual plugin in the Microsoft 365 admin center. These availability settings apply to the selected plugin package, not to separate assignments for each included skill, agent, MCP server, or connection.
 
 To manage plugin availability for users, follow these steps:
 
@@ -106,7 +106,7 @@ To manage plugin availability for users, follow these steps:
 
 If a plugin is restricted by organization-level availability settings or by its user availability configuration, users can still discover the plugin in the Copilot channel. The plugin appears as blocked by organizational policy, and eligible users can select **Request access**.
 
-The request is sent to the Microsoft 365 admin center, where an administrator can review the request and either approve or reject it.
+The request is sent to the Microsoft 365 admin center, where an administrator can review the request and either approve or reject it. Approval grants access to the requested plugin; it doesn't replace permissions or connection setup required by its connected services.
 
 To review a plugin access request, follow these steps:
 
@@ -118,7 +118,7 @@ To review a plugin access request, follow these steps:
 
 ## Upload plugins or skills
 
-You can upload your own plugins or skills to make them available for agents in your organization through the Microsoft 365 admin center.
+You can upload your own plugins or skills to make them available for agents in your organization through the Microsoft 365 admin center. User scoping and installation in this flow apply to the uploaded plugin or standalone skill package, not to each listed component separately.
 
 Before you can upload a plugin or a skill, a developer needs to package it into a manifest file. For more information about creating a manifest file, see [Cowork plugin development](/en-us/microsoft-365/copilot/cowork/cowork-plugin-development).
 
@@ -146,16 +146,18 @@ Managing a skill uses the same actions and steps as managing a plugin, so this s
 
 ### Tool actions
 
-| Tool actions | Description |
-| --- | --- |
-| **Install and uninstall** | Install a plugin or skill for users so that it's ready to use without manual installation by end users. You can uninstall a previously installed plugin or skill. |
-| **Manage user availability** | Make a plugin or skill available to all users, no users, or specific users and groups. |
-| **Delete** | Delete a plugin or skill package that was uploaded to your tenant. Deleting isn't available for plugins or skills that come from the Microsoft 365 Store. |
-| **Block** | Block a plugin or skill across your organization to prevent users and agents from accessing it. |
+| Tool actions | Scope | Description |
+| --- | --- | --- |
+| **Install and uninstall** | Selected plugin or standalone skill package. | Install the package for users without requiring manual installation by end users, or uninstall a previously installed package. |
+| **Manage user availability** | Selected plugin or standalone skill package. | Make the package available to all users, no users, or specific users and groups. |
+| **Delete** | Selected tenant-uploaded plugin or standalone skill package. | Delete the uploaded package. Deleting isn't available for plugins or skills that come from the Microsoft 365 Store. |
+| **Block** | Selected plugin package and its included agents, or selected standalone skill package. | Prevent users and agents from accessing the package. Shared MCP servers and connectors can remain available to other plugins. |
+
+These package-level actions aren't separate controls for each included component. Users might still need to sign in, grant consent, or configure a service connection after installation, depending on the component and product. Don't treat package approval or blocking as granting or revoking connected-service permissions or credentials. Copilot Studio and Power Platform can have separate controls for their components and connections.
 
 Note
 
-Delete applies only to plugins and skills that were uploaded to your tenant. User availability settings apply to any plugin or skill, whether it was uploaded or made available from the Microsoft 365 Store. To restrict access by user or publisher category, see Manage plugin availability for users or Manage plugin availability at the organization level.
+Delete applies only to plugins and skills that you uploaded to your tenant. User availability settings apply to any plugin or skill, whether you uploaded it or made it available from the Microsoft 365 Store. To restrict access by user or publisher category, see Manage plugin availability for users or Manage plugin availability at the organization level.
 
 ### Install a plugin or skill
 
@@ -174,7 +176,7 @@ To install a plugin or skill so that it's available, follow these steps:
 
 ### Uninstall a plugin or skill
 
-Uninstall a plugin or skill to remove it from the environment. It isn't available to agents unless you install it again.
+Uninstall a plugin or skill to remove it from the environment. Agents can't access it unless you install it again.
 
 To uninstall a plugin or skill so that it's unavailable, follow these steps:
 
@@ -189,7 +191,7 @@ To uninstall a plugin or skill so that it's unavailable, follow these steps:
 
 ### Delete a plugin or skill
 
-You can delete a previously uploaded plugin or skill package across your entire organization by using the Microsoft 365 admin center. When you delete it, agents can no longer use it and it's removed from the registry.
+You can delete a previously uploaded plugin or skill package across your entire organization by using the Microsoft 365 admin center. When you delete it, agents can't use it anymore and it's removed from the registry.
 
 To delete a plugin or skill, follow these steps:
 
@@ -211,7 +213,7 @@ To block a plugin or skill, follow these steps:
 
 Note
 
-Blocking a plugin prevents users from accessing the plugin and any agents that depend on it. Associated MCP servers and connectors remain available to other plugins. Blocking an MCP server also blocks dependent plugins and linked connectors. Blocking a plugin package blocks its included agents because they share the same governance controls. Unblocking the plugin package restores access to the associated agents.
+Blocking a plugin prevents users from accessing the plugin and any agents that depend on it. Associated MCP servers and connectors remain available to other plugins. Blocking a plugin package blocks its included agents because they share the same governance controls. Unblocking the plugin package restores access to the associated agents. Blocking an MCP server is a separate component-level action; effects on dependent plugins and linked connectors depend on the applicable management route. Don't assume the policy applies across all products or connected components.
 
 ## Review and approve MCP requests
 
@@ -220,6 +222,8 @@ After a developer registers a tool, such as a remote MCP server, the tool appear
 [![Screenshot showing the Requests (preview) tab listing pending tool requests in the Microsoft 365 admin center.](media/tools-requests-tab.png)](media/tools-requests-tab.png#lightbox)
 
 With the required permissions, you can review, approve, or reject requests to control which tools are available in your organization.
+
+Approval in this flow applies to the selected MCP server registration, not to a whole plugin package that uses the server. Granting the required Microsoft Entra consent is a separate step. Don't assume approval applies across all products or connected components.
 
 Important
 
@@ -269,7 +273,7 @@ To block or allow an entire MCP server, follow these steps:
     [![Screenshot showing an MCP server's Overview pane in the Microsoft 365 admin center with the Block button highlighted.](media/mcp-server-overview.png)](media/mcp-server-overview.png#lightbox)
 4. Select **Block** to restrict the server across your organization, or **Unblock** to restore access to a previously blocked server.
 
-Blocking an MCP server disables all the tools it exposes. If one or more plugins use the MCP server, you can also block those plugins. To control individual tools instead of the entire server, use tool-level granular control.
+Blocking an MCP server disables all the tools it exposes. This action targets the server component, rather than a whole plugin package. If one or more plugins use the MCP server, you can also block those plugins. Effects on dependent plugins and linked connectors depend on the applicable management route. Don't assume the policy applies across all products or connected components. To control individual tools instead of the entire server, use tool-level granular control.
 
 ## Manage individual tools within an MCP server
 
@@ -294,7 +298,7 @@ To manage individual tools within an MCP server, follow these steps:
 
     [![Screenshot showing the Tools tab with Save and Discard changes buttons highlighted after toggling a tool.](media/mcp-tools-save.png)](media/mcp-tools-save.png#lightbox)
 
-The policy you set for each tool applies wherever the tool is used and is enforced at runtime by the Agent 365 Tooling Gateway.
+Each toggle applies to the selected tool within the supported MCP server, not to the whole server or plugin package. The Agent 365 Tooling Gateway enforces the policy at runtime for supported tools and experiences that use the gateway. Don't assume the policy applies across all products or connected components.
 
 For information about registering, evaluating, and monitoring your own remote MCP servers, see [Bring your own (BYO) MCP server](manage-byo-mcp-server). For information about connecting an Azure AI Gateway or Azure API Management instance so its registered MCP servers are automatically discovered, see [Manage Tools Gateway](manage-tools-gateway).
 
@@ -302,8 +306,12 @@ For information about registering, evaluating, and monitoring your own remote MC
 
 **How can I block all third-party plugins?**
 
-Use organization-level availability settings to control this. Go to **Agents** &gt; **Settings** &gt; **Agent and plugin access**, and clear the publisher category for **certified external publishers**. This prevents users from discovering or installing plugins published by third parties, while plugins from Microsoft or your organization can still be governed separately. For more information, see Manage plugin availability at the organization level.
+Use organization-level availability settings to control this. Go to **Agents** &gt; **Settings** &gt; **Agent and plugin access**, and clear the publisher category for **certified external publishers**. This action prevents users from discovering or installing plugins published by third parties, while you can still govern plugins from Microsoft or your organization separately. For more information, see Manage plugin availability at the organization level.
 
 **Can I block an individual MCP server that's included in a plugin?**
 
 Yes. Select the MCP server to view the plugins that use it. When you block the server, you can also block all linked plugins.
+
+## Related information
+
+For more information about plugins, see [Plugins hub](/en-us/plugins) on Microsoft Learn.

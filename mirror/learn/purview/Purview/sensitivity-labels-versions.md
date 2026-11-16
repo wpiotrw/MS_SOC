@@ -77,7 +77,8 @@ The numbers listed are the minimum Office application versions required for each
 
 Note
 
-For Windows and the Semi-Annual Enterprise Channel, the minimum supported version numbers might not yet be released. [Learn more](/en-us/officeupdates/update-history-microsoft365-apps-by-date#supported-versions).
+- For Windows and the Semi-Annual Enterprise Channel, the minimum supported version numbers might not yet be released. [Learn more](/en-us/officeupdates/update-history-microsoft365-apps-by-date#supported-versions).
+- When you open an Excel, PowerPoint, or Word file side-by-side with your Copilot conversation within the Microsoft Copilot app on a Windows or Mac device, you're using the web version of those apps. For capabilities available for those files in that scenario, refer to the Web column. For example, "Prevent some connected experiences that analyze content" isn't available in that scenario because that capability isn't available for the web.
 
 | Capability | Windows | Mac | iOS | Android | Web |
 | --- | --- | --- | --- | --- | --- |

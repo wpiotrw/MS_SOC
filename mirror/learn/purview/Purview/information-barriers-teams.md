@@ -197,6 +197,7 @@ Information barrier modes help control who you can add to or remove from a Team.
 - **Open**: This configuration is the default IB mode for all existing groups that were provisioned before Information Barriers were enabled. In this mode, no IB policies apply.
 - **Implicit**: This configuration is the default IB mode when you provision a Team after enabling Information Barriers. *Implicit* mode allows you to add all compatible users in the group.
 - **Owner Moderated**: This mode is set on a team when you want to allow collaboration between incompatible segment users that the owner moderates. The team owner can add new members per their IB policy.
+- **Explicit**: This mode is set on a team when you want to allow collaboration between the users who match with the segments associated with the Team and its connected resources - Microsoft 365 group and SharePoint site.
 
 Teams created before activating an IB policy in your tenant are automatically set to *Open* mode by default. When you activate IB policies on your tenant, you must update mode of your existing teams to *Implicit* to ensure that existing teams are IB-compliant. For more information about updating modes, see [Change Information Barriers modes with a PowerShell script](information-barriers-teams-powershell-script).
 
@@ -211,6 +212,30 @@ Set-UnifiedGroup -InformationBarrierMode Implicit
 To update the mode from *Open* to *Implicit* for all existing teams, use this [PowerShell script](information-barriers-teams-powershell-script).
 
 If you change the *Open* mode configuration on existing Teams-connected groups to meet compliance requirements for your organization, you need to [update the IB modes](information-barriers-sharepoint#view-and-manage-ib-modes-as-an-administrator-with-sharepoint-powershell) for associated SharePoint sites connected to the Teams team.
+
+## Explicit mode support for Teams and its connected Microsoft 365 group and SharePoint site (Preview)
+
+If you want to update a Teams-connected Microsoft 365 group from Implicit to Explicit mode, use the following PowerShell command:
+
+```powershell
+Set-UnifiedGroup <groupID> -InformationBarrierMode Explicit
+```
+
+Once the Teams-connected Microsoft 365 group is updated from Implicit to Explicit mode,
+
+- The segments on the group are automatically calculated based on the current members of the group and subsequently stamped on the group and the SharePoint site associated with it within 24 hours.
+- The SharePoint site's access and sharing control will be based on the segments associated with the site.
+- New users can be added to the Microsoft 365 group if they match the existing segments associated with the group.
+
+**Managing segments from the explicit mode Team group**:
+
+- As an admin, you can remove existing segments from the explicit mode Microsoft 365 group. Once done, the users in the group who match with the removed segment will be automatically removed from the group membership within 24 hours.
+- You add a set of compatible segments to the Explicit mode Microsoft 365 group. Once done, the site associated with the group will reflect the change within 24 hours. Users who match the newly added segment on the group can be added as Team members.
+
+**Note**:
+
+- Updating an Teams-connected Microsoft 365 group from Owner moderated to Explicit mode, or from Open to Explicit mode is not supported.
+- The Site owner or SharePoint admin cannot add or remove segments from an Explicit mode Teams-connected site.
 
 ## IB policy application in Teams
 

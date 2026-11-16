@@ -72,6 +72,7 @@ The following table lists the new policies for Microsoft Edge version 158.
 | [ComponentUpdatesMode](microsoft-edge-policies/componentupdatesmode) | Configure component updates |
 | [CopilotBrowserUseAllowList](microsoft-edge-policies/copilotbrowseruseallowlist) | Allow Copilot browser use on specified URLs |
 | [CopilotBrowserUseBlockList](microsoft-edge-policies/copilotbrowseruseblocklist) | Block Copilot browser use on specified URLs |
+| [RemixAvailability](microsoft-edge-policies/remixavailability) | Control Remix availability |
 
 ## Deprecated policies
 
@@ -895,7 +896,6 @@ These tables list all of the browser-related group policies available in this re
 | [BeforeunloadEventCancelByPreventDefaultEnabled](microsoft-edge-policies/beforeunloadeventcancelbypreventdefaultenabled) | Control the behavior for the cancel dialog produced by the beforeunload event (obsolete) |
 | [BingAdsSuppression](microsoft-edge-policies/bingadssuppression) | Block all ads on Bing search results |
 | [BlockThirdPartyCookies](microsoft-edge-policies/blockthirdpartycookies) | Block third party cookies |
-| [BlueprintGWAAvailability](microsoft-edge-policies/blueprintgwaavailability) | Control Blueprint GWA availability |
 | [BrowserAddProfileEnabled](microsoft-edge-policies/browseraddprofileenabled) | Enable profile creation from the Identity flyout menu or the Settings page |
 | [BrowserCodeIntegritySetting](microsoft-edge-policies/browsercodeintegritysetting) | Configure browser process code integrity guard setting |
 | [BrowserGuestModeEnabled](microsoft-edge-policies/browserguestmodeenabled) | Enable guest mode |

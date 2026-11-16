@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: pchiquini
 author: Y-Kelly
 manager: robfranco
-ms.date: 2026-11-09T00:00:00.0000000Z
+ms.date: 2026-11-16T00:00:00.0000000Z
 audience: ITPro
 ms.topic: release-notes
 ms.service: microsoft-edge
@@ -52,8 +52,6 @@ These release notes provide information about security fixes that are included i
 ## November 13, 2026
 
 Microsoft released the latest **Microsoft Edge for Stable (Version 157.0.4341.57)** which incorporates the latest Security Updates of the Chromium project. For more information, see the [Security Update Guide](https://msrc.microsoft.com/update-guide).
-
-**Note:** CVE's will be added as soon as available.
 
 ## November 11, 2026
 

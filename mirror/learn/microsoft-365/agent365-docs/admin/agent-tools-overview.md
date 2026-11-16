@@ -19,7 +19,7 @@ f1.keywords:
 ms.author: mkaur
 author: mduelae
 manager: tapanm
-ms.date: 2026-09-28T00:00:00.0000000Z
+ms.date: 2026-11-06T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: concept-article
@@ -55,18 +55,18 @@ item_type: Content
 source_path: agent365-docs/admin/agent-tools-overview.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/e6f942e8-55a7-4c86-b8e3-7456508ea850
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/302444b9-4a43-4841-8014-3d9e4251ff15
-- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/f1834696-48d6-470d-966b-6ee418881596
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/bebd8809-dac1-4c22-83e2-66d98af8a94d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: bd321fc5-cb4a-8c8d-c893-e4195f56f6c6
 ---
 
 # Overview of the Tools page in Microsoft 365 admin center | Microsoft Learn
 
-The **Tools** page in the [Microsoft 365 admin center](https://admin.microsoft.com/) provides a centralized view of the AI-powered tools available in your organization, including plugins, skills, Model Context Protocol (MCP) servers, and connectors. Use this page to monitor tool availability, manage access, and help ensure compliance with organizational policies.
+The **Tools** page in the [Microsoft 365 admin center](https://admin.microsoft.com/) provides a centralized view of the AI-powered tools available in your organization, including plugins, skills, Model Context Protocol (MCP) servers, and connectors. Use this page to monitor tool availability, manage access, and help ensure compliance with organizational policies. For more information about how plugins extend Microsoft Copilot, see [Plugins hub](/en-us/plugins) on Microsoft Learn.
 
 Use the **Registry** tab to discover and manage tools available in your tenant. Use the **Requests** tab to review and approve user requests for tools.
 
@@ -86,7 +86,7 @@ The Tools page brings together several types of tools that agents can use. The f
 | **Plugins** | Installable packages that bundle capabilities an agent can use, such as skills, MCP servers, and connectors. |
 | **Skills** | Reusable instructions or workflows that teach an agent how to do a task consistently. |
 | **MCP servers** | Standardized servers that expose tools and resources an agent can dynamically discover and use. |
-| **Connectors** | Prebuilt links to external systems and data sources that an agent can read from and write to. |
+| **Connectors** | Connections to external systems and data sources. The **Connectors** view shows Power Platform connector usage; manage connector policies in the Power Platform admin center. |
 
 ## View the tools registry
 
@@ -101,12 +101,20 @@ The agent tools lists on the **Registry** and **Requests** tabs provide filters,
 
 ### Actions
 
-Select actions directly from the list, or select a tool to view its overview page. You can take the following actions:
+Select actions directly from the list, or select a tool to view its overview page. The available actions depend on the tool type. For supported items, you can take the following actions:
 
 | Action | Description |
 | --- | --- |
 | Block | Prevents the selected tool from being used by agents or workflows. |
 | Unblock | Restores access to a previously blocked tool. |
+
+These actions don't apply to the Power Platform connector usage view, which provides visibility only. To block, allow, or govern a Power Platform connector, select **View in Power Platform** on the connector's overview page. For details, see View Power Platform connector usage (preview).
+
+Blocking a plugin doesn't block associated MCP servers or connectors that other plugins use. For the effects of blocking plugins and their components, see [Block a plugin or skill](manage-plugins-skills-mcp-servers#block-a-plugin-or-skill).
+
+Note
+
+Microsoft Agent 365 provides administrative controls for supported tools. Copilot Studio and Power Platform can have separate controls for their components. An approval or block doesn't necessarily apply across all products or connected components.
 
 ### Filters
 
@@ -129,6 +137,8 @@ The following table describes the columns that are available in the agent tools 
 | Status | Shows whether the tool is **Available** or **Blocked**. |
 | Type | Shows the tool category, such as **MCP Server**. |
 | Publisher | Shows the publisher, such as Microsoft for first-party tools. |
+
+For MCP servers, registration approval and required Microsoft Entra consent are separate steps. The server becomes available to agent-building surfaces only after consent is granted. For details, see [Review and approve MCP requests](manage-plugins-skills-mcp-servers#review-and-approve-mcp-requests).
 
 ## View Power Platform connector usage (preview)
 
