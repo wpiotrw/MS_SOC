@@ -5,7 +5,7 @@
 },
 "https://pushsecurity.com/blog/authorization-phishing": {
 "iocs": [],
-"read": "2026-11-09"
+"read": "2026-11-17"
 },
 "https://specterops.io/blog/2026/10/17/connectwise-skykick-breach-microsoft-365/": {
 "iocs": [
@@ -273,7 +273,7 @@
 "IOC table: Resource Development \u00b7 Stage Capabilities: Link Target ( T1608.005 )"
 ]
 ],
-"read": "2026-11-09"
+"read": "2026-11-17"
 },
 "https://www.huntress.com/blog/stealing-oauth-tokens-through-microsofts-front-door": {
 "iocs": [],
@@ -919,5 +919,90 @@
 ]
 ],
 "read": "2026-11-13"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/": {
+"iocs": [
+[
+"domain",
+"moments-notice.com",
+"IOC table: Observed sender-domain cluster."
+],
+[
+"domain",
+"planetmaison.com",
+"IOC table: Observed sender-domain cluster."
+],
+[
+"domain",
+"em4493.moments-notice.com",
+"IOC table: Observed mail-from or bounce subdomain."
+],
+[
+"domain",
+"newbooker.com",
+"IOC table: Observed sender-domain cluster."
+],
+[
+"domain",
+"em.newbooker.com",
+"IOC table: Observed mail-from or bounce subdomain."
+],
+[
+"domain",
+"url.newbooker.com",
+"IOC table: Observed click/open tracking host."
+],
+[
+"domain",
+"url7489.newbooker.com",
+"IOC table: Observed click/open tracking host."
+],
+[
+"domain",
+"u113727626.ct.sendgrid.net",
+"IOC table: Observed click/open tracking host; assess with campaign context because the parent service can be shared."
+],
+[
+"domain",
+"u118254266.ct.sendgrid.net",
+"IOC table: Observed click/open tracking host; assess with campaign context because the parent service can be shared."
+],
+[
+"domain",
+"u118250677.ct.sendgrid.net",
+"IOC table: Observed click/open tracking host; assess with campaign context because the parent service can be shared."
+],
+[
+"domain",
+"reallifeaccounting.com",
+"IOC table: Principal downstream destination observed in multiple messages."
+],
+[
+"domain",
+"outagefixed.sbs",
+"IOC table: Downstream destination observed in some messages."
+],
+[
+"domain",
+"outagerestored.sbs",
+"IOC table: Downstream destination observed in some messages."
+],
+[
+"domain",
+"themelist0.html",
+"IOC table: Observed destination path."
+],
+[
+"ip",
+"162.120.17.69",
+"IOC table: IP and port \u00b7 Observed host for individualized /t/v3&#8230;/px[.]png resources."
+],
+[
+"domain",
+"px.png",
+"IOC table: 162[.]120[.]17[.]69:8080 \u00b7 IP and port"
+]
+],
+"read": "2026-11-17"
 }
 }
