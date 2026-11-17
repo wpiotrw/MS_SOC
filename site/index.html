@@ -16869,7 +16869,8 @@ IdentityDirectoryEvents
   }, true);
 })();
 </script>
-<script>/* ===========================================================================
+<script>
+/* ===========================================================================
    SCRIPT 17 — THE CATALOG SAYS HOW BIG IT IS, AND WHAT MOVED THIS WEEK
    (CLAUDE.md 5bc). ADDED, never a replacement: shell scripts 1-3 and added
    scripts 4-16 are untouched, byte for byte.
@@ -30019,19 +30020,30 @@ IdentityDirectoryEvents
     load(function () {
       if (ol.querySelector(".s5fe-sen")) return;
       windows();
-      var S = (D.stories || []).slice(), mv = S.filter(function (s) { return storyKind(s, PREV, null); });
+      /* §5gv (17 XI 2026, owner: "only the Threat Research items that fit the technologies we track and the functions we
+         describe go into the brief's sentences - so as not to clutter"): only stories whose "tracked" list (tools/threats.py,
+         title and lead only) is not empty, and never a story without a readable title. The tab still lists them all.
+         A threats.json written before the field existed keeps every story until the next run (every 3 h). */
+      var ALLS = D.stories || [], hasTr = ALLS.some(function (s) { return s && Object.prototype.hasOwnProperty.call(s, "tracked"); });
+      var S = ALLS.filter(function (s) { return s && /[A-Za-z]{3}/.test(s.title || "") && (!hasTr || (s.tracked || []).length); }),
+          mv = S.filter(function (s) { return storyKind(s, PREV, null); });
       var last = function (s) { return day(s.lastUpdate || s.firstSeen) || ""; };
       var top = (mv.length ? mv : S).slice().sort(function (a, z) { return last(z).localeCompare(last(a)); }).slice(0, 3);
       var li = el("li", "s5fe-sen"); li.appendChild(el("b", "s5bk-k k-tech", "Threat Research"));
       var bt = el("button", "s5bk-it s5bk-link"); bt.type = "button"; bt.title = "Open Threat Research";
-      bt.appendChild(el("span", "s5bk-itt", mv.length ? mv.length + " incident" + (mv.length === 1 ? "" : "s") + " new or updated since the previous brief" : "No new incident since the previous brief · " + S.length + " tracked, the latest:"));
+      bt.appendChild(el("span", "s5bk-itt", mv.length ? mv.length + " incident" + (mv.length === 1 ? "" : "s") + " on the technologies we track, new or updated since the previous brief"
+        : !S.length ? "No incident on the technologies we track · " + ALLS.length + " in the tab"
+        : "No new incident on the technologies we track since the previous brief · " + S.length + (hasTr ? " of " + ALLS.length : "") + " fit them, the latest:"));
+      if (hasTr && ALLS.length > S.length) bt.appendChild(el("span", "s5bk-itm", (ALLS.length - S.length) + " other incident" + (ALLS.length - S.length === 1 ? "" : "s") + " (Linux, PHP, other vendors' software) stay in the Threat Research tab only."));
       bt.addEventListener("click", function () { goTab(); wake(); });
       li.appendChild(bt);
       var rows = el("div", "s5es-rows");
       top.forEach(function (s) {
         var r = el("div", "s5cu-ovr s5es-row"); r.appendChild(el("span", "s5cu-d", dm(last(s))));
         var mid = el("span"), nb = el("button", "s5cu-ovn", s.title.length > 110 ? s.title.slice(0, 106) + "\u2026" : s.title); nb.type = "button"; nb.title = "Open the incident";
-        nb.addEventListener("click", function () { openStory(s.id); }); mid.appendChild(nb); r.appendChild(mid); rows.appendChild(r);
+        nb.addEventListener("click", function () { openStory(s.id); }); mid.appendChild(nb);
+        if ((s.tracked || []).length) mid.appendChild(el("span", "s5bk-itm", " " + s.tracked.slice(0, 3).join(" \u00b7 ")));
+        r.appendChild(mid); rows.appendChild(r);
       });
       var tries = 0;
       (function infra() {
@@ -34465,6 +34477,7 @@ IdentityDirectoryEvents
   setTimeout(function () { render(); load(false); }, 1500);
   setTimeout(place, 6000);
   window.__s5ms = { load: load, open: openWin };
-})();</script>
+})();
+</script>
 </body>
 </html>
