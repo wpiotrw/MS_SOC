@@ -46,7 +46,7 @@ The **Remote Connection Experience** settings apply just in time as a user conne
 
 IT administrators can manage the following connection settings and related protection capabilities for Cloud PCs:
 
-- **Context-based redirections (preview):** By using authentication context, admins can define when specific client capabilities should be allowed or restricted based on factors such as user role, device compliance, or network location. [Learn more about context-based redirections](/en-us/windows-365/enterprise/context-based-redirections)
+- **Context-based redirection:** By using authentication context, admins can define when specific client capabilities should be allowed or restricted based on factors such as user role, device compliance, or network location. [Learn more about context-based redirection](/en-us/windows-365/enterprise/context-based-redirections)
 - **Input protection (preview):** Helps protect keyboard input from keylogger malware on supported Windows endpoints. [Learn more about Input Protection](input-protection).
 - **Display Protection:** Helps protect Cloud PC session video from screen capture malware on supported Windows endpoints. Configure it separately under **IO Protection** in Microsoft Intune. [Learn more about Display Protection](display-protection).
 - **Default display settings:** IT admins can configure default display settings (single display or all displays) for Windows 365 Cloud PCs. Users can override admin defaults with their own display preferences via the Windows App client (for Windows and MacOS only).

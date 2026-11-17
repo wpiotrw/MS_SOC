@@ -41,12 +41,12 @@ item_type: Content
 source_path: Purview/information-barriers.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
-- https://authoring-docs-microsoft.poolparty.biz/devrel/9d7be3ef-f27c-4c7f-9eba-67c3cd429995
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/12ed19f9-ebdf-4c8a-8bcd-7a681836774d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1bb724a6-ed07-4064-971d-80071e714f16
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
-- https://authoring-docs-microsoft.poolparty.biz/devrel/feeb50f3-b677-44f9-b3a6-5f2f58182b0d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a764584-4f97-452b-8f1d-36f19b12f6ae
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
+- https://authoring-docs-microsoft.poolparty.biz/devrel/b9e0ece8-b7ea-432b-9fb5-167c6aef3222
 platformId: 6d06616f-058a-cf05-12ce-cce3cb585099
 ---
 
@@ -145,6 +145,12 @@ If your organization uses *[single](information-barriers-multi-segment#check-the
 If your organization uses [*legacy* mode](information-barriers-multi-segment#check-the-ib-mode-for-your-organization), IB policies rely on [Exchange Online Address Book Policies (ABPs)](/en-us/exchange/address-books/address-book-policies/address-book-policies?toc=%2Fpurview%2Ftoc.json&amp;bc=%2Fpurview%2Fbreadcrumb%2Ftoc.json). ABPs let organizations virtually assign users into specific groups to provide customized views of the organization's global address list (GAL). When you create IB policies, the system automatically creates ABPs for the policies. As you add IB policies in your organization, the structure and behavior of your GAL changes to comply with IB policies.
 
 Before you define and apply IB policies, remove all existing Exchange address book policies in your organization. IB policies rely on address book policies, and existing ABPs aren't compatible with the ABPs that IB creates. To remove your existing address book policies, see [Remove an address book policy in Exchange Online](/en-us/exchange/address-books/address-book-policies/remove-an-address-book-policy?toc=%2Fpurview%2Ftoc.json&amp;bc=%2Fpurview%2Fbreadcrumb%2Ftoc.json). When you enable IB policies and enable hierarchical address book, all users not included in an IB segment see the [hierarchical address book](/en-us/exchange/address-books/hierarchical-address-books/hierarchical-address-books?toc=%2Fpurview%2Ftoc.json&amp;bc=%2Fpurview%2Fbreadcrumb%2Ftoc.json) in Exchange Online.
+
+### Information Barriers and Agent Builder experience
+
+Agent Builder provides an easy way to build Declarative agent in Microsoft 365. It offers an immediate, interactive AI development experience that suits quick and straightforward projects.
+
+Agent builder honors IB policies in the people picker experience. With IB support in Agent builder, when an IB user searches for other users in the people picker, they won’t see users they’re restricted from communicating and collaborating with per IB policy. This restriction prevents users from conflicting segments to share an agent with each other. Users can continue to access agents that was previously shared with them. However, any new sharing experience via people picker will be allowed only with the users who can collaborate with each other per IB policy.
 
 ## Ready to get started?
 

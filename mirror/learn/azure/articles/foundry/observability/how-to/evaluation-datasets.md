@@ -58,7 +58,7 @@ An evaluation dataset is a reusable collection of test cases for measuring model
 
 Create a dataset when you want a stable test set that you can rerun against different model, prompt, or agent versions. Reusable datasets work well for regression testing, CI/CD quality gates, and comparisons across evaluation runs.
 
-You don't always need a dataset. If your Foundry agent already has responses or your application emits traces to Application Insights, you can evaluate that data where it exists. See [Evaluate interactions by response ID](cloud-evaluation-deployed-interactions#evaluate-interactions-by-response-id) and [Evaluate traces](cloud-evaluation-deployed-interactions#evaluate-traces-preview).
+You don't always need a dataset. If your Foundry agent already has responses or your application emits traces to Application Insights, you can evaluate that data where it exists. See [Evaluate interactions by response ID](cloud-evaluation-deployed-interactions#evaluate-interactions-by-response-id) and [Evaluate traces](cloud-evaluation-deployed-interactions#evaluate-traces).
 
 ## How Foundry uses evaluation data
 
@@ -79,5 +79,5 @@ The `evaluation_level` setting on the run controls the scoring granularity. The 
 | **You want a reusable dataset based on production traffic** | [Convert traces into a dataset](traces-to-dataset). |
 | **You want to test simulated multi-turn scenarios** | [Generate a simulation seed dataset](evaluation-dataset-synthetic#generate-a-simulation-seed-dataset) or author test case scenarios as JSONL, and then [simulate conversations](cloud-evaluation-simulate-conversations). |
 | **You have Foundry response IDs** | [Evaluate interactions by response ID](cloud-evaluation-deployed-interactions#evaluate-interactions-by-response-id) without creating a dataset. |
-| **You want to evaluate existing Application Insights traces** | [Evaluate traces](cloud-evaluation-deployed-interactions#evaluate-traces-preview) without creating a dataset. |
+| **You want to evaluate existing Application Insights traces** | [Evaluate traces](cloud-evaluation-deployed-interactions#evaluate-traces) without creating a dataset. |
 | **You want to generate queries, invoke a target, and evaluate its responses in one workflow** | [Generate synthetic queries](cloud-evaluation-synthetic-data#generate-synthetic-queries) during the evaluation run. Foundry saves the generated queries as a dataset for reuse. |

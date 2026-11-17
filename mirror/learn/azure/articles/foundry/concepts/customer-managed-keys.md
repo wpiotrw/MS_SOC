@@ -44,9 +44,11 @@ item_type: Content
 source_path: articles/foundry/concepts/customer-managed-keys.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fa88989d-b398-4478-9276-6b1e19a7d989
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/86bf2595-d1af-4c01-997c-dd0058879d0c
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 34f36788-a09d-5881-5260-09ef1d495371
 ---
@@ -59,7 +61,7 @@ To configure CMK encryption for your resource, see [Configure customer-managed k
 
 Note
 
-Due to capacity constraints in the underlying Azure AI Search infrastructure, CMK encryption is currently available only in select regions. For the list of supported regions, see [Azure AI Search regional availability](/en-us/azure/search/search-region-support#americas).
+Due to capacity constraints in the underlying Foundry IQ (Azure AI Search) infrastructure, CMK encryption is currently available only in select regions. For the list of supported regions, see [Foundry IQ regional availability](/en-us/azure/search/search-region-support#americas).
 
 ## About Microsoft Foundry encryption
 
@@ -89,8 +91,8 @@ Depending on your Foundry resource configuration, the service might store servic
 | Foundry capability | CMK on Foundry-managed storage | CMK on customer-managed storage | Notes |
 | --- | --- | --- | --- |
 | Responses API | ✅ Supported | **N/A** (no bring-your-own storage support) | CMK protects eligible prompts, message history, and related content in service-managed storage when configured for the applicable resource. See Responses API service-managed storage. |
-| Prompt Agents | ❌ Not supported | ✅ Supported | Basic setup uses Microsoft-managed keys. For CMK, use bring-your-own resources and configure CMK separately on Azure Cosmos DB, Storage, and AI Search. |
-| Hosted Agents | ❌ Not supported | ◐ Partial | Basic setup uses Microsoft-managed keys. For CMK, use bring-your-own resources and configure CMK separately on Azure Cosmos DB, Storage, and AI Search. Hosted-agent sandbox compute is ephemeral, but each session has a persistent $HOME filesystem. $HOME is backed by platform-managed storage, and isn't encrypted using CMK, and can't currently be disabled. For more information, see: CMK coverage across the compute stack. |
+| Prompt Agents | ❌ Not supported | ✅ Supported | Basic setup uses Microsoft-managed keys. For CMK, use bring-your-own resources and configure CMK separately on Azure Cosmos DB, Storage, and Foundry IQ. |
+| Hosted Agents | ❌ Not supported | ◐ Partial | Basic setup uses Microsoft-managed keys. For CMK, use bring-your-own resources and configure CMK separately on Azure Cosmos DB, Storage, and Foundry IQ. Hosted-agent sandbox compute is ephemeral, but each session has a persistent $HOME filesystem. $HOME is backed by platform-managed storage, and isn't encrypted using CMK, and can't currently be disabled. For more information, see: CMK coverage across the compute stack. |
 | Fine-tuning | ✅ Supported | **N/A** (no bring-your-own storage support) | Uploaded files and trained fine-tuned models are CMK-encrypted on Microsoft-managed storage accounts. Trained models are logically isolated by their Azure subscription. Model weights are CMK-unwrapped to instantiate model deployments. For details about the compute stack and training runtime, see CMK coverage across the compute stack. |
 | Batch jobs | ✅ Supported | ✅ Supported | Uploaded files are CMK-encrypted at rest on Microsoft-managed storage accounts. During the scoring job, this storage account is virtually mounted on the compute nodes for processing. For details about the compute stack used for batch job execution, see CMK coverage across the compute stack. |
 | Evaluations | ✅ Supported | ✅ Supported | Evaluation assets and uploaded files stored by Foundry are CMK-protected. For details about the compute stack used for evaluation jobs, see CMK coverage across the compute stack. |
@@ -99,7 +101,7 @@ Depending on your Foundry resource configuration, the service might store servic
 | Language | ✅ Supported | ✅ Supported | Data and model weights are stored with Microsoft-managed or Customer-Managed keys for cases where you don't bring your own storage account. |
 | Content Understanding | **N/A** | ✅ Supported | Bring your own storage is required to use the Content Understanding capability. |
 | OpenAI Assistants (deprecated) | ❌ Not supported | **N/A** | This feature is deprecated and didn't support CMK in preview. |
-| Connected services, including Azure AI Search, Azure Logic Apps, and Azure Functions | **N/A** | **N/A** | Configure encryption keys separately from your Foundry resource. Every connected resource follows its own lifecycle for encryption management. |
+| Connected services, including Foundry IQ, Azure Logic Apps, and Azure Functions | **N/A** | **N/A** | Configure encryption keys separately from your Foundry resource. Every connected resource follows its own lifecycle for encryption management. |
 
 ## Responses API service-managed storage
 

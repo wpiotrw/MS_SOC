@@ -56,7 +56,7 @@ platformId: ea5f457e-680e-1eb5-9db9-416fc2c7b6b3
 
 # Evaluate conversation datasets with the Microsoft Foundry SDK - Microsoft Foundry | Microsoft Learn
 
-Assess complete conversations from datasets at the turn or conversation level.
+Assess complete conversations from text datasets at the turn or conversation level. To assess recordings, see [Evaluate recorded voice conversations](cloud-evaluation-audio-conversations).
 
 ## Prerequisites
 
@@ -124,7 +124,7 @@ Important
     - `builtin.groundedness`
 
     `builtin.output_quality` and `builtin.tool_use_quality` are composite evaluators, which assess multiple quality dimensions.
-- For turn-level evaluation, all built-in evaluators except `builtin.document_retrieval` and the deprecated `builtin.quality_grader` support the `messages` input format. The Azure OpenAI graders `label_model`, `python_grader`, `score_model`, `string_check`, and `text_similarity` don't support the `messages` input format.
+- For turn-level text evaluation, all built-in text evaluators except `builtin.document_retrieval` and the deprecated `builtin.quality_grader` support the `messages` input format. The Azure OpenAI graders `label_model`, `python_grader`, `score_model`, `string_check`, and `text_similarity` don't support the `messages` input format.
 
 ### Common errors
 

@@ -5,7 +5,7 @@ monikers:
 - o365-worldwide
 defaultMoniker: o365-worldwide
 versioningType: Ranged
-title: Microsoft Copilot Managed Runtime overview and key concepts for admins (preview) - Microsoft 365 admin | Microsoft Learn
+title: Microsoft Copilot Managed Runtime overview for admins - Microsoft 365 admin | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/apps/?view=o365-worldwide
 config_moniker_range: =o365-worldwide || =o365-21vianet
 feedback_system: Standard
@@ -13,8 +13,8 @@ feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=
 breadcrumb_path: /microsoft-365/breadcrumb/toc.json
 recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
-description: Copilot Managed Runtime brings developers, users, and admins together around governed apps. Discover the governance model and start building compliant apps today.
-ms.date: 2026-11-09T00:00:00.0000000Z
+description: Learn how Microsoft Copilot Managed Runtime hosts and governs the apps your organization builds, what's in place from the first app, and how to get started as an admin.
+ms.date: 2026-11-17T00:00:00.0000000Z
 author: mihaelablendea
 manager: zoraz
 ms.author: mihaelab
@@ -44,91 +44,95 @@ item_type: Content
 source_path: microsoft-365/admin/manage/apps/index.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c389ea6b-b6a0-46df-93a1-1e21f25e19e7
-- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/19ada1b6-705b-4ed7-aad0-bffd1bd03dfa
-- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: f28e2172-f4f2-59dc-d9d2-58940d969e3d
 ---
 
-# Microsoft Copilot Managed Runtime overview and key concepts for admins (preview) - Microsoft 365 admin | Microsoft Learn
+# Microsoft Copilot Managed Runtime overview for admins - Microsoft 365 admin | Microsoft Learn
 
-[This article is prerelease documentation and is subject to change.]
+Microsoft Copilot Managed Runtime helps teams build and run line-of-business agentic applications that automatically comply with your organization's IT governance policies. Every app is governed from the moment it's created, with no extra setup required:
 
-Copilot Managed Runtime helps teams build internal line-of-business apps that automatically comply with your organization's IT governance policies. Every app is governed from the moment you create it - no extra setup required. Each app appears in the Microsoft 365 admin center, where admins can track usage, monitor health, and manage its lifecycle.
+- Each maker builds in a personal environment that's created automatically, with policies already applied.
+- Every app inherits the default environment group settings, which control what it can connect to, who it can be shared with, and what external content it can load.
+- Apps sign users in with Microsoft Entra ID, follow your Conditional Access policies, and have your policies enforced while they run.
 
-Important
+This built-in governance uses the same managed platform that governs Microsoft Power Platform. For more information, see [Managed environments overview](/en-us/power-platform/admin/managed-environment-overview).
 
-- This is a preview feature.
-- These features are subject to [supplemental terms of use](https://go.microsoft.com/fwlink/?LinkId=2373139), and are available before an official release so that customers can get early access and provide feedback.
+To understand how the platform delivers these protections, see:
+
+- [How the managed host secures apps](/en-us/microsoft-365/copilot-managed-runtime/managed-runtime-security-governance): how the Copilot Managed Runtime host protects apps at runtime and how its built-in protections work with the controls you manage.
+- [Copilot Managed Runtime architecture](/en-us/microsoft-365/copilot-managed-runtime/developer/apps/architecture): how the Copilot Managed Runtime host, the SDK, and the CLI work together as apps are built, published, and run.
+
+Each app appears in the Microsoft 365 admin center, where you can track usage, monitor health, and manage its lifecycle.
 
 Copilot Managed Runtime brings three audiences together around the same governed app:
 
-- **Users** discover and run apps from a web portal.
-- **Makers and developers** build apps using tools and languages they already know.
-- **Administrators** govern apps across the tenant.
+- **Makers and developers** build apps with the tools they already use, such as Copilot Cowork, Copilot Code, Microsoft Copilot Studio, the Copilot Managed Runtime CLI, or Lovable.
+- **Users** discover and run the apps that are shared with them.
+- **Administrators** govern apps across the tenant from the Microsoft 365 admin center, while Microsoft operates the Copilot Managed Runtime host.
 
-To learn how people create apps across Cowork, Copilot Studio, and the CLI, see [What is Copilot Managed Runtime (preview)](../../../copilot-managed-runtime/).
+This article helps you get started as an admin. It covers:
 
-## Key features
+- **Get started:** what's in place before makers start building, how to review and adjust it for your organization, and the tasks to keep apps running.
+- **App building options:** the tools makers and developers use to build apps, and how you control each one.
+- **Licensing and billing:** how building and running apps are billed, and what people need to run the apps shared with them.
 
-- Microsoft Entra authentication and authorization out of the box
-- Access to 1,500+ connectors, callable directly from JavaScript and TypeScript
-- A native Git inner loop with a repository for source control and collaboration
-- Automatic adherence to your IT policies, including sharing limits, conditional access, advanced connector policies, and data loss prevention (DLP)
-- Centralized inventory, usage analytics, and operational health in the Microsoft 365 admin center
+Each section is a short summary that links to the article covering the topic in detail.
 
-## Common scenarios
+## Get started
 
-Copilot Managed Runtime fits scenarios where teams need flexibility while staying within enterprise governance boundaries:
+You don't need to do anything before makers start building. Default governance, including the default environment group, is configured once, triggered by whichever comes first: a maker starts to create the first app, or an admin selects **Set up governance** on the **Apps** &gt; **Overview** page in the Microsoft 365 admin center. Either way, governance is in place before the first app exists, so every app is governed from the moment it's created. Once configured, the **Set up governance** option is no longer available. Use the following steps to review what's in place, adjust it for your organization, and oversee apps as adoption grows. Each step links to the article that covers it in detail.
 
-- **Personal productivity apps.** Tools an individual builds and uses in their own developer environment.
-- **Team productivity apps.** Shared apps that small teams use to automate workflows and collaborate.
-- **Organizational apps.** Broader solutions that IT or development teams deploy across the tenant with admin-controlled distribution.
+### Before you start
 
-## Key concepts
+From the first app, Copilot Managed Runtime provides:
 
-To work more effectively with Copilot Managed Runtime, it's important to understand the following key concepts:
+- **A personal environment for each maker.** When a maker starts building, they get their own private, managed space with policies already applied. They can build and test without affecting anyone else.
+- **A default environment group that Microsoft manages.** Every app inherits the default environment group settings, based on Microsoft best practices. These settings cover which connectors and MCP servers apps can use, who apps can be shared with, and which external content apps can load. You can review these settings and take them over when your organization needs different rules.
+- **One inventory.** Every app appears in the Microsoft 365 admin center with its owner, location, dependencies, usage, and health, whichever tool built it.
 
-| Term | Description |
-| --- | --- |
-| **Copilot Managed Runtime SDK** | The developer libraries and tooling used to build apps with Copilot Managed Runtime. Provides built-in Microsoft Entra authentication, connectivity to more than 1,500 data sources, and enforcement hooks for governance policies. |
-| **Personal developer environment** | A dedicated, isolated sandbox provisioned for each developer, separate from production, so they can build and test safely. |
-| **Governance policies** | Rules that control how apps built with Copilot Managed Runtime are deployed, who can access them, what data they connect to, and how their lifecycle is managed. The app creation process enforces these policies automatically. |
-| **App inventory** | A centralized, real-time view in the Microsoft 365 admin center of all apps built with Copilot Managed Runtime across the tenant, including usage, health, and compliance state. |
-| **Distribution controls** | Admin-managed settings that determine who can discover and use each app built with Copilot Managed Runtime across the tenant. |
+Because these protections are in place from the start, you can begin with the default environment group settings and adjust as adoption grows. Before you roll out broadly:
 
-## Enable Copilot Managed Runtime for your tenant
+- **Assign admin roles.** Decide who manages Copilot Managed Runtime and who needs read-only access for reporting, security, or support. See [Roles and responsibilities](roles-responsibilities).
 
-Configure Copilot Managed Runtime enablement separately for each app creation method.
+### Review and adjust
 
-Note
+1. **Review the default environment group settings.** Check what's in place and customize the settings if your organization needs different rules. See [Review and customize default settings](governance). Optionally, add security and compliance controls beyond the default environment group settings. See [Manage security and compliance for Copilot Managed Runtime](security-compliance).
+2. **Choose who can build apps, and with which tools.** Decide whether every maker can build apps from day one or whether to start with a pilot group. See App building options.
+3. **Set up licensing and billing.** Make sure makers can build and that the people apps are shared with can run them. See Licensing and billing.
 
-Creating apps with Copilot Managed Runtime by using the Cowork skill is governed by your tenant's Frontier onboarding rather than the tenant switch. After your tenant is onboarded to Frontier, app creators who have access to Cowork can build apps.
+### Operate
 
-### Defaults by app creation path
+- **Oversee your apps.** See what's been built, who owns it, what it depends on, and how it's used. If an app doesn't meet your policies, block it and follow up with the owner. See [View and oversee apps across your tenant](inventory).
+- **Monitor health and performance.** Track app reliability and performance, and set alerts so you can act before users are affected. See [Monitor the health of apps in Copilot Managed Runtime](visibility-monitoring).
+- **Manage costs.** Review consumption and respond to requests for more credits. See [Manage licensing and Copilot Credits for apps on Copilot Managed Runtime](licensing-credits).
 
-| Creation path | Public preview | Frontier public preview |
+## App building options
+
+The tool a maker chooses changes the building experience, not how the app is hosted or governed.
+
+| Creation tool | Who it's for | How you govern app building enablement |
 | --- | --- | --- |
-| **Cowork** | Not available. Admins are guided to sign up for Frontier. | On by default through [Frontier program](/en-us/microsoft-365/copilot/cowork/use-cowork#build-apps-with-app-builder-frontier). |
-| **CLI** | Off by default. Admins can enable using environment settings and the environment group rule. | Off by default. Admins can enable using environment settings and the environment group rule. See [Control whether apps can be created using the CLI](governance#control-whether-apps-can-be-created-using-the-cli). |
-| **Copilot Studio** | On by default. Admins can manage it in the Microsoft 365 admin center. | On by default. Admins can manage it in the Microsoft 365 admin center. See [Create an app in Microsoft Copilot Studio (preview)](/en-us/microsoft-copilot-studio/apps-experience/create-app). |
+| Copilot Cowork | Business users who describe an app in chat | On by default. You can turn it off or limit it to specific users and groups with the Build apps in Copilot setting in the Microsoft 365 admin center. See [Build apps in Copilot Cowork](/en-us/copilot/cowork/cowork-build-apps#enable-or-disable-app-building). |
+| Copilot Code | Business users and developers who build with an AI coding agent | Through spending policies. Only users included in a spending policy for Copilot Code can build apps. See Control who can build apps in Copilot Code. |
+| Microsoft Copilot Studio | Makers who want more control over planning, previewing, and publishing | On by default. You can turn it off or limit it to specific security groups. See Control app creation in Copilot Studio. |
+| Copilot Managed Runtime CLI and SDK | Professional developers who work in Visual Studio Code, GitHub Copilot, or other tools of their choice | Off by default. See [Control whether apps can be created using the CLI](governance#control-whether-apps-can-be-created-using-the-cli). |
+| Lovable | Makers who build in Lovable and deploy to your tenant | See [Set up Copilot Managed Runtime for Lovable](configure-lovable). |
 
-### Permissions
+### Control who can build apps in Copilot Code
 
-| Role | What they can do |
-| --- | --- |
-| Global Administrator | Manage the CLI and Copilot Studio app creation paths. |
-| Power Platform Administrator | Manage the CLI and Copilot Studio app creation paths. |
-| Global Reader, AI Administrator, AI Reader | View only. Guided to contact an administrator to enable features. |
+Copilot Code uses cost controls to decide who can build apps. Only users who are included in a spending policy for Copilot Code can build apps with it.
 
-Enabling the **Cowork** app builder skill requires onboarding the tenant to the Microsoft Copilot Frontier Program. Power Platform administrators can't enable Frontier; they're guided to contact an administrator with the required permissions. See [Get started with the Microsoft Copilot Frontier Program](../get-started-frontier).
+To limit who can build apps using Copilot Code, create a spending policy in the Microsoft 365 admin center that selects the Copilot Code service and includes only the users, or a security group of users, who are allowed to build apps.
 
-### Where the settings live
+For step-by-step instructions, including turning on usage-based billing and setting per-user limits, see [Cowork and Copilot Code](licensing-credits#cowork-and-copilot-code) in [Manage licensing and Copilot Credits for apps on Copilot Managed Runtime](licensing-credits).
 
-The app creation path controls are in the Microsoft 365 admin center, under **Apps** &gt; **Overview** &gt; **Set up app creation spaces**. You can also configure creation paths by using Microsoft Power Platform CLI.
+### Control app creation in Copilot Studio
+
+App creation in Copilot Studio is controlled by tenant settings that you configure with the Microsoft Power Platform CLI.
+
+#### Turn off app creation in Copilot Studio
 
 To turn off Copilot Studio app creation, use the following command:
 
@@ -142,7 +146,7 @@ Note
 
 Copilot Studio retrieves the tenant settings each time you refresh the page. If you leave a Copilot Studio tab open, the settings are cached for up to 15 minutes or until the next page load.
 
-### Scope access to Copilot Studio app creation with security groups
+#### Scope access to Copilot Studio app creation with security groups
 
 To restrict Copilot Studio app creation to specific Microsoft Entra security groups, set `powerPlatform.powerapps.enabledGroupsManagedAppsMcsPreview` to a security group's object ID (GUID). To configure multiple groups, use a comma-separated string of object IDs.
 
@@ -154,42 +158,6 @@ pac admin update-tenant-settings --setting-name powerPlatform.powerapps.enabledG
 
 When the Copilot Studio app creation path is enabled, users who belong to any configured security group can create apps.
 
-## Control source and deployment options
-
-Copilot Managed Runtime supports external repositories owned by GitHub Enterprise Cloud organizations. Configure repository visibility and other repository management policies in GitHub Enterprise Cloud. For more information, see [Enforcing repository management policies in your enterprise](https://docs.github.com/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-repository-management-policies-in-your-enterprise#about-policies-for-repository-management-in-your-enterprise).
-
-Administrators can use **External artifacts in managed apps** to control whether developers can deploy prebuilt artifacts produced outside the Microsoft-managed build system. The setting is disabled by default and can be configured for an individual environment or an environment group.
-
-See [Configure source and deployment controls](governance#configure-source-and-deployment-controls).
-
-## Govern apps
-
-Apps built with Copilot Managed Runtime are governed from the moment they're created, with no extra setup required. The governance model is built around three principles: apps are safe by default, admins can govern at scale, and the platform balances controls with developer productivity.
-
-### Safe by default
-
-Every app built with Copilot Managed Runtime has governance built in from the moment it's created. Developers and admins don't need to add governance as a configuration step afterward:
-
-- **Built-in authentication.** Every app uses Microsoft Entra ID—no extra identity configuration needed.
-- **Automatic policy enforcement.** Conditional access, data loss prevention (DLP), advanced connector policies, sharing limits, and data source restrictions apply to every app by default.
-- **Isolated developer environments.** Each developer works in a personal, Microsoft-managed sandbox that inherits these policies automatically.
-
-### Govern at scale
-
-As the number of apps in a tenant grows, a centralized governance layer keeps them manageable:
-
-- **Centralized inventory.** Every app appears in the Microsoft 365 admin center, so admins know what exists and who owns it—no manual registration.
-- **Usage analytics and health.** Built-in adoption metrics and health alerting help admins track use and resolve issues before they affect users.
-- **Lifecycle management.** Admins manage the full app lifecycle from the Microsoft 365 admin center.
-
-### Balance controls and productivity
-
-The Copilot Managed Runtime model is designed so that security and compliance controls don't impose unnecessary friction on developers or end users:
-
-- **Developers keep their tools.** The SDK handles governance integration, so developers focus on the app, not compliance plumbing.
-- **Admins get granular control.** Set controls around distribution, data access, and lifecycle instead of blocking custom apps entirely.
-- **Users find apps easily.** Apps surface in familiar Microsoft 365 experiences, reducing shadow IT.
-
 ## Licensing and billing
 
 Apps on Copilot Managed Runtime use consumption-based billing through Copilot Credits, and building an app is billed separately from running it:
@@ -199,21 +167,19 @@ Apps on Copilot Managed Runtime use consumption-based billing through Copilot Cr
 
 For setup steps, recommended policy patterns, cost examples, and troubleshooting, see [Manage licensing and Copilot Credits for apps on Copilot Managed Runtime](licensing-credits). For answers to common licensing questions, see the [Copilot Managed Runtime licensing FAQ](licensing-faq).
 
-For detailed requirements and configuration guidance, see:
-
-- [Manage Copilot Cowork for your organization](/en-us/microsoft-365/copilot/cowork/cowork-admin-governance)
-- [Copilot Credits Guide](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/ai/CopilotCreditsGuide.pdf)
-- [Usage-based billing and cost management for Copilot Credits](/en-us/microsoft-365/copilot/usage-based-billing-overview-copilot-credits)
-- [Overview of billing for agents and workflows powered by the GitHub Copilot harness](/en-us/microsoft-copilot-studio/agents-experience/billing-credit-overview)
-- [Manage costs for agents powered by the GitHub Copilot harness](/en-us/power-platform/admin/manage-usage-github-copilot-harness)
-- [Copilot Managed Runtime licensing FAQ (preview)](licensing-faq)
-
 ## Related information
 
-- [FAQ about Microsoft Copilot Managed Runtime (preview)](faq-about-apps)
-- [Create and manage apps across Microsoft 365 (preview)](../../../copilot-managed-runtime/)
-- [Copilot Managed Runtime SDK overview (preview)](../../../copilot-managed-runtime/developer/apps/)
-- [Quickstart: Create an app with the CLI](../../../copilot-managed-runtime/developer/apps/quickstart-managed-apps-cli)
-- [Quickstart: Build an app with GitHub Copilot or Claude Code](../../../copilot-managed-runtime/developer/apps/quickstart-github-copilot)
+- [What is Copilot Managed Runtime](./)
+- [Copilot Managed Runtime architecture](/en-us/microsoft-365/copilot-managed-runtime/developer/apps/architecture)
+- [How the managed host secures apps](/en-us/microsoft-365/copilot-managed-runtime/managed-runtime-security-governance)
+- [Roles and responsibilities](roles-responsibilities)
+- [View and oversee apps across your tenant](inventory)
+- [Review and customize default settings](governance)
+- [Monitor the health of apps in Copilot Managed Runtime](visibility-monitoring)
+- [Manage security and compliance for Copilot Managed Runtime](security-compliance)
+- [Set up Copilot Managed Runtime for Lovable](configure-lovable)
+- [Manage licensing and Copilot Credits for apps on Copilot Managed Runtime](licensing-credits)
+- [FAQ about Microsoft Copilot Managed Runtime](faq-about-apps)
+- [Copilot Managed Runtime licensing FAQ](licensing-faq)
 - [Govern apps in Copilot Managed Runtime at scale](governance)
 - [Apps in Microsoft Copilot Studio (preview)](/en-us/microsoft-copilot-studio/apps-experience/apps-overview)

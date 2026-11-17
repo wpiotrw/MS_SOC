@@ -108,7 +108,7 @@ To allocate Windows 365 Reserve licenses, assign a Microsoft Entra Group to a Re
 
 ## Configure Windows 365 Settings for Reserve
 
-### Cloud PC Configuration setting: Enable auto-deprovisioning of inactive Reserve Cloud PCs
+### Cloud PC Configuration setting: Enable auto-deprovisioning of inactive Reserve Cloud PCs (Public Preview)
 
 Auto-deprovisioning is an optional setting that helps admins maximize the value of the 10-day entitlement for a Reserve Cloud PC. When enabled, this setting automatically deprovisions Cloud PCs that are provisioned but not actively connected to based on a threshold configured by the admin. This feature is disabled by default and fully governed by IT. Administrators control availability through Cloud PC configuration settings for Windows 365 in Microsoft Intune, where the setting can be enabled and scoped to specific Microsoft Entra ID user groups. This control allows organizations to reduce manual monitoring, reduce administrative overhead and preserve unused Reserve entitlement days for future use while maintaining centralized governance.
 
@@ -178,7 +178,7 @@ Important
 2. Select one or more users and choose **Provision**.
 3. Confirm in the dialog box. 
 
-    Bulk provisioning: Verify the selected users, then select **Create** in the Bulk device action wizard. Bulk provisioning now supports up to 1,000 devices per request (in Public Preview).
+    Bulk provisioning: Verify the selected users, then select **Create** in the Bulk device action wizard. Bulk provisioning now supports up to 1,000 devices per request.
 4. Monitor status changes from **Not Provisioned** to **Provisioned**.
 
 ### Deprovision a Reserve Cloud PC
@@ -195,7 +195,7 @@ Deprovision as soon as the device is no longer needed to conserve remaining days
 2. Select one or more Cloud PCs and choose **Deprovision** now.
 3. Confirm in the dialog box.
 
-Bulk deprovisioning: Verify the selected users, then complete the steps on the Bulk device action wizard. Bulk deprovisioning now supports up to 1,000 devices per request (in Public Preview).
+Bulk deprovisioning: Verify the selected users, then complete the steps on the Bulk device action wizard. Bulk deprovisioning now supports up to 1,000 devices per request.
 
 1. Monitor to ensure status changes from **Provisioned** to **Not provisioned**.
 

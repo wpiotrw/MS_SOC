@@ -142,7 +142,7 @@ Deferred release doesn't apply to Frontier program features. Deferred release en
 
 ## Where can I find guidance on these new features and updates?
 
-Check for updates to this article, [Modern change management for Microsoft 365 - Overview](plan-for-change-management), Message Center posts, and the [AI at Work Roadmap](https://www.microsoft.com/microsoft-365/roadmap), formerly known as the Microsoft 365 Roadmap, for more information about modern change communications coming to Microsoft 365.
+Check for updates to this article, [Modern change management for Microsoft 365 - Overview](plan-for-change-management), Message Center posts, and the [Microsoft Copilot Roadmap](https://www.microsoft.com/microsoft-365/roadmap), formerly known as the Microsoft 365 Roadmap and AI at Work Roadmap, for more information about modern change communications coming to Microsoft 365.
 
 ## Do Standard release and Deferred release options affect Microsoft 365 App release options?
 

@@ -5,7 +5,7 @@ monikers:
 - o365-worldwide
 defaultMoniker: o365-worldwide
 versioningType: Ranged
-title: Review default governance settings for apps (preview) - Microsoft 365 admin | Microsoft Learn
+title: Review default governance settings for apps - Microsoft 365 admin | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/apps/governance?view=o365-worldwide
 config_moniker_range: =o365-worldwide || =o365-21vianet
 feedback_system: Standard
@@ -14,7 +14,7 @@ breadcrumb_path: /microsoft-365/breadcrumb/toc.json
 recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
 description: Learn about the default settings for Microsoft Copilot Managed Runtime, where to review them, how to customize them, and how they work with existing Power Platform governance.
-ms.date: 2026-11-03T00:00:00.0000000Z
+ms.date: 2026-11-17T00:00:00.0000000Z
 author: mikferland-msft
 ms.author: miferlan
 manager: zoraz
@@ -51,25 +51,18 @@ item_type: Content
 source_path: microsoft-365/admin/manage/apps/governance.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/e6f942e8-55a7-4c86-b8e3-7456508ea850
+- https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/f1834696-48d6-470d-966b-6ee418881596
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
 platformId: 417aa135-7d5f-ebe4-8e64-d729f30608d7
 ---
 
-# Review default governance settings for apps (preview) - Microsoft 365 admin | Microsoft Learn
-
-[This article is prerelease documentation and is subject to change.]
+# Review default governance settings for apps - Microsoft 365 admin | Microsoft Learn
 
 Anyone in your organization can build apps with Copilot Managed Runtime and bring them to the Microsoft 365 ecosystem. Every one of those apps comes with a set of **default settings** already in place. Each app built with Copilot Managed Runtime inherits a default policy that governs what it can connect to, how broadly it can be shared, and how it behaves at runtime.
-
-Important
-
-- This is a preview feature.
-- These features are subject to [supplemental terms of use](https://go.microsoft.com/fwlink/?LinkId=2373139), and are available before an official release so that customers can get early access and provide feedback.
 
 Since default governance is in place from day one, you don't need to set up anything as an admin. Makers can build inside a Microsoft-curated set of capabilities from the start. You can review these default settings at any time, customize them when you need to, and rely on them working alongside any Power Platform governance you already have.
 
@@ -81,20 +74,7 @@ This article walks through:
 
 ## Required roles
 
-Entra role assignments control access to environment groups in the Microsoft 365 admin center.
-
-| Role | Access level |
-| --- | --- |
-| [Global Administrator](/en-us/entra/identity/role-based-access-control/permissions-reference#global-administrator) | Read and write |
-| [Power Platform Administrator](/en-us/entra/identity/role-based-access-control/permissions-reference#power-platform-administrator) | Read and write |
-| [Dynamics 365 Administrator](/en-us/entra/identity/role-based-access-control/permissions-reference#dynamics-365-administrator) | Read and write in the Power Platform admin center |
-| [Global Reader](/en-us/entra/identity/role-based-access-control/permissions-reference#global-reader) | Read-only |
-| [AI Administrator](/en-us/entra/identity/role-based-access-control/permissions-reference#ai-administrator) | Read-only |
-| [AI Reader](/en-us/entra/identity/role-based-access-control/permissions-reference#ai-reader) | Read-only |
-
-Read-only roles can see every setting in the policy (connectors, actions, sharing rules, and content security) but can't make changes.
-
-For more information about Copilot Managed Runtime permissions and admin center access, see [Roles and responsibilities](roles-responsibilities).
+Microsoft Entra roles control access to environment groups in the Microsoft 365 admin center. Read-only roles can view every setting in an environment group policy, such as connectors, actions, sharing rules, and content security, but can't make changes. To change settings, you need a Manage role. For which roles have each kind of access and where they apply, see [Roles and responsibilities](roles-responsibilities).
 
 ## Where to find it
 
@@ -104,11 +84,11 @@ In the Microsoft 365 admin center, go to **Apps** &gt; **Settings**. Select **En
 
 These default settings live in a **default environment group**. The system automatically provisions this group when you create the first app with Copilot Managed Runtime or when an admin visits the Copilot Managed Runtime admin experience in the Microsoft 365 admin center (MAC) or the Power Platform admin center (PPAC). You can't delete this group. It scopes to **Everyone** (it applies to all makers who build apps with Copilot Managed Runtime), and Microsoft manages it.
 
-To review it, go to **Apps** &gt; **Settings** &gt; **Environment groups** and select the group to open its page. The page lists four rules that together define these settings: routing, connectors and MCP servers, sharing, and content security policy.
+To review it, go to **Apps** &gt; **Settings** &gt; **Environment groups** and select the group to open its page. The page lists rules for routing, connectors and MCP servers, sharing, content security policy, and Backend as a Service (Fabric).
 
 ### Routing
 
-The routing rule automatically directs new or existing makers into their own personal developer environments when they build apps with Copilot Managed Runtime, so each maker gets an isolated space to build in. By default, it applies to **Everyone**.
+The routing rule automatically directs new or existing makers into their own personal environments when they build apps with Copilot Managed Runtime, so each maker gets an isolated space to build in. By default, it applies to **Everyone**.
 
 ### Connectors and MCP servers
 
@@ -116,7 +96,7 @@ Apps reach external services through connectors, and a connector's actions deter
 
 The connector and MCP server rule controls which connectors, connector actions, and MCP servers apps in this group can use.
 
-The default environment group includes 18 Microsoft first-party connectors that authenticate exclusively through Entra ID:
+The default environment group includes 19 Microsoft first-party connectors that authenticate exclusively through Entra ID:
 
 | Category | Connectors |
 | --- | --- |
@@ -124,7 +104,7 @@ The default environment group includes 18 Microsoft first-party connectors that 
 | **Collaboration** | Microsoft Teams, Office 365 Outlook, Office 365 Groups Mail |
 | **Identity** | Office 365 Users, Office 365 Groups |
 | **Task management** | Microsoft Planner, Microsoft To Do, Microsoft Bookings |
-| **Data & Analytics** | Microsoft Forms, Excel Online (Business), Dataverse, Power BI |
+| **Data & Analytics** | Microsoft Forms, Excel Online (Business), Dataverse, Power BI, Azure Data Explorer |
 | **Social** | Yammer / Viva Engage |
 | **DevOps** | Azure DevOps |
 
@@ -155,7 +135,7 @@ Some approved connectors contain actions that bypass their intended purpose. For
 | Action type | Affected connectors | Examples |
 | --- | --- | --- |
 | **Open-ended HTTP requests** | SharePoint, Microsoft Teams, Office 365 Outlook, Office 365 Users, Office 365 Groups, Office 365 Groups Mail, Azure DevOps | "Send an HTTP request" actions that let makers construct arbitrary REST API calls |
-| **Arbitrary code or query execution** | Excel Online (Business), Power BI | "Run script" (Office Scripts), "Run a query" (freeform DAX with user impersonation) |
+| **Arbitrary code execution** | Excel Online (Business) | "Run script" (Office Scripts) |
 | **Arbitrary platform API calls** | Dataverse | "Perform an unbound/bound action" that invokes arbitrary Custom APIs |
 
 The connector remains available. Only the specific actions listed earlier are disabled.
@@ -181,14 +161,20 @@ The default environment group includes 12 Microsoft first-party MCP (Model Conte
 
 ### Sharing
 
-The sharing rule controls how broadly makers can share apps they build:
+The sharing rule controls how broadly app owners can share Microsoft Copilot Managed Runtime (CMR) apps created in your tenant. You configure sharing at the environment group level, not per app or per environment. The rule applies to every CMR app in the environment group. It doesn't affect sharing for other Power Platform resources, such as canvas apps, flows, or agents, in the same environments.
 
-- **Allow sharing with everyone in your organization**: Allows sharing the app with other people in the tenant.
-- **Allow sharing with guest users**: Extends sharing to external guest users.
+By default, a CMR app is private to its owners until it's shared. App owners can share apps with specific people and security groups in your organization. You can use the **Manage app sharing** panel to enable organization-wide sharing and sharing with guest users. Sharing with specific people and security groups remains available when organization-wide sharing is turned off.
+
+The **Manage app sharing** panel includes these settings:
+
+| Control | Default | What it does |
+| --- | --- | --- |
+| **Allow organization-wide sharing** | On | App owners can create links that anyone in their organization can open to access an app. When a recipient opens the link and signs in, they get access to run the app. A recipient can pass the link on to other people in the organization. When this setting is off, app owners can't create organization-wide links. They can share only with specific people and security groups, and recipients can't share the app with others. |
+| **Allow sharing with guest users** | Off | App owners can share with guest (B2B) users in the tenant directory directly, through security groups, or through organization-wide sharing, depending on which options are turned on. Guest sharing isn't limited to shared links. When this setting is off, guest access isn't allowed through these sharing options. |
 
 Note
 
-Guest users can’t open apps built with Copilot Managed Runtime, even when **Allow sharing with guest users** is turned on. This behavior is a known issue. We’re working on a fix.
+Guest users can't open apps built with Copilot Managed Runtime, even when **Allow sharing with guest users** is turned on. This behavior is a known issue. We're working on a fix.
 
 ### Content security policy
 
@@ -235,9 +221,28 @@ Important
 
 Keep additions as narrow as possible. Add specific origins (`https://contoso.com`), never wildcards like `*` or `'unsafe-inline'` for scripts, which defeat the purpose of the policy.
 
+### Backend as a Service (Fabric)
+
+The **Allow Backend as a Service (Fabric) for Copilot Managed Runtime** rule controls whether Copilot Managed Runtime apps in this group's environments can use the Fabric Apps integration.
+
+Through this integration, Fabric Apps provides Backend as a Service for Copilot Managed Runtime apps. Database is currently the only supported backend capability in the integration, with additional capabilities planned for future releases. For the integration's scope and the role of each service, see [Fabric integration with Copilot Managed Runtime (preview)](../../../copilot-managed-runtime/backend-integration/fabric-integration).
+
+To review the setting:
+
+1. In the Microsoft 365 admin center, go to **Apps** &gt; **Settings** &gt; **Environment groups**.
+2. Select the environment group.
+3. Select **Allow Backend as a Service (Fabric) for Copilot Managed Runtime**.
+4. Review **Enable Backend as a Service (Fabric)** to see whether the integration is enabled for the environments in this group.
+
+When Microsoft manages the rule, select **Edit this rule** to customize it. Enable or clear **Enable Backend as a Service (Fabric)** according to your organization's requirements.
+
+Important
+
+If you edit this Microsoft-managed rule, the rule no longer receives automatic updates from Microsoft. Review this tradeoff before taking control of the rule.
+
 ## Customize the default settings
 
-The default settings are restrictive on day one, but you can adjust the connectors, sharing, and content security rules when your organization needs different behavior. Open the default environment group from **Apps** &gt; **Settings** &gt; **Environment groups**, and then edit the rule you want to change.
+The default settings are restrictive on day one, but you can adjust the connectors and MCP servers, sharing, content security policy, and Backend as a Service (Fabric) settings when your organization needs different behavior. Open the default environment group from **Apps** &gt; **Settings** &gt; **Environment groups**, and then edit the rule you want to change.
 
 ### Connectors and MCP servers
 
@@ -265,7 +270,14 @@ A warning dialog appears before the switch takes effect, calling out that:
 
 ### Sharing
 
-Select **Sharing** and turn on or off either setting to widen or restrict how broadly makers can share their apps.
+To configure sharing settings for an environment group:
+
+1. In the Microsoft 365 admin center, select **Apps** &gt; **Settings**.
+2. Select **Environment groups**, and then select the group.
+3. Select **Sharing**. The **Manage app sharing** panel opens.
+4. Turn **Allow organization-wide sharing** or **Allow sharing with guest users** on or off to widen or restrict how broadly app owners can share their apps.
+
+[![Screenshot of the Manage app sharing panel with organization-wide sharing selected and sharing with guest users cleared.](media/manage-app-sharing.png)](media/manage-app-sharing.png#lightbox)
 
 ### Content security policy
 
@@ -338,11 +350,11 @@ For more information, see [Environment routing](/en-us/power-platform/admin/defa
 
 ### No routing configured
 
-Environment routing is enabled for Copilot Managed Runtime only. All new personal developer environments are routed into a single environment group that is preconfigured with the rules described earlier.
+Environment routing is enabled for Copilot Managed Runtime only. All new personal environments are routed into a single environment group that is preconfigured with the rules described earlier.
 
 ### Routing enabled with no routing rules
 
-If you enable environment routing for one or more products (for example, for Copilot Studio) without configuring a routing rule, two things happen. First, routing is auto-enabled for Copilot Managed Runtime. In the Power Platform admin center **Tenant settings** &gt; **Environment routing** panel, Copilot Managed Runtime appears as a routing product with its own checkbox. Then, a routing rule is added so that all new personal developer environments created from routing are placed into a single environment group that is preconfigured with the rules described earlier.
+If you enable environment routing for one or more products (for example, for Copilot Studio) without configuring a routing rule, two things happen. First, routing is auto-enabled for Copilot Managed Runtime. In the Power Platform admin center **Tenant settings** &gt; **Environment routing** panel, Copilot Managed Runtime appears as a routing product with its own checkbox. Then, a routing rule is added so that all new personal environments created from routing are placed into a single environment group that is preconfigured with the rules described earlier.
 
 ### Routing rules with an "Everyone" catch-all
 
@@ -350,7 +362,7 @@ Microsoft 365 admin center preserves and reflects your existing environment grou
 
 ### Security-group-scoped routing without a catch-all
 
-This option uses the same configuration as the previous option, but users outside all configured security groups aren't automatically provisioned a personal developer environment. The existing routing scope stays the same.
+This option uses the same configuration as the previous option, but users outside all configured security groups aren't automatically provisioned a personal environment. The existing routing scope stays the same.
 
 In all cases, Copilot Managed Runtime-specific rules layer in without overriding existing configurations. Microsoft 365 admin center preserves whatever the admin previously set up.
 

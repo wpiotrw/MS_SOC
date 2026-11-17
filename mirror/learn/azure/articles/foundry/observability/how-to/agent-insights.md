@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Use Insights in Foundry - Microsoft Foundry | Microsoft Learn
+title: Find recurring issues with insights - Microsoft Foundry | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/agent-insights
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
@@ -22,13 +22,13 @@ ms.author: lagayhar
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
-description: Learn how to run Insights scans, review recurring production behaviors and supporting traces, and route confirmed Insights to evaluation or optimization workflows.
+description: Learn how to run insights scans, review recurring production behaviors and supporting traces, and route confirmed insights to evaluation or optimization workflows.
 ms.reviewer: hanch
 ms.subservice: foundry-observability
 ms.topic: how-to
-ms.date: 2026-10-21T00:00:00.0000000Z
+ms.date: 2026-11-10T00:00:00.0000000Z
 ai-usage: ai-assisted
-ms.custom: doc-kit-assisted
+ms.custom: doc-kit-assisted, references_regions
 locale: en-us
 document_id: 02c7b775-9b0a-48ab-3b7c-2b891207575a
 document_version_independent_id: b9bbe2d6-72d1-959c-51cf-a21ebe1490c6
@@ -43,39 +43,36 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/observability/how-to/agent-insights.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
 - https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 3766a926-7cba-0580-2403-aa8ca897d01b
 ---
 
-# Use Insights in Foundry - Microsoft Foundry | Microsoft Learn
+# Find recurring issues with insights - Microsoft Foundry | Microsoft Learn
 
-Important
+Microsoft Foundry surfaces insights from production traces, such as recurring failures, hallucinations, and token spikes. Each insight can include representative traces, affected agent versions, a likely cause, and a recommended next action.
 
-Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
-
-Insights in Foundry analyzes traces from your production agents and organizes recurring behavior into reviewable Insights. Each Insight can include representative traces, affected agent versions, a likely cause, and a recommended next action.
-
-Use Insights in Foundry to move from reviewing individual traces to answering broader questions:
+Use insights from production traces to move from reviewing individual traces to answering broader questions:
 
 - What important behavior is happening repeatedly?
 - Which agents, versions, or conversations are affected?
-- What trace evidence supports the Insight?
+- What trace evidence supports the insight?
 - What should I investigate, evaluate, or improve next?
 
 In this article, you learn how to:
 
-- Prepare an agent and its telemetry for Insights in Foundry.
+- Prepare an agent and its telemetry for insights analysis.
 - Configure analysis priorities, custom categories, and instructions.
-- Run an Insights scan in the Microsoft Foundry portal.
-- Review metrics, Insights, and supporting evidence.
-- Pull generated Insights into a local coding agent.
-- Route a confirmed Insight to the appropriate next action.
+- Run an insights scan in the Microsoft Foundry portal.
+- Review metrics, insights, and supporting evidence.
+- Pull generated insights into a local coding agent.
+- Route a confirmed insight to the appropriate next action.
+- Send selected insights to Agent Optimizer in Microsoft Foundry to create and evaluate candidate fixes.
 - Run on-demand analysis and configure a schedule with the Python SDK.
 - Troubleshoot common setup and result-quality issues.
 
@@ -83,12 +80,12 @@ In this article, you learn how to:
 
 Before you begin, you need:
 
-- A Foundry project with a GPT-5 or newer GPT model deployment and a connected Azure Monitor Application Insights resource.
+- A Foundry project in a supported region, with a GPT-5 or newer GPT model deployment and a connected Azure Monitor Application Insights resource.
 - For the Python examples, Python 3.10 or later and Azure CLI. Sign in by running `az login`.
-- Permission to create role assignments at the required resource scopes, or an administrator who can assign the following roles before you run the workflow.
+- Permission to create role assignments at the required resource scopes, or an administrator who can assign the roles listed in this section before you run the workflow.
 - For a Prompt agent, the interactive user must have the **Foundry User** role on the project. For a Hosted agent, the user must have the **Foundry Project Manager** role.
-- The **Monitoring Reader** role on the connected Application Insights resource for both the interactive user and the Foundry project's managed identity.
-- If the `AppGenAIContent` table is protected, the **Privileged Monitoring Data Reader** role for each identity that reads protected content, including the project's managed identity. For resource-scoped queries, assign the role on the connected Application Insights resource. For workspace-scoped queries, assign it on the linked Log Analytics workspace. For more information, see [Grant access to protected tables](/en-us/azure/azure-monitor/logs/protected-tables-configure#grant-access-to-protected-tables).
+- Each identity that reads telemetry needs the appropriate query permissions. For standard logs, assign **Monitoring Reader** or equivalent query permissions. If `AppGenAIContent` is protected, assign **Privileged Monitoring Data Reader** or equivalent permissions that allow access to protected content. The privileged role also includes normal log-query access; a separate **Monitoring Reader** assignment isn't required. For more information, see [Grant access to protected tables](/en-us/azure/azure-monitor/logs/protected-tables-configure#grant-access-to-protected-tables).
+- Assign telemetry permissions at the scope used for querying: the connected Application Insights resource for resource-scoped queries, or the linked Log Analytics workspace for workspace-scoped queries. For application-only insights runs, grant these permissions to the Foundry project's managed identity, not just the calling application's identity.
 - The project's managed identity needs access to the model deployment used for analysis.
 - Recent, representative traces for the selected agent.
 
@@ -96,22 +93,69 @@ Important
 
 The Foundry RBAC roles were recently renamed. **Foundry User**, **Foundry Owner**, **Foundry Account Owner**, and **Foundry Project Manager** were previously named Azure AI User, Azure AI Owner, Azure AI Account Owner, and Azure AI Project Manager. You might still see the previous names in some places while the rename rolls out. The role IDs and core permissions are unchanged by the rename.
 
+### Application-only authentication
+
+You can start on-demand insights runs from automated workloads by using a managed identity or service principal. Grant the **calling identity** the Foundry permissions required for the insights API operations it uses. For example, assign **Foundry User** on the target project or parent account.
+
+For application-only requests, analysis runs by using the Foundry project's managed identity, not the calling application's identity. Before you start a run, ensure that the project's managed identity has:
+
+- **Model access:** For Microsoft Entra-authenticated Azure OpenAI models, assign **Cognitive Services OpenAI User**, or equivalent deployment-read and inference permissions, on the account that hosts the configured analysis model.
+- **Telemetry access:** Assign **Monitoring Reader**, or equivalent query permissions, on the project's connected Application Insights resource. If `AppGenAIContent` is protected, assign **Privileged Monitoring Data Reader**, or equivalent protected-data access, at that resource scope. The privileged role also includes normal log-query access; a separate **Monitoring Reader** assignment isn't required.
+
+Permissions granted to the calling application don't automatically grant access to the project's managed identity. Configure these identities independently, and allow time for role assignments to propagate.
+
+### Choose a supported region
+
+Foundry supports insights in the following Azure regions:
+
+- australiaeast
+- brazilsouth
+- canadacentral
+- canadaeast
+- centralus
+- eastus
+- eastus2
+- francecentral
+- germanywestcentral
+- italynorth
+- japaneast
+- japanwest
+- koreacentral
+- northcentralus
+- norwayeast
+- polandcentral
+- southafricanorth
+- southcentralus
+- southeastasia
+- southindia
+- spaincentral
+- swedencentral
+- switzerlandnorth
+- switzerlandwest
+- uksouth
+- ukwest
+- westcentralus
+- westeurope
+- westus
+- westus2
+- westus3
+
 ### Choose a supported judge model
 
-Insights in Foundry supports only GPT models as the judge model that analyzes traces. Use GPT-5 or a newer GPT model. Mini and nano variants are supported, but for better Insight quality, use a larger model variant.
+Foundry supports only GPT models as the judge model that analyzes traces. Use GPT-5 or a newer GPT model. Mini and nano variants are supported, but for better insight quality, use a larger model variant.
 
 ### Choose a suitable agent
 
 Start with one production agent that has:
 
-- A technical owner who can review the agent's traces and Insights.
+- A technical owner who can review the agent's traces and insights.
 - Representative successful and unsuccessful traffic.
 - Stable agent and version identities in telemetry.
 - Repeated traffic from which patterns can emerge.
 
 ### Verify trace readiness
 
-Insights in Foundry can analyze only the evidence available in traces. Before you run a scan:
+Foundry can analyze only the evidence available in traces. Before you run a scan:
 
 - In your Foundry project, open the agent.
 - Select **Traces**, and then open the tracing experience.
@@ -120,15 +164,15 @@ Insights in Foundry can analyze only the evidence available in traces. Before yo
 
 Missing identity, content, spans, tool arguments, or tool results can reduce grouping, diagnosis, and proposed-fix quality.
 
-## How Insights in Foundry works
+## How Foundry generates insights
 
-Insights in Foundry uses trace data from the Azure Monitor Application Insights resource connected to your Foundry project.
+Foundry uses trace data from the Azure Monitor Application Insights resource connected to your Foundry project.
 
 ```text
 Agent production traffic
   -> OpenTelemetry traces in Application Insights
   -> recurring behavior analysis
-  -> Insight with evidence and likely cause
+  -> insight with evidence and likely cause
   -> human review
   -> evaluation, optimization, owner routing, or no action
   -> continued monitoring
@@ -136,34 +180,34 @@ Agent production traffic
 
 The first analysis uses a 7-day lookback window to review existing trace history. After setup, you can run analysis on demand or enable scheduled generation, depending on the supported configuration.
 
-Insights in Foundry doesn't require you to predefine every evaluator or alert. It complements known-condition monitoring and evaluation by finding repeated production behavior that you might not already know to test.
+You don't need to predefine every evaluator or alert. Generated insights complement known-condition monitoring and evaluation by finding repeated production behavior that you might not already know to test.
 
-### Information in an Insight
+### Information in an insight
 
-Depending on the available trace data and supported configuration, an Insight can include:
+Depending on the available trace data and supported configuration, an insight can include:
 
 | Field | Description |
 | --- | --- |
 | Title | A concise description of the recurring behavior or regression. |
-| Category | One of the following categories: Context & memory, Cost & tokens, Hallucinations, Latency, Output quality, Reliability errors, Security & risk, or Tool call failures. |
-| Severity | The potential impact of the Insight, displayed as High, Medium, or Low. Severity provides decision support and doesn't replace your organization's risk assessment. |
-| Status | The current state of the Insight, such as Active. |
-| Agent version and recency | The agent version represented in the evidence and the time when the Insight was created. |
+| Category | A built-in category (Context & memory, Cost & tokens, Hallucinations, Latency, Output quality, Reliability errors, Security & risk, or Tool call failures), or a custom category that you add in the **Insights** settings. |
+| Severity | The potential impact of the insight, displayed as High, Medium, or Low. Severity provides decision support and doesn't replace your organization's risk assessment. |
+| Status | The current state of the insight, such as Active. |
+| Agent version and recency | The agent version represented in the evidence and the time when the insight was created. |
 | Description | An AI-generated explanation of the observed behavior and likely cause. |
-| Linked traces | The broader cohort associated with the Insight. |
+| Linked traces | The broader cohort associated with the insight. |
 | Highlighted traces | Representative examples selected for review, including a summary, duration, and token count. |
-| Proposed action or fix | A recommended investigation or improvement path. Availability and specificity vary by Insight and configuration. |
+| Proposed action or fix | A recommended investigation or improvement path. Availability and specificity vary by insight and configuration. |
 
-## Configure Insights analysis
+## Configure insights analysis
 
-Configure Insights to focus analysis on the categories and requirements that matter for your agent.
+Configure insights to focus analysis on the categories and requirements that matter for your agent.
 
 1. In the Foundry portal, open the project that contains your agent.
 2. Select **Build** &gt; **Agents**, select the agent, and then select the **Insights** tab.
 3. Select **Settings**, and then select **Insights** under **Monitor settings**.
-4. Select the supported **Judge model** that analyzes traces and generates Insights.
-5. Under **Priorities**, keep the built-in categories that are relevant to your scenario, and remove categories that you don't want to prioritize.
-6. To focus analysis on an application-specific or business-specific requirement, select **+ Custom category**, and then enter a category name.
+4. Select the supported **Judge model** that analyzes traces and generates insights.
+5. Under **Priorities**, select **Add priority**, and then select the built-in categories that are relevant to your scenario. To remove a selected category, select its **X** button.
+6. To focus analysis on an application-specific or business-specific requirement, select **Custom category**, and then enter a category name.
 7. Under **Instructions**, enter any additional guidance for the analysis. For example:
 
     - Prioritize unexpected token usage or cost spikes.
@@ -171,13 +215,12 @@ Configure Insights to focus analysis on the categories and requirements that mat
     - Identify responses that are unclear or not human-readable.
     - Ignore low-severity issues.
     - Flag repeated tool calls that add latency without improving the result.
-8. Select **Save**.
+8. To run analysis automatically every six hours, turn on the toggle next to **Scheduled analysis paused**. Leave it off if you want to use **Run now** for on-demand analysis only.
+9. Select **Save**.
 
-[![Screenshot of Insights monitor settings with a judge model, built-in category priorities, the Custom category action, and an Instructions box.](../../media/observability/agent-insights/insights-settings.png)](../../media/observability/agent-insights/insights-settings.png#lightbox)
+[![Screenshot of Insights monitor settings with scheduled analysis paused, a judge model, selected priorities, the Add priority menu, a custom category, and the Instructions box.](../../media/observability/agent-insights/insights-settings.png)](../../media/observability/agent-insights/insights-settings.png#lightbox)
 
-To enable scheduled Insight generation, turn on scheduled analysis in the Insights settings.
-
-## Run an Insights scan in the portal
+## Run an insights scan in the portal
 
 1. Sign in to [Microsoft Foundry](https://ai.azure.com/?cid=learnDocs).
 2. Open the Foundry project that contains your agent.
@@ -187,34 +230,34 @@ To enable scheduled Insight generation, turn on scheduled analysis in the Insigh
 
 The scan starts asynchronously. Processing time varies based on traffic volume, telemetry completeness, service capacity, and the selected Judge model. You can leave the page and return later.
 
-## Review generated Insights
+## Review generated insights
 
-When the analysis finishes, the **Insights** tab shows generated Insights for the selected agent.
+When the analysis finishes, the **Insights** tab shows generated insights for the selected agent.
 
-[![Screenshot of generated Insights and selected details, including category, severity, linked traces, evidence, and a proposed fix.](../../media/observability/agent-insights/insights-generated.png)](../../media/observability/agent-insights/insights-generated.png#lightbox)
+[![Screenshot of the Insights tab with filters, generated insights, selected insight details, highlighted traces with fictitious IDs, and a proposed fix.](../../media/observability/agent-insights/insights-generated.png)](../../media/observability/agent-insights/insights-generated.png#lightbox)
 
 Filter the list by **Severity**, **Category**, or **Status**. You can also search or sort the list.
 
-Select **Metrics** to open a dashboard with:
+Select **View metrics** to open a dashboard with:
 
 - Active and total insights.
 - Traces and runs analyzed.
 - Token usage and estimated cost.
-- Insight trends over time.
-- Insights grouped by category.
+- Trends in insights over time.
+- A breakdown of insights by category.
 - Severity distribution.
 
-[![Screenshot of the Insights page with the Metrics panel showing active Insights, analyzed traces, token usage, estimated cost, trends, categories, and severity.](../../media/observability/agent-insights/insights-metrics.png)](../../media/observability/agent-insights/insights-metrics.png#lightbox)
+[![Screenshot of the Insights page with the Metrics panel showing active insights, analyzed traces, token usage, estimated cost, trends, categories, and severity.](../../media/observability/agent-insights/insights-metrics.png)](../../media/observability/agent-insights/insights-metrics.png#lightbox)
 
 Select **Run now** to start another scan.
 
 Select the **History** icon next to **Run now** to review previous analysis runs.
 
-The **Insights generation history** window includes both on-demand and scheduled runs. For each run, you can review its status, start and end times, duration, token usage, traces analyzed, new Insights, and updated Insights. Use the search box to find a run, or use **Prev** and **Next** to move between pages.
+The **Insights generation history** window includes both on-demand and scheduled runs. For each run, you can review its status, start and end times, duration, token usage, traces analyzed, new insights, and updated insights. Use the search box to find a run, or use **Prev** and **Next** to move between pages.
 
-[![Screenshot of Insights generation history showing run status, timing, token usage, analyzed traces, and new or updated Insights.](../../media/observability/agent-insights/insights-generation-history.png)](../../media/observability/agent-insights/insights-generation-history.png#lightbox)
+[![Screenshot of Insights generation history showing run status, timing, token usage, analyzed traces, and new or updated insights.](../../media/observability/agent-insights/insights-generation-history.png)](../../media/observability/agent-insights/insights-generation-history.png#lightbox)
 
-Start with an Insight that:
+Start with an insight that:
 
 - Affects an important user or business workflow.
 - Has enough linked traces to indicate repetition.
@@ -223,9 +266,9 @@ Start with an Insight that:
 
 A large linked-trace count doesn't by itself prove business impact. Review the evidence and the affected workflow.
 
-## Pull Insights into a local coding agent
+## Pull insights into a local coding agent
 
-Use Foundry MCP or the Microsoft Foundry Skill to retrieve generated Insights in a local coding agent. Retrieval is read-only: it reads findings from an existing Insights monitor and doesn't start a scan, create a monitor, change an Insight status, or modify your agent.
+Use Foundry MCP or the Microsoft Foundry Skill to retrieve generated insights in a local coding agent. Retrieval is read-only: it reads findings from an existing insights monitor and doesn't start a scan, create a monitor, change an insight status, or modify your agent.
 
 Before you begin, identify the Foundry project endpoint and the exact agent name. The project endpoint has the following format:
 
@@ -236,7 +279,7 @@ Before you begin, identify the Foundry project endpoint and the exact agent name
 Complete [Foundry MCP Server setup](../../mcp/get-started), open your agent's source folder in Visual Studio Code, and select **Agent** mode in GitHub Copilot Chat. Confirm that the Foundry tools are enabled, and then use a prompt such as:
 
 > 
-> Use `agent_insights_get` to retrieve all generated Insights for agent `<agent-name>` in project `<project-endpoint>`. Include details, list newest findings first, follow pagination until all findings are retrieved, and summarize each finding's severity, status, evidence, and proposed remediation. Don't start a new analysis, change Insight status, or modify files.
+> Use `agent_insights_get` to retrieve all generated insights for agent `<agent-name>` in project `<project-endpoint>`. Include details, list newest findings first, follow pagination until all findings are retrieved, and summarize each finding's severity, status, evidence, and proposed remediation. Don't start a new analysis, change insight status, or modify files.
 
 Depending on the coding-agent host, `agent_insights_get` appears directly or through the Foundry tool. The coding agent maps the request to these inputs:
 
@@ -249,22 +292,22 @@ Depending on the coding-agent host, `agent_insights_get` appears directly or thr
 
 When a response has `has_more` set to `true`, the coding agent passes that page's `last_id` as `after` in the next request. It retains the same endpoint, agent name, filters, detail setting, and sort order until all requested pages are retrieved.
 
-The tool returns existing generated findings. An empty result means that no findings match the request; it doesn't prove that the agent is healthy. If the tool reports that the monitor doesn't exist, run an Insights scan before you retry retrieval.
+The tool returns existing generated findings. An empty result means that no findings match the request; it doesn't prove that the agent is healthy. If the tool reports that the monitor doesn't exist, run an insights scan before you retry retrieval.
 
 ### Use the Microsoft Foundry Skill
 
 Install the skill by following [Use the Microsoft Foundry Skill in coding agents](../../how-to/develop/use-microsoft-foundry-skill). Open the folder that contains your agent code, and then use a prompt such as:
 
 > 
-> Use the Microsoft Foundry Skill to call `agent_insights_get` with `projectEndpoint` set to `<project-endpoint>`, `agentName` set to `<agent-name>`, `includeDetails=true`, and `order=desc`. While `has_more=true`, retrieve the next page with `after` set to the previous page's `last_id`. Include supporting evidence and proposed remediation, and compare relevant findings with the code in this workspace. Don't apply any proposed fix, modify agent code, or change Insight status.
+> Use the Microsoft Foundry Skill to call `agent_insights_get` with `projectEndpoint` set to `<project-endpoint>`, `agentName` set to `<agent-name>`, `includeDetails=true`, and `order=desc`. While `has_more=true`, retrieve the next page with `after` set to the previous page's `last_id`. Include supporting evidence and proposed remediation, and compare relevant findings with the code in this workspace. Don't apply any proposed fix, modify agent code, or change insight status.
 
 The skill resolves the available MCP tool, retrieves all result pages with expanded details, and summarizes the findings. Review the returned trace evidence and recommendations before you ask the coding agent to make a separate code or prompt change.
 
-## Validate an Insight
+## Validate an insight
 
-Don't accept an Insight based only on its title or summary. Review its evidence before taking action.
+Don't accept an insight based only on its title or summary. Review its evidence before taking action.
 
-1. Open the Insight.
+1. Open the insight.
 2. Read the description and proposed fix.
 3. Confirm the agent version, category, severity, status, and creation time.
 4. Expand the highlighted traces.
@@ -272,9 +315,9 @@ Don't accept an Insight based only on its title or summary. Review its evidence 
 6. Compare problematic examples with healthy traces.
 7. Decide whether the behavior is real, important, correctly grouped, and assigned to the correct owner for further validation.
 
-## Take action on a confirmed Insight
+## Take action on a confirmed insight
 
-The available actions depend on the Insight and the supported preview configuration.
+The available actions depend on the insight and the supported configuration.
 
 ### Investigate traces
 
@@ -282,13 +325,13 @@ Open the highlighted or filtered trace cohort to review the complete execution p
 
 ### Add evaluation coverage
 
-If the Insight confirms an important expected behavior, create or update an evaluator or dataset so you can test the behavior explicitly before and after future changes.
+If the insight confirms an important expected behavior, create or update an evaluator or dataset so you can test the behavior explicitly before and after future changes.
 
-Evaluation validates behavior you know to test. Insights in Foundry helps identify which production behaviors should become explicit evaluation targets.
+Evaluation validates behavior you know to test. Generated insights help identify which production behaviors should become explicit evaluation targets.
 
 ### Review a proposed improvement
 
-Some Insights include a proposed prompt or code change. Review the proposal against:
+Some insights include a proposed prompt or code change. Review the proposal against:
 
 - The highlighted traces.
 - The intended agent behavior.
@@ -299,13 +342,13 @@ Some Insights include a proposed prompt or code change. Review the proposal agai
 
 Note
 
-Concrete prompt or code proposals are available only for supported agent types and configurations and can change during preview. Code-based Hosted agents and Prompt agents are supported, with concrete fix proposals when available.
+Concrete prompt or code proposals are available only for supported agent types and configurations. Code-based Hosted agents and Prompt agents are supported, with concrete fix proposals when available.
 
 #### General guidance when agent code isn't available
 
-When Insights in Foundry can't access editable agent instructions or source code, the proposed fix provides general remediation guidance instead of a concrete diff. Review the recommendation and apply it in the system that owns the agent implementation.
+When Foundry can't access editable agent instructions or source code, the proposed fix provides general remediation guidance instead of a concrete diff. Review the recommendation and apply it in the system that owns the agent implementation.
 
-[![Screenshot of an Insight with general remediation guidance when editable agent instructions or source code aren't available.](../../media/observability/agent-insights/fix-general-advice-when-no-access-to-code.png)](../../media/observability/agent-insights/fix-general-advice-when-no-access-to-code.png#lightbox)
+[![Screenshot of an insight with general remediation guidance when editable agent instructions or source code aren't available.](../../media/observability/agent-insights/fix-general-advice-when-no-access-to-code.png)](../../media/observability/agent-insights/fix-general-advice-when-no-access-to-code.png#lightbox)
 
 #### Prompt agent proposed fix
 
@@ -319,23 +362,31 @@ For a code-based Hosted agent, the proposed fix can show a side-by-side source c
 
 [![Screenshot of a code-based Hosted agent proposed fix showing a side-by-side source code diff.](../../media/observability/agent-insights/fix-code-based-hosted-agent.png)](../../media/observability/agent-insights/fix-code-based-hosted-agent.png#lightbox)
 
-When optimization is the appropriate action, use the confirmed Insight, representative traces, and evaluation objective as input to a supported optimization workflow.
+### Fix insights with agent optimizer (preview)
+
+Important
+
+Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
+
+Select confirmed insights and send them to agent optimizer to create and evaluate candidate fixes. This portal workflow currently supports prompt agents that don't use the Microsoft Copilot harness. An optimization run doesn't change your active agent unless you review and promote a candidate.
+
+For prerequisites and the detailed procedure, see [Fix insights with agent optimizer](../../agents/how-to/optimize-agents-from-insights). For hosted agents, use the [Foundry Toolkit or Azure Developer CLI workflow](../../agents/quickstarts/quickstart-optimize-hosted-agent) instead.
 
 ### Route a dependency or platform issue
 
-If the evidence points to a tool, model endpoint, MCP server, data source, network, or Foundry platform issue, route the Insight to the responsible owner. Don't apply an agent-side prompt or code change when the agent doesn't control the failing behavior.
+If the evidence points to a tool, model endpoint, MCP server, data source, network, or Foundry platform issue, route the insight to the responsible owner. Don't apply an agent-side prompt or code change when the agent doesn't control the failing behavior.
 
 Use Azure Monitor for infrastructure availability, dependency health, quotas, throttling, and other operational incident workflows.
 
 ### Resolve, dismiss, or monitor recurrence
 
-Where supported, use the Insight status to record that an Insight is active, resolved, or dismissed. Before marking an Insight resolved, verify the change against new production evidence or a relevant evaluation.
+Where supported, use the insight status to record that an insight is active, resolved, or dismissed. Before marking an insight resolved, verify the change against new production evidence or a relevant evaluation.
 
 ## Use the code samples
 
-The following Python examples show the core SDK calls for an existing registered agent. They use the same APIs as the complete [on-demand sample](https://github.com/Azure/azure-sdk-for-python/blob/fedc3ab96021c2b0d42496cb4ddf0c476f77b63d/sdk/ai/azure-ai-projects/samples/agent_insights/sample_agent_insights_on_demand.py) and [scheduled sample](https://github.com/Azure/azure-sdk-for-python/blob/fedc3ab96021c2b0d42496cb4ddf0c476f77b63d/sdk/ai/azure-ai-projects/samples/agent_insights/sample_agent_insights_scheduled.py) in the Azure SDK for Python repository.
+The following Python examples show the core SDK calls for an existing registered agent. They use the same APIs as the complete [on-demand sample](https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/ai/azure-ai-projects/samples/agent_insights/sample_agent_insights_on_demand.py) and [scheduled sample](https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/ai/azure-ai-projects/samples/agent_insights/sample_agent_insights_scheduled.py) in the Azure SDK for Python repository.
 
-Run the setup first, then use the on-demand or scheduled workflow in the same Python session. The examples keep the monitor and its Insights available for review. They don't create an agent, generate traces, or delete existing monitors.
+Run the setup first, then use the on-demand or scheduled workflow in the same Python session. The examples keep the monitor and its insights available for review. They don't create an agent, generate traces, or delete existing monitors.
 
 ### Set up the Python client
 
@@ -351,13 +402,11 @@ Before you run the examples:
 | `FOUNDRY_AGENT_NAME` | The exact name of your existing registered agent, not a name prefix. |
 | `FOUNDRY_MODEL_NAME` | The deployment name of a supported judge model used to analyze traces. |
 
-Install version 2.6.1 or later of the Azure AI Projects client library and Azure Identity:
+Install version 2.11.0 or later of the Azure AI Projects client library and Azure Identity:
 
 ```bash
-python -m pip install "azure-ai-projects>=2.6.1"
+python -m pip install "azure-ai-projects>=2.11.0"
 ```
-
-Create the client with `allow_preview=True` to use the preview operations under `beta.agent_insight_monitors`.
 
 ```python
 import os
@@ -369,33 +418,34 @@ credential = DefaultAzureCredential()
 project_client = AIProjectClient(
     endpoint=os.environ["FOUNDRY_PROJECT_ENDPOINT"],
     credential=credential,
-    allow_preview=True,
 )
-monitor_operations = project_client.beta.agent_insight_monitors
+monitor_operations = project_client.agent_insight_monitors
 ```
 
 Reference: [AIProjectClient](/en-us/python/api/azure-ai-projects/azure.ai.projects.aiprojectclient), [DefaultAzureCredential](/en-us/python/api/azure-identity/azure.identity.defaultazurecredential).
 
 Create a monitor with scheduling disabled. This configuration lets you start analysis explicitly before enabling recurring runs.
 
-If the agent already has a monitor, skip creation and use `monitor = monitor_operations.get("<monitor-id>")` instead. This approach preserves its current settings, runs, and Insights.
+If the agent already has a monitor, skip creation and use `monitor = monitor_operations.get("<monitor-id>")` instead. This approach preserves its current settings, runs, and insights.
 
 ```python
-from azure.ai.projects.models import AgentInsightMonitorCreate
+from azure.ai.projects.models import AgentInsightPriorities
 
 monitor = monitor_operations.create(
-    AgentInsightMonitorCreate(
-        agent_name=os.environ["FOUNDRY_AGENT_NAME"],
-        model_deployment_name=os.environ["FOUNDRY_MODEL_NAME"],
-        enabled=False,
-    )
+    agent_name=os.environ["FOUNDRY_AGENT_NAME"],
+    model_deployment_name=os.environ["FOUNDRY_MODEL_NAME"],
+    enabled=False,
+    priorities=AgentInsightPriorities(
+        categories=[],  # Use the default analysis categories.
+        instructions="Focus on tool calls made without the user's approval.",
+    ),
 )
 print(f"Monitor ID: {monitor.id}")
 ```
 
-Reference: [AgentInsightMonitorCreate](/en-us/python/api/azure-ai-projects/azure.ai.projects.models.agentinsightmonitorcreate), [BetaAgentInsightMonitorsOperations](/en-us/python/api/azure-ai-projects/azure.ai.projects.operations.betaagentinsightmonitorsoperations).
+Reference: [AgentInsightPriorities](/en-us/python/api/azure-ai-projects/azure.ai.projects.models.agentinsightpriorities), [AgentInsightMonitorsOperations](/en-us/python/api/azure-ai-projects/azure.ai.projects.operations.agentinsightmonitorsoperations).
 
-Save the monitor ID. Don't delete an existing monitor to rerun these examples. Deleting a monitor also removes its runs, Insights, and state.
+Save the monitor ID. Don't delete an existing monitor to rerun these examples. Deleting a monitor also removes its runs, insights, and state.
 
 ### Run analysis on demand
 
@@ -404,11 +454,9 @@ Use the monitor from setup to analyze traces from the last three hours. The run 
 ```python
 import uuid
 
-from azure.ai.projects.models import AgentInsightRunCreate
-
 poller = monitor_operations.begin_create_run(
     monitor.id,
-    AgentInsightRunCreate(lookback_hours=3),
+    lookback_hours=3,
     operation_id=str(uuid.uuid4()),
 )
 run_id = poller.details["run_id"]
@@ -419,25 +467,31 @@ completed_run = monitor_operations.get_run(monitor.id, run_id)
 print(f"Run status: {completed_run.status}")
 print(f"Traces in window: {run_result.traces_in_window}")
 print(f"Traces analyzed: {run_result.traces_analyzed}")
-print(f"Insights created: {run_result.insights_created}")
-print(f"Insights updated: {run_result.insights_updated}")
-print(f"Insights reopened: {run_result.insights_reopened}")
+print(f"Created insights: {run_result.insights_created}")
+print(f"Updated insights: {run_result.insights_updated}")
+print(f"Reopened insights: {run_result.insights_reopened}")
 print(f"Total tokens: {run_result.token_usage.total_tokens}")
 ```
 
-Reference: [AgentInsightRunCreate](/en-us/python/api/azure-ai-projects/azure.ai.projects.models.agentinsightruncreate), [BetaAgentInsightMonitorsOperations](/en-us/python/api/azure-ai-projects/azure.ai.projects.operations.betaagentinsightmonitorsoperations).
+Reference: [AgentInsightMonitorsOperations](/en-us/python/api/azure-ai-projects/azure.ai.projects.operations.agentinsightmonitorsoperations).
 
-The output shows the run status, trace counts, Insight counts, and token usage. Counts depend on your agent's traces; a successful run doesn't guarantee new Insights.
+The output shows the run status, trace counts, insight counts, and token usage. Counts depend on your agent's traces; a successful run doesn't guarantee new insights.
 
-### Review and resolve an Insight
+### Review and resolve an insight
 
-After analysis completes, list the monitor's Insights with their details:
+After analysis completes, list the monitor's insights with their details:
 
 ```python
+from azure.ai.projects.models import AgentInsightStatus
+
 insights = list(
-    monitor_operations.list_insights(monitor.id, include_details=True)
+    monitor_operations.list_insights(
+        monitor.id,
+        statuses=[AgentInsightStatus.ACTIVE],
+        include_details=True,
+    )
 )
-print(f"Insights available: {len(insights)}")
+print(f"Available active insights: {len(insights)}")
 for insight in insights:
     print(f"{insight.id}: {insight.title}")
     print(f"Severity: {insight.severity}; status: {insight.status}")
@@ -446,22 +500,22 @@ for insight in insights:
         print(insight.details.recommended_actions.proposed_fix.text)
 ```
 
-Reference: [BetaAgentInsightMonitorsOperations](/en-us/python/api/azure-ai-projects/azure.ai.projects.operations.betaagentinsightmonitorsoperations).
+Reference: [AgentInsightStatus](/en-us/python/api/azure-ai-projects/azure.ai.projects.models.agentinsightstatus), [AgentInsightMonitorsOperations](/en-us/python/api/azure-ai-projects/azure.ai.projects.operations.agentinsightmonitorsoperations).
 
 Review the supporting traces and proposed action before changing status. After you validate a fix, replace `<insight-id>` with the ID you reviewed and run this optional step:
 
 ```python
-from azure.ai.projects.models import AgentInsightStatus, AgentInsightUpdate
+from azure.ai.projects.models import AgentInsightStatus
 
 resolved_insight = monitor_operations.update_insight(
     monitor.id,
     "<insight-id>",
-    AgentInsightUpdate(status=AgentInsightStatus.RESOLVED),
+    status=AgentInsightStatus.RESOLVED,
 )
-print(f"Insight status: {resolved_insight.status}")
+print(f"Status for insight: {resolved_insight.status}")
 ```
 
-Reference: [AgentInsightUpdate](/en-us/python/api/azure-ai-projects/azure.ai.projects.models.agentinsightupdate), [BetaAgentInsightMonitorsOperations](/en-us/python/api/azure-ai-projects/azure.ai.projects.operations.betaagentinsightmonitorsoperations).
+Reference: [AgentInsightStatus](/en-us/python/api/azure-ai-projects/azure.ai.projects.models.agentinsightstatus), [AgentInsightMonitorsOperations](/en-us/python/api/azure-ai-projects/azure.ai.projects.operations.agentinsightmonitorsoperations).
 
 This records your review decision. It doesn't apply the proposed fix or change your agent.
 
@@ -470,33 +524,40 @@ This records your review decision. It doesn't apply the proposed fix or change y
 To enable recurring analysis, update the monitor from setup with a six-hour interval. You don't need to run on-demand analysis first.
 
 ```python
-from azure.ai.projects.models import AgentInsightMonitorUpdate
+from azure.ai.projects.models import AgentInsightPriorities
 
+# Replace all priorities. Omit priorities to keep the existing settings.
 scheduled_monitor = monitor_operations.update(
     monitor.id,
-    AgentInsightMonitorUpdate(enabled=True, run_interval_hours=6),
+    enabled=True,
+    run_interval_hours=6,
+    priorities=AgentInsightPriorities(
+        categories=[],  # Use the default analysis categories.
+        instructions="Focus on tool calls made without the user's approval.",
+    ),
 )
 print(f"Schedule enabled: {scheduled_monitor.enabled}")
 print(f"Run interval hours: {scheduled_monitor.run_interval_hours}")
 print(f"Next scheduled run: {scheduled_monitor.next_scheduled_run_at}")
+priorities = scheduled_monitor.priorities
+if priorities and priorities.instructions:
+    print(f"Analysis guidance: {priorities.instructions}")
 ```
 
-Reference: [AgentInsightMonitorUpdate](/en-us/python/api/azure-ai-projects/azure.ai.projects.models.agentinsightmonitorupdate), [BetaAgentInsightMonitorsOperations](/en-us/python/api/azure-ai-projects/azure.ai.projects.operations.betaagentinsightmonitorsoperations).
+Reference: [AgentInsightPriorities](/en-us/python/api/azure-ai-projects/azure.ai.projects.models.agentinsightpriorities), [AgentInsightMonitorsOperations](/en-us/python/api/azure-ai-projects/azure.ai.projects.operations.agentinsightmonitorsoperations).
 
 This method returns the schedule settings, not analysis results. Enabling the schedule can start a run immediately. The schedule remains enabled after your Python session ends and can incur model charges.
 
 To stop future scheduled runs, disable the monitor:
 
 ```python
-from azure.ai.projects.models import AgentInsightMonitorUpdate
-
 monitor_operations.update(
     monitor.id,
-    AgentInsightMonitorUpdate(enabled=False),
+    enabled=False,
 )
 ```
 
-Reference: [AgentInsightMonitorUpdate](/en-us/python/api/azure-ai-projects/azure.ai.projects.models.agentinsightmonitorupdate), [BetaAgentInsightMonitorsOperations](/en-us/python/api/azure-ai-projects/azure.ai.projects.operations.betaagentinsightmonitorsoperations).
+Reference: [AgentInsightMonitorsOperations](/en-us/python/api/azure-ai-projects/azure.ai.projects.operations.agentinsightmonitorsoperations).
 
 Disabling scheduling doesn't cancel a run that's already active. Use `list_runs` to find active runs and `cancel_run` if you need to stop them.
 
@@ -513,25 +574,25 @@ Reference: [AIProjectClient](/en-us/python/api/azure-ai-projects/azure.ai.projec
 
 ### Run the complete samples
 
-Use the [on-demand sample](https://github.com/Azure/azure-sdk-for-python/blob/fedc3ab96021c2b0d42496cb4ddf0c476f77b63d/sdk/ai/azure-ai-projects/samples/agent_insights/sample_agent_insights_on_demand.py) or [scheduled sample](https://github.com/Azure/azure-sdk-for-python/blob/fedc3ab96021c2b0d42496cb4ddf0c476f77b63d/sdk/ai/azure-ai-projects/samples/agent_insights/sample_agent_insights_scheduled.py) for a self-contained demonstration. Download the selected script and [agent_insights_util.py](https://github.com/Azure/azure-sdk-for-python/blob/fedc3ab96021c2b0d42496cb4ddf0c476f77b63d/sdk/ai/azure-ai-projects/samples/agent_insights/agent_insights_util.py) into the same directory, and then follow the script's installation and environment-variable instructions.
+Use the [on-demand sample](https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/ai/azure-ai-projects/samples/agent_insights/sample_agent_insights_on_demand.py) or [scheduled sample](https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/ai/azure-ai-projects/samples/agent_insights/sample_agent_insights_scheduled.py) for a self-contained demonstration. Download the selected script and [agent_insights_util.py](https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/ai/azure-ai-projects/samples/agent_insights/agent_insights_util.py) into the same directory, and then follow the script's installation and environment-variable instructions.
 
 Unlike the preceding excerpts, each complete sample:
 
 - Registers a temporary external agent with a unique name.
-- Emits fictional traces and waits for ingestion. Trace generation doesn't execute tools or call a model; Insights analysis uses your model deployment.
+- Emits fictional traces and waits for ingestion. Trace generation doesn't execute tools or call a model; insights analysis uses your model deployment.
 - Deletes its own monitor and agent in `finally`. Ingested telemetry remains in Application Insights under its normal retention policy.
 
 The complete samples also require `APP_INSIGHTS_RESOURCE_ID` for ingestion queries. Their optional `FOUNDRY_AGENT_NAME` is a name prefix, not an existing agent name.
 
 The scheduled sample shows how to enable a schedule and read its settings. It doesn't wait for scheduled analysis. Its cleanup disables the schedule and cancels active runs before deletion, so it doesn't leave recurring analysis enabled.
 
-## Troubleshoot Insights in Foundry
+## Troubleshoot insight generation
 
-### Insights in Foundry isn't available or a scan can't start
+### Troubleshoot availability or scan startup
 
 Check that:
 
-- Insights in Foundry is available in the selected subscription and region.
+- The selected subscription and region support insights.
 - The project uses a supported Foundry project type.
 - You can see recent traces in the connected Application Insights resource.
 - The project is connected to the intended Application Insights resource.
@@ -540,7 +601,9 @@ Check that:
 - Role assignments have propagated.
 - The selected insight-generation model meets the judge model requirements, is available, and has quota.
 
-A `404` response from the preview API can indicate that Insights in Foundry isn't enabled for the selected subscription context. A `403` response indicates that the endpoint is reachable but the caller isn't authorized.
+A `404` response from the SDK operations can indicate that the selected subscription context doesn't have insights enabled.
+
+A `403` response can indicate that the calling identity lacks the required insights API permissions, or that the identity used for analysis lacks access to the configured model or telemetry. For application-only requests and scheduled runs, model and telemetry access use the Foundry project's managed identity. Check the error message to identify which identity and resource require access, and then verify the role assignments, assignment scopes, and any protected-table access conditions. Allow time for role assignments to propagate.
 
 ### The first analysis is still running
 
@@ -557,9 +620,9 @@ If the state doesn't change within the expected processing period, record:
 
 Don't include credentials, access tokens, connection strings, or unredacted sensitive content.
 
-### No Insights were generated
+### No insights were generated
 
-The absence of generated Insights doesn't necessarily mean that setup failed. The selected traffic might not contain a repeated pattern with enough evidence.
+The absence of generated insights doesn't necessarily mean that setup failed. The selected traffic might not contain a repeated pattern with enough evidence.
 
 Check that:
 
@@ -568,11 +631,11 @@ Check that:
 - Agent and version identities are consistent.
 - Model, tool, and workflow spans are present.
 - The expected behavior occurs in more than one trace.
-- Filters aren't hiding completed Insights.
+- Filters aren't hiding insights. For example, a **Status** filter set to **Active** hides resolved and dismissed insights.
 
 If you know a repeated issue exists, collect the expected behavior, UTC window, agent version, and representative trace IDs before requesting support.
 
-### An Insight appears incorrect
+### An insight appears incorrect
 
 On the **Insights** page, select **Give feedback** to report a result-quality issue.
 
@@ -584,14 +647,14 @@ Classify the problem before reporting it:
 - Correct symptom with an incorrect likely cause.
 - Proposed action that the named owner can't execute.
 - Unrelated issues merged together.
-- One issue duplicated across multiple Insights or agent versions.
+- One issue duplicated across multiple insights or agent versions.
 - Evidence contradicted by healthy control traces.
 
-Include the Insight ID, agent version, UTC time window, and relevant trace IDs in the report.
+Include the insight ID, agent version, UTC time window, and relevant trace IDs in the report.
 
 ### Trace content is missing
 
-Insights in Foundry can't reconstruct content or spans that it didn't capture, and it can't read data without the required authorization.
+Foundry can't reconstruct content or spans that it didn't capture, and it can't read data without the required authorization.
 
 Verify instrumentation and access to:
 
@@ -604,21 +667,21 @@ Verify instrumentation and access to:
 
 ## Responsible use and limitations
 
-Insights in Foundry uses AI to identify patterns, infer likely causes, and recommend actions. Results can be incomplete or incorrect.
+Foundry uses AI to identify patterns, infer likely causes, and recommend actions. Results can be incomplete or incorrect.
 
-- Review the supporting traces before accepting an Insight.
+- Review the supporting traces before accepting an insight.
 - Validate proposed prompt, code, tool, workflow, or configuration changes before deployment.
-- Don't use Insights in Foundry as your only production monitoring, security, safety, or compliance control.
-- Insights aren't guaranteed to be real time.
-- Insights in Foundry might miss real issues or combine unrelated behavior.
+- Don't use generated insights as your only production monitoring, security, safety, or compliance control.
+- Generated insights aren't guaranteed to be real time.
+- Generated insights might miss real issues or combine unrelated behavior.
 - Category, severity, ownership, likely cause, and proposed actions are decision support, not authoritative classifications.
 - A valid symptom can be attributed to the wrong agent, dependency, or platform layer.
 - Infrastructure outages, endpoint availability, quotas, and dependency incidents remain Azure Monitor or service-owner responsibilities.
-- Insight generation depends on trace completeness, identity, permissions, model availability, and service capacity.
-- An Insights run analyzes an agent's traces over a lookback window and doesn't support every incident-scoped investigation workflow.
-- Supported agent types, models, regions, limits, prices, and UI can change during preview.
+- Generating insights depends on trace completeness, identity, permissions, model availability, and service capacity.
+- An insights run analyzes an agent's traces over a lookback window and doesn't support every incident-scoped investigation workflow.
+- Supported agent types, models, regions, limits, prices, and UI can change.
 - Follow your organization's requirements for confidentiality, privacy, security, compliance, responsible AI, and data residency.
 
 ## Pricing
 
-Insights in Foundry can incur charges for the model deployment used to generate Insights.
+Generating insights can incur charges for the model deployment.

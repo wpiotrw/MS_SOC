@@ -47,7 +47,7 @@ Understanding Windows 365 connectivity requirements is critical for achieving op
 
 Service connectivity requirements fall into three areas:
 
-- [RDP connectivity](/en-us/windows-365/enterprise/understanding-remote-desktop-protocol-traffic)
+- [DS connectivity](/en-us/windows-365/enterprise/understanding-remote-desktop-protocol-traffic)
 - **Cloud-side service connectivity (this document)**
 - **Physical client connectivity**
 
@@ -90,7 +90,7 @@ No configuration is required because Microsoft fully manages the infrastructure 
 
 VPN and Secure Web Gateway (SWG) software can affect traffic flow and divert it from a direct path via the underlying network. Follow these guidelines to ensure high performance and reliability:
 
-1. [Optimize RDP](/en-us/windows-365/enterprise/optimization-of-rdp) traffic by bypassing VPN/SWG tunnels and routing directly to Microsoft’s backbone.
+1. [Optimize DS](/en-us/windows-365/enterprise/optimization-of-rdp) traffic by bypassing VPN/SWG tunnels and routing directly to Microsoft’s backbone.
 2. Bypass other [required endpoints](/en-us/windows-365/enterprise/requirements-network) from VPN/SWG tunnels for direct service access where possible.
 3. Ensure endpoints remain accessible if traffic is inadvertently routed through VPN/SWG, for example by ensuring they're allowed and not inspected through the SWG solution.
 4. Configure pre-logon or machine tunnels to bypass required endpoints. Failure to do so impacts Cloud PC availability as connectivity is required before a user logs on to their Cloud PC.
@@ -98,12 +98,12 @@ VPN and Secure Web Gateway (SWG) software can affect traffic flow and divert it 
 
 In the following example, we see a Microsoft Hosted Network deployed Cloud PC with Secure Web Gateway software installed.
 
-- Path 1, shown as a dashed green line, sends RDP and other key endpoints directly to Microsoft’s network, bypassing the SWG tunnel. This direct route improves performance and reliability by avoiding the traffic hairpinning through the SWG.
+- Path 1, shown as a dashed green line, sends DS and other key endpoints directly to Microsoft’s network, bypassing the SWG tunnel. This direct route improves performance and reliability by avoiding the traffic hairpinning through the SWG.
 - Path 2, shown as a solid blue line, sends all other traffic through the SWG tunnel or private access solution when needed. Microsoft’s high-speed network peers directly with the internet to reach external services.
 
 ![Screenshot of the ANC with optimized RDP and local Azure Firewall default path.](media/understanding-network-connectivity-flows-cloud-side/microsoft-hosted-network-rdp-optimized.png)
 
-*Diagram 1: ANC with optimized RDP and local Azure Firewall default path.*
+*Diagram 1: ANC with optimized DS and local Azure Firewall default path.*
 
 ## Azure Network Connection (ANC) Connectivity Requirements
 
@@ -117,8 +117,8 @@ To maintain reliability and performance for ANC deployments, ensure the followin
 4. **Use ExpressRoute or site-to-site VPN only for on-premises traffic:** Scale circuits for Windows 365 load. Use local Azure breakout for all other traffic where possible.
 5. **Route [required endpoints](/en-us/windows-365/enterprise/requirements-network) to an egress in Azure:** Avoid routing via on-premises as doing so provides an inefficient path, which may lead to performance or reliability issues. Use [FQDN tags](/en-us/windows-365/enterprise/azure-firewall-windows-365) to automate rules if using Azure Firewall.
 6. **Apply FQDN-based rules on any Network Virtual Appliance (NVA) used:** Many endpoints can't be represented as IP ranges; configure rules accordingly.
-7. **Use NAT Gateway instead of an NVA such as Azure Firewall for critical, long-lived outbound traffic such as [RDP](/en-us/windows-365/enterprise/understanding-remote-desktop-protocol-traffic) and VPN/SWG traffic:** A NAT Gateway provides the most optimized path for this critical traffic, and avoids issues caused by load on the firewall or scale-in causing dropped connections.
-8. **Configure [User Defined Routes](/en-us/azure/virtual-network/virtual-networks-udr-overview) (UDRs) for Direct Routing of RDP traffic:** Use the `WindowsVirtualDesktop` service tag to direct RDP traffic to the NAT Gateway
+7. **Use NAT Gateway instead of an NVA such as Azure Firewall for critical, long-lived outbound traffic such as [DS](/en-us/windows-365/enterprise/understanding-remote-desktop-protocol-traffic) and VPN/SWG traffic:** A NAT Gateway provides the most optimized path for this critical traffic, and avoids issues caused by load on the firewall or scale-in causing dropped connections.
+8. **Configure [User Defined Routes](/en-us/azure/virtual-network/virtual-networks-udr-overview) (UDRs) for Direct Routing of DS traffic:** Use the `WindowsVirtualDesktop` service tag to direct DS traffic to the NAT Gateway
 9. **Assign multiple public IPs to the NAT gateway:** Multiple IPs distribute traffic across the IP addresses used, and prevents DDoS protection triggers.
 10. **Verify [Network Security Groups](/en-us/azure/virtual-network/network-security-groups-overview) (NSGs):** Ensure they don't block required endpoints.
 11. **No inbound connectivity required:** All traffic is outbound.
@@ -126,13 +126,13 @@ To maintain reliability and performance for ANC deployments, ensure the followin
 
 ![remote-desktop-protocol-optimized-azure-network](media/understanding-network-connectivity-flows-cloud-side/remote-desktop-protocol-optimized-in-azure-network-new.png)
 
-*Diagram 2: ANC with optimized RDP and local Azure Firewall default path.*
+*Diagram 2: ANC with optimized DS and local Azure Firewall default path.*
 
 This diagram shows three main routes configured from the Azure virtual network (VNet):
 
 **Default route (0.0.0.0/0 User Defined Route UDR)** Sends all traffic to the Azure Firewall’s private IP, which becomes the default path. The firewall allows approved traffic to Microsoft’s network and the internet as required. Use this path for other [Windows 365 service endpoints](/en-us/windows-365/enterprise/requirements-network?tabs=enterprise%2Cent) that don’t require special handling.
 
-1. **Optimized route for RDP traffic** A more specific UDR sends the `WindowsVirtualDesktop` service tag to '**Internet'**, which in this example uses a NAT Gateway. This path is optimized for RDP and should also be used for long-lived or latency-sensitive traffic that doesn’t need to traverse the firewall. 'Internet' doesn't mean this traffic reaches the public internet for Microsoft hosted endpoints.
+1. **Optimized route for DS traffic** A more specific UDR sends the `WindowsVirtualDesktop` service tag to '**Internet'**, which in this example uses a NAT Gateway. This path is optimized for DS and should also be used for long-lived or latency-sensitive traffic that doesn’t need to traverse the firewall. 'Internet' doesn't mean this traffic reaches the public internet for Microsoft hosted endpoints.
 2. **On-premises route** The ExpressRoute Gateway provides a more specific route for on-premises traffic, for example, anything in the `10.0.0.0/8` range.
 
 See the document [Use Azure Firewall to manage and secure Windows 365 environments](/en-us/windows-365/enterprise/azure-firewall-windows-365) for more detail.
@@ -141,7 +141,7 @@ See the document [Use Azure Firewall to manage and secure Windows 365 environmen
 
 As is the case with Microsoft Hosted Network deployments, even if the underlying network is correctly configured, changes to network connectivity on the Cloud PC itself can impact deployment and performance and reliability. Ensure the following steps are also followed for ANC deployments.
 
-1. [Optimize RDP](/en-us/windows-365/enterprise/optimization-of-rdp) traffic by bypassing VPN/SWG tunnels and routing directly to Microsoft’s backbone via the ANC network.
+1. [Optimize DS](/en-us/windows-365/enterprise/optimization-of-rdp) traffic by bypassing VPN/SWG tunnels and routing directly to Microsoft’s backbone via the ANC network.
 2. Bypass [required endpoints](/en-us/windows-365/enterprise/requirements-network) from VPN/SWG tunnels for direct service access.
 3. Ensure endpoints remain accessible if traffic is inadvertently routed through VPN/SWG. For example, ensure endpoints are added to allow lists.
 4. Configure pre-logon or machine tunnels to bypass required endpoints. Failure to do so impacts Cloud PC availability.

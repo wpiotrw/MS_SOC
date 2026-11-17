@@ -23,11 +23,11 @@ ms.author: sgilley
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
-description: Configure the model, instructions, greeting, audio, telephone soundscape, and tools for a voice-based agent in Microsoft Foundry.
+description: Configure the model, instructions, greeting, audio, telephone soundscape, tools, and post-call delivery for a voice-based agent in Microsoft Foundry.
 ms.subservice: foundry-agent-service
 ms.topic: how-to
-ms.date: 2026-11-06T00:00:00.0000000Z
-ms.custom: preview
+ms.date: 2026-11-12T00:00:00.0000000Z
+ms.custom: doc-kit-assisted
 ai-usage: ai-assisted
 zone_pivot_groups: voice-agent-config-method
 locale: en-us
@@ -56,13 +56,11 @@ platformId: 050cd1c3-7715-30d9-bfe0-9d24cc8ae971
 
 A voice-based agent in Microsoft Foundry Agent Service is an agent whose `kind` is `voice`. Its definition holds everything the service needs to run a spoken conversation: which model serves the session, what the agent says first, how it listens, how it sounds, and which tools it can call.
 
-This article shows you how to set each part of that definition. Every **create** or **update** action produces a new immutable agent version, so you can change configuration and roll back without changing the agent's endpoint. You can configure most values with the Azure AI Projects client library, with `azure.yaml` and the Azure Developer CLI (`azd`), or visually in the Foundry portal playground. Select a configuration method to see the steps for that surface.
+This article shows you how to set each part of that definition. Every **create** or **update** action produces a new immutable agent version, so you can change configuration and roll back without changing the agent's endpoint. You can set these values with the Azure AI Projects client library, with `azure.yaml` and the Azure Developer CLI (`azd`), or visually in the Foundry portal playground. Select a configuration method to see the steps for that surface.
 
-Telephone soundscape configuration is available through the Python, C#, and JavaScript SDKs. The Foundry portal, Azure CLI, and Azure Developer CLI (`azd`) don't support configuring it.
+For built-in conversation and phone controls, see [Configure system tools](voice-agent-system-tools).
 
-Important
-
-Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
+Voice agents are generally available, with some features still in preview. See [General availability and preview features](../overview#general-availability-and-preview-features).
 
 ## Prerequisites
 
@@ -80,9 +78,9 @@ Items marked preview in this article are currently in preview. This preview is p
 
 ::: zone pivot="python"
 
-Install version 2.7.0 or later of the Azure AI Projects client library as shown in [Install the packages](../quickstarts/prompt-voice-agent?pivots=python#install-the-packages).
+Install version 2.11.0 or later of the Azure AI Projects client library as shown in [Install the packages](../quickstarts/prompt-voice-agent?pivots=python#install-the-packages).
 
-Use Python 3.10 or later. Set `allow_preview=True` on `AIProjectClient` when you use `.agents` methods with voice definitions.
+Use Python 3.10 or later.
 
 Sign in with `az login`. Set `FOUNDRY_PROJECT_ENDPOINT` and `FOUNDRY_VOICE_AGENT_NAME` as shown in the [quickstart](../quickstarts/prompt-voice-agent?pivots=python#set-environment-variables).
 
@@ -95,8 +93,8 @@ Use the [.NET 8 SDK or later](https://dotnet.microsoft.com/download). Create a c
 ```dotnetcli
 dotnet new console --name ConfigureVoiceAgent --framework net8.0
 cd ConfigureVoiceAgent
-dotnet add package Azure.AI.Extensions.OpenAI --version 3.0.0-beta.1
-dotnet add package Azure.AI.Projects.Agents --version 3.0.0-beta.3
+dotnet add package Azure.AI.Extensions.OpenAI --version 3.0.0-beta.7
+dotnet add package Azure.AI.Projects.Agents --version 3.0.0-beta.7
 dotnet add package Azure.Identity
 ```
 
@@ -107,25 +105,21 @@ Sign in with `az login`. Set these environment variables in the shell where you 
 - `FOUNDRY_PROJECT_ENDPOINT`: your project endpoint, in the form `https://<resource-name>.services.ai.azure.com/api/projects/<project-name>`.
 - `FOUNDRY_VOICE_AGENT_NAME`: the name of the voice agent to configure.
 
-Pass `foundryFeatures: "VoiceAgents=V1Preview"` when you create a voice agent version, as shown in Save and test the agent.
-
 ::: zone-end
 
 ::: zone pivot="javascript"
 
-Install version 2.8.0 or later of the Azure AI Projects client library as shown in [Install the packages](../quickstarts/prompt-voice-agent?pivots=javascript#install-the-packages).
+Install version 2.11.0 or later of the Azure AI Projects client library as shown in [Install the packages](../quickstarts/prompt-voice-agent?pivots=javascript#install-the-packages).
 
 Use Node.js 22 or later. Configure the project as an ECMAScript module and install the packages:
 
 ```bash
 npm init --yes
 npm pkg set type=module
-npm install @azure/ai-projects @azure/identity
+npm install "@azure/ai-projects@>=2.11.0" @azure/identity
 ```
 
 Reference: [Voice Agents JavaScript samples](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/javascript/voice-agents).
-
-Pass the `VoiceAgents=V1Preview` feature option when an `.agents` operation creates or modifies a voice agent.
 
 Sign in with `az login`. Set `FOUNDRY_PROJECT_ENDPOINT` and `FOUNDRY_VOICE_AGENT_NAME` as shown in the [quickstart](../quickstarts/prompt-voice-agent?pivots=javascript#set-environment-variables).
 
@@ -143,16 +137,20 @@ A voice agent definition includes these parts:
 
 | Part | Property | Purpose |
 | --- | --- | --- |
+| Protocol | `kind`, `sub_protocol` | Use `voice` and `realtime` for both realtime and cascaded voice agents. `live` selects GPT-Live, which is in preview. |
 | Model | `model_type`, `model` | Selects which model serves the session. |
 | Behavior | `instructions`, `greeting`, `structured_inputs` | Tells the agent what to do and what to say first. |
 | Listening | `audio.input` | Sets input format, turn detection, noise reduction, and transcription. |
 | Speaking | `audio.output`, `output_modalities` | Sets the voice, locale, speed, and what the agent emits. |
 | Soundscape | `soundscape` | Adds background ambience and event cues to telephone calls. |
+| Post-call delivery | `post_call` | Sends session metadata and the transcript to Event Grid or routines when a session ends. |
 | Actions | `tools`, `tool_choice`, `parallel_tool_calls` | Defines what the agent can do during a call. |
 | Latency | `interim_response` | Fills silence while the agent thinks or waits on a tool. |
 | Data | `store` | Controls whether conversations are persisted. |
 
 The values in `audio` and `avatar` are session defaults. A client can override supported fields with a `session.update` event when it connects.
+
+This article describes voice agents that use the real-time protocol, which applies when `sub_protocol` is omitted or set to `realtime`. GPT-Live voice agents support a different set of settings. To run a voice agent on GPT-Live, see [Use GPT-Live in a voice agent](gpt-live-integration).
 
 ## Choose a managed or self-deployed model
 
@@ -187,6 +185,8 @@ Self-deployed models aren't limited to speech-to-speech models. The service deri
 | Chat-completion models on [managed compute](../../concepts/managed-compute-overview) | Cascaded. | You want an open-source model on dedicated GPU capacity that you configure in Foundry. |
 
 Managed compute is a model deployment type, not the voice agent's `managed` model option. Select `self_deployed` when you use your own compatible managed compute deployment.
+
+To use a GPT-Live deployment, such as `gpt-live-1`, create a GPT-Live voice agent instead. See [Use GPT-Live in a voice agent](gpt-live-integration).
 
 Confirm model availability, deployment type, streaming support, required tools, and compatible speech settings for your project. Not every model or deployment type supports the same capabilities. In particular, a managed compute deployment must expose a compatible chat-completion interface; a non-chat model isn't a conversation model.
 
@@ -472,6 +472,12 @@ Save the complete desired definition as a new agent version, then test it with a
 
 Browser WebRTC, direct WebSocket, and playground sessions don't render these sounds. Saved conversation recordings don't include them.
 
+## Configure post-call delivery
+
+Set `post_call` to send session metadata and the transcript to Event Grid or a routine when the session ends. Create the destinations first, as described in [Configure post-call delivery](configure-voice-agent-post-call-delivery).
+
+For this configuration, use the [REST example](configure-voice-agent-post-call-delivery?pivots=rest#configure-the-voice-agent). The Python SDK doesn't yet expose typed post-call configuration.
+
 ## Attach tools
 
 The `tools` list defines what the agent can do during a call. The service supports four kinds of tools:
@@ -481,9 +487,9 @@ The `tools` list defines what the agent can do during a call. The service suppor
 | `function` | Your client | The service forwards the call over the live session, and your app returns the result. |
 | `mcp` | The service | Points at a remote MCP server. |
 | `toolbox` | The service | References a versioned Foundry toolbox by `toolbox_name` and `toolbox_version`. |
-| `system` | The service | Session controls that need no code or external credentials. `end_conversation` lets the agent end the call. |
+| `system` | The service | Built-in conversation and telephony actions configured in the agent definition. `end_conversation` lets the agent end the call. |
 
-Attach server-side tools such as web search, Azure AI Search, and OpenAPI tools through a toolbox rather than declaring them directly. See [Create and manage a toolbox in Foundry](tools/toolbox).
+Attach server-side tools such as web search, Foundry IQ (Azure AI Search), and OpenAPI tools through a toolbox rather than declaring them directly. See [Create and manage a toolbox in Foundry](tools/toolbox).
 
 For `mcp` and `toolbox` tools, `response_scheduling` decides when the result turns into speech:
 
@@ -595,7 +601,7 @@ Use `include` to add optional fields to service output, such as `item.input_audi
 
 ## Save and test the agent
 
-After applying your selected configuration snippets, create a version for the agent named in `FOUNDRY_VOICE_AGENT_NAME`. The following code uses your project endpoint and credentials, with `allow_preview=True`:
+After applying your selected configuration snippets, create a version for the agent named in `FOUNDRY_VOICE_AGENT_NAME`. The following code uses your project endpoint and credentials:
 
 ```python
 import os
@@ -609,7 +615,7 @@ agent_name = os.environ["FOUNDRY_VOICE_AGENT_NAME"]
 with (
     DefaultAzureCredential() as credential,
     AIProjectClient(
-        endpoint=endpoint, credential=credential, allow_preview=True
+        endpoint=endpoint, credential=credential
     ) as project_client,
 ):
     created = project_client.agents.create_version(
@@ -646,7 +652,7 @@ Set `ModelType` and `Model` together. `ModelType` selects how the model is serve
 The service derives the architecture, real-time or cascaded, from the model you select. You don't configure it separately.
 
 ```csharp
-#pragma warning disable AAIP001, OPENAI002
+#pragma warning disable AAIP002, OPENAI002
 
 using Azure.AI.Projects.Agents;
 
@@ -661,7 +667,7 @@ VoiceAgentDefinition definition = new()
 
 Reference: [VoiceAgentDefinition](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Projects.Agents/src/Generated/Models/VoiceAgentDefinition.cs).
 
-The `#pragma` directive acknowledges the experimental SDK types used by these examples. Keep it at the top of `Program.cs`.
+The `#pragma` directive acknowledges the experimental OpenAI audio format type that the input-audio example uses. Keep it at the top of `Program.cs`. If you add a preview feature, such as post-call delivery, also suppress `AAIP001`.
 
 ## Write instructions and a greeting
 
@@ -699,13 +705,12 @@ Templates render once per session, before the live session starts.
 To let the session model write the opening line instead, replace the greeting with a scoped prompt:
 
 ```csharp
-using System;
 using Azure.AI.Projects.Agents;
 
 definition.Greeting = new VoiceAgentLlmGeneratedGreetingConfig(
     "Greet the caller warmly in one sentence and ask how you can help.")
 {
-    ToolChoice = BinaryData.FromObjectAsJson("none"),
+    ToolChoice = ToolChoiceLiteral.None,
 };
 ```
 
@@ -738,7 +743,7 @@ The Azure semantic types share these options:
 | `Threshold` | Activation sensitivity, from 0 to 1. Raise it in noisy environments. |
 | `PrefixPaddingMs` | Audio kept before detected speech. |
 | `SilenceDurationMs` | Silence required before the turn ends. Increase it when callers pause often. |
-| `IdleTimeoutMs` | Maximum idle time before the detector ends the turn. |
+| `IdleTimeout` | Maximum idle time before the detector ends the turn. |
 | `SpeechDurationMs` | Minimum speech needed to trigger detection. |
 | `RemoveFillerWords` | Drops filler words from transcription. Defaults to `false`. |
 | `CreateResponse` | Creates a response automatically when speech stops. Defaults to `true`. |
@@ -879,6 +884,12 @@ Save the complete desired definition as a new agent version, then test it with a
 
 Browser WebRTC, direct WebSocket, and playground sessions don't render these sounds. Saved conversation recordings don't include them.
 
+## Configure post-call delivery
+
+Set `PostCall` to send session metadata and the transcript to Event Grid or a routine when the session ends. Create the destinations first, as described in [Configure post-call delivery](configure-voice-agent-post-call-delivery).
+
+The typed post-call models require `Azure.AI.Projects.Agents` version 3.0.0-beta.6 or later. For package setup and a complete example, see the [C# post-call example](configure-voice-agent-post-call-delivery?pivots=csharp#configure-the-voice-agent).
+
 ## Attach tools
 
 The `Tools` collection defines what the agent can do during a call. The service supports four kinds of tools:
@@ -888,9 +899,9 @@ The `Tools` collection defines what the agent can do during a call. The service 
 | `function` | Your client | The service forwards the call over the live session, and your app returns the result. |
 | `mcp` | The service | Points at a remote MCP server. |
 | `toolbox` | The service | References a versioned Foundry toolbox. |
-| `system` | The service | Session controls that need no code or external credentials. `VoiceAgentEndConversationSystemTool` lets the agent end the call. |
+| `system` | The service | Built-in conversation and telephony actions configured in the agent definition. `VoiceAgentEndConversationSystemTool` lets the agent end the call. |
 
-Attach server-side tools such as web search, Azure AI Search, and OpenAPI tools through a toolbox rather than declaring them directly. See [Create and manage a toolbox in Foundry](tools/toolbox).
+Attach server-side tools such as web search, Foundry IQ, and OpenAPI tools through a toolbox rather than declaring them directly. See [Create and manage a toolbox in Foundry](tools/toolbox).
 
 For MCP and toolbox tools, `ResponseScheduling` decides when the result turns into speech. Set it to a `VoiceAgentToolResponseScheduling` value:
 
@@ -901,13 +912,12 @@ For MCP and toolbox tools, `ResponseScheduling` decides when the result turns in
 | `SkipIfBusy` | Responds only when no response is active. |
 | `Silent` | Doesn't create a follow-up response. |
 
-`ToolChoice` defaults to `auto`. Use `BinaryData.FromObjectAsJson("none")` to block tool calls, or `BinaryData.FromObjectAsJson("required")` to force at least one. You can also select a specific function or MCP tool.
+`ToolChoice` defaults to `auto`. Set it to `ToolChoiceLiteral.None` to block tool calls, or to `ToolChoiceLiteral.Required` to force at least one. To force a specific function, pass its name, for example `new ToolChoiceOption("get_order_status")`.
 
 ```csharp
 using System;
 using System.ClientModel.Primitives;
 using Azure.AI.Projects.Agents;
-using OpenAI;
 
 VoiceAgentFunctionTool getOrderStatus = new("get_order_status")
 {
@@ -1003,13 +1013,13 @@ A client can override this setting for a single session by using the `store` que
 
 ## Limit response length
 
-Set `MaxOutputTokens` to `BinaryData.FromObjectAsJson(200)` to cap each response at 200 tokens, or to `BinaryData.FromObjectAsJson("inf")` for no cap. Capping output is an effective way to keep spoken replies short.
+Set `MaxOutputTokens` to a token count, such as `200`, to cap each response, or to `VoiceAgentMaxOutputTokens.Infinity` for no cap. Capping output is an effective way to keep spoken replies short.
 
 Use `Include` to add optional fields to service output. For example, add `VoiceAgentSessionIncludeOption.InputAudioTranscriptionLogprobs` or `VoiceAgentSessionIncludeOption.InputAudioTranscriptionPhrases`.
 
 ## Save and test the agent
 
-After applying your selected configuration snippets, create a version for the agent named in `FOUNDRY_VOICE_AGENT_NAME`. The following code uses your project endpoint and credentials, with the `VoiceAgents=V1Preview` feature option enabled:
+After applying your selected configuration snippets, create a version for the agent named in `FOUNDRY_VOICE_AGENT_NAME`. The following code uses your project endpoint and credentials:
 
 ```csharp
 using System;
@@ -1033,8 +1043,7 @@ BinaryData request = ModelReaderWriter.Write(
 using BinaryContent content = BinaryContent.Create(request);
 ClientResult result = await agentsClient.CreateAgentVersionAsync(
     agentName,
-    content,
-    foundryFeatures: "VoiceAgents=V1Preview");
+    content);
 ProjectsAgentVersion created = ModelReaderWriter.Read<ProjectsAgentVersion>(
     result.GetRawResponse().Content)
     ?? throw new InvalidOperationException("The agent response is empty.");
@@ -1045,7 +1054,7 @@ Console.WriteLine(
 
 Reference: [AgentAdministrationClient](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Projects.Agents/src/Generated/AgentAdministrationClient.cs), [Voice agent .NET sample](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Projects/samples/Sample_VoiceAgent.md).
 
-This example uses the `BinaryContent` overload to preserve function-tool parameter schemas in SDK version 3.0.0-beta.3. `ModelReaderWriter.Write` uses JSON format by default, which retains those schema properties.
+This example uses the `BinaryContent` overload to preserve function-tool parameter schemas in SDK version 3.0.0-beta.7. `ModelReaderWriter.Write` uses JSON format by default, which retains those schema properties.
 
 Run the application:
 
@@ -1061,7 +1070,7 @@ wss://{project-endpoint}/agents/{agent-name}/endpoint/protocols/voice?api-versio
 
 Authenticate the upgrade with a Microsoft Entra bearer token. To test a version that isn't the active one, pass the version override on the connect request instead of changing the active version.
 
-For a C# client walkthrough, see the [Voice agent .NET sample](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Projects/samples/Sample_VoiceAgent.md). To test a spoken conversation in the playground, see [Quickstart: Create a voice-based prompt agent](../quickstarts/prompt-voice-agent?pivots=foundry-portal).
+For a C# client walkthrough, see the [Voice agent .NET sample](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Projects/samples/Sample_VoiceAgent.md). To test a spoken conversation in the playground, see [Quickstart: Create a voice-based prompt agent](../quickstarts/prompt-voice-agent?pivots=portal).
 
 ::: zone-end
 
@@ -1082,6 +1091,7 @@ The service derives the architecture, real-time or cascaded, from the model you 
 /** @type {import("@azure/ai-projects").VoiceAgentDefinition} */
 const definition = {
     kind: "voice",
+    sub_protocol: "realtime",
     model_type: "managed",
     model: "gpt-realtime-2.1",
     instructions: "You are a friendly voice assistant. " +
@@ -1133,7 +1143,7 @@ definition.greeting = {
 };
 ```
 
-Reference: [Azure AI Projects client library for JavaScript](https://aka.ms/azsdk/azure-ai-projects-v2/javascript/code).
+Reference: [VoiceAgentLlmGeneratedGreetingConfig](/en-us/javascript/api/@azure/ai-projects/voiceagentllmgeneratedgreetingconfig).
 
 Set `definition.greeting` to `undefined` if the agent should wait for the caller instead. After changing the greeting, save and test a new agent version.
 
@@ -1221,7 +1231,7 @@ inputAudio.transcription = {
 };
 ```
 
-Reference: [Azure AI Projects client library for JavaScript](https://aka.ms/azsdk/azure-ai-projects-v2/javascript/code).
+Reference: [VoiceAgentInputTranscription](/en-us/javascript/api/@azure/ai-projects/voiceagentinputtranscription).
 
 ## Configure output audio
 
@@ -1294,6 +1304,12 @@ Save the complete desired definition as a new agent version, then test it with a
 
 Browser WebRTC, direct WebSocket, and playground sessions don't render these sounds. Saved conversation recordings don't include them.
 
+## Configure post-call delivery
+
+Post-call delivery sends session metadata and the transcript to Event Grid or a routine when the session ends. Create the destinations first, as described in [Configure post-call delivery](configure-voice-agent-post-call-delivery).
+
+For this configuration, use the [REST example](configure-voice-agent-post-call-delivery?pivots=rest#configure-the-voice-agent). The JavaScript SDK doesn't yet serialize `post_call` through `agents.createVersion`.
+
 ## Attach tools
 
 The `tools` list defines what the agent can do during a call. The service supports four kinds of tools:
@@ -1303,9 +1319,9 @@ The `tools` list defines what the agent can do during a call. The service suppor
 | `function` | Your client | The service forwards the call over the live session, and your app returns the result. |
 | `mcp` | The service | Points at a remote MCP server. |
 | `toolbox` | The service | References a versioned Foundry toolbox by `toolbox_name` and `toolbox_version`. |
-| `system` | The service | Session controls that need no code or external credentials. `end_conversation` lets the agent end the call. |
+| `system` | The service | Built-in conversation and telephony actions configured in the agent definition. `end_conversation` lets the agent end the call. |
 
-Attach server-side tools such as web search, Azure AI Search, and OpenAPI tools through a toolbox rather than declaring them directly. See [Create and manage a toolbox in Foundry](tools/toolbox).
+Attach server-side tools such as web search, Foundry IQ, and OpenAPI tools through a toolbox rather than declaring them directly. See [Create and manage a toolbox in Foundry](tools/toolbox).
 
 For `mcp` and `toolbox` tools, `response_scheduling` decides when the result turns into speech:
 
@@ -1319,6 +1335,7 @@ For `mcp` and `toolbox` tools, `response_scheduling` decides when the result tur
 `tool_choice` defaults to `auto`. Set it to `none` to block tool calls, `required` to force at least one, or name a specific function or MCP tool.
 
 ```javascript
+/** @type {import("@azure/ai-projects").VoiceAgentFunctionTool} */
 const getOrderStatus = {
     type: "function",
     name: "get_order_status",
@@ -1391,7 +1408,7 @@ definition.interim_response = {
 };
 ```
 
-Reference: [Azure AI Projects client library for JavaScript](https://aka.ms/azsdk/azure-ai-projects-v2/javascript/code).
+Reference: [VoiceAgentStaticInterimResponseConfig](/en-us/javascript/api/@azure/ai-projects/voiceagentstaticinterimresponseconfig).
 
 In JavaScript, `latency_threshold_ms` takes a numeric value in milliseconds.
 
@@ -1409,7 +1426,7 @@ Use `include` to add optional fields to service output, such as `item.input_audi
 
 ## Save and test the agent
 
-After applying your selected configuration snippets, create a version for the agent named in `FOUNDRY_VOICE_AGENT_NAME`. The following code uses your project endpoint and credentials, with the `VoiceAgents=V1Preview` feature option enabled:
+After applying your selected configuration snippets, create a version for the agent named in `FOUNDRY_VOICE_AGENT_NAME`. The following code uses your project endpoint and credentials:
 
 ```javascript
 import { AIProjectClient } from "@azure/ai-projects";
@@ -1430,11 +1447,6 @@ const project = new AIProjectClient(
 const created = await project.agents.createVersion(
     agentName,
     definition,
-    {
-        requestOptions: {
-            headers: { "foundry-features": "VoiceAgents=V1Preview" },
-        },
-    },
 );
 console.log(`Created voice agent '${agentName}', version ${created.version}`);
 ```
@@ -1613,7 +1625,7 @@ Replace the example number with your own Twilio number in E.164 format, and repl
 
 The `acs` provider is also supported, with different identifier formats. See the [telephony configuration reference](../concepts/azure-yaml-reference#telephony-bindings) for the provider values and required fields.
 
-The agent deployment creates a missing binding or accepts an existing matching binding. Bindings are create-only in this preview: if the existing configuration differs, deployment fails with remediation guidance rather than updating it.
+The agent deployment creates a missing binding or accepts an existing matching binding. Bindings are create-only in this CLI workflow: if the existing configuration differs, deployment fails with remediation guidance rather than updating it.
 
 After deployment, make a controlled inbound test call and confirm two-way audio. A deployed binding alone doesn't establish that provider routing and audio work. Delete test bindings before deleting their agents; removing a binding from `azure.yaml` isn't a remote deletion. For conditional cleanup, follow Remove a telephony binding.
 
@@ -1932,6 +1944,8 @@ Select **Add a MCP tool** to connect the agent directly to a remote Model Contex
 
 Use least-privilege credentials and review approval requirements for write or irreversible actions. During a conversation, the agent waits for the MCP result before responding, so tool latency becomes conversation latency.
 
+To use an MCP server that's reachable only from your virtual network, see [Configure tools behind a virtual network](tools/toolbox-network-isolation#configure-tools-behind-a-virtual-network).
+
 #### Add a toolbox
 
 A toolbox is a reusable, versioned collection of tools and policies presented through one MCP-compatible interface. Open **Add a toolbox** to select an existing project toolbox, or select **Create a toolbox**.
@@ -1964,14 +1978,14 @@ Selecting another toolbox replaces the currently attached toolbox. Use the toolb
 
 ##### Create a toolbox and add an information source
 
-The following example adds an Azure AI Search index so the agent can retrieve information from indexed customer content.
+The following example adds a Foundry IQ index so the agent can retrieve information from indexed customer content.
 
 1. Select **Add a toolbox** &gt; **Create a toolbox**.
 2. Under **Basic info**, enter a unique **Name** and a description that tells project members what information or operations the toolbox provides.
 3. Under **Included**, select **Add** &gt; **Add tool**.
-4. Find and select **Azure AI Search**.
+4. Find and select **Foundry IQ**.
 5. In **Description**, explain what the selected index contains and when the agent should search it. For example: "Search the approved product support articles for setup requirements and troubleshooting steps."
-6. Select an existing **Azure AI Search connection**. If none is available, select **Connect to new resource** and create the project connection.
+6. Select an existing **Foundry IQ connection**. If none is available, select **Connect to new resource** and create the project connection.
 7. Select one search index from the list. The list shows each index name and its available fields. If necessary, select **Create a new index** first.
 8. Select **Add**.
 9. Choose whether to turn on **Tool search**. This option lets the agent discover relevant tools during execution instead of including every tool definition in the model input.
@@ -1983,7 +1997,7 @@ After you publish the toolbox from the playground, Foundry attaches the newly cr
 
 Note
 
-To read an Azure AI Search index, the Foundry project managed identity needs the **Search Index Data Reader** role on the search resource. Creating an index also requires **Search Service Contributor**.
+To read a Foundry IQ index, the Foundry project managed identity needs the **Search Index Data Reader** role on the Foundry IQ resource. Creating an index also requires **Search Service Contributor**.
 
 ##### Help the agent use the information correctly
 
@@ -1995,7 +2009,7 @@ The tool description helps the model decide whether the tool is relevant. The ag
 - Ask a clarifying question when the request is too broad for a reliable search.
 - Never describe a lookup or action as successful before the tool returns.
 
-Azure AI Search starts with **Simple** query type and returns up to five results by default. When supported by the index, use the tool's settings to select another search type or change the number of returned results from 1 through 50. More results can improve recall but add content, processing, and latency to the spoken turn.
+Foundry IQ starts with **Simple** query type and returns up to five results by default. When supported by the index, use the tool's settings to select another search type or change the number of returned results from 1 through 50. More results can improve recall but add content, processing, and latency to the spoken turn.
 
 ##### Test retrieval in the playground
 

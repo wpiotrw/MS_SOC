@@ -26,7 +26,7 @@ description: Learn how to use data generation in Microsoft Foundry to turn produ
 ms.subservice: foundry-observability
 ms.reviewer: ychen
 ms.topic: how-to
-ms.date: 2026-10-08T00:00:00.0000000Z
+ms.date: 2026-11-10T00:00:00.0000000Z
 ms.custom: doc-kit-assisted
 ai-usage: ai-assisted
 locale: en-us
@@ -322,6 +322,44 @@ The job produces a versioned dataset registered in your project. When you set `m
 The default write mode is Python `DataGenerationJobOutputWriteMode.OVERWRITE` or JavaScript/TypeScript `"overwrite"`, which creates the next dataset version using only the newly generated rows. To combine the new rows with the latest existing dataset version and deduplicate trace rows, set `write_mode` to Python `DataGenerationJobOutputWriteMode.MERGE` or JavaScript/TypeScript `"merge"`. Neither mode modifies an existing dataset version in place.
 
 Whether you created the dataset from the portal or the SDK, you can preview it on the **Data** tab to inspect the generated rows before evaluating. You can also download or delete it from there.
+
+## Generate scenario descriptions and task-level rubrics (preview)
+
+The generation job can also create per-row fields that you use for simulation and task-level scoring. For the annotation workflow, see [Human in the loop](human-in-the-loop).
+
+| Option | Applies to | Output field | Use |
+| --- | --- | --- | --- |
+| `generate_test_case_description` | Whole conversations only | `test_case_description` | A description of the conversation. Review it for use as scenario input when you [simulate conversations](cloud-evaluation-simulate-conversations). |
+| `generate_test_case_rubric` | Traces and whole conversations | `rubric_dimensions`, `rubric_metadata` | Criteria for one row. Use them with the task-level [rubric evaluator](../../concepts/evaluation-evaluators/rubric-evaluators). |
+
+When rubric generation is enabled, set `model_options.model` to a model deployment name, not only a model name.
+
+The following Python configuration enables rubric generation, which requires `azure-ai-projects` 2.11.0 or later. Pass it as `generation_configuration` in the SDK job example in this article, and replace the placeholder with your model deployment name.
+
+```python
+from azure.ai.projects.models import (
+    DataGenerationModelOptions,
+    TracesDataGenerationJobConfiguration,
+)
+
+generation_configuration = TracesDataGenerationJobConfiguration(
+    max_samples=100,
+    redact_private_content=True,
+    generate_test_case_rubric=True,
+    model_options=DataGenerationModelOptions(model="<your-model-deployment>"),
+)
+```
+
+The full Python sample creates and then deletes its dataset, agent, and conversations. See [Generate a trace-based dataset with task-level rubrics](https://github.com/Azure/azure-sdk-for-python/blob/20161d7da0a88b821b9ab73d37cf687123fa5694/sdk/ai/azure-ai-projects/samples/datasets/sample_dataset_generation_job_traces_for_evaluation_with_test_case_rubric.py).
+
+Human-provided expected outputs from annotations are copied to the top-level `expected` field without model inference. Trace rows don't get a `test_case_description`.
+
+Before you use the dataset:
+
+- Check that each `test_case_description` describes a realistic user goal. The simulator plays the user from this text, so vague descriptions produce weak simulated conversations.
+- Check `rubric_metadata.generation_status`. An empty `rubric_dimensions` array with a successful status is valid. A failed status means rubric generation didn't complete for that row.
+
+For field definitions, see [What gets generated](human-in-the-loop-create-datasets#what-gets-generated).
 
 ## Run an evaluation against the generated dataset
 

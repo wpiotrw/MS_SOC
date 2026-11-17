@@ -14,12 +14,12 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: iamwilliew
+author: mattmcinnes
 learn_banner_products:
 - azure-virtual-machines
 manager: rayoflores
 ms.reviewer: wwilliams
-ms.author: wwilliams
+ms.author: mattmcinnes
 ms.update-cycle: 365-days
 ms.service: azure-virtual-machines
 description: Overview backup options for Azure virtual machines.
@@ -42,12 +42,12 @@ item_type: Content
 source_path: articles/virtual-machines/backup-recovery.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
-- https://authoring-docs-microsoft.poolparty.biz/devrel/2ed91286-6cf7-4b83-810d-75d0ee3b09dd
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2ed91286-6cf7-4b83-810d-75d0ee3b09dd
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
-- https://authoring-docs-microsoft.poolparty.biz/devrel/6735bd7e-4f7b-457d-b58c-29e6f0198677
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/6735bd7e-4f7b-457d-b58c-29e6f0198677
 platformId: 2995b612-3243-d612-da9d-8c224869e367
 ---
 
@@ -67,6 +67,7 @@ Availability, failover, and backup address different risks. Use this comparison 
 | Move an eligible existing zonal VM to another zone in the same region. | [Zone resilience for Azure VMs (Preview)](zone-resilience). | Requires ZRS OS and data disks. Failover is customer-initiated and interrupts the workload. |
 | Recover from a zone or regional outage through replication. | [Azure Site Recovery](/en-us/azure/site-recovery/site-recovery-overview). | Review the support requirements for zone-to-zone or region-to-region replication. |
 | Recover point-in-time data after deletion or corruption. | Azure Backup, managed snapshots, or VM restore points, described in this article. | Replication doesn't replace historical backups, and backups don't keep an application continuously available. |
+| Repair a Windows VM that fails to start, in place, without restoring from backup. | [Remote recovery for Azure VMs (Preview)](windows/recovery-environment-for-vm/overview). | Repairs the existing OS disk. Doesn't replace backups. |
 
 Important
 

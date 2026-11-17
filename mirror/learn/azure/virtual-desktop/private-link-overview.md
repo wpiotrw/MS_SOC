@@ -46,6 +46,10 @@ platformId: 02b83ed3-f6a7-8fea-9bed-b98d9ca52c6a
 
 # Azure Private Link with Azure Virtual Desktop - Azure - Azure Virtual Desktop | Microsoft Learn
 
+Important
+
+The streaming stack powering Windows 365 and Azure Virtual Desktop is now branded as Direct Stream. This article retains RDP terminology where it still appears in the Microsoft Intune admin center and Azure portal during the transition. For more information, see [Windows 365 at Ignite 2026: Introducing new Cloud PC capabilities for people, agents and IT](https://aka.ms/W365Ignite26Blog).
+
 You can use [Azure Private Link](/en-us/azure/private-link/private-link-overview) with Azure Virtual Desktop to privately connect to your remote resources. By creating a [private endpoint](/en-us/azure/private-link/private-endpoint-overview), traffic between your virtual network and the service remains on the Microsoft network, so you no longer need to expose your service to the public internet. You also use a VPN or ExpressRoute for your users with the Remote Desktop client to connect to the virtual network. Keeping traffic within the Microsoft network improves security and keeps your data safe. This article describes how Private Link can help you secure your Azure Virtual Desktop environment.
 
 ## How does Private Link work with Azure Virtual Desktop?
@@ -97,9 +101,9 @@ Azure Virtual Desktop supports UDP traffic with Private Link only when you opt i
 1. In the Azure portal, open your **Azure Virtual Desktop** host pool.
 2. Select **Networking -&gt; Public access.**
 3. Under **Public access**, choose the radio button **Enable public access for end users, use private access for session hosts***or***Disable public access and use private access**. The UDP opt‑in checkbox appears for these selections.
-4. Select **Allow Direct UDP network path over Private Link** to enable UDP‑based transports (for example, [RDP Shortpath for managed networks](/en-us/azure/virtual-desktop/rdp-shortpath?tabs=managed-networks)).
+4. Select **Allow Direct UDP network path over Private Link** to enable UDP‑based transports (for example, [DS Shortpath for managed networks](/en-us/azure/virtual-desktop/rdp-shortpath?tabs=managed-networks)).
 
-\*\* **Important configuration requirement** After you enable the UDP opt‑in checkbox, **disable RDP Shortpath for public networks options** in the **RDP Shortpath** tab:
+\*\* **Important configuration requirement** After you enable the UDP opt‑in checkbox, **disable DS Shortpath for public networks options** in the **RDP Shortpath** tab:
 
 Turn off **RDP Shortpath for public networks (via STUN)** and **RDP Shortpath for public networks (via TURN)**.
 
@@ -107,7 +111,7 @@ The portal blocks **Save** if those public Shortpath options remain enabled and 
 
 Important
 
-The UDP opt-in checkbox is **mandatory** for enabling RDP Shortpath with Private link. If the checkbox is not checked, RDP Shortpath will be blocked for Private Link connections.
+The UDP opt-in checkbox is **mandatory** for enabling DS Shortpath with Private link. If the checkbox is not checked, DS Shortpath will be blocked for Private Link connections.
 
 ### Configuration outcomes
 

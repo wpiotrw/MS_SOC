@@ -11,7 +11,7 @@ keywords:
 author: hinallur
 ms.author: hinallur
 manager: bobroudebush
-ms.date: 2026-11-13T00:00:00.0000000Z
+ms.date: 2026-11-17T00:00:00.0000000Z
 ms.topic: whats-new
 ms.service: windows-365
 ms.subservice: windows-365-enterprise
@@ -57,6 +57,46 @@ Each monthly update may roll out over several weeks and might not be immediately
 For information about Windows App and its features, see [What's new in Windows App](/en-us/windows-app/whats-new?tabs=windows).
 
 For more information about public preview items, see [Public preview in Windows 365](../public-preview).
+
+## Week of November 16, 2026
+
+### Direct Stream: the cloud streaming technology powering Windows 365
+
+Direct Stream is the cloud streaming technology powering Windows 365, reflecting capabilities that have evolved beyond the traditional Remote Desktop Protocol (RDP). Direct Stream brings together multi-year investment of innovation in connection reliability, speed, transport security, and in-session performance to make a Cloud PC feel like a local PC, including capabilities like [multipath](/en-us/windows-365/enterprise/rdp-multipath?tabs=azure), [fast reconnect](/en-us/windows-365/enterprise/fast-reconnect), [TURN relays](https://techcommunity.microsoft.com/blog/windows-itpro-blog/relayed-rdp-shortpath-for-public-networks-now-available/4249502), and [graphic encoding](/en-us/azure/virtual-desktop/graphics-encoding).
+
+Direct Stream is already powering the Cloud PCs users are using today. You will see the technology name showing up gradually across clients, portals, documentation, and reporting over the coming months. You might continue to see RDP terminology in some areas that will be updated to reflect the new cloud streaming terminology.
+
+No action is required. It doesn't affect existing deployments, functionality, or pricing, and doesn't apply to on-premises RDP.
+
+For more information, see [Windows 365 at Ignite 2026: Introducing new Cloud PC capabilities for people, agents and IT](https://aka.ms/W365Ignite26Blog).
+
+### Monitor Cloud PCs is now generally available
+
+Monitor Cloud PCs is now generally available for Windows 365. It gives IT administrators one place in the Microsoft Intune admin center to monitor Cloud PC health, connection quality, and configuration. Administrators can review connection health and trends, investigate problems at the user and device level, and see detailed connection data. Scope tags now apply to supported views. For more information, see [Monitor Cloud PCs overview](/en-us/windows-365/enterprise/monitor-cloud-pcs-overview).
+
+### Bulk provisioning and deprovisioning for Windows 365 Reserve supports up to 1,000 devices (Generally Available)
+
+Windows 365 Reserve now supports bulk provisioning and deprovisioning of up to 1,000 Cloud PCs in a single request. Admins can provision and deprovision larger groups of Reserve Cloud PCs at once, reducing the need to split large-scale provisioning operations into smaller batches. For more information, see [Managing Windows 365 Reserve](/en-us/windows-365/enterprise/windows-365-reserve-manage).
+
+### Context-based redirections are now generally available
+
+Context-based redirections are now generally available for Windows 365 Enterprise, Flex Dedicated, Azure Virtual Desktop, and Remote Apps. IT administrators can use Microsoft Entra authentication context and Conditional Access policies to control which redirections, such as clipboard, drive, printer, and USB, are available in a remote session based on device compliance and network context. This helps protect corporate data when users connect from personal or unmanaged devices. For more information, see [Configure context-based redirections](/en-us/windows-365/enterprise/context-based-redirections).
+
+### License and utilization report (Public Preview)
+
+A new License and utilization report is now available in public preview for Windows 365. The report helps IT administrators monitor how licenses are allocated and used in their environment. It shows assigned and unassigned licenses by SKU, peak concurrent Cloud PC connections, total usage hours, and usage trends over a selectable period of up to 180 days. For more information, see [License and utilization report](/en-us/windows-365/enterprise/license-utilization).
+
+### Windows 365 Admin Assistant now available in public preview
+
+Windows 365 Admin Assistant is a new AI-powered experience in Microsoft Intune that helps IT administrators investigate and troubleshoot Cloud PC issues using natural language. Administrators can ask questions about their Cloud PC environment, investigate connectivity failures, analyze performance trends, and identify potential root causes across multiple Cloud PCs. Admin Assistant brings together relevant information from Windows 365 and connected services to provide contextual insights, explanations, and recommended next steps, reducing the need to manually navigate multiple reports and tools. This helps administrators understand issues faster and make more informed troubleshooting decisions. For more information, see [Windows 365 Admin Assistant](https://go.microsoft.com/fwlink/?LinkId=2382618).
+
+### Windows 365 Early Release (Public Preview)
+
+Windows 365 Early Release is now rolling out to public preview. IT administrators can configure a tenant to receive Windows 365 service releases before the standard release, so they can validate upcoming service changes before those changes reach end users. In this release, Early Release applies to the service components that manage access and connections to Cloud PCs. Use Early Release only in a non-production validation tenant, not in the tenant your end users use. For more information, see [Windows 365 Early Release](https://aka.ms/w365-early-release).
+
+### Move Cloud PCs to a different region or network (Public Preview)
+
+The new Move device action is rolling out in public preview for Windows 365 Enterprise. Administrators can move one or more selected Cloud PCs to a different supported region or network from a Cloud PC's page, a provisioning policy's Devices tab, or Bulk device actions, without editing the provisioning policy. The policy's settings for new Cloud PCs, and other Cloud PCs in the policy, aren't affected. The rollout is gradual, so the action might not appear in every tenant right away. For more information, see [Move a Cloud PC](/en-us/windows-365/enterprise/move-cloud-pc).
 
 ## Week of November 9, 2026
 

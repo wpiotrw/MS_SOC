@@ -24,7 +24,7 @@ ms.service: azure-backup
 ms.reviewer: v-mallicka
 description: Learn about the new features in the Azure Backup service.
 ms.topic: release-notes
-ms.date: 2026-11-09T00:00:00.0000000Z
+ms.date: 2026-11-16T00:00:00.0000000Z
 ms.custom:
 - ignite-2023
 - build-2026
@@ -44,8 +44,10 @@ item_type: Content
 source_path: articles/backup/whats-new.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: dba3d424-db38-28d1-b895-111ed8690c6f
 ---
 
@@ -59,6 +61,7 @@ You can learn more about the new releases by bookmarking this page or by [subscr
 
 - November 2026
 
+    - Cross-subscription backup for Azure VMs is now generally available
     - Snapshot backup for SQL instances in Azure VMs is now generally available
     - Vaulted backup support for Azure Cosmos DB is now generally available
 - October 2026
@@ -148,6 +151,12 @@ You can learn more about the new releases by bookmarking this page or by [subscr
 - January 2024
 
     - Cross Region Restore support for PostgreSQL by using Azure Backup is now generally available
+
+## Cross-subscription backup for Azure VMs is now generally available
+
+Cross-subscription backup for Azure VMs is now generally available in all Azure regions. You can back up Azure VMs to a Recovery Services vault in a different subscription, provided the VM and vault are in the same tenant and region. This capability lets you centralize VM backup management across subscriptions.
+
+For more information, see [Back up Azure VMs in a Recovery Services vault](backup-azure-arm-vms-prepare) and [Supported backup actions](backup-support-matrix-iaas#supported-backup-actions).
 
 ## Snapshot backup for SQL instances in Azure VMs is now generally available
 

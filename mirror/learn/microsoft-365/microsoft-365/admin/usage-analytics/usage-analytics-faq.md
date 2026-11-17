@@ -177,7 +177,7 @@ You can retrieve the data in the template app through the Microsoft 365 APIs (in
 
 ## Are there plans to expand the template app to show usage data from other Microsoft products?
 
-The feature is under consideration for future improvements. For updates, see [Microsoft AI at Work Roadmap](https://www.microsoft.com/microsoft-365/roadmap), formerly known as the Microsoft 365 Roadmap.
+The feature is under consideration for future improvements. For updates, see [Microsoft Copilot Roadmap](https://www.microsoft.com/microsoft-365/roadmap), formerly known as the Microsoft 365 Roadmap.
 
 ## How can I pivot by company information in Active Directory?
 

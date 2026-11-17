@@ -104,7 +104,7 @@ These three release statuses are updated on each applicable message over the lif
 
 Updates to feature release status are provided on the original Message center post. Filtering capability on **Status for your org** allows easier visibility on the updated release status.
 
-The release status is only available for new and updated features that are also announced on AI at Work Roadmap and that have general availability status (production ready). If you don't see release status on a message, it means the release status isn't available for that feature.
+The release status is only available for new and updated features that are also announced on Microsoft Copilot Roadmap and that have general availability status (production ready). If you don't see release status on a message, it means the release status isn't available for that feature.
 
 ## Relevance recommendation
 

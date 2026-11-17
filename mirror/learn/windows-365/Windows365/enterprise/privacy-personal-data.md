@@ -62,6 +62,10 @@ Windows 365 provides its service to customers by gathering and using data from t
 
 To protect and maintain enrolled devices, Windows 365 processes and copies data from online services and data pipelines configured by the customer to Windows 365. After data is integrated from these services into Windows 365, the [Product Terms](https://www.microsoft.com/licensing/terms/product/ForOnlineServices/all) and [Microsoft Privacy Statement](https://privacy.microsoft.com/privacystatement) applicable to Windows 365 also applies to the data. Windows 365 ensures appropriate data confidentiality, security, and resilience. Windows 365 employs extra internal privacy and security measures to ensure proper handling of personal data.
 
+## Windows 365 Admin Assistant (preview)
+
+Windows 365 Admin Assistant processes administrator prompts and available Windows 365 environment data to generate responses. Prompts, conversation content, and generated responses are treated as customer data and aren't used to train foundation models.
+
 ## Windows 365 data storage
 
 Depending on a tenant's region and preference, Windows 365 stores its customer content in Azure regions in North America, Europe, or Asia Pacific. Cloud PC virtual disk, customer content, data and storage associated with the Cloud PC lives in the Azure region that the Cloud PC is [provisioned](provisioning) in. For Windows 365 Enterprise, the region is defined in the Microsoft hosted network or [Azure network connection](azure-network-connections) (ANC) settings within the Cloud PC's associated provisioning policy. Windows 365 Business stores customer data in the Azure region of the Cloud PC itself.

@@ -117,7 +117,7 @@ The per-phase sections later in this article explain why each phase exists, what
 | **Assess** | Choose the target model and confirm it's operationally available. | - [Model leaderboards and benchmarks](../../concepts/model-benchmarks) (quality, safety, cost, throughput)<br>- [Side-by-side compare](../../how-to/benchmark-model-in-catalog)<br>- Trade-off charts |
 | **Adapt** | Replay the current workload on the new model, diagnose behavioral changes, and re-engineer prompts, parameters, tool definitions, output schemas, and the calling code around them. | - [Prompt Optimizer](../../observability/how-to/prompt-optimizer) (**Foundry only**): the **Optimize** button under system instructions in the Agent playground<br>- [Agent optimization](../../agents/how-to/optimize-agent-targets) (**Foundry only**)<br>- [Simulator](../../observability/how-to/evaluation-dataset-synthetic) for synthetic data |
 | **Validate** | Score the adapted workload against a quality rubric to decide whether it's safe to ship. | - [Azure AI Evaluation SDK](../../observability/how-to/cloud-evaluation) (30+ evaluators, LLM-as-judge, graders)<br>- [Portal evaluation](../../how-to/evaluate-generative-ai-app) |
-| **Roll out** | Promote to production through staged exposure, monitor live behavior, and commit or roll back. | - [Auto-upgrade with `versionUpgradeOption`](../../openai/concepts/model-retirements)<br>- Provisioned in-place and side-by-side migration<br>- [Continuous evaluation](../../observability/how-to/how-to-monitor-agents-dashboard#set-up-continuous-evaluation)<br>- Azure Monitor alerts |
+| **Roll out** | Promote to production through staged exposure, monitor live behavior, and commit or roll back. | - [Auto-upgrade with `versionUpgradeOption`](../../openai/concepts/model-retirements)<br>- Provisioned in-place and side-by-side migration<br>- [Continuous evaluation](../../observability/how-to/continuous-scheduled-evaluation)<br>- Azure Monitor alerts |
 | **Retire** | Decommission the old deployment, free capacity, archive evals, and update downstream documentation. | - [Models API](../../openai/concepts/retired-models) to confirm retirement<br>- [Observability dashboard](../../concepts/observability) for deployment count |
 
 ## Before you migrate: Prepare a test dataset
@@ -269,7 +269,7 @@ The purpose of this phase is to promote the validated configuration to productio
 | Batch | Side-by-side: deploy the new model, resubmit jobs, then retire the old deployment. | Ensure target-model quota |
 | Fine-tuned (**out of scope for this article**) | Not auto-upgraded; separate training and deployment retirement clock. Re-tune or distill onto the replacement base model. | Ensure target-model quota |
 
-After traffic moves, wire up [continuous evaluation](../../observability/how-to/how-to-monitor-agents-dashboard#set-up-continuous-evaluation) to score a sampled percentage of production traffic on the Foundry Observability dashboard, connected to traces for root-cause analysis, plus Azure Monitor alerts when quality drops.
+After traffic moves, wire up [continuous evaluation](../../observability/how-to/continuous-scheduled-evaluation) to score a sampled percentage of production traffic on the Foundry Observability dashboard, connected to traces for root-cause analysis, plus Azure Monitor alerts when quality drops.
 
 ### Where it commonly breaks
 

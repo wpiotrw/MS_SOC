@@ -5,7 +5,7 @@ monikers:
 - o365-worldwide
 defaultMoniker: o365-worldwide
 versioningType: Ranged
-title: Monitor the health of apps in Microsoft Copilot Managed Runtime (preview) - Microsoft 365 admin | Microsoft Learn
+title: Monitor the health of apps in Microsoft Copilot Managed Runtime - Microsoft 365 admin | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/apps/visibility-monitoring?view=o365-worldwide
 config_moniker_range: =o365-worldwide || =o365-21vianet
 feedback_system: Standard
@@ -14,7 +14,7 @@ breadcrumb_path: /microsoft-365/breadcrumb/toc.json
 recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
 description: Learn how to monitor the operational health of apps created in your solution.
-ms.date: 2026-11-09T00:00:00.0000000Z
+ms.date: 2026-11-17T00:00:00.0000000Z
 author: arjunmayur
 ms.author: arjunmayur
 manager: alaug
@@ -51,18 +51,11 @@ spProducts:
 platformId: 61dca861-fc8b-33be-c1b4-84c888dab23e
 ---
 
-# Monitor the health of apps in Microsoft Copilot Managed Runtime (preview) - Microsoft 365 admin | Microsoft Learn
-
-[This article is prerelease documentation and is subject to change.]
+# Monitor the health of apps in Microsoft Copilot Managed Runtime - Microsoft 365 admin | Microsoft Learn
 
 To measure and improve operational health metrics for apps in Copilot Managed Runtime for your organization, go to the **Monitor** page under **Apps** in the [Microsoft 365 admin center](https://admin.microsoft.com/AdminPortal/Home#/homepage).
 
-Important
-
-- This is a preview feature.
-- These features are subject to [supplemental terms of use](https://go.microsoft.com/fwlink/?LinkId=2373139), and are available before an official release so that customers can get early access and provide feedback.
-
-The following roles can access the **Monitor** experience: AI admin, AI reader, Global admin, Global reader, and Power Platform admin. All roles can use this experience to understand the aggregate operational health of apps in Copilot Managed Runtime that are created in their tenant. Global admin and Power Platform admin can create and manage alerts and see metrics. AI admin, AI reader, and Global reader can see metrics, but can only view alert rules and triggered alert details. They can't create and manage alert rules. Metrics are calculated by aggregating daily or hourly event logs from runtime activity. They're not real-time. For more information about which roles can manage apps and which roles are read-only, see [Roles and responsibilities](roles-responsibilities).
+Both Manage and read-only roles can access the **Monitor** experience and use it to understand the aggregate operational health of apps in Copilot Managed Runtime that are created in their tenant. Manage roles can see metrics and create and manage alerts. Read-only roles can see metrics and view alert rules and triggered alert details, but they can't create or manage alert rules. Metrics are calculated by aggregating daily or hourly event logs from runtime activity. They're not real-time. For more information about which roles can manage apps and which roles are read-only, see [Roles and responsibilities](roles-responsibilities).
 
 This article helps you understand the apps inventory and monitor application health.
 
@@ -113,7 +106,7 @@ Best practices when setting up alerts for health metrics:
 
 ### Prerequisites
 
-- You must be a Global admin or Power Platform admin to create and manage alert rules, and view triggered alert details. AI admin, AI reader, and Global reader can view alert rules and triggered alert details, but they can't create or manage alert rules.
+- You need a Manage role to create and manage alert rules. Read-only roles can view alert rules and triggered alert details, but they can't create or manage alert rules. For details, see [Roles and responsibilities](roles-responsibilities).
 
 ### Create an alert for an app
 
@@ -206,7 +199,7 @@ A *triggered alert* is an instance when an app meets the rule's condition. For e
 
 ### Who can create and manage alerts?
 
-You must be a Global admin or Power Platform admin to create and manage alerts.
+You need a Manage role to create and manage alerts. Read-only roles can view alert rules and triggered alerts. For which roles have each kind of access, see [Roles and responsibilities](roles-responsibilities).
 
 ### Does the severity level affect how alerts are processed?
 

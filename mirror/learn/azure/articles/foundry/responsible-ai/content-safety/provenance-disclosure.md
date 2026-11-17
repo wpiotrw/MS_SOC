@@ -24,7 +24,7 @@ ms.update-cycle: 1825-days
 ms.service: azure-ai-content-safety
 description: Content provenance
 ms.topic: concept-article
-ms.date: 2026-11-03T00:00:00.0000000Z
+ms.date: 2026-11-17T00:00:00.0000000Z
 ai-usage: ai-assisted
 locale: en-us
 document_id: bc523717-88a8-9d85-180e-e45d0e9f9443
@@ -146,14 +146,16 @@ Text provenance support varies by model. Where available, the underlying model p
 
 For Anthropic models, see [Claude models in Microsoft Foundry](../../foundry-models/concepts/claude-models#available-claude-models) for watermarking guidance and supported-model information. Check support for text watermarks in cloud partner output.
 
-For Azure OpenAI models, planned text watermarking support is limited to select models in the gpt-5.1 through gpt-5.6 families. There are no confirmed plans to support model families earlier than gpt-5.1. This article is updated as models with text watermarking become available.
+For Azure OpenAI models, the table below will be updated as models with text watermarking become available.
+
+To turn on watermarking for a supported deployment, see [Enable text watermarking for Microsoft Foundry GPT model deployments](enable-text-watermarking-gpt-models).
 
 The following table lists current and planned invisible watermarking support for models with text output.
 
 | Model provider | Models |
 | --- | --- |
 | Anthropic | See [Claude watermarking guidance](../../foundry-models/concepts/claude-models#available-claude-models) for supported models. |
-| Azure OpenAI | Planned support for:gpt-5.1gpt-5.2gpt-5.4gpt-5.4-minigpt-5.4-nanogpt-5.5-reasoninggpt-5.5-chatgpt-5.6-solgpt-5.6-chatgpt-5.6-lunagpt-5.6-terra |
+| Azure OpenAI | Models that have text watermarking support:gpt-6.2-solgpt-6.2-astraPlanned support for:gpt-4.1-minigpt-5-minigpt-5-chat-minigpt-5.1gpt-5.1-chatgpt-5.2gpt-5.2-chatgpt-5.4gpt-5.4-minigpt-5.4-nanogpt-5.5gpt-5.5-chatgpt-5.6-solgpt-5.6-chatgpt-5.6-lunagpt-5.6-terragpt-6-solgpt-6-sol-chatgpt-6-lunagpt-6-astragpt-6.1-solgpt-6.1-terra |
 
 ## What are the limitations?
 

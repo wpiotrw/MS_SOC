@@ -58,13 +58,13 @@ monikers:
 item_type: Content
 source_path: microsoft-365/admin/activity-reports/activity-reports.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
+- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 platformId: 3becf4fd-6055-a3e6-61e0-7c183d82e888
 ---
 
@@ -166,7 +166,7 @@ Depending on your subscription, the following reports are available in all envir
 | [Visio activity](visio-activity) | Yes | Yes | N/A^1^ | N/A^1^ | N/A^2^ |
 | [Viva Goals activity](viva-goals-activity) | Yes | N/A^2^ | N/A^2^ | N/A^2^ | N/A^2^ |
 
-N/A^1^: The report will be released in the future. The [Microsoft 365 Roadmap](https://www.microsoft.com/microsoft-365/roadmap?filters=) will be updated before the release.
+N/A^1^: The report will be released in the future. The [Microsoft Copilot Roadmap](https://www.microsoft.com/microsoft-365/roadmap?filters=) will be updated before the release.
 
 N/A^2^: The service isn't available in the environment; hence, there's no plan to release the report.
 

@@ -5,7 +5,7 @@ monikers:
 - o365-worldwide
 defaultMoniker: o365-worldwide
 versioningType: Ranged
-title: FAQ about Microsoft Copilot Managed Runtime (preview) - Microsoft 365 admin | Microsoft Learn
+title: FAQ about Microsoft Copilot Managed Runtime - Microsoft 365 admin | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/apps/faq-about-apps?view=o365-worldwide
 config_moniker_range: =o365-worldwide || =o365-21vianet
 feedback_system: Standard
@@ -13,8 +13,8 @@ feedback_product_url: https://admin.microsoft.com/adminportal/home?showfeedback=
 breadcrumb_path: /microsoft-365/breadcrumb/toc.json
 recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
-description: Microsoft Copilot Managed Runtime
-ms.date: 2026-09-25T00:00:00.0000000Z
+description: Get answers to common administrator questions about Microsoft Copilot Managed Runtime, including environments, routing, app building controls, governance, monitoring, and sharing.
+ms.date: 2026-11-17T00:00:00.0000000Z
 author: mihaelablendea
 manager: zoraz
 ms.author: mihaelab
@@ -44,74 +44,95 @@ item_type: Content
 source_path: microsoft-365/admin/manage/apps/faq-about-apps.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 platformId: 95be2335-c6f4-6697-810a-4454edf8ee94
 ---
 
-# FAQ about Microsoft Copilot Managed Runtime (preview) - Microsoft 365 admin | Microsoft Learn
+# FAQ about Microsoft Copilot Managed Runtime - Microsoft 365 admin | Microsoft Learn
+
+This article answers common administrator questions about Microsoft Copilot Managed Runtime. For questions about licenses and Copilot Credits, see [Copilot Managed Runtime licensing FAQ](licensing-faq).
 
 ## Where are apps built with Copilot Managed Runtime created?
 
-Apps built with Copilot Managed Runtime are created in personal developer environments. If a maker already owns one, the app reuses it. Otherwise, the app creates a new personal developer environment based on your existing environment routing rules.
+Apps built with Copilot Managed Runtime are created in personal environments. If a maker already owns one, the app reuses it. Otherwise, the app creates a new personal environment based on your existing environment routing rules.
+
+Personal environments give each maker a dedicated place to build, without putting everyone's apps in a single, organization-wide environment such as the Default environment, which is hard to govern at scale. Much like a personal OneDrive, a personal environment belongs to one maker but stays part of your organization's governed estate. Administrators keep full visibility and control over every app, and makers can start building right away.
+
+## Which admin center do I use to govern Copilot Managed Runtime?
+
+You use both, for different purposes:
+
+- **Microsoft 365 admin center**: App-level visibility and governance. View the inventory of apps, monitor usage and operational health, block or delete apps, and configure environment group level policies specific to Copilot Managed Runtime, such as sharing rules.
+- **Power Platform admin center**: Environment-level granularity and policies that aren't specific to Copilot Managed Runtime. Manage environments, environment groups, environment routing, and data policies, and find the environment that hosts each app.
 
 ## Where can I find the environment that hosts an app built with Copilot Managed Runtime?
 
-Use the Power Platform admin center to find the environment that hosts an app built with Copilot Managed Runtime:
+The environment that hosts each app is listed in the inventory in the Power Platform admin center. To find it:
 
-1. Go to **Manage** &gt; **Inventory**.
+1. In the Power Platform admin center, go to **Manage** &gt; **Inventory**.
 2. Set **Item type** to **Copilot Managed Runtime**.
 3. Add the **Environment**, **Environment ID**, **Environment Group**, and **Environment Group ID** columns.
 
-## Are newly created personal developer environments managed environments?
+## Are newly created personal environments managed environments?
 
-Yes. Personal developer environments created through environment routing are always managed environments. Learn more in [Environment routing](/en-us/power-platform/admin/default-environment-routing).
+Yes. Personal environments created through environment routing are always managed environments. Learn more in [Environment routing for Copilot Managed Runtime](/en-us/power-platform/admin/default-environment-routing-copilot-managed-runtime).
 
 ## Will Copilot Managed Runtime disrupt my existing routing rules or environment groups?
 
-No, Copilot Managed Runtime preserves your existing routing rules, rule priority, and target environment groups.
+No. Copilot Managed Runtime preserves your existing routing rules, rule priority, and target environment groups.
 
 ## What happens if no routing rule matches a maker?
 
-An unmatched maker can't get a personal developer environment or create an app with Copilot Managed Runtime.
+An unmatched maker can't get a personal environment or create an app with Copilot Managed Runtime.
 
 To resolve the issue, add the maker to a security group targeted by an existing routing rule, update a rule to include one of the maker's groups, or add an **Everyone** catch-all rule.
 
 ## When does the service initialize Copilot Managed Runtime governance?
 
-The service initializes Copilot Managed Runtime governance when you create the first app. An administrator can initialize it earlier by opening the app governance experience in the Microsoft 365 admin center.
+Default governance, including the default environment group, is set up once, triggered by whichever comes first: a maker starts to create the first app, or an administrator selects **Set up governance** on the **Apps** &gt; **Overview** page in the Microsoft 365 admin center. Either way, governance is in place before the first app exists. After governance is set up, the **Set up governance** option is no longer available.
 
 ## Can I delete or modify the existing **Everyone** catch-all routing rule after Copilot Managed Runtime governance is initialized?
 
 No. After the service initializes Copilot Managed Runtime governance, you can't delete or modify the **Everyone** catch-all rule.
 
-## Can I turn off environment routing only for apps created in Cowork?
+## Can I roll out app building to a pilot group first?
 
-No. You can't turn off environment routing for apps created in Cowork.
+Yes. Each app building tool has its own control, so you can start with a small group of makers and expand access over time. For details, see [Copilot Managed Runtime overview for admins](./).
 
-## Can administrators keep Copilot Cowork available while disabling app creation or limiting it to selected users?
+## Are all apps created in Cowork governed by Copilot Managed Runtime?
 
-Yes. During preview, building apps in Copilot Cowork is available only in Frontier tenants. The app-building skill respects the tenant and user access settings for Frontier. For more information, see [Get started with the Microsoft Copilot Frontier Program](../get-started-frontier).
+Apps that makers build with the app building skill in Cowork run on Copilot Managed Runtime. They're created in the maker's personal environment, appear in the app inventory in the Microsoft 365 admin center, and follow the policies of their environment group.
 
-## Do users need Microsoft 365 Copilot to run an app created in Cowork?
+Other files that Cowork creates, such as HTML pages saved to OneDrive, aren't apps on Copilot Managed Runtime. They're governed like any other file in OneDrive or SharePoint and don't appear in the app inventory. To give makers a governed path for building apps, encourage them to use the app building skill. You can only govern what you can see.
 
-No. A user's runtime eligibility is based on Copilot Credits or a Power Apps Premium license. Runtime entitlement is separate from the requirements and charges for creating the app.
+## Users report errors when they run an app. How can I help?
 
-## Application users are telling me that there are errors while running the app. How can I help?
+Check the app's operational health in the Microsoft 365 admin center:
 
-Monitor in the Microsoft 365 admin center is the place for IT and Operations teams to check the operational health of managed apps created in your tenant. They can understand operational health trends per app in addition to creating alerts to proactively monitor the health of their managed apps against custom thresholds they define. To find operational health trends for apps, go to **Apps** &gt; **All Apps**, select the app, and go to the **Monitor** tab. To create alerts, go to **Apps** &gt; **Monitor** and then select **+New Alert Rule**.
+1. Go to **Apps** &gt; **All apps** and select the app.
+2. Select the **Monitor** tab to review health trends for the app.
 
-## Where can administrators allocate credits and monitor the credits that running apps consume?
-
-In the Microsoft 365 admin center, go to **Copilot** &gt; **Cost management**. You can configure spending policies for managed applications, select covered users and groups, set limits, allocate credits, and monitor consumption. For more information, see [Usage-based billing and cost management for Copilot Credits](/en-us/microsoft-365/copilot/usage-based-billing-overview-copilot-credits).
+To find issues before users report them, create an alert rule. Go to **Apps** &gt; **Monitor** and select **+New Alert Rule**. You're notified when an app's health crosses the thresholds that you define.
 
 ## Can administrators inspect an app's connectors, data sources, destinations, actions, dynamic endpoints, and effective user permissions?
 
-In the Microsoft 365 admin center, go to **Apps** &gt; **All apps**, open the app, and select **Data & tools** to view its connectors, data sources, and dependencies. This information doesn't provide a complete view of exact destinations, dynamically resolved endpoints, actions that the app executed, or each user's permissions to the underlying data.
+In the Microsoft 365 admin center, go to **Apps** &gt; **All apps**, open the app, and select **Data & tools** to view its connectors, data sources, and dependencies.
 
 Administrators can block or delete an app and restrict connectors or connector actions through policy. App access can be revoked separately, but no single operation removes both a person's app access and all permissions to the underlying data.
 
-## Can I share an app through an organization link, a security group, or with multiple recipients?
+## How do I find and clean up unused or broadly shared apps?
+
+Use the app inventory in the Microsoft 365 admin center to see how each app is used and who it's shared with. For more information, see [View and oversee apps across your tenant](inventory).
+
+Based on what you find, you can:
+
+- **Block** an app to stop people from opening it, while keeping the app and its data.
+- **Delete** an app that's no longer used.
+
+## Can I share an app through an organization-wide link, a security group, or with multiple recipients?
 
 Yes. You can share an app directly with specific users or groups, including Microsoft Entra security groups, or through a **People in your organization** link. Direct sharing supports multiple recipients.
 
@@ -126,3 +147,7 @@ Administrators configure sharing rules for an environment group. These rules app
 This condition can occur when the environment group has an advanced connector policy (ACP) and **Advanced connector policies only** is off. In this mixed mode, both the ACP and applicable classic data policies are enforced, and the most restrictive setting takes precedence.
 
 The Microsoft 365 admin center shows the ACP allow list but might not show restrictions imposed by data policies. Review the environment group's **Advanced connector policies only** setting and applicable data policies in the Power Platform admin center to determine the connector's effective access.
+
+## Where can I find information about licensing and Copilot Credits?
+
+For what makers and users need to build and run apps, and how to set up and monitor Copilot Credits, see [Manage licensing and Copilot Credits for apps on Copilot Managed Runtime](licensing-credits). For answers to common licensing questions, see [Copilot Managed Runtime licensing FAQ](licensing-faq).

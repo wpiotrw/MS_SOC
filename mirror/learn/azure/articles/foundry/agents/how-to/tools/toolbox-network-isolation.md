@@ -74,7 +74,7 @@ The following table shows how each tool's traffic flows when your project uses n
 | Tool | VNet support (traffic flow) |
 | --- | --- |
 | [Model Context Protocol (MCP)](model-context-protocol) | ✅ Supported (through your VNet subnet). |
-| [Azure AI Search](ai-search) | ✅ Supported (through private endpoint). |
+| [Foundry IQ (Azure AI Search)](ai-search) | ✅ Supported (through private endpoint). |
 | [File search](file-search) | ✅ Supported (through private endpoint). |
 | [OpenAPI](openapi) | ✅ Supported (through your VNet subnet). |
 | [Agent-to-agent (A2A)](agent-to-agent) | ✅ Supported (through your VNet subnet). |
@@ -108,7 +108,7 @@ For Terraform, use [`11-private-network-basic-vnet`](https://github.com/microsof
 
 ### Configure a Standard agent project
 
-A Standard agent project brings your own data resources (Azure Cosmos DB, Azure Storage, and Azure AI Search). For full isolation with no public egress and bring-your-own data resources, deploy the [`15-private-network-standard-agent-setup`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-bicep/15-private-network-standard-agent-setup) template.
+A Standard agent project brings your own data resources (Azure Cosmos DB, Azure Storage, and Foundry IQ). For full isolation with no public egress and bring-your-own data resources, deploy the [`15-private-network-standard-agent-setup`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-bicep/15-private-network-standard-agent-setup) template.
 
 For Terraform, use [`15a-private-network-standard-agent-setup`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-terraform/15a-private-network-standard-agent-setup) to create the networking resources. Use [`15b-private-network-standard-agent-setup-byovnet`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-terraform/15b-private-network-standard-agent-setup-byovnet) to integrate with an existing VNet and private DNS zones.
 

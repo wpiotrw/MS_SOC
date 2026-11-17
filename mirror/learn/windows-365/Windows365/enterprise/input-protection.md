@@ -38,10 +38,14 @@ spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
-platformId: 1eaf79fb-46b2-58db-75a1-bf1c89e52560
+platformId: 2cec60ce-d2a8-266e-88da-c7f9fada7f97
 ---
 
 # Input Protection (preview) | Microsoft Learn
+
+Important
+
+The streaming stack powering Windows 365 and Azure Virtual Desktop is now branded as Direct Stream. This article retains RDP terminology where it still appears in the Microsoft Intune admin center and Azure portal during the transition. For more information, see [Windows 365 at Ignite 2026: Introducing new Cloud PC capabilities for people, agents and IT](https://aka.ms/W365Ignite26Blog).
 
 Important
 
@@ -109,7 +113,7 @@ You can configure input protection for Azure Virtual Desktop (Azure Portal) and 
 
 Note
 
-If you previously enabled this feature by using the registry key `fWCIOKeyboardInputProtection`, follow these steps to remove it. Registry key support for Azure Virtual Desktop and Windows 365 will be deprecated in favor of RDP properties.
+If you previously enabled this feature by using the registry key `fWCIOKeyboardInputProtection`, follow these steps to remove it. Registry key support for Azure Virtual Desktop and Windows 365 will be deprecated in favor of DS properties.
 
 1. Open the Registry Editor app.
 2. Navigate to `HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services`.
@@ -146,7 +150,7 @@ After you enable input protection, confirm that enforcement works as expected:
 2. From a Windows 11 endpoint using Windows App that doesn't have the MSI installed, try to connect to the same protected resource. The connection is blocked and an error message appears.
 3. Confirm that connections to resources that don't have input protection enabled continue to work from both endpoints.
 
-To monitor input protection across your tenant, use [Cloud PC monitoring](cloud-pc-monitoring-overview) (preview) and review the `KeyboardInputProtectionState` connection event on the **Connection health** page. For steps, see [Monitor Input and Output Protection](windows-cloud-io-protection#monitor-input-and-output-protection).
+To monitor input protection across your tenant, use [Monitor Cloud PCs](monitor-cloud-pcs-overview) (preview) and review the `KeyboardInputProtectionState` connection event on the **Connection health** page. For steps, see [Monitor Input and Output Protection](windows-cloud-io-protection#monitor-input-and-output-protection).
 
 ## Troubleshoot input protection
 

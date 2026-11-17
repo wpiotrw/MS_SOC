@@ -87,7 +87,7 @@ If you want step-by-step guidance beyond the monthly updates in this article, us
 
 - [Advanced deployment guides & assistance](https://admin.cloud.microsoft/?#/setupguidance)
 - [Choose standard release or targeted release options](manage/release-options-in-office-365)
-- [Track upcoming changes on the Microsoft AI at Work Roadmap](https://www.microsoft.com/microsoft-365/roadmap)
+- [Track upcoming changes on the Microsoft Copilot Roadmap](https://www.microsoft.com/microsoft-365/roadmap)
 - [Open a support request in the admin center](get-help-support)
 
 To learn about what's new with other Microsoft cloud services, see the following sections:

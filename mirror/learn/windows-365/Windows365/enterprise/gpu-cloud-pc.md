@@ -136,7 +136,7 @@ Note that the West Europe & East US 2 regions are supported but are restricted r
 
 For optimal performance of GPU-enabled Cloud PCs, consider these recommendations:
 
-- Make sure that your network is configured to turn on UDP by default. For more information about UDP, see [RDP Shortpath](/en-us/azure/virtual-desktop/rdp-shortpath?tabs=public-networks#network-configuration).
+- Make sure that your network is configured to turn on UDP by default. For more information about UDP, see [DS Shortpath](/en-us/azure/virtual-desktop/rdp-shortpath?tabs=public-networks#network-configuration).
 - Make sure that you're running your GPU Cloud PC in full screen mode. Minimized windows require extra processing and coordination with the local device that can impede the session performance.
 - Use the Windows app for optimal connection experience.
 - Use Windows 11 Cloud PCs.

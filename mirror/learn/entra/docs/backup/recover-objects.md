@@ -11,9 +11,10 @@ ms.author: kenwith
 ms.service: entra-id
 manager: dougeby
 description: Learn how to recover objects to a previous state using Microsoft Entra Backup and Recovery from difference reports or backups
-ms.date: 2026-03-02T00:00:00.0000000Z
+ms.date: 2026-10-19T00:00:00.0000000Z
 ms.topic: how-to
 ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1026
 locale: en-us
 document_id: 96ecf955-6557-0248-4750-8bf653164001
 document_version_independent_id: 96ecf955-6557-0248-4750-8bf653164001
@@ -52,7 +53,7 @@ Key details:
 
 ## Prerequisites
 
-The tenant must meet the [Backup and Recovery prerequisites](overview#prerequisites), including **Microsoft Entra ID P1 or P2** licenses. To recover objects, you need the **Microsoft Entra Backup Administrator** role.
+The tenant must meet the [Backup and Recovery prerequisites](overview#prerequisites) for the selected plan. To recover objects, you need the **Microsoft Entra Backup Administrator** role.
 
 ## Recover from a difference report
 
@@ -60,8 +61,6 @@ Use this method when you already created a difference report and reviewed the ch
 
 1. Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com) as at least a **Microsoft Entra Backup Administrator**.
 2. Go to **Backup and recovery** &gt; **Difference reports**. Select a completed difference report.
-
-    ![Screenshot of the Difference Reports page showing three completed reports with available backups.](media/recover-objects/difference-reports-select.png#lightbox)
 
     Difference reports compare the selected backup with the current tenant state and show changed attributes and links.
 3. After inspecting the objects listed in the difference report, select **Recover** to start recovery.
@@ -86,14 +85,8 @@ Creating a difference report lets you preview changes before recovery. To skip t
 3. (Optional) Apply scoping filters to limit the objects included in recovery. Choose one of these options:
 
     - **Recover all objects in their previous state**: Recovers all supported objects in the tenant.
-
-        ![Screenshot of the Recover backup dialog with the Recover all objects in their previous state option selected and the cursor on the Recover button.](media/recover-objects/recover-backup-all-objects.png#lightbox)
     - **Recover only certain types of objects**: Limits recovery to selected object types, such as Users or Conditional Access Policies.
-
-        ![Screenshot of the Recover backup dialog with Recover only certain types of objects selected and type options shown.](media/recover-objects/recover-backup-object-types.png#lightbox)
     - **Recover only specific objects by their ID**: Limits recovery to specific objects by their object IDs. Enter up to 100 object IDs across different object types.
-
-        ![Screenshot of the Recover backup dialog with Recover only specific objects by ID selected and object ID entries shown.](media/recover-objects/recover-backup-object-ids.png#lightbox)
 4. Select **Recover** to start the recovery job.
 
 Warning

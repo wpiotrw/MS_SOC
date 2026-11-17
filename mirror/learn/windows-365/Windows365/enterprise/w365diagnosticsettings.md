@@ -129,7 +129,7 @@ Follow the instructions below to use the logs:
 | PlatformVersion | The version of the client platform. | 141.0.0.0 |
 | SessionHostOSDescription | The OS SKU description of the machine where the user connection was orchestrated. | Windows 10 Enterprise |
 | GatewayRegion | The region of the gateway for the server side user connection. | westus |
-| TransportType | The type of transport used by the RDP connection: Shortpath, TURN, Websocket. | TCP Websocket |
+| TransportType | The type of transport used by the DS connection: Shortpath, TURN, Websocket. | TCP Websocket |
 | ResultType | The result type of the connection. | Success |
 | CallerIPAddress | The IP address of the connecting endpoint. | 10.111.22.333 |
 | SessionHostSxSStackVersion | The side-by-side (SxS) stack version of the session host. | 1.0.2222.3333 |

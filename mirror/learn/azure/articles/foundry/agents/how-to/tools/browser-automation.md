@@ -65,6 +65,19 @@ Important
 
 The Browser automation tool controls web browsers on your behalf and can take unintended actions. Testing and monitoring are recommended. To learn more, see [Transparency Note for Foundry Agent Service - Microsoft Foundry](/en-us/azure/foundry/responsible-ai/agents/transparency-note).
 
+## Use cases
+
+| Scenario | What the agent can do |
+| --- | --- |
+| **Form filling and third-party integration** | Complete forms and move information between browser-based applications when an API isn't available. |
+| **Web research and data extraction** | Navigate websites, filter results, and collect or compare information with source links. |
+| **Quality assurance and regression investigation** | Explore end-to-end user flows, reproduce issues, and investigate failures in a browser session. Use Playwright testing for repeatable regression tests with explicit assertions. |
+| **Customer support and issue replication** | Re-create a customer journey and gather page context and evidence to help support teams investigate browser-based issues. |
+| **Legacy-system automation** | Automate repetitive interactions with internal or vendor portals that don't provide suitable APIs. |
+| **Employee and business operations** | Support supervised employee-lifecycle tasks, invoice processing, and other browser-based operational workflows. |
+
+Review supported scenarios and limitations for authentication and network requirements, and require human approval for consequential actions.
+
 ## Example browser workflow
 
 The following example illustrates a public-site research task:

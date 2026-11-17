@@ -234,7 +234,7 @@ If registration details aren't available for an upcoming event, check back later
 The Customer Advisory Board program allows you to:
 
 - Engage directly with Microsoft engineering teams.
-- Preview and provide feedback on [Microsoft AI at Work Roadmap](https://www.microsoft.com/microsoft-365/roadmap), formerly known as the Microsoft 365 Roadmap, plans.
+- Preview and provide feedback on [Microsoft Copilot Roadmap](https://www.microsoft.com/microsoft-365/roadmap), formerly known as the Microsoft 365 Roadmap, plans.
 - Network with peers across industries facing similar challenges.
 - Influence future product and service enhancements.
 

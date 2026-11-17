@@ -24,10 +24,10 @@ ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Create a managed voice-based prompt agent in Foundry Agent Service by using the Microsoft Foundry portal, a voice agent template, the Microsoft Foundry SDK, or the Azure Developer CLI.
-ms.date: 2026-11-10T00:00:00.0000000Z
+ms.date: 2026-11-11T00:00:00.0000000Z
 ms.subservice: foundry-agent-service
 ms.topic: quickstart
-ms.custom: preview, doc-kit-assisted
+ms.custom: doc-kit-assisted
 ai-usage: ai-assisted
 zone_pivot_groups: voice-agent-quickstart-tools
 locale: en-us
@@ -46,11 +46,11 @@ source_path: articles/foundry/agents/quickstarts/prompt-voice-agent.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
+- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
 platformId: e41b0bfe-60a2-1223-768b-fc4ee35ed5cc
 ---
 
@@ -60,9 +60,7 @@ In this quickstart, you create a voice-based prompt agent, open a live session, 
 
 Choose your development tool. The **Foundry portal** path creates and tests the agent in the browser with no code. The **Foundry portal with templates** path starts from a ready-made agent for a common scenario, such as customer support or appointment scheduling, that you can try before you create it. The **Python SDK** and **JavaScript/TypeScript SDK** paths install the Microsoft Foundry SDK, create the agent in code, and connect to a live session over a WebSocket. The **Azure Developer CLI** path uses `azd` to scaffold, provision, deploy, and test the agent without writing runtime code. The examples start with a managed real-time model. The SDK paths also include an example that uses your own model deployment.
 
-Important
-
-Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
+Voice agents are generally available, with some features still in preview. See [General availability and preview features](../overview#general-availability-and-preview-features).
 
 If you already use Voice Live with a Foundry text agent, see [Compare and migrate to Microsoft Foundry voice agents](../how-to/migrate-from-voice-live).
 
@@ -79,7 +77,7 @@ If you don't have an Azure subscription, create a [free account](https://azure.m
 
     The Foundry RBAC roles were recently renamed. **Foundry User**, **Foundry Owner**, **Foundry Account Owner**, and **Foundry Project Manager** were previously named Azure AI User, Azure AI Owner, Azure AI Account Owner, and Azure AI Project Manager. You might still see the previous names in some places while the rename rolls out. The role IDs and core permissions are unchanged by the rename.
 - A voice model available to your project, such as `gpt-realtime`. Confirm model availability on the **Models** page of your Foundry project.
-- Access to the prompt voice agent preview in your Azure subscription. Confirm that the preview is available in your project's region before you start.
+- Voice-agent availability in your project's region and Azure subscription. See [Supported regions](../concepts/limits-quotas-regions#supported-regions).
 
 ::: zone pivot="portal,portal-templates"
 
@@ -121,7 +119,7 @@ azd ai agent version
 azd ai agent init --help
 ```
 
-The initialization help must list `prompt-voice` under `--kind` and expose the `--voice` option. If `--voice` isn't listed, use an extension release that includes public-preview voice support before continuing. Public-preview CLI voice options don't require a private-preview environment variable.
+The initialization help must list `prompt-voice` under `--kind` and expose the `--voice` option. If `--voice` isn't listed, use an extension release that includes voice support before continuing. These CLI voice options don't require a private-preview environment variable.
 
 ::: zone-end
 
@@ -226,7 +224,7 @@ Confirm that:
 
 | Symptom | Resolution |
 | --- | --- |
-| **Voice** isn't available as an interaction mode | Confirm the preview is available for the project, resource, subscription, and region. |
+| **Voice** isn't available as an interaction mode | Confirm voice agents are available for the project, resource, subscription, and region. |
 | The agent name is rejected | Follow the name validation shown in the dialog and choose a unique name in the project. |
 | The model list is empty | Confirm resource access, supported region, and model availability. Refresh after permissions or deployment changes. |
 | The browser can't use the microphone | Allow microphone access for the portal origin and confirm the device isn't exclusively used by another app. |
@@ -237,11 +235,65 @@ Confirm that:
 
 ::: zone pivot="portal-templates"
 
-A voice agent template is a complete agent definition for a common scenario, such as customer support, appointment scheduling, or order tracking. It includes a persona, a greeting, a voice, conversation stages built as [inline subagents](../how-to/use-inline-subagent-voice-agent), and the tools that each stage uses. You try the template before you create anything, choose which systems the agent connects to, and then customize the agent in the playground.
+A voice agent template is a complete agent definition for a common scenario, such as customer support, appointment scheduling, or order tracking. It includes a persona, a greeting, a voice, and tools. Most templates also split the conversation into stages built as [inline subagents](../how-to/use-inline-subagent-voice-agent), each with its own tools. You try the template before you create your own agent, choose which systems the agent connects to, and then customize the agent in the playground.
 
 Important
 
-Templates are examples. Review and test the instructions, tools, and data handling of an agent that you create from a template before you use it in production.
+Templates are examples. Review and test the instructions, tools, and data handling of an agent that you create from a template before you use it in production. If the template uses inline subagents, the agent depends on a preview feature. See [General availability and preview features](../overview#general-availability-and-preview-features).
+
+## What the templates include
+
+Each template is designed for a live phone or web conversation, not only a scripted demo:
+
+- **Stages and handoffs**: Most templates split the call into stages, such as greeting, verification, the main task, and wrap-up. Each stage has its own instructions and only the tools that it needs. The agent hands off between stages without announcing a transfer, so the caller hears one continuous conversation.
+- **Low latency**: Templates use a real-time speech model and semantic turn detection, so the agent answers as soon as the caller finishes a thought. While one stage is active, Foundry discovers the MCP tools of the stages that can come next, so a handoff doesn't wait for tool discovery. When the caller corrects something, asks for something, or sounds worried or frustrated, most templates first say a short, specific acknowledgment, such as "Thursday, not Tuesday.", before they hand off, call a tool, or give a result. The caller hears a response right away instead of silence.
+- **Caller protections**: Before a tool sends, books, creates, updates, or submits anything, the agent reads the details back and waits for an explicit yes. The agent states only facts from tool results or the template's sample data, and says so when a tool fails instead of claiming success. Industry templates add rules for their domain. For example:
+    - **Collections and payment recovery** verifies the account holder before it discusses the balance, and never threatens or harasses the caller, in line with the Fair Debt Collection Practices Act (FDCPA).
+    - **Legal intake specialist** never gives legal advice, and it runs a conflict check before it collects case details.
+    - **Customer support** confirms the CRM account without reading the caller's contact details aloud.
+    - **Marketing lead capture** saves a CRM lead only after separate consent.
+- **Real business systems**: Template tools match common business systems, such as Zendesk, Salesforce, Microsoft 365 Calendar and Mail, Microsoft Teams, and Twilio SMS. Start with mock tools, and then connect your own systems through an MCP server or a toolbox. To answer calls on a phone number, connect the agent to Twilio or Teams Phone. For more information, see [Integrate telephony channels with a voice agent](../how-to/voice-agent-telephony-channels).
+
+These rules help callers, but they don't make an agent compliant with the laws and regulations that apply to your business. Review the instructions with your legal and compliance teams before you use an agent with real callers.
+
+## Available templates
+
+The following table lists the voice agent templates and the industry or scenario that each template is built for. The **Agent templates** page in the portal always shows the current list.
+
+| Template | Industry or scenario | What the agent does | Systems it can connect to |
+| --- | --- | --- | --- |
+| **Appointment scheduler** | Scheduling, clinics | Books, reschedules, or cancels a clinic appointment after it reads the details back. | Microsoft 365 Calendar |
+| **Appointment setter** | Sales | Qualifies interest, finds open demo times, books the meeting, and creates a CRM lead for a new prospect. | Microsoft 365 Calendar, Salesforce |
+| **Assessment and quiz** | Education, employee training | Gives a spoken 10-question security awareness quiz, scores it with feedback, and saves the score. | Learning records |
+| **Collections and payment recovery** | Financial services | Verifies the account holder, explains a past-due balance, captures a payment arrangement, and texts a confirmation. | Salesforce, Twilio SMS |
+| **Conference concierge** | Events | Finds Microsoft Ignite 2026 sessions, builds an agenda with clash checks, reports room and time changes, and answers event questions. | Microsoft 365 Calendar |
+| **Corporate training role-play coach** | Education, corporate training | Role-plays a difficult customer, sales, employee, or negotiation conversation, and then gives a scored debrief. | Learning records |
+| **Customer support** | Customer service | Troubleshoots from help-center articles, confirms the CRM account, and opens a support ticket. | Salesforce, Zendesk |
+| **Education and tutoring** | Education | Teaches a topic step by step with practice problems, summarizes progress, and books the next session. | Microsoft 365 Calendar |
+| **Front desk receptionist** | Customer service | Answers questions from public support articles. Message recording isn't available. | Front desk tools (required) |
+| **Healthcare receptionist** | Healthcare | Books visits, files cancel and reschedule requests as tickets, and answers office questions. | Microsoft 365 Calendar, Zendesk |
+| **Hotel reservations** | Hospitality | Checks room availability; books, changes, or cancels a reservation; and answers hotel questions. | Hotel reservation system |
+| **Inbound lead qualifier** | Sales | Qualifies a prospect on budget, authority, need, and timeline, books a meeting, and creates a CRM lead. | Microsoft 365 Calendar, Salesforce |
+| **Incident response coordinator** | IT operations | Classifies incident severity, texts the on-call owner, and records the incident as a ticket. | Twilio SMS, Zendesk |
+| **Insurance advisor** | Insurance | Explores coverage needs, explains typical price ranges, and books a review call with a licensed agent. | Microsoft 365 Calendar, Salesforce |
+| **Internal knowledge assistant** | Internal support | Answers internal questions from help-center articles and logs documentation gaps as tickets. | Zendesk |
+| **IT access request agent** | IT support | Verifies the employee, classifies an access request against policy, and files the access ticket. | Salesforce, Zendesk |
+| **IT help desk** | IT support | Troubleshoots one step at a time from knowledge articles, and escalates by updating or opening a ticket. | Zendesk |
+| **Language practice tutor** | Education, language learning | Runs beginner or advanced conversation practice, recaps the session, and books the next lesson. | Microsoft 365 Calendar |
+| **Legal intake specialist** | Legal | Collects case facts, saves the intake as a CRM lead for attorney review, and books a consultation. | Microsoft 365 Calendar, Salesforce |
+| **Marketing lead capture** | Sales and marketing | Captures a visitor's needs, books a sales call, and creates a CRM lead with separate consent. | Microsoft 365 Calendar, Salesforce |
+| **New hire onboarding assistant** | Human resources | Walks a new hire through their role track and benefits, books the first one-on-one with their manager, and texts key contacts. | Microsoft 365 Calendar, Twilio SMS |
+| **Order status and tracking** | Customer service, retail | Looks up order status and tracking, logs returns on a support ticket, texts the return details, and notes warranty claims. | Order system, Twilio SMS, Zendesk |
+| **Outbound sales representative** | Sales | Pitches with permission, handles objections, books a demo with an account executive, and creates a CRM lead with separate consent. | Microsoft 365 Calendar, Salesforce |
+| **Personal voice assistant** | Productivity | Answers quick questions from help-center articles, emails notes, and files follow-up requests for the right team. | Microsoft 365 Mail, Zendesk |
+| **Real estate lead follow-up** | Real estate | Follows up a property lead, discusses sample listings, books a showing, and creates a CRM lead with separate consent. | Microsoft 365 Calendar, Salesforce |
+| **Receptionist and messaging** | Front desk | Answers company questions, checks a person's presence and texts them, and emails a message to a directory contact. | Microsoft 365 Mail, Microsoft Teams presence, Twilio SMS |
+| **Restaurant phone order taker** | Food service | Prepares a pickup or delivery order summary from a sample menu, reads back the total, and texts it. The order isn't submitted. | Twilio SMS |
+| **Salon and spa receptionist** | Beauty and wellness | Answers service and price questions, books an appointment, and texts a reminder. | Microsoft 365 Calendar, Twilio SMS |
+| **Survey and feedback intake** | Customer feedback | Runs a four-question feedback survey one question at a time and reads the answers back. The answers aren't submitted. | Salesforce |
+| **Technical support agent** | Customer service | Troubleshoots from help-center articles, answers verified account questions, and escalates by ticket. | Salesforce, Zendesk |
+| **Travel agency trip planner** | Travel | Recommends sample travel packages with ballpark pricing and passes a trip request to a travel agent as a CRM lead. | Salesforce |
+| **User research interviewer** | Research | Runs a short discovery interview, adapts to the participant's time, recaps the answers, and saves notes with consent. | Research notes |
 
 ## Browse the templates
 
@@ -322,7 +374,7 @@ The examples are maintained separately from the templates in the Foundry portal,
 Use the examples to:
 
 - See how a complete agent definition organizes stages, tools, and handoff conditions.
-- Start a code-first agent from an example definition. To create an agent from a definition by using the SDK, select the **Python SDK** or **JavaScript SDK** tab at the top of this quickstart.
+- Start a code-first agent from an example definition. To create the agent by using the SDK, select the **Python SDK** or **JavaScript SDK** tab at the top of this quickstart. If the definition uses inline subagents, which are in preview, also add the preview opt-in shown in [Use an inline subagent in a voice-based agent](../how-to/use-inline-subagent-voice-agent).
 - Run the examples against the shared mock server or your own tools. The repository explains how to [connect real tools](https://github.com/microsoft/voice-agent/blob/main/docs/05_connect_real_tools.md).
 
 ::: zone-end
@@ -331,15 +383,15 @@ Use the examples to:
 
 ## Install the packages
 
-These examples target version 2.8.0 or later of the Azure AI Projects client library.
+These examples require version 2.11.0 or later of the Azure AI Projects client library.
 
 Install the `voice` extra, which supplies `websockets` for synchronous connections and `aiohttp` for asynchronous connections.
 
 ```bash
-python -m pip install "azure-ai-projects[voice]>=2.7.0"
+python -m pip install "azure-ai-projects[voice]>=2.11.0"
 ```
 
-Voice session and conversation operations use `project_client.beta.voice_agents`. Creating voice definitions through the standard `.agents` methods still requires `allow_preview=True` on `AIProjectClient`.
+Realtime sessions and stored conversations use `project_client.voice_agents`.
 
 ## Set environment variables
 
@@ -392,10 +444,10 @@ agent_name = os.environ["FOUNDRY_VOICE_AGENT_NAME"]
 with (
     DefaultAzureCredential() as credential,
     AIProjectClient(
-        endpoint=endpoint, credential=credential, allow_preview=True
+        endpoint=endpoint, credential=credential
     ) as project_client,
 ):
-    generated = project_client.beta.agents.create_from_prompt(
+    generated = project_client.agents.create_from_prompt(
         GenerateVoiceAgentRequest(
             kind=AgentKind.VOICE,
             name=agent_name,
@@ -423,7 +475,7 @@ Review the printed instructions before talking to the agent. To customize the ge
 
 ### Create from an explicit definition
 
-Use `VoiceAgentDefinition` when you want to specify the instructions, model, and voice yourself. The following script creates an agent version with an Azure standard voice and conversation storage enabled.
+Use `VoiceAgentDefinition` when you want to specify the instructions, model, and voice yourself. This model sets `kind="voice"` and `sub_protocol="realtime"` automatically. The following script creates an agent version with an Azure standard voice and conversation storage enabled.
 
 ```python
 import os
@@ -463,7 +515,7 @@ definition = VoiceAgentDefinition(
 with (
     DefaultAzureCredential() as credential,
     AIProjectClient(
-        endpoint=endpoint, credential=credential, allow_preview=True
+        endpoint=endpoint, credential=credential
     ) as project_client,
 ):
     created = project_client.agents.create_version(
@@ -527,7 +579,7 @@ definition = VoiceAgentDefinition(
 with (
     DefaultAzureCredential() as credential,
     AIProjectClient(
-        endpoint=endpoint, credential=credential, allow_preview=True
+        endpoint=endpoint, credential=credential
     ) as project_client,
 ):
     created = project_client.agents.create_version(
@@ -536,7 +588,7 @@ with (
     print(f"Created voice agent '{agent_name}', version {created.version}")
 ```
 
-Reference: [Python voice-agent BYOM sample](https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/voice-agents/voice_agent_with_tools.py).
+Reference: [Python voice-agent tools sample](https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/voice-agents/voice_agent_with_tools.py).
 
 The same creation pattern works with supported real-time and text-model deployments. Confirm that the selected deployment supports the voice settings in this example. For model choices and latency guidance, see [Choose a managed or self-deployed model](../how-to/configure-voice-agent#choose-a-managed-or-self-deployed-model).
 
@@ -588,7 +640,7 @@ conversation_id = None
 with (
     DefaultAzureCredential() as credential,
     AIProjectClient(
-        endpoint=endpoint, credential=credential, allow_preview=True
+        endpoint=endpoint, credential=credential
     ) as project_client,
 ):
     agent = project_client.agents.get(agent_name=agent_name)
@@ -597,7 +649,7 @@ with (
     if not isinstance(definition, VoiceAgentDefinition):
         raise TypeError("The agent must have a voice definition.")
 
-    with project_client.beta.voice_agents.realtime.connect(
+    with project_client.voice_agents.realtime.connect(
         agent_name=agent_name
     ) as conn:
 
@@ -672,7 +724,7 @@ A few things to note about the session:
 - The persisted conversation ID arrives on the `session.created` event, not at the end of the response.
 - The reply streams as a series of audio deltas. A production client plays each delta as it arrives instead of buffering the whole response.
 
-For a hands-free version that streams microphone audio and supports interruptions, see the [Python live-audio conversation sample](https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/ai/azure-ai-projects/samples/agents/voice/sample_voice_agent_live_audio_conversation_async.py). It uses server-side turn detection to decide when you finish speaking.
+For a hands-free version that streams microphone audio and supports interruptions, see the [Python realtime-audio conversation sample](https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/voice-agents/voice_agent_realtime_audio_conversation_async.py). It uses server-side turn detection to decide when you finish speaking.
 
 ## Read the conversation back
 
@@ -694,10 +746,10 @@ conversation_id = sys.argv[1]
 with (
     DefaultAzureCredential() as credential,
     AIProjectClient(
-        endpoint=endpoint, credential=credential, allow_preview=True
+        endpoint=endpoint, credential=credential
     ) as project_client,
 ):
-    conversations = project_client.beta.voice_agents.conversations
+    conversations = project_client.voice_agents.conversations
 
     conversation = conversations.get(agent_name, conversation_id)
     print(f"Conversation {conversation.id}: status={conversation.status}")
@@ -742,10 +794,10 @@ conversation_id = sys.argv[1]
 with (
     DefaultAzureCredential() as credential,
     AIProjectClient(
-        endpoint=endpoint, credential=credential, allow_preview=True
+        endpoint=endpoint, credential=credential
     ) as project_client,
 ):
-    project_client.beta.voice_agents.conversations.delete(
+    project_client.voice_agents.conversations.delete(
         agent_name, conversation_id
     )
     project_client.agents.delete(agent_name=agent_name)
@@ -765,17 +817,17 @@ python clean_up.py <conversation-id>
 
 ## Install the packages
 
-These examples target version 2.7.0 or later of the Azure AI Projects client library.
+These examples require version 2.11.0 or later of the Azure AI Projects client library.
 
-Install `@azure/ai-projects` and `@azure/identity`. The client library includes the WebSocket dependencies that `project.beta.voiceAgents.realtime` requires.
+In your application directory, install the packages. The client library includes the WebSocket dependencies that `project.beta.voiceAgents.realtime` requires.
 
 ```bash
 npm init --yes
 npm pkg set type=module
-npm install @azure/ai-projects @azure/identity
+npm install "@azure/ai-projects@>=2.11.0" @azure/identity
 ```
 
-Voice session and conversation operations use `project.beta.voiceAgents`. When a standard `.agents` operation creates or modifies a voice agent, pass the `VoiceAgents=V1Preview` feature opt-in.
+Realtime sessions use `project.beta.voiceAgents.realtime`, and stored conversations use `project.voiceAgents.conversations`. The realtime client sends the `Foundry-Features: VoiceAgents=V1Preview` header automatically.
 
 ## Set environment variables
 
@@ -826,18 +878,12 @@ if (!projectEndpoint || !agentName) {
         "Set FOUNDRY_PROJECT_ENDPOINT and FOUNDRY_VOICE_AGENT_NAME.",
     );
 }
-const options = {
-    requestOptions: {
-        headers: { "foundry-features": "VoiceAgents=V1Preview" },
-    },
-};
-
 async function main() {
     const project = new AIProjectClient(
         projectEndpoint,
         new DefaultAzureCredential(),
     );
-    const generated = await project.beta.agents.createFromPrompt(
+    const generated = await project.agents.createFromPrompt(
         {
             kind: "voice",
             name: agentName,
@@ -846,11 +892,12 @@ async function main() {
             goal: "Create a friendly voice assistant that answers general " +
                 "questions. Keep replies to one or two sentences.",
         },
-        options,
     );
     const generatedDefinition = generated.versions.latest.definition;
-    if (generatedDefinition.kind !== "voice") {
-        throw new Error("The generated agent must have a voice definition.");
+    if (generatedDefinition.kind !== "voice" ||
+        !("sub_protocol" in generatedDefinition) ||
+        generatedDefinition.sub_protocol !== "realtime") {
+        throw new Error("The generated agent must use the realtime protocol.");
     }
     const definition = /** @type {import("@azure/ai-projects").VoiceAgentDefinition} */ (
         generatedDefinition
@@ -861,7 +908,6 @@ async function main() {
     const created = await project.agents.createVersion(
         agentName,
         definition,
-        options,
     );
     console.log(`Created voice agent '${agentName}', version ${created.version}`);
 }
@@ -872,7 +918,7 @@ main().catch((error) => {
 });
 ```
 
-Reference: [Generate a voice agent JavaScript sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/javascript/voice-agents/generate-voice-agent).
+Reference: [Generate a voice agent JavaScript sample](https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/javascript/voice-agents/generate-voice-agent/app.js).
 
 Review the printed instructions before talking to the agent. To customize the generated configuration, edit fields on its definition, such as `instructions`, and save another version.
 
@@ -896,15 +942,10 @@ if (!projectEndpoint || !agentName) {
         "Set FOUNDRY_PROJECT_ENDPOINT and FOUNDRY_VOICE_AGENT_NAME.",
     );
 }
-const options = {
-    requestOptions: {
-        headers: { "foundry-features": "VoiceAgents=V1Preview" },
-    },
-};
-
 /** @type {import("@azure/ai-projects").VoiceAgentDefinition} */
 const definition = {
     kind: "voice",
+    sub_protocol: "realtime",
     model_type: "managed",
     model,
     instructions: "You are a friendly voice assistant. " +
@@ -927,7 +968,6 @@ async function main() {
     const created = await project.agents.createVersion(
         agentName,
         definition,
-        options,
     );
     console.log(`Created voice agent '${agentName}', version ${created.version}`);
 }
@@ -938,7 +978,7 @@ main().catch((error) => {
 });
 ```
 
-Reference: [Configure a voice agent JavaScript sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/javascript/voice-agents/configure-voice-agent).
+Reference: [Configure a voice agent JavaScript sample](https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/javascript/voice-agents/configure-voice-agent/app.js).
 
 ### Create with a self-deployed model
 
@@ -975,6 +1015,7 @@ if (!projectEndpoint || !agentName || !deploymentName) {
 /** @type {import("@azure/ai-projects").VoiceAgentDefinition} */
 const definition = {
     kind: "voice",
+    sub_protocol: "realtime",
     model_type: "self_deployed",
     model: deploymentName,
     instructions: "You are a helpful voice assistant. Keep replies short.",
@@ -988,32 +1029,31 @@ const definition = {
     store: true,
 };
 
-async function main() {
+/**
+ * @param {string} endpoint
+ * @param {string} name
+ */
+async function main(endpoint, name) {
     const project = new AIProjectClient(
-        projectEndpoint,
+        endpoint,
         new DefaultAzureCredential(),
     );
     const created = await project.agents.createVersion(
-        agentName,
+        name,
         definition,
-        {
-            requestOptions: {
-                headers: { "foundry-features": "VoiceAgents=V1Preview" },
-            },
-        },
     );
     console.log(
-        `Created voice agent '${agentName}', version ${created.version}`,
+        `Created voice agent '${name}', version ${created.version}`,
     );
 }
 
-main().catch((error) => {
+main(projectEndpoint, agentName).catch((error) => {
     console.error("Sample failed:", error);
     process.exitCode = 1;
 });
 ```
 
-Reference: [JavaScript self-deployed voice-agent sample](https://github.com/Azure/azure-sdk-for-js/blob/main/sdk/ai/ai-projects/samples/v2/javascript/agents/agentVoice.js).
+Reference: [Voice agent JavaScript sample](https://github.com/Azure/azure-sdk-for-js/blob/main/sdk/ai/ai-projects/samples/v2/javascript/agents/agentVoice.js).
 
 The same creation pattern works with supported real-time and text-model deployments. Confirm that the selected deployment supports the voice settings in this example. For model choices and latency guidance, see [Choose a managed or self-deployed model](../how-to/configure-voice-agent#choose-a-managed-or-self-deployed-model).
 
@@ -1057,11 +1097,6 @@ if (!projectEndpoint || !agentName) {
         "Set FOUNDRY_PROJECT_ENDPOINT and FOUNDRY_VOICE_AGENT_NAME.",
     );
 }
-const options = {
-    requestOptions: {
-        headers: { "foundry-features": "VoiceAgents=V1Preview" },
-    },
-};
 const pcmSampleRate = 24_000;
 
 /**
@@ -1080,6 +1115,8 @@ async function writeAudio(output, audio) {
  */
 function isVoiceAgentDefinition(definition) {
     return definition.kind === "voice" &&
+        "sub_protocol" in definition &&
+        definition.sub_protocol === "realtime" &&
         "model_type" in definition &&
         (definition.model_type === "managed" ||
             definition.model_type === "self_deployed") &&
@@ -1092,7 +1129,7 @@ async function main() {
         projectEndpoint,
         new DefaultAzureCredential(),
     );
-    const agent = await project.agents.get(agentName, options);
+    const agent = await project.agents.get(agentName);
     const definition = agent.versions.latest.definition;
     if (!isVoiceAgentDefinition(definition)) {
         throw new Error("The agent must have a voice definition.");
@@ -1178,7 +1215,7 @@ main().catch((error) => {
 });
 ```
 
-Reference: [Realtime text and tools JavaScript sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/javascript/voice-agents/realtime-text-and-tools).
+Reference: [Realtime text and tools JavaScript sample](https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/javascript/voice-agents/realtime-text-and-tools/app.js).
 
 Run the file. The output is PCM16, 24-kHz, mono audio.
 
@@ -1216,12 +1253,6 @@ if (!projectEndpoint || !agentName || !conversationId) {
         "Set the project endpoint and agent name, then pass a conversation ID.",
     );
 }
-const options = {
-    requestOptions: {
-        headers: { "foundry-features": "VoiceAgents=V1Preview" },
-    },
-};
-
 /** @param {import("@azure/ai-projects").RealtimeConversationItemUnion} item */
 function summarizeItem(item) {
     if (item.type !== "message" || !("content" in item)) {
@@ -1240,18 +1271,17 @@ async function main() {
         projectEndpoint,
         new DefaultAzureCredential(),
     );
-    const conversations = project.beta.voiceAgents.conversations;
+    const conversations = project.voiceAgents.conversations;
     const conversation = await conversations.get(
         agentName,
         conversationId,
-        options,
     );
     console.log(`Conversation ${conversation.id}: status=${conversation.status}`);
 
     for await (const item of conversations.listItems(
         agentName,
         conversationId,
-        { ...options, order: "asc" },
+        { order: "asc" },
     )) {
         console.log(`  ${summarizeItem(item)}`);
     }
@@ -1263,7 +1293,7 @@ main().catch((error) => {
 });
 ```
 
-Reference: [Voice agent conversation JavaScript sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/javascript/voice-agents/voice-agent-conversations).
+Reference: [Voice agent conversation JavaScript sample](https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/javascript/voice-agents/voice-agent-conversations/app.js).
 
 Run the file with the conversation ID.
 
@@ -1293,24 +1323,17 @@ if (!projectEndpoint || !agentName || !conversationId) {
         "Set the project endpoint and agent name, then pass a conversation ID.",
     );
 }
-const options = {
-    requestOptions: {
-        headers: { "foundry-features": "VoiceAgents=V1Preview" },
-    },
-};
-
 async function main() {
     const project = new AIProjectClient(
         projectEndpoint,
         new DefaultAzureCredential(),
     );
-    await project.beta.voiceAgents.conversations.delete(
+    await project.voiceAgents.conversations.delete(
         agentName,
         conversationId,
-        options,
     );
     console.log(`Deleted conversation: ${conversationId}`);
-    const deleted = await project.agents.delete(agentName, options);
+    const deleted = await project.agents.delete(agentName);
     console.log(`Deleted: ${deleted.deleted}`);
 }
 
@@ -1320,7 +1343,7 @@ main().catch((error) => {
 });
 ```
 
-Reference: [Manage a voice agent JavaScript sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/javascript/voice-agents/manage-voice-agent).
+Reference: [Manage a voice agent JavaScript sample](https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/javascript/voice-agents/manage-voice-agent/app.js).
 
 Save the example as `clean_up.js`, and run it with the conversation ID:
 
@@ -1379,7 +1402,7 @@ name: voice-guide-managed
 
 The `managed` model type tells Foundry to provide the real-time model for the agent. You don't need to create a model deployment separately.
 
-The CLI generates `kind: prompt-voice` for compatibility. `kind: voice` is also accepted; you don't need to rename the generated kind to use public preview. To use your own model deployment, see [Choose a managed or self-deployed model](../how-to/configure-voice-agent#choose-a-managed-or-self-deployed-model).
+The CLI generates `kind: prompt-voice` for compatibility. `kind: voice` is also accepted; you don't need to rename the generated kind. To use your own model deployment, see [Choose a managed or self-deployed model](../how-to/configure-voice-agent#choose-a-managed-or-self-deployed-model).
 
 ## Provision the Foundry project
 

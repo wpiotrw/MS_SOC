@@ -168,6 +168,10 @@ Use `user_behavior.interruption` to test how the target handles a user speaking 
 
 Select evaluators designed for conversation-level assessment. The simulated conversations automatically map to the evaluators.
 
+To assess generated voice recordings, use an existing Foundry voice agent as the target and set `voice_model` in `model_configuration`. Set `enable_conversation_dataset_generation` to `true` in `default_simulation_configuration`. Include `conversation_artifacts` in the evaluation's item schema. Configure an [audio evaluator](../../concepts/built-in-evaluators#audio-evaluators) without `data_mapping`, as shown in [Evaluate recorded voice conversations](cloud-evaluation-audio-conversations#define-the-data-schema-and-evaluator).
+
+The simulator model generates user turns, the voice renders them as speech, the target agent responds, and the audio evaluator scores the recording. Audio evaluators use a `gpt-realtime` family judge deployment, so give them a different deployment from any text evaluators in the same run.
+
 # [Python](#tab/python)
 ```python
 import os

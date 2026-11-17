@@ -59,13 +59,15 @@ You can use eDiscovery and the Microsoft Graph Explorer to search for and delete
 
 Microsoft Teams chat data is stored in separate copies, one for compliance purposes (used by tools like eDiscovery) and one for user access.
 
-- **Soft delete or hard delete operations** remove the user copy permanently and can't be recovered for user use.
-- **Cmdlet-based purges** of Teams messages can remove the compliance copy of Teams messages, but the user copy remains visible. After the compliance copy is deleted, eDiscovery can no longer remove the user-visible message. Verify Teams messages carefully before purging and avoid using cmdlets to purge Teams messages (the user copy isn't deleted).
+- **Soft delete or hard delete operations** remove the user copy permanently and can't be recovered for user use. **Important**
 
-    - If you use cmdlets, review the export report and exclude Teams items. Deletes are only performed on the compliance copy and don't remove copies from user viewing. Deleting only the compliance copy also prevents any future deletion when using Microsoft Graph APIs.
-    - If you use Microsoft Graph to review the report and ensure Teams items being deleted are intentional, there's no recovery of the items after the deletion is complete.
+Cmdlet-based purges of Teams messages remove only the **compliance**\*\* **copy** **stored** **in** **the** \*\***mailbox**. The Teams message isn't removed from the Teams service and remains visible to the user. After the compliance copy is deleted, eDiscovery can no longer remove the user-visible Teams message. Avoid using cmdlets to purge Teams messages.
 
-To ensure complete removal of items, plan your purge strategy carefully and understand which copy each deletion method targets.
+- **If**\*\* **you** **use** \*\***cmdlets**, review the export report and exclude Teams messages from the purge. Cmdlet-based purges remove only the compliance copy and don't remove the message from the Teams service.
+
+    - **If**\*\* **you** **use** **Microsoft** \*\***Graph**, review the report and verify that the Teams messages identified for deletion are intended to be deleted before performing the purge. When the purge targets `teamsMessages`, the Teams messages are permanently deleted and can't be recovered.
+
+        To ensure complete removal of items, plan your purge strategy carefully and understand which copy each deletion method targets.
 
 Tip
 
@@ -174,11 +176,35 @@ Next, retrieve the ID of the search that contains the chat messages you want to 
 
 After you confirm the correct case and search IDs, use the following request to purge the matching chat messages.
 
-1. In Graph Explorer, run the following POST request to delete the items returned by the search that you created in Step 2. Use the value `https://graph.microsoft.com/v1.0/security/cases/ediscoveryCases/{ediscoveryCaseID}/searches/{ediscoverySearchID}/purgeData` in the address bar of the request query, where *{ediscoveryCaseID}* and *{ediscoverySearchID}* are the IDs that you obtained in the previous procedures.
+1. In Graph Explorer, set the request method to **POST** and enter the following endpoint to delete the items returned by the search that you created in Step 2. `https://graph.microsoft.com/v1.0/security/cases/ediscoveryCases/{ediscoveryCaseID}/searches/{ediscoverySearchID}/purgeData` where *{ediscoveryCaseID}* and *{ediscoverySearchID}* are the IDs that you obtained in the previous procedures.
 
-    If the POST request is successful, an HTTP response code is displayed in a green banner stating that the request was accepted.
+    With this command, you must provide a request body that specifies the **purge**\*\* **area to target (`mailboxes` or `teamsMessages`) and the purge** \*\***type** (`recoverable` or `permanentlyDelete`).
 
-For more information about purgeData, see [sourceCollection: purgeData](/en-us/graph/api/ediscovery-sourcecollection-purgedata).
+    ```json
+    {
+     "purgeType": "permanentlyDelete",
+     "purgeAreas": "teamsMessages"
+    }
+    ```
+
+    **Important:**
+
+    **A.**\*\* **`purgeAreas`** **specifies** **the** **target** **for** **the** **purge** \*\***request.**
+
+    - To purge **Microsoft**\*\* **Teams** \*\***messages**, set `purgeAreas` to `teamsMessages`.
+    - To purge \*\*Only **the** **compliance** **copy** **of** **a** **Teams** **message** **stored** **in** **the** **user's** \*\***mailbox**, set `purgeAreas` to `mailboxes`.
+    - Purging the compliance copy from the mailbox doesn't remove the message from the Teams service. The message remains visible to the user in Teams.
+    - If both the **Teams**\*\* **message** **and** **its** **compliance** **copy need to be purged, use separate** **purge** \*\***requests**. Purge `teamsMessages` first, followed by `mailboxes`. Don't specify a combined value such as `mailboxes,`` ``teamsMessages`.
+    - The order is important because after the compliance copy is purged from the mailbox, the Teams message can no longer be purged through eDiscovery.
+
+    **B.**\*\* **The** **effect** **of** **`purgeType`** **depends** **on** **the** **selected** \*\***`purgeAreas`.**
+
+    - When `purgeAreas` is set to `mailboxes`, `purgeType` determines whether mailbox items are deleted using `recoverable` or `permanentlyDelete`.
+    - When `purgeAreas` is set to `teamsMessages`, Teams messages are **permanently**\*\* **deleted** **regardless** **of** **whether** **`purgeType`** **is** **set** **to** **`recoverable`** \*\*\*\*or`permanentlyDelete`\*\*. In either case, the Teams messages can't be recovered.
+
+    If the POST request is successfully accepted, the API returns an **HTTP**\*\* **`202`**\*\*\*\*`Accepted`\*\* response. The response includes a `Location` header that provides the URL for checking the status of the purge operation.
+
+    For more information about this operation, including request-body parameters and examples, see [ediscoverySearch: purgeData](/en-us/graph/api/security-ediscoverysearch-purgedata).
 
 ### Delete chat messages with PowerShell
 

@@ -112,7 +112,7 @@ When object is deleted from the data source, currently the subsequent scan won't
 
     Note
 
-    Scanning SAP ECC is a memory intensive operation, you're recommended to install Self-hosted Integration Runtime on a machine with at least 128 GB RAM.
+    Scanning SAP S/4HANA is a memory intensive operation, you're recommended to install Self-hosted Integration Runtime on a machine with at least 128 GB RAM.
 - Deploy the metadata extraction ABAP function module on the SAP server by following the steps mentioned in [ABAP functions deployment guide](abap-functions-deployment-guide). You need an ABAP developer account to create the RFC function module on the SAP server. For scan execution, the user account requires sufficient permissions to connect to the SAP server and execute the following RFC function modules:
 
     - STFC\_CONNECTION (check connectivity)

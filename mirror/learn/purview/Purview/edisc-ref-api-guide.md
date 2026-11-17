@@ -11,7 +11,7 @@ f1.keywords:
 ms.author: chvukosw
 author: chvukosw
 manager: laurawi
-ms.date: 2026-05-06T00:00:00.0000000Z
+ms.date: 2026-11-17T00:00:00.0000000Z
 audience: Admin
 ms.topic: article
 ms.service: purview
@@ -44,9 +44,11 @@ source_path: Purview/edisc-ref-api-guide.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: f43a19d0-da76-df87-c64f-e1fd370a1aed
 ---
 
@@ -186,6 +188,10 @@ $CasesAsObjects | ft displayname,id,status
 
 You can configure the Microsoft Purview eDiscovery API to enable the programmatic download of export packages and the reports from an export process in an eDiscovery case.
 
+Important
+
+App-based authentication for eDiscovery export downloads through Microsoft Graph is currently not supported in Government Community Cloud (GCC). This limitation is specific to export downloads and isn't a general restriction on app-based authentication for eDiscovery APIs.
+
 ### Prerequisites for Microsoft Purview eDiscovery API
 
 Before you execute the configuration steps in this section, complete and validate the configuration detailed in the Microsoft Graph API section. Extend the previously registered app in Microsoft Entra ID to include the required permissions to achieve programmatic download of the export package.
@@ -224,10 +230,10 @@ Complete the following steps:
 
     If this is the first time using Microsoft Graph PowerShell cmdlets, you might be prompted to consent to required permissions.
 
-    To register the **MicrosoftPurviewEDiscovery** app, run the following PowerShell commands:
+    To register the **MicrosoftPurviewEDiscovery** app, run the following PowerShell commands. Replace `<MicrosoftPurviewEDiscovery application ID>` with the Application ID of the MicrosoftPurviewEDiscovery app, not the Application (client) ID of your own registered app. Use this same MicrosoftPurviewEDiscovery application ID in the export-token scope in the example download scripts.
 
     ```powershell
-    $spId = @{"AppId" = "00001111-aaaa-2222-bbbb-3333cccc4444" }
+    $spId = @{"AppId" = "<MicrosoftPurviewEDiscovery application ID>" }
     ```
 
     ```powershell
@@ -330,6 +336,17 @@ Because the Microsoft Purview eDiscovery API is separate from Microsoft Graph AP
 
 The following example scripts can be used as a reference when developing your own scripts to enable the programmatic download of the export packages.
 
+Use the following values for the authentication parameters in both scripts:
+
+| Parameter or placeholder | Value |
+| --- | --- |
+| `tenantId` | The Directory (tenant) ID of your Microsoft Entra tenant. |
+| `appId` | The Application (client) ID of your own registered app, configured with the permissions in Step 2. This value is passed to `ClientId` for both Microsoft Graph and export-token authentication. |
+| `appSecret` or `certPath` | The client secret value or the certificate store path for your own registered app. |
+| `<MicrosoftPurviewEDiscovery application ID>` | The Application ID of the **MicrosoftPurviewEDiscovery** Microsoft application registered in Step 1. Find this value in **Microsoft Entra ID** &gt; **Enterprise applications** &gt; **MicrosoftPurviewEDiscovery** &gt; **Overview** &gt; **Application ID**. Don't use the Object ID or your own app's Application (client) ID. |
+
+In each script, replace `<MicrosoftPurviewEDiscovery application ID>` in the export-token scope and retain the `/.default` suffix. This scope identifies the Microsoft Purview eDiscovery API that receives the token. In the certificate example, the `Scope` entry in `$connectionDetails` uses this value, while `ClientId` remains your own registered app's ID.
+
 #### Connecting with a client secret
 
 If you configured your app to use a client secret, use the following example script as a reference to download the export package and reports programmatically. Copy the contents into Notepad and save it as `DownloadExportUsingApp.ps1`.
@@ -377,7 +394,7 @@ if (-not(Get-MgContext)) {
 }
 
 Write-Host "Connect with credentials of a ediscovery admin (token for export)"
-$exportToken = Get-MsalToken -ClientId $appId -Scopes "00001111-aaaa-2222-bbbb-3333cccc4444/.default" -TenantId $tenantId -RedirectUri "http://localhost" -ClientSecret $password
+$exportToken = Get-MsalToken -ClientId $appId -Scopes "<MicrosoftPurviewEDiscovery application ID>/.default" -TenantId $tenantId -RedirectUri "http://localhost" -ClientSecret $password
 
 $uri = "/v1.0/security/cases/ediscoveryCases/$($caseId)/operations/$($exportId)"
 
@@ -461,7 +478,7 @@ $connectionDetails = @{
     'TenantId'          = $tenantId
     'ClientId'          = $appID
     'ClientCertificate' = $ClientCert
-    'Scope' = "00001111-aaaa-2222-bbbb-3333cccc4444/.default"
+    'Scope' = "<MicrosoftPurviewEDiscovery application ID>/.default"
 }
 
 $exportToken = Get-MsalToken @connectionDetails

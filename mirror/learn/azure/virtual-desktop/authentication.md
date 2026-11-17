@@ -188,7 +188,7 @@ Azure Virtual Desktop supports in-session passwordless authentication using [Win
 
 For in-session passwordless authentication behavior and app requirements when connecting from other Windows App clients, see the [WebAuthn redirection behavior in Windows App documentation](/en-us/windows-app/compare-platforms-features?pivots=azure-virtual-desktop#other-redirection).
 
-To disable passwordless authentication on your host pool, you must [customize an RDP property](customize-rdp-properties). You can find the **WebAuthn redirection** property under the **Device redirection** tab in the Azure portal or set the **redirectwebauthn** property to **0** using PowerShell.
+To disable passwordless authentication on your host pool, you must [customize a DS property](customize-rdp-properties). You can find the **WebAuthn redirection** property under the **Device redirection** tab in the Azure portal or set the **redirectwebauthn** property to **0** using PowerShell.
 
 When enabled, all WebAuthn requests in the session are redirected to the local PC. You can use Windows Hello for Business or locally attached security devices to complete the authentication process.
 

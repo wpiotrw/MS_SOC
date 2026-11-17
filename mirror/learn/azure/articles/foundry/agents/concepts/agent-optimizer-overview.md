@@ -23,7 +23,7 @@ ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Improve prompt and hosted agents by evaluating behavior and generating better instructions, skills, tools, and model configurations.
-ms.date: 2026-11-03T00:00:00.0000000Z
+ms.date: 2026-11-10T00:00:00.0000000Z
 ms.topic: overview
 ms.subservice: foundry-agent-service
 ms.custom: references_regions, doc-kit-assisted
@@ -119,7 +119,11 @@ For hosted agents, after you make your agent [optimizer-ready](../how-to/make-ag
 
 Warning
 
-During optimization, the optimizer evaluates your agent by invoking it against every task in your dataset. If your agent calls external tools—such as APIs, databases, or third-party services—those calls execute during each evaluation run. To avoid unintended side effects (charges, state mutations, or rate limiting), consider using test endpoints or mocking tool implementations during optimization.
+If your agent's tools can modify production systems, optimization runs can cause unintended or irreversible changes. For example, an order-deletion tool can delete an order from the connected production database during evaluation. This condition applies to both regular optimization and optimization from insights, even if you don't promote a candidate.
+
+Before starting a run, ensure tools use read-only access or isolated test resources. Isolate the resources and permissions the tools use, not just their execution environment.
+
+Tool calls during evaluation can also incur charges or trigger rate limiting.
 
 ## Skill optimization (preview)
 

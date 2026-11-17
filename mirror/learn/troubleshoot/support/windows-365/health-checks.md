@@ -13,12 +13,13 @@ author: kaushika-msft
 ms.author: kaushika
 ms.topic: troubleshooting
 ms.service: windows-365
-description: Learn about the health checks that are automatically run on Azure network connections.
-ms.date: 2026-02-12T00:00:00.0000000Z
+description: Learn about the Azure network connection (ANC) health checks that Windows 365 automatically runs on Azure network connections, and learn how to interpret the check status.
+ms.date: 2026-11-16T00:00:00.0000000Z
 ms.reviewer: mattsha, erikje
 ms.custom:
 - sap:Azure Network Connection\Health Check Issues
 - pcy:WinComm User Experience
+ai-usage: ai-assisted
 ms.collection:
 - M365-identity-device-management
 - tier2
@@ -41,20 +42,22 @@ source_path: support/windows-365/health-checks.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
 platformId: fcd26e2a-66ab-0f24-6fbc-f67fe000725a
 ---
 
 # Azure network connection health checks in Windows 365 - Windows 365 | Microsoft Learn
 
-A unique feature of Windows 365 is the Azure network connection (ANC) health checks. The health checks are periodically run to make sure that:
+## Summary
+
+Windows 365 periodically runs Azure network connection (ANC) health checks. This unique Windows 365 feature assesses the following:
 
 - Cloud PC provisioning is successful.
 - End-user Cloud PC experiences are optimal.
+
+This article explains ANC statuses, how to view error details and retry checks after resolving issues, and which checks assess your network configuration.
 
 ## Azure network connection status
 
@@ -72,14 +75,16 @@ Statuses include:
 
 Every failed ANC or success with a warning error state includes the technical details behind the failure. Select the **View details** link for each failed check to view more information on the failure. After you fix the underlying issue, retry the health check to rerun the tests. To retry the health check, you must have the [Intune Administrator](/en-us/azure/active-directory/roles/permissions-reference#intune-administrator) or [Windows 365 Administrator](/en-us/azure/active-directory/roles/permissions-reference) role.
 
+You can also use [Windows 365 Admin Assistant](https://go.microsoft.com/fwlink/?LinkId=2382618) (preview) in the Microsoft Intune admin center to help interpret ANC health-check results. Provide the ANC name and the status, warning, or error details you want to investigate. The Assistant can help explain the reported issue and suggest next steps. For check-specific troubleshooting instructions, see Troubleshoot Azure network connections.
+
 ## Supported checks
 
-- **DNS can resolve Active Directory domain**: Ensure that the Service Location (SRV) locator resource records for a domain controller can be located via DNS. For more information, see [Verify that SRV Domain Name System (DNS) records have been created](../windows-server/networking/verify-srv-dns-records-have-been-created).
-- **Active directory domain join**: Confirm that the domain join action using the credentials, domain, and Organizational Unit (OU) provided on the ANC configuration is successful. Failures in this check can occur if the password has been changed.
+- **DNS can resolve Active Directory domain**: Ensure that clients can locate the Service Location (SRV) locator resource records for a domain controller through DNS. For more information, see [Verify that SRV Domain Name System (DNS) records have been created](../windows-server/networking/verify-srv-dns-records-have-been-created).
+- **Active directory domain join**: Confirm that the domain join action using the credentials, domain, and Organizational Unit (OU) provided on the ANC configuration is successful. Failures in this check can occur if the password has changed.
 - **Endpoint connectivity**: Connectivity to the required [URL/endpoints](/en-us/windows-365/enterprise/requirements-network).
-- **Microsoft Entra device sync (warning)**: Device ID sync is enabled on the Microsoft Entra tenant, and the computer object is being synced within 90 minutes.
+- **Microsoft Entra device sync (warning)**: Device ID sync is enabled on the Microsoft Entra tenant, and the computer object is syncing within 90 minutes.
 - **Azure subnet IP address usage**: Sufficient IP addresses are available in the provided Azure subnet.
-- **Azure tenant readiness**: The defined Azure subscription is enabled and ready for use. No Azure policy restrictions are blocking the creation of Windows 365 resources
+- **Azure tenant readiness**: The defined Azure subscription is enabled and ready for use. No Azure policy restrictions block the creation of Windows 365 resources.
 - **Azure virtual network readiness**: The defined virtual network is in a Windows 365-supported region.
 - **First party app permissions exist on Azure subscription**: Sufficient permissions exist on the Azure subscription.
 - **First party app permissions exist on Azure resource group**: Sufficient permissions exist on the Azure resource group.

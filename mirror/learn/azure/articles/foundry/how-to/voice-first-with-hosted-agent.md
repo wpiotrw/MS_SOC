@@ -23,10 +23,10 @@ ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Learn how to create a voice agent in Microsoft Foundry that uses a hosted agent as its conversation engine, including deployment and SDK setup.
-ms.date: 2026-11-05T00:00:00.0000000Z
+ms.date: 2026-11-12T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
-ms.custom: preview, doc-kit-assisted
+ms.custom: doc-kit-assisted
 ai-usage: ai-assisted
 locale: en-us
 document_id: 3c5040c9-e9e7-7df2-a627-78c93550619e
@@ -54,58 +54,7 @@ platformId: eddbf1ea-d82c-85f0-88e6-671df88141cd
 
 In this article, you create a voice agent in Microsoft Foundry that uses a hosted agent as its conversation engine. You keep conversation logic in your application code while Voice Live provides the managed speech experience.
 
-Important
-
-Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
-
-## What is a conversation engine?
-
-A conversation engine is the application component that decides how to respond to each user turn. It can call models, execute tools, manage conversation state, or apply deterministic business rules. It doesn't have to use a language model.
-
-In this integration, the conversation engine runs as a separately deployed hosted agent. Voice Live converts caller speech to text and sends that text to the engine. The engine returns response text, which Voice Live converts to speech. Voice Live also manages turn-taking and interruption detection; the engine handles the corresponding control events.
-
-The voice agent has `kind: voice`. Its `conversation_engine` configuration references a separately deployed hosted agent that implements the conversation engine. The value `conversation_engine.type: hosted_agent` selects the engine source; it doesn't change the voice agent's kind.
-
-The conversation engine declares `voice_conversation_engine` version `1.0.0` and receives text and control events at `/voice_conversation_engine`. This endpoint reuses Voice Live Bridge Protocol 1.0; it doesn't introduce a new message format or carry caller audio.
-
-The audio and text follow this flow:
-
-```text
-caller audio -> 
-Voice Live speech recognition -> 
-hosted conversation engine ->
-Voice Live speech synthesis -> 
-caller audio
-```
-
-## When to use a conversation engine
-
-Use a hosted conversation engine when you want your own application code to handle the conversation, with Voice Live handling speech. Typical scenarios include:
-
-- Reuse an existing text agent or orchestration framework behind a voice interface, after adapting it to the conversation engine protocol.
-- Control model selection, routing, tool execution, and conversation state in your own runtime.
-- Combine deterministic business rules or workflows with model-generated replies, instead of expressing all behavior through a voice model's instructions.
-
-The engine must respond quickly enough for a live conversation and handle interruption, cancellation, and cleanup. You're responsible for deploying and operating its hosted runtime.
-
-Choose a different approach if it better matches your scenario:
-
-- If a model, instructions, and tools cover your conversation logic, start with a [model-backed voice agent](../agents/quickstarts/prompt-voice-agent).
-- If the voice agent should keep control of the conversation and delegate only selected tasks, [use a subagent](../agents/how-to/use-subagent-voice-first-agent). A conversation engine handles the user turns instead of acting as a delegate for selected tasks.
-- If you need to process raw audio or run your own speech recognition and synthesis inside the container, [build a custom audio pipeline](../agents/how-to/build-voice-agent). The conversation engine protocol in this article carries text and control events, not audio.
-
-For the hosted conversation engine approach, choose a path based on whether the engine is already deployed:
-
-| Starting point | Path |
-| --- | --- |
-| You need to deploy the voice agent and its hosted conversation engine. | Deploy the conversation engine with the Azure Developer CLI, then create the voice agent with the Python or .NET SDK. |
-| You already have a compatible hosted conversation engine in a Foundry project. | Create the voice agent with the Python or .NET SDK. |
-
-Both paths use the same SDK connection.
-
-## Lower latency with a persistent WebSocket connection
-
-A hosted conversation engine keeps a bidirectional WebSocket connection open with Voice Live across conversation turns. Compared with the previous HTTP Invocations integration, this approach reduces latency by about 150 ms on average.
+Voice agents are generally available, with some features still in preview. See [General availability and preview features](../agents/overview#general-availability-and-preview-features).
 
 ## Prerequisites
 
@@ -124,10 +73,10 @@ Important
 The Foundry RBAC roles were recently renamed. **Foundry User**, **Foundry Owner**, **Foundry Account Owner**, and **Foundry Project Manager** were previously named Azure AI User, Azure AI Owner, Azure AI Account Owner, and Azure AI Project Manager. You might still see the previous names in some places while the rename rolls out. The role IDs and core permissions are unchanged by the rename.
 
 # [Python](#tab/python)
-Use Python 3.10 or later and version 2.7.0 or later of the Azure AI Projects client library. Install the `voice` extra and Azure Identity:
+Use Python 3.10 or later and version 2.11.0 or later of the Azure AI Projects client library. Install the `voice` extra and Azure Identity:
 
 ```console
-python -m pip install "azure-ai-projects[voice]>=2.7.0" azure-identity
+python -m pip install "azure-ai-projects[voice]>=2.11.0" azure-identity
 ```
 
 Reference: [Azure AI Projects client library for Python](/en-us/python/api/overview/azure/ai-projects-readme).
@@ -140,9 +89,9 @@ Use the [.NET 8 SDK or later](https://dotnet.microsoft.com/download). Create a c
 ```dotnetcli
 dotnet new console --name HostedVoiceClient --framework net8.0
 cd HostedVoiceClient
-dotnet add package Azure.AI.Extensions.OpenAI --version 3.0.0-beta.6
-dotnet add package Azure.AI.Projects.Agents --version 3.0.0-beta.6
-dotnet add package Azure.AI.Projects --version 3.0.0-beta.6
+dotnet add package Azure.AI.Extensions.OpenAI --version 3.0.0-beta.7
+dotnet add package Azure.AI.Projects.Agents --version 3.0.0-beta.7
+dotnet add package Azure.AI.Projects --version 3.0.0-beta.7
 dotnet add package Azure.Identity --version 1.21.0
 ```
 
@@ -155,6 +104,55 @@ Keep the experimental warning suppressions at the top of the C# examples. The co
 The Python hosted conversation engine requires an AgentServer SDK with CE support. The CE sample pins `azure-ai-agentserver-invocations==1.3.0b1` and `azure-ai-agentserver-core==2.3.0b2` in its project and lock file. These dependencies run inside the hosted conversation engine, not in the voice client. Keep the sample's committed dependency versions. See the [AgentServer Voice sample](https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/agentserver/azure-ai-agentserver-invocations/samples/basic_voice_agent#standalone-conversation-engine) for the runtime and registration requirements.
 
 Confirm that the deployment region supports the dedicated route before deployment. An SDK upgrade alone doesn't enable the public endpoint. The Foundry routing layer and Voice Live must also support `voice_conversation_engine`.
+
+## What is a conversation engine?
+
+A conversation engine is the application component that decides how to respond to each user turn. It can call models, execute tools, manage conversation state, or apply deterministic business rules. It doesn't have to use a language model.
+
+In this integration, the conversation engine runs as a separately deployed hosted agent. Voice Live converts caller speech to text and sends that text to the engine. The engine returns response text, which Voice Live converts to speech. Voice Live also manages turn-taking and interruption detection; the engine handles the corresponding control events.
+
+The voice agent has `kind: voice`. Its `conversation_engine` configuration references a separately deployed hosted agent that implements the conversation engine. The value `conversation_engine.type: hosted_agent` selects the engine source; it doesn't change the voice agent's kind.
+
+The conversation engine declares `voice_conversation_engine` version `1.0.0` and receives text and control events at `/voice_conversation_engine`. This endpoint reuses Voice Live Bridge Protocol 1.0; it doesn't introduce a new message format or carry caller audio.
+
+The audio and text follow this flow:
+
+```text
+caller audio ->
+Voice Live speech recognition ->
+hosted conversation engine ->
+Voice Live speech synthesis ->
+caller audio
+```
+
+## When to use a conversation engine
+
+Use a hosted conversation engine when you want your own application code to handle the conversation, with Voice Live handling speech. Typical scenarios include:
+
+- Reuse an existing text agent or orchestration framework behind a voice interface, after adapting it to the conversation engine protocol.
+- Control model selection, routing, tool execution, and conversation state in your own runtime.
+- Combine deterministic business rules or workflows with model-generated replies, instead of expressing all behavior through a voice model's instructions.
+
+The engine must respond quickly enough for a live conversation and handle interruption, cancellation, and cleanup. You're responsible for deploying and operating its hosted runtime.
+
+Choose a different approach if it better matches your scenario:
+
+- If a model, instructions, and tools cover your conversation logic, start with a [model-backed voice agent](../agents/quickstarts/prompt-voice-agent).
+- If the voice agent should keep control of the conversation and delegate only selected tasks, [use a subagent](../agents/how-to/use-delegate-subagent-voice-agent). A conversation engine handles the user turns instead of acting as a delegate for selected tasks.
+- If you need to process raw audio or run your own speech recognition and synthesis inside the container, [build a custom audio pipeline](../agents/how-to/build-voice-agent). The conversation engine protocol in this article carries text and control events, not audio.
+
+For the hosted conversation engine approach, choose a path based on whether the engine is already deployed:
+
+| Starting point | Path |
+| --- | --- |
+| You need to deploy the voice agent and its hosted conversation engine. | Deploy the conversation engine with the Azure Developer CLI, then create the voice agent with the Python or .NET SDK. |
+| You already have a compatible hosted conversation engine in a Foundry project. | Create the voice agent with the Python or .NET SDK. |
+
+Both paths use the same SDK connection.
+
+## Lower latency with a persistent WebSocket connection
+
+A hosted conversation engine keeps a bidirectional WebSocket connection open with Voice Live across conversation turns. Compared with the previous HTTP Invocations integration, this approach reduces latency by about 150 ms on average.
 
 ## Deploy the conversation engine with the Azure Developer CLI
 
@@ -282,7 +280,7 @@ Both examples use the same audio configuration and hosted conversation engine. C
 Replace the project endpoint and the hosted conversation engine's agent name and optional version with your project values. Keep the voice agent's name different from the hosted conversation engine's name. Both examples enable conversation storage, which persists transcripts and audio. Set `store=False` in Python or `Store=false` in C# if you don't need persistence.
 
 # [Python](#tab/python)
-Set `allow_preview=True` on `AIProjectClient`. The SDK adds the required `Foundry-Features: VoiceAgents=V1Preview` header. Save this example as `create_voice_agent.py` and run it with `python create_voice_agent.py`:
+`VoiceAgentDefinition` sets `sub_protocol="realtime"` automatically. Save this example as `create_voice_agent.py` and run it with `python create_voice_agent.py`:
 
 ```python
 from azure.ai.projects import AIProjectClient
@@ -304,17 +302,17 @@ if HOSTED_AGENT_VERSION:conversation_engine.version = HOSTED_AGENT_VERSION
 voice_definition = VoiceAgentDefinition(conversation_engine=conversation_engine,greeting=VoiceAgentTemplateGreetingConfig(	text="Hello! How can I help you today?",),store=True,output_modalities=[VoiceOutputModality.AUDIO],audio=VoiceAgentAudioConfig(	input=VoiceAgentAudioInputConfig(		format=RealtimeAudioFormatsAudioPcm(rate=24000),		turn_detection=VoiceAgentServerVadTurnDetection(			threshold=0.5,			prefix_padding_ms=300,			silence_duration_ms=1000,		),		transcription=VoiceAgentInputTranscription(			model="azure-speech",		),	),	output=VoiceAgentAudioOutputConfig(		format=RealtimeAudioFormatsAudioPcm(rate=24000),		voice="en-US-JennyNeural",		voice_type=VoiceType.AZURE_STANDARD,	),),
 )
 
-with (DefaultAzureCredential() as credential,AIProjectClient(	endpoint=PROJECT_ENDPOINT,	credential=credential,	allow_preview=True,) as project_client,
+with (DefaultAzureCredential() as credential,AIProjectClient(	endpoint=PROJECT_ENDPOINT,	credential=credential,) as project_client,
 ):voice_agent = project_client.agents.create_version(	agent_name=VOICE_AGENT_NAME,	description=(		"Voice agent that uses a hosted agent as its conversation engine"	),	definition=voice_definition,)print(	f"Voice agent created: {voice_agent.name}, "	f"version {voice_agent.version}")
 ```
 
 Reference: [AgentsOperations.create_version](/en-us/python/api/azure-ai-projects/azure.ai.projects.operations.agentsoperations#azure-ai-projects-operations-agentsoperations-create-version) | [VoiceAgentDefinition](/en-us/python/api/azure-ai-projects/azure.ai.projects.models.voiceagentdefinition) | [VoiceHostedAgentConversationEngine](/en-us/python/api/azure-ai-projects/azure.ai.projects.models.voicehostedagentconversationengine).
 
 # [C#](#tab/csharp)
-Replace `Program.cs` in `HostedVoiceClient` with the following code and run `dotnet run`. Pass `foundryFeatures: "VoiceAgents=V1Preview"` when creating the version:
+Replace `Program.cs` in `HostedVoiceClient` with the following code and run `dotnet run`:
 
 ```csharp
-#pragma warning disable AAIP001, OPENAI002
+#pragma warning disable AAIP002, OPENAI002
 
 using System;
 using Azure.AI.Projects.Agents;
@@ -371,8 +369,7 @@ var result = await agentsClient.CreateAgentVersionAsync(
     {
         Description =
             "Voice agent that uses a hosted agent as its conversation engine",
-    },
-    foundryFeatures: "VoiceAgents=V1Preview");
+    });
 Console.WriteLine(
     $"Voice agent created: {result.Value.Name}, " +
     $"version {result.Value.Version}");
@@ -430,9 +427,9 @@ async def check_connection():
     async with (
         DefaultAzureCredential() as credential,
         AIProjectClient(
-            endpoint=PROJECT_ENDPOINT, credential=credential, allow_preview=True
+            endpoint=PROJECT_ENDPOINT, credential=credential
         ) as client,
-        client.beta.voice_agents.realtime.connect(
+        client.voice_agents.realtime.connect(
             agent_name=VOICE_AGENT_NAME, agent_session_id=uuid.uuid4().hex
         ) as connection,
     ):
@@ -461,7 +458,7 @@ For microphone capture, playback, and interruption handling, reuse the audio-pro
 Replace `Program.cs` in `HostedVoiceClient` with this code and run `dotnet run`:
 
 ```csharp
-#pragma warning disable AAIP001, AAIP002, OPENAI002
+#pragma warning disable AAIP002, OPENAI002
 
 using System;
 using System.Threading;
@@ -569,7 +566,6 @@ with (
     AIProjectClient(
         endpoint=PROJECT_ENDPOINT,
         credential=credential,
-        allow_preview=True,
     ) as project_client,
 ):
     project_client.agents.delete(agent_name=VOICE_AGENT_NAME)

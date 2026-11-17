@@ -28,6 +28,7 @@ ms.subservice: foundry-platform
 ms.topic: concept-article
 ms.date: 2026-11-06T00:00:00.0000000Z
 ai-usage: ai-assisted
+ms.custom: doc-kit-assisted
 locale: en-us
 document_id: a84a1a74-5c71-265e-a271-88277260c23f
 document_version_independent_id: 38d75537-0816-984f-1d9c-d55ac618a8dc
@@ -85,7 +86,7 @@ Each row names one decision-level entry point. The **When to use it** column sta
 | [Hosted agents](../agents/concepts/hosted-agents) | Your own agent code or framework, run by Foundry. | Use when you need full control of agent logic and dependencies. If instructions and tools are enough, prompt agents are simpler. | Agent developer |
 | [Foundry Models](foundry-models-overview) | Catalog of models from Microsoft, OpenAI, Anthropic, Meta, and others. | Use to choose and deploy the model behind your app or agent. If a model needs your domain data, consider fine-tuning. | Application developer |
 | [Fine-tuning](../openai/how-to/fine-tuning#use-the-azure-developer-cli) | Customization of a model on your own data. | Use when prompting and retrieval can't reach the quality you need. If the gap is missing context, use retrieval instead. | ML engineer |
-| [Toolbox](../agents/concepts/toolbox-overview) | Managed endpoint that packages the tools an agent can call. | Use to give an agent actions and to govern tools centrally. If the agent only needs your own data, start with Foundry IQ. | Agent developer |
+| [Toolbox](../agents/concepts/toolbox-overview) | Managed endpoint that packages the tools an agent can call. | Use to give an agent actions and to govern tools centrally. If the agent only needs your own data, start with Foundry IQ (Azure AI Search). | Agent developer |
 | [Foundry IQ](../agents/concepts/what-is-foundry-iq) | Agentic retrieval over a knowledge base. | Use to ground answers in your content. If you only need a few uploaded files, file search is lighter weight. | Agent developer |
 | [Memory](../agents/concepts/what-is-memory) (preview) | Persistent agent recall across sessions. | Use when an agent must remember prior turns or user context. If each request stands alone, skip it. | Agent developer |
 | [Workflows](../agents/concepts/workflow) | Orchestration of multiple agents and steps. | Use when one task spans several agents or stages. If a single agent with tools can finish the job, stay simpler. | Agent developer |

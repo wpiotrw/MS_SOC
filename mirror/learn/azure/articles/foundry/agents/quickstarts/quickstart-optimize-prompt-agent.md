@@ -23,7 +23,7 @@ ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Optimize a prompt agent's instructions, function-calling tool descriptions, and model selection in the Foundry portal.
-ms.date: 2026-10-26T00:00:00.0000000Z
+ms.date: 2026-11-10T00:00:00.0000000Z
 ms.topic: quickstart
 ms.subservice: foundry-agent-service
 ms.custom: dev-focus
@@ -123,6 +123,14 @@ Evaluators define how the optimizer scores each response.
 3. Continue to the **Review** step.
 
 ## Review and submit the run
+
+Warning
+
+If your agent's tools can modify production systems, optimization runs can cause unintended or irreversible changes. For example, an order-deletion tool can delete an order from the connected production database during evaluation. This risk applies to both regular optimization and optimization from insights, even if you don't promote a candidate.
+
+Before starting a run, ensure tools use read-only access or isolated test resources. Isolate the resources and permissions the tools use, not just their execution environment.
+
+Tool calls during evaluation can also incur charges or trigger rate limiting.
 
 [![Screenshot of the Review step summarizing the optimization target, dataset, criteria, and Submit button.](../media/quickstart/optimize-prompt-submit.png)](../media/quickstart/optimize-prompt-submit.png#lightbox)
 

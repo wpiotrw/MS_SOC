@@ -842,11 +842,11 @@ The following table shows which network features are available on each platform:
 | Feature | Windows | macOS | iOS/iPadOS | Android/Chrome OS | Webbrowser | MetaQuest |
 | --- | --- | --- | --- | --- | --- | --- |
 | Connection information | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ |
-| RDP Shortpath for managed networks | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
-| RDP Shortpath for public networks (STUN) | ✅ | ✅³ | ❌ | ✅ | ❌ | ✅ |
-| RDP Shortpath for public networks (TURN) | ✅ | ✅³ | ❌ | ✅ | ❌ | ✅ |
-| RDP Multipath with UDP | ✅¹ | ✅³ | ❌ | ❌ | ❌ | ❌ |
-| RDP Multipath with UDP and TCP | ✅² | ❌ | ❌ | ❌ | ❌ | ❌ |
+| DS Shortpath for managed networks | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
+| DS Shortpath for public networks (STUN) | ✅ | ✅³ | ❌ | ✅ | ❌ | ✅ |
+| DS Shortpath for public networks (TURN) | ✅ | ✅³ | ❌ | ✅ | ❌ | ✅ |
+| DS Multipath with UDP | ✅¹ | ✅³ | ❌ | ❌ | ❌ | ❌ |
+| DS Multipath with UDP and TCP | ✅² | ❌ | ❌ | ❌ | ❌ | ❌ |
 | Private Link | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 
 1. Requires Windows App, version 2.0.559.0 or later.
@@ -860,11 +860,11 @@ The following table shows which network features are available on each platform:
 | Feature | Windows | macOS | iOS/iPadOS | Android/Chrome OS | Webbrowser | MetaQuest |
 | --- | --- | --- | --- | --- | --- | --- |
 | Connection information | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ |
-| RDP Shortpath for managed networks | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
-| RDP Shortpath for public networks (STUN) | ✅ | ✅³ | ❌ | ✅ | ❌ | ✅ |
-| RDP Shortpath for public networks (TURN) | ✅ | ✅³ | ❌ | ✅ | ❌ | ✅ |
-| RDP Multipath with UDP | ✅¹ | ✅³ | ❌ | ❌ | ❌ | ❌ |
-| RDP Multipath with UDP and TCP | ✅² | ❌ | ❌ | ❌ | ❌ | ❌ |
+| DS Shortpath for managed networks | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
+| DS Shortpath for public networks (STUN) | ✅ | ✅³ | ❌ | ✅ | ❌ | ✅ |
+| DS Shortpath for public networks (TURN) | ✅ | ✅³ | ❌ | ✅ | ❌ | ✅ |
+| DS Multipath with UDP | ✅¹ | ✅³ | ❌ | ❌ | ❌ | ❌ |
+| DS Multipath with UDP and TCP | ✅² | ❌ | ❌ | ❌ | ❌ | ❌ |
 | Private Link | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 
 1. Requires Windows App, version 2.0.559.0 or later.
@@ -888,9 +888,9 @@ The following table provides a description for each network feature:
 | Feature | Description |
 | --- | --- |
 | Connection information | See the connection information of the remote session. |
-| [RDP Shortpath for managed networks](/en-us/azure/virtual-desktop/rdp-shortpath?tabs=managed-networks) | Better connection reliability and more consistent latency through direct UDP-based transport on a private/managed network connection. |
-| [RDP Shortpath for public networks](/en-us/azure/virtual-desktop/rdp-shortpath?tabs=public-networks) | Better connection reliability and more consistent latency through direct UDP-based transport on a public network connection. |
-| [RDP Multipath](/en-us/azure/virtual-desktop/rdp-multipath) | RDP Multipath maintains reliable connectivity by using multiple network paths at the same time, helping minimize disruptions and improve user experience during network issues. |
+| [DS Shortpath for managed networks](/en-us/azure/virtual-desktop/rdp-shortpath?tabs=managed-networks) | Better connection reliability and more consistent latency through direct UDP-based transport on a private/managed network connection. |
+| [DS Shortpath for public networks](/en-us/azure/virtual-desktop/rdp-shortpath?tabs=public-networks) | Better connection reliability and more consistent latency through direct UDP-based transport on a public network connection. |
+| [DS Multipath](/en-us/azure/virtual-desktop/rdp-multipath) | DS Multipath maintains reliable connectivity by using multiple network paths at the same time, helping minimize disruptions and improve user experience during network issues. |
 | [Private Link](/en-us/azure/virtual-desktop/private-link-overview) | Connect a remote session over a private connection. |
 
 ::: zone-end
@@ -900,9 +900,9 @@ The following table provides a description for each network feature:
 | Feature | Description |
 | --- | --- |
 | Connection information | See the connection information of the remote session. |
-| [RDP Shortpath for managed networks](/en-us/windows-365/enterprise/rdp-shortpath-private-networks) | Better connection reliability and more consistent latency through direct UDP-based transport on a private/managed network connection. |
-| [RDP Shortpath for public networks](/en-us/windows-365/enterprise/rdp-shortpath-public-networks) | Better connection reliability and more consistent latency through direct UDP-based transport on a public network connection. |
-| [RDP Multipath](/en-us/windows-365/enterprise/rdp-multipath) | RDP Multipath maintains reliable connectivity by using multiple network paths at the same time, helping minimize disruptions and improve user experience during network issues. |
+| [DS Shortpath for managed networks](/en-us/windows-365/enterprise/rdp-shortpath-private-networks) | Better connection reliability and more consistent latency through direct UDP-based transport on a private/managed network connection. |
+| [DS Shortpath for public networks](/en-us/windows-365/enterprise/rdp-shortpath-public-networks) | Better connection reliability and more consistent latency through direct UDP-based transport on a public network connection. |
+| [DS Multipath](/en-us/windows-365/enterprise/rdp-multipath) | DS Multipath maintains reliable connectivity by using multiple network paths at the same time, helping minimize disruptions and improve user experience during network issues. |
 
 ::: zone-end
 
@@ -911,9 +911,9 @@ The following table provides a description for each network feature:
 | Feature | Description |
 | --- | --- |
 | Connection information | See the connection information of the remote session. |
-| RDP Shortpath for managed networks | Better connection reliability and more consistent latency through direct UDP-based transport on a private/managed network connection. |
-| RDP Shortpath for public networks | Better connection reliability and more consistent latency through direct UDP-based transport on a public network connection. |
-| RDP Multipath | RDP Multipath maintains reliable connectivity by using multiple network paths at the same time, helping minimize disruptions and improve user experience during network issues. |
+| DS Shortpath for managed networks | Better connection reliability and more consistent latency through direct UDP-based transport on a private/managed network connection. |
+| DS Shortpath for public networks | Better connection reliability and more consistent latency through direct UDP-based transport on a public network connection. |
+| DS Multipath | DS Multipath maintains reliable connectivity by using multiple network paths at the same time, helping minimize disruptions and improve user experience during network issues. |
 
 ::: zone-end
 

@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "cursor": "https://learn.microsoft.com/en-us/windows-insider/business/server-get-started",
+  "pages": {
+    "https://learn.microsoft.com/en-us/windows-insider/business/server-get-started": {"etag":"\"hDnmQ5QfNZJpRDmP+G2QTrDoABg=\"","gitCommitId":"a657fd986917102e07cf64be725c2b3b00fcf37b","path":"wip/business/server-get-started.md","sourcePath":"wip/business/server-get-started.md","updatedAt":"2026-04-24T17:18:00.0000000Z"}
+  }
+}

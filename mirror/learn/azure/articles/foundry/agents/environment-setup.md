@@ -46,13 +46,13 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/agents/environment-setup.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fbc448d8-f51b-49e6-a28d-b0ed67a9b6ee
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/a2d547e1-b5e2-4f22-ada5-397b95fd90be
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
 platformId: ae120f0c-d094-4676-97b3-cbf0232d0a0f
 ---
 
@@ -93,7 +93,7 @@ To get started, you need a Microsoft Foundry resource and a Foundry project. Age
 
 - An Azure subscription - [Create one for free](https://azure.microsoft.com/pricing/purchase-options/azure-account?cid=msft_learn).
 - Ensure that the individual creating the account and project has the **Foundry Account Owner** role at the subscription scope
-- If configuring a standard setup, the same individual must also have permissions to assign roles to required resources (Cosmos DB, Azure AI Search, Azure Blob Storage). For more information on RBAC roles, specific to Agent Service, see [Agent Service RBAC roles](../concepts/rbac-foundry).
+- If configuring a standard setup, the same individual must also have permissions to assign roles to required resources (Cosmos DB, Foundry IQ (Azure AI Search), Azure Blob Storage). For more information on RBAC roles, specific to Agent Service, see [Agent Service RBAC roles](../concepts/rbac-foundry).
     - The built-in role needed is **Role Based Access Administrator**.
     - Alternatively, having the **Owner** role at the subscription level also satisfies this requirement.
     - The key permission needed is: `Microsoft.Authorization/roleAssignments/write`
@@ -104,7 +104,7 @@ Agent Service offers three environment configuration modes to suit different nee
 
 - **Basic Setup**:
 
-    This setup is compatible with OpenAI Assistants and manages agent states using the platform's built-in storage. It includes the same tools and capabilities as the Assistants API, with added support for non-OpenAI models and tools such as Azure AI Search, and Bing.
+    This setup is compatible with OpenAI Assistants and manages agent states using the platform's built-in storage. It includes the same tools and capabilities as the Assistants API, with added support for non-OpenAI models and tools such as Foundry IQ, and Bing.
 - **Standard Setup**:
 
     Includes everything in the basic setup and fine-grained control over your data by allowing you to use your own Azure resources. All customer data—including files, threads, and vector stores—are stored in your own Azure resources, giving you full ownership and control.
@@ -116,7 +116,7 @@ Important
 
 **Standard setups require you to Bring Your Own (BYO) resources so that all agent data stays in your Azure tenant.**
 
-BYO resources include: Azure Storage, Azure AI Search, and Azure Cosmos DB.
+BYO resources include: Azure Storage, Foundry IQ, and Azure Cosmos DB.
 
 All data processed by Foundry Agent Service is automatically stored at rest in these resources, helping you meet compliance requirements and enterprise security standards.
 
@@ -144,7 +144,7 @@ If you want support for Private Network Isolation, see [network-secured setup](h
 | Description and Autodeploy | Diagram (click to zoom in) |
 | --- | --- |
 | Deploy a basic agent setup that uses **Managed Identity** for authentication.  An account and project are created.  A GPT-4.1 model is deployed.  A Microsoft-managed Key Vault is used by default. | [![An architecture diagram for basic agent setup.](media/quickstart/basic-setup-resources-foundry.png)](media/quickstart/basic-setup-resources-foundry.png#lightbox) |
-| Deploy a standard agent setup that uses **Managed Identity** for authentication. An account and project are created.  A GPT-4.1 model is deployed.  Azure resources for storing customer data—**Azure Storage**, **Azure Cosmos DB**, and **Azure AI Search**—are automatically created if existing resources aren't provided.  These resources are connected to your project to store files, threads, and vector data.  A Microsoft-managed Key Vault is used by default. | [![An architecture diagram for standard agent setup.](media/quickstart/standard-agent-setup.png)](media/quickstart/standard-agent-setup.png#lightbox) |
+| Deploy a standard agent setup that uses **Managed Identity** for authentication. An account and project are created.  A GPT-4.1 model is deployed.  Azure resources for storing customer data—**Azure Storage**, **Azure Cosmos DB**, and **Foundry IQ**—are automatically created if existing resources aren't provided.  These resources are connected to your project to store files, threads, and vector data.  A Microsoft-managed Key Vault is used by default. | [![An architecture diagram for standard agent setup.](media/quickstart/standard-agent-setup.png)](media/quickstart/standard-agent-setup.png#lightbox) |
 
 ### [Optional] Model selection in autodeploy template
 
@@ -174,7 +174,7 @@ After deployment completes (typically 5-10 minutes), verify that your resources 
 2. Search for your resource group name.
 3. Confirm that the following resources exist:
     - **Basic setup**: Foundry account, project, and model deployment.
-    - **Standard setup**: All basic resources plus Azure Storage account, Azure Cosmos DB account, and Azure AI Search service.
+    - **Standard setup**: All basic resources plus Azure Storage account, Azure Cosmos DB account, and Foundry IQ service.
 
 Tip
 

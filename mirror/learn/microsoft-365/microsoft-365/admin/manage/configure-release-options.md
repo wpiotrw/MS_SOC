@@ -115,7 +115,7 @@ For a comparison of release options, see the following table:
 | **Standard release(default)** | Default GA rollout | Fully supported GA features | Features are supported, communicated through Message center and release notes, and expected to remain available under standard lifecycle policies. Recommended for most organizations. |
 | **Deferred release** | Delayed GA for additional preparation | Fully supported GA features (delayed) | Same functionality as Standard release, delayed 30 days after Standard release (GA) for major updates. Consider if your organization has additional validation requirements. |
 
-For significant updates, Microsoft first notifies you through the [AI at Work Roadmap](https://www.microsoft.com/microsoft-365/roadmap), formerly known as Microsoft 365 Roadmap. Before rollout, Microsoft notifies you through the [Microsoft 365 Message center](https://go.microsoft.com/fwlink/p/?linkid=2070717).
+For significant updates, Microsoft first notifies you through the [Microsoft Copilot Roadmap](https://www.microsoft.com/microsoft-365/roadmap), formerly known as the Microsoft 365 Roadmap and AI at Work Roadmap. Before rollout, Microsoft notifies you through the [Microsoft 365 Message center](https://go.microsoft.com/fwlink/p/?linkid=2070717).
 
 ### What qualifies as a major update
 

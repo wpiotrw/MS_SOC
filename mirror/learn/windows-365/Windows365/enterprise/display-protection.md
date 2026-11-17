@@ -40,10 +40,14 @@ spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c828f7e0-89b4-459c-9bae-d7ab1c4bd9ad
-platformId: 2e86bc41-75cb-54ad-691a-077d316027f0
+platformId: c2caa5f8-b652-fabd-630b-48078c5a95aa
 ---
 
 # Display Protection for Windows 365 and Azure Virtual Desktop | Microsoft Learn
+
+Important
+
+The streaming stack powering Windows 365 and Azure Virtual Desktop is now branded as Direct Stream. This article retains RDP terminology where it still appears in the Microsoft Intune admin center and Azure portal during the transition. For more information, see [Windows 365 at Ignite 2026: Introducing new Cloud PC capabilities for people, agents and IT](https://aka.ms/W365Ignite26Blog).
 
 **Applies to:**
 
@@ -116,11 +120,11 @@ Both Azure Virtual Desktop and Windows 365 support the following protection leve
 
 ### Configure display protection for Azure Virtual Desktop
 
-For Azure Virtual Desktop, add the display protection RDP property in the host pool advanced settings:
+For Azure Virtual Desktop, add the display protection DS property in the host pool advanced settings:
 
 1. In the Azure portal, open the target host pool.
 2. Go to **RDP properties** &gt; **Advanced** tab.
-3. Add the following RDP property:
+3. Add the following DS property:
 
     `enableWindowsCloudIODisplayProtection:i:<value>`
 
@@ -140,7 +144,7 @@ For Windows 365, configure display protection in Microsoft Intune:
 
     ![Screenshot showing the display protection level selection under IO Protection.](media/windows-cloud-display-protection/intune-config-selection.png)
 
-When you enable display protection or change its level in Intune or in host pool RDP properties, the setting is delivered to the endpoint device through the connection (RDP) properties and is cached on the device. To apply an updated configuration immediately, select **Refresh** in Windows App. Otherwise, configuration changes can take up to 8 hours to reach an endpoint.
+When you enable display protection or change its level in Intune or in host pool DS properties, the setting is delivered to the endpoint device through the connection (DS) properties and is cached on the device. To apply an updated configuration immediately, select **Refresh** in Windows App. Otherwise, configuration changes can take up to 8 hours to reach an endpoint.
 
 If a connection is unexpectedly blocked with an incompatible-client error shortly after you enable or change display protection, select **Refresh** in Windows App to pull the latest configuration, or wait for it to propagate—up to 8 hours—and then try to connect again.
 
@@ -155,7 +159,7 @@ After you configure display protection on the target Cloud PCs or session hosts:
 
 This capture test evaluates behavior on the endpoint. It doesn't validate HDCP enforcement or show that an external capture device is blocked.
 
-To monitor display protection across your tenant, use [Cloud PC monitoring](cloud-pc-monitoring-overview) (preview) and review the `DisplayProtectionState` connection event on the **Connection health** page. For steps, see [Monitor Input and Output Protection](windows-cloud-io-protection#monitor-input-and-output-protection).
+To monitor display protection across your tenant, use [Monitor Cloud PCs](monitor-cloud-pcs-overview) (preview) and review the `DisplayProtectionState` connection event on the **Connection health** page. For steps, see [Monitor Input and Output Protection](windows-cloud-io-protection#monitor-input-and-output-protection).
 
 ## Troubleshoot display protection
 

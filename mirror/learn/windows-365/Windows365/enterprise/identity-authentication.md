@@ -210,4 +210,4 @@ On Windows 11 version 24H2 and later, privacy controls let users decide whether 
 
 #### In-session smart card authentication
 
-To use a smart card in your session, make sure you install the smart card drivers on the Cloud PC and allow smart card redirection as part of [managing RDP device redirections for Cloud PCs](manage-rdp-device-redirections). Review the [client comparison chart](/en-us/azure/virtual-desktop/compare-remote-desktop-clients?pivots=windows-365#in-session-authentication) to make sure your client supports smart card redirection.
+To use a smart card in your session, make sure you install the smart card drivers on the Cloud PC and allow smart card redirection as part of [managing DS device redirections for Cloud PCs](manage-rdp-device-redirections). Review the [client comparison chart](/en-us/azure/virtual-desktop/compare-remote-desktop-clients?pivots=windows-365#in-session-authentication) to make sure your client supports smart card redirection.

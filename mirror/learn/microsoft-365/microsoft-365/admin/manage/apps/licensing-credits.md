@@ -14,7 +14,7 @@ breadcrumb_path: /microsoft-365/breadcrumb/toc.json
 recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
 description: Learn about managing licensing and Copilot Credits for apps on Copilot Managed Runtime, including how they are billed, setting up spending policies, and reviewing usage.
-ms.date: 2026-11-09T00:00:00.0000000Z
+ms.date: 2026-11-17T00:00:00.0000000Z
 author: mikferland-msft
 ms.author: miferlan
 manager: zoraz
@@ -52,11 +52,9 @@ source_path: microsoft-365/admin/manage/apps/licensing-credits.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c389ea6b-b6a0-46df-93a1-1e21f25e19e7
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/19ada1b6-705b-4ed7-aad0-bffd1bd03dfa
 platformId: 5c73d487-0ac5-a2dc-ecb7-b1e856478418
 ---
 
@@ -85,9 +83,9 @@ Spending policies are limits, not purchases. A policy doesn't reserve or allocat
 
 ## Before you begin
 
-To turn on usage-based billing and create spending policies, go to **M365 admin center** &gt; **Copilot** &gt; **Cost management**. You need the Global Administrator or Billing Administrator role. AI Administrators and License Administrators can edit existing spending policies, limits, and alerts, but can't create policies. Reader roles, such as AI Reader and Global Reader, can view consumption dashboards and reports.
+To turn on usage-based billing and create spending policies, go to **M365 admin center** &gt; **Copilot** &gt; **Cost management**. Cost management uses different roles from managing apps, and tasks such as creating spending policies, editing them, and viewing consumption each require specific roles.
 
-To manage Copilot Studio capacity for building in the Power Platform admin center, you need the Power Platform Administrator or Global Administrator role. For Copilot Studio environments managed in the Microsoft 365 admin center, the roles listed for accessing the Cost Management experiences above are still required. Microsoft recommends giving the Billing administrator role to Power Platform administrator who will manage these policies, and the AI Reader role to environment administrators who need to view consumption.
+To manage Copilot Studio capacity for building, use the Power Platform admin center or Cost management in the Microsoft 365 admin center, depending on where each environment is managed. For the roles that each task requires, see [Roles for licensing and Copilot Credits](roles-responsibilities#roles-for-licensing-and-copilot-credits).
 
 Before you configure anything, check:
 
@@ -129,7 +127,7 @@ The following steps set up runtime coverage in the Microsoft 365 admin center. S
 
 ### Step 1: Turn on usage-based billing
 
-1. Sign in to the [Microsoft 365 admin center](https://admin.microsoft.com) as a Global Administrator or Billing Administrator.
+1. Sign in to the [Microsoft 365 admin center](https://admin.microsoft.com) with a role that can turn on usage-based billing. For details, see [Roles for licensing and Copilot Credits](roles-responsibilities#roles-for-licensing-and-copilot-credits).
 2. Go to **Copilot** &gt; **Cost management** and select **Get started**.
 3. In **Billing method**, select the subscription to bill for Copilot Credit usage. If your tenant has prepaid capacity packs or a P3 plan, the service uses them first.
 4. Set the monthly spending limit and alerts for the default spending policy, and review **Auto-apply new services**.
@@ -158,7 +156,7 @@ Some groups run apps much more than others: a department that adopts a shared ap
 
 How overlapping policies resolve:
 
-- If a user is in more than one policy for the same service, the policy with the highest per-user limit applies. Ties go to the largest overall policy limit, then to the most recently created policy. Settings from different policies aren't combined.
+- For a user covered by multiple policies for the same service, only one policy applies. The policy with the highest per-user monthly limit wins. If policies have the same per-user monthly limit, the policy with the highest monthly policy spending limit wins. If the policies also have the same monthly policy spending limit, the most recently created policy wins.
 - When a user reaches their limit, they don't fall back to another policy. They can request more credits.
 - Moving a user to another group mid-month doesn't reset their consumption. Credits consumed under the earlier policy count against the new policy's limit.
 - Limits reset on the first of the month.

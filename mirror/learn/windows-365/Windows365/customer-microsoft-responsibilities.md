@@ -72,7 +72,7 @@ This document applies only to Windows 365 and doesn't apply to any other Microso
 For Microsoft-hosted networks, Microsoft manages:
 
 - Network connectivity for Windows 365, including Azure Networking and on-site infrastructure configurations (like firewalls, proxies, and other settings).
-- Network security and Remote Desktop Protocol (RDP) connectivity, ensuring a stable connection.
+- Network security and Direct Stream (DS) connectivity, ensuring a stable connection.
 - Microsoft manages the core network infrastructure.
 
 **Security and compliance**: Microsoft manages risks related to fraud, abuse, and malicious activity as explained in the [Product Use Rights](/en-us/legal/windows-365/windows-365-app-license-terms) and the [Microsoft Online Services Agreement](https://www.microsoft.com/servicesagreement/).
@@ -132,7 +132,7 @@ Microsoft deploys some configurations and components during the initial provisio
 For Microsoft-hosted networks, Microsoft manages:
 
 - Network connectivity for Windows 365, including Azure Networking and on-site infrastructure configurations (like firewalls, proxies, and other settings).
-- Network security and Remote Desktop Protocol (RDP) connectivity, ensuring a stable connection.
+- Network security and Direct Stream (DS) connectivity, ensuring a stable connection.
 - Microsoft manages the core network infrastructure.
 
 For Azure network connections (ANC), customers manage:

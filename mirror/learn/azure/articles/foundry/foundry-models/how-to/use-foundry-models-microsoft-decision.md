@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Deploy and use Microsoft-Decision-1 in Microsoft Foundry - Microsoft Foundry | Microsoft Learn
+title: Deploy and use Microsoft-Decision-1.1 in Microsoft Foundry - Microsoft Foundry | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-foundry-models-microsoft-decision
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
@@ -22,7 +22,7 @@ ms.author: siddharthsi
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
-description: Deploy Microsoft-Decision-1 in Microsoft Foundry and use typed questions to classify, score, and route text or JSON.
+description: Deploy Microsoft-Decision-1.1 in Microsoft Foundry and use typed questions to classify, score, and route text, JSON, or images.
 ms.subservice: foundry-models
 ms.topic: how-to
 ms.date: 2026-10-07T00:00:00.0000000Z
@@ -51,13 +51,13 @@ spProducts:
 platformId: 5d1feae4-f1a3-ce60-723e-a88be47a0eb2
 ---
 
-# Deploy and use Microsoft-Decision-1 in Microsoft Foundry - Microsoft Foundry | Microsoft Learn
+# Deploy and use Microsoft-Decision-1.1 in Microsoft Foundry - Microsoft Foundry | Microsoft Learn
 
-`Microsoft-Decision-1` is available in Microsoft Foundry for classification, routing, ranking, grading, and binary decisions. Use it to triage support tickets, prioritize incidents, filter content, evaluate model output, or select a model, tool, or agent for a request.
+`Microsoft-Decision-1.1` is generally available in Microsoft Foundry for classification, routing, ranking, grading, and binary decisions. Use it to triage support tickets, prioritize incidents, filter content, evaluate model output, or select a model, tool, or agent for a request.
 
-Unlike a generative large language model (LLM), `Microsoft-Decision-1` doesn't generate a free-form response or written rationale. It makes a focused judgment about text or JSON and returns a typed, numerical decision. This approach is useful when your application needs a predictable response shape and probabilities that it can threshold or rank.
+Unlike a generative large language model (LLM), `Microsoft-Decision-1.1` doesn't generate a free-form response or written rationale. It makes a focused judgment about text, JSON, or images and returns a typed, numerical decision. This approach is useful when your application needs a predictable response shape and probabilities that it can threshold or rank.
 
-In this article, you deploy `Microsoft-Decision-1` in Microsoft Foundry, call the decision API, and build a support-ticket classifier.
+In this article, you deploy `Microsoft-Decision-1.1` in Microsoft Foundry, call the decision API, and build a support-ticket classifier.
 
 ## Prerequisites
 
@@ -75,7 +75,7 @@ In this article, you deploy `Microsoft-Decision-1` in Microsoft Foundry, call th
 
 ## Choose a question type
 
-`Microsoft-Decision-1` accepts a `state` value and one or more typed questions. The state can be text or JSON. Choose the question type based on the decision your application needs. The request pattern is similar to a system-one API: your application supplies the state and bounded questions, and the model returns decisions instead of generated prose.
+`Microsoft-Decision-1.1` accepts a `state` value and one or more typed questions. The state can be text or JSON and can reference uploaded images supplied in `assets`. Choose the question type based on the decision your application needs. The request pattern is similar to a system-one API: your application supplies the state and bounded questions, and the model returns decisions instead of generated prose.
 
 | Question | Type | Result |
 | --- | --- | --- |
@@ -154,23 +154,23 @@ Use a `score` question to place an item on an ordered scale. Common uses include
 
 List the levels from lowest to highest. The returned score is the probability-weighted average of the level indexes. For example, a four-level scale runs from `0` through `3`, and the result can fall between levels. Validate scores on your own labeled examples. Prefer scores for relative ordering and thresholds rather than as absolute, calibrated ratings.
 
-## Microsoft-Decision-1 at a glance
+## Microsoft-Decision-1.1 at a glance
 
 | Model name | Model version | Deployment type | API type |
 | --- | --- | --- | --- |
-| `Microsoft-Decision-1` | 1 | `DataZoneStandard` in selected regions; `GlobalStandard` | Decision |
+| `Microsoft-Decision-1.1` | 1 | `DataZoneStandard` in selected regions; `GlobalStandard` | Decision |
 
 To minimize network latency between your application and Foundry, create the Foundry resource in a region close to your application and users, and call that resource's endpoint. For locality-sensitive workloads, use `DataZoneStandard` in the data zone closest to your application when it's available. This deployment type keeps inference processing within that data zone and can reduce long-distance routing. Benchmark your workload because a deployment type doesn't guarantee lower latency.
 
 `GlobalStandard` is also supported and provides access to global capacity. Because inference can be processed in any supported Azure region, latency might be higher or more variable. For more information, see [Deployment types for Microsoft Foundry Models](../concepts/deployment-types) and [region availability for Foundry Models sold by Azure](../concepts/models-sold-directly-by-azure-region-availability).
 
-## Deploy Microsoft-Decision-1
+## Deploy Microsoft-Decision-1.1
 
 Deploy the model from the Foundry model catalog.
 
 1. Open the [Foundry portal](https://ai.azure.com), and go to your project.
 2. Select **Model catalog**.
-3. Search for and select **Microsoft-Decision-1**.
+3. Search for and select **Microsoft-Decision-1.1**.
 4. Select **Deploy**, configure the deployment, and then select **Deploy**.
 5. On the deployment details page, copy the resource endpoint, deployment name, and API key.
 
@@ -183,7 +183,7 @@ az cognitiveservices account deployment create \
   --name <ACCOUNT_NAME> \
   --resource-group <RESOURCE_GROUP> \
   --deployment-name <DEPLOYMENT_NAME> \
-  --model-name "Microsoft-Decision-1" \
+  --model-name "Microsoft-Decision-1.1" \
   --model-format Microsoft \
   --model-version "1" \
   --sku-name GlobalStandard \
@@ -213,7 +213,7 @@ Send requests to the Microsoft provider's decision endpoint on your Foundry reso
 <your-foundry-resource-endpoint>/providers/microsoft/v1/systemone
 ```
 
-The request's `model` value is your deployment name, not the underlying model name. For example, a deployment named `pi-decision-1` uses `"model": "pi-decision-1"`. The response's `model` field identifies the underlying model, so it can contain a different value, such as `microsoft-decision-1`.
+The request's `model` value is your deployment name, not the underlying model name. For example, a deployment named `pi-decision-1.1` uses `"model": "pi-decision-1.1"`. The response's `model` field identifies the underlying model, so it can contain a different value, such as `microsoft-decision-1.1`.
 
 Set the values that you copied from the deployment details page:
 
@@ -265,6 +265,38 @@ export AZURE_API_KEY="<your-api-key>"
 ```
 
 For more information about authentication, see [Configure Microsoft Entra ID authentication](configure-entra-id).
+
+### Use an image as input
+
+Include the image in `assets` as base64-encoded data. Reference it as `image:<name>` in `state`, a question's `instructions`, or a `choice` question's `criteria`, alongside any text. For example, build a request body that checks a customer-provided delivery photo:
+
+```python
+import base64
+import os
+from pathlib import Path
+
+image_data = base64.b64encode(Path("photo.png").read_bytes()).decode("ascii")
+
+body = {
+    "model": os.environ["DEPLOYMENT_NAME"],
+    "state": "Customer photo of the delivery: image:photo.png",
+    "assets": {
+        "photo.png": {
+            "type": "image",
+            "format": "png",
+            "data_base64": image_data,
+        }
+    },
+    "questions": {
+        "damaged": {
+            "type": "noul",
+            "instructions": "Does the photo show damage?",
+        }
+    },
+}
+```
+
+Send this body as JSON using the endpoint and authentication described earlier. The response's `answers.damaged.noul` value is the probability that the photo shows damage.
 
 ## Classify support tickets
 
@@ -463,21 +495,21 @@ Combining related questions reduces the number of requests and keeps the decisio
 
 ## Interpret decisions
 
-`Microsoft-Decision-1` returns numerical decisions without a written rationale. Use the probabilities to decide whether your application acts automatically, requests another evaluation, or sends the item to a person.
+`Microsoft-Decision-1.1` returns numerical decisions without a written rationale. Use the probabilities to decide whether your application acts automatically, requests another evaluation, or sends the item to a person.
 
-## When to use Microsoft-Decision-1
+## When to use Microsoft-Decision-1.1
 
-Use `Microsoft-Decision-1` when your application needs one or more bounded, typed decisions about the same input. It works well for high-volume workflows where your application needs to act on a probability, selected option, or ordered score instead of displaying generated text.
+Use `Microsoft-Decision-1.1` when your application needs one or more bounded, typed decisions about the same input. It works well for high-volume workflows where your application needs to act on a probability, selected option, or ordered score instead of displaying generated text.
 
 Common use cases include:
 
 - **Gates and filters**: Check whether content meets a condition before a workflow continues.
 - **Classification and routing**: Send tickets, alerts, documents, or requests to one option from a known set.
 - **Ranking and prioritization**: Order incidents, leads, search results, or review queues by an application-defined scale.
-- **Evaluation and grading**: Score model output against an ordered rubric.
+- **Evaluation and grading**: Score model output against an ordered rubric. To use the model as the judge for built-in evaluators, see [Use a decision model as an evaluation judge](../../observability/how-to/decision-model-judge).
 - **Model, tool, or agent selection**: Choose the component that should handle a request.
 
-Use a generative LLM instead when the application needs to create, summarize, rewrite, or explain content. You can also combine the two approaches. Use `Microsoft-Decision-1` to route or gate a request, and then send approved requests to a generative model.
+Use a generative LLM instead when the application needs to create, summarize, rewrite, or explain content. You can also combine the two approaches. Use `Microsoft-Decision-1.1` to route or gate a request, and then send approved requests to a generative model.
 
 ## Known limitations and risks
 
@@ -488,7 +520,7 @@ Use a generative LLM instead when the application needs to create, summarize, re
 
 ## Best practices
 
-Before you use `Microsoft-Decision-1` in an application, evaluate the model for your intended scenario.
+Before you use `Microsoft-Decision-1.1` in an application, evaluate the model for your intended scenario.
 
 - Validate the model on data that's representative of your use case.
 - Tune the `state`, `instructions`, and options for each primitive. You can improve task definition with structured or code-enriched state and parameterized options. Use coding agents to generate candidate configurations, evaluate them against labeled examples, and compare results. Review agent-generated changes before you use them in production.

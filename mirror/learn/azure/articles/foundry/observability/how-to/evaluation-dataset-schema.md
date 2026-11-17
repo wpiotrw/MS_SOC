@@ -58,6 +58,7 @@ Each line in an evaluation JSONL file contains one evaluation test case. The eva
 | --- | --- | --- |
 | **Evaluate an existing interaction** | `messages` | The selected evaluators. |
 | **Evaluate a stored separate input and output** | `query`, `response` | The selected evaluators. |
+| **Evaluate a recorded voice conversation** | `conversation_artifacts.audio` | The selected evaluators. `messages` is optional. |
 | **Evaluate a model or agent target** | Input captured in the `messages` or `query` column; Foundry generates the response | The selected evaluators. |
 | **Evaluate simulated conversations** | `test_case_description` | Optional simulation guidance, such as `desired_num_turns`. |
 
@@ -71,7 +72,7 @@ The standard columns depend on whether the evaluation uses model or agent intera
 
 ### Model and agent evaluation columns
 
-Use one interaction format for each test case: either the `messages` column or the separate `query` and `response` columns.
+For text interactions, use either the `messages` column or the separate `query` and `response` columns. For recordings, see Audio conversation recordings.
 
 | Column | Required when | What it contains |
 | --- | --- | --- |
@@ -190,6 +191,18 @@ This variation of the running example includes a tool call and its result:
   ]
 }
 ```
+
+## Audio conversation recordings
+
+For audio evaluators, provide a WAV recording of each complete conversation that uses uncompressed 16-bit PCM audio. Recordings can use any sample rate and channel count. Reference the recording by the ID of a versioned folder dataset in the same Foundry project and the file's path within that dataset, such as `calls/conversation.wav`:
+
+```jsonl
+{"conversation_artifacts":{"audio":{"asset_id":"azureai://accounts/my-account/projects/my-project/datasets/voice-recordings/versions/1","asset_file_path":"calls/conversation.wav"}}}
+```
+
+Replace the example asset ID and path with your own. The recording asset ID identifies the folder containing the audio. Upload the JSONL file as a separate dataset, and use its dataset ID for the evaluation run.
+
+The `messages` column is optional when using audio evaluators. Include the required transcript fields if you also use text evaluators. For the procedure, see [Evaluate recorded voice conversations](cloud-evaluation-audio-conversations).
 
 ## Evaluator-specific columns
 

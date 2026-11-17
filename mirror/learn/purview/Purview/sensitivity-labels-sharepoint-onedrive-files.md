@@ -111,7 +111,7 @@ Uploading a labeled Office document, and then extracting and displaying that sen
 
 ### Video support (MP4 files and Clipchamp projects)
 
-Enable sensitivity label support for MP4 files by using the SharePoint Online PowerShell setting `EnableSensitivityLabelForVideoFiles`. The same setting also controls labeling for Clipchamp projects after the update described in that subsection reaches your tenant.
+Enable sensitivity label support for MP4 files by using the SharePoint Online PowerShell setting `EnableSensitivityLabelForVideoFiles`. The same setting also controls sensitivity label behavior for Clipchamp projects.
 
 MP4 files support manually applying sensitivity labels, but can't be labeled automatically or by default. Additionally, MP4 files can [automatically inherit a sensitivity label from a Teams meeting](sensitivity-labels-meetings#policy-settings-meetings).
 
@@ -129,9 +129,7 @@ Sensitivity labels that apply encryption must be configured with the [Assign per
 
 #### Clipchamp projects
 
-In Clipchamp, a project's sensitivity label can restrict actions in the editor and be inherited by an exported MP4.
-
-An update extends `EnableSensitivityLabelForVideoFiles` to Clipchamp project labeling and label inheritance on MP4 exports. Check your tenant's current value, then review the before-and-after behavior below to understand the effect on your organization.
+In Clipchamp, a project's sensitivity label can restrict actions in the editor. `EnableSensitivityLabelForVideoFiles` controls whether Clipchamp applies or changes project labels and whether MP4 exports inherit the project's label. Check your tenant's current value, then use the following table to understand its effect on projects and exports.
 
 [Connect to SharePoint Online PowerShell](/en-us/powershell/sharepoint/sharepoint-online/connect-sharepoint-online) and run:
 
@@ -139,21 +137,13 @@ An update extends `EnableSensitivityLabelForVideoFiles` to Clipchamp project lab
 Get-SPOTenant | Select-Object EnableSensitivityLabelForVideoFiles
 ```
 
-Note
-
-The update announced in Message Center post MC1454399 is rolling out worldwide from mid-September 2026, with completion expected in mid-October 2026. The schedule doesn't confirm availability for an individual tenant.
-
-**Before the change reaches your tenant**, `EnableSensitivityLabelForVideoFiles` controls MP4 labeling support in SharePoint and OneDrive, but not project labeling in the Clipchamp editor. Even when the setting is `$false`, Clipchamp can apply your organization's default sensitivity label and pass a project's label to an MP4 export.
-
-**After the change reaches your tenant**, `EnableSensitivityLabelForVideoFiles` also controls sensitivity label behavior for `.clipchamp` projects:
-
-| Setting and project state after rollout | Project labels and imported media | New MP4 exports |
+| Setting and project state | Project labels and imported media | New MP4 exports |
 | --- | --- | --- |
 | `$true` | Your organization's default label policy applies. Supported label changes and imports are subject to label, protection, and permission checks. | Inherit the project's label, if one is applied. |
 | `$false`, project is unlabeled | No default label or label changes; the picker is hidden. Importing supported protected or non-protected labeled media requires acknowledgment that neither the project nor its export inherits the source label. | Don't inherit a label from the project. |
 | `$false`, project already has a valid label | The existing label and restrictions remain, but label changes are blocked. Imports retain the same checks as for `$true`, but imports that require a project label upgrade are blocked. | Don't inherit the project's label or restrictions from that label. Clipchamp warns before exporting without the label. |
 
-Users still need permission to access and use source media and to export the project. After the change reaches a tenant with the setting at `$false`, users can share or download new, unlabeled MP4 exports from Clipchamp, subject to other permissions and policies. Existing project restrictions and previously exported MP4 files are unchanged.
+Users still need permission to access and use source media and to export the project. When the setting is `$false`, users can share or download new, unlabeled MP4 exports from Clipchamp, subject to other permissions and policies. Existing project restrictions and previously exported MP4 files are unchanged.
 
 If your organization requires labels on Clipchamp projects and their exports, use `$true` and review the applicable default label policy. The setting applies across the tenant, or the connected geo-location in a Multi-Geo organization; review its effect before changing it.
 

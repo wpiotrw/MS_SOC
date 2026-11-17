@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Configure Microsoft Entra authentication for Foundry Agent trace ingestion (preview) - Microsoft Foundry | Microsoft Learn
+title: Configure Microsoft Entra authentication for Foundry Agent trace ingestion - Microsoft Foundry | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/trace-ingestion-entra-authentication
 breadcrumb_path: ../../../breadcrumb/azure-ai/toc.json
 feedback_help_link_url: https://learn.microsoft.com/answers/tags/133/azure
@@ -53,11 +53,7 @@ spProducts:
 platformId: fb6afede-ba0d-1bc0-f4dc-43d5c90e1247
 ---
 
-# Configure Microsoft Entra authentication for Foundry Agent trace ingestion (preview) - Microsoft Foundry | Microsoft Learn
-
-Important
-
-Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
+# Configure Microsoft Entra authentication for Foundry Agent trace ingestion - Microsoft Foundry | Microsoft Learn
 
 Use Microsoft Entra authentication for trace ingestion when your agents send telemetry to the Application Insights resource connected to your Foundry project. This approach replaces key-based ingestion with identity-based access control.
 

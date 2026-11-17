@@ -72,7 +72,7 @@ Modern Auto-Reconnect replaces the retry-driven model with a connection preserva
 
 When a network interruption occurs, the client enters a **connection paused** state instead of repeatedly reconnecting. The session remains active on the host while the client waits for network connectivity to be restored.
 
-This experience is enabled by RDP Multipath, which maintains multiple transport paths and allows the connection to recover without rebuilding the entire connection state.
+This experience is enabled by DS Multipath, which maintains multiple transport paths and allows the connection to recover without rebuilding the entire connection state.
 
 As soon as a network path becomes available, the client resumes the existing session. Because the connection context is preserved, recovery is significantly faster and can often occur almost immediately after connectivity is restored.
 
@@ -96,7 +96,7 @@ In many scenarios, such as moving between wireless networks or recovering from a
 
 ### Availability and Requirements
 
-Modern Auto-Reconnect requires support for the updated connection model and RDP Multipath. To use this experience, install Windows App for Windows version 2.0.1314.0 or later.
+Modern Auto-Reconnect requires support for the updated connection model and DS Multipath. To use this experience, install Windows App for Windows version 2.0.1314.0 or later.
 
 Important
 

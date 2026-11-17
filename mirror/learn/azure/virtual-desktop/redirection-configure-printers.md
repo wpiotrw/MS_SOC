@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Configure printer redirection over the Remote Desktop Protocol - Azure Virtual Desktop | Microsoft Learn
+title: Configure printer redirection over Direct Stream - Azure Virtual Desktop | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/virtual-desktop/redirection-configure-printers
 uhfHeaderId: azure
 breadcrumb_path: /azure/virtual-desktop/breadcrumb/toc.json
@@ -16,7 +16,7 @@ author: jordanmarchese
 manager: eliotgra
 ms.author: jordanm
 ms.service: azure-virtual-desktop
-description: Learn how to redirect printers from a local device to a remote session over the Remote Desktop Protocol. It applies to Azure Virtual Desktop, Windows 365, and Microsoft Dev Box.
+description: Learn how to redirect printers from a local device to a remote session over Direct Stream. It applies to Azure Virtual Desktop, Windows 365, and Microsoft Dev Box.
 ms.topic: how-to
 zone_pivot_groups: rdp-products-features
 ms.date: 2026-08-11T00:00:00.0000000Z
@@ -36,31 +36,35 @@ monikers: []
 item_type: Content
 source_path: virtual-desktop/redirection-configure-printers.md
 cmProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/e10a756b-c002-4cbb-8cf6-f0fab0633697
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/a72e95ff-4b4f-4cc1-90c6-7dcba67ff05f
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
+- https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
 spProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a741da3-90b9-472d-8fd6-830aafecaac8
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/24dc3ccd-591a-4415-a1fe-8759afafcb12
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
+- https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
 platformId: 1185aed1-3f4a-bace-9b74-b97f11e48ccd
 ---
 
-# Configure printer redirection over the Remote Desktop Protocol - Azure Virtual Desktop | Microsoft Learn
+# Configure printer redirection over Direct Stream - Azure Virtual Desktop | Microsoft Learn
+
+Important
+
+The streaming stack powering Windows 365 and Azure Virtual Desktop is now branded as Direct Stream. This article retains RDP terminology where it still appears in the Microsoft Intune admin center and Azure portal during the transition. For more information, see [Windows 365 at Ignite 2026: Introducing new Cloud PC capabilities for people, agents and IT](https://aka.ms/W365Ignite26Blog).
 
 Tip
 
-This article is shared for services and products that use the Remote Desktop Protocol (RDP) to provide remote access to Windows desktops and apps.
+This article is shared for services and products that use Direct Stream (DS) to provide remote access to Windows desktops and apps.
 
 Select a product using the buttons at the top of this article to show the relevant content.
 
-You can configure the redirection behavior of printers from a local device to a remote session over the Remote Desktop Protocol (RDP). Printer redirection supports locally attached and network printers. When you enable printer redirection, all printers available on the local device are redirected; you can't select specific printers to redirect. The default printer on the local device is automatically set as the default printer in the remote session.
+You can configure the redirection behavior of printers from a local device to a remote session over Direct Stream (DS). Printer redirection supports locally attached and network printers. When you enable printer redirection, all printers available on the local device are redirected; you can't select specific printers to redirect. The default printer on the local device is automatically set as the default printer in the remote session.
 
 ::: zone pivot="azure-virtual-desktop"
 
 Printer redirection uses high-level redirection and doesn't require drivers to be installed on session hosts. The **Remote Desktop Easy Print** driver is used automatically on session hosts. The driver for the printer must be installed on the local device for redirection to work correctly.
 
-For Azure Virtual Desktop, we recommend you enable printer redirection on your session hosts using Microsoft Intune or Group Policy, then control redirection using the host pool RDP properties.
+For Azure Virtual Desktop, we recommend you enable printer redirection on your session hosts using Microsoft Intune or Group Policy, then control redirection using the host pool DS properties.
 
 ::: zone-end
 
@@ -80,7 +84,7 @@ For Microsoft Dev Box, you can configure your dev boxes using Microsoft Intune o
 
 ::: zone-end
 
-This article provides information about the supported redirection methods and how to configure the redirection behavior for printers. To learn more about how redirection works, see [Redirection over the Remote Desktop Protocol](redirection-remote-desktop-protocol).
+This article provides information about the supported redirection methods and how to configure the redirection behavior for printers. To learn more about how redirection works, see [Redirection over Direct Stream](redirection-remote-desktop-protocol).
 
 Tip
 
@@ -124,17 +128,17 @@ Before you can configure printer redirection, you need:
 
 ::: zone pivot="azure-virtual-desktop"
 
-Configuration of a session host using Microsoft Intune or Group Policy, or setting an RDP property on a host pool governs the ability to redirect printers from a local device to a remote session, which is subject to a priority order.
+Configuration of a session host using Microsoft Intune or Group Policy, or setting a DS property on a host pool governs the ability to redirect printers from a local device to a remote session, which is subject to a priority order.
 
 The default configuration is:
 
 - **Windows operating system**: Printer redirection isn't blocked.
-- **Azure Virtual Desktop host pool RDP properties**: Printer redirection is disabled from the local device to a remote session for newly created host pools.
+- **Azure Virtual Desktop host pool DS properties**: Printer redirection is disabled from the local device to a remote session for newly created host pools.
 - **Resultant default behavior**: Printer redirection is disabled from the local device to a remote session for newly created host pools.
 
 Important
 
-Take care when configuring redirection settings as the most restrictive setting is the resultant behavior. For example, if you disable printer redirection on a session host with Microsoft Intune or Group Policy, but enable it with the host pool RDP property, redirection is disabled.
+Take care when configuring redirection settings as the most restrictive setting is the resultant behavior. For example, if you disable printer redirection on a session host with Microsoft Intune or Group Policy, but enable it with the host pool DS property, redirection is disabled.
 
 ::: zone-end
 
@@ -164,11 +168,11 @@ The default configuration is:
 
 ::: zone pivot="azure-virtual-desktop"
 
-### Configure printer redirection using host pool RDP properties
+### Configure printer redirection using host pool DS properties
 
-The Azure Virtual Desktop host pool setting *printer redirection* controls whether to redirect printers from a local device to a remote session. The corresponding RDP property is `redirectprinters:i:<value>`. For more information, see [Supported RDP properties](rdp-properties#device-redirection).
+The Azure Virtual Desktop host pool setting *printer redirection* controls whether to redirect printers from a local device to a remote session. The corresponding DS property is `redirectprinters:i:<value>`. For more information, see [Supported DS properties](rdp-properties#device-redirection).
 
-To configure printer redirection using host pool RDP properties:
+To configure printer redirection using host pool DS properties:
 
 1. Sign in to the [Azure portal](https://portal.azure.com/).
 2. In the search bar, type *Azure Virtual Desktop* and select the matching service entry.
@@ -238,7 +242,7 @@ To allow or disable printer redirection using Group Policy:
 
 ## RAW print support
 
-RAW print support helps improve compatibility for printers that use RAW text files instead of XPS for print jobs. Configure the host pool RDP property `SmartRawPrinters:s:<value>` to control which redirected printers can use raw printing.
+RAW print support helps improve compatibility for printers that use RAW text files instead of XPS for print jobs. Configure the host pool DS property `SmartRawPrinters:s:<value>` to control which redirected printers can use raw printing.
 
 Note
 
@@ -257,7 +261,7 @@ To determine the printer driver name prefix:
 4. Press and hold (or right-click) the printer, then select **Properties**.
 5. On the **General** tab, use the value shown in **Model** as the driver name prefix.
 
-For more information about this RDP property, see [Supported RDP properties](rdp-properties#smartrawprinters).
+For more information about this DS property, see [Supported DS properties](rdp-properties#smartrawprinters).
 
 ::: zone-end
 

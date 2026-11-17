@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: RDP Shortpath - Azure Virtual Desktop | Microsoft Learn
+title: DS Shortpath - Azure Virtual Desktop | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/virtual-desktop/rdp-shortpath
 uhfHeaderId: azure
 breadcrumb_path: /azure/virtual-desktop/breadcrumb/toc.json
@@ -15,7 +15,7 @@ author: ridalwan
 manager: eliotgra
 ms.author: ridalwan
 ms.service: azure-virtual-desktop
-description: Learn about RDP Shortpath, which establishes a UDP-based transport between a local device and session host in Azure Virtual Desktop.
+description: Learn about DS Shortpath, which establishes a UDP-based transport between a local device and session host in Azure Virtual Desktop.
 ms.topic: concept-article
 ms.custom: references_regions
 ms.date: 2026-10-23T00:00:00.0000000Z
@@ -35,54 +35,58 @@ monikers: []
 item_type: Content
 source_path: virtual-desktop/rdp-shortpath.md
 cmProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/e10a756b-c002-4cbb-8cf6-f0fab0633697
+- https://authoring-docs-microsoft.poolparty.biz/devrel/7814ca69-56be-4667-8a46-86327796c328
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1ae5c491-970a-4062-8301-6336e69f9026
 spProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a741da3-90b9-472d-8fd6-830aafecaac8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/f15dfcd0-2664-48ba-bb88-f1f86eadbfd1
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/f2c3e52e-3667-4e8a-bf11-20b9eaccdc8c
 platformId: 150567c4-5d4f-b9be-e7ca-b8866c3aa379
 ---
 
-# RDP Shortpath - Azure Virtual Desktop | Microsoft Learn
+# DS Shortpath - Azure Virtual Desktop | Microsoft Learn
 
-RDP Shortpath establishes a UDP-based transport between a local device Windows App or the Remote Desktop app on supported platforms and session host in Azure Virtual Desktop. By default, the Remote Desktop Protocol (RDP) begins a TCP-based reverse connect transport, then tries to establish a remote session using UDP. If the UDP connection succeeds the TCP connection drops, otherwise the TCP connection is used as a fallback connection mechanism.
+DS Shortpath establishes a UDP-based transport between a local device Windows App or the Remote Desktop app on supported platforms and session host in Azure Virtual Desktop. By default, Direct Stream (DS) begins a TCP-based reverse connect transport, then tries to establish a remote session using UDP. If the UDP connection succeeds the TCP connection drops, otherwise the TCP connection is used as a fallback connection mechanism.
 
-UDP-based transport offers better connection reliability and more consistent latency. TCP-based reverse connect transport provides the best compatibility with various networking configurations and has a high success rate for establishing RDP connections.
+UDP-based transport offers better connection reliability and more consistent latency. TCP-based reverse connect transport provides the best compatibility with various networking configurations and has a high success rate for establishing DS connections.
 
-RDP Shortpath can be used in two ways:
+DS Shortpath can be used in two ways:
 
 1. **Managed networks**, where direct connectivity is established between the client and the session host when using a private connection, such as [Azure ExpressRoute](/en-us/azure/expressroute/expressroute-introduction) or a site-to-site virtual private network (VPN). A connection using a managed network is established in one of the following ways:
 
-    1. A *direct* UDP connection between the client device and session host, where you need to enable the RDP Shortpath listener and allow an inbound port on each session host to accept connections.
+    1. A *direct* UDP connection between the client device and session host, where you need to enable the DS Shortpath listener and allow an inbound port on each session host to accept connections.
     2. A *direct* UDP connection between the client device and session host, using the Simple Traversal Underneath NAT (STUN) protocol between a client and session host. Inbound ports on the session host aren't required to be allowed.
 2. **Public networks**, where direct connectivity is established between the client and the session host when using a public connection. There are two connection types when using a public connection, which are listed here in order of preference:
 
     1. A *direct* UDP connection using the Simple Traversal Underneath NAT (STUN) protocol between a client and session host.
     2. An *relayed* UDP connection using the Traversal Using Relay NAT (TURN) protocol between a client and session host.
 
-The transport used for RDP Shortpath is based on the [Universal Rate Control Protocol (URCP)](https://www.microsoft.com/research/publication/urcp-universal-rate-control-protocol-for-real-time-communication-applications/). URCP enhances UDP with active monitoring of the network conditions and provides fair and full link utilization. URCP operates at low delay and loss levels as needed.
+The transport used for DS Shortpath is based on the [Universal Rate Control Protocol (URCP)](https://www.microsoft.com/research/publication/urcp-universal-rate-control-protocol-for-real-time-communication-applications/). URCP enhances UDP with active monitoring of the network conditions and provides fair and full link utilization. URCP operates at low delay and loss levels as needed.
 
 Important
 
-- **Azure cloud:** RDP Shortpath for public networks via STUN and TURN is generally available.
-- **Azure cloud for Government:** RDP Shortpath via STUN and TURN is is generally available.
+- **Azure cloud:** DS Shortpath for public networks via STUN and TURN is generally available.
+- **Azure cloud for Government:** DS Shortpath via STUN and TURN is is generally available.
 
 ## Key benefits
 
-Using RDP Shortpath has the following key benefits:
+Using DS Shortpath has the following key benefits:
 
 - Using URCP to enhance UDP achieves the best performance by dynamically learning network parameters and providing the protocol with a rate control mechanism.
 - Higher throughput.
 - When using STUN, the removal of extra relay points reduces round-trip time improves connection reliability and the user experience with latency-sensitive applications and input methods.
 - In addition, for managed networks:
 
-    - RDP Shortpath brings support for configuring Quality of Service (QoS) priority for RDP connections through Differentiated Services Code Point (DSCP) marks.
-    - The RDP Shortpath transport allows limiting outbound network traffic by specifying a throttle rate for each session.
+    - DS Shortpath brings support for configuring Quality of Service (QoS) priority for DS connections through Differentiated Services Code Point (DSCP) marks.
+    - The DS Shortpath transport allows limiting outbound network traffic by specifying a throttle rate for each session.
 
-## How RDP Shortpath works
+## How DS Shortpath works
 
-To learn how RDP Shortpath works for managed networks and public networks, select each of the following tabs.
+To learn how DS Shortpath works for managed networks and public networks, select each of the following tabs.
 
 # [Managed networks](#tab/managed-networks)
-You can achieve the direct line of sight connectivity required to use RDP Shortpath with managed networks using the following methods.
+You can achieve the direct line of sight connectivity required to use DS Shortpath with managed networks using the following methods.
 
 - [ExpressRoute private peering](/en-us/azure/expressroute/expressroute-circuit-peerings)
 - Site-to-site or Point-to-site VPN (IPsec), such as [Azure VPN Gateway](/en-us/azure/vpn-gateway/vpn-gateway-about-vpngateways)
@@ -91,25 +95,25 @@ Having direct line of sight connectivity means that the client can connect direc
 
 Note
 
-If you're using other VPN types to connect to Azure, we recommend using a UDP-based VPN. While most TCP-based VPN solutions support nested UDP, they add inherited overhead of TCP congestion control, which slows down RDP performance.
+If you're using other VPN types to connect to Azure, we recommend using a UDP-based VPN. While most TCP-based VPN solutions support nested UDP, they add inherited overhead of TCP congestion control, which slows down DS performance.
 
-To use RDP Shortpath for managed networks, you must enable a UDP listener on your session hosts. By default, port **3390** is used, although you can use a different port.
+To use DS Shortpath for managed networks, you must enable a UDP listener on your session hosts. By default, port **3390** is used, although you can use a different port.
 
-The following diagram gives a high-level overview of the network connections when using RDP Shortpath for managed networks and session hosts joined to an Active Directory domain.
+The following diagram gives a high-level overview of the network connections when using DS Shortpath for managed networks and session hosts joined to an Active Directory domain.
 
 [![Diagram of network connections when using RDP Shortpath for managed networks.](media/rdp-shortpath-managed-networks.png)](media/rdp-shortpath-managed-networks.png#lightbox)
 
 ### Connection sequence
 
-All connections begin by establishing a TCP-based [reverse connect transport](network-connectivity) over the Azure Virtual Desktop Gateway. Then, the client and session host establish the initial RDP transport, and start exchanging their capabilities. These capabilities are negotiated using the following process:
+All connections begin by establishing a TCP-based [reverse connect transport](network-connectivity) over the Azure Virtual Desktop Gateway. Then, the client and session host establish the initial DS transport, and start exchanging their capabilities. These capabilities are negotiated using the following process:
 
 1. The session host sends the list of its IPv4 and IPv6 addresses to the client.
 2. The client starts the background thread to establish a parallel UDP-based transport directly to one of the session host's IP addresses.
 3. While the client is probing the provided IP addresses, it continues to establish the initial connection over the reverse connect transport to ensure there's no delay in the user connection.
 4. If the client has a direct connection to the session host, the client establishes a secure connection using TLS over reliable UDP.
-5. After establishing the RDP Shortpath transport, all Dynamic Virtual Channels (DVCs), including remote graphics, input, and device redirection, are moved to the new transport. However, if a firewall or network topology prevents the client from establishing direct UDP connectivity, RDP continues with a reverse connect transport.
+5. After establishing the DS Shortpath transport, all Dynamic Virtual Channels (DVCs), including remote graphics, input, and device redirection, are moved to the new transport. However, if a firewall or network topology prevents the client from establishing direct UDP connectivity, DS continues with a reverse connect transport.
 
-If your users have both RDP Shortpath for managed network and public networks available to them, then the first-found algorithm will be used. The user will use whichever connection gets established first for that session.
+If your users have both DS Shortpath for managed network and public networks available to them, then the first-found algorithm will be used. The user will use whichever connection gets established first for that session.
 
 # [Public networks](#tab/public-networks)
 To provide the best chance of a UDP connection being successful when using a public connection, there are the *direct* and *relayed* connection types:
@@ -123,13 +127,13 @@ To provide the best chance of a UDP connection being successful when using a pub
 
 When a connection is being established, Interactive Connectivity Establishment (ICE) coordinates the management of STUN and TURN to optimize the likelihood of a connection being established, and ensure that precedence is given to preferred network communication protocols.
 
-Each RDP session uses a dynamically assigned UDP port from an ephemeral port range (**49152** to **65535** by default) that accepts the RDP Shortpath traffic. Port 65330 is ignored from this range as it is reserved for use internally by Azure. You can also use a smaller, predictable port range. For more information, see [Limit the port range used by clients for public networks](configure-rdp-shortpath-limit-ports-public-networks).
+Each DS session uses a dynamically assigned UDP port from an ephemeral port range (**49152** to **65535** by default) that accepts the DS Shortpath traffic. Port 65330 is ignored from this range as it is reserved for use internally by Azure. You can also use a smaller, predictable port range. For more information, see [Limit the port range used by clients for public networks](configure-rdp-shortpath-limit-ports-public-networks).
 
 Tip
 
-RDP Shortpath for public networks will work automatically without any additional configuration, providing networks and firewalls allow the traffic through and RDP transport settings in the Windows operating system for session hosts and clients are using their default values.
+DS Shortpath for public networks will work automatically without any additional configuration, providing networks and firewalls allow the traffic through and DS transport settings in the Windows operating system for session hosts and clients are using their default values.
 
-The following diagram gives a high-level overview of the network connections when using RDP Shortpath for public networks where session hosts joined to Microsoft Entra ID.
+The following diagram gives a high-level overview of the network connections when using DS Shortpath for public networks where session hosts joined to Microsoft Entra ID.
 
 [![Diagram of network connections when using RDP Shortpath for public networks.](media/rdp-shortpath/rdp-shortpath-public-networks.svg)](media/rdp-shortpath/rdp-shortpath-public-networks.svg#lightbox)
 
@@ -193,7 +197,7 @@ Most networks typically include firewalls that inspect traffic and block it base
 
 ### Connection sequence
 
-All connections begin by establishing a TCP-based [reverse connect transport](network-connectivity) over the Azure Virtual Desktop Gateway. Then, the client and session host establish the initial RDP transport, and start exchanging their capabilities. If RDP Shortpath for public networks is enabled on the session host, the session host then initiates a process called *candidate gathering*:
+All connections begin by establishing a TCP-based [reverse connect transport](network-connectivity) over the Azure Virtual Desktop Gateway. Then, the client and session host establish the initial DS transport, and start exchanging their capabilities. If DS Shortpath for public networks is enabled on the session host, the session host then initiates a process called *candidate gathering*:
 
 1. The session host enumerates all network interfaces assigned to a session host, including virtual interfaces like VPN and Teredo.
 2. The Windows service *Remote Desktop Services* (TermService) allocates UDP sockets on each interface and stores the *IP:Port* pair in the candidate table as a *local candidate*.
@@ -202,28 +206,28 @@ All connections begin by establishing a TCP-based [reverse connect transport](ne
 5. After the session host gathers all the candidates, the session host uses the established reverse connect transport to pass the candidate list to the client.
 6. When the client receives the list of candidates from the session host, the client also performs candidate gathering on its side. Then the client sends its candidate list to the session host.
 7. After the session host and client exchange their candidate lists, both parties attempt to connect with each other using all the gathered candidates. This connection attempt is simultaneous on both sides. Many NAT gateways are configured to allow the incoming traffic to the socket as soon as the outbound data transfer initializes it. This behavior of NAT gateways is the reason the simultaneous connection is essential. If STUN fails because it's blocked, a relayed connection attempt is made using TURN.
-8. After the initial packet exchange, the client and session host may establish one or many data flows. From these data flows, RDP chooses the fastest network path. The client then establishes a secure connection using TLS over reliable UDP with the session host and initiates RDP Shortpath transport.
-9. After RDP establishes the RDP Shortpath transport, all Dynamic Virtual Channels (DVCs), including remote graphics, input, and device redirection move to the new transport.
+8. After the initial packet exchange, the client and session host may establish one or many data flows. From these data flows, DS chooses the fastest network path. The client then establishes a secure connection using TLS over reliable UDP with the session host and initiates DS Shortpath transport.
+9. After DS establishes the DS Shortpath transport, all Dynamic Virtual Channels (DVCs), including remote graphics, input, and device redirection move to the new transport.
 
-If your users have both RDP Shortpath for managed network and public networks available to them, then the first-found algorithm will be used, meaning that the user will use whichever connection gets established first for that session. For more information, see example scenario 4.
+If your users have both DS Shortpath for managed network and public networks available to them, then the first-found algorithm will be used, meaning that the user will use whichever connection gets established first for that session. For more information, see example scenario 4.
 
 ### Network configuration
 
-To support RDP Shortpath for public networks, you typically don't need any particular configuration. The session host and client will automatically discover the direct data flow if it's possible in your network configuration. However, every environment is unique, and some network configurations may negatively affect the rate of success of the direct connection. Follow the recommendations to increase the probability of a direct data flow.
+To support DS Shortpath for public networks, you typically don't need any particular configuration. The session host and client will automatically discover the direct data flow if it's possible in your network configuration. However, every environment is unique, and some network configurations may negatively affect the rate of success of the direct connection. Follow the recommendations to increase the probability of a direct data flow.
 
-As RDP Shortpath uses UDP to establish a data flow, if a firewall on your network blocks UDP traffic, RDP Shortpath will fail and the connection will fall back to TCP-based reverse connect transport. Azure Virtual Desktop uses STUN servers provided by Azure Communication Services and Microsoft Teams. By the nature of the feature, outbound connectivity from the session hosts to the client is required. Unfortunately, you can't predict where your users are located in most cases. Therefore, we recommend allowing outbound UDP connectivity from your session hosts to the internet. To reduce the number of ports required, you can [limit the port range used by clients](configure-rdp-shortpath-limit-ports-public-networks) for the UDP flow. Use the following tables for reference when configuring firewalls for RDP Shortpath.
+As DS Shortpath uses UDP to establish a data flow, if a firewall on your network blocks UDP traffic, DS Shortpath will fail and the connection will fall back to TCP-based reverse connect transport. Azure Virtual Desktop uses STUN servers provided by Azure Communication Services and Microsoft Teams. By the nature of the feature, outbound connectivity from the session hosts to the client is required. Unfortunately, you can't predict where your users are located in most cases. Therefore, we recommend allowing outbound UDP connectivity from your session hosts to the internet. To reduce the number of ports required, you can [limit the port range used by clients](configure-rdp-shortpath-limit-ports-public-networks) for the UDP flow. Use the following tables for reference when configuring firewalls for DS Shortpath.
 
 If your environment uses Symmetric NAT, which is the mapping of a single private source *IP:Port* to a unique public destination *IP:Port*, then you can use a relayed connection with TURN. This will be the case if you use Azure Firewall and Azure NAT Gateway. For more information about NAT with Azure virtual networks, see [Source Network Address Translation with virtual networks](/en-us/azure/virtual-network/nat-gateway/nat-gateway-resource#source-network-address-translation).
 
-We have some general recommendations for successful connections using RDP Shortpath for public networks. For more information, see General recommendations.
+We have some general recommendations for successful connections using DS Shortpath for public networks. For more information, see General recommendations.
 
-Where users have RDP Shortpath for both managed network and public networks is available to them, then the first algorithm found will be used. The user will use whichever connection gets established first for that session. For more information, see Example scenarios.
+Where users have DS Shortpath for both managed network and public networks is available to them, then the first algorithm found will be used. The user will use whichever connection gets established first for that session. For more information, see Example scenarios.
 
-The following sections contain the source, destination and protocol requirements for your session hosts and client devices that must be allowed for RDP Shortpath to work.
+The following sections contain the source, destination and protocol requirements for your session hosts and client devices that must be allowed for DS Shortpath to work.
 
 Note
 
-Microsoft has completed the transition from the previously shared **20.202.0.0/16** subnet to the new **51.5.0.0/16** TURN relay IP range across **39 Azure regions**. This new range is dedicated exclusively to **Azure Virtual Desktop** and **Windows 365**, separating it from the Azure Communication Services infrastructure. The upgrade is designed to enhance **RDP Shortpath for Public Networks (via TURN/Relay)**, delivering faster, more reliable connectivity and an improved user experience.
+Microsoft has completed the transition from the previously shared **20.202.0.0/16** subnet to the new **51.5.0.0/16** TURN relay IP range across **39 Azure regions**. This new range is dedicated exclusively to **Azure Virtual Desktop** and **Windows 365**, separating it from the Azure Communication Services infrastructure. The upgrade is designed to enhance **DS Shortpath for Public Networks (via TURN/Relay)**, delivering faster, more reliable connectivity and an improved user experience.
 
 Note
 
@@ -233,7 +237,7 @@ TURN‑based connections are **susceptible to connection drops during TURN relay
 
 #### Session host virtual network
 
-The following table details the source, destination and protocol requirements for RDP Shortpath for your session host virtual network.
+The following table details the source, destination and protocol requirements for DS Shortpath for your session host virtual network.
 
 | Name | Source | Source Port | Destination | Destination Port | Protocol | Action |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -253,11 +257,11 @@ The following table details the source, destination and protocol requirements fo
 
 Important
 
-The dedicated TURN relay IP range for Azure Government is `20.140.236.0/22`. RDP Shortpath via TURN is generally available.
+The dedicated TURN relay IP range for Azure Government is `20.140.236.0/22`. DS Shortpath via TURN is generally available.
 
 #### Session host virtual network
 
-The following table details the source, destination and protocol requirements for RDP Shortpath for your session host virtual network.
+The following table details the source, destination and protocol requirements for DS Shortpath for your session host virtual network.
 
 | Name | Source | Source port | Destination | Destination port | Protocol | Action |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -275,15 +279,15 @@ The following table details the source, destination and protocol requirements fo
 
 ### Teredo support
 
-While not required for RDP Shortpath, Teredo adds extra NAT traversal candidates and increases the chance of the successful RDP Shortpath connection in IPv4-only networks. To learn how to enable Teredo on session hosts and clients, see [Enable Teredo support](configure-rdp-shortpath#optional-enable-teredo-support).
+While not required for DS Shortpath, Teredo adds extra NAT traversal candidates and increases the chance of the successful DS Shortpath connection in IPv4-only networks. To learn how to enable Teredo on session hosts and clients, see [Enable Teredo support](configure-rdp-shortpath#optional-enable-teredo-support).
 
 ### UPnP support
 
-To improve the chances of a direct connection, on the side of the Remote Desktop client, RDP Shortpath may use [UPnP](/en-us/windows/win32/upnp/universal-plug-and-play-start-page) to configure a port mapping on the NAT router. UPnP is a standard technology used by various applications, such as Xbox, Delivery Optimization, and Teredo. UPnP is generally available on routers typically found on a home network. UPnP is enabled by default on most home routers and access points, but is often disabled on corporate networking.
+To improve the chances of a direct connection, on the side of the Remote Desktop client, DS Shortpath may use [UPnP](/en-us/windows/win32/upnp/universal-plug-and-play-start-page) to configure a port mapping on the NAT router. UPnP is a standard technology used by various applications, such as XBOX, Delivery Optimization, and Teredo. UPnP is generally available on routers typically found on a home network. UPnP is enabled by default on most home routers and access points, but is often disabled on corporate networking.
 
 ### General recommendations
 
-Here are some general recommendations when using RDP Shortpath for public networks:
+Here are some general recommendations when using DS Shortpath for public networks:
 
 - Avoid using force tunneling configurations if your users access Azure Virtual Desktop over the Internet.
 - Make sure you aren't using double NAT or Carrier-Grade-NAT (CGN) configurations.
@@ -296,17 +300,17 @@ Here are some general recommendations when using RDP Shortpath for public networ
 
 ## Connection security
 
-RDP Shortpath extends RDP multi-transport capabilities. It doesn't replace the reverse connect transport but complements it. Initial session brokering is managed through the Azure Virtual Desktop service and the reverse connect transport. All connection attempts are ignored unless they match the reverse connect session first. RDP Shortpath is established after authentication, and if successfully established, the reverse connect transport is dropped and all traffic flows over the RDP Shortpath.
+DS Shortpath extends DS multi-transport capabilities. It doesn't replace the reverse connect transport but complements it. Initial session brokering is managed through the Azure Virtual Desktop service and the reverse connect transport. All connection attempts are ignored unless they match the reverse connect session first. DS Shortpath is established after authentication, and if successfully established, the reverse connect transport is dropped and all traffic flows over the DS Shortpath.
 
-RDP Shortpath uses a secure connection using TLS over reliable UDP between the client and the session host using the session host's certificates. By default, the certificate used for RDP encryption is self-generated by the operating system during the deployment. Azure Virtual Desktop doesn’t support the use of a certificate issued from a certificate authority at this time.
+DS Shortpath uses a secure connection using TLS over reliable UDP between the client and the session host using the session host's certificates. By default, the certificate used for DS encryption is self-generated by the operating system during the deployment. Azure Virtual Desktop doesn’t support the use of a certificate issued from a certificate authority at this time.
 
 Note
 
-The security offered by RDP Shortpath is the same as that offered by TCP reverse connect transport. [Learn more about the connection security.](network-connectivity#connection-security)
+The security offered by DS Shortpath is the same as that offered by TCP reverse connect transport. [Learn more about the connection security.](network-connectivity#connection-security)
 
 ## Example scenarios
 
-Here are some example scenarios to show how connections are evaluated to decide whether RDP Shortpath is used across different network topologies.
+Here are some example scenarios to show how connections are evaluated to decide whether DS Shortpath is used across different network topologies.
 
 ### Scenario 1
 
@@ -322,23 +326,23 @@ A firewall or NAT device is blocking a direct UDP connection, but a relayed UDP 
 
 ### Scenario 3
 
-A UDP connection can be established between the client device and the session host over a public network or over a direct VPN connection, but RDP Shortpath for managed networks isn't enabled. When the client initiates the connection, the ICE/STUN protocol can see multiple routes and will evaluate each route and choose the one with the lowest latency.
+A UDP connection can be established between the client device and the session host over a public network or over a direct VPN connection, but DS Shortpath for managed networks isn't enabled. When the client initiates the connection, the ICE/STUN protocol can see multiple routes and will evaluate each route and choose the one with the lowest latency.
 
-In this example, a UDP connection using RDP Shortpath for public networks over the direct VPN connection will be made as it has the lowest latency, as shown by the green line.
+In this example, a UDP connection using DS Shortpath for public networks over the direct VPN connection will be made as it has the lowest latency, as shown by the green line.
 
 ![Diagram that shows a UDP connection using RDP Shortpath for public networks over the direct VPN connection will be made as it has the lowest latency.](media/rdp-shortpath/rdp-shortpath-scenario-3.png)
 
 ### Scenario 4
 
-Both RDP Shortpath for public networks and managed networks are enabled. A UDP connection can be established between the client device and the session host over a public network or over a direct VPN connection. When the client initiates the connection, there are simultaneous attempts to connect using RDP Shortpath for managed networks through port 3390 (by default) and RDP Shortpath for public networks through the ICE/STUN protocol. The first-found algorithm will be used and the user will use whichever connection gets established first for that session.
+Both DS Shortpath for public networks and managed networks are enabled. A UDP connection can be established between the client device and the session host over a public network or over a direct VPN connection. When the client initiates the connection, there are simultaneous attempts to connect using DS Shortpath for managed networks through port 3390 (by default) and DS Shortpath for public networks through the ICE/STUN protocol. The first-found algorithm will be used and the user will use whichever connection gets established first for that session.
 
-Since going over a public network has more steps, for example a NAT device, a load balancer, or a STUN server, it's likely that the first-found algorithm will select the connection using RDP Shortpath for managed networks and be established first.
+Since going over a public network has more steps, for example a NAT device, a load balancer, or a STUN server, it's likely that the first-found algorithm will select the connection using DS Shortpath for managed networks and be established first.
 
 ![Diagram that shows the first-found algorithm will select the connection using RDP Shortpath for managed networks and be established first.](media/rdp-shortpath/rdp-shortpath-scenario-4.png)
 
 ### Scenario 5
 
-A UDP connection can be established between the client device and the session host over a public network or over a direct VPN connection, but RDP Shortpath for managed networks isn't enabled. To prevent ICE/STUN from using a particular route, an admin can block one of the routes for UDP traffic. Blocking a route would ensure the remaining path is always used.
+A UDP connection can be established between the client device and the session host over a public network or over a direct VPN connection, but DS Shortpath for managed networks isn't enabled. To prevent ICE/STUN from using a particular route, an admin can block one of the routes for UDP traffic. Blocking a route would ensure the remaining path is always used.
 
 In this example, UDP is blocked on the direct VPN connection and the ICE/STUN protocol establishes a connection over the public network.
 
@@ -346,12 +350,12 @@ In this example, UDP is blocked on the direct VPN connection and the ICE/STUN pr
 
 ### Scenario 6
 
-Both RDP Shortpath for public networks and managed networks are configured, however a UDP connection couldn't be established using direct VPN connection. A firewall or NAT device is also blocking a direct UDP connection using the public network (internet), but a relayed UDP connection can be relayed using TURN between the client device and the session host over a public network (internet).
+Both DS Shortpath for public networks and managed networks are configured, however a UDP connection couldn't be established using direct VPN connection. A firewall or NAT device is also blocking a direct UDP connection using the public network (internet), but a relayed UDP connection can be relayed using TURN between the client device and the session host over a public network (internet).
 
 ![Diagram that shows UDP is blocked on the direct VPN connection and a direct connection using a public network also fails. TURN relays the connection over the public network.](media/rdp-shortpath/rdp-shortpath-scenario-6.png)
 
 ### Scenario 7
 
-Both RDP Shortpath for public networks and managed networks are configured, however a UDP connection couldn't be established. In this instance, RDP Shortpath will fail and the connection will fall back to TCP-based reverse connect transport.
+Both DS Shortpath for public networks and managed networks are configured, however a UDP connection couldn't be established. In this instance, DS Shortpath will fail and the connection will fall back to TCP-based reverse connect transport.
 
 ![Diagram that shows a UDP connection couldn't be established. In this instance, RDP Shortpath will fail and the connection will fall back to TCP-based reverse connect transport.](media/rdp-shortpath/rdp-shortpath-scenario-7.png)

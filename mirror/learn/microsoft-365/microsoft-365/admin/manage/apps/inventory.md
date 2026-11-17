@@ -5,7 +5,7 @@ monikers:
 - o365-worldwide
 defaultMoniker: o365-worldwide
 versioningType: Ranged
-title: View and oversee apps in Microsoft Copilot Managed Runtime across your tenant (preview) - Microsoft 365 admin | Microsoft Learn
+title: View and oversee apps in Microsoft Copilot Managed Runtime across your tenant - Microsoft 365 admin | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/microsoft-365/admin/manage/apps/inventory?view=o365-worldwide
 config_moniker_range: =o365-worldwide || =o365-21vianet
 feedback_system: Standard
@@ -14,7 +14,7 @@ breadcrumb_path: /microsoft-365/breadcrumb/toc.json
 recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
 description: Learn how the All apps page in the Microsoft 365 admin center gives admins a centralized view to discover, monitor, and govern apps in Copilot Managed Runtime.
-ms.date: 2026-09-25T00:00:00.0000000Z
+ms.date: 2026-11-17T00:00:00.0000000Z
 author: mikferland-msft
 ms.author: miferlan
 manager: zoraz
@@ -45,24 +45,15 @@ source_path: microsoft-365/admin/manage/apps/inventory.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: c78390cd-0c27-4b41-6790-cb4953b17c88
 ---
 
-# View and oversee apps in Microsoft Copilot Managed Runtime across your tenant (preview) - Microsoft 365 admin | Microsoft Learn
-
-[This article is prerelease documentation and is subject to change.]
+# View and oversee apps in Microsoft Copilot Managed Runtime across your tenant - Microsoft 365 admin | Microsoft Learn
 
 Copilot Managed Runtime lets people across your organization build and ship solutions quickly, but that growth can leave administrators without a clear view of what exists, who owns it, and whether it's healthy. The **All apps** page in the Microsoft 365 admin center closes that gap, giving tenant administrators a single, centralized view of every app built with Copilot Managed Runtime across the organization. Instead of chasing down app owners or piecing together information from multiple tools, admins get the full picture in one table and can act on it immediately.
-
-Important
-
-- This is a preview feature.
-- These features are subject to [supplemental terms of use](https://go.microsoft.com/fwlink/?LinkId=2373139), and are available before an official release so that customers can get early access and provide feedback.
 
 By using the **All apps** page, you can:
 
@@ -89,18 +80,9 @@ When your tenant opts in to Copilot Managed Runtime, an **Integrated apps** tab 
 
 ## Required roles
 
-Entra role assignments control access to the **All apps** page in the Microsoft 365 admin center. Access is per tab: the **Copilot Managed Runtime** and **Integrated apps** tabs each use their own roles, and a tab appears only if your role grants access to it.
+Microsoft Entra roles control access to the **All apps** page in the Microsoft 365 admin center, and each tab appears only if your role grants access to it. On the **Copilot Managed Runtime** tab, read-only roles can view apps, and Manage roles can also block, unblock, and delete them. For which roles have each kind of access, see [Roles and responsibilities](roles-responsibilities).
 
-| Role | Copilot Managed Runtime | Integrated apps tab |
-| --- | --- | --- |
-| [Global Administrator](/en-us/entra/identity/role-based-access-control/permissions-reference#global-administrator) | Full: view, delete, block | Full: all integrated app types |
-| [Power Platform Administrator](/en-us/entra/identity/role-based-access-control/permissions-reference#power-platform-administrator) | Full: view, delete, block | Not shown |
-| [AI Administrator](/en-us/entra/identity/role-based-access-control/permissions-reference#ai-administrator) | Read-only | Copilot agents only |
-| [AI Reader](/en-us/entra/identity/role-based-access-control/permissions-reference#ai-reader) | Read-only | Not shown |
-| [Global Reader](/en-us/entra/identity/role-based-access-control/permissions-reference#global-reader) | Read-only | Read-only: all types |
-| [Exchange Administrator](/en-us/entra/identity/role-based-access-control/permissions-reference#exchange-administrator) | Not shown | Outlook and Office add-ins they deployed |
-
-Read-only roles can view apps but can't take actions like delete or block. The **Integrated apps** tab respects the same roles integrated apps use today, so a role that can't manage integrated apps today still can't here.
+The **Integrated apps** tab uses the same roles as integrated apps do today, so a role that can't manage integrated apps today still can't here. For details, see [Manage integrated apps in the Microsoft 365 admin center](/en-us/microsoft-365/admin/manage/manage-addins-in-the-admin-center).
 
 ## App inventory
 

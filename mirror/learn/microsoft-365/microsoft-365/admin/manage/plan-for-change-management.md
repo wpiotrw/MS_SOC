@@ -112,7 +112,7 @@ For more information, see [What's new in Message center](message-center-updates)
 
 ## Microsoft Release Communications MCP Server
 
-AI-enabled organizations use intelligent tooling to accelerate their internal processes. By integrating the Microsoft Release Communications (MRC) MCP Server with your AI tools, you can connect to the latest release information for updates on the [AI at Work Roadmap](https://www.microsoft.com/microsoft-365/roadmap), formerly known as the Microsoft 365 Roadmap, and Azure Roadmap to create the infrastructure for AI-assisted reasoning over upcoming changes, priorities, and business impact.
+AI-enabled organizations use intelligent tooling to accelerate their internal processes. By integrating the Microsoft Release Communications (MRC) MCP Server with your AI tools, you can connect to the latest release information for updates on the [Microsoft Copilot Roadmap](https://www.microsoft.com/microsoft-365/roadmap), formerly known as the Microsoft 365 Roadmap and AI at Work Roadmap, and Azure Roadmap to create the infrastructure for AI-assisted reasoning over upcoming changes, priorities, and business impact.
 
 For information on how to start using MRC MCP server, see [Get started with Release Communications MCP Server](mrc-mcp).
 
@@ -134,7 +134,7 @@ This is the first step in our modernization change management journey. Not all M
 
 | Modern change management | Traditional change management |
 | --- | --- |
-| - [Configure modern release options](configure-release-options) - [Modern release options FAQ](release-options-faq) - [Release Communications MCP server](mrc-mcp) - [What's new in Message Center](message-center-updates) - [Get started with Frontier](get-started-frontier) - [AI at Work Roadmap](roadmap) | - [Set up the Standard or Targeted release options](release-options-in-office-365) - [Plan for the retirement of Targeted release](targeted-release-retirement) - [Microsoft 365 change guide - Microsoft 365 Apps](/en-us/microsoft-365-apps/best-practices/microsoft-365-change-guide) - [Stay on top of changes](stay-on-top-of-updates) |
+| - [Configure modern release options](configure-release-options) - [Modern release options FAQ](release-options-faq) - [Release Communications MCP server](mrc-mcp) - [What's new in Message Center](message-center-updates) - [Get started with Frontier](get-started-frontier) - [Microsoft Copilot Roadmap](roadmap) | - [Set up the Standard or Targeted release options](release-options-in-office-365) - [Plan for the retirement of Targeted release](targeted-release-retirement) - [Microsoft 365 change guide - Microsoft 365 Apps](/en-us/microsoft-365-apps/best-practices/microsoft-365-change-guide) - [Stay on top of changes](stay-on-top-of-updates) |
 
 ## Communication channels for Microsoft 365 updates
 
@@ -142,5 +142,5 @@ The following table shows various communication channels we have that you can us
 
 | Communication channel | Description | Documentation |
 | --- | --- | --- |
-| Microsoft AI at Work Roadmap | - Understand what features are coming, when they're expected to release, and which environments they apply to.- Provides early planning signals that complement Message center announcements and supports proactive change management across Microsoft 365. | [AI at Work Roadmap](https://www.microsoft.com/microsoft-365/roadmap) |
+| Microsoft Copilot Roadmap | - Understand what features are coming, when they're expected to release, and which environments they apply to.- Provides early planning signals that complement Message center announcements and supports proactive change management across Microsoft 365. | [Microsoft Copilot Roadmap](https://www.microsoft.com/microsoft-365/roadmap) |
 | Message center | - Learn about official service announcements and feature changes.- Read these messages in the Microsoft 365 admin center, the admin mobile app, or receive a weekly digest in email.- Share these messages with others in your organization when you see a message someone else should act on. | [Message center in the Microsoft 365 admin center](message-center) |

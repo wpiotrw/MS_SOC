@@ -93,7 +93,7 @@ For customers in GCC, GCC High, and DoD environments, Standard release (general 
 
 Any new release is first tested and validated by the feature team, then by the entire Microsoft 365 feature team, followed by all of Microsoft. At each release ring, Microsoft collects feedback and further validates quality by monitoring key usage metrics. This series of progressive validation is in place to make sure the worldwide-release is as robust as possible.
 
-For significant updates, customers are initially notified by the [Microsoft 365 Roadmap](https://www.microsoft.com/microsoft-365/roadmap). As an update gets closer to rolling out, it's communicated through your [Microsoft 365 Message center](https://go.microsoft.com/fwlink/p/?linkid=2070717).
+For significant updates, customers are initially notified by the [Microsoft Copilot Roadmap](https://www.microsoft.com/microsoft-365/roadmap), formerly known as the Microsoft 365 Roadmap and AI at Work Roadmap. As an update gets closer to rolling out, it's communicated through your [Microsoft 365 Message center](https://go.microsoft.com/fwlink/p/?linkid=2070717).
 
 ## Standard release
 

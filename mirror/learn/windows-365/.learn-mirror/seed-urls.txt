@@ -18,12 +18,15 @@ https://learn.microsoft.com/en-us/windows-365/enterprise/device-images
 https://learn.microsoft.com/en-us/windows-365/enterprise/display-protection
 https://learn.microsoft.com/en-us/windows-365/enterprise/end-grace-period
 https://learn.microsoft.com/en-us/windows-365/enterprise/enhanced-resiliency-mhn
+https://learn.microsoft.com/en-us/windows-365/enterprise/fast-reconnect
 https://learn.microsoft.com/en-us/windows-365/enterprise/gpu-cloud-pc
 https://learn.microsoft.com/en-us/windows-365/enterprise/identity-authentication
 https://learn.microsoft.com/en-us/windows-365/enterprise/input-protection
 https://learn.microsoft.com/en-us/windows-365/enterprise/introduction-windows-365-flex
 https://learn.microsoft.com/en-us/windows-365/enterprise/introduction-windows-365-reserve
 https://learn.microsoft.com/en-us/windows-365/enterprise/known-issues-enterprise
+https://learn.microsoft.com/en-us/windows-365/enterprise/license-utilization
+https://learn.microsoft.com/en-us/windows-365/enterprise/move-cloud-pc
 https://learn.microsoft.com/en-us/windows-365/enterprise/provide-cloud-pc-external-identities
 https://learn.microsoft.com/en-us/windows-365/enterprise/purview-customer-key
 https://learn.microsoft.com/en-us/windows-365/enterprise/rdp-multipath

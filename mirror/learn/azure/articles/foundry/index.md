@@ -131,7 +131,6 @@ Quickstart
 - [Trace your agents](observability/how-to/trace-agent-setup)
 - [Evaluate agentic workflows](observability/how-to/evaluate-agent)
 - [Monitor your generative AI applications](observability/how-to/how-to-monitor-agents-dashboard)
-- [AI Red Teaming Agent (preview)](concepts/ai-red-teaming-agent)
 
 ![](../reusable-content/ce-skilling/azure/media/ai-services/ai-foundry-control-plane-protect-govern.svg)
 ### Foundry Control Plane
@@ -141,6 +140,12 @@ Quickstart
 - [Enforce token limits for models](control-plane/how-to-enforce-limits-models)
 - [Trustworthy AI](responsible-use-of-ai-overview)
 - [What is Content Safety?](../ai-services/content-safety/overview)
+
+![](../reusable-content/ce-skilling/azure/media/ai-services/ai-foundry-control-plane-protect-govern.svg)
+### Foundry Safety
+
+- [Agent Controls (preview)](agent-controls/overview)
+- [AI Red Teaming Agent (preview)](concepts/ai-red-teaming-agent)
 
 ![](../reusable-content/ce-skilling/azure/media/ai-services/azure-machine-learning.png)
 ### Azure Machine Learning

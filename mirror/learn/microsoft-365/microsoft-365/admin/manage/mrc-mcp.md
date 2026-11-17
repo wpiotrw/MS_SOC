@@ -30,7 +30,7 @@ ms.collection:
 - change-management
 search.appverid:
 - MET150
-description: Configure the Microsoft Release Communications MCP Server to search, filter, and retrieve feature release information from Microsoft 365 Roadmap and Azure Updates using natural language.
+description: Configure the Microsoft Release Communications MCP Server to search, filter, and retrieve feature release information from Microsoft Copilot Roadmap and Azure Updates using natural language.
 locale: en-us
 document_id: 7529c927-a6db-fcfe-f752-d36792bcb85c
 document_version_independent_id: 7529c927-a6db-fcfe-f752-d36792bcb85c
@@ -52,12 +52,12 @@ item_type: Content
 source_path: microsoft-365/admin/manage/mrc-mcp.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/911a44a7-2f6c-477c-810f-dc8b7d425cce
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/a3955c7b-f5ee-420d-aff5-d7119738f38b
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/14f2b9d5-6f06-45a8-ac5f-313eaa351153
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 - https://authoring-docs-microsoft.poolparty.biz/devrel/b31948f4-2f38-404b-ac93-c3c8c5b3ae33
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 5762b8a2-1c39-f68e-1e64-ae33fe67f5a9
 ---
 
@@ -65,7 +65,7 @@ platformId: 5762b8a2-1c39-f68e-1e64-ae33fe67f5a9
 
 This article introduces the Microsoft Release Communications (MRC) Model Context Protocol (MCP) Server, explains how it works, and outlines how to start using it in your environment.
 
-The MRC MCP Server provides a unified, programmatic way for MCP-compatible AI clients to access trusted and up-to-date information that powers **[Microsoft AI at Work Roadmap](https://www.microsoft.com/microsoft-365/roadmap)**, formerly known as the Microsoft 365 Roadmap, and **[Azure Updates](https://azure.microsoft.com/updates)**.
+The MRC MCP Server provides a unified, programmatic way for MCP-compatible AI clients to access trusted and up-to-date information that powers **[Microsoft Copilot Roadmap](https://www.microsoft.com/microsoft-365/roadmap)**, formerly known as the Microsoft 365 Roadmap and AI at Work Roadmap, and **[Azure Updates](https://azure.microsoft.com/updates)**.
 
 MRC MCP Server is a remote **[MCP](https://modelcontextprotocol.io/docs/getting-started/intro)** server that uses streamable HTTP transport, which allows users to search, filter and retrieve the latest feature release information using natural language in AI clients.
 
@@ -144,8 +144,8 @@ The MCP server exposes four tools:
 | --- | --- |
 | **`get_recent_azure_updates`** | Retrieves Azure update posts from Microsoft Release Communications with optional filtering and search capabilities. Returns up to 50 updates per request with truncated descriptions. Supports OData filtering by products, product categories, tags (Features, Retirements, Security, etc.), status, availability dates, and publication dates. Includes text search on titles and pagination |
 | **`get_azure_update_by_id`** | Retrieves a specific Azure update post by its unique identifier. Returns full details of products, tags, and availability dates. Use the unique Azure Updates ID to get more information about a specific post. |
-| **`get_recent_roadmaps`** | Retrieves Microsoft AI at Work roadmap posts from Microsoft Release Communications with optional filtering and search capabilities. Returns up to 50 roadmap items per request with truncated descriptions. Supports OData filtering by products, platforms, release rings, cloud instances, status, availability dates, and publication dates. Includes text search on titles and pagination. |
-| **`get_roadmap_by_id`** | Retrieves a specific Microsoft AI at Work roadmap post by its unique identifier. Returns full details of products and availability dates. Use the unique Microsoft AI at Work roadmap ID to get more information about a specific post. |
+| **`get_recent_roadmaps`** | Retrieves Microsoft Copilot Roadmap posts from Microsoft Release Communications with optional filtering and search capabilities. Returns up to 50 roadmap items per request with truncated descriptions. Supports OData filtering by products, platforms, release rings, cloud instances, status, availability dates, and publication dates. Includes text search on titles and pagination. |
+| **`get_roadmap_by_id`** | Retrieves a specific Microsoft Copilot Roadmap post by its unique identifier. Returns full details of products and availability dates. Use the unique Microsoft Copilot Roadmap ID to get more information about a specific post. |
 
 Tip
 
@@ -156,21 +156,21 @@ The list tools (`get_recent_azure_updates`, `get_recent_roadmaps`) return trunca
 To use the MRC MCP Server after installation, do the following steps:
 
 1. Open a chat window in VS Code with GitHub Copilot or your AI client.
-2. Ask a question related to Microsoft AI at Work Roadmap or Azure Updates.
+2. Ask a question related to Microsoft Copilot Roadmap or Azure Updates.
 3. Allow the client to use MCP server tools when prompted.
 4. Review the response.
 
 ### Example queries
 
-Here are sample natural-language queries that demonstrate how users can retrieve product release information across Microsoft AI at Work Roadmap and Azure Updates:
+Here are sample natural-language queries that demonstrate how users can retrieve product release information across Microsoft Copilot Roadmap and Azure Updates:
 
-**Microsoft AI at Work Roadmap**
+**Microsoft Copilot Roadmap**
 
-- As per Microsoft AI at Work Roadmap, which Microsoft Teams product features are releasing in June?
-- Which Outlook product features on the Microsoft AI at Work Roadmap were updated last week?
+- As per Microsoft Copilot Roadmap, which Microsoft Teams product features are releasing in June?
+- Which Outlook product features on the Microsoft Copilot Roadmap were updated last week?
 - What's the status of Feature ID 526798?
 - List all Excel features launching on Mac that are releasing in March.
-- Create an email for my Compliance team to review the Microsoft Purview features that are currently rolling out on Microsoft AI at Work Roadmap.
+- Create an email for my Compliance team to review the Microsoft Purview features that are currently rolling out on Microsoft Copilot Roadmap.
 - What's planned for mobile-only apps in OneNote?
 
 **Azure Updates**
@@ -183,7 +183,7 @@ Here are sample natural-language queries that demonstrate how users can retrieve
 
 ## Limitations
 
-The MRC MCP server contains publicly available documentation, which is available on [Microsoft AI at Work Roadmap](https://www.microsoft.com/microsoft-365/roadmap) and [Azure Updates](https://azure.microsoft.com/updates). The underlying product release information refreshes daily.
+The MRC MCP server contains publicly available documentation, which is available on [Microsoft Copilot Roadmap](https://www.microsoft.com/microsoft-365/roadmap) and [Azure Updates](https://azure.microsoft.com/updates). The underlying product release information refreshes daily.
 
 ## Troubleshooting
 
@@ -202,12 +202,12 @@ You have access to MCP tools provided by the Release Communications MCP Server:
 - `get_recent_azure_updates`
 - `get_azure_update_by_id`
 
-When handling questions about Microsoft AI at Work Roadmap features or Azure service updates, use these tools to retrieve the most current and authoritative release information before responding. When handling questions about Microsoft 365 product roadmap timelines, upcoming feature releases, Azure service updates, or release status for specific products (Teams, Outlook, SharePoint, Excel, etc).
+When handling questions about Microsoft Copilot Roadmap features or Azure service updates, use these tools to retrieve the most current and authoritative release information before responding. When handling questions about Microsoft 365 product roadmap timelines, upcoming feature releases, Azure service updates, or release status for specific products (Teams, Outlook, SharePoint, Excel, etc).
 ```
 
 Here are some general best practices:
 
-- Be explicit in your prompt (for example, mention *Azure Updates* or *Microsoft AI at Work Roadmap*). If the prompt is too generic or doesn't clearly relate to release or roadmap data, then your AI client might not invoke MCP tools.
+- Be explicit in your prompt (for example, mention *Azure Updates* or *Microsoft Copilot Roadmap*). If the prompt is too generic or doesn't clearly relate to release or roadmap data, then your AI client might not invoke MCP tools.
 - Use a **system-level instruction** (if supported by your AI client) to encourage tool usage.
 - Confirm that the MCP server is correctly configured and enabled in your client
 

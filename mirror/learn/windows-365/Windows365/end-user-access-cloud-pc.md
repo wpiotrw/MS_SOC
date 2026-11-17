@@ -41,8 +41,10 @@ item_type: Content
 source_path: Windows365/end-user-access-cloud-pc.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 337b826f-41f8-c1a2-663a-e3808d108ba4
 ---
 
@@ -176,7 +178,7 @@ To transfer files from the Cloud PC to the local device, copy the files to the D
 
 #### Restrict users from transferring files to and from Cloud PCs
 
-You can restrict users from transferring files by using RDP drive redirection. For more information, see [Manage RDP device redirections for Cloud PCs](enterprise/manage-rdp-device-redirections).
+You can restrict users from transferring files by using DS drive redirection. For more information, see [Manage DS device redirections for Cloud PCs](enterprise/manage-rdp-device-redirections).
 
 ### Collect user logs
 

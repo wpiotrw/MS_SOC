@@ -86,7 +86,7 @@ Unfortunately, we can't tell you the exact date a change is made to your organiz
 
 ## Are these messages specific to my organization?
 
-We do our best to make sure that you only see Message center posts that affect your organization. The [Microsoft AI at Work Roadmap](https://www.microsoft.com/microsoft-365/roadmap), formerly known as the Microsoft 365 Roadmap, includes all of the features we're currently working on and rolling out, but not all of these features apply to every organization.
+We do our best to make sure that you only see Message center posts that affect your organization. The [Microsoft Copilot Roadmap](https://www.microsoft.com/microsoft-365/roadmap), formerly known as the Microsoft 365 Roadmap, includes all of the features we're currently working on and rolling out, but not all of these features apply to every organization.
 
 ## Can I get message center posts emailed instead?
 

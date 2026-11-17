@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Configure scanner redirection over the Remote Desktop Protocol - Azure Virtual Desktop | Microsoft Learn
+title: Configure scanner redirection over Direct Stream - Azure Virtual Desktop | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/azure/virtual-desktop/redirection-configure-scanners
 uhfHeaderId: azure
 breadcrumb_path: /azure/virtual-desktop/breadcrumb/toc.json
@@ -16,7 +16,7 @@ author: jordanmarchese
 manager: eliotgra
 ms.author: jordanm
 ms.service: azure-virtual-desktop
-description: Learn how to redirect scanners from a local device to a remote session over the Remote Desktop Protocol. It applies to Azure Virtual Desktop, Windows 365, and Microsoft Dev Box.
+description: Learn how to redirect scanners from a local device to a remote session over Direct Stream. It applies to Azure Virtual Desktop, Windows 365, and Microsoft Dev Box.
 ms.topic: how-to
 zone_pivot_groups: rdp-products-features
 ms.date: 2026-09-11T00:00:00.0000000Z
@@ -37,31 +37,31 @@ monikers: []
 item_type: Content
 source_path: virtual-desktop/redirection-configure-scanners.md
 cmProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/e10a756b-c002-4cbb-8cf6-f0fab0633697
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2d774b87-7dcb-40bf-a0b9-5a7a9efff0d1
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/72cb4d1c-66f7-4281-99d5-e04a64d084fc
 spProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a741da3-90b9-472d-8fd6-830aafecaac8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/89dc5f37-0e4e-4b05-ad87-5fcd2b941a8a
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d9ebaec0-4879-449e-9781-0afdce99fe0a
 platformId: 4ed9bcd0-4c92-f47c-227d-33a4762decae
 ---
 
-# Configure scanner redirection over the Remote Desktop Protocol - Azure Virtual Desktop | Microsoft Learn
+# Configure scanner redirection over Direct Stream - Azure Virtual Desktop | Microsoft Learn
 
 Tip
 
-This article is shared for services and products that use the Remote Desktop Protocol (RDP) to provide remote access to Windows desktops and apps.
+This article is shared for services and products that use Direct Stream (DS) to provide remote access to Windows desktops and apps.
 
 Select a product using the buttons at the top of this article to show the relevant content.
 
-You can configure the redirection behavior of scanners from a local device to a remote session over the Remote Desktop Protocol (RDP). Scanner redirection uses high-level peripheral reflection and supports TWAIN.
+You can configure the redirection behavior of scanners from a local device to a remote session over Direct Stream (DS). Scanner redirection uses high-level peripheral reflection and supports TWAIN.
 
-This article provides information about supported redirection methods and how to configure scanner redirection. To learn more about how redirection works, see [Peripheral and resource redirection over the Remote Desktop Protocol](redirection-remote-desktop-protocol).
+This article provides information about supported redirection methods and how to configure scanner redirection. To learn more about how redirection works, see [Peripheral and resource redirection over Direct Stream](redirection-remote-desktop-protocol).
 
 Note
 
-Scanner redirection over RDP is in preview.
+Scanner redirection over DS is in preview.
 
 ## Prerequisites
 

@@ -297,7 +297,7 @@ For a complete runnable example, see [sample_agent_response_evaluation.py](https
 
 For a complete .NET response evaluation example, see [Sample7_EvaluationsAgent.md](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Projects/samples/Evaluations/Sample7_EvaluationsAgent.md) on GitHub.
 
-## Evaluate traces (preview)
+## Evaluate traces
 
 Evaluate agent interactions that Application Insights already captured. Use the `azure_ai_traces` data source type. This scenario is useful for post-deployment evaluation of real production traffic. You select traces from your monitoring pipeline and run evaluators against them without replaying any requests.
 

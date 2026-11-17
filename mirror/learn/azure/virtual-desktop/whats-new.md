@@ -18,7 +18,7 @@ ms.service: azure-virtual-desktop
 description: Learn about new features and product updates for Azure Virtual Desktop.
 ms.topic: release-notes
 ms.custom: references_regions
-ms.date: 2026-10-21T00:00:00.0000000Z
+ms.date: 2026-11-17T00:00:00.0000000Z
 locale: en-us
 document_id: 179e0581-18c2-c983-1490-bcdcb19c3d66
 document_version_independent_id: 179e0581-18c2-c983-1490-bcdcb19c3d66
@@ -66,7 +66,27 @@ See [What's new in documentation](whats-new-documentation), where we highlight n
 
 Here's what changed in November 2026:
 
-#### RemoteApp enhancements are now generally available
+### Direct Stream: the cloud streaming technology powering Azure Virtual Desktop
+
+Direct Stream is the cloud streaming technology powering Azure Virtual Desktop, reflecting capabilities that have evolved beyond the traditional Remote Desktop Protocol (RDP). Direct Stream brings together multi-year investment of innovation in connection reliability, speed, transport security, and in-session performance to make a remote session feel like a local PC, including capabilities like [multipath](/en-us/azure/virtual-desktop/rdp-multipath), [fast reconnect](/en-us/azure/virtual-desktop/fast-reconnect), [TURN relays](https://techcommunity.microsoft.com/blog/windows-itpro-blog/relayed-rdp-shortpath-for-public-networks-now-available/4249502), and [graphic encoding](/en-us/azure/virtual-desktop/graphics-encoding).
+
+Direct Stream is already powering the remote sessions that users connect to today. You will see the technology name showing up gradually across clients, portals, documentation, and reporting over the coming months. You might continue to see RDP terminology in some areas that will be updated to reflect the new cloud streaming terminology.
+
+No action is required. It doesn't affect existing deployments, functionality, or pricing, and doesn't apply to on-premises RDP.
+
+For more information, see [Windows 365 at Ignite 2026: Introducing new Cloud PC capabilities for people, agents and IT](https://aka.ms/W365Ignite26Blog).
+
+### Azure Virtual Desktop expands regional metadata storage to more regions
+
+Azure Virtual Desktop is expanding regional database infrastructure to additional Azure regions. The Azure portal is also introducing a consistent Deployment scope experience when new host pools are created, showing Regional and Geographical options according to what the selected Azure region supports.
+
+Existing host pools are unchanged by the portal update. For more information, see [Regional Host Pools](/en-us/azure/virtual-desktop/regional-host-pools).
+
+### Context-based redirections are now generally available
+
+Context-based redirections are now generally available for Azure Virtual Desktop. IT administrators can use Microsoft Entra authentication context and Conditional Access policies to control which redirections, such as clipboard, drive, printer, and USB, are available in a session based on user identity, device compliance, and network context. This helps protect corporate data when users connect from personal or unmanaged devices. For more information, see [Configure context-based redirections](/en-us/windows-365/enterprise/context-based-redirections).
+
+### RemoteApp enhancements are now generally available
 
 RemoteApp enhancements are now generally available for Azure Virtual Desktop. Built on a new server-first approach with first-class support for RemoteApps in Windows, RemoteApp enhancements improve application functionality gaps and addresses longstanding windowing and integration issues. RemoteApps more closely behave like local applications, with improvements to moving and resizing windows, Windows Snap, window appearance, z-ordering, and full-screen behavior. For more information, see [RemoteApp enhancements](/en-us/azure/virtual-desktop/remoteapp-enhancements).
 

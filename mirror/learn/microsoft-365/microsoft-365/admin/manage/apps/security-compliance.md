@@ -14,7 +14,7 @@ breadcrumb_path: /microsoft-365/breadcrumb/toc.json
 recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
 description: Learn how to manage security and compliance for apps in Copilot Managed Runtime..
-ms.date: 2026-11-13T00:00:00.0000000Z
+ms.date: 2026-11-17T00:00:00.0000000Z
 author: Greggbarker-MS
 ms.author: grbarker
 manager: zoraz
@@ -45,24 +45,15 @@ source_path: microsoft-365/admin/manage/apps/security-compliance.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
-- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 73b58d05-d351-74f6-cc14-4d115972b17e
 ---
 
 # Manage security and compliance for Microsoft Copilot Managed Runtime (preview) - Microsoft 365 admin | Microsoft Learn
 
-[This article is prerelease documentation and is subject to change.]
-
 This article covers security and compliance for Copilot Managed Runtime across the Power Platform admin center and the Microsoft 365 admin center. It explains how to apply data protection policies, configure access controls, and monitor compliance for Copilot Managed Runtime in your tenant.
-
-Important
-
-- This is a preview feature.
-- These features are subject to [supplemental terms of use](https://go.microsoft.com/fwlink/?LinkId=2373139), and are available before an official release so that customers can get early access and provide feedback.
 
 ## Overview
 
@@ -72,13 +63,7 @@ This article focuses on security capabilities that are specific to apps in Copil
 
 ## Prerequisites
 
-To manage security settings for Copilot Managed Runtime, you need one of the following Microsoft Entra ID roles:
-
-| Role | Access level |
-| --- | --- |
-| [Global Administrator](/en-us/entra/identity/role-based-access-control/permissions-reference#global-administrator) | Read and write |
-| [Power Platform Administrator](/en-us/entra/identity/role-based-access-control/permissions-reference#power-platform-administrator) | Read and write |
-| [AI Reader](/en-us/entra/identity/role-based-access-control/permissions-reference#ai-reader) | Read-only access to Copilot Managed Runtime configuration and security settings |
+To change security settings for Copilot Managed Runtime, you need a Manage role. Read-only roles can view Copilot Managed Runtime configuration and security settings but can't change them. For which roles have each kind of access, see [Roles and responsibilities](roles-responsibilities).
 
 The environment where you deploy apps built with Copilot Managed Runtime must be a [Managed Environment](/en-us/power-platform/admin/managed-environment-overview).
 
@@ -113,9 +98,9 @@ For more information about environment groups and governance configuration, see 
 
 ## Control access with a security group
 
-Apps in Copilot Managed Runtime use the security group associated with their environment to control access. Associate a Microsoft Entra security group with the environment to restrict who can run apps in that environment. The restriction applies automatically to all apps in the environment, so you don’t need to configure each app separately.
+Apps in Copilot Managed Runtime use the security group associated with their environment to control access. Associate a Microsoft Entra security group with the environment to restrict who can run apps in that environment. The restriction applies automatically to all apps in the environment, so you don't need to configure each app separately.
 
-Environment access and app sharing are separate controls. To run an app, a user must be a member of the environment’s security group and have access to the app. Sharing an app doesn’t bypass the environment’s security group restriction. Adding a user to the security group doesn’t grant access to individual apps.
+Environment access and app sharing are separate controls. To run an app, a user must be a member of the environment's security group and have access to the app. Sharing an app doesn't bypass the environment's security group restriction. Adding a user to the security group doesn't grant access to individual apps.
 
 To associate a security group with an environment, follow these steps:
 
@@ -126,7 +111,7 @@ To associate a security group with an environment, follow these steps:
 
 Important
 
-Before you associate a security group with an existing environment, review the group’s membership. Users who aren’t members of the group lose access to managed apps in the environment. To revoke a user’s environment access later, remove the user from the security group.
+Before you associate a security group with an existing environment, review the group's membership. Users who aren't members of the group lose access to managed apps in the environment. To revoke a user's environment access later, remove the user from the security group.
 
 For more information about configuration, supported group types, and environment access requirements, see [Control user access to environments with security groups and licenses](/en-us/power-platform/admin/control-user-access).
 

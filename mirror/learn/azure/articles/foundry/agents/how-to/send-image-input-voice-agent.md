@@ -24,10 +24,10 @@ ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Learn how to send text and image input in one turn to a voice agent in Microsoft Foundry Agent Service and validate the response.
-ms.date: 2026-09-30T00:00:00.0000000Z
+ms.date: 2026-11-12T00:00:00.0000000Z
 ms.subservice: foundry-agent-service
 ms.topic: how-to
-ms.custom: preview, doc-kit-assisted
+ms.custom: doc-kit-assisted
 ai-usage: ai-assisted
 zone_pivot_groups: voice-agent-image-input-language
 locale: en-us
@@ -44,11 +44,13 @@ monikers: []
 item_type: Content
 source_path: articles/foundry/agents/how-to/send-image-input-voice-agent.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
 platformId: 04f9ce43-98f8-2796-9de4-5f5b12e5f617
 ---
 
@@ -58,9 +60,9 @@ Send text and an image in the same turn to give a voice-based prompt agent visua
 
 This workflow uses the Foundry Agent Service voice endpoint. It doesn't use the separate Voice Live API.
 
-Important
+Voice agents are generally available, with some features still in preview. See [General availability and preview features](../overview#general-availability-and-preview-features).
 
-Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
+Model-specific image support and SDK experimental diagnostics are separate from service availability.
 
 ## Prerequisites
 
@@ -79,7 +81,7 @@ Items marked preview in this article are currently in preview. This preview is p
 ::: zone pivot="python"
 
 - Python 3.10 or later.
-- Version 2.7.0 or later of the Azure AI Projects client library with the `voice` extra. Install it with `python -m pip install "azure-ai-projects[voice]>=2.7.0"`.
+- Version 2.11.0 or later of the Azure AI Projects client library with the `voice` extra, installed by following [the Python quickstart setup](../quickstarts/prompt-voice-agent?pivots=python#install-the-packages).
 - The `FOUNDRY_PROJECT_ENDPOINT` and `FOUNDRY_VOICE_AGENT_NAME` environment variables from the [Python voice-agent quickstart](../quickstarts/prompt-voice-agent?pivots=python#set-environment-variables).
 
 ::: zone-end
@@ -87,7 +89,7 @@ Items marked preview in this article are currently in preview. This preview is p
 ::: zone pivot="csharp"
 
 - .NET 8 or later.
-- Version 3.0.0-beta.3 of `Azure.AI.Projects` and `Azure.AI.Projects.Agents`, version 2.14.0 of `OpenAI`, and `Azure.Identity`. Suppress the `AAIP001`, `AAIP002`, and `OPENAI002` preview diagnostics as shown in the public C# voice-agent samples.
+- Version 3.0.0-beta.7 of `Azure.AI.Projects`, `Azure.AI.Projects.Agents`, and `Azure.AI.Extensions.OpenAI`, version 2.14.0 of `OpenAI`, and `Azure.Identity`. Suppress the `AAIP002` and `OPENAI002` preview diagnostics as shown in the public C# voice-agent samples.
 - The `FOUNDRY_PROJECT_ENDPOINT` environment variable set to your project endpoint and `FOUNDRY_VOICE_AGENT_NAME` set to your existing voice-agent name.
 
 ::: zone-end
@@ -95,7 +97,7 @@ Items marked preview in this article are currently in preview. This preview is p
 ::: zone pivot="javascript"
 
 - Node.js 22 or later.
-- Version 2.7.0 or later of the Azure AI Projects client library. Install it with `npm install @azure/ai-projects@2.7.0 @azure/identity`.
+- Version 2.11.0 or later of the Azure AI Projects client library, installed by following [the JavaScript quickstart setup](../quickstarts/prompt-voice-agent?pivots=javascript#install-the-packages).
 - The `FOUNDRY_PROJECT_ENDPOINT` and `FOUNDRY_VOICE_AGENT_NAME` environment variables from the [JavaScript voice-agent quickstart](../quickstarts/prompt-voice-agent?pivots=javascript#set-environment-variables).
 
 ::: zone-end
@@ -129,9 +131,9 @@ Start with the connection and response-handling pattern from the voice-agent qui
 
 ::: zone pivot="python"
 
-Use `AIProjectClient` with `DefaultAzureCredential`, and open the connection through `project_client.beta.voice_agents.realtime.connect`. If the agent has a greeting, receive its complete response before you send the image turn.
+Use `AIProjectClient` with `DefaultAzureCredential`, and open the connection through `project_client.voice_agents.realtime.connect`. If the agent has a greeting, receive its complete response before you send the image turn.
 
-The Python 2.7.0 SDK exposes `input_image`, `image_url`, and `detail` through `RealtimeConversationItemMessageUserContent`.
+The Python SDK exposes `input_image`, `image_url`, and `detail` through `RealtimeConversationItemMessageUserContent`.
 
 Use the public [Python realtime text sample](https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/voice-agents/voice_agent_realtime_text_conversation.py) for the connection, event loop, response timeout, error handling, and cleanup pattern.
 
@@ -141,7 +143,7 @@ Use the public [Python realtime text sample](https://github.com/microsoft-foundr
 
 Use `AIProjectClient` with `DefaultAzureCredential`, and open the connection through `ProjectsRealtimeClient.StartSessionAsync`. The returned `ProjectsRealtimeSessionClient` uses the same realtime command and event model as the OpenAI .NET client.
 
-Version 3.0.0-beta.3 doesn't expose a typed factory for an image content part. Use the session's protocol-method overload, `SendCommandAsync(BinaryData, RequestOptions)`, to send the complete, verified client event.
+Use the session's protocol-method overload, `SendCommandAsync(BinaryData, RequestOptions)`, to send the complete, verified client event.
 
 Use the public [C# realtime text and tools sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/csharp/VoiceAgents/realtime-text-and-tools) for the connection and response lifecycle.
 
@@ -151,7 +153,7 @@ Use the public [C# realtime text and tools sample](https://github.com/microsoft-
 
 Use `AIProjectClient` with `DefaultAzureCredential`, and open the connection through `project.beta.voiceAgents.realtime.connect`. Configure the session, and receive the agent's greeting before you send the image turn.
 
-The JavaScript 2.7.0 SDK exposes `input_image`, `image_url`, and `detail` through `RealtimeConversationItemMessageUserContent`. `VoiceAgentConnection.sendEvent` sends the complete client protocol event.
+The JavaScript SDK exposes `input_image`, `image_url`, and `detail` through `RealtimeConversationItemMessageUserContent`. `VoiceAgentConnection.sendEvent` sends the complete client protocol event.
 
 Use the public [JavaScript realtime text and tools sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/javascript/voice-agents/realtime-text-and-tools) or its [TypeScript equivalent](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/typescript/voice-agents/realtime-text-and-tools) for the connection and response lifecycle. For a browser application, start with the [browser voice console](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/javascript/voice-agents/browser-voice-console) so authentication remains on the server.
 
@@ -159,7 +161,7 @@ Use the public [JavaScript realtime text and tools sample](https://github.com/mi
 
 ::: zone pivot="java"
 
-Use `AgentsClientBuilder` with `DefaultAzureCredentialBuilder`, enable preview APIs with `allowPreview(true)`, and create a `BetaVoiceAgentWebSocketSessionClient` through `BetaVoiceAgentWebSocketClient.openWebSocketSession`.
+Use `AgentsClientBuilder` with `DefaultAzureCredentialBuilder`, enable the SDK's preview APIs with `allowPreview(true)`, and create a `BetaVoiceAgentWebSocketSessionClient` through `BetaVoiceAgentWebSocketClient.openWebSocketSession`. This SDK setting is separate from service availability.
 
 Version 2.6.0 doesn't expose a typed image content model. Use the session's `sendEvent(BinaryData)` overload to send the complete, verified client event.
 

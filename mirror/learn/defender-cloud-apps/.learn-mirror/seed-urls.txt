@@ -15,6 +15,7 @@ https://learn.microsoft.com/en-us/defender-cloud-apps/general-setup
 https://learn.microsoft.com/en-us/defender-cloud-apps/manage-admins
 https://learn.microsoft.com/en-us/defender-cloud-apps/mde-govern
 https://learn.microsoft.com/en-us/defender-cloud-apps/migrate-file-policies-to-purview
+https://learn.microsoft.com/en-us/defender-cloud-apps/protect-github
 https://learn.microsoft.com/en-us/defender-cloud-apps/protect-salesforce
 https://learn.microsoft.com/en-us/defender-cloud-apps/protect-workday
 https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes

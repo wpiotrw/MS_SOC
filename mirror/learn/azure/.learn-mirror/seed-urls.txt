@@ -509,10 +509,12 @@ https://learn.microsoft.com/en-us/azure/sentinel/sap/deploy-sap-btp-solution
 https://learn.microsoft.com/en-us/azure/sentinel/sap/deployment-overview
 https://learn.microsoft.com/en-us/azure/sentinel/sap/prerequisites-for-deploying-sap-continuous-threat-monitoring
 https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-agent-migrate
+https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-applications-overview
 https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-btp-security-content
 https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-btp-solution-overview
 https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-deploy-troubleshoot
 https://learn.microsoft.com/en-us/azure/sentinel/sap/sap-solution-function-reference
+https://learn.microsoft.com/en-us/azure/sentinel/sap/solution-overview
 https://learn.microsoft.com/en-us/azure/sentinel/scoping
 https://learn.microsoft.com/en-us/azure/sentinel/sentinel-overview
 https://learn.microsoft.com/en-us/azure/sentinel/sentinel-solutions-catalog
@@ -533,6 +535,7 @@ https://learn.microsoft.com/en-us/azure/virtual-desktop/configure-managed-identi
 https://learn.microsoft.com/en-us/azure/virtual-desktop/context-based-redirections-avd
 https://learn.microsoft.com/en-us/azure/virtual-desktop/deploy/session-hosts/ephemeral-os-disks
 https://learn.microsoft.com/en-us/azure/virtual-desktop/fast-reconnect
+https://learn.microsoft.com/en-us/azure/virtual-desktop/graphics-encoding
 https://learn.microsoft.com/en-us/azure/virtual-desktop/host-pool-management-approaches
 https://learn.microsoft.com/en-us/azure/virtual-desktop/hybrid-overview
 https://learn.microsoft.com/en-us/azure/virtual-desktop/licensing

@@ -1,6 +1,7 @@
 https://learn.microsoft.com/en-us/windows
 https://learn.microsoft.com/en-us/windows/apps/publish/partner-center/assign-roles-to-account-users
 https://learn.microsoft.com/en-us/windows/apps/windows-sdk/release-notes
+https://learn.microsoft.com/en-us/windows/client-management/declared-configuration-resource-access
 https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-Connectivity
 https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-WindowsAI
 https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-applicationmanagement
@@ -20,5 +21,13 @@ https://learn.microsoft.com/en-us/windows/release-health/status-windows-11-25h2
 https://learn.microsoft.com/en-us/windows/release-health/windows-message-center
 https://learn.microsoft.com/en-us/windows/release-notes
 https://learn.microsoft.com/en-us/windows/security
+https://learn.microsoft.com/en-us/windows/security/application-security/agent-governance
+https://learn.microsoft.com/en-us/windows/security/application-security/agent-identity
+https://learn.microsoft.com/en-us/windows/security/application-security/application-control/administrator-protection
+https://learn.microsoft.com/en-us/windows/security/identity-protection/fido2-security-keys
+https://learn.microsoft.com/en-us/windows/security/identity-protection/hello-for-business
+https://learn.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/configure
 https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/windows-security-configuration-framework/security-baselines
+https://learn.microsoft.com/en-us/windows/security/operating-system-security/system-security/cryptography-certificate-mgmt
+https://learn.microsoft.com/en-us/windows/security/whats-new
 https://learn.microsoft.com/en-us/windows/win32/winhttp/netsh-exe-commands

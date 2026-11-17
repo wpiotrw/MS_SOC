@@ -68,10 +68,17 @@ Use Windows 365 for Agents to provide AI agents with secure, on-demand Cloud PCs
 ### Concept
 
 - [Agent session lifecycle](agent-session-lifecycle)
+- [On-premise access for agents](onpremise-access-agents)
 - [Cloud PC agent pools](cloud-pc-agent-pools)
 - [MCP tool overview](mcp-tool-overview)
 - [Computer-using agents (CUA) vs. robotic process automation (RPA)](when-to-use-w365a)
 - [Attended vs. unattended execution for computer-using agents (CUA)](attended-unattended)
+
+## Reports
+
+### Concept
+
+- [License and utilization (preview)](/en-us/windows-365/enterprise/license-utilization?pivots=agents&amp;context=/windows-365/agents/context/context)
 
 ## Security
 

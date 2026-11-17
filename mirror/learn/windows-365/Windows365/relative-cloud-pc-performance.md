@@ -87,7 +87,7 @@ The 16 vCPU / 64-GB RAM / 512-GB storage size is meant to accommodate more proce
 
 If you plan on running CPU-intensive workloads, the differences are going to be more noticeable and favor a greater number of processors. For example, workloads that require processing large datasets and have strict latency requirements during compilation work best with 16 vCPU sizes. By contrast, the 4 vCPU size is popular among Windows 365 customers with employees who only use Microsoft Teams, browsers, or Microsoft applications.
 
-RDP on CPU-only Cloud PCs relies entirely on software-based video encoders that share CPU time with other processes on the Cloud PC. When the endpoint display configuration exceeds 3840 x 2160 total resolution, CPU resource contention can lead to unexpected graphical behavior like block artifacts, pixelation, frame freezing, and cache corruption. If users hit these problems on a CPU-only Cloud PCs with an endpoint display setup exceeding 3840 x 2160 total resolution, consider moving them to a GPU-enabled Cloud PC.
+DS on CPU-only Cloud PCs relies entirely on software-based video encoders that share CPU time with other processes on the Cloud PC. When the endpoint display configuration exceeds 3840 x 2160 total resolution, CPU resource contention can lead to unexpected graphical behavior like block artifacts, pixelation, frame freezing, and cache corruption. If users hit these problems on a CPU-only Cloud PCs with an endpoint display setup exceeding 3840 x 2160 total resolution, consider moving them to a GPU-enabled Cloud PC.
 
 ## Choosing the Cloud PC size for your users
 

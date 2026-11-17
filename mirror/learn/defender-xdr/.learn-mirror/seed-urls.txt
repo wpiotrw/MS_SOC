@@ -77,6 +77,7 @@ https://learn.microsoft.com/en-us/defender-xdr/investigate-users
 https://learn.microsoft.com/en-us/defender-xdr/isoc-overview
 https://learn.microsoft.com/en-us/defender-xdr/manage-case-templates
 https://learn.microsoft.com/en-us/defender-xdr/manage-rbac
+https://learn.microsoft.com/en-us/defender-xdr/microsoft-365-defender-portal
 https://learn.microsoft.com/en-us/defender-xdr/microsoft-threat-actor-naming
 https://learn.microsoft.com/en-us/defender-xdr/mto-distribution-profiles
 https://learn.microsoft.com/en-us/defender-xdr/mto-urbac
@@ -90,6 +91,7 @@ https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/ai-agent-real-tim
 https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/ai-agent-risk-assessment
 https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/defender-security-for-ai
 https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/get-started-defender-security-for-ai
+https://learn.microsoft.com/en-us/defender-xdr/security-for-ai/protect-ai-agents-from-trusted-identity-attacks
 https://learn.microsoft.com/en-us/defender-xdr/shield-predict-threats
 https://learn.microsoft.com/en-us/defender-xdr/split-incidents-into-tasks
 https://learn.microsoft.com/en-us/defender-xdr/threat-analytics

@@ -23,10 +23,10 @@ ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Migrate from Voice Live with Foundry Agent Service to Microsoft Foundry voice agents. Compare architectures, preserve tools, and update WebSocket messages.
-ms.date: 2026-10-27T00:00:00.0000000Z
+ms.date: 2026-11-11T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
-ms.custom: preview, doc-kit-assisted
+ms.custom: doc-kit-assisted
 ai-usage: ai-assisted
 locale: en-us
 document_id: 51bf6fe7-aafa-e4a6-b120-195512ff1367
@@ -44,11 +44,11 @@ source_path: articles/foundry/agents/how-to/migrate-from-voice-live.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/540ac133-a371-4dbb-8f94-28d6cc77a70b
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
+- https://authoring-docs-microsoft.poolparty.biz/devrel/60bfc045-f127-4841-9d00-ea35495a5800
 platformId: 209ad685-00a2-7fee-a9b9-c1802a952e7f
 ---
 
@@ -60,14 +60,10 @@ In this article, *Voice Live integration* means Voice Live connected to an exist
 
 You can't change an existing text agent's interaction mode to voice, so migration creates a new agent rather than modifying the original. This process is separate from [migrating Agent Service (classic) to the new Agent Service](migrate).
 
-Important
-
-Items marked preview in this article are currently in preview. This preview is provided without a service-level agreement, and Microsoft doesn't recommend it for production workloads. Certain features might not be supported or might have constrained capabilities. For more information, see [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/).
-
 ## Prerequisites
 
 - Access to a working Voice Live integration with a Foundry text agent, including its configuration and client code.
-- A [Foundry project](../../how-to/create-projects) with access to the voice-agent preview and a supported model in the project's region.
+- A [Foundry project](../../how-to/create-projects) with voice-agent availability and a supported model in the project's region.
 - [Foundry User role](../../concepts/rbac-foundry) on the target project, with permission to create and invoke agents.
 
     Important
@@ -118,7 +114,7 @@ Use this table to identify which parts of your application change and which capa
 | Model hosting and capacity | Uses the model deployment selected for your Foundry text agent. | For either model family, choose a self-deployed or service-managed model. With a service-managed model, you don't maintain a model deployment. |
 | Conversational experience | Every spoken turn passes through speech recognition, the text agent, and speech synthesis. | Choose native speech-to-speech interaction or a cascaded text-model pipeline with speech recognition and synthesis. |
 | Response latency | Includes speech recognition, processing by the separate text agent, and speech synthesis. | Generally lower end-to-end response latency than Voice Live connected to a Foundry text agent, with a runtime optimized for voice interactions. |
-| Existing tools and knowledge | Keep the business logic, tools, and knowledge configured on your text agent. | Supports the same tools and knowledge as Foundry text agents, including Foundry IQ in Foundry Tools, MCP, and tools exposed through a toolbox. Reconnect them, or retain the text agent as a specialist subagent. |
+| Existing tools and knowledge | Keep the business logic, tools, and knowledge configured on your text agent. | Supports the same tools and knowledge as Foundry text agents, including Foundry IQ (Azure AI Search), MCP, and tools exposed through a toolbox. Reconnect them, or retain the text agent as a specialist subagent. |
 | Configure voice behavior | Tune speech through Voice Live and manage the text agent's instructions and tools separately. | Manage the model, instructions, voice, greeting, and turn-taking together in Foundry. Save and test changes as agent versions. |
 | Connect phone callers | Integrate your application with a telephony provider, using provider APIs or a [solution accelerator](../../../ai-services/speech-service/voice-live-telephony). You manage the integration. | Built-in [telephony integration](voice-agent-telephony-channels) supports inbound and outbound calls through Teams Phone extensibility and Twilio. Configure the provider connection and, for inbound calls, bind a phone number in Foundry. |
 | Review customer conversations | Review text-agent conversation history and the logs your application captures. Text history might differ from what a caller heard before an interruption. | Opt in to persisted transcripts, conversation events, and audio for review. Recording is off by default. |
@@ -199,7 +195,7 @@ Voice agents support the same tools and knowledge as Foundry text agents, includ
 | --- | --- | --- |
 | Foundry IQ knowledge bases | An `mcp` tool that connects to the knowledge base's MCP endpoint, directly or through a toolbox. | Reuse the knowledge base and configure its project connection. Preserve source permissions and retrieval instructions. See [Connect a Foundry IQ knowledge base](foundry-iq-connect). |
 | Remote or custom MCP servers | A native `mcp` tool or MCP tools in a toolbox. | Reconfigure the server, allowed tools, authentication, and any required approvals. |
-| Azure AI Search and file search | A `toolbox` reference containing the search tools. | Retain the search index or vector store configuration and the identity that can read it. |
+| Foundry IQ and file search | A `toolbox` reference containing the search tools. | Retain the search index or vector store configuration and the identity that can read it. |
 | Web search and code interpreter | A `toolbox` reference containing the corresponding tools. | Reconfigure tool settings, dependent resources, and any required files. |
 | OpenAPI business APIs | A `toolbox` reference containing the OpenAPI tool. | Preserve the API schema, connection, permissions, and confirmation requirements for actions. |
 | Agent-to-agent (A2A), browser automation, Fabric IQ, and Work IQ | A `toolbox` reference containing the required tool types. | Check each tool's setup, authentication, and region and model requirements. |
@@ -222,9 +218,9 @@ See [Attach tools](configure-voice-agent#attach-tools) for configuration example
 
 Use the Foundry **project endpoint**, not the Voice Live resource endpoint. The project endpoint has this form: `https://<account>.services.ai.azure.com/api/projects/<project>`.
 
-The voice-agent API uses `api-version=v1`, but voice agents remain a preview feature. REST requests require the `Foundry-Features: VoiceAgents=V1Preview` opt-in. The Python realtime helper supplies this header automatically.
+The realtime and cascaded voice-agent API uses `api-version=v1`. Use `sub_protocol: "realtime"` for these definitions; the Python `VoiceAgentDefinition` model sets it automatically.
 
-For a raw WebSocket client, use `wss://` and replace `/voice-live/realtime` with `/api/projects/<project>/agents/<agent-name>/endpoint/protocols/voice?api-version=v1`. Request a Microsoft Entra token for `https://ai.azure.com/.default`, send it in the `Authorization` header, and include the voice-agent preview opt-in.
+For a raw WebSocket client, use `wss://` and replace `/voice-live/realtime` with `/api/projects/<project>/agents/<agent-name>/endpoint/protocols/voice?api-version=v1`. Request a Microsoft Entra token for `https://ai.azure.com/.default` and send it in the `Authorization` header.
 
 Resource API keys aren't a substitute for agent authentication. Don't put bearer tokens in the URL or long-lived credentials in browser code.
 
@@ -233,22 +229,18 @@ The new endpoint path identifies both the project and agent. Use this mapping wh
 | Connection detail | Voice Live text-agent integration | Foundry voice agent |
 | --- | --- | --- |
 | WebSocket route | `/voice-live/realtime` on the Voice Live resource. | `/api/projects/<project>/agents/<agent-name>/endpoint/protocols/voice` on the Foundry resource. |
-| API version | A supported dated Voice Live API version. | `api-version=v1` plus the `Foundry-Features: VoiceAgents=V1Preview` header. |
-| Agent selection | Agent and project connection parameters; the Python sample uses `agent_name`, `project_name`, and optional `agent_version`. | Project and voice-agent name in the path. Use `x-agent-version-override` to pin the tested voice-agent version. |
+| API version | A supported dated Voice Live API version. | `api-version=v1`. |
+| Agent selection | Agent and project connection parameters; the Python sample uses `agent_name`, `project_name`, and optional `agent_version`. | Project and voice-agent name in the path. Use `agent_version_override` to pin the tested voice-agent version. |
 | Session configuration | Text-agent configuration plus Voice Live metadata and client `session.update` settings. | Saved voice-agent definition plus supported per-session overrides. |
-| Python live client | `azure-ai-voicelive`. | `azure-ai-projects` through `beta.voice_agents.realtime`. |
+| Python live client | `azure-ai-voicelive`. | `azure-ai-projects` through `voice_agents.realtime`. |
 
 Review cross-resource connection parameters separately; don't append them to the new URL unchanged. For the earlier connection contract, see [Voice Live agent integration](../../../ai-services/speech-service/how-to-voice-agent-integration?pivots=programming-language-python#agent-integration-concepts).
 
 ### Check the connection with Python
 
-In Python, replace the `azure-ai-voicelive` live-session connection with the `beta.voice_agents.realtime` client in `azure-ai-projects`.
+In Python, replace the `azure-ai-voicelive` live-session connection with the `voice_agents.realtime` client in `azure-ai-projects`.
 
-Install the Azure AI Projects client library with its voice dependencies:
-
-```bash
-python -m pip install "azure-ai-projects[voice]>=2.7.0" azure-identity
-```
+Install version 2.11.0 or later of the Azure AI Projects client library with its voice dependencies by following [the Python quickstart setup](../quickstarts/prompt-voice-agent?pivots=python#install-the-packages).
 
 Reference: [Azure AI Projects client library for Python](https://aka.ms/azsdk/azure-ai-projects-v2/python/code).
 
@@ -278,14 +270,13 @@ with (
     AIProjectClient(
         endpoint=os.environ["FOUNDRY_PROJECT_ENDPOINT"],
         credential=credential,
-        allow_preview=True,
     ) as project_client,
 ):
-    with project_client.beta.voice_agents.realtime.connect(
+    with project_client.voice_agents.realtime.connect(
         agent_name=os.environ["FOUNDRY_VOICE_AGENT_NAME"],
         api_version="v1",
         extra_query={
-            "x-agent-version-override": os.environ[
+            "agent_version_override": os.environ[
                 "FOUNDRY_VOICE_AGENT_VERSION"
             ],
         },
@@ -307,9 +298,9 @@ with (
 
 Reference: [Python realtime client and event models](https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/ai/azure-ai-projects/azure/ai/projects/_realtime.py).
 
-The example prints `Voice session ready.` when the session is created. If your client sends a `session.update` override, also wait for its `session.updated` acknowledgment before using the changed settings. To test a complete spoken turn, follow [Talk to the agent](../quickstarts/prompt-voice-agent?pivots=python#talk-to-the-agent) or adapt the [live microphone sample](https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/voice-agents/voice_agent_realtime_audio_conversation_async.py).
+The example prints `Voice session ready.` when the session is created. If your client sends a `session.update` override, also wait for its `session.updated` acknowledgment before using the changed settings. To test a complete spoken turn, follow [Talk to the agent](../quickstarts/prompt-voice-agent?pivots=python#talk-to-the-agent) or adapt the [realtime microphone sample](https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/voice-agents/voice_agent_realtime_audio_conversation_async.py).
 
-Use the current Projects SDK samples for the public preview. Earlier private-preview samples that use a separate `azure-ai-voiceagents` package or `/voice_agents` management route don't describe this API.
+Use the linked realtime samples for this API. Earlier samples that use a separate `azure-ai-voiceagents` package or `/voice_agents` management route don't describe this API.
 
 ### Update session configuration messages
 
@@ -430,7 +421,7 @@ Plan conversation storage and monitoring before switching traffic. Each voice co
 
 - Start a new voice conversation at cutover. Retain prior text-agent history according to your existing policy; don't pass its conversation ID expecting an automatic import.
 - Decide whether to enable `store`, which defaults to `false`. Setting it to `true` stores the transcript, event timeline, and raw audio together. Review notice, consent, access, and retention requirements before enabling it.
-- Capture the voice conversation ID from `session.created` for correlation and, when storage is enabled, read-back through `beta.voice_agents.conversations`. Don't confuse it with a realtime session ID.
+- Capture the voice conversation ID from `session.created` for correlation and, when storage is enabled, read-back through `voice_agents.conversations`. Don't confuse it with a realtime session ID.
 - Retrieve merged recordings after the session ends. Recording finalization isn't necessarily immediate; follow the [conversation audio sample](https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/voice-agents/voice_agent_read_conversation_audio.py).
 - Configure [voice-agent tracing and monitoring](../concepts/voice-agent-observability). Conversation storage and sensitive-content capture in traces are separate controls.
 
@@ -469,7 +460,7 @@ Use these symptoms to identify configuration differences between the existing in
 
 | Symptom | What to check |
 | --- | --- |
-| Creation or connection rejects the agent kind | Use a new agent name with a voice definition, a supported project region, and the preview opt-in. |
+| Creation or connection rejects the agent kind | Use a new agent name with `kind: "voice"`, `sub_protocol: "realtime"`, and a supported project region. |
 | Connection works but no reply audio reaches the client | Check the configured modalities and audio format, and update legacy event handlers to the `response.output_*` names. |
 | The first reply is missing or the greeting repeats | Separate the configured greeting's response from the first user response, and remove any duplicate client-side greeting trigger. |
 | A migrated tool never completes | Confirm its execution model. Native functions need client implementation; MCP, toolbox, and subagent dependencies need valid configuration and permissions. |

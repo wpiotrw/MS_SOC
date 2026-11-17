@@ -220,6 +220,7 @@ Review the [built-in evaluators](../../concepts/built-in-evaluators) and [custom
 | Individual turn | You have stored responses or traces from individual interactions with a deployed model or agent. | [Evaluate deployed model and agent interactions](cloud-evaluation-deployed-interactions) |
 | Individual turn | You need to generate synthetic queries. | [Generate synthetic queries](cloud-evaluation-synthetic-data#generate-synthetic-queries) |
 | Complete conversation | You have a dataset of complete conversations. | [Evaluate conversation datasets](cloud-evaluation-conversations) |
+| Complete conversation | You have recordings of complete voice conversations. | [Evaluate recorded voice conversations](cloud-evaluation-audio-conversations) |
 | Complete conversation | You have traces that capture complete conversations with a deployed model or agent. | [Evaluate deployed model and agent conversations](cloud-evaluation-deployed-conversations) |
 | Complete conversation | You need to generate and evaluate simulated agent conversations. | [Simulate agent conversations](cloud-evaluation-simulate-conversations) |
 | Any evaluation unit | You need to poll, interpret, cancel, or troubleshoot a run. | [Get evaluation results](cloud-evaluation-results) |

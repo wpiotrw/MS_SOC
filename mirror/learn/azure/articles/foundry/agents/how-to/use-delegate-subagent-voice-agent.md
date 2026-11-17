@@ -23,10 +23,10 @@ ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Learn how a voice-based agent delegates a focused task to a separate prompt or hosted agent in Microsoft Foundry.
-ms.date: 2026-11-05T00:00:00.0000000Z
+ms.date: 2026-11-10T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
-ms.custom: preview, doc-kit-assisted
+ms.custom: doc-kit-assisted
 ai-usage: ai-assisted
 locale: en-us
 document_id: 03c89ccf-e15c-9ecd-3621-c2eeebf445da
@@ -60,6 +60,12 @@ A **delegate subagent** is a separate Agent resource. The voice-based agent invo
 
 The delegate subagent can be a Foundry prompt agent or hosted agent. The following sections create a prompt agent that writes poems and reference it from a voice-based agent. You can apply similar steps to a hosted agent.
 
+Voice agents are generally available, with some features still in preview. See [General availability and preview features](../overview#general-availability-and-preview-features). This article uses delegate subagents (`subagent_type="delegate"`). Inline subagents (`subagent_type="inline"`) are in preview.
+
+Tip
+
+The [microsoft/voice-agent](https://github.com/microsoft/voice-agent) repository on GitHub contains voice-based agent samples and a local playground that you run on your computer to create, publish, and test voice-based agents. The playground connects to your own Foundry project, so you first need a [Foundry project](../../how-to/create-projects) with access to voice-based agents. For setup steps, see the [playground README](https://github.com/microsoft/voice-agent/blob/main/portal/README.md).
+
 ## Prerequisites
 
 - A [Foundry project](../../how-to/create-projects) with access to voice-based agents.
@@ -74,10 +80,10 @@ The delegate subagent can be a Foundry prompt agent or hosted agent. The followi
 
 ## Install the packages
 
-Install the Microsoft Foundry SDK version 2.7.0 or later with the `voice` extra, Azure Identity client library, and PyAudio in the same Python environment. The `voice` extra supplies `aiohttp` for asynchronous connections. PyAudio handles microphone capture and speaker playback.
+Install version 2.11.0 or later of the Azure AI Projects client library with the `voice` extra, Azure Identity, and PyAudio in the same Python environment. The `voice` extra supplies `aiohttp` for asynchronous connections. PyAudio handles microphone capture and speaker playback.
 
 ```bash
-python -m pip install "azure-ai-projects[voice]>=2.7.0" pyaudio
+python -m pip install "azure-ai-projects[voice]>=2.11.0" azure-identity pyaudio
 ```
 
 For Python SDK setup details, see [Install the packages](../quickstarts/prompt-voice-agent?pivots=python#install-the-packages).
@@ -131,7 +137,6 @@ with (
     AIProjectClient(
         endpoint=endpoint,
         credential=credential,
-        allow_preview=True,
     ) as project_client,
 ):
     poetry_agent = project_client.agents.create_version(
@@ -162,9 +167,11 @@ from azure.ai.projects.models import (
     VoiceAgentAudioInputConfig,
     VoiceAgentAudioOutputConfig,
     VoiceAgentDefinition,
+    VoiceAgentDelegateSubagentConfig,
     VoiceAgentInputTranscription,
     VoiceAgentServerVadTurnDetection,
-    VoiceAgentSubagentConfig,
+    VoiceAgentSubagent,
+    VoiceAgentSubagentResponsePolicy,
 )
 from azure.identity import DefaultAzureCredential
 
@@ -199,22 +206,19 @@ definition = VoiceAgentDefinition(
             voice_type="azure-standard",
         ),
     ),
-    subagent_config=VoiceAgentSubagentConfig(
-        {
-            "subagent_type": "delegate",
-            "subagents": [
-                {
-                    "agent_name": "poetry-agent",
-                    "agent_capabilities": (
-                        "Writes original poems based on the requested topic, "
-                        "style, tone, and length."
-                    ),
-                    "response_policy": {
-                        "immediate_ack": True,
-                    },
-                }
-            ],
-        }
+    subagent_config=VoiceAgentDelegateSubagentConfig(
+        subagents=[
+            VoiceAgentSubagent(
+                agent_name="poetry-agent",
+                agent_capabilities=(
+                    "Writes original poems based on the requested topic, "
+                    "style, tone, and length."
+                ),
+                response_policy=VoiceAgentSubagentResponsePolicy(
+                    immediate_ack=True,
+                ),
+            )
+        ],
     ),
 )
 
@@ -223,7 +227,6 @@ with (
     AIProjectClient(
         endpoint=endpoint,
         credential=credential,
-        allow_preview=True,
     ) as project_client,
 ):
     voice_agent = project_client.agents.create_version(
@@ -241,7 +244,7 @@ Reference: [Azure AI Projects client library for Python](https://aka.ms/azsdk/az
 
 A voice agent version uses either delegate or inline subagents. Don't mix the two modes in one `subagent_config`.
 
-The Python example initializes `VoiceAgentSubagentConfig` from a dictionary to send `subagent_type: delegate` explicitly. This approach also works with SDK versions that don't expose `subagent_type` as a generated model property.
+`VoiceAgentDelegateSubagentConfig` sets `subagent_type` to `delegate`. `VoiceAgentDefinition` sets `sub_protocol` to `realtime` automatically.
 
 ## Talk to the voice-based agent
 
@@ -324,9 +327,8 @@ async def talk() -> None:
             AIProjectClient(
                 endpoint=endpoint,
                 credential=credential,
-                allow_preview=True,
             ) as project_client,
-            project_client.beta.voice_agents.realtime.connect(
+            project_client.voice_agents.realtime.connect(
                 agent_name="poetry-voice-agent",
             ) as connection,
         ):

@@ -26,7 +26,8 @@ description: Reference list of Microsoft Foundry capabilities by area, including
 ms.reviewer: sgilley
 ms.subservice: foundry-platform
 ms.topic: reference
-ms.date: 2026-08-12T00:00:00.0000000Z
+ms.date: 2026-11-10T00:00:00.0000000Z
+ms.custom: doc-kit-assisted
 ai-usage: ai-assisted
 locale: en-us
 document_id: 9e0ea685-389c-427d-8976-27d7d4aaa5be
@@ -43,12 +44,12 @@ item_type: Content
 source_path: articles/foundry/concepts/capability-reference.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/062d60c9-ee0f-402e-a046-b4e67c3572d6
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/17d3b3f6-a66e-4c69-9774-14a73c38e669
 platformId: daaa5900-743c-54a6-602a-8b298a2a14b6
 ---
 
@@ -85,7 +86,7 @@ Model selection, deployment, and lifecycle.
 | [Foundry Models catalog](foundry-models-overview) | Discover and compare models from Microsoft, OpenAI, Anthropic, Meta, and others, across models sold by Azure and models from partners and community. |
 | [Model deployment](../foundry-models/how-to/create-model-deployments) | Create and manage model endpoints from the portal or code. |
 | [Deployment types](../foundry-models/concepts/deployment-types) | Choose how capacity is served, including standard, global, data zone, provisioned throughput (PTU), batch, and priority processing. |
-| [Managed compute](managed-compute-overview) (preview) | Deploy models to dedicated virtual machine capacity in your resource. |
+| [Managed compute](managed-compute-overview) | Deploy models to dedicated virtual machine capacity in your resource. |
 | [Instant access models](instant-models) (preview) | Use selected models without provisioning a deployment first. |
 | [Model router](../openai/concepts/model-router) | Route requests automatically to the best model for cost and quality. |
 | [Model benchmarks and leaderboards](model-benchmarks) | Compare model quality, cost, and performance before you commit. |
@@ -145,7 +146,7 @@ How agents and applications ground responses in your data.
 | Capability | What it does |
 | --- | --- |
 | [Retrieval-augmented generation (RAG)](retrieval-augmented-generation) | Patterns for grounding model responses in your own content. |
-| [Azure AI Search integration](../agents/how-to/tools/ai-search) | Use Azure AI Search indexes as agent knowledge. |
+| [Foundry IQ (Azure AI Search) integration](../agents/how-to/tools/ai-search) | Use Foundry IQ indexes as agent knowledge. |
 | [Vector stores](../agents/concepts/vector-stores) | Managed storage and indexing for file search. |
 | [Foundry IQ](../agents/concepts/what-is-foundry-iq) | Agentic retrieval over a knowledge base, including private networking. |
 | [Fabric IQ](../agents/how-to/tools/fabric-iq) (preview) | Reason over Microsoft Fabric data and semantic models. |
@@ -164,7 +165,7 @@ Understand what your agents and models are doing in production.
 | [Model deployment monitoring](../foundry-models/how-to/monitor-models) | Watch latency, throughput, and errors for model endpoints. |
 | [End-user feedback logging](../observability/how-to/log-end-user-feedback) | Collect and analyze feedback signals from your application. |
 | [Notification Center](concept-notification-center) | See service and resource notifications in the portal. |
-| [External agent registration](../agents/how-to/register-external-agent) (preview) | Bring agents that run outside Foundry into Foundry observability. |
+| [External agent registration](../agents/how-to/register-external-agent) | Bring agents that run outside Foundry into Foundry observability. |
 | [Diagnostic logging](../how-to/diagnostic-logging) | Send platform logs and metrics to Azure Monitor. |
 
 ## Evaluation and optimization
