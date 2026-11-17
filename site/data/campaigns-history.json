@@ -5152,14 +5152,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-15",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-16",
 "text":"August 1, 2026."
 },
@@ -5217,6 +5209,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-16",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-17",
 "text":"August 1, 2026."
 },
 {
@@ -5758,7 +5758,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-16",
+"seen":"2026-11-17",
 "text":"early February 2026."
 },
 {
@@ -5766,7 +5766,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-16",
+"seen":"2026-11-17",
 "text":"February 2027."
 },
 {
@@ -6348,6 +6348,14 @@
 "source":"Hacker News",
 "date":"2026-11-15",
 "group":"community",
+"found":"2026-11-17"
+},
+"https://azure.microsoft.com/updates?id=580916":{
+"title":"[In preview] Public Preview: Agent Sandbox cluster extension",
+"link":"https://azure.microsoft.com/updates?id=580916",
+"source":"Azure Updates",
+"date":"2026-11-17",
+"group":"microsoft",
 "found":"2026-11-17"
 }
 },
@@ -7791,6 +7799,14 @@
 "date":"2026-11-16",
 "group":"community",
 "found":"2026-11-17"
+},
+"https://dev.to/amrithesh_dev/how-gpt-62-astra-slashed-robot-debug-time-from-hours-to-minutes-the-2026-game-changer-4bf4":{
+"title":"How GPT‑6.2 Astra Slashed Robot Debug Time From Hours to Minutes – The 2026 Game‑Changer",
+"link":"https://dev.to/amrithesh_dev/how-gpt-62-astra-slashed-robot-debug-time-from-hours-to-minutes-the-2026-game-changer-4bf4",
+"source":"NeonTiger12",
+"date":"2026-11-17",
+"group":"community",
+"found":"2026-11-17"
 }
 },
 "final":"2026-12-15",
@@ -8087,6 +8103,14 @@
 "id":"exo-reject-direct-send-ga-2026-11-16",
 "date":"2026-11-16",
 "group":"microsoft",
+"found":"2026-11-17"
+},
+"https://petri.com/microsoft-exchange-online-direct-send-protection/":{
+"title":"Microsoft Makes Exchange Online Direct Send Protection Generally Available",
+"link":"https://petri.com/microsoft-exchange-online-direct-send-protection/",
+"source":"Petri IT Knowledgebase",
+"date":"2026-11-17",
+"group":"community",
 "found":"2026-11-17"
 }
 },
@@ -9294,6 +9318,38 @@
 "date":"2026-11-16",
 "group":"community",
 "found":"2026-11-17"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=580480":{
+"title":"Dynamics 365 Project Operations: Optimize Project Operations: Enhanced proforma invoice",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=580480",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-17",
+"group":"community",
+"found":"2026-11-17"
+},
+"https://thehackernews.com/2026/11/researchers-detail-iphone-flaw-that-let.html":{
+"title":"Researchers Detail iPhone Flaw That Let Apps Record Audio Despite Denied Microphone Permission",
+"link":"https://thehackernews.com/2026/11/researchers-detail-iphone-flaw-that-let.html",
+"source":"Hacker News",
+"date":"2026-11-17",
+"group":"community",
+"found":"2026-11-17"
+},
+"https://daily.entra.news/day/2026-11-16/":{
+"title":"Risk-based CAPTCHA checks are arriving for Entra SMS and voice MFA — 16 November 2026",
+"link":"https://daily.entra.news/day/2026-11-16/",
+"source":"Daily Entra News",
+"date":"2026-11-16",
+"group":"community",
+"found":"2026-11-17"
+},
+"https://blog.report-uri.com/one-hijacked-analytics-script-and-russian-iphone-exploits-on-thousands-of-websites/":{
+"title":"One Hijacked Analytics Script, and Russian iPhone Exploits on Thousands of Websites",
+"link":"https://blog.report-uri.com/one-hijacked-analytics-script-and-russian-iphone-exploits-on-thousands-of-websites/",
+"source":"Report URI Blog",
+"date":"2026-11-09",
+"group":"community",
+"found":"2026-11-17"
 }
 },
 "final":"2027-07-01",
@@ -9993,7 +10049,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-16",
+"seen":"2026-11-17",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10001,7 +10057,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-16",
+"seen":"2026-11-17",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10748,6 +10804,14 @@
 "date":"2026-11-09",
 "group":"microsoft",
 "found":"2026-11-15"
+},
+"https://techcommunity.microsoft.com/t5/windows-it-pro-blog/expand-passwordless-access-with-confidence/ba-p/4572666":{
+"title":"Expand passwordless access with confidence",
+"link":"https://techcommunity.microsoft.com/t5/windows-it-pro-blog/expand-passwordless-access-with-confidence/ba-p/4572666",
+"source":"Windows IT Pro Blog",
+"date":"2026-11-17",
+"group":"microsoft",
+"found":"2026-11-17"
 }
 },
 "final":"2027-11-15",
@@ -11188,6 +11252,14 @@
 "date":"2026-10-15",
 "group":"microsoft",
 "found":"2026-11-15"
+},
+"https://daily.entra.news/day/2026-11-16/":{
+"title":"Risk-based CAPTCHA checks are arriving for Entra SMS and voice MFA — 16 November 2026",
+"link":"https://daily.entra.news/day/2026-11-16/",
+"source":"Daily Entra News",
+"date":"2026-11-16",
+"group":"community",
+"found":"2026-11-17"
 }
 },
 "final":"2026-11-15",
@@ -20071,6 +20143,156 @@
 "src":"MC1556088",
 "now":"early Jan 2027",
 "text":"We will begin rolling out in mid-December 2026 and expect to complete by early January 2027."
+},
+{
+"day":"2026-11-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-121680 Windows NTLM Spoofing Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-121680"
+},
+{
+"day":"2026-11-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-119961 Windows Internet Information Services Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119961"
+},
+{
+"day":"2026-11-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-119914 Windows Setup and Deployment Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119914"
+},
+{
+"day":"2026-11-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70278 Microsoft Windows Media Foundation Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70278"
+},
+{
+"day":"2026-11-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-40400 Windows PowerShell Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-40400"
+},
+{
+"day":"2026-11-17",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"community",
+"title":"Oracle to Patch 11 Java Flaws Today as Critical OpenJDK RCE (CVE-2026-114938) Report Emerges",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/11/oracle-to-patch-11-java-flaws-today-as.html"
+},
+{
+"day":"2026-11-17",
+"cid":"c-item-azure-arc-akv-secrets-provider-extension-retirement-202",
+"type":"material",
+"name":"Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret…",
+"group":"microsoft",
+"title":"[In preview] Public Preview: Agent Sandbox cluster extension",
+"source":"Azure Updates",
+"link":"https://azure.microsoft.com/updates?id=580916"
+},
+{
+"day":"2026-11-17",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"How GPT‑6.2 Astra Slashed Robot Debug Time From Hours to Minutes – The 2026 Game‑Changer",
+"source":"NeonTiger12",
+"link":"https://dev.to/amrithesh_dev/how-gpt-62-astra-slashed-robot-debug-time-from-hours-to-minutes-the-2026-game-changer-4bf4"
+},
+{
+"day":"2026-11-17",
+"cid":"c-item-exo-reject-direct-send-ga-2026-11-16",
+"type":"material",
+"name":"Reject Direct Send is generally available: one org setting rejects unauthenticated mail that spoofs your own…",
+"group":"community",
+"title":"Microsoft Makes Exchange Online Direct Send Protection Generally Available",
+"source":"Petri IT Knowledgebase",
+"link":"https://petri.com/microsoft-exchange-online-direct-send-protection/"
+},
+{
+"day":"2026-11-17",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Dynamics 365 Project Operations: Optimize Project Operations: Enhanced proforma invoice",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=580480"
+},
+{
+"day":"2026-11-17",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Researchers Detail iPhone Flaw That Let Apps Record Audio Despite Denied Microphone Permission",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/11/researchers-detail-iphone-flaw-that-let.html"
+},
+{
+"day":"2026-11-17",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Risk-based CAPTCHA checks are arriving for Entra SMS and voice MFA — 16 November 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-11-16/"
+},
+{
+"day":"2026-11-17",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"One Hijacked Analytics Script, and Russian iPhone Exploits on Thousands of Websites",
+"source":"Report URI Blog",
+"link":"https://blog.report-uri.com/one-hijacked-analytics-script-and-russian-iphone-exploits-on-thousands-of-websites/"
+},
+{
+"day":"2026-11-17",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"microsoft",
+"title":"Expand passwordless access with confidence",
+"source":"Windows IT Pro Blog",
+"link":"https://techcommunity.microsoft.com/t5/windows-it-pro-blog/expand-passwordless-access-with-confidence/ba-p/4572666"
+},
+{
+"day":"2026-11-17",
+"cid":"c-item-mc1519855",
+"type":"material",
+"name":"SSPR requires registered authentication methods",
+"group":"community",
+"title":"Risk-based CAPTCHA checks are arriving for Entra SMS and voice MFA — 16 November 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-11-16/"
 }
 ],
 "archive":{
@@ -24632,6 +24854,54 @@
 "date":"2026-11-15",
 "group":"community",
 "found":"2026-11-15"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-121680":{
+"title":"CVE-2026-121680 Windows NTLM Spoofing Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-121680",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-17",
+"group":"microsoft",
+"found":"2026-11-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119961":{
+"title":"CVE-2026-119961 Windows Internet Information Services Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119961",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-17",
+"group":"microsoft",
+"found":"2026-11-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119914":{
+"title":"CVE-2026-119914 Windows Setup and Deployment Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119914",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-17",
+"group":"microsoft",
+"found":"2026-11-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70278":{
+"title":"CVE-2026-70278 Microsoft Windows Media Foundation Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70278",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-17",
+"group":"microsoft",
+"found":"2026-11-17"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-40400":{
+"title":"CVE-2026-40400 Windows PowerShell Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-40400",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-17",
+"group":"microsoft",
+"found":"2026-11-17"
+},
+"https://thehackernews.com/2026/11/oracle-to-patch-11-java-flaws-today-as.html":{
+"title":"Oracle to Patch 11 Java Flaws Today as Critical OpenJDK RCE (CVE-2026-114938) Report Emerges",
+"link":"https://thehackernews.com/2026/11/oracle-to-patch-11-java-flaws-today-as.html",
+"source":"Hacker News",
+"date":"2026-11-17",
+"group":"community",
+"found":"2026-11-17"
 }
 },
 "final":"2026-10-13",
