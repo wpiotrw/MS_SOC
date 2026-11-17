@@ -1,7 +1,7 @@
 {
  "read": "2026-11-17",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 724,
+ "count": 727,
  "note": null,
  "messages": [
   {
@@ -19188,6 +19188,86 @@
    "bodyHash": "65faf47a0313f926"
   },
   {
+   "id": "MC1557760",
+   "title": "Microsoft Teams: Registration capacity for town halls and webinars increases to 20,000",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-17",
+   "end": "2027-01-31",
+   "modified": "2026-11-17",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] Starting in December, registration capacity for Microsoft Teams town halls and webinars scales with the event's attendee capacity, up to 20,000 registrations per event. Organizers with Teams Enterprise can allow up to 3,000 registrations. Organizers with Attendee Capacity Packs can allow up to 20,000. Organizers can use this to plan large-scale events with registration. [Rollout sch…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in early December 2026 and expect to complete by late December 2026 ."
+   ],
+   "bodyHash": "f5cf42e066979bec"
+  },
+  {
+   "id": "MC1557764",
+   "title": "Microsoft Agent 365 Business Analytics: Introducing Access Management",
+   "services": [
+    "Microsoft Viva"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-17",
+   "end": "2027-03-05",
+   "modified": "2026-11-17",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing Access Management for Agent 365 Business Analytics, previously Copilot Analytics, so admins can manage who has access and what they can do directly in the product. The new Access Management experience brings role assignment and permissions into one place for Global administrators, AI administrators, and Viva Insights administrators. This simplifies the previous ex…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout will begin in early January 2027 and is expected to complete by late January 2027."
+   ],
+   "bodyHash": "0cd7dd58132819ee"
+  },
+  {
+   "id": "MC1557766",
+   "title": "Microsoft Viva: Introducing Interactive Insights in the A365 Business Analytics app",
+   "services": [
+    "Microsoft Viva"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-17",
+   "end": "2027-06-04",
+   "modified": "2026-11-17",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing Interactive insights, an AI-powered feature in Agent 365 Business Analytics, to make it easier for users to understand AI adoption, engagement, and consumption data without manually building queries or reports. Using natural-language questions, users can curate summaries and generate visualizations and reports to identify patterns, understand usage and cost driver…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Frontier Preview: Rollout will begin in mid-November 2026 and is expected to complete by late November 2026.",
+    "General Availability (Worldwide): Rollout will begin in late March 2027 and is expected to complete by late April 2027."
+   ],
+   "bodyHash": "ceaa4493b76a9d27"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -25261,6 +25341,27 @@
    "id": "MC1478949",
    "type": "removed",
    "title": "Breakout Rooms for Microsoft Teams Webinars now support up to 1,000 participants and 100 rooms",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1557760",
+   "type": "new",
+   "title": "Microsoft Teams: Registration capacity for town halls and webinars increases to 20,000",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1557764",
+   "type": "new",
+   "title": "Microsoft Agent 365 Business Analytics: Introducing Access Management",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1557766",
+   "type": "new",
+   "title": "Microsoft Viva: Introducing Interactive Insights in the A365 Business Analytics app",
    "fields": {}
   }
  ]
