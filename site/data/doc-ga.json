@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-17T07:54:00Z",
+ "generated": "2026-11-17T18:21:43Z",
  "source": "tools/doc_ga.py (CLAUDE.md 5eo)",
  "sources": [
   {
    "name": "Our Learn copy (mirror/learn)",
    "state": "ok",
-   "pages": 7098,
-   "events": 0,
+   "pages": 7171,
+   "events": 1,
    "note": ""
   },
   {
@@ -19,6 +19,17 @@
   }
  ],
  "events": [
+  {
+   "url": "https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/privileged-identity-management-custom-extensions",
+   "title": "Configure custom extensions for PIM role activation - Microsoft Entra ID Governance",
+   "before": "Configure custom extensions for PIM role activation (Preview) - Microsoft Entra ID Governance",
+   "date": "2026-11-17",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-17",
+   "announced": false
+  },
   {
    "url": "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/clear-attribute-values",
    "title": "Clear attribute values",

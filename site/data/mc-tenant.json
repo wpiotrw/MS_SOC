@@ -545,28 +545,6 @@
    "bodyHash": "8488abf9842e208a"
   },
   {
-   "id": "MC1187243",
-   "title": "Windows Office Hours: November 20, 2025",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-11-17",
-   "end": "2026-11-17",
-   "modified": "2025-11-17",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "If you are an IT admin with questions about managing and updating Windows, we want to help. Every third Thursday of the month, we host a live chat-based event on the Tech Community called Windows Office Hours. Members of the Windows, Microsoft Intune, Windows Autopilot, Windows Autopatch, and Windows 365 engineering teams will be standing by to answer your questions. We also have experts from Fast…",
-   "when": null,
-   "prepare": null,
-   "dates": [],
-   "bodyHash": "d14a61b83c930932"
-  },
-  {
    "id": "MC1187343",
    "title": "(Update) New update to address issue affecting Windows 10 devices enrolled on Extended Security Updates (ESU)",
    "services": [
@@ -3343,24 +3321,24 @@
    "major": true,
    "actionBy": null,
    "start": "2026-04-13",
-   "end": "2026-12-31",
-   "modified": "2026-10-02",
+   "end": "2027-04-30",
+   "modified": "2026-11-17",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 2, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are enhancing how Microsoft Defender for Office 365 identifies and manages promotional email. Promotional messages will be tagged as “promotions” (previously “Bulk” in preview) and can be moved automatically to a new Promotions folder. The system learns from user actions, such as moving messages i…",
-   "when": "Public Preview (Limited): We will begin rolling out in mid-April 2026 and expect to complete by mid-May 2026 (previously end of April). To be included in the public preview program, send an email to BulkMailPreviews@microsoft.com indicating: Organization name, Tenant ID and your onmicrosoft.com domain (e.g contoso.onmicrosoft.com). Slots are limited and will close on May 15th, 2026 . General Availability (Worldwide): We will begin rolling out in …",
+   "summary": "Updated November 17, 2026: We have updated the timeline. Thank you for your patience. [Introduction] We are enhancing how Microsoft Defender for Office 365 identifies and manages promotional email. Promotional messages will be tagged as “promotions” (previously “Bulk” in preview) and can be moved automatically to a new Promotions folder. The system learns from user actions, such as moving messages…",
+   "when": "Public Preview (Limited): We will begin rolling out in mid-April 2026 and expect to complete by mid-May 2026 (previously end of April). To be included in the public preview program, send an email to BulkMailPreviews@microsoft.com indicating: Organization name, Tenant ID and your onmicrosoft.com domain (e.g contoso.onmicrosoft.com). Slots are limited and will close on May 15th, 2026 . General Availability (Worldwide): Rollout begins in late July 2…",
    "prepare": "To be included in the public preview program, send an email to BulkMailPreviews@microsoft.com indicating: Organization name, Tenant ID and your onmicrosoft.com domain (e.g contoso.onmicrosoft.com). Slots are limited and will close on April 30th, 2026. Review your internal mailbox and message handling guidance and update training materials if needed. If you plan to participate in the Public Preview, review your Exchange transport rule and anti-spa…",
    "dates": [
-    "Updated October 2, 2026: We have updated the timeline.",
+    "Updated November 17, 2026: We have updated the timeline.",
     "Public Preview (Limited): We will begin rolling out in mid-April 2026 and expect to complete by mid-May 2026 (previously end of April).",
-    "General Availability (Worldwide): We will begin rolling out in late July 2026 (previously early July) and expect to complete by late October 2026 (previously late August).",
-    "General Availability (DoD, GCC, GCC High): We will begin rolling out in late July 2026 (previously early July) and expect to complete by late November 2026 (previously mid-September)."
+    "General Availability (Worldwide): Rollout begins in late July 2026 (previously early July) and is expected to complete by mid-February 2027 (previously late November 2026) .",
+    "General Availability (DoD, GCC, GCC High): We will begin rolling out in late July 2026 (previously early July) and expect to complete by end of March 2027 (previously late November 2026)."
    ],
-   "bodyHash": "293b77d968232948"
+   "bodyHash": "6a47066485c0318f"
   },
   {
    "id": "MC1279829",
@@ -3502,23 +3480,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-04-15",
-   "end": "2027-03-29",
-   "modified": "2026-10-22",
+   "end": "2027-04-30",
+   "modified": "2026-11-17",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 22, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Azure PST Import provides a structured, PowerShell-based way for administrators to import PST files stored in Azure Blob Storage into Exchange Online mailboxes , which are commonly used to store archived Outlook mailbox content. This capability helps organizations migrate historical email data in a …",
-   "when": "Public Preview: We will begin rolling out mid-October 2026 (previously mid-September) and expect to complete by late October 2026 (previously late September). Worldwide: We will begin rolling out late January 2027 (previously early December 2026) and expect to complete by late February 2027 (previously late December 2026).",
+   "summary": "Updated November 17, 2026: We have updated the timeline. Thank you for your patience. [Introduction] Azure PST Import provides a structured, PowerShell-based way for administrators to import PST files stored in Azure Blob Storage into Exchange Online mailboxes , which are commonly used to store archived Outlook mailbox content. This capability helps organizations migrate historical email data in a…",
+   "when": "Public Preview: We will begin rolling out mid-January 2027 (previously mid-October 2026) and expect to complete by mid-February 2027 (previously late October 2026). Worldwide: We will begin rolling out early March 2027 (previously late January) and expect to complete by late March 2027 (previously late February).",
    "prepare": "Ensure your Azure storage account and container exist and are reachable; the endpoint creation cmdlet validates both during setup. Grant the Storage Blob Data Reader role to the Office 365 Import Service app on the target storage account. Without this permission, creating the Azure PST Import endpoint will fail. Prepare your batch input files (XML and/or CSV) and run the migration batch in Analyze mode first so the service can validate readiness …",
    "dates": [
-    "Updated October 22, 2026: We have updated the timeline.",
-    "Public Preview: We will begin rolling out mid-October 2026 (previously mid-September) and expect to complete by late October 2026 (previously late September).",
-    "Worldwide: We will begin rolling out late January 2027 (previously early December 2026) and expect to complete by late February 2027 (previously late December 2026)."
+    "Updated November 17, 2026: We have updated the timeline.",
+    "Public Preview: We will begin rolling out mid-January 2027 (previously mid-October 2026) and expect to complete by mid-February 2027 (previously late October 2026).",
+    "Worldwide: We will begin rolling out early March 2027 (previously late January) and expect to complete by late March 2027 (previously late February)."
    ],
-   "bodyHash": "3d713175238d191e"
+   "bodyHash": "711e834020af2d5a"
   },
   {
    "id": "MC1282568",
@@ -4217,23 +4195,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-05-12",
-   "end": "2026-12-14",
-   "modified": "2026-10-19",
+   "end": "2026-12-31",
+   "modified": "2026-11-17",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 19, 2026: We have updated the timeline. Thank you for your patience. [Introduction] To help organizations deliver more polished and branded town hall events, Microsoft Teams is introducing the ability for organizers and presenters to upload custom background images in the Manage what attendees see experience . This enhancement allows teams to replace default backgrounds with brande…",
-   "when": "Targeted Release: Rollout begins in early June 2026 (previously late May) and is expected to complete by early June 2026 (previously late May). General Availability (Worldwide): Rollout begins in early June 2026 and is expected to complete by early November 2026 (previously mid-September).",
+   "summary": "Updated November 17, 2026: We have updated the timeline. Thank you for your patience. [Introduction] To help organizations deliver more polished and branded town hall events, Microsoft Teams is introducing the ability for organizers and presenters to upload custom background images in the Manage what attendees see experience . This enhancement allows teams to replace default backgrounds with brand…",
+   "when": "Targeted Release: Rollout begins in early June 2026 (previously late May) and is expected to complete by early June 2026 (previously late May). General Availability (Worldwide): Rollout begins in early June 2026 and is expected to complete by late November 2026 (previously early November).",
    "prepare": "No admin action is required before rollout. Consider notifying users who organize or present town halls about this new capability. Prepare branded background images that align with your organization’s visual identity guidelines. Update internal documentation or event playbooks if you provide guidance on hosting town halls. Optionally, run a test town hall event to familiarize presenters with the upload flow and attendee experience.",
    "dates": [
-    "Updated October 19, 2026: We have updated the timeline.",
+    "Updated November 17, 2026: We have updated the timeline.",
     "Targeted Release: Rollout begins in early June 2026 (previously late May) and is expected to complete by early June 2026 (previously late May).",
-    "General Availability (Worldwide): Rollout begins in early June 2026 and is expected to complete by early November 2026 (previously mid-September)."
+    "General Availability (Worldwide): Rollout begins in early June 2026 and is expected to complete by late November 2026 (previously early November)."
    ],
-   "bodyHash": "3d8359249fb0b760"
+   "bodyHash": "1272c6104c3a6f25"
   },
   {
    "id": "MC1308634",
@@ -6928,23 +6906,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-07-31",
-   "end": "2026-12-14",
-   "modified": "2026-10-19",
+   "end": "2026-12-31",
+   "modified": "2026-11-17",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 19, 2026: We have updated the timeline. Thank you for your patience. [What and why] Organizations can now allow trusted external presenters to manage Microsoft Teams event production controls. Federated (B2B) users and guest users can be assigned through the Who has control of production tools setting, enabling them to manage the attendee viewing experience during Teams events. Thi…",
+   "summary": "Updated November 17, 2026: We have updated the timeline. Thank you for your patience. [What and why] Organizations can now allow trusted external presenters to manage Microsoft Teams event production controls. Federated (B2B) users and guest users can be assigned through the Who has control of production tools setting, enabling them to manage the attendee viewing experience during Teams events. Th…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 19, 2026: We have updated the timeline.",
+    "Updated November 17, 2026: We have updated the timeline.",
     "Targeted Release: Beginning in early August 2026 and expected to complete by early October 2026 (previously early September) (previously mid-August).",
-    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning early August 2026 and expected to complete by early November 2026 (previously early October)."
+    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning early August 2026 and expected to complete by late November 2026 (previously early November)."
    ],
-   "bodyHash": "458839a3868e95c4"
+   "bodyHash": "4b52afffd8a57930"
   },
   {
    "id": "MC1443518",
@@ -7840,20 +7818,20 @@
    "actionBy": null,
    "start": "2026-08-14",
    "end": "2027-05-31",
-   "modified": "2026-10-22",
+   "modified": "2026-11-17",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated October 22, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Azure PST Import provides a structured, PowerShell-based way for administrators to import PST files stored in Azure Blob Storage into Exchange Online mailboxes , which are commonly used to store archived Outlook mailbox content. This capability helps organizations migrate historical email data in a…",
+   "summary": "Updated November 17, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Azure PST Import provides a structured, PowerShell-based way for administrators to import PST files stored in Azure Blob Storage into Exchange Online mailboxes , which are commonly used to store archived Outlook mailbox content. This capability helps organizations migrate historical email data in …",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 22, 2026: We have updated the timeline.",
-    "Global: We will begin rolling out late March 2027 (previously early December 2026) and expect to complete by late April 2027 (previously late December 2026)."
+    "Updated November 17, 2026: We have updated the timeline.",
+    "Global: We will begin rolling out early April 2027 (previously early December 2026) and expect to complete by late April 2027 (previously late December 2026)."
    ],
-   "bodyHash": "5db3b4abe4b916ef"
+   "bodyHash": "4b3c274347347420"
   },
   {
    "id": "MC1455014",
@@ -11701,29 +11679,6 @@
    "bodyHash": "917b4ac1290074d8"
   },
   {
-   "id": "MC1478949",
-   "title": "Breakout Rooms for Microsoft Teams Webinars now support up to 1,000 participants and 100 rooms",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-24",
-   "end": "2026-11-17",
-   "modified": "2026-09-24",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and Why:] Breakout rooms are now officially supported in Microsoft Teams webinars with up to 1,000 participants across up to 100 breakout rooms, enabling organizers to divide larger webinar audiences into smaller groups for focused discussions and collaborative activities. [Rollout Schedule:] Available now. [Impact on Your Organization:] Organizations can now confidently use breakout rooms i…",
-   "when": null,
-   "prepare": null,
-   "dates": [],
-   "bodyHash": "e57575411e722605"
-  },
-  {
    "id": "MC1478955",
    "title": "Final reminder: Microsoft Project Online retires on September 30, 2026",
    "services": [
@@ -13085,21 +13040,21 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-06",
-   "end": "2027-01-11",
-   "modified": "2026-11-10",
+   "end": "2027-03-01",
+   "modified": "2026-11-17",
    "tags": [
     "Admin impact",
     "Updated message"
    ],
-   "summary": "Updated November 9, 2026: We have updated the timeline. Thank you for your patience. [What and why] Beginning in late November 2026, Microsoft Purview will roll out improvements to the setup and activation experience for inline collection and Data Loss Prevention (DLP) policies that protect interactions with unmanaged cloud apps in Microsoft Edge for Business . This update adds support for organiz…",
+   "summary": "Updated November 17, 2026: We have updated the timeline. Thank you for your patience. [What and why] Beginning in late November 2026, Microsoft Purview will roll out improvements to the setup and activation experience for inline collection and Data Loss Prevention (DLP) policies that protect interactions with unmanaged cloud apps in Microsoft Edge for Business . This update adds support for organi…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated November 9, 2026: We have updated the timeline.",
+    "Updated November 17, 2026: We have updated the timeline.",
     "Beginning in late November 2026, Microsoft Purview will roll out improvements to the setup and activation experience for inline collection and Data Loss Prevention (DLP) policies that protect interactions with unmanaged cloud apps in Microsoft Edge for Busines",
-    "Worldwide: Beginning in late November 2026 (previously early November) and expected to complete by early December 2026 (previously mid-November)."
+    "Worldwide: Beginning in early January 2027 (previously late November 2026) and expected to complete by end of January 2027 (previously early December 2026)."
    ],
-   "bodyHash": "b557439e0e1b13be"
+   "bodyHash": "8a6756eb0fee5d10"
   },
   {
    "id": "MC1490598",
@@ -14460,21 +14415,21 @@
    "actionBy": null,
    "start": "2026-10-15",
    "end": "2027-02-15",
-   "modified": "2026-10-22",
+   "modified": "2026-11-17",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 22, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Organizations can enhance meeting security with synthetic audio and video detection solutions provided by certified third-party providers. Third-party detection solutions analyze meeting media for signs of synthetic or manipulated audio and video and send detection signals to Teams, enabling integr…",
+   "summary": "Updated November 17, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Organizations can enhance meeting security with synthetic audio and video detection solutions provided by certified third-party providers. Third-party detection solutions analyze meeting media for signs of synthetic or manipulated audio and video and send detection signals to Teams, enabling integ…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 22, 2026: We have updated the timeline.",
-    "Targeted Release (Worldwide): We will begin rolling out in mid-November 2026 and expect to complete by late November 2026."
+    "Updated November 17, 2026: We have updated the timeline.",
+    "Targeted Release (Worldwide): We will begin rolling out in late November 2026 (previously mid-November) and expect to complete by late November 2026."
    ],
-   "bodyHash": "4d9cd23ffffd5aaa"
+   "bodyHash": "2002a95570deafff"
   },
   {
    "id": "MC1509789",
@@ -15128,21 +15083,21 @@
    "actionBy": null,
    "start": "2026-10-20",
    "end": "2027-02-15",
-   "modified": "2026-11-03",
+   "modified": "2026-11-17",
    "tags": [
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated November 3, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Teams is introducing an onboarding workflow that helps new team members get started faster by automatically connecting them to relevant channels when they join a team. This can improve engagement, accelerate onboarding, and make important information easier to find from the start. This me…",
+   "summary": "Updated November 17, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Teams is introducing an onboarding workflow that helps new team members get started faster by automatically connecting them to relevant channels when they join a team. This can improve engagement, accelerate onboarding, and make important information easier to find from the start. This m…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated November 3, 2026: We have updated the timeline.",
-    "Targeted Release (Worldwide): We will begin rolling out in mid-November 2026 (previously early November) and expect to complete in mid-November 2026 (previously early November).",
+    "Updated November 17, 2026: We have updated the timeline.",
+    "Targeted Release (Worldwide): We will begin rolling out in late November 2026 (previously mid-November) and expect to complete in late November 2026 (previously mid-November).",
     "General Availability (Worldwide): We will begin rolling out in early December 2026 and expect to complete by mid-December 2026."
    ],
-   "bodyHash": "1fcb72434d6faffa"
+   "bodyHash": "d78e579fb402d3d8"
   },
   {
    "id": "MC1518034",
@@ -16747,21 +16702,21 @@
    "actionBy": null,
    "start": "2026-10-29",
    "end": "2027-01-15",
-   "modified": "2026-11-03",
+   "modified": "2026-11-17",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated November 3, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Teams will enable users to report guest invitations for security concerns directly from Teams. When users receive an unexpected or potentially malicious invitation to join another organization as a guest, they can report it to their IT admin for review, helping identify and mitigate phish…",
+   "summary": "Updated November 17, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Teams will enable users to report guest invitations for security concerns directly from Teams. When users receive an unexpected or potentially malicious invitation to join another organization as a guest, they can report it to their IT admin for review, helping identify and mitigate phis…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated November 3, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): We will begin rolling out in mid-November 2026 (previously early November) and expect to complete by mid-November 2026."
+    "Updated November 17, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We will begin rolling out in late November 2026 (previously mid-November) and expect to complete by late November 2026 (previously mid-November)."
    ],
-   "bodyHash": "d31e0f3124d181e4"
+   "bodyHash": "3a2a02af688f15ff"
   },
   {
    "id": "MC1530697",
@@ -19185,6 +19140,54 @@
    "bodyHash": "951ef3d05d43cebf"
   },
   {
+   "id": "MC1557570",
+   "title": "Dynamics 365 Contact Center - Set wait times as short as 5 seconds in Orchestration playbooks",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-17",
+   "end": "2026-12-17",
+   "modified": "2026-11-17",
+   "tags": [
+    "Feature update"
+   ],
+   "summary": "We are increasing the maximum frequency of orchestration playbook re-evaluations by reducing the wait time from 30 seconds down to 5 seconds in Dynamics 365 Contact Center. This change reached general availability today, November 17, 2026. How does this affect me? With this shorter interval, you get finer control over priority escalation and Bullseye pool expansion. As a result, conversations reac…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "This change reached general availability today, November 17, 2026."
+   ],
+   "bodyHash": "86aa9b4799be0a19"
+  },
+  {
+   "id": "MC1557671",
+   "title": "Dynamics 365 Apps - Upgrade in-queue overflow to Conversation orchestration",
+   "services": [
+    "Dynamics 365 Apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-17",
+   "end": "2026-12-17",
+   "modified": "2026-11-17",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "We are announcing the ability to upgrade in-queue overflow to Conversation orchestration in Dynamics 365 Apps. This feature reached general availability on November 13, 2026. How does this affect me? This feature enables you to upgrade your existing in-queue overflow settings to a Conversation orchestration (CO) playbook, for one queue or many at once. Key functionality of this feature includes: I…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "This feature reached general availability on November 13, 2026."
+   ],
+   "bodyHash": "65faf47a0313f926"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -19258,22 +19261,22 @@
    "major": false,
    "actionBy": null,
    "start": "2024-05-08",
-   "end": "2027-03-01",
-   "modified": "2026-10-22",
+   "end": "2027-03-31",
+   "modified": "2026-11-17",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated October 22, 2026: We have updated the timeline. Thank you for your patience. Coming soon for Microsoft Purview: We are announcing the public preview of the integration of Adaptive protection with Data Lifecycle Management (DLM) to help you find the right balance to protect against data sabotage while enabling productivity. This new integration leverages DLM features to provide an additiona…",
-   "when": "Public preview: We will begin rolling out in late June 2024 (previously early May) and expect to complete by late July 2024 (previously mid-July). General Availability: We will begin rolling out late December 2026 (previously late November) and expect to complete by mid-January 2027 (previously mid-December).",
+   "summary": "Updated November 17, 2026: We have updated the timeline. Thank you for your patience. Coming soon for Microsoft Purview: We are announcing the public preview of the integration of Adaptive protection with Data Lifecycle Management (DLM) to help you find the right balance to protect against data sabotage while enabling productivity. This new integration leverages DLM features to provide an addition…",
+   "when": "Public preview: We will begin rolling out in late June 2024 (previously early May) and expect to complete by late July 2024 (previously mid-July). General Availability: We will begin rolling out late January 2027 (previously late December 2026) and expect to complete by late February 2027 (previously mid-January).",
    "prepare": "Learn more: Learn about retention policies & labels to retain or delete | Microsoft Learn. If you're using Adaptive protection and want to automatically retain content deleted by elevated risk users, follow these steps to turn on this new integration. Sign in to the Microsoft Purview compliance portal . Navigate to Data lifecycle management > Microsoft 365 > Adaptive protection settings in the top right corner. Turn the setting ON and select Save…",
    "dates": [
-    "Updated October 22, 2026: We have updated the timeline.",
+    "Updated November 17, 2026: We have updated the timeline.",
     "Public preview: We will begin rolling out in late June 2024 (previously early May) and expect to complete by late July 2024 (previously mid-July).",
-    "General Availability: We will begin rolling out late December 2026 (previously late November) and expect to complete by mid-January 2027 (previously mid-December)."
+    "General Availability: We will begin rolling out late January 2027 (previously late December 2026) and expect to complete by late February 2027 (previously mid-January)."
    ],
-   "bodyHash": "4975f22f206c5947"
+   "bodyHash": "8d399ba0ffafaa49"
   },
   {
    "id": "MC796790",
@@ -25086,6 +25089,178 @@
    "id": "MC1556107",
    "type": "new",
    "title": "Microsoft Defender: Similar cases comes to the unified security operations platform",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1279093",
+   "type": "changed",
+   "title": "(Updated) Microsoft Defender for Office 365: Enhancing how we handle promotional mail",
+   "fields": {
+    "end": [
+     "2026-12-31",
+     "2027-04-30"
+    ],
+    "bodyHash": [
+     "293b77d968232948",
+     "6a47066485c0318f"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1281505",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: Data Lifecycle Management- Azure PST Import",
+   "fields": {
+    "end": [
+     "2027-03-29",
+     "2027-04-30"
+    ],
+    "bodyHash": [
+     "3d713175238d191e",
+     "711e834020af2d5a"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1307982",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams Town halls: Upload custom backgrounds in Manage what attendees see",
+   "fields": {
+    "end": [
+     "2026-12-14",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "3d8359249fb0b760",
+     "1272c6104c3a6f25"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1443517",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: External presenters can manage event production controls",
+   "fields": {
+    "end": [
+     "2026-12-14",
+     "2026-12-31"
+    ],
+    "bodyHash": [
+     "458839a3868e95c4",
+     "4b52afffd8a57930"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1455013",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: Data Lifecycle Management- Azure PST Import",
+   "fields": {
+    "bodyHash": [
+     "5db3b4abe4b916ef",
+     "4b3c274347347420"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1489971",
+   "type": "changed",
+   "title": "Microsoft Purview DLP: Improved setup and Intune multi-admin approval support for unmanaged apps in Edge for Business",
+   "fields": {
+    "end": [
+     "2027-01-11",
+     "2027-03-01"
+    ],
+    "bodyHash": [
+     "b557439e0e1b13be",
+     "8a6756eb0fee5d10"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1509787",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Third-party synthetic audio and video detection in meetings",
+   "fields": {
+    "bodyHash": [
+     "4d9cd23ffffd5aaa",
+     "2002a95570deafff"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1518033",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Onboarding workflow for new team members",
+   "fields": {
+    "bodyHash": [
+     "1fcb72434d6faffa",
+     "d78e579fb402d3d8"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1530615",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Report guest invitations for security concerns",
+   "fields": {
+    "bodyHash": [
+     "d31e0f3124d181e4",
+     "3a2a02af688f15ff"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1557570",
+   "type": "new",
+   "title": "Dynamics 365 Contact Center - Set wait times as short as 5 seconds in Orchestration playbooks",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1557671",
+   "type": "new",
+   "title": "Dynamics 365 Apps - Upgrade in-queue overflow to Conversation orchestration",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC791110",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | Data Lifecycle Management: New integration with Adaptive protection",
+   "fields": {
+    "end": [
+     "2027-03-01",
+     "2027-03-31"
+    ],
+    "bodyHash": [
+     "4975f22f206c5947",
+     "8d399ba0ffafaa49"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1187243",
+   "type": "removed",
+   "title": "Windows Office Hours: November 20, 2025",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1478949",
+   "type": "removed",
+   "title": "Breakout Rooms for Microsoft Teams Webinars now support up to 1,000 participants and 100 rooms",
    "fields": {}
   }
  ]
