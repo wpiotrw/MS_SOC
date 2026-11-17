@@ -30031,10 +30031,11 @@ IdentityDirectoryEvents
       var top = (mv.length ? mv : S).slice().sort(function (a, z) { return last(z).localeCompare(last(a)); }).slice(0, 3);
       var li = el("li", "s5fe-sen"); li.appendChild(el("b", "s5bk-k k-tech", "Threat Research"));
       var bt = el("button", "s5bk-it s5bk-link"); bt.type = "button"; bt.title = "Open Threat Research";
-      bt.appendChild(el("span", "s5bk-itt", mv.length ? mv.length + " incident" + (mv.length === 1 ? "" : "s") + " on the technologies we track, new or updated since the previous brief"
-        : !S.length ? "No incident on the technologies we track · " + ALLS.length + " in the tab"
-        : "No new incident on the technologies we track since the previous brief · " + S.length + (hasTr ? " of " + ALLS.length : "") + " fit them, the latest:"));
-      if (hasTr && ALLS.length > S.length) bt.appendChild(el("span", "s5bk-itm", (ALLS.length - S.length) + " other incident" + (ALLS.length - S.length === 1 ? "" : "s") + " (Linux, PHP, other vendors' software) stay in the Threat Research tab only."));
+      bt.appendChild(el("span", "s5bk-itt", mv.length ? mv.length + " incident" + (mv.length === 1 ? "" : "s") + " that concern us, new or updated since the previous brief"
+        : !S.length ? "No incident that concerns us · " + ALLS.length + " in the tab"
+        : "No new incident that concerns us since the previous brief · " + S.length + (hasTr ? " of " + ALLS.length : "") + " concern us, the latest:"));
+      var NOUS = hasTr ? ALLS.filter(function (s) { return s && !(s.tracked || []).length; }).length : 0;
+      if (NOUS) bt.appendChild(el("span", "s5bk-itm", NOUS + " other incident" + (NOUS === 1 ? " stays" : "s stay") + " in the Threat Research tab only (no tracked technology, AI, critical vulnerability, Windows or our KQL)."));
       bt.addEventListener("click", function () { goTab(); wake(); });
       li.appendChild(bt);
       var rows = el("div", "s5es-rows");
