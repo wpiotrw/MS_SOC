@@ -92,6 +92,20 @@
     "Docs": "https://abuse.ch/blog/community-first/"
   },
   {
+    "SourceName": "FBI IC3 advisories (IOC files)",
+    "Kind": "advisory-iocs",
+    "Site": "https://www.ic3.gov/CSA",
+    "Api": "none - the CSV and STIX 2.1 JSON files listed under each advisory on https://www.ic3.gov/CSA",
+    "Auth": "none",
+    "Secret": "",
+    "Limits": "one file per advisory, read once (a published IOC file does not change); at most 250 indicators per file",
+    "Terms": "public US government advisories (TLP:CLEAR)",
+    "Use": "CLAUDE.md 5gz: indicators (IPs, domains) of the FBI's FLASH / CSA / joint advisories, attached to the Threat Research incident the advisory belongs to and checked like every other indicator (tools/ic3.py, tools/ioc_watch.py)",
+    "Status": "active",
+    "Checked": "2026-11-17",
+    "Docs": "https://www.ic3.gov/CSA"
+  },
+  {
     "SourceName": "GreyNoise Community API",
     "Kind": "ip-context",
     "Site": "https://www.greynoise.io",

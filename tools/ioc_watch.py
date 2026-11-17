@@ -26,6 +26,8 @@ error; the job never fails. VirusTotal adds every queried indicator to its datas
 domains are queried, never anything from a tenant.
 """
 import datetime as dt, ipaddress, json, os, re, sys, time, urllib.error, urllib.parse, urllib.request
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ic3            # CLAUDE.md 5gz: the IOC files of FBI IC3 advisories
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "ti_sources.json")
@@ -117,6 +119,8 @@ def load(p, default):
 
 
 PAGES = "cache/ioc-pages.json"
+IC3_MAX = 250                          # 5gz: indicators kept per IC3 IOC file (the AA26-281A STIX bundle has 735)
+IC3_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Safari/537.36 MS_SOC-portal"
 PAGE_DAYS, PAGE_MAX = 7, 25           # re-read an article after a week; at most 25 page reads a run
 EXAMPLE = re.compile(r"(?i)contoso|company-?name|example|yourdomain|tenant-?name|fabrikam")
 _page_reads = [0]
@@ -446,6 +450,36 @@ def main():
             # 5fe: the whole article - IOC tables (indicator + the role the author gives it) and defanged mentions
             for kind, v, why in page_iocs(a.get("link"), pages, today):
                 add(kind, v, st["id"], "article", {"art": a.get("link")}, why=(a.get("source") or "Article", why))
+            # 5gz (17 XI 2026): an FBI IC3 advisory ships its indicators as a file (CSV or STIX JSON) - read once (a
+            # published IOC file does not change), at most IC3_MAX per file, IPs and domains only like every other origin
+            for f in (a.get("iocFiles") or [])[:1]:    # the CSV and the STIX of one advisory carry the same indicators
+                c = pages.get(f["url"])
+                if not c:
+                    got = []
+                    def ic3_get(u):
+                        code, body = http(u, headers={"User-Agent": IC3_UA, "Accept": "*/*"}, timeout=90)
+                        if code != 200:
+                            raise IOError("HTTP %s" % code)
+                        return body or b""
+                    for kind, v, d in ic3.iocs(f["url"], ic3_get):
+                        if kind == "url":
+                            kind, v = "domain", (urllib.parse.urlparse(v).hostname or "")
+                        v = v.lower().strip(".")
+                        try:
+                            bad = not v or (kind == "ip" and not ipaddress.ip_address(v).is_global) or (kind == "domain" and BENIGN.search(v))
+                        except ValueError:
+                            bad = True
+                        if bad:
+                            continue
+                        if [kind, v] not in [g[:2] for g in got]:
+                            got.append([kind, v, "" if d.lower().strip(".") == v else d[:120]])
+                    c = {"read": today, "iocs": got[:IC3_MAX], "of": len(got)}
+                    if got:            # an unreadable file is tried again next run, never cached as empty
+                        pages[f["url"]] = c
+                lab = (a.get("flash") or a.get("title") or "")[:80]
+                for kind, v, d in c.get("iocs") or []:
+                    add(kind, v, st["id"], "advisory", {"art": a.get("link")},
+                        why=("FBI IC3", "IOC list of " + lab + (": " + d if d and d.lower() not in ("ip address", "domain", "url") else "")))
         # every story: the coined names in its title (PHP2Shell, NeedyMantis, EvilTokens, ARTEX) - what a campaign's
         # domains copy; scales to any new incident that enters the filters, no list to keep
         for w in title_words(st.get("title") or ""):

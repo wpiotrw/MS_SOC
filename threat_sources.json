@@ -50,6 +50,24 @@
     "Kind": "kev"
   },
   {
+    "SourceName": "FBI IC3 - cybersecurity advisories and FLASH alerts",
+    "SourceURL": "https://www.ic3.gov/CSA",
+    "Site": "https://www.ic3.gov/CSA",
+    "Tier": "core",
+    "Kind": "ic3-csa",
+    "Gov": true,
+    "Note": "CLAUDE.md 5gz: FBI technical alerts (CSA, FLASH, joint advisories with CISA); PDF summary read once; IOC files (CSV, STIX JSON) go to the infrastructure watch"
+  },
+  {
+    "SourceName": "FBI IC3 - public service announcements",
+    "SourceURL": "https://www.ic3.gov/PSA",
+    "Site": "https://www.ic3.gov/PSA",
+    "Tier": "secondary",
+    "Kind": "ic3-psa",
+    "Gov": true,
+    "Note": "CLAUDE.md 5gz: only technical announcements (phishing, consent, malware, vulnerabilities); elections, swatting and consumer fraud are left out"
+  },
+  {
     "SourceName": "Huntress",
     "SourceURL": "https://www.huntress.com/blog/rss.xml",
     "Site": "https://www.huntress.com/blog",

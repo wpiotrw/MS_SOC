@@ -26566,6 +26566,21 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5gz (17 XI 2026, 22:19)** — Piotr: "czy w Threat Research i w zrodlach przyda sie https://www.ic3.gov?" - po propozycji: "rob tak,
+jak zaproponowales". `tools/ic3.py` czyta liste `https://www.ic3.gov/CSA` (alerty CSA, FLASH, wspolne z CISA - PDF; pliki IOC
+CSV / STIX JSON wymienione zaraz po PDF naleza do niego) i `https://www.ic3.gov/PSA` (strony HTML); RSS PSA ma 5 tytulow, a CSA
+nie ma RSS. Nowy alert: tekst czytany RAZ (najwyzej 8 na przebieg; pypdf - krok w `fpa-tenant.yml` - albo pdftotext), z PDF sekcja
+"Summary" i numer (`FLASH-…`, `AA26-…`). Zrodla `Kind: "ic3-csa"` / `"ic3-psa"`, `Gov: true` w `threat_sources.json`. W
+`threats.py`: alert przechodzi, gdy jest techniczny (`ic3.soc_relevant`: phishing, zgody, malware, ransomware, podatnosci...; poza
+wyborami, swattingiem, oszustwami konsumenckimi, OT/PLC), pole `gov`, `flash`, `iocFiles`, streszczenie do 1500 znakow;
+pojedynczy alert jest incydentem bez KQL i poza M365 (wyjatek od §5ex); dwa alerty nie skleja sie po samym szablonie
+("#StopRansomware"); NOWE dla wszystkich zrodel: artykul z <=3 CVE dolacza do incydentu z notatka, ktory ma ten CVE (PSA o PHP ->
+PHP2Shell). `ioc_watch.py`: pierwszy plik IOC alertu czytany raz (cache `cache/ioc-pages.json`), najwyzej 250 wskaznikow, IP i
+domeny, pochodzenie `advisory`, powod "IOC list of FLASH-…". Strona: fioletowa ramka "Government advisory" pod "Microsoft's
+response" (rodzaj, numer, data, dni po pierwszym doniesieniu, pliki IOC, streszczenie). Zmierzone 17 XI: 15 alertow przeszlo filtr
+(CSA 12, PSA 3), 12 w incydentach (ARTEX FLASH -> ConnectWise/ARTEX, PSA PHP -> PHP2Shell, PSA consent phishing i AA26-281A jako
+nowe incydenty); 279 nowych wskaznikow; zdanie Overview bierze je tylko wedlug §5gw. Wpis w `ti_sources.json` ("advisory-iocs").
+
 **§5gy (17 XI 2026, 22:17)** — Piotr: "czy wszystkie dzisiejsze i poprzednie zmiany sa zapisane w naszej dokumentacji html i md?
 dawno nie byla aktualizowana, doszlo duzo, np. monitoring incydentow MS". MD (README, CLAUDE.md, Projekt) mialy wpis o kazdym
 etapie; zakladka About (§5cz) i README rozdzial 13 nie byly ruszane od polowy X. About: `ABOUT_TABS` + Threat Research, Graph
@@ -43047,6 +43062,28 @@ odtad CZTERNASCIE (4-17).**
       rsp.appendChild(rl2);
     }
     d.appendChild(rsp);
+    /* §5gz (17 XI 2026, owner: "would https://www.ic3.gov help in Threat Research?" - "do it as you proposed"): the FBI's
+       advisory on this incident (CSA, FLASH, joint advisory with CISA, or a technical PSA) in its own frame under
+       Microsoft's response: its number, day, the delay after the first report and its IOC file, which the
+       infrastructure watch below reads. */
+    var GV = (s.articles || []).map(function (id) { return ART[id]; }).filter(function (a) { return a && a.gov; });
+    if (GV.length) {
+      var gv = el("div", "s5gd-rsp s5gz-gov"), gh = el("div", "s5gd-rh"); gh.appendChild(el("span", "s5gd-rl", "Government advisory"));
+      gh.appendChild(el("span", "s5gd-rb s5gz-rb", "FBI IC3 · " + GV.length)); gv.appendChild(gh);
+      var gl = el("ul", "s5gd-rlst");
+      GV.forEach(function (g) { var li = el("li"), top = el("div", "s5gd-rt");
+        top.appendChild(el("span", "s5gd-src s5gz-src", g.gov === "PSA" ? "FBI PSA" : (g.flash && /^FLASH/.test(g.flash) ? "FBI FLASH" : g.flash && /^AA/.test(g.flash) ? "Joint advisory" : "FBI CSA")));
+        var ga = aLink(g.title, g.link); ga.className = (ga.className || "") + " s5gd-ra"; top.appendChild(ga); li.appendChild(top);
+        var gm = el("div", "s5gd-rm"); if (g.flash) gm.appendChild(el("span", "s5gd-d", g.flash)); gm.appendChild(el("span", "s5gd-d", dmy(g.published)));
+        var gd = daysAfter(s, g.published); if (gd) gm.appendChild(el("span", "s5gd-d", gd));
+        (g.iocFiles || []).forEach(function (f) { var fa = aLink("IOC list · " + f.url.split("/").pop(), f.url); fa.className = (fa.className || "") + " s5gz-ioc"; gm.appendChild(fa); });
+        li.appendChild(gm);
+        if (g.summary) li.appendChild(el("p", "s5gz-sum", g.summary.length > 420 ? g.summary.slice(0, 417).replace(/\s+\S*$/, "") + "\u2026" : g.summary));
+        gl.appendChild(li); });
+      gv.appendChild(gl);
+      if (GV.some(function (g) { return (g.iocFiles || []).length; })) gv.appendChild(el("p", "s5gd-rn", "Its indicators are in the infrastructure watch of this incident, checked like every other indicator."));
+      d.appendChild(gv);
+    }
     appsCard(s, d);   /* §5ez */
     infraCard(s, d);  /* §5fb */
     var cols = el("div", "s5et-cols"), A = el("div", "s5et-col"), B = el("div", "s5et-col"); cols.appendChild(A); cols.appendChild(B); d.appendChild(cols);
@@ -51286,6 +51323,11 @@ button.s5fz-urn:hover{color:var(--accent);text-decoration:underline}
 .s5ga-src .s5fz-says{color:var(--text)!important;font-size:14.5px!important}
 .s5ga-ab .s5ga-src{margin-top:8px}
 /* §5gd: Microsoft's response frame in Threat Research */
+/* §5gz: the government-advisory frame (FBI IC3) - its own colour, so it never reads as Microsoft's */
+.s5gd-rsp.s5gz-gov{border-color:#5b3fa8;background:color-mix(in srgb,#5b3fa8 8%,var(--surface))}
+.s5gz-rb,.s5gz-src{background:#5b3fa8!important;color:#fff}
+.s5gz-sum{margin:6px 0 0;font-size:14.5px;line-height:1.5;color:var(--text)}
+.s5gz-ioc{font-weight:700;font-size:13px}
 .s5gd-rsp{margin:10px 0 12px;padding:11px 13px;border-radius:14px;border:2px solid #2f5fd0;background:color-mix(in srgb,#2f5fd0 8%,var(--surface))}
 .s5gd-rsp.s5gd-no{border-color:#94600f;background:color-mix(in srgb,#94600f 8%,var(--surface))}
 .s5gd-rh{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:6px}

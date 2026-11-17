@@ -27,6 +27,7 @@ import datetime as dt, email.utils, hashlib, html, json, os, re, sys, urllib.req
 import xml.etree.ElementTree as ET
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import kql_extract   # CLAUDE.md 5eu: Kusto queries in the articles
+import ic3           # CLAUDE.md 5gz: FBI IC3 advisories
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
       " MS_SOC-portal (github.com/wpiotrw/MS_SOC)")
@@ -357,6 +358,10 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                 items = [{"title": x.get("title") or "", "link": "https://www.microsoft.com/en-us/msrc" + (x.get("permalink") or x.get("readMoreLink") or ""),
                           "published": (x.get("publishedDate") or "")[:10], "summary": strip(x.get("blurb") or "")[:1500], "html": "", "author": "MSRC"}
                          for x in j.get("results") or [] if x.get("title")]
+            elif s.get("Kind") in ("ic3-csa", "ic3-psa"):
+                # CLAUDE.md 5gz (17 XI 2026): FBI IC3 - the list page of technical alerts (CSA, FLASH, joint advisories)
+                # or of public service announcements; a new advisory's text is read once (tools/ic3.py)
+                items = ic3.items(raw.decode("utf-8", "replace"), s["Kind"][4:], get, seen_before)
             else:
                 items = parse_feed(raw)
             rep["read"] = len(items)
@@ -371,6 +376,10 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                 if s.get("CheckOnly"):
                     continue      # MSRC: 5 000 CVE titles are a Microsoft reference to search, not incidents
                 keep, score, areas = relevance(i["title"], i["summary"], s)
+                if s.get("Gov"):   # 5gz: a government advisory is kept when it is technical (tools/ic3.py), not by Microsoft words
+                    keep = ic3.soc_relevant(i["title"], i["summary"])
+                    if keep and "Government advisory" not in areas:
+                        areas = areas + ["Government advisory"]
                 # CLAUDE.md 5eu (owner 21 X: "an incident anywhere in the world described with KQL that helps the
                 # analysis - collect it, as a full incident, with the query's full text and the link"): Kusto in the
                 # feed text, else in the article page (new articles first, a budget per run); an article with Kusto
@@ -386,7 +395,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                         except Exception:
                             page[0] = ""
                     return page[0]
-                if not found and not checked and not s.get("Digest") and (keep or s.get("Kind") == "kql") and budget[0] > 0:
+                if not found and not checked and not s.get("Digest") and not s.get("Gov") and (keep or s.get("Kind") == "kql") and budget[0] > 0:
                     budget[0] -= 1
                     found = kql_extract.blocks(read_page())
                     checked = stamp
@@ -442,6 +451,9 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                              "score": score, "areas": areas or ["Other"], "cves": cves, "storms": storms, "names": names,
                              "summary": i["summary"][:420], "kql": len(found) or prevk, "kqlChecked": checked,
                              "apps": apps or [], "appsChecked": appsChecked})
+                if s.get("Gov"):   # 5gz: which advisory, its number and its IOC files (tools/ioc_watch.py reads them)
+                    arts[-1].update({"gov": i.get("gov") or "", "flash": i.get("flash") or "", "iocFiles": i.get("iocFiles") or [],
+                                     "summary": i["summary"][:1500]})
                 rep["kept"] += 1
         except Exception as e:
             rep["state"], rep["error"] = "failed", str(e)[:160]
@@ -488,6 +500,19 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
         nid = match_note(a)
         if nid:
             story_of[a["id"]] = nid
+    # 5gz (17 XI 2026): an article that names the CVE of an analysed incident joins it even without the note's words -
+    # the FBI's PHP PSA names CVE-2026-109618/109619, never "PHP2Shell". Only an article naming at most 3 CVEs: a
+    # round-up of a month's patches is not about one incident.
+    note_cves = {}
+    for a in arts:
+        if story_of.get(a["id"]):
+            for c in a["cves"]:
+                note_cves.setdefault(c, story_of[a["id"]])
+    for a in arts:
+        if a["id"] not in story_of and 0 < len(a["cves"]) <= 3:
+            hit = next((note_cves[c] for c in a["cves"] if c in note_cves), None)
+            if hit:
+                story_of[a["id"]] = hit
     loose = [a for a in arts if a["id"] not in story_of]
     parent = {a["id"]: a["id"] for a in loose}
     def find(x):
@@ -500,6 +525,8 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                 continue
             shared_hard = set(a["cves"]) & set(b["cves"]) or set(a["storms"]) & set(b["storms"])
             rare = {n for n in set(a["names"]) & set(b["names"]) if df.get(n, 0) <= 6}
+            if a.get("gov") and b.get("gov") and not shared_hard:
+                continue    # 5gz: two FBI advisories share their boilerplate ("#StopRansomware"), not an incident
             if shared_hard or len(rare) >= 2:
                 parent[find(a["id"])] = find(b["id"])
     groups = {}
@@ -512,13 +539,14 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
     for k, L in groups.items():
         L.sort(key=lambda a: a.get("published") or a["firstSeen"])
         note = notes.get(k) or {}
-        if not note and len(L) == 1 and L[0]["score"] < 6 and not L[0]["microsoft"] and not L[0].get("kql"):
+        gov = any(a.get("gov") for a in L)   # 5gz: a government advisory is an incident on its own, KQL or not
+        if not note and len(L) == 1 and L[0]["score"] < 6 and not L[0]["microsoft"] and not L[0].get("kql") and not gov:
             continue    # a single weak article is listed in Articles, it is not a story
         txt = " ".join(a["title"] + " " + a.get("summary", "")[:600] for a in L)
         scope = "m365" if note or any(has((" " + a["title"] + " " + a.get("summary", "")[:900] + " ").lower(), M365SCOPE) for a in L) else "other"
         nkql = sum(a.get("kql") or 0 for a in L)
         if not note and (not incident_like(L[-1]["title"] if len(L) == 1 else max(L, key=lambda a: a["score"])["title"], txt)
-                         or (scope == "other" and not nkql)):
+                         or (scope == "other" and not nkql and not gov)):
             continue    # 5ex: not an incident (or, outside M365, no query to run) - its articles stay in Articles
         names = {}
         for a in L:
