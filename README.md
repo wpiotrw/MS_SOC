@@ -43,9 +43,17 @@ Codzienny portal zmian Microsoftu dla SOC: brief poranny (strona główna), stro
 - [11. Postawienie od zera (nowe repozytorium, inny tenant)](#11-postawienie-od-zera-nowe-repozytorium-inny-tenant)
 - [12. Tożsamości, uprawnienia i poświadczenia — pełny wykaz i powód każdego](#12-tożsamości-uprawnienia-i-poświadczenia--pełny-wykaz-i-powód-każdego)
 - [13. O narzędziu i świeżość danych (zakładka About, ramka „Data freshness”, format dat)](#13-o-narzędziu-i-świeżość-danych-zakładka-about-ramka-data-freshness-format-dat)
-- [14. Zakładka Baselines — Maester i Tenable (od 15 X 2026, §5dv)](#14-zakładka-baselines--maester-i-tenable-od-15-x-2026-5dv)
+- [14. Zakładka Security baselines (od 15 X 2026, §5dv; źródła rozszerzone do 2 XI 2026)](#14-zakładka-security-baselines-od-15-x-2026-5dv-źródła-rozszerzone-do-2-xi-2026)
 - [15. Kanały RSS i podpis autora (od 16 X 2026, §5dz)](#15-kanały-rss-i-podpis-autora-od-16-x-2026-5dz)
 - [16. Źródła Threat Research i wywiadu o zagrożeniach — ti_sources.json (od 23 X 2026, §5fa)](#16-źródła-threat-research-i-wywiadu-o-zagrożeniach--ti_sourcesjson-od-23-x-2026-5fa)
+- [17. Graph API Radar i M365 endpoints (od 30 X 2026, §5fs–§5gb, §5fu, §5gh)](#17-graph-api-radar-i-m365-endpoints-od-30-x-2026-5fs5gb-5fu-5gh)
+- [18. Status Microsoft 365 i Azure pod logo (od 13 XI 2026, §5gr)](#18-status-microsoft-365-i-azure-pod-logo-od-13-xi-2026-5gr)
+- [19. Message Center: sprawdzanie dat, posty do opisania, powiązane posty i kampanie](#19-message-center-sprawdzanie-dat-posty-do-opisania-powiązane-posty-i-kampanie)
+- [20. Overview, karta pozycji i wyszukiwarka](#20-overview-karta-pozycji-i-wyszukiwarka)
+- [21. KQL: archiwum, biblioteka i „KQL of the day” (§5l, §5eu, §5gx)](#21-kql-archiwum-biblioteka-i-kql-of-the-day-5l-5eu-5gx)
+- [22. Domena, kanały RSS i kopia stron Learn — uzupełnienia](#22-domena-kanały-rss-i-kopia-stron-learn--uzupełnienia)
+- [23. Threat Research — uzupełnienia rozdziału 16 (od 1 XI 2026)](#23-threat-research--uzupełnienia-rozdziału-16-od-1-xi-2026)
+- [24. Mechanizmy z 16–29 X 2026 bez osobnego rozdziału](#24-mechanizmy-z-1629-x-2026-bez-osobnego-rozdziału)
 - [Historia zmian](#historia-zmian)
 
 ## Skróty
@@ -953,6 +961,20 @@ Wszystkie linki sprawdzone 25–26 IX 2026 (Microsoft Learn przez wyszukiwarkę 
 
 Szczegółowy stan, decyzje i pomiary każdej sesji są w dokumentach projektu Claude „SchedTasks & Routines” (punkt wejścia: `claude/ms-soc-handover.md`, prywatny). Ten plik trzyma skrót, żeby repozytorium samo mówiło, gdzie jesteśmy.
 
+**Stan na 17 XI 2026** (szczegóły: `claude/ms-soc-handover.md` w Projekcie):
+
+| Co | Stan |
+|---|---|
+| Plan v2, etap 1 — własna domena | ✅ 13 XI 2026: https://guardzilla.azureme.pl/ (§5gq, rozdział 22) |
+| Plan v2, etap 3 — dwa samodzielne routines | ✅ 26 X 2026: „poranny” 07:15 i „wieczorny” 22:15 (§5fk, rozdział 13.3); scheduled tasks wyłączone |
+| Plan v2, etap 2 — `/diff/` czytelny | ✅ częściowo: zdania dnia i karty zmian (§5fj, §5fh); dalsze zmiany na bieżąco |
+| Plan v2, etap 4 — nowy portal | zastąpiony planem v3 (24 X 2026: przebudowa, Vite + Preact) — propozycja, decyzja odłożona |
+| Plan v2, etap 5 — repozytorium prywatne | odłożone; repozytorium jest publiczne |
+| Zakładki dodane po 23 X | Graph API Radar, M365 endpoints (rozdział 17), status Microsoft pod logo (18), Security baselines rozszerzone (14.5) |
+| Otwarte | Graph API Radar: pary „dodany/usunięty” tego samego dnia (271 z 1560 zdarzeń) i szukanie po ścieżkach endpointów; źródła Threat Research Huntress (HTTP 403) i Invictus IR (HTTP 404) nie odpowiadają |
+
+Tabele niżej to stan z 30 IX i 5 X 2026, zostawiony jako historia.
+
 | Kolejność | Zadanie | Stan (30 IX 2026) |
 |---|---|---|
 | 1 | Własna kopia stron Learn + wpięcie w kolektory + naprawa adresów 404 (§5cf, §5cg) | ✅ |
@@ -1052,6 +1074,12 @@ Druga, **niezależna** aplikacja w innym tenancie (u właściciela: tenant dewel
 |---|---|
 | **Application.Read.All** | lista uprawnień Microsoft Graph, które da się nadać w tym tenancie (`tools/graph_sp.py`) |
 | **RoleManagement.Read.Directory** | definicje ról wbudowanych Entra i katalog akcji katalogu (`resourceActions`) |
+| **Policy.Read.All**, **Policy.Read.AuthenticationMethod**, **Policy.Read.PermissionGrant** | od 30 X 2026 (§5fs): Graph API Radar czyta polityki tenanta deweloperskiego (autoryzacja, metody uwierzytelniania, dostęp między tenantami, Security Defaults, polityki zgód), żeby wyłapać pola zwracane przez usługę, zanim pojawią się w `$metadata` (`tools/graph_radar.py`, workflow `graph-radar.yml`) |
+| **Organization.Read.All**, **OnPremDirectorySynchronization.Read.All** | od 30 X 2026 (§5fs): te same odczyty Radaru dla organizacji i ustawień synchronizacji katalogu |
+| **DeviceManagementConfiguration.Read.All**, **DeviceManagementServiceConfig.Read.All** | od 30 X 2026 (§5fs): odczyty Radaru dla obiektów ustawień Intune i konfiguracji usługi (rejestracja urządzeń) |
+| **ServiceHealth.Read.All** | od 13 XI 2026 (§5gr-e): `GET /admin/serviceAnnouncement/issues` — numery incydentów i komunikatów Service health dla okna statusu pod logo; zostawiane są tylko zgłoszenia `origin == microsoft` (publikowane przez Microsoft dla wszystkich dzierżaw), bez niczego specyficznego dla tenanta (`tools/ms_health.py`, workflow `ms-health.yml`, wynik na gałęzi `status-data`) |
+
+Uprawnienia Radaru nadaje skrypt `tools/Grant-GraphRadarPermissions.ps1` (pkt 5.3; wpisuje je też do „Configured permissions”, pkt 5.2a). `ServiceHealth.Read.All` nadał właściciel 13 XI 2026 w portalu Entra (App registrations → MS-SOC Dev tenant reader → API permissions → Add → Microsoft Graph → Application → ServiceHealth.Read.All → Grant admin consent). Wszystkie są tylko do odczytu.
 
 **Poświadczenie:** to samo co w 12.1 — federacyjne GitHub OIDC, **ten sam subject** `repo:wpiotrw@37083541/MS_SOC@1348453327:ref:refs/heads/main`, bez sekretu. Jedno repozytorium może logować się do wielu tenantów: każdy tenant ma własną aplikację z własnym poświadczeniem federacyjnym, a workflow wybiera tenant zmiennymi. Alternatywa (aplikacja z 12.1 jako multi-tenant + zgoda w drugim tenancie) — odrzucona: poszerza zasięg głównej aplikacji.
 
@@ -1211,7 +1239,7 @@ Stan na 17 XI 2026 (§5gy). Od 26 X 2026 dawne scheduled tasks „Morning” i �
 - Tekst strony nie jest przepisywany: oryginał zostaje w stronie (ukryty wizualnie), a sformatowaną datę rysuje CSS z atrybutu `data-v`. Dzięki temu sortowanie, wyszukiwarki, filtry i testy widzą to samo co wcześniej.
 - Nie są konwertowane: nazwy plików i ścieżki (`2026-10-10.json`), kod, pola formularzy oraz `/week/` (wydruk do PDF).
 
-## 14. Zakładka Baselines — Maester i Tenable (od 15 X 2026, §5dv)
+## 14. Zakładka Security baselines (od 15 X 2026, §5dv; źródła rozszerzone do 2 XI 2026)
 
 > ℹ️ **Portal pokazuje statystykę, niczego nie uruchamia.** Zakładka czyta publiczne katalogi dwóch narzędzi i mówi, co one sprawdzają, w jakiej wersji, co się zmieniło i jak samemu sprawdzić oraz naprawić każdą pozycję. Żaden test nie jest wykonywany na tenancie, nie ma nowych uprawnień aplikacji ani sekretów.
 
@@ -1262,6 +1290,18 @@ Zdarzenia: test nowy / zmieniony (tytuł, waga, treść) / usunięty, nowe wydan
 ### 14.4 Stan pierwszego przebiegu (15 X 2026)
 
 425 testów Maestera w zakresie (MT 191, CISA 79, ORCA 67, CIS 44, EIDSCA 44; High 139; AI i agenci 22), 81 plików Tenable w zakresie z 1 785 na liście (43 najnowsze, 2 835 elementów), 122 testy sparowane z Tenable. CIS M365: obie strony v7.0.0, wspólne 44 rekomendacje, 116 tylko w Tenable. SCuBA: Tenable v1.5.0 (22/03/2025), ScubaGear 1.8.0, Maester — gałąź główna ScubaGear; wspólne 78, 1 tylko w Maesterze, 51 tylko w Tenable. Plik „MSCT M365 Apps for enterprise 2512” Tenable wystawia bez listy elementów — strona to mówi.
+
+### 14.5 Źródła dodane po 15 X 2026
+
+| Źródło | Od | Kolektor | Co daje |
+|---|---|---|---|
+| CISA SCuBA (ScubaGear) | 27 X 2026, §5fq | `tools/baselines_more.py` | polityki ScubaGear (109, w tym 56 wymaganych przez BOD 25-01), historia wydań od v1.0.0; widok „Compare: CISA · Maester · Tenable” |
+| Microsoft Zero Trust Assessment | 27 X 2026, §5fq | `tools/baselines_more.py` | 364 testy, historia miesiąc po miesiącu z gita |
+| Intune security baselines | 27 X 2026, §5fq | `tools/baselines_more.py` (z naszej kopii Learn) | ustawienia baseline'ów Intune, ramka „Intune STIG audit baseline vs DISA” |
+| CIPP standards (CyberDrain/CIPP) | 31 X 2026, §5fw | `tools/baselines_cipp.py` | `standards.json` — nowy / zmieniony / usunięty standard, wersja CIPP; karty ze starym PowerShellem (MSOnline, AzureAD) mają drugą zakładkę z Microsoft Graph PowerShell (`data/baselines-cipp/ps-rewrites.json`) |
+| DISA STIG | 2 XI 2026, §5ge | `tools/baselines_stig.py` | katalog STIG z cyber.mil (55 wpisów Microsoftu, 29 aktualnych); brak STIG dla Microsoft 365 jako usługi i Exchange Online |
+
+Wszystkie w workflow „Baselines tracking” (`baselines.yml`) dwa razy dziennie (05:15 i 15:15 UTC). Zmiany trafiają do zdania Overview, Today, widoku Changes, `/diff/`, `/week/` i RSS. Portal nadal niczego nie uruchamia w tenancie.
 
 ## 15. Kanały RSS i podpis autora (od 16 X 2026, §5dz)
 
@@ -1460,6 +1500,135 @@ Nadanie uprawnienia (PowerShell, konto z Cloud Application Administrator + Privi
 .\tools\New-FpaReaderApp.ps1 -TenantId <id-tenanta> -Permissions 'Application.Read.All','DelegatedPermissionGrant.Read.All','ServiceMessage.Read.All','RoleManagement.Read.Directory','ThreatIntelligence.Read.All'
 ```
 
+## 17. Graph API Radar i M365 endpoints (od 30 X 2026, §5fs–§5gb, §5fu, §5gh)
+
+### 17.1 Graph API Radar — co robi
+- **Cel:** pokazać, co Microsoft dodał do Microsoft Graph, zanim to opisał na Learn.
+- **Źródła:**
+  - `$metadata` beta i v1.0 dzień po dniu (`tools/graph_radar.py`, historia od tygodniowych synchronizacji repozytorium `microsoftgraph/msgraph-metadata`; kopie w `data/graph-radar/meta-*.json.gz`);
+  - obiekty tenanta deweloperskiego czytane `GET`, żeby złapać pola zwracane przez usługę, których `$metadata` nie zna (uprawnienia w 12.1b);
+  - dokumentacja `microsoft-graph-docs-contrib` i Learn — status znaleziska: Undocumented / On Learn, not in $metadata / In v1.0, missing from beta.
+- **Workflow:** `graph-radar.yml` (04:50 i 16:50 UTC, plus 07:40 UTC).
+- **Zakładka** (pod Graph API):
+  - ramka „Today” z filtrami: źródło, co się stało, technologia;
+  - znaleziska pogrupowane per technologia;
+  - szeroka karta z zakładkami Overview / Permissions / Try it / Sources: komendy Graph Explorer i PowerShell (GET, PATCH na `/{id}`), tabela „What our tenant returns”, przykłady z community (§5fy);
+  - etapy znaleziska w ramce: tenant → community → Learn → referencja beta → `$metadata` → v1.0 GA (§5fz).
+- **Notatki routine:** `tools/radar_todo.py` wybiera do 3 znalezisk dziennie do sprawdzenia w community; notatki w `site/data/graph-radar-notes.json` (walidacja `radar_todo.py check`).
+- **Gdzie jeszcze:** zdanie Overview, Today, `/diff/`, `/week/`, RSS, wyszukiwarka Ctrl K.
+
+> ⚠️ **Znane ograniczenia (17 XI 2026):**
+> - Microsoft serwuje niespójne `$metadata` z różnych serwerów, więc część zdarzeń to pary „dodany” i „usunięty” tego samego dnia (271 z 1560).
+> - Właściwości typów otwartych (`OpenType="true"`, np. `group`) zwracane tylko przez `$select` nie występują w `$metadata`. Radar ich nie widzi; przykład: `dynamicMembershipPriority`.
+
+### 17.2 M365 endpoints
+- **Źródło:** web service Microsoftu `endpoints.office.com` (wersja, rekordy zmian, bieżąca lista); `tools/m365_endpoints.py` → `site/data/m365-endpoints.json` i `data/m365-endpoints/`.
+- **Workflow:** „M365 endpoints” (`m365-endpoints.yml`, 05:25 i 15:25 UTC).
+- **Zakładka:**
+  - zmiany per wersja z wpływem (Act / Tidy up / Check / No action) i datą wejścia;
+  - bieżąca lista per usługa, wyszukiwanie, karta z „What to do” i PowerShell;
+  - numer wersji podany jako data wydania (YYYYMMDDNN = dzień + które wydanie tego dnia, §5gh); usługa usuniętych zestawów z ich wcześniejszych rekordów albo „Service not stated”.
+
+## 18. Status Microsoft 365 i Azure pod logo (od 13 XI 2026, §5gr)
+
+| Element | Jak działa |
+|---|---|
+| Plakietki pod logo | funkcja `api/ms-status` (Azure Static Web Apps) czyta publiczne kanały statusu Microsoft (RSS i `status.cloud.microsoft/api/posts/*`), bez kluczy; zielona „OK”, pomarańczowa / czerwona przy incydencie, szara przy błędzie odczytu; godzina sprawdzenia i przycisk „Refresh”; odświeżanie co 5 minut przy otwartej karcie |
+| Liczba na plakietce Microsoft 365 | otwarte **incydenty** (jak pulse.azureme.pl); komunikaty doradcze z 7 dni w oknie, starsze otwarte zwinięte (§5gr-g); wpis „Available” z kanału nie jest incydentem (§5gr-l) |
+| Numery incydentów (MO…, EX…) i MC | workflow `ms-health.yml` co ok. 5 minut (łańcuch przebiegów, `workflow_dispatch` tokenem `github.token`, `actions: write`) czyta Service health tenanta deweloperskiego (`ServiceHealth.Read.All`, 12.1b), zostawia tylko zgłoszenia publikowane przez Microsoft dla wszystkich dzierżaw i pisze `ms-health.json` na gałąź `status-data` (force-push, historia nie rośnie); `api/ms-status` czyta go z `raw.githubusercontent.com` (zmienna `MS_HEALTH_URL` tylko do testów) |
+| Okno statusu | karty zgłoszeń jak na pulse: typ z pozycją („Incident 1 of 2”), numer, stan, odnośnik do centrum administracyjnego, siatka Service / Start / Last update / Next update, wpływ na użytkowników, bieżący stan, reszta pod „More”; filtr Open now / Incidents / Advisories / Older advisories / Resolved; usługi konsumenckie Microsoft 365, Power Platform, odnośniki do Downdetectora |
+| Strona statusu bez incydentu, tenant z incydentem | plakietka Microsoft 365 zostaje zielona; osobny bursztynowy przycisk pod plakietkami podaje numery otwarte w Service health (§5gr-m/n/o) |
+
+## 19. Message Center: sprawdzanie dat, posty do opisania, powiązane posty i kampanie
+
+| Funkcja | Od | Jak działa |
+|---|---|---|
+| Cross-check dat | 3 XI 2026, §5gf | przy każdym chipie MC (Overview, Today, New, Deadlines, karta MC, `/diff/`, `/week/`) ramka z datami innych postów tej samej zmiany i przesunięciami „was → now”; pełne źródło: mapa strony msmessagecenter.com; rutyny podają oba terminy w zdaniach |
+| Posty do opisania | 10 XI 2026, §5gi | `tools/mc_must_cover.py` → `site/data/mc-uncovered.json`: posty major, z terminem działania, wycofaniem albo „plan for change” z Admin impact, które nie mają zdania w briefie; ramka „NOT IN THE BRIEF YET” w Today i Message Center; świadome pominięcia w `data/mc-skip.json` |
+| Kampanie zbierają wszystkie swoje posty | 15 XI 2026, §5gs | definicje w `campaigns.json` mają `join` (regex tytułu, technologia, wyjątki) i `exclude`; dołączenie tylko w technologii definicji |
+| Powiązane posty | 15 XI 2026, §5gs | `tools/mc_related.py` → `site/data/mc-related.json`: dla każdego posta, także usuniętego, powiązane z jednym powodem — ta sama kampania, cytuje / jest cytowany, ta sama historia w briefie, podobna treść (TF-IDF ≥ 0,30, najwyżej 5); zakładka MC: widok Removed, sekcja „Related posts”, widok całej grupy, przełącznik „Show related”; Ctrl K: „Show related MC” |
+
+Kolejność kroków w workflow `campaigns.yml`: `campaigns.py` → `mc_must_cover.py` → `mc_related.py` → repozytoria KQL → archiwum KQL.
+
+## 20. Overview, karta pozycji i wyszukiwarka
+
+- **Overview (Brief v4, 12 XI 2026, §5gp):**
+  - sekcje Act this week / New since the last brief / Coming later, numerowane wpisy, plakietka technologii i terminu, tytuł i „Why it matters”;
+  - obszary obserwowane w sekcji „Watched areas”; obszary bez zmian w zwartym pasku „No change since the last brief” (§5gr-k);
+  - poprzednie układy pod przyciskiem „Show the previous layouts”.
+- **Zdanie Threat Research (§5gv, §5gw):** tylko incydenty, które nas dotyczą — pole `tracked` w `threats.json`:
+  - śledzone technologie i funkcje: Entra ID, Entra Connect, aplikacje i OAuth, logowanie i MFA, Microsoft 365, Exchange, Teams, SharePoint, Purview, Intune, Sentinel, Graph, Azure, Defender (tylko z tytułu);
+  - Copilot i AI;
+  - krytyczna podatność, malware na Windows, nasze KQL.
+
+  Przy wierszu widać powód. Pozostałe incydenty zostają w zakładce.
+- **Karta pozycji (§5fo, §5ft-f):** kliknięcie pozycji otwiera szeroką kartę z zakładkami — Overview, Do this, What the source says, Try it (dla MC), Sources. Ta sama karta jest w Security baselines i M365 endpoints.
+- **Karta źródła (§5ga):** `window.__socSrc` — jedna karta źródeł w całym portalu z zakładkami Microsoft / Security research & news / Community / Code & tools / Video.
+- **Wyszukiwarka Ctrl K (§5em, §5fv):**
+  - otwiera się w miejscu pola, wynik z tekstem wokół trafienia i podświetleniem;
+  - słowa dopasowywane od początku (w nazwach camelCase także od początku członu);
+  - obejmuje Graph API Radar, M365 endpoints i powiązane MC.
+
+## 21. KQL: archiwum, biblioteka i „KQL of the day” (§5l, §5eu, §5gx)
+
+- **Archiwum w repozytorium:** `site/kql/` — każde zapytanie to plik `.kql` (nagłówek: title, date, product, tables, purpose, source, kind, author, license) i wiersz w `site/kql/index.json`. Pisze je `tools/kql_archive.py` w `campaigns.yml`, dwa razy dziennie. Zapytanie identyczne z archiwalnym nie dostaje nowego pliku, tylko datę w `reused`.
+- **Rodzaje (`kind`):**
+
+| Rodzaj | Skąd |
+|---|---|
+| `brief` | zakładka Hunting & actions porannego briefu |
+| `incident-note` | nasze analizy incydentów Threat Research |
+| `article` | Kusto w artykułach źródeł Threat Research (`site/data/kql-found.json`) |
+| `repo` | repozytoria społeczności z `kql_sources.json` (`tools/kql_repos.py`, `cache/kql-repos.json`) |
+
+- **KQL library** (Hunting & actions):
+  - widoki From the briefs / From incidents / From the community / All; filtry produkt, tabela, autor;
+  - szukanie także w **treści** zapytania: `site/kql/search.json` (plik → tekst), czytany dopiero przy pierwszym wyszukiwaniu; słowa łącznie, „fraza w cudzysłowie”, linia kodu z podświetleniem;
+  - link „Search the files on GitHub” — wyszukiwarka kodu GitHub w `path:site/kql`, wymaga zalogowania.
+- **„KQL of the day”:** od 22 X do 17 XI 2026 brief powtarzał te same 19 zapytań. Reguła §5gx w `routines/poranny-A-build.md` każe co rano dopisać co najmniej 3 nowe. KQL library pokazuje pomarańczową ramkę, gdy najnowsze zapytanie briefu jest starsze niż 2 dni.
+
+## 22. Domena, kanały RSS i kopia stron Learn — uzupełnienia
+
+| Temat | Od | Co |
+|---|---|---|
+| Własna domena | 13 XI 2026, §5gq | https://guardzilla.azureme.pl/ — rekord CNAME u dostawcy domeny, walidacja i certyfikat w Azure, domena ustawiona jako domyślna (stary adres `orange-ground-…` przekierowuje); nazwa workflow wdrożenia i jego sekret bez zmian |
+| RSS całego portalu | 11 XI 2026, §5gk | `feed.xml` obejmuje także Community, Graph API Radar, zmiany Graph API, Component versions, Threat Research, CVE z MSRC, bibliotekę KQL, M365 endpoints, First-party apps i zmiany Learn; kanały Teams, SharePoint/OneDrive, Power Platform i kanały sekcji (`feed-mc`, `feed-community`, `feed-learn`, `feed-threats` …) — uzupełnienie rozdziału 15 |
+| Kopia Learn — redakcja | 1 XI 2026, §5gc | `tools/mirror_redact.py` przed commitem zamienia przykładowe poświadczenia ze stron Learn na znacznik (GitHub push protection odrzucał commit) |
+| Kopia Learn — zakres | 30 X i 17 XI 2026, §5fs, §5gt | pełne spisy treści (TOC) obszarów z `microsoftlearn_sources.json` → `mirror_scope.py` → `learn-mirror.config.json`; Entra obejmuje też Verified ID (Face Check), ID Protection, Workload ID i External ID; zaległość przenoszona między przebiegami („N left for the next run”), pierwsza kopia liczona bez zalewu zmian |
+| Nocny code refresh | 15 XI 2026, §5gr-p | gdy bramka zatrzymuje tylko nowy kod strony (pozycja 104 — strona z wczorajszym briefem), podmiana kodu czeka na poranny brief, a RSS, MSRC i strona zmian publikują się normalnie |
+
+## 23. Threat Research — uzupełnienia rozdziału 16 (od 1 XI 2026)
+
+- **MSRC blog (§5gd):** źródło typu `msrc-blog` (JSON strony bloga) i ramka „Microsoft's response” przy każdym incydencie — kto z Microsoftu, kiedy, ile dni po pierwszym doniesieniu, albo „Nothing published yet”.
+- **Report URI (§5gu):** blog w Community Articles; w Threat Research przechodzą tylko wpisy z kontekstem Microsoftu.
+- **FBI IC3 (§5gz)** — `tools/ic3.py`, źródła `Kind: "ic3-csa"` / `"ic3-psa"`, `Gov: true` w `threat_sources.json`:
+  - alerty techniczne (CSA, FLASH, wspólne z CISA) z `https://www.ic3.gov/CSA` — PDF, tekst „Summary” czytany raz (pypdf instalowany w `fpa-tenant.yml`, zapasowo pdftotext);
+  - techniczne PSA z `https://www.ic3.gov/PSA`; poza zakresem: wybory, swatting, oszustwa konsumenckie, systemy przemysłowe;
+  - alert dołącza do incydentu, którego dotyczy, albo staje się osobnym incydentem (także bez KQL i poza M365);
+  - w karcie fioletowa ramka „Government advisory” (rodzaj, numer, data, dni po pierwszym doniesieniu, pliki IOC, streszczenie);
+  - pliki IOC (CSV, STIX JSON) czyta `ioc_watch.py`: pierwszy plik alertu, raz, najwyżej 250 wskaźników; wpis „FBI IC3 advisories (IOC files)” w `ti_sources.json` (16.2).
+- **Łączenie po CVE (§5gz, wszystkie źródła):** artykuł, który wymienia najwyżej 3 CVE, dołącza do incydentu z naszą analizą o tym CVE (np. PSA FBI o PHP → PHP2Shell).
+- **Etykiety `tracked` (§5gv, §5gw):** rozdział 20.
+
+## 24. Mechanizmy z 16–29 X 2026 bez osobnego rozdziału
+
+Wygląd i czytelność (§5dx, §5fg, §5fh, §5fm–§5fr, §5fx, §5gg) opisuje tylko historia zmian. Tu są mechanizmy, które zmieniły sposób zbierania lub pokazywania danych.
+
+| Mechanizm | Etap | Pliki / workflow | Co robi |
+|---|---|---|---|
+| Zakładki budowane przy otwarciu | §5ec, 16 X | `window.__socLazy` (SKRYPT 4) | Message Center, Learn, Blogs i listy artykułów powstają przy otwarciu zakładki, reszta w tle po zdaniach Overview; `?eager=1` wyłącza (porównania); `tools/mobile_check.py` pilnuje telefonu (pozycja 123–125 bramki) |
+| Zmiany stron Learn w zakładce Learn | §5ea, §5eb, §5eg, §5eo, §5fi, §5fl | `collect_nt.py`, `learn_changes.py`, `tools/doc_ga.py`, `tools/learn_anchors.py` | zmiany stron z naszego diffu („Page edits”), daty wpisów *what's new* (miesiąc, dzień z nagłówka „Week of …” → `msDate`), obszar Microsoft 365 admin z `Toc`, ramka „Preview → GA”, linki prosto do sekcji strony |
+| Szczegóły CVE z MSRC | §5eb, 16 X | `tools/msrc_cves.py` (krok w `code-refresh.yml`) → `site/data/msrc-cves.json` | Weakness, Released, Last updated przy CVE w Microsoft Blogs i Threat Research |
+| Role i uprawnienia w innych tenantach | §5ed, §5ej, 18 X | `tools/roles_elsewhere.py`, `tools/public_trackers.py` w `fpa-tenant.yml` | porównanie z msadminroles.com, `Entra-Rolelens` i `merill/microsoft-info`: akcja widoczna gdzie indziej, a jeszcze nie u nas = zmiana w trakcie wdrażania |
+| Codzienne gałęzie DevX | §5ef, 18 X | `collect_graph_diff.py`, `collect_graph_map.py`, `collect_fpa.py` | od 1 X 2026 Microsoft publikuje codzienne zmiany uprawnień Graph na niescalonych gałęziach `permissions-update/RRRR-MM-DD` repozytorium `microsoft-graph-devx-content` — kolektory czytają te gałęzie |
+| Message Center z archiwum mc.merill.net | §5eh, 18–19 X | `collect_mc.py` (`messages-index.json`, MIT) | 335 zamiast 320 postów z 30 dni, pola kategoria, „major”, data publikacji, tagi; streszczenia poza stanem briefu (limit artefaktu 16 MB) |
+| Kafelki dnia i filtr statusu | §5ei, §5ev, §5em | SKRYPTY strony | na górze zakładek kafelki „Since the previous brief” i zwinięty poprzedni brief; liczby new / changed / removed są przyciskami filtra; wynik wyszukiwania stoi zaraz pod zielonym paskiem |
+| Rejestr zmian 7 dni | §5ek, 19 X | `site/data/changelog.json` (`pageWindowDays: 7`, plik trzyma 90 dni) | mniejszy stan briefu (limit artefaktu) |
+| Zakładka Threat Research | §5el, §5el-b, §5en, §5et, §5ew, §5ex, §5ez, 19–22 X | `tools/threats.py` (`fpa-tenant.yml`), `threat_sources.json`, `threat_notes.json`, `tools/threat_todo.py`, `site/data/threat-notes.json` | incydenty (zdarzenia, nie wpisy produktowe), grupowanie artykułów w historie, analiza pisana przez poranną routine (do 5 historii dziennie, walidacja `threat_todo.py check`), karta „Applications and identities involved”, „What to do now” po fazach, KQL wg pochodzenia — źródła w rozdziałach 16 i 23 |
+| `/diff/` i `/week/` jako jedna strona „What changed” | §5eq, §5ep, 21 X | `make_diff.py`, `tools/changes_page.py` | przełącznik „Since the previous brief / Last 7 days”, szyna zakładek z + ~ −, Summary „Most important”, kafelki NEW / CHANGED / REMOVED; na telefonie jeden przycisk „Jump to” |
+| Wyszukiwarka domen, IP i URL | §5fd, 23 X | `api/lookup` (rola `owner`), workflow „Lookup self-test” | rozdział 16.6 |
+| Przepisana historia repozytorium | 23 X | git filter-repo | z 942 commitów usunięte pełne identyfikatory tenantów, aplikacji i obiektów, nazwy tenantów i firmy — rozdział 10 |
+
 ## Historia zmian
 
 | Data | Zmiana |
@@ -1570,6 +1739,7 @@ Nadanie uprawnienia (PowerShell, konto z Cloud Application Administrator + Privi
 | 2026-11-13 | §5gr — Status Microsoft 365 i Azure pod logo: funkcja `api/ms-status` czyta publiczne kanały statusu Microsoft (bez kluczy), znaczniki zielony/pomarańczowy/czerwony/szary z godziną sprawdzenia i przyciskiem „Refresh”, okno ze szczegółami incydentów i odnośnikami do stron Microsoft; odświeżanie co 5 minut przy otwartej karcie. §5gr-b: na telefonie zakładka Today nie przewija się już w bok (długie nazwy poleceń się łamią). |
 | 2026-11-13 | §5gr-c — Znaczniki statusu nie nachodzą już na menu po przewinięciu: stoją tuż pod smokiem, w zwiniętym nagłówku zmieniają się w jeden krótki wiersz; logo bez pustego pola nad sobą; na telefonie i węższych ekranach znaczniki są pod tytułem strony. |
 | 2026-11-13 | §5gr-d — Okno statusu Microsoft: na górze wyróżniona ramka „Key facts” (wpływ na użytkowników, zakres, termin kolejnej aktualizacji w czasie warszawskim z odliczaniem, aktualny stan), niżej osobne sekcje „Affected services” (z licznikiem i skrótami do każdej usługi) i „Other details”. Funkcja nie obcina już długich wierszy. |
+| 2026-11-17 | §5ha — README wyrównany z dokumentami sesji od 24 X: nowe rozdziały 17–24 (Graph API Radar i M365 endpoints, status Microsoft pod logo, Message Center — cross-check, posty do opisania, powiązane posty, kampanie; Overview i wyszukiwarka; KQL; domena, RSS i kopia Learn; Threat Research — MSRC, Report URI, FBI IC3, łączenie po CVE; mechanizmy 16–29 X bez osobnego rozdziału), 14.5 nowe źródła Security baselines, 12.1b uprawnienia Graph API Radar i `ServiceHealth.Read.All`, rozdział 9 ze stanem na 17 XI. |
 | 2026-11-17 | §5gz — Nowe źródło Threat Research: FBI IC3 (alerty CSA/FLASH, wspólne z CISA, techniczne PSA). Alert dołącza do incydentu, którego dotyczy (ARTEX → ConnectWise, PSA o PHP → PHP2Shell, także po wspólnym CVE), albo staje się osobnym incydentem; w karcie fioletowa ramka „Government advisory” (numer, data, ile dni po pierwszym doniesieniu, plik IOC, streszczenie). Wskaźniki z plików IOC trafiają do Infrastructure watch. |
 | 2026-11-17 | §5gy — Zakładka About i rozdział 13 README zaktualizowane: Threat Research, Graph API Radar, M365 endpoints, stan Microsoft pod logo, powiązane MC, biblioteka KQL; godziny dwóch routines zamiast wyłączonych scheduled tasks; nowe wiersze tabeli świeżości (Infrastructure watch, Security baselines, stan Microsoft). |
 | 2026-11-17 | §5gx — KQL library szuka także w treści zapytań (`site/kql/search.json`, frazy w cudzysłowie, podświetlona linia, link do wyszukiwarki GitHub); ostrzeżenie, gdy brief od dawna nie dodał nowych zapytań; poranny przebieg ma pisać co rano co najmniej 3 nowe KQL. |

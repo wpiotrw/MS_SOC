@@ -26566,6 +26566,15 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5ha (17 XI 2026, 22:50)** — Piotr: "przejrzyj pliki MD od ostatniej aktualizacji instrukcji i wyrownaj ja, zeby pokryla to, co sie
+dzialo". README konczyl sie na rozdziale 16 (23 X); pozniejsze etapy byly tylko wierszami historii. Dopisane rozdzialy 17 (Graph API
+Radar, M365 endpoints), 18 (status Microsoft pod logo), 19 (Message Center: cross-check, posty do opisania, powiazane posty,
+kampanie), 20 (Overview, karta pozycji, Ctrl K, zdanie Threat Research), 21 (KQL), 22 (domena, RSS, kopia Learn, nocny code
+refresh), 23 (Threat Research: MSRC, Report URI, FBI IC3, laczenie po CVE), 24 (mechanizmy 16-29 X bez rozdzialu), 14.5 (nowe
+zrodla Security baselines), 12.1b (uprawnienia Graph API Radar i `ServiceHealth.Read.All` - wykaz uprawnien byl niepelny od
+30 X i 13 XI), rozdzial 9 ze stanem na 17 XI. Dokument przekazania `claude/ms-soc-handover.md` w Projekcie: nowy naglowek "Stan
+na 17 XI 2026" (byl stan na 15 X). Zrodla: dokumenty sesji `claude/ms-soc-session-*.md` i wiersze historii README.
+
 **§5gz (17 XI 2026, 22:19)** — Piotr: "czy w Threat Research i w zrodlach przyda sie https://www.ic3.gov?" - po propozycji: "rob tak,
 jak zaproponowales". `tools/ic3.py` czyta liste `https://www.ic3.gov/CSA` (alerty CSA, FLASH, wspolne z CISA - PDF; pliki IOC
 CSV / STIX JSON wymienione zaraz po PDF naleza do niego) i `https://www.ic3.gov/PSA` (strony HTML); RSS PSA ma 5 tytulow, a CSA
