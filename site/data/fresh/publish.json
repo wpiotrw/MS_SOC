@@ -1,8 +1,8 @@
 {
  "key": "publish",
- "at": "2026-11-17T06:47Z",
+ "at": "2026-11-17T06:49Z",
  "workflow": "Publish routine output",
- "run": "44033766138",
- "sha": "186d60d",
+ "run": "44033855598",
+ "sha": "00ba23a",
  "note": "claude/vibrant-pascal-y8gf43"
 }
