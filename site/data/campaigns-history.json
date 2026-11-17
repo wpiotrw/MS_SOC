@@ -1,6 +1,158 @@
 {
 "updated":"2026-11-17",
 "campaigns":{
+"c-mc1556088":{
+"firstSeen":"2026-11-17",
+"lastSeen":"2026-11-17",
+"name":"End of support for iOS 17 and iPadOS 17",
+"status":"Active",
+"members":[
+"MC1556088",
+"item:MC1556088"
+],
+"log":[
+{
+"date":"2026-11-17",
+"id":"MC1556088",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"New Teams releases need iOS or iPadOS 18 from mid-December; devices left on 17 keep an unsupported Teams",
+"title":"New Teams releases need iOS or iPadOS 18 from mid-December; devices left on 17 keep an unsupported Teams",
+"link":"https://deltapulse.app/item/MC1556088"
+}
+],
+"milestones":{
+"MC1556088|posted":{
+"date":"2026-11-16",
+"label":"16 Nov 2026",
+"text":"Posted: Microsoft Teams: End of support for iOS 17 and iPadOS 17"
+},
+"MC1556088|deadline":{
+"date":"2027-01-02",
+"label":"2 Jan 2027",
+"text":"New Teams releases need iOS or iPadOS 18 from mid-December; devices left on 17 keep an unsupported Teams"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1556088":{
+"title":"Microsoft Teams: End of support for iOS 17 and iPadOS 17",
+"link":"https://mc.merill.net/message/MC1556088",
+"source":"Message Center",
+"id":"MC1556088",
+"date":"2026-11-16",
+"updated":"2026-11-16",
+"group":"microsoft",
+"found":"2026-11-17"
+},
+"https://deltapulse.app/item/MC1556088":{
+"title":"Microsoft Teams: End of support for iOS 17 and iPadOS 17",
+"link":"https://deltapulse.app/item/MC1556088",
+"source":"Main list source",
+"id":"MC1556088",
+"date":"2026-11-16",
+"group":"microsoft",
+"found":"2026-11-17"
+}
+},
+"final":"2027-01-02",
+"type":"Support end",
+"tech":"Teams",
+"posts":[
+"MC1556088"
+]
+},
+"c-mc1547994":{
+"firstSeen":"2026-11-11",
+"lastSeen":"2026-11-17",
+"name":"Update your iOS/iPadOS and macOS Company Portal minimum version to v5.2608.0",
+"status":"Active",
+"members":[
+"MC1547994",
+"item:MC1547994"
+],
+"log":[
+{
+"date":"2026-11-16",
+"id":"MC1547994",
+"what":"Microsoft revised the post",
+"before":"2026-11-10",
+"after":"2026-11-16",
+"title":"Intune raises the minimum iOS/iPadOS and macOS Company Portal to v5.2608.0 from early February 2027; devices that block App Store installs need a pushed update",
+"link":"https://deltapulse.app/item/MC1547994"
+},
+{
+"date":"2026-11-11",
+"id":"MC1547994",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Intune raises the minimum iOS/iPadOS Company Portal to v5.2608.0 from early December; devices that block App Store installs need a pushed update",
+"title":"Intune raises the minimum iOS/iPadOS and macOS Company Portal to v5.2608.0 from early February 2027; devices that block App Store installs need a pushed update",
+"link":"https://deltapulse.app/item/MC1547994"
+}
+],
+"milestones":{
+"MC1547994|posted":{
+"date":"2026-11-10",
+"label":"10 Nov 2026",
+"text":"Posted: Update your iOS/iPadOS and macOS Company Portal minimum version to v5.2608.0"
+},
+"MC1547994|early previously early no day stated by microsoft#1":{
+"date":"2026-12-05",
+"label":"early Dec 2026",
+"text":"Early February 2027 (previously early December 2026"
+},
+"MC1547994|early previously early no day stated by microsoft#0":{
+"date":"2027-02-05",
+"label":"early Feb 2027",
+"text":"Early February 2027 (previously early December 2026"
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1547994":{
+"title":"Update your iOS/iPadOS Company Portal minimum version to v5.2608.0",
+"link":"https://mc.merill.net/message/MC1547994",
+"source":"Message Center",
+"id":"MC1547994",
+"date":"2026-11-10",
+"updated":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://deltapulse.app/item/MC1547994":{
+"title":"Update your iOS/iPadOS Company Portal minimum version to v5.2608.0",
+"link":"https://deltapulse.app/item/MC1547994",
+"source":"Main list source",
+"id":"MC1547994",
+"date":"2026-11-10",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
+"title":"Updated minimum supported version for iOS and iPadOS",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"date":"2026-09-28",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://learn.microsoft.com/en-us/windows-365/whats-new":{
+"title":"iOS and iPadOS now support screen capture protection via Microsoft Intune Mobile Application Management (MAM)",
+"link":"https://learn.microsoft.com/en-us/windows-365/whats-new",
+"source":"Microsoft Learn · What's new · Windows 365",
+"date":"2026-02-02",
+"group":"microsoft",
+"found":"2026-11-14"
+}
+},
+"final":"2027-02-05",
+"type":"Support end",
+"tech":"Intune",
+"posts":[
+"MC1547994"
+]
+},
 "c-mc1552387":{
 "firstSeen":"2026-11-14",
 "lastSeen":"2026-11-17",
@@ -222,6 +374,14 @@
 "date":"2026-11-13",
 "group":"community",
 "found":"2026-11-14"
+},
+"https://www.bleepingcomputer.com/news/microsoft/microsoft-windows-server-2016-reaches-end-of-support-in-60-days/":{
+"title":"Microsoft: Windows Server 2016 reaches end of support in 60 days",
+"link":"https://www.bleepingcomputer.com/news/microsoft/microsoft-windows-server-2016-reaches-end-of-support-in-60-days/",
+"source":"BleepingComputer",
+"date":"2026-11-16",
+"group":"community",
+"found":"2026-11-17"
 }
 },
 "final":"2027-01-15",
@@ -341,97 +501,6 @@
 "posts":[
 "MC1506290",
 "MC1550797"
-]
-},
-"c-mc1547994":{
-"firstSeen":"2026-11-11",
-"lastSeen":"2026-11-17",
-"name":"Update your iOS/iPadOS and macOS Company Portal minimum version to v5.2608.0",
-"status":"Active",
-"members":[
-"MC1547994",
-"item:MC1547994"
-],
-"log":[
-{
-"date":"2026-11-16",
-"id":"MC1547994",
-"what":"Microsoft revised the post",
-"before":"2026-11-10",
-"after":"2026-11-16",
-"title":"Intune raises the minimum iOS/iPadOS and macOS Company Portal to v5.2608.0 from early February 2027; devices that block App Store installs need a pushed update",
-"link":"https://deltapulse.app/item/MC1547994"
-},
-{
-"date":"2026-11-11",
-"id":"MC1547994",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Intune raises the minimum iOS/iPadOS Company Portal to v5.2608.0 from early December; devices that block App Store installs need a pushed update",
-"title":"Intune raises the minimum iOS/iPadOS and macOS Company Portal to v5.2608.0 from early February 2027; devices that block App Store installs need a pushed update",
-"link":"https://deltapulse.app/item/MC1547994"
-}
-],
-"milestones":{
-"MC1547994|posted":{
-"date":"2026-11-10",
-"label":"10 Nov 2026",
-"text":"Posted: Update your iOS/iPadOS and macOS Company Portal minimum version to v5.2608.0"
-},
-"MC1547994|early previously early no day stated by microsoft#1":{
-"date":"2026-12-05",
-"label":"early Dec 2026",
-"text":"Early February 2027 (previously early December 2026"
-},
-"MC1547994|early previously early no day stated by microsoft#0":{
-"date":"2027-02-05",
-"label":"early Feb 2027",
-"text":"Early February 2027 (previously early December 2026"
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1547994":{
-"title":"Update your iOS/iPadOS Company Portal minimum version to v5.2608.0",
-"link":"https://mc.merill.net/message/MC1547994",
-"source":"Message Center",
-"id":"MC1547994",
-"date":"2026-11-10",
-"updated":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://deltapulse.app/item/MC1547994":{
-"title":"Update your iOS/iPadOS Company Portal minimum version to v5.2608.0",
-"link":"https://deltapulse.app/item/MC1547994",
-"source":"Main list source",
-"id":"MC1547994",
-"date":"2026-11-10",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
-"title":"Updated minimum supported version for iOS and iPadOS",
-"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
-"source":"Microsoft Learn · What's new · Microsoft Intune",
-"date":"2026-09-28",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://learn.microsoft.com/en-us/windows-365/whats-new":{
-"title":"iOS and iPadOS now support screen capture protection via Microsoft Intune Mobile Application Management (MAM)",
-"link":"https://learn.microsoft.com/en-us/windows-365/whats-new",
-"source":"Microsoft Learn · What's new · Windows 365",
-"date":"2026-02-02",
-"group":"microsoft",
-"found":"2026-11-14"
-}
-},
-"final":"2027-02-05",
-"type":"Support end",
-"tech":"Intune",
-"posts":[
-"MC1547994"
 ]
 },
 "c-mc1481315":{
@@ -5057,14 +5126,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-14",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-15",
 "text":"August 1, 2026."
 },
@@ -5194,6 +5255,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-16",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-17",
 "text":"August 1, 2026."
 },
 {
@@ -5663,22 +5732,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-15",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-15",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-16",
 "text":"early February 2026."
 },
@@ -5800,6 +5853,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-16",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-17",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-17",
 "text":"February 2027."
 },
 {
@@ -6262,6 +6331,14 @@
 "date":"2026-10-16",
 "group":"microsoft",
 "found":"2026-10-19"
+},
+"https://thehackernews.com/2026/11/stolen-fireworks-ai-key-led-to-cursor.html":{
+"title":"Cursor Says Stolen Fireworks AI Key Led to Trojanized Claude Code Extension Incident",
+"link":"https://thehackernews.com/2026/11/stolen-fireworks-ai-key-led-to-cursor.html",
+"source":"Hacker News",
+"date":"2026-11-15",
+"group":"community",
+"found":"2026-11-17"
 }
 },
 "final":"2027-10-09",
@@ -6430,8 +6507,7 @@
 "members":[
 "MC1465692",
 "item:azure-functions-inprocess-eos",
-"item:dotnet8-powershell74-end-of-servicing",
-"item:MC1525374"
+"item:dotnet8-powershell74-end-of-servicing"
 ],
 "log":[
 {
@@ -6877,8 +6953,7 @@
 "type":"Support end",
 "tech":"Windows",
 "posts":[
-"MC1465692",
-"MC1525374"
+"MC1465692"
 ]
 },
 "c-item-azure-linux-osguard-aks-retirement":{
@@ -7698,6 +7773,14 @@
 "date":"2026-11-15",
 "group":"community",
 "found":"2026-11-15"
+},
+"https://www.bleepingcomputer.com/news/artificial-intelligence/anthropics-claude-fable-52-blocks-fewer-security-tasks-while-mythos-gets-better-at-finding-bugs/":{
+"title":"Anthropic’s Claude Fable 5.2 blocks fewer security tasks, while Mythos gets better at finding bugs",
+"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/anthropics-claude-fable-52-blocks-fewer-security-tasks-while-mythos-gets-better-at-finding-bugs/",
+"source":"BleepingComputer",
+"date":"2026-11-16",
+"group":"community",
+"found":"2026-11-17"
 }
 },
 "final":"2026-12-15",
@@ -7964,6 +8047,43 @@
 "posts":[
 "MC1539001"
 ]
+},
+"c-item-exo-reject-direct-send-ga-2026-11-16":{
+"firstSeen":"2026-11-17",
+"lastSeen":"2026-11-17",
+"name":"Reject Direct Send is generally available: one org setting rejects unauthenticated mail that spoofs your own…",
+"status":"No date",
+"members":[
+"item:exo-reject-direct-send-ga-2026-11-16"
+],
+"log":[
+{
+"date":"2026-11-17",
+"id":"exo-reject-direct-send-ga-2026-11-16",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Reject Direct Send is generally available: one org setting rejects unauthenticated mail that spoofs your own domains; new tenants get it on by default",
+"title":"Reject Direct Send is generally available: one org setting rejects unauthenticated mail that spoofs your own domains; new tenants get it on by default",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/reject-direct-send-now-generally-available-in-exchange-online/ba-p/4573787"
+}
+],
+"milestones":{},
+"moves":[],
+"materials":{
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/reject-direct-send-now-generally-available-in-exchange-online/ba-p/4573787":{
+"title":"Reject Direct Send now Generally Available in Exchange Online",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/reject-direct-send-now-generally-available-in-exchange-online/ba-p/4573787",
+"source":"Main list source",
+"id":"exo-reject-direct-send-ga-2026-11-16",
+"date":"2026-11-16",
+"group":"microsoft",
+"found":"2026-11-17"
+}
+},
+"final":null,
+"type":"Rollout",
+"tech":"Exchange",
+"posts":[]
 },
 "c-sms-voice-retirement":{
 "firstSeen":"2026-10-09",
@@ -9148,6 +9268,22 @@
 "date":"2026-11-16",
 "group":"community",
 "found":"2026-11-16"
+},
+"https://dev.to/ashwar_sadh_f7abe6f82c8e9/dont-upload-silence-deciding-on-the-phone-whether-a-voice-take-holds-any-speech-with-a-noise-36j8":{
+"title":"Don't upload silence: deciding on the phone whether a voice take holds any speech, with a noise floor and a pitch check",
+"link":"https://dev.to/ashwar_sadh_f7abe6f82c8e9/dont-upload-silence-deciding-on-the-phone-whether-a-voice-take-holds-any-speech-with-a-noise-36j8",
+"source":"NeonTiger12",
+"date":"2026-11-17",
+"group":"community",
+"found":"2026-11-17"
+},
+"https://www.bleepingcomputer.com/news/security/7-tips-for-complying-with-cjis-password-and-mfa-requirements/":{
+"title":"7 Tips For Complying with CJIS Password and MFA Requirements",
+"link":"https://www.bleepingcomputer.com/news/security/7-tips-for-complying-with-cjis-password-and-mfa-requirements/",
+"source":"BleepingComputer",
+"date":"2026-11-16",
+"group":"community",
+"found":"2026-11-17"
 }
 },
 "final":"2027-07-01",
@@ -9831,22 +9967,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-15",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-15",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-16",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -9968,6 +10088,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-16",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-17",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-17",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -19837,6 +19973,76 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-17",
+"cid":"c-mc1556088",
+"type":"new",
+"name":"End of support for iOS 17 and iPadOS 17",
+"ctype":"Support end",
+"tech":"Teams",
+"next":"2 Jan 2027",
+"text":"New Teams releases need iOS or iPadOS 18 from mid-December; devices left on 17 keep an unsupported Teams"
+},
+{
+"day":"2026-11-17",
+"cid":"c-mc1235720",
+"type":"material",
+"name":"Plan for Windows Server 2016 and Windows 10 2016 LTSB end of support",
+"group":"community",
+"title":"Microsoft: Windows Server 2016 reaches end of support in 60 days",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/microsoft/microsoft-windows-server-2016-reaches-end-of-support-in-60-days/"
+},
+{
+"day":"2026-11-17",
+"cid":"c-item-azure-arc-akv-secrets-provider-extension-retirement-202",
+"type":"material",
+"name":"Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret…",
+"group":"community",
+"title":"Cursor Says Stolen Fireworks AI Key Led to Trojanized Claude Code Extension Incident",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/11/stolen-fireworks-ai-key-led-to-cursor.html"
+},
+{
+"day":"2026-11-17",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"community",
+"title":"Anthropic’s Claude Fable 5.2 blocks fewer security tasks, while Mythos gets better at finding bugs",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/anthropics-claude-fable-52-blocks-fewer-security-tasks-while-mythos-gets-better-at-finding-bugs/"
+},
+{
+"day":"2026-11-17",
+"cid":"c-item-exo-reject-direct-send-ga-2026-11-16",
+"type":"new",
+"name":"Reject Direct Send is generally available: one org setting rejects unauthenticated mail that spoofs your own…",
+"ctype":"Rollout",
+"tech":"Exchange",
+"next":null,
+"text":"Reject Direct Send is generally available: one org setting rejects unauthenticated mail that spoofs your own domains; new tenants get it on by default"
+},
+{
+"day":"2026-11-17",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Don't upload silence: deciding on the phone whether a voice take holds any speech, with a noise floor and a pitch check",
+"source":"NeonTiger12",
+"link":"https://dev.to/ashwar_sadh_f7abe6f82c8e9/dont-upload-silence-deciding-on-the-phone-whether-a-voice-take-holds-any-speech-with-a-noise-36j8"
+},
+{
+"day":"2026-11-17",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"7 Tips For Complying with CJIS Password and MFA Requirements",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/security/7-tips-for-complying-with-cjis-password-and-mfa-requirements/"
 }
 ],
 "archive":{
