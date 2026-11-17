@@ -971,7 +971,7 @@ Szczegółowy stan, decyzje i pomiary każdej sesji są w dokumentach projektu C
 | Plan v2, etap 4 — nowy portal | zastąpiony planem v3 (24 X 2026: przebudowa, Vite + Preact) — propozycja, decyzja odłożona |
 | Plan v2, etap 5 — repozytorium prywatne | odłożone; repozytorium jest publiczne |
 | Zakładki dodane po 23 X | Graph API Radar, M365 endpoints (rozdział 17), status Microsoft pod logo (18), Security baselines rozszerzone (14.5) |
-| Otwarte | Graph API Radar: pary „dodany/usunięty” tego samego dnia (271 z 1560 zdarzeń) i szukanie po ścieżkach endpointów; źródła Threat Research Huntress (HTTP 403) i Invictus IR (HTTP 404) nie odpowiadają |
+| Otwarte | źródła Threat Research Huntress (HTTP 403) i Invictus IR (HTTP 404) nie odpowiadają (Graph API Radar i szukanie po endpointach — zrobione w §5hb) |
 
 Tabele niżej to stan z 30 IX i 5 X 2026, zostawiony jako historia.
 
@@ -1517,9 +1517,18 @@ Nadanie uprawnienia (PowerShell, konto z Cloud Application Administrator + Privi
 - **Notatki routine:** `tools/radar_todo.py` wybiera do 3 znalezisk dziennie do sprawdzenia w community; notatki w `site/data/graph-radar-notes.json` (walidacja `radar_todo.py check`).
 - **Gdzie jeszcze:** zdanie Overview, Today, `/diff/`, `/week/`, RSS, wyszukiwarka Ctrl K.
 
-> ⚠️ **Znane ograniczenia (17 XI 2026):**
-> - Microsoft serwuje niespójne `$metadata` z różnych serwerów, więc część zdarzeń to pary „dodany” i „usunięty” tego samego dnia (271 z 1560).
-> - Właściwości typów otwartych (`OpenType="true"`, np. `group`) zwracane tylko przez `$select` nie występują w `$metadata`. Radar ich nie widzi; przykład: `dynamicMembershipPriority`.
+> ℹ️ **Od 17 XI 2026 (§5hb):**
+> - **Niespójne `$metadata`:** Microsoft serwuje różne `$metadata` z różnych serwerów. Usunięcie liczy się dopiero wtedy, gdy drugi odczyt nadal nie ma elementu (`data/graph-radar/pending-removed.json`), a powrót elementu nie daje zdarzenia. 306 par „dodany/usunięty” z tego samego dnia przeniesiono do `history.json` → `flaps` (zachowane, niepokazywane jako zmiany).
+> - **Właściwości typów otwartych** (`OpenType="true"`, np. `group`) zwracane tylko przez `$select` nie występują w `$metadata`. Radar łapie je teraz z dwóch innych miejsc — widok „Other signals” (17.3).
+
+### 17.3 Other signals — Azure Service Operator i plik uprawnień (od 17 XI 2026, §5hb)
+
+| Źródło | Co bierzemy | Jak |
+|---|---|---|
+| Azure Service Operator (https://github.com/Azure/azure-service-operator, MIT) — nagrania testów Entra (`v2/internal/controllers/recordings/Test_Entra_*.yaml`) | właściwości odpowiedzi Graph beta, których `$metadata` nie ma dla danego typu (application, servicePrincipal, group, user), oraz znaczniki `PrivatePreview:<funkcja>` z nagłówka `Link` (rel=deprecation) z okresem zmian | `git clone --depth 1 --sparse` przy każdym przebiegu Radaru, PyYAML (krok w `graph-radar.yml`); link do pliku nagrania i commitu |
+| Plik uprawnień Microsoftu (`graphMap.p` w stanie briefu) | parametry ścieżek endpointów, których nie zna żaden typ ani funkcja `$metadata` (np. `dynamicMembershipPriority` w `GET /groups/dynamicMembershipProcessingStatus(…)`) | porównanie bez wielkości liter; identyfikatory, daty i nazwy pominięte |
+
+Każdy sygnał przechodzi to samo opracowanie co znaleziska tenanta (technologia, status dokumentacji, artykuły). Etap „Tenant” jest wyłączony, a karta mówi, gdzie sygnał był widziany („Where it was seen”). Pierwsze widzenie zapisuje `data/graph-radar/signals.json`; nowy sygnał po pierwszym przebiegu jest zdarzeniem `signal-new`. Stan na 17 XI 2026: 17 właściwości z nagrań, 13 znaczników preview (m.in. HardDeleteProtection 06.2026, ExtendRefreshTokenLifetime i PermissionRestrictionPolicy 04.2026), 2 parametry endpointów.
 
 ### 17.2 M365 endpoints
 - **Źródło:** web service Microsoftu `endpoints.office.com` (wersja, rekordy zmian, bieżąca lista); `tools/m365_endpoints.py` → `site/data/m365-endpoints.json` i `data/m365-endpoints/`.
@@ -1567,7 +1576,8 @@ Kolejność kroków w workflow `campaigns.yml`: `campaigns.py` → `mc_must_cove
 - **Wyszukiwarka Ctrl K (§5em, §5fv):**
   - otwiera się w miejscu pola, wynik z tekstem wokół trafienia i podświetleniem;
   - słowa dopasowywane od początku (w nazwach camelCase także od początku członu);
-  - obejmuje Graph API Radar, M365 endpoints i powiązane MC.
+  - obejmuje Graph API Radar, M365 endpoints i powiązane MC;
+  - od 17 XI 2026 (§5hb) także **ścieżki endpointów** z pliku uprawnień Microsoftu (grupa „Graph API endpoint”): słowo występujące tylko w ścieżce (np. parametr `dynamicMembershipPriority`) wskazuje endpoint i uprawnienia, które go wywołują. To samo robi szukanie nad katalogiem Graph API (ramka z uprawnieniami i przyciskiem „Which permission ›”).
 
 ## 21. KQL: archiwum, biblioteka i „KQL of the day” (§5l, §5eu, §5gx)
 
@@ -1739,6 +1749,7 @@ Wygląd i czytelność (§5dx, §5fg, §5fh, §5fm–§5fr, §5fx, §5gg) opisuj
 | 2026-11-13 | §5gr — Status Microsoft 365 i Azure pod logo: funkcja `api/ms-status` czyta publiczne kanały statusu Microsoft (bez kluczy), znaczniki zielony/pomarańczowy/czerwony/szary z godziną sprawdzenia i przyciskiem „Refresh”, okno ze szczegółami incydentów i odnośnikami do stron Microsoft; odświeżanie co 5 minut przy otwartej karcie. §5gr-b: na telefonie zakładka Today nie przewija się już w bok (długie nazwy poleceń się łamią). |
 | 2026-11-13 | §5gr-c — Znaczniki statusu nie nachodzą już na menu po przewinięciu: stoją tuż pod smokiem, w zwiniętym nagłówku zmieniają się w jeden krótki wiersz; logo bez pustego pola nad sobą; na telefonie i węższych ekranach znaczniki są pod tytułem strony. |
 | 2026-11-13 | §5gr-d — Okno statusu Microsoft: na górze wyróżniona ramka „Key facts” (wpływ na użytkowników, zakres, termin kolejnej aktualizacji w czasie warszawskim z odliczaniem, aktualny stan), niżej osobne sekcje „Affected services” (z licznikiem i skrótami do każdej usługi) i „Other details”. Funkcja nie obcina już długich wierszy. |
+| 2026-11-17 | §5hb — Wyszukiwanie po ścieżkach endpointów (Ctrl K i katalog Graph API: słowo z endpointu pokazuje uprawnienia, które go wywołują); Graph API Radar: usunięcie liczone dopiero po drugim odczycie `$metadata`, 306 par „dodany/usunięty” z jednego dnia przeniesione do archiwum `flaps`, grupy dynamiczne w kategorii Users & groups; nowy widok „Other signals” (nagrania testów Azure Service Operator: 17 właściwości spoza `$metadata` i 13 znaczników prywatnego preview; parametry endpointów z pliku uprawnień). |
 | 2026-11-17 | §5ha — README wyrównany z dokumentami sesji od 24 X: nowe rozdziały 17–24 (Graph API Radar i M365 endpoints, status Microsoft pod logo, Message Center — cross-check, posty do opisania, powiązane posty, kampanie; Overview i wyszukiwarka; KQL; domena, RSS i kopia Learn; Threat Research — MSRC, Report URI, FBI IC3, łączenie po CVE; mechanizmy 16–29 X bez osobnego rozdziału), 14.5 nowe źródła Security baselines, 12.1b uprawnienia Graph API Radar i `ServiceHealth.Read.All`, rozdział 9 ze stanem na 17 XI. |
 | 2026-11-17 | §5gz — Nowe źródło Threat Research: FBI IC3 (alerty CSA/FLASH, wspólne z CISA, techniczne PSA). Alert dołącza do incydentu, którego dotyczy (ARTEX → ConnectWise, PSA o PHP → PHP2Shell, także po wspólnym CVE), albo staje się osobnym incydentem; w karcie fioletowa ramka „Government advisory” (numer, data, ile dni po pierwszym doniesieniu, plik IOC, streszczenie). Wskaźniki z plików IOC trafiają do Infrastructure watch. |
 | 2026-11-17 | §5gy — Zakładka About i rozdział 13 README zaktualizowane: Threat Research, Graph API Radar, M365 endpoints, stan Microsoft pod logo, powiązane MC, biblioteka KQL; godziny dwóch routines zamiast wyłączonych scheduled tasks; nowe wiersze tabeli świeżości (Infrastructure watch, Security baselines, stan Microsoft). |

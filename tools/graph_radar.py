@@ -26,7 +26,7 @@ Writes  site/data/graph-radar.json        (the portal: Graph API > Radar, Overvi
         data/graph-radar/meta-{beta,v1.0}.json.gz, tenant.json, history.json   (memory, not published)
 Usage   python3 tools/graph_radar.py [--backfill DIR] [--day YYYY-MM-DD] [--no-tenant]
 """
-import datetime, glob, gzip, json, os, re, subprocess, sys, urllib.error, urllib.parse, urllib.request
+import datetime, glob, gzip, json, os, re, shutil, subprocess, sys, tempfile, urllib.error, urllib.parse, urllib.request
 import xml.etree.ElementTree as ET
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -688,7 +688,7 @@ CATS = [
     ("Teams & meetings", r"\bteams?\b|team[A-Z]|chat|onlineMeeting|call[A-Z]|communications|virtualEvent|meeting", "Teams, chats, meetings, calls."),
     ("Mail & calendar", r"mail|message|calendar|event[A-Z]|contact|outlook|inbox|exchange", "Exchange Online: mail, calendars, contacts."),
     ("Files & SharePoint", r"drive|site|sharepoint|fileStorage|onedrive|list[A-Z]|listItem", "SharePoint sites, OneDrive, files and lists."),
-    ("Users & groups", r"^/users|^/groups|user[A-Z]|group[A-Z]|directoryObject|administrativeUnit|^user$|^group$", "Users, groups, administrative units."),
+    ("Users & groups", r"^/users|^/groups|user[A-Z]|group[A-Z]|directoryObject|administrativeUnit|^user$|^group$|dynamicMembership|membershipRule", "Users, groups, administrative units."),
     ("Reports & audit", r"report|auditLog|signIn|usage", "Sign-in and audit logs, usage reports."),
 ]
 CAT_INFO = {c[0]: c[2] for c in CATS}
@@ -975,6 +975,185 @@ def enrich_findings(und, beta, v1, day, mci_titles=None):
     save(os.path.join(MEM, "articles.json"), amem)
 
 
+# ------------------------------------------------------------------------------------------------ 5hb: flapping $metadata
+# Owner, 17 XI 2026 ("do everything"), after 306 of 1 560 radar events turned out to be same-day pairs "added" and
+# "removed": Microsoft serves $metadata from servers that do not agree, so one read lacks what the next one has. A
+# removal now waits for a SECOND read that still lacks the item (data/graph-radar/pending-removed.json); an item that
+# comes back meanwhile produces no event at all. Same-day pairs already in the history move to hist["flaps"] - kept,
+# not shown as changes.
+def present(m, base, typ, name):
+    t = m["types"].get(typ) or {}
+    if base == "type":
+        return typ in m["types"]
+    if base == "prop":
+        return name in (t.get("p") or {})
+    if base == "nav":
+        return name in (t.get("n") or {})
+    if base == "member":
+        return name in (t.get("m") or [])
+    if base == "op":
+        return any(k.split("(")[0] == name and (op.get("bt") or "(unbound)") == typ for k, op in m["ops"].items())
+    if base == "root":
+        return name in m["roots"]
+    return True
+
+
+def flap_guard(events, models, day, run):
+    path = os.path.join(MEM, "pending-removed.json")
+    pend = load(path, {}) or {}
+    out, back = [], 0
+    for e in events:
+        if e.get("via") != "live $metadata" or "-" not in e["kind"]:
+            out.append(e); continue
+        base, what = e["kind"].rsplit("-", 1)
+        k = "|".join((e["ver"], base, e["type"], e["name"]))
+        if what == "removed":
+            pend.setdefault(k, {"day": day, "run": run, "ev": e})
+            continue                                   # wait for a second read
+        if what == "new" and k in pend:
+            pend.pop(k); back += 1
+            continue                                   # it was only missing from one server's $metadata
+        out.append(e)
+    confirmed = 0
+    for k in list(pend):
+        P = pend[k]
+        if P.get("run") == run:
+            continue
+        ver, base, typ, name = k.split("|", 3)
+        m = models.get(ver)
+        if not m:
+            continue
+        if present(m, base, typ, name):
+            pend.pop(k); back += 1
+        else:
+            ev = dict(P["ev"]); ev["detail"] = ((ev.get("detail") or "") + " · confirmed on a second read").strip(" ·")
+            out.append(ev); pend.pop(k); confirmed += 1
+    save(path, pend)
+    log("flap guard: %d removals waiting for a second read, %d confirmed, %d came back" % (len(pend), confirmed, back))
+    return out
+
+
+def split_flaps(hist):
+    """same-day pairs added + removed of one item are not changes - they move to hist['flaps']"""
+    by = {}
+    for e in hist["events"]:
+        if "-" in e["kind"]:
+            base, what = e["kind"].rsplit("-", 1)
+            if what in ("new", "removed"):
+                by.setdefault((e["day"], e["ver"], base, e["type"], e["name"]), set()).add(what)
+    pairs = {k for k, v in by.items() if v >= {"new", "removed"}}
+    keep, fl = [], hist.setdefault("flaps", [])
+    for e in hist["events"]:
+        if "-" in e["kind"] and (e["day"], e["ver"], e["kind"].rsplit("-", 1)[0], e["type"], e["name"]) in pairs:
+            fl.append(e)
+        else:
+            keep.append(e)
+    hist["events"] = keep
+    hist["flaps"] = fl[-3000:]
+    return len(pairs)
+
+
+# ------------------------------------------------------------------------------------------------ 5hb: other signals
+# Owner, 17 XI 2026 ("do everything"): two places that name Graph properties before $metadata does.
+# 1. Microsoft's permissions file (graphMap.p in the brief state): a parameter of an endpoint path that no type and no
+#    function of $metadata knows - dynamicMembershipPriority in GET /groups/dynamicMembershipProcessingStatus(...),
+#    found by Daniel Bradley on 24 IX 2026 and listed in our permissions file since 22 IX.
+# 2. Azure Service Operator (github.com/Azure/azure-service-operator, MIT): its Entra controllers call Graph beta and
+#    commit the recorded responses; a property in those responses that $metadata lacks for that type, and the
+#    "PrivatePreview:..." marks the service puts in its links, are signals of features in preview.
+# Both go through the same enrichment as the tenant's findings (technology, documentation status, articles), with the
+# tenant stage off and the source named.
+ASO_REPO = "https://github.com/Azure/azure-service-operator"
+ASO_FILES = ["v2/internal/controllers/recordings/Test_Entra*", "v2/samples/sampletesting/recordings/Test_Samples_CreationAndDeletion/Test_Entra*"]
+ASO_TYPES = {"applications": "application", "servicePrincipals": "servicePrincipal", "groups": "group", "users": "user"}
+
+
+def endpoint_hints(beta):
+    st = None
+    for f in sorted(glob.glob(os.path.join(SITE, "20[0-9][0-9]-[01][0-9]-[0-3][0-9].json")), reverse=True)[:3]:
+        st = load(f, None)
+        if st:
+            st = st.get("soc-brief-state", st)
+            break
+    gm = (st or {}).get("graphMap") or {}
+    known = {x.lower() for x in names_in(beta) | {p for op in beta["ops"].values() for p in (op.get("pa") or [])}}
+    out, seen = [], set()
+    for path in gm.get("p") or []:
+        for prm in re.findall(r"[(,]\s*([A-Za-z][A-Za-z0-9]{3,})\s*=\s*\{", path):
+            # the permissions file writes most paths in lower case: compare without case, and an identifier (…id, …ids)
+            # or a date range is a call argument, not a property
+            if prm.lower() in known or prm in seen or re.search(r"(?i)(ids?|name|key|value|datetime|index|url|fqdn)$", prm) or prm == prm.lower():
+                continue
+            seen.add(prm)
+            fn = re.search(r"/([A-Za-z][A-Za-z0-9.]*)\([^/]*$", path.split(prm)[0] + prm)
+            out.append({"type": (fn.group(1) if fn else "endpoint"), "prop": prm, "kind": "parameter", "path": re.sub(r"\(.*$", "", path), "label": "GET " + path,
+                        "typeDocumented": False, "declared": "", "src": "endpoint",
+                        "evidence": {"what": "A parameter of an endpoint listed in Microsoft's Graph permissions file (" + (gm.get("commit") or "") + ")",
+                                     "endpoint": path}})
+    return out, gm.get("commit") or ""
+
+
+def aso_signals(beta):
+    note = ""
+    try:
+        import yaml
+    except Exception:
+        return [], "PyYAML is not installed - Azure Service Operator not read"
+    tmp = tempfile.mkdtemp(prefix="aso-")
+    try:
+        r = subprocess.run(["git", "clone", "-q", "--depth", "1", "--filter=blob:none", "--sparse", ASO_REPO, tmp], capture_output=True, text=True, timeout=300)
+        if r.returncode:
+            return [], "clone failed: " + (r.stderr or "")[:160]
+        subprocess.run(["git", "-C", tmp, "sparse-checkout", "set", "--no-cone"] + ASO_FILES, capture_output=True, text=True, timeout=300)
+        head = subprocess.run(["git", "-C", tmp, "log", "-1", "--format=%H %cs"], capture_output=True, text=True).stdout.split()
+        sha, cday = (head + ["", ""])[:2]
+        out, marks = {}, {}
+        files = sorted(glob.glob(os.path.join(tmp, "v2", "**", "Test_Entra*.yaml"), recursive=True))
+        for f in files:
+            rel = os.path.relpath(f, tmp)
+            try:
+                d = yaml.safe_load(open(f, encoding="utf-8")) or {}
+            except Exception as e:
+                note += " %s not parsed (%s);" % (os.path.basename(f), str(e)[:60]); continue
+            for it in d.get("interactions") or []:
+                url = ((it.get("request") or {}).get("url") or "").split("?")[0]
+                body = (it.get("response") or {}).get("body") or ""
+                hdr = json.dumps((it.get("response") or {}).get("headers") or {})
+                for mk, fr, to in re.findall(r"PrivatePreview:([A-Za-z][A-Za-z0-9]+)(?:[^&\"]*&from=([0-9-]+)&to=([0-9-]+))?", body + " " + hdr):
+                    marks.setdefault(mk, (rel, fr, to))
+                try:
+                    j = json.loads(body)
+                except Exception:
+                    continue
+                if not isinstance(j, dict):
+                    continue
+                m = re.search(r"\$metadata#(\w+)", j.get("@odata.context") or "")
+                if not m or m.group(1) not in ASO_TYPES:
+                    continue
+                t = ASO_TYPES[m.group(1)]
+                known = all_props(beta, t)
+                for o in (j["value"] if isinstance(j.get("value"), list) else [j]):
+                    for k, v in (o or {}).items():
+                        if k.startswith("@") or k in known or not re.match(r"^[a-z][A-Za-z0-9]+$", k):
+                            continue
+                        out.setdefault((t, k), {"type": t, "prop": k, "kind": kind(v), "path": "/" + m.group(1), "label": "Azure Service Operator test recording",
+                                                "typeDocumented": True, "declared": "", "src": "aso",
+                                                "evidence": {"what": "Returned by Graph beta in a test recording Microsoft's Azure Service Operator committed",
+                                                             "file": ASO_REPO + "/blob/" + sha + "/" + rel, "commit": sha[:12], "commitDay": cday, "url": url}})
+        res = list(out.values())
+        for mk, (rel, fr, to) in marks.items():
+            res.append({"type": "privatePreview", "prop": mk, "kind": "flag", "path": "", "label": "PrivatePreview mark in a Graph response header",
+                        "typeDocumented": False, "declared": "", "src": "aso",
+                        "evidence": {"what": "Graph beta's response header (Link, rel=deprecation) points to Microsoft's change log for the private-preview feature "
+                                             + mk + ((" (changes " + fr + " to " + to + ")") if fr else "") + " - Azure Service Operator test recording",
+                                     "file": ASO_REPO + "/blob/" + sha + "/" + rel, "commit": sha[:12], "commitDay": cday}})
+        return res, ("%d recordings read at %s (%s)" % (len(files), sha[:12], cday) + note).strip()
+    except Exception as e:
+        return [], "not read: " + str(e)[:160]
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 # ------------------------------------------------------------------------------------------------ backfill
 def backfill(repo, n=12):
     """events between the weekly schema syncs of a msgraph-metadata clone (blobless is fine)"""
@@ -1061,6 +1240,7 @@ def main(argv):
     if not beta:
         log("no beta model - nothing written")
         return 1
+    events = flap_guard(events, models, day, datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"))   # 5hb
     # promoted: new in v1.0 and already in beta
     for e in events:
         if e["ver"] == "v1.0" and e["kind"] in ("type-new", "prop-new", "op-new", "nav-new"):
@@ -1229,6 +1409,49 @@ def main(argv):
                 gone_out.append({"key": k, "first": L.get("first"), "last": L.get("last"), "gone": L.get("gone"), "graduated": L.get("graduated"),
                                  "v1": bool(L.get("stageDays", {}).get("v1")), "log": (L.get("log") or [])[-6:]})
         save(os.path.join(MEM, "tenant.json"), tstate)
+    # 5hb: other signals - endpoint parameters of Microsoft's permissions file and Azure Service Operator recordings
+    sig, sig_note = [], {}
+    try:
+        hints, hcommit = endpoint_hints(beta)
+        sig_note["endpoints"] = "%d parameter%s of endpoint paths unknown to $metadata (permissions file %s)" % (len(hints), "" if len(hints) == 1 else "s", hcommit)
+    except Exception as e:
+        hints, sig_note["endpoints"] = [], "not read: " + str(e)[:160]
+    aso, sig_note["aso"] = aso_signals(beta)
+    tkeys = {(u["type"], u["prop"].split(".")[-1]) for u in und}
+    for u in hints + aso:
+        if u["kind"] == "flag":
+            u["cmd"] = None
+        elif u["src"] == "endpoint":
+            ep = u["evidence"]["endpoint"]
+            u["cmd"] = {"get": "https://graph.microsoft.com/beta" + ep, "permGet": perms_for(gp, ep, "GET"), "permPatch": []}
+        else:
+            u["cmd"] = {"get": "https://graph.microsoft.com/beta%s?$select=id,displayName,%s" % (u["path"], u["prop"]),
+                        "permGet": perms_for(gp, u["path"], "GET"), "permPatch": []}
+        u["mc"] = mc_match(mci, u["prop"])
+        if (u["type"], u["prop"]) in tkeys:
+            u["alsoTenant"] = 1
+        sig.append(u)
+    if sig:
+        enrich_findings(sig, beta, models.get("v1.0"), day)
+    sstate = load(os.path.join(MEM, "signals.json"), {}) or {}
+    sbase = not sstate.get("first")
+    first = sstate.setdefault("first", {})
+    for u in sig:
+        k = u["src"] + "|" + u["type"] + "|" + u["prop"]
+        if k not in first:
+            first[k] = day
+            if not sbase:
+                events.append({"day": day, "ver": "beta", "via": "Azure Service Operator" if u["src"] == "aso" else "Microsoft permissions file",
+                               "kind": "signal-new", "type": u["type"], "name": u["prop"], "path": u.get("path") or "",
+                               "detail": u["evidence"]["what"]})
+        u["first"], u["last"] = first[k], day
+        st0 = u.get("stages") or {}
+        if "tenant" in st0:   # these were not returned by our tenant - say where they were seen instead
+            st0["tenant"] = {"on": bool(u.get("alsoTenant")), "why": "also returned by our tenant" if u.get("alsoTenant") else
+                             ("seen in " + ("Azure Service Operator's recording" if u["src"] == "aso" else "Microsoft's permissions file"))}
+    sstate["read"] = day
+    save(os.path.join(MEM, "signals.json"), sstate)
+    log("signals:", sig_note)
     order = {"new": 0, "learn": 1, "v1": 2}
     und.sort(key=lambda u: (u.get("first") or "") , reverse=True)
     und.sort(key=lambda u: (order.get(u.get("status"), 3), u.get("cat") or ""))   # stable: newest first inside a status and technology
@@ -1246,9 +1469,11 @@ def main(argv):
                                                                               "undoc": len(und)}]
     hist["daily"] = hist["daily"][-400:]
     save(os.path.join(MEM, "history.json"), hist)
-    for e in hist["events"]:   # 5ft: events recorded before the technology existed
-        if not e.get("cat"):
-            e["cat"] = category(e.get("path"), e.get("holder"), e.get("type"))
+    nflap = split_flaps(hist)                                  # 5hb
+    log("flaps moved out of the change list:", nflap, "pairs; archive", len(hist.get("flaps") or []))
+    save(os.path.join(MEM, "history.json"), hist)
+    for e in hist["events"]:   # 5ft: events recorded before the technology existed; 5hb: always, the technologies grow
+        e["cat"] = category(e.get("path"), e.get("holder"), e.get("type"))
     pn = []
     for x in und + hist["events"][:1500]:
         c = x.get("cmd") or {}
@@ -1262,6 +1487,8 @@ def main(argv):
                                     "undocumented": und[:300], "day": tstate.get("read"), "gone": gone_out[-60:],
                                     "updates": updates_of(tstate, und, day)},
            "events": hist["events"][:1500], "perDay": sorted(by.values(), key=lambda x: x["day"]), "daily": hist["daily"][-120:],
+           "signals": {"read": day, "note": sig_note, "items": sig[:200]},
+           "flaps": {"pairs": len(hist.get("flaps") or []) // 2, "rule": "an item missing from one $metadata read and present in the next is not a change; a removal is confirmed on a second read"},
            "learnLicensing": learn_licensing()[0], "learnState": learn_licensing()[1],
            "perms": perm_info(pn), "cats": CAT_INFO,
            "sources": {"metadata": META, "syncs": "https://github.com/microsoftgraph/msgraph-metadata/commits/master/schemas"}}

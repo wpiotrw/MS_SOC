@@ -26566,6 +26566,24 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hb (17 XI 2026, 23:12)** — Piotr: "rob wszystko" (trzy propozycje po sprawdzeniu `dynamicMembershipPriority`).
+(1) WYSZUKIWANIE PO SCIEZKACH ENDPOINTOW: `window.__socEpFind` (blok "Which permission for this call?") przeszukuje `graphMap.p`
+(7 757 sciezek pliku uprawnien Microsoftu) i podaje uprawnienia, ktore je wywoluja, od najnizszego poziomu; szukanie nad
+katalogiem Graph API (`catfind`, SKRYPT 17) pokazuje ramke "N endpoints … contain" z uprawnieniami i przyciskiem "Which
+permission ›" (`window.__socEpOpen` wypelnia okienko); Ctrl K ma grupe "Graph API endpoint" (dostawca `__socSearchAdd`, tekst
+malymi literami liczony raz). Test: `dynamicMembershipPriority` - Ctrl K i katalog: 1 endpoint, 6 uprawnien (Group.Read.All L3 …).
+(2) RADAR (`tools/graph_radar.py`): `flap_guard` - usuniecie czeka na DRUGI odczyt `$metadata` (`data/graph-radar/pending-removed.json`),
+powrot elementu nie daje zdarzenia; `split_flaps` przenosi pary "dodany/usuniety" tego samego dnia do `history.json` -> `flaps`
+(306 par, nic nie skasowane), strona mowi to w widoku "Every change in Graph"; kategoria "Users & groups" obejmuje
+`dynamicMembership*`/`membershipRule`, kategorie liczone od nowa przy kazdym przebiegu. (3) INNE SYGNALY (`out.signals`): parametry
+sciezek pliku uprawnien nieznane `$metadata` (bez wielkosci liter; identyfikatory, daty, nazwy pominiete) i nagrania testow Entra
+Azure Service Operator (`git clone --sparse`, PyYAML - krok w `graph-radar.yml`): wlasciwosci odpowiedzi Graph beta spoza `$metadata`
+dla danego typu oraz znaczniki `PrivatePreview:` z naglowkow `Link` (rel=deprecation) z okresem; ten sam enrichment co znaleziska
+tenanta, etap "Tenant" wylaczony, zrodlo nazwane; `data/graph-radar/signals.json` (pierwsze widzenie; zdarzenie `signal-new` po
+bazie). Strona: widok "Other signals" w Graph API Radar (trzy grupy), karta z ramka "Where it was seen" (link do nagrania,
+commit) w zakladce Overview, Ctrl K. Zmierzone 17 XI: 17 wlasciwosci ASO, 13 znacznikow preview (m.in. HardDeleteProtection
+06.2026, ExtendRefreshTokenLifetime i PermissionRestrictionPolicy 04.2026, dynamicMembershipPriority 04.2024), 2 parametry.
+
 **§5ha (17 XI 2026, 22:50)** — Piotr: "przejrzyj pliki MD od ostatniej aktualizacji instrukcji i wyrownaj ja, zeby pokryla to, co sie
 dzialo". README konczyl sie na rozdziale 16 (23 X); pozniejsze etapy byly tylko wierszami historii. Dopisane rozdzialy 17 (Graph API
 Radar, M365 endpoints), 18 (status Microsoft pod logo), 19 (Message Center: cross-check, posty do opisania, powiazane posty,
@@ -30315,6 +30333,17 @@ details.g7>*:not(summary):last-child{margin-bottom:14px}
  padding:11px 13px;color:var(--muted);margin:0;font-size:13px}
 .g7name{font-family:var(--mono);font-size:12.5px;font-weight:700}
 @media (max-width:760px){.catfind .cfn{margin-left:0}.cathits button{white-space:normal;text-align:left}}
+/* §5hb: endpoints that contain the searched word */
+.s5hb-eps{margin:10px 0 0;padding:10px 12px;border:1px solid var(--info);border-radius:12px;background:var(--info-soft,var(--surface-2))}
+.s5hb-ept{margin:0 0 6px;font-size:14.5px;font-weight:600;color:var(--text)}
+.s5hb-epl{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.s5hb-epl li{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.s5hb-epp{font-size:13px;overflow-wrap:anywhere;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:2px 7px}
+.s5hb-epo{font:inherit;font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid var(--info);background:var(--surface);color:var(--info);cursor:pointer}
+.s5hb-flash{outline:3px solid var(--ok);outline-offset:4px;transition:outline-color .6s}
+.s5hb-evd{margin:8px 0 10px;padding:9px 12px;border-radius:10px;border:1px solid var(--info);background:var(--surface-2);font-size:14.5px;line-height:1.5;color:var(--text)}
+.s5hb-evc{display:block;margin-top:6px;font-size:13px;overflow-wrap:anywhere}
+.s5hb-src{background:var(--info)!important;color:var(--on-accent,#fff)!important;font-weight:700}
 /* §5bf: "What Microsoft changed" — the first block of the Graph API and Roles tabs, folded */
 details.mschg{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);
  border-radius:10px;margin:0 0 18px}
@@ -30735,6 +30764,27 @@ odtad CZTERNASCIE (4-17).**
         return String(e.name || "").toLowerCase().indexOf(v) >= 0;
       });
       cnt.textContent = hits.length + " of " + items.length;
+      /* §5hb: a word inside an endpoint path (a parameter such as dynamicMembershipPriority, a segment such as
+         dynamicMembershipProcessingStatus) names the endpoints and the permissions that can call them */
+      var eps = which === "graph" && window.__socEpFind && v.length >= 4 ? window.__socEpFind(v, 40) : [];
+      function epBlock() {
+        if (!eps.length) return;
+        var b0 = el("div", "s5hb-eps");
+        b0.appendChild(el("p", "s5hb-ept", eps.length + (eps.length >= 40 ? "+" : "") + " endpoint" + (eps.length === 1 ? " of Microsoft's permissions file contains “" : "s of Microsoft's permissions file contain “") + q.value.trim() + "”. Permissions that can call " + (eps.length === 1 ? "it" : "them") + ", lowest level first:"));
+        var seen = {}, pb = el("span", "cathits");
+        eps.forEach(function (x) { x.perms.forEach(function (pr) { if (seen[pr.name]) return; seen[pr.name] = pr; }); });
+        Object.keys(seen).sort(function (a, b) { return (seen[a].lv || 9) - (seen[b].lv || 9) || a.length - b.length || a.localeCompare(b); }).slice(0, 12).forEach(function (nm) {
+          var it = items.filter(function (e) { return e.name === nm; })[0];
+          var bb = el("button", null, nm); bb.type = "button"; bb.appendChild(el("span", "cfw", seen[nm].lv ? "L" + seen[nm].lv : "L?"));
+          bb.addEventListener("click", function () { openIn(which, nm, it ? modeOf(it) : null); }); pb.appendChild(bb); });
+        b0.appendChild(pb);
+        var ul = el("ul", "s5hb-epl");
+        eps.slice(0, 4).forEach(function (x) { var li = el("li"); li.appendChild(el("code", "s5hb-epp", x.methods.join(" / ") + " " + x.path));
+          var ob = el("button", "s5hb-epo", "Which permission ›"); ob.type = "button"; ob.addEventListener("click", function () { window.__socEpOpen(x.path); }); li.appendChild(ob); ul.appendChild(li); });
+        if (eps.length > 4) ul.appendChild(el("li", "cfn", "… and " + (eps.length - 4) + (eps.length >= 40 ? "+" : "") + " more — make the word longer."));
+        b0.appendChild(ul); why.appendChild(b0);
+      }
+      if (!hits.length && eps.length) { why.hidden = false; epBlock(); return; }
       if (!hits.length) {
         why.hidden = false;
         why.appendChild(document.createTextNode(
@@ -30754,7 +30804,7 @@ odtad CZTERNASCIE (4-17).**
           ? (", and " + elsewhere.length + " of them " + (elsewhere.length === 1 ? "is" : "are") +
              " in a list this mode does not show. Open one from here:")
           : ". All of them are in the list below.")));
-      if (!elsewhere.length) return;
+      if (!elsewhere.length) { epBlock(); return; }
       var box = el("span", "cathits");
       elsewhere.slice(0, 14).forEach(function (e) {
         var m = modeOf(e);
@@ -30768,6 +30818,7 @@ odtad CZTERNASCIE (4-17).**
       if (elsewhere.length > 14)
         box.appendChild(el("span", "cfn", " … and " + (elsewhere.length - 14) + " more"));
       why.appendChild(box);
+      epBlock();
     }
     q.addEventListener("input", function () { setTimeout(run, 0); });
     /* the shell repaints its own mode row, so re-run on a mode press: the same hit
@@ -31815,7 +31866,7 @@ odtad CZTERNASCIE (4-17).**
      after the first search is found too */
   function withExtra() {
     var out = IDX.slice();
-    (window.__socSearchAdd || []).forEach(function (f) { try { (f() || []).forEach(function (x) { out.push({ t: x.t, l: String(x.t).toLowerCase(), tn: x.tn, fn: x.fn }); }); } catch (e) {} });
+    (window.__socSearchAdd || []).forEach(function (f) { try { (f() || []).forEach(function (x) { out.push({ t: x.t, l: x.l || String(x.t).toLowerCase(), tn: x.tn, fn: x.fn }); });   /* §5hb: x.l precomputed by large providers */ } catch (e) {} });
     return out;
   }
   function search() {
@@ -35442,6 +35493,55 @@ odtad CZTERNASCIE (4-17).**
     }
     row.appendChild(box); return row;
   }
+
+  /* §5hb (17 XI 2026, owner: "even if Graph Radar misses it, the permission must be on the list in the Graph API tab and
+     findable in our search" - after dynamicMembershipPriority gave 0 in Ctrl K and in the catalog search): one finder over
+     every path of Microsoft's permissions file (graphMap.p), shared by the catalog search above the list (SCRIPT 17) and by
+     Ctrl K. A word that occurs only inside an endpoint - a parameter such as dynamicMembershipPriority - now names the
+     endpoints and the permissions that can call them, lowest privilege level first. */
+  function epFind(term, max) {
+    if (!GM || !GM.p || !GM.perms) return [];
+    var v = String(term || "").trim().toLowerCase().replace(/^(get|post|patch|put|delete)\s+/, ""); if (v.length < 3) return [];
+    var rev = reverse(), P = GM.p, out = [];
+    for (var i = 0; i < P.length && out.length < (max || 40); i++) {
+      if (String(P[i]).toLowerCase().indexOf(v) < 0) continue;
+      var rows = rev[i] || []; if (!rows.length) continue;
+      var by = {}, ms = {}; rows.forEach(function (x) { (by[x[0]] = by[x[0]] || []).push(x[1]); ms[x[1]] = 1; });
+      var names = Object.keys(by).sort(function (a, b) { return (lvOf(a) || 9) - (lvOf(b) || 9) || a.length - b.length || a.localeCompare(b); });
+      out.push({ path: P[i], methods: Object.keys(ms), perms: names.map(function (n) { return { name: n, lv: lvOf(n), methods: by[n] }; }) });
+    }
+    return out;
+  }
+  window.__socEpFind = epFind;
+  window.__socEpOpen = function (path, meth) {
+    var tb = document.getElementById("tabbtn-tab-graph") || document.querySelector('nav.anchors .tab[aria-controls="tab-graph"]');
+    if (tb) tb.click();
+    var n = 0;
+    (function go() {
+      graphBox();
+      var bx = document.getElementById("gu-graph");
+      if (!bx) { if (++n < 30) setTimeout(go, 150); return; }
+      var q = bx.querySelector(".gu-q"), m = bx.querySelector(".gu-m");
+      if (m) m.value = meth || "";
+      q.value = (meth ? meth + " " : "") + path; q.dispatchEvent(new Event("input", { bubbles: true }));
+      if (m) m.dispatchEvent(new Event("change", { bubbles: true }));
+      setTimeout(function () { bx.scrollIntoView({ block: "start" }); bx.classList.add("s5hb-flash"); setTimeout(function () { bx.classList.remove("s5hb-flash"); }, 1600); }, 260);
+    })();
+  };
+  var EPX = null;
+  (window.__socSearchAdd = window.__socSearchAdd || []).push(function () {
+    if (EPX) return EPX;
+    if (!GM || !GM.p || !GM.perms) return [];
+    var rev = reverse(); EPX = [];
+    GM.p.forEach(function (p, i) {
+      var rows = rev[i]; if (!rows || !rows.length) return;
+      var ms = {}, ns = {}; rows.forEach(function (x) { ms[x[1]] = 1; ns[x[0]] = 1; });
+      var names = Object.keys(ns).sort(function (a, b) { return (lvOf(a) || 9) - (lvOf(b) || 9) || a.length - b.length || a.localeCompare(b); });
+      var tt = Object.keys(ms).join(" / ") + " " + p + " · " + names.length + " permission" + (names.length === 1 ? "" : "s") + ": " + names.slice(0, 4).join(", ") + (names.length > 4 ? " …" : "");
+      EPX.push({ t: tt, l: tt.toLowerCase(), tn: "Graph API endpoint", fn: function () { window.__socEpOpen(p); } });
+    });
+    return EPX;
+  });
 
   function graphBox() {
     var p = document.getElementById("tab-graph");
@@ -45931,7 +46031,10 @@ odtad CZTERNASCIE (4-17).**
   var KIND = { "type-new": ["added", "New type"], "prop-new": ["added", "New property"], "nav-new": ["added", "New navigation"], "op-new": ["added", "New action / function"],
     "member-new": ["added", "New enum value"], "root-new": ["added", "New entity set"], "prop-type": ["changed", "Property type changed"],
     "type-removed": ["removed", "Type removed"], "prop-removed": ["removed", "Property removed"], "nav-removed": ["removed", "Navigation removed"],
-    "op-removed": ["removed", "Action / function removed"], "member-removed": ["removed", "Enum value removed"], "tenant-undocumented": ["added", "Returned by the service, not documented"] };
+    "op-removed": ["removed", "Action / function removed"], "member-removed": ["removed", "Enum value removed"], "tenant-undocumented": ["added", "Returned by the service, not documented"],
+    "signal-new": ["added", "Seen outside $metadata"] };   /* §5hb */
+  /* §5hb (17 XI 2026, owner: "do everything"): where an "other signal" was seen */
+  var SIGSRC = { aso: "Azure Service Operator", endpoint: "Microsoft permissions file" };
   /* the documentation status of a property our tenant returned */
   var STATUS = {
     "new": ["Undocumented", "s5ft-s-new", "The service returns it, but Microsoft has published nothing: not in $metadata, not on the Graph reference page."],
@@ -45989,7 +46092,7 @@ odtad CZTERNASCIE (4-17).**
 
   /* ---- one finding or one change, in the same shape for the card ---- */
   function fromUnd(u) {
-    return { undoc: 1, type: u.type, name: u.leaf || String(u.prop).split(".").pop().replace("[]", ""), prop: u.prop, human: u.human, cat: u.cat, also: u.also,
+    return { sig: u.src || null, evidence: u.evidence || null, alsoTenant: u.alsoTenant || 0, undoc: 1, type: u.type, name: u.leaf || String(u.prop).split(".").pop().replace("[]", ""), prop: u.prop, human: u.human, cat: u.cat, also: u.also,
       status: u.status || "new", doc: u.doc || {}, note: u.note, auto: u.auto || [], at: String(u.prop).replace(/\.?[^.]+$/, ""), path: u.itemPath || u.path, label: u.label,
       first: u.first, last: u.last, updated: u.updated, statusDay: u.statusDay, log: u.log || [], cmd: u.cmd, mc: u.mc || [], ver: "beta", kindv: u.kind, declared: u.declared, shape: u.shape, stages: u.stages, stageDays: u.stageDays || {}, stageBase: u.stageBase || "", feature: u.feature, learn: u.learn || {} };
   }
@@ -46130,18 +46233,26 @@ odtad CZTERNASCIE (4-17).**
     var x = el("button", "s5fo-x", "×"); x.type = "button"; x.setAttribute("aria-label", "Close"); x.addEventListener("click", function () { CARD.hidden = true; }); c.appendChild(x);
     var k = KIND[e.kind] || ["changed", "Change"];
     var chips = el("div", "s5fo-chips");
-    if (e.undoc) { var st = STATUS[e.status || "new"]; chips.appendChild(el("span", "s5ft-st " + st[1], st[0])); chips.appendChild(el("span", "s5fq-sp s5fs-c-t", "Our tenant")); }
+    if (e.undoc) { var st = STATUS[e.status || "new"]; chips.appendChild(el("span", "s5ft-st " + st[1], st[0])); chips.appendChild(el("span", "s5fq-sp s5fs-c-t", e.sig ? SIGSRC[e.sig] || e.sig : "Our tenant")); }
     else { chips.appendChild(el("span", "s5fq-sp " + (e.ver === "v1.0" ? "s5fs-c-v1" : "s5fs-c-b"), "Graph " + e.ver)); chips.appendChild(el("span", "s5fo-chip", k[1])); }
     if (e.cat) chips.appendChild(el("span", "s5fo-chip s5ft-cat", e.cat));
     (e.also || []).forEach(function (a) { chips.appendChild(el("span", "s5fo-chip s5ft-cat", a)); });
     if (e.promoted) chips.appendChild(el("span", "s5fo-chip s5fo-st", "Promoted to v1.0"));
     c.appendChild(chips);
+    if (e.evidence) {   /* §5hb: where it was seen, with the proof */
+      var evd = el("div", "s5hb-evd s5ft-what"); evd.appendChild(el("b", null, "Where it was seen: "));   /* s5ft-what: the tab builder moves it into Overview */ evd.appendChild(document.createTextNode(e.evidence.what + (e.alsoTenant ? " — our tenant returns it too." : ".")));
+      if (e.evidence.endpoint) evd.appendChild(el("code", "s5hb-evc", "GET " + e.evidence.endpoint));
+      if (e.evidence.file) { var ea = el("a", null, "Open the recording ↗"); ea.href = e.evidence.file; ea.target = "_blank"; ea.rel = "noopener"; evd.appendChild(document.createTextNode(" ")); evd.appendChild(ea);
+        if (e.evidence.commitDay) evd.appendChild(el("span", "s5dv-sm", " · commit " + e.evidence.commit + " · " + dmy(e.evidence.commitDay))); }
+      c.appendChild(evd);
+    }
     c.appendChild(el("h2", "s5fo-t s5ft-t", title(e)));
     var tn = el("div", "s5ft-tname"); tn.appendChild(el("code", null, fullName(e)));
     tn.appendChild(btn("Copy name", "s5fs-copy", function (ev) { var bb = ev.currentTarget; try { navigator.clipboard.writeText(fullName(e)).then(function () { bb.textContent = "Copied"; setTimeout(function () { bb.textContent = "Copy name"; }, 1400); }); } catch (x2) {} }));
     c.appendChild(tn);
     if (e.undoc && e.stages) { c.appendChild(stageStrip(e)); c.appendChild(stageBox(e)); }   /* §5fz: strip in the head, details in Overview */
-    c.appendChild(el("p", "s5fo-ot", e.undoc ? "Returned by " + (e.label || "the service") + " in our developer tenant, first seen " + dmy(e.first)
+    c.appendChild(el("p", "s5fo-ot", e.sig ? "Seen in " + (SIGSRC[e.sig] || e.sig) + " (" + (e.label || "") + "), first seen by this portal " + dmy(e.first) + (e.alsoTenant ? "; our tenant returns it too" : "; not returned by our tenant")   /* §5hb */
+      : e.undoc ? "Returned by " + (e.label || "the service") + " in our developer tenant, first seen " + dmy(e.first)
       : (e.via === "msgraph-metadata" ? "Microsoft's weekly schema sync of " : "Live $metadata, ") + dmy(e.day)));
     var b0 = el("div", "s5fo-blk s5ft-what"); b0.appendChild(el("p", "s5fo-lab", "What it is")); b0.appendChild(el("p", "s5fo-txt", whatText(e)));
     if (e.note && e.note.basis === "name") b0.appendChild(el("p", "s5fs-note", ((e.note.articles || []).some(function (a) { return a.rel === "names-it"; })
@@ -46239,7 +46350,7 @@ odtad CZTERNASCIE (4-17).**
     fact("Held by", e.holder);
     if (e.at) fact("Where in the answer", e.at + " (" + (e.kindv || "") + ")");
     if (e.undoc) fact("Documentation", STATUS[e.status || "new"][2] + (e.statusDay ? " Since " + dmy(e.statusDay) + "." : ""));
-    if (e.undoc) fact("Dates", "First seen " + dmy(e.first) + (e.last ? " · last returned by our tenant " + dmy(e.last) : "") + (e.updated && e.updated !== e.first ? " · updated " + dmy(e.updated) : ""));
+    if (e.undoc) fact("Dates", "First seen " + dmy(e.first) + (e.last ? (e.sig ? " · last seen in " + (SIGSRC[e.sig] || e.sig) + " " : " · last returned by our tenant ") + dmy(e.last) : "") + (e.updated && e.updated !== e.first ? " · updated " + dmy(e.updated) : ""));
     if (e.undoc && (e.log || []).length) fact("What changed", e.log.map(function (x) { return dmy(x.day) + ": " + x.what; }).join(" · "));
     if (e.props && e.props.length) fact(e.detail === "enum type" ? "Values" : "Properties", e.props.join(", "));
     if (e.params && e.params.length) fact("Parameters", e.params.join(", "));
@@ -46395,7 +46506,7 @@ odtad CZTERNASCIE (4-17).**
     var und = (D.tenant || {}).undocumented || [];
     var nv = el("nav", "s5dv-vnav"); nv.setAttribute("aria-label", "Views of the Graph API Radar tab");
     var up7 = updates().filter(function (x) { return dayDiffR(x.day) <= 7; }).length;   /* §5fz */
-    [["tenant", "New in our tenant", und.length], ["updates", "Updates", up7], ["changes", "Every change in Graph", (D.events || []).filter(function (e) { return e.kind !== "tenant-undocumented"; }).length], ["how", "How it works", null]].forEach(function (v) {
+    [["tenant", "New in our tenant", und.length], ["signals", "Other signals", ((D.signals || {}).items || []).length], ["updates", "Updates", up7], ["changes", "Every change in Graph", (D.events || []).filter(function (e) { return e.kind !== "tenant-undocumented"; }).length], ["how", "How it works", null]].forEach(function (v) {
       var b = btn(v[1], "s5dv-vb" + (S.view === v[0] ? " on" : ""), function () { S.view = v[0]; setHash(); render(); });
       if (v[2] != null) b.appendChild(el("span", "s5fp-n", n(v[2])));
       b.setAttribute("aria-pressed", String(S.view === v[0])); nv.appendChild(b);
@@ -46529,8 +46640,28 @@ odtad CZTERNASCIE (4-17).**
   }
 
   /* ---- view 2: every change of $metadata ---- */
+  /* ---- §5hb view: other signals - Azure Service Operator recordings and endpoint parameters ---- */
+  function vSignals(host) {
+    var sg = D.signals || {}, L = (sg.items || []).map(fromUnd).filter(qHit);
+    host.appendChild(el("p", "s5dv-note", "Properties and private-preview features named outside $metadata, before Microsoft documents them: in the Graph responses that Microsoft's Azure Service Operator records in its tests (github.com/Azure/azure-service-operator), and as parameters of endpoints in Microsoft's Graph permissions file. Our tenant did not return them — each card says where they were seen."));
+    var nt = sg.note || {};
+    host.appendChild(el("p", "s5dv-sm", "Last read " + dmy(sg.read) + " · Azure Service Operator: " + (nt.aso || "not read") + " · permissions file: " + (nt.endpoints || "not read")));
+    if (!L.length) { host.appendChild(el("p", "s5dv-note", F.q ? "No signal matches “" + F.q + "”." : "No signal outside $metadata on the last read.")); return; }
+    [["Azure Service Operator — Graph responses in test recordings", function (e) { return e.sig === "aso" && e.type !== "privatePreview"; }],
+     ["Private-preview features named in Graph response headers", function (e) { return e.type === "privatePreview"; }],
+     ["Parameters of endpoints in Microsoft's permissions file", function (e) { return e.sig === "endpoint"; }]].forEach(function (g) {
+      var G = L.filter(g[1]); if (!G.length) return;
+      G.sort(function (a, b) { return String(b.first || "").localeCompare(String(a.first || "")) || String(a.name).localeCompare(String(b.name)); });
+      var d = el("details", "s5ft-grp"); d.open = true; d.appendChild(catHead(g[0], G.length, G.length === 1 ? "signal" : "signals"));
+      var ol = el("ol", "s5ft-fl");
+      G.forEach(function (u) { var r = fRow(u); [].forEach.call(r.querySelectorAll(".s5ft-dt"), function (x) { if (/Last returned/.test(x.textContent)) x.remove(); });
+        var fc = r.querySelector(".s5ft-fc"); if (fc) fc.insertBefore(el("span", "s5dv-chip s5hb-src", SIGSRC[u.sig] || u.sig), fc.firstChild); ol.appendChild(r); });
+      d.appendChild(ol); host.appendChild(d);
+    });
+  }
   function vChanges(host) {
     var ev = (D.events || []).filter(function (e) { return e.kind !== "tenant-undocumented"; });
+    if ((D.flaps || {}).pairs) host.appendChild(el("p", "s5dv-note", D.flaps.pairs + " times an item was “added” and “removed” on the same day: Microsoft's servers answer with $metadata that does not agree. Those pairs are not changes and are not listed; a removal counts only when a second read still lacks the item."));
     var fb = el("div", "s5fo-tf");
     function pass(e, ignore) {
       var cut = new Date(Date.parse(D.day + "T12:00:00Z") - F.days * 864e5).toISOString().slice(0, 10);
@@ -46714,7 +46845,7 @@ odtad CZTERNASCIE (4-17).**
     }
     body.appendChild(kpis());
     var host = el("div", "s5ft-view"); body.appendChild(host);
-    if (S.view === "changes") vChanges(host); else if (S.view === "how") vHow(host); else if (S.view === "updates") vUpdates(host); else vTenant(host);
+    if (S.view === "changes") vChanges(host); else if (S.view === "how") vHow(host); else if (S.view === "updates") vUpdates(host); else if (S.view === "signals") vSignals(host); else vTenant(host);
     body.appendChild(el("p", "s5dv-fn", "Read " + dmy(D.day) + " " + String(D.generated || "").slice(11, 16) + " UTC by GitHub Actions (tools/graph_radar.py). From the tenant only property names and, under a finding, true/false and enum words are kept - never a name, an id or text."));
     if (window.__socFilterBarSync) setTimeout(function () { try { window.__socFilterBarSync(); } catch (e) {} }, 0);
   }
@@ -46729,6 +46860,8 @@ odtad CZTERNASCIE (4-17).**
     if (!D) return [];
     var out = ((D.tenant || {}).undocumented || []).map(function (u) { var e = fromUnd(u);
       return { t: title(e) + " · " + fullName(e) + " · " + (e.cat || "") + " · " + whatText(e), tn: "Graph API Radar", fn: function () { openRadar("tenant"); setTimeout(function () { card(e); }, 400); } }; });
+    ((D.signals || {}).items || []).forEach(function (u) { var e = fromUnd(u);   /* §5hb */
+      out.push({ t: title(e) + " · " + fullName(e) + " · " + (SIGSRC[e.sig] || "") + " · " + ((e.evidence || {}).what || ""), tn: "Graph API Radar", fn: function () { openRadar("signals"); setTimeout(function () { card(e); }, 400); } }); });
     (D.events || []).slice(0, 900).forEach(function (e) { if (e.kind === "tenant-undocumented") return;
       out.push({ t: humanize(e.name) + " · " + fullName(e) + " · " + (KIND[e.kind] || ["", ""])[1] + " · Graph " + e.ver + " · " + (e.cat || "") + " · " + dmy(e.day), tn: "Graph API Radar", fn: function () { openRadar("changes"); setTimeout(function () { card(e); }, 400); } }); });
     return out;

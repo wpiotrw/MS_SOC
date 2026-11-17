@@ -44,6 +44,9 @@ jobs:
             git clone -q --filter=blob:none --no-checkout https://github.com/microsoftgraph/msgraph-metadata.git "$RUNNER_TEMP/gmeta"
             echo "BACKFILL=--backfill $RUNNER_TEMP/gmeta" >> "$GITHUB_ENV"
           fi
+      # CLAUDE.md 5hb (17 XI 2026): Azure Service Operator test recordings are YAML
+      - name: YAML reader for Azure Service Operator recordings (CLAUDE.md 5hb)
+        run: python3 -m pip install --quiet --disable-pip-version-check pyyaml || echo "pyyaml not installed - the radar skips Azure Service Operator"
       - name: $metadata (beta, v1.0) and the developer tenant (read-only)
         timeout-minutes: 15
         env:
