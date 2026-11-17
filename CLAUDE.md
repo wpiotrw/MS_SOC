@@ -26566,6 +26566,17 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5gw (17 XI 2026, 21:00)** — Piotr po §5gv: "czemu wypadl PHP2Shell? albo Cursor? Cursor to AI, a to sledzimy w community,
+Learn, Overview; do PHP2Shell mielismy nawet sledzenie incydentu, KQL". Zapytany, co jeszcze ma wchodzic do zdania, wybral
+wszystko: krytyczne podatnosci, malware na Windows, wszystko z naszym KQL, plus AI. `tools/threats.py`: rodzina `Copilot & AI`
+(Copilot, AI, LLM, agenci, MCP, Claude, Cursor, OpenAI, Foundry, LiteLLM, prompt injection) w `TRACKED`, a `add_reasons()` po
+policzeniu KQL dokleja do `tracked` etykiety `Critical vulnerability` (CVE + "critical"/CVSS 9-10/zero-day/KEV/exploited w tytule
+lub leadzie), `Windows` (Windows, .exe/.msi, installer, PowerShell, LNK, DLL, scheduled task, registry) i - gdy nic innego nie
+pasuje - `Our KQL` (`kql > 0`). Etykieta stoi przy wierszu w zdaniu, wiec widac, DLACZEGO incydent tam jest. Zdanie mowi
+"N incidents that concern us". 17 XI: 29 z 29 przechodzi (PHP2Shell i Zimbra jako Critical vulnerability, Cursor/Claude Code i
+LiteLLM jako Copilot & AI, GSocket/NeedyMantis/Storm-2570 jako Our KQL); w samej zakladce zostaje tylko incydent bez zadnej z
+tych cech (np. obcy wpis bez KQL).
+
 **§5gv (17 XI 2026, 19:05)** — Piotr: "w zdaniach briefu maja sie pojawic tylko te z Threat Research, ktore pasuja do
 technologii przez nas sledzonych i funkcji opisywanych, zeby nie zasmiecac". `tools/threats.py` dopisuje kazdej historii pole
 `tracked` (lista `TRACKED`: Entra ID, Entra Connect & hybrid, Apps & OAuth, Sign-in & MFA, Microsoft 365, Exchange & Outlook,
@@ -43722,10 +43733,11 @@ odtad CZTERNASCIE (4-17).**
       var top = (mv.length ? mv : S).slice().sort(function (a, z) { return last(z).localeCompare(last(a)); }).slice(0, 3);
       var li = el("li", "s5fe-sen"); li.appendChild(el("b", "s5bk-k k-tech", "Threat Research"));
       var bt = el("button", "s5bk-it s5bk-link"); bt.type = "button"; bt.title = "Open Threat Research";
-      bt.appendChild(el("span", "s5bk-itt", mv.length ? mv.length + " incident" + (mv.length === 1 ? "" : "s") + " on the technologies we track, new or updated since the previous brief"
-        : !S.length ? "No incident on the technologies we track · " + ALLS.length + " in the tab"
-        : "No new incident on the technologies we track since the previous brief · " + S.length + (hasTr ? " of " + ALLS.length : "") + " fit them, the latest:"));
-      if (hasTr && ALLS.length > S.length) bt.appendChild(el("span", "s5bk-itm", (ALLS.length - S.length) + " other incident" + (ALLS.length - S.length === 1 ? "" : "s") + " (Linux, PHP, other vendors' software) stay in the Threat Research tab only."));
+      bt.appendChild(el("span", "s5bk-itt", mv.length ? mv.length + " incident" + (mv.length === 1 ? "" : "s") + " that concern us, new or updated since the previous brief"
+        : !S.length ? "No incident that concerns us · " + ALLS.length + " in the tab"
+        : "No new incident that concerns us since the previous brief · " + S.length + (hasTr ? " of " + ALLS.length : "") + " concern us, the latest:"));
+      var NOUS = hasTr ? ALLS.filter(function (s) { return s && !(s.tracked || []).length; }).length : 0;
+      if (NOUS) bt.appendChild(el("span", "s5bk-itm", NOUS + " other incident" + (NOUS === 1 ? " stays" : "s stay") + " in the Threat Research tab only (no tracked technology, AI, critical vulnerability, Windows or our KQL)."));
       bt.addEventListener("click", function () { goTab(); wake(); });
       li.appendChild(bt);
       var rows = el("div", "s5es-rows");

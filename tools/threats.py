@@ -87,7 +87,11 @@ TRACKED = [
     ("Exchange & Outlook", r"\bexchange (?:online|server)|outlook|\bowa\b"),
     ("Teams", r"microsoft teams|\bteams\b"),
     ("SharePoint & OneDrive", r"sharepoint|onedrive"),
-    ("Copilot", r"copilot"),
+    # CLAUDE.md 5gw (17 XI 2026, owner: "Cursor is AI, and AI is what we track in Community, Learn and Overview"):
+    # AI and AI developer tools - assistants, agents, models and the extensions and packages that carry them.
+    ("Copilot & AI", r"copilot|\bai\b|artificial intelligence|\bllms?\b|large language model|generative|chatgpt|openai|"
+                     r"anthropic|claude|\bcursor\b|\bmcp\b|model context protocol|ai agents?|agentic|\bagents? (?:id|365)\b|"
+                     r"foundry|litellm|langchain|hugging ?face|prompt injection|jailbreak"),
     ("Intune", r"intune|autopilot"),
     ("Purview", r"purview"),
     ("Sentinel", r"\bsentinel\b"),
@@ -116,6 +120,31 @@ def lead_of(note, arts):
                 break
         txt = re.sub(r"^\s*In this article\b.*?(?=\b(?:In|On|As|Since|During|Microsoft|Between|Over|Early|Late)\b [A-Z0-9])", "", txt, flags=re.S)
     return " ".join(re.split(r"(?<=[.!?])\s+", txt.strip())[:3])[:700]
+
+
+# CLAUDE.md 5gw (17 XI 2026, owner after 5gv: "why did PHP2Shell drop out? and Cursor? Cursor is AI, which we track; for
+# PHP2Shell we even track the incident, with KQL"). Asked which else belongs in the brief's sentence, he chose all of:
+# critical vulnerabilities, malware on Windows, everything with our KQL, plus AI. Each reason is a label in "tracked", so
+# the sentence shows WHY a story is there; only a story with none of them stays in the tab alone.
+CRIT_RX = re.compile(r"\bcritical\b|cvss[^.]{0,30}\b(?:9|10)(?:\.\d)?\b|actively exploited|exploited in the wild|"
+                     r"zero-day|0-day|\bkev\b|exploitation (?:attempt|of)|exploited", re.I)
+WIN_RX = re.compile(r"\bwindows\b|\.exe\b|\.msi\b|installer|powershell|\blnk\b|\bdll\b|scheduled task|registry", re.I)
+
+
+def add_reasons(st, note):
+    lead = lead_of(note, [])
+    if not lead and st.get("_lead"):
+        lead = st["_lead"]
+    t = (st.get("title") or "") + " " + lead
+    tr = list(st.get("tracked") or [])
+    if st.get("cves") and CRIT_RX.search(t):
+        tr.append("Critical vulnerability")
+    if WIN_RX.search(t):
+        tr.append("Windows")
+    if not tr and (st.get("kql") or 0) > 0:
+        tr.append("Our KQL")
+    st["tracked"] = tr
+    st.pop("_lead", None)
 
 
 # CLAUDE.md 5ex (owner 22 X: "most of these are not incidents like PHP2Shell or ConnectWise - collect incidents about
@@ -573,6 +602,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
             "scope": scope,
             # CLAUDE.md 5gv: the tracked technologies and functions the story is about (empty = not for the brief's sentences)
             "tracked": tracked_of(note.get("title") or lead["title"], lead_of(note, L)),
+            "_lead": lead_of(note, L),
             "apps": sorted(apps.values(), key=lambda x: (x.get("origin") != "analysis", not x.get("appId"), x.get("kind") == "tenant")),
             "appsNote": note.get("appsNote") or "",
             # the curated text travels with the story, so the page reads one file
@@ -684,6 +714,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
         st["kqlCommunityN"] = len(st.get("kqlCommunity") or [])
         st["kql"] = st["kqlAnalysis"] + st["kqlSources"] + st["kqlCommunityN"]
         st["why"] = [w for w, on in (("m365", st["scope"] == "m365"), ("kql", st["kql"] > 0), ("analysis", bool(n))) if on]
+        add_reasons(st, n)
     kbody = {"source": "tools/threats.py (CLAUDE.md 5eu)", "keepDays": KQL_KEEP, "queries": kall}
     try:
         old_k = json.load(open(kpath, encoding="utf-8"))
