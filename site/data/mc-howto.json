@@ -648,6 +648,57 @@
      "says": "Microsoft's Learn page the post links for how usage-based billing and spending policies work."
     }
    ]
+  },
+  {
+   "key": "teams-ios17-end-of-support",
+   "ids": [
+    "MC1556088"
+   ],
+   "title": "Teams ends support for iOS 17 and iPadOS 17: find the devices still on 17",
+   "scriptable": true,
+   "checked": "2026-11-17",
+   "sdk": "Microsoft Graph PowerShell SDK (Microsoft.Graph.Authentication, Microsoft.Graph.DeviceManagement)",
+   "blocks": [
+    {
+     "t": "Find Intune-managed iPhones and iPads on iOS/iPadOS 17",
+     "kind": "read",
+     "scopes": "DeviceManagementManagedDevices.Read.All",
+     "code": "# Read only. Lists Intune-managed iPhones and iPads still on iOS/iPadOS 17 (MC1556088: new Teams builds need 18).\nConnect-MgGraph -Scopes 'DeviceManagementManagedDevices.Read.All' -NoWelcome\n$devices = Get-MgDeviceManagementManagedDevice -All -Filter \"operatingSystem eq 'iOS' or operatingSystem eq 'iPadOS'\" `\n    -Property Id, DeviceName, OperatingSystem, OsVersion, UserPrincipalName, LastSyncDateTime\n$old = $devices | Where-Object { $_.OsVersion -like '17.*' }\n$old | Sort-Object UserPrincipalName | Select-Object DeviceName, OperatingSystem, OsVersion, UserPrincipalName, LastSyncDateTime |\n    Export-Csv -Path .\\ios17-devices.csv -NoTypeInformation -Encoding UTF8\n\"{0} of {1} iOS/iPadOS devices are on version 17\" -f @($old).Count, @($devices).Count",
+     "src": [
+      "https://learn.microsoft.com/powershell/module/microsoft.graph.devicemanagement/get-mgdevicemanagementmanageddevice?view=graph-powershell-1.0",
+      "https://deltapulse.app/item/MC1556088"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "t": "Message Center MC1556088",
+     "u": "https://deltapulse.app/item/MC1556088",
+     "says": "From mid-December 2026 new Teams releases require iOS 18 or iPadOS 18; Teams already installed on 17 keeps working without support. Microsoft asks admins to identify devices on 17 and update MDM policies that pin OS versions."
+    },
+    {
+     "t": "Get-MgDeviceManagementManagedDevice",
+     "u": "https://learn.microsoft.com/powershell/module/microsoft.graph.devicemanagement/get-mgdevicemanagementmanageddevice?view=graph-powershell-1.0",
+     "says": "Lists Intune managed devices with -Filter, -Property and -All; the managedDevice object carries operatingSystem and osVersion."
+    }
+   ]
+  },
+  {
+   "key": "sharepoint-sitelogourl-search-metadata",
+   "ids": [
+    "MC1556092"
+   ],
+   "title": "SharePoint search stops refreshing SiteLogoUrl on items",
+   "scriptable": false,
+   "checked": "2026-11-17",
+   "why": "The change is in how the search index maintains a managed property; there is no Graph, SharePoint Online or Exchange Online PowerShell setting to turn it on or off, and a custom solution should read the logo from the site instead.",
+   "sources": [
+    {
+     "t": "Message Center MC1556092",
+     "u": "https://deltapulse.app/item/MC1556092",
+     "says": "From early December 2026 to early March 2027 a site logo change no longer updates the SiteLogoUrl property on items in that site; solutions that need the logo should read it from the site."
+    }
+   ]
   }
  ]
 }
