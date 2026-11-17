@@ -81,6 +81,16 @@ def main():
         b = h.find("</style>", a)
         if h[a:b].strip() != css:
             h = h[:a] + css + "\n\n" + h[b:]; changed.append("appended.css")
+    # 5hc (17 XI 2026): the page carried TWO panels id="tab-roles" - an empty placeholder before the real one.
+    # getElementById returns the first, so every layer that looks the Roles panel up by id (Look in, path line,
+    # sticky "In this panel" row, deep links) found an empty div and did nothing on Roles. An EMPTY panel whose id
+    # another panel also carries is dropped; a single empty placeholder (a lazily built tab, 5ec) is kept.
+    ids = re.findall(r'<div class="tabpanel"[^>]*\bid="([^"]+)"', h)
+    for pid in sorted(set(i for i in ids if ids.count(i) > 1)):
+        empty = re.compile(r'<div class="tabpanel"[^>]*\bid="%s"[^>]*>\s*</div>' % re.escape(pid))
+        if len(empty.findall(h)) < ids.count(pid):
+            h, n = empty.subn("", h)
+            if n: changed.append("dropped %d empty duplicate panel(s) %s" % (n, pid))
     if missing:
         print("NOT REFRESHED - not found: " + ", ".join(missing)); sys.exit(2)
     if h == orig:

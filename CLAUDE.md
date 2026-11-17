@@ -26566,6 +26566,22 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hc (17 XI 2026, 23:49)** — Piotr (zrzut z Graph API, AccessReview.Read.All): nazwy cmdletow nachodzily na siebie, po przewinieciu
+nie bylo wiadomo, czego dotycza wpisy, "i to samo pewnie w innych zakladkach". Przyczyny i poprawki: (1) regula §5t
+`.sec-body a[href^="http"]{white-space:nowrap}` trzymala dlugie nazwy cmdletow w jednej linii w kolumnach 260 px — `.gd-cmds` ma kolumny
+min. 540 px i lamanie `break-all`; (2) przyklejony rzad "In this panel" NAZYWA otwarty wpis (`.s5hc-nm`, klik wraca na gore panelu),
+etykieta "Sections", a sekcja pod nim jest podswietlona (`spy()`, `.s5hc-on`); lista katalogu przy szerokosci >= 1000 px jest przyklejona
+obok panelu z zaznaczonym wpisem w widoku (`.s5hc-split`); (3) linia filtrow mowi "opened — permission <nazwa>" / "role <nazwa>" zamiast
+pierwszego dlugiego zdania panelu (`what()`); (4) strona miala DWA panele `id="tab-roles"` (pusty przed prawdziwym) — `getElementById`
+zwracal pusty, wiec w Roles nie dzialaly "Look in", sciezka, "Copy link", przyklejony rzad i linki glebokie; `tools/code_refresh.py`
+usuwa PUSTY panel, ktorego id ma inny panel (pojedynczy pusty panel leniwej zakladki zostaje); (5) wpis otwarty kodem
+(`__socOpenPerm`/`__socOpenRole`, Ctrl K, link) i katalog zbudowany leniwie (`soc:woke`) tez dostaja te warstwy; (6) etykieta skoku "What this
+role can do99 director…" -> "What this role can do 99"; (7) DLUGA TABELA (>= 8 wierszy) w KAZDEJ zakladce: gdy jej naglowek zniknal
+pod przyklejonym stosem, a wiersze sa w widoku, pod stosem stoi pasek `.s5hc-th` z nazwa sekcji (i otwartego wpisu) oraz nazwami kolumn
+wyrownanymi do prawdziwych kolumn, takze przy przewijaniu w bok; klik w nazwe kolumny = klik w prawdziwy naglowek (sortowanie). Tylko
+> 760 px (na telefonie tabele sa kartami). Test 18 XI: 21 zakladek przy 1500 i 390 px — zero bledow JS, zero przewijania w bok, zero
+zdublowanych paneli; `mobile_check` OK (zdania Overview 8,7 s). Kopia: `ClaudeBackups\Backups\ms-soc-5hc-panel-context_20261117_235500\`.
+
 **§5hb (17 XI 2026, 23:12)** — Piotr: "rob wszystko" (trzy propozycje po sprawdzeniu `dynamicMembershipPriority`).
 (1) WYSZUKIWANIE PO SCIEZKACH ENDPOINTOW: `window.__socEpFind` (blok "Which permission for this call?") przeszukuje `graphMap.p`
 (7 757 sciezek pliku uprawnien Microsoftu) i podaje uprawnienia, ktore je wywoluja, od najnizszego poziomu; szukanie nad
@@ -36576,7 +36592,7 @@ odtad CZTERNASCIE (4-17).**
     for (var k in SHORT) if (s.classList.contains(k)) return SHORT[k];
     var h = s.querySelector(":scope > summary, :scope > h3, :scope > h4, :scope > .sec-h, :scope > header, :scope > p.lbl, :scope > details > summary");
     var t = h ? h.textContent : "";
-    t = (t || "").replace(/\s+/g, " ").trim().replace(/\d[\d\s]*(endpoints?|actions?|roles?|permissions?)?$/i, "").trim();
+    t = (t || "").replace(/\s+/g, " ").trim().replace(/\s*\d[\d\s]*((directory|Graph)\s+)?(endpoints?|actions?|roles?|permissions?)?$/i, "").trim();   /* §5hc: "can do 99 directory actions" -> "can do" */
     return t.length > 34 ? t.slice(0, 32) + "…" : t;
   }
   function jump(pane) {
@@ -36587,9 +36603,9 @@ odtad CZTERNASCIE (4-17).**
     nav.appendChild(el("span", "s5by-jl", "In this panel"));
     secs.forEach(function (s, i) {
       var lab = secLabel(s); if (!lab) return;
-      var b = el("button", "s5by-jb"); b.type = "button"; b.appendChild(el("span", null, lab));
+      var b = el("button", "s5by-jb"); b.type = "button"; b.appendChild(el("span", null, lab)); b.__s5sec = s;   /* §5hc: the section this button lights */
       var cn = s.querySelector(".gd-cn, .cat-n, .sec-count");
-      var m = cn ? cn.textContent.trim() : ((s.querySelector(":scope > summary, :scope > h3, :scope > details > summary") || {}).textContent || "").match(/(\d[\d\s]*)\s*(endpoints?|actions?|roles?|permissions?|commands?)\b/);
+      var m = cn ? cn.textContent.trim() : ((s.querySelector(":scope > summary, :scope > h3, :scope > details > summary") || {}).textContent || "").match(/(\d[\d\s]*)\s*(?:(?:directory|Graph)\s+)?(endpoints?|actions?|roles?|permissions?|commands?)\b/);
       var num = typeof m === "string" ? m : (m ? m[1].replace(/\s/g, "") : "");
       if (num) b.appendChild(el("span", "s5by-jn", num));
       b.addEventListener("click", function () {
@@ -37695,6 +37711,28 @@ odtad CZTERNASCIE (4-17).**
       if (ok) i.remove(); done(ok);
     }
   }
+  /* §5hc: the section under the sticky row is lit in it ("Sections · PowerShell 76") */
+  function spy(pane, nav) {
+    if (nav.__s5hc) return; nav.__s5hc = 1;
+    var raf = 0;
+    function run() {
+      raf = 0; if (!nav.isConnected || !pane.offsetParent) return;
+      var bot = nav.getBoundingClientRect().bottom + 12, best = null;
+      [].forEach.call(pane.children, function (s) {
+        if (!s.classList || !s.classList.contains("sec") || !s.offsetParent) return;
+        if (s.getBoundingClientRect().top <= bot) best = s;
+      });
+      var bs = nav.querySelectorAll("button.s5by-jb"), secs = [].filter.call(pane.children, function (s) { return s.classList && s.classList.contains("sec") && s.offsetParent !== null; });
+      [].forEach.call(bs, function (b, i) {
+        var on = !!best && secs.indexOf(best) >= 0 && (b.__s5sec ? b.__s5sec === best : (b.textContent || "").replace(/\s*\d[\d\s]*$/, "").trim().replace(/…$/, "") !== "" &&
+          ((best.querySelector(":scope > summary, :scope > h3, :scope > h4, :scope > .sec-h, :scope > header, :scope > p.lbl, :scope > details > summary") || best).textContent || "")
+            .replace(/\s+/g, " ").trim().toLowerCase().indexOf((b.querySelector("span") || b).textContent.replace(/…$/, "").trim().toLowerCase()) === 0);
+        b.classList.toggle("s5hc-on", on);
+      });
+    }
+    window.addEventListener("scroll", function () { if (!raf) raf = requestAnimationFrame(run); }, { passive: true });
+    run();
+  }
   function enhance(p, c) {
     var pane = p.querySelector(".catalog .cat-detail-inner .v13pane");
     if (!pane) return;
@@ -37730,6 +37768,29 @@ odtad CZTERNASCIE (4-17).**
       var top = 0;
       if (ctl) { var cs = getComputedStyle(ctl); if (cs.position === "sticky") top = (parseFloat(cs.top) || 0) + ctl.getBoundingClientRect().height; }
       nav.style.top = (top || 72) + "px";
+      /* §5hc (17 XI 2026): the row that stays in view NAMES the open entry and lights the section the reader is in;
+         the list beside it stays in view too, so a scrolled panel never loses what it is about */
+      if (nav.getAttribute("data-s5hc") !== name) {
+        nav.setAttribute("data-s5hc", name);
+        var oldNm = nav.querySelector(".s5hc-nm"); if (oldNm) oldNm.remove();
+        var nm = el("b", "s5hc-nm" + (c.cat === "graph" ? " mono" : ""), name); nm.title = c.kind + ": " + name;
+        nm.addEventListener("click", function () { pane.scrollIntoView({ block: "start", behavior: "smooth" }); });
+        nav.insertBefore(nm, nav.firstChild);
+        var jl = nav.querySelector(".s5by-jl"); if (jl) jl.textContent = "Sections";
+      }
+      spy(pane, nav);
+      var split = p.querySelector(".catalog .cat-split"), list = split && split.querySelector(".cat-list");
+      if (list && window.innerWidth >= 1000) {
+        var lt = (top || 72) + 8;
+        split.classList.add("s5hc-split");
+        list.style.top = lt + "px"; list.style.maxHeight = Math.max(240, window.innerHeight - lt - 12) + "px";
+        var sel = list.querySelector('.cat-item[aria-selected="true"]');
+        if (sel && list.getAttribute("data-s5hc") !== name) {
+          list.setAttribute("data-s5hc", name);
+          var lr = list.getBoundingClientRect(), sr = sel.getBoundingClientRect();
+          if (sr.top < lr.top || sr.bottom > lr.bottom) list.scrollTop += sr.top - lr.top - 40;
+        }
+      }
       [].forEach.call(nav.querySelectorAll("button.s5by-jb"), function (b) {
         if (b.querySelector(".s5by-jn") || /\d/.test(b.textContent || "")) return;   /* a label that already carries its number */
         var lab = ((b.querySelector("span") || b).textContent || "").replace(/…$/, "").trim().toLowerCase();
@@ -37780,6 +37841,12 @@ odtad CZTERNASCIE (4-17).**
     Object.keys(CFG).forEach(function (id) {
       var p = document.getElementById(id); if (!p) return;
       try { lookIn(p, CFG[id]); enhance(p, CFG[id]); winSwitch(p); } catch (e) { if (window.console) console.error("[5ch " + id + "]", e); }
+      /* §5hc: an entry opened by a link, Ctrl K or another tab (no click on the list) is enhanced too */
+      var det = p.querySelector(".catalog .cat-detail");
+      if (det && !det.__s5hc && window.MutationObserver) {
+        det.__s5hc = 1; var tm = 0;
+        new MutationObserver(function () { clearTimeout(tm); tm = setTimeout(run, 300); }).observe(det, { childList: true, subtree: true });
+      }
     });
   }
   function start() {
@@ -37787,6 +37854,17 @@ odtad CZTERNASCIE (4-17).**
     [900, 2000, 3800, 6000, 9500].forEach(function (t) { setTimeout(run, t); });
     setTimeout(fromHash, 1200);
     window.addEventListener("hashchange", fromHash);
+    /* §5hc: a lazily built catalog (§5ec) and an entry opened by code are enhanced too */
+    document.addEventListener("soc:woke", function () { setTimeout(run, 400); setTimeout(run, 1500); });
+    ["__socOpenPerm", "__socOpenRole"].forEach(function (fn) {
+      var tries = 0; (function wrap() {
+        var f = window[fn]; if (typeof f !== "function") { if (++tries < 20) setTimeout(wrap, 700); return; }
+        if (f.__s5hc) return;
+        var w = function () { var r = f.apply(this, arguments); setTimeout(run, 400); setTimeout(run, 1300); return r; };
+        for (var k in f) try { w[k] = f[k]; } catch (e) {}
+        w.__s5hc = 1; window[fn] = w;
+      })();
+    });
     document.addEventListener("click", function (e) {
       if (e.target && e.target.closest && e.target.closest(".cat-item, .s5ch-hit, nav.anchors .tab, .s5cd-bar button")) {
         setTimeout(run, 350); setTimeout(run, 1200);
@@ -37795,6 +37873,109 @@ odtad CZTERNASCIE (4-17).**
     window.addEventListener("resize", function () { setTimeout(run, 100); });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
+/* ===========================================================================
+   §5hc (17 XI 2026) — A LONG TABLE KEEPS ITS COLUMN NAMES AND SAYS WHAT IT IS.
+   Owner, 17 XI 2026, on a scrolled Graph API panel: "when I scroll down I do not know what all
+   these entries are about ... and the same is probably in other tabs". Measured the same night:
+   First-party apps (130 rows), Component versions, Message Center and the catalog panels lose
+   their header row after the first screen, and nothing on screen says which section the rows
+   belong to. This block shows ONE bar under the sticky stack while a table's own header is
+   scrolled away and its rows are still in view: the section's name (and the open catalog entry)
+   plus the column names, aligned to the real columns and following a sideways scroll. A click on
+   a column name is a click on the real header (sorting keeps working). Wider than 760 px only
+   (on a phone the long tables are cards, §5cn). It writes nothing into the tables.
+   =========================================================================== */
+(function () {
+  "use strict";
+  if (window.__s5hcTh) return; window.__s5hcTh = 1;
+  var bar = null, cur = null, raf = 0, cache = { panel: null, at: 0, list: [] };
+  var STACK = ".gfbar, .navstack, .cstick, .dstick, .catalog .cat-controls, nav.s5by-jump.s5ch-stick, header.top";
+  function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x !== undefined && x !== null) n.textContent = x; return n; }
+  function panel() { return [].filter.call(document.querySelectorAll(".tabpanel"), function (p) { return !p.hidden && p.offsetParent !== null; })[0] || null; }
+  function tables(p) {
+    var now = Date.now();
+    if (cache.panel === p && now - cache.at < 1500) return cache.list;
+    cache.panel = p; cache.at = now;
+    cache.list = [].filter.call(p.querySelectorAll("table"), function (t) {
+      return t.tHead && t.tHead.rows.length && t.tBodies[0] && t.tBodies[0].rows.length >= 8 && !t.closest(".s5hc-th");
+    });
+    return cache.list;
+  }
+  function topLine() {
+    var y = 0;
+    [].forEach.call(document.querySelectorAll(STACK), function (e) {
+      if (e.hidden) return; var cs = getComputedStyle(e); if (cs.position !== "sticky" && cs.position !== "fixed") return;
+      var r = e.getBoundingClientRect(); if (r.height && r.top <= y + 4 && r.bottom > y && r.height < 360) y = r.bottom;
+    });
+    return Math.round(y);
+  }
+  function label(t) {
+    var parts = [];
+    var pane = t.closest(".v13pane"), h2 = pane && pane.querySelector(":scope > header h2");
+    if (h2) parts.push(h2.textContent.trim());
+    var cap = t.caption && t.caption.textContent.trim();
+    var box = t.closest("details, section, .sec, .gd-sec");
+    var h = cap ? null : box && box.querySelector(":scope > summary, :scope > h2, :scope > h3, :scope > h4, :scope > .sec-head h2, :scope > .sec-head .sec-title");
+    var x = (cap || (h && h.textContent) || "").replace(/\s+/g, " ").trim();
+    if (x) parts.push(x.length > 90 ? x.slice(0, 88) + "…" : x);
+    return parts.join(" › ");
+  }
+  function clip(t) {
+    var r = t.getBoundingClientRect(), L = r.left, R = r.right, e = t.parentElement;
+    while (e && e !== document.body) {
+      var ox = getComputedStyle(e).overflowX;
+      if (ox === "auto" || ox === "scroll" || ox === "hidden") { var q = e.getBoundingClientRect(); L = Math.max(L, q.left); R = Math.min(R, q.right); break; }
+      e = e.parentElement;
+    }
+    return { L: L, R: R };
+  }
+  function build(t) {
+    bar = bar || (function () {
+      var b = el("div", "s5hc-th"); b.setAttribute("aria-hidden", "true"); b.hidden = true;
+      b.appendChild(el("div", "s5hc-tl")); var w = el("div", "s5hc-tw"); b.appendChild(w);
+      b.addEventListener("click", function (ev) {
+        var c = ev.target.closest && ev.target.closest("[data-s5hc-i]"); if (!c || !cur) return;
+        var th = cur.tHead.rows[cur.tHead.rows.length - 1].cells[+c.getAttribute("data-s5hc-i")];
+        if (th) { var a = th.querySelector("button, a") || th; a.click(); }
+      });
+      document.body.appendChild(b); return b;
+    })();
+    var w = bar.querySelector(".s5hc-tw"); w.textContent = "";
+    var tb = el("table", "s5hc-tt"), hd = el("thead"), tr = el("tr");
+    var row = t.tHead.rows[t.tHead.rows.length - 1];
+    [].forEach.call(row.cells, function (c, i) {
+      var x = el("th", null, (c.textContent || "").replace(/\s+/g, " ").trim()); x.setAttribute("data-s5hc-i", i);
+      x.style.width = c.getBoundingClientRect().width + "px"; x.style.minWidth = x.style.width; x.style.maxWidth = x.style.width;
+      var cs = getComputedStyle(c); x.style.textAlign = cs.textAlign; tr.appendChild(x);
+    });
+    hd.appendChild(tr); tb.appendChild(hd); w.appendChild(tb);
+    bar.querySelector(".s5hc-tl").textContent = label(t);
+    bar.__t = t; bar.__w = t.getBoundingClientRect().width;
+  }
+  function tick() {
+    raf = 0;
+    if (window.innerWidth < 761) { if (bar) bar.hidden = true; cur = null; return; }
+    var p = panel(); if (!p) { if (bar) bar.hidden = true; cur = null; return; }
+    var y = topLine(), pick = null;
+    tables(p).forEach(function (t) {
+      if (pick || t.offsetParent === null) return;
+      var hr = t.tHead.getBoundingClientRect(), tr = t.getBoundingClientRect();
+      if (hr.bottom < y && tr.bottom > y + 70) pick = t;
+    });
+    if (!pick) { if (bar) bar.hidden = true; cur = null; return; }
+    if (pick !== cur || !bar || Math.abs(bar.__w - pick.getBoundingClientRect().width) > 2) build(pick);
+    cur = pick;
+    var c = clip(pick), r = pick.getBoundingClientRect();
+    bar.style.top = y + "px"; bar.style.left = Math.round(c.L) + "px"; bar.style.width = Math.max(0, Math.round(c.R - c.L)) + "px";
+    bar.querySelector(".s5hc-tt").style.transform = "translateX(" + Math.round(r.left - c.L) + "px)";
+    bar.hidden = false;
+  }
+  function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+  window.addEventListener("scroll", kick, { passive: true });
+  document.addEventListener("scroll", kick, { passive: true, capture: true });   /* a sideways scroll inside a table wrapper */
+  window.addEventListener("resize", function () { cache.at = 0; cur = null; kick(); });
+  document.addEventListener("click", function () { cache.at = 0; setTimeout(kick, 60); }, true);
 })();
 /* ===========================================================================
    §5ci — THE "TODAY" ROW AS APPROVED (30 IX 2026): Overview, Today, Deadlines and New.
@@ -42720,6 +42901,9 @@ odtad CZTERNASCIE (4-17).**
   /* only the reader's own clicks: the portal's jumps click tabs and rows themselves (untrusted) */
   document.addEventListener("click", function (ev) { var t = ev.target; if (!ev.isTrusted || (t && t.closest && t.closest(".s5du-x,.gfbar"))) return; lastSrc = tabOf(t); lastAt = Date.now(); }, true);
   function what(e) {
+    /* §5hc: an opened catalog entry is named by its own name, not by its first long sentence */
+    var h2 = e.querySelector && e.querySelector(".v13pane > header h2");
+    if (h2 && h2.textContent.trim()) return (e.closest && e.closest('[data-catalog="roles"]') ? "role " : "permission ") + h2.textContent.trim();
     var iid = e.getAttribute && (e.getAttribute("data-id") || e.getAttribute("data-ci-id"));
     var it = iid && window.__s5dtItem ? window.__s5dtItem(iid) : null;
     if (it && it.title) { var tt = it.title.length > 60 ? it.title.slice(0, 60).replace(/\s+\S*$/, "") + "…" : it.title; return (it.ref ? it.ref + " · " : "") + tt; }
@@ -48971,6 +49155,22 @@ table.gu-cap tbody tr:nth-child(n+16){display:none}
  border:1px solid var(--accent);background:var(--surface);color:var(--accent)}
 .s5by-jb:hover{background:var(--accent);color:var(--on-accent)}
 .s5by-jn{font-weight:700;font-variant-numeric:tabular-nums;opacity:.85}
+/* §5hc (17 XI 2026) — the sticky row names the open entry; the section in view is lit; the list stays beside the panel; long cmdlet names wrap */
+.s5hc-nm{font:700 13.5px/1.35 var(--sans);color:var(--on-accent);background:var(--accent);border-radius:6px;padding:3px 10px;margin-right:6px;cursor:pointer;max-width:100%;overflow-wrap:anywhere}
+.s5hc-nm.mono{font-family:var(--mono);font-size:13px}
+.s5by-jb.s5hc-on{background:var(--accent-soft);border-color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent)}
+.catalog .cat-split.s5hc-split{align-items:start}
+.catalog .cat-split.s5hc-split>.cat-list{position:sticky;overflow-y:auto}
+.tabpanel .gd-cmds{grid-template-columns:repeat(auto-fill,minmax(min(100%,540px),1fr))}
+.tabpanel .gd-cmds a[href],.tabpanel .gd-apps .mono{white-space:normal!important;word-break:break-all;hyphens:none}
+.tabpanel .gd-cmds li{display:block}.tabpanel .gd-cmds .gd-s{display:block}
+.s5hc-th{position:fixed;z-index:40;background:var(--surface);border:1px solid var(--accent);border-top:0;border-radius:0 0 8px 8px;box-shadow:0 4px 10px rgba(0,0,0,.12);overflow:hidden}
+.s5hc-th[hidden]{display:none}
+.s5hc-tl{font:700 12.5px/1.4 var(--sans);color:var(--on-accent);background:var(--accent);padding:3px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s5hc-tw{overflow:hidden}
+.s5hc-tt{border-collapse:collapse;table-layout:fixed;margin:0}
+.s5hc-tt th{font:700 12px/1.3 var(--sans);color:var(--text);background:var(--surface-2);padding:5px 8px;border-right:1px solid var(--border);overflow:hidden;white-space:normal;overflow-wrap:anywhere;vertical-align:bottom;cursor:pointer;box-sizing:border-box}
+.s5hc-tt th:hover{background:var(--accent-soft)}
 .v13pane > .sec{scroll-margin-top:250px}
 .v13pane > .sec.s5by-hit{box-shadow:0 0 0 2px var(--accent)}
 /* named identifiers */
