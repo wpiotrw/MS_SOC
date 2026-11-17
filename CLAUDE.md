@@ -26566,6 +26566,19 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5gv (17 XI 2026, 19:05)** — Piotr: "w zdaniach briefu maja sie pojawic tylko te z Threat Research, ktore pasuja do
+technologii przez nas sledzonych i funkcji opisywanych, zeby nie zasmiecac". `tools/threats.py` dopisuje kazdej historii pole
+`tracked` (lista `TRACKED`: Entra ID, Entra Connect & hybrid, Apps & OAuth, Sign-in & MFA, Microsoft 365, Exchange & Outlook,
+Teams, SharePoint & OneDrive, Copilot, Intune, Purview, Sentinel, Graph API, Azure; Defender tylko z tytulu, bo prawie kazdy
+tekst Microsoftu konczy sie "Microsoft Defender detections"). Czytane WYLACZNIE z tytulu i pierwszych trzech zdan (`lead_of`:
+nasza analiza albo streszczenie zrodla bez spisu "In this article"), nie z calego artykulu. Zdanie "Threat Research" w Overview
+(`ovThreat`, SKRYPT §5fe) bierze tylko historie z niepustym `tracked` i czytelnym tytulem, mowi "N incidents on the technologies
+we track…" i podaje, ile innych zostaje tylko w zakladce; przy kazdym wierszu male technologie. Zakladka Threat Research i RSS
+bez zmian. Plik `threats.json` sprzed pola: zdanie bez filtra do najblizszego przebiegu `fpa-tenant.yml` (co 3 h). Zmierzone
+17 XI na 29 historiach: 18 pasuje; odpadaja m.in. GSocket (Linux), PHP2Shell, Zimbra, LiteLLM, rozszerzenie w Cursorze,
+AgtaBackup RAT, MSP360/ScreenConnect, Star Blizzard RedFlick, NeedyMantis, Storm-2570; artykuly Report URI (§5gu) nie trafiaja
+do zdan, chyba ze dotkna tych technologii.
+
 **§5gu (17 XI 2026, 18:58)** — Piotr: dodac https://blog.report-uri.com (ich API jest platne, ale maja duzo artykulow) - do
 community czy gdzie indziej, i uwzglednic w zdaniach/Overview. Dodane do `community_sources.json` ("Report URI Blog",
 `RequiredFrom` 2026-11-18): `collect_community.py` czyta go metoda `rss-root` (`/feed/`), 17 XI: 15 wpisow, 8 w oknie 14 dni -
@@ -43698,19 +43711,30 @@ odtad CZTERNASCIE (4-17).**
     load(function () {
       if (ol.querySelector(".s5fe-sen")) return;
       windows();
-      var S = (D.stories || []).slice(), mv = S.filter(function (s) { return storyKind(s, PREV, null); });
+      /* §5gv (17 XI 2026, owner: "only the Threat Research items that fit the technologies we track and the functions we
+         describe go into the brief's sentences - so as not to clutter"): only stories whose "tracked" list (tools/threats.py,
+         title and lead only) is not empty, and never a story without a readable title. The tab still lists them all.
+         A threats.json written before the field existed keeps every story until the next run (every 3 h). */
+      var ALLS = D.stories || [], hasTr = ALLS.some(function (s) { return s && Object.prototype.hasOwnProperty.call(s, "tracked"); });
+      var S = ALLS.filter(function (s) { return s && /[A-Za-z]{3}/.test(s.title || "") && (!hasTr || (s.tracked || []).length); }),
+          mv = S.filter(function (s) { return storyKind(s, PREV, null); });
       var last = function (s) { return day(s.lastUpdate || s.firstSeen) || ""; };
       var top = (mv.length ? mv : S).slice().sort(function (a, z) { return last(z).localeCompare(last(a)); }).slice(0, 3);
       var li = el("li", "s5fe-sen"); li.appendChild(el("b", "s5bk-k k-tech", "Threat Research"));
       var bt = el("button", "s5bk-it s5bk-link"); bt.type = "button"; bt.title = "Open Threat Research";
-      bt.appendChild(el("span", "s5bk-itt", mv.length ? mv.length + " incident" + (mv.length === 1 ? "" : "s") + " new or updated since the previous brief" : "No new incident since the previous brief · " + S.length + " tracked, the latest:"));
+      bt.appendChild(el("span", "s5bk-itt", mv.length ? mv.length + " incident" + (mv.length === 1 ? "" : "s") + " on the technologies we track, new or updated since the previous brief"
+        : !S.length ? "No incident on the technologies we track · " + ALLS.length + " in the tab"
+        : "No new incident on the technologies we track since the previous brief · " + S.length + (hasTr ? " of " + ALLS.length : "") + " fit them, the latest:"));
+      if (hasTr && ALLS.length > S.length) bt.appendChild(el("span", "s5bk-itm", (ALLS.length - S.length) + " other incident" + (ALLS.length - S.length === 1 ? "" : "s") + " (Linux, PHP, other vendors' software) stay in the Threat Research tab only."));
       bt.addEventListener("click", function () { goTab(); wake(); });
       li.appendChild(bt);
       var rows = el("div", "s5es-rows");
       top.forEach(function (s) {
         var r = el("div", "s5cu-ovr s5es-row"); r.appendChild(el("span", "s5cu-d", dm(last(s))));
         var mid = el("span"), nb = el("button", "s5cu-ovn", s.title.length > 110 ? s.title.slice(0, 106) + "\u2026" : s.title); nb.type = "button"; nb.title = "Open the incident";
-        nb.addEventListener("click", function () { openStory(s.id); }); mid.appendChild(nb); r.appendChild(mid); rows.appendChild(r);
+        nb.addEventListener("click", function () { openStory(s.id); }); mid.appendChild(nb);
+        if ((s.tracked || []).length) mid.appendChild(el("span", "s5bk-itm", " " + s.tracked.slice(0, 3).join(" \u00b7 ")));
+        r.appendChild(mid); rows.appendChild(r);
       });
       var tries = 0;
       (function infra() {

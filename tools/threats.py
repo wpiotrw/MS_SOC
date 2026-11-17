@@ -69,6 +69,55 @@ M365SCOPE = ["entra", "azure ad", "azure active directory", "microsoft 365", "m3
              "onedrive", "teams", "outlook", "copilot", "intune", "purview", "oauth", "conditional access", "service principal",
              "microsoft graph", "graph api", "app registration", "enterprise app", "multi-tenant", "multitenant", "cross-tenant",
              "adfs", "ad fs", "entra connect", "passkey", "mfa", "device code", "aitm", "token theft", "consent phishing"]
+# CLAUDE.md 5gv (17 XI 2026, owner: "only the Threat Research items that fit the technologies we track and the
+# functions we describe go into the brief's sentences - so as not to clutter them"). A story names the tracked
+# technologies and functions it is about in "tracked", read from its TITLE and LEAD only (the first three sentences of
+# our analysis, or of the source's summary without the "In this article" table of contents) - never from the whole
+# article, where a closing "Microsoft Defender detections" or a passing "Teams" would make every story count.
+# Defender counts only in the title: nearly every Microsoft write-up ends with Defender detections.
+TRACKED = [
+    ("Entra ID", r"\bentra\b|azure ad\b|azure active directory|\baad\b|conditional access|\bpim\b|global admin|"
+                 r"self-service password reset|\bsspr\b|identity protection"),
+    ("Entra Connect & hybrid", r"entra connect|cloud sync|\bad ?fs\b|federat|active directory|\bad cs\b|kerberos|dcsync|domain controller"),
+    ("Apps & OAuth", r"\boauth\b|consent phishing|illicit consent|service principal|app registration|enterprise app|"
+                     r"multi-?tenant (?:\w+ )?app|app(?:lication)? (?:credential|identit)|client secret|app secret"),
+    ("Sign-in & MFA", r"\bmfa\b|multi-factor|passkey|fido|device[- ]code|\baitm\b|adversary-in-the-middle|token (?:theft|replay)|"
+                      r"stolen tokens?|primary refresh|password spray|authenticator"),
+    ("Microsoft 365", r"microsoft 365|\bm365\b|office 365|\bo365\b|onmicrosoft"),
+    ("Exchange & Outlook", r"\bexchange (?:online|server)|outlook|\bowa\b"),
+    ("Teams", r"microsoft teams|\bteams\b"),
+    ("SharePoint & OneDrive", r"sharepoint|onedrive"),
+    ("Copilot", r"copilot"),
+    ("Intune", r"intune|autopilot"),
+    ("Purview", r"purview"),
+    ("Sentinel", r"\bsentinel\b"),
+    ("Graph API", r"microsoft graph|graph api"),
+    ("Azure", r"\bazure\b(?! ad\b| active)"),
+]
+TRACKED_RX = [(n, re.compile(x, re.I)) for n, x in TRACKED]
+DEFENDER_RX = re.compile(r"\bdefender\b", re.I)
+
+
+def tracked_of(title, lead):
+    t = (title or "") + " " + (lead or "")
+    out = [n for n, r in TRACKED_RX if r.search(t)]
+    if DEFENDER_RX.search(title or ""):
+        out.append("Defender")
+    return out
+
+
+def lead_of(note, arts):
+    """The first three sentences of our analysis, else of the newest article's summary without its table of contents."""
+    txt = (note or {}).get("summary") or ""
+    if not txt:
+        for a in reversed(arts):
+            txt = a.get("summary") or ""
+            if txt:
+                break
+        txt = re.sub(r"^\s*In this article\b.*?(?=\b(?:In|On|As|Since|During|Microsoft|Between|Over|Early|Late)\b [A-Z0-9])", "", txt, flags=re.S)
+    return " ".join(re.split(r"(?<=[.!?])\s+", txt.strip())[:3])[:700]
+
+
 # CLAUDE.md 5ex (owner 22 X: "most of these are not incidents like PHP2Shell or ConnectWise - collect incidents about
 # M365 / Entra, or incidents elsewhere that relate to the M365 cloud through the KQL they give for analysis and
 # detection"): a STORY needs an event - a CVE, a named actor, or words of an attack that happened - and is not a
@@ -522,6 +571,8 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
             # have KQL"): m365 = the story is about Entra or a Microsoft 365 workload; other = anything else (a PHP flaw,
             # a GitHub enumeration) kept for its hunting queries
             "scope": scope,
+            # CLAUDE.md 5gv: the tracked technologies and functions the story is about (empty = not for the brief's sentences)
+            "tracked": tracked_of(note.get("title") or lead["title"], lead_of(note, L)),
             "apps": sorted(apps.values(), key=lambda x: (x.get("origin") != "analysis", not x.get("appId"), x.get("kind") == "tenant")),
             "appsNote": note.get("appsNote") or "",
             # the curated text travels with the story, so the page reads one file
