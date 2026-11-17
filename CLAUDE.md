@@ -26566,6 +26566,14 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5gu (17 XI 2026, 18:58)** — Piotr: dodac https://blog.report-uri.com (ich API jest platne, ale maja duzo artykulow) - do
+community czy gdzie indziej, i uwzglednic w zdaniach/Overview. Dodane do `community_sources.json` ("Report URI Blog",
+`RequiredFrom` 2026-11-18): `collect_community.py` czyta go metoda `rss-root` (`/feed/`), 17 XI: 15 wpisow, 8 w oknie 14 dni -
+wszystkie trafiaja do Community Articles i jej licznikow w Overview. Takze `threat_sources.json` ("Report URI", secondary, `/rss/`):
+filtr `relevance()` Threat Research wymaga kontekstu Microsoft, wiec 17 XI odpadlo 15 z 15 (skimmery, ClickFix, CSP); wpis
+przejdzie, gdy artykul dotknie Windows/Entra/M365. API Report URI (platne) nie jest uzywane. Serwer odrzuca domyslny
+User-Agent Pythona (403) - oba kolektory wysylaja wlasny, przegladarkowy.
+
 **§5gr-e (13 XI 2026)** — Piotr: numery incydentow (MO1550821, EX1550543) i MC w oknie statusu, w osobnej sekcji; bez
 sekretu, przez federated credential. Publiczny kanal i `status.cloud.microsoft/api/posts/*` NIE podaja numerow (sprawdzone
 13 XI); ma je Service health dzierzawy. `.github/workflows/ms-health.yml` (co ~10 min, `*/10`) loguje sie jak graph-radar

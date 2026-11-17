@@ -236,5 +236,10 @@
     "SourceName": "Cloud Coffee (cloudcoffee.ch)",
     "SourceURL": "https://www.cloudcoffee.ch/",
     "RequiredFrom": "2026-11-12"
+  },
+  {
+    "SourceName": "Report URI Blog",
+    "SourceURL": "https://blog.report-uri.com/",
+    "RequiredFrom": "2026-11-18"
   }
 ]

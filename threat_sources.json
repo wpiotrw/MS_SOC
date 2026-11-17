@@ -196,5 +196,12 @@
     "Digest": true,
     "Author": "Ian Hanley (DevSecOpsDad)",
     "Note": "Daily Detection Engineering Brief and Threat Intelligence Brief: several incidents per post, each with KQL; the post is a digest (5ez) - its queries are attached to the incidents their sections name, the post itself is not an incident"
+  },
+  {
+    "SourceName": "Report URI",
+    "SourceURL": "https://blog.report-uri.com/rss/",
+    "Site": "https://blog.report-uri.com/",
+    "Tier": "secondary",
+    "Kind": "rss"
   }
 ]
