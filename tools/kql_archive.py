@@ -167,6 +167,33 @@ def extra_queries():
     return out
 
 
+SEARCH = os.path.join(KQL, "search.json")
+HEADER = re.compile(r"^// (?:(?:title|date|product|tables|purpose|source|kind|author|license):|archived by )")
+
+
+def write_search(index):
+    """CLAUDE.md 5gx (17 XI 2026, owner: "how can we search these KQL by phrases, topics, words in the KQL code? they are
+    written to our GitHub"). site/kql/search.json maps every file of index.json to its query text (header comments
+    removed, runs of spaces shortened), so the KQL library can search the code itself. The page reads it on the first
+    search only. Written only when it changed, so an unchanged day adds nothing to the repository."""
+    out = {}
+    for e in index:
+        try:
+            t = open(os.path.join(KQL, e["file"]), encoding="utf-8").read()
+        except Exception:
+            continue
+        body = "\n".join(l for l in t.split("\n") if not HEADER.match(l)).strip()
+        out[e["file"]] = re.sub(r"[ \t]+", " ", body)
+    data = json.dumps(out, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+    try:
+        old = open(SEARCH, encoding="utf-8").read()
+    except Exception:
+        old = ""
+    if old != data:
+        open(SEARCH, "w", encoding="utf-8").write(data)
+    print("OK kql search: %d query texts, %d kB%s" % (len(out), len(data.encode()) // 1024, "" if old != data else " (unchanged)"))
+
+
 def main(argv):
     os.makedirs(KQL, exist_ok=True)
     try:
@@ -238,6 +265,7 @@ def main(argv):
     with open(INDEX, "w", encoding="utf-8") as f:
         json.dump(index, f, ensure_ascii=False, indent=1)
         f.write("\n")
+    write_search(index)
     kinds = {}
     for e in index:
         kinds[e["kind"]] = kinds.get(e["kind"], 0) + 1

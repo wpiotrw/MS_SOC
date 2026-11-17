@@ -399,12 +399,26 @@ Rank findings: 1) breaking changes and items needing administrator action 2) ret
 | **F** | Authentication watchlist | the one section reporting current state regardless of window |
 | **G** | Deadlines inside 60 days | **`<section id="elapsed">` FIRST** (§5z), then nearest first, 🔥 <30, ⚠️ 30-60, with a `61-120 days` band for promoted items, then **`<section id="horizon">` as a TABLE, never a paragraph** (§5ab); every row carries `data-id` |
 | **H** | Per-product deep dive | **coverage floor §5u: rows = window items assigned to that product, stated as a number** |
-| **I** | KQL and threat hunting | verified table and column names; a file under `site/kql/` and a row in `index.json` (§5l) |
+| **I** | KQL and threat hunting | verified table and column names; a file under `site/kql/` and a row in `index.json` (§5l); **NEW queries every morning — see "KQL of the day" below (§5gx)** |
 | **J** | Graph permissions and endpoints | **markup is the empty `data-catalog="graph"` div — you write DATA.** Rules: §5, §5a, §5b, §5d, §5e, §5f, §5g, §5j, §5q, §5r, plus `negatives.graph` with its check date |
 | **K** | Entra roles and Azure RBAC | same shape with `data-catalog="roles"`; §5e, §5g, §5i, §5q, plus `negatives.roles` |
 | **L** | SOC actions | max 10 rows, actionable only, `Do it before` column |
 | **M** | Strategic watchlist | max 8 bullets, each with a link |
 | **N** | Sources and validation | unreachable and stale sources, conflicting Microsoft dates, three numbers per source, the §5r link sentence, the §5d D/A/B/C sentence, the §5e undocumented sentence |
+
+**KQL of the day (§5gx, 17 Nov 2026).** From 22 Oct to 17 Nov 2026 every brief carried the SAME 19 queries in `kql`:
+each run copied the previous state's array and wrote nothing new, so the archive only stamped `reused` on them. Every
+run now WRITES the day's queries:
+- at least **3 new queries** (normally 3–6) for what is new or changed since the previous brief — window items with a
+  detection, audit or hunting angle, Threat Research incidents that concern us (`tracked` not empty), new tables or columns
+  in Learn — each with `date` = today, `isNew: true`, `title` as a searchable sentence, `why` naming the item `id` or story
+  id, `tables` and `schemaUrl` verified on Learn (or the KQL Search MCP);
+- before writing one, look in `site/kql/index.json` (and `site/kql/search.json` for the code) for a query that already
+  answers it; reuse it by its `file` instead of a near-copy, and say so in `why`;
+- earlier queries stay only while they still help: at most **12** older ones, newest first; a query older than 14 days
+  leaves the Hunting tab (it stays in the archive and the KQL library for good);
+- a day with nothing worth a query is said in the section's `sec-note` with today's date and what was checked — never a
+  silent copy of yesterday's list.
 
 Never invent an MC ID, roadmap ID, date, deadline, version number, permission string, role action or KQL table. Unpublished detail is "not stated by Microsoft"; anything inferred is labelled "(inferred)".
 

@@ -26566,6 +26566,21 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5gx (17 XI 2026, 21:22)** — Piotr: "czy te KQL zapisujesz na naszym GitHub? mielismy zakladke, gdzie zbieralismy KQL z danego
+dnia - czy to jest na biezaco aktualizowane i archiwizowane? jak zrobic wyszukiwarke po frazach, tematach, frazach w kodzie KQL?"
+Stan 17 XI: archiwum `site/kql/` (`tools/kql_archive.py` w `campaigns.yml`, dwa razy dziennie) ma 1970 zapytan: 309 z artykulow
+(najnowsze 17 XI), 1608 z repozytoriow spolecznosci (7 repozytoriow czytanych codziennie, ostatnie nowe 6 XI), 8 z naszych analiz
+incydentow, 45 z briefow. **Blad: od 22 X do 17 XI kazdy brief niosl TE SAME 19 zapytan w `kql`** - poranny przebieg kopiowal
+tablice z poprzedniego stanu, archiwum tylko dopisywalo `reused`. Poprawki: (1) `routines/poranny-A-build.md` "KQL of the day":
+co rano co najmniej 3 NOWE zapytania (`date` dzis, `isNew`), wczesniej sprawdzic `index.json`/`search.json`, najwyzej 12 starszych,
+starsze niz 14 dni schodza z Hunting (zostaja w archiwum), dzien bez zapytan mowi to w `sec-note`; `poranny-B-publish.md` wskazuje
+na te regule. (2) KQL library (§5eu) pokazuje pomaranczowa ramke, gdy najnowsze zapytanie briefu jest starsze niz 2 dni.
+(3) Wyszukiwanie w TRESCI zapytan: `kql_archive.py` pisze `site/kql/search.json` (plik -> tekst bez naglowkow, 1,9 MB, ~0,4 MB
+Brotli; zapis tylko przy zmianie), strona czyta go dopiero przy pierwszym wyszukiwaniu; slowa lacznie (AND), "fraza w
+cudzyslowie", trafienie w kodzie pokazuje linie z podswietleniem; obok link "Search the files on GitHub" (wyszukiwarka kodu
+GitHub po `path:site/kql`, wymaga zalogowania). Zmierzone: `arg_max` 186, `"summarize arg_max"` 155, `mimikatz DeviceProcessEvents`
+4 - te same liczby z Pythona.
+
 **§5gw (17 XI 2026, 21:00)** — Piotr po §5gv: "czemu wypadl PHP2Shell? albo Cursor? Cursor to AI, a to sledzimy w community,
 Learn, Overview; do PHP2Shell mielismy nawet sledzenie incydentu, KQL". Zapytany, co jeszcze ma wchodzic do zdania, wybral
 wszystko: krytyczne podatnosci, malware na Windows, wszystko z naszym KQL, plus AI. `tools/threats.py`: rodzina `Copilot & AI`
@@ -39963,28 +39978,63 @@ odtad CZTERNASCIE (4-17).**
     sm.appendChild(el("span", "s5el-bs", IX.length + " queries · " + (n.brief || 0) + " from the briefs · " + ((n["incident-note"] || 0) + IX.filter(function (e) { return e.kind === "article" && e.incident; }).length) + " from incidents · " +
       ((n.repo || 0) + IX.filter(function (e) { return e.kind === "article" && !e.incident; }).length) + " from the community · newest " + dmy(newest)));
     box.appendChild(sm);
+    /* §5gx (17 XI 2026, owner: "do we keep these KQL on our GitHub, is the KQL of the day updated and archived?"): the
+       briefs' own queries were the same 19 from 22 X to 17 XI - the archive kept them, but nothing new was written. The
+       library now says so when the newest query of the briefs is more than two days old. */
+    var bNew = IX.reduce(function (m, e) { return e.kind === "brief" && (e.date || "") > m ? e.date : m; }, "");
+    if (bNew) { var bAge = Math.floor((Date.now() - Date.parse(bNew + "T12:00:00Z")) / 864e5);
+      if (bAge > 2) box.appendChild(el("p", "s5el-warn s5gx-stale", "The briefs have written no new query since " + dmy(bNew) + " (" + bAge + " days); the Hunting tab repeats the earlier ones. Queries from incidents and the community keep arriving.")); }
     box.appendChild(el("p", "s5el-note", "Every query is a file of this site (kql/…) and a row of kql/index.json. Community queries are copied with their author, the licence their repository states and a link to the original; check them against your own tables before you run them."));
     var seg = el("div", "s5eu-seg"); seg.setAttribute("role", "group"); seg.setAttribute("aria-label", "Which queries");
     var cur = "brief";
     VIEWS.forEach(function (v) { var b = el("button", null, v[1] + " · " + IX.filter(v[2]).length); b.type = "button"; b.setAttribute("data-v", v[0]);
       b.addEventListener("click", function () { cur = v[0]; shown = LIM; draw(); }); seg.appendChild(b); });
     box.appendChild(seg);
-    var bar = el("div", "s5el-fbar"), q = el("input", "s5el-q"); q.type = "search"; q.placeholder = "Find a query — title, table, CVE, author, purpose"; q.setAttribute("aria-label", "Find a query");
+    var bar = el("div", "s5el-fbar"), q = el("input", "s5el-q"); q.type = "search"; q.placeholder = "Find a query — title, table, CVE, author, or any text in the KQL itself; \"quotes\" for a phrase"; q.setAttribute("aria-label", "Find a query");
     function sel(lab, vals) { var s = el("select", "s5el-sel"); s.setAttribute("aria-label", lab); s.appendChild(new Option(lab, "")); vals.forEach(function (v) { s.appendChild(new Option(v[0] + " · " + v[1], v[0])); }); return s; }
     function counts(f) { var c = {}; IX.forEach(function (e) { (f(e) || []).forEach(function (k) { if (k) c[k] = (c[k] || 0) + 1; }); }); return Object.keys(c).sort(function (a, b) { return c[b] - c[a] || a.localeCompare(b); }).map(function (k) { return [k, c[k]]; }); }
     var sP = sel("All products", counts(function (e) { return [e.product]; })), sT = sel("All tables", counts(function (e) { return e.tables; }).slice(0, 60)),
         sA = sel("All authors", counts(function (e) { return [e.author || (e.kind === "brief" ? "Microsoft SOC Brief" : "")]; }));
     var cnt = el("span", "s5el-cnt");
-    [q, sP, sT, sA, cnt].forEach(function (x) { bar.appendChild(x); }); box.appendChild(bar);
+    /* §5gx: the same words on GitHub's code search over site/kql/ (GitHub asks you to sign in for code search) */
+    var gh = el("a", "s5gx-gh", "Search the files on GitHub \u2197"); gh.target = "_blank"; gh.rel = "noopener";
+    function ghUrl() { gh.href = "https://github.com/search?type=code&q=" + encodeURIComponent("repo:wpiotrw/MS_SOC path:site/kql " + q.value.trim()); }
+    ghUrl();
+    [q, sP, sT, sA, cnt, gh].forEach(function (x) { bar.appendChild(x); }); box.appendChild(bar);
     var list = el("div", "s5eu-list"); box.appendChild(list);
-    var LIM = 40, shown = LIM;
+    var LIM = 40, shown = LIM, TT = [];
     function hay(e) { return [e.title, e.purpose, e.product, (e.tables || []).join(" "), e.author, e.repo, (e.cves || []).join(" "), (e.mitre || []).join(" "), e.incident].join(" ").toLowerCase(); }
+    /* §5gx (17 XI 2026, owner: "how can we search these KQL by phrases, topics, words that occur in the KQL code?"):
+       kql/search.json (tools/kql_archive.py) holds the text of every query by file; it is read on the first search only,
+       so opening the tab costs nothing. Words are ANDed; "a phrase in quotes" must occur as written. A match inside the
+       code shows the matching line under the row. */
+    var CODE = null, codeLoad = null;
+    function needCode() {
+      if (CODE || codeLoad) return;
+      codeLoad = fetch("kql/search.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : {}; }).then(function (j) { CODE = j || {}; draw(); })
+        .catch(function () { CODE = {}; draw(); });
+    }
+    function terms(v) { var out = [], m, re = /"([^"]+)"|(\S+)/g; while ((m = re.exec(v))) out.push((m[1] || m[2]).toLowerCase()); return out; }
+    function codeOf(e) { return CODE && CODE[e.file] ? CODE[e.file] : ""; }
+    function snip(e, tt) {
+      var c = codeOf(e); if (!c) return null; var lc = c.toLowerCase(), hit = null;
+      for (var i = 0; i < tt.length && !hit; i++) { if (hay(e).indexOf(tt[i]) < 0 && lc.indexOf(tt[i]) >= 0) hit = tt[i]; }
+      if (!hit) return null;
+      var at = lc.indexOf(hit), a = lc.lastIndexOf("\n", at) + 1, b = lc.indexOf("\n", at); if (b < 0) b = c.length;
+      var line = c.slice(a, b).trim(), off = line.toLowerCase().indexOf(hit);
+      if (line.length > 160) { var st0 = Math.max(0, off - 60); line = (st0 ? "\u2026" : "") + line.slice(st0, st0 + 150) + "\u2026"; off = line.toLowerCase().indexOf(hit); }
+      var d = el("span", "s5gx-snip"); d.appendChild(el("span", "s5gx-in", "in the query: "));
+      d.appendChild(document.createTextNode(line.slice(0, off))); d.appendChild(el("mark", null, line.slice(off, off + hit.length)));
+      d.appendChild(document.createTextNode(line.slice(off + hit.length))); return d;
+    }
     function row(e) {
       var r = el("div", "s5el-row s5eu-row"), hd = el("button", "s5eu-rh"); hd.type = "button"; hd.setAttribute("aria-expanded", "false");
       var tg = el("span", "s5et-tg", "+"); hd.appendChild(tg);
       var mid = el("span", "s5eu-mid"); mid.appendChild(el("span", "s5el-rt", e.title));
       var meta = [dmy(e.date), e.product, (e.tables || []).slice(0, 3).join(", "), e.author || (e.kind === "brief" ? "Microsoft SOC Brief" : "")].filter(Boolean).join(" · ");
-      mid.appendChild(el("span", "s5el-rm", meta)); hd.appendChild(mid);
+      mid.appendChild(el("span", "s5el-rm", meta));
+      var sn = TT.length ? snip(e, TT) : null; if (sn) mid.appendChild(sn);
+      hd.appendChild(mid);
       hd.appendChild(el("span", "s5el-st s5eu-k s5eu-" + e.kind, KL[e.kind] || e.kind)); r.appendChild(hd);
       var det = el("div", "s5eu-det"); det.hidden = true; r.appendChild(det);
       hd.addEventListener("click", function () {
@@ -40022,11 +40072,13 @@ odtad CZTERNASCIE (4-17).**
     function draw() {
       [].forEach.call(seg.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-v") === cur)); });
       var vf = VIEWS.filter(function (v) { return v[0] === cur; })[0][2], qq = q.value.trim().toLowerCase();
-      var L = IX.filter(function (e) { return vf(e) && (!qq || hay(e).indexOf(qq) >= 0) && (!sP.value || e.product === sP.value) &&
+      TT = terms(qq); ghUrl(); if (TT.length) needCode();
+      var L = IX.filter(function (e) { var hy = TT.length ? hay(e) + " " + codeOf(e).toLowerCase() : "";
+        return vf(e) && TT.every(function (t) { return hy.indexOf(t) >= 0; }) && (!sP.value || e.product === sP.value) &&
         (!sT.value || (e.tables || []).indexOf(sT.value) >= 0) && (!sA.value || (e.author || (e.kind === "brief" ? "Microsoft SOC Brief" : "")) === sA.value); });
       /* the community's first read is the repositories' back catalogue: newest first means the newest WE saw, initial last */
       L.sort(function (a, b) { return (a.initial ? 1 : 0) - (b.initial ? 1 : 0) || String(b.date || "").localeCompare(String(a.date || "")); });
-      cnt.textContent = L.length + " of " + IX.length;
+      cnt.textContent = L.length + " of " + IX.length + (TT.length && !CODE ? " · reading the query texts\u2026" : "");
       list.textContent = "";
       if (!L.length) { list.appendChild(el("p", "s5ei-none", "No query matches.")); return; }
       L.slice(0, shown).forEach(function (e) { list.appendChild(row(e)); });
@@ -51004,6 +51056,12 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 }
 .s5el-fbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 8px}
 /* §5eu: the KQL library on Hunting & actions */
+/* §5gx: text found inside the query, the GitHub search link, the stale-briefs note */
+.s5gx-snip{display:block;margin-top:4px;font-family:var(--mono);font-size:12.5px;color:var(--text);background:var(--surface-2);border-left:3px solid var(--accent);padding:3px 8px;border-radius:4px;overflow-wrap:anywhere;white-space:normal}
+.s5gx-snip .s5gx-in{font-family:var(--sans);font-weight:600;color:var(--accent)}
+.s5gx-snip mark{background:var(--warn-soft,#fde68a);color:inherit;border-radius:3px;padding:0 2px}
+.s5gx-gh{font-size:13px;font-weight:600;white-space:nowrap}
+.s5gx-stale{border:1px solid var(--warn,#b45309);background:var(--warn-soft,#fef3c7);color:var(--text);border-radius:8px;padding:8px 12px;font-size:14px;margin:8px 0}
 .s5eu-seg{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
 .s5eu-seg button{font:inherit;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
 .s5eu-seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent,#fff)}

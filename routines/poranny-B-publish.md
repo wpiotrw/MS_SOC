@@ -545,7 +545,7 @@ also adds a "Cross-check" frame next to every MC chip, but the sentence itself m
 | **F** | Authentication watchlist | the ONE section reporting current state regardless of window; "no new announcement in window" must still give status, deadline and action |
 | **G** | Deadlines inside 60 days | **`<section id="elapsed">` FIRST** (§5z), then nearest first, 🔥 <30 days, ⚠️ 30-60, with a `61-120 days` band for promoted items, then **`<section id="horizon">` as a TABLE, never a paragraph** (§5ab); every row carries `data-id` |
 | **H** | Per-product deep dive | columns per product; **coverage floor §5u: rows = window items assigned to that product, stated as a number** |
-| **I** | KQL and threat hunting | real table and column names, verified on Learn or through the KQL Search MCP; every query gets a file under `site/kql/` and a row in `index.json` (§5l) |
+| **I** | KQL and threat hunting | real table and column names, verified on Learn or through the KQL Search MCP; every query gets a file under `site/kql/` and a row in `index.json` (§5l); **new queries every morning, never a copy of yesterday's list — `poranny-A-build.md`, "KQL of the day" (§5gx)** |
 | **J** | Graph API permissions and endpoints | **you do NOT hand-write the HTML** — only `<div class="catalog" data-catalog="graph"></div>` plus the DATA. Data rules: §5, §5a, §5b, §5d, §5e, §5f, §5g, §5j, §5q, §5r |
 | **K** | Entra directory roles and Azure RBAC | the same shape with `data-catalog="roles"`; §5e, §5g, §5i, §5q |
 | **L** | SOC actions | max 10 rows, actionable only, a `Do it before` column |
