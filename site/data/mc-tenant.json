@@ -1,7 +1,7 @@
 {
- "read": "2026-11-16",
+ "read": "2026-11-17",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 714,
+ "count": 724,
  "note": null,
  "messages": [
   {
@@ -9545,7 +9545,7 @@
   },
   {
    "id": "MC1466754",
-   "title": "Microsoft Viva Engage: Reducing reply notification volume in email",
+   "title": "(Updated) Microsoft Viva Engage: Reducing reply notification volume in email",
    "services": [
     "Microsoft Viva"
    ],
@@ -9554,20 +9554,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-03",
-   "end": "2026-12-01",
-   "modified": "2026-09-03",
+   "end": "2026-12-31",
+   "modified": "2026-11-16",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Viva Engage is updating email reply notifications to make them more relevant and intent-driven. With this change, users will continue to receive email notifications for interactions that directly involve them, such as direct replies and @mentions, while notification emails generated from broader participation in conversations will be reduced. This update is designed to hel…",
+   "summary": "Updated November 16, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Viva Engage is updating email reply notifications to make them more relevant and intent-driven. With this change, users will continue to receive email notifications for interactions that directly involve them, such as direct replies and @mentions, while notification emails generated from …",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Beginning in early September 2026 and expected to complete by late October 2026."
+    "Updated November 16, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in early September 2026 and expected to complete by end of November 2026 (previously late October)."
    ],
-   "bodyHash": "d0230dbb904a25a2"
+   "bodyHash": "86c225fff0e28677"
   },
   {
    "id": "MC1466757",
@@ -12017,7 +12019,7 @@
   },
   {
    "id": "MC1479513",
-   "title": "Outlook: Insert Symbols",
+   "title": "(Updated) Outlook: Insert Symbols",
    "services": [
     "Exchange Online"
    ],
@@ -12026,23 +12028,25 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-25",
-   "end": "2027-01-18",
-   "modified": "2026-09-25",
+   "end": "2027-03-01",
+   "modified": "2026-11-16",
    "tags": [
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] A variety of symbols can be added to an email message that you are composing. On the Insert tab, select Symbols. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out on late November 2026 and expect to complete by late December 2026. Targeted Release (Worldwide): We will begin rolling out on mid October 2026 and expect to complete by early November 2026. …",
+   "summary": "Updated November 16, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] A variety of symbols can be added to an email message that you are composing. On the Insert tab, select Symbols. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out early January 2027 (previously late November 2026) and expect to complete by late January 2027 (previousl…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): We will begin rolling out on late November 2026 and expect to complete by late December 2026.",
-    "Targeted Release (Worldwide): We will begin rolling out on mid October 2026 and expect to complete by early November 2026.",
-    "General Availability (GCC): We will begin rolling out on late November 2026 and expect to complete by late December 2026.",
-    "General Availability (GCC High): We will begin rolling out on late November 2026 and expect to complete by late December 2026.",
-    "General Availability (DoD): We will begin rolling out on late November 2026 and expect to complete by late December 2026."
+    "Updated November 16, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We will begin rolling out early January 2027 (previously late November 2026) and expect to complete by late January 2027 (previously late December 2026).",
+    "Targeted Release (Worldwide): We will begin rolling out on mid-October 2026 and expect to complete by mid-November 2026 (previously early November).",
+    "General Availability (GCC): We will begin rolling out on early January 2027 (previously late November 2026) and expect to complete by late January 2027 (previously late December 2026).",
+    "General Availability (GCC High): We will begin rolling out on early January 2027 (previously late November 2026) and expect to complete by late January 2027 (previously late December 2026).",
+    "General Availability (DoD): We will begin rolling out on early January 2027 (previously late November 2026) and expect to complete by late January 2027 (previously late December 2026)."
    ],
-   "bodyHash": "16e954f151590e99"
+   "bodyHash": "a7d33084c0587ca5"
   },
   {
    "id": "MC1479514",
@@ -18923,6 +18927,264 @@
    "bodyHash": "22b57c451023f106"
   },
   {
+   "id": "MC1556082",
+   "title": "Microsoft 365 admin center: Unified release preferences for Standard, Deferred, and Frontier",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-16",
+   "end": "2027-01-25",
+   "modified": "2026-11-16",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] We're introducing a unified release preferences experience in the Microsoft 365 admin center. This brings together Standard release, Deferred release, and Frontier settings, making it easier to manage when users receive eligible generally available features and who participates in eligible preview experiences. [Rollout Schedule:] General Availability (Worldwide): We will begin roll…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in mid-November 2026 and expect to complete by end of November 2026."
+   ],
+   "bodyHash": "a8742a5e491c539c"
+  },
+  {
+   "id": "MC1556088",
+   "title": "Microsoft Teams: End of support for iOS 17 and iPadOS 17",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2027-01-02",
+   "start": "2026-11-16",
+   "end": "2027-03-29",
+   "modified": "2026-11-16",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft Teams is ending support for upcoming builds on iOS 17 and iPadOS 17. As this change rolls out, new Teams releases will require iOS 18 or later on iPhone and iPadOS 18 or later on iPad. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out in mid-December 2026 and expect to complete by early January 2027. [Impact on Your Organization:] Users whose…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in mid-December 2026 and expect to complete by early January 2027."
+   ],
+   "bodyHash": "ee071c5619468a0e"
+  },
+  {
+   "id": "MC1556090",
+   "title": "Plugins in PowerPoint for Microsoft 365 Copilot [Win32]",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-16",
+   "end": "2027-01-25",
+   "modified": "2026-11-16",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Plugins are coming to PowerPoint for Windows, adding new skills and connectors that extend what Copilot can do. Plugins bring specialized capabilities and information from connected services into presentation workflows. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out mid-November 2026 and expect to complete by early December 2026. [Impact on Your Org…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out mid-November 2026 and expect to complete by early December 2026."
+   ],
+   "bodyHash": "e2d4574245c98785"
+  },
+  {
+   "id": "MC1556092",
+   "title": "Changes to site logo URL metadata in SharePoint search results",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": null,
+   "start": "2026-11-16",
+   "end": "2027-03-29",
+   "modified": "2026-11-16",
+   "tags": [
+    "Admin impact",
+    "Feature update"
+   ],
+   "summary": "[What and Why:] We are making a change to how SharePoint site logo URLs are maintained in search metadata to improve search indexing efficiency and reliability. Going forward, changes to a SharePoint site's logo URL will no longer automatically update the SiteLogoUrl property on individual files and other items within that site. [Rollout Schedule:] General Availability (Worldwide): We will begin r…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in early December 2026 and expect to complete by early March 2027."
+   ],
+   "bodyHash": "0f8262e68da2dabe"
+  },
+  {
+   "id": "MC1556095",
+   "title": "Plugins in PowerPoint for Microsoft 365 Copilot [Mac]",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-16",
+   "end": "2027-01-31",
+   "modified": "2026-11-16",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Plugins are coming to PowerPoint for Mac, adding new skills and connectors that extend what Copilot can do. Plugins bring specialized capabilities and information from connected services into presentation workflows. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out mid-November 2026 and expect to complete by early December 2026. [Impact on Your Organiz…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out mid-November 2026 and expect to complete by early December 2026."
+   ],
+   "bodyHash": "fc2099460156b6ca"
+  },
+  {
+   "id": "MC1556096",
+   "title": "Microsoft Teams: Audio announcement for Recording and Transcription",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-16",
+   "end": "2027-03-29",
+   "modified": "2026-11-16",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "[What and Why:] The recording feature in Microsoft Teams now supports an audio announcement for Teams meetings and calls. With this new functionality, admins can enable a policy that plays an audio announcement when recording or transcription starts. This can be applied tenant-wide or to specific groups. The announcement helps ensure allowed participants who are permitted by policy are informed an…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): We began rolling out on early May 2026 and expect to complete by mid-December 2026.",
+    "General Availability (Worldwide): We will begin rolling out on mid-December 2026 and expect to complete by early January 2027.",
+    "General Availability (GCC): We will begin rolling out on mid-December 2026 and expect to complete by late January 2027.",
+    "General Availability (GCC High, DoD): We will begin rolling out on mid-December 2026 and expect to complete by late January 2027."
+   ],
+   "bodyHash": "3aa9db5e63ef03a5"
+  },
+  {
+   "id": "MC1556098",
+   "title": "Microsoft Teams Mobile: Introducing shared call history in the Queues app",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-16",
+   "end": "2027-02-19",
+   "modified": "2026-11-16",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing shared call history in the Queues app on Microsoft Teams mobile, allowing authorized call queue representatives to view calls handled across their queue. This includes missed, answered, outgoing, and voicemail calls. By extending the existing desktop experience to mobile, we are helping teams coordinate customer follow-ups, avoid duplicate callbacks, and manage ca…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout will begin in early December 2026 and is expected to complete by mid-December 2026."
+   ],
+   "bodyHash": "987e30fcabacfb3f"
+  },
+  {
+   "id": "MC1556104",
+   "title": "Microsoft PowerPoint: Introducing plugins for Microsoft 365 Copilot",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-16",
+   "end": "2027-01-01",
+   "modified": "2026-11-16",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing plugins for Microsoft 365 Copilot in PowerPoint to extend Copilot's capabilities with new skills and connectors. Plugins bring specialized capabilities and information from connected services into presentation workflows, helping users create and refine presentations with content relevant to their work. [Rollout schedule] Frontier (Worldwide): Rollout is anticipate…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Frontier (Worldwide): Rollout is anticipated to begin in mid-November 2026 and complete by late November 2026.",
+    "General Availability (Worldwide): Rollout is anticipated to begin in late November 2026 and complete by the end of November 2026."
+   ],
+   "bodyHash": "4b8d732b396238d6"
+  },
+  {
+   "id": "MC1556106",
+   "title": "Microsoft SharePoint: Enhanced data access governance reports and site access reviews",
+   "services": [
+    "SharePoint Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-16",
+   "end": "2027-02-07",
+   "modified": "2026-11-16",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft SharePoint is enhancing data access governance reports and site access reviews to give SharePoint admins more control, flexibility, and transparency when identifying and addressing potential data exposure. These updates help admins prioritize sites that may present the greatest data risk, direct review requests to the appropriate recipients, and track whether notifications…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide, GCC, GCC High, and DoD): We will begin rolling out in late November 2026 and expect to complete by early December 2026."
+   ],
+   "bodyHash": "5bd17fff509e523d"
+  },
+  {
+   "id": "MC1556107",
+   "title": "Microsoft Defender: Similar cases comes to the unified security operations platform",
+   "services": [
+    "Microsoft Defender XDR"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-16",
+   "end": "2027-02-04",
+   "modified": "2026-11-16",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] A new Similar cases tab appears on the incident page in the Microsoft Defender portal . The tab lists up to 20 incidents that share alert titles or entities with the current incident, helping security analysts identify recurring patterns and see how similar cases were handled. The Similarity reason column shows why each incident appears in the list. This update brings the Similar in…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin and complete rollout in early December 2026 ."
+   ],
+   "bodyHash": "951ef3d05d43cebf"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -19213,41 +19475,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-17",
-   "id": "MC1465262",
-   "type": "removed",
-   "title": "Dynamics 365 Contact Center - Secondary device for notifications in Digital Messaging conversations",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-17",
-   "id": "MC1160188",
-   "type": "removed",
-   "title": "Retirement Announcement: Microsoft Education Learning Tools Interoperability (LTI) Integrations",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-17",
-   "id": "MC1385580",
-   "type": "removed",
-   "title": "Grouped notifications in Outlook",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-17",
-   "id": "MC1427970",
-   "type": "removed",
-   "title": "Microsoft Forms automated email sender domain is changing",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-17",
-   "id": "MC1473299",
-   "type": "removed",
-   "title": "Dynamics 365 Commerce - Print receipts using Adyen payment terminal printers",
-   "fields": {}
-  },
   {
    "date": "2026-10-18",
    "id": "MC1426709",
@@ -24726,6 +24953,140 @@
      "abf42b2557e7a3d6"
     ]
    }
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1466754",
+   "type": "changed",
+   "title": "(Updated) Microsoft Viva Engage: Reducing reply notification volume in email",
+   "fields": {
+    "title": [
+     "Microsoft Viva Engage: Reducing reply notification volume in email",
+     "(Updated) Microsoft Viva Engage: Reducing reply notification volume in email"
+    ],
+    "end": [
+     "2026-12-01",
+     "2026-12-31"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "d0230dbb904a25a2",
+     "86c225fff0e28677"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1479513",
+   "type": "changed",
+   "title": "(Updated) Outlook: Insert Symbols",
+   "fields": {
+    "title": [
+     "Outlook: Insert Symbols",
+     "(Updated) Outlook: Insert Symbols"
+    ],
+    "end": [
+     "2027-01-18",
+     "2027-03-01"
+    ],
+    "tags": [
+     [
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "16e954f151590e99",
+     "a7d33084c0587ca5"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1556082",
+   "type": "new",
+   "title": "Microsoft 365 admin center: Unified release preferences for Standard, Deferred, and Frontier",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1556088",
+   "type": "new",
+   "title": "Microsoft Teams: End of support for iOS 17 and iPadOS 17",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1556090",
+   "type": "new",
+   "title": "Plugins in PowerPoint for Microsoft 365 Copilot [Win32]",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1556092",
+   "type": "new",
+   "title": "Changes to site logo URL metadata in SharePoint search results",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1556095",
+   "type": "new",
+   "title": "Plugins in PowerPoint for Microsoft 365 Copilot [Mac]",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1556096",
+   "type": "new",
+   "title": "Microsoft Teams: Audio announcement for Recording and Transcription",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1556098",
+   "type": "new",
+   "title": "Microsoft Teams Mobile: Introducing shared call history in the Queues app",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1556104",
+   "type": "new",
+   "title": "Microsoft PowerPoint: Introducing plugins for Microsoft 365 Copilot",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1556106",
+   "type": "new",
+   "title": "Microsoft SharePoint: Enhanced data access governance reports and site access reviews",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-17",
+   "id": "MC1556107",
+   "type": "new",
+   "title": "Microsoft Defender: Similar cases comes to the unified security operations platform",
+   "fields": {}
   }
  ]
 }
