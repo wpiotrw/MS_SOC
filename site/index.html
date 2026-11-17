@@ -27278,7 +27278,7 @@ IdentityDirectoryEvents
 
   /* ---------- the times we know ---------- */
   var F = {}, FT = 0;
-  var KEYS = ["code", "tenant", "campaigns", "publish", "learn", "baselines"];
+  var KEYS = ["code", "tenant", "campaigns", "publish", "learn", "baselines", "iocwatch"];
   function loadFresh(cb) {
     var left = KEYS.length + 2;
     function done() { if (--left === 0) { FT = 1; cb(); } }
@@ -27316,7 +27316,11 @@ IdentityDirectoryEvents
     campaigns: { by: "an automated job twice a day (05:40 UTC and 20:40 UTC) and after every brief", keys: ["campgen", "campaigns"], every: 0 },
     baselines: { by: "an automated job twice a day (05:15 and 15:15 UTC): CISA ScubaGear, Maester, Zero Trust Assessment and CIPP's standards from GitHub, Tenable's audit files, the Intune security baselines (and Intune's STIG audit baseline) from our Learn copy, DISA's STIG catalog from cyber.mil", keys: ["baselines"], every: 12 },   /* §5fw: twice a day */   /* §5dv */
     hunting: { by: "the morning brief; queries archived by an automated job twice a day", keys: ["campaigns"], every: 0 },
-    learn: { by: "the morning brief; our copy of the Learn pages refreshed by an automated job 4 times a day", keys: ["learn"], every: 6 }
+    learn: { by: "the morning brief; our copy of the Learn pages refreshed by an automated job 4 times a day", keys: ["learn"], every: 6 },
+    /* §5gy: the tabs About had not listed */
+    threats: { by: "an automated job every 3 h (Threat Research sources); infrastructure watch twice a day", keys: ["tenant", "iocwatch"], every: 3 },
+    radar: { by: "an automated job twice a day (Microsoft Graph metadata)", keys: [], every: 12 },
+    m365ep: { by: "an automated job twice a day (Microsoft's endpoints web service, 05:25 and 15:25 UTC)", keys: [], every: 12 }
   };
   function newest(keys) { var best = null; (keys || []).forEach(function (k) { if (tsAt(k) && (!best || tsAt(k) > tsAt(best))) best = k; }); return best; }
 
@@ -27372,6 +27376,8 @@ IdentityDirectoryEvents
         c.appendChild(document.createTextNode("Updated ")); c.appendChild(stamp(F[k].at));
         c.appendChild(el("span", "s5cz-by", " · " + t.by));
         if (t.every) { var nx = new Date(ts(F[k].at) + t.every * 3600e3); c.appendChild(el("span", "s5cz-by", " · next about ")); var ns = stamp(nx.toISOString().slice(0, 16) + "Z"); c.appendChild(ns); }
+      } else if (t && !(t.keys || []).length) {   /* §5gy: a tab with its own job and no freshness stamp */
+        c.appendChild(document.createTextNode("Refreshed by " + t.by));
       } else {
         c.appendChild(document.createTextNode("From the morning brief · "));
         c.appendChild(stamp(b.morning || b.day, !!b.morning));
@@ -27379,7 +27385,7 @@ IdentityDirectoryEvents
         if (t) c.appendChild(el("span", "s5cz-by", " · " + t.by));
       }
       c.appendChild(qmark(t && k ? "When this tab's data was last refreshed and by what: " + t.by + (t.every ? ". The next refresh is expected about " + t.every + " h later (a queue can delay it)." : ".") + " Times are Warsaw time."
-        : "This tab is built by the morning brief (about 06:00 Warsaw) and does not change until the next brief" + (b.afternoon ? "; the afternoon pass re-read the sources for the “what changed” page" : "") + ". Times are Warsaw time."));
+        : t && !(t.keys || []).length ? "This tab is refreshed by " + t.by + "; its own time is shown inside the tab." : "This tab is built by the morning brief (about 07:15 Warsaw) and does not change until the next brief" + (b.afternoon ? "; the afternoon pass re-read the sources for the “what changed” page" : "") + ". Times are Warsaw time."));
       var head = p.querySelector(":scope > .s5ca-head");
       if (head) p.insertBefore(c, head.nextSibling); else p.insertBefore(c, p.firstChild);
       if (id === "overview") {
@@ -27395,21 +27401,28 @@ IdentityDirectoryEvents
 
   /* ---------- 4. the About tab ---------- */
   var ABOUT_TABS = [
-    ["Overview", "overview", "What needs you today: the day in sentences, deadlines due and passed, new items, component versions, the identity surface (Graph permissions, roles, first-party apps), campaigns."],
+    /* §5gy (17 XI 2026, owner: "is all of today's and earlier work in our html and md documentation? it was not updated
+       for a long time and a lot came in, e.g. Microsoft incident monitoring"): About had not listed Threat Research,
+       Graph API Radar, M365 endpoints or the Microsoft status badges, still named the scheduled tasks retired on 26 X and
+       called the repository private. Kept in step with README section 13. */
+    ["Overview", "overview", "What needs you today: the day in sentences (each technology once, Threat Research only for incidents that concern us), deadlines due and passed, new items, component versions, the identity surface (Graph permissions, roles, first-party apps), campaigns. Under the logo: Microsoft 365 and Azure service status — incidents and advisories with their numbers, open in a window with Microsoft's own pages."],
     ["Today", "today", "The day's top picks and the items per product that moved since the previous brief."],
     ["Deadlines", "deadlines", "Every dated item: due within 7 and 30 days, passed in the last 7 days, with Microsoft's own dates."],
-    ["Message Center", "mc", "Every Microsoft 365 Message Center post (none filtered out), new and revised, from our tenant through Graph and public mirrors."],
+    ["Message Center", "mc", "Every Microsoft 365 Message Center post (none filtered out), new, revised and removed, from our tenant through Graph and public mirrors, each date checked against the other sources. Every post — removed ones too — lists its related posts (same campaign, cites or is cited, same story, close wording), with a “Show related” switch and a group view."],
     ["New", "new", "Items that entered the brief since the previous one."],
     ["Graph API", "graph", "Every Microsoft Graph permission: what it can call, who holds it, what Microsoft changed (endpoints, consent, new and removed), read from Microsoft's files and our tenant every 3 hours."],
     ["Roles", "roles", "Entra built-in roles: actions, privileged flag and what Microsoft changed; definitions read from our tenant every 3 hours."],
     ["First-party apps", "fpa", "Microsoft's own Entra applications and the permissions they obtain without consent; our own base list with public sources as backup."],
     ["Component versions", "components", "13 components (Entra Connect, Cloud Sync, GSA client, MDE, MDI, Authenticator, Apple platforms ...) with the version history the brief observed."],
-    ["Campaigns", "campaigns", "Microsoft's retirements, enforcements, end of support and default changes, each with its dates, Message Center posts and what to do."],
+    ["Campaigns", "campaigns", "Microsoft's retirements, enforcements, end of support and default changes, each with its dates, every Message Center post that belongs to it (gathered by our own code twice a day) and what to do."],
     ["Microsoft Learn", "learn", "What changed on the Learn pages and what's-new lists the brief watches (our own copy of the pages)."],
     ["Microsoft Blogs", "blogs", "Microsoft blogs and feeds (Security, Tech Community, Azure updates, Graph changelog, MSRC)."],
     ["Community Articles", "community", "The community sources the owner keeps in community_sources.json, read every morning."],
     ["Sources", "sources", "Every source the brief reads, when it was read and whether its link works."],
-    ["Hunting & actions", "hunting", "KQL queries and actions for the items of the day; every query is archived in the repository."],
+    ["Hunting & actions", "hunting", "KQL queries and actions for the items of the day. The KQL library holds every query ever published — the briefs', the incidents' and the community's (articles and repositories) — as files of this site, searchable by title, table, CVE, author and the text of the query itself."],
+    ["Threat Research", "threats", "Security incidents, attacks and vulnerabilities around what this portal tracks (Entra, Microsoft 365, Azure, AI, Windows), from Microsoft, security vendors, government advisories and the community: one card per incident with timeline, our analysis, remediation, Microsoft's response and KQL (published and our own). Infrastructure watch checks the incidents' domains and IP addresses in VirusTotal, URLhaus, ThreatFox, GreyNoise and crt.sh, with a lookup box. Read every 3 hours."],
+    ["Graph API Radar", "radar", "What Microsoft added to Microsoft Graph before it is documented: new types, properties and endpoints from Microsoft's metadata, grouped by technology, each with its documentation status, permissions and Graph Explorer / PowerShell to try it. Read twice a day."],
+    ["M365 endpoints", "m365ep", "Microsoft 365 network endpoints (URLs and IP ranges) from Microsoft's web service: what each version added or removed, its impact and what to do. Read twice a day."],
     ["Products", "products", "The same items grouped by product."],
     ["Security baselines", "baselines", "What to check in your tenant, technology by technology: CISA SCuBA (ScubaGear), Maester, Tenable, Microsoft's Zero Trust Assessment, the Intune security baselines, CIPP's standards and DISA STIGs — every policy, test, standard and STIG with how to check and fix it, the differences between the sources, versions, trends — read twice a day; no test is run."]
   ];
@@ -27426,7 +27439,8 @@ IdentityDirectoryEvents
     c1.appendChild(ul(["A daily brief for a security operations team working with Microsoft 365, Entra, Intune, Defender, Purview and Azure.",
       "It shows at once what changed, was added or removed: Message Center posts, roadmap, Learn pages, blogs, community articles, Graph permissions, Entra roles, Microsoft's own applications, component versions and campaigns (retirements, enforcements, end of support).",
       "Every tab starts with what moved since the previous brief; every number opens the rows behind it.",
-      "Built to be independent: own copies of the sources (Learn pages, first-party app lists) and our tenant read every 3 hours, so an outage of an external source loses nothing."]));
+      "Built to be independent: own copies of the sources (Learn pages, first-party app lists) and our tenant read every 3 hours, so an outage of an external source loses nothing.",
+      "Also watches the threats around these technologies (Threat Research, with KQL and the incidents' infrastructure), Microsoft's own service status, Microsoft Graph changes before they are documented, and Microsoft 365 network endpoints."]));
     g.appendChild(c1);
     var c2 = card("Author and version");
     var s = st(), code = F.code || {};
@@ -27436,20 +27450,25 @@ IdentityDirectoryEvents
     var bA = briefAt(), brLi = el("span"); brLi.appendChild(document.createTextNode("Brief of ")); brLi.appendChild(stamp(bA.morning || bA.day, !!bA.morning));
     var cdLi = el("span"); cdLi.appendChild(document.createTextNode("Page code refreshed ")); if (code.at) cdLi.appendChild(stamp(code.at)); else cdLi.appendChild(el("i", null, "not recorded yet"));
     c2.appendChild(ul(["Author: Piotr Wiśniewski", "Built and run with Claude (Anthropic): scheduled tasks, routines and code sessions.", verLi, brLi, cdLi,
-      (function () { var x = el("span"); x.appendChild(document.createTextNode("Source code and documentation: kept in a private repository (§5dk)")); return x; })()]));
+      /* §5gy: no repository link (owner's decision §5dk, 11 X 2026); "private" was not true - say only where it is kept */
+      (function () { var x = el("span"); x.appendChild(document.createTextNode("Source code and documentation: kept in the owner's repository; no tenant identifiers, accounts or secrets in it")); return x; })()]));
     g.appendChild(c2);
     var c3 = card("Data freshness");
     var tb = el("table", "s5cz-ft"), th = el("thead"), tr0 = el("tr"); ["What", "Last update", "Refreshed by"].forEach(function (x) { tr0.appendChild(el("th", null, x)); }); th.appendChild(tr0); tb.appendChild(th);
     var tbody = el("tbody");
     function row(what, at, by, withTime) { var tr = el("tr"); tr.appendChild(el("td", null, what)); var td = el("td"); if (at) td.appendChild(stamp(at, withTime)); else td.appendChild(el("i", null, "not recorded yet")); tr.appendChild(td); tr.appendChild(el("td", null, by)); tbody.appendChild(tr); }
-    row("Morning brief", bA.morning || bA.day, "scheduled task Morning (06:00 Warsaw) and routine “raport poranny v2”", !!bA.morning);
-    if (bA.afternoon) row("Afternoon pass", bA.afternoon, "scheduled task Afternoon delta (21:00 Warsaw)");
+    row("Morning brief", bA.morning || bA.day, "routine “poranny” (07:15 Warsaw): reads the sources, builds the brief and publishes it", !!bA.morning);
+    if (bA.afternoon) row("Evening pass", bA.afternoon, "routine “wieczorny” (22:15 Warsaw): reads the sources again and computes /diff/");
     row("Brief published to this site", F.publish && F.publish.at, "the publishing job");
     row("Page code", F.code && F.code.at, "after every change of the specification");
     row("Tenant snapshot (apps, Message Center, Graph permissions, roles)", F.tenant && F.tenant.at, "automated tenant read, every 3 h");
     row("Graph permissions and roles last read", F.graphsp && F.graphsp.at, "the same tenant read (written once a day or on a change)");
     row("Campaigns and KQL archive", (F.campgen || F.campaigns || {}).at, "twice a day and after each brief");
     row("Our copy of the Learn pages", F.learn && F.learn.at, "4 times a day (last change)");
+    row("Infrastructure watch (incidents' domains and IPs)", F.iocwatch && F.iocwatch.at, "twice a day (VirusTotal, URLhaus, ThreatFox, GreyNoise)");
+    row("Security baselines", F.baselines && F.baselines.at, "twice a day");
+    var stTr = el("tr"); stTr.appendChild(el("td", null, "Microsoft 365 and Azure status (under the logo)")); stTr.appendChild(el("td", null, "live"));
+    stTr.appendChild(el("td", null, "read when the page opens and on Refresh; incident numbers from Service health about every 5 minutes")); tbody.appendChild(stTr);
     tb.appendChild(tbody); c3.appendChild(tb);
     c3.appendChild(el("p", "s5cz-note", "Times are Warsaw time. The switch in the frame at the top changes 24 h / AM/PM everywhere on the page."));
     g.appendChild(c3);
@@ -27472,11 +27491,11 @@ IdentityDirectoryEvents
       "Counters (menu on the left, tab heading, “Since the previous brief”) count changes; one item with three changed fields counts as three changes and is shown once with its three fields."]));
     g.appendChild(ch);
     var c4 = card("How it works", "s5cz-wide");
-    c4.appendChild(ul(["06:00 Warsaw — the morning pass reads every source and builds the brief.",
-      "07:00 Warsaw — the brief is published on this site.",
-      "21:00 Warsaw — the afternoon pass re-reads the sources; 22:00 Warsaw — the “what changed” page (/diff/) is computed.",
-      "Every 3 h — an automated job reads our tenant, read-only: Microsoft's apps and their consents, Message Center, Graph permissions and Entra role definitions.",
-      "Twice a day — campaigns and the KQL archive; 4 times a day — our copy of the Learn pages; after every change of the specification — the page code."]));
+    c4.appendChild(ul(["07:15 Warsaw — the morning routine reads every source, builds the brief and publishes it on this site (ready about 08:30).",
+      "22:15 Warsaw — the evening routine re-reads the sources and computes the “what changed” page (/diff/).",
+      "Every 3 h — an automated job reads our tenant, read-only: Microsoft's apps and their consents, Message Center, Graph permissions and Entra role definitions; the same job reads the Threat Research sources.",
+      "About every 5 minutes — Microsoft Service health (incident numbers); the status badges under the logo are read when the page opens and on Refresh.",
+      "Twice a day — campaigns, related Message Center posts and the KQL archive; the incidents' domains and IPs; Graph API Radar; M365 endpoints; security baselines. 4 times a day — our copy of the Learn pages. After every change of the specification — the page code."]));
     g.appendChild(c4);
     var c5 = card("Tabs", "s5cz-wide"), tl = el("div", "s5cz-tabs");
     ABOUT_TABS.forEach(function (t) {
@@ -27485,6 +27504,7 @@ IdentityDirectoryEvents
       x.appendChild(nb); x.appendChild(el("p", null, t[2]));
       var tt = TABS[t[1]], k = tt ? newest(tt.keys) : null, m = el("p", "s5cz-by");
       if (k) { m.appendChild(document.createTextNode("Updated ")); m.appendChild(stamp(F[k].at)); m.appendChild(document.createTextNode(" · " + tt.by)); }
+      else if (tt && !(tt.keys || []).length) m.appendChild(document.createTextNode("Refreshed by " + tt.by));
       else { m.appendChild(document.createTextNode("From the morning brief · ")); m.appendChild(stamp(bA.morning || bA.day, !!bA.morning)); }
       x.appendChild(m); tl.appendChild(x);
     });
