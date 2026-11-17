@@ -1,0 +1,20 @@
+// title: Investigate user clicks on campaign URLs
+// date: 2026-11-17
+// product: Defender for Office 365
+// tables: UrlClickEvents
+// purpose: From the article: High volume phishing campaign uses Microsoft 365 outage lures to target multiple industry sectors
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/
+// kind: article
+// author: Microsoft Security Research · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let campaignUrlParts = dynamic([
+    "reallifeaccounting.com",
+    "u113727626.ct.sendgrid.net/ls/click",
+    "url.newbooker.com/ls/click",
+    "162.120.17.69:8080/t/v3."
+]);
+UrlClickEvents
+| where Url has_any (campaignUrlParts)
+| project Timestamp, AccountUpn, Url, ActionType, Workload,
+    NetworkMessageId, IPAddress, IsClickedThrough, UrlChain
+| order by Timestamp desc

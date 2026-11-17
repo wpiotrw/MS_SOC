@@ -1,5 +1,51 @@
 [
  {
+  "file": "articles/2026-11-17-investigate-user-clicks-on-campaign-urls.kql",
+  "title": "Investigate user clicks on campaign URLs",
+  "date": "2026-11-17",
+  "product": "Defender for Office 365",
+  "tables": [
+   "UrlClickEvents"
+  ],
+  "purpose": "From the article: High volume phishing campaign uses Microsoft 365 outage lures to target multiple industry sectors",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+  "kind": "article",
+  "author": "Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+  "incident": "auto-high-volume-phishing-campaign-uses-micro-2026-11-17"
+ },
+ {
+  "file": "articles/2026-11-17-find-messages-containing-campaign-urls.kql",
+  "title": "Find messages containing campaign URLs",
+  "date": "2026-11-17",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents",
+   "EmailUrlInfo"
+  ],
+  "purpose": "From the article: High volume phishing campaign uses Microsoft 365 outage lures to target multiple industry sectors",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+  "kind": "article",
+  "author": "Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+  "incident": "auto-high-volume-phishing-campaign-uses-micro-2026-11-17"
+ },
+ {
+  "file": "articles/2026-11-17-advanced-hunting-queries.kql",
+  "title": "Advanced hunting queries",
+  "date": "2026-11-17",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents"
+  ],
+  "purpose": "From the article: High volume phishing campaign uses Microsoft 365 outage lures to target multiple industry sectors",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+  "kind": "article",
+  "author": "Microsoft Security Research · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+  "incident": "auto-high-volume-phishing-campaign-uses-micro-2026-11-17"
+ },
+ {
   "file": "articles/2026-11-16-detection-5-downthedrain-browser-process-spawning-shell-inte.kql",
   "title": "Detection 5: DownTheDRAIN - Browser Process Spawning Shell Interpreter Followed by File Write on macOS",
   "date": "2026-11-16",

@@ -27,10 +27,20 @@
 "label":"16 Nov 2026",
 "text":"Posted: Microsoft Teams: End of support for iOS 17 and iPadOS 17"
 },
+"MC1556088|we will begin rolling out in mid and expect to complete by e#0":{
+"date":"2026-12-15",
+"label":"mid Dec 2026",
+"text":"We will begin rolling out in mid-December 2026 and expect to complete by early January 2027."
+},
 "MC1556088|deadline":{
 "date":"2027-01-02",
 "label":"2 Jan 2027",
 "text":"New Teams releases need iOS or iPadOS 18 from mid-December; devices left on 17 keep an unsupported Teams"
+},
+"MC1556088|we will begin rolling out in mid and expect to complete by e#1":{
+"date":"2027-01-05",
+"label":"early Jan 2027",
+"text":"We will begin rolling out in mid-December 2026 and expect to complete by early January 2027."
 }
 },
 "moves":[],
@@ -55,7 +65,7 @@
 "found":"2026-11-17"
 }
 },
-"final":"2027-01-02",
+"final":"2027-01-05",
 "type":"Support end",
 "tech":"Teams",
 "posts":[
@@ -5182,14 +5192,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-15",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-16",
 "text":"August 1, 2026."
 },
@@ -5247,6 +5249,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-16",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-17",
 "text":"August 1, 2026."
 },
 {
@@ -5828,7 +5838,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-16",
+"seen":"2026-11-17",
 "text":"early February 2026."
 },
 {
@@ -5836,7 +5846,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-16",
+"seen":"2026-11-17",
 "text":"February 2027."
 },
 {
@@ -10063,7 +10073,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-16",
+"seen":"2026-11-17",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10071,7 +10081,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-16",
+"seen":"2026-11-17",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -20043,6 +20053,24 @@
 "title":"7 Tips For Complying with CJIS Password and MFA Requirements",
 "source":"BleepingComputer",
 "link":"https://www.bleepingcomputer.com/news/security/7-tips-for-complying-with-cjis-password-and-mfa-requirements/"
+},
+{
+"day":"2026-11-17",
+"cid":"c-mc1556088",
+"type":"milestone",
+"name":"End of support for iOS 17 and iPadOS 17",
+"src":"MC1556088",
+"now":"mid Dec 2026",
+"text":"We will begin rolling out in mid-December 2026 and expect to complete by early January 2027."
+},
+{
+"day":"2026-11-17",
+"cid":"c-mc1556088",
+"type":"milestone",
+"name":"End of support for iOS 17 and iPadOS 17",
+"src":"MC1556088",
+"now":"early Jan 2027",
+"text":"We will begin rolling out in mid-December 2026 and expect to complete by early January 2027."
 }
 ],
 "archive":{
