@@ -16,7 +16,7 @@ uhfHeaderId: MSDocsHeader-M365-IT
 ms.author: mabond
 author: mkbond007
 manager: dansimp
-ms.date: 2026-11-03T00:00:00.0000000Z
+ms.date: 2026-11-16T00:00:00.0000000Z
 ms.reviewer: gsaini
 audience: Admin
 ms.topic: how-to
@@ -154,7 +154,9 @@ No. This change only applies to Microsoft 365 release preferences. Microsoft 365
 
 ## What's happening to Targeted release?
 
-In November 2026, administrators can no longer add, remove, or modify Targeted release assignments. In January 2027, Targeted release will be retired and no longer available to use. If you're currently using Targeted release, you can continue to do so until its retirement. We recommend configuring release preferences for Frontier, Standard release, and Deferred release audiences to align with the new release model as Microsoft begins delivering an increasing number of major features through it over time. Use the [Message center](message-center) to keep up with new products and services using this audience-based release model. For more information about the retirement of Targeted release, see [Plan for the retirement of Targeted release](targeted-release-retirement).
+In November 2026, commercial clouds can no longer add, remove, or modify Targeted release assignments. In January 2027, Targeted release will be retired and no longer available to use. However, commercial clouds can view existing Targeted release users via the unified release experience and admins can configure Frontier, Standard release, and Deferred release all in one place. Government clouds can continue to add, remove, or modify Targeted release assignments until its retirement.
+
+If you're currently using Targeted release, you can continue to do so until its retirement. We recommend configuring release preferences for Frontier, Standard release, and Deferred release audiences to align with the new release model as Microsoft begins delivering an increasing number of major features through it over time. Use the [Message center](message-center) to keep up with new products and services using this audience-based release model. For more information about the retirement of Targeted release, see [Plan for the retirement of Targeted release](targeted-release-retirement).
 
 For more information about Standard release and Deferred release, see [Configure standard release and deferred release](configure-release-options). For more information about the Frontier program, see [Get started with the Microsoft Frontier program](get-started-frontier).
 
@@ -168,7 +170,7 @@ To have your tenant receive eligible features as soon as they reach general avai
 
 ## What happens if I take no action regarding the retirement of Targeted release?
 
-Users and tenants currently assigned to Targeted release will continue receiving eligible Targeted release features until Targeted Release is retired. Features not in Targeted release follow your [modern release preferences](configure-release-options). After retirement, Targeted release assignments will no longer be used for feature delivery. Users and tenants will follow their configured Standard release or Deferred release preference. Before Targeted release enrollment changes are disabled in November 2026, administrators should review their release preferences in the Microsoft 365 admin center to help ensure users continue receiving Microsoft 365 updates according to your organization's desired rollout strategy.
+Users and tenants currently assigned to Targeted release will continue receiving eligible Targeted release features until Targeted Release is retired. Features not in Targeted release follow your [modern release preferences](configure-release-options). After retirement, Targeted release assignments will no longer be used for feature delivery. Users and tenants will follow their configured Standard release or Deferred release preference. Administrators should review user release preferences in the Microsoft 365 admin center to help ensure users continue receiving Microsoft 365 updates according to your organization's desired rollout strategy.
 
 ## Will Microsoft automatically update my release preference settings?
 
@@ -176,11 +178,11 @@ No, Microsoft won't automatically modify your release preference settings.
 
 ## How long will users continue receiving Targeted release features?
 
-Users and tenants currently assigned to Targeted release continue to receive eligible Targeted Release features until Targeted release is retired.
+Users and tenants currently assigned to Targeted release continue to receive eligible Targeted Release features until Targeted release is retired in January 2027.
 
 ## Can I add or remove users from Targeted release after November 2026?
 
-No. In November 2026, administrators can no longer add users to, remove users from, or modify Targeted release assignments. Organizations should review their Targeted release users and release preferences before enrollment changes before this date.
+No. In November 2026, administrators can no longer add users to, remove users from, or modify Targeted release assignments. Organizations should review their Targeted release users and release preferences before enrollment changes before this date. Admins can view existing Targeted release users from the unified release experience in the Microsoft 365 admin center.
 
 ## Does the retirement of Targeted release affect existing Microsoft 365 functionality?
 

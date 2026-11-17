@@ -23,7 +23,7 @@ description: Represents a Microsoft Entra user account. Inherits from directoryO
 ms.reviewer: iamut
 ms.localizationpriority: high
 doc_type: resourcePageType
-ms.date: 2025-01-10T00:00:00.0000000Z
+ms.date: 2026-11-02T00:00:00.0000000Z
 ms.custom: sfi-ga-blocked
 locale: en-us
 document_id: 71215894-d1c8-8d36-9dbb-adb35cfbc5f9
@@ -79,6 +79,10 @@ This resource supports:
 | [Retry service provisioning](../user-retryserviceprovisioning) | None | Retry the user service provisioning. |
 | [Revoke sign-in sessions](../user-revokesigninsessions) | None | Revokes all the user's refresh and session tokens issued to applications, by resetting the **signInSessionsValidFromDateTime** user property to the current date-time. It forces the user to sign in to those applications again. |
 | [Export personal data](../user-exportpersonaldata) | None | Submits a data policy operation request, made by a company administrator to export an organizational user's data. |
+| **Lifecycle policies** |  |  |
+| [user: attest](../user-attest) | None | Attest to the continued need for a guest user. |
+| [user: addSelfAsSponsor](../user-addselfassponsor) | None | Add the signed-in user as a sponsor of a sponsorless guest user. |
+| [user: removeSelfAsSponsor](../user-removeselfassponsor) | None | Remove the signed-in user as a sponsor of a guest user. |
 | **App role assignments** |  |  |
 | [List](../user-list-approleassignments) | [appRoleAssignment](approleassignment) collection | Get the apps and app roles assigned to this user. |
 | [Add](../user-post-approleassignments) | [appRoleAssignment](approleassignment) | Assign an app role to this user. |
@@ -376,6 +380,7 @@ For example: Cameron is the administrator of a directory for an elementary schoo
 | inferenceClassification | [inferenceClassification](inferenceclassification) | Relevance classification of the user's messages based on explicit designations that override inferred relevance or importance. |
 | insights | [itemInsights](iteminsights) | Represents relationships between a user and items such as OneDrive for work or school documents, calculated using advanced analytics and machine learning techniques. Read-only. Nullable. |
 | licenseDetails | [licenseDetails](licensedetails) collection | A collection of this user's license details. Read-only. |
+| lifecycle | [microsoft.graph.identityGovernance.userIdentityLifecycle](identitygovernance-useridentitylifecycle) | The user's lifecycle policy state, including compliance and attestation information. Read-only. |
 | mailFolders | [mailFolder](mailfolder) collection | The user's mail folders. Read-only. Nullable. |
 | manager | [directoryObject](directoryobject) | The user or contact that is this user's manager. Read-only. Supports `$expand`. |
 | memberOf | [directoryObject](directoryobject) collection | The groups and directory roles that the user is a member of. Read-only. Nullable. Supports `$expand`. |

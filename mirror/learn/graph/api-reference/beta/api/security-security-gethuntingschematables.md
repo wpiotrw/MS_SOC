@@ -78,9 +78,9 @@ Choose the permission or permissions marked as least privileged for this API. Us
 
 | Permission type | Least privileged permissions | Higher privileged permissions |
 | --- | --- | --- |
-| Delegated (work or school account) | ThreatHunting.Read.All | Not available. |
+| Delegated (work or school account) | ThreatHunting.Read.All | ThreatHunting.ReadWrite.All |
 | Delegated (personal Microsoft account) | Not supported. | Not supported. |
-| Application | ThreatHunting.Read.All | Not available. |
+| Application | ThreatHunting.Read.All | ThreatHunting.ReadWrite.All |
 
 Important
 

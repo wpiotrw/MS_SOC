@@ -20,7 +20,7 @@ breadcrumb_path: /graph/ref-breadcrumb/toc.json
 ms.service: microsoft-graph
 ms.topic: reference
 description: Represents an agent identity in a directory. An agent identity is a specialized type of service principal that represents automated agents or services that can perform actions on behalf of Agent Identity Blueprint or users within the Microsoft Entra ID ecosystem.
-ms.date: 2026-08-26T00:00:00.0000000Z
+ms.date: 2026-11-02T00:00:00.0000000Z
 ms.localizationpriority: medium
 doc_type: resourcePageType
 locale: en-us
@@ -41,9 +41,11 @@ monikers:
 item_type: Content
 source_path: api-reference/v1.0/resources/agentidentity.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 platformId: 714259de-1c28-767d-5265-ddda499b7638
@@ -68,6 +70,7 @@ This resource is an open type that allows additional properties beyond those doc
 | [Get](../agentidentity-get) | [agentIdentity](agentidentity) | Read the properties and relationships of [agentIdentity](agentidentity) object. |
 | [Update](../agentidentity-update) | [agentIdentity](agentidentity) | Update the properties of an agentIdentity object. |
 | [Delete](../agentidentity-delete) | None | Delete an agentIdentity object. |
+| [agentIdentity: attest](../agentidentity-attest) | None | Attest continued usage and compliance of the agent identity. |
 | **App role assignments** |  |  |
 | [List appRoleAssignedTo](../serviceprincipal-list-approleassignedto) | [appRoleAssignment](approleassignment) collection | Get the users, groups, and agent identities assigned app roles for this agent identity. |
 | [List appRoleAssignments](../serviceprincipal-list-approleassignments) | [appRoleAssignment](approleassignment) collection | Get the app roles that this agent identity is assigned. |
@@ -122,6 +125,7 @@ While this resource inherits from **servicePrincipal**, some properties are not 
 | appRoleAssignedTo | [appRoleAssignment](approleassignment) collection | App role assignments for this app or service, granted to users, groups, and other agent identities. Supports `$expand`. Inherited from [microsoft.graph.servicePrincipal](serviceprincipal) |
 | appRoleAssignments | [appRoleAssignment](approleassignment) collection | App role assignment for another app or service, granted to this agent identity. Supports `$expand`. Inherited from [microsoft.graph.servicePrincipal](serviceprincipal) |
 | createdObjects | [directoryObject](directoryobject) collection | Directory objects created by this agent identity. Read-only. Nullable. Inherited from [microsoft.graph.servicePrincipal](serviceprincipal) |
+| lifecycle | [microsoft.graph.identityGovernance.identityLifecycle](identitygovernance-identitylifecycle) | The lifecycle policy state of the agent identity, returned as [agentIdentityLifecycle](identitygovernance-agentidentitylifecycle). Read-only. Inherited from servicePrincipal. |
 | memberOf | [directoryObject](directoryobject) collection | Roles that this agent identity is a member of. HTTP Methods: GET Read-only. Nullable. Supports `$expand`. Inherited from [microsoft.graph.servicePrincipal](serviceprincipal) |
 | oauth2PermissionGrants | [oAuth2PermissionGrant](oauth2permissiongrant) collection | Delegated permission grants authorizing this agent identity to access an API on behalf of a signed-in user. Read-only. Nullable. Inherited from [microsoft.graph.servicePrincipal](serviceprincipal) |
 | ownedObjects | [directoryObject](directoryobject) collection | Directory objects that are owned by this agent identity. Read-only. Nullable. Supports `$expand` and `$filter` (`/$count eq 0`, `/$count ne 0`, `/$count eq 1`, `/$count ne 1`). Inherited from [microsoft.graph.servicePrincipal](serviceprincipal) |

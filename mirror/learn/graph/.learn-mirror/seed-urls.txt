@@ -51,6 +51,7 @@ https://learn.microsoft.com/en-us/graph/api/resources/approverdelegate
 https://learn.microsoft.com/en-us/graph/api/resources/authentication
 https://learn.microsoft.com/en-us/graph/api/resources/authenticationbehaviors
 https://learn.microsoft.com/en-us/graph/api/resources/authenticationinfo
+https://learn.microsoft.com/en-us/graph/api/resources/authenticationmethod
 https://learn.microsoft.com/en-us/graph/api/resources/chunkoffsets
 https://learn.microsoft.com/en-us/graph/api/resources/classificationgradingcontentlocation
 https://learn.microsoft.com/en-us/graph/api/resources/classificationgradingjobresponse
@@ -84,7 +85,9 @@ https://learn.microsoft.com/en-us/graph/api/resources/group
 https://learn.microsoft.com/en-us/graph/api/resources/groupresource
 https://learn.microsoft.com/en-us/graph/api/resources/identitygovernance-lifecyclepolicy
 https://learn.microsoft.com/en-us/graph/api/resources/identitygovernance-lifecyclepolicyrule
+https://learn.microsoft.com/en-us/graph/api/resources/identitygovernance-lifecycleworkflows-overview
 https://learn.microsoft.com/en-us/graph/api/resources/identitygovernance-timebasedattributetriggerv2
+https://learn.microsoft.com/en-us/graph/api/resources/identitygovernance-workflowtemplate
 https://learn.microsoft.com/en-us/graph/api/resources/list
 https://learn.microsoft.com/en-us/graph/api/resources/m365capabilitybase
 https://learn.microsoft.com/en-us/graph/api/resources/mailboxFolder

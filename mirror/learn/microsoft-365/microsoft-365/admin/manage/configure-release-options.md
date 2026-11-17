@@ -16,7 +16,7 @@ uhfHeaderId: MSDocsHeader-M365-IT
 ms.author: mabond
 author: mkbond007
 manager: dansimp
-ms.date: 2026-11-03T00:00:00.0000000Z
+ms.date: 2026-11-16T00:00:00.0000000Z
 ms.reviewer: sangar
 audience: Admin
 ms.topic: how-to
@@ -67,7 +67,7 @@ platformId: 751d7d88-fdf7-33ad-b866-ef1ca81d33b8
 
 Microsoft 365 delivers updates continuously, enabling organizations to adopt new capabilities without large, infrequent upgrades. To help IT admins manage this pace of change, Microsoft 365 offers a new three-tier, audience-based release model—**Frontier, Standard release, and Deferred release**—so organizations can balance early access with readiness and control.
 
-Note
+Important
 
 The Microsoft 365 updates described in this article apply to New Outlook for Windows, Outlook on the web, OneDrive, SharePoint Online, Office for the web, Microsoft Teams, and the Microsoft 365 admin center. They don't currently apply to services other than those listed previously. Check this article for updates to the list of applicable services.
 
@@ -79,9 +79,9 @@ Use these new release options to align feature delivery with your organization's
 
 Important
 
-In November 2026, administrators can no longer add users to, remove users from, or modify Targeted release enrollment. In January 2027, Targeted release will be retired and no longer available to use. For more information, see [Plan for retirement of Targeted release](targeted-release-retirement).
+In November 2026, commercial clouds can no longer add users to, remove users from, or modify Targeted release enrollment. However, commercial clouds can view existing Targeted release users via the unified release experience and admins can configure Frontier, Standard release, and Deferred release all in one place. In January 2027, Targeted release will be retired and no longer available to use.
 
-To prepare for the retirement of Targeted release, we recommend configuring Standard release and Deferred release options to manage when users in your organization receive generally available Microsoft 365 services as Microsoft delivers features through the new release model. If your organization has configured Targeted release in the Microsoft 365 admin center, you can continue using your existing configuration until its retired. Use the Message center to stay informed about these updates.
+To prepare for the retirement of Targeted release, we recommend configuring Standard release and Deferred release options to manage when users in your organization receive generally available Microsoft 365 services as Microsoft delivers features through the new release model. If your organization has configured Targeted release in the Microsoft 365 admin center, you can continue using your existing configuration until its retired. Use the Message center to stay informed about these updates. For more information, see [Plan for retirement of Targeted release](targeted-release-retirement).
 
 ### Frontier program
 
@@ -156,31 +156,38 @@ For customers in GCC, GCC High, and DoD environments, Standard release (general 
 
 By default, use Standard release for Microsoft 365 service updates. This option meets the needs of most customers. To better manage your organization's readiness and testing needs, you can change the default release selection to Deferred release at any time in the Microsoft 365 admin center. It can take up to 24 hours for the following changes to take effect in Microsoft 365.
 
+Note
+
+The unified release preferences experience is rolling out gradually in mid-November 2026, so it might not be available in your organization yet. Release preferences for Frontier, Standard release, and Deferred release can now be managed through the unified release preferences experience in the Microsoft 365 admin center. The previous experience for managing Standard release and Deferred release preferences will be retired for commercial clouds when the unified release preferences experience becomes available.
+
 To assign users or [security groups](/en-us/entra/fundamentals/concept-learn-about-groups) to Standard release or Deferred release, follow these steps:
 
-1. Sign in to the Microsoft 365 admin center.
-2. In the left navigation, expand **Copilot** and select **Settings**.
-
-    [![Screenshot of Manage release prefrences setting in Microsoft 365 admin center.](../../media/copilot-settings-admin-center.png)](../../media/copilot-settings-admin-center-expanded.png#lightbox)
-3. Under the **View all** tab, select **Copilot Release Preferences: General Availability**.
-4. Choose either **Standard release** or **Deferred release**.
-5. Add any user or security group exceptions. You can add up to 10,000 exceptions to Standard release or Deferred release. Each user in a security group and each user added individually count toward the 10,000-user limit.
+1. In the Microsoft 365 admin center, go to **Settings** &gt; **Org settings**.
+2. Under the [**Organization profile** tab](https://go.microsoft.com/fwlink/p/?linkid=2067339), select **Release preferences**.
+3. From the **Release preferences** panel, choose either **Standard release** or **Deferred release**.
+4. Assign any user or security group exceptions. You can add up to 10,000 exceptions to Standard release or Deferred release. Each user in a security group and each user added individually count toward the 10,000-user limit.
 
     - If you want to assign only a specific user or security group to Deferred release, select **Standard release**, search for the user or group, and select their name.
-
-        ![Screenshot of Standard release in Microsoft 365 admin center.](../../media/standard-release-settings.png)
     - If you want to assign only a specific user or security group to Standard release, select **Deferred release**, search for the user or group, and select their name.
 
-        ![Screenshot of Deferred release in Microsoft 365 admin center.](../../media/deferred-release-settings.png)
-6. Select **Save**.
+        ![Screenshot of Deferred release in Microsoft 365 admin center.](../../media/release-preferences-general-availability.png)
+5. Select **Save**.
 
 To opt in to Frontier preview, follow the instructions in [Configure Frontier preview for Microsoft 365 services](get-started-frontier).
-
-In November 2026, release preferences for Frontier, Standard release, and Deferred release can be managed through the unified release preferences experience in the Microsoft 365 admin center. The current experience for managing Standard release and Deferred release preferences will be retired when the unified release preferences experience becomes available. Additional details about related admin experience changes will be shared in Message center and this article will be updated to show the new navigation.
 
 Note
 
 If you move users from Standard release to Deferred release, they might lose access to features that aren't available yet in Deferred release.
+
+If the unified release preferences experience hasn't rolled out to your organization yet, you can still manage release options following these steps:
+
+1. In the Microsoft 365 admin center, go to **Copilot** &gt; **Settings**.
+2. Under the **View all** tab, select **Copilot Release Preferences: General Availability**.
+3. Choose either **Standard release** or **Deferred release**.
+4. Add any user or security group exceptions. You can add up to 10,000 exceptions to Standard release or Deferred release. Each user in a security group and each user added individually count toward the 10,000-user limit.
+    - If you want to assign only a specific user or security group to Deferred release, select **Standard release**, search for the user or group, and select their name.
+    - If you want to assign only a specific user or security group to Standard release, select **Deferred release**, search for the user or group, and select their name.
+5. Select **Save**.
 
 ## Release option best practices
 

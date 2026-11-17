@@ -19,8 +19,11 @@ https://learn.microsoft.com/en-us/intune/app-management/deployment/management-ag
 https://learn.microsoft.com/en-us/intune/app-management/protection/data-protection-framework
 https://learn.microsoft.com/en-us/intune/app-management/protection/mam-faq
 https://learn.microsoft.com/en-us/intune/app-management/protection/multiple-managed-accounts
+https://learn.microsoft.com/en-us/intune/app-management/protection/ref-settings-windows
 https://learn.microsoft.com/en-us/intune/app-management/ref-protected-apps
 https://learn.microsoft.com/en-us/intune/cloud-pki
+https://learn.microsoft.com/en-us/intune/cloud-pki/audit-logs
+https://learn.microsoft.com/en-us/intune/cloud-pki/monitor-certificates
 https://learn.microsoft.com/en-us/intune/cloud-pki/renew-ca
 https://learn.microsoft.com/en-us/intune/configmgr/comanage/how-to-monitor
 https://learn.microsoft.com/en-us/intune/configmgr/comanage/overview
@@ -38,6 +41,7 @@ https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/site
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/size-and-scale-numbers
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/support-for-windows-11
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/configs/support-for-windows-adk
+https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/security/certificates-overview
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/security/enable-tls-1-2-client
 https://learn.microsoft.com/en-us/intune/configmgr/core/plan-design/security/enable-tls-1-2-server
 https://learn.microsoft.com/en-us/intune/configmgr/core/servers/deploy/configure/about-discovery-methods
@@ -75,6 +79,10 @@ https://learn.microsoft.com/en-us/intune/developer/configure-graph-api-access
 https://learn.microsoft.com/en-us/intune/developer/data-warehouse/configure-app-only-auth
 https://learn.microsoft.com/en-us/intune/developer/data-warehouse/create-reports
 https://learn.microsoft.com/en-us/intune/device-configuration/certificates/imported-pfx-profiles
+https://learn.microsoft.com/en-us/intune/device-configuration/certificates/pkcs-profiles
+https://learn.microsoft.com/en-us/intune/device-configuration/certificates/remove-profiles
+https://learn.microsoft.com/en-us/intune/device-configuration/certificates/scep-profiles
+https://learn.microsoft.com/en-us/intune/device-configuration/certificates/trusted-root-profiles
 https://learn.microsoft.com/en-us/intune/device-configuration/collect-device-properties
 https://learn.microsoft.com/en-us/intune/device-configuration/endpoint-security/account-protection
 https://learn.microsoft.com/en-us/intune/device-configuration/endpoint-security/antivirus
@@ -85,6 +93,7 @@ https://learn.microsoft.com/en-us/intune/device-configuration/settings-catalog/c
 https://learn.microsoft.com/en-us/intune/device-configuration/settings-catalog/ref-android-settings
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/apple-ddm-app-settings
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/configure-local-actions-android
+https://learn.microsoft.com/en-us/intune/device-configuration/templates/configure-managed-home-screen-permissions-android
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/configure-oemconfig-android
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/configure-wired-networks
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-device-restrictions-android-enterprise
@@ -133,6 +142,8 @@ https://learn.microsoft.com/en-us/intune/device-management/tools/run-powershell-
 https://learn.microsoft.com/en-us/intune/device-management/tools/run-shell-scripts-macos
 https://learn.microsoft.com/en-us/intune/device-management/tools/setup-teamviewer
 https://learn.microsoft.com/en-us/intune/device-management/tools/teamviewer-legacy
+https://learn.microsoft.com/en-us/intune/device-security/certificates/derived-credentials
+https://learn.microsoft.com/en-us/intune/device-security/certificates/s-mime
 https://learn.microsoft.com/en-us/intune/device-security/compliance/become-mobile-device-management-compliance-provider
 https://learn.microsoft.com/en-us/intune/device-security/compliance/create-policy
 https://learn.microsoft.com/en-us/intune/device-security/compliance/custom-settings
@@ -172,7 +183,9 @@ https://learn.microsoft.com/en-us/intune/epm/manage-support-approvals
 https://learn.microsoft.com/en-us/intune/epm/manage-system-settings
 https://learn.microsoft.com/en-us/intune/epm/overview
 https://learn.microsoft.com/en-us/intune/fundamentals/account-sign-up
+https://learn.microsoft.com/en-us/intune/fundamentals/certificates/connector/certificate-connectors
 https://learn.microsoft.com/en-us/intune/fundamentals/certificates/connector/overview
+https://learn.microsoft.com/en-us/intune/fundamentals/certificates/connector/prerequisites
 https://learn.microsoft.com/en-us/intune/fundamentals/certificates/connector/setup-connector
 https://learn.microsoft.com/en-us/intune/fundamentals/endpoints
 https://learn.microsoft.com/en-us/intune/fundamentals/filters/overview

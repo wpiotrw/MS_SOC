@@ -41,12 +41,12 @@ monikers:
 item_type: Content
 source_path: api-reference/v1.0/resources/onlinemeetingbase.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
+- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/8a94907f-2511-4271-b5ca-ec7f2e75067c
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 - https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
+- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bffa8e88-f633-409d-a24d-083bdbc68872
 platformId: 43396e2e-e1f4-337d-489c-dfa20b3d10b6
 ---
@@ -81,7 +81,6 @@ This is an abstract type and can't be used directly. Use the derived types [onli
 | allowPowerPointSharing | Boolean | Indicates whether PowerPoint live is enabled for the meeting. |
 | allowRecording | Boolean | Indicates whether recording is enabled for the meeting. |
 | allowWhiteboard | Boolean | Indicates whether whiteboard is enabled for the meeting. |
-| anonymizeIdentityForRoles | onlineMeetingRole collection | Specifies whose identity is anonymized in the meeting. The possible values are: `attendee`. The `attendee` value can't be removed through a PATCH operation once added. |
 | audioConferencing | [audioConferencing](audioconferencing) | The phone access (dial-in) information for an online meeting. Read-only. |
 | chatInfo | [chatInfo](chatinfo) | The chat information associated with this online meeting. |
 | chatRestrictions | [chatRestrictions](chatrestrictions) | Specifies the configuration settings for meeting chat restrictions. |
@@ -183,7 +182,6 @@ The following JSON representation shows the resource type.
   "allowTeamworkReactions": "Boolean",
   "allowTranscription": "Boolean",
   "allowWhiteboard": "Boolean",
-  "anonymizeIdentityForRoles": ["String"],
   "audioConferencing": {"@odata.type": "microsoft.graph.audioConferencing"},
   "chatInfo": {"@odata.type": "microsoft.graph.chatInfo"},
   "chatRestrictions":{"@odata.type": "microsoft.graph.chatRestrictions"},

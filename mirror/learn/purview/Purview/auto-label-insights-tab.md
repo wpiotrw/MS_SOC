@@ -14,7 +14,7 @@ manager: laurawi
 audience: Admin
 ms.service: purview
 ms.subservice: purview-information-protection
-ms.date: 2026-10-26T00:00:00.0000000Z
+ms.date: 2026-11-16T00:00:00.0000000Z
 ms.collection:
 - purview-compliance
 ms.topic: article
@@ -89,7 +89,7 @@ Note
 
 Exchange matched-item counts are estimates based on sampled data.
 
-**Enforcement mode:** When the policy is actively labeling files, the Insights tab shows 30-day operational metrics. **Insights** shows the following metrics about the policy:
+**Enforcement mode:** When the policy is actively labeling files, the Insights tab shows reported progress and labeling activity. Progress is periodically refreshed, while activity covers the last 30 days. These measures aren't directly interchangeable.
 
 Note
 
@@ -100,39 +100,41 @@ Policy-level enforcement metrics and the **Labeled items** view report only file
 | **Sensitivity label** | The sensitivity label applied by the policy. |
 | **Status** | The current status of the policy. |
 | **Turn on date** | The activation date and time displayed by the portal. Don't use this field as an immutable record of the policy's first activation. If the policy was edited after it was turned on, this date can show the most recent edit. |
-| **Total labeled to date** | The number of SharePoint and OneDrive files that have a label applied by this policy. For removal policies, it's the number of files the policy removed the label from. This is a current count, not a running total. It can decrease, for example when labeled files are deleted, and it isn't reset when you edit the policy. Updates aren't immediate. |
+| **Total labeled to date** | Reported labeling progress for SharePoint and OneDrive, based on periodically refreshed stored item and signal state for the policy. This isn't an immutable lifetime operation count or a real-time inventory of distinct files currently protected by the policy. |
 | **Duration** | The number of days calculated from the displayed enforcement turn-on date. |
-| **Last simulated results** | The results of the most recent simulation before enforcement was turned on. |
+| **Last simulated results** | Estimated matches from the most recent simulation before enforcement was turned on. These estimates aren't a fixed target for enforcement. |
 | **Completed on** | The date when the most recent simulation completed. |
-| **Count of auto-labeled and failed files** | A donut chart showing this policy's labeling activity in the last 30 days. A file that's labeled more than once is counted each time, so this chart isn't a count of unique files. - **Labeled (green):** Files that were successfully labeled.  - **Failed (red):** Files that matched but couldn't be labeled. |
-| **Labeling failures** | The card shows the total number of failed items and the **Top 3 failure reasons**, sorted by volume. For more information, see [Resolve auto-labeling failures in SharePoint and OneDrive files](/en-us/troubleshoot/microsoft-365/purview/sensitivity-labels/auto-labeling-failures-sharepoint-onedrive). |
+| **Count of auto-labeled and failed files** | A donut chart of recorded labeling operations in the last 30 days, not distinct files: - **Labeled (green):** Successful labeling operations. - **Failed (red):** Failed labeling operations.The combined total includes both successful and failed operations. A file can contribute more than once, including a failure followed by a success. |
+| **Labeling failures** | The card summarizes failed labeling activity in the last 30 days and shows the **Top 3 failure reasons**, sorted by volume. For more information, see [Resolve auto-labeling failures in SharePoint and OneDrive files](/en-us/troubleshoot/microsoft-365/purview/sensitivity-labels/auto-labeling-failures-sharepoint-onedrive). |
 | **Top 10 sensitive info types** | The table lists the sensitive information types (SITs) most frequently detected when this policy applied labels during the last 30 days. It includes the **Files labeled** count for each SIT. |
-| **Labels per source** | To identify whether failures are concentrated to a specific workload, **Labels per source** shows a breakdown of labeled and failed item counts for SharePoint and OneDrive. |
+| **Labels per source** | A breakdown of successful and failed labeling activity in the last 30 days for SharePoint and OneDrive. Use it to identify whether failures are concentrated in a specific workload. |
 
-## Why Total labeled to date and the 30-day counts differ
-
-These metrics measure different things. Total labeled to date is a current count of files. The 30-day counts show labeling activity.
-
-### Total labeled to date is lower than the 30-day count
-
-This difference is expected when:
-
-- Some files were labeled more than once, for example a label was applied and then changed.
-- Labeled files were deleted. Their earlier activity still appears in the 30-day count.
-
-### Total labeled to date is higher than the 30-day count
-
-This difference is expected when:
-
-- The policy has been on for more than 30 days, so earlier labeling is outside the 30-day window. The displayed turn-on date can show the most recent edit instead of the first time the policy was turned on.
-- Recent activity hasn't appeared yet. Activity data can take time to appear. For more information, see [Get started with Activity explorer](data-classification-activity-explorer).
-
-Total labeled to date might stay higher after a few days for a policy that was turned on less than 30 days ago. If so, contact Microsoft Support.
-
-For the daily trend, select **View details** and open **Overview** in the newer full review experience. **Labeling activity overview** shows separate successful and failed series for the last 30 days. For removal policies, the chart is **Label removal activity overview**. This chart isn't part of the newer Insights layout.
+For the daily trend, select **View details** and open **Overview** in the newer full review experience. **Labeling activity overview** shows separate successful and failed operation counts for the last 30 days, not distinct-file counts. For removal policies, the chart is **Label removal activity overview**. This chart isn't part of the newer Insights layout.
 
 Review failure reasons even when few files fail. Transient infrastructure failures are retried automatically, but configuration, protection, or file format failures might require action regardless of volume. Some unsupported files require no action. Follow the reason-specific guidance in [Resolve auto-labeling failures in SharePoint and OneDrive files](/en-us/troubleshoot/microsoft-365/purview/sensitivity-labels/auto-labeling-failures-sharepoint-onedrive).
 
 Note
 
 The Insights tab provides less data for non-Microsoft locations.
+
+## Compare progress and labeling activity
+
+Labeling activity counts recorded operations in the selected time window, not every file access, scan, evaluation, or retry. **Total labeled to date** uses refreshed stored state rather than a history of operations. Editing a policy doesn't necessarily reset its progress.
+
+Before comparing counts, align the policy, workloads, scope, filters, UTC interval, observation time, and reporting freshness. Compare successful activity with successful progress, not the donut's combined successful-plus-failed total. A displayed **Turn on date** isn't proof of first-ever enforcement; check the policy's creation, enablement, and change history.
+
+### Total labeled to date is lower than the 30-day count
+
+Repeated actual labeling operations can count the same file more than once, for example when a label is applied and later changed. Deleting a file doesn't remove its historical activity. Changes to stored state, including file deletions, can reduce refreshed progress. Independent reporting delays or incomplete reports can also affect the comparison.
+
+### Total labeled to date is higher than the 30-day count
+
+Older activity can fall outside the activity window while still contributing to progress. Recent activity can also be delayed or missing from a report. For activity reporting information, see [Get started with Activity explorer](data-classification-activity-explorer).
+
+If first-ever enforcement is verified to be within the last 30 days, older activity outside the window doesn't explain the gap. Check reporting freshness and completeness, how progress is calculated, and how failures are treated. Don't assume that successful activity must always equal or exceed reported progress, or that every mismatch is expected.
+
+### Choose a measure for reporting
+
+Use activity to report recent labeling operations and **Total labeled to date** to report progress as of its latest refresh. Neither measure alone proves the number of distinct files currently protected. Unavailable or partial reports don't mean that zero files were labeled.
+
+For comparison examples and diagnostic and escalation guidance, see [Troubleshoot auto-labeling count mismatches](/en-us/troubleshoot/microsoft-365/purview/sensitivity-labels/troubleshoot-auto-labeling-policies#numbers-dont-agree-or-exchange-activity-is-missing).

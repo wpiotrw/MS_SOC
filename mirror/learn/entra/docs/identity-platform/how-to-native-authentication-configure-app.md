@@ -1,0 +1,160 @@
+---
+layout: Conceptual
+title: Configure an app for Embedded native authentication - Microsoft identity platform | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/entra/identity-platform/how-to-native-authentication-configure-app
+uhfHeaderId: MSDocsHeader-Entra
+breadcrumb_path: /entra/breadcrumb/toc.json
+feedback_system: Standard
+feedback_product_url: /entra/identity-platform/developer-support-help-options
+author: cilwerner
+ms.author: cwerner
+ms.service: identity-platform
+description: Register an application, enable native authentication, associate a user flow, and prepare permissions and policies for direct API calls.
+ms.topic: how-to
+ms.custom: msecd-doc-authoring-1030
+ms.date: 2026-11-13T00:00:00.0000000Z
+ai-usage: ai-generated
+locale: en-us
+document_id: b16047ff-e7a4-e7cd-3d0c-bbdc88472a81
+document_version_independent_id: b16047ff-e7a4-e7cd-3d0c-bbdc88472a81
+original_content_git_url: https://github.com/MicrosoftDocs/entra-docs-pr/blob/live/docs/identity-platform/how-to-native-authentication-configure-app.md
+site_name: Docs
+depot_name: MSDN.entra-docs
+page_type: conceptual
+toc_rel: toc.json
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: identity-platform/how-to-native-authentication-configure-app
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: docs/identity-platform/how-to-native-authentication-configure-app.md
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1ae5c491-970a-4062-8301-6336e69f9026
+spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/f2c3e52e-3667-4e8a-bf11-20b9eaccdc8c
+platformId: 46d712a6-f692-e850-21da-2a0ae4d16f2f
+---
+
+# Configure an app for Embedded native authentication - Microsoft identity platform | Microsoft Learn
+
+**Applies to**: ![Green circle with a white check mark symbol that indicates the following content applies to external tenants.](../external-id/media/common/applies-to-yes.png) External tenants ([learn more](/en-us/entra/external-id/tenant-configurations))
+
+**Authentication approach:** Embedded native authentication.
+
+Configure your application registration and user flow before calling the Native Authentication API. This guide prepares a public client application for Embedded native authentication through direct API calls or an SDK.
+
+Important
+
+The Native Authentication API V2 is in preview. The [Native Authentication API V1](reference-native-authentication-api-v1) remains generally available. See the [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/) for legal terms that apply to preview features.
+
+## Prerequisites
+
+- An [external tenant](../external-id/customers/how-to-create-external-tenant-portal).
+- An account authorized to create or manage the application registration.
+- Access to create or select the user flow and associate the application with it. Coordinate policy changes and consent with the appropriate tenant administrator.
+- A [tenant-verified custom URL domain](../external-id/customers/how-to-custom-url-domain) configured for the authentication service.
+
+An application owner can manage the registration's authentication settings. For delegated access, use [application-scoped permissions](../identity/role-based-access-control/delegate-app-roles) rather than assigning a tenant-wide administrator role solely for this task.
+
+## Register the application
+
+Create the registration in the external tenant that owns the customer accounts.
+
+1. Sign in to the Microsoft Entra admin center and switch to your external tenant.
+2. Browse to **Entra ID** &gt; **App registrations** &gt; **New registration**.
+3. Enter an application **Name** and select the single-tenant supported account type for your external tenant.
+4. Select **Register**.
+5. On **Overview**, record the **Application (client) ID** and **Directory (tenant) ID**.
+6. Record the tenant subdomain if your selected SDK requires it. Configure service API URLs with your tenant-verified custom domain as described in Configure the API authority.
+
+For registration details, see [Register an application](quickstart-register-app). The client ID identifies this public client; it isn't a secret. Don't create or embed a client secret for these direct API requests.
+
+## Configure the API authority
+
+Use your tenant-verified custom domain for all service API calls in the current native authentication integration. The authority has the form `https://{custom_domain}/{tenant}`, where `custom_domain` is the verified authentication domain, such as `login.contoso.com`, and `tenant` is the Directory (tenant) ID, a GUID.
+
+1. [Verify and configure the custom URL domain](../external-id/customers/how-to-custom-url-domain) in the external tenant.
+2. Configure the application or SDK to use that domain for authorization challenges, native interaction operations, authorization continuation, and token exchange.
+3. Validate returned links against the configured authority. Keep their paths, versions, and query parameters unchanged.
+
+For SPAs with Embedded native authentication and BYO UX websites, configure a cross-origin resource sharing (CORS) proxy or edge policy for cross-origin browser API calls. A proxy address is a transport setting, not a replacement service authority. Its upstream calls still use the tenant-verified custom domain and tenant GUID. See the [provider-neutral proxy requirements](concept-native-authentication-cors#proxy-contract).
+
+Android and iOS apps using native HTTP transports call the service authority directly. They don't need CORS configuration or a CORS proxy.
+
+## Enable public client and native authentication flows
+
+The API requires native authentication to be enabled on this application.
+
+1. In the app registration, under **Manage**, select **Authentication**.
+2. On **Redirect URI configuration**, set **Enable the following mobile and desktop flows** to **Yes**.
+3. Set **Enable native authentication** to **Yes**.
+4. Select **Save**.
+
+These application settings enable the integration. The app then uses returned methods, actions, and links to select allowed operations through user choice or application flow logic.
+
+Configure redirect URIs separately for any platform SDK or browser-delegated integration you use. Browser sign-in needs its registered callback and the platform's URL-scheme or manifest configuration. Direct native authorization-code redemption doesn't establish a browser session and isn't a reason to require a browser redirect URI on every direct HTTP client.
+
+See [Redirect URI configuration](reply-url) for browser and platform registration requirements.
+
+## Choose an integration
+
+Choose direct API calls or Microsoft Authentication Library (MSAL) entry points for your platform. For direct calls, native routes use `/api/v2.0` and OAuth routes use `/oauth2/v2.0`; follow the [API reference](reference-native-authentication).
+
+Use the [SDK compatibility guidance](how-to-migrate-native-authentication-v1-v2#sdk-compatibility) for the documented package versions, entry points, and enrollment support. Installing a new package doesn't migrate V1 calls. Keep V1 and V2 continuation states separate.
+
+For direct inline email and SMS method registration, use the [enrollment contract](reference-native-authentication#authentication-method-enrollment).
+
+## Create and associate a user flow
+
+The associated user flow determines the email sign-up/sign-in method and requested attributes. Tenant and user-flow policies apply to Microsoft-hosted authentication, Embedded native authentication, and Bring Your Own UX (BYO UX). Use the [shared method and journey matrix](../external-id/customers/concept-supported-features-customers#methods-and-journeys-by-approach) to check which interactions each approach supports.
+
+1. Browse to **Entra ID** &gt; **External Identities** &gt; **User flows**.
+2. Select **New user flow**, or open the existing user flow you intend to use.
+3. For a new flow, enter a **Name**. Under **Identity providers**, select **Email Accounts** and choose **Email with password** or **Email one-time passcode**.
+4. Under **User attributes**, choose the attributes your application needs to collect. For a first integration, keep the required profile fields to the minimum your application needs.
+5. Select **Create** for the new flow.
+6. Open the flow. Under **Use**, select **Applications** &gt; **Add application**.
+7. Select the app registration, then choose **Select**.
+
+An application has one user flow; a user flow can serve multiple applications. For an existing flow, verify the selected identity provider and attributes before changing settings used by other applications.
+
+If you select email one-time passcode, enable it at the tenant level as described in [Create a user flow](../external-id/customers/how-to-user-flow-sign-up-sign-in-customers). The sign-up API doesn't have a parameter that overrides the user flow's method selection.
+
+## Configure scopes and consent
+
+Establish permissions before starting authorization.
+
+1. Identify the target resource and delegated scopes your application needs. The authorization request's `scope` parameter establishes the requested access.
+2. If the app calls a protected API, configure its delegated permission on the client registration and arrange consent from an administrator authorized for that permission.
+3. In **API permissions**, inspect the requested permissions and consent status. Don't add broad Microsoft Graph permissions just to enable native authentication.
+4. Request the selected scopes in the initial authorization challenge. Add `offline_access` only if your app needs a refresh token.
+
+The tenant's permissions and consent requirements apply to the target resource. See [Add permissions to access your web API](quickstart-configure-app-access-web-apis).
+
+## Prepare MFA and password reset
+
+Configure multifactor authentication (MFA) through the tenant's authentication-method and Conditional Access policies. The service enforces these requirements; the client handles the returned authentication steps.
+
+1. If your application uses password accounts, [enable self-service password reset](../external-id/customers/how-to-enable-password-reset-customers) for the intended customers and recovery methods.
+2. Configure the [MFA requirements](../external-id/customers/how-to-multifactor-authentication-customers) for the application and customers.
+3. Prepare a customer account with the methods needed by the policy. Verify its recovery methods before testing password reset.
+4. Test a flow with additional authentication required. Continue processing returned actions after sign-up or password reset rather than treating either operation as final authorization.
+
+Inline method registration has a separate contract from profile attribute collection. The [flow concept](concept-native-authentication-flow#method-discovery-isnt-method-registration) links to the enrollment and activation contract.
+
+## Verify the configuration
+
+Use the request and response contracts in the [API reference](reference-native-authentication) for a direct integration, or run the [SDK quickstart](quickstart-native-authentication) with the React Next.js sample. Validate the selected integration with your application and user flow.
+
+1. Start authorization. An unauthenticated request normally returns `401 InsufficientAuthorization` with a continuation token and enabled journey links.
+2. Confirm that the intended journey link is present. If it isn't, check the app's user-flow association and policy configuration instead of constructing a missing URL.
+3. Complete an advertised method, resume authorization, and exchange the code.
+
+| Symptom | Configuration to check |
+| --- | --- |
+| **`invalid_client`** | Tenant/client ID match and native authentication enabled for the selected app. |
+| **`invalid_scope`** | Scope spelling, resource registration, configured permissions, and consent. |
+| **No expected journey link** | User-flow association and enabled authentication/recovery options. |
+| **Browser preflight failure** | The proxy's allowed browser origin, `OPTIONS` handling, headers, JSON `POST`, and `PUT`. The service answers `OPTIONS` but doesn't grant browser-origin access. |
+| **Browser callback failure** | The redirect URI and platform configuration for that browser integration, separately from direct native code redemption. |

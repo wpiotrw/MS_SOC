@@ -18,7 +18,7 @@ author: mkbond007
 ms.author: mabond
 manager: dansimp
 ms.reviwer: perfarny
-ms.date: 2026-10-15T00:00:00.0000000Z
+ms.date: 2026-11-16T00:00:00.0000000Z
 ms.topic: how-to
 ms.service: m365-core
 ms.subservice: change-management
@@ -97,9 +97,7 @@ Review the following requirements and recommendations:
 
         Note
 
-        When the unified release preferences experience becomes available in November 2026, the existing experience for opting in to Frontier preview within the Microsoft 365 admin center will still exist. **Once the unified release preferences experience is available, admins will no longer be required to have a license that includes Copilot to opt in to Frontier via the existing experience or the new unified release preferences experience.** Additional details about related admin experience changes will be shared in Message center and this article will be updated to show the new navigation.
-
-        The existing experience for managing Standard release and Deferred release preferences will be retired at that time and admins will use the unified release preferences experiences to manage general availability release preferences. For more information, see [Configure Standard and Deferred release](configure-release-options) and [Frequently asked questions about modern release options for Microsoft 365](release-options-faq).
+        When the unified release preferences experience becomes available to commercial clouds in November 2026, the existing experience for opting in to Frontier preview within the Microsoft 365 admin center will still exist. **Once the unified release preferences experience is available, admins will no longer be required to have a license that includes Copilot to opt in to Frontier via the existing experience or the new unified release preferences experience.** Additional details about related admin experience changes will be shared in Message center and this article has been updated to show the new navigation.
 - Verify that your own admin account has also has a corresponding license for products to ensure full access to Frontier AI settings and agents. Some Frontier settings and agents in the Microsoft 365 admin center might not appear.
 
 ## Enroll users in Frontier
@@ -108,20 +106,32 @@ Important
 
 Frontier is for access to pre-GA features and Targeted release is for access to features early within general availability. With the retirement of Targeted release in January 2027, users assigned to Targeted release will default to their general availability release preferences, either [Standard release or Deferred release](configure-release-options). If you already have users enrolled in Frontier, these users will stay enrolled in Frontier after the retirement of Targeted release. For more information, see [Plan for the retirement of Targeted release](targeted-release-retirement).
 
-You can manage Frontier settings in the Microsoft 365 admin center.
+Release preferences for Frontier, Standard release, and Deferred release can now be managed through the unified release preferences experience in the Microsoft 365 admin center. The unified release preferences experience is rolling out gradually in mid-November 2026, so it might not be available in your organization yet. When the unified release preferences experience becomes available, the existing experience for opting in to Frontier preview within the Microsoft 365 admin center will still exist.
 
-To turn on Frontier preview experiences for your users, do the following steps:
+### Unified release preferences experience
 
-1. Sign in to the [Microsoft 365 admin center](https://admin.microsoft.com).
-2. Go to **Copilot** &gt; **Settings**.
-3. Select the **View all** tab.
-4. In the **Search all Copilot settings** search bar, type "Frontier".
-5. Select **Copilot Frontier**.
-6. Choose how Frontier access is assigned in your organization:
+1. In the Microsoft 365 admin center, go to **Settings** &gt; **Org settings**.
+2. Under the [**Organization profile** tab](https://go.microsoft.com/fwlink/p/?linkid=2067339), select **Release preferences**.
+3. To opt in to Frontier preview, toggle **Turn on Frontier** to **On**.
+4. Choose how Frontier access is assigned in your organization:
 
-    - **No access** (default) - Users don't have access to Frontier features and agents.
     - **All users** - All users automatically receive Frontier features and agents.
     - **Specific users and groups** - Only specified users and groups automatically receive Frontier features and agents.
+
+    ![Screenshot of the Release preferences panel showing the Frontier release preference toggle and user selections in Microsoft 365 admin center.](../../media/frontier-release-preference.png)
+5. Select **Save**.
+
+### Existing experience
+
+1. In the Microsoft 365 admin center, go to **Copilot** &gt; **Settings**.
+2. Select the **View all** tab.
+3. In the **Search all Copilot settings** search bar, type "Frontier".
+4. Select **Copilot Frontier**.
+5. To opt in to Frontier preview, toggle **Turn on Frontier** to **On**.
+6. Choose how Frontier access is assigned in your organization:
+    - **All users** - All users automatically receive Frontier features and agents.
+    - **Specific users and groups** - Only specified users and groups automatically receive Frontier features and agents.
+7. Select **Save**.
 
 After you turn on Frontier experiences for your organization, eligible users can access supported preview features as they're released. It might take three hours for Frontier features and agents to be available to users.
 

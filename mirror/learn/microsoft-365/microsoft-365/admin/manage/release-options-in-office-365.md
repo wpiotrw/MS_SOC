@@ -19,7 +19,7 @@ ms.author: mabond
 author: mkbond007
 manager: dansimp
 ms.reviewer: sangar
-ms.date: 2026-11-03T00:00:00.0000000Z
+ms.date: 2026-11-16T00:00:00.0000000Z
 audience: Admin
 ms.topic: install-set-up-deploy
 ms.service: m365-core
@@ -64,8 +64,10 @@ item_type: Content
 source_path: microsoft-365/admin/manage/release-options-in-office-365.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
 platformId: bb197019-a91a-c1af-c30f-8cf241d7083c
 ---
 
@@ -73,9 +75,9 @@ platformId: bb197019-a91a-c1af-c30f-8cf241d7083c
 
 Important
 
-**In November 2026**, admins will no longer have the ability to enroll additional users or tenants in Targeted release. **In January 2027**, Targeted release will be retired and no longer available to use. For more information, see [Targeted release retirement](targeted-release-retirement).
+In November 2026, commercial clouds will no longer have the ability to enroll additional users or tenants in Targeted release. However, commercial clouds can view existing Targeted release users via the unified release experience and configure Frontier, Standard release, and Deferred release all in one place. For more information, see [Configure Standard and Deferred release](configure-release-options). In January 2027, Targeted release will be retired and no longer available to use. For more information, see [Targeted release retirement](targeted-release-retirement).
 
-We recommend configuring release preferences for Standard release and Deferred audiences to align with the new release model as Microsoft begins delivering an increasing number of major features through it before Targeted release is retired. For more information, see [Configure Standard and Deferred release options for Microsoft 365](configure-release-options).
+We recommend configuring release preferences for Standard release and Deferred audiences to align with the new release model as Microsoft begins delivering an increasing number of major features through it before Targeted release is retired.
 
 With Microsoft 365, you receive new product updates and features as they become available instead of doing costly updates every few years. You can manage how your organization receives these updates. For example, you can sign up for an early release so that your organization receives updates first. You can designate that only certain individuals receive the updates. Or, you can remain on the default release schedule and receive the updates later. This article explains Targeted release and Standard release options and how you can use them for your organization.
 
@@ -149,24 +151,27 @@ To configure Targeted release options, you need one of the following roles in th
 
 For more information, see [About administrator roles in the Microsoft 365 admin center](../add-users/about-admin-roles).
 
-## Set up the release option in the admin center
-
-You can change how your organization receives Microsoft 365 updates by following these steps. You have to be a global admin in Microsoft 365 to opt in.
-
 Important
 
 Microsoft recommends that you use roles with the fewest permissions. Using roles with the fewest permissions helps improve security for your organization. Global Administrator is a highly privileged role that should be limited to emergency scenarios when you can't use an existing role. For more information, see [About administrator roles in the Microsoft 365 admin center](/en-us/microsoft-365/admin/add-users/about-admin-roles).
 
-It can take up to 24 hours for the following changes to take effect in Microsoft 365. If you opt out of Targeted release after enabling it, your users might lose access to features that haven't reached the scheduled release yet.
+## Configure Targeted release release in the Microsoft 365 admin center
 
-1. In the Microsoft 365admin center, go to the **Settings** &gt; **Org Setting**, and under the [**Organization profile** tab](https://go.microsoft.com/fwlink/p/?linkid=2067339), choose **Release preferences**.
-2. To opt out of Targeted release, select **Standard release**, then select **Save changes**.
-3. To enable Targeted release for all users in your organization, select **Targeted release for everyone**, then select **Save changes**.
-4. To enable Targeted release for some people in your organization, select **Targeted release for selected users**, then select **Save**.
-5. Choose **Select users** to add users one at a time, or **Upload users** to add them in bulk.
-6. When you're done adding users, select **Save**.
+Government cloud customers can manage Targeted release preferences for Microsoft 365 updates by following these steps:
+
+1. In the Microsoft 365 admin center, go to **Settings** &gt; **Org settings**.
+2. Under the [**Organization profile** tab](https://go.microsoft.com/fwlink/p/?linkid=2067339), choose **Release preferences**.
+3. To opt out of Targeted release, select **Standard release**, then select **Save changes**.
+4. To enable Targeted release for all users in your organization, select **Targeted release for everyone**, then select **Save changes**.
+5. To enable Targeted release for some people in your organization, select **Targeted release for selected users**, then select **Save**.
+6. Choose **Select users** to add users one at a time, or **Upload users** to add them in bulk.
+7. When you're done adding users, select **Save**.
 
 [![Screenshot: Showing the set up release option in the Microsoft 365 admin.](../../media/release_option_admincenter.png)](../../media/release_option_admincenter.png#lightbox)
+
+It can take up to 24 hours for the following changes to take effect in Microsoft 365. If you opt out of Targeted release after enabling it, your users might lose access to features that haven't reached the scheduled release yet.
+
+Commercial clouds can view existing Targeted release users via the unified release experience and configure Frontier, Standard release, and Deferred release all in one place. For more information, see [Configure Standard and Deferred release](configure-release-options).
 
 ## Prepare for Targeted release retirement
 

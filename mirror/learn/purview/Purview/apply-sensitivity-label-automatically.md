@@ -13,7 +13,7 @@ manager: laurawi
 audience: Admin
 ms.service: purview
 ms.subservice: purview-information-protection
-ms.date: 2026-11-06T00:00:00.0000000Z
+ms.date: 2026-11-13T00:00:00.0000000Z
 ms.collection:
 - purview-compliance
 ms.topic: article
@@ -801,6 +801,10 @@ If your rule uses **Document property is** with a mapped SharePoint managed prop
 Use the main **Auto-labeling** page to review labeling activity across your policies. Depending on your portal experience, you might see **Files Labeled Today** or the newer **Files labeled in the last 30 days** chart. The chart shows daily counts and an average calculated over all 30 days.
 
 These views count label-applied and label-changed activity for SharePoint and OneDrive files associated with your auto-labeling policies. They don't include Exchange email. Use them to spot activity trends, not to measure remaining daily capacity or the number of unique files currently labeled or protected.
+
+A file can contribute more than one recorded labeling operation in the selected time window. Activity doesn't count every access, scan, evaluation, or retry, and deleting a file doesn't remove its historical activity. These counts aren't directly interchangeable with the periodically refreshed **Total labeled to date** progress report on the **Insights** tab.
+
+For metric definitions and reporting guidance, see [Compare progress and labeling activity](auto-label-insights-tab#compare-progress-and-labeling-activity). If counts differ or a report is unavailable or partial, see [Troubleshoot auto-labeling count mismatches](/en-us/troubleshoot/microsoft-365/purview/sensitivity-labels/troubleshoot-auto-labeling-policies#numbers-dont-agree-or-exchange-activity-is-missing). Missing or partial reporting doesn't mean that zero files were labeled.
 
 ### Policy rule fails to load
 
