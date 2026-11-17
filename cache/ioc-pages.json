@@ -121,6 +121,10 @@
 ],
 "read": "2026-11-17"
 },
+"https://www.bleepingcomputer.com/news/security/inside-modern-phishing-kits-built-to-steal-microsoft-365-sessions/": {
+"iocs": [],
+"read": "2026-11-17"
+},
 "https://www.huntress.com/blog/conditional-access-misconfigurations": {
 "iocs": [],
 "read": "2026-10-31"
