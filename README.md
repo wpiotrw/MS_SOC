@@ -1119,37 +1119,44 @@ Ten rozdział jest odpowiednikiem zakładki **About** na stronie (od 10 X 2026, 
 
 ### 13.3 Jak działa (dzień)
 
-| Godzina (Warszawa) | Co | Kto |
+Stan na 17 XI 2026 (§5gy). Od 26 X 2026 dawne scheduled tasks „Morning” i „Afternoon delta” są wyłączone; całą pracę robią dwie routines.
+
+| Godzina (Warszawa) / częstotliwość | Co | Kto |
 |---|---|---|
-| 06:00 | czyta wszystkie źródła (CLAUDE.md §7), buduje brief, publikuje na claude.ai | scheduled task „Morning” |
-| 07:15 | czyta źródła, buduje brief i kopiuje go na stronę (GitHub → Azure Static Web Apps), gotowe ok. 08:30 | routine „raport poranny v2” (łączona) |
-| 21:00 | ponownie czyta źródła | scheduled task „Afternoon delta” |
-| 22:15 | ponownie czyta źródła i liczy stronę „co się zmieniło” (`/diff/`) | routine „zmiany v2” (łączona) |
-| co 3 h | odczyt tenanta (tylko odczyt, bez sekretu — poświadczenie federacyjne GitHub OIDC): aplikacje Microsoftu i zgody, Message Center, uprawnienia Graph, definicje ról Entra | workflow `fpa-tenant.yml` |
-| 2× dziennie (05:40 i 20:40 UTC) i po każdym briefie | kampanie i archiwum KQL | workflow `campaigns.yml` |
-| 4× dziennie | nasza kopia stron Learn | workflow `learn-mirror.yml` |
+| 07:15 | czyta źródła, buduje brief i publikuje go na stronie (GitHub → Azure Static Web Apps), gotowe ok. 08:30 | routine „poranny” (`routines/poranny.prompt.md`, części A i B) |
+| 22:15 | ponownie czyta źródła i liczy stronę „co się zmieniło” (`/diff/`) | routine „wieczorny” (`routines/wieczorny.prompt.md`) |
+| co 3 h | odczyt tenanta (tylko odczyt, bez sekretu — poświadczenie federacyjne GitHub OIDC): aplikacje Microsoftu i zgody, Message Center, uprawnienia Graph, definicje ról Entra; w tym samym przebiegu źródła Threat Research (`tools/threats.py`) | workflow `fpa-tenant.yml` |
+| co ok. 5 min | numery incydentów i komunikatów z Service health (`tools/ms_health.py`, gałąź `status-data`); odznaki stanu Microsoft 365 i Azure pod logo czytane przy otwarciu strony i przyciskiem Refresh (`api/ms-status`) | workflow `ms-health.yml` |
+| 2× dziennie (05:40 i 20:40 UTC) i po każdym briefie | kampanie, sprawdzenie dat MC, powiązane wpisy MC (`mc_related.py`), repozytoria KQL społeczności i archiwum KQL z `site/kql/search.json` | workflow `campaigns.yml` |
 | 2× dziennie (06:25 i 18:25 UTC) | infrastruktura incydentów: domeny i IP sprawdzane w VirusTotal, GreyNoise, URLhaus, ThreatFox (§5fb) | workflow `ioc-watch.yml` |
+| 2× dziennie (04:50 i 16:50 UTC, plus 07:40) | Graph API Radar: nowe typy, właściwości i endpointy w metadanych Microsoft Graph | workflow `graph-radar.yml` |
+| 2× dziennie (05:25 i 15:25 UTC) | M365 endpoints: adresy URL i zakresy IP Microsoft 365 z web service Microsoftu | workflow `m365-endpoints.yml` |
+| 2× dziennie (05:15 i 15:15 UTC) | security baselines (ScubaGear, Maester, Tenable, Zero Trust Assessment, Intune, CIPP, DISA STIG) | workflow `baselines.yml` |
+| 4× dziennie | nasza kopia stron Learn | workflow `learn-mirror.yml` |
 | po każdej zmianie `CLAUDE.md` | kod strony | workflow `code-refresh.yml` |
 
 ### 13.4 Zakładki — co robią i skąd świeżość
 
 | Zakładka | Co pokazuje | Odświeżanie (chip pod nagłówkiem zakładki) |
 |---|---|---|
-| Overview | dzień w zdaniach, terminy, nowe pozycje, wersje komponentów, powierzchnia tożsamości (uprawnienia Graph, role, aplikacje first-party), kampanie | poranny brief |
+| Overview | dzień w zdaniach (każda technologia raz; Threat Research tylko incydenty, które nas dotyczą), terminy, nowe pozycje, wersje komponentów, powierzchnia tożsamości (uprawnienia Graph, role, aplikacje first-party), kampanie; pod logo stan Microsoft 365 i Azure (incydenty i komunikaty z numerami, okno ze stronami Microsoftu, §5gr) | poranny brief; stan Microsoft — na żywo |
 | Today | najważniejsze pozycje dnia i pozycje według produktów, które ruszyły się od poprzedniego briefu | poranny brief |
 | Deadlines | każda pozycja z datą: w ciągu 7 i 30 dni, minione w ostatnich 7 dniach, z datami Microsoftu | poranny brief |
-| Message Center | każdy wpis Message Center (bez filtrowania), nowe i zmienione, z tenanta przez Graph i z publicznych kopii | GitHub Actions co 3 h + poranny brief |
+| Message Center | każdy wpis Message Center (bez filtrowania), nowe, zmienione i usunięte, z tenanta przez Graph i z publicznych kopii; daty sprawdzane z innymi źródłami (§5gf); przy każdym wpisie, także usuniętym, powiązane wpisy: ta sama kampania, cytuje / jest cytowany, ta sama historia, podobna treść — przełącznik „Show related”, widok grupy, Ctrl K „Show related MC” (§5gs) | GitHub Actions co 3 h + poranny brief; powiązania — `campaigns.yml` 2× dziennie |
 | New | pozycje, które weszły do briefu od poprzedniego | poranny brief |
 | Graph API | każde uprawnienie Microsoft Graph: co wywołuje, kto je ma, co Microsoft zmienił | GitHub Actions co 3 h (uprawnienia z tenanta) + poranny brief |
 | Roles | role wbudowane Entra: akcje, flaga „privileged”, zmiany Microsoftu | GitHub Actions co 3 h (definicje ról z tenanta) + poranny brief |
 | First-party apps | aplikacje Microsoftu w Entra i uprawnienia, które dostają bez zgody | GitHub Actions co 3 h (migawka tenanta) + poranny brief (listy publiczne) |
 | Component versions | 13 komponentów (Entra Connect, Cloud Sync, klient GSA, MDE, MDI, Authenticator, platformy Apple …) z historią wersji | poranny brief |
-| Campaigns | wycofania, wymuszenia, koniec wsparcia i zmiany domyślne — daty, wpisy MC, co zrobić | GitHub Actions 2× dziennie i po każdym briefie |
+| Campaigns | wycofania, wymuszenia, koniec wsparcia i zmiany domyślne — daty, wszystkie wpisy MC kampanii (zbierane naszym kodem, §5gs), co zrobić | GitHub Actions 2× dziennie i po każdym briefie |
 | Microsoft Learn | co się zmieniło na obserwowanych stronach Learn i listach „what's new” | poranny brief; kopia stron Learn — GitHub Actions 4× dziennie |
 | Microsoft Blogs | blogi i kanały Microsoftu (Security, Tech Community, Azure updates, Graph changelog, MSRC) | poranny brief |
 | Community Articles | źródła społeczności z `community_sources.json` | poranny brief |
 | Sources | każde źródło briefu, kiedy przeczytane i czy link działa | poranny brief |
-| Hunting & actions | zapytania KQL i działania dla pozycji dnia; każde zapytanie archiwizowane w repozytorium | poranny brief; archiwum — GitHub Actions 2× dziennie |
+| Hunting & actions | zapytania KQL i działania dla pozycji dnia (co rano co najmniej 3 nowe, §5gx); KQL library — każde zapytanie z briefów, incydentów i społeczności (artykuły, repozytoria) jako plik `site/kql/…`, szukanie po tytule, tabeli, CVE, autorze i w TREŚCI zapytania (`site/kql/search.json`), link do wyszukiwarki kodu GitHub | poranny brief; archiwum — GitHub Actions 2× dziennie |
+| Threat Research | incydenty, ataki i podatności wokół śledzonych technologii (Entra, M365, Azure, AI, Windows) z Microsoftu, firm bezpieczeństwa, alertów rządowych i społeczności: karta incydentu z osią czasu, naszą analizą, naprawą, „Microsoft's response” i KQL (opublikowane i nasze); Infrastructure watch — domeny i IP incydentów (VirusTotal, URLhaus, ThreatFox, GreyNoise, crt.sh) z wyszukiwarką; do zdania Overview tylko incydenty, które nas dotyczą (§5gv, §5gw) — rozdział 16 | GitHub Actions co 3 h; infrastruktura 2× dziennie |
+| Graph API Radar | co Microsoft dodał do Microsoft Graph, zanim to opisał: typy, właściwości, endpointy z metadanych, per technologia, ze statusem dokumentacji, uprawnieniami i komendami Graph Explorer / PowerShell (§5fs, §5ft) | GitHub Actions 2× dziennie |
+| M365 endpoints | adresy URL i zakresy IP Microsoft 365 z web service Microsoftu: co dodała lub usunęła każda wersja, wpływ i co zrobić (§5fu) | GitHub Actions 2× dziennie |
 | Products | te same pozycje pogrupowane według produktów | poranny brief |
 | Baselines | co testują Maester i Tenable w Microsoft 365, Entra, M365 Apps i AI (CIS, CISA SCuBA, baseline'y Microsoftu): każdy test z krokami sprawdzenia i naprawy, wersje, trendy, Maester vs Tenable — rozdział 14 | GitHub Actions raz dziennie (05:15 UTC) |
 | About | ten rozdział na stronie: czym jest narzędzie, autor, wersja, tabela świeżości, jak działa, zakładki, bezpieczeństwo, linki | budowana przy otwarciu strony |
@@ -1561,6 +1568,7 @@ Nadanie uprawnienia (PowerShell, konto z Cloud Application Administrator + Privi
 | 2026-11-13 | §5gr — Status Microsoft 365 i Azure pod logo: funkcja `api/ms-status` czyta publiczne kanały statusu Microsoft (bez kluczy), znaczniki zielony/pomarańczowy/czerwony/szary z godziną sprawdzenia i przyciskiem „Refresh”, okno ze szczegółami incydentów i odnośnikami do stron Microsoft; odświeżanie co 5 minut przy otwartej karcie. §5gr-b: na telefonie zakładka Today nie przewija się już w bok (długie nazwy poleceń się łamią). |
 | 2026-11-13 | §5gr-c — Znaczniki statusu nie nachodzą już na menu po przewinięciu: stoją tuż pod smokiem, w zwiniętym nagłówku zmieniają się w jeden krótki wiersz; logo bez pustego pola nad sobą; na telefonie i węższych ekranach znaczniki są pod tytułem strony. |
 | 2026-11-13 | §5gr-d — Okno statusu Microsoft: na górze wyróżniona ramka „Key facts” (wpływ na użytkowników, zakres, termin kolejnej aktualizacji w czasie warszawskim z odliczaniem, aktualny stan), niżej osobne sekcje „Affected services” (z licznikiem i skrótami do każdej usługi) i „Other details”. Funkcja nie obcina już długich wierszy. |
+| 2026-11-17 | §5gy — Zakładka About i rozdział 13 README zaktualizowane: Threat Research, Graph API Radar, M365 endpoints, stan Microsoft pod logo, powiązane MC, biblioteka KQL; godziny dwóch routines zamiast wyłączonych scheduled tasks; nowe wiersze tabeli świeżości (Infrastructure watch, Security baselines, stan Microsoft). |
 | 2026-11-17 | §5gx — KQL library szuka także w treści zapytań (`site/kql/search.json`, frazy w cudzysłowie, podświetlona linia, link do wyszukiwarki GitHub); ostrzeżenie, gdy brief od dawna nie dodał nowych zapytań; poranny przebieg ma pisać co rano co najmniej 3 nowe KQL. |
 | 2026-11-17 | §5gw — Zdanie „Threat Research” obejmuje też AI (Cursor, Claude Code, LiteLLM, agenci), krytyczne podatności (PHP2Shell, Zimbra), malware na Windows i każdy incydent z naszym KQL; przy wierszu widać powód. |
 | 2026-11-17 | §5gv — Zdanie „Threat Research” w Overview pokazuje tylko incydenty dotyczące śledzonych technologii i funkcji (Entra, M365, Teams, Exchange, OAuth, MFA, Azure i inne; pole `tracked` w `threats.json`). Pozostałe zostają w zakładce Threat Research. |
