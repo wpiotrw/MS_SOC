@@ -1,0 +1,56 @@
+// title: Detection 3: GitDoor Backdoor - Shellcode Injection or Memory Allocation by Unknown Process (Operation ShadowCloud)
+// date: 2026-11-17
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceNetworkEvents
+// purpose: From the article: Detection Engineering Brief - Tuesday, November 17, 2026
+// source: https://devsecopsdadattack.com/2026-11-17-detection-engineering-brief-tuesday-november-17-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let InjectionEvents = DeviceEvents
+| where Timestamp > ago(24h)
+| where ActionType in ("CreateRemoteThreadApiCall", "WriteProcessMemoryApiCall", "ShellcodeInjection", "ProcessInjection")
+| where InitiatingProcessFileName !in~ (
+    "MsMpEng.exe", "SenseIR.exe", "SenseCncProxy.exe", "MsSense.exe",
+    "csrss.exe", "lsass.exe", "services.exe", "svchost.exe",
+    "WerFault.exe", "WerFaultSecure.exe"
+  )
+| project
+    InjectionTime = Timestamp,
+    DeviceName,
+    InitiatingProcessFileName,
+    InitiatingProcessFolderPath,
+    InitiatingProcessSHA256,
+    ActionType,
+    ProcessCommandLine;
+let GitHubConnections = DeviceNetworkEvents
+| where Timestamp > ago(24h)
+| where RemoteUrl has_any ("github.com", "api.github.com", "raw.githubusercontent.com", "codeload.github.com")
+| where InitiatingProcessFileName !in~ (
+    "chrome.exe", "msedge.exe", "firefox.exe", "opera.exe", "brave.exe",
+    "git.exe", "gh.exe", "Code.exe", "devenv.exe", "rider64.exe",
+    "GitHubDesktop.exe", "SourceTree.exe"
+  )
+| project
+    NetTime = Timestamp,
+    DeviceName,
+    InitiatingProcessFileName,
+    InitiatingProcessFolderPath,
+    InitiatingProcessSHA256,
+    RemoteUrl,
+    RemoteIP;
+InjectionEvents
+| join kind=inner GitHubConnections on DeviceName, InitiatingProcessFileName
+| where NetTime between ((InjectionTime - 30m) .. (InjectionTime + 30m))
+| project
+    InjectionTime,
+    NetTime,
+    DeviceName,
+    InitiatingProcessFileName,
+    InitiatingProcessFolderPath,
+    InitiatingProcessSHA256,
+    ActionType,
+    RemoteUrl,
+    RemoteIP,
+    ProcessCommandLine
+| order by InjectionTime desc

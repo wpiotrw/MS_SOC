@@ -1,0 +1,43 @@
+// title: Detection 4: KUKURAT/PerfectPioneer RAT - Sustained UDP/443 QUIC Outbound from Non-Browser Process
+// date: 2026-11-17
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: Detection Engineering Brief - Tuesday, November 17, 2026
+// source: https://devsecopsdadattack.com/2026-11-17-detection-engineering-brief-tuesday-november-17-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where Timestamp > ago(24h)
+| where RemotePort == 443
+| where Protocol == "Udp"
+| where InitiatingProcessFileName !in~ (
+    "chrome.exe", "msedge.exe", "firefox.exe", "opera.exe", "brave.exe",
+    "iexplore.exe", "safari.exe",
+    "MicrosoftEdgeUpdate.exe", "GoogleUpdate.exe",
+    "Teams.exe", "Slack.exe", "Discord.exe", "zoom.exe",
+    "ms-teams.exe"
+  )
+| summarize
+    ConnectionCount = count(),
+    DistinctRemoteIPs = dcount(RemoteIP),
+    sample_RemoteIPs = make_set(RemoteIP, 10),
+    FirstSeen = min(Timestamp),
+    LastSeen = max(Timestamp),
+    InitiatingProcessFolderPath = take_any(InitiatingProcessFolderPath),
+    InitiatingProcessSHA256 = take_any(InitiatingProcessSHA256)
+    by DeviceName, InitiatingProcessFileName
+| where ConnectionCount >= 5
+| extend DurationMinutes = datetime_diff('minute', LastSeen, FirstSeen)
+| project
+    DeviceName,
+    InitiatingProcessFileName,
+    InitiatingProcessFolderPath,
+    InitiatingProcessSHA256,
+    ConnectionCount,
+    DistinctRemoteIPs,
+    sample_RemoteIPs,
+    DurationMinutes,
+    FirstSeen,
+    LastSeen
+| order by ConnectionCount desc

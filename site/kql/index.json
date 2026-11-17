@@ -31,6 +31,78 @@
   "incident": "auto-high-volume-phishing-campaign-uses-micro-2026-11-17"
  },
  {
+  "file": "articles/2026-11-17-detection-5-graphdoor-backdoor-cloud-api-access-from.kql",
+  "title": "Detection 5: GraphDoor Backdoor - Cloud API Access from Non-Standard Process (Operation ShadowCloud)",
+  "date": "2026-11-17",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, November 17, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-17-detection-engineering-brief-tuesday-november-17-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-17-detection-engineering-brief-tuesday-november-17-2026/"
+ },
+ {
+  "file": "articles/2026-11-17-detection-4-kukurat-perfectpioneer-rat-sustained-udp-443.kql",
+  "title": "Detection 4: KUKURAT/PerfectPioneer RAT - Sustained UDP/443 QUIC Outbound from Non-Browser Process",
+  "date": "2026-11-17",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, November 17, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-17-detection-engineering-brief-tuesday-november-17-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-17-detection-engineering-brief-tuesday-november-17-2026/"
+ },
+ {
+  "file": "articles/2026-11-17-detection-3-gitdoor-backdoor-shellcode-injection-or-memory.kql",
+  "title": "Detection 3: GitDoor Backdoor - Shellcode Injection or Memory Allocation by Unknown Process (Operation ShadowCloud)",
+  "date": "2026-11-17",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, November 17, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-17-detection-engineering-brief-tuesday-november-17-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-17-detection-engineering-brief-tuesday-november-17-2026/"
+ },
+ {
+  "file": "articles/2026-11-17-detection-2-cve-2026-90436-exploitation-attempt-inbound.kql",
+  "title": "Detection 2: CVE-2026-90436 Exploitation Attempt - Inbound Network Connection to Confluence or N-central Followed by Outbound Callback",
+  "date": "2026-11-17",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, November 17, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-17-detection-engineering-brief-tuesday-november-17-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-17-detection-engineering-brief-tuesday-november-17-2026/"
+ },
+ {
+  "file": "articles/2026-11-17-detection-1-cve-2026-90436-rce-suspicious-child.kql",
+  "title": "Detection 1: CVE-2026-90436 RCE - Suspicious Child Process Spawned by Java Web Service Account",
+  "date": "2026-11-17",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, November 17, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-17-detection-engineering-brief-tuesday-november-17-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-17-detection-engineering-brief-tuesday-november-17-2026/"
+ },
+ {
   "file": "articles/2026-11-17-advanced-hunting-queries.kql",
   "title": "Advanced hunting queries",
   "date": "2026-11-17",
