@@ -3,9 +3,11 @@
   "tocs": [
     "https://learn.microsoft.com/en-us/entra/agent-id/toc.json",
     "https://learn.microsoft.com/en-us/entra/architecture/toc.json",
+    "https://learn.microsoft.com/en-us/entra/external-id/toc.json",
     "https://learn.microsoft.com/en-us/entra/fundamentals/toc.json",
     "https://learn.microsoft.com/en-us/entra/global-secure-access/toc.json",
     "https://learn.microsoft.com/en-us/entra/id-governance/toc.json",
+    "https://learn.microsoft.com/en-us/entra/id-protection/toc.json",
     "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/toc.json",
     "https://learn.microsoft.com/en-us/entra/identity/authentication/toc.json",
     "https://learn.microsoft.com/en-us/entra/identity/conditional-access/toc.json",
@@ -16,7 +18,9 @@
     "https://learn.microsoft.com/en-us/entra/identity/monitoring-health/toc.json",
     "https://learn.microsoft.com/en-us/entra/identity/multi-tenant-organizations/toc.json",
     "https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/toc.json",
-    "https://learn.microsoft.com/en-us/entra/identity/users/toc.json"
+    "https://learn.microsoft.com/en-us/entra/identity/users/toc.json",
+    "https://learn.microsoft.com/en-us/entra/verified-id/toc.json",
+    "https://learn.microsoft.com/en-us/entra/workload-id/toc.json"
   ],
   "extraUrls": [],
   "include": "^https://learn\\.microsoft\\.com/en-us/entra/",

@@ -26556,6 +26556,16 @@ jest dzieckiem wiersza listy New i Deadlines (`.s5ci-tr`, siatka szesciu kolumn)
 dwie w wierszu, ramka na kilka ekranow. Po §5gs wiecej postow dzieli kampanie, wiec wiecej wierszy niesie ramke (16 XI: New 6,
 Deadlines 2, Overview 1). Regula `.s5ci-tr>.s5gf-dc,.s5gp-it>.s5gf-dc{grid-column:1 / -1}` - ramka na cala szerokosc wiersza.
 
+**§5gt (17 XI 2026, 10:19)** — Piotr: "czy portal wykryl learn.microsoft.com/entra/verified-id/using-facecheck? jesli nie, dlaczego?
+czy podal informacje o Face Check w ktorejs zakladce?". Ustalenia: (1) zmiany stron Entra czytamy z `entra-docs` w CALOSCI
+(`docs/`), nie tylko z obszarow z listy Toc - zmiane Verified ID portal widzi (21-22 X: `docs/verified-id/whats-new.md`);
+(2) strona Face Check ma `updated_at` 2026-06-04 (`ms.date` 2026-05-07), wiec w oknie 14 dni nie bylo czego wykryc; zadne MC,
+pozycja Roadmapy (529857 "ID Account Recovery" z XI 2025), blog ani artykul spolecznosci w oknie nie nazywa Face Check - stad
+brak zdania o nim. (3) Luka zakresu: wlasna kopia dokumentacji (`mirror/learn/entra`, zrodlo po wycofaniu publicznych repo
+Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela): `verified-id`, `id-protection`, `workload-id`,
+`external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
+zmiany (`--diff-filter=MD`, §5cf).
+
 **§5gr-e (13 XI 2026)** — Piotr: numery incydentow (MO1550821, EX1550543) i MC w oknie statusu, w osobnej sekcji; bez
 sekretu, przez federated credential. Publiczny kanal i `status.cloud.microsoft/api/posts/*` NIE podaja numerow (sprawdzone
 13 XI); ma je Service health dzierzawy. `.github/workflows/ms-health.yml` (co ~10 min, `*/10`) loguje sie jak graph-radar
