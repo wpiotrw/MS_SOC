@@ -1,7 +1,7 @@
 {
  "read": "2026-11-18",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 739,
+ "count": 737,
  "note": null,
  "messages": [
   {
@@ -518,31 +518,6 @@
     "General Availability (Worldwide): Rollout begins late November 2026 (previously end of July), completes late November 2026 (previously end of August)."
    ],
    "bodyHash": "dc4a5da9d2e13223"
-  },
-  {
-   "id": "MC1185931",
-   "title": "Secure Boot playbook for certificates expiring in 2026",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2025-11-18",
-   "end": "2026-11-18",
-   "modified": "2025-11-18",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Secure Boot helps ensure that only trusted software runs during the boot sequence. It uses cryptographic keys, known as certificate authorities (CAs), to validate that firmware modules come from a trusted source. After 15 years, the Secure Boot certificates that are part of many Windows systems will start expiring in June 2026. These certificates were originally issued in 2011. Many Windows PCs ma…",
-   "when": null,
-   "prepare": "Read the Secure Boot playbook for certificates expiring in 2026 for steps you can take today to help ensure your devices stay protected after June 2026. Specifically, you can now: Inventory and prepare your environments for this change. Monitor and check your devices for Secure Boot status. Apply OEM firmware updates before Microsoft updates. Plan and pilot your Secure Boot certificate deployments. Use available tools to troubleshoot and remediat…",
-   "dates": [
-    "After 15 years, the Secure Boot certificates that are part of many Windows systems will start expiring in June 2026.",
-    "What you need to do to prepare: Read the Secure Boot playbook for certificates expiring in 2026 for steps you can take today to help ensure your devices stay protected after June 2026."
-   ],
-   "bodyHash": "8488abf9842e208a"
   },
   {
    "id": "MC1187343",
@@ -7380,22 +7355,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-08-06",
-   "end": "2027-02-01",
-   "modified": "2026-10-30",
+   "end": "2027-05-03",
+   "modified": "2026-11-18",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 30, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Purview is expanding Data Loss Prevention (DLP) and Information Protection auto-labeling support for non-Microsoft applications. Administrators will be able to create and manage DLP and auto-labeling policies directly in Microsoft Purview for supported non-Microsoft applications. These cap…",
+   "summary": "Updated November 18, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Purview is expanding Data Loss Prevention (DLP) and Information Protection auto-labeling support for non-Microsoft applications. Administrators will be able to create and manage DLP and auto-labeling policies directly in Microsoft Purview for supported non-Microsoft applications. These ca…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 30, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Beginning in late December 2026 (previously late October) and expected to complete in late December 2026 (previously late October)."
+    "Updated November 18, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in mid-March 2027 (previously late December 2026) and expected to complete by late March 2027 (previously late December 2026)."
    ],
-   "bodyHash": "21160dbab18496f1"
+   "bodyHash": "eefcba11cc046cfb"
   },
   {
    "id": "MC1450128",
@@ -16243,8 +16218,8 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-27",
-   "end": "2027-02-15",
-   "modified": "2026-10-29",
+   "end": "2027-05-31",
+   "modified": "2026-11-18",
    "tags": [
     "Admin impact",
     "Feature update",
@@ -16252,14 +16227,14 @@
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 29, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are adding support for external presenters in event group chat, the private chat used by organizers, co-organizers, and presenters for coordination during an event or structured meeting. This change enables presenters who are outside the tenant hosting the meeting or event to participate in the e…",
+   "summary": "Updated November 18, 2026: We have updated the timeline. Thank you for your patience. [What and why] We are adding support for external presenters in event group chat, the private chat used by organizers, co-organizers, and presenters for coordination during an event or structured meeting. This change enables presenters who are outside the tenant hosting the meeting or event to participate in the …",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 29, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Rollout will begin in early December 2026 (previously early November) and is expected to complete by early January 2027 (previously early December 2026)."
+    "Updated November 18, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Rollout will begin in late March 2027 (previously early December 2026) and is expected to complete by mid-April 2027 (previously early January)."
    ],
-   "bodyHash": "3ca9f4c1f1d8d8cc"
+   "bodyHash": "84cd7d93b67356ee"
   },
   {
    "id": "MC1528013",
@@ -17570,28 +17545,6 @@
     "General Availability (Worldwide): Rollout will begin in early December 2026 and is expected to complete by late January 2027."
    ],
    "bodyHash": "2c5cee142c91616c"
-  },
-  {
-   "id": "MC1538752",
-   "title": "Updates available for Microsoft 365 Apps for Current Channel",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-11-04",
-   "end": "2026-11-18",
-   "modified": "2026-11-04",
-   "tags": [
-    "Feature update"
-   ],
-   "summary": "We've released updates to the following update channel for Microsoft 365 Apps: Current Channel [When this will happen:] We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting November 4th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are configured to automatically update from the Office Content Delivery…",
-   "when": "We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting November 4th, 2026 (PST).",
-   "prepare": "To get more details about this update view the following release notes: Current Channel.",
-   "dates": [],
-   "bodyHash": "8ad0e1d2948f5a13"
   },
   {
    "id": "MC1538962",
@@ -18946,7 +18899,7 @@
    "actionBy": "2027-01-02",
    "start": "2026-11-16",
    "end": "2027-03-29",
-   "modified": "2026-11-16",
+   "modified": "2026-11-18",
    "tags": [
     "Admin impact",
     "Retirement",
@@ -25759,6 +25712,52 @@
    "date": "2026-11-18",
    "id": "MC1558155",
    "type": "new",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1449180",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview: Data Loss Prevention and auto-labeling support for non-Microsoft applications",
+   "fields": {
+    "end": [
+     "2027-02-01",
+     "2027-05-03"
+    ],
+    "bodyHash": [
+     "21160dbab18496f1",
+     "eefcba11cc046cfb"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1528011",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: External presenter support for event group chat",
+   "fields": {
+    "end": [
+     "2027-02-15",
+     "2027-05-31"
+    ],
+    "bodyHash": [
+     "3ca9f4c1f1d8d8cc",
+     "84cd7d93b67356ee"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1185931",
+   "type": "removed",
+   "title": "Secure Boot playbook for certificates expiring in 2026",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1538752",
+   "type": "removed",
    "title": "Updates available for Microsoft 365 Apps for Current Channel",
    "fields": {}
   }
