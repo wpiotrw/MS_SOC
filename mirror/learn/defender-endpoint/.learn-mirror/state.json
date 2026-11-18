@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/defender-endpoint/access-mssp-portal",
+  "cursor": "https://learn.microsoft.com/en-us/defender-endpoint/ios-privacy",
   "pages": {
     "https://learn.microsoft.com/en-us/defender-endpoint/": {"etag":"\"5wNxp/4lNZgkB1Flf+LC/hiHi8g=\"","gitCommitId":"82a08a281c8b2766b441af5445bd4dc312df61d0","path":"defender-endpoint/index.md","sourcePath":"defender-endpoint/index.yml","updatedAt":"2026-05-22T07:35:00.0000000Z"},
     "https://learn.microsoft.com/en-us/defender-endpoint/access-mssp-portal": {"etag":"\"zP4KfUzZKlNirZt5N0T1+7MCnnM=\"","gitCommitId":"5572afb9fb0f8c1d7baeb9c7f5d6ce42ca31a4c4","path":"defender-endpoint/access-mssp-portal.md","sourcePath":"defender-endpoint/access-mssp-portal.md","updatedAt":"2026-10-13T17:39:00.0000000Z"},

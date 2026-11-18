@@ -164,6 +164,6 @@ Use these boundaries when designing the page and relying application:
 
 ## Implement BYO UX
 
-- [Configure Bring Your Own UX authentication](how-to-configure-bring-your-own-ux).
-- [Implement the BYO UX handoff and finish protocol](reference-bring-your-own-ux).
-- [Handle native authentication flow responses](../../identity-platform/concept-native-authentication-flow).
+- [Configure Bring Your Own UX authentication](how-to-configure-bring-your-own-ux)
+- [Implement the BYO UX handoff and finish protocol](reference-bring-your-own-ux)
+- [Handle native authentication flow responses](../../identity-platform/concept-native-authentication-flow)

@@ -4,6 +4,6 @@
   "pages": {
     "https://learn.microsoft.com/en-us/unified-secops/microsoft-sentinel-onboard": {"etag":"\"EnAEgQj7Hjh1GpQHQD/mSdkedYc=\"","gitCommitId":"030b9c1d697b4bbb618a1f74d38370ead5215f8e","path":"sentinel/microsoft-sentinel-onboard.md","redirectedTo":"https://learn.microsoft.com/en-us/azure/sentinel/microsoft-sentinel-onboard","sourcePath":"sentinel/microsoft-sentinel-onboard.md","updatedAt":"2026-09-23T09:34:00.0000000Z"},
     "https://learn.microsoft.com/en-us/unified-secops/overview-unified-security": {"etag":"\"N9pIoL0uZrxWViWiH7XofOx6BhE=\"","gitCommitId":"7009c63fb16ad4a37cdff5c7abd14b58b9278f74","path":"defender-xdr/isoc-overview.md","redirectedTo":"https://learn.microsoft.com/en-us/defender-xdr/isoc-overview","sourcePath":"defender-xdr/isoc-overview.md","updatedAt":"2026-11-17T08:37:00.0000000Z"},
-    "https://learn.microsoft.com/en-us/unified-secops/whats-new": {"etag":"\"CISVwavPN1ljQVqTvU3yq/4vLQI=\"","gitCommitId":"b1f4a4e351fca2197d0c829d577c0fd212112ce4","path":"defender-xdr/whats-new.md","redirectedTo":"https://learn.microsoft.com/en-us/defender-xdr/whats-new","sourcePath":"defender-xdr/whats-new.md","updatedAt":"2026-11-17T18:34:00.0000000Z"}
+    "https://learn.microsoft.com/en-us/unified-secops/whats-new": {"etag":"\"QKXDjprjmw/1UNqlgHFS78/1YCw=\"","gitCommitId":"57d416013bc0c7c9e9a2308ec7274ecf47778eff","path":"defender-xdr/whats-new.md","redirectedTo":"https://learn.microsoft.com/en-us/defender-xdr/whats-new","sourcePath":"defender-xdr/whats-new.md","updatedAt":"2026-11-18T18:36:00.0000000Z"}
   }
 }

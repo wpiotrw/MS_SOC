@@ -12,7 +12,7 @@ ms.service: identity-platform
 description: Register an application, enable native authentication, associate a user flow, and prepare permissions and policies for direct API calls.
 ms.topic: how-to
 ms.custom: msecd-doc-authoring-1030
-ms.date: 2026-11-13T00:00:00.0000000Z
+ms.date: 2026-11-17T00:00:00.0000000Z
 ai-usage: ai-generated
 locale: en-us
 document_id: b16047ff-e7a4-e7cd-3d0c-bbdc88472a81
@@ -53,7 +53,7 @@ The Native Authentication API V2 is in preview. The [Native Authentication API V
 - An [external tenant](../external-id/customers/how-to-create-external-tenant-portal).
 - An account authorized to create or manage the application registration.
 - Access to create or select the user flow and associate the application with it. Coordinate policy changes and consent with the appropriate tenant administrator.
-- A [tenant-verified custom URL domain](../external-id/customers/how-to-custom-url-domain) configured for the authentication service.
+- For browser-based apps, such as SPAs, a [tenant-verified custom URL domain](../external-id/customers/how-to-custom-url-domain) configured for the authentication service.
 
 An application owner can manage the registration's authentication settings. For delegated access, use [application-scoped permissions](../identity/role-based-access-control/delegate-app-roles) rather than assigning a tenant-wide administrator role solely for this task.
 
@@ -66,13 +66,15 @@ Create the registration in the external tenant that owns the customer accounts.
 3. Enter an application **Name** and select the single-tenant supported account type for your external tenant.
 4. Select **Register**.
 5. On **Overview**, record the **Application (client) ID** and **Directory (tenant) ID**.
-6. Record the tenant subdomain if your selected SDK requires it. Configure service API URLs with your tenant-verified custom domain as described in Configure the API authority.
+6. Record the tenant subdomain if your selected SDK requires it. Configure service API URLs as described in Configure the API authority.
 
 For registration details, see [Register an application](quickstart-register-app). The client ID identifies this public client; it isn't a secret. Don't create or embed a client secret for these direct API requests.
 
 ## Configure the API authority
 
-Use your tenant-verified custom domain for all service API calls in the current native authentication integration. The authority has the form `https://{custom_domain}/{tenant}`, where `custom_domain` is the verified authentication domain, such as `login.contoso.com`, and `tenant` is the Directory (tenant) ID, a GUID.
+The Native Authentication API V2 requires a tenant-verified custom domain for browser-based apps, such as SPAs, to help protect against cross-site request forgery (CSRF). Non-browser clients, such as Android and iOS apps using native HTTP transports, don't require a custom domain. An embedded browser or webview isn't a native HTTP transport.
+
+For a custom-domain integration, the authority has the form `https://{custom_domain}/{tenant}`, where `custom_domain` is the verified authentication domain, such as `login.contoso.com`, and `tenant` is the Directory (tenant) ID, a GUID. Configure it as follows:
 
 1. [Verify and configure the custom URL domain](../external-id/customers/how-to-custom-url-domain) in the external tenant.
 2. Configure the application or SDK to use that domain for authorization challenges, native interaction operations, authorization continuation, and token exchange.
@@ -80,7 +82,7 @@ Use your tenant-verified custom domain for all service API calls in the current 
 
 For SPAs with Embedded native authentication and BYO UX websites, configure a cross-origin resource sharing (CORS) proxy or edge policy for cross-origin browser API calls. A proxy address is a transport setting, not a replacement service authority. Its upstream calls still use the tenant-verified custom domain and tenant GUID. See the [provider-neutral proxy requirements](concept-native-authentication-cors#proxy-contract).
 
-Android and iOS apps using native HTTP transports call the service authority directly. They don't need CORS configuration or a CORS proxy.
+Android and iOS apps using native HTTP transports call their configured service authority directly. A custom domain is optional for these clients, and they don't need CORS configuration or a CORS proxy. Use your selected SDK's documented authority configuration. Validate returned links against that authority and preserve their paths, versions, and query parameters.
 
 ## Enable public client and native authentication flows
 

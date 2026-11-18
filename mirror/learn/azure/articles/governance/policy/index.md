@@ -93,6 +93,7 @@ Azure Policy helps you manage and prevent IT issues with policy definitions that
 
 ### How-To Guide
 
+- [Create and test policy definitions with Azure Copilot (preview)](how-to/author-policy-with-copilot)
 - [Create policy with SDK](how-to/programmatically-create)
 - [Author policies for arrays](how-to/author-policies-for-arrays)
 - [Export resources](how-to/export-resources)

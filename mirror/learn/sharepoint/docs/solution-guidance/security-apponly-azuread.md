@@ -13,7 +13,7 @@ feedback_product_url: https://aka.ms/spdev-uservoice
 search.appverid: MET150
 ms.service: sharepoint-online
 description: Granting access via Entra ID App-Only
-ms.date: 2025-11-28T00:00:00.0000000Z
+ms.date: 2026-11-18T00:00:00.0000000Z
 ms.localizationpriority: medium
 locale: en-us
 document_id: e082eb56-fafb-9ef7-fadb-e0b90f5369a9
@@ -119,6 +119,10 @@ The certificate is also exported as PFX file and cer file on the file system, fe
 ## Using this principal with PnP PowerShell
 
 If you want to use this Entra ID App Only principal with [PnP PowerShell](https://github.com/pnp/PowerShell), after you have installed the PnP PowerShell module, you can connect to your SharePoint Online environment using the [non interactive authentication](https://pnp.github.io/powershell/articles/authentication.html#non-interactive-authentication) supported by PnP PowerShell.
+
+Important
+
+The planned cutoff date for Sites.ReadWrite.All is **January 31, 2027**. After that date, app-only workflows that add or update packages or Tenant-Wide Extensions in the tenant App Catalog will require the **SharePointTenantSettings.ReadWrite.All** application permission on the **Office 365 SharePoint Online** resource. **Sites.ReadWrite.All** alone will no longer be sufficient for these operations. For details, see [Configure app-only permissions for tenant App Catalog operations](../spfx/tenant-app-catalog-app-only-permissions).
 
 ```powershell
 Connect-PnPOnline [yourtenant].sharepoint.com -ClientId <client id of your Entra ID Application Registration> -Tenant <tenant>.onmicrosoft.com -CertificatePath <path to your .pfx certificate> 

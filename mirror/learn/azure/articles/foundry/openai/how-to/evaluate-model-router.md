@@ -45,8 +45,10 @@ item_type: Content
 source_path: articles/foundry/openai/how-to/evaluate-model-router.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: 8f01073a-20aa-3abb-4059-627d39a2bfb0
 ---
 
@@ -59,6 +61,10 @@ Before you move production traffic, prove that model router in Microsoft Foundry
 - Model router can be the evaluation target only. It can't be the judge, the synthetic data generator, or the simulator.
 - For automated, repeatable comparisons, use cloud evaluation in the SDK or the open-source Model Router Auto Evaluation toolkit.
 - After you adopt model router, the **Monitor** tab compares the cost of your production traffic with single-model baselines.
+
+Important
+
+Features or capabilities marked (preview) in this article are in Public Preview and are subject to the [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/). Previews are provided without a service-level agreement, and Microsoft doesn't recommend them for production workloads. Certain features might not be supported or might have constrained capabilities.
 
 ## Prerequisites
 
