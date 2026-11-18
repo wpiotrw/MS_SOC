@@ -14,12 +14,12 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: yangnicole-ml
+author: timiadebisi-ml
 learn_banner_products:
 - azure-virtual-machines
 manager: rayoflores
 ms.reviewer: padmalathas, mattmcinnes
-ms.author: yangnicole
+ms.author: timiadebisi
 ms.update-cycle: 365-days
 description: How to set up NVIDIA GPU drivers for N-series VMs running Linux in Azure
 services: virtual-machines
@@ -104,7 +104,6 @@ NVIDIA v17.x (R550) and v18.x (R570) GRID drivers are no longer supported for NV
 | NCv6 RTX PRO 6000 BSE | NVIDIA RTX PRO 6000 Blackwell Server Edition GPU (96GB) | [vGPU20.2](https://download.microsoft.com/download/a7cb6d36-3bbc-43d6-9e88-e0842e6f9ab9/NVIDIA-Linux-x86_64-595.91.07-grid-azure.run) | • Ubuntu 24.04 LTS  • Ubuntu 22.04 LTS  • Ubuntu 20.04 LTS  • Red Hat Enterprise Linux (RHEL) 9.4, 9.6, 9.7  • Red Hat Enterprise Linux (RHEL) 8.10  • SUSE Linux Enterprise Server 15 SP7 |
 | NCasT4\_v3 | NVIDIA Tesla T4 GPU (16GB) | • [vGPU20.2](https://download.microsoft.com/download/a7cb6d36-3bbc-43d6-9e88-e0842e6f9ab9/NVIDIA-Linux-x86_64-595.91.07-grid-azure.run) • [vGPU19.6 (LTS)](https://download.microsoft.com/download/4efc1974-7b6f-431f-ab2d-b8d99bb8a512/NVIDIA-Linux-x86_64-580.178.04-grid-azure.run) | • Ubuntu 24.04 LTS  • Ubuntu 22.04 LTS  • Ubuntu 20.04 LTS  • Red Hat Enterprise Linux (RHEL) 9.4, 9.6, 9.7  • Red Hat Enterprise Linux (RHEL) 8.10 |
 | NVadsA10\_v5 | NVIDIA A10 GPU (24GB) | • [vGPU20.2](https://download.microsoft.com/download/a7cb6d36-3bbc-43d6-9e88-e0842e6f9ab9/NVIDIA-Linux-x86_64-595.91.07-grid-azure.run) • [vGPU19.6 (LTS)](https://download.microsoft.com/download/4efc1974-7b6f-431f-ab2d-b8d99bb8a512/NVIDIA-Linux-x86_64-580.178.04-grid-azure.run) | • Ubuntu 24.04 LTS  • Ubuntu 22.04 LTS  • Ubuntu 20.04 LTS  • Red Hat Enterprise Linux (RHEL) 9.4, 9.6, 9.7  • Red Hat Enterprise Linux (RHEL) 8.10 |
-| NVv3 ([retiring September 30th, 2026](/en-us/azure/virtual-machines/sizes/lifecycle/retirement/nvv3-series-retirement)) | NVIDIA Tesla M60 GPU (16GB) | [vGPU16 (LTS)](https://download.microsoft.com/download/8/d/a/8da4fb8e-3a9b-4e6a-bc9a-72ff64d7a13c/NVIDIA-Linux-x86_64-535.161.08-grid-azure.run) | • Ubuntu 20.04 LTS  • Red Hat Enterprise Linux (RHEL) 8.6, 8.8, 8.9 |
 
 For more information on the specific vGPU and driver branch versions, visit the [NVIDIA](https://docs.nvidia.com/grid/) website.
 
@@ -128,51 +127,14 @@ For more information on the specific vGPU and driver branch versions, visit the 
     ```
 3. Download the Linux driver.
 
-    a. For NCv6 RTX PRO 6000 BSE, NCasT4\_v3:
-
     ```
-    wget -O ./NVIDIA-Linux-x86_64-595.58.03-grid-azure.run https://download.microsoft.com/download/51239696-ec04-4c02-a6b3-1d9c608fb57c/NVIDIA-Linux-x86_64-595.58.03-grid-azure.run
-    ```
-
-    b. For NVadsA10\_v5:
-
-    ```
-    wget -O ./NVIDIA-Linux-x86_64-570.211.01-grid-azure.run https://download.microsoft.com/download/2a04ca6a-9eec-40d9-9564-9cdea1ab795f/NVIDIA-Linux-x86_64-570.211.01-grid-azure.run
-    ```
-
-    c. For NVv3:
-
-    ```
-    wget -O ./NVIDIA-Linux-x86_64-535.161.08-grid-azure.run https://download.microsoft.com/download/8/d/a/8da4fb8e-3a9b-4e6a-bc9a-72ff64d7a13c/NVIDIA-Linux-x86_64-535.161.08-grid-azure.run
+    wget -O ./NVIDIA-Linux-x86_64-595.91.07-grid-azure.run https://download.microsoft.com/download/a7cb6d36-3bbc-43d6-9e88-e0842e6f9ab9/NVIDIA-Linux-x86_64-595.91.07-grid-azure.runre.run
     ```
 4. Install the driver.
 
-    a. For NCv6 RTX PRO 6000 BSE:
-
     ```
-    sudo chmod +x ./NVIDIA-Linux-x86_64-595.58.03-grid-azure.run
-    sudo ./NVIDIA-Linux-x86_64-595.58.03-grid-azure.run -M open
-    ```
-
-    b. For NCasT4\_v3:
-
-    ```
-    sudo chmod +x ./NVIDIA-Linux-x86_64-595.58.03-grid-azure.run
-    sudo ./NVIDIA-Linux-x86_64-595.58.03-grid-azure.run
-    ```
-
-    c. For NVadsA10\_v5:
-
-    ```
-    sudo chmod +x ./NVIDIA-Linux-x86_64-570.211.01-grid-azure.run
-    sudo ./NVIDIA-Linux-x86_64-570.211.01-grid-azure.run
-    ```
-
-    d. For NVv3:
-
-    ```
-    sudo chmod +x ./NVIDIA-Linux-x86_64-535.161.08-grid-azure.run
-    sudo ./NVIDIA-Linux-x86_64-535.161.08-grid-azure.run
+    sudo chmod +x ./NVIDIA-Linux-x86_64-595.91.07-grid-azure.run
+    sudo ./NVIDIA-Linux-x86_64-595.91.07-grid-azure.run 
     ```
 
 ### Verify GRID driver installation

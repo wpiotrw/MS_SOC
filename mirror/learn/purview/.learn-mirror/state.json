@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/purview/record-versioning",
+  "cursor": "https://learn.microsoft.com/en-us/purview/unified-catalog-data-quality-actions",
   "pages": {
     "https://learn.microsoft.com/en-us/purview/": {"etag":"\"TyHz9g4kg+e+CbInsVJEmrl7ONU=\"","gitCommitId":"b2daca1adc7f25d864a644952b8d40ba4a264e9f","path":"Purview/index.md","sourcePath":"Purview/index.yml","updatedAt":"2026-06-11T17:42:00.0000000Z"},
     "https://learn.microsoft.com/en-us/purview/abap-functions-deployment-guide": {"etag":"\"/sHVEfm2Voai/Wuln70xVyvMWso=\"","gitCommitId":"0191fd3d9aae30a1aaa66ae284e07ed6e6048426","path":"Purview/abap-functions-deployment-guide.md","sourcePath":"Purview/abap-functions-deployment-guide.md","updatedAt":"2026-11-12T18:34:00.0000000Z"},

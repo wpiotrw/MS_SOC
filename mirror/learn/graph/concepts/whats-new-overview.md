@@ -34,12 +34,12 @@ item_type: Content
 source_path: concepts/whats-new-overview.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/aebdc4a3-c54b-4eea-94e3-663d5e166f57
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1baec8e6-ab38-4b56-bb59-f6282d94f311
 platformId: 6e6097c9-5516-d241-0299-2adc10e56ea2
 ---
 
@@ -160,6 +160,12 @@ Added the [classificationGradingJobResponse](/en-us/graph/api/resources/classifi
 - Removed the `If-Match` header from [create section](/en-us/graph/api/userteamwork-post-sections?view=graph-rest-beta&amp;preserve-view=true), [update section](/en-us/graph/api/teamworksection-update?view=graph-rest-beta&amp;preserve-view=true), [delete section](/en-us/graph/api/teamworksection-delete?view=graph-rest-beta&amp;preserve-view=true), [reorder sections](/en-us/graph/api/teamworksection-reorder?view=graph-rest-beta&amp;preserve-view=true), [create section item](/en-us/graph/api/teamworksection-post-items?view=graph-rest-beta&amp;preserve-view=true), [move section item](/en-us/graph/api/teamworksectionitem-move?view=graph-rest-beta&amp;preserve-view=true), [reorder section items](/en-us/graph/api/teamworksectionitem-reorder?view=graph-rest-beta&amp;preserve-view=true), and [delete section item](/en-us/graph/api/teamworksectionitem-delete?view=graph-rest-beta&amp;preserve-view=true) methods of the [teamworkSection](/en-us/graph/api/resources/teamworksection?view=graph-rest-beta&amp;preserve-view=true) and [teamworkSectionItem](/en-us/graph/api/resources/teamworksectionitem?view=graph-rest-beta&amp;preserve-view=true) resources. These operations now return a `409 Conflict` response code for concurrent changes, and no longer return `412 Precondition Failed` or `428 Precondition Required`.
 - Updated the [add teamworkSectionItem](/en-us/graph/api/teamworksection-post-items?view=graph-rest-beta&amp;preserve-view=true) method to move an item from another user-defined section.
 - Added the [teamworkChannelTag](/en-us/graph/api/resources/teamworkchanneltag?view=graph-rest-beta&amp;preserve-view=true) resource type and associated methods for managing tags owned by a Microsoft Teams channel. Use channel tags to group users within a channel and manage their tag assignments.
+
+### Tenants | Configuration management
+
+- Added the [configurationTemplate](/en-us/graph/api/resources/configurationtemplate?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods to manage reusable, versioned baselines and reference them from monitors.
+- Added the `applyOnce` mode to [configurationMonitor](/en-us/graph/api/resources/configurationmonitor?view=graph-rest-beta&amp;preserve-view=true). Use it to apply a desired-state baseline once on behalf of the signed-in administrator.
+- Added the [remediate](/en-us/graph/api/configurationdrift-remediate?view=graph-rest-beta&amp;preserve-view=true) action to restore drifted resource properties to their baseline values and inspect the success or failure result.
 
 ## October 2026: New and generally available
 

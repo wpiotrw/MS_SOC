@@ -52,6 +52,10 @@ platformId: 29bc4183-fa01-f93b-5eb2-4ce821167f08
 
 After you deploy the Azure Connected Machine agent, you might need to reconfigure, upgrade, remove, or make other changes to the agent. You can perform these routine maintenance tasks manually. You can also enable [automatic agent upgrades](automatic-agent-upgrade) or explore other options to automate tasks, which reduces operational error and expenses.
 
+Important
+
+The `AllSigned` PowerShell execution policy isn't supported. Before upgrading the agent, review the [PowerShell execution policy requirements](prerequisites#windows-powershell-execution-policy).
+
 The Azure Connected Machine agent is updated regularly to address bug fixes, stability enhancements, and new functionality. [Azure Advisor](/en-us/azure/advisor/advisor-overview) identifies resources that aren't using the latest version of the machine agent and recommends that you upgrade to the latest version. It notifies you when you select the Azure Arc-enabled server by presenting a banner on the **Overview** page, or when you access Advisor through the Azure portal.
 
 You can upgrade the Azure Connected Machine agent for Windows and Linux to the latest release manually or automatically, depending on your requirements. You don't need to restart your server when you install, upgrade, or uninstall the Azure Connected Machine Agent.

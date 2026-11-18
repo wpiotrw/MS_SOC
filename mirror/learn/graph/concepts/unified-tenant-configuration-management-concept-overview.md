@@ -34,9 +34,13 @@ monikers: []
 item_type: Content
 source_path: concepts/unified-tenant-configuration-management-concept-overview.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: e3f75a07-520e-5886-49e1-4d06449dc81c
 ---
 
@@ -44,8 +48,10 @@ platformId: e3f75a07-520e-5886-49e1-4d06449dc81c
 
 In traditional Tenant Configuration Management, any administrator within an organization uses their credentials to access the resources to which they have access. However, administrators don't have full control over the tenant configuration and lack visibility into whether it deviates from the desired configuration state.
 
-The Tenant Configuration Management (TCM) APIs allow administrators to control and manage configuration settings across a single workload or multiple workloads within the organization. The following list shows the supported workloads:
+The Tenant Configuration Management (TCM) APIs allow administrators to control and manage configuration settings across a single workload or multiple workloads within the organization. For monitoring and snapshots, the following workloads are supported:
 
+- [Agent (preview)](utcm-agent-resources)
+- [Microsoft Copilot (preview)](utcm-copilot-resources)
 - [Microsoft Defender](/en-us/graph/utcm-securityandcompliance-resources)
 - [Microsoft Entra](/en-us/graph/utcm-entra-resources)
 - [Microsoft Exchange Online](/en-us/graph/utcm-exchange-resources)
@@ -64,6 +70,20 @@ As the Microsoft 365 ecosystem grows, keeping tenant settings aligned with the d
 ### Easily extract and understand current configuration states
 
 The [snapshot](/en-us/graph/api/resources/configurationsnapshotjob) APIs in TCM simplify the process of retrieving the current configuration across multiple workloads within a tenant. Administrators can use these snapshots to get a clear, declarative view of how settings are currently applied, which makes audits, reviews, and troubleshooting much easier.
+
+### Reuse baselines with configuration templates (preview)
+
+Configuration templates store reusable, versioned baselines that monitors can reference. Templates don't run by themselves; a monitor runs the baseline. You can retain up to three versions per template. Inline monitor baselines remain supported. For more information, see [configurationTemplate](/en-us/graph/api/resources/configurationtemplate?view=graph-rest-beta&amp;preserve-view=true).
+
+### Remediate selected configuration drift (preview)
+
+Drift remediation attempts to restore the drifted properties of one resource instance to the desired values in its baseline. Review the [remediation result](/en-us/graph/api/configurationdrift-remediate?view=graph-rest-beta&amp;preserve-view=true) to determine whether remediation succeeded or failed. Remediation requires delegated access and the signed-in user's workload role.
+
+### Apply a baseline once with applyOnce (preview)
+
+A monitor in `applyOnce` mode applies its baseline in a background job on behalf of the administrator who created or updated it. It can make only the changes that administrator is authorized to make. Unlike scheduled monitoring, this mode applies the baseline once and then makes the monitor inactive. For token storage and Customer Key guidance, see [Set up permissions for remediation and applyOnce (preview)](utcm-authentication-setup#set-up-permissions-for-remediation-and-applyonce-preview).
+
+These preview capabilities are available through the Microsoft Graph beta endpoint. TCM as a service is available only in the global service, not in national clouds. Resource support for remediation and `applyOnce` differs from monitoring and snapshots. See [Supported resources for remediation and applyOnce (preview)](utcm-remediation-applyonce-resources) for the currently supported resources before planning configuration changes.
 
 ## API reference
 

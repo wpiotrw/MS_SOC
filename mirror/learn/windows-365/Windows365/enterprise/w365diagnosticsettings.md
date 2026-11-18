@@ -159,3 +159,16 @@ Follow the instructions below to use the logs:
 | ActivityId | The activity Id for correlating with connection data. | stu-123-vwx-456-yz789 |
 | EstRoundTripTimeInMs | The average of estimated network round trip times (milliseconds) in the last evaluated connection time interval. | 259 |
 | EstAvailableBandwidthKBps | The average of estimated network bandwidth (kilobyte per second) in the last evaluated connection time interval. | 10229 |
+
+### Windows 365 Checkpoint Logs
+
+| Name of data collected | Description | Sample Value |
+| --- | --- | --- |
+| TimeGenerated | The timestamp (UTC) of the event. | 2026-02-26T08:24:03.0000000Z |
+| TenantId | The Microsoft Entra (Azure AD) tenant identifier. | abc123-def456-ghi789 |
+| ActivityId | The activity Id for correlating with connection data. | stu-123-vwx-456-yz789 |
+| Name | The name of the checkpoint. | OnConnected |
+| Source | The component that emitted the checkpoint. | Client |
+| Parameters | The parameters for the checkpoint. | {"DisconnectCode":"10026","DisconnectCodeSymbolic":"ServerReboot","DisconnectMessage":"The user was disconnected because the remote computer is restarting.","DisconnectOperation":"ClientRDPConnect"} |
+| ResultType | The result type of the checkpoint. | In Progress |
+| UserName | The user name for the activity associated with the checkpoint. | cloudpcuser1 |

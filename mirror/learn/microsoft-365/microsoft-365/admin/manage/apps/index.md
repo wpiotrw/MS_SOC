@@ -116,7 +116,7 @@ The tool a maker chooses changes the building experience, not how the app is hos
 | --- | --- | --- |
 | Copilot Cowork | Business users who describe an app in chat | On by default. You can turn it off or limit it to specific users and groups with the Build apps in Copilot setting in the Microsoft 365 admin center. See [Build apps in Copilot Cowork](/en-us/copilot/cowork/cowork-build-apps#enable-or-disable-app-building). |
 | Copilot Code | Business users and developers who build with an AI coding agent | Through spending policies. Only users included in a spending policy for Copilot Code can build apps. See Control who can build apps in Copilot Code. |
-| Microsoft Copilot Studio | Makers who want more control over planning, previewing, and publishing | On by default. You can turn it off or limit it to specific security groups. See Control app creation in Copilot Studio. |
+| Microsoft Copilot Studio | Makers who want more control over planning, previewing, and publishing | On by default. You can turn it off or limit it to specific security groups. See Control app creation in Copilot Studio, and [Data residency when building apps in Copilot Studio](/en-us/microsoft-copilot-studio/geo-data-residency-build-apps) |
 | Copilot Managed Runtime CLI and SDK | Professional developers who work in Visual Studio Code, GitHub Copilot, or other tools of their choice | Off by default. See [Control whether apps can be created using the CLI](governance#control-whether-apps-can-be-created-using-the-cli). |
 | Lovable | Makers who build in Lovable and deploy to your tenant | See [Set up Copilot Managed Runtime for Lovable](configure-lovable). |
 

@@ -129,7 +129,7 @@ These charts provide a clear view of license inventory, assignment, and utilizat
 
 #### Next steps
 
-- Connection health
-- Users and Devices
-- Configuration Monitoring
-- View data
+- [Connection health](/en-us/windows-365/enterprise/monitor-cloud-pcs-connection-health)
+- [User and Devices](/en-us/windows-365/enterprise/monitor-cloud-pcs-users-devices)
+- [Configuration Monitoring](/en-us/windows-365/enterprise/monitor-cloud-pcs-configuration-monitoring)
+- [View data](/en-us/windows-365/enterprise/monitor-cloud-pcs-view-data)

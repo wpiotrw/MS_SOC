@@ -60,7 +60,7 @@ Installing or upgrading the Azure Connected Machine agent doesn't require a serv
 Before enabling automatic agent upgrade, ensure your machines meet the following requirements:
 
 - **All Arc-enabled servers:** Azure Connected Machine agent version 1.67 or later is required.
-- **Windows:** Set the PowerShell execution policy to RemoteSigned. Automatic agent upgrade isn't supported when the execution policy is set to Restricted.
+- **Windows:** Set the PowerShell execution policy to RemoteSigned. Automatic agent upgrade isn't supported when the execution policy is set to Restricted or AllSigned.
 - **Linux:** Ensure the cron service is installed and running. This service is required to schedule and perform automatic agent upgrades.
 
 Important
