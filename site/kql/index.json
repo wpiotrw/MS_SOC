@@ -39,54 +39,6 @@
   "repo": "Sergio Albea Threat Hunting KQL Queries"
  },
  {
-  "file": "2026-11-18-pim-role-setting-changes.kql",
-  "title": "Changes to PIM role settings and role assignment policies, last 30 days",
-  "date": "2026-11-18",
-  "product": "Entra",
-  "tables": [
-   "AuditLogs"
-  ],
-  "purpose": "AuditLogs entries in the RoleManagement category whose operation updates a PIM role setting or policy, with who made the change and the role it touched. Not run against a tenant in this pass.",
-  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs",
-  "kind": "brief"
- },
- {
-  "file": "2026-11-18-onedrive-cloud-microsoft-domain-adoption.kql",
-  "title": "Devices reaching OneDrive on onedrive.cloud.microsoft against the old -my.sharepoint.com host, last 7 days",
-  "date": "2026-11-18",
-  "product": "SharePoint",
-  "tables": [
-   "DeviceNetworkEvents"
-  ],
-  "purpose": "Counts network connections per device to the new OneDrive host and to the legacy -my.sharepoint.com host, so you can see how far the move has progressed in your estate and which detections need the new name. Not run against a tenant in this pass.",
-  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicenetworkevents-table",
-  "kind": "brief"
- },
- {
-  "file": "2026-11-18-new-alert-detection-sources.kql",
-  "title": "Alert detection sources that appeared in the last 7 days and not in the 30 days before",
-  "date": "2026-11-18",
-  "product": "Defender XDR",
-  "tables": [
-   "AlertInfo"
-  ],
-  "purpose": "Lists ServiceSource and DetectionSource pairs in AlertInfo seen in the last 7 days but not in the 30 days before, with titles and counts, so a new protection that starts raising alerts is noticed on day one. Not run against a tenant in this pass.",
-  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertinfo-table",
-  "kind": "brief"
- },
- {
-  "file": "2026-11-18-device-code-sign-ins-by-user-and-app.kql",
-  "title": "Who signs in with the device code flow, by user and application, last 30 days",
-  "date": "2026-11-18",
-  "product": "Entra",
-  "tables": [
-   "SigninLogs"
-  ],
-  "purpose": "Successful and failed sign-ins whose AuthenticationProtocol is deviceCode, grouped by user and application, with the IP addresses and countries seen. Complements the 12 September query (device code followed by a new security-info registration), which hunts the attack; this one scopes the block. Not ",
-  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
-  "kind": "brief"
- },
- {
   "file": "articles/2026-11-17-investigate-user-clicks-on-campaign-urls.kql",
   "title": "Investigate user clicks on campaign URLs",
   "date": "2026-11-17",
@@ -36393,5 +36345,53 @@
   "author": "KQL Query (Bert-Jan Pals)",
   "link": "https://kqlquery.com/posts/clickfix-gift-that-keeps-on-giving/",
   "incident": "auto-clickfix-the-gift-that-keeps-on-giving-2026-06-30"
+ },
+ {
+  "file": "2026-11-18-device-code-sign-ins-by-user-and-app.kql",
+  "title": "Who signs in with the device code flow, by user and application, last 30 days",
+  "date": "2026-11-18",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "Successful and failed sign-ins whose AuthenticationProtocol is deviceCode, grouped by user and application, with the IP addresses and countries seen. Complements the 12 September query (device code followed by a new security-info registration), which hunts the attack; this one scopes the block. Not ",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-18-onedrive-cloud-microsoft-domain-adoption.kql",
+  "title": "Devices reaching OneDrive on onedrive.cloud.microsoft against the old -my.sharepoint.com host, last 7 days",
+  "date": "2026-11-18",
+  "product": "SharePoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "Counts network connections per device to the new OneDrive host and to the legacy -my.sharepoint.com host, so you can see how far the move has progressed in your estate and which detections need the new name. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicenetworkevents-table",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-18-new-alert-detection-sources.kql",
+  "title": "Alert detection sources that appeared in the last 7 days and not in the 30 days before",
+  "date": "2026-11-18",
+  "product": "Defender XDR",
+  "tables": [
+   "AlertInfo"
+  ],
+  "purpose": "Lists ServiceSource and DetectionSource pairs in AlertInfo seen in the last 7 days but not in the 30 days before, with titles and counts, so a new protection that starts raising alerts is noticed on day one. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertinfo-table",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-18-pim-role-setting-changes.kql",
+  "title": "Changes to PIM role settings and role assignment policies, last 30 days",
+  "date": "2026-11-18",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "AuditLogs entries in the RoleManagement category whose operation updates a PIM role setting or policy, with who made the change and the role it touched. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs",
+  "kind": "brief"
  }
 ]

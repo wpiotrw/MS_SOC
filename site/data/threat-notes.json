@@ -2280,6 +2280,141 @@
      "date": "2026-11-11"
     }
    ]
+  },
+  {
+   "id": "m365-outage-lure-phishing-2026-11",
+   "title": "Microsoft 365 outage lures: high-volume phishing claims held mail will be deleted in 24 hours and links to reallifeaccounting[.]com",
+   "match": [
+    "outage lures",
+    "reallifeaccounting"
+   ],
+   "areas": [
+    "Identity attacks",
+    "M365 workloads"
+   ],
+   "status": "active",
+   "updated": "2026-11-18",
+   "by": "morning routine",
+   "summary": "On 13 November 2026 Microsoft Threat Intelligence observed a coordinated, high-volume phishing campaign against organisations in many sectors. The emails pose as Microsoft 365 service-health notices (subject 'Outage - <6 random characters>', display names such as 'MSF Outage Notification' or 'AMZ Service Health') and claim that messages held during an Exchange Online outage will be deleted within 24 hours unless the recipient selects RESTORE MESSAGES. Recipient-specific tracking links lead to reallifeaccounting[.]com. Microsoft assesses it as likely credential phishing but saw no credential capture, malware or post-compromise activity and has not attributed it to a named actor. Defender for Office 365 blocks and quarantines the messages.",
+   "timeline": [
+    {
+     "date": "2026-11-12",
+     "text": "Date of the fictitious Exchange Online incident the lure body refers to.",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/"
+    },
+    {
+     "date": "2026-11-13",
+     "text": "Microsoft Threat Intelligence observes the campaign: sender domains moments-notice[.]com, planetmaison[.]com, newbooker[.]com; clicks lead to reallifeaccounting[.]com.",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/"
+    },
+    {
+     "date": "2026-11-16",
+     "text": "Microsoft Security Blog publishes the analysis, IOCs and three advanced hunting queries.",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/"
+    }
+   ],
+   "rootCause": "Users trust messages that look like Microsoft 365 service-health notices; the lure uses urgency (deletion in 24 hours), randomized subjects and recipient-specific tracking links on shared email-delivery infrastructure to avoid simple pattern matching.",
+   "attacker": [
+    "Sends from a cluster of sender domains (moments-notice[.]com, planetmaison[.]com, newbooker[.]com) with display names built from a three-character organisation-style prefix plus 'Outage Notification' or 'Service Health'.",
+    "Uses subjects 'Outage - <random token>' and hides a fake email conversation in the body, which Microsoft reads as an attempt at mail-filter evasion.",
+    "Routes the RESTORE MESSAGES or TAKE ACTION click through recipient-specific tracking URLs to reallifeaccounting[.]com (path /themelist0.html in some samples)."
+   ],
+   "iocs": [
+    "moments-notice[.]com (sender domain)",
+    "em4493[.]moments-notice[.]com (mail-from subdomain)",
+    "planetmaison[.]com (sender domain)",
+    "newbooker[.]com (sender domain)",
+    "em[.]newbooker[.]com (mail-from subdomain)",
+    "url[.]newbooker[.]com (click tracking)",
+    "reallifeaccounting[.]com (destination; /themelist0.html)"
+   ],
+   "remediation": [
+    {
+     "text": "Search mail telemetry for the sender domains, the 'Outage -' subject pattern, the display names and the destination domain; quarantine matches and remove delivered copies.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+     "phase": "contain"
+    },
+    {
+     "text": "Block or closely monitor reallifeaccounting[.]com and /themelist0.html; do not block the shared email-delivery infrastructure on this campaign alone.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+     "phase": "contain"
+    },
+    {
+     "text": "Identify users who selected the links from click telemetry, proxy logs and endpoint evidence, and whether the destination was reached.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+     "phase": "investigate"
+    },
+    {
+     "text": "For any user who may have entered credentials: reset the password, revoke sessions and refresh tokens, verify MFA registrations, and review sign-ins, OAuth consent, inbox and forwarding rules, delegates and unusual Exchange Online, SharePoint, OneDrive or Teams access.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+     "phase": "eradicate"
+    },
+    {
+     "text": "Require phishing-resistant MFA (passkeys or security keys), enable Safe Links, Safe Attachments and Zero-hour auto purge, and train users that service-health notices never send them to a non-Microsoft domain to recover mail.",
+     "from": "source",
+     "src": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+     "phase": "harden"
+    },
+    {
+     "text": "Add a mail-flow or custom detection rule that flags inbound messages whose display name contains 'Outage Notification' or 'Service Health' from a sender domain that is not microsoft.com or your own.",
+     "from": "ours",
+     "phase": "detect"
+    }
+   ],
+   "kql": [
+    {
+     "title": "Inbox and forwarding rules created after a click on the campaign links (Defender XDR advanced hunting)",
+     "query": "// Inbox and forwarding rules created after a click on the campaign links (post-click check Microsoft lists)\nlet clicked = UrlClickEvents\n| where Url has_any (\"reallifeaccounting.com\", \"url.newbooker.com/ls/click\")\n| where IsClickedThrough == true\n| summarize FirstClick = min(Timestamp) by AccountUpn = tolower(AccountUpn);\nCloudAppEvents\n| where ActionType in (\"New-InboxRule\", \"Set-InboxRule\", \"UpdateInboxRules\", \"Set-Mailbox\")\n| extend AccountUpn = tolower(tostring(RawEventData.UserId))\n| join kind=inner clicked on AccountUpn\n| where Timestamp > FirstClick\n| project Timestamp, AccountUpn, ActionType, FirstClick, RawEventData"
+    }
+   ],
+   "kqlPublished": [
+    {
+     "title": "Find messages by sender domain or subject pattern",
+     "query": "let campaignDomains = dynamic([ \"moments-notice.com\", \"em4493.moments-notice.com\", \"newbooker.com\", \"em.newbooker.com\" ]);\nEmailEvents\n| where SenderFromDomain in~ (campaignDomains) or Subject matches regex @\"(?i)^(?:\\[external\\]\\s*|\\*external\\*\\s*)?outage\\s*-\\s*[a-z0-9]{6}$\"\n| project Timestamp, NetworkMessageId, RecipientEmailAddress, SenderFromAddress, SenderFromDomain, SenderDisplayName, Subject, DeliveryAction, DeliveryLocation\n| order by Timestamp desc",
+     "by": "Microsoft Threat Intelligence",
+     "src": "Microsoft Security Blog",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+     "date": "2026-11-16",
+     "vendor": true
+    },
+    {
+     "title": "Find messages containing campaign URLs",
+     "query": "let campaignUrlParts = dynamic([ \"reallifeaccounting.com\", \"u113727626.ct.sendgrid.net/ls/click\", \"url.newbooker.com/ls/click\", \"162.120.17.69:8080/t/v3.\" ]);\nEmailUrlInfo\n| where Url has_any (campaignUrlParts)\n| project NetworkMessageId, Url, UrlDomain, UrlLocation\n| join kind=inner ( EmailEvents | project Timestamp, NetworkMessageId, RecipientEmailAddress, SenderFromAddress, SenderFromDomain, SenderDisplayName, Subject, DeliveryAction, DeliveryLocation ) on NetworkMessageId\n| project Timestamp, RecipientEmailAddress, SenderFromAddress, SenderFromDomain, SenderDisplayName, Subject, Url, UrlDomain, UrlLocation, DeliveryAction, DeliveryLocation, NetworkMessageId\n| order by Timestamp desc",
+     "by": "Microsoft Threat Intelligence",
+     "src": "Microsoft Security Blog",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+     "date": "2026-11-16",
+     "vendor": true
+    },
+    {
+     "title": "Investigate user clicks on campaign URLs",
+     "query": "let campaignUrlParts = dynamic([ \"reallifeaccounting.com\", \"u113727626.ct.sendgrid.net/ls/click\", \"url.newbooker.com/ls/click\", \"162.120.17.69:8080/t/v3.\" ]);\nUrlClickEvents\n| where Url has_any (campaignUrlParts)\n| project Timestamp, AccountUpn, Url, ActionType, Workload, NetworkMessageId, IPAddress, IsClickedThrough, UrlChain\n| order by Timestamp desc",
+     "by": "Microsoft Threat Intelligence",
+     "src": "Microsoft Security Blog",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+     "date": "2026-11-16",
+     "vendor": true
+    }
+   ],
+   "microsoft": [
+    {
+     "what": "Microsoft Threat Intelligence analysis with IOCs, MITRE mapping and advanced hunting queries",
+     "title": "High volume phishing campaign uses Microsoft 365 outage lures to target multiple industry sectors",
+     "link": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+     "date": "2026-11-16"
+    }
+   ],
+   "links": [
+    {
+     "text": "Microsoft Security Blog: High volume phishing campaign uses Microsoft 365 outage lures",
+     "url": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+     "date": "2026-11-16"
+    }
+   ]
   }
  ]
 }

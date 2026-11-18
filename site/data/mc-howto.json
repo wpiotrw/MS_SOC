@@ -699,6 +699,41 @@
      "says": "From early December 2026 to early March 2027 a site logo change no longer updates the SiteLogoUrl property on items in that site; solutions that need the logo should read it from the site."
     }
    ]
+  },
+  {
+   "key": "onedrive-sync-node-modules-exclusion",
+   "ids": [
+    "MC1558030"
+   ],
+   "title": "OneDrive sync excludes new node_modules folders by default from 14 December 2026",
+   "scriptable": false,
+   "checked": "2026-11-18",
+   "why": "The exclusion is a OneDrive sync app behaviour that admins turn off through a sync app policy (Group Policy or Intune device configuration), not through Microsoft Graph, Exchange Online or Teams PowerShell, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1558030",
+     "u": "https://mc.merill.net/message/MC1558030",
+     "says": "From 14 December 2026 the OneDrive sync app for Windows and Mac excludes newly created node_modules folders from sync by default; administrators can disable the exclusion via policy."
+    }
+   ]
+  },
+  {
+   "key": "dataverse-only-storage-validation",
+   "ids": [
+    "MC1483529",
+    "MC1483519"
+   ],
+   "title": "Dynamics 365 and Power Platform: storage validation for Dataverse-only tenants",
+   "scriptable": false,
+   "checked": "2026-11-18",
+   "why": "Storage capacity for Dataverse-only tenants is managed in the Power Platform admin center, outside Microsoft Graph, Exchange Online and Teams PowerShell, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1483529",
+     "u": "https://mc.merill.net/message/MC1483529",
+     "says": "Information post about storage validation for Dataverse-only tenants in Dynamics 365 and Power Platform."
+    }
+   ]
   }
  ]
 }

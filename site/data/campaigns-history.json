@@ -4907,30 +4907,6 @@
 "date":"2026-11-11",
 "group":"community",
 "found":"2026-11-11"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-security-community/microsoft-purview-data-loss-prevention-dlp-vs-insider-risk/ba-p/4573235":{
-"title":"Microsoft Purview: Data Loss Prevention (DLP) vs. Insider Risk Management (IRM)",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-security-community/microsoft-purview-data-loss-prevention-dlp-vs-insider-risk/ba-p/4573235",
-"source":"Microsoft Security Product Blog",
-"date":"2026-11-17",
-"group":"microsoft",
-"found":"2026-11-18"
-},
-"https://mc.merill.net/message/MC1558038":{
-"title":"MC1558038: Microsoft Purview | Data Loss Prevention: Network data security integration with Azure Firewall",
-"link":"https://mc.merill.net/message/MC1558038",
-"source":"MC - Merill",
-"date":"2026-11-17",
-"group":"community",
-"found":"2026-11-18"
-},
-"https://mc.merill.net/message/MC1558037":{
-"title":"MC1558037: Microsoft Purview | Data Loss Prevention: Protection for local AI agent interactions",
-"link":"https://mc.merill.net/message/MC1558037",
-"source":"MC - Merill",
-"date":"2026-11-17",
-"group":"community",
-"found":"2026-11-18"
 }
 },
 "final":"2027-01-15",
@@ -5208,7 +5184,7 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-17",
+"seen":"2026-11-16",
 "text":"August 1, 2026."
 },
 {
@@ -5288,7 +5264,7 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-18",
+"seen":"2026-11-17",
 "text":"August 1, 2026."
 },
 {
@@ -5878,7 +5854,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-18",
+"seen":"2026-11-17",
 "text":"early February 2026."
 },
 {
@@ -5886,7 +5862,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-18",
+"seen":"2026-11-17",
 "text":"February 2027."
 },
 {
@@ -6088,14 +6064,6 @@
 "date":"2026-09-24",
 "group":"microsoft",
 "found":"2026-10-09"
-},
-"https://dev.to/ashwar_sadh_f7abe6f82c8e9/the-chat-opened-but-the-pdf-wasnt-attached-android-share-grants-die-with-the-receiving-screen-4l54":{
-"title":"The chat opened but the PDF wasn't attached: Android share grants die with the receiving screen",
-"link":"https://dev.to/ashwar_sadh_f7abe6f82c8e9/the-chat-opened-but-the-pdf-wasnt-attached-android-share-grants-die-with-the-receiving-screen-4l54",
-"source":"NeonTiger12",
-"date":"2026-11-18",
-"group":"community",
-"found":"2026-11-18"
 }
 },
 "final":null,
@@ -6549,6 +6517,463 @@
 "tech":"Defender",
 "posts":[]
 },
+"c-item-azure-functions-inprocess-eos":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-18",
+"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"status":"Recently closed",
+"members":[
+"MC1465692",
+"item:azure-functions-inprocess-eos",
+"item:dotnet8-powershell74-end-of-servicing"
+],
+"log":[
+{
+"date":"2026-10-28",
+"id":"MC1525374",
+"what":"Start date",
+"before":"2026-10-26",
+"after":"2026-10-27",
+"title":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
+"link":"https://deltapulse.app/item/MC1525374"
+},
+{
+"date":"2026-10-28",
+"id":"MC1525374",
+"what":"Message Center end date",
+"before":"2027-10-26",
+"after":"2027-10-27",
+"title":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
+"link":"https://deltapulse.app/item/MC1525374"
+},
+{
+"date":"2026-10-27",
+"id":"MC1525374",
+"what":"Microsoft revised the post",
+"before":"2026-10-26",
+"after":"2026-10-27",
+"title":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
+"link":"https://deltapulse.app/item/MC1525374"
+},
+{
+"date":"2026-10-27",
+"id":"MC1525374",
+"what":"Published",
+"before":"2026-10-26",
+"after":"2026-10-27",
+"title":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
+"link":"https://deltapulse.app/item/MC1525374"
+},
+{
+"date":"2026-10-26",
+"id":"MC1525374",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
+"title":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
+"link":"https://deltapulse.app/item/MC1525374"
+},
+{
+"date":"2026-10-20",
+"id":"msrc-cve-2026-70197-not-addressed-2026-10-19",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"CVE-2026-70197 (.NET remote code execution, CVSS 8.1): Microsoft now says the October fix does not address the vulnerability and a complete mitigation is still being prepared",
+"title":"CVE-2026-70197 (.NET remote code execution, CVSS 8.1): Microsoft now says the October fix does not address the vulnerability and a complete mitigation is still being prepared",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70197"
+},
+{
+"date":"2026-10-19",
+"id":"MC1515315",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Dataverse plug-ins and custom workflow activities can target .NET Framework 4.8 from 26 October; 4.8.1 and later stay unsupported",
+"title":"Dataverse plug-ins and custom workflow activities can target .NET Framework 4.8 from 26 October; 4.8.1 and later stay unsupported",
+"link":"https://deltapulse.app/item/MC1515315"
+}
+],
+"milestones":{
+"MC1465692|posted":{
+"date":"2026-09-01",
+"label":"1 Sep 2026",
+"text":"Posted: More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery"
+},
+"MC1465692|rollout begins and is expected to reach all tenants by#0":{
+"date":"2026-09-01",
+"label":"1 Sep 2026",
+"text":"Rollout begins September 1, 2026, and is expected to reach all tenants by October 15, 2026."
+},
+"MC1465692|rollout begins and is expected to reach all tenants by#1":{
+"date":"2026-10-15",
+"label":"15 Oct 2026",
+"text":"Rollout begins September 1, 2026, and is expected to reach all tenants by October 15, 2026."
+},
+"azure-functions-inprocess-eos|deadline":{
+"date":"2026-11-10",
+"label":"10 Nov 2026",
+"text":"Azure Functions in-process model loses support on 10 November 2026"
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2026":{
+"title":"Azure Functions In-process model end of support",
+"link":"https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2026",
+"source":"Main list source",
+"id":"azure-functions-inprocess-eos",
+"date":"2026-09-12",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1465692":{
+"title":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
+"link":"https://mc.merill.net/message/MC1465692",
+"source":"Message Center",
+"id":"MC1465692",
+"date":"2026-09-01",
+"updated":"2026-09-01",
+"group":"microsoft",
+"found":"2026-10-21"
+},
+"https://deltapulse.app/item/MC1515315":{
+"title":"Dataverse – Information about support for .NET Framework 4.8 Plugins and custom workflow activities",
+"link":"https://deltapulse.app/item/MC1515315",
+"source":"Main list source",
+"id":"MC1515315",
+"date":"2026-10-19",
+"group":"microsoft",
+"found":"2026-10-21"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70197":{
+"title":"NET Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70197",
+"source":"Main list source",
+"id":"msrc-cve-2026-70197-not-addressed-2026-10-19",
+"date":"2026-10-19",
+"group":"microsoft",
+"found":"2026-10-21"
+},
+"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
+"title":"Support for Ubuntu 26.04 LTS",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"date":"2026-10-12T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-10-21"
+},
+"https://www.bleepingcomputer.com/news/microsoft/windows-server-2025-gets-support-for-quick-machine-recovery/":{
+"title":"Windows Server 2025 gets support for quick machine recovery",
+"link":"https://www.bleepingcomputer.com/news/microsoft/windows-server-2025-gets-support-for-quick-machine-recovery/",
+"source":"BleepingComputer",
+"date":"2026-10-20",
+"group":"community",
+"found":"2026-10-21"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=574121":{
+"title":"Microsoft Dataverse: Add users without licenses to activity recipient fields",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=574121",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-19",
+"group":"community",
+"found":"2026-10-21"
+},
+"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
+"title":"Fix bug causing installation to fail on machines with .NET &lt; 4.5.1.",
+"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
+"source":"Microsoft Learn · What's new · Azure Arc",
+"date":"2026-03-24",
+"group":"microsoft",
+"found":"2026-10-21"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=577815":{
+"title":"Microsoft Dataverse: Enable AI powered business workflows in Work IQ with Dataverse - Build Dataverse solutions with coding agents using Dataverse skills",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=577815",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-22",
+"group":"community",
+"found":"2026-10-23"
+},
+"https://mc.merill.net/message/RM577815":{
+"title":"RM577815: Microsoft Dataverse: Enable AI powered business workflows in Work IQ with Dataverse - Build Dataverse solutions with coding agents using Dataverse skills",
+"link":"https://mc.merill.net/message/RM577815",
+"source":"MC - Merill",
+"date":"2026-10-22",
+"group":"community",
+"found":"2026-10-23"
+},
+"https://deltapulse.app/item/MC1525374":{
+"title":"An updated version of the October 2026 Scan Cab is available",
+"link":"https://deltapulse.app/item/MC1525374",
+"source":"Main list source",
+"id":"MC1525374",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102870":{
+"title":"CVE-2026-102870 ASP.NET Core Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102870",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-25",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114148":{
+"title":"CVE-2026-114148 ASP.NET Core Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114148",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-25",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96234":{
+"title":"CVE-2026-96234 .NET Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96234",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-26"
+},
+"https://mc.merill.net/message/MC1525374":{
+"title":"MC1525374: An updated version of the October 2026 Scan Cab is available",
+"link":"https://mc.merill.net/message/MC1525374",
+"source":"MC - Merill",
+"date":"2026-10-26",
+"group":"community",
+"found":"2026-10-26"
+},
+"https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-emergency-net-patches-for-critical-brotli-flaw/":{
+"title":"Microsoft releases emergency .NET patches for critical Brotli flaw",
+"link":"https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-emergency-net-patches-for-critical-brotli-flaw/",
+"source":"BleepingComputer",
+"date":"2026-10-26",
+"group":"community",
+"found":"2026-10-26"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70161":{
+"title":"CVE-2026-70161 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70161",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70007":{
+"title":"CVE-2026-70007 .NET Framework Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70007",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96225":{
+"title":"CVE-2026-96225 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96225",
+"source":"MSRC Security Update Guide",
+"date":"2026-10-27",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://mc.merill.net/message/MC1531060":{
+"title":"MC1531060: An updated version of the October 2026 Scan Cab is available",
+"link":"https://mc.merill.net/message/MC1531060",
+"source":"MC - Merill",
+"date":"2026-10-30",
+"group":"community",
+"found":"2026-10-30"
+},
+"https://thehackernews.com/2026/11/netamloader-malware-targets-government.html":{
+"title":"NetamLoader Malware Targets Government Windows 10 Systems in Asia via .NET Injection",
+"link":"https://thehackernews.com/2026/11/netamloader-malware-targets-government.html",
+"source":"Hacker News",
+"date":"2026-11-01",
+"group":"community",
+"found":"2026-11-01"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-cups-remote-code-execution-vulnerability/ba-p/4260542":{
+"title":"Guidance for handling CUPS remote code execution vulnerability using Microsoft Security capabilities",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-cups-remote-code-execution-vulnerability/ba-p/4260542",
+"source":"Defender Vulnerability Management Blog",
+"date":"2024-10-06",
+"group":"microsoft",
+"found":"2026-11-05"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83844":{
+"title":"CVE-2026-83844 Windows Paint Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83844",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-06",
+"group":"microsoft",
+"found":"2026-11-07"
+},
+"https://dev.to/divakarupadhyay/core-objects-and-the-connected-model-adonet-2jff":{
+"title":"Core objects and the connected model — ADO.NET",
+"link":"https://dev.to/divakarupadhyay/core-objects-and-the-connected-model-adonet-2jff",
+"source":"NeonTiger12",
+"date":"2026-11-08",
+"group":"community",
+"found":"2026-11-08"
+},
+"https://dev.to/divakarupadhyay/net-framework-vs-net-core-vs-net-5-the-history-explained-net-internals-776":{
+"title":".NET Framework vs .NET Core vs .NET 5+ — the history explained — .NET Internals",
+"link":"https://dev.to/divakarupadhyay/net-framework-vs-net-core-vs-net-5-the-history-explained-net-internals-776",
+"source":"NeonTiger12",
+"date":"2026-11-08",
+"group":"community",
+"found":"2026-11-08"
+},
+"https://dev.to/divakarupadhyay/program-structure-modules-and-the-main-method-vbnet-49d5":{
+"title":"Program structure, modules and the Main method — VB.NET",
+"link":"https://dev.to/divakarupadhyay/program-structure-modules-and-the-main-method-vbnet-49d5",
+"source":"NeonTiger12",
+"date":"2026-11-08",
+"group":"community",
+"found":"2026-11-08"
+},
+"https://azure.microsoft.com/updates?id=575106":{
+"title":"Retirement: Support for .NET 8 and .NET 9 on Static Web Apps is ending November 10, 2026",
+"link":"https://azure.microsoft.com/updates?id=575106",
+"source":"Azure Updates",
+"date":"2026-11-09",
+"group":"microsoft",
+"found":"2026-11-10"
+},
+"https://dev.to/zero_heartbeat_06a3625d7a/decompiling-pinvoke-and-dllimport-reading-a-net-assemblys-native-interop-1fjl":{
+"title":"Decompiling P/Invoke and DllImport: Reading a .NET Assembly''s Native Interop",
+"link":"https://dev.to/zero_heartbeat_06a3625d7a/decompiling-pinvoke-and-dllimport-reading-a-net-assemblys-native-interop-1fjl",
+"source":"NeonTiger12",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105544":{
+"title":"CVE-2026-105544 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105544",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109475":{
+"title":"CVE-2026-109475 .NET Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109475",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109476":{
+"title":"CVE-2026-109476 ASP.NET Core Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109476",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109478":{
+"title":"CVE-2026-109478 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109478",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109481":{
+"title":"CVE-2026-109481 ASP.NET Core Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109481",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114146":{
+"title":"CVE-2026-114146 ASP.NET Core Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114146",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114147":{
+"title":"CVE-2026-114147 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114147",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114149":{
+"title":"CVE-2026-114149 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114149",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114150":{
+"title":"CVE-2026-114150 ASP.NET Core Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114150",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114154":{
+"title":"CVE-2026-114154 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114154",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114155":{
+"title":"CVE-2026-114155 .NET Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114155",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114156":{
+"title":"CVE-2026-114156 ASP.NET Core Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114156",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114157":{
+"title":"CVE-2026-114157 ASP.NET Core Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114157",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118746":{
+"title":"CVE-2026-118746 .NET Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118746",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://dev.to/jasmin_omanovic/upgrading-from-net-8-to-net-10-a-practical-checklist-5g3g":{
+"title":"Upgrading from .NET 8 to .NET 10: A Practical Checklist",
+"link":"https://dev.to/jasmin_omanovic/upgrading-from-net-8-to-net-10-a-practical-checklist-5g3g",
+"source":"NeonTiger12",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-11"
+}
+},
+"final":"2026-11-10",
+"type":"Support end",
+"tech":"Windows",
+"posts":[
+"MC1465692"
+]
+},
 "c-item-azure-linux-osguard-aks-retirement":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-18",
@@ -6894,15 +7319,6 @@
 "item:MC1536101"
 ],
 "log":[
-{
-"date":"2026-11-18",
-"id":"MC1483844",
-"what":"Microsoft revised the post",
-"before":"2026-10-22",
-"after":"2026-11-17",
-"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-"link":"https://mc.merill.net/message/MC1483844"
-},
 {
 "date":"2026-11-17",
 "id":"MC1483844",
@@ -7400,14 +7816,6 @@
 "date":"2026-11-17",
 "group":"community",
 "found":"2026-11-17"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-6-2-astra-and-gpt-6-2-sol-now-generally-available-in/ba-p/4574122":{
-"title":"GPT-6.2 Astra and GPT-6.2 Sol now generally available in Microsoft Foundry",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-6-2-astra-and-gpt-6-2-sol-now-generally-available-in/ba-p/4574122",
-"source":"Azure AI Foundry Blog",
-"date":"2026-11-17",
-"group":"microsoft",
-"found":"2026-11-18"
 }
 },
 "final":"2026-12-15",
@@ -7719,68 +8127,6 @@
 "type":"Rollout",
 "tech":"Exchange",
 "posts":[]
-},
-"c-item-mc1558030":{
-"firstSeen":"2026-11-18",
-"lastSeen":"2026-11-18",
-"name":"Node_modules folders will be excluded from sync by default",
-"status":"Active",
-"members":[
-"MC1558030",
-"item:MC1558030"
-],
-"log":[
-{
-"date":"2026-11-18",
-"id":"MC1558030",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"OneDrive sync stops syncing new node_modules folders by default from 14 December; admins can turn the exclusion off by policy",
-"title":"OneDrive sync stops syncing new node_modules folders by default from 14 December; admins can turn the exclusion off by policy",
-"link":"https://mc.merill.net/message/MC1558030"
-}
-],
-"milestones":{
-"MC1558030|this change extends onedrive s existing default exclusion li#0":{
-"date":"2026-10-05",
-"label":"5 Oct 2026",
-"text":"This change extends OneDrive's existing default exclusion list, which includes .db-wal files, as mentioned in MC1457838 on October 5, 2026."
-},
-"MC1558030|posted":{
-"date":"2026-11-17",
-"label":"17 Nov 2026",
-"text":"Posted: Microsoft OneDrive for Windows and Mac: node_modules folders will be excluded from sync by default"
-},
-"MC1558030|we are updating the onedrive sync app for windows and mac to#0":{
-"date":"2026-12-14",
-"label":"14 Dec 2026",
-"text":"We are updating the OneDrive sync app for Windows and Mac to exclude new folders named node_modules from syncing by default , beginning December 14, 2026."
-},
-"MC1558030|rollout will begin on and is expected to complete by mid#0":{
-"date":"2027-01-15",
-"label":"mid Jan 2027",
-"text":"Rollout will begin on December 14, 2026, and is expected to complete by mid-January 2027."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1558030":{
-"title":"Microsoft OneDrive for Windows and Mac: node_modules folders will be excluded from sync by default",
-"link":"https://mc.merill.net/message/MC1558030",
-"source":"Message Center",
-"id":"MC1558030",
-"date":"2026-11-17",
-"updated":"2026-11-17",
-"group":"microsoft",
-"found":"2026-11-18"
-}
-},
-"final":"2027-01-15",
-"type":"Rollout",
-"tech":"SharePoint",
-"posts":[
-"MC1558030"
-]
 },
 "c-sms-voice-retirement":{
 "firstSeen":"2026-10-09",
@@ -9808,7 +10154,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-18",
+"seen":"2026-11-17",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9816,7 +10162,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-18",
+"seen":"2026-11-17",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10923,14 +11269,6 @@
 "date":"2026-11-16",
 "group":"community",
 "found":"2026-11-17"
-},
-"https://ourcloudnetwork.com/how-to-require-identity-verification-in-conditional-access/?utm_source=rss&utm_medium=rss&utm_campaign=how-to-require-identity-verification-in-conditional-access":{
-"title":"How to require identity verification in Conditional Access",
-"link":"https://ourcloudnetwork.com/how-to-require-identity-verification-in-conditional-access/?utm_source=rss&utm_medium=rss&utm_campaign=how-to-require-identity-verification-in-conditional-access",
-"source":"Ourcloudnetwork",
-"date":"2026-11-17",
-"group":"community",
-"found":"2026-11-18"
 }
 },
 "final":"2026-11-15",
@@ -20014,96 +20352,6 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"day":"2026-11-18",
-"cid":"c-mc1442510",
-"type":"material",
-"name":"AD FS DKM container ACL hardening begins in October 2026",
-"group":"community",
-"title":"Java4Shell: patching CVE-2026-114938 without breaking servers",
-"source":"NeonTiger12",
-"link":"https://dev.to/altrouter/java4shell-patching-cve-2026-114938-without-breaking-servers-43d2"
-},
-{
-"day":"2026-11-18",
-"cid":"c-mc1442510",
-"type":"material",
-"name":"AD FS DKM container ACL hardening begins in October 2026",
-"group":"community",
-"title":"Java4Shell (CVE-2026-114938) Enables Pre-Auth RCE in Jira, Jenkins, Keycloak on Java 17+ AVX-512 VBMI Servers",
-"source":"Hacker News",
-"link":"https://thehackernews.com/2026/11/java4shell-cve-2026-114938-enables-pre.html"
-},
-{
-"day":"2026-11-18",
-"cid":"c-mc1429010",
-"type":"material",
-"name":"Instances policy location in Microsoft Purview Data Loss Prevention",
-"group":"microsoft",
-"title":"Microsoft Purview: Data Loss Prevention (DLP) vs. Insider Risk Management (IRM)",
-"source":"Microsoft Security Product Blog",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-security-community/microsoft-purview-data-loss-prevention-dlp-vs-insider-risk/ba-p/4573235"
-},
-{
-"day":"2026-11-18",
-"cid":"c-mc1429010",
-"type":"material",
-"name":"Instances policy location in Microsoft Purview Data Loss Prevention",
-"group":"community",
-"title":"MC1558038: Microsoft Purview | Data Loss Prevention: Network data security integration with Azure Firewall",
-"source":"MC - Merill",
-"link":"https://mc.merill.net/message/MC1558038"
-},
-{
-"day":"2026-11-18",
-"cid":"c-mc1429010",
-"type":"material",
-"name":"Instances policy location in Microsoft Purview Data Loss Prevention",
-"group":"community",
-"title":"MC1558037: Microsoft Purview | Data Loss Prevention: Protection for local AI agent interactions",
-"source":"MC - Merill",
-"link":"https://mc.merill.net/message/MC1558037"
-},
-{
-"day":"2026-11-18",
-"cid":"c-mc1409303",
-"type":"material",
-"name":"Microsoft Edge enforces screen capture restrictions for sensitivity-labeled PDFs in OneDrive and SharePoint",
-"group":"community",
-"title":"The chat opened but the PDF wasn't attached: Android share grants die with the receiving screen",
-"source":"NeonTiger12",
-"link":"https://dev.to/ashwar_sadh_f7abe6f82c8e9/the-chat-opened-but-the-pdf-wasnt-attached-android-share-grants-die-with-the-receiving-screen-4l54"
-},
-{
-"day":"2026-11-18",
-"cid":"c-item-mc1506318",
-"type":"material",
-"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-"group":"microsoft",
-"title":"GPT-6.2 Astra and GPT-6.2 Sol now generally available in Microsoft Foundry",
-"source":"Azure AI Foundry Blog",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-6-2-astra-and-gpt-6-2-sol-now-generally-available-in/ba-p/4574122"
-},
-{
-"day":"2026-11-18",
-"cid":"c-item-mc1558030",
-"type":"new",
-"name":"Node_modules folders will be excluded from sync by default",
-"ctype":"Rollout",
-"tech":"SharePoint",
-"next":"14 Dec 2026",
-"text":"We are updating the OneDrive sync app for Windows and Mac to exclude new folders named node_modules from syncing by default , beginning December 14, 2026."
-},
-{
-"day":"2026-11-18",
-"cid":"c-item-mc1519855",
-"type":"material",
-"name":"SSPR requires registered authentication methods",
-"group":"community",
-"title":"How to require identity verification in Conditional Access",
-"source":"Ourcloudnetwork",
-"link":"https://ourcloudnetwork.com/how-to-require-identity-verification-in-conditional-access/?utm_source=rss&utm_medium=rss&utm_campaign=how-to-require-identity-verification-in-conditional-access"
 }
 ],
 "archive":{
@@ -24713,22 +24961,6 @@
 "date":"2026-11-17",
 "group":"community",
 "found":"2026-11-17"
-},
-"https://dev.to/altrouter/java4shell-patching-cve-2026-114938-without-breaking-servers-43d2":{
-"title":"Java4Shell: patching CVE-2026-114938 without breaking servers",
-"link":"https://dev.to/altrouter/java4shell-patching-cve-2026-114938-without-breaking-servers-43d2",
-"source":"NeonTiger12",
-"date":"2026-11-18",
-"group":"community",
-"found":"2026-11-18"
-},
-"https://thehackernews.com/2026/11/java4shell-cve-2026-114938-enables-pre.html":{
-"title":"Java4Shell (CVE-2026-114938) Enables Pre-Auth RCE in Jira, Jenkins, Keycloak on Java 17+ AVX-512 VBMI Servers",
-"link":"https://thehackernews.com/2026/11/java4shell-cve-2026-114938-enables-pre.html",
-"source":"Hacker News",
-"date":"2026-11-18",
-"group":"community",
-"found":"2026-11-18"
 }
 },
 "final":"2026-10-13",
@@ -24798,463 +25030,6 @@
 "MC1462922"
 ],
 "archivedOn":"2026-11-15"
-},
-"c-item-azure-functions-inprocess-eos":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-18",
-"name":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
-"status":"Archive",
-"members":[
-"MC1465692",
-"item:azure-functions-inprocess-eos",
-"item:dotnet8-powershell74-end-of-servicing"
-],
-"log":[
-{
-"date":"2026-10-28",
-"id":"MC1525374",
-"what":"Start date",
-"before":"2026-10-26",
-"after":"2026-10-27",
-"title":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
-"link":"https://deltapulse.app/item/MC1525374"
-},
-{
-"date":"2026-10-28",
-"id":"MC1525374",
-"what":"Message Center end date",
-"before":"2027-10-26",
-"after":"2027-10-27",
-"title":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
-"link":"https://deltapulse.app/item/MC1525374"
-},
-{
-"date":"2026-10-27",
-"id":"MC1525374",
-"what":"Microsoft revised the post",
-"before":"2026-10-26",
-"after":"2026-10-27",
-"title":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
-"link":"https://deltapulse.app/item/MC1525374"
-},
-{
-"date":"2026-10-27",
-"id":"MC1525374",
-"what":"Published",
-"before":"2026-10-26",
-"after":"2026-10-27",
-"title":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
-"link":"https://deltapulse.app/item/MC1525374"
-},
-{
-"date":"2026-10-26",
-"id":"MC1525374",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
-"title":"Out-of-band security updates for .NET, ASP.NET Core, PowerShell 7.4/7.6 and Visual Studio: the October Scan Cab was reissued on 25 October, so offline compliance scans run before then miss them",
-"link":"https://deltapulse.app/item/MC1525374"
-},
-{
-"date":"2026-10-20",
-"id":"msrc-cve-2026-70197-not-addressed-2026-10-19",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"CVE-2026-70197 (.NET remote code execution, CVSS 8.1): Microsoft now says the October fix does not address the vulnerability and a complete mitigation is still being prepared",
-"title":"CVE-2026-70197 (.NET remote code execution, CVSS 8.1): Microsoft now says the October fix does not address the vulnerability and a complete mitigation is still being prepared",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70197"
-},
-{
-"date":"2026-10-19",
-"id":"MC1515315",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Dataverse plug-ins and custom workflow activities can target .NET Framework 4.8 from 26 October; 4.8.1 and later stay unsupported",
-"title":"Dataverse plug-ins and custom workflow activities can target .NET Framework 4.8 from 26 October; 4.8.1 and later stay unsupported",
-"link":"https://deltapulse.app/item/MC1515315"
-}
-],
-"milestones":{
-"MC1465692|posted":{
-"date":"2026-09-01",
-"label":"1 Sep 2026",
-"text":"Posted: More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery"
-},
-"MC1465692|rollout begins and is expected to reach all tenants by#0":{
-"date":"2026-09-01",
-"label":"1 Sep 2026",
-"text":"Rollout begins September 1, 2026, and is expected to reach all tenants by October 15, 2026."
-},
-"MC1465692|rollout begins and is expected to reach all tenants by#1":{
-"date":"2026-10-15",
-"label":"15 Oct 2026",
-"text":"Rollout begins September 1, 2026, and is expected to reach all tenants by October 15, 2026."
-},
-"azure-functions-inprocess-eos|deadline":{
-"date":"2026-11-10",
-"label":"10 Nov 2026",
-"text":"Azure Functions in-process model loses support on 10 November 2026"
-}
-},
-"moves":[],
-"materials":{
-"https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2026":{
-"title":"Azure Functions In-process model end of support",
-"link":"https://learn.microsoft.com/en-us/lifecycle/end-of-support/end-of-support-2026",
-"source":"Main list source",
-"id":"azure-functions-inprocess-eos",
-"date":"2026-09-12",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1465692":{
-"title":"More control for Windows Autopatch updates: quality updates, .NET Framework, and quick machine recovery",
-"link":"https://mc.merill.net/message/MC1465692",
-"source":"Message Center",
-"id":"MC1465692",
-"date":"2026-09-01",
-"updated":"2026-09-01",
-"group":"microsoft",
-"found":"2026-10-21"
-},
-"https://deltapulse.app/item/MC1515315":{
-"title":"Dataverse – Information about support for .NET Framework 4.8 Plugins and custom workflow activities",
-"link":"https://deltapulse.app/item/MC1515315",
-"source":"Main list source",
-"id":"MC1515315",
-"date":"2026-10-19",
-"group":"microsoft",
-"found":"2026-10-21"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70197":{
-"title":"NET Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70197",
-"source":"Main list source",
-"id":"msrc-cve-2026-70197-not-addressed-2026-10-19",
-"date":"2026-10-19",
-"group":"microsoft",
-"found":"2026-10-21"
-},
-"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
-"title":"Support for Ubuntu 26.04 LTS",
-"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
-"source":"Microsoft Learn · What's new · Microsoft Intune",
-"date":"2026-10-12T00:00:00.0000000Z",
-"group":"microsoft",
-"found":"2026-10-21"
-},
-"https://www.bleepingcomputer.com/news/microsoft/windows-server-2025-gets-support-for-quick-machine-recovery/":{
-"title":"Windows Server 2025 gets support for quick machine recovery",
-"link":"https://www.bleepingcomputer.com/news/microsoft/windows-server-2025-gets-support-for-quick-machine-recovery/",
-"source":"BleepingComputer",
-"date":"2026-10-20",
-"group":"community",
-"found":"2026-10-21"
-},
-"https://www.microsoft.com/microsoft-365/roadmap?id=574121":{
-"title":"Microsoft Dataverse: Add users without licenses to activity recipient fields",
-"link":"https://www.microsoft.com/microsoft-365/roadmap?id=574121",
-"source":"Microsoft 365 Roadmap",
-"date":"2026-10-19",
-"group":"community",
-"found":"2026-10-21"
-},
-"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes":{
-"title":"Fix bug causing installation to fail on machines with .NET &lt; 4.5.1.",
-"link":"https://learn.microsoft.com/en-us/azure/azure-arc/servers/agent-release-notes",
-"source":"Microsoft Learn · What's new · Azure Arc",
-"date":"2026-03-24",
-"group":"microsoft",
-"found":"2026-10-21"
-},
-"https://www.microsoft.com/microsoft-365/roadmap?id=577815":{
-"title":"Microsoft Dataverse: Enable AI powered business workflows in Work IQ with Dataverse - Build Dataverse solutions with coding agents using Dataverse skills",
-"link":"https://www.microsoft.com/microsoft-365/roadmap?id=577815",
-"source":"Microsoft 365 Roadmap",
-"date":"2026-10-22",
-"group":"community",
-"found":"2026-10-23"
-},
-"https://mc.merill.net/message/RM577815":{
-"title":"RM577815: Microsoft Dataverse: Enable AI powered business workflows in Work IQ with Dataverse - Build Dataverse solutions with coding agents using Dataverse skills",
-"link":"https://mc.merill.net/message/RM577815",
-"source":"MC - Merill",
-"date":"2026-10-22",
-"group":"community",
-"found":"2026-10-23"
-},
-"https://deltapulse.app/item/MC1525374":{
-"title":"An updated version of the October 2026 Scan Cab is available",
-"link":"https://deltapulse.app/item/MC1525374",
-"source":"Main list source",
-"id":"MC1525374",
-"date":"2026-10-26",
-"group":"microsoft",
-"found":"2026-10-26"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102870":{
-"title":"CVE-2026-102870 ASP.NET Core Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-102870",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-25",
-"group":"microsoft",
-"found":"2026-10-26"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114148":{
-"title":"CVE-2026-114148 ASP.NET Core Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114148",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-25",
-"group":"microsoft",
-"found":"2026-10-26"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96234":{
-"title":"CVE-2026-96234 .NET Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96234",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-26",
-"group":"microsoft",
-"found":"2026-10-26"
-},
-"https://mc.merill.net/message/MC1525374":{
-"title":"MC1525374: An updated version of the October 2026 Scan Cab is available",
-"link":"https://mc.merill.net/message/MC1525374",
-"source":"MC - Merill",
-"date":"2026-10-26",
-"group":"community",
-"found":"2026-10-26"
-},
-"https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-emergency-net-patches-for-critical-brotli-flaw/":{
-"title":"Microsoft releases emergency .NET patches for critical Brotli flaw",
-"link":"https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-emergency-net-patches-for-critical-brotli-flaw/",
-"source":"BleepingComputer",
-"date":"2026-10-26",
-"group":"community",
-"found":"2026-10-26"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70161":{
-"title":"CVE-2026-70161 .NET Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70161",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-27"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70007":{
-"title":"CVE-2026-70007 .NET Framework Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70007",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-27"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96225":{
-"title":"CVE-2026-96225 .NET Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96225",
-"source":"MSRC Security Update Guide",
-"date":"2026-10-27",
-"group":"microsoft",
-"found":"2026-10-27"
-},
-"https://mc.merill.net/message/MC1531060":{
-"title":"MC1531060: An updated version of the October 2026 Scan Cab is available",
-"link":"https://mc.merill.net/message/MC1531060",
-"source":"MC - Merill",
-"date":"2026-10-30",
-"group":"community",
-"found":"2026-10-30"
-},
-"https://thehackernews.com/2026/11/netamloader-malware-targets-government.html":{
-"title":"NetamLoader Malware Targets Government Windows 10 Systems in Asia via .NET Injection",
-"link":"https://thehackernews.com/2026/11/netamloader-malware-targets-government.html",
-"source":"Hacker News",
-"date":"2026-11-01",
-"group":"community",
-"found":"2026-11-01"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-cups-remote-code-execution-vulnerability/ba-p/4260542":{
-"title":"Guidance for handling CUPS remote code execution vulnerability using Microsoft Security capabilities",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-defender-vulnerability/guidance-for-handling-cups-remote-code-execution-vulnerability/ba-p/4260542",
-"source":"Defender Vulnerability Management Blog",
-"date":"2024-10-06",
-"group":"microsoft",
-"found":"2026-11-05"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83844":{
-"title":"CVE-2026-83844 Windows Paint Remote Code Execution Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83844",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-06",
-"group":"microsoft",
-"found":"2026-11-07"
-},
-"https://dev.to/divakarupadhyay/core-objects-and-the-connected-model-adonet-2jff":{
-"title":"Core objects and the connected model — ADO.NET",
-"link":"https://dev.to/divakarupadhyay/core-objects-and-the-connected-model-adonet-2jff",
-"source":"NeonTiger12",
-"date":"2026-11-08",
-"group":"community",
-"found":"2026-11-08"
-},
-"https://dev.to/divakarupadhyay/net-framework-vs-net-core-vs-net-5-the-history-explained-net-internals-776":{
-"title":".NET Framework vs .NET Core vs .NET 5+ — the history explained — .NET Internals",
-"link":"https://dev.to/divakarupadhyay/net-framework-vs-net-core-vs-net-5-the-history-explained-net-internals-776",
-"source":"NeonTiger12",
-"date":"2026-11-08",
-"group":"community",
-"found":"2026-11-08"
-},
-"https://dev.to/divakarupadhyay/program-structure-modules-and-the-main-method-vbnet-49d5":{
-"title":"Program structure, modules and the Main method — VB.NET",
-"link":"https://dev.to/divakarupadhyay/program-structure-modules-and-the-main-method-vbnet-49d5",
-"source":"NeonTiger12",
-"date":"2026-11-08",
-"group":"community",
-"found":"2026-11-08"
-},
-"https://azure.microsoft.com/updates?id=575106":{
-"title":"Retirement: Support for .NET 8 and .NET 9 on Static Web Apps is ending November 10, 2026",
-"link":"https://azure.microsoft.com/updates?id=575106",
-"source":"Azure Updates",
-"date":"2026-11-09",
-"group":"microsoft",
-"found":"2026-11-10"
-},
-"https://dev.to/zero_heartbeat_06a3625d7a/decompiling-pinvoke-and-dllimport-reading-a-net-assemblys-native-interop-1fjl":{
-"title":"Decompiling P/Invoke and DllImport: Reading a .NET Assembly''s Native Interop",
-"link":"https://dev.to/zero_heartbeat_06a3625d7a/decompiling-pinvoke-and-dllimport-reading-a-net-assemblys-native-interop-1fjl",
-"source":"NeonTiger12",
-"date":"2026-11-11",
-"group":"community",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105544":{
-"title":"CVE-2026-105544 .NET Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-105544",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109475":{
-"title":"CVE-2026-109475 .NET Denial of Service Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109475",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109476":{
-"title":"CVE-2026-109476 ASP.NET Core Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109476",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109478":{
-"title":"CVE-2026-109478 ASP.NET Core Denial of Service Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109478",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109481":{
-"title":"CVE-2026-109481 ASP.NET Core Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-109481",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114146":{
-"title":"CVE-2026-114146 ASP.NET Core Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114146",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114147":{
-"title":"CVE-2026-114147 ASP.NET Core Denial of Service Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114147",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114149":{
-"title":"CVE-2026-114149 ASP.NET Core Denial of Service Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114149",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114150":{
-"title":"CVE-2026-114150 ASP.NET Core Information Disclosure Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114150",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114154":{
-"title":"CVE-2026-114154 ASP.NET Core Denial of Service Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114154",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114155":{
-"title":"CVE-2026-114155 .NET Elevation of Privilege Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114155",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114156":{
-"title":"CVE-2026-114156 ASP.NET Core Security Feature Bypass Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114156",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114157":{
-"title":"CVE-2026-114157 ASP.NET Core Security Feature Bypass Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114157",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118746":{
-"title":"CVE-2026-118746 .NET Security Feature Bypass Vulnerability",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118746",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://dev.to/jasmin_omanovic/upgrading-from-net-8-to-net-10-a-practical-checklist-5g3g":{
-"title":"Upgrading from .NET 8 to .NET 10: A Practical Checklist",
-"link":"https://dev.to/jasmin_omanovic/upgrading-from-net-8-to-net-10-a-practical-checklist-5g3g",
-"source":"NeonTiger12",
-"date":"2026-11-11",
-"group":"community",
-"found":"2026-11-11"
-}
-},
-"final":"2026-11-10",
-"type":"Support end",
-"tech":"Windows",
-"posts":[
-"MC1465692"
-]
 }
 }
 }
