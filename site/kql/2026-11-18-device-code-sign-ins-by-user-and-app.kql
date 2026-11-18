@@ -1,0 +1,16 @@
+// title: Who signs in with the device code flow, by user and application, last 30 days
+// date: 2026-11-18
+// product: Entra
+// tables: SigninLogs
+// purpose: Successful and failed sign-ins whose AuthenticationProtocol is deviceCode, grouped by user and application, with the IP addresses and countries seen. Complements the 12 September query (device code followed by a new security-info registration), which hunts the attack; this one scopes the block. Not 
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 18 Nov 2026 - device code flow use, to scope a Conditional Access block
+// Columns as on the SigninLogs reference cited beside this query. Not run against a tenant in this pass.
+SigninLogs
+| where TimeGenerated > ago(30d)
+| where AuthenticationProtocol == "deviceCode"
+| summarize SignIns = count(), Failures = countif(ResultType != "0"), IPs = make_set(IPAddress, 20),
+            Countries = make_set(tostring(LocationDetails.countryOrRegion), 10), First = min(TimeGenerated), Last = max(TimeGenerated)
+          by UserPrincipalName, AppDisplayName, AppId
+| sort by SignIns desc

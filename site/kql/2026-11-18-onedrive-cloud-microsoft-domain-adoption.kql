@@ -1,0 +1,15 @@
+// title: Devices reaching OneDrive on onedrive.cloud.microsoft against the old -my.sharepoint.com host, last 7 days
+// date: 2026-11-18
+// product: SharePoint
+// tables: DeviceNetworkEvents
+// purpose: Counts network connections per device to the new OneDrive host and to the legacy -my.sharepoint.com host, so you can see how far the move has progressed in your estate and which detections need the new name. Not run against a tenant in this pass.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicenetworkevents-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 18 Nov 2026 - OneDrive on onedrive.cloud.microsoft vs -my.sharepoint.com
+// Columns as on the DeviceNetworkEvents reference cited beside this query. Not run against a tenant in this pass.
+DeviceNetworkEvents
+| where Timestamp > ago(7d)
+| where RemoteUrl has "onedrive.cloud.microsoft" or RemoteUrl has "-my.sharepoint.com"
+| extend Host = iff(RemoteUrl has "onedrive.cloud.microsoft", "onedrive.cloud.microsoft", "-my.sharepoint.com")
+| summarize Connections = count(), Devices = dcount(DeviceId), Processes = make_set(InitiatingProcessFileName, 10) by Host, bin(Timestamp, 1d)
+| sort by Timestamp asc, Host asc

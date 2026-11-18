@@ -3,6 +3,7 @@
 
 
 
+
 :root{
   --bg:#f2f4f7; --surface:#ffffff; --surface-2:#e9edf3; --surface-3:#dfe4ec; --border:#ccd4de; --border-soft:#e2e7ee;
   --text:#111721; --muted:#4e5867; --faint:#78838f;
@@ -2265,6 +2266,17 @@ details.g7>*:not(summary):last-child{margin-bottom:14px}
  padding:11px 13px;color:var(--muted);margin:0;font-size:13px}
 .g7name{font-family:var(--mono);font-size:12.5px;font-weight:700}
 @media (max-width:760px){.catfind .cfn{margin-left:0}.cathits button{white-space:normal;text-align:left}}
+/* §5hb: endpoints that contain the searched word */
+.s5hb-eps{margin:10px 0 0;padding:10px 12px;border:1px solid var(--info);border-radius:12px;background:var(--info-soft,var(--surface-2))}
+.s5hb-ept{margin:0 0 6px;font-size:14.5px;font-weight:600;color:var(--text)}
+.s5hb-epl{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.s5hb-epl li{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.s5hb-epp{font-size:13px;overflow-wrap:anywhere;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:2px 7px}
+.s5hb-epo{font:inherit;font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid var(--info);background:var(--surface);color:var(--info);cursor:pointer}
+.s5hb-flash{outline:3px solid var(--ok);outline-offset:4px;transition:outline-color .6s}
+.s5hb-evd{margin:8px 0 10px;padding:9px 12px;border-radius:10px;border:1px solid var(--info);background:var(--surface-2);font-size:14.5px;line-height:1.5;color:var(--text)}
+.s5hb-evc{display:block;margin-top:6px;font-size:13px;overflow-wrap:anywhere}
+.s5hb-src{background:var(--info)!important;color:var(--on-accent,#fff)!important;font-weight:700}
 /* §5bf: "What Microsoft changed" — the first block of the Graph API and Roles tabs, folded */
 details.mschg{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);
  border-radius:10px;margin:0 0 18px}
@@ -3018,6 +3030,22 @@ table.gu-cap tbody tr:nth-child(n+16){display:none}
  border:1px solid var(--accent);background:var(--surface);color:var(--accent)}
 .s5by-jb:hover{background:var(--accent);color:var(--on-accent)}
 .s5by-jn{font-weight:700;font-variant-numeric:tabular-nums;opacity:.85}
+/* §5hc (17 XI 2026) — the sticky row names the open entry; the section in view is lit; the list stays beside the panel; long cmdlet names wrap */
+.s5hc-nm{font:700 13.5px/1.35 var(--sans);color:var(--on-accent);background:var(--accent);border-radius:6px;padding:3px 10px;margin-right:6px;cursor:pointer;max-width:100%;overflow-wrap:anywhere}
+.s5hc-nm.mono{font-family:var(--mono);font-size:13px}
+.s5by-jb.s5hc-on{background:var(--accent-soft);border-color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent)}
+.catalog .cat-split.s5hc-split{align-items:start}
+.catalog .cat-split.s5hc-split>.cat-list{position:sticky;overflow-y:auto}
+.tabpanel .gd-cmds{grid-template-columns:repeat(auto-fill,minmax(min(100%,540px),1fr))}
+.tabpanel .gd-cmds a[href],.tabpanel .gd-apps .mono{white-space:normal!important;word-break:break-all;hyphens:none}
+.tabpanel .gd-cmds li{display:block}.tabpanel .gd-cmds .gd-s{display:block}
+.s5hc-th{position:fixed;z-index:40;background:var(--surface);border:1px solid var(--accent);border-top:0;border-radius:0 0 8px 8px;box-shadow:0 4px 10px rgba(0,0,0,.12);overflow:hidden}
+.s5hc-th[hidden]{display:none}
+.s5hc-tl{font:700 12.5px/1.4 var(--sans);color:var(--on-accent);background:var(--accent);padding:3px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s5hc-tw{overflow:hidden}
+.s5hc-tt{border-collapse:collapse;table-layout:fixed;margin:0}
+.s5hc-tt th{font:700 12px/1.3 var(--sans);color:var(--text);background:var(--surface-2);padding:5px 8px;border-right:1px solid var(--border);overflow:hidden;white-space:normal;overflow-wrap:anywhere;vertical-align:bottom;cursor:pointer;box-sizing:border-box}
+.s5hc-tt th:hover{background:var(--accent-soft)}
 .v13pane > .sec{scroll-margin-top:250px}
 .v13pane > .sec.s5by-hit{box-shadow:0 0 0 2px var(--accent)}
 /* named identifiers */
@@ -5311,6 +5339,12 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 }
 .s5el-fbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 8px}
 /* §5eu: the KQL library on Hunting & actions */
+/* §5gx: text found inside the query, the GitHub search link, the stale-briefs note */
+.s5gx-snip{display:block;margin-top:4px;font-family:var(--mono);font-size:12.5px;color:var(--text);background:var(--surface-2);border-left:3px solid var(--accent);padding:3px 8px;border-radius:4px;overflow-wrap:anywhere;white-space:normal}
+.s5gx-snip .s5gx-in{font-family:var(--sans);font-weight:600;color:var(--accent)}
+.s5gx-snip mark{background:var(--warn-soft,#fde68a);color:inherit;border-radius:3px;padding:0 2px}
+.s5gx-gh{font-size:13px;font-weight:600;white-space:nowrap}
+.s5gx-stale{border:1px solid var(--warn,#b45309);background:var(--warn-soft,#fef3c7);color:var(--text);border-radius:8px;padding:8px 12px;font-size:14px;margin:8px 0}
 .s5eu-seg{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
 .s5eu-seg button{font:inherit;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer}
 .s5eu-seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent,#fff)}
@@ -5506,6 +5540,11 @@ button.s5fz-urn:hover{color:var(--accent);text-decoration:underline}
 .s5ga-src .s5fz-says{color:var(--text)!important;font-size:14.5px!important}
 .s5ga-ab .s5ga-src{margin-top:8px}
 /* §5gd: Microsoft's response frame in Threat Research */
+/* §5gz: the government-advisory frame (FBI IC3) - its own colour, so it never reads as Microsoft's */
+.s5gd-rsp.s5gz-gov{border-color:#5b3fa8;background:color-mix(in srgb,#5b3fa8 8%,var(--surface))}
+.s5gz-rb,.s5gz-src{background:#5b3fa8!important;color:#fff}
+.s5gz-sum{margin:6px 0 0;font-size:14.5px;line-height:1.5;color:var(--text)}
+.s5gz-ioc{font-weight:700;font-size:13px}
 .s5gd-rsp{margin:10px 0 12px;padding:11px 13px;border-radius:14px;border:2px solid #2f5fd0;background:color-mix(in srgb,#2f5fd0 8%,var(--surface))}
 .s5gd-rsp.s5gd-no{border-color:#94600f;background:color-mix(in srgb,#94600f 8%,var(--surface))}
 .s5gd-rh{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:6px}
@@ -6323,6 +6362,11 @@ html:not(.s5gm-io) .s5ft-intro>ul>li>b{font-size:15px;line-height:1.5}
 .s5gp-areas>li>.s5fm-n{display:none!important}
 /* §5gr-b: the phone page scrolled 31 px sideways in Today: a cross-check frame inside a pick fell into the 28 px number column, and the pick carried invisible overflow */
 .s5ci-pick>.s5gf-dc{grid-column:1 / -1;min-width:0}
+/* §5gs-b (16 XI 2026, owner: "the New tab fell apart"): the date cross-check box is also a child of the list ROWS of New
+   and Deadlines (.s5ci-tr, a 6-column grid), where it landed in the 104 px date column; since 5gs more posts share a
+   campaign, so more rows carry the box. It spans the whole row wherever its parent is a grid row. */
+.s5ci-tr>.s5gf-dc,.s5gp-it>.s5gf-dc{grid-column:1 / -1;min-width:0}
+.s5gf-dc{max-width:100%;box-sizing:border-box}
 .s5ci-pick{overflow-x:clip;overflow-wrap:anywhere}   /* a long cmdlet name (Get-MgReportAuthenticationMethodUserRegistrationDetail) could not wrap; clip is the safety net */
 /* §5gr Microsoft 365 / Azure status under the logo */
 .s5ms{z-index:6;font-family:inherit}
@@ -6473,9 +6517,7 @@ header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
 .s5gp-kv{display:block;width:100%;text-align:left;font:inherit;font-size:14.5px;line-height:1.45;padding:3px 0;background:none;border:0;color:var(--text)}button.s5gp-kv{cursor:pointer}button.s5gp-kv:hover{text-decoration:underline}.s5gp-kv>b{font-size:17px;margin-right:2px}
 .s5gp-hot{color:#d97706}.s5gp-z{color:var(--text)}
 .s5gp-dd{font:700 12px "IBM Plex Mono",monospace;padding:1px 7px;border-radius:6px;background:#b45309;color:#fff;margin-right:4px}
-.s5gp-quiet{border-style:dashed}
-
-</style>
+.s5gp-quiet{border-style:dashed}</style>
 <!--SOC-SHELL part=script1-->
 <script>
 (function () {
@@ -9319,7 +9361,7 @@ header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Tuesday 17 November 2026</b> &middot; published 07:44 Warsaw &middot; 3 &ndash; 17 November 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>35</b> deadlines in 60 days<span>&middot; 22 inside 30, 2 due today or tomorrow</span></a><a class="count" href="#graph"><b>977</b> undocumented at Microsoft<span>&middot; 977 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>13</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>123</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>21</b> changes since 16 Nov<span>&middot; 13 at Microsoft, 8 in this report</span></a><a class="count" href="#chg14"><b>1793</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Wednesday 18 November 2026</b> &middot; published 07:31 Warsaw &middot; 4 &ndash; 18 November 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>35</b> deadlines in 60 days<span>&middot; 22 inside 30, 1 due today or tomorrow</span></a><a class="count" href="#graph"><b>977</b> undocumented at Microsoft<span>&middot; 977 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>9</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>121</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>42</b> changes since 17 Nov<span>&middot; 24 at Microsoft, 18 in this report</span></a><a class="count" href="#chg14"><b>2272</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -9520,7 +9562,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 17 November 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 18 November 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
