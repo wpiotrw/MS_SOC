@@ -1,5 +1,44 @@
 [
  {
+  "file": "community/2026-11-18-hunting-query.kql",
+  "title": "Hunting query",
+  "date": "2026-11-18",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "Hunting query",
+  "source": "https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/4d7eaa192223908e2aaebe0b2f5b1432dad18194/Microsoft_DefenderXDR/[IC]%20-%20Optimizely%20Compromised:%20Identify%20Devices%20that%20visited%20the%20Malicious%20URLs-Domains.md",
+  "kind": "repo",
+  "author": "Sergio Albea",
+  "link": "https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/4d7eaa192223908e2aaebe0b2f5b1432dad18194/Microsoft_DefenderXDR/[IC]%20-%20Optimizely%20Compromised:%20Identify%20Devices%20that%20visited%20the%20Malicious%20URLs-Domains.md",
+  "license": "not stated",
+  "mitre": [
+   "T1082"
+  ],
+  "repo": "Sergio Albea Threat Hunting KQL Queries"
+ },
+ {
+  "file": "community/2026-11-18-hunting-query-2.kql",
+  "title": "Hunting query",
+  "date": "2026-11-18",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "Hunting query",
+  "source": "https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/4d7eaa192223908e2aaebe0b2f5b1432dad18194/Microsoft_DefenderXDR/[IC]%20-%20Optimizely%20Compromised:%20Identify%20Compromised%20Websites%20Visited%20Before%20the%20Malicious%20URLs.md",
+  "kind": "repo",
+  "author": "Sergio Albea",
+  "link": "https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/4d7eaa192223908e2aaebe0b2f5b1432dad18194/Microsoft_DefenderXDR/[IC]%20-%20Optimizely%20Compromised:%20Identify%20Compromised%20Websites%20Visited%20Before%20the%20Malicious%20URLs.md",
+  "license": "not stated",
+  "mitre": [
+   "T1082"
+  ],
+  "repo": "Sergio Albea Threat Hunting KQL Queries"
+ },
+ {
   "file": "articles/2026-11-17-investigate-user-clicks-on-campaign-urls.kql",
   "title": "Investigate user clicks on campaign URLs",
   "date": "2026-11-17",

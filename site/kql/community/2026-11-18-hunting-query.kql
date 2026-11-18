@@ -1,0 +1,15 @@
+// title: Hunting query
+// date: 2026-11-18
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Hunting query
+// source: https://github.com/Sergio-Albea-Git/Threat-Hunting-KQL-Queries/blob/4d7eaa192223908e2aaebe0b2f5b1432dad18194/Microsoft_DefenderXDR/[IC]%20-%20Optimizely%20Compromised:%20Identify%20Devices%20that%20visited%20the%20Malicious%20URLs-Domains.md
+// kind: repo
+// author: Sergio Albea
+// license: not stated (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents 
+| where Timestamp > ago(3d) 
+| where RemoteUrl contains "1688360.cc" or RemoteUrl contains "5vobauua3ojpklx.icu" or RemoteUrl contains "eil786npto9u5bq.icu" or RemoteUrl contains "webshell.lol" 
+| extend ActivityType=case(RemoteUrl contains "1688360.cc" and RemoteUrl contains "hit.php","Potential Cookie & Screenshot Exfiltration",RemoteUrl contains "1688360.cc" and RemoteUrl contains "card.php","Potential Card Data Exfiltration",RemoteUrl contains "1688360.cc" and RemoteUrl contains "track.js","Malicious JavaScript Payload",RemoteUrl contains "1688360.cc","Malicious Payload / Exfiltration Infrastructure",RemoteUrl contains "5vobauua3ojpklx.icu","iOS Exploit Router 1",RemoteUrl contains "eil786npto9u5bq.icu","iOS Exploit Router 2",RemoteUrl contains "webshell.lol","JavaScript Injection Infrastructure","Unknown") 
+| summarize Connections=count(), FirstSeen=min(Timestamp), LastSeen=max(Timestamp), Domains=make_set(RemoteUrl,20), ActivityType=make_set(ActivityType,10) by DeviceName, DeviceId
