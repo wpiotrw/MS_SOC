@@ -1,0 +1,13 @@
+// title: 1. Identify connections to malicious infrastructure
+// date: 2026-11-18
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: KQLs for Major brands compromised through Optimizely
+// source: https://detect.fyi/kqls-for-major-brands-compromised-through-optimizely-86fdaf055707?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Sergio Albea · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+DeviceNetworkEvents
+| where Timestamp > ago(3d)
+| where RemoteUrl contains "1688360.cc" or RemoteUrl contains "5vobauua3ojpklx.icu" or RemoteUrl contains "eil786npto9u5bq.icu" or RemoteUrl contains "webshell.lol"
+| project Timestamp, DeviceName, DeviceId, ActionType, RemoteUrl, RemoteIP, InitiatingProcessFileName | order by Timestamp desc

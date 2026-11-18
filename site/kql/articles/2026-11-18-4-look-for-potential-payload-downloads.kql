@@ -1,0 +1,17 @@
+// title: 4. Look for potential payload downloads
+// date: 2026-11-18
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceNetworkEvents
+// purpose: From the article: KQLs for Major brands compromised through Optimizely
+// source: https://detect.fyi/kqls-for-major-brands-compromised-through-optimizely-86fdaf055707?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Sergio Albea · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let Hits = DeviceNetworkEvents | where Timestamp > ago(3d)
+| where RemoteUrl contains "1688360.cc" or RemoteUrl contains "5vobauua3ojpklx.icu" or RemoteUrl contains "eil786npto9u5bq.icu" or RemoteUrl contains "webshell.lol" | project DeviceId, ConnectionTime=Timestamp;
+Hits
+| join kind=inner (DeviceFileEvents
+| where ActionType == "FileCreated"
+| project DeviceId, Timestamp, FileName, FolderPath, SHA256, FileOriginUrl, InitiatingProcessFileName) on DeviceId
+| where Timestamp between (ConnectionTime .. ConnectionTime + 2m)
+| project Timestamp, DeviceId, FileName, FolderPath, SHA256, FileOriginUrl, InitiatingProcessFileName

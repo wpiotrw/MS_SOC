@@ -31,7 +31,11 @@
   "mitre": [
    "T1082"
   ],
-  "repo": "Sergio Albea Threat Hunting KQL Queries"
+  "repo": "Sergio Albea Threat Hunting KQL Queries",
+  "alsoIn": [
+   "article"
+  ],
+  "incident": "auto-kqls-for-major-brands-compromised-throug-2026-11-18"
  },
  {
   "file": "community/2026-11-18-hunting-query-2.kql",
@@ -52,6 +56,83 @@
    "T1082"
   ],
   "repo": "Sergio Albea Threat Hunting KQL Queries"
+ },
+ {
+  "file": "articles/2026-11-18-additional-queries.kql",
+  "title": "⚠️ Additional Queries",
+  "date": "2026-11-18",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: KQLs for Major brands compromised through Optimizely",
+  "source": "https://detect.fyi/kqls-for-major-brands-compromised-through-optimizely-86fdaf055707?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/kqls-for-major-brands-compromised-through-optimizely-86fdaf055707?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-kqls-for-major-brands-compromised-throug-2026-11-18"
+ },
+ {
+  "file": "articles/2026-11-18-5-investigate-subsequent-network-activity.kql",
+  "title": "5. Investigate subsequent network activity",
+  "date": "2026-11-18",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: KQLs for Major brands compromised through Optimizely",
+  "source": "https://detect.fyi/kqls-for-major-brands-compromised-through-optimizely-86fdaf055707?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/kqls-for-major-brands-compromised-through-optimizely-86fdaf055707?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-kqls-for-major-brands-compromised-throug-2026-11-18"
+ },
+ {
+  "file": "articles/2026-11-18-4-look-for-potential-payload-downloads.kql",
+  "title": "4. Look for potential payload downloads",
+  "date": "2026-11-18",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: KQLs for Major brands compromised through Optimizely",
+  "source": "https://detect.fyi/kqls-for-major-brands-compromised-through-optimizely-86fdaf055707?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/kqls-for-major-brands-compromised-through-optimizely-86fdaf055707?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-kqls-for-major-brands-compromised-throug-2026-11-18"
+ },
+ {
+  "file": "articles/2026-11-18-3-investigate-process-activity-after-the-connections.kql",
+  "title": "3. Investigate process activity after the connections",
+  "date": "2026-11-18",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: KQLs for Major brands compromised through Optimizely",
+  "source": "https://detect.fyi/kqls-for-major-brands-compromised-through-optimizely-86fdaf055707?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/kqls-for-major-brands-compromised-through-optimizely-86fdaf055707?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-kqls-for-major-brands-compromised-throug-2026-11-18"
+ },
+ {
+  "file": "articles/2026-11-18-1-identify-connections-to-malicious-infrastructure.kql",
+  "title": "1. Identify connections to malicious infrastructure",
+  "date": "2026-11-18",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: KQLs for Major brands compromised through Optimizely",
+  "source": "https://detect.fyi/kqls-for-major-brands-compromised-through-optimizely-86fdaf055707?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/kqls-for-major-brands-compromised-through-optimizely-86fdaf055707?source=rss----d5fd8f494f6a---4",
+  "incident": "auto-kqls-for-major-brands-compromised-throug-2026-11-18"
  },
  {
   "file": "2026-11-18-pim-role-setting-changes.kql",
