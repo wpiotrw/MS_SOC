@@ -1,7 +1,7 @@
 {
- "read": "2026-11-17",
+ "read": "2026-11-18",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 727,
+ "count": 739,
  "note": null,
  "messages": [
   {
@@ -5274,6 +5274,34 @@
     "With installation of the July 2026 Windows security update, Windows domain controllers will no longer support Audit mode rollback behavior for Kerberos RC4 hardening."
    ],
    "bodyHash": "dea0ac1777d5d6eb"
+  },
+  {
+   "id": "MC1392563",
+   "title": "(Updated) OneDrive transitions to the cloud.microsoft domain",
+   "services": [
+    "Microsoft OneDrive"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-06-15",
+   "end": "2027-11-01",
+   "modified": "2026-11-17",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "Updated message",
+    "User impact"
+   ],
+   "summary": "Updated November 17, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] OneDrive is transitioning to the cloud.microsoft domain. Users will start seeing new URLs shown in the examples below as a part of their OneDrive experiences. Existing links continue to work — both domains will operate side by side indefinitely. As part of this transition, OneDrive URLs will chang…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Updated November 17, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We began rolling out in early September 2026 (previously end of July) and expect to complete by end of September 2027 (previously early August 2026)."
+   ],
+   "bodyHash": "e4dd5dad3f16c6b6"
   },
   {
    "id": "MC1392568",
@@ -12470,21 +12498,21 @@
    "actionBy": null,
    "start": "2026-09-30",
    "end": "2027-01-25",
-   "modified": "2026-10-22",
+   "modified": "2026-11-17",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 22, 2026: We have updated the content. Thank you for your patience. [What and Why:] To give users more choice and flexibility when working with AI in Microsoft Copilot, we're expanding the set of AI models available in Microsoft Copilot. Starting today, GPT-6.1 Sol and Claude Sonnet 5.5 begin rolling out with usage-based billing in Cowork and Microsoft Copilot Studio. GPT-6.1 Sol a…",
+   "summary": "Updated November 17, 2026: GPT-6.1 Sol is rolling out worldwide on Microsoft Azure for Copilot Cowork customers who have not enabled OpenAI as a subprocessor. GPT-6.1 Sol will be generally available and replace GPT-5.5 for these customers, with GPT-5.5 being retired and no longer available for Cowork in the Frontier program. No admin action is required. [What and Why:] To give users more choice an…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 22, 2026: We have updated the content.",
+    "Updated November 17, 2026: GPT-6.1 Sol is rolling out worldwide on Microsoft Azure for Copilot Cowork customers who have not enabled OpenAI as a subprocessor.",
     "General Availability: Cowork and Copilot Studio : Rollout begins today, September 30, 2026."
    ],
-   "bodyHash": "c983619376c5a539"
+   "bodyHash": "b620972b05d8e216"
   },
   {
    "id": "MC1483974",
@@ -19268,6 +19296,294 @@
    "bodyHash": "ceaa4493b76a9d27"
   },
   {
+   "id": "MC1557973",
+   "title": "New and upcoming Windows security and management capabilities",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-17",
+   "end": "2027-11-17",
+   "modified": "2026-11-17",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why At Microsoft Ignite 2026, Microsoft announced new and upcoming Windows capabilities across security, device and application management, recovery, and agent management. The announcements include developments in four key areas: Windows management : Updates to Windows Autopatch, application management, device health monitoring, and recovery. Additional developments include server managem…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "13b005de05562aa0"
+  },
+  {
+   "id": "MC1558023",
+   "title": "Microsoft Copilot in PowerPoint for Windows, Mac, and the web: Introducing new sales-focused skills",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-17",
+   "end": "2027-01-01",
+   "modified": "2026-11-17",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] In late October 2026, we began rolling out sales-focused Copilot skills in PowerPoint to help sellers, account teams, and sales leaders prepare customer materials, work with sales data, and refine presentations for sales conversations. Beginning in mid-November 2026, we will introduce additional skills that support tasks such as: Preparing customer-facing presentations, including sa…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "In late October 2026, we began rolling out sales-focused Copilot skills in PowerPoint to help sellers, account teams, and sales leaders prepare customer materials, work with sales data, and refine presentations for sales conversations.",
+    "Beginning in mid-November 2026, we will introduce additional skills that support tasks such as: Preparing customer-facing presentations, including sales pitches, customer business reviews, client portfolio reviews, and proposal or RFP responses.",
+    "General Availability (Worldwide): These additional skills will begin rolling out in mid-November 2026, with rollout expected to complete by late November 2026."
+   ],
+   "bodyHash": "53aaa56ba9474427"
+  },
+  {
+   "id": "MC1558024",
+   "title": "Microsoft 365 admin center: New multi-tenant management experiences",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-17",
+   "end": "2027-04-01",
+   "modified": "2026-11-17",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft is introducing new multi-tenant management experiences in the Microsoft 365 admin center to help organizations centrally manage Microsoft 365 Copilot, agents, costs, and Microsoft 365 services across multiple tenants. These capabilities provide administrators with a unified experience to view tenant information, review key insights, and manage AI costs, agents, and tenant …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview: Beginning in mid-November 2026 and expected to complete by early December 2026."
+   ],
+   "bodyHash": "f28e428f63fc6e89"
+  },
+  {
+   "id": "MC1558030",
+   "title": "Microsoft OneDrive for Windows and Mac: node_modules folders will be excluded from sync by default",
+   "services": [
+    "Microsoft OneDrive"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2026-12-14",
+   "start": "2026-11-17",
+   "end": "2027-02-19",
+   "modified": "2026-11-17",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] We are updating the OneDrive sync app for Windows and Mac to exclude new folders named node_modules from syncing by default , beginning December 14, 2026. This change extends OneDrive's existing default exclusion list, which includes .db-wal files, as mentioned in MC1457838 on October 5, 2026. JavaScript and Node.js projects can generate tens of thousands of small dependency files i…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "We are updating the OneDrive sync app for Windows and Mac to exclude new folders named node_modules from syncing by default , beginning December 14, 2026.",
+    "This change extends OneDrive's existing default exclusion list, which includes .db-wal files, as mentioned in MC1457838 on October 5, 2026.",
+    "General Availability (Worldwide): Rollout will begin on December 14, 2026, and is expected to complete by mid-January 2027.",
+    "If your organization needs node_modules folders to continue syncing, configure the appropriate OneDrive sync policies before December 14, 2026 ."
+   ],
+   "bodyHash": "8917e2d108d17e72"
+  },
+  {
+   "id": "MC1558032",
+   "title": "Microsoft Teams: Intelligent call recap for call queues in the Queues app on mobile",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-17",
+   "end": "2027-01-18",
+   "modified": "2026-11-17",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We're introducing intelligent call recap for call queue calls in the Queues app on Microsoft Teams mobile. This update extends the experience already available on desktop, allowing calling representatives and supervisors to review AI-generated notes, key discussion points, and recommended follow-up tasks without replaying recordings or reading full transcripts. [Rollout schedule] Ge…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Beginning in early December 2026 and expected to complete by mid-December 2026."
+   ],
+   "bodyHash": "ec53792abfe972d1"
+  },
+  {
+   "id": "MC1558033",
+   "title": "Microsoft 365 Copilot: Copilot Managed Runtime expands app building at general availability",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-17",
+   "end": "2026-12-17",
+   "modified": "2026-11-17",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Copilot Managed Runtime is an IT-governed platform for running code within the Microsoft 365 tenant boundary. It supports app creation in Copilot Cowork, Copilot Studio, Copilot Code, and the Copilot Managed Runtime CLI. Apps can use organizational data through connectors permitted by your organization's policies, and admins can manage apps through the Microsoft 365 admin …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Microsoft Copilot Managed Runtime, introduced in public preview in September 2026 ( MC1469329 ), will become generally available.",
+    "Public Preview: Rollout began in September 2026 and is expected to be complete by mid-November 2026 .",
+    "General Availability (Worldwide): Rollout will begin in mid-November 2026 and is expected to be complete by mid-December 2026 ."
+   ],
+   "bodyHash": "4442cf14bc953777"
+  },
+  {
+   "id": "MC1558037",
+   "title": "Microsoft Purview | Data Loss Prevention: Protection for local AI agent interactions",
+   "services": [
+    "Microsoft Purview"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-17",
+   "end": "2027-05-30",
+   "modified": "2026-11-17",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Purview Data Loss Prevention (DLP) is expanding inline protection to supported local AI agents, helping organizations safeguard sensitive data across human-to-agent and agent-to-tool interactions. Organizations can configure DLP policies with sensitive information type (SIT)-based controls to detect sensitive information in prompt text and files and block policy-violating …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview: We will begin rolling out in late January 2027 and expect to complete by late February 2027 .",
+    "General Availability: We will begin rolling out in late March 2027 and expect to complete by late April 2027 ."
+   ],
+   "bodyHash": "65784a28e5378bd8"
+  },
+  {
+   "id": "MC1558038",
+   "title": "Microsoft Purview | Data Loss Prevention: Network data security integration with Azure Firewall",
+   "services": [
+    "Microsoft Purview"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-17",
+   "end": "2027-05-30",
+   "modified": "2026-11-17",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Purview is expanding network layer data security controls with Azure Firewall. This integration helps organizations detect and protect sensitive data in supported network traffic, including text, files, and AI interactions. Organizations can apply Data Loss Prevention (DLP) policies to traffic from servers, virtual machines, and other endpoints to help prevent unauthorized…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview: We will begin rolling out in mid-November 2026 and expect to complete by mid-December 2026 .",
+    "General Availability (Worldwide): Beginning in late March 2027 and expect to complete by late April 2027 ."
+   ],
+   "bodyHash": "0784a25b27f8b73a"
+  },
+  {
+   "id": "MC1558041",
+   "title": "Microsoft OneDrive for iPad: Presentation mode for PDFs",
+   "services": [
+    "Microsoft OneDrive"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-17",
+   "end": "2027-02-05",
+   "modified": "2026-11-17",
+   "tags": [
+    "Feature update",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing presentation mode in the Microsoft OneDrive app for iPad. Users can select a new Presentation button in the PDF viewer to enter a focused, view-only experience that prevents free gesture scrolling between pages, reducing accidental page changes while presenting without requiring users to move the file to another app. This update is based on customer feedback reque…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): Rollout will begin in early December 2026 and is expected to complete by late December 2026."
+   ],
+   "bodyHash": "1d683fc039dfea4b"
+  },
+  {
+   "id": "MC1558114",
+   "title": "Microsoft Defender for Cloud Apps: Unified RBAC support for App Governance to manage NHIs",
+   "services": [
+    "Microsoft Defender XDR"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-18",
+   "end": "2027-02-15",
+   "modified": "2026-11-18",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] App Governance in Defender for Cloud Apps will now support Microsoft Defender XDR unified role-based access control (RBAC) in public preview. This capability lets your organization delegate access to App Governance through Defender XDR custom roles, for supported App Governance capabilities. You can align access with administrators' responsibilities and apply least-privilege permis…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): We will begin rolling out in late November 2026 and expect to complete by mid-December 2026.",
+    "General Availability (Worldwide): We will begin rolling out in mid-December 2026 and expect to complete by mid-January 2027."
+   ],
+   "bodyHash": "950e37c04d60dece"
+  },
+  {
+   "id": "MC1558155",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-18",
+   "end": "2026-12-02",
+   "modified": "2026-11-18",
+   "tags": [
+    "Feature update"
+   ],
+   "summary": "We've released updates to the following update channel for Microsoft 365 Apps: Current Channel [When this will happen:] We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting November 17th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are configured to automatically update from the Office Content Deliver…",
+   "when": "We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting November 17th, 2026 (PST).",
+   "prepare": "To get more details about this update view the following release notes: Current Channel.",
+   "dates": [],
+   "bodyHash": "8d7a5cd1e28254a7"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -19558,20 +19874,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-18",
-   "id": "MC1426709",
-   "type": "removed",
-   "title": "Microsoft Teams: Custom recording and transcription notifications now available for 1:1 calls",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-18",
-   "id": "MC1469555",
-   "type": "removed",
-   "title": "Microsoft Entra: Optimized passkey registration campaign experience",
-   "fields": {}
-  },
   {
    "date": "2026-10-19",
    "id": "MC1197146",
@@ -25362,6 +25664,102 @@
    "id": "MC1557766",
    "type": "new",
    "title": "Microsoft Viva: Introducing Interactive Insights in the A365 Business Analytics app",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1392563",
+   "type": "new",
+   "title": "(Updated) OneDrive transitions to the cloud.microsoft domain",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1483844",
+   "type": "changed",
+   "title": "(Updated) Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+   "fields": {
+    "bodyHash": [
+     "c983619376c5a539",
+     "b620972b05d8e216"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1557973",
+   "type": "new",
+   "title": "New and upcoming Windows security and management capabilities",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1558023",
+   "type": "new",
+   "title": "Microsoft Copilot in PowerPoint for Windows, Mac, and the web: Introducing new sales-focused skills",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1558024",
+   "type": "new",
+   "title": "Microsoft 365 admin center: New multi-tenant management experiences",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1558030",
+   "type": "new",
+   "title": "Microsoft OneDrive for Windows and Mac: node_modules folders will be excluded from sync by default",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1558032",
+   "type": "new",
+   "title": "Microsoft Teams: Intelligent call recap for call queues in the Queues app on mobile",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1558033",
+   "type": "new",
+   "title": "Microsoft 365 Copilot: Copilot Managed Runtime expands app building at general availability",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1558037",
+   "type": "new",
+   "title": "Microsoft Purview | Data Loss Prevention: Protection for local AI agent interactions",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1558038",
+   "type": "new",
+   "title": "Microsoft Purview | Data Loss Prevention: Network data security integration with Azure Firewall",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1558041",
+   "type": "new",
+   "title": "Microsoft OneDrive for iPad: Presentation mode for PDFs",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1558114",
+   "type": "new",
+   "title": "Microsoft Defender for Cloud Apps: Unified RBAC support for App Governance to manage NHIs",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-18",
+   "id": "MC1558155",
+   "type": "new",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
    "fields": {}
   }
  ]

@@ -1,34 +1,129 @@
 {
- "generated": "2026-11-17T18:36:50Z",
+ "generated": "2026-11-18T02:57:04Z",
  "source": "tools/doc_ga.py (CLAUDE.md 5eo)",
  "sources": [
   {
    "name": "Our Learn copy (mirror/learn)",
    "state": "ok",
-   "pages": 7171,
-   "events": 0,
+   "pages": 7421,
+   "events": 7,
    "note": ""
   },
   {
    "name": "Microsoft Entra documentation",
    "url": "https://github.com/MicrosoftDocs/entra-docs",
    "state": "ok",
-   "commits": 44,
-   "events": 5,
-   "since": "2026-09-18"
+   "commits": 85,
+   "events": 11,
+   "since": "2026-09-19"
   }
  ],
  "events": [
   {
-   "url": "https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/privileged-identity-management-custom-extensions",
-   "title": "Configure custom extensions for PIM role activation - Microsoft Entra ID Governance",
-   "before": "Configure custom extensions for PIM role activation (Preview) - Microsoft Entra ID Governance",
-   "date": "2026-11-17",
+   "url": "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/apps/visibility-monitoring?view=o365-worldwide",
+   "title": "Monitor the health of apps in Microsoft Copilot Managed Runtime - Microsoft 365 admin",
+   "before": "Monitor the health of apps in Microsoft Copilot Managed Runtime (preview) - Microsoft 365 admin",
+   "date": "2026-11-18",
    "how": [
     "mirror"
    ],
-   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-17",
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-18",
    "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/apps/roles-responsibilities?view=o365-worldwide",
+   "title": "Understand roles and responsibilities - Microsoft 365 admin",
+   "before": "Understand roles and responsibilities (preview) - Microsoft 365 admin",
+   "date": "2026-11-18",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-18",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/apps/licensing-faq?view=o365-worldwide",
+   "title": "Copilot Managed Runtime licensing FAQ - Microsoft 365 admin",
+   "before": "Copilot Managed Runtime licensing FAQ (preview) - Microsoft 365 admin",
+   "date": "2026-11-18",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-18",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/apps/inventory?view=o365-worldwide",
+   "title": "View and oversee apps in Microsoft Copilot Managed Runtime across your tenant - Microsoft 365 admin",
+   "before": "View and oversee apps in Microsoft Copilot Managed Runtime across your tenant (preview) - Microsoft 365 admin",
+   "date": "2026-11-18",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-18",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/apps/governance?view=o365-worldwide",
+   "title": "Review default governance settings for apps - Microsoft 365 admin",
+   "before": "Review default governance settings for apps (preview) - Microsoft 365 admin",
+   "date": "2026-11-18",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-18",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/apps/faq-about-apps?view=o365-worldwide",
+   "title": "FAQ about Microsoft Copilot Managed Runtime - Microsoft 365 admin",
+   "before": "FAQ about Microsoft Copilot Managed Runtime (preview) - Microsoft 365 admin",
+   "date": "2026-11-18",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-18",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/observability/how-to/trace-ingestion-entra-authentication",
+   "title": "Configure Microsoft Entra authentication for Foundry Agent trace ingestion - Microsoft Foundry",
+   "before": "Configure Microsoft Entra authentication for Foundry Agent trace ingestion (preview) - Microsoft Foundry",
+   "date": "2026-11-18",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-18",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/entra/id-governance/guest-lifecycle-policies",
+   "title": "Guest lifecycle policies in Lifecycle Workflows",
+   "before": "Guest lifecycle policies in Lifecycle Workflows (preview)",
+   "date": "2026-11-17",
+   "how": [
+    "repo"
+   ],
+   "repo": "Microsoft Entra documentation",
+   "commit": "https://github.com/MicrosoftDocs/entra-docs/commit/2bd7837d70350d6a744d48381ddd8744ffdc1bfb",
+   "commitMsg": "Update guest lifecycle policies for GA (#14950)",
+   "evidence": "Microsoft's commit of 2026-11-17 removed the preview label from the page heading",
+   "announced": false
+  },
+  {
+   "url": "https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/privileged-identity-management-custom-extensions",
+   "title": "Configure custom extensions for PIM role activation - Microsoft Entra ID Governance",
+   "before": "Configure custom extensions for PIM role activation (Preview) - Microsoft Entra ID Governance",
+   "date": "2026-11-16",
+   "how": [
+    "mirror",
+    "repo"
+   ],
+   "evidence": "Microsoft's commit of 2026-11-16 removed the preview label from the page title",
+   "announced": false,
+   "commit": "https://github.com/MicrosoftDocs/entra-docs/commit/2ddaa3851332f26a22f54779c4864ac980ecb836",
+   "commitMsg": "Publish Ignite 2026 IDNAPAC and PIM-PAC documentation release (#15004)",
+   "repo": "Microsoft Entra documentation"
   },
   {
    "url": "https://learn.microsoft.com/en-us/entra/identity/app-provisioning/clear-attribute-values",
