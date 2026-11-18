@@ -58,6 +58,79 @@
   "repo": "Sergio Albea Threat Hunting KQL Queries"
  },
  {
+  "file": "articles/2026-11-18-detection-5-graphdoor-c2-non-office-process-connecting.kql",
+  "title": "Detection 5: GraphDoor C2 - Non-Office Process Connecting to Microsoft Graph API",
+  "date": "2026-11-18",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, November 18, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-18-detection-engineering-brief-wednesday-november-18-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-18-detection-engineering-brief-wednesday-november-18-2026/"
+ },
+ {
+  "file": "articles/2026-11-18-detection-4-opsagent-ransomware-mass-file-modification-by.kql",
+  "title": "Detection 4: OpsAgent Ransomware - Mass File Modification by Rust Binary from User-Writable Path",
+  "date": "2026-11-18",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, November 18, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-18-detection-engineering-brief-wednesday-november-18-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-18-detection-engineering-brief-wednesday-november-18-2026/"
+ },
+ {
+  "file": "articles/2026-11-18-detection-3-cve-2026-114938-java-process-spawning.kql",
+  "title": "Detection 3: CVE-2026-114938 - Java Process Spawning Unexpected Child Process After Inbound Connection",
+  "date": "2026-11-18",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, November 18, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-18-detection-engineering-brief-wednesday-november-18-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-18-detection-engineering-brief-wednesday-november-18-2026/"
+ },
+ {
+  "file": "articles/2026-11-18-detection-2-gitdoor-shellcode-injection-from-suspicious-proc.kql",
+  "title": "Detection 2: GitDoor - Shellcode Injection from Suspicious Process",
+  "date": "2026-11-18",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceEvents",
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, November 18, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-18-detection-engineering-brief-wednesday-november-18-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-18-detection-engineering-brief-wednesday-november-18-2026/"
+ },
+ {
+  "file": "articles/2026-11-18-detection-1-gitdoor-c2-non-browser-process-connecting.kql",
+  "title": "Detection 1: GitDoor C2 - Non-Browser Process Connecting to GitHub API",
+  "date": "2026-11-18",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, November 18, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-18-detection-engineering-brief-wednesday-november-18-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-18-detection-engineering-brief-wednesday-november-18-2026/",
+  "incident": "artex-agentic-secret-abuse-2026-11"
+ },
+ {
   "file": "articles/2026-11-18-additional-queries.kql",
   "title": "⚠️ Additional Queries",
   "date": "2026-11-18",

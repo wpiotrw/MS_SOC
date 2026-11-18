@@ -1,0 +1,33 @@
+// title: Detection 4: OpsAgent Ransomware - Mass File Modification by Rust Binary from User-Writable Path
+// date: 2026-11-18
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: Detection Engineering Brief - Wednesday, November 18, 2026
+// source: https://devsecopsdadattack.com/2026-11-18-detection-engineering-brief-wednesday-november-18-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let SuspiciousPaths = dynamic(["\\temp\\", "\\appdata\\local\\", "\\appdata\\roaming\\", "\\users\\public\\", "\\programdata\\"]);
+DeviceFileEvents
+| where Timestamp >= ago(7d)
+| where ActionType in ("FileRenamed", "FileModified", "FileCreated")
+| where SuspiciousPaths has_any (tolower(InitiatingProcessFolderPath))
+| summarize
+    FileCount = dcount(strcat(FolderPath, "\\", FileName)),
+    FolderCount = dcount(FolderPath),
+    StartTime = min(Timestamp),
+    EndTime = max(Timestamp)
+    by DeviceName, InitiatingProcessFileName, InitiatingProcessFolderPath, InitiatingProcessCommandLine, bin(Timestamp, 5m)
+| where FileCount >= 100
+| where FolderCount >= 5
+| extend DurationSeconds = datetime_diff('second', EndTime, StartTime)
+| project
+    StartTime,
+    EndTime,
+    DurationSeconds,
+    DeviceName,
+    InitiatingProcessFileName,
+    InitiatingProcessFolderPath,
+    InitiatingProcessCommandLine,
+    FileCount,
+    FolderCount

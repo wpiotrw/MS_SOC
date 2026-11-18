@@ -1,0 +1,48 @@
+// title: Detection 2: GitDoor - Shellcode Injection from Suspicious Process
+// date: 2026-11-18
+// product: Defender for Endpoint
+// tables: DeviceEvents, DeviceNetworkEvents
+// purpose: From the article: Detection Engineering Brief - Wednesday, November 18, 2026
+// source: https://devsecopsdadattack.com/2026-11-18-detection-engineering-brief-wednesday-november-18-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let SuspiciousPaths = dynamic(["\\temp\\", "\\appdata\\local\\", "\\appdata\\roaming\\", "\\users\\public\\", "\\programdata\\"]);
+let InjectionEvents =
+    DeviceEvents
+    | where Timestamp >= ago(7d)
+    | where ActionType in ("CreateRemoteThreadApiCall", "ShellcodeInjection", "ProcessInjection")
+    | where SuspiciousPaths has_any (tolower(InitiatingProcessFolderPath))
+        or SuspiciousPaths has_any (tolower(InitiatingProcessCommandLine))
+    | project
+        InjectionTime = Timestamp,
+        DeviceName,
+        InjectionProcessName = InitiatingProcessFileName,
+        InjectionProcessCommandLine = InitiatingProcessCommandLine,
+        InjectionFolderPath = InitiatingProcessFolderPath,
+        InjectionActionType = ActionType,
+        InjectionProcessId = InitiatingProcessId;
+let GitHubC2 =
+    DeviceNetworkEvents
+    | where Timestamp >= ago(7d)
+    | where ActionType == "ConnectionSuccess"
+    | where RemoteUrl has "api.github.com" or RemoteUrl has "raw.githubusercontent.com"
+    | project
+        NetTime = Timestamp,
+        DeviceName,
+        RemoteUrl,
+        NetworkProcessName = InitiatingProcessFileName;
+InjectionEvents
+| join kind=inner GitHubC2 on DeviceName
+| where NetTime >= InjectionTime and NetTime <= InjectionTime + 10m
+| project
+    InjectionTime,
+    NetTime,
+    DeviceName,
+    InjectionProcessName,
+    InjectionProcessCommandLine,
+    InjectionFolderPath,
+    InjectionActionType,
+    InjectionProcessId,
+    RemoteUrl,
+    NetworkProcessName

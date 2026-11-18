@@ -1,0 +1,28 @@
+// title: Detection 1: GitDoor C2 - Non-Browser Process Connecting to GitHub API
+// date: 2026-11-18
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: Detection Engineering Brief - Wednesday, November 18, 2026
+// source: https://devsecopsdadattack.com/2026-11-18-detection-engineering-brief-wednesday-november-18-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let KnownBrowsers = dynamic(["chrome.exe", "firefox.exe", "msedge.exe", "iexplore.exe", "safari.exe", "opera.exe", "msedgewebview2.exe"]);
+let KnownDevTools = dynamic(["git.exe", "gh.exe", "code.exe", "node.exe", "python.exe", "python3.exe", "curl.exe", "wget.exe", "hub.exe", "github desktop.exe"]);
+let SuspiciousPaths = dynamic(["\\temp\\", "\\appdata\\local\\", "\\appdata\\roaming\\", "\\users\\public\\", "\\programdata\\"]);
+DeviceNetworkEvents
+| where Timestamp >= ago(7d)
+| where ActionType == "ConnectionSuccess"
+| where RemoteUrl has "api.github.com" or RemoteUrl has "raw.githubusercontent.com"
+| where not(InitiatingProcessFileName in~ (KnownBrowsers))
+| where not(InitiatingProcessFileName in~ (KnownDevTools))
+| where SuspiciousPaths has_any (tolower(InitiatingProcessFolderPath))
+    or SuspiciousPaths has_any (tolower(InitiatingProcessCommandLine))
+| summarize
+    ConnectionCount = count(),
+    FirstSeen = min(Timestamp),
+    LastSeen = max(Timestamp),
+    RemoteUrls = make_set(RemoteUrl, 20)
+    by DeviceName, InitiatingProcessFileName, InitiatingProcessFolderPath, InitiatingProcessCommandLine
+| where ConnectionCount >= 2
+| project FirstSeen, LastSeen, DeviceName, InitiatingProcessFileName, InitiatingProcessFolderPath, InitiatingProcessCommandLine, ConnectionCount, RemoteUrls
