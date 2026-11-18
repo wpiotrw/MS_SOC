@@ -1,0 +1,17 @@
+// title: Changes to PIM role settings and role assignment policies, last 30 days
+// date: 2026-11-18
+// product: Entra
+// tables: AuditLogs
+// purpose: AuditLogs entries in the RoleManagement category whose operation updates a PIM role setting or policy, with who made the change and the role it touched. Not run against a tenant in this pass.
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l)
+// Microsoft SOC Brief 18 Nov 2026 - PIM role settings changed
+// Columns as on the AuditLogs reference cited beside this query. Not run against a tenant in this pass.
+AuditLogs
+| where TimeGenerated > ago(30d)
+| where Category == "RoleManagement"
+| where OperationName has "role setting" or OperationName has "policy"
+| extend Actor = coalesce(tostring(InitiatedBy.user.userPrincipalName), tostring(InitiatedBy.app.displayName)),
+         Target = tostring(TargetResources[0].displayName)
+| project TimeGenerated, OperationName, Result, Actor, Target, CorrelationId
+| sort by TimeGenerated desc
