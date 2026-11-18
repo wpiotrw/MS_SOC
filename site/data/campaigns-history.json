@@ -12,6 +12,15 @@
 ],
 "log":[
 {
+"date":"2026-11-18",
+"id":"MC1556088",
+"what":"Microsoft revised the post",
+"before":"2026-11-16",
+"after":"2026-11-18",
+"title":"New Teams releases need iOS or iPadOS 18 from mid-December; devices left on 17 keep an unsupported Teams",
+"link":"https://deltapulse.app/item/MC1556088"
+},
+{
 "date":"2026-11-17",
 "id":"MC1556088",
 "what":"Entered the brief (Deadlines)",
@@ -1576,6 +1585,14 @@
 "date":"2026-10-30",
 "group":"community",
 "found":"2026-10-30"
+},
+"https://daily.entra.news/day/2026-11-14/":{
+"title":"Tenant Governance preview guidance ties reusable baselines to cross-tenant deployments — 14 November 2026",
+"link":"https://daily.entra.news/day/2026-11-14/",
+"source":"Daily Entra News",
+"date":"2026-11-14",
+"group":"community",
+"found":"2026-11-18"
 }
 },
 "final":"2027-07-05",
@@ -2178,6 +2195,14 @@
 "updated":"2026-10-28",
 "group":"microsoft",
 "found":"2026-10-29"
+},
+"https://blog.admindroid.com/microsoft-introduces-memberof-next-for-dynamic-membership-rules/":{
+"title":"Microsoft Entra Replaces the MemberOf Rule Operator with MemberOf Next",
+"link":"https://blog.admindroid.com/microsoft-introduces-memberof-next-for-dynamic-membership-rules/",
+"source":"AdminDroid Blog",
+"date":"2026-11-18",
+"group":"community",
+"found":"2026-11-18"
 }
 },
 "final":"2027-03-31",
@@ -5176,14 +5201,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-16",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-17",
 "text":"August 1, 2026."
 },
@@ -5257,6 +5274,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-17",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-18",
 "text":"August 1, 2026."
 },
 {
@@ -5814,7 +5839,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-17",
+"seen":"2026-11-18",
 "text":"early February 2026."
 },
 {
@@ -5822,7 +5847,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-17",
+"seen":"2026-11-18",
 "text":"February 2027."
 },
 {
@@ -7608,6 +7633,14 @@
 "date":"2026-11-10",
 "group":"community",
 "found":"2026-11-10"
+},
+"https://ourcloudnetwork.com/microsoft-will-enable-claude-in-copilot-by-default-for-eu-tenants/":{
+"title":"Microsoft will enable Claude in Copilot by default for EU tenants",
+"link":"https://ourcloudnetwork.com/microsoft-will-enable-claude-in-copilot-by-default-for-eu-tenants/",
+"source":"Ourcloudnetwork",
+"date":"2026-11-10",
+"group":"community",
+"found":"2026-11-18"
 }
 },
 "final":"2026-12-09",
@@ -9744,7 +9777,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-17",
+"seen":"2026-11-18",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9752,7 +9785,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-17",
+"seen":"2026-11-18",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10927,6 +10960,14 @@
 "https://ourcloudnetwork.com/how-to-require-identity-verification-in-conditional-access/?utm_source=rss&utm_medium=rss&utm_campaign=how-to-require-identity-verification-in-conditional-access":{
 "title":"How to require identity verification in Conditional Access",
 "link":"https://ourcloudnetwork.com/how-to-require-identity-verification-in-conditional-access/?utm_source=rss&utm_medium=rss&utm_campaign=how-to-require-identity-verification-in-conditional-access",
+"source":"Ourcloudnetwork",
+"date":"2026-11-17",
+"group":"community",
+"found":"2026-11-18"
+},
+"https://ourcloudnetwork.com/how-to-require-identity-verification-in-conditional-access/":{
+"title":"How to require identity verification in Conditional Access",
+"link":"https://ourcloudnetwork.com/how-to-require-identity-verification-in-conditional-access/",
 "source":"Ourcloudnetwork",
 "date":"2026-11-17",
 "group":"community",
@@ -20104,6 +20145,56 @@
 "title":"How to require identity verification in Conditional Access",
 "source":"Ourcloudnetwork",
 "link":"https://ourcloudnetwork.com/how-to-require-identity-verification-in-conditional-access/?utm_source=rss&utm_medium=rss&utm_campaign=how-to-require-identity-verification-in-conditional-access"
+},
+{
+"day":"2026-11-18",
+"cid":"c-mc676299",
+"type":"material",
+"name":"Exchange Web Services (EWS) retirement update",
+"group":"community",
+"title":"Tenant Governance preview guidance ties reusable baselines to cross-tenant deployments — 14 November 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-11-14/"
+},
+{
+"day":"2026-11-18",
+"cid":"c-mc1488834",
+"type":"material",
+"name":"MemberOf rule operator retires",
+"group":"community",
+"title":"Microsoft Entra Replaces the MemberOf Rule Operator with MemberOf Next",
+"source":"AdminDroid Blog",
+"link":"https://blog.admindroid.com/microsoft-introduces-memberof-next-for-dynamic-membership-rules/"
+},
+{
+"day":"2026-11-18",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-118148 Active Directory Domain Services Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118148"
+},
+{
+"day":"2026-11-18",
+"cid":"c-item-mc1546438",
+"type":"material",
+"name":"Claude models in Copilot are coming into the EU Data Boundary and will be enabled by default",
+"group":"community",
+"title":"Microsoft will enable Claude in Copilot by default for EU tenants",
+"source":"Ourcloudnetwork",
+"link":"https://ourcloudnetwork.com/microsoft-will-enable-claude-in-copilot-by-default-for-eu-tenants/"
+},
+{
+"day":"2026-11-18",
+"cid":"c-item-mc1519855",
+"type":"material",
+"name":"SSPR requires registered authentication methods",
+"group":"community",
+"title":"How to require identity verification in Conditional Access",
+"source":"Ourcloudnetwork",
+"link":"https://ourcloudnetwork.com/how-to-require-identity-verification-in-conditional-access/"
 }
 ],
 "archive":{
@@ -24728,6 +24819,14 @@
 "source":"Hacker News",
 "date":"2026-11-18",
 "group":"community",
+"found":"2026-11-18"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118148":{
+"title":"CVE-2026-118148 Active Directory Domain Services Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-118148",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-18",
+"group":"microsoft",
 "found":"2026-11-18"
 }
 },
