@@ -1,0 +1,20 @@
+// title: Inbox and forwarding rules created after a click on the campaign links (Defender XDR advanced hunting)
+// date: 2026-11-18
+// product: Defender for Office 365
+// tables: CloudAppEvents, UrlClickEvents
+// purpose: Threat Research: Microsoft 365 outage lures: high-volume phishing claims held mail will be deleted in 24 hours and links to reallifeaccounting[.]com
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Inbox and forwarding rules created after a click on the campaign links (post-click check Microsoft lists)
+let clicked = UrlClickEvents
+| where Url has_any ("reallifeaccounting.com", "url.newbooker.com/ls/click")
+| where IsClickedThrough == true
+| summarize FirstClick = min(Timestamp) by AccountUpn = tolower(AccountUpn);
+CloudAppEvents
+| where ActionType in ("New-InboxRule", "Set-InboxRule", "UpdateInboxRules", "Set-Mailbox")
+| extend AccountUpn = tolower(tostring(RawEventData.UserId))
+| join kind=inner clicked on AccountUpn
+| where Timestamp > FirstClick
+| project Timestamp, AccountUpn, ActionType, FirstClick, RawEventData
