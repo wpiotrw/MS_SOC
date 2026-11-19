@@ -734,6 +734,23 @@
      "says": "Information post about storage validation for Dataverse-only tenants in Dynamics 365 and Power Platform."
     }
    ]
+  },
+  {
+   "key": "teams-powerpoint-live-translate-slides-retirement",
+   "ids": [
+    "MC1532259"
+   ],
+   "title": "Teams: Translate slides in PowerPoint Live retires",
+   "scriptable": false,
+   "checked": "2026-11-19",
+   "why": "The post retires a client-side feature of PowerPoint Live in Teams meetings; it has no admin setting in Microsoft Graph, Exchange Online or Teams PowerShell, so there is nothing to read or change by script.",
+   "sources": [
+    {
+     "t": "Message Center MC1532259",
+     "u": "https://deltapulse.app/item/MC1532259",
+     "says": "Microsoft Teams retires the Translate slides option in PowerPoint Live; the post is tagged Retirement with user and admin impact (revised 19 November 2026)."
+    }
+   ]
   }
  ]
 }
