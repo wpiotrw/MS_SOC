@@ -1,0 +1,16 @@
+// title: Mailboxes that sent outbound mail from more than one address, last 14 days
+// date: 2026-11-19
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: Groups outbound and intra-org messages by the sender's Entra object ID and lists every From address each account used, so you can see who already sends from an alias and which onmicrosoft.com addresses appear as senders. Not run against a tenant in this pass.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailevents-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Microsoft SOC Brief 19 Nov 2026 - senders using more than one From address (send-from-alias GA)
+// Columns as on the EmailEvents reference cited beside this query. Not run against a tenant in this pass.
+EmailEvents
+| where Timestamp > ago(14d)
+| where EmailDirection in ("Outbound", "Intra-org") and isnotempty(SenderObjectId)
+| summarize Messages = count(), FromAddresses = make_set(SenderFromAddress, 20), Addresses = dcount(SenderFromAddress),
+            OnMicrosoftSenders = countif(SenderFromDomain endswith "onmicrosoft.com") by SenderObjectId
+| where Addresses > 1 or OnMicrosoftSenders > 0
+| sort by Addresses desc, Messages desc

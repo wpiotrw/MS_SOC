@@ -1,5 +1,41 @@
 [
  {
+  "file": "2026-11-19-who-changed-or-deleted-a-sentinel-automation-rule.kql",
+  "title": "Who changed or deleted a Sentinel automation rule or playbook, last 30 days",
+  "date": "2026-11-19",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "Write and delete operations on Microsoft.SecurityInsights automation rules and on Logic Apps workflows, by caller, so a rule switched off or a playbook removed during an intrusion is visible. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azureactivity",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-19-ntlm-logons-by-device-and-account-last-7.kql",
+  "title": "NTLM logons by device and account, last 7 days, to scope where IAKerb removes the fallback",
+  "date": "2026-11-19",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceLogonEvents"
+  ],
+  "purpose": "Counts logons whose Protocol is NTLM per device, account and logon type, with the remote IPs seen, so the NTLM-retirement plan starts from measured use rather than from a guess. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicelogonevents-table",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-19-mailboxes-that-sent-outbound-mail-from-more-than.kql",
+  "title": "Mailboxes that sent outbound mail from more than one address, last 14 days",
+  "date": "2026-11-19",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents"
+  ],
+  "purpose": "Groups outbound and intra-org messages by the sender's Entra object ID and lists every From address each account used, so you can see who already sends from an alias and which onmicrosoft.com addresses appear as senders. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailevents-table",
+  "kind": "brief"
+ },
+ {
   "file": "incidents/2026-11-18-inbox-and-forwarding-rules-created-after-a-click.kql",
   "title": "Inbox and forwarding rules created after a click on the campaign links (Defender XDR advanced hunting)",
   "date": "2026-11-18",
@@ -217,7 +253,10 @@
   ],
   "purpose": "AuditLogs entries in the RoleManagement category whose operation updates a PIM role setting or policy, with who made the change and the role it touched. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-19"
+  ]
  },
  {
   "file": "2026-11-18-onedrive-cloud-microsoft-domain-adoption.kql",
@@ -229,7 +268,10 @@
   ],
   "purpose": "Counts network connections per device to the new OneDrive host and to the legacy -my.sharepoint.com host, so you can see how far the move has progressed in your estate and which detections need the new name. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicenetworkevents-table",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-19"
+  ]
  },
  {
   "file": "2026-11-18-new-alert-detection-sources.kql",
@@ -241,7 +283,10 @@
   ],
   "purpose": "Lists ServiceSource and DetectionSource pairs in AlertInfo seen in the last 7 days but not in the 30 days before, with titles and counts, so a new protection that starts raising alerts is noticed on day one. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertinfo-table",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-19"
+  ]
  },
  {
   "file": "2026-11-18-device-code-sign-ins-by-user-and-app.kql",
@@ -253,7 +298,10 @@
   ],
   "purpose": "Successful and failed sign-ins whose AuthenticationProtocol is deviceCode, grouped by user and application, with the IP addresses and countries seen. Complements the 12 September query (device code followed by a new security-info registration), which hunts the attack; this one scopes the block. Not ",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-19"
+  ]
  },
  {
   "file": "articles/2026-11-17-investigate-user-clicks-on-campaign-urls.kql",
@@ -36135,7 +36183,8 @@
   "source": "https://learn.microsoft.com/azure/azure-monitor/reference/tables/signinlogs",
   "reused": [
    "2026-09-13",
-   "2026-11-18"
+   "2026-11-18",
+   "2026-11-19"
   ],
   "kind": "brief"
  },

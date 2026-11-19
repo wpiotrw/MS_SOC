@@ -1,0 +1,15 @@
+// title: NTLM logons by device and account, last 7 days, to scope where IAKerb removes the fallback
+// date: 2026-11-19
+// product: Defender for Endpoint
+// tables: DeviceLogonEvents
+// purpose: Counts logons whose Protocol is NTLM per device, account and logon type, with the remote IPs seen, so the NTLM-retirement plan starts from measured use rather than from a guess. Not run against a tenant in this pass.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicelogonevents-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Microsoft SOC Brief 19 Nov 2026 - where NTLM is still used, before IAKerb
+// Columns as on the DeviceLogonEvents reference cited beside this query. Not run against a tenant in this pass.
+DeviceLogonEvents
+| where Timestamp > ago(7d)
+| where Protocol =~ "NTLM"
+| summarize Logons = count(), Failed = countif(ActionType == "LogonFailed"), RemoteIPs = make_set(RemoteIP, 20)
+          by DeviceName, AccountDomain, AccountName, LogonType
+| sort by Logons desc

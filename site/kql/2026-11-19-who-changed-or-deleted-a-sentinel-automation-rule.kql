@@ -1,0 +1,16 @@
+// title: Who changed or deleted a Sentinel automation rule or playbook, last 30 days
+// date: 2026-11-19
+// product: Sentinel
+// tables: AzureActivity
+// purpose: Write and delete operations on Microsoft.SecurityInsights automation rules and on Logic Apps workflows, by caller, so a rule switched off or a playbook removed during an intrusion is visible. Not run against a tenant in this pass.
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azureactivity
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Microsoft SOC Brief 19 Nov 2026 - changes to Sentinel automation rules and playbooks
+// Columns as on the AzureActivity reference cited beside this query. Not run against a tenant in this pass.
+AzureActivity
+| where TimeGenerated > ago(30d)
+| where OperationNameValue has_any ("MICROSOFT.SECURITYINSIGHTS/AUTOMATIONRULES/", "MICROSOFT.LOGIC/WORKFLOWS/")
+| where OperationNameValue has_any ("/WRITE", "/DELETE", "/DISABLE")
+| where ActivityStatusValue in ("Success", "Succeeded")
+| project TimeGenerated, Caller, CallerIpAddress, OperationNameValue, ResourceGroup, _ResourceId
+| sort by TimeGenerated desc

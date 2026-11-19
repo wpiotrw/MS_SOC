@@ -2914,97 +2914,6 @@
 "MC1515929"
 ]
 },
-"c-mc1469565":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-19",
-"name":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
-"status":"Active",
-"members":[
-"MC1469565"
-],
-"log":[
-{
-"date":"2026-10-20",
-"id":"MC1469565",
-"what":"Microsoft revised the post",
-"before":"2026-09-09",
-"after":"2026-10-19",
-"title":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
-"link":"https://mc.merill.net/message/MC1469565"
-},
-{
-"date":"2026-09-29",
-"id":"MC1469565",
-"what":"Act-by date",
-"before":"",
-"after":"2026-10-01",
-"title":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
-"link":"https://mc.merill.net/message/MC1469565"
-}
-],
-"milestones":{
-"MC1469565|posted":{
-"date":"2026-09-09",
-"label":"9 Sep 2026",
-"text":"Posted: Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes"
-},
-"MC1469565|actionBy":{
-"date":"2026-10-01",
-"label":"1 Oct 2026",
-"text":"Act by this date (Message Center)"
-},
-"MC1469565|beginning in late and expected to complete by early#0":{
-"date":"2026-10-25",
-"label":"late Oct 2026",
-"text":"Beginning in late October 2026 and expected to complete by early November 2026."
-},
-"MC1469565|beginning in late and expected to complete by early#1":{
-"date":"2026-11-05",
-"label":"early Nov 2026",
-"text":"Beginning in late October 2026 and expected to complete by early November 2026."
-},
-"MC1469565|exchange web services ews in exchange online will begin to b#1":{
-"date":"2027-04-15",
-"label":"Apr 2027",
-"text":"Exchange Web Services (EWS) in Exchange Online will begin to be disabled globally in October 2026 and is expected to be fully disabled by April 2027."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1469565":{
-"title":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
-"link":"https://mc.merill.net/message/MC1469565",
-"source":"Message Center",
-"id":"MC1469565",
-"date":"2026-09-09",
-"updated":"2026-09-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://www.microsoft.com/microsoft-365/roadmap?id=573701":{
-"title":"Microsoft Purview: Data Lifecycle Management-Graph API Support for Archive Mailboxes",
-"link":"https://www.microsoft.com/microsoft-365/roadmap?id=573701",
-"source":"Microsoft 365 Roadmap",
-"date":"2026-10-06",
-"group":"community",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1521615":{
-"title":"MC1521615: Microsoft Purview: Data Lifecycle Management increases the auto-expanding archive limit from 1.5 TB to 3 TB",
-"link":"https://mc.merill.net/message/MC1521615",
-"source":"MC - Merill",
-"date":"2026-10-22",
-"group":"community",
-"found":"2026-10-23"
-}
-},
-"final":"2027-04-15",
-"type":"Retirement",
-"tech":"Purview",
-"posts":[
-"MC1469565"
-]
-},
 "c-mc1511071":{
 "firstSeen":"2026-10-16",
 "lastSeen":"2026-11-19",
@@ -4480,6 +4389,106 @@
 "MC1470871"
 ]
 },
+"c-mc1469565":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-19",
+"name":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
+"status":"Active",
+"members":[
+"MC1469565"
+],
+"log":[
+{
+"date":"2026-11-19",
+"id":"MC1469565",
+"what":"Microsoft revised the post",
+"before":"2026-10-19",
+"after":"2026-09-09",
+"title":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
+"link":"https://mc.merill.net/message/MC1469565"
+},
+{
+"date":"2026-10-20",
+"id":"MC1469565",
+"what":"Microsoft revised the post",
+"before":"2026-09-09",
+"after":"2026-10-19",
+"title":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
+"link":"https://mc.merill.net/message/MC1469565"
+},
+{
+"date":"2026-09-29",
+"id":"MC1469565",
+"what":"Act-by date",
+"before":"",
+"after":"2026-10-01",
+"title":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
+"link":"https://mc.merill.net/message/MC1469565"
+}
+],
+"milestones":{
+"MC1469565|posted":{
+"date":"2026-09-09",
+"label":"9 Sep 2026",
+"text":"Posted: Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes"
+},
+"MC1469565|actionBy":{
+"date":"2026-10-01",
+"label":"1 Oct 2026",
+"text":"Act by this date (Message Center)"
+},
+"MC1469565|beginning in late and expected to complete by early#0":{
+"date":"2026-10-25",
+"label":"late Oct 2026",
+"text":"Beginning in late October 2026 and expected to complete by early November 2026."
+},
+"MC1469565|beginning in late and expected to complete by early#1":{
+"date":"2026-11-05",
+"label":"early Nov 2026",
+"text":"Beginning in late October 2026 and expected to complete by early November 2026."
+},
+"MC1469565|exchange web services ews in exchange online will begin to b#1":{
+"date":"2027-04-15",
+"label":"Apr 2027",
+"text":"Exchange Web Services (EWS) in Exchange Online will begin to be disabled globally in October 2026 and is expected to be fully disabled by April 2027."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1469565":{
+"title":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
+"link":"https://mc.merill.net/message/MC1469565",
+"source":"Message Center",
+"id":"MC1469565",
+"date":"2026-09-09",
+"updated":"2026-09-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=573701":{
+"title":"Microsoft Purview: Data Lifecycle Management-Graph API Support for Archive Mailboxes",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=573701",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-10-06",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1521615":{
+"title":"MC1521615: Microsoft Purview: Data Lifecycle Management increases the auto-expanding archive limit from 1.5 TB to 3 TB",
+"link":"https://mc.merill.net/message/MC1521615",
+"source":"MC - Merill",
+"date":"2026-10-22",
+"group":"community",
+"found":"2026-10-23"
+}
+},
+"final":"2027-04-15",
+"type":"Retirement",
+"tech":"Purview",
+"posts":[
+"MC1469565"
+]
+},
 "c-mc1462813":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-19",
@@ -5177,14 +5186,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-16",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-17",
 "text":"August 1, 2026."
 },
@@ -5314,6 +5315,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-18",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-19",
 "text":"August 1, 2026."
 },
 {
@@ -5791,22 +5800,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-17",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-17",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-18",
 "text":"early February 2026."
 },
@@ -5912,6 +5905,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-18",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-19",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-19",
 "text":"February 2027."
 },
 {
@@ -7433,6 +7442,14 @@
 "date":"2026-11-17",
 "group":"microsoft",
 "found":"2026-11-18"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/introducing-gpt-image-2-6-flare-and-sunburst-in-microsoft/ba-p/4573002":{
+"title":"Introducing GPT-image-2.6 Flare and Sunburst in Microsoft Foundry",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/introducing-gpt-image-2-6-flare-and-sunburst-in-microsoft/ba-p/4573002",
+"source":"Azure AI Foundry Blog",
+"date":"2026-11-18",
+"group":"microsoft",
+"found":"2026-11-19"
 }
 },
 "final":"2026-12-15",
@@ -9046,6 +9063,14 @@
 "date":"2026-11-09",
 "group":"community",
 "found":"2026-11-17"
+},
+"https://dev.to/zachary_klein_a8078ed2a7f/most-google-search-ads-in-the-transparency-center-are-screenshots-here-is-how-i-get-the-text-out-17d9":{
+"title":"Most Google Search ads in the Transparency Center are screenshots. Here is how I get the text out.",
+"link":"https://dev.to/zachary_klein_a8078ed2a7f/most-google-search-ads-in-the-transparency-center-are-screenshots-here-is-how-i-get-the-text-out-17d9",
+"source":"NeonTiger12",
+"date":"2026-11-19",
+"group":"community",
+"found":"2026-11-19"
 }
 },
 "final":"2027-07-01",
@@ -9729,22 +9754,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-17",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-17",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-18",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -9850,6 +9859,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-18",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-19",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-19",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -20252,6 +20277,36 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-19",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"community",
+"title":"I built a browser-based checker for CVE-2026-123007 in NGINX",
+"source":"NeonTiger12",
+"link":"https://dev.to/tinymomentum1/i-built-a-browser-based-checker-for-cve-2026-123007-in-nginx-4e24"
+},
+{
+"day":"2026-11-19",
+"cid":"c-item-mc1506318",
+"type":"material",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"group":"microsoft",
+"title":"Introducing GPT-image-2.6 Flare and Sunburst in Microsoft Foundry",
+"source":"Azure AI Foundry Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/introducing-gpt-image-2-6-flare-and-sunburst-in-microsoft/ba-p/4573002"
+},
+{
+"day":"2026-11-19",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Most Google Search ads in the Transparency Center are screenshots. Here is how I get the text out.",
+"source":"NeonTiger12",
+"link":"https://dev.to/zachary_klein_a8078ed2a7f/most-google-search-ads-in-the-transparency-center-are-screenshots-here-is-how-i-get-the-text-out-17d9"
 }
 ],
 "archive":{
@@ -24885,6 +24940,14 @@
 "date":"2026-11-18",
 "group":"microsoft",
 "found":"2026-11-18"
+},
+"https://dev.to/tinymomentum1/i-built-a-browser-based-checker-for-cve-2026-123007-in-nginx-4e24":{
+"title":"I built a browser-based checker for CVE-2026-123007 in NGINX",
+"link":"https://dev.to/tinymomentum1/i-built-a-browser-based-checker-for-cve-2026-123007-in-nginx-4e24",
+"source":"NeonTiger12",
+"date":"2026-11-19",
+"group":"community",
+"found":"2026-11-19"
 }
 },
 "final":"2026-10-13",
