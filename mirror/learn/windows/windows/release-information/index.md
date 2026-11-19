@@ -15,7 +15,7 @@ ms.service: windows
 ms.topic: hub-page
 author: WindowsCommunications
 ms.author: direek
-ms.date: 2026-11-18T00:00:00.0000000Z
+ms.date: 2026-11-19T00:00:00.0000000Z
 ms.localizationpriority: medium
 locale: en-us
 document_id: 3105e4c0-7e83-7f42-7f1a-e0504b23afc9
@@ -81,9 +81,9 @@ Overview
 
 ### Message center
 
+- [The November 2026 Windows non-security preview update is now available](https://support.microsoft.com/help/5132057)
 - [What's new and what's next: Windows highlights from Microsoft Ignite 2026](https://blogs.windows.com/windowsexperience/2026/11/17/microsoft-ignite-2026-building-windows-for-the-next-era-of-work/)
 - [Out-of-band update released to address Windows licensing and activation errors](/en-us/windows/release-information/windows-message-center#5089)
-- [60-Day Reminder: Windows 10 Enterprise LTSC 2021 will reach end of updates on January 13, 2027](/en-us/lifecycle/products/windows-10-enterprise-ltsc-2021)
 - [See more](/en-us/windows/release-information/windows-message-center)
 
 ### Windows 11, version 26H2

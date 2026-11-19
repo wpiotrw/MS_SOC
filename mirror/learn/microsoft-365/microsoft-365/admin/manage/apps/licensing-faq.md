@@ -152,7 +152,7 @@ No. Copilot Studio billing for the environment covers building the app. Running 
 
 ### What happens when a user isn't covered or reaches their limit?
 
-During preview, users who don't meet the credit requirements to run an app first see a warning, and access is blocked after 20 app operations or five minutes of use, whichever comes first. Users can select **Request more** inside the app to ask for credits. Administrators review these requests in **Cost management** in the Microsoft 365 admin center. Per-user limits reset on the first of each month.
+Users who don't meet the credit requirements to run an app see a warning banner. Users can select **Request more** inside the app to ask for credits. Administrators review these requests in **Cost management** in the Microsoft 365 admin center. Per-user limits reset on the first of each month.
 
 ## Managing costs
 

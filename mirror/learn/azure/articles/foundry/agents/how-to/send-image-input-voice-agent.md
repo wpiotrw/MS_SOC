@@ -89,7 +89,7 @@ Model-specific image support and SDK experimental diagnostics are separate from 
 ::: zone pivot="csharp"
 
 - .NET 8 or later.
-- Version 3.0.0-beta.7 of `Azure.AI.Projects`, `Azure.AI.Projects.Agents`, and `Azure.AI.Extensions.OpenAI`, version 2.14.0 of `OpenAI`, and `Azure.Identity`. Suppress the `AAIP002` and `OPENAI002` preview diagnostics as shown in the public C# voice-agent samples.
+- Version 3.0.0-beta.6 of `Azure.AI.Projects`, `Azure.AI.Projects.Agents`, and `Azure.AI.Extensions.OpenAI`, version 2.14.0 of `OpenAI`, and `Azure.Identity`. Suppress the `AAIP001`, `AAIP002`, and `OPENAI002` experimental diagnostics as shown in the public C# voice-agent samples.
 - The `FOUNDRY_PROJECT_ENDPOINT` environment variable set to your project endpoint and `FOUNDRY_VOICE_AGENT_NAME` set to your existing voice-agent name.
 
 ::: zone-end
@@ -151,11 +151,11 @@ Use the public [C# realtime text and tools sample](https://github.com/microsoft-
 
 ::: zone pivot="javascript"
 
-Use `AIProjectClient` with `DefaultAzureCredential`, and open the connection through `project.beta.voiceAgents.realtime.connect`. Configure the session, and receive the agent's greeting before you send the image turn.
+Use `AIProjectClient` with `DefaultAzureCredential`, and open the connection through `project.voiceAgents.realtime.connect`. Configure the session, and receive the agent's greeting before you send the image turn.
 
 The JavaScript SDK exposes `input_image`, `image_url`, and `detail` through `RealtimeConversationItemMessageUserContent`. `VoiceAgentConnection.sendEvent` sends the complete client protocol event.
 
-Use the public [JavaScript realtime text and tools sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/javascript/voice-agents/realtime-text-and-tools) or its [TypeScript equivalent](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/typescript/voice-agents/realtime-text-and-tools) for the connection and response lifecycle. For a browser application, start with the [browser voice console](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/javascript/voice-agents/browser-voice-console) so authentication remains on the server.
+Use the public [JavaScript realtime text and tools sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/javascript/voice-agents/realtime-text-and-tools) or its [TypeScript equivalent](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/typescript/voice-agents/realtime-text-and-tools) for the connection and response lifecycle. For a browser application, start with the [browser voice console](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/javascript/voice-agents/browser-voice-console) so authentication stays on the server.
 
 ::: zone-end
 
@@ -439,7 +439,7 @@ Image tracing doesn't require an image-specific setting. When approved [content 
 
 A correct model answer doesn't prove that tracing is enabled, and a trace that contains an image doesn't prove visual understanding.
 
-Use synthetic data when you test. Image previews remain in browser memory, and content capture can retain image data. Don't share Base64 data, signed URLs, bearer tokens, raw wire payloads, or unreviewed log exports.
+Use synthetic data when you test. Image previews stay in browser memory, and content capture can retain image data. Don't share Base64 data, signed URLs, bearer tokens, raw wire payloads, or unreviewed log exports.
 
 ## Troubleshoot image turns
 

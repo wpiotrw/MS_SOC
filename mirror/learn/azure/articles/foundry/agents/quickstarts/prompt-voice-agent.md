@@ -58,7 +58,7 @@ platformId: e41b0bfe-60a2-1223-768b-fc4ee35ed5cc
 
 In this quickstart, you create a voice-based prompt agent, open a live session, complete a spoken turn, and read the conversation back. Foundry Agent Service manages the voice orchestration, so you don't host a speech pipeline of your own.
 
-Choose your development tool. The **Foundry portal** path creates and tests the agent in the browser with no code. The **Foundry portal with templates** path starts from a ready-made agent for a common scenario, such as customer support or appointment scheduling, that you can try before you create it. The **Python SDK** and **JavaScript/TypeScript SDK** paths install the Microsoft Foundry SDK, create the agent in code, and connect to a live session over a WebSocket. The **Azure Developer CLI** path uses `azd` to scaffold, provision, deploy, and test the agent without writing runtime code. The examples start with a managed real-time model. The SDK paths also include an example that uses your own model deployment.
+Choose your development tool. The **Foundry portal** path creates and tests the agent in the browser with no code. The **Foundry portal with templates** path starts from a ready-made agent for a common scenario, such as customer support or appointment scheduling, that you can try before you create it. The **Python SDK** and **JavaScript/TypeScript SDK** paths install the Microsoft Foundry SDK, create the agent in code, and connect to a live session over a WebSocket. The **Azure Developer CLI** path uses `azd` to scaffold, provision, deploy, and test the agent without writing runtime code. The examples start with a managed realtime model. The SDK paths also include an example that uses your own model deployment.
 
 Voice agents are generally available, with some features still in preview. See [General availability and preview features](../overview#general-availability-and-preview-features).
 
@@ -229,7 +229,7 @@ Confirm that:
 | The model list is empty | Confirm resource access, supported region, and model availability. Refresh after permissions or deployment changes. |
 | The browser can't use the microphone | Allow microphone access for the portal origin and confirm the device isn't exclusively used by another app. |
 | The session starts but no audio is heard | Confirm the browser output device, system volume, selected voice compatibility, and that the session isn't muted. |
-| The start button remains unavailable | Save required configuration and resolve validation messages in the configuration pane. |
+| The start button is still unavailable | Save required configuration and resolve validation messages in the configuration pane. |
 
 ::: zone-end
 
@@ -246,7 +246,7 @@ Templates are examples. Review and test the instructions, tools, and data handli
 Each template is designed for a live phone or web conversation, not only a scripted demo:
 
 - **Stages and handoffs**: Most templates split the call into stages, such as greeting, verification, the main task, and wrap-up. Each stage has its own instructions and only the tools that it needs. The agent hands off between stages without announcing a transfer, so the caller hears one continuous conversation.
-- **Low latency**: Templates use a real-time speech model and semantic turn detection, so the agent answers as soon as the caller finishes a thought. While one stage is active, Foundry discovers the MCP tools of the stages that can come next, so a handoff doesn't wait for tool discovery. When the caller corrects something, asks for something, or sounds worried or frustrated, most templates first say a short, specific acknowledgment, such as "Thursday, not Tuesday.", before they hand off, call a tool, or give a result. The caller hears a response right away instead of silence.
+- **Low latency**: Templates use a realtime speech model and semantic turn detection, so the agent answers as soon as the caller finishes a thought. While one stage is active, Foundry discovers the MCP tools of the stages that can come next, so a handoff doesn't wait for tool discovery. When the caller corrects something, asks for something, or sounds worried or frustrated, most templates first say a short, specific acknowledgment, such as "Thursday, not Tuesday.", before they hand off, call a tool, or give a result. The caller hears a response right away instead of silence.
 - **Caller protections**: Before a tool sends, books, creates, updates, or submits anything, the agent reads the details back and waits for an explicit yes. The agent states only facts from tool results or the template's sample data, and says so when a tool fails instead of claiming success. Industry templates add rules for their domain. For example:
     - **Collections and payment recovery** verifies the account holder before it discusses the balance, and never threatens or harasses the caller, in line with the Fair Debt Collection Practices Act (FDCPA).
     - **Legal intake specialist** never gives legal advice, and it runs a conflict check before it collects case details.
@@ -590,7 +590,7 @@ with (
 
 Reference: [Python voice-agent tools sample](https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/voice-agents/voice_agent_with_tools.py).
 
-The same creation pattern works with supported real-time and text-model deployments. Confirm that the selected deployment supports the voice settings in this example. For model choices and latency guidance, see [Choose a managed or self-deployed model](../how-to/configure-voice-agent#choose-a-managed-or-self-deployed-model).
+The same creation pattern works with supported realtime and text-model deployments. Confirm that the selected deployment supports the voice settings in this example. For model choices and latency guidance, see [Choose a managed or self-deployed model](../how-to/configure-voice-agent#choose-a-managed-or-self-deployed-model).
 
 ### Run your chosen example
 
@@ -612,7 +612,7 @@ Connect to the agent's realtime session, send a turn, and collect the spoken rep
 
 If the agent has a startup greeting, the script receives that response before sending the user turn. Only the reply to the user turn is saved in `reply.wav`.
 
-Create the Python file:
+Create a file named `talk_to_voice_agent.py`:
 
 ```python
 import os
@@ -730,7 +730,7 @@ For a hands-free version that streams microphone audio and supports interruption
 
 Because you set `store` to `true`, the transcript and audio are saved. Use the conversation ID that the previous script printed to read the transcript in chronological order.
 
-Create the Python file:
+Create a file named `read_conversation.py`:
 
 ```python
 import os
@@ -819,7 +819,7 @@ python clean_up.py <conversation-id>
 
 These examples require version 2.11.0 or later of the Azure AI Projects client library.
 
-In your application directory, install the packages. The client library includes the WebSocket dependencies that `project.beta.voiceAgents.realtime` requires.
+In your application directory, install the packages. The client library includes the WebSocket dependencies that `project.voiceAgents.realtime` requires.
 
 ```bash
 npm init --yes
@@ -827,7 +827,7 @@ npm pkg set type=module
 npm install "@azure/ai-projects@>=2.11.0" @azure/identity
 ```
 
-Realtime sessions use `project.beta.voiceAgents.realtime`, and stored conversations use `project.voiceAgents.conversations`. The realtime client sends the `Foundry-Features: VoiceAgents=V1Preview` header automatically.
+Realtime sessions use `project.voiceAgents.realtime`, and stored conversations use `project.voiceAgents.conversations`.
 
 ## Set environment variables
 
@@ -1055,7 +1055,7 @@ main(projectEndpoint, agentName).catch((error) => {
 
 Reference: [Voice agent JavaScript sample](https://github.com/Azure/azure-sdk-for-js/blob/main/sdk/ai/ai-projects/samples/v2/javascript/agents/agentVoice.js).
 
-The same creation pattern works with supported real-time and text-model deployments. Confirm that the selected deployment supports the voice settings in this example. For model choices and latency guidance, see [Choose a managed or self-deployed model](../how-to/configure-voice-agent#choose-a-managed-or-self-deployed-model).
+The same creation pattern works with supported realtime and text-model deployments. Confirm that the selected deployment supports the voice settings in this example. For model choices and latency guidance, see [Choose a managed or self-deployed model](../how-to/configure-voice-agent#choose-a-managed-or-self-deployed-model).
 
 ### Run your chosen example
 
@@ -1135,7 +1135,7 @@ async function main() {
         throw new Error("The agent must have a voice definition.");
     }
 
-    const connection = await project.beta.voiceAgents.realtime.connect(
+    const connection = await project.voiceAgents.realtime.connect(
         agentName,
         { store: true },
     );
@@ -1400,7 +1400,7 @@ modelType: managed
 name: voice-guide-managed
 ```
 
-The `managed` model type tells Foundry to provide the real-time model for the agent. You don't need to create a model deployment separately.
+The `managed` model type tells Foundry to provide the realtime model for the agent. You don't need to create a model deployment separately.
 
 The CLI generates `kind: prompt-voice` for compatibility. `kind: voice` is also accepted; you don't need to rename the generated kind. To use your own model deployment, see [Choose a managed or self-deployed model](../how-to/configure-voice-agent#choose-a-managed-or-self-deployed-model).
 

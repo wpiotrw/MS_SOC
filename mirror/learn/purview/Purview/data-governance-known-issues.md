@@ -11,7 +11,7 @@ ms.author: chvukosw
 author: chvukosw
 manager: laurawi
 ms.reviewer: jife
-ms.date: 2026-10-13T00:00:00.0000000Z
+ms.date: 2026-11-19T00:00:00.0000000Z
 ai-usage: ai-assisted
 ms.custom: msecd-doc-authoring-1030
 audience: Admin
@@ -81,6 +81,7 @@ If you need further assistance, contact Microsoft support.
 | 2 | Enterprise glossary filters don’t interact.Filters in the enterprise glossary don't automatically update based on other filter selections. | 9/6/2024 | Fixed | 9/26/2024 |
 | 3 | Data asset metadata don’t autorefresh.Data assets within data products don’t automatically reflect owner, description, or lineage updates made in the Data Map. They need to be manually refreshed in the **Catalog management &gt; Data products** section by selecting **Refresh** in the asset details page. | 9/6/2024 | Active |  |
 | 4 | Linked objectives and key results (OKRs) don't show in data product search.Published OKRs that are linked to data products don't display in the data product details page within the **Discovery &gt; Data products** search experience today. | 9/6/2024 | Active |  |
+| 5 | **Large lineage responses can cause asset details to fail to load.** In the Microsoft Purview portal, opening an asset's **Overview (Details)** page can return HTTP 500 with `CorruptedWebSocketFrameException: Max frame length exceeded` when the backend Data Map lineage query exceeds its response-message size limit. | 11/19/2026 | Active |  |
 
 ## Health management issues
 

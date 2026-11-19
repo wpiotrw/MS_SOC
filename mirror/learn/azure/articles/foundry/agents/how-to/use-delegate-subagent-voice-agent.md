@@ -56,7 +56,7 @@ platformId: 964dc73d-8d1b-a895-2945-f2efc3fa88d9
 
 In this article, you configure a voice-based agent in Microsoft Foundry to delegate a focused task to a separate prompt or hosted agent, and then test the resulting voice experience.
 
-A **delegate subagent** is a separate Agent resource. The voice-based agent invokes it, receives its result, and remains the active behavior for the conversation. Use a delegate subagent for bounded work, such as research, analysis, content generation, or a specialist lookup. To compare delegate and inline subagents and choose a type, see [Subagents in voice-based agents](../concepts/voice-agent-subagents).
+A **delegate subagent** is a separate Agent resource. The voice-based agent invokes it, receives its result, and continues as the active behavior for the conversation. Use a delegate subagent for bounded work, such as research, analysis, content generation, or a specialist lookup. To compare delegate and inline subagents and choose a type, see [Subagents in voice-based agents](../concepts/voice-agent-subagents).
 
 The delegate subagent can be a Foundry prompt agent or hosted agent. The following sections create a prompt agent that writes poems and reference it from a voice-based agent. You can apply similar steps to a hosted agent.
 
@@ -64,7 +64,7 @@ Voice agents are generally available, with some features still in preview. See [
 
 Tip
 
-The [microsoft/voice-agent](https://github.com/microsoft/voice-agent) repository on GitHub contains voice-based agent samples and a local playground that you run on your computer to create, publish, and test voice-based agents. The playground connects to your own Foundry project, so you first need a [Foundry project](../../how-to/create-projects) with access to voice-based agents. For setup steps, see the [playground README](https://github.com/microsoft/voice-agent/blob/main/portal/README.md).
+The [microsoft/voice-agent](https://github.com/microsoft/voice-agent) repository on GitHub contains voice-based agent samples, including [delegate subagent samples](https://github.com/microsoft/voice-agent/tree/main/samples/subagent), and a local playground that you run on your computer to create, publish, and test voice-based agents. The playground connects to your own Foundry project, so you first need a [Foundry project](../../how-to/create-projects) with access to voice-based agents. For setup steps, see the [playground README](https://github.com/microsoft/voice-agent/blob/main/portal/README.md).
 
 ## Prerequisites
 
@@ -259,14 +259,14 @@ import os
 import pyaudio
 from azure.ai.projects import models
 from azure.ai.projects.aio import AIProjectClient
-from azure.ai.projects.aio.operations import AsyncBetaRealtimeConnection
+from azure.ai.projects.aio.operations import AsyncRealtimeConnection
 from azure.identity.aio import DefaultAzureCredential
 
 RATE = 24000
 CHUNK = 2400
 
 async def wait_until_ready(
-    connection: AsyncBetaRealtimeConnection,
+    connection: AsyncRealtimeConnection,
 ) -> None:
     while True:
         event = await connection.recv()
@@ -276,7 +276,7 @@ async def wait_until_ready(
             raise RuntimeError(event.error.message)
 
 async def send_microphone(
-    connection: AsyncBetaRealtimeConnection, stream: pyaudio.Stream
+    connection: AsyncRealtimeConnection, stream: pyaudio.Stream
 ) -> None:
     while True:
         audio = await asyncio.to_thread(
@@ -287,7 +287,7 @@ async def send_microphone(
         await connection.input_audio_buffer.append(audio=audio)
 
 async def receive_audio(
-    connection: AsyncBetaRealtimeConnection, stream: pyaudio.Stream
+    connection: AsyncRealtimeConnection, stream: pyaudio.Stream
 ) -> None:
     async for event in connection:
         if isinstance(

@@ -89,9 +89,9 @@ Use the [.NET 8 SDK or later](https://dotnet.microsoft.com/download). Create a c
 ```dotnetcli
 dotnet new console --name HostedVoiceClient --framework net8.0
 cd HostedVoiceClient
-dotnet add package Azure.AI.Extensions.OpenAI --version 3.0.0-beta.7
-dotnet add package Azure.AI.Projects.Agents --version 3.0.0-beta.7
-dotnet add package Azure.AI.Projects --version 3.0.0-beta.7
+dotnet add package Azure.AI.Extensions.OpenAI --version 3.0.0-beta.6
+dotnet add package Azure.AI.Projects.Agents --version 3.0.0-beta.6
+dotnet add package Azure.AI.Projects --version 3.0.0-beta.6
 dotnet add package Azure.Identity --version 1.21.0
 ```
 
@@ -284,26 +284,80 @@ Replace the project endpoint and the hosted conversation engine's agent name and
 
 ```python
 from azure.ai.projects import AIProjectClient
-from azure.ai.projects.models import (RealtimeAudioFormatsAudioPcm,VoiceAgentAudioConfig,VoiceAgentAudioInputConfig,VoiceAgentAudioOutputConfig,VoiceAgentDefinition,VoiceAgentInputTranscription,VoiceAgentServerVadTurnDetection,VoiceAgentTemplateGreetingConfig,VoiceHostedAgentConversationEngine,VoiceOutputModality,VoiceType,
+from azure.ai.projects.models import (
+    RealtimeAudioFormatsAudioPcm,
+    VoiceAgentAudioConfig,
+    VoiceAgentAudioInputConfig,
+    VoiceAgentAudioOutputConfig,
+    VoiceAgentDefinition,
+    VoiceAgentInputTranscription,
+    VoiceAgentServerVadTurnDetection,
+    VoiceAgentTemplateGreetingConfig,
+    VoiceHostedAgentConversationEngine,
+    VoiceOutputModality,
+    VoiceType,
 )
 from azure.identity import DefaultAzureCredential
 
-PROJECT_ENDPOINT = ("https://<resource>.services.ai.azure.com/api/projects/<project>"
+PROJECT_ENDPOINT = (
+    "https://<resource>.services.ai.azure.com/api/projects/<project>"
 )
 HOSTED_AGENT_NAME = "<hosted-agent-name>"
 HOSTED_AGENT_VERSION = "<hosted-agent-version>"
 VOICE_AGENT_NAME = "hosted-conversation-voice-agent"
 
-conversation_engine = VoiceHostedAgentConversationEngine(name=HOSTED_AGENT_NAME,
+conversation_engine = VoiceHostedAgentConversationEngine(
+    name=HOSTED_AGENT_NAME,
 )
 
-if HOSTED_AGENT_VERSION:conversation_engine.version = HOSTED_AGENT_VERSION
+if HOSTED_AGENT_VERSION:
+    conversation_engine.version = HOSTED_AGENT_VERSION
 
-voice_definition = VoiceAgentDefinition(conversation_engine=conversation_engine,greeting=VoiceAgentTemplateGreetingConfig(	text="Hello! How can I help you today?",),store=True,output_modalities=[VoiceOutputModality.AUDIO],audio=VoiceAgentAudioConfig(	input=VoiceAgentAudioInputConfig(		format=RealtimeAudioFormatsAudioPcm(rate=24000),		turn_detection=VoiceAgentServerVadTurnDetection(			threshold=0.5,			prefix_padding_ms=300,			silence_duration_ms=1000,		),		transcription=VoiceAgentInputTranscription(			model="azure-speech",		),	),	output=VoiceAgentAudioOutputConfig(		format=RealtimeAudioFormatsAudioPcm(rate=24000),		voice="en-US-JennyNeural",		voice_type=VoiceType.AZURE_STANDARD,	),),
+voice_definition = VoiceAgentDefinition(
+    conversation_engine=conversation_engine,
+    greeting=VoiceAgentTemplateGreetingConfig(
+        text="Hello! How can I help you today?",
+    ),
+    store=True,
+    output_modalities=[VoiceOutputModality.AUDIO],
+    audio=VoiceAgentAudioConfig(
+        input=VoiceAgentAudioInputConfig(
+            format=RealtimeAudioFormatsAudioPcm(rate=24000),
+            turn_detection=VoiceAgentServerVadTurnDetection(
+                threshold=0.5,
+                prefix_padding_ms=300,
+                silence_duration_ms=1000,
+            ),
+            transcription=VoiceAgentInputTranscription(
+                model="azure-speech",
+            ),
+        ),
+        output=VoiceAgentAudioOutputConfig(
+            format=RealtimeAudioFormatsAudioPcm(rate=24000),
+            voice="en-US-JennyNeural",
+            voice_type=VoiceType.AZURE_STANDARD,
+        ),
+    ),
 )
 
-with (DefaultAzureCredential() as credential,AIProjectClient(	endpoint=PROJECT_ENDPOINT,	credential=credential,) as project_client,
-):voice_agent = project_client.agents.create_version(	agent_name=VOICE_AGENT_NAME,	description=(		"Voice agent that uses a hosted agent as its conversation engine"	),	definition=voice_definition,)print(	f"Voice agent created: {voice_agent.name}, "	f"version {voice_agent.version}")
+with (
+    DefaultAzureCredential() as credential,
+    AIProjectClient(
+        endpoint=PROJECT_ENDPOINT,
+        credential=credential,
+    ) as project_client,
+):
+    voice_agent = project_client.agents.create_version(
+        agent_name=VOICE_AGENT_NAME,
+        description=(
+            "Voice agent that uses a hosted agent as its conversation engine"
+        ),
+        definition=voice_definition,
+    )
+    print(
+        f"Voice agent created: {voice_agent.name}, "
+        f"version {voice_agent.version}"
+    )
 ```
 
 Reference: [AgentsOperations.create_version](/en-us/python/api/azure-ai-projects/azure.ai.projects.operations.agentsoperations#azure-ai-projects-operations-agentsoperations-create-version) | [VoiceAgentDefinition](/en-us/python/api/azure-ai-projects/azure.ai.projects.models.voiceagentdefinition) | [VoiceHostedAgentConversationEngine](/en-us/python/api/azure-ai-projects/azure.ai.projects.models.voicehostedagentconversationengine).
@@ -312,7 +366,7 @@ Reference: [AgentsOperations.create_version](/en-us/python/api/azure-ai-projects
 Replace `Program.cs` in `HostedVoiceClient` with the following code and run `dotnet run`:
 
 ```csharp
-#pragma warning disable AAIP002, OPENAI002
+#pragma warning disable AAIP001, OPENAI002
 
 using System;
 using Azure.AI.Projects.Agents;
@@ -375,7 +429,7 @@ Console.WriteLine(
     $"version {result.Value.Version}");
 ```
 
-Reference: [AgentAdministrationClient](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Projects.Agents/src/Generated/AgentAdministrationClient.cs) | [VoiceHostedAgentConversationEngine](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Projects.Agents/src/Generated/Models/VoiceHostedAgentConversationEngine.cs).
+Reference: [AgentAdministrationClient](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects.Agents_3.0.0-beta.6/sdk/ai/Azure.AI.Projects.Agents/src/Generated/AgentAdministrationClient.cs) | [VoiceHostedAgentConversationEngine](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects.Agents_3.0.0-beta.6/sdk/ai/Azure.AI.Projects.Agents/src/Generated/Models/VoiceHostedAgentConversationEngine.cs).
 
 ---
 
@@ -458,7 +512,7 @@ For microphone capture, playback, and interruption handling, reuse the audio-pro
 Replace `Program.cs` in `HostedVoiceClient` with this code and run `dotnet run`:
 
 ```csharp
-#pragma warning disable AAIP002, OPENAI002
+#pragma warning disable AAIP001, AAIP002, OPENAI002
 
 using System;
 using System.Threading;
@@ -502,9 +556,9 @@ throw new InvalidOperationException(
     "Connection closed before the session was ready.");
 ```
 
-Reference: [ProjectsRealtimeClient](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Projects/src/Custom/VoiceAgent/ProjectsRealtimeClient.cs).
+Reference: [ProjectsRealtimeClient](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects_3.0.0-beta.6/sdk/ai/Azure.AI.Projects/src/Custom/VoiceAgent/ProjectsRealtimeClient.cs).
 
-The [.NET WebSocket audio operations sample](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Projects/samples/Sample_VoiceAgent_WebSocketAudio.md) demonstrates sending PCM chunks and receiving audio events. It uses a generated tone, not microphone capture or speaker playback. Reuse its audio operations with the existing voice agent; don't run its model-backed agent creation or cleanup steps against this agent.
+The [.NET WebSocket audio operations sample](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects_3.0.0-beta.6/sdk/ai/Azure.AI.Projects/samples/Sample_VoiceAgent_WebSocketAudio.md) demonstrates sending PCM chunks and receiving audio events. It uses a generated tone, not microphone capture or speaker playback. Reuse its audio operations with the existing voice agent; don't run its model-backed agent creation or cleanup steps against this agent.
 
 ---
 
@@ -590,7 +644,7 @@ AgentAdministrationClient agentsClient = new(
 await agentsClient.DeleteAgentAsync(voiceAgentName);
 ```
 
-Reference: [AgentAdministrationClient.DeleteAgentAsync](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/ai/Azure.AI.Projects.Agents/src/Custom/AgentAdministrationClient.cs).
+Reference: [AgentAdministrationClient.DeleteAgentAsync](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects.Agents_3.0.0-beta.6/sdk/ai/Azure.AI.Projects.Agents/src/Custom/AgentAdministrationClient.cs).
 
 ---
 

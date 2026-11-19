@@ -1141,7 +1141,7 @@ Conversation APIs apply to stored inbound and outbound voice sessions. [Enable `
     Authorization: Bearer <access-token>
     ```
 
-    A response identifies one model turn. Read a selected response at `/agents/{agentName}/endpoint/protocols/voice/conversations/{conversationId}/responses/{responseId}?api-version=v1`. Its `/items` subresource provides paged output items when you need the full output. Use the same authorization and preview headers.
+    A response identifies one model turn. Read a selected response at `/agents/{agentName}/endpoint/protocols/voice/conversations/{conversationId}/responses/{responseId}?api-version=v1`. Its `/items` subresource provides paged output items when you need the full output. Use the same authorization header.
 5. After the call ends, retrieve metadata for its merged recording:
 
     ```http

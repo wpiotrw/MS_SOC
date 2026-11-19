@@ -239,7 +239,7 @@ Developers don't need a license to build apps with the CLI. To run the app, a de
 - Set policy alerts to budget owners. Alert emails start when usage reaches the threshold and continue daily until the period resets or the policy changes.
 - Deleting a spending policy doesn't refund or reallocate credits. Spending policies define access and limits only, and past usage stays in reports.
 
-During preview, users who don't meet the credit requirements to run an app first see a warning, and access is blocked after 20 app operations or five minutes of use, whichever comes first.
+Users who don't meet the credit requirements to run an app see a warning banner.
 
 ## Establish a credit request process
 
