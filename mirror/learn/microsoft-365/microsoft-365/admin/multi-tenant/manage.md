@@ -17,8 +17,8 @@ description: Learn how to manage multiple Microsoft 365 tenants from a single lo
 customer-intent: As a Microsoft 365 administrator, I want to manage multiple tenants from a single location so that I can streamline administration tasks.
 f1.keywords:
 - NOCSH
-ms.author: erikre
-author: Erikre
+ms.author: heidip
+author: MicrosoftHeidi
 manager: dansimp
 ms.date: 2026-11-03T00:00:00.0000000Z
 audience: Admin

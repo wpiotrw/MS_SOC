@@ -17,8 +17,8 @@ description: Learn how to add users and assign licenses in Microsoft 365. Create
 customer intent: As an admin, I want to add users and assign licenses in Microsoft 365 so that they can access the necessary tools and services.
 f1.keywords:
 - NOCSH
-ms.author: deniseb
-author: denisebmsft
+ms.author: heidip
+author: MicrosoftHeidi
 manager: dansimp
 audience: Admin
 ms.topic: how-to

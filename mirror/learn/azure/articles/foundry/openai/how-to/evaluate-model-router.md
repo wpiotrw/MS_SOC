@@ -64,7 +64,7 @@ Before you move production traffic, prove that model router in Microsoft Foundry
 
 Important
 
-Features or capabilities marked (preview) in this article are in Public Preview and are subject to the [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/). Previews are provided without a service-level agreement, and Microsoft doesn't recommend them for production workloads. Certain features might not be supported or might have constrained capabilities.
+Features or capabilities marked (preview) in this article are in public preview and are subject to the [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/support/legal/preview-supplemental-terms/). Previews are provided without a service-level agreement, and Microsoft doesn't recommend them for production workloads. Certain features might not be supported or might have constrained capabilities.
 
 ## Prerequisites
 

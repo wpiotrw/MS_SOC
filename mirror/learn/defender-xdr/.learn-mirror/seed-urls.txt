@@ -18,6 +18,7 @@ https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudstorageaggr
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-custom-functions
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicelogonevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicenetworkevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicetvmsoftwarevulnerabilities-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-disruptionandresponseevents-table

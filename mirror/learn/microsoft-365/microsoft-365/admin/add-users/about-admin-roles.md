@@ -15,8 +15,8 @@ recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
 f1.keywords:
 - CSH
-ms.author: deniseb
-author: denisebmsft
+ms.author: heidip
+author: MicrosoftHeidi
 manager: dansimp
 ms.date: 2026-10-07T00:00:00.0000000Z
 audience: Admin

@@ -30,6 +30,8 @@ https://learn.microsoft.com/en-us/azure/azure-arc/gitops-flux2-parameters
 https://learn.microsoft.com/en-us/azure/azure-arc/identity-access-overview
 https://learn.microsoft.com/en-us/azure/azure-arc/ku
 https://learn.microsoft.com/en-us/azure/azure-arc/kuber
+https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/azure-rbac
+https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/cluster-connect
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-gitops-argocd
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-secure-your-data
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-secure-your-network
@@ -41,6 +43,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/extensions-troubles
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/flux-gitops-release-notes
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/gitops-overview
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/how-to-manage-gitops-argo-cd-extension
+https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/kubernetes-resource-view
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/manage-agent-proxy-settings
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-deploy-gitops-argo-cd
 https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/release-notes
@@ -79,6 +82,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/servers/billing-extended-secur
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/billing-windows-server-pay-go
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/cloud-native/licensing-cost-management
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/configuration-manager-connector-overview
+https://learn.microsoft.com/en-us/azure/azure-arc/servers/connect-user-assigned-managed-identity-preview
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/deliver-extended-security-updates
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/deploy-vm-app-on-arc
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/enable-windows-recovery
@@ -86,6 +90,7 @@ https://learn.microsoft.com/en-us/azure/azure-arc/servers/license-extended-secur
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/manage-agent
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/manage-agent-proxy-settings
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/manage-vm-app-on-arc
+https://learn.microsoft.com/en-us/azure/azure-arc/servers/managed-identity-authentication
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/monitor-vm-app-on-arc
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/network-security-perimeter-arc-enabled-servers
 https://learn.microsoft.com/en-us/azure/azure-arc/servers/onboard-group-policy-powershell
@@ -117,6 +122,7 @@ https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-collector-api
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aadserviceprincipalsigninlogs
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aaduserriskevents
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs
+https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azureactivity
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/usage
@@ -145,6 +151,7 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/benefits/promos/
 https://learn.microsoft.com/en-us/azure/cost-management-billing/browse-redeem-consumption-promos
 https://learn.microsoft.com/en-us/azure/cost-management-billing/change-credit-card
 https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/overview-cost-management
+https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets
 https://learn.microsoft.com/en-us/azure/cost-management-billing/create-enterprise-subscription
 https://learn.microsoft.com/en-us/azure/cost-management-billing/dataset-schema/cost-usage-details-ea
 https://learn.microsoft.com/en-us/azure/cost-management-billing/dataset-schema/cost-usage-details-mca
@@ -209,6 +216,7 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/savings-plan/vie
 https://learn.microsoft.com/en-us/azure/cost-management-billing/savings-plan/view-utilization
 https://learn.microsoft.com/en-us/azure/cost-management-billing/supported-payment-methods
 https://learn.microsoft.com/en-us/azure/cost-management-billing/toc
+https://learn.microsoft.com/en-us/azure/cost-management-billing/troubleshoot-subscription/troubleshoot-azure-sign-up
 https://learn.microsoft.com/en-us/azure/cost-management-billing/understand-ea-roles
 https://learn.microsoft.com/en-us/azure/cost-management-billing/understand/pay-bill
 https://learn.microsoft.com/en-us/azure/cost-management-…
@@ -216,6 +224,7 @@ https://learn.microsoft.com/en-us/azure/data-explorer/provision-entra-id-app
 https://learn.microsoft.com/en-us/azure/data-explorer/release-notes-cloud
 https://learn.microsoft.com/en-us/azure/defender-for-cloud
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/ai-model-security
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/ai-threat-protection
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/alerts-ai-workloads
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/anti-malware
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/api-security-posture-overview
@@ -440,6 +449,7 @@ https://learn.microsoft.com/en-us/azure/governance/policy/concepts/assignment-st
 https://learn.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure-basics
 https://learn.microsoft.com/en-us/azure/governance/policy/concepts/definition-structure-policy-rule
 https://learn.microsoft.com/en-us/azure/governance/policy/concepts/initiative-definition-structure
+https://learn.microsoft.com/en-us/azure/governance/policy/how-to/author-policy-with-copilot
 https://learn.microsoft.com/en-us/azure/governance/policy/how-to/migrate-from-automanage-best-practices
 https://learn.microsoft.com/en-us/azure/governance/policy/samples/cis-linux/alma-ado
 https://learn.microsoft.com/en-us/azure/governance/policy/samples/cis-linux/azure-linux-ado
@@ -457,6 +467,8 @@ https://learn.microsoft.com/en-us/azure/governance/policy/samples/stig-linux/ora
 https://learn.microsoft.com/en-us/azure/governance/policy/samples/stig-linux/rhel-ado
 https://learn.microsoft.com/en-us/azure/governance/policy/samples/stig-linux/ubuntu-ado
 https://learn.microsoft.com/en-us/azure/governance/policy/tutorials/assign-absm
+https://learn.microsoft.com/en-us/azure/governance/policy/tutorials/create-custom-policy-definition
+https://learn.microsoft.com/en-us/azure/governance/policy/tutorials/mfa-enforcement
 https://learn.microsoft.com/en-us/azure/governance/resource-graph
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/changes/resource-graph-changes
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/changes/view-resource-changes
@@ -493,6 +505,7 @@ https://learn.microsoft.com/en-us/azure/sentinel/ci-cd-custom-content
 https://learn.microsoft.com/en-us/azure/sentinel/compare-analytics-rules-custom-detections
 https://learn.microsoft.com/en-us/azure/sentinel/configure-data-connector
 https://learn.microsoft.com/en-us/azure/sentinel/connect-data-sources
+https://learn.microsoft.com/en-us/azure/sentinel/connect-microsoft-purview
 https://learn.microsoft.com/en-us/azure/sentinel/connect-threat-intelligence-taxii
 https://learn.microsoft.com/en-us/azure/sentinel/create-analytics-rule-from-template
 https://learn.microsoft.com/en-us/azure/sentinel/create-analytics-rules
@@ -619,6 +632,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/backup-recovery
 https://learn.microsoft.com/en-us/azure/virtual-machines/boot-diagnostics
 https://learn.microsoft.com/en-us/azure/virtual-machines/capacity-reservation-associate-virtual-machine-scale-set
 https://learn.microsoft.com/en-us/azure/virtual-machines/capacity-reservation-associate-vm
+https://learn.microsoft.com/en-us/azure/virtual-machines/capacity-reservation-overview
 https://learn.microsoft.com/en-us/azure/virtual-machines/compute-gallery-migrate-china-regions
 https://learn.microsoft.com/en-us/azure/virtual-machines/compute-placement-score
 https://learn.microsoft.com/en-us/azure/virtual-machines/concepts-restore-points
@@ -746,6 +760,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/epsv7-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/esv6-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/mpdsv4-series
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/msv4-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/storage-optimized/laosv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/storage-optimized/lasv5-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/storage-optimized/lpsv5-series

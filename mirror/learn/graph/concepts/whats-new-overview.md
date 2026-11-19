@@ -16,7 +16,7 @@ ms.service: microsoft-graph
 ms.topic: whats-new
 description: Find out what's new in Microsoft Graph APIs, SDKs, documentation, and other resources.
 ms.localizationpriority: high
-ms.date: 2026-11-02T00:00:00.0000000Z
+ms.date: 2026-11-05T00:00:00.0000000Z
 locale: en-us
 document_id: 62dfb7e7-bb91-b6de-735b-97e63c2620df
 document_version_independent_id: 7ac1c0c8-1433-e6c6-84a8-cbe00071fdd7
@@ -59,6 +59,7 @@ Features in *preview* status are subject to change without notice, and might not
 
 ### Backup and recovery | Microsoft 365 backup and storage
 
+- Added support for in-place granular restore when you create [SharePoint](/en-us/graph/api/backuprestoreroot-post-sharepointrestoresessions) and [OneDrive for Business](/en-us/graph/api/backuprestoreroot-post-onedriveforbusinessrestoresessions) restore sessions. Use the **@microsoft.graph.conflictBehavior** instance annotation to fail, replace, or rename restored items when items with the same name exist.
 - Added request guidance and examples for using **retentionSettings** when you create or update [Exchange](/en-us/graph/api/resources/exchangeprotectionpolicy), [OneDrive for Business](/en-us/graph/api/resources/onedriveforbusinessprotectionpolicy), and [SharePoint](/en-us/graph/api/resources/sharepointprotectionpolicy) protection policies to configure how long backups are retained.
 - Added the **error** property to the [granularRestoreArtifactBase](/en-us/graph/api/resources/granularrestoreartifactbase) resource and its derived types. Use this property to get error details when a granular restore operation for an individual artifact fails or completes with an error.
 - Added audit metadata to the [browseQueryResponseItem](/en-us/graph/api/resources/browsequeryresponseitem) resource. Use this metadata to identify when a file or folder was created or last modified and who made the change when you select items for granular restore.
@@ -116,9 +117,14 @@ Features in *preview* status are subject to change without notice, and might not
 - Added the [retrieveFlexCloudPcAccessConfiguration](/en-us/graph/api/cloudpc-retrieveflexcloudpcaccessconfiguration?view=graph-rest-beta&amp;preserve-view=true) and [retrieveFlexCloudPcConfigurationDetail](/en-us/graph/api/cloudpc-retrieveflexcloudpcconfigurationdetail?view=graph-rest-beta&amp;preserve-view=true) functions on the [cloudPC](/en-us/graph/api/resources/cloudpc?view=graph-rest-beta&amp;preserve-view=true) resource to retrieve live Windows 365 Flex access state and Flex license availability.
 - Added the `cloudPcReserveHealthScenario` member to the **alertRuleTemplate** enumeration type used by [alertRule](/en-us/graph/api/resources/devicemanagement-alertrule?view=graph-rest-beta&amp;preserve-view=true) to monitor Windows 365 Reserve Cloud PC health conditions.
 - Added the `cloudPcReserveLicensesAvailabilityBelowThreshold`, `reserveCloudPcUnlicensedUsersAssignment`, and `cloudPcMaxUserStorageUsageThresholdExceeded` members to the **conditionCategory** enumeration type used by [ruleCondition](/en-us/graph/api/resources/devicemanagement-rulecondition?view=graph-rest-beta&amp;preserve-view=true) to monitor available Reserve licenses, unlicensed user assignments, and maximum user storage usage.
+- Added support for managing Cloud PC user settings persistence storage sizing, automatic cleanup, and automatic snapshots. Use the [cloudPCUserSettingsPersistenceDetail](/en-us/graph/api/resources/cloudpcusersettingspersistencedetail?view=graph-rest-beta&amp;preserve-view=true) resource to configure these settings and access related operations.
+- Added the [cloudPcUserProfileSnapshot](/en-us/graph/api/resources/cloudpcuserprofilesnapshot?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods for creating, exporting, and restoring user settings persistence cloud profile snapshots.
+- Deprecated the **userSettingsPersistenceStorageSizeCategory** property on the [cloudPcUserSettingsPersistenceConfiguration](/en-us/graph/api/resources/cloudpcusersettingspersistenceconfiguration?view=graph-rest-beta&amp;preserve-view=true) resource type. After December 11, 2026, use the **allocatedStorageSizeCategory** property on the [cloudPcStorageConfiguration](/en-us/graph/api/resources/cloudpcstorageconfiguration?view=graph-rest-beta&amp;preserve-view=true) resource type instead.
 
 ### Identity and access | Directory management
 
+- Added the **lifecyclePolicyComplianceState**, **lifecyclePolicyComplianceStateLastModifiedDateTime**, **lifecyclePolicyComplianceStateReason**, and **lifecyclePolicyNonComplianceDisablementDateTime** properties to the [agentIdentity](/en-us/graph/api/resources/agentidentity?view=graph-rest-beta&amp;preserve-view=true) and [agentIdentityBlueprintPrincipal](/en-us/graph/api/resources/agentidentityblueprintprincipal?view=graph-rest-beta&amp;preserve-view=true) resources to report lifecycle policy compliance status, context, and enforcement timestamps.
+- Added the **lifecyclePolicyComplianceState** enumeration type to represent lifecycle policy compliance states.
 - Added the **isSingleInstance** property to the [application](/en-us/graph/api/resources/application?view=graph-rest-beta&amp;preserve-view=true) resource, inherited by [agentIdentityBlueprint](/en-us/graph/api/resources/agentidentityblueprint?view=graph-rest-beta&amp;preserve-view=true). Set it when creating a blueprint to support at most one active agent identity per tenant without an agent identity blueprint principal.
 - Added the **instanceMode** property to the [agentIdentity](/en-us/graph/api/resources/agentidentity?view=graph-rest-beta&amp;preserve-view=true) resource and the **instanceMode** enumeration to identify the single-instance or multi-instance topology.
 - Devices now support soft-deletion and restoration. When a device is deleted, it's moved to the [deleted items container](/en-us/graph/api/resources/directory?view=graph-rest-beta&amp;preserve-view=true) and can be restored within 30 days. After 30 days, it's permanently deleted.
@@ -166,6 +172,10 @@ Added the [classificationGradingJobResponse](/en-us/graph/api/resources/classifi
 - Added the [configurationTemplate](/en-us/graph/api/resources/configurationtemplate?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods to manage reusable, versioned baselines and reference them from monitors.
 - Added the `applyOnce` mode to [configurationMonitor](/en-us/graph/api/resources/configurationmonitor?view=graph-rest-beta&amp;preserve-view=true). Use it to apply a desired-state baseline once on behalf of the signed-in administrator.
 - Added the [remediate](/en-us/graph/api/configurationdrift-remediate?view=graph-rest-beta&amp;preserve-view=true) action to restore drifted resource properties to their baseline values and inspect the success or failure result.
+
+### Tenants | Tenant governance
+
+- Added the [resource policy](/en-us/graph/api/resources/entra-resource-policy-overview) APIs to define and assign Rego policies that govern Microsoft Graph resource changes. Manage customer-authored and read-only built-in definitions, definition versions, assignments, deleted items, and tenant-wide privileged-read configuration. Evaluate assigned or inline policies with simulated fetch responses and detailed diagnostics before enabling enforcement.
 
 ## October 2026: New and generally available
 

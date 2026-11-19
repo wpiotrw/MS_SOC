@@ -16,8 +16,8 @@ uhfHeaderId: MSDocsHeader-M365-IT
 ms.reviewer: batre
 ms.date: 2026-02-02T00:00:00.0000000Z
 f1.keywords: CSH
-ms.author: dansimp
-author: Dansimp
+ms.author: heidip
+author: MicrosoftHeidi
 manager: dansimp
 audience: Admin
 ms.topic: product-comparison

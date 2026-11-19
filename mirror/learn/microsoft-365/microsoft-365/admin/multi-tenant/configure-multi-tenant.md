@@ -17,8 +17,8 @@ description: Learn how to manage configurations across multiple tenants in the M
 customer-intent: As a Microsoft 365 administrator, I want to manage configurations across multiple tenants so that I can streamline administration tasks.
 f1.keywords:
 - NOCSH
-ms.author: erikre
-author: Erikre
+ms.author: heidip
+author: MicrosoftHeidi
 manager: dansimp
 ms.date: 2026-11-10T00:00:00.0000000Z
 audience: Admin

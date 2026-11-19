@@ -203,6 +203,7 @@ def send_image_turn(connection, data_url: str, prompt: str) -> None:
     )
     connection.conversation.item.create(item=item)
     connection.response.create()
+
 ```
 
 Expected output:
@@ -361,40 +362,40 @@ Agent: <answer based on the image>
 7. Call `session.createResponse` once.
 
 ```java
-private static BinaryData buildImageEvent(String dataUrl, String prompt) {
-    Map<String, Object> text = new LinkedHashMap<>();
-    text.put("type", "input_text");
-    text.put(
-        "text",
-        prompt == null || prompt.trim().isEmpty()
-            ? DEFAULT_IMAGE_PROMPT
-            : prompt.trim());
+    private static BinaryData buildImageEvent(String dataUrl, String prompt) {
+        Map<String, Object> text = new LinkedHashMap<>();
+        text.put("type", "input_text");
+        text.put(
+            "text",
+            prompt == null || prompt.trim().isEmpty()
+                ? DEFAULT_IMAGE_PROMPT
+                : prompt.trim());
 
-    Map<String, Object> image = new LinkedHashMap<>();
-    image.put("type", "input_image");
-    image.put("image_url", dataUrl);
-    image.put("detail", "low");
+        Map<String, Object> image = new LinkedHashMap<>();
+        image.put("type", "input_image");
+        image.put("image_url", dataUrl);
+        image.put("detail", "low");
 
-    List<Map<String, Object>> content = new ArrayList<>();
-    content.add(text);
-    content.add(image);
+        List<Map<String, Object>> content = new ArrayList<>();
+        content.add(text);
+        content.add(image);
 
-    Map<String, Object> item = new LinkedHashMap<>();
-    item.put("type", "message");
-    item.put("role", "user");
-    item.put("content", content);
+        Map<String, Object> item = new LinkedHashMap<>();
+        item.put("type", "message");
+        item.put("role", "user");
+        item.put("content", content);
 
-    Map<String, Object> event = new LinkedHashMap<>();
-    event.put("type", "conversation.item.create");
-    event.put("item", item);
-    return BinaryData.fromObject(event);
-}
+        Map<String, Object> event = new LinkedHashMap<>();
+        event.put("type", "conversation.item.create");
+        event.put("item", item);
+        return BinaryData.fromObject(event);
+    }
 
-private static void sendImageTurn(
-    BetaVoiceAgentWebSocketSessionClient session,
-    BinaryData event) {
-    sendImageTurnCore(session::sendEvent, session::createResponse, event);
-}
+    private static void sendImageTurn(
+        BetaVoiceAgentWebSocketSessionClient session,
+        BinaryData event) {
+        sendImageTurnCore(session::sendEvent, session::createResponse, event);
+    }
 ```
 
 Expected output:

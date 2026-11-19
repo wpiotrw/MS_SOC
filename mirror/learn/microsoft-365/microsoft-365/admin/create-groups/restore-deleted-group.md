@@ -16,8 +16,8 @@ uhfHeaderId: MSDocsHeader-M365-IT
 ms.reviewer: rahulnayak
 ms.date: 2026-07-28T00:00:00.0000000Z
 f1.keywords: CSH
-ms.author: dansimp
-author: Dansimp
+ms.author: heidip
+author: MicrosoftHeidi
 manager: dansimp
 audience: Admin
 ms.topic: how-to

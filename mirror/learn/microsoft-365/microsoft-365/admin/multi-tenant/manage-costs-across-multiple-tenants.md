@@ -16,9 +16,9 @@ uhfHeaderId: MSDocsHeader-M365-IT
 description: Multi-tenant Cost Management lets you track Copilot Credit usage across governed tenants. Learn how to apply spending templates and policies at scale.
 ms.date: 2026-11-05T00:00:00.0000000Z
 ms.topic: how-to
-author: Smritib17
+author: MicrosoftHeidi
 manager: dansimp
-ms.author: smbhardwaj
+ms.author: heidip
 audience: Admin
 ms.service: m365-core
 ms.subservice: tenant

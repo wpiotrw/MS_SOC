@@ -14,7 +14,6 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure-ai-foundry
 ms.suite: office
-zone_pivot_group_filename: zone-pivots/azure-ai/zone-pivot-groups.json
 author: mattwojo
 learn_banner_products:
 - azure
@@ -32,7 +31,6 @@ reviewer: lindazqli
 ms.reviewer: zhuoqunli
 ms.custom: azure-ai-agents, dev-focus, pilot-ai-workflow-jan-2026, doc-kit-assisted
 ai-usage: ai-assisted
-zone_pivot_groups: selection-browser-tool
 locale: en-us
 document_id: 109d955c-c481-1456-c22b-bca982183ee8
 document_version_independent_id: bd02d1c9-6ec5-2f8b-786e-632b0645a21b
@@ -59,7 +57,9 @@ platformId: 56e49b87-e066-9ae8-6684-8c2261a9b726
 
 # Automate browser tasks with Foundry agents - Microsoft Foundry | Microsoft Learn
 
-Browser automation tool is a generally available (GA) service that lets Microsoft Foundry agents navigate websites, read information, and interact with web applications through a managed remote browser. Watch with Live View, intervene with Take control, and review activity through Foundry observability. Use Browser automation tool when the application doesn't have an API or a connector.
+Browser automation tool is a generally available (GA) service that lets Microsoft Foundry agents navigate websites, read information, and interact with web applications through a managed remote browser. Powered by Azure Playwright Workspaces, it gives secure, reliable, and isolated browser sessions as part of its managed browser infrastructure. The service is scalable with concurrent browser sessions to meet your agentic needs.
+
+Use the Browser automation tool typically when the application you need has no API or connector, or when its API doesn't cover your task.
 
 Important
 
@@ -150,26 +150,22 @@ Browser automation tool supports browser-based workflows where an agent needs to
 
 Consider these limitations when designing workflows with Browser automation tool:
 
-- **Bot detection and CAPTCHA:** Some websites restrict or block automated browser access. If a website presents a CAPTCHA or blocks automated traffic, BAT might not be able to complete the workflow. Stealth browsers aren't supported. To report CAPTCHA issues or request platform registration, fill out the [CAPTCHA feedback form](https://forms.cloud.microsoft/r/feSSnFeQMq).
+- **Bot detection and CAPTCHA:** Some websites restrict or block automated browser access. If a website presents a CAPTCHA or blocks automated traffic, Browser automation tool might not be able to complete the workflow. Stealth browsers aren't supported. To report CAPTCHA issues or request platform registration, fill out the [CAPTCHA feedback form](https://forms.cloud.microsoft/r/feSSnFeQMq).
 - **Credential handling:** When Azure Key Vault credentials are provided to a prompt agent for browser authentication, the model currently has access to the secret value. In coded or hosted agents, the secret can be kept hidden from the model. Consider this when choosing credentials. We plan to improve Azure Key Vault usability for prompt agents.
-- **Reusing authenticated sessions:** BAT doesn't currently support starting a workflow from a saved browser profile or cookies copied from the user's browser. Workflows can't reuse an existing authenticated session to bypass sign-in.
-- **Geo-restricted websites and proxy access:** BAT doesn't support proxy or static IP configuration to access websites that restrict access based on geographic location or source IP.
+- **Reusing authenticated sessions:** Browser automation tool doesn't currently support starting a workflow from a saved browser profile or cookies copied from your browser. Workflows can't reuse an existing authenticated session to bypass sign-in.
+- **Geo-restricted websites and proxy access:** Browser automation tool doesn't support proxy or static IP configuration to access websites that restrict access based on geographic location or source IP.
 - **Complex or long-running workflows:** Tasks involving many browser interactions or slow-loading pages can take longer and might time out.
 - **Dynamic webpages:** Page content and controls can change while the agent is working. If an interaction fails, inspect the current page state before retrying the action.
 
 | Supported scenarios | Not supported scenarios |
 | --- | --- |
-| MCP with an expanded tool set optimized for browser actions | CAPTCHA or bot verification |
+| Expanded tools for efficient browser actions | CAPTCHA or bot verification |
 | Private VNet injection (preview) | Browser profiles |
 | Live View and Take control | Browser proxies |
-| Sign-in with SSO or MFA using Azure Key Vault credentials or user takeover in the live browser | Browser extensions |
+| Secret management with Azure Key Vault (Preview) | Browser extensions |
 |  | Enterprise scenarios that require an Intune-enabled device or passkey |
 
 ## Security and reliability
-
-Important
-
-Browser automation tool can change real application data. Treat website content as untrusted input and require human approval for consequential actions.
 
 Before production:
 

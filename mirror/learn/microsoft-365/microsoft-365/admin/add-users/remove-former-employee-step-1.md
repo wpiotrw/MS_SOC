@@ -16,8 +16,8 @@ uhfHeaderId: MSDocsHeader-M365-IT
 description: Learn how to block a user from signing in and restrict their access to Microsoft 365 services with step-by-step instructions for admins.
 f1.keywords:
 - NOCSH
-ms.author: dansimp
-author: Dansimp
+ms.author: heidip
+author: MicrosoftHeidi
 manager: dansimp
 ms.date: 2026-01-05T00:00:00.0000000Z
 audience: Admin

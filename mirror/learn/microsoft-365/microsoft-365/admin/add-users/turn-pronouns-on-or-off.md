@@ -14,8 +14,8 @@ breadcrumb_path: /microsoft-365/breadcrumb/toc.json
 recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
 f1.keywords: CSH
-ms.author: dansimp
-author: Dansimp
+ms.author: heidip
+author: MicrosoftHeidi
 manager: dansimp
 audience: Admin
 ms.topic: how-to

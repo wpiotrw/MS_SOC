@@ -15,8 +15,8 @@ recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
 f1.keywords:
 - NOCSH
-ms.author: dansimp
-author: Dansimp
+ms.author: heidip
+author: MicrosoftHeidi
 manager: dansimp
 ms.date: 2025-12-01T00:00:00.0000000Z
 audience: Admin

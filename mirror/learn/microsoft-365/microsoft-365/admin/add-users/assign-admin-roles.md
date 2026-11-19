@@ -17,8 +17,8 @@ description: Learn how to assign administrator roles to a user or multiple users
 customer intent: As an admin, I want to assign specific roles to users so that they can perform designated tasks in the Microsoft 365 admin center.
 f1.keywords:
 - NOCSH
-ms.author: deniseb
-author: denisebmsft
+ms.author: heidip
+author: MicrosoftHeidi
 manager: dansimp
 ms.date: 2026-01-06T00:00:00.0000000Z
 audience: Admin

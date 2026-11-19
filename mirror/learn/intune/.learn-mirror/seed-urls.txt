@@ -168,6 +168,7 @@ https://learn.microsoft.com/en-us/intune/device-security/conditional-access-inte
 https://learn.microsoft.com/en-us/intune/device-security/endpoint-security-devices
 https://learn.microsoft.com/en-us/intune/device-security/endpoint-security-policies
 https://learn.microsoft.com/en-us/intune/device-security/laps/setup-macos
+https://learn.microsoft.com/en-us/intune/device-security/microsoft-defender/deploy-android
 https://learn.microsoft.com/en-us/intune/device-security/microsoft-defender/security-settings-management
 https://learn.microsoft.com/en-us/intune/device-security/microsoft-tunnel/monitor
 https://learn.microsoft.com/en-us/intune/device-security/microsoft-tunnel/overview
@@ -205,10 +206,12 @@ https://learn.microsoft.com/en-us/intune/fundamentals/certificates/connector/cer
 https://learn.microsoft.com/en-us/intune/fundamentals/certificates/connector/overview
 https://learn.microsoft.com/en-us/intune/fundamentals/certificates/connector/prerequisites
 https://learn.microsoft.com/en-us/intune/fundamentals/certificates/connector/setup-connector
+https://learn.microsoft.com/en-us/intune/fundamentals/certificates/scep-infrastructure
 https://learn.microsoft.com/en-us/intune/fundamentals/endpoints
 https://learn.microsoft.com/en-us/intune/fundamentals/filters/overview
 https://learn.microsoft.com/en-us/intune/fundamentals/filters/ref-device-properties
 https://learn.microsoft.com/en-us/intune/fundamentals/free-trial-sign-up
+https://learn.microsoft.com/en-us/intune/fundamentals/get-started
 https://learn.microsoft.com/en-us/intune/fundamentals/government-service
 https://learn.microsoft.com/en-us/intune/fundamentals/it-pro-support/get-support-admin-center
 https://learn.microsoft.com/en-us/intune/fundamentals/licensing
@@ -216,7 +219,9 @@ https://learn.microsoft.com/en-us/intune/fundamentals/public-preview
 https://learn.microsoft.com/en-us/intune/fundamentals/ref-supported-platforms
 https://learn.microsoft.com/en-us/intune/fundamentals/role-based-access-control/multi-admin-approval
 https://learn.microsoft.com/en-us/intune/fundamentals/role-based-access-control/scope-tags
+https://learn.microsoft.com/en-us/intune/fundamentals/setup-mdm-authority
 https://learn.microsoft.com/en-us/intune/fundamentals/setup-migration
+https://learn.microsoft.com/en-us/intune/fundamentals/tutorial-admin-center-walkthrough
 https://learn.microsoft.com/en-us/intune/intune-service
 https://learn.microsoft.com/en-us/intune/intune-service/app-management/deployment/enterprise-app-management
 https://learn.microsoft.com/en-us/intune/intune-service/configure-managed-ios

@@ -1,5 +1,7 @@
 https://learn.microsoft.com/en-us/defender-for-identity
+https://learn.microsoft.com/en-us/defender-for-identity/advanced-settings
 https://learn.microsoft.com/en-us/defender-for-identity/alerts-mdi-classic
+https://learn.microsoft.com/en-us/defender-for-identity/alerts-overview
 https://learn.microsoft.com/en-us/defender-for-identity/alerts-xdr
 https://learn.microsoft.com/en-us/defender-for-identity/configure-scoped-access
 https://learn.microsoft.com/en-us/defender-for-identity/custom-account-correlation-rules
@@ -25,12 +27,17 @@ https://learn.microsoft.com/en-us/defender-for-identity/deploy/prerequisites-sta
 https://learn.microsoft.com/en-us/defender-for-identity/deploy/test-connectivity
 https://learn.microsoft.com/en-us/defender-for-identity/deploy/test-sensor
 https://learn.microsoft.com/en-us/defender-for-identity/directory-service-accounts
+https://learn.microsoft.com/en-us/defender-for-identity/exclusions
 https://learn.microsoft.com/en-us/defender-for-identity/health-alerts
 https://learn.microsoft.com/en-us/defender-for-identity/identity-inventory
 https://learn.microsoft.com/en-us/defender-for-identity/identity-security-initiative
 https://learn.microsoft.com/en-us/defender-for-identity/investigate-domain
+https://learn.microsoft.com/en-us/defender-for-identity/investigate-security-alerts
 https://learn.microsoft.com/en-us/defender-for-identity/manage-related-identities-accounts
+https://learn.microsoft.com/en-us/defender-for-identity/monitored-activities
 https://learn.microsoft.com/en-us/defender-for-identity/nnr-policy
+https://learn.microsoft.com/en-us/defender-for-identity/notifications
+https://learn.microsoft.com/en-us/defender-for-identity/okta-defender-for-identity-overview
 https://learn.microsoft.com/en-us/defender-for-identity/password-protection
 https://learn.microsoft.com/en-us/defender-for-identity/remediation-actions
 https://learn.microsoft.com/en-us/defender-for-identity/role-groups
@@ -43,8 +50,10 @@ https://learn.microsoft.com/en-us/defender-for-identity/security-posture-assessm
 https://learn.microsoft.com/en-us/defender-for-identity/security-testing-best-practices
 https://learn.microsoft.com/en-us/defender-for-identity/sensor-settings
 https://learn.microsoft.com/en-us/defender-for-identity/service-account-discovery
+https://learn.microsoft.com/en-us/defender-for-identity/settings-about
 https://learn.microsoft.com/en-us/defender-for-identity/technical-faq
 https://learn.microsoft.com/en-us/defender-for-identity/troubleshooting-known-issues
+https://learn.microsoft.com/en-us/defender-for-identity/understanding-security-alerts
 https://learn.microsoft.com/en-us/defender-for-identity/uninstall-sensor
 https://learn.microsoft.com/en-us/defender-for-identity/whats-new
 https://learn.microsoft.com/en-us/defender-for-identity/whats-new-archive

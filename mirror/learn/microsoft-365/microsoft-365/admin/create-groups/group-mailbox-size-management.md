@@ -14,8 +14,8 @@ breadcrumb_path: /microsoft-365/breadcrumb/toc.json
 recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
 description: Learn about the group mailbox size management in Microsoft 365.
-ms.author: dansimp
-author: Dansimp
+ms.author: heidip
+author: MicrosoftHeidi
 manager: dansimp
 audience: ITPro
 ms.topic: article

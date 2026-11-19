@@ -16,8 +16,8 @@ uhfHeaderId: MSDocsHeader-M365-IT
 description: Learn how to manage guest access in the Microsoft 365 admin center. Add guests to attend meetings, view documents, and chat in Teams they're invited to.
 f1.keywords:
 - NOCSH
-ms.author: dansimp
-author: Dansimp
+ms.author: heidip
+author: MicrosoftHeidi
 manager: dansimp
 ms.date: 2025-09-17T00:00:00.0000000Z
 audience: Admin
