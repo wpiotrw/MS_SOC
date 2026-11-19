@@ -1901,6 +1901,15 @@
 ],
 "log":[
 {
+"date":"2026-11-19",
+"id":"MC1448373",
+"what":"Microsoft revised the post",
+"before":"2026-10-29",
+"after":"2026-11-19",
+"title":"Teams device management transition from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://mc.merill.net/message/MC1448373"
+},
+{
 "date":"2026-11-02",
 "id":"MC1469551",
 "what":"Microsoft revised the post",
@@ -2203,6 +2212,14 @@
 "date":"2026-11-18",
 "group":"community",
 "found":"2026-11-18"
+},
+"https://office365itpros.com/2026/11/19/new-memberof-operator/":{
+"title":"Entra ID Launches New MemberOf Operator for Dynamic Membership Groups",
+"link":"https://office365itpros.com/2026/11/19/new-memberof-operator/",
+"source":"Office 365 IT Pros",
+"date":"2026-11-19",
+"group":"community",
+"found":"2026-11-19"
 }
 },
 "final":"2027-03-31",
@@ -3138,6 +3155,14 @@
 "date":"2026-10-14",
 "group":"community",
 "found":"2026-10-15"
+},
+"https://daily.entra.news/day/2026-11-17/":{
+"title":"Identity verification guidance now spans risk remediation, onboarding, and account recovery — 17 November 2026",
+"link":"https://daily.entra.news/day/2026-11-17/",
+"source":"Daily Entra News",
+"date":"2026-11-17",
+"group":"community",
+"found":"2026-11-19"
 }
 },
 "final":null,
@@ -3820,6 +3845,14 @@
 "date":"2026-11-09",
 "group":"video",
 "found":"2026-11-09"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-security-community/microsoft-purview-data-loss-prevention-dlp-vs-insider-risk/ba-p/4573235":{
+"title":"Microsoft Purview: Data Loss Prevention (DLP) vs. Insider Risk Management (IRM)",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-security-community/microsoft-purview-data-loss-prevention-dlp-vs-insider-risk/ba-p/4573235",
+"source":"Microsoft Security Product Blog",
+"date":"2026-11-17",
+"group":"microsoft",
+"found":"2026-11-19"
 }
 },
 "final":"2026-12-08",
@@ -5242,14 +5275,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-17",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-18",
 "text":"August 1, 2026."
 },
@@ -5299,6 +5324,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-18",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-19",
 "text":"August 1, 2026."
 },
 {
@@ -5864,7 +5897,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-18",
+"seen":"2026-11-19",
 "text":"early February 2026."
 },
 {
@@ -5872,7 +5905,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-18",
+"seen":"2026-11-19",
 "text":"February 2027."
 },
 {
@@ -9818,7 +9851,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-18",
+"seen":"2026-11-19",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9826,7 +9859,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-18",
+"seen":"2026-11-19",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -20307,6 +20340,36 @@
 "title":"Most Google Search ads in the Transparency Center are screenshots. Here is how I get the text out.",
 "source":"NeonTiger12",
 "link":"https://dev.to/zachary_klein_a8078ed2a7f/most-google-search-ads-in-the-transparency-center-are-screenshots-here-is-how-i-get-the-text-out-17d9"
+},
+{
+"day":"2026-11-19",
+"cid":"c-mc1488834",
+"type":"material",
+"name":"MemberOf rule operator retires",
+"group":"community",
+"title":"Entra ID Launches New MemberOf Operator for Dynamic Membership Groups",
+"source":"Office 365 IT Pros",
+"link":"https://office365itpros.com/2026/11/19/new-memberof-operator/"
+},
+{
+"day":"2026-11-19",
+"cid":"c-item-mc1476122",
+"type":"material",
+"name":"Microsoft‑managed CA policy will be enforced soon — Require risk remediation for high‑risk users",
+"group":"community",
+"title":"Identity verification guidance now spans risk remediation, onboarding, and account recovery — 17 November 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-11-17/"
+},
+{
+"day":"2026-11-19",
+"cid":"c-mc1481317",
+"type":"material",
+"name":"Microsoft Purview | Insider Risk Management: Retirement of Data Risk Graph",
+"group":"microsoft",
+"title":"Microsoft Purview: Data Loss Prevention (DLP) vs. Insider Risk Management (IRM)",
+"source":"Microsoft Security Product Blog",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-security-community/microsoft-purview-data-loss-prevention-dlp-vs-insider-risk/ba-p/4573235"
 }
 ],
 "archive":{
