@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-19T02:42:02Z",
+ "generated": "2026-11-19T11:40:46Z",
  "source": "tools/doc_ga.py (CLAUDE.md 5eo)",
  "sources": [
   {
    "name": "Our Learn copy (mirror/learn)",
    "state": "ok",
-   "pages": 7504,
-   "events": 0,
+   "pages": 7518,
+   "events": 1,
    "note": ""
   },
   {
@@ -19,6 +19,17 @@
   }
  ],
  "events": [
+  {
+   "url": "https://learn.microsoft.com/en-us/azure/virtual-machines/soft-delete-gallery",
+   "title": "Soft Delete in Azure Compute Gallery - Azure Virtual Machines",
+   "before": "Soft Delete in Azure Compute Gallery (Preview) - Azure Virtual Machines",
+   "date": "2026-11-19",
+   "how": [
+    "mirror"
+   ],
+   "evidence": "title in our Learn copy lost its preview label between 2026-10-21 and 2026-11-19",
+   "announced": false
+  },
   {
    "url": "https://learn.microsoft.com/en-us/microsoft-365/admin/manage/apps/visibility-monitoring?view=o365-worldwide",
    "title": "Monitor the health of apps in Microsoft Copilot Managed Runtime - Microsoft 365 admin",

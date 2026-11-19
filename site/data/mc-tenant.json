@@ -1,7 +1,7 @@
 {
  "read": "2026-11-19",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 741,
+ "count": 740,
  "note": null,
  "messages": [
   {
@@ -11334,33 +11334,6 @@
     "As a reminder, Windows 11, version 24H2 Home and Pro editions reach end of support in October 2026."
    ],
    "bodyHash": "6bc4f79b7d27b0a0"
-  },
-  {
-   "id": "MC1477181",
-   "title": "Microsoft Purview | Information Protection: Apply default SharePoint library sensitivity labels to data at rest",
-   "services": [
-    "Microsoft 365 suite",
-    "Microsoft Purview"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-22",
-   "end": "2026-11-19",
-   "modified": "2026-09-22",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] Microsoft Purview is introducing a new auto-labeling policy that applies a SharePoint document library's default sensitivity label to existing files stored in that library. Previously, default library sensitivity labels were applied only to new or modified files. With this update, organizations can extend labeling to historical content, including files that existed before the defaul…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Beginning in early October 2026 and expected to complete by mid-October 2026."
-   ],
-   "bodyHash": "4e029b0d75822f78"
   },
   {
    "id": "MC1477182",
@@ -25806,6 +25779,13 @@
    "id": "MC1187786",
    "type": "removed",
    "title": "An updated version of the November 2025 Scan Cab is available",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1477181",
+   "type": "removed",
+   "title": "Microsoft Purview | Information Protection: Apply default SharePoint library sensitivity labels to data at rest",
    "fields": {}
   }
  ]
