@@ -1,7 +1,7 @@
 {
- "read": "2026-11-18",
+ "read": "2026-11-19",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 737,
+ "count": 741,
  "note": null,
  "messages": [
   {
@@ -520,34 +520,6 @@
    "bodyHash": "dc4a5da9d2e13223"
   },
   {
-   "id": "MC1187343",
-   "title": "(Update) New update to address issue affecting Windows 10 devices enrolled on Extended Security Updates (ESU)",
-   "services": [
-    "Windows"
-   ],
-   "category": "preventOrFixIssue",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2025-11-18",
-   "end": "2026-11-18",
-   "modified": "2025-11-18",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "(Update: This message was updated to reflect the availability of the updated November 2025 Scan Cab.) Microsoft has identified an issue where some Windows 10, version 22H2 devices enrolled in Extended Security Updates (ESU) for commercial customers might fail to install the November 2025 security update ( KB5068781 ) with error 0x800f0922 (CBS_E_INSTALLERS_FAILED). This issue is isolated to device…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "(Update: This message was updated to reflect the availability of the updated November 2025 Scan Cab.).",
-    "Microsoft has identified an issue where some Windows 10, version 22H2 devices enrolled in Extended Security Updates (ESU) for commercial customers might fail to install the November 2025 security update ( KB5068781 ) with error 0x800f0922 (CBS_E_INSTALLERS_FAI",
-    "The organizations affected by this issue can resolve it by installing KB5072653: Extended Security Updates (ESU) Licensing Preparation Package for Windows 10 , which was released on November 17, 2025.",
-    "Once you install this preparation package ( KB5072653 ), you will be able to deploy the November 2025 security update ( KB5068781 ).",
-    "Note: A new Scan Cab including metadata for KB5072653 was made available at 12:00 pm on November 18, 2025 for organizations that utilize cab files for compliance update checks."
-   ],
-   "bodyHash": "734cbbec1bf8a7d7"
-  },
-  {
    "id": "MC1187682",
    "title": "(Updated) Microsoft Edge: Microsoft 365 Copilot will support summarization and contextual grounding",
    "services": [
@@ -601,32 +573,6 @@
     "General Availability (Worldwide): We will begin rolling out in November 2026 (previously October) and expect to complete by the end of November 2026 (previously end of October)."
    ],
    "bodyHash": "10b7df544c6fa98e"
-  },
-  {
-   "id": "MC1187786",
-   "title": "An updated version of the November 2025 Scan Cab is available",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2025-11-18",
-   "end": "2026-11-18",
-   "modified": "2025-11-18",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "IMPORTANT : This notice is only relevant for environments where: Windows Server Update Services (WSUS) is used to deploy Windows security updates to Windows 10, version 22H2 devices enrolled in Extended Security Updates (ESU). Scan Cab is used to check for update compliance The November 2025 Scan Cab was deployed before 12:00 PM PT on November 18, 2025. An updated version of the November 2025 Scan…",
-   "when": null,
-   "prepare": "Administrators can re-deploy the updated Scan Cab via their usual processes. For detailed guidance, see the",
-   "dates": [
-    "The November 2025 Scan Cab was deployed before 12:00 PM PT on November 18, 2025.",
-    "An updated version of the November 2025 Scan Cab was made available at 12:00 PM PT on November 18, 2025.",
-    "How this affects your organization: IT administrators who downloaded the Scan Cab before 12:00 PM PT on November 18, 2025, should re-acquire and re-deploy it if the Scan Cab is used to assess updates for environments where WSUS is used to deploy Windows securi"
-   ],
-   "bodyHash": "5f03e0166c7f26ac"
   },
   {
    "id": "MC1188104",
@@ -5031,7 +4977,7 @@
   },
   {
    "id": "MC1387526",
-   "title": "Microsoft 365 Backup: Full workload backup for SharePoint, OneDrive, and Exchange",
+   "title": "(Updated) Microsoft 365 Backup: Full workload backup for SharePoint, OneDrive, and Exchange",
    "services": [
     "Microsoft 365 suite"
    ],
@@ -5041,19 +4987,21 @@
    "actionBy": null,
    "start": "2026-06-11",
    "end": "2027-04-30",
-   "modified": "2026-10-12",
+   "modified": "2026-11-18",
    "tags": [
     "Admin impact",
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[What and Why:] We are introducing Full Workload Backup for Microsoft 365 Backup, a new capability that allows admins to quickly protect an entire workload (SharePoint, OneDrive, or Exchange) with a single policy. This feature automatically includes all existing and newly created artifacts that are not already covered by custom policies, helping organizations improve data protection coverage, redu…",
+   "summary": "Updated November 18, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We are introducing Full Workload Backup for Microsoft 365 Backup, a new capability that allows admins to quickly protect an entire workload (SharePoint, OneDrive, or Exchange) with a single policy. This feature automatically includes all existing and newly created artifacts that are not already co…",
    "when": null,
    "prepare": null,
    "dates": [
+    "Updated November 18, 2026: We have updated the timeline.",
     "Public Preview (Worldwide): We will begin rolling out in early July 2026 and expect to complete by mid-July 2026 .",
-    "General Availability: We will begin rolling out in mid-September 2026 and expect to complete by mid-October 2026 ."
+    "General Availability: We will begin rolling out in January 2027 (previously mid-September 2026) and expect to complete by end of February 2027 (previously mid-October 2026)."
    ],
-   "bodyHash": "ff216439fe144e2c"
+   "bodyHash": "c9fdec75bd1579d5"
   },
   {
    "id": "MC1387575",
@@ -15085,22 +15033,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-20",
-   "end": "2027-02-15",
-   "modified": "2026-11-17",
+   "end": "2027-04-30",
+   "modified": "2026-11-19",
    "tags": [
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated November 17, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Teams is introducing an onboarding workflow that helps new team members get started faster by automatically connecting them to relevant channels when they join a team. This can improve engagement, accelerate onboarding, and make important information easier to find from the start. This m…",
+   "summary": "Updated November 18, 2026: We have clarified the supported channel types and updated the rollout timeline. Thank you for your patience. [What and Why:] Microsoft Teams is introducing an onboarding workflow that helps new team members get started faster by automatically connecting them to relevant channels when they join a team. This can improve engagement, accelerate onboarding, and make important…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated November 17, 2026: We have updated the timeline.",
-    "Targeted Release (Worldwide): We will begin rolling out in late November 2026 (previously mid-November) and expect to complete in late November 2026 (previously mid-November).",
-    "General Availability (Worldwide): We will begin rolling out in early December 2026 and expect to complete by mid-December 2026."
+    "Updated November 18, 2026: We have clarified the supported channel types and updated the rollout timeline.",
+    "Targeted Release (R3.6): Rollout will proceed gradually from November 2026 through January 2027.",
+    "General Availability (Worldwide): We will begin rolling out in mid-March 2027 (previously early December 2026) and expect to complete by end of March 2027 (previously mid-December 2026)."
    ],
-   "bodyHash": "d78e579fb402d3d8"
+   "bodyHash": "3b2be8521e2e3f36"
   },
   {
    "id": "MC1518034",
@@ -17091,6 +17039,35 @@
    "bodyHash": "c79121b86a8e95c8"
   },
   {
+   "id": "MC1532259",
+   "title": "Microsoft Teams: Retirement of Translate slides in PowerPoint Live",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-10-30",
+   "end": "2026-12-28",
+   "modified": "2026-11-19",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] Starting November 30, 2026, attendees in Microsoft Teams meetings will no longer be able to translate slides into another language in PowerPoint Live by using Change view > Translate slides . Other PowerPoint Live features for presenters and attendees are not affected. [Rollout schedule] Retirement (Worldwide): Beginning and completing in late November 2026 Translate slides will be …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Starting November 30, 2026, attendees in Microsoft Teams meetings will no longer be able to translate slides into another language in PowerPoint Live by using Change view > Translate slides .",
+    "Retirement (Worldwide): Beginning and completing in late November 2026.",
+    "Translate slides will be removed for all attendees on November 30, 2026.",
+    "Translate slides will be removed automatically for all attendees on November 30, 2026."
+   ],
+   "bodyHash": "db044871b108670d"
+  },
+  {
    "id": "MC1532421",
    "title": "Power Apps - Formula assistance features in canvas apps are being retired",
    "services": [
@@ -17928,7 +17905,7 @@
   },
   {
    "id": "MC1540351",
-   "title": "Microsoft Teams: Automatically add tag members to channels with Workflows",
+   "title": "(Updated) Microsoft Teams: Automatically add tag members to channels with Workflows",
    "services": [
     "Microsoft Teams"
    ],
@@ -17937,21 +17914,24 @@
    "major": false,
    "actionBy": null,
    "start": "2026-11-05",
-   "end": "2027-01-22",
-   "modified": "2026-11-05",
+   "end": "2027-04-30",
+   "modified": "2026-11-19",
    "tags": [
     "Admin impact",
     "Feature update",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We are introducing the Join member to channel when user is added to tag template in the Workflows app to automatically add users to selected channels when they are added to a team tag. Once configured, the workflow runs whenever a user is added to the tag, eliminating the need to add members to each channel manually. This is especially useful for location-based or project-based grou…",
+   "summary": "Updated November 18, 2026: We have clarified the supported channel types and updated the rollout timeline. Thank you for your patience. [What and why] We are introducing the Join member to channel when user is added to tag template in the Workflows app to automatically add users to selected channels when they are added to a team tag. Once configured, the workflow runs whenever a user is added to t…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Rollout will begin in mid-December 2026 and is expected to complete by mid-December 2026."
+    "Updated November 18, 2026: We have clarified the supported channel types and updated the rollout timeline.",
+    "Targeted Release (R3.6): Rollout will proceed gradually from November 2026 through January 2027.",
+    "General Availability (Worldwide): Rollout will begin in mid-March 2027 (previously mid-December 2026) and is expected to complete by end of March 2027 (previously mid-December 2026)."
    ],
-   "bodyHash": "b57abfaf8205a57b"
+   "bodyHash": "b2da4b90e60a64ba"
   },
   {
    "id": "MC1540513",
@@ -19537,6 +19517,136 @@
    "bodyHash": "8d7a5cd1e28254a7"
   },
   {
+   "id": "MC1559628",
+   "title": "Choose how your presenter view is laid out in PowerPoint Live in Microsoft Teams",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-18",
+   "end": "2027-01-31",
+   "modified": "2026-11-18",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Presenters using PowerPoint Live in Microsoft Teams can now choose a layout for their presenter view. They can pick the one that best fits how they like to present, whether that's focusing on speaker notes, moving between slides quickly, looking ahead to what's next, or keeping the view simple. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out on mid N…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out on mid November 2026 and expect to complete by late November 2026."
+   ],
+   "bodyHash": "509423191385dc5c"
+  },
+  {
+   "id": "MC1559633",
+   "title": "Microsoft SharePoint: Agent Chat web part to bring Copilot agents into SharePoint pages",
+   "services": [
+    "SharePoint Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-18",
+   "end": "2027-05-15",
+   "modified": "2026-11-18",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] We're introducing the Agent Chat web part in SharePoint, allowing organizations to embed their existing Microsoft 365 Copilot agents directly into SharePoint pages. This helps organizations make agents easier to discover and use by bringing conversational AI into familiar intranet experiences, alongside relevant information, instructions, and resources. [Rollout Schedule:] Public P…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): We will begin rolling out in mid-November 2026 and expect to complete by late January 2027.",
+    "General Availability (Worldwide): We will begin rolling out in mid-January 2027 and expect to complete by late March 2027.",
+    "General Availability (GCC): We will begin rolling out in mid-January 2027 and expect to complete by late March 2027.",
+    "General Availability (GCC High): We will begin rolling out in mid-January 2027 and expect to complete by late March 2027.",
+    "General Availability (DoD): We will begin rolling out in mid-January 2027 and expect to complete by late March 2027."
+   ],
+   "bodyHash": "c3ff8ba913b3b805"
+  },
+  {
+   "id": "MC1559637",
+   "title": "Microsoft Teams: Real-time queue metrics in the Queues app on Mobile",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-18",
+   "end": "2027-01-31",
+   "modified": "2026-11-18",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] For calling representatives and supervisors, staying informed about call queue activity is important to managing incoming calls and maintaining timely customer service. However, when working away from their desks, they may not have visibility into current queue conditions, such as how many calls are waiting or how effectively calls are being handled. Without this information, it be…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in early December 2026 and expect to complete by mid-December 2026."
+   ],
+   "bodyHash": "34dd68b10f4a4ebc"
+  },
+  {
+   "id": "MC1559641",
+   "title": "New Copilot experience in OneNote",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-18",
+   "end": "2027-03-15",
+   "modified": "2026-11-18",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] We are introducing a refreshed Copilot experience in OneNote with expanded edit and reasoning capabilities across notebook content, including ink, annotations, and embedded files. This update helps users find and synthesize information across notes, reorganize content, and create related documents directly from OneNote with Copilot. [Rollout Schedule:] Frontier Public: began in Nov…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Frontier Public: began in November 2026.",
+    "General Availability (Worldwide): we expect rollout to begin in January 2027."
+   ],
+   "bodyHash": "0fad8bcffb3929bf"
+  },
+  {
+   "id": "MC1559642",
+   "title": "Continuous interpreter visibility with pop out video in Teams",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-18",
+   "end": "2027-03-15",
+   "modified": "2026-11-18",
+   "tags": [
+    "New feature"
+   ],
+   "summary": "[What and Why:] Users who work with sign language interpreters in Microsoft Teams meetings will be able to pop out their paired interpreters' video into a separate window. The window can be resized and moved anywhere on the screen, including to another monitor. Interpreters stay in view while users multitask, share content, or change meeting layouts. This is designed for Deaf and hard-of-hearing (…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Targeted Release (Worldwide): We will begin rolling out on early December 2026 and expect to complete by late December 2026.",
+    "General Availability (Worldwide): We will begin rolling out on mid January 2027 and expect to complete by late January 2027."
+   ],
+   "bodyHash": "1fd75f77f61b79cb"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -19640,23 +19750,22 @@
    "actionBy": null,
    "start": "2024-05-29",
    "end": "2026-12-31",
-   "modified": "2026-10-12",
+   "modified": "2026-11-19",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated October 1, 2026: We have updated the content and timeline. Thank you for your patience. What it is Microsoft is rolling out a new feature to streamline how app and agent availability and installation is managed across Teams, Outlook, and Microsoft 365 Copilot. Until now, IT admins configured availability and installation settings separately in both the Microsoft 365 Admin Center (MAC) and …",
-   "when": "App and agent AVAILABILITY unification (section A): Rollout began in late September 2025 . The Phase 3 timeline will be announced separately, at least 60 days before that phase begins. App and agent INSTALLATION unification (section B): Rollout begins at the end of September 2026 . A: Unify app availability across admin centers. 1. Phase 1 – Default Tenant Unification of App/Agent Availability. We will begin rolling out this feature at the end of…",
+   "summary": "Updated November 18, 2026: Unified app and agent installation management is now generally available. For any tenant that unifies app/agent availability through Phase 1, Phase 2, or Phase 3, app and agent installations are also unified across the Microsoft 365 admin center (MAC) and Teams admin center (TAC) within 24–48 hours of completing availability unification. What it is Microsoft is rolling o…",
+   "when": "App and agent availability unification (Section A): Rollout began in late September 2025. The Phase 3 timeline will be announced separately, at least 60 days before that phase begins. App and agent installation unification (Section B): Released. Installation unification completes within 24–48 hours after a tenant completes app availability unification(Section A) in Phase 1, 2, or 3. A: Unify app availability across admin centers. 1. Phase 1 – Def…",
    "prepare": null,
    "dates": [
-    "Updated October 1, 2026: We have updated the content and timeline.",
-    "When this will happen: App and agent AVAILABILITY unification (section A): Rollout began in late September 2025 .",
-    "App and agent INSTALLATION unification (section B): Rollout begins at the end of September 2026 .",
+    "Updated November 18, 2026: Unified app and agent installation management is now generally available.",
+    "When this will happen: App and agent availability unification (Section A): Rollout began in late September 2025.",
     "We will begin rolling out this feature at the end of September 2025.",
     "Rollout will begin at the end of September 2026 for eligible tenants."
    ],
-   "bodyHash": "767b316dbc28c5a7"
+   "bodyHash": "a6148f7fbec35c6b"
   },
   {
    "id": "MC920304",
@@ -19827,214 +19936,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-19",
-   "id": "MC1197146",
-   "type": "removed",
-   "title": "(Updated) Express voice enrollment in Microsoft Teams",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1245225",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: Ad-hoc room reservation from Teams Rooms on Windows console",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1250273",
-   "type": "removed",
-   "title": "(Updated) Improved copy and paste support for @mentions and shared contacts in Microsoft Teams",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1307982",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams Town halls: Upload custom backgrounds in Manage what attendees see",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1330886",
-   "type": "removed",
-   "title": "(Updated) Microsoft 365 Copilot: Get suggested edits from Copilot in your Copilot Pages",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1440968",
-   "type": "removed",
-   "title": "(Updated) Microsoft Entra ID: Optimizations for passkey registration experience",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1266027",
-   "type": "new",
-   "title": "(Updated) Microsoft Teams: New experience when users minimize the meeting window",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1302905",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview compliance portal: Purview SDK embedded in Agent Framework SDK",
-   "fields": {
-    "end": [
-     "2026-10-30",
-     "2027-04-30"
-    ],
-    "bodyHash": [
-     "c3b0b333793b2434",
-     "0a817cb587b03ef5"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1307982",
-   "type": "new",
-   "title": "(Updated) Microsoft Teams Town halls: Upload custom backgrounds in Manage what attendees see",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1325441",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview | Data Lifecycle Management - Archive SharePoint files under retention",
-   "fields": {
-    "bodyHash": [
-     "b42ab09c49723e92",
-     "6cb6847eb874bcfe"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1330891",
-   "type": "changed",
-   "title": "(Updated) Microsoft Teams: Breakout rooms now supported in meetings with up to 1,000 attendees",
-   "fields": {
-    "end": [
-     "2026-10-30",
-     "2026-11-30"
-    ],
-    "bodyHash": [
-     "6b83c44c7cfa0eb8",
-     "21b0095c3b5cb0c0"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1388719",
-   "type": "changed",
-   "title": "(Updated) Microsoft Teams: Granular channel notification settings",
-   "fields": {
-    "end": [
-     "2026-11-16",
-     "2027-01-25"
-    ],
-    "bodyHash": [
-     "0d8824fc674424cb",
-     "171bb35755d62513"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1443517",
-   "type": "changed",
-   "title": "(Updated) Microsoft Teams: External presenters can manage event production controls",
-   "fields": {
-    "end": [
-     "2026-11-10",
-     "2026-12-14"
-    ],
-    "bodyHash": [
-     "0fc189a7c409a52c",
-     "458839a3868e95c4"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1443518",
-   "type": "changed",
-   "title": "(Updated) Microsoft Teams: Expanded presenter visibility in Manage what attendees see",
-   "fields": {
-    "end": [
-     "2026-10-26",
-     "2026-11-30"
-    ],
-    "bodyHash": [
-     "8f1d5410af7cc61b",
-     "08e1dbbb629a8710"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1472601",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview: Archive SharePoint files under retention policies",
-   "fields": {
-    "bodyHash": [
-     "88eeb3c998717e56",
-     "43ac4c558a20f121"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1473153",
-   "type": "changed",
-   "title": "(Updated) Microsoft Teams: New centralized experience for organizing important resources in chats and channels",
-   "fields": {
-    "end": [
-     "2026-11-23",
-     "2026-12-28"
-    ],
-    "bodyHash": [
-     "f35b347f09be01fc",
-     "733cb04717d0acf8"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1506727",
-   "type": "changed",
-   "title": "Microsoft Agent 365: Expanded access to Microsoft agent usage and activity insights in Microsoft 365 admin center",
-   "fields": {
-    "tags": [
-     [
-      "Admin impact",
-      "Feature update",
-      "User impact"
-     ],
-     [
-      "Admin impact",
-      "Feature update",
-      "Updated message",
-      "User impact"
-     ]
-    ],
-    "bodyHash": [
-     "8b5a98081eeba0bb",
-     "a8e3ae62aea9b89a"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-19",
-   "id": "MC1515270",
-   "type": "new",
-   "title": "Quick machine recovery is now supported on Windows Server 2025",
-   "fields": {}
-  },
   {
    "date": "2026-10-20",
    "id": "MC1515917",
@@ -25759,6 +25660,152 @@
    "id": "MC1538752",
    "type": "removed",
    "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1387526",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365 Backup: Full workload backup for SharePoint, OneDrive, and Exchange",
+   "fields": {
+    "title": [
+     "Microsoft 365 Backup: Full workload backup for SharePoint, OneDrive, and Exchange",
+     "(Updated) Microsoft 365 Backup: Full workload backup for SharePoint, OneDrive, and Exchange"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "ff216439fe144e2c",
+     "c9fdec75bd1579d5"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1518033",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Onboarding workflow for new team members",
+   "fields": {
+    "end": [
+     "2027-02-15",
+     "2027-04-30"
+    ],
+    "bodyHash": [
+     "d78e579fb402d3d8",
+     "3b2be8521e2e3f36"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1532259",
+   "type": "new",
+   "title": "Microsoft Teams: Retirement of Translate slides in PowerPoint Live",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1540351",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Automatically add tag members to channels with Workflows",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Automatically add tag members to channels with Workflows",
+     "(Updated) Microsoft Teams: Automatically add tag members to channels with Workflows"
+    ],
+    "end": [
+     "2027-01-22",
+     "2027-04-30"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "b57abfaf8205a57b",
+     "b2da4b90e60a64ba"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1559628",
+   "type": "new",
+   "title": "Choose how your presenter view is laid out in PowerPoint Live in Microsoft Teams",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1559633",
+   "type": "new",
+   "title": "Microsoft SharePoint: Agent Chat web part to bring Copilot agents into SharePoint pages",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1559637",
+   "type": "new",
+   "title": "Microsoft Teams: Real-time queue metrics in the Queues app on Mobile",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1559641",
+   "type": "new",
+   "title": "New Copilot experience in OneNote",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1559642",
+   "type": "new",
+   "title": "Continuous interpreter visibility with pop out video in Teams",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC796790",
+   "type": "changed",
+   "title": "(Updated) Unified management of app and agent availability and installation in Teams, Outlook, and the Microsoft 365 app",
+   "fields": {
+    "bodyHash": [
+     "767b316dbc28c5a7",
+     "a6148f7fbec35c6b"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1187343",
+   "type": "removed",
+   "title": "(Update) New update to address issue affecting Windows 10 devices enrolled on Extended Security Updates (ESU)",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1187786",
+   "type": "removed",
+   "title": "An updated version of the November 2025 Scan Cab is available",
    "fields": {}
   }
  ]

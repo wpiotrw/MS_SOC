@@ -1,13 +1,13 @@
 {
- "read": "2026-11-14T20:01Z",
+ "read": "2026-11-19T02:35Z",
  "source": "https://msadminroles.com/",
  "sourceLabel": "msadminroles.com",
  "sourceNote": "Daniel Bradley's msadminroles.com - built-in role definitions as his tenant reads them",
  "thereRead": null,
- "ourRead": "2026-11-14T20:00Z",
+ "ourRead": "2026-11-18T02:54Z",
  "keepDays": 90,
  "counts": {
-  "rolesThere": 149,
+  "rolesThere": 150,
   "rolesDiffering": 0,
   "thereOnly": 0,
   "oursOnly": 0
