@@ -12,9 +12,9 @@
     "M365 workloads"
    ],
    "status": "active",
-   "updated": "2026-10-25",
+   "updated": "2026-11-19",
    "by": "morning routine",
-   "summary": "EvilTokens is a phishing-as-a-service platform that appeared in February 2026 and abuses the OAuth device code flow. Microsoft says its campaigns compromised more than 12,000 inboxes in over 10,000 organizations. The victim is shown a real device code and sent to the genuine microsoft.com/devicelogin page, so the sign-in and MFA are done by the victim and the attacker receives the tokens without ever seeing a password. Stolen tokens were used to read and exfiltrate mail, create inbox rules and in some cases register a device to obtain a Primary Refresh Token. Microsoft's Digital Crimes Unit coordinated a disruption of the infrastructure.",
+   "summary": "EvilTokens is a phishing-as-a-service platform that appeared in February 2026 and abuses the OAuth device code flow. Microsoft says its campaigns compromised more than 12,000 inboxes in over 10,000 organizations. The victim is shown a real device code and sent to the genuine microsoft.com/devicelogin page, so the sign-in and MFA are done by the victim and the attacker receives the tokens without ever seeing a password. Stolen tokens were used to read and exfiltrate mail, create inbox rules and in some cases register a device to obtain a Primary Refresh Token. Microsoft's Digital Crimes Unit coordinated a disruption of the infrastructure. On 17 November 2026 Huntress reported that a joint Microsoft Digital Crimes Unit and FBI effort led to the arrest of one alleged EvilTokens operator.",
    "timeline": [
     {
      "date": "2026-02-01",
@@ -30,6 +30,11 @@
      "date": "2026-09-22",
      "text": "Microsoft Threat Intelligence publishes its analysis and describes the coordinated disruption by the Digital Crimes Unit.",
      "src": "Microsoft Security blog"
+    },
+    {
+     "date": "2026-11-17",
+     "text": "Huntress, in a sponsored article on BleepingComputer, says it found EvilTokens in early 2026 abusing the Railway platform-as-a-service as a token-harvesting and replay engine, and that a joint effort of Microsoft's Digital Crimes Unit and the FBI later led to the arrest of one of its alleged operators (no further detail given).",
+     "src": "BleepingComputer (sponsored, written by Huntress Labs)"
     }
    ],
    "rootCause": "The device code flow lets a third party start a sign-in that the victim completes on a legitimate Microsoft page. Where Conditional Access does not block the flow, the attacker's polling script receives valid tokens after the victim signs in with MFA.",
@@ -37,7 +42,8 @@
     "Developer and operator of the kit is tracked as Storm-2992; sold on Telegram for $1,500 plus $500 per month.",
     "Lures by email (invoices, RFPs, shared files, password-expiry notices) with URLs, PDF or HTML attachments, behind fake CAPTCHA pages and multi-stage redirects on Vercel, Cloudflare Workers and AWS Lambda.",
     "A background script requests a live device code, shows it with Copy Code and Continue buttons and polls the actor's /state endpoint every three to five seconds for up to 15 minutes.",
-    "After sign-in: Microsoft Graph reconnaissance, AI-assisted search for financial and executive mailboxes, wire-transfer and invoice keywords, malicious inbox rules, and device registration to obtain a Primary Refresh Token within about 10 minutes."
+    "After sign-in: Microsoft Graph reconnaissance, AI-assisted search for financial and executive mailboxes, wire-transfer and invoice keywords, malicious inbox rules, and device registration to obtain a Primary Refresh Token within about 10 minutes.",
+    "Used the Railway platform-as-a-service as a token-harvesting and replay engine (Huntress, via BleepingComputer, 17 November 2026)."
    ],
    "iocs": [
     "Hosting abused: .vercel.app, .workers.dev, AWS Lambda (named by Microsoft)",
@@ -68,6 +74,24 @@
      "from": "source",
      "src": "Microsoft Security blog",
      "phase": "detect"
+    },
+    {
+     "text": "Revoke the user's refresh tokens, then remove devices and Windows Hello credentials the attacker registered.",
+     "from": "source",
+     "src": "https://www.bleepingcomputer.com/news/security/inside-modern-phishing-kits-built-to-steal-microsoft-365-sessions/",
+     "phase": "contain"
+    },
+    {
+     "text": "Hunt for device code authentication, automated token refresh and successful sign-ins from unfamiliar cloud infrastructure; review new devices, authentication methods, mailbox access, forwarding rules and outbound phishing.",
+     "from": "source",
+     "src": "https://www.bleepingcomputer.com/news/security/inside-modern-phishing-kits-built-to-steal-microsoft-365-sessions/",
+     "phase": "investigate"
+    },
+    {
+     "text": "Keep monitoring for token replay or re-entry after the phishing domain disappears.",
+     "from": "source",
+     "src": "https://www.bleepingcomputer.com/news/security/inside-modern-phishing-kits-built-to-steal-microsoft-365-sessions/",
+     "phase": "detect"
     }
    ],
    "microsoft": [
@@ -83,6 +107,11 @@
      "text": "Unmasking EvilTokens: Getting to the root of device code phishing",
      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/",
      "date": "2026-09-22"
+    },
+    {
+     "text": "Inside Modern Phishing Kits Built to Steal Microsoft 365 Sessions (sponsored, Huntress Labs)",
+     "url": "https://www.bleepingcomputer.com/news/security/inside-modern-phishing-kits-built-to-steal-microsoft-365-sessions/",
+     "date": "2026-11-17"
     }
    ],
    "kqlSearched": "2026-10-25"
