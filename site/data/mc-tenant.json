@@ -575,28 +575,6 @@
    "bodyHash": "10b7df544c6fa98e"
   },
   {
-   "id": "MC1188104",
-   "title": "Windows announcements from Microsoft Ignite 2025",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-11-19",
-   "end": "2026-11-19",
-   "modified": "2025-11-19",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Windows is embedding intelligence into systems, silicon, and hardware so you can move from AI experimentation to execution at scale. Because every organization approaches AI differently, Windows gives you the choice and control to decide how agents fit into your workflow so when you use them, you can do so with confidence and transparency. Catch up on the Windows AI innovations we’re sharing at Mi…",
-   "when": null,
-   "prepare": "Visit the Windows Experience Blog for a summary of what is being announced and showcased at Microsoft Ignite 2025, including new capabilities for Microsoft 365 Copilot on Windows, Microsoft Edge for Business, and Copilot+ PCs. .",
-   "dates": [],
-   "bodyHash": "3acdf70094225c24"
-  },
-  {
    "id": "MC1188222",
    "title": "(Updated) Microsoft Teams: Private chat for organizers and presenters in structured meetings, webinars, and town halls",
    "services": [
@@ -11826,21 +11804,21 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-25",
-   "end": "2026-12-30",
-   "modified": "2026-10-20",
+   "end": "2027-02-01",
+   "modified": "2026-11-19",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message"
    ],
-   "summary": "Updated October 20, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We are introducing Microsoft Defender XDR Unified role-based access control (Unified RBAC) support for App Governance. As part of this rollout, App Governance permissions associated with select Microsoft Entra roles will change. This update helps align App Governance access with Defender XDR role m…",
+   "summary": "Updated November 19, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We are introducing Microsoft Defender XDR Unified role-based access control (Unified RBAC) support for App Governance. As part of this rollout, App Governance permissions associated with select Microsoft Entra roles will change. This update helps align App Governance access with Defender XDR role …",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 20, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): We will begin rolling out in mid-November 2026 (previously mid-October) and expect to complete by late November 2026 (previously late October)."
+    "Updated November 19, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We will begin rolling out in early December 2026 (previously mid-November) and expect to complete by late December 2026 (previously late November)."
    ],
-   "bodyHash": "3305b8fb6f5bbb8c"
+   "bodyHash": "55acd173e04ec4ca"
   },
   {
    "id": "MC1479506",
@@ -19620,6 +19598,32 @@
    "bodyHash": "1fd75f77f61b79cb"
   },
   {
+   "id": "MC1560705",
+   "title": "The November 2026 Windows non-security preview update is now available",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-19",
+   "end": "2027-11-19",
+   "modified": "2026-11-19",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "The November 2026 non-security preview update is now available for Windows 11, versions 26H2, 26H1, and 25H2. Information about the contents of this update is available in the release notes, which are accessible from the Windows 11 update history page. To learn more about the different types of monthly quality updates, see Understanding Windows monthly updates . Highlights for the Windows 11, vers…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "The November 2026 non-security preview update is now available for Windows 11, versions 26H2, 26H1, and 25H2.",
+    "IMPORTANT: Because of minimal operations during the Western holidays and the upcoming new year, there will be no December 2026 non-security preview update in the second part of the month.",
+    "Normal monthly servicing for both security and non-security preview updates will resume in January 2027."
+   ],
+   "bodyHash": "387aebb93f2d983c"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -25786,6 +25790,36 @@
    "id": "MC1477181",
    "type": "removed",
    "title": "Microsoft Purview | Information Protection: Apply default SharePoint library sensitivity labels to data at rest",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1479503",
+   "type": "changed",
+   "title": "(Updated) Microsoft Defender for Cloud Apps: Permission changes for select App Governance Entra roles",
+   "fields": {
+    "end": [
+     "2026-12-30",
+     "2027-02-01"
+    ],
+    "bodyHash": [
+     "3305b8fb6f5bbb8c",
+     "55acd173e04ec4ca"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1560705",
+   "type": "new",
+   "title": "The November 2026 Windows non-security preview update is now available",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-19",
+   "id": "MC1188104",
+   "type": "removed",
+   "title": "Windows announcements from Microsoft Ignite 2025",
    "fields": {}
   }
  ]
