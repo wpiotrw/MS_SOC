@@ -2,17 +2,18 @@
  "notes": {
   "voiceAuthenticationMethodTarget|verificationMode": {
    "title": "Voice call method: per-target verification mode",
-   "what": "A verificationMode property on each include target of the voice call authentication method; our tenant returns the value voiceApproval. Neither Microsoft's voiceAuthenticationMethodTarget reference nor any community source found on 2 November 2026 names or explains it, so what other values it takes and what each does is not known.",
+   "what": "A verificationMode property on each include target of the voice call authentication method; our tenant returns the value voiceApproval. Neither Microsoft's voiceAuthenticationMethodTarget reference nor any community source found on 2 November or rechecked on 19 November 2026 names or explains it, so what other values it takes and what each does is not known.",
    "uses": [
     "Read the voice method configuration of your tenant and record which groups carry verificationMode, so a later change is visible",
     "Do not change the value through the API until Microsoft or a tested community source documents it",
     "Keep the voice method scoped to the smallest group possible while it is undocumented"
    ],
    "basis": "name",
-   "checked": "2026-11-02",
+   "checked": "2026-11-19",
    "by": "morning routine",
    "searched": [
-    "\"verificationMode\" \"voiceApproval\" authentication methods policy voice"
+    "\"verificationMode\" \"voiceApproval\" authentication methods policy voice",
+    "\"voiceAuthenticationMethodTarget\" \"verificationMode\""
    ],
    "articles": []
   },
