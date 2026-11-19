@@ -1,5 +1,78 @@
 [
  {
+  "file": "articles/2026-11-19-detection-5-optimjack-unexpected-script-file-modification-in.kql",
+  "title": "Detection 5: OPTIMJACK - Unexpected Script File Modification in Web Root by Non-Deployment Process",
+  "date": "2026-11-19",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 19, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-19-detection-engineering-brief-thursday-november-19-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-19-detection-engineering-brief-thursday-november-19-2026/"
+ },
+ {
+  "file": "articles/2026-11-19-detection-4-cve-2026-123007-anomalous-outbound-connection.kql",
+  "title": "Detection 4: CVE-2026-123007 - Anomalous Outbound Connection from nginx Worker Process After Inbound HTTP/2 Traffic",
+  "date": "2026-11-19",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 19, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-19-detection-engineering-brief-thursday-november-19-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-19-detection-engineering-brief-thursday-november-19-2026/"
+ },
+ {
+  "file": "articles/2026-11-19-detection-3-cve-2026-123007-nginx-error-log.kql",
+  "title": "Detection 3: CVE-2026-123007 - nginx Error Log Memory Corruption Events Correlated with External Source IPs",
+  "date": "2026-11-19",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 19, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-19-detection-engineering-brief-thursday-november-19-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-19-detection-engineering-brief-thursday-november-19-2026/"
+ },
+ {
+  "file": "articles/2026-11-19-detection-2-cve-2026-123007-shell-or-interpreter.kql",
+  "title": "Detection 2: CVE-2026-123007 - Shell or Interpreter Spawned by nginx Worker Process After HTTP/2 Request Burst",
+  "date": "2026-11-19",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 19, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-19-detection-engineering-brief-thursday-november-19-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-19-detection-engineering-brief-thursday-november-19-2026/"
+ },
+ {
+  "file": "articles/2026-11-19-detection-1-cve-2026-114938-unexpected-child-process.kql",
+  "title": "Detection 1: CVE-2026-114938 - Unexpected Child Process Spawned by Java Process on Internet-Facing Host",
+  "date": "2026-11-19",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 19, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-19-detection-engineering-brief-thursday-november-19-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-19-detection-engineering-brief-thursday-november-19-2026/"
+ },
+ {
   "file": "2026-11-19-who-changed-or-deleted-a-sentinel-automation-rule.kql",
   "title": "Who changed or deleted a Sentinel automation rule or playbook, last 30 days",
   "date": "2026-11-19",

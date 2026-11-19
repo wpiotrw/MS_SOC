@@ -1,0 +1,19 @@
+// title: Detection 5: OPTIMJACK - Unexpected Script File Modification in Web Root by Non-Deployment Process
+// date: 2026-11-19
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: Detection Engineering Brief - Thursday, November 19, 2026
+// source: https://devsecopsdadattack.com/2026-11-19-detection-engineering-brief-thursday-november-19-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let webRootPaths = dynamic(["/var/www", "/usr/share/nginx", "/srv/www", "\\inetpub\\wwwroot", "\\wwwroot"]);
+let knownDeployProcs = dynamic(["git", "npm", "yarn", "rsync", "deploy", "ansible", "chef", "puppet", "terraform"]);
+DeviceFileEvents
+| where Timestamp > ago(24h)
+| where ActionType in ("FileCreated", "FileModified")
+| where FileName endswith ".js" or FileName endswith ".html" or FileName endswith ".php" or FileName endswith ".htm"
+| where FolderPath has_any (webRootPaths)
+| where not(InitiatingProcessFileName has_any (knownDeployProcs))
+| project Timestamp, DeviceName, DeviceId, FolderPath, FileName, ActionType, InitiatingProcessFileName, InitiatingProcessCommandLine, InitiatingProcessSHA256
+| order by Timestamp desc
