@@ -2345,7 +2345,7 @@
 "IOC table: Download source associated with the x86-64 file below"
 ]
 ],
-"read": "2026-11-12"
+"read": "2026-11-20"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/": {
 "iocs": [
