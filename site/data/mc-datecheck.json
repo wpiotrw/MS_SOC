@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-20T14:22:05Z",
+ "generated": "2026-11-20T20:18:01Z",
  "day": "2026-11-20",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-20)",
@@ -533,6 +533,22 @@
      "link": "https://mc.merill.net/message/MC1459133"
     },
     {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
      "date": "2027-01-05",
      "src": "MC1450133",
      "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
@@ -547,22 +563,6 @@
      "post": "2026-08-07",
      "later": true,
      "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-25",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -607,6 +607,22 @@
      "link": "https://mc.merill.net/message/MC1459133"
     },
     {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
      "date": "2027-01-05",
      "src": "MC1450133",
      "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
@@ -621,22 +637,6 @@
      "post": "2026-08-07",
      "later": false,
      "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-25",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-11-15",
-     "src": "MC1545694",
-     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
-     "post": "2026-11-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1545694"
     }
    ],
    "moved": [],
@@ -664,7 +664,7 @@
      "name": "Passkeys by default in Microsoft Entra ID"
     }
    ],
-   "verdict": "moved"
+   "verdict": "differs"
   },
   "MC1423108": {
    "says": [],
@@ -676,6 +676,22 @@
      "post": "2026-08-21",
      "later": false,
      "link": "https://mc.merill.net/message/MC1459133"
+    },
+    {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
     },
     {
      "date": "2027-01-05",
@@ -692,22 +708,6 @@
      "post": "2026-08-07",
      "later": false,
      "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-25",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -753,6 +753,22 @@
      "link": "https://mc.merill.net/message/MC1459133"
     },
     {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
      "date": "2027-01-05",
      "src": "MC1450133",
      "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
@@ -767,22 +783,6 @@
      "post": "2026-08-07",
      "later": true,
      "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-25",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1282568"
     },
     {
      "date": "2026-11-30",
@@ -869,6 +869,22 @@
      "link": "https://mc.merill.net/message/MC1459133"
     },
     {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
      "date": "2027-01-05",
      "src": "MC1450133",
      "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
@@ -883,22 +899,6 @@
      "post": "2026-08-07",
      "later": true,
      "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-25",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -940,6 +940,22 @@
      "link": "https://mc.merill.net/message/MC1459133"
     },
     {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
      "date": "2027-01-05",
      "src": "MC1450133",
      "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
@@ -954,22 +970,6 @@
      "post": "2026-08-07",
      "later": false,
      "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-25",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -1008,6 +1008,22 @@
    ],
    "others": [
     {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
      "date": "2027-05-05",
      "src": "MC1282568",
      "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
@@ -1026,7 +1042,7 @@
     {
      "date": "2027-11-15",
      "src": "MC1545694",
-     "text": "Beginning in mid-November 2026 and expected to complete by end-November 2027.",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
      "post": "2026-11-09",
      "later": true,
      "link": "https://mc.merill.net/message/MC1545694"
@@ -1071,6 +1087,22 @@
    ],
    "others": [
     {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
      "date": "2027-01-05",
      "src": "MC1450133",
      "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
@@ -1093,22 +1125,6 @@
      "post": "2026-08-07",
      "later": true,
      "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1282568"
-    },
-    {
-     "date": "2027-05-25",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -1131,7 +1147,7 @@
      "name": "Passkeys by default in Microsoft Entra ID"
     }
    ],
-   "verdict": "differs"
+   "verdict": "moved"
   },
   "MC1469555": {
    "says": [],
@@ -1143,6 +1159,22 @@
      "post": "2026-08-21",
      "later": false,
      "link": "https://mc.merill.net/message/MC1459133"
+    },
+    {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
     },
     {
      "date": "2027-01-05",
@@ -1159,22 +1191,6 @@
      "post": "2026-08-07",
      "later": false,
      "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-25",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
    "moved": [],
@@ -1196,6 +1212,8 @@
   },
   "MC1545694": {
    "says": [
+    "2026-12-05",
+    "2026-12-31",
     "2027-11-15"
    ],
    "others": [
@@ -1240,7 +1258,18 @@
      "link": "https://mc.merill.net/message/MC1282568"
     }
    ],
-   "moved": [],
+   "moved": [
+    {
+     "was": "mid Nov 2026",
+     "now": "2026-12-05",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027)."
+    },
+    {
+     "was": "Nov 2027",
+     "now": "2026-12-31",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027)."
+    }
+   ],
    "newer": [],
    "why": [],
    "campaigns": [
@@ -1249,7 +1278,7 @@
      "name": "Passkeys by default in Microsoft Entra ID"
     }
    ],
-   "verdict": "differs"
+   "verdict": "moved"
   },
   "MC1465763": {
    "says": [

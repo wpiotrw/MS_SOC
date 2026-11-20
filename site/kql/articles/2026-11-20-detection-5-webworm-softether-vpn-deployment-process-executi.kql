@@ -1,0 +1,46 @@
+// title: Detection 5: Webworm SoftEther VPN Deployment - Process Execution with Outbound VPN Tunnel Traffic
+// date: 2026-11-20
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Friday, November 20, 2026
+// source: https://devsecopsdadattack.com/2026-11-20-detection-engineering-brief-friday-november-20-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let softEtherProcessNames = dynamic(["vpnserver.exe", "vpnclient.exe", "vpncmd.exe", "vpnbridge.exe", "se_vpn"]);
+let softEtherPortsHighFidelity = dynamic([992, 1194, 5555, 8888]);
+let procEvents = DeviceProcessEvents
+| where TimeGenerated > ago(7d)
+| where FileName has_any (softEtherProcessNames)
+    or ProcessCommandLine has_any (softEtherProcessNames)
+| project DeviceId, DeviceName, ProcessStartTime = TimeGenerated, FileName, FolderPath, ProcessCommandLine, InitiatingProcessFileName;
+let netEventsHighFidelity = DeviceNetworkEvents
+| where TimeGenerated > ago(7d)
+| where RemotePort in (softEtherPortsHighFidelity)
+| where ActionType == "ConnectionSuccess"
+| where isnotempty(RemoteIP)
+| where not(ipv4_is_private(RemoteIP))
+| project DeviceId, NetTime = TimeGenerated, RemoteIP, RemotePort, HighFidelityPort = true;
+let netEvents443 = DeviceNetworkEvents
+| where TimeGenerated > ago(7d)
+| where RemotePort == 443
+| where ActionType == "ConnectionSuccess"
+| where isnotempty(RemoteIP)
+| where not(ipv4_is_private(RemoteIP))
+| where InitiatingProcessFileName has_any (softEtherProcessNames)
+| project DeviceId, NetTime = TimeGenerated, RemoteIP, RemotePort, HighFidelityPort = false;
+let allNetEvents = union netEventsHighFidelity, netEvents443;
+procEvents
+| join kind=inner (allNetEvents) on DeviceId
+| where NetTime >= ProcessStartTime and NetTime <= (ProcessStartTime + 5m)
+| project
+    ProcessStartTime,
+    DeviceName,
+    FileName,
+    FolderPath,
+    ProcessCommandLine,
+    InitiatingProcessFileName,
+    RemoteIP,
+    RemotePort,
+    NetTime,
+    HighFidelityPort

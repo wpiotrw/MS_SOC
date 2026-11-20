@@ -1,0 +1,43 @@
+// title: Detection 3: OpsAgent Ransomware Implant - Unsigned Binary Execution with Mass File Modification on Windows
+// date: 2026-11-20
+// product: Defender for Endpoint
+// tables: DeviceFileEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Friday, November 20, 2026
+// source: https://devsecopsdadattack.com/2026-11-20-detection-engineering-brief-friday-november-20-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let suspiciousPaths = dynamic(["\\AppData\\", "\\Temp\\", "\\ProgramData\\", "\\Users\\Public\\"]);
+let fileModWindow = 5m;
+let fileModThreshold = 50;
+let suspiciousProcs = DeviceProcessEvents
+| where TimeGenerated > ago(1d)
+| where FolderPath has_any (suspiciousPaths)
+| where isempty(InitiatingProcessFileName)
+    or InitiatingProcessFileName !in~ ("msiexec.exe", "setup.exe", "install.exe", "MpSigStub.exe", "MpCmdRun.exe")
+| project DeviceId, DeviceName, ProcessStartTime = TimeGenerated, FileName, FolderPath, ProcessCommandLine, InitiatingProcessFileName, SHA256;
+let massFileChanges = DeviceFileEvents
+| where TimeGenerated > ago(1d)
+| where ActionType in ("FileModified", "FileCreated", "FileRenamed")
+| where FolderPath !has "\\Windows\\"
+| where FolderPath has_any (suspiciousPaths)
+| summarize
+    FileChangeCount = count(),
+    FirstChange = min(TimeGenerated),
+    LastChange = max(TimeGenerated)
+    by DeviceId, FileWindowStart = bin(TimeGenerated, fileModWindow)
+| where FileChangeCount >= fileModThreshold;
+suspiciousProcs
+| join kind=inner (massFileChanges) on DeviceId
+| where FirstChange >= ProcessStartTime and FirstChange <= (ProcessStartTime + 10m)
+| project
+    ProcessStartTime,
+    DeviceName,
+    FileName,
+    FolderPath,
+    ProcessCommandLine,
+    InitiatingProcessFileName,
+    SHA256,
+    FileChangeCount,
+    FirstChange,
+    LastChange

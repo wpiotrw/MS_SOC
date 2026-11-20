@@ -1,5 +1,79 @@
 [
  {
+  "file": "articles/2026-11-20-detection-5-webworm-softether-vpn-deployment-process-executi.kql",
+  "title": "Detection 5: Webworm SoftEther VPN Deployment - Process Execution with Outbound VPN Tunnel Traffic",
+  "date": "2026-11-20",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, November 20, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-20-detection-engineering-brief-friday-november-20-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-20-detection-engineering-brief-friday-november-20-2026/"
+ },
+ {
+  "file": "articles/2026-11-20-detection-4-cve-2026-73571-zimbra-savedraftrequest-authoriza.kql",
+  "title": "Detection 4: CVE-2026-73571 Zimbra SaveDraftRequest Authorization Bypass - Unauthenticated SOAP Exploitation",
+  "date": "2026-11-20",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, November 20, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-20-detection-engineering-brief-friday-november-20-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-20-detection-engineering-brief-friday-november-20-2026/",
+  "incident": "zimbra-snmp-cve-2026-73570-2026-09"
+ },
+ {
+  "file": "articles/2026-11-20-detection-3-opsagent-ransomware-implant-unsigned-binary-exec.kql",
+  "title": "Detection 3: OpsAgent Ransomware Implant - Unsigned Binary Execution with Mass File Modification on Windows",
+  "date": "2026-11-20",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, November 20, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-20-detection-engineering-brief-friday-november-20-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-20-detection-engineering-brief-friday-november-20-2026/"
+ },
+ {
+  "file": "articles/2026-11-20-detection-2-cve-2026-123890-vcenter-administrator-logon.kql",
+  "title": "Detection 2: CVE-2026-123890 vCenter - Administrator Logon from Unexpected Source Post-Exploitation",
+  "date": "2026-11-20",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, November 20, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-20-detection-engineering-brief-friday-november-20-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-20-detection-engineering-brief-friday-november-20-2026/"
+ },
+ {
+  "file": "articles/2026-11-20-detection-1-cve-2026-123890-vcenter-auth-bypass.kql",
+  "title": "Detection 1: CVE-2026-123890 vCenter Auth Bypass - Unauthenticated Access to Management Endpoints",
+  "date": "2026-11-20",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog",
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Friday, November 20, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-20-detection-engineering-brief-friday-november-20-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-20-detection-engineering-brief-friday-november-20-2026/"
+ },
+ {
   "file": "2026-11-20-teams-meeting-policy-and-meeting-ai-changes.kql",
   "title": "Teams meeting policy and meeting AI policy changes made by administrators, last 30 days",
   "date": "2026-11-20",
