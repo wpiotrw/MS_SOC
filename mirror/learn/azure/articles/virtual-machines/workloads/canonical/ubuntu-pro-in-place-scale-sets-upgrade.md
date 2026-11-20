@@ -49,7 +49,7 @@ platformId: 90058f59-4fde-4762-ca96-9bdbf0239b87
 
 # In-place upgrade to Ubuntu Pro on Azure for VMSS - Azure Virtual Machines | Microsoft Learn
 
-You can now upgrade your Ubuntu Server Virtual Machine Scale Sets (VMSS) to Ubuntu Pro without redeployment or downtime. The upgrade to Ubuntu Pro is available for Ubuntu LTS versions 16.04 or higher.
+You can now upgrade your Ubuntu Server Virtual Machine Scale Sets (VMSS) to Ubuntu Pro without redeployment or downtime. The upgrade to Ubuntu Pro is available for Ubuntu LTS versions 18.04 or higher.
 
 When an Ubuntu LTS image reaches its end of life (EOL), it no longer receives security updates. If you upgrade to Ubuntu Pro, you continue to receive security updates during [Extended Security Maintenance (ESM)](https://ubuntu.com/security/esm).
 
@@ -167,7 +167,7 @@ az vm run-command invoke \
 
 ## Validate the license
 
-Use the `pro status --all` command to validate the license.
+Use the `pro status --all` command to validate the license. Ubuntu Pro is enabled when `pro status --all` shows `esm-infra` and `esm-apps` as enabled.
 
 Expected output:
 

@@ -23,7 +23,7 @@ ms.reviewer: primittal
 ms.service: cost-management-billing
 ms.subservice: reservations
 ms.topic: how-to
-ms.date: 2026-09-29T00:00:00.0000000Z
+ms.date: 2026-11-19T00:00:00.0000000Z
 ms.author: primittal
 locale: en-us
 document_id: eaa37d0e-57fb-d5c7-f570-440f92f9d7dc
@@ -41,16 +41,24 @@ item_type: Content
 source_path: articles/cost-management-billing/reservations/agent-pre-purchase.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/96407ebd-b9e6-40db-9488-063e1af76a01
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/de19c5b8-e208-412e-9238-db3f631dea5b
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/8af61fb5-33c5-4523-b00a-7a42d7bbe9cd
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ea7bf5d6-7154-4ba9-8ebc-59117ccacd49
 platformId: 6bba820a-12ec-6677-3d80-682ffabe7e24
 ---
 
 # Microsoft Agent Prepurchase Plan - Microsoft Cost Management | Microsoft Learn
+
+Important
+
+**Changes to Microsoft Agent prepurchase plan availability starting January 1, 2027**
+
+Starting January 1, 2027, you can buy or renew the Microsoft Agent prepurchase plan only through an Enterprise Agreement (EA) or a Cloud Solution Provider (CSP) partner. Buy online channels and built-in tiered volume discounts will no longer apply.
+
+If you have a Microsoft Customer Agreement for enterprise (MCA-E), you can't buy or renew Microsoft Agent prepurchase plans starting January 1, 2027. Consider AI Flex Plan for your Microsoft AI portfolio instead. To learn more, see the [Flex Plan overview](../benefits/flex-plan/flex-plan-overview).
 
 Save on select services across Microsoft Foundry, Microsoft Copilot Studio\*, Copilot Cowork, Microsoft Fabric, and GitHub costs when you buy a prepurchase plan. Prepurchase plans are commit units (CUs) bought at discounted tiers in your purchasing currency for a specific product. The more you buy, the greater the discount. Purchased CUs pay down qualifying costs in US dollars (USD). So, for example if Microsoft Copilot Studio or Microsoft Foundry generates a retail cost of $100 based on Copilot Credit and Microsoft Foundry usage, then 100 Agent CUs (ACUs) are consumed.
 

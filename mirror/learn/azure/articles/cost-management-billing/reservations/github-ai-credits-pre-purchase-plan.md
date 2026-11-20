@@ -23,7 +23,7 @@ ms.reviewer: primittal
 ms.service: cost-management-billing
 ms.subservice: reservations
 ms.topic: how-to
-ms.date: 2026-11-04T00:00:00.0000000Z
+ms.date: 2026-11-19T00:00:00.0000000Z
 ms.author: primittal
 locale: en-us
 document_id: c9f20db3-28ed-a1c6-5342-45f0dbef8eab
@@ -49,6 +49,14 @@ platformId: 8a4a697b-443c-bd03-11b2-f6727965dbba
 ---
 
 # GitHub AI Credits Pre-Purchase Plan - Microsoft Cost Management | Microsoft Learn
+
+Important
+
+**Changes to GitHub AI Credits pre-purchase plan availability starting January 1, 2027**
+
+Starting January 1, 2027, you can buy or renew the GitHub AI Credits pre-purchase plan only through an Enterprise Agreement (EA) or a Cloud Solution Provider (CSP) partner. Buy online channels and built-in tiered volume discounts will no longer apply.
+
+If you have a Microsoft Customer Agreement for enterprise (MCA-E), you can't buy or renew GitHub AI Credits pre-purchase plans starting January 1, 2027. Consider AI Flex Plan for your GitHub portfolio instead. To learn more, see the [Flex Plan overview](../benefits/flex-plan/flex-plan-overview).
 
 Save on your GitHub AI Credits costs when you buy a pre-purchase plan. Pre-purchase plans are commit units (CUs) bought at discounted tiers in your purchasing currency for a specific product. The more you buy, the greater the discount. Purchased CUs pay down qualifying costs in US dollars (USD). So, if GitHub AI generates a retail cost of $100 based on GitHub AI Credits usage, then 100 GitHub AI Credits CUs (GHAICCUs) are consumed.
 

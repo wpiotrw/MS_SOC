@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: All Credential Types entity definition | Microsoft Learn
+title: All Credential Types entity definition - Microsoft Purview | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/purview/sit-defn-all-creds
 breadcrumb_path: /purview/breadcrumb/toc.json
 feedback_system: None
@@ -10,7 +10,7 @@ f1.keywords:
 ms.author: kreagle
 author: k-reagle
 manager: laurawi
-ms.date: 2026-06-10T00:00:00.0000000Z
+ms.date: 2026-11-19T00:00:00.0000000Z
 audience: Admin
 search.appverid: MET150
 ms.topic: reference
@@ -20,6 +20,8 @@ ms.collection:
 - purview-compliance
 recommendations: false
 description: All Credential Types sensitive information type entity definition.
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1032
 locale: en-us
 document_id: c21614ef-8edf-c9ef-94e5-1126406515be
 document_version_independent_id: c21614ef-8edf-c9ef-94e5-1126406515be
@@ -37,17 +39,15 @@ monikers: []
 item_type: Content
 source_path: Purview/sit-defn-all-creds.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/9bdc1705-9b40-49d6-8377-caa0b71fda66
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/686ed158-d915-41e9-9760-efa46ba88f6d
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
 platformId: 349024ca-ffc8-7548-f0f3-302b483a9a43
 ---
 
-# All Credential Types entity definition | Microsoft Learn
+# All Credential Types entity definition - Microsoft Purview | Microsoft Learn
 
 "All credentials" is a bundled-entity sensitive information type (SIT). It detects credentials from all supported services and environments, which include Amazon, Azure, GitHub, Google, Microsoft general, Slack and more.
 
@@ -137,6 +137,12 @@ General Password detects password related keywords in English only.
 - [Slack Access Token](sit-defn-slack-access-token)
 - [User Login Credentials](sit-defn-user-login-credentials)
 - [X.509 Certificate Private Key](sit-defn-x-509-certificate-private-key)
+
+## Azure IoT credential coverage
+
+The All credentials bundled SIT covers Azure IoT shared access keys, including keys in Azure IoT connection strings, through the Azure IoT shared access key SIT.
+
+The shared access key SIT is newer than the [Azure IoT connection string](sit-defn-azure-iot-connection-string) SIT and supports additional credential variants. For a complete credential example and the key-format requirements, see [Azure IoT shared access key](sit-defn-azure-iot-shared-access-key).
 
 ## Supported languages
 

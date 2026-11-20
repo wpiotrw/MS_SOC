@@ -26,7 +26,7 @@ ms.service: microsoft-foundry
 description: Use Teams Phone extensibility or Twilio with a Microsoft Foundry voice agent to receive phone calls and place outbound calls through the API.
 ms.subservice: foundry-agent-service
 ms.topic: how-to
-ms.date: 2026-11-11T00:00:00.0000000Z
+ms.date: 2026-11-19T00:00:00.0000000Z
 ms.custom: doc-kit-assisted
 ai-usage: ai-assisted
 zone_pivot_groups: voice-agent-telephony-method
@@ -78,6 +78,13 @@ Teams Phone extensibility and Twilio telephony channels aren't currently support
     The Foundry RBAC roles were recently renamed. **Foundry User**, **Foundry Owner**, **Foundry Account Owner**, and **Foundry Project Manager** were previously named Azure AI User, Azure AI Owner, Azure AI Account Owner, and Azure AI Project Manager. You might still see the previous names in some places while the rename rolls out. The role IDs and core permissions are unchanged by the rename.
 - Permission to update the agent and its channels, manage project connections, and create or update telephony bindings.
 
+::: zone pivot="azd"
+
+- Azure Developer CLI (`azd`) version 1.37.0 or later and the `azure.ai.agents` extension version 1.2.0 or later. See [Install the Azure Developer CLI Foundry extensions](install-cli-foundry-extensions).
+- The `azd` project and environment that deploy your voice agent. The voice service uses `host: azure.ai.agent` and `kind: voice` or `kind: prompt-voice`. To create one, follow the [Azure Developer CLI quickstart](../quickstarts/prompt-voice-agent?pivots=azd).
+
+::: zone-end
+
 # [Teams Phone extensibility](#tab/teams-phone)
 ### Teams Phone extensibility prerequisites
 
@@ -114,6 +121,12 @@ Choose the provider that owns your number.
 
 The Twilio option appears only in supported public-cloud environments.
 
+::: zone pivot="azd"
+
+In `azure.yaml`, the Teams identifier includes the `28:orgid:` prefix. The CLI converts it to the GUID required by the API. See Connect a number with Azure Developer CLI.
+
+::: zone-end
+
 ## Understand the call path
 
 The channel integration determines how an inbound call reaches the agent.
@@ -145,7 +158,7 @@ For Twilio, Foundry uses the selected project connection to discover the numbers
 
 ## Set up your preferred interface
 
-Use **Choose a configuration method** at the top of this article to select **Foundry portal**, **Python SDK**, or **REST API**. The Python examples share a client and variables across sections.
+Use **Choose a configuration method** at the top of this article to select **Foundry portal**, **Python SDK**, **REST API**, or **Azure Developer CLI**. The Python examples share a client and variables across sections.
 
 ::: zone pivot="foundry-portal"
 
@@ -195,9 +208,33 @@ Examples that need response headers use the `cls` callback to return the model a
 
 ::: zone-end
 
+::: zone pivot="azd"
+
+Run the commands from the directory that contains your project's `azure.yaml`. Check that the CLI and agent extension meet the version requirements:
+
+```azurecli
+azd version
+azd ai agent version
+```
+
+Reference: [Verify the Foundry extensions](install-cli-foundry-extensions#verify-the-installation).
+
+Sign in and select the existing environment that contains your voice agent. Replace `<environment-name>` with that environment's name:
+
+```azurecli
+azd auth login
+azd env select <environment-name>
+```
+
+Reference: [azd auth login](/en-us/azure/developer/azure-developer-cli/reference#azd-auth-login) | [azd env select](/en-us/azure/developer/azure-developer-cli/reference#azd-env-select).
+
+This workflow deploys inbound bindings declared in your voice service. Use Python or REST for outbound jobs, live-call operations, and independent binding management. Teams Phone extensibility and Twilio bindings don't require a voice preview opt-in with these extension versions.
+
+::: zone-end
+
 ## Configure a provider connection
 
-Use a project connection for your provider. The portal number setup flow can create it for you. For SDK or REST requests, create or select the connection first.
+Use a project connection for your provider. The portal number setup flow can create it for you. For CLI, SDK, or REST requests, create or select the connection first.
 
 # [Teams Phone extensibility](#tab/teams-phone)
 ### Prepare Teams Phone extensibility
@@ -246,6 +283,12 @@ For Twilio, use these settings:
 ---
 
 Use the connection's name as `connection_name` in binding and outbound requests. Don't include provider credentials in those requests.
+
+::: zone pivot="azd"
+
+Use the existing project connection's name in the YAML `connection` field. The `telephony` declaration doesn't create a provider account, phone number, project connection, or Teams Event Grid subscription.
+
+::: zone-end
 
 ## Understand telephony bindings
 
@@ -570,9 +613,84 @@ Read the latest `ETag` before each update. Don't reuse an ETag after another cha
 
 ::: zone-end
 
+::: zone pivot="azd"
+
+## Connect a number with Azure Developer CLI
+
+Add a binding to the existing voice service, then deploy that service. Deployment also applies the agent's local configuration, so review its model, instructions, and audio settings before continuing.
+
+### Declare the binding
+
+In `azure.yaml`, locate your voice service under `services`. Add `telephony` at the same indentation level as `kind`, `model`, and `name`.
+
+Preserve the existing agent settings and any bindings you want to keep. For a service defined through `$ref`, edit its referenced definition instead.
+
+# [Teams Phone extensibility](#tab/teams-phone)
+Use `provider: acs` and prefix your Teams resource-account GUID with `28:orgid:`. Replace the GUID and connection name with your values:
+
+```yaml
+telephony:
+  bindings:
+    - provider: acs
+      identifier: "28:orgid:aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+      connection: my-acs-connection
+```
+
+Reference: [Telephony YAML configuration](../concepts/azure-yaml-reference#telephony-bindings).
+
+The CLI sends `provider: teams_phone_extensibility` and the GUID as `resource_account_object_id` to the API. Don't use an ACS-purchased-number identifier such as `4:+14255550123`; this workflow doesn't support that format.
+
+# [Twilio](#tab/twilio)
+Use your owned, voice-capable Twilio number in E.164 format. Replace the number and connection name with your values:
+
+```yaml
+telephony:
+  bindings:
+    - provider: twilio
+      identifier: "+14255550123"
+      connection: my-twilio-connection
+```
+
+Reference: [Telephony YAML configuration](../concepts/azure-yaml-reference#telephony-bindings).
+
+The CLI sends `identifier` as the API's `phone_number`. Creating the binding replaces the number's existing inbound voice routing, so use a number intended for this agent.
+
+---
+
+### Deploy and inspect the binding
+
+1. Deploy the voice service. Replace `<service-name>` with the key under `services` in `azure.yaml`. This key can differ from the agent's Foundry name:
+
+    ```azurecli
+    azd deploy <service-name>
+    ```
+
+    Reference: [azd deploy](/en-us/azure/developer/azure-developer-cli/reference#azd-deploy).
+
+    Deployment creates missing bindings and accepts matching active bindings. It fails on conflicting configuration or duplicate matches rather than changing existing routing. It uses `api-version=v1` and service-generated binding IDs.
+2. Read the deployed bindings through REST. `azd` doesn't expose a standalone binding-list command. Complete the [REST authentication setup](voice-agent-telephony-channels?pivots=rest#set-up-your-preferred-interface), then send:
+
+    ```http
+    GET {projectEndpoint}/agents/{agentName}/telephony/bindings?api-version=v1
+    Authorization: Bearer <access-token>
+    ```
+
+    Reference: [Telephony binding API operations](https://github.com/Azure/azure-dev/blob/azd-ext-azure-ai-agents_1.2.0/cli/azd/extensions/azure.ai.agents/internal/pkg/agents/agent_api/telephony_operations.go).
+
+    Find the binding by its provider and phone number or Teams resource-account GUID. If `has_more` is `true`, repeat the request with `&after={lastId}`, using the URL-encoded `last_id` from the response. Save the returned `id` and `incoming_call_url`; don't construct the ID from the provider or number.
+3. Complete incoming-call delivery, then test the call. For Teams, use `incoming_call_url` when configuring Event Grid. For Twilio, Foundry configures the number's voice callbacks when it creates the binding.
+
+::: zone-end
+
 ### Binding update rules
 
 Both providers support updates to `label`. To stop routing incoming calls to the agent, disconnect the number.
+
+::: zone pivot="azd"
+
+`azd deploy` doesn't update or delete existing bindings. Select **Python SDK** or **REST API** for those operations. If deployment reports configuration drift, inspect and reconcile the existing binding before deploying again.
+
+::: zone-end
 
 # [Teams Phone extensibility](#tab/teams-phone)
 Teams bindings also support changes to `connection_name` and the display `phone_number`. The provider and resource-account object ID are immutable.
@@ -643,6 +761,12 @@ To place an outbound call, create a call job through the API. A call job uses yo
 
 The call-job ID tracks the outbound request and its attempts. To transfer or end a connected call, use the call ID from the Calls API, as described in Manage a live call.
 
+::: zone pivot="azd"
+
+`azd deploy` doesn't place outbound calls. Use the Python or REST examples in the outbound-call guide.
+
+::: zone-end
+
 ## Configure transfer to a person
 
 Configure named transfer targets so your application can route an active call to a support representative. The application selects a target by name when it calls the transfer API. For agent-selected transfers, configure the separate [`transfer` system tool](voice-agent-system-tools#configure-a-transfer-target).
@@ -652,6 +776,12 @@ The examples use phone-number destinations.
 ::: zone pivot="foundry-portal"
 
 Select **Python SDK** or **REST API** at the top of this article for the transfer-target configuration examples.
+
+::: zone-end
+
+::: zone pivot="azd"
+
+Use **Python SDK** or **REST API** for the target-management examples in this section. Optional YAML `transferTargets` declarations can populate an empty agent-level target list only when the same deployment creates a binding. The CLI doesn't overwrite a nonempty target list or apply a changed list when no binding is created.
 
 ::: zone-end
 
@@ -771,7 +901,7 @@ Your application selects the action and supplies the call ID. Use these call man
 
 For the [outbound example](voice-agent-outbound-calls#create-one-call-job), filter the call list by provider and time, then match the returned phone numbers to your call. Use the matching record's `id` for call control. The call-job ID tracks the outbound request and its attempts. See Inspect call records and conversations for query filters and diagnostics.
 
-::: zone pivot="foundry-portal"
+::: zone pivot="foundry-portal,azd"
 
 Select **Python SDK** or **REST API** at the top of this article to list calls or send a transfer or end-call request.
 
@@ -879,6 +1009,12 @@ See [Configure a voice agent](configure-voice-agent).
 
 ## Test the call
 
+::: zone pivot="azd"
+
+`azd ai agent invoke` doesn't start voice conversations or phone calls. Use a controlled phone call to verify the binding and provider routing.
+
+::: zone-end
+
 Allow time for your provider configuration changes to propagate before testing the number.
 
 1. Wait for the selected provider and binding changes to propagate.
@@ -919,7 +1055,7 @@ Caller and callee phone numbers are personal data. Review who can read your proj
 
 Use the Calls API for call records and live-call actions, the call-job API for outbound requests and retries, and conversation APIs for stored dialogue. Complete the interface setup for Python or REST. Use the project endpoint and agent name from your call setup.
 
-::: zone pivot="foundry-portal"
+::: zone pivot="foundry-portal,azd"
 
 To run the query examples in this section, select **Python SDK** or **REST API** under **Choose a configuration method** at the top of this article.
 
@@ -1172,6 +1308,21 @@ Use call records, conversation data, and traces to find where a call failed and 
 4. When the call reaches the agent, read the stored conversation and inspect the model and tool spans in the [Foundry trace view](../concepts/voice-agent-observability#trace-views). Confirm the tool's actual result and the provider or business-service outcome before retrying an action.
 5. Use the symptom table to correct the identified configuration, then verify the affected stage with an approved test call. Keep the original and new identifiers so you can compare results.
 
+::: zone pivot="azd"
+
+### Resolve deployment errors
+
+Use the following checks for `azd` errors. For the call-query examples that follow, select **Python SDK** or **REST API**.
+
+| Symptom | What to check |
+| --- | --- |
+| Voice options aren't available or the extension doesn't load | Check for `azd` version 1.37.0 or later and `azure.ai.agents` version 1.2.0 or later. Follow the [installation guidance](install-cli-foundry-extensions) to update the tools. |
+| A binding differs from the declaration, or multiple bindings match | List the current bindings and confirm the intended provider identity and connection. Reconcile the remote configuration with Python or REST before redeploying. |
+| Deployment reports an unconfirmed write or partial completion | Read the remote bindings before retrying. Some bindings might already exist even though deployment didn't finish successfully. |
+| Transfer targets differ from the declaration | Inspect the agent-level target list. Reconcile it with Python or REST; deployment doesn't overwrite a nonempty list. |
+
+::: zone-end
+
 ### Query an inbound call result
 
 Use the Calls API to find a recent inbound call and read its outcome. Complete the interface setup for Python or REST. The response excerpts use illustrative values; use the identifiers returned by your own requests.
@@ -1369,6 +1520,14 @@ This example uses Log Analytics workspace table names. If the query returns no r
 ## Disconnect a number
 
 Remove the inbound mapping when you no longer want the number to route calls to this agent. Outbound jobs don't require a binding; cancel any unwanted jobs separately.
+
+::: zone pivot="azd"
+
+1. Remove the binding's declaration from `azure.yaml` or the referenced service definition so a later deployment doesn't recreate it. If it was the last binding, remove the `telephony` block. This local edit doesn't delete the remote binding.
+2. Select **Python SDK** or **REST API** at the top of this article. Follow the deletion steps with the service-generated binding ID and its current ETag.
+3. Delete test bindings before deleting their agent. Don't use `azd down` just to disconnect a number; it can delete the environment's Azure resources.
+
+::: zone-end
 
 ::: zone pivot="foundry-portal"
 

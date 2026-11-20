@@ -33,6 +33,7 @@ https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-graph-mapping-be
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-graphapiauditevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identityaccountinfo-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identitydirectoryevents-table
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identityinfo-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identitylogonevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identityqueryevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-link-to-incident

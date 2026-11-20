@@ -65,6 +65,11 @@ Features in *preview* status are subject to change without notice, and might not
 - Added audit metadata to the [browseQueryResponseItem](/en-us/graph/api/resources/browsequeryresponseitem) resource. Use this metadata to identify when a file or folder was created or last modified and who made the change when you select items for granular restore.
 - Added support for tracking backup retention periods and pending retention changes on [protectionUnitBase](/en-us/graph/api/resources/protectionunitbase). Use the **backupRetentionPeriodInDays** and **pendingRetentionPeriodChange** properties to monitor protection units as they move between policies with different retention periods.
 
+### Device and app management | Cloud printing
+
+- Added the [pullPrintPrinter](/en-us/graph/api/resources/pullprintprinter) resource type and related methods to create and manage virtual printers. Users can submit print jobs to a pull print printer and release them at a member printer.
+- Added support for secure release of print jobs. Set **holdJobsForSecureRelease** on a [printerShare](/en-us/graph/api/resources/printershare) to hold submitted jobs, then use [release](/en-us/graph/api/printjob-release) to release a job at a printer.
+
 ### Identity and access | Directory management
 
 - Added the **isPrivileged** property to the [unifiedRoleDefinition](/en-us/graph/api/resources/unifiedroledefinition) resource type. Use it to identify roles that contain sensitive Microsoft Entra resource actions.
@@ -112,6 +117,10 @@ Features in *preview* status are subject to change without notice, and might not
 
 - Added request guidance and examples for using **retentionSettings** when you create or update [Exchange](/en-us/graph/api/resources/exchangeprotectionpolicy?view=graph-rest-beta&amp;preserve-view=true), [OneDrive for Business](/en-us/graph/api/resources/onedriveforbusinessprotectionpolicy?view=graph-rest-beta&amp;preserve-view=true), and [SharePoint](/en-us/graph/api/resources/sharepointprotectionpolicy?view=graph-rest-beta&amp;preserve-view=true) protection policies to configure how long backups are retained.
 
+### Calendars
+
+Added the **sharingLevel** property to the [calendar](/en-us/graph/api/resources/calendar?view=graph-rest-beta&amp;preserve-view=true) resource. Use this property to get the effective level of calendar event information visible to the current share recipient, separately from edit or delegate rights.
+
 ### Device and app management | Cloud PC
 
 - Added the [retrieveFlexCloudPcAccessConfiguration](/en-us/graph/api/cloudpc-retrieveflexcloudpcaccessconfiguration?view=graph-rest-beta&amp;preserve-view=true) and [retrieveFlexCloudPcConfigurationDetail](/en-us/graph/api/cloudpc-retrieveflexcloudpcconfigurationdetail?view=graph-rest-beta&amp;preserve-view=true) functions on the [cloudPC](/en-us/graph/api/resources/cloudpc?view=graph-rest-beta&amp;preserve-view=true) resource to retrieve live Windows 365 Flex access state and Flex license availability.
@@ -120,6 +129,11 @@ Features in *preview* status are subject to change without notice, and might not
 - Added support for managing Cloud PC user settings persistence storage sizing, automatic cleanup, and automatic snapshots. Use the [cloudPCUserSettingsPersistenceDetail](/en-us/graph/api/resources/cloudpcusersettingspersistencedetail?view=graph-rest-beta&amp;preserve-view=true) resource to configure these settings and access related operations.
 - Added the [cloudPcUserProfileSnapshot](/en-us/graph/api/resources/cloudpcuserprofilesnapshot?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods for creating, exporting, and restoring user settings persistence cloud profile snapshots.
 - Deprecated the **userSettingsPersistenceStorageSizeCategory** property on the [cloudPcUserSettingsPersistenceConfiguration](/en-us/graph/api/resources/cloudpcusersettingspersistenceconfiguration?view=graph-rest-beta&amp;preserve-view=true) resource type. After December 11, 2026, use the **allocatedStorageSizeCategory** property on the [cloudPcStorageConfiguration](/en-us/graph/api/resources/cloudpcstorageconfiguration?view=graph-rest-beta&amp;preserve-view=true) resource type instead.
+
+### Device and app management | Cloud printing
+
+- Added the [pullPrintPrinter](/en-us/graph/api/resources/pullprintprinter?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods to create and manage virtual printers. Users can submit print jobs to a pull print printer and release them at a member printer.
+- Added support for secure release of print jobs. Set **holdJobsForSecureRelease** on a [printerShare](/en-us/graph/api/resources/printershare?view=graph-rest-beta&amp;preserve-view=true) to hold submitted jobs, then use [release](/en-us/graph/api/printjob-release?view=graph-rest-beta&amp;preserve-view=true) to release a job at a printer.
 
 ### Identity and access | Directory management
 
@@ -160,6 +174,10 @@ Features in *preview* status are subject to change without notice, and might not
 ### Security | Data security and compliance
 
 Added the [classificationGradingJobResponse](/en-us/graph/api/resources/classificationgradingjobresponse?view=graph-rest-beta&amp;preserve-view=true) resource type and [classificationGradingContentLocation](/en-us/graph/api/resources/classificationgradingcontentlocation?view=graph-rest-beta&amp;preserve-view=true) complex type to return matched text and surrounding context through the optional **contextText** property in classification grading results.
+
+### Reports | Identity and access reports
+
+- Added the [resourcePolicyEvaluationEvent](/en-us/graph/api/resources/resourcepolicyevaluationevent?view=graph-rest-beta&amp;preserve-view=true) resource type and related read-only methods to audit Entra Resource Policy evaluations for Microsoft Graph requests. Use it to inspect net policy decisions and opt in to per-policy evaluation results for troubleshooting.
 
 ### Teamwork and communications | Messaging
 

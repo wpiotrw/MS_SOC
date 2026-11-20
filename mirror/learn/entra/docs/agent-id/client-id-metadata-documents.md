@@ -13,7 +13,7 @@ ms.subservice: agent-id
 manager: pmwongera
 description: Learn how Client ID Metadata Documents let OAuth clients identify themselves to Microsoft Entra ID without prior client registration.
 ms.topic: concept-article
-ms.date: 2026-09-21T00:00:00.0000000Z
+ms.date: 2026-10-30T00:00:00.0000000Z
 ai-usage: ai-assisted
 locale: en-us
 document_id: 1c01ace9-d183-cbfd-fc66-10afe9b2ff28
@@ -31,29 +31,35 @@ monikers: []
 item_type: Content
 source_path: docs/agent-id/client-id-metadata-documents.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
 platformId: 11b6c4e1-0a0d-b824-b442-fe31134dc117
 ---
 
 # Client ID Metadata Documents in Microsoft Entra ID - Microsoft Entra Agent ID | Microsoft Learn
 
-Client ID Metadata Documents (CIMD) let an OAuth client identify itself by using an HTTPS URL instead of a preassigned client ID. The document at that URL contains the client's OAuth metadata. Microsoft Entra ID retrieves and validates the document, represents the client as an agent identity in the tenant, and issues tokens under the tenant's existing consent and security policies.
+Client ID Metadata Documents (CIMD) are a new way to register OAuth clients with Entra ID. CIMD is primarily used by AI agents that need to connect to remote MCP servers.
 
 Important
 
 Client ID Metadata Document support in Microsoft Entra ID is in public preview. This preview is provided without a service-level agreement and isn't recommended for production workloads. Some features might be unsupported or have constrained capabilities. For more information, see [Universal License Terms for Online Services](https://www.microsoft.com/licensing/terms/product/ForOnlineServices/all).
 
-CIMD is useful when a client must connect to many authorization servers with which it has no prior relationship. For example, an MCP client can discover remote Model Context Protocol (MCP) servers at runtime, and each server might use a different authorization server. Requiring every client to be registered with every authorization server doesn't scale.
+## Why CIMD
 
-CIMD is defined by the [OAuth Client ID Metadata Document specification](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/). The MCP authorization specification recommends CIMD for clients that don't have another supported registration mechanism.
+AI agents may use many different MCP servers to perform work. Some of these MCP servers may be secured by Entra's OAuth server — e.g. WorkIQ, Azure Storage MCP, or enterprise-built MCP servers. Others may be secured by a different OAuth server — e.g. GitHub, Workday, Slack. For general purpose AI agents, it's impractical to know all MCP servers it will use, and therefore impractical to know all OAuth servers the AI agent will encounter. The AI agent needs a way to dynamically register itself with an OAuth server and obtain a client ID.
 
-## How CIMD works with Microsoft Entra ID
+Client ID Metadata Documents (CIMD) let an OAuth client identify itself by using an HTTPS URL as its OAuth `client_id` value instead of a pre-registered client ID. A JSON document at that public URL contains the client's OAuth metadata, such as its redirect URIs and client credentials. This allows an OAuth server, such as Entra ID, to fetch the JSON document and use it to securely issue access tokens to the client.
+
+CIMD is useful when a client must connect to many authorization servers with which it has no prior relationship. For example, an AI agent can discover remote Model Context Protocol (MCP) servers at runtime, and each server might use a different authorization server. Requiring every client to be registered with every authorization server doesn't scale.
+
+CIMD is defined by the [OAuth Client ID Metadata Document specification](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/).
+
+## How CIMD works
 
 A typical CIMD authorization flow has the following steps:
 
@@ -96,6 +102,37 @@ Implementers should always prefer pre-registration of a client with Entra when p
 
 An MCP client that discovers many remote servers at runtime is the primary scenario.
 
+## CIMD-enabled clients
+
+The following table lists clients that have been tested and validated against Entra's CIMD support.
+
+| Client | Client ID Metadata Document | Preview compatibility |
+| --- | --- | --- |
+| Claude Code | https://claude.ai/oauth/claude-code-client-metadata | Supported. |
+| Claude | https://claude.ai/oauth/mcp-oauth-client-metadata | Supported. |
+| Codex | https://chatgpt.com/oauth/codex/client.json | Supported. |
+| ChatGPT | https://chatgpt.com/oauth/client.json | Not supported. Its confidential-client authentication flow isn't supported by the Microsoft Entra preview. |
+| Visual Studio Code | https://vscode.dev/oauth/client-metadata.json | Not supported. Microsoft first-party clients do not use CIMD. |
+| GitHub Copilot | https://github.com/copilot/desktop/client-metadata.json | Not supported. Microsoft first-party clients do not use CIMD. |
+| Custom client built with the official MCP SDKs | Host a metadata document at a stable HTTPS URL on a domain you control. | Supported. |
+| Custom client implementation | Host a metadata document at a stable HTTPS URL on a domain you control. | Supported. |
+
+## CIMD-enabled MCP servers
+
+The following table is a non-exhaustive list of Microsoft MCP servers that have confirmed CIMD support.
+
+| MCP server | Remote MCP server URL | CIMD testing status |
+| --- | --- | --- |
+| Custom enterprise-built MCP server | -- | Supported, see [guide here](/en-us/entra/agent-id/secure-mcp-server-with-entra-id). |
+| [Microsoft MCP for IT Admins](https://github.com/microsoft/EnterpriseMCP) | `https://mcp.svc.cloud.microsoft/admin` | Not supported yet. |
+| [Azure Management MCP (ARM)](/en-us/azure/azure-resource-manager/management/azure-resource-manager-mcp-quickstart) | `https://mcp.management.azure.com` | Not supported yet. |
+| [Azure DevOps MCP](/en-us/azure/devops/mcp-server/remote-mcp-server) | `https://mcp.dev.azure.com/{organization}` | Not supported yet. |
+| [Work IQ MCP](/en-us/microsoft-365/copilot/extensibility/work-iq/mcp/quickstart/github-copilot-cli) | `https://workiq.svc.cloud.microsoft/mcp` | Not supported yet. |
+| [Fabric IQ MCP](/en-us/fabric/iq/connectors/fabric-iq-mcp) | `https://fabriciq.svc.cloud.microsoft/v1/mcp/fabriciq` | Not supported yet. |
+| [Foundry MCP](/en-us/azure/foundry/mcp/get-started) | `https://mcp.ai.azure.com` | Not supported yet. |
+| [Microsoft Sentinel MCP](/en-us/azure/sentinel/datalake/sentinel-mcp-tools-overview) | `https://sentinel.microsoft.com/mcp/data-exploration` | Not supported yet. |
+| [Dataverse MCP](/en-us/power-apps/maker/data-platform/data-platform-mcp) | `https://{dataverseOrgName}.crm.dynamics.com/api/mcp` | Not supported yet. |
+
 ## Supported capabilities and limitations
 
 The following table summarizes the capabilities and limitations of CIMD-backed agent identities.
@@ -110,6 +147,8 @@ The following table summarizes the capabilities and limitations of CIMD-backed a
 | Acting as an OAuth resource or token audience | Not supported |
 | ID tokens or SAML tokens for user sign-in | Not supported |
 | Shared client secrets | Not supported |
+| Confidential-client authentication, including `private_key_jwt` | Not supported during preview; keys in the metadata document aren't processed |
+| Microsoft first-party clients using CIMD | Not supported; use the existing first-party registration process |
 | Publisher verification or Microsoft 365 certification | Not supported |
 | Multiple agent identities sharing one blueprint | Not supported |
 | Agent user accounts | Not supported |
@@ -129,7 +168,26 @@ Microsoft Entra ID applies the following protections:
 - **No app-only tokens:** CIMD clients can't use the client credentials grant.
 - **Audience restriction:** Microsoft Entra ID doesn't issue tokens whose audience is the CIMD client.
 
-Under the default recommended consent policy, users can consent only to low-risk OAuth permissions for CIMD clients. Sensitive permissions require administrator consent. For administrator guidance, see [Manage CIMD clients in Microsoft Entra ID](manage-client-id-metadata-document-clients).
+## Consent and permissions for clients using CIMD
+
+Entra treats clients using CIMD as unverified, and honors existing tenant consent policy. This means that the following rules apply:
+
+| Tenant Setting | What users can consent to |
+| --- | --- |
+| Default consent policy | Users can sign-in to CIMD clients. This creates an agent identity in the tenant. Users can only grant a very limited set of OAuth scopes to CIMD clients, such as `openid` and `User.Read` in Microsoft Graph. [Risk-based step up](/en-us/entra/identity/enterprise-apps/configure-risk-based-step-up-consent) prevents users from granting any other permissions to CIMD clients. |
+| Do not allow user consent | In tenants that have disabled user consent via the **Do not allow user consent** setting in Entra Admin Center, users cannot consent to CIMD clients. This means they cannot add CIMD clients to their tenant, nor can they grant OAuth scopes to CIMD clients. |
+| Other consent policy | Using [consent policy](/en-us/entra/identity/enterprise-apps/manage-app-consent-policies), tenants can allow users to consent to CIMD clients. Administrators have fine-grained control over the conditions when user consent is allowed. |
+
+## Admin controls for CIMD
+
+Tenants can prevent users from adding CIMD clients or granting them new permissions via [consent policy](/en-us/entra/identity/enterprise-apps/manage-app-consent-policies). Use either of these approaches:
+
+- Block all user consent, via the **Do not allow user consent** setting in Entra Admin Center.
+- Allow user consent only for apps from verified publishers.
+
+Either of these policies will prevent non-admin users from adding CIMD clients to a tenant. Follow [Manage app consent policies](/en-us/entra/identity/enterprise-apps/manage-app-consent-policies) to configure consent policy in your tenant.
+
+To enable the use of a specific agent or client using CIMD, administrators can individually add agent identities to their tenant by providing the CIMD URL. This can be done via Entra Admin Center or Microsoft Graph APIs. See [Managing CIMD clients](manage-client-id-metadata-document-clients).
 
 ## Governance considerations
 
@@ -142,4 +200,4 @@ Before using CIMD, account for the following considerations:
 - Entra doesn't provide a tenant-managed domain allowlist or blocklist for CIMD URLs.
 - Losing control of the document URL or its domain can affect every tenant that trusts that client identity.
 
-Use least-privilege delegated permissions, preapprove clients that need sensitive access, monitor their sign-ins, and remove identities that are no longer required.
+Always use least-privilege delegated permissions, preapprove clients that need sensitive access, monitor their sign-ins, and remove identities that are no longer required.

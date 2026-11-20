@@ -10,7 +10,7 @@ f1.keywords:
 ms.author: kreagle
 author: k-reagle
 manager: laurawi
-ms.date: 2025-02-07T00:00:00.0000000Z
+ms.date: 2026-11-13T00:00:00.0000000Z
 audience: Admin
 search.appverid: MET150
 ms.topic: reference
@@ -20,7 +20,8 @@ ms.collection:
 - purview-compliance
 recommendations: false
 description: Azure IoT connection string sensitive information type entity definition.
-ms.custom: sfi-ropc-nochange
+ms.custom: sfi-ropc-nochange, msecd-doc-authoring-1032
+ai-usage: ai-assisted
 locale: en-us
 document_id: d25f86bf-1851-5f3f-6962-97d9021d9f8b
 document_version_independent_id: d25f86bf-1851-5f3f-6962-97d9021d9f8b
@@ -39,14 +40,20 @@ item_type: Content
 source_path: Purview/sit-defn-azure-iot-connection-string.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/8905b934-b96c-4513-8447-7040eb93b2b2
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/203e4af6-88b5-4e82-bf7b-51a6102005c3
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: fe649946-6767-2451-d2ee-39310602c794
 ---
 
 # Azure IoT connection string entity definition | Microsoft Learn
 
-This SIT is also included in the [All credentials](sit-defn-all-creds) bundled SIT.
+The Azure IoT connection string sensitive information type (SIT) in Microsoft Purview identifies shared access keys in Azure IoT connection strings.
+
+The [Azure IoT shared access key](sit-defn-azure-iot-shared-access-key) SIT is the newer detector for the same credential type. It supports additional credential variants and is included in the [All credentials](sit-defn-all-creds) bundled SIT.
+
+Use the complete credential example to validate detection rather than relying on a shortened key or placeholder.
 
 Important
 
@@ -73,6 +80,8 @@ The string `HostName` followed by the characters and strings outlined in the pat
 - an equal sign (=)
 
 ## Credential example
+
+The following connection string uses fictitious documentation values to illustrate a complete Azure IoT credential. Use the full connection string when validating detection; a shortened key or placeholder value doesn't provide the same test.
 
 `<sample credential removed by the MS_SOC mirror (GitHub push protection) - see the live Learn page>`
 

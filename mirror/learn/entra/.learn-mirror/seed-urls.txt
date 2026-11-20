@@ -1,10 +1,13 @@
 https://learn.microsoft.com/en-us/entra
 https://learn.microsoft.com/en-us/entra/agent-id
+https://learn.microsoft.com/en-us/entra/agent-id/client-id-metadata-documents
+https://learn.microsoft.com/en-us/entra/agent-id/configure-client-id-metadata-document
 https://learn.microsoft.com/en-us/entra/agent-id/create-blueprint
 https://learn.microsoft.com/en-us/entra/agent-id/disable-agent-identities
 https://learn.microsoft.com/en-us/entra/agent-id/error-codes
 https://learn.microsoft.com/en-us/entra/agent-id/faq
 https://learn.microsoft.com/en-us/entra/agent-id/govern-agent-access-azure-postgresql
+https://learn.microsoft.com/en-us/entra/agent-id/manage-client-id-metadata-document-clients
 https://learn.microsoft.com/en-us/entra/agent-id/secure-mcp-server-with-entra-id
 https://learn.microsoft.com/en-us/entra/agent-id/understand-agent-sso-provisioning-authorization
 https://learn.microsoft.com/en-us/entra/agent-id/what-is-microsoft-entra-agent-id

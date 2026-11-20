@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-07-14T00:00:00.0000000Z
+ms.date: 2026-11-19T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -18,7 +18,7 @@ ms.subservice: edge-admin
 ms.localizationpriority: high
 ms.collection: M365-modern-desktop
 ms.custom: 
-description: 'Windows and Mac documentation for supported Microsoft Edge Browser policy: Controls the availability of browsing with Copilot in Microsoft Edge.'
+description: 'Windows and Mac documentation for supported Microsoft Edge Browser policy: Controls the availability of browsing with Copilot in Microsoft Edge. (obsolete)'
 locale: en-us
 document_id: b7f318c0-3f30-bcb3-2533-6255247276fa
 document_version_independent_id: b7f318c0-3f30-bcb3-2533-6255247276fa
@@ -36,28 +36,33 @@ monikers: []
 item_type: Content
 source_path: edgeenterprise/microsoft-edge-policies/AllowBrowsingWithCopilot.md
 cmProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5287f575-02f0-405f-92b7-800456526b0c
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
 spProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 - https://authoring-docs-microsoft.poolparty.biz/devrel/06e86142-34c2-4b94-ab9c-9477c21f7152
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 - https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
 platformId: 124ddb2b-67dd-cef8-b31a-1e5feea7381a
 ---
 
 # Microsoft Edge Browser Policy Documentation AllowBrowsingWithCopilot | Microsoft Learn
 
-## Controls the availability of browsing with Copilot in Microsoft Edge.
+## Controls the availability of browsing with Copilot in Microsoft Edge. (obsolete)
+
+> 
+> OBSOLETE: This policy is obsolete and doesn't work after Microsoft Edge version 158.
 
 ## Supported versions
 
-- Windows: ≥ 148
-- macOS: ≥ 148
+- Windows: 148-158
+- macOS: 148-158
 - Android: Not supported
 - iOS: Not supported
 
 ## Description
+
+Starting in Microsoft Edge version 159, this policy is obsolete.
 
 When browsing with Copilot is enabled, users can explicitly invoke it for a query. It isn't invoked automatically.
 
@@ -90,7 +95,7 @@ If you don't configure this policy, browsing with Copilot is off by default, and
 ### Group Policy (ADMX) info
 
 - GP unique name: AllowBrowsingWithCopilot
-- GP name: Controls the availability of browsing with Copilot in Microsoft Edge.
+- GP name: Controls the availability of browsing with Copilot in Microsoft Edge. (obsolete)
 - GP path (Mandatory): Administrative Templates/Microsoft Edge
 - GP path (Recommended): Administrative Templates/Microsoft Edge - Default Settings (users can override)
 - GP ADMX file name: MSEdge.admx

@@ -26,7 +26,7 @@ description: Learn how to set up your Foundry Agent Service environment, choose 
 ms.reviewer: fosteramanda
 ms.subservice: foundry-agent-service
 ms.topic: how-to
-ms.date: 2026-08-21T00:00:00.0000000Z
+ms.date: 2026-11-15T00:00:00.0000000Z
 ms.custom:
 - azure-ai-agents
 - classic-and-new
@@ -124,7 +124,7 @@ All data processed by Foundry Agent Service is automatically stored at rest in t
 
 Note
 
-Private Network Isolation in the table below refers to Secured Agent outbound communication. Basic setup doesn't apply, and you can use Private Network Isolation for your Agents with Standard Setup only.
+Private Network Isolation in the following table refers to Secured Agent outbound communication. Bring your own (BYO) virtual network works with both setups. With basic setup, your agents use platform-managed data resources ([`11-private-network-basic-vnet`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-bicep/11-private-network-basic-vnet)). With standard setup, your agents use your own data resources ([`15-private-network-standard-agent-setup`](https://github.com/microsoft-foundry/foundry-samples/tree/main/infrastructure/infrastructure-setup-bicep/15-private-network-standard-agent-setup)). For more information, see [Networking options for Foundry Agent Service](concepts/networking-options#bring-your-own-virtual-network-requirements).
 
 Inbound secured communication can be applied to all of setups below, by adding a private endpoint and disabling the inbound public access for your Foundry Account.
 
@@ -133,7 +133,7 @@ Inbound secured communication can be applied to all of setups below, by adding a
 | Get started quickly without managing resources | ✅ |  |  |
 | All conversation history, file, and vector stores are stored in your own resources |  | ✅ | ✅ |
 | Support for Customer Managed Keys (CMK) |  | ✅ | ✅ |
-| Private Network Isolation (Bring your own virtual network) |  |  | ✅ |
+| Private Network Isolation (Bring your own virtual network) | ✅ (with platform-managed data resources) |  | ✅ |
 
 ### Deployment options
 

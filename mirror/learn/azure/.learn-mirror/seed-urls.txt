@@ -175,6 +175,7 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/microsoft
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/subscription-transfer
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/supported-payment-methods
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles
+https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/view-all-accounts
 https://learn.microsoft.com/en-us/azure/cost-management-billing/mca-check-azure-credits-balance
 https://learn.microsoft.com/en-us/azure/cost-management-billing/microsoft-customer-agreement/checklist-microsoft-customer-agreement-billing-migration
 https://learn.microsoft.com/en-us/azure/cost-management-billing/microsoft-customer-agreement/onboard-microsoft-customer-agreement
@@ -182,6 +183,7 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/onboard-microsof
 https://learn.microsoft.com/en-us/azure/cost-management-billing/pay-bill
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservation-trade-in
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/agent-pre-purchase
+https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/copilot-credit-p3
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/fabric-capacity
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/github-ai-credits-pre-purchase-plan
 https://learn.microsoft.com/en-us/azure/cost-management-billing/reservations/github-pre-purchase

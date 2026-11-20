@@ -13,7 +13,7 @@ ms.subservice: agent-id
 manager: pmwongera
 description: Add, approve, find, monitor, and remove Client ID Metadata Document clients in Microsoft Entra ID.
 ms.topic: how-to
-ms.date: 2026-09-21T00:00:00.0000000Z
+ms.date: 2026-10-30T00:00:00.0000000Z
 ai-usage: ai-assisted
 locale: en-us
 document_id: 36a0bd43-b41b-dceb-3721-8245b0829631
@@ -33,11 +33,11 @@ source_path: docs/agent-id/manage-client-id-metadata-document-clients.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
+- https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
 platformId: 7ab253bb-9f5f-0139-92c9-b2fd62305c2b
 ---
 
@@ -51,162 +51,81 @@ Client ID Metadata Document support in Microsoft Entra ID is in public preview. 
 
 Before enabling CIMD scenarios, review [Client ID Metadata Documents in Microsoft Entra ID](client-id-metadata-documents), including the limitations and governance considerations.
 
-## Prerequisites
+**In this article**
 
-To manage CIMD clients, you need:
-
-- A Microsoft Entra tenant in which CIMD support is available.
-- The CIMD URL supplied by the client owner.
-- An account with a role that can create agent identities, such as **Global Administrator**, **Agent ID Administrator**, **AI Administrator**, or **Agent ID Developer**.
-- Administrator consent for the Microsoft Graph permissions used by any automation:
-    - `AgentIdentity.Create.All` to create a CIMD-backed agent identity.
-    - `AgentIdentity.Read.All` to read and list agent identities.
-- To change consent policy programmatically:
-    - The **Privileged Role Administrator** role.
-    - `Policy.ReadWrite.PermissionGrant` to create or update a permission grant policy.
-    - `Policy.ReadWrite.Authorization` to assign a permission grant policy to the default user role.
-
-Use the least-privileged role and permissions that meet your requirements.
+- Choose a tenant posture
+    - Understand the default posture
+    - Configure the strict posture
+    - Configure the open posture
+- Add a CIMD client
+    - Add via Admin Center
+    - Add via Microsoft Graph
+- List CIMD clients
+    - List via Admin Center
+    - List via Microsoft Graph
+- Monitor a CIMD client
 
 ## Choose a tenant posture
 
-Before you configure CIMD, decide who can add a new CIMD client to your tenant.
+Tenant consent policy determines whether users can add CIMD clients to a tenant and which delegated permissions they can grant. Review the default behavior, then choose a strict or open posture for your organization. Prefer the strict posture when your organization requires review before a new client can access its data.
 
-| Approach | Behavior | Consider when |
+| Posture | Behavior | Consider when |
 | --- | --- | --- |
-| Administrator-curated | Disable user-initiated CIMD use. An administrator reviews each client, creates its agent identity, and grants the required permissions. | Your organization requires a security or application-onboarding review before creating an identity. |
-| Policy-controlled user consent | Let users add CIMD clients when the client and requested delegated permissions satisfy consent policy. Permissions outside the policy still require an administrator. | Your organization permits low-risk self-service integrations and monitors newly created identities. |
+| Default | Users can add CIMD clients and grant a limited set of scopes, such as `openid` and Microsoft Graph `User.Read`. Risk-based step-up consent requires administrator approval for other permissions. | Your organization allows self-service onboarding for basic scopes but requires administrator approval for additional permissions. |
+| Strict | An administrator adds each approved CIMD client through consent, the admin center, or Microsoft Graph, then grants its required OAuth scopes for all users. Users don't approve new CIMD clients or additional scopes. | Your organization requires a security or application-onboarding review. |
+| Open | An administrator enables user consent for selected OAuth permissions, including for unverified clients, and disables risk-based step-up consent. The policy applies to CIMD and non-CIMD clients that match its conditions. Each user consents for their own access. | Your organization accepts self-service onboarding of unverified clients within a reviewed permission boundary. |
 
-Both postures use consent policy to control user-initiated creation. Neither posture automatically grants a CIMD client access to every resource. Consent grants and tenant policy continue to determine which delegated permissions the client can use.
+Warning
 
-### Disable user-initiated CIMD use
+Don't allow users to consent to all CIMD clients for any OAuth scope. Anyone can publish a CIMD document; control of a URL doesn't establish trustworthiness. Unrestricted consent exposes your tenant to consent phishing attacks and unauthorized access to organizational data. The open posture must limit user consent to specific, reviewed permissions. Its consent policy also permits matching non-CIMD clients, including unverified apps; it can't be limited to CIMD clients.
 
-To prevent users from adding CIMD clients:
+### Understand the default posture
 
-1. Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com) as a **Global Administrator**.
-2. Browse to **Entra ID** &gt; **Enterprise apps** &gt; **Consent and permissions** &gt; **User consent settings**.
-3. Disable **Allow user consent for unregistered apps and agents using Client ID Metadata Documents**.
-4. Select **Save**.
+Under the default consent policy, users can sign in to any CIMD client and create an agent identity in the tenant. They can grant only a limited set of OAuth scopes, such as `openid` and Microsoft Graph `User.Read`. Risk-based step-up consent is enabled by default and prevents users from granting other permissions to CIMD clients without administrator approval.
 
-When user consent for CIMD clients is disabled, users can't approve a new CIMD client themselves. During preview, the admin consent request workflow is disabled for Agent ID, including CIMD clients. Arrange a manual handoff: the user or client owner supplies the CIMD URL, target resource, and requested delegated scopes to an administrator, who adds the client and grants the required permissions before the user retries.
+### Configure the strict posture
 
-Disabling user consent doesn't delete existing CIMD-backed agent identities or revoke existing consent grants. Review and revoke those grants separately if you want to stop use of clients that are already approved.
+To prevent users from adding CIMD clients to a tenant, update your tenant's consent settings to block user consent to unverified apps. Entra treats CIMD clients as unverified apps. Use one of the following two approaches:
 
-### Enable user-initiated CIMD use with a custom consent policy
+- **Consent settings:** Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com) as a **Global Administrator**. Browse to **Entra ID** &gt; **Enterprise apps** &gt; **Consent and permissions** &gt; **User consent settings**. Select **Do not allow user consent**, then select **Save**. This blocks user consent to all apps, including verified apps. See [Configure user consent](/en-us/entra/identity/enterprise-apps/configure-user-consent).
+- **Consent policy:** As a **Privileged Role Administrator**, configure and assign a custom user consent policy that requires `clientApplicationsFromVerifiedPublisherOnly` to be `true`. CIMD clients can't be publisher verified, so this blocks user consent to CIMD and other unverified apps while allowing verified apps that meet the policy's other conditions. See [Manage app consent policies](/en-us/entra/identity/enterprise-apps/manage-app-consent-policies).
 
-Use a custom permission grant policy when you want users to add CIMD clients and consent to a controlled set of permissions. The following Microsoft Graph PowerShell example:
+Review all assigned user consent policies: a verified-publisher requirement doesn't override another policy that allows unverified apps. These settings don't revoke existing consent grants or delete existing identities. Review and revoke existing grants separately if you need to stop previously approved access.
 
-1. Creates a CIMD-specific permission grant policy.
-2. Adds an include condition that allows delegated permissions classified as low impact.
-3. Assigns the policy to the default user role without removing existing policy assignments.
+### Configure the open posture
 
-The CIMD condition is available on the Microsoft Graph beta endpoint.
+To enable users to add CIMD clients to your tenant and grant them specific permissions, update your tenant's consent policy:
 
-```powershell
-Connect-MgGraph -Scopes @(
-    "Policy.ReadWrite.PermissionGrant",
-    "Policy.ReadWrite.Authorization"
-)
+1. **Define a custom consent policy.** Limit consent to specific resource applications and reviewed delegated permissions that allow user consent. Set `clientApplicationsFromVerifiedPublisherOnly` to `false` so CIMD clients can qualify. See [Manage app consent policies](/en-us/entra/identity/enterprise-apps/manage-app-consent-policies).
+2. **Apply the policy to all users.** Assign it to the default user role using the steps in [Configure user consent](/en-us/entra/identity/enterprise-apps/configure-user-consent). Review other assigned policies and remove broader user consent permissions that would bypass your restrictions.
+3. **Turn off risk-based step-up consent.** After verifying the policy restrictions, follow [Configure risk-based step-up consent](/en-us/entra/identity/enterprise-apps/configure-risk-based-step-up-consent) to disable the check that otherwise requires administrator approval for nonbasic CIMD permissions.
 
-$policyId = "contoso-user-consent-cimd-low"
+Warning
 
-# Create a custom permission grant policy for CIMD clients.
-$policy = @{
-    id = $policyId
-    displayName = "Allow low-impact user consent for CIMD clients"
-    description = "Users can consent to delegated permissions classified as low impact for CIMD clients."
-}
+Choosing the open posture can put your users at risk of consent phishing attacks from malicious clients. The consent policy also applies to matching non-CIMD clients, including unverified apps. Disabling risk-based step-up consent is tenant-wide and removes automatic administrator step-up for risky consent requests. Don't combine it with unrestricted user consent.
 
-Invoke-MgGraphRequest `
-    -Method POST `
-    -Uri "https://graph.microsoft.com/beta/policies/permissionGrantPolicies" `
-    -Body ($policy | ConvertTo-Json)
+## Add a CIMD client
 
-# Add an include condition that matches only CIMD clients.
-$condition = @{
-    permissionType = "delegated"
-    permissionClassification = "low"
-    resourceApplication = "any"
-    permissions = @("all")
-    clientApplicationIds = @("all")
-    clientApplicationTenantIds = @("all")
-    clientApplicationPublisherIds = @("all")
-    clientApplicationsFromVerifiedPublisherOnly = $false
-    cimdClientApplications = @{
-        "@odata.type" = "#microsoft.graph.allCimdClientApplications"
-    }
-}
+In the strict posture, review a client and create its agent identity before users connect.
 
-Invoke-MgGraphRequest `
-    -Method POST `
-    -Uri "https://graph.microsoft.com/beta/policies/permissionGrantPolicies/$policyId/includes" `
-    -Body ($condition | ConvertTo-Json -Depth 4)
+### Add via Admin Center
 
-# Preserve existing assignments and add the CIMD-specific policy.
-$authorizationPolicy = Invoke-MgGraphRequest `
-    -Method GET `
-    -Uri "https://graph.microsoft.com/v1.0/policies/authorizationPolicy"
-
-$assignments = @(
-    $authorizationPolicy.defaultUserRolePermissions.permissionGrantPoliciesAssigned
-)
-$assignmentId = "managePermissionGrantsForSelf.$policyId"
-
-if ($assignments -notcontains $assignmentId) {
-    $assignments += $assignmentId
-}
-
-$update = @{
-    defaultUserRolePermissions = @{
-        permissionGrantPoliciesAssigned = $assignments
-    }
-}
-
-Invoke-MgGraphRequest `
-    -Method PATCH `
-    -Uri "https://graph.microsoft.com/v1.0/policies/authorizationPolicy" `
-    -Body ($update | ConvertTo-Json -Depth 4)
-```
-
-If you already have a custom policy for user consent, add the CIMD include condition to that policy instead of creating another policy. Don't edit a Microsoft-managed policy; built-in policies can't be changed.
-
-The example uses `permissionClassification = "low"`. Only permissions classified as low impact can be granted under this condition. Review your tenant's [permission classifications](/en-us/entra/identity/enterprise-apps/configure-permission-classifications) before assigning the policy.
-
-To verify the update, list the policy's include conditions and confirm that the authorization policy contains the assignment:
-
-```http
-GET https://graph.microsoft.com/beta/policies/permissionGrantPolicies/contoso-user-consent-cimd-low/includes
-
-GET https://graph.microsoft.com/v1.0/policies/authorizationPolicy
-```
-
-To disable this custom CIMD policy later, remove `managePermissionGrantsForSelf.contoso-user-consent-cimd-low` from `permissionGrantPoliciesAssigned` and update the authorization policy again. Preserve every unrelated assignment in the collection.
-
-For more information about how include and exclude condition sets are evaluated, see [Manage app consent policies](/en-us/entra/identity/enterprise-apps/manage-app-consent-policies).
-
-## Add a CIMD client in the admin center
-
-In the administrator-curated posture, review a client and create its agent identity before users connect.
-
-Important
-
-CIMD verifies control of a URL. It doesn't establish that the client is trustworthy. Review the client owner, document URL, redirect URIs, requested permissions, and business purpose before approval.
+Before you begin, obtain the CIMD URL from the client owner. Use an account in your Microsoft Entra tenant with a role that can create agent identities, such as **Global Administrator**, **Agent ID Administrator**, or **AI Administrator**.
 
 To add a trusted client before a user connects:
 
 1. Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com).
 2. Browse to **Entra ID** &gt; **Agents** &gt; **Agent identities**.
-3. Select **Add CIMD client (Preview)**.
+3. Select **Add agent identity**.
 4. Enter the client's CIMD URL and continue.
-5. Review the metadata retrieved from the document.
-6. Complete the creation process.
-7. [Grant only the delegated permissions required by the protected resource](grant-agent-access-microsoft-365). During preview, use the sign-in and consent endpoints or Microsoft Graph, not the portal permissions experience.
+5. Complete the creation process.
+6. [Grant only the delegated permissions required by the protected resource](grant-agent-access-microsoft-365).
 
-Creating the identity doesn't by itself authorize access to every resource. Consent grants and tenant policy continue to determine which delegated permissions the client can use.
+### Add via Microsoft Graph
 
-## Add a CIMD client with Microsoft Graph
+Before you begin, obtain the CIMD URL from the client owner. Use an account in your Microsoft Entra tenant with a role that can create agent identities, such as **Global Administrator**, **Agent ID Administrator**, or **AI Administrator**.
 
-You can create the tenant-local agent identity by using the Microsoft Graph beta endpoint.
+You can create the tenant-local agent identity by using the Microsoft Graph beta endpoint. Administrator-created identities require at least one owner or sponsor. This example binds a sponsor user from the target tenant; replace `<sponsor-user-object-id>` with the user's object-ID GUID.
 
 ```http
 POST https://graph.microsoft.com/beta/servicePrincipals/microsoft.graph.agentIdentity
@@ -215,11 +134,14 @@ Content-Type: application/json
 
 {
   "displayName": "Contoso Agent",
-  "clientIdMetadataDocumentUrl": "https://client.contoso.com/oauth/client-metadata.json"
+  "clientIdMetadataDocumentUrl": "https://client.contoso.com/oauth/client-metadata.json",
+  "sponsors@odata.bind": [
+    "https://graph.microsoft.com/v1.0/users/<sponsor-user-object-id>"
+  ]
 }
 ```
 
-Microsoft Entra ID retrieves and validates the document before creating the identity. A successful response resembles:
+A successful response resembles:
 
 ```json
 {
@@ -228,20 +150,29 @@ Microsoft Entra ID retrieves and validates the document before creating the iden
   "agentIdentityBlueprintId": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
   "displayName": "Contoso Agent",
   "clientIdMetadataDocumentUrl": "https://client.contoso.com/oauth/client-metadata.json",
-  "isClientIdMetadataDocument": true
+  "hasClientIdMetadataDocument": true
 }
 ```
 
-The `agentIdentityBlueprintId` value is derived for identity and correlation purposes. Creating a CIMD client doesn't create a separately manageable agent identity blueprint.
+## List CIMD clients
 
-The request fails if the URL isn't HTTPS, the document can't be retrieved or validated, its `client_id` doesn't exactly match the URL, or the canonical URL already identifies another agent identity in the tenant.
+CIMD clients appear alongside other agent identities in your tenant. Use the admin center to browse identities or Microsoft Graph to retrieve a CIMD-only list.
 
-## Find CIMD clients with Microsoft Graph
+### List via Admin Center
+
+Sign in with a Microsoft Entra user account in the tenant you want to inspect.
+
+1. Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com).
+2. Browse to **Entra ID** &gt; **Agents** &gt; **Agent identities**.
+3. Add the filter **Has Client ID Metadata Document**.
+4. Select the identity to review its details, owners, sponsors, granted permissions, and sign-in logs.
+
+### List via Microsoft Graph
 
 To list all CIMD-backed agent identities, use an advanced query:
 
 ```http
-GET https://graph.microsoft.com/beta/servicePrincipals/microsoft.graph.agentIdentity?$filter=isClientIdMetadataDocument eq true&$count=true
+GET https://graph.microsoft.com/beta/servicePrincipals/microsoft.graph.agentIdentity?$filter=hasClientIdMetadataDocument eq true&$count=true
 Authorization: Bearer {token}
 ConsistencyLevel: eventual
 ```
@@ -270,29 +201,9 @@ Monitor:
 
 The app ID shown in logs is derived from the CIMD URL. The client has no home application tenant. For more information, see [Microsoft Entra Agent ID logs](sign-in-audit-logs-agents).
 
-## Respond to a compromised or untrusted client
+**Related content**
 
-If a CIMD client, its signing material, or its domain might be compromised:
-
-1. Disable the agent identity to stop new token issuance.
-2. Revoke its delegated permission grants.
-3. Revoke affected user sessions when required by your incident-response process.
-4. Review sign-in and audit logs for unexpected activity.
-5. Delete the agent identity when you no longer need investigation data or a disabled record.
-6. Contact the client owner through a trusted channel.
-
-If the publisher loses control of the CIMD URL or moves the document, don't update the existing identity to a new URL. The URL is immutable. Review and onboard the new URL as a new client, then grant permissions again.
-
-## Understand governance gaps
-
-The external CIMD document remains the source of truth for OAuth client configuration. Microsoft Entra ID doesn't copy the complete configuration to an application object.
-
-Consider the following governance gaps:
-
-- App management policy doesn't evaluate configuration that exists only in the CIMD document.
-- Inventory and recommendations that inspect stored application credentials or redirect URIs might not include CIMD metadata.
-- CIMD clients can't be publisher verified or Microsoft 365 certified.
-- There is no tenant-managed domain allowlist or blocklist for CIMD URLs.
-- CIMD clients can't be used for app-only authentication or as protected resources.
-
-Maintain an independent inventory of approved CIMD URLs and review it regularly.
+- [Client ID Metadata Documents in Microsoft Entra ID](client-id-metadata-documents)
+- [Configure a client to use a Client ID Metadata Document](configure-client-id-metadata-document)
+- [Manage agent identities in your organization](manage-agent-identities-admin)
+- [Microsoft Entra Agent ID logs](sign-in-audit-logs-agents)

@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-11-12T00:00:00.0000000Z
+ms.date: 2026-11-19T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -58,21 +58,18 @@ This article applies to Microsoft Edge version 77 or later.
 
 ## New policies
 
+There are no new policies in Microsoft Edge version 160.
+
 The following table lists the new policies for Microsoft Edge version 159.
 
 | Policy Name | Caption |
 | --- | --- |
+| [ProfilePickerAvailability](microsoft-edge-policies/profilepickeravailability) | Profile picker availability |
 | [EnableProxyOverrideRulesForAllUsers](microsoft-edge-policies/enableproxyoverriderulesforallusers) | Allow proxy override rules for unaffiliated users |
-
-The following table lists the new policies for Microsoft Edge version 158.
-
-| Policy Name | Caption |
-| --- | --- |
-| [OutOfProcessSystemDnsResolutionEnabled](microsoft-edge-policies/outofprocesssystemdnsresolutionenabled) | Enable system DNS resolution outside of the network service |
-| [ComponentUpdatesMode](microsoft-edge-policies/componentupdatesmode) | Configure component updates |
-| [CopilotBrowserUseAllowList](microsoft-edge-policies/copilotbrowseruseallowlist) | Allow Copilot browser use on specified URLs |
-| [CopilotBrowserUseBlockList](microsoft-edge-policies/copilotbrowseruseblocklist) | Block Copilot browser use on specified URLs |
-| [RemixAvailability](microsoft-edge-policies/remixavailability) | Control Remix availability |
+| [RemixBulkExtractionAllowed](microsoft-edge-policies/remixbulkextractionallowed) | Allow bulk extraction in Custom Remixes |
+| [RemixCustomRemixesAllowed](microsoft-edge-policies/remixcustomremixesallowed) | Allow Custom Remixes |
+| [RemixDomainBlocklist](microsoft-edge-policies/remixdomainblocklist) | Block Remix on specified domains |
+| [SpawnNtpOnLastTabCloseEnabled](microsoft-edge-policies/spawnntponlasttabcloseenabled) | Keep Microsoft Edge window open when user closes their last tab. |
 
 ## Deprecated policies
 
@@ -107,14 +104,14 @@ The following table lists all deprecated policies.
 
 ## Obsolete policies
 
-There are no obsoleted policies in Microsoft Edge version 159.
+There are no obsoleted policies in Microsoft Edge version 160.
 
-The following table lists the obsoleted policies for Microsoft Edge version 158.
+The following table lists the obsoleted policies for Microsoft Edge version 159.
 
 | Policy Name | Caption |
 | --- | --- |
-| [BrowsingWithCopilotAllowList](microsoft-edge-policies/browsingwithcopilotallowlist) | Browsing with Copilot Allowed URLs (obsolete) |
-| [BrowsingWithCopilotBlockList](microsoft-edge-policies/browsingwithcopilotblocklist) | Browsing with Copilot Blocked URLs (obsolete) |
+| [AllowBrowsingWithCopilot](microsoft-edge-policies/allowbrowsingwithcopilot) | Controls the availability of browsing with Copilot in Microsoft Edge. (obsolete) |
+| [LiveVideoTranslationEnabled](microsoft-edge-policies/livevideotranslationenabled) | Allows users to translate videos to different languages. (obsolete) |
 
 ## Available policies
 
@@ -733,6 +730,7 @@ These tables list all of the browser-related group policies available in this re
 
 | Policy Name | Caption |
 | --- | --- |
+| [ProfilePickerAvailability](microsoft-edge-policies/profilepickeravailability) | Profile picker availability |
 | [ProfileTypeInProfileButtonEnabled](microsoft-edge-policies/profiletypeinprofilebuttonenabled) | Controls the display of the profile button label for the work or school profile |
 
 ### Protected Content
@@ -777,6 +775,9 @@ These tables list all of the browser-related group policies available in this re
 | Policy Name | Caption |
 | --- | --- |
 | [RemixAvailability](microsoft-edge-policies/remixavailability) | Control Remix availability |
+| [RemixBulkExtractionAllowed](microsoft-edge-policies/remixbulkextractionallowed) | Allow bulk extraction in Custom Remixes |
+| [RemixCustomRemixesAllowed](microsoft-edge-policies/remixcustomremixesallowed) | Allow Custom Remixes |
+| [RemixDomainBlocklist](microsoft-edge-policies/remixdomainblocklist) | Block Remix on specified domains |
 
 ### Scareware Blocker settings
 
@@ -859,7 +860,7 @@ These tables list all of the browser-related group policies available in this re
 | [AdsSettingForIntrusiveAdsSites](microsoft-edge-policies/adssettingforintrusiveadssites) | Ads setting for sites with intrusive ads |
 | [AdsTransparencyEnabled](microsoft-edge-policies/adstransparencyenabled) | Configure if the ads transparency feature is enabled |
 | [AllowBackForwardCacheForCacheControlNoStorePageEnabled](microsoft-edge-policies/allowbackforwardcacheforcachecontrolnostorepageenabled) | Allow pages with Cache-Control: no-store header to enter back/forward cache |
-| [AllowBrowsingWithCopilot](microsoft-edge-policies/allowbrowsingwithcopilot) | Controls the availability of browsing with Copilot in Microsoft Edge. |
+| [AllowBrowsingWithCopilot](microsoft-edge-policies/allowbrowsingwithcopilot) | Controls the availability of browsing with Copilot in Microsoft Edge. (obsolete) |
 | [AllowDeletingBrowserHistory](microsoft-edge-policies/allowdeletingbrowserhistory) | Enable deleting browser and download history |
 | [AllowFileSelectionDialogs](microsoft-edge-policies/allowfileselectiondialogs) | Allow file selection dialogs |
 | [AllowPopupsDuringPageUnload](microsoft-edge-policies/allowpopupsduringpageunload) | Allows a page to show popups during its unloading (obsolete) |
@@ -1045,7 +1046,7 @@ These tables list all of the browser-related group policies available in this re
 | [IsolateOrigins](microsoft-edge-policies/isolateorigins) | Enable site isolation for specific origins |
 | [KeyboardFocusableScrollersEnabled](microsoft-edge-policies/keyboardfocusablescrollersenabled) | Enable keyboard focusable scrollers (obsolete) |
 | [LaunchEdgeOnWindowsStartupEnabled](microsoft-edge-policies/launchedgeonwindowsstartupenabled) | Launch Microsoft Edge on Windows startup |
-| [LiveVideoTranslationEnabled](microsoft-edge-policies/livevideotranslationenabled) | Allows users to translate videos to different languages. |
+| [LiveVideoTranslationEnabled](microsoft-edge-policies/livevideotranslationenabled) | Allows users to translate videos to different languages. (obsolete) |
 | [LocalBrowserDataShareEnabled](microsoft-edge-policies/localbrowserdatashareenabled) | Enable Windows to search local Microsoft Edge browsing data |
 | [LocalProvidersEnabled](microsoft-edge-policies/localprovidersenabled) | Allow suggestions from local providers |
 | [M365LinksAutoOpenCopilotEnabled](microsoft-edge-policies/m365linksautoopencopilotenabled) | Automatically open Copilot side pane with contextual insights for links opened from Outlook |
@@ -1149,6 +1150,7 @@ These tables list all of the browser-related group policies available in this re
 | [SitePerProcess](microsoft-edge-policies/siteperprocess) | Enable site isolation for every site |
 | [SiteSafetyServicesEnabled](microsoft-edge-policies/sitesafetyservicesenabled) | Allow users to configure Site safety services (obsolete) |
 | [SmartActionsBlockList](microsoft-edge-policies/smartactionsblocklist) | Block smart actions for a list of services |
+| [SpawnNtpOnLastTabCloseEnabled](microsoft-edge-policies/spawnntponlasttabcloseenabled) | Keep Microsoft Edge window open when user closes their last tab. |
 | [SpeechRecognitionEnabled](microsoft-edge-policies/speechrecognitionenabled) | Configure Speech Recognition |
 | [SpellcheckEnabled](microsoft-edge-policies/spellcheckenabled) | Enable spellcheck |
 | [SpellcheckLanguage](microsoft-edge-policies/spellchecklanguage) | Enable specific spellcheck languages |

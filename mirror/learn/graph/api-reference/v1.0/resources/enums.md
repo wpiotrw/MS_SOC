@@ -4448,6 +4448,17 @@ Possible values for user account types (group membership), per Windows definitio
 | equals |
 | unknownFutureValue |
 
+### printJobReleaseMethods values
+
+| Member |
+| --- |
+| none |
+| unknown |
+| badge |
+| biometrics |
+| usernamePassword |
+| unknownFutureValue |
+
 ### applicationMode values
 
 | Member |

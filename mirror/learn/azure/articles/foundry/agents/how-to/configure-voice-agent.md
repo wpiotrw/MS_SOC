@@ -26,7 +26,7 @@ ms.service: microsoft-foundry
 description: Configure the model, instructions, greeting, audio, telephone soundscape, tools, and post-call delivery for a voice-based agent in Microsoft Foundry.
 ms.subservice: foundry-agent-service
 ms.topic: how-to
-ms.date: 2026-11-12T00:00:00.0000000Z
+ms.date: 2026-11-19T00:00:00.0000000Z
 ms.custom: doc-kit-assisted
 ai-usage: ai-assisted
 zone_pivot_groups: voice-agent-config-method
@@ -170,6 +170,8 @@ Both options use Foundry to run the voice agent and its speech pipeline. Self-de
 
 Quota and PTU reuse apply to the model deployment; speech and other voice-agent charges still apply. For billing details, see [Pricing for voice-based agents](../concepts/voice-agent-pricing).
 
+Some Voice Live models, such as `azure-realtime` and `microsoft-realtime-flash-1` (preview), are available only as service-managed models.
+
 With a supported deployment in the same Foundry resource as your project, Foundry handles the model connection and authentication. You don't need the additional resource-managed-identity role assignment used by direct Voice Live BYOM. Normal Foundry project and model access permissions still apply.
 
 ### Choose the self-deployed model category
@@ -225,10 +227,10 @@ The SDK examples build a single definition. Start with this example, add the con
 
 Set `model_type` and `model` together. `model_type` selects how the model is served, and `model` names it:
 
-- `managed`: the service hosts the model. Set `model` to a service-managed model name, such as `gpt-realtime-2.1`.
+- `managed`: the service hosts the model. Set `model` to a service-managed model name, such as `gpt-realtime-2.1`, `azure-realtime`, or `microsoft-realtime-flash-1` (preview).
 - `self_deployed`: the service uses your own deployment. Set `model` to the Foundry deployment name.
 
-The service derives the architecture, real-time or cascaded, from the model you select. You don't configure it separately.
+The service derives the architecture, real-time or cascaded, from the model you select. You don't configure it separately. When you select `microsoft-realtime-flash-1` (preview), use an Azure voice type (`azure-standard`, `azure-custom`, `azure-personal`, or `avatar-voice-sync`), and use `azure-speech` or `mai-transcribe` when input transcription is enabled.
 
 ```python
 from azure.ai.projects.models import VoiceAgentDefinition, VoiceModelType
@@ -646,10 +648,10 @@ The SDK examples build a single definition. Start with this example in `Program.
 
 Set `ModelType` and `Model` together. `ModelType` selects how the model is served, and `Model` names it:
 
-- `VoiceModelType.Managed`: the service hosts the model. Set `Model` to a service-managed model name, such as `gpt-realtime-2.1`.
+- `VoiceModelType.Managed`: the service hosts the model. Set `Model` to a service-managed model name, such as `gpt-realtime-2.1`, `azure-realtime`, or `microsoft-realtime-flash-1` (preview).
 - `VoiceModelType.SelfDeployed`: the service uses your own deployment. Set `Model` to the Foundry deployment name.
 
-The service derives the architecture, real-time or cascaded, from the model you select. You don't configure it separately.
+The service derives the architecture, real-time or cascaded, from the model you select. You don't configure it separately. When you select `microsoft-realtime-flash-1` (preview), use an Azure voice type (`AzureStandard`, `AzureCustom`, `AzurePersonal`, or `AvatarVoiceSync`), and use `azure-speech` or `mai-transcribe` when input transcription is enabled.
 
 ```csharp
 #pragma warning disable AAIP001, OPENAI002
@@ -1082,10 +1084,10 @@ The SDK examples build a single definition. Start with this example, add the con
 
 Set `model_type` and `model` together. `model_type` selects how the model is served, and `model` names it:
 
-- `managed`: the service hosts the model. Set `model` to a service-managed model name, such as `gpt-realtime-2.1`.
+- `managed`: the service hosts the model. Set `model` to a service-managed model name, such as `gpt-realtime-2.1`, `azure-realtime`, or `microsoft-realtime-flash-1` (preview).
 - `self_deployed`: the service uses your own deployment. Set `model` to the Foundry deployment name.
 
-The service derives the architecture, real-time or cascaded, from the model you select. You don't configure it separately.
+The service derives the architecture, real-time or cascaded, from the model you select. You don't configure it separately. When you select `microsoft-realtime-flash-1` (preview), use an Azure voice type (`azure-standard`, `azure-custom`, `azure-personal`, or `avatar-voice-sync`), and use `azure-speech` or `mai-transcribe` when input transcription is enabled.
 
 ```javascript
 /** @type {import("@azure/ai-projects").VoiceAgentDefinition} */
@@ -1477,7 +1479,7 @@ For an existing voice service, edit `azure.yaml` rather than running initializat
 
 Set `modelType` and `model.id` together on the voice agent service. The service accepts both `kind: voice` and the compatibility alias `kind: prompt-voice`.
 
-For a managed model, use:
+For a managed model, set `model.id` to a service-managed model name such as `gpt-realtime`, `gpt-realtime-2.1`, `azure-realtime`, or `microsoft-realtime-flash-1` (preview):
 
 ```yaml
 modelType: managed
@@ -1609,25 +1611,9 @@ Configure tool search on the toolbox version, not on the voice-agent toolbox ref
 
 ### Add a telephony binding
 
-A prompt voice service can declare Foundry-side phone bindings in `azure.yaml`. Before adding a binding, configure the phone provider account or resource, the phone number, and a Foundry project connection for that provider. For provider-specific connection and incoming-call delivery requirements, see [Integrate telephony channels with a voice agent](voice-agent-telephony-channels).
+A voice service can declare inbound phone bindings in `azure.yaml`. Follow [Connect a number with Azure Developer CLI](voice-agent-telephony-channels?pivots=azd#connect-a-number-with-azure-developer-cli) for Teams Phone extensibility and Twilio examples, required extension versions, provider setup, deployment, and testing.
 
-Add `telephony` at the same indentation level as `kind`, `model`, and `name`:
-
-```yaml
-telephony:
-  bindings:
-    - provider: twilio
-      identifier: "+14255550123"
-      connection: telephony-twilio
-```
-
-Replace the example number with your own Twilio number in E.164 format, and replace `telephony-twilio` with your existing Foundry project connection name. These fields are `azd` configuration fields, not a REST request body.
-
-The `acs` provider is also supported, with different identifier formats. See the [telephony configuration reference](../concepts/azure-yaml-reference#telephony-bindings) for the provider values and required fields.
-
-The agent deployment creates a missing binding or accepts an existing matching binding. Bindings are create-only in this CLI workflow: if the existing configuration differs, deployment fails with remediation guidance rather than updating it.
-
-After deployment, make a controlled inbound test call and confirm two-way audio. A deployed binding alone doesn't establish that provider routing and audio work. Delete test bindings before deleting their agents; removing a binding from `azure.yaml` isn't a remote deletion. For conditional cleanup, follow Remove a telephony binding.
+The CLI uses the `v1` binding API and service-generated binding IDs. For the authoring fields, see the [telephony configuration reference](../concepts/azure-yaml-reference#telephony-bindings).
 
 ### Deploy the updated agent
 
@@ -1653,50 +1639,7 @@ Use the Foundry playground to test the voice, greeting, interruption, and transc
 
 ### Remove a telephony binding
 
-This PowerShell example removes the Twilio binding configured in this section. It uses azd's telephony route, `/agents/{agentName}/telephony/{bindingId}`, with `api-version=2025-11-15-preview`. Don't mix this route's identifier format with the `/telephony/bindings` routes and `api-version=v1` in the [telephony SDK and REST guide](voice-agent-telephony-channels#understand-telephony-bindings).
-
-Install the [Azure CLI](/en-us/cli/azure/install-azure-cli) and sign in with `az login` to the project's Microsoft Entra tenant. Replace `<project-endpoint>`, `<agent-name>`, and the example phone number with the values for your binding. Read the binding and review the returned provider, identifier, and connection before deleting it:
-
-```powershell
-$projectEndpoint = "<project-endpoint>"
-$agentName = "<agent-name>"
-$phoneNumber = "+14255550123"
-$bindingId = "twilio:" + [uri]::EscapeDataString($phoneNumber)
-$uri = $projectEndpoint.TrimEnd("/") + "/agents/" +
-    [uri]::EscapeDataString($agentName) + "/telephony/" +
-    $bindingId + "?api-version=2025-11-15-preview"
-
-$token = az account get-access-token `
-    --scope https://ai.azure.com/.default --query accessToken -o tsv
-if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($token)) {
-    throw "No access token returned. Sign in to Azure CLI and try again."
-}
-$headers = @{
-    Authorization = "Bearer $token"
-    "Foundry-Features" = "VoiceAgents=V1Preview"
-}
-$response = Invoke-WebRequest -Method Get -Uri $uri -Headers $headers `
-    -ErrorAction Stop
-$binding = $response.Content | ConvertFrom-Json -ErrorAction Stop
-$binding
-```
-
-After confirming that this is the intended binding, continue in the same PowerShell session. Read the `ETag` from the HTTP response headers, with a fallback to the JSON body's `etag` property. Preserve the returned value, including its quotes, and send it in `If-Match`:
-
-```powershell
-$etag = [string]($response.Headers["ETag"] | Select-Object -First 1)
-if ([string]::IsNullOrWhiteSpace($etag)) {
-    $etag = [string]$binding.etag
-}
-if ([string]::IsNullOrWhiteSpace($etag)) {
-    throw "No ETag returned. Stop without deleting the binding."
-}
-$headers["If-Match"] = $etag
-Invoke-WebRequest -Method Delete -Uri $uri -Headers $headers `
-    -ErrorAction Stop | Out-Null
-```
-
-If deletion returns `412 Precondition Failed`, read and review the binding again before retrying with its current ETag. Don't use `If-Match: *` to bypass the check. After deletion succeeds, remove the binding from `azure.yaml` to prevent a later deployment from recreating it. Then delete the test agent if you no longer need it.
+Removing a declaration from `azure.yaml` doesn't delete its remote binding. To disconnect the number, follow [Disconnect a number](voice-agent-telephony-channels?pivots=azd#disconnect-a-number) and use Python or REST with the binding's current ETag. Delete test bindings before deleting their agents.
 
 ::: zone-end
 
@@ -1764,7 +1707,7 @@ Open **AI model**. Foundry groups the available models into **Native speech-to-s
 
 #### Native speech-to-speech models
 
-These models process speech input and generate speech output directly. They're designed for responsive, natural spoken interaction.
+These models process speech input directly and are designed for responsive, natural spoken interaction.
 
 Current portal options include:
 
@@ -1775,6 +1718,7 @@ Current portal options include:
 | `gpt-realtime-1.5` | 700 ms | Pro |
 | `gpt-realtime-2.1-mini` | 1,100 ms | Standard |
 | `gpt-realtime-mini` | 400 ms | Standard |
+| `microsoft-realtime-flash-1` (preview) | 1,100 ms | Lite |
 
 #### Native text models
 
