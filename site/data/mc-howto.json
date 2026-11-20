@@ -751,6 +751,23 @@
      "says": "Microsoft Teams retires the Translate slides option in PowerPoint Live; the post is tagged Retirement with user and admin impact (revised 19 November 2026)."
     }
    ]
+  },
+  {
+   "key": "copilot-desktop-in-app-browsing-default",
+   "ids": [
+    "MC1560922"
+   ],
+   "title": "Copilot desktop app: in-app browsing enabled by default from January 2027",
+   "scriptable": false,
+   "checked": "2026-11-20",
+   "why": "The post names a device-management policy (BrowsingEnabled) for the Copilot desktop app on Windows and Mac, set through your device management system; it names no Microsoft Graph, Exchange Online or Teams PowerShell surface, and Microsoft has not yet published the policy documentation, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1560922",
+     "u": "https://deltapulse.app/item/MC1560922",
+     "says": "In-app browsing becomes enabled by default in early to late January 2027; set the BrowsingEnabled policy to Off through device management to disable it, and Microsoft will update the post with documentation."
+    }
+   ]
   }
  ]
 }
