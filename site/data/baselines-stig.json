@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-19T22:40:40Z",
- "day": "2026-11-19",
+ "generated": "2026-11-20T13:59:12Z",
+ "day": "2026-11-20",
  "spec": "5ge",
  "source": {
   "ok": true,
@@ -9,7 +9,7 @@
   "sunset": 26,
   "cloud": 8,
   "scap": 7,
-  "updated30": 1,
+  "updated30": 0,
   "newest": [
    {
     "key": "microsoft-defender-antivirus-stig-stig",
