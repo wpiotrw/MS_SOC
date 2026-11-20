@@ -1771,6 +1771,14 @@
 "date":"2026-11-14",
 "group":"community",
 "found":"2026-11-18"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7532":{
+"title":"Chromium: CVE-2024-7533 Use after free in Sharing",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7532",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-20",
+"group":"microsoft",
+"found":"2026-11-20"
 }
 },
 "final":"2027-07-05",
@@ -5174,14 +5182,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-17",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-18",
 "text":"August 1, 2026."
 },
@@ -5279,6 +5279,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-19",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-20",
 "text":"August 1, 2026."
 },
 {
@@ -5836,7 +5844,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-19",
+"seen":"2026-11-20",
 "text":"early February 2026."
 },
 {
@@ -5844,7 +5852,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-19",
+"seen":"2026-11-20",
 "text":"February 2027."
 },
 {
@@ -9285,10 +9293,15 @@
 "label":"9 Nov 2026",
 "text":"Posted: Microsoft Entra: Updated passkey registration experience in My Sign-ins"
 },
-"MC1545694|rollout mid to end#0":{
+"MC1545694|rollout early to end of revised was mid to end#2":{
 "date":"2026-11-15",
 "label":"mid Nov 2026",
-"text":"Rollout mid-November 2026 to end-November 2027"
+"text":"Was mid-November 2026 to end-November 2027)"
+},
+"MC1545694|rollout early to end of revised was mid to end#3":{
+"date":"2026-11-20",
+"label":"20 Nov 2026",
+"text":"Rollout early December 2026 to end of December 2026 (revised 20 Nov 2026"
 },
 "MC1459133|beginning in late with a phased rollout as outlined below in#2":{
 "date":"2026-11-25",
@@ -9390,7 +9403,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-19",
+"seen":"2026-11-20",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9398,7 +9411,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-19",
+"seen":"2026-11-20",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -20125,6 +20138,55 @@
 "title":"Microsoft Teams: Voice phishing detection for external calls",
 "source":"Microsoft 365 Roadmap",
 "link":"https://www.microsoft.com/microsoft-365/roadmap?id=580443"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc676299",
+"type":"material",
+"name":"Exchange Web Services (EWS) retirement update",
+"group":"microsoft",
+"title":"Chromium: CVE-2024-7533 Use after free in Sharing",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7532"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2024-7533 Use after free in Sharing",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7532"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"Chromium: CVE-2023-1531 Use after free in ANGLE",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-1531"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"community",
+"title":"Linux KVM Flaw CVE-2026-99312 Lets Guest VMs Access Host Memory on AMD Hosts",
+"source":"Hacker News",
+"link":"https://thehackernews.com/2026/11/new-linux-kvm-flaw-cve-2026-99312-lets.html"
+},
+{
+"day":"2026-11-20",
+"cid":"c-passkeys-by-default",
+"type":"milestone",
+"name":"Passkeys by default in Microsoft Entra ID",
+"src":"MC1545694",
+"now":"20 Nov 2026",
+"text":"Rollout early December 2026 to end of December 2026 (revised 20 Nov 2026"
 }
 ],
 "archive":{
@@ -24853,6 +24915,30 @@
 "source":"MSRC Security Update Guide",
 "date":"2026-11-19",
 "group":"microsoft",
+"found":"2026-11-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7532":{
+"title":"Chromium: CVE-2024-7533 Use after free in Sharing",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7532",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-20",
+"group":"microsoft",
+"found":"2026-11-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-1531":{
+"title":"Chromium: CVE-2023-1531 Use after free in ANGLE",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-1531",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-20",
+"group":"microsoft",
+"found":"2026-11-20"
+},
+"https://thehackernews.com/2026/11/new-linux-kvm-flaw-cve-2026-99312-lets.html":{
+"title":"Linux KVM Flaw CVE-2026-99312 Lets Guest VMs Access Host Memory on AMD Hosts",
+"link":"https://thehackernews.com/2026/11/new-linux-kvm-flaw-cve-2026-99312-lets.html",
+"source":"Hacker News",
+"date":"2026-11-20",
+"group":"community",
 "found":"2026-11-20"
 }
 },
