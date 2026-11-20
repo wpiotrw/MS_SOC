@@ -17865,7 +17865,7 @@
   },
   {
    "id": "MC1545694",
-   "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins",
+   "title": "(Updated) Microsoft Entra: Updated passkey registration experience in My Sign-ins",
    "services": [
     "Microsoft Entra"
    ],
@@ -17874,19 +17874,21 @@
    "major": false,
    "actionBy": null,
    "start": "2026-11-09",
-   "end": "2027-12-12",
-   "modified": "2026-11-09",
+   "end": "2027-02-01",
+   "modified": "2026-11-20",
    "tags": [
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We’re updating the passkey registration experience in My Sign-ins for users registering a passkey in Microsoft Authenticator . Users will see an additional checkbox and updated link text, along with steps to guide users to open Microsoft Authenticator and select the + button to begin registration. If users can’t complete registration directly in Authenticator , the updated link text…",
+   "summary": "Updated November 20, 2026: We have updated the timeline. Thank you for your patience. [What and why] We’re updating the passkey registration experience in My Sign-ins for users registering a passkey in Microsoft Authenticator . Users will see an additional checkbox and updated link text, along with steps to guide users to open Microsoft Authenticator and select the + button to begin registration. …",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Beginning in mid-November 2026 and expected to complete by end-November 2027."
+    "Updated November 20, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027)."
    ],
-   "bodyHash": "7d31b0ca70503af4"
+   "bodyHash": "93e090f6001e66f8"
   },
   {
    "id": "MC1545695",
@@ -25695,6 +25697,37 @@
    "type": "removed",
    "title": "Microsoft PowerPoint for Windows: Improved slide contextual menu consistency",
    "fields": {}
+  },
+  {
+   "date": "2026-11-20",
+   "id": "MC1545694",
+   "type": "changed",
+   "title": "(Updated) Microsoft Entra: Updated passkey registration experience in My Sign-ins",
+   "fields": {
+    "title": [
+     "Microsoft Entra: Updated passkey registration experience in My Sign-ins",
+     "(Updated) Microsoft Entra: Updated passkey registration experience in My Sign-ins"
+    ],
+    "end": [
+     "2027-12-12",
+     "2027-02-01"
+    ],
+    "tags": [
+     [
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "7d31b0ca70503af4",
+     "93e090f6001e66f8"
+    ]
+   }
   }
  ]
 }
