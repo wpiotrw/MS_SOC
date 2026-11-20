@@ -1,0 +1,10 @@
+// Microsoft SOC Brief 20 Nov 2026 - Teams meeting policy changes (MeetingAI, recording and transcription)
+// Columns as on the CloudAppEvents reference cited beside this query. Not run against a tenant in this pass.
+CloudAppEvents
+| where Timestamp > ago(30d)
+| where Application == "Microsoft Teams"
+| where RawEventData has_any ("TeamsMeetingPolicy", "MeetingAI", "TranscriptionWithMeetingAI", "AllowCloudRecording", "AllowTranscription")
+| extend Raw = todynamic(RawEventData)
+| project Timestamp, ActionType, AccountDisplayName, AccountObjectId, IPAddress,
+          Operation = tostring(Raw.Operation), Target = tostring(Raw.ObjectId), Parameters = tostring(Raw.ModifiedProperties)
+| order by Timestamp desc

@@ -1,5 +1,41 @@
 [
  {
+  "file": "2026-11-20-agent-identities-created-by-copilot-studio.kql",
+  "title": "Agent identities and service principals created by Power Platform or Copilot Studio, last 30 days",
+  "date": "2026-11-20",
+  "product": "Copilot Studio",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Directory audit records of service principal or agent identity creation where the initiating application or the target name points to Power Platform, Dataverse or Copilot Studio, with who or what initiated them. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-20-teams-meeting-policy-and-meeting-ai-changes.kql",
+  "title": "Teams meeting policy and meeting AI policy changes made by administrators, last 30 days",
+  "date": "2026-11-20",
+  "product": "Teams",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "Lists Teams admin actions that touched a meeting policy, by actor and by the policy parameters named in the raw event, so a change to recording, transcription or meeting AI settings is attributable. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-20-sms-and-voice-mfa-failures-by-ip-and-result.kql",
+  "title": "SMS and voice MFA attempts that failed, by day, IP address and result detail, last 14 days",
+  "date": "2026-11-20",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "Expands the authentication steps of each sign-in, keeps SMS and voice steps, and counts failures with their result detail per day and IP address, so a proxy or filter blocking the verification shows as one IP with many failing users. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
+  "kind": "brief"
+ },
+ {
   "file": "articles/2026-11-19-detection-5-optimjack-unexpected-script-file-modification-in.kql",
   "title": "Detection 5: OPTIMJACK - Unexpected Script File Modification in Web Root by Non-Deployment Process",
   "date": "2026-11-19",

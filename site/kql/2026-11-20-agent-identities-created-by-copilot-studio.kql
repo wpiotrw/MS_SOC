@@ -1,0 +1,11 @@
+// Microsoft SOC Brief 20 Nov 2026 - agent identities created from Copilot Studio / Power Platform (MC1560996)
+// Columns as on the AuditLogs reference cited beside this query. Not run against a tenant in this pass.
+AuditLogs
+| where TimeGenerated > ago(30d)
+| where OperationName has_any ("Add service principal", "Add agent", "Add application")
+| extend InitiatorApp = tostring(InitiatedBy.app.displayName), InitiatorUser = tostring(InitiatedBy.user.userPrincipalName),
+         TargetName = tostring(TargetResources[0].displayName), TargetId = tostring(TargetResources[0].id)
+| where InitiatorApp has_any ("Power Platform", "Dataverse", "Copilot Studio", "Power Virtual Agents")
+     or TargetName has_any ("Copilot Studio", "Dataverse", "agent")
+| project TimeGenerated, OperationName, Result, InitiatorApp, InitiatorUser, TargetName, TargetId, CorrelationId
+| order by TimeGenerated desc
