@@ -1,17 +1,5 @@
 [
  {
-  "file": "2026-11-20-agent-identities-created-by-copilot-studio.kql",
-  "title": "Agent identities and service principals created by Power Platform or Copilot Studio, last 30 days",
-  "date": "2026-11-20",
-  "product": "Copilot Studio",
-  "tables": [
-   "AuditLogs"
-  ],
-  "purpose": "Directory audit records of service principal or agent identity creation where the initiating application or the target name points to Power Platform, Dataverse or Copilot Studio, with who or what initiated them. Not run against a tenant in this pass.",
-  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs",
-  "kind": "brief"
- },
- {
   "file": "2026-11-20-teams-meeting-policy-and-meeting-ai-changes.kql",
   "title": "Teams meeting policy and meeting AI policy changes made by administrators, last 30 days",
   "date": "2026-11-20",
@@ -33,6 +21,18 @@
   ],
   "purpose": "Expands the authentication steps of each sign-in, keeps SMS and voice steps, and counts failures with their result detail per day and IP address, so a proxy or filter blocking the verification shows as one IP with many failing users. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-20-agent-identities-created-by-copilot-studio.kql",
+  "title": "Agent identities and service principals created by Power Platform or Copilot Studio, last 30 days",
+  "date": "2026-11-20",
+  "product": "Copilot Studio",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Directory audit records of service principal or agent identity creation where the initiating application or the target name points to Power Platform, Dataverse or Copilot Studio, with who or what initiated them. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs",
   "kind": "brief"
  },
  {
@@ -118,7 +118,10 @@
   ],
   "purpose": "Write and delete operations on Microsoft.SecurityInsights automation rules and on Logic Apps workflows, by caller, so a rule switched off or a playbook removed during an intrusion is visible. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azureactivity",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-20"
+  ]
  },
  {
   "file": "2026-11-19-ntlm-logons-by-device-and-account-last-7.kql",
@@ -130,7 +133,10 @@
   ],
   "purpose": "Counts logons whose Protocol is NTLM per device, account and logon type, with the remote IPs seen, so the NTLM-retirement plan starts from measured use rather than from a guess. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicelogonevents-table",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-20"
+  ]
  },
  {
   "file": "2026-11-19-mailboxes-that-sent-outbound-mail-from-more-than.kql",
@@ -142,7 +148,10 @@
   ],
   "purpose": "Groups outbound and intra-org messages by the sender's Entra object ID and lists every From address each account used, so you can see who already sends from an alias and which onmicrosoft.com addresses appear as senders. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailevents-table",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-20"
+  ]
  },
  {
   "file": "incidents/2026-11-18-inbox-and-forwarding-rules-created-after-a-click.kql",
@@ -364,7 +373,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs",
   "kind": "brief",
   "reused": [
-   "2026-11-19"
+   "2026-11-19",
+   "2026-11-20"
   ]
  },
  {
@@ -379,7 +389,8 @@
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicenetworkevents-table",
   "kind": "brief",
   "reused": [
-   "2026-11-19"
+   "2026-11-19",
+   "2026-11-20"
   ]
  },
  {
@@ -394,7 +405,8 @@
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertinfo-table",
   "kind": "brief",
   "reused": [
-   "2026-11-19"
+   "2026-11-19",
+   "2026-11-20"
   ]
  },
  {
@@ -409,7 +421,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
   "kind": "brief",
   "reused": [
-   "2026-11-19"
+   "2026-11-19",
+   "2026-11-20"
   ]
  },
  {
@@ -36293,7 +36306,8 @@
   "reused": [
    "2026-09-13",
    "2026-11-18",
-   "2026-11-19"
+   "2026-11-19",
+   "2026-11-20"
   ],
   "kind": "brief"
  },

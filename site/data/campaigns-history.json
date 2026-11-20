@@ -1,6 +1,191 @@
 {
 "updated":"2026-11-20",
 "campaigns":{
+"c-mc1448373":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-20",
+"name":"Teams device management transition from Teams admin center to Teams Rooms Pro management portal",
+"status":"Recently closed",
+"members":[
+"MC1448373",
+"MC1469551"
+],
+"log":[
+{
+"date":"2026-11-19",
+"id":"MC1448373",
+"what":"Microsoft revised the post",
+"before":"2026-10-29",
+"after":"2026-11-19",
+"title":"Teams device management transition from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://mc.merill.net/message/MC1448373"
+},
+{
+"date":"2026-11-02",
+"id":"MC1469551",
+"what":"Microsoft revised the post",
+"before":"2026-10-02",
+"after":"2026-09-09",
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
+},
+{
+"date":"2026-10-30",
+"id":"MC1448373",
+"what":"Microsoft revised the post",
+"before":"2026-10-07",
+"after":"2026-10-29",
+"title":"Teams device management transition from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://mc.merill.net/message/MC1448373"
+},
+{
+"date":"2026-10-07",
+"id":"MC1448373",
+"what":"Microsoft revised the post",
+"before":"2026-10-01",
+"after":"2026-10-07",
+"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://mc.merill.net/message/MC1448373"
+},
+{
+"date":"2026-10-02",
+"id":"MC1469551",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
+},
+{
+"date":"2026-10-02",
+"id":"MC1469551",
+"what":"Title",
+"before":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"after":"(Updated) Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
+},
+{
+"date":"2026-10-02",
+"id":"MC1469551",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
+},
+{
+"date":"2026-10-02",
+"id":"MC1469551",
+"what":"Microsoft revised the post",
+"before":"2026-09-09",
+"after":"2026-10-02",
+"title":"Teams admin center device state rules and health alerts: retirement slips from late September to late October",
+"link":"https://deltapulse.app/item/MC1469551"
+},
+{
+"date":"2026-10-01",
+"id":"MC1448373",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"2 weeks until Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
+"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://mc.merill.net/message/MC1448373"
+},
+{
+"date":"2026-09-28",
+"id":"MC1469551",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"title":"Teams admin center device state rules and health alerts: retirement slips from late September to late October",
+"link":"https://deltapulse.app/item/MC1469551"
+},
+{
+"date":"2026-09-09",
+"id":"MC1469551",
+"what":"Microsoft moved the date",
+"before":"late Sep 2026",
+"after":"late Oct 2026",
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551"
+}
+],
+"milestones":{
+"MC1448373|posted":{
+"date":"2026-08-05",
+"label":"5 Aug 2026",
+"text":"Posted: Teams device management transition from Teams admin center to Teams Rooms Pro management portal"
+},
+"MC1469551|posted":{
+"date":"2026-09-09",
+"label":"9 Sep 2026",
+"text":"Posted: Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal"
+},
+"MC1469551|we will begin rolling out late previously late and expect to#0":{
+"date":"2026-10-25",
+"label":"late Oct 2026",
+"text":"We will begin rolling out late October 2026 (previously late September) and expect to complete by late October 2026 (previously late September)."
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1448373":{
+"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://deltapulse.app/item/MC1448373",
+"source":"Message Center",
+"id":"MC1448373",
+"date":"2026-08-05",
+"updated":"2026-10-07",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1469551":{
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1469551",
+"source":"Message Center",
+"id":"MC1469551",
+"date":"2026-09-09",
+"updated":"2026-10-02",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1469551":{
+"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
+"link":"https://deltapulse.app/item/MC1469551",
+"source":"Main list source",
+"id":"MC1469551",
+"date":"2026-09-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1448373":{
+"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://mc.merill.net/message/MC1448373",
+"source":"Message Center",
+"id":"MC1448373",
+"date":"2026-08-05",
+"updated":"2026-10-07",
+"group":"microsoft",
+"found":"2026-10-12"
+},
+"https://mc.merill.net/message/MC1227622":{
+"title":"MC1227622: Transitioning Teams Android Device Management from Teams admin Center to the Teams Rooms Pro Management portal",
+"link":"https://mc.merill.net/message/MC1227622",
+"source":"MC - Merill",
+"date":"2026-10-29",
+"group":"community",
+"found":"2026-10-30"
+}
+},
+"final":"2026-10-25",
+"type":"Retirement",
+"tech":"Teams",
+"posts":[
+"MC1448373",
+"MC1469551"
+]
+},
 "c-mc1556088":{
 "firstSeen":"2026-11-17",
 "lastSeen":"2026-11-20",
@@ -817,10 +1002,8 @@
 "members":[
 "MC1227454",
 "MC1446796",
-"item:MC1446796",
 "MC1447678",
 "MC1469960",
-"item:exchange-crosstenant-freebusy-to-cta",
 "MC1477180",
 "MC1485116",
 "MC1486282",
@@ -834,8 +1017,8 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the timeline.",
-"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
-"link":"https://deltapulse.app/item/MC1446796"
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
 },
 {
 "date":"2026-11-09",
@@ -843,8 +1026,8 @@
 "what":"Date moved",
 "before":"6 Nov 2026",
 "after":"23 Nov 2026",
-"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
-"link":"https://deltapulse.app/item/MC1446796"
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
 },
 {
 "date":"2026-11-09",
@@ -852,8 +1035,8 @@
 "what":"Date moved",
 "before":"early Nov 2026",
 "after":"late Nov 2026",
-"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
-"link":"https://deltapulse.app/item/MC1446796"
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
 },
 {
 "date":"2026-11-09",
@@ -870,8 +1053,8 @@
 "what":"Date moved",
 "before":"20 Oct 2026",
 "after":"30 Oct 2026",
-"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
-"link":"https://deltapulse.app/item/MC1446796"
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
 },
 {
 "date":"2026-10-30",
@@ -1251,11 +1434,6 @@
 "date":"2026-10-10",
 "label":"10 Oct 2026",
 "text":"Starting October 10, 2026, Exchange Online tenants must configure EWSAllowedAppIDs to allow Exchange Web Services (EWS) access; EWSEnabled=True alone will no lo"
-},
-"MC1446796|deadline":{
-"date":"2026-11-06",
-"label":"6 Nov 2026",
-"text":"Calendar Sharing via Cross-Tenant Access Policy now by 23 November 2026 (previously 3 November); EWS shutdown 1 April 2027"
 },
 "MC1446796|microsoft cross tenant access policy will replace ews by#0":{
 "date":"2026-11-15",
@@ -1890,191 +2068,6 @@
 "MC1450127"
 ]
 },
-"c-mc1448373":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-20",
-"name":"Teams device management transition from Teams admin center to Teams Rooms Pro management portal",
-"status":"Recently closed",
-"members":[
-"MC1448373",
-"MC1469551"
-],
-"log":[
-{
-"date":"2026-11-19",
-"id":"MC1448373",
-"what":"Microsoft revised the post",
-"before":"2026-10-29",
-"after":"2026-11-19",
-"title":"Teams device management transition from Teams admin center to Teams Rooms Pro management portal",
-"link":"https://mc.merill.net/message/MC1448373"
-},
-{
-"date":"2026-11-02",
-"id":"MC1469551",
-"what":"Microsoft revised the post",
-"before":"2026-10-02",
-"after":"2026-09-09",
-"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"link":"https://mc.merill.net/message/MC1469551"
-},
-{
-"date":"2026-10-30",
-"id":"MC1448373",
-"what":"Microsoft revised the post",
-"before":"2026-10-07",
-"after":"2026-10-29",
-"title":"Teams device management transition from Teams admin center to Teams Rooms Pro management portal",
-"link":"https://mc.merill.net/message/MC1448373"
-},
-{
-"date":"2026-10-07",
-"id":"MC1448373",
-"what":"Microsoft revised the post",
-"before":"2026-10-01",
-"after":"2026-10-07",
-"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
-"link":"https://mc.merill.net/message/MC1448373"
-},
-{
-"date":"2026-10-02",
-"id":"MC1469551",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the timeline.",
-"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"link":"https://mc.merill.net/message/MC1469551"
-},
-{
-"date":"2026-10-02",
-"id":"MC1469551",
-"what":"Title",
-"before":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"after":"(Updated) Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"link":"https://mc.merill.net/message/MC1469551"
-},
-{
-"date":"2026-10-02",
-"id":"MC1469551",
-"what":"Microsoft edited the post text",
-"before":"",
-"after":"see the post",
-"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"link":"https://mc.merill.net/message/MC1469551"
-},
-{
-"date":"2026-10-02",
-"id":"MC1469551",
-"what":"Microsoft revised the post",
-"before":"2026-09-09",
-"after":"2026-10-02",
-"title":"Teams admin center device state rules and health alerts: retirement slips from late September to late October",
-"link":"https://deltapulse.app/item/MC1469551"
-},
-{
-"date":"2026-10-01",
-"id":"MC1448373",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"2 weeks until Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
-"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
-"link":"https://mc.merill.net/message/MC1448373"
-},
-{
-"date":"2026-09-28",
-"id":"MC1469551",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"title":"Teams admin center device state rules and health alerts: retirement slips from late September to late October",
-"link":"https://deltapulse.app/item/MC1469551"
-},
-{
-"date":"2026-09-09",
-"id":"MC1469551",
-"what":"Microsoft moved the date",
-"before":"late Sep 2026",
-"after":"late Oct 2026",
-"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"link":"https://mc.merill.net/message/MC1469551"
-}
-],
-"milestones":{
-"MC1448373|posted":{
-"date":"2026-08-05",
-"label":"5 Aug 2026",
-"text":"Posted: Teams device management transition from Teams admin center to Teams Rooms Pro management portal"
-},
-"MC1469551|posted":{
-"date":"2026-09-09",
-"label":"9 Sep 2026",
-"text":"Posted: Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal"
-},
-"MC1469551|we will begin rolling out late previously late and expect to#0":{
-"date":"2026-10-25",
-"label":"late Oct 2026",
-"text":"We will begin rolling out late October 2026 (previously late September) and expect to complete by late October 2026 (previously late September)."
-}
-},
-"moves":[],
-"materials":{
-"https://deltapulse.app/item/MC1448373":{
-"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
-"link":"https://deltapulse.app/item/MC1448373",
-"source":"Message Center",
-"id":"MC1448373",
-"date":"2026-08-05",
-"updated":"2026-10-07",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1469551":{
-"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"link":"https://mc.merill.net/message/MC1469551",
-"source":"Message Center",
-"id":"MC1469551",
-"date":"2026-09-09",
-"updated":"2026-10-02",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/MC1469551":{
-"title":"Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal",
-"link":"https://deltapulse.app/item/MC1469551",
-"source":"Main list source",
-"id":"MC1469551",
-"date":"2026-09-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1448373":{
-"title":"Teams device management begins transitioning from Teams admin center to Teams Rooms Pro management portal",
-"link":"https://mc.merill.net/message/MC1448373",
-"source":"Message Center",
-"id":"MC1448373",
-"date":"2026-08-05",
-"updated":"2026-10-07",
-"group":"microsoft",
-"found":"2026-10-12"
-},
-"https://mc.merill.net/message/MC1227622":{
-"title":"MC1227622: Transitioning Teams Android Device Management from Teams admin Center to the Teams Rooms Pro Management portal",
-"link":"https://mc.merill.net/message/MC1227622",
-"source":"MC - Merill",
-"date":"2026-10-29",
-"group":"community",
-"found":"2026-10-30"
-}
-},
-"final":"2026-10-25",
-"type":"Retirement",
-"tech":"Teams",
-"posts":[
-"MC1448373",
-"MC1469551"
-]
-},
 "c-mc1488834":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-20",
@@ -2627,6 +2620,14 @@
 "date":"2026-11-08",
 "group":"community",
 "found":"2026-11-08"
+},
+"https://dev.to/ashwar_sadh_f7abe6f82c8e9/is-my-battery-wearing-out-a-monthly-range-trend-that-survives-weather-short-rides-and-time-zones-5bdp":{
+"title":"Is my battery wearing out? A monthly range trend that survives weather, short rides and time zones",
+"link":"https://dev.to/ashwar_sadh_f7abe6f82c8e9/is-my-battery-wearing-out-a-monthly-range-trend-that-survives-weather-short-rides-and-time-zones-5bdp",
+"source":"NeonTiger12",
+"date":"2026-11-20",
+"group":"community",
+"found":"2026-11-20"
 }
 },
 "final":"2026-11-01",
@@ -5205,14 +5206,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-17",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-18",
 "text":"August 1, 2026."
 },
@@ -5310,6 +5303,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-19",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-20",
 "text":"August 1, 2026."
 },
 {
@@ -5803,22 +5804,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-18",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-18",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-19",
 "text":"early February 2026."
 },
@@ -5908,6 +5893,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-19",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-20",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-20",
 "text":"February 2027."
 },
 {
@@ -6410,6 +6411,14 @@
 "date":"2026-11-17",
 "group":"microsoft",
 "found":"2026-11-17"
+},
+"https://dev.to/onelifevibe/do-not-flatten-the-clusters-connecting-kubernetes-across-clouds-without-merging-their-trust-jja":{
+"title":"Do Not Flatten the Clusters: Connecting Kubernetes Across Clouds Without Merging Their Trust Boundaries",
+"link":"https://dev.to/onelifevibe/do-not-flatten-the-clusters-connecting-kubernetes-across-clouds-without-merging-their-trust-jja",
+"source":"NeonTiger12",
+"date":"2026-11-20",
+"group":"community",
+"found":"2026-11-20"
 }
 },
 "final":"2027-10-09",
@@ -6903,552 +6912,6 @@
 "MC1483974"
 ]
 },
-"c-item-mc1506318":{
-"firstSeen":"2026-10-14",
-"lastSeen":"2026-11-20",
-"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-"status":"Active",
-"members":[
-"MC1483844",
-"item:MC1506318",
-"item:MC1519122",
-"item:MC1536101"
-],
-"log":[
-{
-"date":"2026-11-18",
-"id":"MC1483844",
-"what":"Microsoft revised the post",
-"before":"2026-10-22",
-"after":"2026-11-17",
-"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-"link":"https://mc.merill.net/message/MC1483844"
-},
-{
-"date":"2026-11-17",
-"id":"MC1483844",
-"what":"Microsoft's update note",
-"before":"",
-"after":"GPT-6.1 Sol is rolling out worldwide on Microsoft Azure for Copilot Cowork customers who have not enabled OpenAI as a subprocessor.",
-"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-"link":"https://mc.merill.net/message/MC1483844"
-},
-{
-"date":"2026-11-05",
-"id":"MC1519122",
-"what":"Status",
-"before":"Rolling out",
-"after":"Revised at source",
-"title":"GPT-6 Astra and Claude Fable 5.1 become selectable in Copilot Chat, Word, Excel and PowerPoint for users with usage-based billing enabled: Frontier from early November, general availability moved to early to mid-December",
-"link":"https://deltapulse.app/item/MC1519122"
-},
-{
-"date":"2026-11-04",
-"id":"MC1519122",
-"what":"Microsoft revised the post",
-"before":"2026-10-21",
-"after":"2026-11-04",
-"title":"GPT-6 Astra and Claude Fable 5.1 become selectable in Copilot Chat, Word, Excel and PowerPoint for users with usage-based billing enabled: Frontier from early November, general availability moved to early to mid-December",
-"link":"https://deltapulse.app/item/MC1519122"
-},
-{
-"date":"2026-11-04",
-"id":"MC1506318",
-"what":"Microsoft revised the post",
-"before":"2026-10-26",
-"after":"2026-11-03",
-"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
-"link":"https://mc.merill.net/message/MC1506318"
-},
-{
-"date":"2026-11-03",
-"id":"MC1536101",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"Copilot Studio, Power Automate and Power Apps prompts move automatically from Anthropic, Grok and older GPT models to newer GPT models on 2 December 2026",
-"title":"Copilot Studio, Power Automate and Power Apps prompts move automatically from Anthropic, Grok and older GPT models to newer GPT models on 2 December 2026",
-"link":"https://deltapulse.app/item/MC1536101"
-},
-{
-"date":"2026-10-27",
-"id":"MC1506318",
-"what":"Microsoft revised the post",
-"before":"2026-10-14",
-"after":"2026-10-26",
-"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
-"link":"https://mc.merill.net/message/MC1506318"
-},
-{
-"date":"2026-10-23",
-"id":"MC1483844",
-"what":"Microsoft revised the post",
-"before":"2026-10-01",
-"after":"2026-10-22",
-"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-"link":"https://mc.merill.net/message/MC1483844"
-},
-{
-"date":"2026-10-22",
-"id":"MC1483844",
-"what":"Title",
-"before":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-"after":"(Updated) Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-"link":"https://mc.merill.net/message/MC1483844"
-},
-{
-"date":"2026-10-22",
-"id":"MC1483844",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the content.",
-"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-"link":"https://mc.merill.net/message/MC1483844"
-},
-{
-"date":"2026-10-21",
-"id":"MC1519122",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"GPT-6 Astra and Claude Fable 5.1 become selectable in Copilot Chat, Word, Excel and PowerPoint for users with usage-based billing enabled, early to mid-November",
-"title":"GPT-6 Astra and Claude Fable 5.1 become selectable in Copilot Chat, Word, Excel and PowerPoint for users with usage-based billing enabled, early to mid-November",
-"link":"https://deltapulse.app/item/MC1519122"
-},
-{
-"date":"2026-10-15",
-"id":"MC1506318",
-"what":"Status",
-"before":"Stay informed",
-"after":"Revised at source",
-"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
-"link":"https://mc.merill.net/message/MC1506318"
-},
-{
-"date":"2026-10-15",
-"id":"MC1506318",
-"what":"Microsoft revised the post",
-"before":"2026-10-13",
-"after":"2026-10-14",
-"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
-"link":"https://mc.merill.net/message/MC1506318"
-},
-{
-"date":"2026-10-14",
-"id":"MC1506318",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
-"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
-"link":"https://mc.merill.net/message/MC1506318"
-},
-{
-"date":"2026-10-01",
-"id":"MC1483844",
-"what":"Microsoft edited the post text",
-"before":"",
-"after":"see the post",
-"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-"link":"https://mc.merill.net/message/MC1483844"
-},
-{
-"date":"2026-10-01",
-"id":"MC1483844",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-"link":"https://mc.merill.net/message/MC1483844"
-}
-],
-"milestones":{
-"MC1483844|posted":{
-"date":"2026-09-30",
-"label":"30 Sep 2026",
-"text":"Posted: Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today"
-},
-"MC1483844|cowork and copilot studio rollout begins today#0":{
-"date":"2026-09-30",
-"label":"30 Sep 2026",
-"text":"Rollout begins today, September 30, 2026."
-},
-"MC1506318|deadline":{
-"date":"2026-11-12",
-"label":"12 Nov 2026",
-"text":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically"
-},
-"MC1536101|deadline":{
-"date":"2026-12-02",
-"label":"2 Dec 2026",
-"text":"Copilot Studio, Power Automate and Power Apps prompts move automatically from Anthropic, Grok and older GPT models to newer GPT models on 2 December 2026"
-},
-"MC1519122|microsoft states a rollout window general availability early#0":{
-"date":"2026-12-15",
-"label":"mid Dec 2026",
-"text":"Microsoft states a rollout window (general availability early to mid-December 2026), not an action date."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1483844":{
-"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-"link":"https://mc.merill.net/message/MC1483844",
-"source":"Message Center",
-"id":"MC1483844",
-"date":"2026-09-30",
-"updated":"2026-10-01",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://mc.merill.net/message/MC1506318":{
-"title":"Copilot Studio - Information regarding the end of support for selected AI models",
-"link":"https://mc.merill.net/message/MC1506318",
-"source":"Main list source",
-"id":"MC1506318",
-"date":"2026-10-13",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-s-gpt-6-1-sol-and-claude-sonnet-5-5-in/ba-p/4560801":{
-"title":"Available today: OpenAI's GPT-6.1 Sol and Claude Sonnet 5.5 in Microsoft Copilot",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-s-gpt-6-1-sol-and-claude-sonnet-5-5-in/ba-p/4560801",
-"source":"Microsoft Copilot Blog",
-"date":"2026-09-30",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-gpt-6-astra-in-microsoft-copilot/ba-p/4552808":{
-"title":"Available today: OpenAI GPT-6 Astra in Microsoft Copilot",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-gpt-6-astra-in-microsoft-copilot/ba-p/4552808",
-"source":"Microsoft Copilot Blog",
-"date":"2026-09-04",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-anthropic-claude-fable-5-1-in-microsoft-copilot/ba-p/4551974":{
-"title":"Available today: Anthropic Claude Fable 5.1 in Microsoft Copilot",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-anthropic-claude-fable-5-1-in-microsoft-copilot/ba-p/4551974",
-"source":"Microsoft Copilot Blog",
-"date":"2026-09-02",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/claude-haiku-5-5-is-now-available-in-microsoft-foundry/ba-p/4562408":{
-"title":"Claude Haiku 5.5 is now available in Microsoft Foundry",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/claude-haiku-5-5-is-now-available-in-microsoft-foundry/ba-p/4562408",
-"source":"Azure AI Foundry Blog",
-"date":"2026-10-08",
-"group":"microsoft",
-"found":"2026-10-14"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-chat-latest-gets-more-intelligent-interactive-and-personal/ba-p/4564574":{
-"title":"GPT-chat-latest gets more intelligent, interactive, and personal in Microsoft Foundry",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-chat-latest-gets-more-intelligent-interactive-and-personal/ba-p/4564574",
-"source":"Azure AI Foundry Blog",
-"date":"2026-10-14",
-"group":"microsoft",
-"found":"2026-10-15"
-},
-"https://www.bleepingcomputer.com/news/artificial-intelligence/openai-says-gpt-61-sol-is-dramatically-better-at-migrating-legacy-code/":{
-"title":"OpenAI says GPT-6.1 Sol is dramatically better at migrating legacy code",
-"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/openai-says-gpt-61-sol-is-dramatically-better-at-migrating-legacy-code/",
-"source":"BleepingComputer",
-"date":"2026-10-20",
-"group":"community",
-"found":"2026-10-20"
-},
-"https://deltapulse.app/item/MC1519122":{
-"title":"Microsoft Copilot: UBB models in Chat and Word, Excel, and PowerPoint via the model selector",
-"link":"https://deltapulse.app/item/MC1519122",
-"source":"Main list source",
-"id":"MC1519122",
-"date":"2026-10-21",
-"group":"microsoft",
-"found":"2026-10-21"
-},
-"https://mc.merill.net/message/MC1519122":{
-"title":"MC1519122: Microsoft Copilot: UBB models in Chat and Word, Excel, and PowerPoint via the model selector",
-"link":"https://mc.merill.net/message/MC1519122",
-"source":"MC - Merill",
-"date":"2026-10-21",
-"group":"community",
-"found":"2026-10-21"
-},
-"https://thehackernews.com/2026/10/openais-gpt-6-agent-removed-safety.html":{
-"title":"OpenAI's GPT-6 Agent Removed Safety Monitoring, Then Falsely Denied Doing So",
-"link":"https://thehackernews.com/2026/10/openais-gpt-6-agent-removed-safety.html",
-"source":"Hacker News",
-"date":"2026-10-21",
-"group":"community",
-"found":"2026-10-21"
-},
-"https://mc.merill.net/message/MC1518233":{
-"title":"MC1518233: Copilot Studio - Enhanced support for Copilot Chat agents",
-"link":"https://mc.merill.net/message/MC1518233",
-"source":"MC - Merill",
-"date":"2026-10-21",
-"group":"community",
-"found":"2026-10-21"
-},
-"https://dev.to/algernoncross4103/openai-moderation-api-vs-gpt-4o-mini-chat-completions-json-schema-moderation-and-cost-3lbi":{
-"title":"OpenAI Moderation API vs GPT-4o-mini Chat Completions: JSON Schema Moderation (and Cost)",
-"link":"https://dev.to/algernoncross4103/openai-moderation-api-vs-gpt-4o-mini-chat-completions-json-schema-moderation-and-cost-3lbi",
-"source":"NeonTiger12",
-"date":"2026-10-23",
-"group":"community",
-"found":"2026-10-23"
-},
-"https://www.bleepingcomputer.com/news/artificial-intelligence/openai-launches-gpt-61-terra-with-3x-faster-ai-agents-50-percent-lower-pricing/":{
-"title":"OpenAI launches GPT-6.1 Terra with 3x faster AI agents, 50% lower pricing",
-"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/openai-launches-gpt-61-terra-with-3x-faster-ai-agents-50-percent-lower-pricing/",
-"source":"BleepingComputer",
-"date":"2026-10-26",
-"group":"community",
-"found":"2026-10-26"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-6-1-terra-now-generally-available-in-microsoft-foundry-build/ba-p/4567769":{
-"title":"GPT-6.1 Terra now generally available in Microsoft Foundry: build agents that see and act",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-6-1-terra-now-generally-available-in-microsoft-foundry-build/ba-p/4567769",
-"source":"Azure AI Foundry Blog",
-"date":"2026-10-26",
-"group":"microsoft",
-"found":"2026-10-27"
-},
-"https://dev.to/tadnaen/gpt-61-terra-what-the-new-pricing-and-benchmarks-actually-tell-developers-pan":{
-"title":"GPT-6.1 Terra: what the new pricing and benchmarks actually tell developers",
-"link":"https://dev.to/tadnaen/gpt-61-terra-what-the-new-pricing-and-benchmarks-actually-tell-developers-pan",
-"source":"NeonTiger12",
-"date":"2026-10-28",
-"group":"community",
-"found":"2026-10-28"
-},
-"https://dev.to/sahil_singh_a8df2b8858ef5/how-to-move-a-long-claude-chat-to-chatgpt-without-re-explaining-everything-2m9c":{
-"title":"How to move a long Claude chat to ChatGPT without re-explaining everything",
-"link":"https://dev.to/sahil_singh_a8df2b8858ef5/how-to-move-a-long-claude-chat-to-chatgpt-without-re-explaining-everything-2m9c",
-"source":"NeonTiger12",
-"date":"2026-10-28",
-"group":"community",
-"found":"2026-10-28"
-},
-"https://www.bleepingcomputer.com/news/artificial-intelligence/openais-gpt-61-terra-is-safer-overall-but-shows-more-destructive-action-flags-in-tests/":{
-"title":"OpenAI's GPT-6.1 Terra is safer overall, but shows more destructive-action flags in tests",
-"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/openais-gpt-61-terra-is-safer-overall-but-shows-more-destructive-action-flags-in-tests/",
-"source":"BleepingComputer",
-"date":"2026-10-27",
-"group":"community",
-"found":"2026-10-28"
-},
-"https://deltapulse.app/item/MC1536101":{
-"title":"Power Platform - Newer GPT models replace Anthropic, Grok, and earlier GPT models",
-"link":"https://deltapulse.app/item/MC1536101",
-"source":"Main list source",
-"id":"MC1536101",
-"date":"2026-11-03",
-"group":"microsoft",
-"found":"2026-11-03"
-},
-"https://mc.merill.net/message/MC1536101":{
-"title":"MC1536101: Power Platform - Newer GPT models replace Anthropic, Grok, and earlier GPT models",
-"link":"https://mc.merill.net/message/MC1536101",
-"source":"MC - Merill",
-"date":"2026-11-03",
-"group":"community",
-"found":"2026-11-03"
-},
-"https://mc.merill.net/message/MC1536062":{
-"title":"MC1536062: Changes to Word, Excel, and PowerPoint agents in Microsoft Copilot",
-"link":"https://mc.merill.net/message/MC1536062",
-"source":"MC - Merill",
-"date":"2026-11-03",
-"group":"community",
-"found":"2026-11-03"
-},
-"https://mc.merill.net/message/MC1532426":{
-"title":"MC1532426: Power Apps - Information regarding the retirement for the Proactive control rename feature in canvas apps",
-"link":"https://mc.merill.net/message/MC1532426",
-"source":"MC - Merill",
-"date":"2026-10-31",
-"group":"community",
-"found":"2026-11-03"
-},
-"https://mc.merill.net/message/MC1532182":{
-"title":"MC1532182: Power Apps - Information regarding the end of support for record-level copresence in model-driven apps",
-"link":"https://mc.merill.net/message/MC1532182",
-"source":"MC - Merill",
-"date":"2026-10-30",
-"group":"community",
-"found":"2026-11-03"
-},
-"https://dev.to/pilothousedev/running-codex-claude-code-and-grok-side-by-side-without-babysitting-them-4i44":{
-"title":"Running Codex, Claude Code and Grok side by side without babysitting them",
-"link":"https://dev.to/pilothousedev/running-codex-claude-code-and-grok-side-by-side-without-babysitting-them-4i44",
-"source":"NeonTiger12",
-"date":"2026-11-03",
-"group":"community",
-"found":"2026-11-03"
-},
-"https://mc.merill.net/message/MC1537406":{
-"title":"MC1537406: Power Automate - Information regarding the end of support for Describe it to design it",
-"link":"https://mc.merill.net/message/MC1537406",
-"source":"MC - Merill",
-"date":"2026-11-03",
-"group":"community",
-"found":"2026-11-04"
-},
-"https://mc.merill.net/message/MC1538998":{
-"title":"MC1538998: Power Platform - Copilot Studio agent metrics and alerts",
-"link":"https://mc.merill.net/message/MC1538998",
-"source":"MC - Merill",
-"date":"2026-11-05",
-"group":"community",
-"found":"2026-11-05"
-},
-"https://mc.merill.net/message/MC1540110":{
-"title":"MC1540110: Power Apps - Information regarding the end of support for AI-generated descriptions for model driven apps",
-"link":"https://mc.merill.net/message/MC1540110",
-"source":"MC - Merill",
-"date":"2026-11-05",
-"group":"community",
-"found":"2026-11-05"
-},
-"https://www.bleepingcomputer.com/news/security/openais-gpt-6-astra-silently-obstructed-safety-research-tasks/":{
-"title":"OpenAI’s GPT-6 Astra silently obstructed safety research tasks",
-"link":"https://www.bleepingcomputer.com/news/security/openais-gpt-6-astra-silently-obstructed-safety-research-tasks/",
-"source":"BleepingComputer",
-"date":"2026-11-05",
-"group":"community",
-"found":"2026-11-05"
-},
-"https://mc.merill.net/message/MC1540330":{
-"title":"MC1540330: Opal (Frontier) - UBB Notification",
-"link":"https://mc.merill.net/message/MC1540330",
-"source":"MC - Merill",
-"date":"2026-11-05",
-"group":"community",
-"found":"2026-11-06"
-},
-"https://mc.merill.net/message/MC1540258":{
-"title":"MC1540258: Power Automate - Information regarding the end of support for Copilot in the designer for cloud flows or agent flows.",
-"link":"https://mc.merill.net/message/MC1540258",
-"source":"MC - Merill",
-"date":"2026-11-05",
-"group":"community",
-"found":"2026-11-06"
-},
-"https://dev.to/open-agentic-brain-and-memory/where-claude-code-codex-and-cursor-keep-your-chat-history-on-disk-and-how-to-read-it-hc3":{
-"title":"Where Claude Code, Codex and Cursor Keep Your Chat History on Disk, and How to Read It",
-"link":"https://dev.to/open-agentic-brain-and-memory/where-claude-code-codex-and-cursor-keep-your-chat-history-on-disk-and-how-to-read-it-hc3",
-"source":"NeonTiger12",
-"date":"2026-11-06",
-"group":"community",
-"found":"2026-11-06"
-},
-"https://thehackernews.com/2026/11/openai-launches-gpt-6-cyber-after-ai.html":{
-"title":"OpenAI Launches GPT-6 Cyber After AI Helps Find 81 Firefox Flaws, 948 Linux Exploits",
-"link":"https://thehackernews.com/2026/11/openai-launches-gpt-6-cyber-after-ai.html",
-"source":"Hacker News",
-"date":"2026-11-06",
-"group":"community",
-"found":"2026-11-06"
-},
-"https://www.bleepingcomputer.com/news/security/openais-new-gpt-6-cyber-ai-finds-81-firefox-flaws-948-linux-bugs/":{
-"title":"OpenAI's new GPT-6 Cyber AI finds 81 Firefox flaws, 948 Linux bugs",
-"link":"https://www.bleepingcomputer.com/news/security/openais-new-gpt-6-cyber-ai-finds-81-firefox-flaws-948-linux-bugs/",
-"source":"BleepingComputer",
-"date":"2026-11-06",
-"group":"community",
-"found":"2026-11-06"
-},
-"https://dev.to/bbt-id/cara-menyerahkan-pekerjaan-dari-osfoundry-ke-chat-claude-yang-tertaut-2cl7":{
-"title":"Cara menyerahkan pekerjaan dari osFoundry ke chat Claude yang tertaut",
-"link":"https://dev.to/bbt-id/cara-menyerahkan-pekerjaan-dari-osfoundry-ke-chat-claude-yang-tertaut-2cl7",
-"source":"NeonTiger12",
-"date":"2026-11-07",
-"group":"community",
-"found":"2026-11-07"
-},
-"https://dev.to/beanstechbr/guardrail-para-claude-gpt-e-proprio-1km4":{
-"title":"Guardrail para Claude, GPT e próprio",
-"link":"https://dev.to/beanstechbr/guardrail-para-claude-gpt-e-proprio-1km4",
-"source":"NeonTiger12",
-"date":"2026-11-10",
-"group":"community",
-"found":"2026-11-10"
-},
-"https://thehackernews.com/2026/11/anthropics-claude-fable-52-beats-gpt-6.html":{
-"title":"Anthropic's Claude Fable 5.2 Beats GPT-6 Cyber in Multi-Stage Cyberattack Benchmark",
-"link":"https://thehackernews.com/2026/11/anthropics-claude-fable-52-beats-gpt-6.html",
-"source":"Hacker News",
-"date":"2026-11-10",
-"group":"community",
-"found":"2026-11-10"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-anthropic-claude-fable-5-2-in-microsoft-copilot/ba-p/4571829":{
-"title":"Available today: Anthropic Claude Fable 5.2 in Microsoft Copilot",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-anthropic-claude-fable-5-2-in-microsoft-copilot/ba-p/4571829",
-"source":"Microsoft Copilot Blog",
-"date":"2026-11-11",
-"group":"microsoft",
-"found":"2026-11-11"
-},
-"https://mc.merill.net/message/MC1470885":{
-"title":"MC1470885: M365 Copilot: Tell Copilot what you need directly from the Copilot button in Word, Excel, and PowerPoint",
-"link":"https://mc.merill.net/message/MC1470885",
-"source":"MC - Merill",
-"date":"2026-11-11",
-"group":"community",
-"found":"2026-11-12"
-},
-"https://dev.to/timofeus_248d45d3902a91a3/my-ai-page-builder-couldnt-see-its-own-pages-heres-how-i-gave-it-eyes-and-free-gpt-61-sol-16e7":{
-"title":"My AI page builder couldn't see its own pages. Here's how I gave it eyes (and free GPT-6.1 Sol)",
-"link":"https://dev.to/timofeus_248d45d3902a91a3/my-ai-page-builder-couldnt-see-its-own-pages-heres-how-i-gave-it-eyes-and-free-gpt-61-sol-16e7",
-"source":"NeonTiger12",
-"date":"2026-11-15",
-"group":"community",
-"found":"2026-11-15"
-},
-"https://www.bleepingcomputer.com/news/artificial-intelligence/anthropics-claude-fable-52-blocks-fewer-security-tasks-while-mythos-gets-better-at-finding-bugs/":{
-"title":"Anthropic’s Claude Fable 5.2 blocks fewer security tasks, while Mythos gets better at finding bugs",
-"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/anthropics-claude-fable-52-blocks-fewer-security-tasks-while-mythos-gets-better-at-finding-bugs/",
-"source":"BleepingComputer",
-"date":"2026-11-16",
-"group":"community",
-"found":"2026-11-17"
-},
-"https://dev.to/amrithesh_dev/how-gpt-62-astra-slashed-robot-debug-time-from-hours-to-minutes-the-2026-game-changer-4bf4":{
-"title":"How GPT‑6.2 Astra Slashed Robot Debug Time From Hours to Minutes – The 2026 Game‑Changer",
-"link":"https://dev.to/amrithesh_dev/how-gpt-62-astra-slashed-robot-debug-time-from-hours-to-minutes-the-2026-game-changer-4bf4",
-"source":"NeonTiger12",
-"date":"2026-11-17",
-"group":"community",
-"found":"2026-11-17"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-6-2-astra-and-gpt-6-2-sol-now-generally-available-in/ba-p/4574122":{
-"title":"GPT-6.2 Astra and GPT-6.2 Sol now generally available in Microsoft Foundry",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-6-2-astra-and-gpt-6-2-sol-now-generally-available-in/ba-p/4574122",
-"source":"Azure AI Foundry Blog",
-"date":"2026-11-17",
-"group":"microsoft",
-"found":"2026-11-18"
-},
-"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/introducing-gpt-image-2-6-flare-and-sunburst-in-microsoft/ba-p/4573002":{
-"title":"Introducing GPT-image-2.6 Flare and Sunburst in Microsoft Foundry",
-"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/introducing-gpt-image-2-6-flare-and-sunburst-in-microsoft/ba-p/4573002",
-"source":"Azure AI Foundry Blog",
-"date":"2026-11-18",
-"group":"microsoft",
-"found":"2026-11-19"
-}
-},
-"final":"2026-12-15",
-"type":"Support end",
-"tech":"Copilot",
-"posts":[
-"MC1483844",
-"MC1506318",
-"MC1519122",
-"MC1536101"
-]
-},
 "c-item-mc1542066":{
 "firstSeen":"2026-11-07",
 "lastSeen":"2026-11-20",
@@ -7817,6 +7280,72 @@
 "tech":"SharePoint",
 "posts":[
 "MC1558030"
+]
+},
+"c-item-mc1560922":{
+"firstSeen":"2026-11-20",
+"lastSeen":"2026-11-20",
+"name":"In-app browsing will be enabled by default in the desktop app",
+"status":"Active",
+"members":[
+"MC1560922",
+"item:MC1560922"
+],
+"log":[
+{
+"date":"2026-11-20",
+"id":"MC1560922",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Copilot desktop app opens websites shared in chat inside the app by default from January 2027; the BrowsingEnabled policy turns it off",
+"title":"Copilot desktop app opens websites shared in chat inside the app by default from January 2027; the BrowsingEnabled policy turns it off",
+"link":"https://deltapulse.app/item/MC1560922"
+}
+],
+"milestones":{
+"MC1560922|posted":{
+"date":"2026-11-20",
+"label":"20 Nov 2026",
+"text":"Posted: Microsoft Copilot: In-app browsing will be enabled by default in the desktop app"
+},
+"MC1560922|deadline":{
+"date":"2027-01-03",
+"label":"3 Jan 2027",
+"text":"3 January 2027; rollout early to end of January 2027."
+},
+"MC1560922|rollout early to end of#0":{
+"date":"2027-01-31",
+"label":"end of Jan 2027",
+"text":"Rollout early to end of January 2027."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1560922":{
+"title":"Microsoft Copilot: In-app browsing will be enabled by default in the desktop app",
+"link":"https://mc.merill.net/message/MC1560922",
+"source":"Message Center",
+"id":"MC1560922",
+"date":"2026-11-20",
+"updated":"2026-11-20",
+"group":"microsoft",
+"found":"2026-11-20"
+},
+"https://deltapulse.app/item/MC1560922":{
+"title":"Microsoft Copilot: In-app browsing will be enabled by default in the desktop app",
+"link":"https://deltapulse.app/item/MC1560922",
+"source":"Main list source",
+"id":"MC1560922",
+"date":"2026-11-20",
+"group":"microsoft",
+"found":"2026-11-20"
+}
+},
+"final":"2027-01-31",
+"type":"Rollout",
+"tech":"Copilot",
+"posts":[
+"MC1560922"
 ]
 },
 "c-sms-voice-retirement":{
@@ -9058,6 +8587,14 @@
 "date":"2026-11-19",
 "group":"community",
 "found":"2026-11-19"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=580443":{
+"title":"Microsoft Teams: Voice phishing detection for external calls",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=580443",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-19",
+"group":"community",
+"found":"2026-11-20"
 }
 },
 "final":"2027-07-01",
@@ -9757,22 +9294,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-18",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-18",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-19",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -9862,6 +9383,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-19",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-20",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-20",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -20374,6 +19911,156 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1526468",
+"type":"material",
+"name":"Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
+"group":"community",
+"title":"Is my battery wearing out? A monthly range trend that survives weather, short rides and time zones",
+"source":"NeonTiger12",
+"link":"https://dev.to/ashwar_sadh_f7abe6f82c8e9/is-my-battery-wearing-out-a-monthly-range-trend-that-survives-weather-short-rides-and-time-zones-5bdp"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-95874 Xbox Gaming Services Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95874"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-95989 vhdmp.sys Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95989"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96082 Windows Kerberos Denial of Service Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96082"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-113817 Windows Devices Human Interface Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-113817"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-121669 PowerShell Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-121669"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69370 Visual Studio Code Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69370"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69918 Windows Core Messaging Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69918"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70223 Windows Console Driver Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70223"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-83722 Microsoft Local Security Authority (LSA) Server Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83722"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-83753 Windows Camera Frame Server Monitor Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83753"
+},
+{
+"day":"2026-11-20",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-83760 Microsoft Bluetooth Driver Information Disclosure Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83760"
+},
+{
+"day":"2026-11-20",
+"cid":"c-item-azure-arc-akv-secrets-provider-extension-retirement-202",
+"type":"material",
+"name":"Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret…",
+"group":"community",
+"title":"Do Not Flatten the Clusters: Connecting Kubernetes Across Clouds Without Merging Their Trust Boundaries",
+"source":"NeonTiger12",
+"link":"https://dev.to/onelifevibe/do-not-flatten-the-clusters-connecting-kubernetes-across-clouds-without-merging-their-trust-jja"
+},
+{
+"day":"2026-11-20",
+"cid":"c-item-mc1560922",
+"type":"new",
+"name":"In-app browsing will be enabled by default in the desktop app",
+"ctype":"Rollout",
+"tech":"Copilot",
+"next":"3 Jan 2027",
+"text":"Copilot desktop app opens websites shared in chat inside the app by default from January 2027; the BrowsingEnabled policy turns it off"
+},
+{
+"day":"2026-11-20",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Microsoft Teams: Voice phishing detection for external calls",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=580443"
 }
 ],
 "archive":{
@@ -25015,6 +24702,94 @@
 "date":"2026-11-19",
 "group":"community",
 "found":"2026-11-19"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95874":{
+"title":"CVE-2026-95874 Xbox Gaming Services Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95874",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-19",
+"group":"microsoft",
+"found":"2026-11-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95989":{
+"title":"CVE-2026-95989 vhdmp.sys Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-95989",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-19",
+"group":"microsoft",
+"found":"2026-11-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96082":{
+"title":"CVE-2026-96082 Windows Kerberos Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96082",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-19",
+"group":"microsoft",
+"found":"2026-11-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-113817":{
+"title":"CVE-2026-113817 Windows Devices Human Interface Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-113817",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-19",
+"group":"microsoft",
+"found":"2026-11-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-121669":{
+"title":"CVE-2026-121669 PowerShell Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-121669",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-19",
+"group":"microsoft",
+"found":"2026-11-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69370":{
+"title":"CVE-2026-69370 Visual Studio Code Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69370",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-19",
+"group":"microsoft",
+"found":"2026-11-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69918":{
+"title":"CVE-2026-69918 Windows Core Messaging Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69918",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-19",
+"group":"microsoft",
+"found":"2026-11-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70223":{
+"title":"CVE-2026-70223 Windows Console Driver Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70223",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-19",
+"group":"microsoft",
+"found":"2026-11-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83722":{
+"title":"CVE-2026-83722 Microsoft Local Security Authority (LSA) Server Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83722",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-19",
+"group":"microsoft",
+"found":"2026-11-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83753":{
+"title":"CVE-2026-83753 Windows Camera Frame Server Monitor Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83753",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-19",
+"group":"microsoft",
+"found":"2026-11-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83760":{
+"title":"CVE-2026-83760 Microsoft Bluetooth Driver Information Disclosure Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-83760",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-19",
+"group":"microsoft",
+"found":"2026-11-20"
 }
 },
 "final":"2026-10-13",
@@ -25588,6 +25363,552 @@
 "MC1459132"
 ],
 "archivedOn":"2026-11-20"
+},
+"c-item-mc1506318":{
+"firstSeen":"2026-10-14",
+"lastSeen":"2026-11-20",
+"name":"GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"status":"Archive",
+"members":[
+"MC1483844",
+"item:MC1506318",
+"item:MC1519122",
+"item:MC1536101"
+],
+"log":[
+{
+"date":"2026-11-18",
+"id":"MC1483844",
+"what":"Microsoft revised the post",
+"before":"2026-10-22",
+"after":"2026-11-17",
+"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"link":"https://mc.merill.net/message/MC1483844"
+},
+{
+"date":"2026-11-17",
+"id":"MC1483844",
+"what":"Microsoft's update note",
+"before":"",
+"after":"GPT-6.1 Sol is rolling out worldwide on Microsoft Azure for Copilot Cowork customers who have not enabled OpenAI as a subprocessor.",
+"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"link":"https://mc.merill.net/message/MC1483844"
+},
+{
+"date":"2026-11-05",
+"id":"MC1519122",
+"what":"Status",
+"before":"Rolling out",
+"after":"Revised at source",
+"title":"GPT-6 Astra and Claude Fable 5.1 become selectable in Copilot Chat, Word, Excel and PowerPoint for users with usage-based billing enabled: Frontier from early November, general availability moved to early to mid-December",
+"link":"https://deltapulse.app/item/MC1519122"
+},
+{
+"date":"2026-11-04",
+"id":"MC1519122",
+"what":"Microsoft revised the post",
+"before":"2026-10-21",
+"after":"2026-11-04",
+"title":"GPT-6 Astra and Claude Fable 5.1 become selectable in Copilot Chat, Word, Excel and PowerPoint for users with usage-based billing enabled: Frontier from early November, general availability moved to early to mid-December",
+"link":"https://deltapulse.app/item/MC1519122"
+},
+{
+"date":"2026-11-04",
+"id":"MC1506318",
+"what":"Microsoft revised the post",
+"before":"2026-10-26",
+"after":"2026-11-03",
+"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
+"link":"https://mc.merill.net/message/MC1506318"
+},
+{
+"date":"2026-11-03",
+"id":"MC1536101",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Copilot Studio, Power Automate and Power Apps prompts move automatically from Anthropic, Grok and older GPT models to newer GPT models on 2 December 2026",
+"title":"Copilot Studio, Power Automate and Power Apps prompts move automatically from Anthropic, Grok and older GPT models to newer GPT models on 2 December 2026",
+"link":"https://deltapulse.app/item/MC1536101"
+},
+{
+"date":"2026-10-27",
+"id":"MC1506318",
+"what":"Microsoft revised the post",
+"before":"2026-10-14",
+"after":"2026-10-26",
+"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
+"link":"https://mc.merill.net/message/MC1506318"
+},
+{
+"date":"2026-10-23",
+"id":"MC1483844",
+"what":"Microsoft revised the post",
+"before":"2026-10-01",
+"after":"2026-10-22",
+"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"link":"https://mc.merill.net/message/MC1483844"
+},
+{
+"date":"2026-10-22",
+"id":"MC1483844",
+"what":"Title",
+"before":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"after":"(Updated) Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"link":"https://mc.merill.net/message/MC1483844"
+},
+{
+"date":"2026-10-22",
+"id":"MC1483844",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the content.",
+"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"link":"https://mc.merill.net/message/MC1483844"
+},
+{
+"date":"2026-10-21",
+"id":"MC1519122",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"GPT-6 Astra and Claude Fable 5.1 become selectable in Copilot Chat, Word, Excel and PowerPoint for users with usage-based billing enabled, early to mid-November",
+"title":"GPT-6 Astra and Claude Fable 5.1 become selectable in Copilot Chat, Word, Excel and PowerPoint for users with usage-based billing enabled, early to mid-November",
+"link":"https://deltapulse.app/item/MC1519122"
+},
+{
+"date":"2026-10-15",
+"id":"MC1506318",
+"what":"Status",
+"before":"Stay informed",
+"after":"Revised at source",
+"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
+"link":"https://mc.merill.net/message/MC1506318"
+},
+{
+"date":"2026-10-15",
+"id":"MC1506318",
+"what":"Microsoft revised the post",
+"before":"2026-10-13",
+"after":"2026-10-14",
+"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
+"link":"https://mc.merill.net/message/MC1506318"
+},
+{
+"date":"2026-10-14",
+"id":"MC1506318",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
+"title":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically",
+"link":"https://mc.merill.net/message/MC1506318"
+},
+{
+"date":"2026-10-01",
+"id":"MC1483844",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"link":"https://mc.merill.net/message/MC1483844"
+},
+{
+"date":"2026-10-01",
+"id":"MC1483844",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"link":"https://mc.merill.net/message/MC1483844"
+}
+],
+"milestones":{
+"MC1483844|posted":{
+"date":"2026-09-30",
+"label":"30 Sep 2026",
+"text":"Posted: Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today"
+},
+"MC1483844|cowork and copilot studio rollout begins today#0":{
+"date":"2026-09-30",
+"label":"30 Sep 2026",
+"text":"Rollout begins today, September 30, 2026."
+},
+"MC1506318|deadline":{
+"date":"2026-11-12",
+"label":"12 Nov 2026",
+"text":"Copilot Studio retires GPT-4.1, GPT-5 Chat/Auto/Reasoning and GPT 5.6 Sol/Luna on 12 November and migrates agents automatically"
+},
+"MC1536101|deadline":{
+"date":"2026-12-02",
+"label":"2 Dec 2026",
+"text":"Copilot Studio, Power Automate and Power Apps prompts move automatically from Anthropic, Grok and older GPT models to newer GPT models on 2 December 2026"
+},
+"MC1519122|microsoft states a rollout window general availability early#0":{
+"date":"2026-12-15",
+"label":"mid Dec 2026",
+"text":"Microsoft states a rollout window (general availability early to mid-December 2026), not an action date."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1483844":{
+"title":"Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
+"link":"https://mc.merill.net/message/MC1483844",
+"source":"Message Center",
+"id":"MC1483844",
+"date":"2026-09-30",
+"updated":"2026-10-01",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://mc.merill.net/message/MC1506318":{
+"title":"Copilot Studio - Information regarding the end of support for selected AI models",
+"link":"https://mc.merill.net/message/MC1506318",
+"source":"Main list source",
+"id":"MC1506318",
+"date":"2026-10-13",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-s-gpt-6-1-sol-and-claude-sonnet-5-5-in/ba-p/4560801":{
+"title":"Available today: OpenAI's GPT-6.1 Sol and Claude Sonnet 5.5 in Microsoft Copilot",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-s-gpt-6-1-sol-and-claude-sonnet-5-5-in/ba-p/4560801",
+"source":"Microsoft Copilot Blog",
+"date":"2026-09-30",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-gpt-6-astra-in-microsoft-copilot/ba-p/4552808":{
+"title":"Available today: OpenAI GPT-6 Astra in Microsoft Copilot",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-gpt-6-astra-in-microsoft-copilot/ba-p/4552808",
+"source":"Microsoft Copilot Blog",
+"date":"2026-09-04",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-anthropic-claude-fable-5-1-in-microsoft-copilot/ba-p/4551974":{
+"title":"Available today: Anthropic Claude Fable 5.1 in Microsoft Copilot",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-anthropic-claude-fable-5-1-in-microsoft-copilot/ba-p/4551974",
+"source":"Microsoft Copilot Blog",
+"date":"2026-09-02",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/claude-haiku-5-5-is-now-available-in-microsoft-foundry/ba-p/4562408":{
+"title":"Claude Haiku 5.5 is now available in Microsoft Foundry",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/claude-haiku-5-5-is-now-available-in-microsoft-foundry/ba-p/4562408",
+"source":"Azure AI Foundry Blog",
+"date":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-14"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-chat-latest-gets-more-intelligent-interactive-and-personal/ba-p/4564574":{
+"title":"GPT-chat-latest gets more intelligent, interactive, and personal in Microsoft Foundry",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-chat-latest-gets-more-intelligent-interactive-and-personal/ba-p/4564574",
+"source":"Azure AI Foundry Blog",
+"date":"2026-10-14",
+"group":"microsoft",
+"found":"2026-10-15"
+},
+"https://www.bleepingcomputer.com/news/artificial-intelligence/openai-says-gpt-61-sol-is-dramatically-better-at-migrating-legacy-code/":{
+"title":"OpenAI says GPT-6.1 Sol is dramatically better at migrating legacy code",
+"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/openai-says-gpt-61-sol-is-dramatically-better-at-migrating-legacy-code/",
+"source":"BleepingComputer",
+"date":"2026-10-20",
+"group":"community",
+"found":"2026-10-20"
+},
+"https://deltapulse.app/item/MC1519122":{
+"title":"Microsoft Copilot: UBB models in Chat and Word, Excel, and PowerPoint via the model selector",
+"link":"https://deltapulse.app/item/MC1519122",
+"source":"Main list source",
+"id":"MC1519122",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-21"
+},
+"https://mc.merill.net/message/MC1519122":{
+"title":"MC1519122: Microsoft Copilot: UBB models in Chat and Word, Excel, and PowerPoint via the model selector",
+"link":"https://mc.merill.net/message/MC1519122",
+"source":"MC - Merill",
+"date":"2026-10-21",
+"group":"community",
+"found":"2026-10-21"
+},
+"https://thehackernews.com/2026/10/openais-gpt-6-agent-removed-safety.html":{
+"title":"OpenAI's GPT-6 Agent Removed Safety Monitoring, Then Falsely Denied Doing So",
+"link":"https://thehackernews.com/2026/10/openais-gpt-6-agent-removed-safety.html",
+"source":"Hacker News",
+"date":"2026-10-21",
+"group":"community",
+"found":"2026-10-21"
+},
+"https://mc.merill.net/message/MC1518233":{
+"title":"MC1518233: Copilot Studio - Enhanced support for Copilot Chat agents",
+"link":"https://mc.merill.net/message/MC1518233",
+"source":"MC - Merill",
+"date":"2026-10-21",
+"group":"community",
+"found":"2026-10-21"
+},
+"https://dev.to/algernoncross4103/openai-moderation-api-vs-gpt-4o-mini-chat-completions-json-schema-moderation-and-cost-3lbi":{
+"title":"OpenAI Moderation API vs GPT-4o-mini Chat Completions: JSON Schema Moderation (and Cost)",
+"link":"https://dev.to/algernoncross4103/openai-moderation-api-vs-gpt-4o-mini-chat-completions-json-schema-moderation-and-cost-3lbi",
+"source":"NeonTiger12",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-23"
+},
+"https://www.bleepingcomputer.com/news/artificial-intelligence/openai-launches-gpt-61-terra-with-3x-faster-ai-agents-50-percent-lower-pricing/":{
+"title":"OpenAI launches GPT-6.1 Terra with 3x faster AI agents, 50% lower pricing",
+"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/openai-launches-gpt-61-terra-with-3x-faster-ai-agents-50-percent-lower-pricing/",
+"source":"BleepingComputer",
+"date":"2026-10-26",
+"group":"community",
+"found":"2026-10-26"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-6-1-terra-now-generally-available-in-microsoft-foundry-build/ba-p/4567769":{
+"title":"GPT-6.1 Terra now generally available in Microsoft Foundry: build agents that see and act",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-6-1-terra-now-generally-available-in-microsoft-foundry-build/ba-p/4567769",
+"source":"Azure AI Foundry Blog",
+"date":"2026-10-26",
+"group":"microsoft",
+"found":"2026-10-27"
+},
+"https://dev.to/tadnaen/gpt-61-terra-what-the-new-pricing-and-benchmarks-actually-tell-developers-pan":{
+"title":"GPT-6.1 Terra: what the new pricing and benchmarks actually tell developers",
+"link":"https://dev.to/tadnaen/gpt-61-terra-what-the-new-pricing-and-benchmarks-actually-tell-developers-pan",
+"source":"NeonTiger12",
+"date":"2026-10-28",
+"group":"community",
+"found":"2026-10-28"
+},
+"https://dev.to/sahil_singh_a8df2b8858ef5/how-to-move-a-long-claude-chat-to-chatgpt-without-re-explaining-everything-2m9c":{
+"title":"How to move a long Claude chat to ChatGPT without re-explaining everything",
+"link":"https://dev.to/sahil_singh_a8df2b8858ef5/how-to-move-a-long-claude-chat-to-chatgpt-without-re-explaining-everything-2m9c",
+"source":"NeonTiger12",
+"date":"2026-10-28",
+"group":"community",
+"found":"2026-10-28"
+},
+"https://www.bleepingcomputer.com/news/artificial-intelligence/openais-gpt-61-terra-is-safer-overall-but-shows-more-destructive-action-flags-in-tests/":{
+"title":"OpenAI's GPT-6.1 Terra is safer overall, but shows more destructive-action flags in tests",
+"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/openais-gpt-61-terra-is-safer-overall-but-shows-more-destructive-action-flags-in-tests/",
+"source":"BleepingComputer",
+"date":"2026-10-27",
+"group":"community",
+"found":"2026-10-28"
+},
+"https://deltapulse.app/item/MC1536101":{
+"title":"Power Platform - Newer GPT models replace Anthropic, Grok, and earlier GPT models",
+"link":"https://deltapulse.app/item/MC1536101",
+"source":"Main list source",
+"id":"MC1536101",
+"date":"2026-11-03",
+"group":"microsoft",
+"found":"2026-11-03"
+},
+"https://mc.merill.net/message/MC1536101":{
+"title":"MC1536101: Power Platform - Newer GPT models replace Anthropic, Grok, and earlier GPT models",
+"link":"https://mc.merill.net/message/MC1536101",
+"source":"MC - Merill",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://mc.merill.net/message/MC1536062":{
+"title":"MC1536062: Changes to Word, Excel, and PowerPoint agents in Microsoft Copilot",
+"link":"https://mc.merill.net/message/MC1536062",
+"source":"MC - Merill",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://mc.merill.net/message/MC1532426":{
+"title":"MC1532426: Power Apps - Information regarding the retirement for the Proactive control rename feature in canvas apps",
+"link":"https://mc.merill.net/message/MC1532426",
+"source":"MC - Merill",
+"date":"2026-10-31",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://mc.merill.net/message/MC1532182":{
+"title":"MC1532182: Power Apps - Information regarding the end of support for record-level copresence in model-driven apps",
+"link":"https://mc.merill.net/message/MC1532182",
+"source":"MC - Merill",
+"date":"2026-10-30",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://dev.to/pilothousedev/running-codex-claude-code-and-grok-side-by-side-without-babysitting-them-4i44":{
+"title":"Running Codex, Claude Code and Grok side by side without babysitting them",
+"link":"https://dev.to/pilothousedev/running-codex-claude-code-and-grok-side-by-side-without-babysitting-them-4i44",
+"source":"NeonTiger12",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-03"
+},
+"https://mc.merill.net/message/MC1537406":{
+"title":"MC1537406: Power Automate - Information regarding the end of support for Describe it to design it",
+"link":"https://mc.merill.net/message/MC1537406",
+"source":"MC - Merill",
+"date":"2026-11-03",
+"group":"community",
+"found":"2026-11-04"
+},
+"https://mc.merill.net/message/MC1538998":{
+"title":"MC1538998: Power Platform - Copilot Studio agent metrics and alerts",
+"link":"https://mc.merill.net/message/MC1538998",
+"source":"MC - Merill",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-05"
+},
+"https://mc.merill.net/message/MC1540110":{
+"title":"MC1540110: Power Apps - Information regarding the end of support for AI-generated descriptions for model driven apps",
+"link":"https://mc.merill.net/message/MC1540110",
+"source":"MC - Merill",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-05"
+},
+"https://www.bleepingcomputer.com/news/security/openais-gpt-6-astra-silently-obstructed-safety-research-tasks/":{
+"title":"OpenAI’s GPT-6 Astra silently obstructed safety research tasks",
+"link":"https://www.bleepingcomputer.com/news/security/openais-gpt-6-astra-silently-obstructed-safety-research-tasks/",
+"source":"BleepingComputer",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-05"
+},
+"https://mc.merill.net/message/MC1540330":{
+"title":"MC1540330: Opal (Frontier) - UBB Notification",
+"link":"https://mc.merill.net/message/MC1540330",
+"source":"MC - Merill",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-06"
+},
+"https://mc.merill.net/message/MC1540258":{
+"title":"MC1540258: Power Automate - Information regarding the end of support for Copilot in the designer for cloud flows or agent flows.",
+"link":"https://mc.merill.net/message/MC1540258",
+"source":"MC - Merill",
+"date":"2026-11-05",
+"group":"community",
+"found":"2026-11-06"
+},
+"https://dev.to/open-agentic-brain-and-memory/where-claude-code-codex-and-cursor-keep-your-chat-history-on-disk-and-how-to-read-it-hc3":{
+"title":"Where Claude Code, Codex and Cursor Keep Your Chat History on Disk, and How to Read It",
+"link":"https://dev.to/open-agentic-brain-and-memory/where-claude-code-codex-and-cursor-keep-your-chat-history-on-disk-and-how-to-read-it-hc3",
+"source":"NeonTiger12",
+"date":"2026-11-06",
+"group":"community",
+"found":"2026-11-06"
+},
+"https://thehackernews.com/2026/11/openai-launches-gpt-6-cyber-after-ai.html":{
+"title":"OpenAI Launches GPT-6 Cyber After AI Helps Find 81 Firefox Flaws, 948 Linux Exploits",
+"link":"https://thehackernews.com/2026/11/openai-launches-gpt-6-cyber-after-ai.html",
+"source":"Hacker News",
+"date":"2026-11-06",
+"group":"community",
+"found":"2026-11-06"
+},
+"https://www.bleepingcomputer.com/news/security/openais-new-gpt-6-cyber-ai-finds-81-firefox-flaws-948-linux-bugs/":{
+"title":"OpenAI's new GPT-6 Cyber AI finds 81 Firefox flaws, 948 Linux bugs",
+"link":"https://www.bleepingcomputer.com/news/security/openais-new-gpt-6-cyber-ai-finds-81-firefox-flaws-948-linux-bugs/",
+"source":"BleepingComputer",
+"date":"2026-11-06",
+"group":"community",
+"found":"2026-11-06"
+},
+"https://dev.to/bbt-id/cara-menyerahkan-pekerjaan-dari-osfoundry-ke-chat-claude-yang-tertaut-2cl7":{
+"title":"Cara menyerahkan pekerjaan dari osFoundry ke chat Claude yang tertaut",
+"link":"https://dev.to/bbt-id/cara-menyerahkan-pekerjaan-dari-osfoundry-ke-chat-claude-yang-tertaut-2cl7",
+"source":"NeonTiger12",
+"date":"2026-11-07",
+"group":"community",
+"found":"2026-11-07"
+},
+"https://dev.to/beanstechbr/guardrail-para-claude-gpt-e-proprio-1km4":{
+"title":"Guardrail para Claude, GPT e próprio",
+"link":"https://dev.to/beanstechbr/guardrail-para-claude-gpt-e-proprio-1km4",
+"source":"NeonTiger12",
+"date":"2026-11-10",
+"group":"community",
+"found":"2026-11-10"
+},
+"https://thehackernews.com/2026/11/anthropics-claude-fable-52-beats-gpt-6.html":{
+"title":"Anthropic's Claude Fable 5.2 Beats GPT-6 Cyber in Multi-Stage Cyberattack Benchmark",
+"link":"https://thehackernews.com/2026/11/anthropics-claude-fable-52-beats-gpt-6.html",
+"source":"Hacker News",
+"date":"2026-11-10",
+"group":"community",
+"found":"2026-11-10"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-anthropic-claude-fable-5-2-in-microsoft-copilot/ba-p/4571829":{
+"title":"Available today: Anthropic Claude Fable 5.2 in Microsoft Copilot",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-anthropic-claude-fable-5-2-in-microsoft-copilot/ba-p/4571829",
+"source":"Microsoft Copilot Blog",
+"date":"2026-11-11",
+"group":"microsoft",
+"found":"2026-11-11"
+},
+"https://mc.merill.net/message/MC1470885":{
+"title":"MC1470885: M365 Copilot: Tell Copilot what you need directly from the Copilot button in Word, Excel, and PowerPoint",
+"link":"https://mc.merill.net/message/MC1470885",
+"source":"MC - Merill",
+"date":"2026-11-11",
+"group":"community",
+"found":"2026-11-12"
+},
+"https://dev.to/timofeus_248d45d3902a91a3/my-ai-page-builder-couldnt-see-its-own-pages-heres-how-i-gave-it-eyes-and-free-gpt-61-sol-16e7":{
+"title":"My AI page builder couldn't see its own pages. Here's how I gave it eyes (and free GPT-6.1 Sol)",
+"link":"https://dev.to/timofeus_248d45d3902a91a3/my-ai-page-builder-couldnt-see-its-own-pages-heres-how-i-gave-it-eyes-and-free-gpt-61-sol-16e7",
+"source":"NeonTiger12",
+"date":"2026-11-15",
+"group":"community",
+"found":"2026-11-15"
+},
+"https://www.bleepingcomputer.com/news/artificial-intelligence/anthropics-claude-fable-52-blocks-fewer-security-tasks-while-mythos-gets-better-at-finding-bugs/":{
+"title":"Anthropic’s Claude Fable 5.2 blocks fewer security tasks, while Mythos gets better at finding bugs",
+"link":"https://www.bleepingcomputer.com/news/artificial-intelligence/anthropics-claude-fable-52-blocks-fewer-security-tasks-while-mythos-gets-better-at-finding-bugs/",
+"source":"BleepingComputer",
+"date":"2026-11-16",
+"group":"community",
+"found":"2026-11-17"
+},
+"https://dev.to/amrithesh_dev/how-gpt-62-astra-slashed-robot-debug-time-from-hours-to-minutes-the-2026-game-changer-4bf4":{
+"title":"How GPT‑6.2 Astra Slashed Robot Debug Time From Hours to Minutes – The 2026 Game‑Changer",
+"link":"https://dev.to/amrithesh_dev/how-gpt-62-astra-slashed-robot-debug-time-from-hours-to-minutes-the-2026-game-changer-4bf4",
+"source":"NeonTiger12",
+"date":"2026-11-17",
+"group":"community",
+"found":"2026-11-17"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-6-2-astra-and-gpt-6-2-sol-now-generally-available-in/ba-p/4574122":{
+"title":"GPT-6.2 Astra and GPT-6.2 Sol now generally available in Microsoft Foundry",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/gpt-6-2-astra-and-gpt-6-2-sol-now-generally-available-in/ba-p/4574122",
+"source":"Azure AI Foundry Blog",
+"date":"2026-11-17",
+"group":"microsoft",
+"found":"2026-11-18"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/introducing-gpt-image-2-6-flare-and-sunburst-in-microsoft/ba-p/4573002":{
+"title":"Introducing GPT-image-2.6 Flare and Sunburst in Microsoft Foundry",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-foundry-blog/introducing-gpt-image-2-6-flare-and-sunburst-in-microsoft/ba-p/4573002",
+"source":"Azure AI Foundry Blog",
+"date":"2026-11-18",
+"group":"microsoft",
+"found":"2026-11-19"
+}
+},
+"final":"2026-12-15",
+"type":"Support end",
+"tech":"Copilot",
+"posts":[
+"MC1483844",
+"MC1506318",
+"MC1519122",
+"MC1536101"
+]
 }
 }
 }
