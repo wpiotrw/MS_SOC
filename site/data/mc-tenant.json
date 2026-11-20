@@ -1,7 +1,7 @@
 {
- "read": "2026-11-19",
+ "read": "2026-11-20",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 740,
+ "count": 745,
  "note": null,
  "messages": [
   {
@@ -15003,7 +15003,7 @@
   },
   {
    "id": "MC1518034",
-   "title": "Clipchamp/ Copilot 'Create a video' experience is going to have an admin control available",
+   "title": "(Updated) Clipchamp/ Copilot 'Create a video' experience is going to have an admin control available",
    "services": [
     "Microsoft Clipchamp "
    ],
@@ -15013,18 +15013,20 @@
    "actionBy": null,
    "start": "2026-10-20",
    "end": "2027-02-08",
-   "modified": "2026-10-20",
+   "modified": "2026-11-20",
    "tags": [
     "Admin impact",
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[What and Why:] Microsoft Clipchamp is introducing an admin policy control for the Clipchamp AI video creation experience, also known as Clipchamp Generate a video or Create a video in Copilot Create. This control helps organizations manage which users can access the AI-powered video creation capability. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out in late Novemb…",
+   "summary": "Updated November 19, 2026: We have updated the content. Thank you for your patience. [What and Why:] Microsoft Clipchamp is introducing an admin policy control for the Clipchamp AI video creation experience, also known as Clipchamp 'Generate a video' or 'Create a video' in Copilot Create. This control helps organizations manage which users can access the AI-powered video creation capability. This …",
    "when": null,
    "prepare": null,
    "dates": [
+    "Updated November 19, 2026: We have updated the content.",
     "General Availability (Worldwide): We will begin rolling out in late November 2026 and expect to complete by early December 2026."
    ],
-   "bodyHash": "ce004839cf217c39"
+   "bodyHash": "0a455aa22bc7f2a0"
   },
   {
    "id": "MC1519841",
@@ -16947,21 +16949,21 @@
    "actionBy": null,
    "start": "2026-10-30",
    "end": "2027-02-22",
-   "modified": "2026-11-03",
+   "modified": "2026-11-19",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message"
    ],
-   "summary": "Updated November 3, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Microsoft Teams is updating how administrators and meeting organizers configure AI for Teams meetings. The existing Copilot meeting policy is being replaced by two more specific policies: MeetingAI - controls whether Copilot, Facilitator, Intelligent Recap, and other AI features are available in me…",
+   "summary": "Updated November 19, 2026: We have updated the content. Thank you for your patience. [What and Why:] Microsoft Teams is updating how administrators and meeting organizers configure AI for Teams meetings. The existing Copilot meeting policy is being replaced by two more specific policies: MeetingAI - controls whether Copilot, Facilitator, Intelligent Recap, and other AI features are available in me…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated November 3, 2026: We have updated the timeline.",
+    "Updated November 19, 2026: We have updated the content.",
     "Targeted Release (Worldwide): We will begin rolling out in early December 2026 (previously mid-November) and expect to complete by mid-December 2026 (previously early December).",
     "General Availability (Worldwide): We will begin rolling out in early January 2027 (previously late November 2026) and expect to complete by mid-January 2027 (previously early December 2026)."
    ],
-   "bodyHash": "0349f72ece8e8854"
+   "bodyHash": "e0fe5af47f7c337f"
   },
   {
    "id": "MC1532256",
@@ -18516,7 +18518,7 @@
   },
   {
    "id": "MC1551151",
-   "title": "Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice multi-factor authentication",
+   "title": "(Updated) Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice multi-factor authentication",
    "services": [
     "Microsoft Entra"
    ],
@@ -18526,18 +18528,19 @@
    "actionBy": null,
    "start": "2026-11-13",
    "end": "2026-12-30",
-   "modified": "2026-11-16",
+   "modified": "2026-11-19",
    "tags": [
     "Admin impact",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Entra ID is adding safeguards to protect telephony-based multifactor authentication (MFA) from automated fraudulent activity. Some users who use SMS or voice for MFA may be asked to complete a risk-based anti-bot verification step (CAPTCHA) before Microsoft sends an SMS verification code or initiates a verification call. This change is separate from the planned retirement …",
+   "summary": "Updated November 19, 2026: We have updated the content. Thank you for your patience. [What and why] Microsoft Entra ID is adding safeguards to protect telephony-based multifactor authentication (MFA) from automated fraudulent activity. Some users who use SMS or voice for MFA may be asked to complete a risk-based anti-bot verification step (CAPTCHA) before Microsoft sends an SMS verification code o…",
    "when": null,
    "prepare": null,
    "dates": [
+    "Updated November 19, 2026: We have updated the content.",
     "Worldwide: Beginning in mid-November 2026."
    ],
-   "bodyHash": "abf42b2557e7a3d6"
+   "bodyHash": "484973428bf4c6e9"
   },
   {
    "id": "MC1551896",
@@ -19624,6 +19627,137 @@
    "bodyHash": "387aebb93f2d983c"
   },
   {
+   "id": "MC1560915",
+   "title": "Windows 365: New features and updates, week of November 16, 2026 (Microsoft Ignite)",
+   "services": [
+    "Windows 365"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-19",
+   "end": "2027-01-18",
+   "modified": "2026-11-19",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] This week Windows 365 released the following new features and updates, including those announced at Microsoft Ignite 2026. [Rollout schedule] These updates are generally available or entering public preview, as indicated below. Availability may vary during rollout. Move device action is rolling out gradually and might not appear in every tenant right away. You’ll see the Direct Stre…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "a7b7bc74ab85ede6"
+  },
+  {
+   "id": "MC1560919",
+   "title": "Microsoft Teams mobile: Updated app bar and More menu on iOS and iPadOS",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-20",
+   "end": "2027-01-15",
+   "modified": "2026-11-20",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] To align with Apple's updated design guidance for tab bars in iOS and iPadOS 26, we're updating the app bar and More menu in Microsoft Teams for iOS and iPadOS. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out on December 10, 2026 and expect to complete by December 16, 2026. General Availability (GCC): We will begin rolling out on December 10, 2026 an…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out on December 10, 2026 and expect to complete by December 16, 2026.",
+    "General Availability (GCC): We will begin rolling out on December 10, 2026 and expect to complete by December 16, 2026.",
+    "General Availability (GCC High): We will begin rolling out on December 10, 2026 and expect to complete by December 16, 2026."
+   ],
+   "bodyHash": "626dbf0643520de5"
+  },
+  {
+   "id": "MC1560920",
+   "title": "Copilot video creation in Clipchamp Video Hub is now live in Frontier Public",
+   "services": [
+    "Microsoft Clipchamp "
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-20",
+   "end": "2027-03-31",
+   "modified": "2026-11-20",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Copilot video creation is coming to the Clipchamp Video Hub. It turns documents, ideas and work content into videos that make complex information easier to understand and act on. Users start with a prompt, a document from OneDrive, or relevant work context, then preview the video in chat and refine it through conversation until they’re happy with it. This is a usage-based billing (…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Frontier public): available as of November 17, 2026."
+   ],
+   "bodyHash": "3607ca60a3e0af8d"
+  },
+  {
+   "id": "MC1560923",
+   "title": "Enhanced prompt categories for Microsoft 365 Copilot in Microsoft Copilot Dashboard and Agent 365 Business Analytics",
+   "services": [
+    "Microsoft Viva"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-20",
+   "end": "2027-01-17",
+   "modified": "2026-11-20",
+   "tags": [
+    "Admin impact",
+    "Feature update"
+   ],
+   "summary": "[What and Why:] Enhanced prompt categories for Microsoft 365 Copilot provide a detailed view into Copilot Chat usage by users with a Microsoft 365 Copilot license. Copilot Chat prompts are classified into 13 categories and 41 subcategories, which show how users apply Copilot Chat in their work. The enhanced categories replace the four legacy prompt categories in the Microsoft Copilot Dashboard: \"A…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out on mid December 2026 and expect to complete by end of December 2026."
+   ],
+   "bodyHash": "df7a7c8cd4000bd2"
+  },
+  {
+   "id": "MC1560924",
+   "title": "Microsoft Teams: Tenant policy controls who can record and transcribe",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-20",
+   "end": "2027-04-06",
+   "modified": "2026-11-20",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Teams administrators can use a policy to configure who may start recording and transcription. The policy supports two participant scopes: organizers and co-organizers, or organizers, co-organizers, and presenters. For each scope, administrators can specify whether meeting organizers can or cannot change the setting. This provides a centrally managed default or enforced restriction …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Targeted Release (Worldwide): We will begin rolling out in mid-December 2026 and expect to complete by mid-December 2026.",
+    "General Availability (Worldwide): We will begin rolling out in late December 2026 and expect to complete by late December 2026.",
+    "General Availability (GCC): We will begin rolling out in late December 2026 and expect to complete by late January 2027.",
+    "General Availability (GCC High): We will begin rolling out in mid-February 2027 and expect to complete by late February 2027.",
+    "General Availability (DoD): We will begin rolling out in mid-February 2027 and expect to complete by early March 2027."
+   ],
+   "bodyHash": "619c51baa2ebd0c4"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -19913,259 +20047,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-20",
-   "id": "MC1515917",
-   "type": "new",
-   "title": "Database Hub in Fabric: Default enablement and admin opt-out",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1515929",
-   "type": "new",
-   "title": "Microsoft Teams: GitHub app consolidation and legacy GitHub app deprecation",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1515930",
-   "type": "new",
-   "title": "Cowork browser use setting renamed to Browser use in Microsoft Copilot",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1515931",
-   "type": "new",
-   "title": "Microsoft Teams: Simplified app enablement experience in Teams admin center",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1515932",
-   "type": "new",
-   "title": "External Recipients Banner on Outlook Mobile",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1515937",
-   "type": "new",
-   "title": "Microsoft Purview | eDiscovery: In-product diagnostics to troubleshoot common challenges",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1515939",
-   "type": "new",
-   "title": "Sending from Aliases",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1515940",
-   "type": "new",
-   "title": "Microsoft OneDrive: Copilot actions in the File Explorer context menu are being retired",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1288531",
-   "type": "changed",
-   "title": "(Updated) Microsoft Viva - Copilot Analytics: Export agent data from the Agent Dashboard",
-   "fields": {
-    "end": [
-     "2026-12-14",
-     "2026-12-31"
-    ],
-    "bodyHash": [
-     "efd2663598e07519",
-     "d6d89008a261fb6e"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1446796",
-   "type": "changed",
-   "title": "(Updated) Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
-   "fields": {
-    "bodyHash": [
-     "684963dd09461d20",
-     "a3c20f2033484cd9"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1457226",
-   "type": "new",
-   "title": "(Updated) Microsoft OneDrive: Refreshed file browsing and filtering experience in OneDrive Web",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1461165",
-   "type": "changed",
-   "title": "(Updated) Microsoft Teams: Facilitator can join channel meetings",
-   "fields": {
-    "end": [
-     "2027-01-11",
-     "2027-04-12"
-    ],
-    "bodyHash": [
-     "89aa705232b84f82",
-     "99b38897deafa603"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1470417",
-   "type": "changed",
-   "title": "(Updated) Microsoft 365 Copilot: Review PDFs using the Copilot context menu on OneDrive iOS",
-   "fields": {
-    "title": [
-     "Microsoft 365 Copilot: Review PDFs using the Copilot context menu on OneDrive iOS",
-     "(Updated) Microsoft 365 Copilot: Review PDFs using the Copilot context menu on OneDrive iOS"
-    ],
-    "end": [
-     "2026-11-30",
-     "2026-10-23"
-    ],
-    "tags": [
-     [
-      "Admin impact",
-      "New feature"
-     ],
-     [
-      "Admin impact",
-      "New feature",
-      "Updated message"
-     ]
-    ],
-    "bodyHash": [
-     "498c13b933574d0e",
-     "a1d0653e1b7e2722"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1477187",
-   "type": "changed",
-   "title": "Microsoft OneDrive: OneDrive sync supports up to 1 million items on macOS",
-   "fields": {
-    "end": [
-     "2026-11-30",
-     "2027-07-30"
-    ],
-    "tags": [
-     [
-      "Admin impact",
-      "Feature update",
-      "User impact"
-     ],
-     [
-      "Admin impact",
-      "Feature update",
-      "Updated message",
-      "User impact"
-     ]
-    ]
-   }
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1479503",
-   "type": "changed",
-   "title": "(Updated) Microsoft Defender for Cloud Apps: Permission changes for select App Governance Entra roles",
-   "fields": {
-    "title": [
-     "Microsoft Defender for Cloud Apps: Permission changes for select App Governance Entra roles",
-     "(Updated) Microsoft Defender for Cloud Apps: Permission changes for select App Governance Entra roles"
-    ],
-    "tags": [
-     [
-      "Admin impact",
-      "Feature update"
-     ],
-     [
-      "Admin impact",
-      "Feature update",
-      "Updated message"
-     ]
-    ],
-    "bodyHash": [
-     "886404c4edd6ca45",
-     "3305b8fb6f5bbb8c"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1483419",
-   "type": "changed",
-   "title": "Dynamics 365 Contact Center - Let representatives set next presence to handle routing of work items",
-   "fields": {
-    "end": [
-     "2026-10-30",
-     "2026-11-30"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1266912",
-   "type": "changed",
-   "title": "(Updated) Microsoft 365 Copilot: Intelligent Summaries in Copilot Dashboard",
-   "fields": {
-    "end": [
-     "2026-10-30",
-     "2026-12-31"
-    ],
-    "bodyHash": [
-     "e18c6917b51b317e",
-     "f1426b0ed02948d1"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1518030",
-   "type": "new",
-   "title": "Updated Photos experience on Windows 11",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1518032",
-   "type": "new",
-   "title": "Microsoft 365 apps: Introducing Update Repair in Inventory",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1518033",
-   "type": "new",
-   "title": "Microsoft Teams: Onboarding workflow for new team members",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1518034",
-   "type": "new",
-   "title": "Clipchamp/ Copilot 'Create a video' experience is going to have an admin control available",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-20",
-   "id": "MC1489691",
-   "type": "removed",
-   "title": "Updates available for Microsoft 365 Apps for Current Channel",
-   "fields": {}
-  },
   {
    "date": "2026-10-21",
    "id": "MC1191578",
@@ -25820,6 +25701,96 @@
    "id": "MC1188104",
    "type": "removed",
    "title": "Windows announcements from Microsoft Ignite 2025",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-20",
+   "id": "MC1518034",
+   "type": "changed",
+   "title": "(Updated) Clipchamp/ Copilot 'Create a video' experience is going to have an admin control available",
+   "fields": {
+    "title": [
+     "Clipchamp/ Copilot 'Create a video' experience is going to have an admin control available",
+     "(Updated) Clipchamp/ Copilot 'Create a video' experience is going to have an admin control available"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "ce004839cf217c39",
+     "0a455aa22bc7f2a0"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-20",
+   "id": "MC1532253",
+   "type": "changed",
+   "title": "(Updated) Enhanced Copilot and AI controls for meetings",
+   "fields": {
+    "bodyHash": [
+     "0349f72ece8e8854",
+     "e0fe5af47f7c337f"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-20",
+   "id": "MC1551151",
+   "type": "changed",
+   "title": "(Updated) Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice multi-factor authentication",
+   "fields": {
+    "title": [
+     "Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice multi-factor authentication",
+     "(Updated) Microsoft Entra ID: Risk-based anti-bot verification (CAPTCHA) for SMS and voice multi-factor authentication"
+    ],
+    "bodyHash": [
+     "abf42b2557e7a3d6",
+     "484973428bf4c6e9"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-20",
+   "id": "MC1560915",
+   "type": "new",
+   "title": "Windows 365: New features and updates, week of November 16, 2026 (Microsoft Ignite)",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-20",
+   "id": "MC1560919",
+   "type": "new",
+   "title": "Microsoft Teams mobile: Updated app bar and More menu on iOS and iPadOS",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-20",
+   "id": "MC1560920",
+   "type": "new",
+   "title": "Copilot video creation in Clipchamp Video Hub is now live in Frontier Public",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-20",
+   "id": "MC1560923",
+   "type": "new",
+   "title": "Enhanced prompt categories for Microsoft 365 Copilot in Microsoft Copilot Dashboard and Agent 365 Business Analytics",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-20",
+   "id": "MC1560924",
+   "type": "new",
+   "title": "Microsoft Teams: Tenant policy controls who can record and transcribe",
    "fields": {}
   }
  ]
