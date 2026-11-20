@@ -41,8 +41,10 @@ item_type: Content
 source_path: Purview/unified-catalog-data-assets-search.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/12ed19f9-ebdf-4c8a-8bcd-7a681836774d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a764584-4f97-452b-8f1d-36f19b12f6ae
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 platformId: cd30af3c-35df-7b94-8e4c-a38baab5ce96
 ---
 
@@ -50,7 +52,13 @@ platformId: cd30af3c-35df-7b94-8e4c-a38baab5ce96
 
 Important
 
-Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
+**Retirement of Microsoft Purview data governance capabilities only**
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. **Microsoft Purview as a whole is not being retired. Microsoft Purview data security and compliance capabilities are not affected by this announcement, and Microsoft will continue investing in them.**
+
+Microsoft is consolidating its **data governance** capabilities in Microsoft Fabric. New Microsoft Purview data governance accounts can no longer be created, and existing data governance capabilities will remain in maintenance mode through November 12, 2027.
+
+For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 After data is scanned and ingested into the Microsoft Purview Data Map, data consumers need to easily find the data they need for their analytics or governance workloads. Data discovery can be time consuming because you might not know where to find the data that you want. Even after finding the data, you might have doubts about whether you can trust the data and take a dependency on it.
 

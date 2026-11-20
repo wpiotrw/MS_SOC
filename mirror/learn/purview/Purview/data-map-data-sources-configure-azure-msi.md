@@ -54,7 +54,13 @@ platformId: 271e0940-e6aa-cc3b-2ce1-c327a3876c0a
 
 Important
 
-Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
+**Retirement of Microsoft Purview data governance capabilities only**
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. **Microsoft Purview as a whole is not being retired. Microsoft Purview data security and compliance capabilities are not affected by this announcement, and Microsoft will continue investing in them.**
+
+Microsoft is consolidating its **data governance** capabilities in Microsoft Fabric. New Microsoft Purview data governance accounts can no longer be created, and existing data governance capabilities will remain in maintenance mode through November 12, 2027.
+
+For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 To scan data sources, Microsoft Purview requires access to them. This tutorial is intended for Azure subscription owners and Microsoft Purview Data Source Administrators. It will help you identify required access and set up required authentication and network rules for Microsoft Purview across Azure data sources.
 

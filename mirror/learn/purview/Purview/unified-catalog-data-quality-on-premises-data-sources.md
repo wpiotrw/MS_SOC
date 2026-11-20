@@ -41,12 +41,8 @@ item_type: Content
 source_path: Purview/unified-catalog-data-quality-on-premises-data-sources.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/cbe4ca68-43ac-4375-aba5-5945a6394c20
-- https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://authoring-docs-microsoft.poolparty.biz/devrel/ced846cc-6a3c-4c8f-9dfb-3de0e90e2742
-- https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
 platformId: 371f0019-6ff1-75b2-5d0a-540670cc5f0e
 ---
 
@@ -54,7 +50,13 @@ platformId: 371f0019-6ff1-75b2-5d0a-540670cc5f0e
 
 Important
 
-Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
+**Retirement of Microsoft Purview data governance capabilities only**
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. **Microsoft Purview as a whole is not being retired. Microsoft Purview data security and compliance capabilities are not affected by this announcement, and Microsoft will continue investing in them.**
+
+Microsoft is consolidating its **data governance** capabilities in Microsoft Fabric. New Microsoft Purview data governance accounts can no longer be created, and existing data governance capabilities will remain in maintenance mode through November 12, 2027.
+
+For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 On-premises data source data quality refers to the ability to assess, monitor, score, and improve the quality of data that resides inside enterprise-owned infrastructure such as on-premises SQL Server and on-premises Oracle. These datasets are stored within a customer’s private network environment rather than in cloud platforms.
 

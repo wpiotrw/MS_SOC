@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/defender-cloud-apps/proxy-idp-okta",
+  "cursor": "https://learn.microsoft.com/en-us/defender-cloud-apps/protect-docusign",
   "pages": {
     "https://learn.microsoft.com/en-us/defender-cloud-apps/": {"etag":"\"ig+ljx0PeRsOP3wt4q+noVGw84E=\"","gitCommitId":"3366b00ff2b8b0886f0af4d5fa679c9a12c9be28","path":"defender-for-cloud-apps/index.md","sourcePath":"defender-for-cloud-apps/index.yml","updatedAt":"2026-06-25T17:35:00.0000000Z"},
     "https://learn.microsoft.com/en-us/defender-cloud-apps/access-policy-aad": {"etag":"\"a/ttxWGuXm/PV++7PqZImF4+mio=\"","gitCommitId":"033274c2e5ad8b9b44bd082b0be20607588640f5","path":"defender-for-cloud-apps/access-policy-aad.md","sourcePath":"defender-for-cloud-apps/access-policy-aad.md","updatedAt":"2026-08-08T07:35:00.0000000Z"},

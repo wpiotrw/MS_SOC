@@ -1098,7 +1098,7 @@ Rule conditions that work with Paste to Browser:
 Additional notes:
 
 - Paste to Browser supports SITs, not Sensitivity Labels.
-- Paste to Browser doesn't evaluate on text smaller than 30 characters.
+- Paste to Browser doesn't evaluate on text smaller than 15 characters or 30 bytes.
 - Advanced Classification isn't supported.
 - Contextual Summary doesn't show for Paste to Browser events.
 - Paste to Browser takes 2 seconds to evaluate before allowing the paste action.

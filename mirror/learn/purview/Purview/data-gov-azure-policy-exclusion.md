@@ -52,7 +52,13 @@ platformId: 6f691529-3453-1fcf-4528-3be08fc8c32b
 
 Important
 
-Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
+**Retirement of Microsoft Purview data governance capabilities only**
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. **Microsoft Purview as a whole is not being retired. Microsoft Purview data security and compliance capabilities are not affected by this announcement, and Microsoft will continue investing in them.**
+
+Microsoft is consolidating its **data governance** capabilities in Microsoft Fabric. New Microsoft Purview data governance accounts can no longer be created, and existing data governance capabilities will remain in maintenance mode through November 12, 2027.
+
+For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 Many subscriptions have [Azure Policies](/en-us/azure/governance/policy/overview) in place that restrict the creation or update of some resources. This is to maintain subscription security and cleanliness. However, Microsoft Purview accounts created before December 15, 2023 (or deployed using API version previous to 2023-05-01-preview) deployed an Azure Storage account when it was created. It's managed by Azure, so you don't need to maintain it, but it's necessary for Microsoft Purview to run correctly. Existing policies could block Microsoft Purview from updating this Azure Storage account, which can cause errors during scanning.
 

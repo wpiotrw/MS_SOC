@@ -7,7 +7,13 @@ summary: >
 
   <p>Important</p>
 
-  <p>Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the <a href="https://aka.ms/DG-Deprecation">Microsoft Purview data governance retirement announcement</a>.</p>
+  <p><strong>Retirement of Microsoft Purview data governance capabilities only</strong></p>
+
+  <p>Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. <strong>Microsoft Purview as a whole is not being retired. Microsoft Purview data security and compliance capabilities are not affected by this announcement, and Microsoft will continue investing in them.</strong></p>
+
+  <p>Microsoft is consolidating its <strong>data governance</strong> capabilities in Microsoft Fabric. New Microsoft Purview data governance accounts can no longer be created, and existing data governance capabilities will remain in maintenance mode through November 12, 2027.</p>
+
+  <p>For retirement timelines, transition guidance, and recommended next steps, see the <a href="https://aka.ms/DG-Deprecation">Microsoft Purview data governance retirement announcement</a>.</p>
 
   </div>
 
@@ -66,7 +72,13 @@ platformId: 103cf34a-b33b-6742-0d46-affa1bb1d2de
 
 Important
 
-Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
+**Retirement of Microsoft Purview data governance capabilities only**
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. **Microsoft Purview as a whole is not being retired. Microsoft Purview data security and compliance capabilities are not affected by this announcement, and Microsoft will continue investing in them.**
+
+Microsoft is consolidating its **data governance** capabilities in Microsoft Fabric. New Microsoft Purview data governance accounts can no longer be created, and existing data governance capabilities will remain in maintenance mode through November 12, 2027.
+
+For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article lists frequently asked questions about sensitivity labeling in the Microsoft Purview Data Map, with their answers and links to more information.
 

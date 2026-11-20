@@ -39,12 +39,12 @@ item_type: Content
 source_path: articles/azure-arc/servers/connect-user-assigned-managed-identity-preview.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/beac614b-f66d-40ed-a947-3996de709333
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9da05372-4706-43ec-a899-f436adab380d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 9f978f66-e48c-3879-a942-34fb300027e1
 ---
 
@@ -65,7 +65,7 @@ Before you begin, ensure you have:
 - A server that meets the [Azure Arc-enabled servers prerequisites](prerequisites).
 - Azure Connected Machine agent version **1.69 or later**. If needed, [upgrade the agent](manage-agent?tabs=windows).
 - Administrator or root access on the server to run agent commands.
-- A working TPM 2.0 on the server. The preview requires the TPM identity key store; the file-based key store isn't supported for UAMI onboarding.
+- The server must be onboarded to Azure Arc using [TPM-backed identity](tpm-backed-identity).
 - Registration of the `Microsoft.HybridCompute` resource provider, as described in [Azure resource providers](prerequisites#azure-resource-providers).
 - One or more existing [user-assigned managed identities](/en-us/entra/identity/managed-identities-azure-resources/manage-user-assigned-managed-identities-azure-portal) in the same Microsoft Entra tenant as the Arc-enabled server, and the full Azure Resource Manager resource ID of each identity.
 - The target subscription ID, resource group, Azure region, and tenant ID for onboarding.

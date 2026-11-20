@@ -40,11 +40,11 @@ monikers: []
 item_type: Content
 source_path: Purview/data-map-lineage-sql-server-integration-services.md
 cmProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/863312f2-92a9-45bd-81bf-43238667a3ae
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/863312f2-92a9-45bd-81bf-43238667a3ae
 spProducts:
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a716028-8b9a-46e4-928f-203f70c0fcfe
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a716028-8b9a-46e4-928f-203f70c0fcfe
 platformId: 8f1bffe3-706f-83b4-829d-3593f38100fc
 ---
 
@@ -52,7 +52,13 @@ platformId: 8f1bffe3-706f-83b4-829d-3593f38100fc
 
 Important
 
-Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. Microsoft is consolidating its data governance capabilities in Microsoft Fabric. You can no longer create new accounts, and existing capabilities will remain in maintenance mode through November 12, 2027. For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
+**Retirement of Microsoft Purview data governance capabilities only**
+
+Microsoft Purview Unified Catalog and classic Microsoft Purview data governance capabilities (formerly Azure Purview) are being retired. **Microsoft Purview as a whole is not being retired. Microsoft Purview data security and compliance capabilities are not affected by this announcement, and Microsoft will continue investing in them.**
+
+Microsoft is consolidating its **data governance** capabilities in Microsoft Fabric. New Microsoft Purview data governance accounts can no longer be created, and existing data governance capabilities will remain in maintenance mode through November 12, 2027.
+
+For retirement timelines, transition guidance, and recommended next steps, see the [Microsoft Purview data governance retirement announcement](https://aka.ms/DG-Deprecation).
 
 This article elaborates on the data lineage aspects of SQL Server Integration Services (SSIS) in Microsoft Purview.
 

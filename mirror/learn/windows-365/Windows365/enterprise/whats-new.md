@@ -60,6 +60,10 @@ For more information about public preview items, see [Public preview in Windows 
 
 ## Week of November 16, 2026
 
+### Resultant Set of Policies (RSOP) in Monitor Cloud PCs (Public Preview)
+
+Resultant Set of Policies (RSOP) is now available in public preview in Monitor Cloud PCs. RSOP shows IT administrators the effective redirection setting that applies to a connection and the corresponding policies that set it. This will allow admins to determine why a redirection was allowed or blocked. The initial release covers clipboard, drive and storage, printer, and USB redirection settings.
+
 ### Direct Stream: the cloud streaming technology powering Windows 365
 
 Direct Stream is the cloud streaming technology powering Windows 365, reflecting capabilities that have evolved beyond the traditional Remote Desktop Protocol (RDP). Direct Stream brings together multi-year investment of innovation in connection reliability, speed, transport security, and in-session performance to make a Cloud PC feel like a local PC, including capabilities like [multipath](/en-us/windows-365/enterprise/rdp-multipath?tabs=azure), [fast reconnect](/en-us/windows-365/enterprise/fast-reconnect), [TURN relays](https://techcommunity.microsoft.com/blog/windows-itpro-blog/relayed-rdp-shortpath-for-public-networks-now-available/4249502), and [graphic encoding](/en-us/azure/virtual-desktop/graphics-encoding).

@@ -24,7 +24,7 @@ ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Build a container image and deploy a hosted agent with Terraform and AzAPI. Separate shared Foundry infrastructure from agent releases and verify readiness.
 ms.manager: mcleans
-ms.date: 2026-09-23T00:00:00.0000000Z
+ms.date: 2026-11-04T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
 ms.custom: dev-focus, doc-kit-assisted
@@ -313,7 +313,10 @@ resource "azapi_data_plane_resource" "hosted_agent" {
 
     precondition {
       condition = contains(
-        ["0.5:1Gi", "1:2Gi", "2:4Gi"], "${var.cpu}:${var.memory}"
+        [
+          "0.5:1Gi", "1:2Gi", "2:4Gi",
+          "4:8Gi", "8:16Gi", "16:32Gi"
+        ], "${var.cpu}:${var.memory}"
       )
       error_message = "Choose a supported CPU and memory pair."
     }
