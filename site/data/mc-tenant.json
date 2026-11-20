@@ -1,7 +1,7 @@
 {
  "read": "2026-11-20",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 745,
+ "count": 740,
  "note": null,
  "messages": [
   {
@@ -11609,33 +11609,6 @@
    "bodyHash": "f4c91dcffc21f731"
   },
   {
-   "id": "MC1478956",
-   "title": "Microsoft Windows Autopatch: enhancements to update approval control and management capabilities",
-   "services": [
-    "Microsoft Intune",
-    "Windows Autopatch"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-24",
-   "end": "2026-11-20",
-   "modified": "2026-09-24",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "What and why: Windows Autopatch is expanding to provide a streamlined experience for managing Windows quality updates, supported .NET Framework updates, and quick machine recovery updates. These capabilities give you more control over update approvals and rollout timing, along with device-level reporting to monitor approved releases, deployments, and remediation status. Rollout schedule: Rollout b…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Rollout schedule: Rollout begins September 1, 2026, and is expected to reach all tenants by October 15, 2026."
-   ],
-   "bodyHash": "e2efbb592be9327d"
-  },
-  {
    "id": "MC1478957",
    "title": "Microsoft 365 profile card: View dotted-line managers in the organization panel",
    "services": [
@@ -12682,33 +12655,6 @@
    "bodyHash": "f5f26bbdc7b4b8d7"
   },
   {
-   "id": "MC1486295",
-   "title": "(Updated) Microsoft OneDrive and SharePoint: Generate smart tables of contents for PDFs on the web with Copilot",
-   "services": [
-    "Microsoft OneDrive",
-    "SharePoint Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-02",
-   "end": "2026-11-20",
-   "modified": "2026-11-13",
-   "tags": [
-    "New feature",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated November 13, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. [What and Why:] We are introducing Smart Table of Contents (Smart TOC) in the Microsoft OneDrive and SharePoint PDF viewer on the web for users with a Microsoft 365 Copilot license. When a PDF does not already contain a table of contents, users can ask Copilot to genera…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated November 13, 2026: We have decided not to move forward with this change at this time."
-   ],
-   "bodyHash": "6da540be9b03c205"
-  },
-  {
    "id": "MC1486397",
    "title": "An updated version of the September 2026 Scan Cab is available",
    "services": [
@@ -12875,32 +12821,6 @@
     "General Availability (Worldwide): Beginning in early December 2026 (previously mid-November) and expected to be complete by mid-December 2026 (previously late November)."
    ],
    "bodyHash": "7229e1899386aaf1"
-  },
-  {
-   "id": "MC1489931",
-   "title": "Microsoft 365 Backup: Activity Logs",
-   "services": [
-    "Microsoft 365 suite"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-06",
-   "end": "2026-11-20",
-   "modified": "2026-10-06",
-   "tags": [
-    "Feature update",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] We're introducing activity logs in Microsoft 365 Backup to help administrators monitor backup policy and restore activities directly within the product. Activity logs provide greater visibility into configuration changes, restore progress, failures, and operational status without requiring administrators to leave the Microsoft 365 Backup experience. [Rollout schedule] General Availa…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Rollout begins in mid-October 2026 and is expected to complete by mid-October 2026."
-   ],
-   "bodyHash": "2013e548c61c5498"
   },
   {
    "id": "MC1489942",
@@ -13305,58 +13225,6 @@
     "General Availability (Worldwide): Beginning in early October 2026 and expected to complete by late January 2027."
    ],
    "bodyHash": "f7a4afa5e9e3e301"
-  },
-  {
-   "id": "MC1492164",
-   "title": "Microsoft PowerPoint for Mac: Improved slide contextual menu consistency",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-08",
-   "end": "2026-11-20",
-   "modified": "2026-10-08",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and why] We are updating the contextual menu for slides in Microsoft PowerPoint for Mac to make it more complete and consistent. Common slide actions will be available directly where users are working and organized in a more predictable order, helping users find frequent tasks faster. This update introduces several changes: Due to low usage, the Zoom... command will be removed from the conte…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Rollout begins in early October 2026 and is expected to complete by mid-October 2026."
-   ],
-   "bodyHash": "4963b77faf42357c"
-  },
-  {
-   "id": "MC1492165",
-   "title": "Microsoft PowerPoint for Windows: Improved slide contextual menu consistency",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-08",
-   "end": "2026-11-20",
-   "modified": "2026-10-08",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and why] We are updating the contextual menu for slides in Microsoft PowerPoint for Windows to make it more complete and consistent. Common slide actions will be available directly where users are working and organized in a more predictable order, helping users find frequent tasks faster. As part of this update, due to low usage, the Photo Album... command will be removed from the contextual…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Rollout begins in early October 2026 and is expected to complete by mid-October 2026."
-   ],
-   "bodyHash": "5680c7e828993241"
   },
   {
    "id": "MC1492166",
@@ -25791,6 +25659,41 @@
    "id": "MC1560924",
    "type": "new",
    "title": "Microsoft Teams: Tenant policy controls who can record and transcribe",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-20",
+   "id": "MC1478956",
+   "type": "removed",
+   "title": "Microsoft Windows Autopatch: enhancements to update approval control and management capabilities",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-20",
+   "id": "MC1486295",
+   "type": "removed",
+   "title": "(Updated) Microsoft OneDrive and SharePoint: Generate smart tables of contents for PDFs on the web with Copilot",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-20",
+   "id": "MC1489931",
+   "type": "removed",
+   "title": "Microsoft 365 Backup: Activity Logs",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-20",
+   "id": "MC1492164",
+   "type": "removed",
+   "title": "Microsoft PowerPoint for Mac: Improved slide contextual menu consistency",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-20",
+   "id": "MC1492165",
+   "type": "removed",
+   "title": "Microsoft PowerPoint for Windows: Improved slide contextual menu consistency",
    "fields": {}
   }
  ]
