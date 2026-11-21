@@ -1,7 +1,7 @@
 {
  "read": "2026-11-21",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 743,
+ "count": 742,
  "note": null,
  "messages": [
   {
@@ -14920,30 +14920,6 @@
    "bodyHash": "bd64acc043266478"
   },
   {
-   "id": "MC1519846",
-   "title": "Microsoft 365 apps: Updated Brand Kit management experience",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-21",
-   "end": "2026-11-21",
-   "modified": "2026-10-21",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and why] Microsoft is updating the Brand Kit management experience to make it easier for Brand Managers to set up and maintain their organization’s Brand Kits. The updated experience provides clearer setup guidance, streamlined management of brand assets, and improved workflows as an organization’s brand evolves. This reduces the time and effort required to bring approved brand assets togeth…",
-   "when": null,
-   "prepare": null,
-   "dates": [],
-   "bodyHash": "a6a109b4b8c0a152"
-  },
-  {
    "id": "MC1519855",
    "title": "(Updated) Microsoft Entra: Choose your own telephony provider now generally available",
    "services": [
@@ -25713,6 +25689,13 @@
    "id": "MC1188558",
    "type": "removed",
    "title": "Take Action: Out-of-band update to address November 2025 hotpatch update being reoffered after Windows update scan",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-21",
+   "id": "MC1519846",
+   "type": "removed",
+   "title": "Microsoft 365 apps: Updated Brand Kit management experience",
    "fields": {}
   }
  ]
