@@ -1,0 +1,15 @@
+// title: Devices that contacted the Optimizely payload hosts since 16 November 2026
+// date: 2026-11-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Threat Research: Optimizely Web Experimentation supply-chain attack: malicious Project JavaScript served from cdn.optimizely.com to 178 organisations
+// source: https://socket.dev/blog/optimizely-supply-chain-attack
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Indicators from Socket's analysis (18 Nov 2026). Columns as on the DeviceNetworkEvents reference.
+DeviceNetworkEvents
+| where Timestamp > datetime(2026-11-16)
+| where RemoteUrl has_any ("1688360.cc", "5vobauua3ojpklx.icu")
+| project Timestamp, DeviceName, InitiatingProcessFileName, RemoteUrl, RemoteIP
+| order by Timestamp desc

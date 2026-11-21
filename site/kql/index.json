@@ -1,15 +1,17 @@
 [
  {
-  "file": "2026-11-21-ntlm-logons-from-new-account-device-pairs.kql",
-  "title": "NTLM resource access to domain controllers from accounts and devices not seen before, last 7 days, after the pass-the-hash classic alert retires",
+  "file": "incidents/2026-11-21-devices-that-contacted-the-optimizely-payload-hosts-since.kql",
+  "title": "Devices that contacted the Optimizely payload hosts since 16 November 2026",
   "date": "2026-11-21",
-  "product": "MDI",
+  "product": "Defender for Endpoint",
   "tables": [
-   "IdentityLogonEvents"
+   "DeviceNetworkEvents"
   ],
-  "purpose": "Builds a 30-day baseline of account-device pairs from IdentityLogonEvents and returns NTLM logons of the last 7 days whose pair is absent from it, with the destination device. Not run against a tenant in this pass.",
-  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identitylogonevents-table",
-  "kind": "brief"
+  "purpose": "Threat Research: Optimizely Web Experimentation supply-chain attack: malicious Project JavaScript served from cdn.optimizely.com to 178 organisations",
+  "source": "https://socket.dev/blog/optimizely-supply-chain-attack",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "optimizely-web-experimentation-supply-chain-2026-11"
  },
  {
   "file": "2026-11-21-remote-execution-on-domain-controllers.kql",
@@ -22,6 +24,18 @@
   ],
   "purpose": "Takes the domain controllers Defender for Identity sees as logon destinations, then lists command interpreters and script hosts those servers started under services.exe or WmiPrvSE.exe. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceprocessevents-table",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-21-ntlm-logons-from-new-account-device-pairs.kql",
+  "title": "NTLM resource access to domain controllers from accounts and devices not seen before, last 7 days, after the pass-the-hash classic alert retires",
+  "date": "2026-11-21",
+  "product": "MDI",
+  "tables": [
+   "IdentityLogonEvents"
+  ],
+  "purpose": "Builds a 30-day baseline of account-device pairs from IdentityLogonEvents and returns NTLM logons of the last 7 days whose pair is absent from it, with the destination device. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identitylogonevents-table",
   "kind": "brief"
  },
  {
@@ -120,7 +134,10 @@
   ],
   "purpose": "Lists Teams admin actions that touched a meeting policy, by actor and by the policy parameters named in the raw event, so a change to recording, transcription or meeting AI settings is attributable. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-21"
+  ]
  },
  {
   "file": "2026-11-20-sms-and-voice-mfa-failures-by-ip-and-result.kql",
@@ -132,7 +149,10 @@
   ],
   "purpose": "Expands the authentication steps of each sign-in, keeps SMS and voice steps, and counts failures with their result detail per day and IP address, so a proxy or filter blocking the verification shows as one IP with many failing users. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-21"
+  ]
  },
  {
   "file": "2026-11-20-agent-identities-created-by-copilot-studio.kql",
@@ -144,7 +164,10 @@
   ],
   "purpose": "Directory audit records of service principal or agent identity creation where the initiating application or the target name points to Power Platform, Dataverse or Copilot Studio, with who or what initiated them. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-21"
+  ]
  },
  {
   "file": "articles/2026-11-19-detection-5-optimjack-unexpected-script-file-modification-in.kql",
@@ -231,7 +254,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azureactivity",
   "kind": "brief",
   "reused": [
-   "2026-11-20"
+   "2026-11-20",
+   "2026-11-21"
   ]
  },
  {
@@ -246,7 +270,8 @@
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicelogonevents-table",
   "kind": "brief",
   "reused": [
-   "2026-11-20"
+   "2026-11-20",
+   "2026-11-21"
   ]
  },
  {
@@ -261,7 +286,8 @@
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailevents-table",
   "kind": "brief",
   "reused": [
-   "2026-11-20"
+   "2026-11-20",
+   "2026-11-21"
   ]
  },
  {
@@ -485,7 +511,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-19",
-   "2026-11-20"
+   "2026-11-20",
+   "2026-11-21"
   ]
  },
  {
@@ -501,7 +528,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-19",
-   "2026-11-20"
+   "2026-11-20",
+   "2026-11-21"
   ]
  },
  {
@@ -517,7 +545,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-19",
-   "2026-11-20"
+   "2026-11-20",
+   "2026-11-21"
   ]
  },
  {
@@ -533,7 +562,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-19",
-   "2026-11-20"
+   "2026-11-20",
+   "2026-11-21"
   ]
  },
  {
@@ -36418,7 +36448,8 @@
    "2026-09-13",
    "2026-11-18",
    "2026-11-19",
-   "2026-11-20"
+   "2026-11-20",
+   "2026-11-21"
   ],
   "kind": "brief"
  },

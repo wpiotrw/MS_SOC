@@ -2221,6 +2221,14 @@
 "date":"2026-11-19",
 "group":"community",
 "found":"2026-11-19"
+},
+"https://office365itpros.com/2026/11/19/new-memberof-operator/?utm_source=rss&utm_medium=rss&utm_campaign=new-memberof-operator":{
+"title":"Entra ID Launches New MemberOf Operator for Dynamic Membership Groups",
+"link":"https://office365itpros.com/2026/11/19/new-memberof-operator/?utm_source=rss&utm_medium=rss&utm_campaign=new-memberof-operator",
+"source":"Office 365 IT Pros",
+"date":"2026-11-19",
+"group":"community",
+"found":"2026-11-21"
 }
 },
 "final":"2027-03-31",
@@ -5214,14 +5222,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-18",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-19",
 "text":"August 1, 2026."
 },
@@ -5319,6 +5319,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-20",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-21",
 "text":"August 1, 2026."
 },
 {
@@ -5612,6 +5620,14 @@
 "date":"2026-11-11",
 "group":"community",
 "found":"2026-11-11"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=581800":{
+"title":"Dynamics 365 Finance: B2B electronic invoicing in Spain",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=581800",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-20",
+"group":"community",
+"found":"2026-11-21"
 }
 },
 "final":"2026-11-30",
@@ -5796,22 +5812,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-19",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-19",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-20",
 "text":"early February 2026."
 },
@@ -5917,6 +5917,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-20",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-21",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-21",
 "text":"February 2027."
 },
 {
@@ -7382,6 +7398,15 @@
 ],
 "log":[
 {
+"date":"2026-11-20",
+"id":"MC1540327",
+"what":"Microsoft revised the post",
+"before":"2026-11-05",
+"after":"2026-11-20",
+"title":"Action required: users who cannot use passkeys need another MFA method before Microsoft-provided SMS and voice retire, from 1 February 2027 (Global Administrators and external users from 1 July 2027)",
+"link":"https://mc.merill.net/message/MC1540327"
+},
+{
 "date":"2026-11-13",
 "id":"MC1540327",
 "what":"Entered the brief (Deadlines)",
@@ -8603,6 +8628,22 @@
 "date":"2026-11-19",
 "group":"community",
 "found":"2026-11-20"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=581776":{
+"title":"Dynamics 365 Human Resources: Ask HR - conversational HR self-service grounded in your own worker record",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=581776",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-20",
+"group":"community",
+"found":"2026-11-21"
+},
+"https://daily.entra.news/day/2026-11-20/":{
+"title":"Entra sets 2027 SMS and voice MFA retirement dates for users without passkey support — 20 November 2026",
+"link":"https://daily.entra.news/day/2026-11-20/",
+"source":"Daily Entra News",
+"date":"2026-11-20",
+"group":"community",
+"found":"2026-11-21"
 }
 },
 "final":"2027-07-01",
@@ -8624,9 +8665,7 @@
 "status":"Active",
 "members":[
 "MC1221452",
-"item:MC1221452",
 "MC1282568",
-"item:MC1282568",
 "MC1423108",
 "MC1426371",
 "item:MC1426371",
@@ -8643,6 +8682,15 @@
 "item:MC1545694"
 ],
 "log":[
+{
+"date":"2026-11-20",
+"id":"MC1545694",
+"what":"Microsoft revised the post",
+"before":"2026-11-09",
+"after":"2026-11-20",
+"title":"My Sign-ins changes how users register a passkey in Microsoft Authenticator, with a WebAuthn fallback link",
+"link":"https://deltapulse.app/item/MC1545694"
+},
 {
 "date":"2026-11-20",
 "id":"MC1545694",
@@ -8739,8 +8787,8 @@
 "what":"Message Center end date",
 "before":"2026-11-30",
 "after":"2027-07-02",
-"title":"Entra passkeys on Windows: GA for GCC High and DoD slips to February 2027, Airgap clouds May 2027",
-"link":"https://deltapulse.app/item/MC1282568"
+"title":"General Availability: Microsoft Entra passkeys on Windows",
+"link":"https://mc.merill.net/message/MC1282568"
 },
 {
 "date":"2026-10-31",
@@ -8748,8 +8796,8 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
-"title":"Entra passkeys on Windows: GA for GCC High and DoD slips to February 2027, Airgap clouds May 2027",
-"link":"https://deltapulse.app/item/MC1282568"
+"title":"General Availability: Microsoft Entra passkeys on Windows",
+"link":"https://mc.merill.net/message/MC1282568"
 },
 {
 "date":"2026-10-31",
@@ -8757,8 +8805,8 @@
 "what":"Message Center end date",
 "before":"2026-11-30",
 "after":"2027-07-02",
-"title":"Passkey profiles: automatic migration for GCC High and DoD slips to February 2027 and for USNat/USSec to May 2027; worldwide and GCC unchanged",
-"link":"https://deltapulse.app/item/MC1221452"
+"title":"(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
+"link":"https://mc.merill.net/message/MC1221452"
 },
 {
 "date":"2026-10-31",
@@ -8766,8 +8814,8 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
-"title":"Passkey profiles: automatic migration for GCC High and DoD slips to February 2027 and for USNat/USSec to May 2027; worldwide and GCC unchanged",
-"link":"https://deltapulse.app/item/MC1221452"
+"title":"(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
+"link":"https://mc.merill.net/message/MC1221452"
 },
 {
 "date":"2026-10-30",
@@ -8775,8 +8823,8 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the timeline.",
-"title":"Passkey profiles: automatic migration for GCC High and DoD slips to February 2027 and for USNat/USSec to May 2027; worldwide and GCC unchanged",
-"link":"https://deltapulse.app/item/MC1221452"
+"title":"(Update)Microsoft Entra ID: General Availability of passkey profiles and migration for existing Passkeys (FIDO2) tenants",
+"link":"https://mc.merill.net/message/MC1221452"
 },
 {
 "date":"2026-10-27",
@@ -9355,22 +9403,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-19",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-19",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-20",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -9476,6 +9508,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-20",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-21",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-21",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10134,6 +10182,22 @@
 "date":"2026-11-17",
 "group":"microsoft",
 "found":"2026-11-17"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=581800":{
+"title":"Dynamics 365 Finance: B2B electronic invoicing in Spain",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=581800",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-20",
+"group":"community",
+"found":"2026-11-21"
+},
+"https://daily.entra.news/day/2026-11-20/":{
+"title":"Entra sets 2027 SMS and voice MFA retirement dates for users without passkey support — 20 November 2026",
+"link":"https://daily.entra.news/day/2026-11-20/",
+"source":"Daily Entra News",
+"date":"2026-11-20",
+"group":"community",
+"found":"2026-11-21"
 }
 },
 "final":"2027-11-15",
@@ -20237,6 +20301,66 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-21",
+"cid":"c-mc1488834",
+"type":"material",
+"name":"MemberOf rule operator retires",
+"group":"community",
+"title":"Entra ID Launches New MemberOf Operator for Dynamic Membership Groups",
+"source":"Office 365 IT Pros",
+"link":"https://office365itpros.com/2026/11/19/new-memberof-operator/?utm_source=rss&utm_medium=rss&utm_campaign=new-memberof-operator"
+},
+{
+"day":"2026-11-21",
+"cid":"c-mc1243549",
+"type":"material",
+"name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"group":"community",
+"title":"Dynamics 365 Finance: B2B electronic invoicing in Spain",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=581800"
+},
+{
+"day":"2026-11-21",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Dynamics 365 Human Resources: Ask HR - conversational HR self-service grounded in your own worker record",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=581776"
+},
+{
+"day":"2026-11-21",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Entra sets 2027 SMS and voice MFA retirement dates for users without passkey support — 20 November 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-11-20/"
+},
+{
+"day":"2026-11-21",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Dynamics 365 Finance: B2B electronic invoicing in Spain",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=581800"
+},
+{
+"day":"2026-11-21",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"Entra sets 2027 SMS and voice MFA retirement dates for users without passkey support — 20 November 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-11-20/"
 }
 ],
 "archive":{
