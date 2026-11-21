@@ -19,7 +19,7 @@ learn_banner_products:
 - azure-virtual-machines
 manager: rayoflores
 ms.reviewer: mattmcinnes
-ms.author: mattmcinnes
+ms.author: prkazasr
 ms.update-cycle: 365-days
 ms.service: azure-virtual-machines
 description: Detailed information on how to configure and use scheduled events in an Event Grid system topic.

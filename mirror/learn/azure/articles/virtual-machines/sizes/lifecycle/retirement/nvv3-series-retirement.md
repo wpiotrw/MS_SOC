@@ -19,12 +19,12 @@ learn_banner_products:
 - azure-virtual-machines
 manager: rayoflores
 ms.reviewer: mattmcinnes
-ms.author: yangnicole
+ms.author: abelw
 ms.update-cycle: 1095-days
 description: 'This article contains the details of the NVv3-series retirement. '
 ms.service: azure-virtual-machines
 ms.topic: how-to
-ms.date: 2025-06-13T00:00:00.0000000Z
+ms.date: 2026-11-20T00:00:00.0000000Z
 locale: en-us
 document_id: 6497d14d-b5e1-9dc2-7627-6b697d6b636e
 document_version_independent_id: 8133f047-2880-b7a7-3cd1-4e82fb2ff850
@@ -48,6 +48,8 @@ platformId: f43aa265-2ff9-a765-853b-587e86891455
 ---
 
 # NVv3 series retirement - Azure Virtual Machines | Microsoft Learn
+
+This article explains the retirement timeline for Azure NVv3-series virtual machines, including the UAE North extension, and provides guidance on replacement VM series and resizing your VMs.
 
 Note
 

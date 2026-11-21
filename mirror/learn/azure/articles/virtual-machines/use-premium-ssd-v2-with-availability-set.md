@@ -19,7 +19,7 @@ learn_banner_products:
 - azure-virtual-machines
 manager: rayoflores
 ms.reviewer: wwilliams
-ms.author: rogarana
+ms.author: prkazasr
 ms.update-cycle: 365-days
 ms.service: azure-disk-storage
 description: Learn how to deploy Premium SSD v2 disks with VMs in an availability set.

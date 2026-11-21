@@ -20,6 +20,7 @@ learn_banner_products:
 - azure
 ms.author: kenieva
 ms.service: azure-policy
+ms.reviewer: kgremban
 description: Learn how to monitor the health and performance of Azure Service Groups using Azure Monitor within the Azure portal.
 ms.topic: how-to
 ms.date: 2026-06-04T00:00:00.0000000Z
@@ -39,10 +40,8 @@ item_type: Content
 source_path: articles/governance/service-groups/monitoring.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 platformId: d93b08ab-099b-fe10-fce4-cf24474bc59d
 ---
 

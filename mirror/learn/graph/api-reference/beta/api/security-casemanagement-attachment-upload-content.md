@@ -42,8 +42,10 @@ item_type: Content
 source_path: api-reference/beta/api/security-casemanagement-attachment-upload-content.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: bd62bfd3-ad74-e8df-09f6-e205bd3b46dd
 ---
 
@@ -58,6 +60,8 @@ APIs under the `/beta` version in Microsoft Graph are subject to change. Use of 
 Upload binary content for an [attachment](resources/security-casemanagement-attachment). Create the attachment metadata first by using [Create case attachment](security-casemanagement-case-post-attachments).
 
 The maximum file size is 100 MB. Upload files in chunks of no more than 1 MB. For files larger than 1 MB, send one PUT request for each chunk until all byte ranges are uploaded.
+
+## API availability
 
 This API is available in the following [national cloud deployments](/en-us/graph/deployments).
 

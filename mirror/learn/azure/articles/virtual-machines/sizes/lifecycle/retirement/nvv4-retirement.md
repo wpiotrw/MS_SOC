@@ -19,12 +19,12 @@ learn_banner_products:
 - azure-virtual-machines
 manager: rayoflores
 ms.reviewer: mattmcinnes
-ms.author: yangnicole
+ms.author: abelw
 ms.update-cycle: 1095-days
 description: 'This article contains the details of the NVv4-series retirement. '
 ms.service: azure-virtual-machines
 ms.topic: how-to
-ms.date: 2025-06-13T00:00:00.0000000Z
+ms.date: 2026-11-20T00:00:00.0000000Z
 locale: en-us
 document_id: 472621ce-bde1-edb8-7628-7b159c13611e
 document_version_independent_id: 53c38d5f-1f2d-50a9-e35b-b3820965cb45
@@ -48,6 +48,8 @@ platformId: 59bcbc90-6683-11cd-e72f-95c90af695bb
 ---
 
 # NVv4 series retirement - Azure Virtual Machines | Microsoft Learn
+
+Azure NVv4-series virtual machines retired on September 30, 2026. This article explains how the retirement affects you, recommends replacement VM series, and provides steps to resize your VMs.
 
 Note
 

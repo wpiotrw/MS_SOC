@@ -20,6 +20,7 @@ learn_banner_products:
 - azure
 ms.author: kgremban
 ms.service: azure-policy
+ms.reviewer: kgremban
 description: Learn how to generate an Azure Policy definition with Azure Copilot, review the policy rule, and simulate its behavior before assigning it.
 ms.date: 2026-11-10T00:00:00.0000000Z
 ms.topic: how-to

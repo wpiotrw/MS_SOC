@@ -54,6 +54,8 @@ Namespace: microsoft.graph
 
 Compute the tenant-wide data protection policies and actions, including user/group scoping.
 
+## API availability
+
 This API is available in the following [national cloud deployments](/en-us/graph/deployments).
 
 | Global service | US Government L4 | US Government L5 (DOD) | China operated by 21Vianet |

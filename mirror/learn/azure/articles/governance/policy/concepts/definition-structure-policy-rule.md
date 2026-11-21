@@ -20,6 +20,7 @@ learn_banner_products:
 - azure
 ms.author: kgremban
 ms.service: azure-policy
+ms.reviewer: kgremban
 description: Describes how policy definition policy rules are used to establish conventions for Azure resources in your organization.
 ms.date: 2026-10-20T00:00:00.0000000Z
 ms.topic: concept-article

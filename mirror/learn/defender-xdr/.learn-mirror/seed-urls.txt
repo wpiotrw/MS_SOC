@@ -20,6 +20,7 @@ https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceevents-tab
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicelogonevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicenetworkevents-table
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceprocessevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicetvmsoftwarevulnerabilities-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-disruptionandresponseevents-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-emailattachmentinfo-table

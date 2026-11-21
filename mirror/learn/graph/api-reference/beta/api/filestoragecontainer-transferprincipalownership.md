@@ -61,6 +61,8 @@ Transfer the principal ownership of a user-owned [fileStorageContainer](resource
 
 This action is restricted to enterprise (non-MSA) tenants and user-owned containers only. The caller must be a tenant administrator with either the Global Administrator or SharePoint Embedded Administrator role.
 
+## API availability
+
 This API is available in the following [national cloud deployments](/en-us/graph/deployments).
 
 | Global service | US Government L4 | US Government L5 (DOD) | China operated by 21Vianet |

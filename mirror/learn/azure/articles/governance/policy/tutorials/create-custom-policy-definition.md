@@ -20,6 +20,7 @@ learn_banner_products:
 - azure
 ms.author: kgremban
 ms.service: azure-policy
+ms.reviewer: kgremban
 description: In this tutorial, you craft a custom policy definition for Azure Policy to enforce custom business rules on your Azure resources.
 ms.date: 2025-03-04T00:00:00.0000000Z
 ms.topic: tutorial

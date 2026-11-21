@@ -14,12 +14,12 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: Padmalathas
+author: jvenka
 learn_banner_products:
 - azure-virtual-machines
 manager: rayoflores
 ms.reviewer: wwilliams
-ms.author: padmalathas
+ms.author: jvenkatesh
 ms.update-cycle: 1095-days
 description: Learn about troubleshooting known issues with HPC and GPU virtual machine (VM) sizes in Azure.
 ms.service: azure-virtual-machines

@@ -14,18 +14,18 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: mattmcinnes
+author: kaza-sriram
 learn_banner_products:
 - azure-virtual-machines
 manager: rayoflores
-ms.reviewer: mattmcinnes
-ms.author: mattmcinnes
+ms.reviewer: wwilliams
+ms.author: prkazasr
 ms.update-cycle: 365-days
 ms.service: azure-virtual-machines
 description: How to use the Portal to deploy Spot Virtual Machines
 ms.subservice: azure-spot-vm
 ms.topic: how-to
-ms.date: 2026-11-06T00:00:00.0000000Z
+ms.date: 2026-02-28T00:00:00.0000000Z
 locale: en-us
 document_id: a898e9f6-fbea-5053-ced3-43e9becf8d06
 document_version_independent_id: 8103753d-6476-c75f-765e-d70e33a98cff

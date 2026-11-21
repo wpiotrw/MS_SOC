@@ -20,6 +20,7 @@ learn_banner_products:
 - azure
 ms.author: kenieva
 ms.service: azure-policy
+ms.reviewer: kgremban
 description: In this quickstart, you use REST API to create a service group to organize your resources.
 ms.topic: quickstart
 ms.date: 2025-05-19T00:00:00.0000000Z

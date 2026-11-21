@@ -42,8 +42,10 @@ item_type: Content
 source_path: api-reference/v1.0/api/accessreviewstage-acceptrecommendations.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: d7d7e7ed-0030-b246-d2f5-fedf6cf23ceb
 ---
 
@@ -54,6 +56,8 @@ Namespace: microsoft.graph
 Accept the recommendations on all [accessReviewInstanceDecisionItem](resources/accessreviewinstancedecisionitem) objects that haven't been reviewed within a single [accessReviewStage](resources/accessreviewstage) of a multi-stage [accessReviewInstance](resources/accessreviewinstance). Recommendations are generated if **recommendationsEnabled** is `true` on the [accessReviewScheduleDefinition](resources/accessreviewscheduledefinition) object. If there's no recommendation on an [accessReviewInstanceDecisionItem](resources/accessreviewinstancedecisionitem) object, no decision is recorded.
 
 This action accepts recommendations for the decisions in a specific stage only, unlike [accessReviewInstance: acceptRecommendations](accessreviewinstance-acceptrecommendations), which operates across the entire instance.
+
+## API availability
 
 This API is available in the following [national cloud deployments](/en-us/graph/deployments).
 

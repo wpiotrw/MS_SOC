@@ -63,6 +63,8 @@ Note
 
 A case supports a maximum of 100 comments.
 
+## API availability
+
 This API is available in the following [national cloud deployments](/en-us/graph/deployments).
 
 | Global service | US Government L4 | US Government L5 (DOD) | China operated by 21Vianet |

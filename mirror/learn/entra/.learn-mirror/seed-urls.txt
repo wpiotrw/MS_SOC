@@ -53,6 +53,7 @@ https://learn.microsoft.com/en-us/entra/external-id/customers/samples-ciam-all
 https://learn.microsoft.com/en-us/entra/external-id/direct-federation
 https://learn.microsoft.com/en-us/entra/external-id/tenant-restrictions-v2
 https://learn.microsoft.com/en-us/entra/external-id/whats-new-docs
+https://learn.microsoft.com/en-us/entra/fun
 https://learn.microsoft.com/en-us/entra/fundamentals/agent-id/what-is-microsoft-entra-agent-id
 https://learn.microsoft.com/en-us/entra/fundamentals/backup/overview
 https://learn.microsoft.com/en-us/entra/fundamentals/concept-license-usage-insights

@@ -14,12 +14,12 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: iamwilliew
+author: kaza-sriram
 learn_banner_products:
 - azure-virtual-machines
 manager: rayoflores
 ms.reviewer: wwilliams
-ms.author: wwilliams
+ms.author: prkazasr
 ms.update-cycle: 180-days
 ms.service: azure-virtual-machines
 description: Use the Azure portal Virtual Machine creation flow cost card to estimate the final cost of your Virtual Machine.

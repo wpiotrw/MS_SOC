@@ -19,7 +19,7 @@ learn_banner_products:
 - azure-virtual-machines
 manager: rayoflores
 ms.reviewer: wwilliams
-ms.author: padmalathas
+ms.author: prkazasr
 ms.update-cycle: 365-days
 description: How to set up AMD Radeon PRO V710 NVv5 Linux Installation Guide.
 services: virtual-machines

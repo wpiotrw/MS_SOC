@@ -42,8 +42,12 @@ item_type: Content
 source_path: api-reference/v1.0/api/security-alert-movealerts.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f769bf00-f89e-4c24-8f5f-d0170c0a71cb
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1577a46d-8446-40bd-bfae-0578362f4d94
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/faddc47a-29dc-46f7-b30f-81d9d6c05fa0
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/cdf3f22d-5420-4d59-a2bf-66d6b3d9c828
 platformId: 545653c1-449f-363b-9f00-3dcd6f10aa38
 ---
 
@@ -52,6 +56,8 @@ platformId: 545653c1-449f-363b-9f00-3dcd6f10aa38
 Namespace: microsoft.graph.security
 
 Move one or more [alert](resources/security-alert) resources to a new or existing [incident](resources/security-incident).
+
+## API availability
 
 This API is available in the following [national cloud deployments](/en-us/graph/deployments).
 

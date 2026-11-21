@@ -14,12 +14,12 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: mattmcinnes
+author: kaza-sriram
 learn_banner_products:
 - azure-virtual-machines
 manager: rayoflores
-ms.reviewer: mattmcinnes
-ms.author: mattmcinnes
+ms.reviewer: wwilliams
+ms.author: prkazasr
 ms.update-cycle: 365-days
 description: Learn how to use Azure PowerShell to deploy Azure Spot Virtual Machines to save on costs.
 ms.service: azure-virtual-machines

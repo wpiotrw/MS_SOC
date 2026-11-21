@@ -18,7 +18,7 @@ manager: bpardi
 feedback_system: Standard
 feedback_product_url: https://support.microsoft.com/windows/send-feedback-to-microsoft-with-the-feedback-hub-app-f59187f8-8739-22d6-ba93-f66612949332
 description: Learn more about the Update Area in Policy CSP.
-ms.date: 2026-10-14T00:00:00.0000000Z
+ms.date: 2026-11-20T00:00:00.0000000Z
 locale: en-us
 document_id: 91ca58bd-f279-7739-0140-c4bd56784768
 document_version_independent_id: 1d2ecc90-58a3-6bcd-84ae-ef04d7a3b7b4
@@ -55,9 +55,6 @@ This CSP contains some settings that are under development and only applicable f
 Update CSP policies are listed below based on the group policy area:
 
 - Windows Insider Preview
-    - MaintenanceWindowDailyInterval
-    - MaintenanceWindowMonthlyInterval
-    - MaintenanceWindowWeeklyInterval
     - SetMaxPauseDays
 - Other policies
     - IgnoreWindowsUpdateGroupPolicies
@@ -116,6 +113,27 @@ Update CSP policies are listed below based on the group policy area:
     - SetDisableUXWUAccess
     - SetEDURestart
     - UpdateNotificationLevel
+- Manage updates with maintenance windows
+    - MaintenanceWindowDurationHours
+    - MaintenanceWindowEnabled
+    - MaintenanceWindowMonthlyMonthBasedDayOfMonth
+    - MaintenanceWindowMonthlySchedule
+    - MaintenanceWindowMonthlyWeekBasedDayOfTheWeek
+    - MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth
+    - MaintenanceWindowRepeatScheduleOption
+    - MaintenanceWindowStartDate
+    - MaintenanceWindowStartTime
+    - MaintenanceWindowUpdateActions
+    - MaintenanceWindowWeeklyFriday
+    - MaintenanceWindowWeeklyMonday
+    - MaintenanceWindowWeeklySaturday
+    - MaintenanceWindowWeeklySunday
+    - MaintenanceWindowWeeklyThursday
+    - MaintenanceWindowWeeklyTuesday
+    - MaintenanceWindowWeeklyWednesday
+    - MaintenanceWindowDailyInterval
+    - MaintenanceWindowMonthlyInterval
+    - MaintenanceWindowWeeklyInterval
 - Legacy Policies
     - AlwaysAutoRebootAtScheduledTimeMinutes
     - AutoRestartDeadlinePeriodInDays
@@ -140,113 +158,8 @@ Update CSP policies are listed below based on the group policy area:
     - ScheduleImminentRestartWarning
     - ScheduleRestartWarning
     - SetAutoRestartNotificationDisable
-- Windows Update
-    - MaintenanceWindowDurationHours
-    - MaintenanceWindowEnabled
-    - MaintenanceWindowMonthlyMonthBasedDayOfMonth
-    - MaintenanceWindowMonthlySchedule
-    - MaintenanceWindowMonthlyWeekBasedDayOfTheWeek
-    - MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth
-    - MaintenanceWindowRepeatScheduleOption
-    - MaintenanceWindowStartDate
-    - MaintenanceWindowStartTime
-    - MaintenanceWindowUpdateActions
-    - MaintenanceWindowWeeklyFriday
-    - MaintenanceWindowWeeklyMonday
-    - MaintenanceWindowWeeklySaturday
-    - MaintenanceWindowWeeklySunday
-    - MaintenanceWindowWeeklyThursday
-    - MaintenanceWindowWeeklyTuesday
-    - MaintenanceWindowWeeklyWednesday
 
 ## Windows Insider Preview
-
-### MaintenanceWindowDailyInterval
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows Insider Preview |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowDailyInterval
-```
-
-Specifies the repeat interval in days for daily maintenance window schedule.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Allowed Values | Range: `[1-90]` |
-| Default Value | 1 |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowDailyInterval |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowDailyInterval |
-
-### MaintenanceWindowMonthlyInterval
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows Insider Preview |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowMonthlyInterval
-```
-
-Specifies the repeat interval in months for monthly maintenance window schedule.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Allowed Values | Range: `[1-3]` |
-| Default Value | 1 |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowMonthlyInterval |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowMonthlyInterval |
-
-### MaintenanceWindowWeeklyInterval
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows Insider Preview |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklyInterval
-```
-
-Specifies the repeat interval in weeks for weekly maintenance window schedule.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Allowed Values | Range: `[1-12]` |
-| Default Value | 1 |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowWeeklyInterval |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowWeeklyInterval |
 
 ### SetMaxPauseDays
 
@@ -2561,6 +2474,674 @@ If you select "Apply only during active hours" in conjunction with Option 1 or 2
 | Registry Value Name | SetUpdateNotificationLevel |
 | ADMX File Name | WindowsUpdate.admx |
 
+## Manage updates with maintenance windows
+
+### MaintenanceWindowDurationHours
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowDurationHours
+```
+
+Configure the duration of the maintenance window in hours. Minimum value is 2, maximum value is 24.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Allowed Values | Range: `[2-24]` |
+| Default Value | 2 |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowDurationHours |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowDurationHours |
+
+### MaintenanceWindowEnabled
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowEnabled
+```
+
+Specifies whether maintenance window is enabled.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Default Value | 0 |
+
+**Allowed values**:
+
+| Value | Description |
+| --- | --- |
+| 0 (Default) | Disable. |
+| 1 | Enable. |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowEnabled |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowEnabled |
+
+### MaintenanceWindowMonthlyMonthBasedDayOfMonth
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowMonthlyMonthBasedDayOfMonth
+```
+
+If the maintenance window repeat schedule is set to monthly, and set to repeat on the same date each month, configure the day of the month to repeat maintenance window occurrence (for example, 2 = repeat on the 2nd day of the month). Maximum value is 28.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Allowed Values | Range: `[1-28]` |
+| Default Value | 1 |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowMonthlyMonthBasedDayOfMonth |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowMonthlyMonthBasedDayOfMonth |
+
+### MaintenanceWindowMonthlySchedule
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowMonthlySchedule
+```
+
+If the maintenance window repeat schedule is set to monthly, configure whether to repeat on the same date each month (the 1st of every month), a day within a specific week (for example, the second Tuesday of every month), or on the last day of each month. 1=repeat on same date each month, 2=repeat on a day of a specific week, 3=repeat on the last day of each month.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Default Value | 1 |
+
+**Allowed values**:
+
+| Value | Description |
+| --- | --- |
+| 1 (Default) | Date-based. |
+| 2 | Week-based. |
+| 3 | Last day of the month. |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowMonthlySchedule |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowMonthlySchedule |
+
+### MaintenanceWindowMonthlyWeekBasedDayOfTheWeek
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowMonthlyWeekBasedDayOfTheWeek
+```
+
+If the maintenance window repeat schedule is set to monthly, and set to repeat on the a specific day of a specific week, configure the specific day of the week to repeat maintenance window occurrence: 1=Sunday, 2=Monday, 3=Tuesday, 4=Wednesday, 5=Thursday, 6=Friday, 7=Saturday.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Default Value | 1 |
+
+**Allowed values**:
+
+| Value | Description |
+| --- | --- |
+| 1 (Default) | Sunday. |
+| 2 | Monday. |
+| 3 | Tuesday. |
+| 4 | Wednesday. |
+| 5 | Thursday. |
+| 6 | Friday. |
+| 7 | Saturday. |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowMonthlyWeekBasedDayOfTheWeek |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowMonthlyWeekBasedDayOfTheWeek |
+
+### MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth
+```
+
+If the maintenance window repeat schedule is set to monthly, and set to repeat on the a specific day of a specific week, configure the specific week to repeat maintenance window occurrence. 1=first week, 2=second week, 3=third week, 4=fourth week, 5=last week.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Default Value | 1 |
+
+**Allowed values**:
+
+| Value | Description |
+| --- | --- |
+| 1 (Default) | First. |
+| 2 | Second. |
+| 3 | Third. |
+| 4 | Fourth. |
+| 5 | Last. |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth |
+
+### MaintenanceWindowRepeatScheduleOption
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowRepeatScheduleOption
+```
+
+Configure whether and how often the maintenance window repeats, 1=no repeat, 2=daily, 3=weekly, 4=monthly. Daily/weekly/monthly schedule will be repeated every day/week/month.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Default Value | 1 |
+
+**Allowed values**:
+
+| Value | Description |
+| --- | --- |
+| 1 (Default) | No repeat. |
+| 2 | Daily. |
+| 3 | Weekly. |
+| 4 | Monthly. |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowRepeatScheduleOption |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowRepeatScheduleOption |
+
+### MaintenanceWindowStartDate
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowStartDate
+```
+
+Configure the start date for the maintenance window in the format of YYYY-MM-DD (for example, 2025-12-16). This field will only be honored for a non-repeating maintenance window. Repeating maintenance windows will start on the earliest date that meets the configured schedule.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `chr` (string) |
+| Access Type | Add, Delete, Get, Replace |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowStartDate |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowStartDate |
+
+### MaintenanceWindowStartTime
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowStartTime
+```
+
+Configure the start time for the maintenance window in HH:MM format (for example, 23:30).
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `chr` (string) |
+| Access Type | Add, Delete, Get, Replace |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowStartTime |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowStartTime |
+
+### MaintenanceWindowUpdateActions
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowUpdateActions
+```
+
+Specifies which update operations are allowed only during the maintenance window, 1 = Download, install and restart, 2 = Install and restart, 3 = Restart only.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Default Value | 1 |
+
+**Allowed values**:
+
+| Value | Description |
+| --- | --- |
+| 1 (Default) | Download, install and restart. |
+| 2 | Install and restart. |
+| 3 | Restart only. |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowUpdateActions |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowUpdateActions |
+
+### MaintenanceWindowWeeklyFriday
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklyFriday
+```
+
+If the maintenance window repeat schedule is set to weekly, configure whether Friday is included in the weekly schedule.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Default Value | 0 |
+
+**Allowed values**:
+
+| Value | Description |
+| --- | --- |
+| 0 (Default) | Disable. |
+| 1 | Enable. |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowWeeklyFriday |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowWeeklyFriday |
+
+### MaintenanceWindowWeeklyMonday
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklyMonday
+```
+
+If the maintenance window repeat schedule is set to weekly, configure whether Monday is included in the weekly schedule.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Default Value | 0 |
+
+**Allowed values**:
+
+| Value | Description |
+| --- | --- |
+| 0 (Default) | Disable. |
+| 1 | Enable. |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowWeeklyMonday |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowWeeklyMonday |
+
+### MaintenanceWindowWeeklySaturday
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklySaturday
+```
+
+If the maintenance window repeat schedule is set to weekly, configure whether Saturday is included in the weekly schedule.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Default Value | 0 |
+
+**Allowed values**:
+
+| Value | Description |
+| --- | --- |
+| 0 (Default) | Disable. |
+| 1 | Enable. |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowWeeklySaturday |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowWeeklySaturday |
+
+### MaintenanceWindowWeeklySunday
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklySunday
+```
+
+If the maintenance window repeat schedule is set to weekly, configure whether Sunday is included in the weekly schedule.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Default Value | 0 |
+
+**Allowed values**:
+
+| Value | Description |
+| --- | --- |
+| 0 (Default) | Disable. |
+| 1 | Enable. |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowWeeklySunday |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowWeeklySunday |
+
+### MaintenanceWindowWeeklyThursday
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklyThursday
+```
+
+If the maintenance window repeat schedule is set to weekly, configure whether Thursday is included in the weekly schedule.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Default Value | 0 |
+
+**Allowed values**:
+
+| Value | Description |
+| --- | --- |
+| 0 (Default) | Disable. |
+| 1 | Enable. |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowWeeklyThursday |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowWeeklyThursday |
+
+### MaintenanceWindowWeeklyTuesday
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklyTuesday
+```
+
+If the maintenance window repeat schedule is set to weekly, configure whether Tuesday is included in the weekly schedule.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Default Value | 0 |
+
+**Allowed values**:
+
+| Value | Description |
+| --- | --- |
+| 0 (Default) | Disable. |
+| 1 | Enable. |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowWeeklyTuesday |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowWeeklyTuesday |
+
+### MaintenanceWindowWeeklyWednesday
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklyWednesday
+```
+
+If the maintenance window repeat schedule is set to weekly, configure whether Wednesday is included in the weekly schedule.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Default Value | 0 |
+
+**Allowed values**:
+
+| Value | Description |
+| --- | --- |
+| 0 (Default) | Disable. |
+| 1 | Enable. |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowWeeklyWednesday |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowWeeklyWednesday |
+
+### MaintenanceWindowDailyInterval
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows Insider Preview |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowDailyInterval
+```
+
+Specifies the repeat interval in days for daily maintenance window schedule.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Allowed Values | Range: `[1-90]` |
+| Default Value | 1 |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowDailyInterval |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowDailyInterval |
+
+### MaintenanceWindowMonthlyInterval
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows Insider Preview |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowMonthlyInterval
+```
+
+Specifies the repeat interval in months for monthly maintenance window schedule.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Allowed Values | Range: `[1-3]` |
+| Default Value | 1 |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowMonthlyInterval |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowMonthlyInterval |
+
+### MaintenanceWindowWeeklyInterval
+
+| Scope | Editions | Applicable OS |
+| --- | --- | --- |
+| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows Insider Preview |
+
+```Device
+./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklyInterval
+```
+
+Specifies the repeat interval in weeks for weekly maintenance window schedule.
+
+**Description framework properties**:
+
+| Property name | Property value |
+| --- | --- |
+| Format | `int` |
+| Access Type | Add, Delete, Get, Replace |
+| Allowed Values | Range: `[1-12]` |
+| Default Value | 1 |
+
+**Group policy mapping**:
+
+| Name | Value |
+| --- | --- |
+| Name | MaintenanceWindowWeeklyInterval |
+| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
+| Element Name | MaintenanceWindowWeeklyInterval |
+
 ## Legacy Policies
 
 ### AlwaysAutoRebootAtScheduledTimeMinutes
@@ -3637,584 +4218,3 @@ If you disable or don't configure this policy, the default notification behavior
 | Path | Windows Components &gt; Windows Update &gt; Legacy Policies |
 | Registry Key Name | Software\Policies\Microsoft\Windows\WindowsUpdate |
 | ADMX File Name | WindowsUpdate.admx |
-
-## Windows Update
-
-### MaintenanceWindowDurationHours
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowDurationHours
-```
-
-Configure the duration of the maintenance window in hours. Minimum value is 2, maximum value is 24.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Allowed Values | Range: `[2-24]` |
-| Default Value | 2 |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowDurationHours |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowDurationHours |
-
-### MaintenanceWindowEnabled
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowEnabled
-```
-
-Specifies whether maintenance window is enabled.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Default Value | 0 |
-
-**Allowed values**:
-
-| Value | Description |
-| --- | --- |
-| 0 (Default) | Disable. |
-| 1 | Enable. |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowEnabled |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowEnabled |
-
-### MaintenanceWindowMonthlyMonthBasedDayOfMonth
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowMonthlyMonthBasedDayOfMonth
-```
-
-If the maintenance window repeat schedule is set to monthly, and set to repeat on the same date each month, configure the day of the month to repeat maintenance window occurrence (for example, 2 = repeat on the 2nd day of the month). Maximum value is 28.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Allowed Values | Range: `[1-28]` |
-| Default Value | 1 |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowMonthlyMonthBasedDayOfMonth |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowMonthlyMonthBasedDayOfMonth |
-
-### MaintenanceWindowMonthlySchedule
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowMonthlySchedule
-```
-
-If the maintenance window repeat schedule is set to monthly, configure whether to repeat on the same date each month (the 1st of every month), a day within a specific week (for example, the second Tuesday of every month), or on the last day of each month. 1=repeat on same date each month, 2=repeat on a day of a specific week, 3=repeat on the last day of each month.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Default Value | 1 |
-
-**Allowed values**:
-
-| Value | Description |
-| --- | --- |
-| 1 (Default) | Date-based. |
-| 2 | Week-based. |
-| 3 | Last day of the month. |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowMonthlySchedule |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowMonthlySchedule |
-
-### MaintenanceWindowMonthlyWeekBasedDayOfTheWeek
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowMonthlyWeekBasedDayOfTheWeek
-```
-
-If the maintenance window repeat schedule is set to monthly, and set to repeat on the a specific day of a specific week, configure the specific day of the week to repeat maintenance window occurrence: 1=Sunday, 2=Monday, 3=Tuesday, 4=Wednesday, 5=Thursday, 6=Friday, 7=Saturday.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Default Value | 1 |
-
-**Allowed values**:
-
-| Value | Description |
-| --- | --- |
-| 1 (Default) | Sunday. |
-| 2 | Monday. |
-| 3 | Tuesday. |
-| 4 | Wednesday. |
-| 5 | Thursday. |
-| 6 | Friday. |
-| 7 | Saturday. |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowMonthlyWeekBasedDayOfTheWeek |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowMonthlyWeekBasedDayOfTheWeek |
-
-### MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth
-```
-
-If the maintenance window repeat schedule is set to monthly, and set to repeat on the a specific day of a specific week, configure the specific week to repeat maintenance window occurrence. 1=first week, 2=second week, 3=third week, 4=fourth week, 5=last week.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Default Value | 1 |
-
-**Allowed values**:
-
-| Value | Description |
-| --- | --- |
-| 1 (Default) | First. |
-| 2 | Second. |
-| 3 | Third. |
-| 4 | Fourth. |
-| 5 | Last. |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowMonthlyWeekBasedOccurrenceInMonth |
-
-### MaintenanceWindowRepeatScheduleOption
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowRepeatScheduleOption
-```
-
-Configure whether and how often the maintenance window repeats, 1=no repeat, 2=daily, 3=weekly, 4=monthly. Daily/weekly/monthly schedule will be repeated every day/week/month.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Default Value | 1 |
-
-**Allowed values**:
-
-| Value | Description |
-| --- | --- |
-| 1 (Default) | No repeat. |
-| 2 | Daily. |
-| 3 | Weekly. |
-| 4 | Monthly. |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowRepeatScheduleOption |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowRepeatScheduleOption |
-
-### MaintenanceWindowStartDate
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowStartDate
-```
-
-Configure the start date for the maintenance window in the format of YYYY-MM-DD (for example, 2025-12-16). This field will only be honored for a non-repeating maintenance window. Repeating maintenance windows will start on the earliest date that meets the configured schedule.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `chr` (string) |
-| Access Type | Add, Delete, Get, Replace |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowStartDate |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowStartDate |
-
-### MaintenanceWindowStartTime
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowStartTime
-```
-
-Configure the start time for the maintenance window in HH:MM format (for example, 23:30).
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `chr` (string) |
-| Access Type | Add, Delete, Get, Replace |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowStartTime |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowStartTime |
-
-### MaintenanceWindowUpdateActions
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowUpdateActions
-```
-
-Specifies which update operations are allowed only during the maintenance window, 1 = Download, install and restart, 2 = Install and restart, 3 = Restart only.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Default Value | 1 |
-
-**Allowed values**:
-
-| Value | Description |
-| --- | --- |
-| 1 (Default) | Download, install and restart. |
-| 2 | Install and restart. |
-| 3 | Restart only. |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowUpdateActions |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowUpdateActions |
-
-### MaintenanceWindowWeeklyFriday
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklyFriday
-```
-
-If the maintenance window repeat schedule is set to weekly, configure whether Friday is included in the weekly schedule.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Default Value | 0 |
-
-**Allowed values**:
-
-| Value | Description |
-| --- | --- |
-| 0 (Default) | Disable. |
-| 1 | Enable. |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowWeeklyFriday |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowWeeklyFriday |
-
-### MaintenanceWindowWeeklyMonday
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklyMonday
-```
-
-If the maintenance window repeat schedule is set to weekly, configure whether Monday is included in the weekly schedule.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Default Value | 0 |
-
-**Allowed values**:
-
-| Value | Description |
-| --- | --- |
-| 0 (Default) | Disable. |
-| 1 | Enable. |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowWeeklyMonday |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowWeeklyMonday |
-
-### MaintenanceWindowWeeklySaturday
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklySaturday
-```
-
-If the maintenance window repeat schedule is set to weekly, configure whether Saturday is included in the weekly schedule.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Default Value | 0 |
-
-**Allowed values**:
-
-| Value | Description |
-| --- | --- |
-| 0 (Default) | Disable. |
-| 1 | Enable. |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowWeeklySaturday |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowWeeklySaturday |
-
-### MaintenanceWindowWeeklySunday
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklySunday
-```
-
-If the maintenance window repeat schedule is set to weekly, configure whether Sunday is included in the weekly schedule.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Default Value | 0 |
-
-**Allowed values**:
-
-| Value | Description |
-| --- | --- |
-| 0 (Default) | Disable. |
-| 1 | Enable. |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowWeeklySunday |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowWeeklySunday |
-
-### MaintenanceWindowWeeklyThursday
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklyThursday
-```
-
-If the maintenance window repeat schedule is set to weekly, configure whether Thursday is included in the weekly schedule.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Default Value | 0 |
-
-**Allowed values**:
-
-| Value | Description |
-| --- | --- |
-| 0 (Default) | Disable. |
-| 1 | Enable. |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowWeeklyThursday |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowWeeklyThursday |
-
-### MaintenanceWindowWeeklyTuesday
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklyTuesday
-```
-
-If the maintenance window repeat schedule is set to weekly, configure whether Tuesday is included in the weekly schedule.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Default Value | 0 |
-
-**Allowed values**:
-
-| Value | Description |
-| --- | --- |
-| 0 (Default) | Disable. |
-| 1 | Enable. |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowWeeklyTuesday |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowWeeklyTuesday |
-
-### MaintenanceWindowWeeklyWednesday
-
-| Scope | Editions | Applicable OS |
-| --- | --- | --- |
-| ✅ Device  ❌ User | ✅ Pro  ✅ Enterprise  ✅ Education  ✅ IoT Enterprise / IoT Enterprise LTSC | ✅ Windows 11, version 24H2 with [KB5077181](https://support.microsoft.com/help/5077181) [10.0.26100.7840] and later |
-
-```Device
-./Device/Vendor/MSFT/Policy/Config/Update/MaintenanceWindowWeeklyWednesday
-```
-
-If the maintenance window repeat schedule is set to weekly, configure whether Wednesday is included in the weekly schedule.
-
-**Description framework properties**:
-
-| Property name | Property value |
-| --- | --- |
-| Format | `int` |
-| Access Type | Add, Delete, Get, Replace |
-| Default Value | 0 |
-
-**Allowed values**:
-
-| Value | Description |
-| --- | --- |
-| 0 (Default) | Disable. |
-| 1 | Enable. |
-
-**Group policy mapping**:
-
-| Name | Value |
-| --- | --- |
-| Name | MaintenanceWindowWeeklyWednesday |
-| Path | WindowsUpdate &gt; AT &gt; WindowsComponents &gt; WindowsUpdateCat |
-| Element Name | MaintenanceWindowWeeklyWednesday |

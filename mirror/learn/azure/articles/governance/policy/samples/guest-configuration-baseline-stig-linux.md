@@ -20,6 +20,7 @@ learn_banner_products:
 - azure
 ms.author: pallakatos
 ms.service: azure-policy
+ms.reviewer: kgremban
 description: Supported DISA STIG Linux benchmarks and release history for Machine Configuration.
 ms.date: 2026-10-22T00:00:00.0000000Z
 ms.topic: reference

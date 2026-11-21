@@ -20,6 +20,7 @@ learn_banner_products:
 - azure
 ms.author: kgremban
 ms.service: azure-policy
+ms.reviewer: kgremban
 description: Learn how to assign Azure Baseline Security Mode in the Azure portal, review included policies, and check initial compliance before enrolling resources.
 ms.date: 2026-11-10T00:00:00.0000000Z
 ms.topic: tutorial

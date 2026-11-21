@@ -20,6 +20,7 @@ learn_banner_products:
 - azure
 ms.author: kenieva
 ms.service: azure-policy
+ms.reviewer: kgremban
 description: Learn how to use and manage resources with Service Groups.
 ms.topic: overview
 ms.date: 2025-05-19T00:00:00.0000000Z

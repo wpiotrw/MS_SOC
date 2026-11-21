@@ -54,6 +54,8 @@ Namespace: microsoft.graph
 
 Process [content](resources/processcontentrequest) against data protection policies in the context of the current, or specified, user.
 
+## API availability
+
 This API is available in the following [national cloud deployments](/en-us/graph/deployments).
 
 | Global service | US Government L4 | US Government L5 (DOD) | China operated by 21Vianet |

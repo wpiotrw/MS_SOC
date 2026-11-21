@@ -20,6 +20,7 @@ learn_banner_products:
 - azure
 ms.author: nehakulkarni
 ms.service: azure-policy
+ms.reviewer: kgremban
 description: Learn how to gather audit events or enforce MFA enforcement on your environment
 ms.date: 2026-11-18T00:00:00.0000000Z
 ms.topic: how-to

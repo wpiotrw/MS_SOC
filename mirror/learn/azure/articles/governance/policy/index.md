@@ -16,6 +16,7 @@ recommendation_types:
 uhfHeaderId: azure
 ms.suite: office
 adobe-target: true
+ms.reviewer: kgremban
 description: Azure Policy helps you manage and prevent IT issues with policy definitions that enforce rules and effects for your resources.
 ms.service: azure-policy
 ms.topic: landing-page

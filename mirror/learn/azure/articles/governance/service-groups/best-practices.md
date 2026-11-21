@@ -20,6 +20,7 @@ learn_banner_products:
 - azure
 ms.author: kenieva
 ms.service: azure-policy
+ms.reviewer: kgremban
 description: Learn recommended practices for adopting Azure Service Groups, including how to divide responsibilities between a central platform team and application teams, and the benefits of a shared service-centric model.
 ms.topic: how-to
 ms.date: 2026-11-04T00:00:00.0000000Z

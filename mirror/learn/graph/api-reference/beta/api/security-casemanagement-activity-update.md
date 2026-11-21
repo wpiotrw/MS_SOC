@@ -63,6 +63,8 @@ Important
 
 You can't use this API to update comment activities for [incidentCase](resources/security-casemanagement-incidentcase) objects.
 
+## API availability
+
 This API is available in the following [national cloud deployments](/en-us/graph/deployments).
 
 | Global service | US Government L4 | US Government L5 (DOD) | China operated by 21Vianet |

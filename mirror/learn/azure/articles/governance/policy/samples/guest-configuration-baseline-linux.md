@@ -20,6 +20,7 @@ learn_banner_products:
 - azure
 ms.author: pallakatos
 ms.service: azure-policy
+ms.reviewer: kgremban
 description: Details of the Linux baseline on Azure implemented through Azure Policy guest configuration.
 ms.date: 2025-06-16T00:00:00.0000000Z
 ms.topic: reference
@@ -39,13 +40,9 @@ monikers: []
 item_type: Content
 source_path: articles/governance/policy/samples/guest-configuration-baseline-linux.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/eea02214-631d-404a-92d1-5a3357c32a26
-- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/f42c31d7-eed9-43b7-9757-54caffb53cdc
-- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 4037135f-cb62-7685-305d-c6abb4143eb6
 ---
 

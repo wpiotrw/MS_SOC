@@ -42,8 +42,12 @@ item_type: Content
 source_path: api-reference/v1.0/api/security-incident-mergeincidents.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f769bf00-f89e-4c24-8f5f-d0170c0a71cb
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/faddc47a-29dc-46f7-b30f-81d9d6c05fa0
 platformId: e183aefa-1208-d3bb-fd6e-3294a1d5a627
 ---
 
@@ -52,6 +56,8 @@ platformId: e183aefa-1208-d3bb-fd6e-3294a1d5a627
 Namespace: microsoft.graph.security
 
 Merge multiple [incident](resources/security-incident) resources into a single incident.
+
+## API availability
 
 This API is available in the following [national cloud deployments](/en-us/graph/deployments).
 

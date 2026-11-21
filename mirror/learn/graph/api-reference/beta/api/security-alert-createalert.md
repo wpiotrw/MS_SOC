@@ -42,8 +42,12 @@ item_type: Content
 source_path: api-reference/beta/api/security-alert-createalert.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 platformId: 33bb65b4-aab3-00e6-fdf9-013e9b977cfc
 ---
 
@@ -56,6 +60,8 @@ Important
 APIs under the `/beta` version in Microsoft Graph are subject to change. Use of these APIs in production applications is not supported. To determine whether an API is available in v1.0, use the **Version** selector.
 
 Create a Microsoft 365 Defender alert by invoking a bound action on the `alerts_v2` collection and returning the created [alert](resources/security-alert) resource. The action accepts a [createAlertInput](resources/security-createalertinput) complex type that combines alert metadata and creation-specific options in one request object.
+
+## API availability
 
 This API is available in the following [national cloud deployments](/en-us/graph/deployments).
 

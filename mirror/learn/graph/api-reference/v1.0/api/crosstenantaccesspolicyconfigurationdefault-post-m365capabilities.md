@@ -42,9 +42,13 @@ monikers:
 item_type: Content
 source_path: api-reference/v1.0/api/crosstenantaccesspolicyconfigurationdefault-post-m365capabilities.md
 cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
+- https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
 spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
 platformId: 7f04ee90-f4d3-bb57-9907-e0f3f2037e89
 ---
 
@@ -53,6 +57,8 @@ platformId: 7f04ee90-f4d3-bb57-9907-e0f3f2037e89
 Namespace: microsoft.graph
 
 Create a new Microsoft 365 cross-tenant capability for the [default cross-tenant access policy](resources/crosstenantaccesspolicyconfigurationdefault). The **@odata.type** property in the request body is required to specify which type of capability to create.
+
+## API availability
 
 This API is available in the following [national cloud deployments](/en-us/graph/deployments).
 

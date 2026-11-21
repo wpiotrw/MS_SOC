@@ -14,12 +14,12 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: iamwilliew
+author: chiefabel7
 learn_banner_products:
 - azure-virtual-machines
 manager: rayoflores
 ms.reviewer: mattmcinnes
-ms.author: wwilliams
+ms.author: abelw
 ms.update-cycle: 1095-days
 description: Information on and specifications of the ND GB200-v6-series sizes
 ms.service: azure-virtual-machines

@@ -18,7 +18,7 @@ author: officedocspr5
 ms.author: odocspr
 description: Learn how Administrator protection protects users with just-in-time administrator privileges and helps prevent unauthorized system changes.
 ms.topic: overview
-ms.date: 2026-10-13T00:00:00.0000000Z
+ms.date: 2026-11-20T00:00:00.0000000Z
 ms.custom: app_security, app_driver_control
 locale: en-us
 document_id: c82e95b5-28a0-6277-228c-34e0c9e32d08
@@ -136,11 +136,11 @@ To disable the feature change the setting of "User Account Control: Configure ty
 # [Windows Security](#tab/security)
 Note
 
-This option is currently available in Windows Insider Program as a preview. It will be rolled out to everyone gradually.
+We are gradually introducing this new experience in Settings. The updated experience will appear on your device over the next few months.
 
 ![Screenshot of the Windows Security app showing how to enable administrator protection.](images/security-app-admin-protection.png)
 
-You can enable Administrator protection on your device by going to the Account protection section in the Windows Security app and turning on the toggle.
+You can enable Administrator protection on your device by going to the Account protection section in the Windows Security settings and turning on the toggle.
 
 1. Select the Start button, search for Windows Security, and launch the **Windows Security** app.
 2. Select Account Protection, then locate the Administrator protection settings.
@@ -206,10 +206,13 @@ Note
     - Enabled: Domain users in the local Administrators group perform remote logons with elevated privileges, matching traditional UAC behavior.
 
     For more granular control, use the [User Account Control: Allow remote logon with elevated privileges for specified domain users and groups when Administrator protection is enabled](/en-us/windows/client-management/mdm/policy-csp-localpoliciessecurityoptions#useraccountcontrol_allowremotelogonwithelevatedprivilegesforspecifieddomainusersandgroupswhenadministratorprotectionisenabled) policy to grant elevated remote logons only to designated domain users or groups while keeping others non-elevated.
-- [Non-admin RDP logons fail with error 0xC000000D on devices with Administrator protection enabled after installing KB5124010](/en-us/windows/release-health/status-windows-11-26h2#5031msgdesc). Workaround: Turn off Administrator protection on impacted devices by resetting the User Account Control Type of Admin Approval Mode policy via Intune or Group Policy.
-- Administrator protection
-- A few applications don't show the launch icon in the start menu after installation. This issue is fixed with [KB5124010](https://support.microsoft.com/en-us/servicing/os/windows-11/2026/09/kb5124010-windows-11-24h2-25h2-update). If the issue persists, you will need to navigate manually to installation location: `AppData\Roaming\Microsoft\Windows\Start Menu\Programs\<App name>`
 - When apps run elevated with administrator protection, Single Sign-On (SSO) credentials from the standard session aren't available to the elevated session. Any domain or cloud authentication must be re-established within that elevated session.
-- Network Drives/Resources Inaccessible from elevated apps. Install it in user context to enable network credential prompts. If it's essential to install an application as elevated, copy installation files to a local drive before elevating.
+- Network drives and resources: Elevated apps can't reach network drives, shares or other domain resources that were mapped or signed into from the un-elevated session. We are working to improve this expereicne. The workaround for this:
+
+    o Installation: Install in user context where possible. That way the normal network credential prompts still appear. If the app has to be installed elevated, copy the installation files to a local drive before elevating.
+
+    o Running an installed app: If the app runs from a script, open an elevated terminal and access the share with net use. Then run the script or open the drive from that same terminal. The mapping only lasts for that elevated session, so you'll need to run net use again each time you elevate.
+- A few applications don't show the launch icon in the start menu after installation. This issue is fixed with [KB5124010](https://support.microsoft.com/en-us/servicing/os/windows-11/2026/09/kb5124010-windows-11-24h2-25h2-update). If the issue persists, you will need to navigate manually to installation location: `AppData\Roaming\Microsoft\Windows\Start Menu\Programs\<App name>`
 - Some apps using Edge extensions may request elevated permissions even when launched normally. This is fixed with [KB5124010](https://support.microsoft.com/en-us/servicing/os/windows-11/2026/09/kb5124010-windows-11-24h2-25h2-update). If the issue persists, you will need to disable Administrator protection.
+- [Non-admin RDP logons fail with error 0xC000000D on devices with Administrator protection enabled after installing KB5124010](/en-us/windows/release-health/status-windows-11-26h2#5031msgdesc). Resolved with [KB5127936](https://support.microsoft.com/en-us/servicing/os/windows-11/2026/10/kb5127936-windows-11-25h2-26h2-update).
 - If updating any of your applications is blocked, try downloading the update as elevated and then install it. If this fails, temporarily disable Administrator protection.

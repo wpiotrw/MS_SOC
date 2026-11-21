@@ -20,6 +20,7 @@ learn_banner_products:
 - azure
 ms.author: kgremban
 ms.service: azure-policy
+ms.reviewer: kgremban
 description: Describes how Azure Policy definition basics are used to establish conventions for Azure resources in your organization.
 ms.date: 2025-03-04T00:00:00.0000000Z
 ms.topic: concept-article

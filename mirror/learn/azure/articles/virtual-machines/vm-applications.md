@@ -14,7 +14,7 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: iamwilliew
+author: kaza-sriram
 learn_banner_products:
 - azure-virtual-machines
 manager: rayoflores

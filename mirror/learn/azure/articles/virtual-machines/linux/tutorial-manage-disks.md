@@ -14,12 +14,12 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: roygara
+author: kaza-sriram
 learn_banner_products:
 - azure-virtual-machines
 manager: rayoflores
 ms.reviewer: wwilliams
-ms.author: rogarana
+ms.author: prkazasr
 ms.update-cycle: 365-days
 description: In this tutorial, you learn how to use the Azure CLI to create and manage Azure disks for virtual machines
 ms.service: azure-disk-storage

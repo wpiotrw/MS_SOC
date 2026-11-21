@@ -16,6 +16,7 @@ recommendation_types:
 uhfHeaderId: azure
 ms.suite: office
 adobe-target: true
+ms.reviewer: kgremban
 description: Learn how to create flexible resource groupings across subscriptions using Azure Service Groups. Build custom views for teams, projects, and workloads with minimal permissions.
 ms.service: azure-policy
 ms.topic: landing-page

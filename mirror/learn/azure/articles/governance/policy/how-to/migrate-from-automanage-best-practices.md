@@ -20,6 +20,7 @@ learn_banner_products:
 - azure
 ms.author: kgremban
 ms.service: azure-policy
+ms.reviewer: kgremban
 description: This article provides process and technical guidance for customers interested in moving from Azure Automanage Best Practices to Azure Policy.
 ms.date: 2025-03-04T00:00:00.0000000Z
 ms.topic: how-to

@@ -122,6 +122,7 @@ https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-collector-api
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aadserviceprincipalsigninlogs
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/aaduserriskevents
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs
+https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azfwnetworkrule
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azureactivity
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs
 https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs
@@ -170,6 +171,7 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/direct-ea
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/elevate-access-global-admin
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/mca-online-ea-transfer
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/mca-request-billing-ownership
+https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/mca-section-invoice
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/mca-setup-account
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/microsoft-entra-id-free
 https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/subscription-transfer
@@ -471,6 +473,7 @@ https://learn.microsoft.com/en-us/azure/governance/policy/samples/stig-linux/ubu
 https://learn.microsoft.com/en-us/azure/governance/policy/tutorials/assign-absm
 https://learn.microsoft.com/en-us/azure/governance/policy/tutorials/create-custom-policy-definition
 https://learn.microsoft.com/en-us/azure/governance/policy/tutorials/mfa-enforcement
+https://learn.microsoft.com/en-us/azure/governance/policy/tutorials/policy-devops-pipelines
 https://learn.microsoft.com/en-us/azure/governance/resource-graph
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/changes/resource-graph-changes
 https://learn.microsoft.com/en-us/azure/governance/resource-graph/changes/view-resource-changes
@@ -658,6 +661,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared-enable
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-understand-billing
 https://learn.microsoft.com/en-us/azure/virtual-machines/estimated-vm-create-cost-card
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/chef
+https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/hpccompute-gpu-linux
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/key-vault-linux
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/salt-minion
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/vmaccess-linux
@@ -674,6 +678,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/linux/expand-disks
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/n-series-driver-setup
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/scheduled-events
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/spot-cli
+https://learn.microsoft.com/en-us/azure/virtual-machines/linux/spot-template
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/tutorial-disaster-recovery
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/tutorial-manage-disks
 https://learn.microsoft.com/en-us/azure/virtual-machines/mdsv4-series
@@ -689,6 +694,9 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/previous-gen-series-cap
 https://learn.microsoft.com/en-us/azure/virtual-machines/restore-point-troubleshooting
 https://learn.microsoft.com/en-us/azure/virtual-machines/retirements-and-capacity-restrictions
 https://learn.microsoft.com/en-us/azure/virtual-machines/scheduled-events-event-grid
+https://learn.microsoft.com/en-us/azure/virtual-machines/scripts/copy-managed-disks-to-same-or-different-subscription
+https://learn.microsoft.com/en-us/azure/virtual-machines/scripts/copy-snapshot-to-same-or-different-subscription
+https://learn.microsoft.com/en-us/azure/virtual-machines/scripts/virtual-machines-powershell-sample-copy-snapshot-to-same-or-different-subscription
 https://learn.microsoft.com/en-us/azure/virtual-machines/secure-key-release-pattern-trusted-launch
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-v6-v7-migration-assess
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-v6-v7-migration-discover
@@ -731,6 +739,8 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/previou
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retired-sizes-list
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/dcsv2-series-retirement
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/dedicated-host-retirement
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/ncv3-nc24rs-retirement
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/ncv3-retirement
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/nvv3-series-retirement
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/nvv4-retirement
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/lifecycle/retirement/retired-sizes-modernization-guide
@@ -761,6 +771,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/epsv6-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/epsv7-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/esv6-series
+https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/mdsv4-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/mpdsv4-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/memory-optimized/msv4-series
 https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/storage-optimized/laosv5-series
@@ -781,6 +792,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/vm-applications
 https://learn.microsoft.com/en-us/azure/virtual-machines/vm-applications-create-app-scripts
 https://learn.microsoft.com/en-us/azure/virtual-machines/vm-naming-conventions
 https://learn.microsoft.com/en-us/azure/virtual-machines/vm-processor-mode
+https://learn.microsoft.com/en-us/azure/virtual-machines/windows/connect-ssh
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-amd-driver-setup
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/n-series-driver-setup
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/recovery-environment-for-vm/apply-remediation
@@ -790,6 +802,8 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/windows/scheduled-event
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/spot-powershell
 https://learn.microsoft.com/en-us/azure/virtual-machines/windows/tutorial-disaster-recovery
 https://learn.microsoft.com/en-us/azure/virtual-machines/workloads/canonical/ubuntu-pro-in-place-scale-sets-upgrade
+https://learn.microsoft.com/en-us/azure/virtual-machines/workloads/redhat/byos
+https://learn.microsoft.com/en-us/azure/virtual-machines/workloads/redhat/jboss-eap-azure-vm
 https://learn.microsoft.com/en-us/azure/virtual-machines/zone-resilience
 https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/custom-rules-geo-based-ipv6
 https://learn.microsoft.com/en-us/azure/…

@@ -20,6 +20,7 @@ learn_banner_products:
 - azure
 ms.author: pallakatos
 ms.service: azure-policy
+ms.reviewer: kgremban
 description: Reference - CIS Security Benchmarks for AlmaLinux via Machine Configuration
 ms.date: 2026-11-04T00:00:00.0000000Z
 ms.topic: reference

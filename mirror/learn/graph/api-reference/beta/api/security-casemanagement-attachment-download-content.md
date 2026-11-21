@@ -42,8 +42,10 @@ item_type: Content
 source_path: api-reference/beta/api/security-casemanagement-attachment-download-content.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/5fc61396-d075-4560-aece-fdbda73d243f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/ad9437c1-8cda-4537-ad69-b4b263652e13
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: a693e901-d4ac-c111-1407-538a242b024b
 ---
 
@@ -58,6 +60,8 @@ APIs under the `/beta` version in Microsoft Graph are subject to change. Use of 
 Download the binary content of an [attachment](resources/security-casemanagement-attachment).
 
 After an upload completes, the service asynchronously scans the attachment for malware. Poll the attachment metadata by using [Get attachment](security-casemanagement-attachment-get). If **scanResult** is `unscanned`, wait and try again later. Download the content only when **scanResult** is `noThreatsFound`. Don't download content when **scanResult** is `malicious`.
+
+## API availability
 
 This API is available in the following [national cloud deployments](/en-us/graph/deployments).
 
