@@ -1,0 +1,14 @@
+// Microsoft SOC Brief 21 Nov 2026 - remote execution on domain controllers (MC1552387)
+// Columns as on the DeviceProcessEvents and IdentityLogonEvents references. Not run against a tenant in this pass.
+let DCs = IdentityLogonEvents
+| where Timestamp > ago(7d)
+| where isnotempty(DestinationDeviceName)
+| distinct DC = tolower(DestinationDeviceName);
+DeviceProcessEvents
+| where Timestamp > ago(7d)
+| extend Host = tolower(tostring(split(DeviceName, ".")[0]))
+| where Host in (DCs) or tolower(DeviceName) in (DCs)
+| where InitiatingProcessFileName in~ ("services.exe", "wmiprvse.exe")
+| where FileName in~ ("cmd.exe", "powershell.exe", "pwsh.exe", "rundll32.exe", "mshta.exe", "cscript.exe", "wscript.exe")
+| project Timestamp, DeviceName, AccountName, InitiatingProcessFileName, FileName, ProcessCommandLine
+| order by Timestamp desc

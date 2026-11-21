@@ -1,0 +1,8 @@
+// Microsoft SOC Brief 21 Nov 2026 - Azure Firewall default-deny baseline (Azure Firewall for Containers preview)
+// Columns as on the AZFWNetworkRule reference cited beside this query. Not run against a tenant in this pass.
+AZFWNetworkRule
+| where TimeGenerated > ago(24h)
+| where Action == "Deny" and ActionReason has "Default Action"
+| summarize Denied = count(), Destinations = dcount(DestinationIp), Ports = make_set(DestinationPort, 20)
+            by SourceIp, Protocol
+| order by Denied desc

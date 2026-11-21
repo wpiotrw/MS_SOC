@@ -1,0 +1,13 @@
+// Microsoft SOC Brief 21 Nov 2026 - NTLM logons from account/device pairs not seen in the baseline (MC1552387)
+// Columns as on the IdentityLogonEvents reference cited beside this query. Not run against a tenant in this pass.
+let Baseline = IdentityLogonEvents
+| where Timestamp between (ago(37d) .. ago(7d))
+| where Protocol == "Ntlm"
+| distinct AccountUpn, DeviceName;
+IdentityLogonEvents
+| where Timestamp > ago(7d)
+| where Protocol == "Ntlm" and ActionType == "LogonSuccess"
+| join kind=leftanti Baseline on AccountUpn, DeviceName
+| summarize Logons = count(), Targets = make_set(DestinationDeviceName, 10), FirstSeen = min(Timestamp)
+            by AccountUpn, DeviceName, IPAddress
+| order by Logons desc
