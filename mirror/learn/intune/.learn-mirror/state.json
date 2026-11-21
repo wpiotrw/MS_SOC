@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "cursor": "https://learn.microsoft.com/en-us/intune/epm/deployment-planning",
+  "cursor": "https://learn.microsoft.com/en-us/intune/privacy/data-sharing/ref-apple-to-intune",
   "pages": {
     "https://learn.microsoft.com/en-us/intune/": {"etag":"\"PRPhRv51m9u8nEP7ecz24cZL3V0=\"","gitCommitId":"0b2a8eb4fa304e6e4396b94abe89559824e6f48d","path":"intune/index.md","sourcePath":"intune/index.yml","updatedAt":"2026-11-06T18:35:00.0000000Z"},
     "https://learn.microsoft.com/en-us/intune/advanced-analytics": {"etag":"\"uO9Uep5lDNwgbbneDr1hbUwVzFo=\"","gitCommitId":"7f717b0f333894d6cc4d2b7ac9a677976c6909ec","path":"intune/advanced-analytics/index.md","redirectedTo":"https://learn.microsoft.com/en-us/intune/advanced-analytics/","sourcePath":"intune/advanced-analytics/index.md","updatedAt":"2026-11-17T18:34:00.0000000Z"},
