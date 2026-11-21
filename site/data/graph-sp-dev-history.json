@@ -1,7 +1,7 @@
 {
- "updated": "2026-11-20T02:20Z",
+ "updated": "2026-11-21T02:15Z",
  "baseline": "2026-10-18T20:23Z",
- "lastRead": "2026-11-20T02:20Z",
+ "lastRead": "2026-11-21T02:15Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
@@ -9,9 +9,20 @@
   "application": 789,
   "delegated": 877,
   "rsc": 60,
-  "roles": 149
+  "roles": 150
  },
  "events": [
+  {
+   "seen": "2026-11-21T02:15Z",
+   "day": "2026-11-21",
+   "surface": "role",
+   "name": "Organizational Data Source Reader",
+   "change": "added",
+   "type": "",
+   "before": null,
+   "after": "2 actions",
+   "text": "Read organizational data source configurations, data quality reports, and metadata in Microsoft 365 without configuring data ingestion, connections, or settings."
+  },
   {
    "seen": "2026-11-17T18:19Z",
    "day": "2026-11-17",

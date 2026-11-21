@@ -1,7 +1,7 @@
 {
- "read": "2026-11-20",
+ "read": "2026-11-21",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 740,
+ "count": 743,
  "note": null,
  "messages": [
   {
@@ -627,59 +627,6 @@
     "Retirement begins in mid-October 2027 and is expected to complete by early November 2027."
    ],
    "bodyHash": "71ed7ae746a14395"
-  },
-  {
-   "id": "MC1188557",
-   "title": "The November 2025 Windows non-security preview update is now available for Windows 11, version 23H2",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-11-20",
-   "end": "2026-11-20",
-   "modified": "2025-11-20",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "The November 2025 non-security preview update is now available for all supported editions of Windows 11, version 23H2. The non-security preview update for Windows 11, versions 25H2 and 24H2 will be available soon. Information about the contents of this update is available from the release notes, which are accessible from the Windows 11 update history page. To learn more about the different types o…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "The November 2025 non-security preview update is now available for all supported editions of Windows 11, version 23H2.",
-    "IMPORTANT Because of minimal operations during the Western holidays and the upcoming new year, there will be no December 2025 non-security preview update.",
-    "There will be a monthly security update for December 2025.",
-    "Normal monthly servicing for both security and non-security preview updates will resume in January 2026."
-   ],
-   "bodyHash": "2eba3cab7736c295"
-  },
-  {
-   "id": "MC1188558",
-   "title": "Take Action: Out-of-band update to address November 2025 hotpatch update being reoffered after Windows update scan",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-11-20",
-   "end": "2026-11-20",
-   "modified": "2025-11-20",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "Microsoft has identified an issue affecting some organizations using hotpatch updates on devices running Windows 11 Enterprise, version 25H2. After installing the hotpatch update KB5068966 released November 11, 2025, affected devices repeatedly download and install the same update when a Windows Update scan is run. This behavior does not impact device functionality; only the update history will re…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "After installing the hotpatch update KB5068966 released November 11, 2025, affected devices repeatedly download and install the same update when a Windows Update scan is run.",
-    "An out-of-band (OOB) update was released today, November 20, 2025, to address this issue.",
-    "If you have not yet deployed the November 2025 hotpatch update ( KB5068966 ) on Windows 11, version 25H2 devices in your environment, we recommend you apply this OOB update ( KB5072753 ) instead."
-   ],
-   "bodyHash": "2eff1046407af56e"
   },
   {
    "id": "MC1188937",
@@ -19447,7 +19394,7 @@
   },
   {
    "id": "MC1559642",
-   "title": "Continuous interpreter visibility with pop out video in Teams",
+   "title": "(Updated) Continuous interpreter visibility with pop out video in Teams",
    "services": [
     "Microsoft Teams"
    ],
@@ -19457,18 +19404,20 @@
    "actionBy": null,
    "start": "2026-11-18",
    "end": "2027-03-15",
-   "modified": "2026-11-18",
+   "modified": "2026-11-20",
    "tags": [
-    "New feature"
+    "New feature",
+    "Updated message"
    ],
-   "summary": "[What and Why:] Users who work with sign language interpreters in Microsoft Teams meetings will be able to pop out their paired interpreters' video into a separate window. The window can be resized and moved anywhere on the screen, including to another monitor. Interpreters stay in view while users multitask, share content, or change meeting layouts. This is designed for Deaf and hard-of-hearing (…",
+   "summary": "Updated November 20, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Users who work with sign language interpreters in Microsoft Teams meetings will be able to pop out their paired interpreters' video into a separate window. The window can be resized and moved anywhere on the screen, including to another monitor. Interpreters stay in view while users multitask, sha…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Targeted Release (Worldwide): We will begin rolling out on early December 2026 and expect to complete by late December 2026.",
+    "Updated November 20, 2026: We have updated the timeline.",
+    "Public preview (Worldwide): We will begin rolling out on early December 2026 and expect to complete by late December 2026.",
     "General Availability (Worldwide): We will begin rolling out on mid January 2027 and expect to complete by late January 2027."
    ],
-   "bodyHash": "1fd75f77f61b79cb"
+   "bodyHash": "a42717c8452b7471"
   },
   {
    "id": "MC1560705",
@@ -19626,6 +19575,134 @@
     "General Availability (DoD): We will begin rolling out in mid-February 2027 and expect to complete by early March 2027."
    ],
    "bodyHash": "619c51baa2ebd0c4"
+  },
+  {
+   "id": "MC1562269",
+   "title": "Sync between Copilot desktop app and Microsoft Edge",
+   "services": [
+    "Microsoft 365 Copilot Chat"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-20",
+   "end": "2027-02-17",
+   "modified": "2026-11-20",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] This release adds optional browser data sync between the Copilot desktop app (Windows and Mac) and Microsoft Edge. After opt-in, selected data (passwords, personal info, settings, and browsing history) stays synced across both apps for the signed-in account; payment info is not synced. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out in mid-December 2…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in mid-December 2026 and expect to complete by end of December 2026."
+   ],
+   "bodyHash": "b44cf91b30bed58e"
+  },
+  {
+   "id": "MC1562272",
+   "title": "New Contact Support Experience in Outlook for iOS, Android and Mac",
+   "services": [
+    "Exchange Online"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-20",
+   "end": "2026-12-20",
+   "modified": "2026-11-20",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] We're introducing a new Contact Support experience in Outlook for iOS, Outlook for Android, and Outlook for Mac. This update brings a more consistent way to get help from within the app, aligned with the Contact Support experience available in new Outlook for Windows. The existing Contact Support policy for new Outlook, \"Allow access to Contact Support in the new Outlook\" (outlookn…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in late November 2026 and expect to complete by early January 2027."
+   ],
+   "bodyHash": "5a95c0cd1e40d468"
+  },
+  {
+   "id": "MC1562277",
+   "title": "Microsoft Teams: Copilot in channels provides channel-wide context",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-20",
+   "end": "2027-02-05",
+   "modified": "2026-11-20",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We are introducing a channel-level entry point for Copilot in Microsoft Teams. This enhancement allows users to ask questions and summarize conversations across posts and replies within a channel, rather than a single thread. This enhancement will be available in Microsoft Teams and Teams mobile. [Rollout schedule] Public Preview (Worldwide): Rollout will begin in early December 202…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview (Worldwide): Rollout will begin in early December 2026 and is expected to complete by the end of December 2026."
+   ],
+   "bodyHash": "343cd2026188a466"
+  },
+  {
+   "id": "MC1562278",
+   "title": "Microsoft Teams: Expanded Markdown support in the compose box",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-20",
+   "end": "2027-01-15",
+   "modified": "2026-11-20",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] Microsoft Teams is introducing an updated Markdown compose experience with expanded formatting support. Users can write and edit with Markdown syntax intact, without formatting automatically rendering as they type. A dedicated Markdown toolbar helps users insert formatting syntax, preview the rendered message before sending, and switch between Markdown and rich text. [Rollout schedu…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning in early December 2026 and expected to complete by mid-December 2026."
+   ],
+   "bodyHash": "5a9195db7b4360c6"
+  },
+  {
+   "id": "MC1562279",
+   "title": "Microsoft Teams: View files and conversations side by side",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-20",
+   "end": "2027-02-05",
+   "modified": "2026-11-20",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Microsoft Teams is introducing a side-by-side experience that helps users review shared files without losing conversation context. When users open a PDF, Markdown, or HTML file from a chat or channel message, the conversation appears alongside the file at the message where it was shared. This update will be available in Microsoft Teams on Windows, Mac, and the web. [Rollout Schedul…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide, GCC, GCC High, DoD): We will begin rolling out in late December 2026 and expect to complete by early January 2027."
+   ],
+   "bodyHash": "967cfe054c39d297"
   },
   {
    "id": "MC676299",
@@ -19917,171 +19994,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-21",
-   "id": "MC1191578",
-   "type": "removed",
-   "title": "(Updated) Update to EWS Access for Kiosk / Frontline Worker Licenses",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1459129",
-   "type": "removed",
-   "title": "(Updated) Microsoft Viva: Viva Learning retirement of Microsoft 365 training content",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1466750",
-   "type": "removed",
-   "title": "Microsoft Secure Score: New AI-readiness recommendations for device security",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1475456",
-   "type": "removed",
-   "title": "Dynamics 365 Project Operations - Perform bulk operations for bookings on schedule board",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1478005",
-   "type": "removed",
-   "title": "Microsoft Defender for Office 365: View approver details for remediation actions in Advanced Hunting",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1469564",
-   "type": "changed",
-   "title": "Microsoft Publisher: Reminder that support ends in October 2026",
-   "fields": {
-    "end": [
-     "2026-11-09",
-     "2027-01-31"
-    ],
-    "tags": [
-     [
-      "Admin impact",
-      "Retirement",
-      "User impact"
-     ],
-     [
-      "Admin impact",
-      "Retirement",
-      "Updated message",
-      "User impact"
-     ]
-    ],
-    "bodyHash": [
-     "2c264a5fe5baaa8e",
-     "0cbba8bf19b9a26c"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1480869",
-   "type": "changed",
-   "title": "(Updated) Microsoft 365 settings enabled by default for newly created Engage communities",
-   "fields": {
-    "title": [
-     "Microsoft 365 settings enabled by default for newly created Engage communities",
-     "(Updated) Microsoft 365 settings enabled by default for newly created Engage communities"
-    ],
-    "end": [
-     "2026-10-30",
-     "2026-12-31"
-    ],
-    "tags": [
-     [
-      "New feature",
-      "User impact"
-     ],
-     [
-      "New feature",
-      "Updated message",
-      "User impact"
-     ]
-    ],
-    "bodyHash": [
-     "8d24b127ba8d67be",
-     "58eae00247bc2df7"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1519247",
-   "type": "new",
-   "title": "Updates available for Microsoft 365 Apps for Current Channel",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1519841",
-   "type": "new",
-   "title": "Microsoft OneNote: CSV and TSV references in Copilot Notebooks",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1519842",
-   "type": "new",
-   "title": "Microsoft OneNote: JPG and PNG references in Copilot Notebooks",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1519843",
-   "type": "new",
-   "title": "New Outlook for Windows: All Accounts view brings email into a single inbox view",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1519846",
-   "type": "new",
-   "title": "Microsoft 365 apps: Updated Brand Kit management experience",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1519855",
-   "type": "new",
-   "title": "Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1519857",
-   "type": "new",
-   "title": "Microsoft Teams: Chat for organizers and presenters in structured meetings and webinars on Teams Rooms on Android",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1519860",
-   "type": "new",
-   "title": "Intelligent Call Delegation in Teams",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1519861",
-   "type": "new",
-   "title": "Outlook: Copilot Prioritize feature will be retired",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-21",
-   "id": "MC1519866",
-   "type": "new",
-   "title": "Microsoft Teams: Phishing detection for messaging",
-   "fields": {}
-  },
   {
    "date": "2026-10-22",
    "id": "MC1458484",
@@ -25728,6 +25640,80 @@
      "93e090f6001e66f8"
     ]
    }
+  },
+  {
+   "date": "2026-11-21",
+   "id": "MC1559642",
+   "type": "changed",
+   "title": "(Updated) Continuous interpreter visibility with pop out video in Teams",
+   "fields": {
+    "title": [
+     "Continuous interpreter visibility with pop out video in Teams",
+     "(Updated) Continuous interpreter visibility with pop out video in Teams"
+    ],
+    "tags": [
+     [
+      "New feature"
+     ],
+     [
+      "New feature",
+      "Updated message"
+     ]
+    ],
+    "bodyHash": [
+     "1fd75f77f61b79cb",
+     "a42717c8452b7471"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-21",
+   "id": "MC1562269",
+   "type": "new",
+   "title": "Sync between Copilot desktop app and Microsoft Edge",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-21",
+   "id": "MC1562272",
+   "type": "new",
+   "title": "New Contact Support Experience in Outlook for iOS, Android and Mac",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-21",
+   "id": "MC1562277",
+   "type": "new",
+   "title": "Microsoft Teams: Copilot in channels provides channel-wide context",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-21",
+   "id": "MC1562278",
+   "type": "new",
+   "title": "Microsoft Teams: Expanded Markdown support in the compose box",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-21",
+   "id": "MC1562279",
+   "type": "new",
+   "title": "Microsoft Teams: View files and conversations side by side",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-21",
+   "id": "MC1188557",
+   "type": "removed",
+   "title": "The November 2025 Windows non-security preview update is now available for Windows 11, version 23H2",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-21",
+   "id": "MC1188558",
+   "type": "removed",
+   "title": "Take Action: Out-of-band update to address November 2025 hotpatch update being reoffered after Windows update scan",
+   "fields": {}
   }
  ]
 }
