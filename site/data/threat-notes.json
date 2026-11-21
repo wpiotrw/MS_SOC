@@ -2444,6 +2444,91 @@
      "date": "2026-11-16"
     }
    ]
+  },
+  {
+   "id": "optimizely-web-experimentation-supply-chain-2026-11",
+   "title": "Optimizely Web Experimentation supply-chain attack: malicious Project JavaScript served from cdn.optimizely.com to 178 organisations",
+   "match": [
+    "Optimizely"
+   ],
+   "areas": [
+    "Vulnerabilities"
+   ],
+   "status": "contained",
+   "updated": "2026-11-21",
+   "by": "morning routine",
+   "summary": "On 16 November 2026 an attacker exploited a vulnerability in the account signup flow of Optimizely Web Experimentation and inserted malicious code into the Project JavaScript field of customer projects, so Optimizely's own CDN served it to visitors of the customers' sites. Report URI identified 188 infected snippets tied to 178 organisations, among them the BBC, CNN, Zoom, GitLab, IKEA and HSBC. The sample Socket analysed is a wallet clipper that swaps cryptocurrency addresses in page text and the clipboard, plus a loader that fetches a second script for iOS devices; later versions are reported to skim payment cards. Optimizely says it patched the flaw, removed the code, revoked tokens and reset access for affected accounts. The affected sites themselves were not compromised; the risk sits with their visitors and with any page where such a script runs next to credentials or payment fields.",
+   "timeline": [
+    {
+     "date": "2026-11-16",
+     "text": "The attacker exploits the Optimizely Web Experimentation signup-flow vulnerability; the first malicious build in the published timeline is at 08:10 UTC (StepSecurity, cited by Socket).",
+     "src": "Socket"
+    },
+    {
+     "date": "2026-11-16",
+     "text": "Report URI confirms at 23:11 UTC that every infected snippet in its observed set has been cleaned.",
+     "src": "Socket"
+    },
+    {
+     "date": "2026-11-18",
+     "text": "Socket publishes its static analysis of a track.js sample and the indicators below.",
+     "src": "Socket"
+    }
+   ],
+   "rootCause": "A vulnerability in the Optimizely Web Experimentation account signup flow let the attacker write to the Project JavaScript field of customer projects, which Optimizely's CDN then served on every page carrying the snippet (Optimizely's statement as reported by Socket).",
+   "attacker": [
+    "Inserted obfuscated JavaScript into the Project JavaScript field of customer projects",
+    "Ran a wallet clipper that replaces cryptocurrency addresses in page text, inputs and the clipboard",
+    "Loaded a second-stage boot.js for devices classified as iOS"
+   ],
+   "iocs": [
+    "1688360[.]cc/track.js",
+    "5vobauua3ojpklx[.]icu/boot.js",
+    "window._k7 (page marker)",
+    "SHA-256 1ec4245b3b303304ea24a89b3b2351b0f0c085087050f517d23dcba9694c165a (one sample; other builds differ)"
+   ],
+   "remediation": [
+    {
+     "text": "Check whether your sites load an Optimizely Web Experimentation snippet and review the Project JavaScript of every project for code you did not write.",
+     "from": "ours",
+     "phase": "investigate"
+    },
+    {
+     "text": "Search proxy, DNS and endpoint network logs for 1688360[.]cc and 5vobauua3ojpklx[.]icu from 16 November 2026 onwards.",
+     "from": "ours",
+     "phase": "investigate"
+    },
+    {
+     "text": "Reconsider whether experimentation and personalisation scripts need to run across the whole site, particularly on payment, account and other sensitive pages.",
+     "from": "source",
+     "src": "Socket",
+     "phase": "harden"
+    },
+    {
+     "text": "Rotate the Optimizely account credentials and API tokens your organisation uses and review who can edit project code.",
+     "from": "ours",
+     "phase": "contain"
+    }
+   ],
+   "kql": [
+    {
+     "title": "Devices that contacted the Optimizely payload hosts since 16 November 2026",
+     "query": "// Indicators from Socket's analysis (18 Nov 2026). Columns as on the DeviceNetworkEvents reference.\nDeviceNetworkEvents\n| where Timestamp > datetime(2026-11-16)\n| where RemoteUrl has_any (\"1688360.cc\", \"5vobauua3ojpklx.icu\")\n| project Timestamp, DeviceName, InitiatingProcessFileName, RemoteUrl, RemoteIP\n| order by Timestamp desc"
+    }
+   ],
+   "kqlSearched": "2026-11-21",
+   "links": [
+    {
+     "text": "Socket: Optimizely Supply Chain Attack Distributes Malware Across Global Brands",
+     "url": "https://socket.dev/blog/optimizely-supply-chain-attack",
+     "date": "2026-11-18"
+    },
+    {
+     "text": "Detect FYI: KQLs for Major brands compromised through Optimizely (not readable from this run, HTTP 403)",
+     "url": "https://detect.fyi/kqls-for-major-brands-compromised-through-optimizely-86fdaf055707",
+     "date": "2026-11-18"
+    }
+   ]
   }
  ]
 }
