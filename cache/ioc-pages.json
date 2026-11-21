@@ -2385,7 +2385,7 @@
 "IOC table: Address associated with the unauthorized panel"
 ]
 ],
-"read": "2026-11-13"
+"read": "2026-11-21"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/": {
 "iocs": [
