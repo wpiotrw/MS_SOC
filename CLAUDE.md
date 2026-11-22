@@ -26566,6 +26566,14 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hd (22 XI 2026, 22:25)** — Piotr pytal o artykul BleepingComputer "Microsoft Entra Connect Health flaw exploited to steal
+tenant data" (21 XI). Wykryty: incydent Threat Research z 21 XI z `tracked` Entra ID i Entra Connect & hybrid, zdanie THREAT
+RESEARCH w Overview, Community Articles. Blad: "Microsoft's response" wskazywal dwa posty Sentinel Blog (pazdziernik 2026), bo
+`hit()` w `tools/threats.py` liczyl slowa automatyczne jako PODCIAG ("connect" w "connectors", "health"). Teraz slowa licza sie jako
+cale slowa, a slowa automatyczne stojace obok siebie w tytule wiodacym ("connect health") musza wystapic jako fraza. KQL: incydent
+jest pierwszy w `threat_todo.py todo` — poranna analiza (poranny-B, krok threat notes) szuka KQL opublikowanych przez Microsoft i
+spolecznosc (`kqlPublished`) i pisze nasze (`kql`).
+
 **§5hc (17 XI 2026, 23:49)** — Piotr (zrzut z Graph API, AccessReview.Read.All): nazwy cmdletow nachodzily na siebie, po przewinieciu
 nie bylo wiadomo, czego dotycza wpisy, "i to samo pewnie w innych zakladkach". Przyczyny i poprawki: (1) regula §5t
 `.sec-body a[href^="http"]{white-space:nowrap}` trzymala dlugie nazwy cmdletow w jednej linii w kolumnach 260 px — `.gd-cmds` ma kolumny

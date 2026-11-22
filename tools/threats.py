@@ -563,8 +563,23 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
         # one curated word or one CVE is enough; automatic words need two (one rare word matched unrelated posts)
         keys = [w for w in words if len(w) >= 4]
         need = 1 if note else 2
+        # 5hd (22 XI 2026): "connect" + "health" matched two Sentinel posts ("connectors", "data health") as Microsoft's
+        # response to the Entra Connect Health breach. Words now match as whole words, and automatic words that stand
+        # next to each other in the lead title ("Connect Health") must appear as that phrase.
+        lt = lead["title"].lower()
+        phrase = None
+        if not note and len(keys) >= 2:
+            px = r"(?<![a-z0-9])" + r"[\s-]+".join(re.escape(w) for w in keys) + r"(?![a-z0-9])"
+            if re.search(px, lt):
+                phrase = re.compile(px)
+        def whole(w, t):
+            return re.search(r"(?<![a-z0-9])" + re.escape(w) + r"(?![a-z0-9])", t) is not None
         def hit(t):
-            return any(c.lower() in t for c in cves) or sum(1 for w in keys if w in t) >= need
+            if any(c.lower() in t for c in cves):
+                return True
+            if phrase is not None:
+                return phrase.search(t) is not None
+            return sum(1 for w in keys if whole(w, t)) >= need
         for m in msitems:
             t = (m["title"] + " " + m["summary"]).lower()
             if hit(t) and m["link"] not in {x["link"] for x in ms}:
