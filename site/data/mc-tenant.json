@@ -1,7 +1,7 @@
 {
- "read": "2026-11-21",
+ "read": "2026-11-22",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 742,
+ "count": 741,
  "note": null,
  "messages": [
   {
@@ -627,31 +627,6 @@
     "Retirement begins in mid-October 2027 and is expected to complete by early November 2027."
    ],
    "bodyHash": "71ed7ae746a14395"
-  },
-  {
-   "id": "MC1188937",
-   "title": "WINS removal: Moving forward with modern name resolution",
-   "services": [
-    "Windows"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-11-21",
-   "end": "2026-11-21",
-   "modified": "2025-11-21",
-   "tags": [
-    "Admin impact"
-   ],
-   "summary": "If you manage Windows Servers, plan for removal of Windows Internet Name Service (WINS). WINS was officially deprecated since Windows Server 2022 and will be removed from all Windows Server releases following Windows Server 2025. Standard support will continue through the lifecycle of Windows Server 2025, until November 2034. We encourage you to migrate to modern Domain Name System (DNS)-based nam…",
-   "when": null,
-   "prepare": "Take proactive steps now to ensure a smooth migration: Audit dependencies: Inventory applications and services that rely on NetBIOS name resolution to understand impact. Migrate to DNS: Implement conditional forwarders, split-brain DNS, or search suffix lists to replace WINS functionality with scalable, modern DNS solutions. Update applications: Modernize or retire legacy applications that depend on WINS to avoid future compatibility issues. Avoi…",
-   "dates": [
-    "Standard support will continue through the lifecycle of Windows Server 2025, until November 2034.",
-    "November 2034 is the end of the lifecycle for Windows Server 2025, which also marks the end of support for WINS."
-   ],
-   "bodyHash": "66df322f55c66913"
   },
   {
    "id": "MC1190119",
@@ -19971,249 +19946,6 @@
  ],
  "changes": [
   {
-   "date": "2026-10-22",
-   "id": "MC1458484",
-   "type": "changed",
-   "title": "Filter Messages by Events on Outlook Mobile",
-   "fields": {
-    "title": [
-     "Filter Messages by Events",
-     "Filter Messages by Events on Outlook Mobile"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-22",
-   "id": "MC1309743",
-   "type": "changed",
-   "title": "(Updated) Viva Engage: Email updates for users without a routable mailbox",
-   "fields": {
-    "title": [
-     "(Updated) Viva Engage: Email updates for frontline users without an active Exchange mailbox",
-     "(Updated) Viva Engage: Email updates for users without a routable mailbox"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-22",
-   "id": "MC1480870",
-   "type": "changed",
-   "title": "(Updated) New SharePoint Mobile Experience on iOS and Android",
-   "fields": {
-    "title": [
-     "New SharePoint Mobile Experience on iOS and Android",
-     "(Updated) New SharePoint Mobile Experience on iOS and Android"
-    ],
-    "end": [
-     "2026-11-30",
-     "2026-12-31"
-    ],
-    "tags": [
-     [
-      "New feature",
-      "User impact"
-     ],
-     [
-      "New feature",
-      "Updated message",
-      "User impact"
-     ]
-    ],
-    "bodyHash": [
-     "b1001a294b8ae966",
-     "10f16c703aad9628"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-22",
-   "id": "MC1509787",
-   "type": "changed",
-   "title": "(Updated) Microsoft Teams: Third-party synthetic audio and video detection in meetings",
-   "fields": {
-    "title": [
-     "Microsoft Teams: Third-party synthetic audio and video detection in meetings",
-     "(Updated) Microsoft Teams: Third-party synthetic audio and video detection in meetings"
-    ],
-    "tags": [
-     [
-      "Admin impact",
-      "New feature",
-      "User impact"
-     ],
-     [
-      "Admin impact",
-      "New feature",
-      "Updated message",
-      "User impact"
-     ]
-    ],
-    "bodyHash": [
-     "0755e6f6b9b89124",
-     "4d9cd23ffffd5aaa"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-22",
-   "id": "MC1519861",
-   "type": "changed",
-   "title": "(Updated) Outlook: Copilot Prioritize feature will be retired",
-   "fields": {
-    "title": [
-     "Outlook: Copilot Prioritize feature will be retired",
-     "(Updated) Outlook: Copilot Prioritize feature will be retired"
-    ],
-    "end": [
-     "2026-12-15",
-     "2027-05-03"
-    ],
-    "tags": [
-     [
-      "Retirement"
-     ],
-     [
-      "Retirement",
-      "Updated message"
-     ]
-    ],
-    "bodyHash": [
-     "7c9a93267f5dec56",
-     "6740aeaa77573256"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-22",
-   "id": "MC1177767",
-   "type": "removed",
-   "title": "How Windows 11 and AI are transforming the future of work",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-22",
-   "id": "MC1520901",
-   "type": "new",
-   "title": "Insights Agent V2 Frontier",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-22",
-   "id": "MC1281505",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview: Data Lifecycle Management- Azure PST Import",
-   "fields": {
-    "end": [
-     "2027-02-01",
-     "2027-03-29"
-    ],
-    "bodyHash": [
-     "fd36607ffed5624e",
-     "3d713175238d191e"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-22",
-   "id": "MC1455013",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview: Data Lifecycle Management- Azure PST Import",
-   "fields": {
-    "end": [
-     "2026-12-31",
-     "2027-05-31"
-    ],
-    "bodyHash": [
-     "0ceaba0dd05f5d02",
-     "5db3b4abe4b916ef"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-22",
-   "id": "MC1478965",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview: Data Lifecycle Management – Retention for Copilot Memory",
-   "fields": {
-    "title": [
-     "Microsoft Purview: Data Lifecycle Management – Retention for Copilot Memory",
-     "(Updated) Microsoft Purview: Data Lifecycle Management – Retention for Copilot Memory"
-    ],
-    "tags": [
-     [
-      "Admin impact",
-      "New feature"
-     ],
-     [
-      "Admin impact",
-      "New feature",
-      "Updated message"
-     ]
-    ],
-    "bodyHash": [
-     "9bce48327f332797",
-     "6552e1830ac7bfe1"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-22",
-   "id": "MC1483844",
-   "type": "changed",
-   "title": "(Updated) Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-   "fields": {
-    "title": [
-     "Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today",
-     "(Updated) Microsoft Copilot: GPT 6.1 Sol and Claude Sonnet 5.5 beginning to roll out today"
-    ],
-    "tags": [
-     [
-      "Admin impact",
-      "New feature",
-      "User impact"
-     ],
-     [
-      "Admin impact",
-      "New feature",
-      "Updated message",
-      "User impact"
-     ]
-    ],
-    "bodyHash": [
-     "384e73e036001287",
-     "c983619376c5a539"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-22",
-   "id": "MC791110",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview | Data Lifecycle Management: New integration with Adaptive protection",
-   "fields": {
-    "end": [
-     "2027-01-25",
-     "2027-03-01"
-    ],
-    "bodyHash": [
-     "1d3fde6bfc28b8f7",
-     "4975f22f206c5947"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-22",
-   "id": "MC920304",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview | Communication Compliance: Policy alerts improvements",
-   "fields": {
-    "end": [
-     "2026-11-30",
-     "2027-02-26"
-    ]
-   }
-  },
-  {
    "date": "2026-10-23",
    "id": "MC1521604",
    "type": "new",
@@ -25696,6 +25428,13 @@
    "id": "MC1519846",
    "type": "removed",
    "title": "Microsoft 365 apps: Updated Brand Kit management experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-22",
+   "id": "MC1188937",
+   "type": "removed",
+   "title": "WINS removal: Moving forward with modern name resolution",
    "fields": {}
   }
  ]

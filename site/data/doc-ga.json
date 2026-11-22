@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-21T11:06:53Z",
+ "generated": "2026-11-22T01:25:27Z",
  "source": "tools/doc_ga.py (CLAUDE.md 5eo)",
  "sources": [
   {
@@ -14,11 +14,25 @@
    "url": "https://github.com/MicrosoftDocs/entra-docs",
    "state": "ok",
    "commits": 97,
-   "events": 11,
-   "since": "2026-09-22"
+   "events": 12,
+   "since": "2026-09-23"
   }
  ],
  "events": [
+  {
+   "url": "https://learn.microsoft.com/en-us/entra/id-governance/manage-sponsored-guests-my-access",
+   "title": "Manage sponsored guests in My Account",
+   "before": "Manage sponsored guests in My Account (preview)",
+   "date": "2026-11-19",
+   "how": [
+    "repo"
+   ],
+   "repo": "Microsoft Entra documentation",
+   "commit": "https://github.com/MicrosoftDocs/entra-docs/commit/63f536b4eba805b8641a273fb55fb787a1ea038d",
+   "commitMsg": "Remove preview references from sponsored guest management",
+   "evidence": "Microsoft's commit of 2026-11-19 removed the preview label from the page heading",
+   "announced": false
+  },
   {
    "url": "https://learn.microsoft.com/en-us/azure/virtual-machines/soft-delete-gallery",
    "title": "Soft Delete in Azure Compute Gallery - Azure Virtual Machines",
