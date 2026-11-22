@@ -2,6 +2,7 @@
   "version": 1,
   "cursor": "https://learn.microsoft.com/en-us/security/zero-trust",
   "pages": {
+    "https://learn.microsoft.com/en-us/security/agentic-security/web-app-pen-test-agent": {"etag":"\"nmxXHavO1C/QbWPd/raLJo7j6n8=\"","gitCommitId":"579967f845e8ec4362d3a2d2af7fb6771da0f3cb","path":"docs/agentic-security/web-app-pen-test-agent.md","sourcePath":"docs/agentic-security/web-app-pen-test-agent.md","updatedAt":"2026-11-19T18:32:00.0000000Z"},
     "https://learn.microsoft.com/en-us/security/zero-trust": {"etag":"\"eqTzCmMykh058c6I0IXGFBI4hZQ=\"","gitCommitId":"299bb2d9dae2012251c8b91bca8e984c84abc503","path":"security-docs/zero-trust/index.md","redirectedTo":"https://learn.microsoft.com/en-us/security/zero-trust/","sourcePath":"security-docs/zero-trust/index.yml","updatedAt":"2026-11-15T08:35:00.0000000Z"}
   }
 }

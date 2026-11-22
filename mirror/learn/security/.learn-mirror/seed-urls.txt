@@ -1,2 +1,3 @@
 https://learn.microsoft.com/en-us/security
+https://learn.microsoft.com/en-us/security/agentic-security/web-app-pen-test-agent
 https://learn.microsoft.com/en-us/security/zero-trust

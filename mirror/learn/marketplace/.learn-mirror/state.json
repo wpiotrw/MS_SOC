@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "cursor": "https://learn.microsoft.com/en-us/marketplace/purchase-orders",
+  "pages": {
+    "https://learn.microsoft.com/en-us/marketplace/purchase-orders": {"etag":"\"aOnqEmclADGyAZ7euRhOTiA8hYQ=\"","gitCommitId":"d80b9ce39e9ee8b237f15a992ef3cd86105045c4","path":"marketplace/purchase-orders.md","sourcePath":"marketplace/purchase-orders.md","updatedAt":"2026-10-21T22:03:00.0000000Z"}
+  }
+}

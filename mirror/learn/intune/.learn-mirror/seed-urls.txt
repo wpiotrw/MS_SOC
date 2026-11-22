@@ -104,6 +104,7 @@ https://learn.microsoft.com/en-us/intune/device-configuration/templates/configur
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/configure-shared-device
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/configure-wired-networks
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-device-restrictions-android-enterprise
+https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-vpn-settings-android-enterprise
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-vpn-settings-apple
 https://learn.microsoft.com/en-us/intune/device-configuration/templates/ref-wifi-settings-apple
 https://learn.microsoft.com/en-us/intune/device-configuration/troubleshoot-device-profiles
@@ -159,6 +160,8 @@ https://learn.microsoft.com/en-us/intune/device-management/tools/teamviewer-lega
 https://learn.microsoft.com/en-us/intune/device-security/certificates/derived-credentials
 https://learn.microsoft.com/en-us/intune/device-security/certificates/s-mime
 https://learn.microsoft.com/en-us/intune/device-security/compliance/become-mobile-device-management-compliance-provider
+https://learn.microsoft.com/en-us/intune/device-security/compliance/configure-noncompliance-actions
+https://learn.microsoft.com/en-us/intune/device-security/compliance/create-custom-script
 https://learn.microsoft.com/en-us/intune/device-security/compliance/create-policy
 https://learn.microsoft.com/en-us/intune/device-security/compliance/custom-settings
 https://learn.microsoft.com/en-us/intune/device-security/compliance/monitor-policy
@@ -167,6 +170,9 @@ https://learn.microsoft.com/en-us/intune/device-security/compliance/third-party-
 https://learn.microsoft.com/en-us/intune/device-security/conditional-access-integration/block-no-modern-auth
 https://learn.microsoft.com/en-us/intune/device-security/endpoint-security-devices
 https://learn.microsoft.com/en-us/intune/device-security/endpoint-security-policies
+https://learn.microsoft.com/en-us/intune/device-security/identity-protection/configure-tenant-wide-policy
+https://learn.microsoft.com/en-us/intune/device-security/laps/deploy-policy
+https://learn.microsoft.com/en-us/intune/device-security/laps/overview
 https://learn.microsoft.com/en-us/intune/device-security/laps/setup-macos
 https://learn.microsoft.com/en-us/intune/device-security/microsoft-defender/deploy-android
 https://learn.microsoft.com/en-us/intune/device-security/microsoft-defender/security-settings-management
