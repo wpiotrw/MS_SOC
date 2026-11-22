@@ -32,8 +32,20 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin "+${GITHUB_REF}:refs/remotes/origin/routine"
-          rm -rf site
-          git checkout refs/remotes/origin/routine -- site
+          # CLAUDE.md 5he (22 XI 2026): take ONLY the files the routine changed since it branched from main.
+          # Before, `rm -rf site` + checkout of the whole branch rolled back everything main received while the
+          # routine ran - on 22 XI the evening publish deleted an incident note, five archived KQL files, their rows in
+          # site/kql/index.json and threats.json; 4 of the 12 publishes 16-22 XI lost files the same way.
+          R=refs/remotes/origin/routine
+          if BASE=$(git merge-base HEAD "$R"); then
+            git diff --name-only -z --diff-filter=d "$BASE" "$R" -- site | xargs -0 -r git checkout "$R" --
+            git diff --name-only -z --diff-filter=D "$BASE" "$R" -- site | xargs -0 -r git rm -q --ignore-unmatch --
+            echo "routine changed $(git diff --name-only "$BASE" "$R" -- site | wc -l) file(s) under site/ since $BASE"
+          else
+            echo "::warning title=No merge base::the routine branch shares no history with main - whole site/ taken from it"
+            rm -rf site
+            git checkout "$R" -- site
+          fi
           # CLAUDE.md 5cz: the stamps belong to the workflows that write them - a routine clone may be older,
           # so keep main's copies (rm -rf above would drop or roll them back), then stamp this publication
           git checkout HEAD -- site/data/fresh 2>/dev/null || true

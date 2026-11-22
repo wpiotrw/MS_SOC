@@ -26566,6 +26566,19 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5he (22 XI 2026, 23:15)** — UTRATA DANYCH PRZY PUBLIKACJI. `.github/workflows/publish.yml` robil `rm -rf site` i bral CALY `site/`
+z galezi przebiegu (`claude/...`). Wszystko, co `main` dostal w czasie przebiegu (inne workflow, sesje), bylo cofane. 22 XI 21:50 UTC
+wieczorna publikacja `claude/laughing-bell-bbtfvw` (galaz od `a7138bf8`, 21:02) skasowala notatke incydentu Entra Connect Health,
+5 plikow `site/kql/articles/2026-11-22-detection-*`, ich wiersze w `site/kql/index.json`, `search.json`, `threats.json`, `kql-found.json`,
+`fpa-docs.json`, `graph-sp.json` i wpisy `feed-threats.xml`; przebieg naprawde zmienil 6 plikow. To samo 4 razy na 12 publikacji 16-22 XI
+(18 XI 06:50 i 07:01, 17 XI 06:47, 22 XI). Teraz publikacja bierze TYLKO pliki zmienione na galezi od `git merge-base` z `main` (zmiany i
+usuniecia), reszta zostaje z `main`; bez wspolnej historii stare zachowanie z ostrzezeniem. Test: symulacja na dzisiejszych galeziach -
+wchodzi 6 plikow przebiegu, notatka i 5 plikow KQL zostaja. Pliki z 22 XI przywrocone z `918488bf^` (`full.html` i `changes-7d.json`
+zostawione, bo licza je `changes_page.py` z danych przebiegu). Do notatki Connect Health dopisane 3 zapytania spolecznosci (ES,
+@ellishlomo, X; zrzut od Piotra): AuditLogs szeroko, AuditLogs tylko zapisy, AzureActivity `Microsoft.ADHybridHealthService`;
+regula RULES 5hd: przy bledzie po stronie Microsoftu polowac takze w plaszczyznie sterowania tenanta (AuditLogs, AzureActivity
+z dostawca zasobow uslugi).
+
 **§5hd (22 XI 2026, 22:25)** — Piotr pytal o artykul BleepingComputer "Microsoft Entra Connect Health flaw exploited to steal
 tenant data" (21 XI). Wykryty: incydent Threat Research z 21 XI z `tracked` Entra ID i Entra Connect & hybrid, zdanie THREAT
 RESEARCH w Overview, Community Articles. Blad: "Microsoft's response" wskazywal dwa posty Sentinel Blog (pazdziernik 2026), bo

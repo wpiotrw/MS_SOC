@@ -1,5 +1,80 @@
 [
  {
+  "file": "articles/2026-11-22-detection-5-webworm-persistence-via-registry-combined-with.kql",
+  "title": "Detection 5: Webworm - Persistence via Registry Combined with Recurring Outbound Encrypted Tunnel Connections",
+  "date": "2026-11-22",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceRegistryEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 22, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-22-detection-engineering-brief-sunday-november-22-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-22-detection-engineering-brief-sunday-november-22-2026/"
+ },
+ {
+  "file": "articles/2026-11-22-detection-4-zimbra-cve-2026-73571-authenticated-user.kql",
+  "title": "Detection 4: Zimbra CVE-2026-73571 - Authenticated User Sending Mail as a Different Identity",
+  "date": "2026-11-22",
+  "product": "Sentinel",
+  "tables": [
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 22, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-22-detection-engineering-brief-sunday-november-22-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-22-detection-engineering-brief-sunday-november-22-2026/",
+  "incident": "zimbra-snmp-cve-2026-73570-2026-09"
+ },
+ {
+  "file": "articles/2026-11-22-detection-3-armory-castle-unauthenticated-network-access-to.kql",
+  "title": "Detection 3: ARMORY CASTLE - Unauthenticated Network Access to vCenter Followed by Admin-Level Syslog Activity",
+  "date": "2026-11-22",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 22, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-22-detection-engineering-brief-sunday-november-22-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-22-detection-engineering-brief-sunday-november-22-2026/"
+ },
+ {
+  "file": "articles/2026-11-22-detection-2-webworm-softether-vpn-process-and-network.kql",
+  "title": "Detection 2: Webworm - SoftEther VPN Process and Network Activity on Endpoint",
+  "date": "2026-11-22",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 22, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-22-detection-engineering-brief-sunday-november-22-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-22-detection-engineering-brief-sunday-november-22-2026/"
+ },
+ {
+  "file": "articles/2026-11-22-detection-1-cloud-audit-bulk-data-access-following.kql",
+  "title": "Detection 1: Cloud Audit - Bulk Data Access Following Anomalous Authentication",
+  "date": "2026-11-22",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs",
+   "SigninLogs"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Sunday, November 22, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-22-detection-engineering-brief-sunday-november-22-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-22-detection-engineering-brief-sunday-november-22-2026/"
+ },
+ {
   "file": "2026-11-22-files-with-a-sensitivity-label-that-copilot-read.kql",
   "title": "Files with a sensitivity label that Copilot read to answer a prompt, by user and host app, last 7 days",
   "date": "2026-11-22",
