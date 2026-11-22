@@ -26566,6 +26566,17 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hf (22 XI 2026, 23:30)** — Piotr: przy KQL do incydentow brac WSZYSTKIE tabele, ktore Entra wysyla przez ustawienia diagnostyczne
+do Log Analytics (nie tylko SigninLogs/AuditLogs). Nowy plik `kql_entra_tables.json`: 18 kategorii diagnostycznych Entra -> tabela Log
+Analytics -> co trzyma -> do czego w incydencie (AuditLogs, SigninLogs, AADNonInteractiveUserSignInLogs, AADServicePrincipalSignInLogs,
+AADManagedIdentitySignInLogs, AADProvisioningLogs, ADFSSignInLogs, AADRiskyUsers, AADUserRiskEvents, AADRiskyServicePrincipals,
+AADServicePrincipalRiskEvents, AADRiskyAgents, AADAgentRiskEvents, MicrosoftGraphActivityLogs, AADCustomSecurityAttributeAuditLogs,
+NetworkAccessTraffic, EnrichedMicrosoft365AuditLogs, RemoteNetworkHealthLogs) + AzureActivity; sprawdzone w Learn 22 XI
+(concept-diagnostic-settings-logs-options, tables-category); MicrosoftServicePrincipalSignInLogs pominiete (Microsoft: niepotrzebne do
+dochodzen, nazwa tabeli niepotwierdzona). Regula RULES 5hd i `poranny-B-publish.md`: tabele z tej mapy, logowania zawsze interaktywne
++ nieinteraktywne (union), druga linia komentarza nazywa kategorie diagnostyczna. Pulapka: w AADNonInteractiveUserSignInLogs `Location`
+to region zasobu, nie kraj (kraj z `LocationDetails.countryOrRegion`). Zapytanie 3 notatki Connect Health przepisane na union obu tabel.
+
 **§5he (22 XI 2026, 23:15)** — UTRATA DANYCH PRZY PUBLIKACJI. `.github/workflows/publish.yml` robil `rm -rf site` i bral CALY `site/`
 z galezi przebiegu (`claude/...`). Wszystko, co `main` dostal w czasie przebiegu (inne workflow, sesje), bylo cofane. 22 XI 21:50 UTC
 wieczorna publikacja `claude/laughing-bell-bbtfvw` (galaz od `a7138bf8`, 21:02) skasowala notatke incydentu Entra Connect Health,

@@ -94,6 +94,13 @@ say so in the reply and stop the step; the page stays published.
    for incidents"): at least one, usually 2-3 hunting queries for THIS incident (its senders, links, sign-ins, apps,
    processes or settings), on tables and columns verified on Learn or through the KQL Search MCP; first comment line
    names the incident, the second the product and any licence the table needs; tenant values are `<placeholders>`.
+   **Tables (§5hf, 22 Nov 2026):** pick from ALL the tenant's identity logs in `kql_entra_tables.json` (every Entra
+   diagnostic-settings category with its Log Analytics table: AuditLogs, SigninLogs, AADNonInteractiveUserSignInLogs,
+   AADServicePrincipalSignInLogs, AADManagedIdentitySignInLogs, AADProvisioningLogs, ADFSSignInLogs, the ID Protection
+   risk tables, MicrosoftGraphActivityLogs, NetworkAccessTraffic …) plus `AzureActivity` and the Defender XDR tables -
+   a sign-in hunt unions interactive and non-interactive sign-ins (token replay shows only in the latter); for a
+   flaw on Microsoft's side also hunt AuditLogs and AzureActivity for the service's resource provider over the
+   exposure window; the second comment line names the diagnostic category the query needs.
    Only when no tenant telemetry can show it write `kqlNone` with the reason instead. `threat_todo.py check` fails a
    new note without either, and `todo` lists older notes without them as `enrich` with `kql` in `missing`,** `portal` (`label`, `kind`
    `permission`/`role`) only for Graph permissions and Entra roles the portal catalogs, `microsoft` (`what`, `title`,

@@ -1,0 +1,121 @@
+{
+  "about": "Microsoft Entra diagnostic-settings log categories and the Log Analytics tables they land in (CLAUDE.md 5hf, 22 Nov 2026). Checked on Microsoft Learn 22 Nov 2026: learn.microsoft.com/entra/identity/monitoring-health/concept-diagnostic-settings-logs-options and learn.microsoft.com/azure/azure-monitor/reference/tables-category. MicrosoftServicePrincipalSignInLogs (preview, first-party service-to-service) is left out: Microsoft says it is not needed for investigations and its table name was not confirmed. AzureActivity is not an Entra category: it comes from the Azure subscription's activity log diagnostic setting.",
+  "checked": "2026-11-22",
+  "tables": [
+    {
+      "category": "AuditLogs",
+      "table": "AuditLogs",
+      "holds": "changes to users, groups, apps, roles, policies, domains, Connect/sync and service settings",
+      "useFor": "any change an incident could make or that its attacker would need"
+    },
+    {
+      "category": "SignInLogs",
+      "table": "SigninLogs",
+      "holds": "interactive user sign-ins (password, MFA)",
+      "useFor": "phishing, AiTM, password spray, new country or device"
+    },
+    {
+      "category": "NonInteractiveUserSignInLogs",
+      "table": "AADNonInteractiveUserSignInLogs",
+      "holds": "sign-ins by a client on behalf of a user with a token or code",
+      "useFor": "token theft and replay, refresh-token abuse, device-code follow-up: usually only visible here",
+      "note": "Location here is the region of the resource, not the country (SigninLogs.Location is the country): take the country from parse_json(tostring(LocationDetails)).countryOrRegion when you union the two tables."
+    },
+    {
+      "category": "ServicePrincipalSignInLogs",
+      "table": "AADServicePrincipalSignInLogs",
+      "holds": "app / service principal sign-ins with a secret or certificate",
+      "useFor": "stolen app secrets, malicious or over-privileged multi-tenant apps, vendor app abuse"
+    },
+    {
+      "category": "ManagedIdentitySignInLogs",
+      "table": "AADManagedIdentitySignInLogs",
+      "holds": "managed identity sign-ins",
+      "useFor": "abuse of Azure workloads' identities"
+    },
+    {
+      "category": "ProvisioningLogs",
+      "table": "AADProvisioningLogs",
+      "holds": "provisioning to and from HR systems and SaaS apps",
+      "useFor": "rogue or changed provisioning, cross-tenant sync"
+    },
+    {
+      "category": "ADFSSignInLogs",
+      "table": "ADFSSignInLogs",
+      "holds": "AD FS sign-ins (Connect Health for AD FS)",
+      "useFor": "federation abuse, extranet lockout, risky IPs"
+    },
+    {
+      "category": "RiskyUsers",
+      "table": "AADRiskyUsers",
+      "holds": "users ID Protection rates as risky",
+      "useFor": "who is at risk after a campaign"
+    },
+    {
+      "category": "UserRiskEvents",
+      "table": "AADUserRiskEvents",
+      "holds": "ID Protection risk detections for users",
+      "useFor": "leaked credentials, anomalous token, unfamiliar sign-in properties"
+    },
+    {
+      "category": "RiskyServicePrincipals",
+      "table": "AADRiskyServicePrincipals",
+      "holds": "service principals rated as risky",
+      "useFor": "compromised workload identities"
+    },
+    {
+      "category": "ServicePrincipalRiskEvents",
+      "table": "AADServicePrincipalRiskEvents",
+      "holds": "risk detections for service principals",
+      "useFor": "suspicious app credentials or sign-ins"
+    },
+    {
+      "category": "RiskyAgents",
+      "table": "AADRiskyAgents",
+      "holds": "agent identities rated as risky",
+      "useFor": "AI agent abuse"
+    },
+    {
+      "category": "AgentRiskEvents",
+      "table": "AADAgentRiskEvents",
+      "holds": "risk detections for agent identities",
+      "useFor": "AI agent abuse"
+    },
+    {
+      "category": "MicrosoftGraphActivityLogs",
+      "table": "MicrosoftGraphActivityLogs",
+      "holds": "every HTTP request to Microsoft Graph in the tenant",
+      "useFor": "what a stolen token or app actually read or changed (mail, files, directory enumeration)"
+    },
+    {
+      "category": "CustomSecurityAttributeAuditLogs",
+      "table": "AADCustomSecurityAttributeAuditLogs",
+      "holds": "changes to custom security attributes",
+      "useFor": "attribute tampering"
+    },
+    {
+      "category": "NetworkAccessTrafficLogs",
+      "table": "NetworkAccessTraffic",
+      "holds": "Global Secure Access traffic (Internet / Private Access)",
+      "useFor": "C2 or exfiltration destinations, blocked threat-intel hits"
+    },
+    {
+      "category": "EnrichedOffice365AuditLogs",
+      "table": "EnrichedMicrosoft365AuditLogs",
+      "holds": "Microsoft 365 activity enriched by Global Secure Access",
+      "useFor": "M365 actions tied to network context"
+    },
+    {
+      "category": "RemoteNetworkHealthLogs",
+      "table": "RemoteNetworkHealthLogs",
+      "holds": "health of Global Secure Access remote networks",
+      "useFor": "rarely an incident table"
+    },
+    {
+      "category": "(Azure subscription activity log)",
+      "table": "AzureActivity",
+      "holds": "Azure Resource Manager operations on resources and resource providers",
+      "useFor": "changes made through an Azure resource provider of the affected service, e.g. Microsoft.ADHybridHealthService"
+    }
+  ]
+}
