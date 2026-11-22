@@ -1,0 +1,56 @@
+// title: Detection 2: Webworm - SoftEther VPN Deployment on Endpoints Without Authorized VPN Software
+// date: 2026-11-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Saturday, November 21, 2026
+// source: https://devsecopsdadattack.com/2026-11-21-detection-engineering-brief-saturday-november-21-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let softEtherPorts = dynamic([443, 992, 1194, 5555]);
+let softEtherNames = dynamic(["vpnserver", "vpnclient", "vpncmd", "vpnbridge", "softether"]);
+let standardPaths = dynamic(["program files", "programdata"]);
+let suspiciousProcesses =
+    DeviceProcessEvents
+    | where TimeGenerated > ago(7d)
+    | where FileName has_any (softEtherNames)
+        or ProcessCommandLine has_any (softEtherNames)
+    | project
+        DeviceId,
+        DeviceName,
+        ProcessTime = TimeGenerated,
+        FileName,
+        ProcessCommandLine,
+        FolderPath,
+        InitiatingProcessFileName,
+        AccountName,
+        AccountDomain;
+let networkConnections =
+    DeviceNetworkEvents
+    | where TimeGenerated > ago(7d)
+    | where RemotePort in (softEtherPorts)
+    | where ActionType == "ConnectionSuccess"
+    | project
+        DeviceId,
+        NetTime = TimeGenerated,
+        RemoteIP,
+        RemotePort,
+        NetInitiatingProcessFileName = InitiatingProcessFileName;
+suspiciousProcesses
+| join kind=inner networkConnections on DeviceId
+| where NetTime between (ProcessTime .. (ProcessTime + 10m))
+| where isempty(FolderPath)
+    or not (tolower(FolderPath) has_any (standardPaths))
+| project
+    DeviceName,
+    AccountName,
+    AccountDomain,
+    FileName,
+    ProcessCommandLine,
+    FolderPath,
+    InitiatingProcessFileName,
+    RemoteIP,
+    RemotePort,
+    ProcessTime,
+    NetTime
+| order by ProcessTime desc

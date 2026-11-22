@@ -1,13 +1,13 @@
 [
  {
-  "file": "2026-11-22-copilot-interactions-by-model-provider-and-host-app.kql",
-  "title": "Copilot interactions by model provider and host app, last 7 days, to see where the OpenAI subprocessor now processes prompts",
+  "file": "2026-11-22-files-with-a-sensitivity-label-that-copilot-read.kql",
+  "title": "Files with a sensitivity label that Copilot read to answer a prompt, by user and host app, last 7 days",
   "date": "2026-11-22",
   "product": "Copilot",
   "tables": [
    "CloudAppEvents"
   ],
-  "purpose": "Counts CopilotInteraction audit records from CloudAppEvents by host application and model provider read from RawEventData. Not run against a tenant in this pass.",
+  "purpose": "Expands AccessedResources of CopilotInteraction records and keeps resources that carry a sensitivity label ID, counting them per user and host. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
   "kind": "brief"
  },
@@ -24,14 +24,14 @@
   "kind": "brief"
  },
  {
-  "file": "2026-11-22-files-with-a-sensitivity-label-that-copilot-read.kql",
-  "title": "Files with a sensitivity label that Copilot read to answer a prompt, by user and host app, last 7 days",
+  "file": "2026-11-22-copilot-interactions-by-model-provider-and-host-app.kql",
+  "title": "Copilot interactions by model provider and host app, last 7 days, to see where the OpenAI subprocessor now processes prompts",
   "date": "2026-11-22",
   "product": "Copilot",
   "tables": [
    "CloudAppEvents"
   ],
-  "purpose": "Expands AccessedResources of CopilotInteraction records and keeps resources that carry a sensitivity label ID, counting them per user and host. Not run against a tenant in this pass.",
+  "purpose": "Counts CopilotInteraction audit records from CloudAppEvents by host application and model provider read from RawEventData. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
   "kind": "brief"
  },
@@ -50,6 +50,80 @@
   "incident": "optimizely-web-experimentation-supply-chain-2026-11"
  },
  {
+  "file": "articles/2026-11-21-detection-5-cve-2026-73571-metasploit-exploitation-pattern.kql",
+  "title": "Detection 5: CVE-2026-73571 - Metasploit Exploitation Pattern Against Zimbra SOAP Endpoint",
+  "date": "2026-11-21",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, November 21, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-21-detection-engineering-brief-saturday-november-21-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-21-detection-engineering-brief-saturday-november-21-2026/",
+  "incident": "zimbra-snmp-cve-2026-73570-2026-09"
+ },
+ {
+  "file": "articles/2026-11-21-detection-4-cve-2026-73571-zimbra-savedraftrequest-sender.kql",
+  "title": "Detection 4: CVE-2026-73571 - Zimbra SaveDraftRequest Sender Impersonation via Authorization Bypass",
+  "date": "2026-11-21",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, November 21, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-21-detection-engineering-brief-saturday-november-21-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-21-detection-engineering-brief-saturday-november-21-2026/",
+  "incident": "zimbra-snmp-cve-2026-73570-2026-09"
+ },
+ {
+  "file": "articles/2026-11-21-detection-3-webworm-persistent-low-frequency-outbound-connec.kql",
+  "title": "Detection 3: Webworm - Persistent Low-Frequency Outbound Connections on Non-Standard VPN Ports",
+  "date": "2026-11-21",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, November 21, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-21-detection-engineering-brief-saturday-november-21-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-21-detection-engineering-brief-saturday-november-21-2026/"
+ },
+ {
+  "file": "articles/2026-11-21-detection-2-webworm-softether-vpn-deployment-on-endpoints.kql",
+  "title": "Detection 2: Webworm - SoftEther VPN Deployment on Endpoints Without Authorized VPN Software",
+  "date": "2026-11-21",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, November 21, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-21-detection-engineering-brief-saturday-november-21-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-21-detection-engineering-brief-saturday-november-21-2026/"
+ },
+ {
+  "file": "articles/2026-11-21-detection-1-cve-2026-123890-vcenter-auth-bypass.kql",
+  "title": "Detection 1: CVE-2026-123890 - vCenter Auth Bypass Followed by Administrator Session from Novel IP",
+  "date": "2026-11-21",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Saturday, November 21, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-21-detection-engineering-brief-saturday-november-21-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-21-detection-engineering-brief-saturday-november-21-2026/"
+ },
+ {
   "file": "2026-11-21-remote-execution-on-domain-controllers.kql",
   "title": "Processes started remotely on domain controllers by services.exe or WmiPrvSE.exe, last 7 days, after the remote code execution classic alert retires",
   "date": "2026-11-21",
@@ -60,7 +134,10 @@
   ],
   "purpose": "Takes the domain controllers Defender for Identity sees as logon destinations, then lists command interpreters and script hosts those servers started under services.exe or WmiPrvSE.exe. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceprocessevents-table",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-22"
+  ]
  },
  {
   "file": "2026-11-21-ntlm-logons-from-new-account-device-pairs.kql",
@@ -72,7 +149,10 @@
   ],
   "purpose": "Builds a 30-day baseline of account-device pairs from IdentityLogonEvents and returns NTLM logons of the last 7 days whose pair is absent from it, with the destination device. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identitylogonevents-table",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-22"
+  ]
  },
  {
   "file": "2026-11-21-azure-firewall-default-deny-baseline.kql",
@@ -84,7 +164,10 @@
   ],
   "purpose": "Counts network-rule denials with ActionReason 'Default Action' from the resource-specific AZFWNetworkRule table per source IP, destination and port. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azfwnetworkrule",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-22"
+  ]
  },
  {
   "file": "articles/2026-11-20-detection-5-webworm-softether-vpn-deployment-process-executi.kql",
@@ -172,7 +255,8 @@
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
   "kind": "brief",
   "reused": [
-   "2026-11-21"
+   "2026-11-21",
+   "2026-11-22"
   ]
  },
  {
@@ -187,7 +271,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
   "kind": "brief",
   "reused": [
-   "2026-11-21"
+   "2026-11-21",
+   "2026-11-22"
   ]
  },
  {
@@ -202,7 +287,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs",
   "kind": "brief",
   "reused": [
-   "2026-11-21"
+   "2026-11-21",
+   "2026-11-22"
   ]
  },
  {
@@ -291,7 +377,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-20",
-   "2026-11-21"
+   "2026-11-21",
+   "2026-11-22"
   ]
  },
  {
@@ -307,7 +394,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-20",
-   "2026-11-21"
+   "2026-11-21",
+   "2026-11-22"
   ]
  },
  {
@@ -323,7 +411,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-20",
-   "2026-11-21"
+   "2026-11-21",
+   "2026-11-22"
   ]
  },
  {
@@ -565,7 +654,8 @@
   "reused": [
    "2026-11-19",
    "2026-11-20",
-   "2026-11-21"
+   "2026-11-21",
+   "2026-11-22"
   ]
  },
  {
@@ -582,7 +672,8 @@
   "reused": [
    "2026-11-19",
    "2026-11-20",
-   "2026-11-21"
+   "2026-11-21",
+   "2026-11-22"
   ]
  },
  {
@@ -599,7 +690,8 @@
   "reused": [
    "2026-11-19",
    "2026-11-20",
-   "2026-11-21"
+   "2026-11-21",
+   "2026-11-22"
   ]
  },
  {

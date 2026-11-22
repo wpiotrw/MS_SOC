@@ -2067,6 +2067,14 @@
 "date":"2026-11-10",
 "group":"microsoft",
 "found":"2026-11-11"
+},
+"https://mc.merill.net/message/MC1448373":{
+"title":"MC1448373: Teams device management transition from Teams admin center to Teams Rooms Pro management portal",
+"link":"https://mc.merill.net/message/MC1448373",
+"source":"MC - Merill",
+"date":"2026-11-19",
+"group":"community",
+"found":"2026-11-22"
 }
 },
 "final":null,
@@ -2742,6 +2750,22 @@
 "updated":"2026-01-22",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/defender-xdr/whats-new":{
+"title":"Expanded identity activity visibility in advanced hunting",
+"link":"https://learn.microsoft.com/en-us/defender-xdr/whats-new",
+"source":"Microsoft Learn · What's new · Defender XDR",
+"date":"2026-11-16T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-11-22"
+},
+"https://learn.microsoft.com/en-us/azure/sentinel/whats-new":{
+"title":"Run interactive KQL queries in advanced hunting",
+"link":"https://learn.microsoft.com/en-us/azure/sentinel/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Sentinel",
+"date":"2026-11-16T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-11-22"
 }
 },
 "final":"2027-02-01",
@@ -2760,6 +2784,15 @@
 "MC1519861"
 ],
 "log":[
+{
+"date":"2026-11-22",
+"id":"MC1519861",
+"what":"Microsoft revised the post",
+"before":"2026-10-22",
+"after":"2026-10-21",
+"title":"Outlook: Copilot Prioritize feature will be retired",
+"link":"https://mc.merill.net/message/MC1519861"
+},
 {
 "date":"2026-10-22",
 "id":"MC1519861",
@@ -5222,14 +5255,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-19",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-20",
 "text":"August 1, 2026."
 },
@@ -5327,6 +5352,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-21",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-22",
 "text":"August 1, 2026."
 },
 {
@@ -5828,22 +5861,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-20",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-20",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-21",
 "text":"early February 2026."
 },
@@ -5933,6 +5950,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-21",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-22",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-22",
 "text":"February 2027."
 },
 {
@@ -6443,6 +6476,14 @@
 "date":"2026-11-20",
 "group":"community",
 "found":"2026-11-20"
+},
+"https://www.bleepingcomputer.com/news/security/rackspace-spot-breach-let-hackers-access-customer-kubernetes-secrets/":{
+"title":"Rackspace Spot breach let hackers access customer Kubernetes secrets",
+"link":"https://www.bleepingcomputer.com/news/security/rackspace-spot-breach-let-hackers-access-customer-kubernetes-secrets/",
+"source":"BleepingComputer",
+"date":"2026-11-21",
+"group":"community",
+"found":"2026-11-22"
 }
 },
 "final":"2027-10-09",
@@ -6837,6 +6878,14 @@
 "updated":"2026-09-30",
 "group":"microsoft",
 "found":"2026-10-12"
+},
+"https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes":{
+"title":"Automatic enablement of SaaS accounts integration with Identity inventory",
+"link":"https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes",
+"source":"Microsoft Learn · What's new · Defender for Cloud Apps",
+"date":"2026-11-16T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-11-22"
 }
 },
 "final":null,
@@ -6988,6 +7037,14 @@
 "date":"2026-11-06",
 "group":"microsoft",
 "found":"2026-11-07"
+},
+"https://mc.merill.net/message/MC1560929":{
+"title":"MC1560929: Updates to Workforce Insights Agent (Frontier) for Admins in Microsoft 365 Copilot",
+"link":"https://mc.merill.net/message/MC1560929",
+"source":"MC - Merill",
+"date":"2026-11-20",
+"group":"community",
+"found":"2026-11-22"
 }
 },
 "final":"2026-11-18",
@@ -7370,6 +7427,111 @@
 "tech":"Copilot",
 "posts":[
 "MC1560922"
+]
+},
+"c-item-azure-functions-openai-extension-retirement-2027-04-20":{
+"firstSeen":"2026-11-22",
+"lastSeen":"2026-11-22",
+"name":"OpenAI models will soon be available as a subprocessor in Microsoft 365 Copilot",
+"status":"Active",
+"members":[
+"MC1422074",
+"item:MC1560916",
+"item:azure-functions-openai-extension-retirement-2027-04-20"
+],
+"log":[
+{
+"date":"2026-11-22",
+"id":"azure-functions-openai-extension-retirement-2027-04-20",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Azure Functions OpenAI extension loses support on 20 April 2027; apps must move to the OpenAI, Foundry or Azure AI Search SDKs",
+"title":"Azure Functions OpenAI extension loses support on 20 April 2027; apps must move to the OpenAI, Foundry or Azure AI Search SDKs",
+"link":"https://azure.microsoft.com/updates?id=579952"
+},
+{
+"date":"2026-11-20",
+"id":"MC1560916",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Microsoft Copilot: GPT-6.2 Sol and Astra rolling out",
+"title":"GPT-6.2 Sol and Astra roll out across Microsoft Copilot; Astra is available only where the tenant enables the OpenAI subprocessor",
+"link":"https://deltapulse.app/item/MC1560916"
+}
+],
+"milestones":{
+"MC1422074|posted":{
+"date":"2026-09-29",
+"label":"29 Sep 2026",
+"text":"Posted: OpenAI models will soon be available as a subprocessor in Microsoft 365 Copilot"
+},
+"azure-functions-openai-extension-retirement-2027-04-20|deadline":{
+"date":"2027-04-20",
+"label":"20 Apr 2027",
+"text":"Azure Functions OpenAI extension loses support on 20 April 2027; apps must move to the OpenAI, Foundry or Azure AI Search SDKs"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1422074":{
+"title":"OpenAI models will soon be available as a subprocessor in Microsoft 365 Copilot",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1422074",
+"source":"Message Center",
+"id":"MC1422074",
+"date":"2026-09-29",
+"updated":null,
+"group":"microsoft",
+"found":"2026-11-22"
+},
+"https://deltapulse.app/item/MC1560916":{
+"title":"Microsoft Copilot: GPT-6.2 Sol and Astra rolling out",
+"link":"https://deltapulse.app/item/MC1560916",
+"source":"Main list source",
+"id":"MC1560916",
+"date":"2026-11-19",
+"group":"microsoft",
+"found":"2026-11-22"
+},
+"https://azure.microsoft.com/updates?id=579952":{
+"title":"Retirement: Support for Azure Functions OpenAI Extension ends on April 20, 2027",
+"link":"https://azure.microsoft.com/updates?id=579952",
+"source":"Main list source",
+"id":"azure-functions-openai-extension-retirement-2027-04-20",
+"date":"2026-11-20",
+"group":"microsoft",
+"found":"2026-11-22"
+},
+"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-s-gpt-6-2-sol-and-gpt-6-2-astra-in/ba-p/4574229":{
+"title":"Available today: OpenAI's GPT-6.2 Sol and GPT-6.2 Astra in Microsoft Copilot",
+"link":"https://techcommunity.microsoft.com/t5/microsoft-copilot-blog/available-today-openai-s-gpt-6-2-sol-and-gpt-6-2-astra-in/ba-p/4574229",
+"source":"Microsoft Copilot Blog",
+"date":"2026-11-20",
+"group":"microsoft",
+"found":"2026-11-22"
+},
+"https://thehackernews.com/2026/11/threatsday-gpt-62-jailbreak-flaws.html":{
+"title":"ThreatsDay: GPT-6.2 Jailbreak Flaws, BubbleLoader PNG Malware, $500M Ransom Demands + 17 More Stories",
+"link":"https://thehackernews.com/2026/11/threatsday-gpt-62-jailbreak-flaws.html",
+"source":"Hacker News",
+"date":"2026-11-20",
+"group":"community",
+"found":"2026-11-22"
+},
+"https://mc.merill.net/message/MC1560916":{
+"title":"MC1560916: Microsoft Copilot: GPT-6.2 Sol and Astra rolling out",
+"link":"https://mc.merill.net/message/MC1560916",
+"source":"MC - Merill",
+"date":"2026-11-19",
+"group":"community",
+"found":"2026-11-22"
+}
+},
+"final":"2027-04-20",
+"type":"Support end",
+"tech":"Copilot",
+"posts":[
+"MC1422074",
+"MC1560916"
 ]
 },
 "c-sms-voice-retirement":{
@@ -9419,22 +9581,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-20",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-20",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-21",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -9524,6 +9670,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-21",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-22",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-22",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -20411,6 +20573,76 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-22",
+"cid":"c-mc1450127",
+"type":"material",
+"name":"End-of-support Android devices may not be manageable through the Pro Management Portal",
+"group":"community",
+"title":"MC1448373: Teams device management transition from Teams admin center to Teams Rooms Pro management portal",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1448373"
+},
+{
+"day":"2026-11-22",
+"cid":"c-mc1220762",
+"type":"material",
+"name":"MDE and XDR Advanced Hunting APIs retiring; migrate to Microsoft Graph Security API",
+"group":"microsoft",
+"title":"Expanded identity activity visibility in advanced hunting",
+"source":"Microsoft Learn · What's new · Defender XDR",
+"link":"https://learn.microsoft.com/en-us/defender-xdr/whats-new"
+},
+{
+"day":"2026-11-22",
+"cid":"c-mc1220762",
+"type":"material",
+"name":"MDE and XDR Advanced Hunting APIs retiring; migrate to Microsoft Graph Security API",
+"group":"microsoft",
+"title":"Run interactive KQL queries in advanced hunting",
+"source":"Microsoft Learn · What's new · Microsoft Sentinel",
+"link":"https://learn.microsoft.com/en-us/azure/sentinel/whats-new"
+},
+{
+"day":"2026-11-22",
+"cid":"c-item-azure-arc-akv-secrets-provider-extension-retirement-202",
+"type":"material",
+"name":"Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret…",
+"group":"community",
+"title":"Rackspace Spot breach let hackers access customer Kubernetes secrets",
+"source":"BleepingComputer",
+"link":"https://www.bleepingcomputer.com/news/security/rackspace-spot-breach-let-hackers-access-customer-kubernetes-secrets/"
+},
+{
+"day":"2026-11-22",
+"cid":"c-item-mdi-auto-sensor-v3-windows-auditing-default",
+"type":"material",
+"name":"Microsoft Defender for Identity auto-activation and auto-auditing automatic enablement",
+"group":"microsoft",
+"title":"Automatic enablement of SaaS accounts integration with Identity inventory",
+"source":"Microsoft Learn · What's new · Defender for Cloud Apps",
+"link":"https://learn.microsoft.com/en-us/defender-cloud-apps/release-notes"
+},
+{
+"day":"2026-11-22",
+"cid":"c-item-mc1542066",
+"type":"material",
+"name":"Changes to custom organizational data in MODS for Workforce Insights",
+"group":"community",
+"title":"MC1560929: Updates to Workforce Insights Agent (Frontier) for Admins in Microsoft 365 Copilot",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1560929"
+},
+{
+"day":"2026-11-22",
+"cid":"c-item-azure-functions-openai-extension-retirement-2027-04-20",
+"type":"new",
+"name":"OpenAI models will soon be available as a subprocessor in Microsoft 365 Copilot",
+"ctype":"Support end",
+"tech":"Copilot",
+"next":"20 Apr 2027",
+"text":"GPT-6.2 Sol and Astra roll out across Microsoft Copilot; Astra is available only where the tenant enables the OpenAI subprocessor"
 }
 ],
 "archive":{

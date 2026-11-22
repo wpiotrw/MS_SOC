@@ -1,0 +1,35 @@
+// title: Detection 3: Webworm - Persistent Low-Frequency Outbound Connections on Non-Standard VPN Ports
+// date: 2026-11-21
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: Detection Engineering Brief - Saturday, November 21, 2026
+// source: https://devsecopsdadattack.com/2026-11-21-detection-engineering-brief-saturday-november-21-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let softEtherPorts = dynamic([992, 1194, 5555]);
+let authorizedVPNProcesses = dynamic(["vpnui.exe", "vpnagent.exe", "ciscovpn.exe", "openvpn.exe", "anyconnect.exe", "globalprotect.exe"]);
+DeviceNetworkEvents
+| where TimeGenerated > ago(14d)
+| where RemotePort in (softEtherPorts)
+| where ActionType == "ConnectionSuccess"
+| where not (InitiatingProcessFileName has_any (authorizedVPNProcesses))
+| summarize
+    ConnectionDays = dcount(bin(TimeGenerated, 1d)),
+    TotalConnections = count(),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated),
+    InitiatingProcessFileNames = make_set(InitiatingProcessFileName, 20)
+    by DeviceId, DeviceName, RemoteIP, RemotePort
+| where ConnectionDays >= 5
+| project
+    DeviceName,
+    DeviceId,
+    RemoteIP,
+    RemotePort,
+    InitiatingProcessFileNames,
+    ConnectionDays,
+    TotalConnections,
+    FirstSeen,
+    LastSeen
+| order by ConnectionDays desc, RemotePort asc
