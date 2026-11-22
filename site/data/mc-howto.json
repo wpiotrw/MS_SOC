@@ -768,6 +768,40 @@
      "says": "In-app browsing becomes enabled by default in early to late January 2027; set the BrowsingEnabled policy to Off through device management to disable it, and Microsoft will update the post with documentation."
     }
    ]
+  },
+  {
+   "key": "power-apps-developer-plan-unmanaged-dev-environments",
+   "ids": [
+    "MC1515303"
+   ],
+   "title": "Power Apps Developer Plan and unmanaged developer environments reach end of support",
+   "scriptable": false,
+   "checked": "2026-11-22",
+   "why": "Developer environments are Power Platform environments, administered in the Power Platform admin center and its own admin module; this routine found no Microsoft Graph, Exchange Online or Teams PowerShell surface for them, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1515303",
+     "u": "https://mc.merill.net/message/MC1515303",
+     "says": "Microsoft publishes information on the end of support for the Power Apps Developer Plan and for unmanaged developer environments."
+    }
+   ]
+  },
+  {
+   "key": "dataverse-for-teams-retirement-2027-09-15",
+   "ids": [
+    "MC1515294"
+   ],
+   "title": "Dataverse for Teams retires: migrate before 15 September 2027",
+   "scriptable": false,
+   "checked": "2026-11-22",
+   "why": "Dataverse for Teams environments are Power Platform environments migrated from the Power Platform admin center; this routine found no Microsoft Graph, Exchange Online or Teams PowerShell surface that lists or migrates them, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1515294",
+     "u": "https://mc.merill.net/message/MC1515294",
+     "says": "Microsoft retires Dataverse for Teams and asks customers to migrate before 15 September 2027."
+    }
+   ]
   }
  ]
 }
