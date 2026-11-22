@@ -26572,7 +26572,13 @@ RESEARCH w Overview, Community Articles. Blad: "Microsoft's response" wskazywal 
 `hit()` w `tools/threats.py` liczyl slowa automatyczne jako PODCIAG ("connect" w "connectors", "health"). Teraz slowa licza sie jako
 cale slowa, a slowa automatyczne stojace obok siebie w tytule wiodacym ("connect health") musza wystapic jako fraza. KQL: incydent
 jest pierwszy w `threat_todo.py todo` — poranna analiza (poranny-B, krok threat notes) szuka KQL opublikowanych przez Microsoft i
-spolecznosc (`kqlPublished`) i pisze nasze (`kql`).
+spolecznosc (`kqlPublished`) i pisze nasze (`kql`). DOPISEK 22:50 — Piotr: "ale my mieliśmy też pisać swoje KQL pod incydenty". Stan: 22 notatek porannej analizy, własne `kql` w 7;
+33 incydenty ze śledzonymi technologiami, własne KQL w 7. Przyczyna: reguła mówiła "kql only on tables verified", więc przebieg
+pomijał KQL zamiast je pisać. Teraz `kql` jest WYMAGANE (min. 1, zwykle 2-3 zapytania na zweryfikowanych tabelach) albo `kqlNone`
+z powodem: `routines/poranny-B-publish.md`, reguła w `tools/threat_todo.py` (RULES), `check` odrzuca nową notatkę bez nich
+(od 23 XI), `todo` daje starszym notatkom `enrich` z `kql` w `missing` (15 notatek; razem z 13 z kolejki `backlog` to ok. 6 porannych
+przebiegów po 5). Notatka `entra-connect-health-api-metadata-2026-11` napisana w sesji: 3 zapytania (EmailEvents + IdentityInfo,
+UrlClickEvents, SigninLogs), kolumny sprawdzone w Learn 22 XI.
 
 **§5hc (17 XI 2026, 23:49)** — Piotr (zrzut z Graph API, AccessReview.Read.All): nazwy cmdletow nachodzily na siebie, po przewinieciu
 nie bylo wiadomo, czego dotycza wpisy, "i to samo pewnie w innych zakladkach". Przyczyny i poprawki: (1) regula §5t

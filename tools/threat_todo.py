@@ -47,6 +47,7 @@ RULES = [
     "5ez - every remediation step MUST carry `phase`: contain | investigate | eradicate | harden | detect. Steps `from: ours` are shown in their own 'Our proposal' box - write them as concrete actions.",
     "5ez - before writing your own KQL, search for queries already published for THIS incident by the vendor (Microsoft Threat Intelligence / Security / Sentinel / Defender XDR blogs, the affected vendor's advisory) and the community (detect.fyi, kqlquery.com, devsecopsdadattack.com, Steven Lim x.com/0x534c and github.com/SlimKQL, KQL Search MCP): WebSearch with the incident name / CVE / app ID plus 'KQL'. Record each in `kqlPublished` (`title`, `query` as published, `by`, `src`, `link`, `date`, `vendor: true` for Microsoft or the affected vendor). x.com cannot be fetched - record the post link and only what the search result shows. Never rewrite a published query as theirs, never invent one. Nothing found: `kqlSearched: \"YYYY-MM-DD\"`. Queries already in the story's articles are shown automatically - do not copy them.",
     "5ez - action `enrich`: an older note of yours; add only the fields named in `missing`, keep the rest, set `updated` to today.",
+    "5hd - OUR OWN KQL IS REQUIRED in every note (owner, 22 Nov 2026: 'we were supposed to write our own KQL for incidents'): at least one, usually 2-3 hunting queries in `kql` (`title`, `query`) that a SOC can run for THIS incident - the senders, links, sign-ins, apps, processes or settings the incident touches - on tables and columns verified on Microsoft Learn or through the KQL Search MCP; first line of each query is a comment naming the incident, second line the product (Defender XDR advanced hunting / Microsoft Sentinel) and any licence the table needs; values the tenant must supply are `<placeholders>`. Only when no telemetry can show it (e.g. a vendor-side flaw with nothing in tenant logs) write `kqlNone` with the reason. An `enrich` row with `kql` in `missing` means: add the queries to an older note.",
 ]
 GUID = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 PHASES = {"contain", "investigate", "eradicate", "harden", "detect"}
@@ -105,6 +106,8 @@ def todo(days, maxn, backlog=30):
                     miss.append("phase")
                 if not n.get("kqlPublished") and not n.get("kqlSearched"):
                     miss.append("kqlPublished")
+                if not n.get("kql") and not n.get("kqlNone"):
+                    miss.append("kql")      # 5hd: our own hunting queries, or the reason there can be none
                 if miss:
                     row["action"], row["missing"], row["noteUpdated"] = "enrich", miss, upd
                     row["appsFoundInArticles"] = [{k: a.get(k) for k in ("appId", "name", "src", "link")} for a in s.get("apps") or [] if a.get("origin") == "source"]
@@ -239,6 +242,12 @@ def check():
                 E("kqlPublished link %r is not an http(s) URL" % q["link"])
         if fresh and not n.get("kqlPublished") and not n.get("kqlSearched"):
             E("no `kqlPublished` and no `kqlSearched` date - search for the vendor's and the community's queries first (required from 23 Oct 2026)")
+        if (n.get("updated") or "") >= "2026-11-23" and not n.get("kql") and not n.get("kqlNone"):
+            E("no own `kql` and no `kqlNone` reason - write at least one hunting query on verified tables, or say why none is possible (required from 23 Nov 2026, 5hd)")
+        for q in n.get("kql") or []:
+            for k in ("title", "query"):
+                if not q.get(k):
+                    E("kql entry needs `%s`" % k)
     for w in warns:
         print("check: WARN " + w)
     for e in errs:

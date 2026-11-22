@@ -2529,6 +2529,127 @@
      "date": "2026-11-18"
     }
    ]
+  },
+  {
+   "id": "entra-connect-health-api-metadata-2026-11",
+   "title": "Microsoft Entra Connect Health API flaw: attackers read administrator emails and tenant metadata (23 Jul - 19 Nov 2026)",
+   "match": [
+    "connect health"
+   ],
+   "areas": [
+    "Hybrid & federation",
+    "Vulnerabilities"
+   ],
+   "status": "contained",
+   "updated": "2026-11-22",
+   "by": "analysis 22 Nov 2026 (session)",
+   "summary": "A vulnerability in the Microsoft Entra Connect Health API, introduced on 23 July 2026 and detected by Microsoft on 9 November, let unauthorized callers read tenant-level metadata. Microsoft fixed it in the cloud service on 19 November and concluded on 20 November that attackers had read tenant data; customers have nothing to patch. The records included administrator and technical-contact email addresses, tenant ID, display name, initial domain, country, Entra license tier, directory-sync state and Connect Health onboarding. Microsoft says passwords, hashes, sign-in tokens, valid keys, Azure subscription details and on-premises AD topology were not exposed and it found no changes to monitoring settings. It has not said who exploited the flaw or how many tenants were affected; the main risk for an affected tenant is targeted phishing of its administrators.",
+   "timeline": [
+    {
+     "date": "2026-07-23",
+     "text": "Vulnerability introduced into the Entra Connect Health API.",
+     "src": "https://cybersecuritynews.com/microsoft-entra-connect-health-flaw/"
+    },
+    {
+     "date": "2026-11-09",
+     "text": "Microsoft detects the vulnerability.",
+     "src": "https://cybersecuritynews.com/microsoft-entra-connect-health-flaw/"
+    },
+    {
+     "date": "2026-11-19",
+     "text": "Microsoft deploys a fix in the cloud service; no customer patch.",
+     "src": "https://cybersecuritynews.com/microsoft-entra-connect-health-flaw/"
+    },
+    {
+     "date": "2026-11-20",
+     "text": "Investigation concludes that attackers read tenant data; Microsoft notifies affected customers (notice shared on Reddit).",
+     "src": "https://cybersecuritynews.com/microsoft-entra-connect-health-flaw/"
+    },
+    {
+     "date": "2026-11-21",
+     "text": "BleepingComputer and other media report the notice.",
+     "src": "https://www.bleepingcomputer.com/news/security/microsoft-entra-connect-health-flaw-exploited-to-steal-tenant-data/"
+    }
+   ],
+   "rootCause": "A flaw in Microsoft's cloud-side Entra Connect Health API returned tenant-level contact and configuration metadata to unauthorized callers for about 109 days before detection.",
+   "attacker": [
+    "Unknown actor (Microsoft has not attributed it) read tenant metadata through the Entra Connect Health API, including administrator and technical-contact email addresses."
+   ],
+   "iocs": [],
+   "remediation": [
+    {
+     "text": "Check the security advisory in Azure Service Health in the Azure portal to see whether your tenant is listed.",
+     "from": "source",
+     "src": "https://cybersecuritynews.com/microsoft-entra-connect-health-flaw/",
+     "phase": "investigate"
+    },
+    {
+     "text": "Run Microsoft's read-only GetTenant PowerShell script (aka.ms/ConnectHealth/scripts) to see which metadata of your tenant was exposed.",
+     "from": "source",
+     "src": "https://www.bleepingcomputer.com/news/security/microsoft-entra-connect-health-flaw-exploited-to-steal-tenant-data/",
+     "phase": "investigate"
+    },
+    {
+     "text": "Alert IT and security teams to targeted phishing of administrators and confirm the tenant's technical-contact details.",
+     "from": "source",
+     "src": "https://cybersecuritynews.com/microsoft-entra-connect-health-flaw/",
+     "phase": "contain"
+    },
+    {
+     "text": "Require phishing-resistant MFA for privileged accounts and use Privileged Identity Management where available.",
+     "from": "source",
+     "src": "https://cybersecuritynews.com/microsoft-entra-connect-health-flaw/",
+     "phase": "harden"
+    },
+    {
+     "text": "Review Connect Health settings, Entra audit and sign-in logs and Azure Activity Logs.",
+     "from": "source",
+     "src": "https://cybersecuritynews.com/microsoft-entra-connect-health-flaw/",
+     "phase": "investigate"
+    },
+    {
+     "text": "Run the three queries below for the exposed admin and technical-contact addresses: phishing and first-contact mail, flagged or clicked-through links, risky or new-country sign-ins since 9 Nov 2026.",
+     "from": "ours",
+     "phase": "detect"
+    },
+    {
+     "text": "Turn on Priority Account Protection in Defender for Office 365 for the exposed administrator mailboxes, so phishing aimed at them is tagged and reported separately.",
+     "from": "ours",
+     "phase": "harden"
+    },
+    {
+     "text": "Move the technical-contact address of the tenant to a shared, monitored mailbox that is not a privileged sign-in account.",
+     "from": "ours",
+     "phase": "harden"
+    }
+   ],
+   "kql": [
+    {
+     "title": "Inbound mail to privileged accounts: first-contact senders and phishing verdicts (Defender XDR, 30 days)",
+     "query": "// Entra Connect Health metadata leak (Nov 2026): inbound mail to privileged accounts - first-contact senders and phishing verdicts\n// Defender XDR advanced hunting (IdentityInfo.AssignedRoles needs Defender for Identity, Defender for Cloud Apps or MDE P2). Advanced hunting keeps 30 days.\nlet admins = IdentityInfo\n| where Timestamp > ago(14d)\n| where array_length(AssignedRoles) > 0\n| summarize arg_max(Timestamp, AssignedRoles, EmailAddress) by AccountUpn\n| extend Addr = tolower(coalesce(EmailAddress, AccountUpn))\n| project Addr, AccountUpn, Roles = tostring(AssignedRoles);\nEmailEvents\n| where Timestamp > ago(30d) and EmailDirection == \"Inbound\"\n| extend Addr = tolower(RecipientEmailAddress)\n| join kind=inner admins on Addr\n| where IsFirstContact == 1 or ThreatTypes has_any (\"Phish\", \"Malware\") or DeliveryAction in (\"Blocked\", \"Junked\")\n| summarize Mails = count(), Phish = countif(ThreatTypes has \"Phish\"), DeliveredPhish = countif(ThreatTypes has \"Phish\" and DeliveryAction == \"Delivered\"),\n            FirstContactSenders = dcountif(SenderFromAddress, IsFirstContact == 1), SenderDomains = make_set(SenderFromDomain, 20), Subjects = make_set(Subject, 10)\n            by RecipientEmailAddress, Roles\n| order by DeliveredPhish desc, Phish desc, FirstContactSenders desc"
+    },
+    {
+     "title": "Flagged or clicked-through links clicked by privileged accounts (Defender XDR, 30 days)",
+     "query": "// Entra Connect Health metadata leak (Nov 2026): link clicks by privileged accounts that Safe Links flagged or that were clicked through\n// Defender XDR advanced hunting\nlet admins = IdentityInfo\n| where Timestamp > ago(14d)\n| where array_length(AssignedRoles) > 0\n| distinct AccountUpn;\nUrlClickEvents\n| where Timestamp > ago(30d)\n| where AccountUpn in~ (admins)\n| where ThreatTypes has \"Phish\" or ActionType != \"ClickAllowed\" or IsClickedThrough == true\n| project Timestamp, AccountUpn, Workload, Url, ActionType, ThreatTypes, IsClickedThrough, IPAddress, NetworkMessageId\n| order by Timestamp desc"
+    },
+    {
+     "title": "Risky or new-country sign-ins of the exposed admin addresses since 9 Nov 2026 (Microsoft Sentinel)",
+     "query": "// Entra Connect Health metadata leak (Nov 2026): sign-ins of the exposed admin / technical-contact accounts since detection (9 Nov 2026)\n// with risk, or from a country the account did not use successfully in the 90 days before - Microsoft Sentinel / Log Analytics\nlet admins = dynamic([\"<admin1@contoso.com>\", \"<admin2@contoso.com>\"]);   // the addresses Microsoft's GetTenant script lists for your tenant\nlet since = datetime(2026-11-09);\nlet known = SigninLogs\n| where TimeGenerated between (ago(90d) .. since)\n| where UserPrincipalName in~ (admins) and ResultType == \"0\"\n| summarize KnownCountries = make_set(Location) by UserPrincipalName;\nSigninLogs\n| where TimeGenerated > since and UserPrincipalName in~ (admins)\n| join kind=leftouter known on UserPrincipalName\n| where RiskLevelDuringSignIn in (\"medium\", \"high\") or not(set_has_element(KnownCountries, Location))\n| project TimeGenerated, UserPrincipalName, AppDisplayName, IPAddress, Location, RiskLevelDuringSignIn, RiskEventTypes_V2, ResultType, ResultDescription\n| order by TimeGenerated desc"
+    }
+   ],
+   "kqlSearched": "2026-11-22",
+   "links": [
+    {
+     "text": "Cybersecurity News: Hackers Exploit Microsoft Entra Connect Health Flaw to Access Admin Emails and Organization Data",
+     "url": "https://cybersecuritynews.com/microsoft-entra-connect-health-flaw/",
+     "date": "2026-11-22"
+    },
+    {
+     "text": "BleepingComputer: Microsoft Entra Connect Health flaw exploited to steal tenant data (page not readable on 22 Nov; summary from the feed)",
+     "url": "https://www.bleepingcomputer.com/news/security/microsoft-entra-connect-health-flaw-exploited-to-steal-tenant-data/",
+     "date": "2026-11-21"
+    }
+   ]
   }
  ]
 }

@@ -89,8 +89,13 @@ say so in the reply and stop the step; the page stays published.
    field word like phishing, OAuth, token, Entra), `areas` (from the six of §5el), `status` (`active` / `contained` /
    `resolved`), `updated` (today, YYYY-MM-DD), `by: "morning routine"`, `summary` (3-6 sentences), `timeline`
    (`date`, `text`, `src`), `rootCause`, `attacker` (list), `iocs` (list, defanged: `1.2.3[.]4`, `hxxps://`),
-   `remediation` (`text`, `from: "source"` + `src`, or `from: "ours"` for a step you inferred), `kql` (`title`,
-   `query`) only on tables verified on Learn or through the KQL Search MCP, `portal` (`label`, `kind`
+   `remediation` (`text`, `from: "source"` + `src`, or `from: "ours"` for a step you inferred), **`kql` (`title`,
+   `query`) — REQUIRED from 23 Nov 2026 (`CLAUDE.md` §5hd; the owner, 22 Nov: "we were supposed to write our own KQL
+   for incidents"): at least one, usually 2-3 hunting queries for THIS incident (its senders, links, sign-ins, apps,
+   processes or settings), on tables and columns verified on Learn or through the KQL Search MCP; first comment line
+   names the incident, the second the product and any licence the table needs; tenant values are `<placeholders>`.
+   Only when no tenant telemetry can show it write `kqlNone` with the reason instead. `threat_todo.py check` fails a
+   new note without either, and `todo` lists older notes without them as `enrich` with `kql` in `missing`,** `portal` (`label`, `kind`
    `permission`/`role`) only for Graph permissions and Entra roles the portal catalogs, `microsoft` (`what`, `title`,
    `link`, `date`) when Microsoft described it, `links` (`text`, `url`, `date`) — every source you read.
    **Three fields added on 22 Oct 2026 (`CLAUDE.md` §5ez) — the owner: "many sites show the application IDs involved in
