@@ -1,13 +1,13 @@
 {
- "read": "2026-11-21T10:59Z",
+ "read": "2026-11-22T11:16Z",
  "source": "Entra-Rolelens (another tenant, daily)",
  "sourceLabel": "Entra-Rolelens (another tenant, daily)",
  "sourceNote": "public repository: Entra-Rolelens (another tenant, daily)",
  "thereRead": null,
- "ourRead": "2026-11-21T10:58Z",
+ "ourRead": "2026-11-22T11:15Z",
  "keepDays": 90,
  "counts": {
-  "rolesThere": 150,
+  "rolesThere": 149,
   "rolesDiffering": 0,
   "thereOnly": 0,
   "oursOnly": 0

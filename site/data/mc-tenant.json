@@ -1,7 +1,7 @@
 {
  "read": "2026-11-22",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 741,
+ "count": 739,
  "note": null,
  "messages": [
   {
@@ -10128,33 +10128,6 @@
    "bodyHash": "74fe3dfa9a015e0e"
   },
   {
-   "id": "MC1470884",
-   "title": "Microsoft Purview eDiscovery: Select user-owned SharePoint Embedded containers as a data source",
-   "services": [
-    "Microsoft Purview"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-11",
-   "end": "2026-11-22",
-   "modified": "2026-09-11",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] Microsoft Purview eDiscovery will support selecting user-owned SharePoint Embedded (SPE) containers when adding a person as a data source in an eDiscovery case, search, or hold. This enhancement helps organizations discover content stored in supported SharePoint Embedded containers that are owned by a selected user. These containers may contain content from Microsoft Loop, Copilot P…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Public Preview: Beginning in mid-September 2026 and expected to complete by late September 2026.",
-    "General Availability (Worldwide): Beginning in mid-October 2026 and expected to complete by late October 2026."
-   ],
-   "bodyHash": "78a2f389e59007b3"
-  },
-  {
    "id": "MC1470885",
    "title": "(Updated) M365 Copilot: Tell Copilot what you need directly from the Copilot button in Word, Excel, and PowerPoint",
    "services": [
@@ -10567,34 +10540,6 @@
     "Updated September 29, 2026: We have updated the content."
    ],
    "bodyHash": "3f7e89375a85e820"
-  },
-  {
-   "id": "MC1472592",
-   "title": "(Updated) Microsoft Purview: Auto-expanding archive capacity increases to 3 TB for eligible mailboxes",
-   "services": [
-    "Microsoft Purview"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-15",
-   "end": "2026-11-22",
-   "modified": "2026-09-28",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 28, 2026: We have updated the content. Thank you for your patience. [What and why] Microsoft Purview Data Lifecycle Management is increasing the maximum auto-expanding archive capacity for eligible Exchange Online archive mailboxes from 1.5 TB to 3 TB. This enhancement helps organizations retain and manage larger volumes of archived email content without requiring manual archive …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 28, 2026: We have updated the content.",
-    "General Availability (Worldwide): Beginning in mid-October 2026 and expected to complete by late October 2026."
-   ],
-   "bodyHash": "7fd46c956e39535e"
   },
   {
    "id": "MC1472598",
@@ -25435,6 +25380,20 @@
    "id": "MC1188937",
    "type": "removed",
    "title": "WINS removal: Moving forward with modern name resolution",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-22",
+   "id": "MC1470884",
+   "type": "removed",
+   "title": "Microsoft Purview eDiscovery: Select user-owned SharePoint Embedded containers as a data source",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-22",
+   "id": "MC1472592",
+   "type": "removed",
+   "title": "(Updated) Microsoft Purview: Auto-expanding archive capacity increases to 3 TB for eligible mailboxes",
    "fields": {}
   }
  ]
