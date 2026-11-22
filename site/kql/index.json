@@ -1,5 +1,41 @@
 [
  {
+  "file": "2026-11-22-copilot-interactions-by-model-provider-and-host-app.kql",
+  "title": "Copilot interactions by model provider and host app, last 7 days, to see where the OpenAI subprocessor now processes prompts",
+  "date": "2026-11-22",
+  "product": "Copilot",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "Counts CopilotInteraction audit records from CloudAppEvents by host application and model provider read from RawEventData. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-22-copilot-interactions-whose-context-is-a-teams-channel.kql",
+  "title": "Copilot interactions whose context is a Teams channel, by user and channel, last 14 days, as a baseline before channel-wide Copilot",
+  "date": "2026-11-22",
+  "product": "Teams",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "Expands the Contexts of CopilotInteraction records and keeps those of type TeamsChannel, counting interactions per user and channel. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-22-files-with-a-sensitivity-label-that-copilot-read.kql",
+  "title": "Files with a sensitivity label that Copilot read to answer a prompt, by user and host app, last 7 days",
+  "date": "2026-11-22",
+  "product": "Copilot",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "Expands AccessedResources of CopilotInteraction records and keeps resources that carry a sensitivity label ID, counting them per user and host. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
+  "kind": "brief"
+ },
+ {
   "file": "incidents/2026-11-21-devices-that-contacted-the-optimizely-payload-hosts-since.kql",
   "title": "Devices that contacted the Optimizely payload hosts since 16 November 2026",
   "date": "2026-11-21",

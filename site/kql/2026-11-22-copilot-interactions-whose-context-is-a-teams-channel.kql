@@ -1,0 +1,9 @@
+// Microsoft SOC Brief 22 Nov 2026 - Copilot over Teams channel content (MC1562277)
+// Contexts and Type as on the Copilot audit schema (TeamsChannel). Not run against a tenant in this pass.
+CloudAppEvents
+| where Timestamp > ago(14d)
+| where ActionType == "CopilotInteraction"
+| mv-expand Ctx = RawEventData.CopilotEventData.Contexts
+| where tostring(Ctx.Type) == "TeamsChannel"
+| summarize Interactions = count(), Channels = dcount(tostring(Ctx.Id)), LastSeen = max(Timestamp) by AccountDisplayName, AccountObjectId
+| order by Interactions desc

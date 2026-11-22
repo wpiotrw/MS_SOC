@@ -1,0 +1,11 @@
+// Microsoft SOC Brief 22 Nov 2026 - labelled files read by Copilot (MC1562275)
+// AccessedResources as on the Copilot audit schema. Not run against a tenant in this pass.
+CloudAppEvents
+| where Timestamp > ago(7d)
+| where ActionType == "CopilotInteraction"
+| extend Cop = RawEventData.CopilotEventData
+| mv-expand Res = Cop.AccessedResources
+| extend Label = tostring(Res.SensitivityLabelId), Resource = tostring(Res.Name)
+| where isnotempty(Label)
+| summarize Files = dcount(Resource), Reads = count() by AccountDisplayName, AppHost = tostring(Cop.AppHost), Label
+| order by Files desc

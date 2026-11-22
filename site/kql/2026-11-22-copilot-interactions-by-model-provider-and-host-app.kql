@@ -1,0 +1,11 @@
+// Microsoft SOC Brief 22 Nov 2026 - Copilot interactions by model provider (MC1560916)
+// CloudAppEvents columns as on the table reference; CopilotEventData fields as on the Copilot audit schema. Not run against a tenant in this pass.
+CloudAppEvents
+| where Timestamp > ago(7d)
+| where ActionType == "CopilotInteraction"
+| extend Cop = RawEventData.CopilotEventData
+| extend AppHost = tostring(Cop.AppHost)
+| mv-expand Model = Cop.ModelTransparencyDetails
+| extend Provider = tostring(Model.ModelProviderName), ModelName = tostring(Model.ModelName)
+| summarize Interactions = count(), Users = dcount(AccountObjectId) by AppHost, Provider, ModelName
+| order by Interactions desc
