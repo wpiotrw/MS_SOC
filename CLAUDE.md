@@ -26566,6 +26566,15 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hi (23 XI 2026, 12:05)** — KQL OF THE DAY -> POZYCJA BRIEFU. Piotr: "tak, poprosze" (na propozycje: zapytanie z briefu ma wskazywac
+pozycje, z ktorej wynika). Kazde zapytanie briefu ma w stanie `kql[].itemId`. `write_links()` czyta stany z `site/history/*-poranny.html.gz`
+i `site/data/RRRR-MM-DD.json`, dopasowuje plik archiwum po tresci i zapisuje `b` = {pozycja q: [itemId, tytul pozycji, data briefu]}
+(najnowszy brief wygrywa) - 36 z 64 zapytan briefow (starsze briefy bez `itemId` albo spoza archiwum). Biblioteka KQL: przycisk "Brief item:
+<tytul>" -> `window.__socGoItem(id)` (karta pozycji); pozycji juz nie ma na stronie -> zdanie "This item was in the brief of DD/MM/RRRR and
+is no longer on today's page". Ctrl K z "Show related KQL": pod wierszem pozycji (Today, New, Products...) jej "KQL of the day". Testy: 35
+przyciskow na pierwszej stronie widoku "From the briefs", klik otwiera karte pozycji (1500 i 390 px); Ctrl K "SyntheticMediaDetectionEvents"
+-> pozycja Today + 2 zapytania; 21 zakladek bez bledow; bramka OK; `mobile_check` OK.
+
 **§5hh (23 XI 2026, 11:00)** — KQL POWIAZANE W OBIE STRONY. Piotr: "gdzie umieszczasz KQL dla incydentow? szukam w portalu, mam
 incydent, ale gdzie sa KQL? przelacznik jak dla MC - Show related KQL? ... a lista KQL nie ma powiazanych artykulow, incydentow".
 (1) `tools/kql_archive.py` `write_links()` -> `site/kql/links.json` (449 kB, 76 kB gzip): `q` = kazde zapytanie archiwum (plik, tytul,
@@ -40439,8 +40448,16 @@ odtad CZTERNASCIE (4-17).**
       /* §5hh (owner: "when I have a list of KQL there are no related articles, incidents"): the incidents this query belongs
          to, on the row itself, each opening the incident at its queries; the article it came from is one click away too */
       var KI = window.__socKqlLinks ? window.__socKqlLinks.incOf(e.file) : [];
-      if (KI.length || (e.kind === "article" && e.link)) {
+      var BI = window.__socKqlLinks ? window.__socKqlLinks.itemOf(e.file) : null;   /* §5hi */
+      if (KI.length || BI || (e.kind === "article" && e.link)) {
         var il = el("div", "s5hh-inc");
+        /* §5hi (owner: "yes, please"): a query of the briefs names the brief item it was written for; the item opens in
+           its tab, and an item no longer on today's page says which brief it was in */
+        if (BI) { var bb = el("button", "s5hh-incb s5hi-item", "Brief item: " + BI[1]); bb.type = "button"; bb.title = "Open the item this query was written for (brief of " + dmy(BI[2]) + ")";
+          var note = el("span", "s5el-mut s5hi-gone"); note.hidden = true;
+          bb.addEventListener("click", function () { var ok = window.__socGoItem && window.__socGoItem(BI[0]);
+            if (!ok) { note.hidden = false; note.textContent = "This item was in the brief of " + dmy(BI[2]) + " and is no longer on today's page."; } });
+          il.appendChild(bb); il.appendChild(note); }
         KI.slice(0, 3).forEach(function (x) { var ib2 = el("button", "s5hh-incb", "Incident: " + x[1]); ib2.type = "button"; ib2.title = "Open the incident in Threat Research, at its hunting queries";
           ib2.addEventListener("click", function () { if (window.__socOpenThreatKql) window.__socOpenThreatKql(x[0]); }); il.appendChild(ib2); });
         if (KI.length > 3) il.appendChild(el("span", "s5el-mut", "+" + (KI.length - 3) + " more incidents"));
@@ -40553,15 +40570,18 @@ odtad CZTERNASCIE (4-17).**
 (function () {
   "use strict";
   if (window.__s5hh) return; window.__s5hh = 1;
-  var L = null, P = null, REL = null, CK = null;
+  var L = null, P = null, REL = null, CK = null, POS = {}, ITEMQ = {};
   var KN = { brief: "brief", "incident-note": "our analysis", article: "article / published", repo: "community repository" };
   function load() {
     if (P) return P;
     if (!window.fetch || !/^https?:/.test(location.protocol)) { P = Promise.resolve(null); return P; }
     P = fetch("/kql/links.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
       if (!j || !j.q) return null;
-      L = j; REL = {}; CK = null;
+      L = j; REL = {}; CK = null; POS = {}; ITEMQ = {};
       Object.keys(j.s || {}).forEach(function (sid) { j.s[sid][1].forEach(function (i) { var f = j.q[i][0]; (REL[f] = REL[f] || []).push(sid); }); });
+      j.q.forEach(function (e, i) { POS[e[0]] = i; });
+      /* §5hi: the brief item each "KQL of the day" query is about, and the queries of each item */
+      Object.keys(j.b || {}).forEach(function (k) { var v = j.b[k]; (ITEMQ[v[0]] = ITEMQ[v[0]] || []).push(+k); });
       try { document.dispatchEvent(new CustomEvent("soc:kqllinks")); } catch (e) {}
       var sk = document.querySelector(".s5bi-skq"); if (sk && sk.value.trim() && sk.offsetParent) sk.dispatchEvent(new Event("input"));
       return j;
@@ -40575,12 +40595,21 @@ odtad CZTERNASCIE (4-17).**
     if (h.sid) return h.sid;
     var r = h.row; if (!r || !L) return null;
     var rr = r.closest && r.closest('[id^="s5el-"]'); if (rr) { var id = rr.id.slice(5); if (L.s[id]) return id; }
+    /* §5hi: a brief item (Today, New, Deadlines, Products ...) by its id */
+    var iid = r.getAttribute && (r.getAttribute("data-id") || r.getAttribute("data-ci-id")); if (iid && ITEMQ[iid]) return "item:" + iid;
     var a = r.querySelector && r.querySelector("a[href]"); if (a && L.a[a.href]) return L.a[a.href];
     return null;
   }
   function hitsFor(h, seen) {
     if (!L) { load(); return []; }
-    var sid = sidOf(h); if (!sid || seen[sid] || !L.s[sid]) return [];
+    var sid = sidOf(h); if (!sid || seen[sid]) return [];
+    if (sid.indexOf("item:") === 0) {   /* §5hi: the KQL of the day written for this item */
+      seen[sid] = 1; var QI = ITEMQ[sid.slice(5)] || [], o2 = [];
+      QI.slice(0, 6).forEach(function (i) { var e = L.q[i];
+        o2.push({ tn: "\u21b3 KQL of the day", t: e[1] + " \u00b7 " + line(e) + " \u00b7 " + (e[3] || ""), l: "", rel: 1, fn: function () { if (window.__socOpenKql) window.__socOpenKql(e[0]); } }); });
+      return o2;
+    }
+    if (!L.s[sid]) return [];
     seen[sid] = 1;
     var v = L.s[sid], n = v[1].length, out = [];
     out.push({ tn: "KQL of this incident", t: n + " quer" + (n === 1 ? "y" : "ies") + " for: " + v[0] + " — open them all in the KQL library", l: "", rel: 2,
@@ -40592,7 +40621,8 @@ odtad CZTERNASCIE (4-17).**
   }
   window.__socKqlLinks = {
     load: load, get: function () { return L; }, hitsFor: hitsFor,
-    incOf: function (file) { return (REL && REL[file] || []).map(function (sid) { return [sid, L.s[sid][0]]; }); }
+    incOf: function (file) { return (REL && REL[file] || []).map(function (sid) { return [sid, L.s[sid][0]]; }); },
+    itemOf: function (file) { var i = POS[file]; return L && i != null && L.b ? (L.b[String(i)] || null) : null; }   /* §5hi: [itemId, title, brief date] */
   };
   (window.__socSearchAdd = window.__socSearchAdd || []).push(function () {
     if (!L) { load(); return []; }
@@ -49053,6 +49083,9 @@ details.s5ei-day[data-kf="new"] .s5ei-tile:not(.s5ei-new),details.s5ei-day[data-
 .s5hh-incb{font:600 12.5px/1.3 var(--sans);color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;padding:2px 10px;cursor:pointer;max-width:100%;text-align:left;overflow-wrap:anywhere}
 .s5hh-incb:hover{background:var(--accent);color:var(--on-accent)}
 .s5hh-art{font:600 12.5px/1.3 var(--sans)}
+.s5hi-item{color:var(--text);background:var(--surface-2);border-color:var(--border-strong,var(--border))}
+.s5hi-item:hover{background:var(--accent-soft);color:var(--text)}
+.s5hi-gone{font-size:12.5px}
 .s5hh-ban{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0;padding:8px 12px;background:var(--ok-soft);border:1px solid var(--ok);border-radius:8px}
 .s5hh-ban[hidden]{display:none}
 .s5hh-bt{font:700 13.5px/1.35 var(--sans);color:var(--text);overflow-wrap:anywhere}

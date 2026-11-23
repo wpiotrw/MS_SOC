@@ -266,17 +266,44 @@ def write_links(index):
         L += [pos[e["file"]] for e in index if e.get("incident") == st["id"] and pos[e["file"]] not in L]
         if L:
             s_out[st["id"]] = [st.get("title", ""), L]
+    # 5hi (23 XI 2026, owner: "yes, please" - the KQL of the day names the brief item it is about): every brief's own
+    # queries carry `itemId`; the archive file is found by the query text, the item's title read from the same brief.
+    #   b  {q position: [itemId, item title, brief date]}   (the newest brief that used the query wins)
+    b_out = {}
+    states = []   # (day, state): the archived morning pages first, then site/data - the newest of a day wins
+    for path in sorted(glob.glob(os.path.join(SITE, "history", "20*-poranny.html*"))):
+        try:
+            t = (gzip.open(path, "rt", encoding="utf-8") if path.endswith(".gz") else open(path, encoding="utf-8")).read()
+            m = re.search(r'<script type="application/json" id="soc-brief-state">(.*?)</script>', t, re.S)
+            if m:
+                states.append((os.path.basename(path)[:10], json.loads(m.group(1))))
+        except (OSError, ValueError, EOFError):
+            continue
+    for path in sorted(glob.glob(os.path.join(SITE, "data", "20[0-9][0-9]-[01][0-9]-[0-3][0-9].json"))):
+        try:
+            d = json.load(open(path, encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        states.append((os.path.basename(path)[:10], d.get("soc-brief-state", d) if isinstance(d, dict) else {}))
+    for day, st in sorted(states, key=lambda x: x[0]):
+        items = {i.get("id"): i for i in (st.get("items") or []) if isinstance(i, dict)}
+        for q in st.get("kql") or []:
+            iid = q.get("itemId") if isinstance(q, dict) else None
+            f = by_text.get(_norm(q.get("query") if isinstance(q, dict) else ""))
+            if iid and f in pos:
+                it = items.get(iid) or {}
+                b_out[str(pos[f])] = [iid, it.get("title") or it.get("officialTitle") or iid, day]
     q_out = [[e["file"], e.get("title", ""), e.get("kind", ""), e.get("date", ""), e.get("product", ""),
               ", ".join((e.get("tables") or [])[:4]), e.get("author", "")] for e in index]
-    data = json.dumps({"v": 1, "q": q_out, "s": s_out, "a": a_out}, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+    data = json.dumps({"v": 1, "q": q_out, "s": s_out, "a": a_out, "b": b_out}, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
     try:
         old = open(LINKS, encoding="utf-8").read()
     except Exception:
         old = ""
     if old != data:
         open(LINKS, "w", encoding="utf-8").write(data)
-    print("OK kql links: %d queries, %d incidents with queries (%d links), %d kB%s" % (len(q_out), len(s_out),
-          sum(len(v[1]) for v in s_out.values()), len(data.encode()) // 1024, "" if old != data else " (unchanged)"))
+    print("OK kql links: %d queries, %d incidents with queries (%d links), %d brief queries with their item, %d kB%s" % (len(q_out), len(s_out),
+          sum(len(v[1]) for v in s_out.values()), len(b_out), len(data.encode()) // 1024, "" if old != data else " (unchanged)"))
 
 
 def main(argv):
