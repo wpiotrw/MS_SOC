@@ -228,6 +228,81 @@
    "searched": [
     "appManagementApplicationConfiguration federatedIdentityCredentials trustedSubjectNameAndIssuers app management policy (Microsoft Learn MCP search)"
    ]
+  },
+  "federatedIdentityCredentialAuthenticationMethodConfiguration|includeTargets": {
+   "title": "New authentication method: federated identity credential - who it applies to",
+   "what": "The whole method configuration 'federatedIdentityCredential' is new: it is not in $metadata at all. includeTargets is the usual 'which users and groups' list every method has. Nothing published yet.",
+   "uses": [
+    "Read which groups it targets in your tenant - a new sign-in method that appears enabled for 'all users' is worth knowing about",
+    "Watch for the MC post or Learn page that introduces the method",
+    "Compare with the other methods' includeTargets when you review the authentication methods policy"
+   ],
+   "basis": "name",
+   "checked": "2026-11-23",
+   "articles": [
+    {
+     "title": "ScubaGear sample report (ScubaResults JSON) showing authenticationMethodConfigurations('FederatedIdentityCredential')",
+     "url": "https://github.com/itc-lu/m365_security_posture/blob/main/sample-reports/M365BaselineConformance_2026_03_16_13_56_14/ScubaResults_a845fee3-d0d5-48b1.json",
+     "by": "itc-lu (m365_security_posture repo)",
+     "date": "2026-03-16",
+     "rel": "names-it",
+     "key": "itclu",
+     "says": "A tenant export lists a method with id FederatedIdentityCredential and state disabled. Its includeTargets holds one entry: targetType group, id all_users, isRegistrationRequired false, allowedProfiles [].",
+     "tested": "GET only, as part of a ScubaGear run; state disabled, includeTargets = all_users",
+     "kind": "code-tool"
+    },
+    {
+     "title": "terraform-provider-microsoft365wp: authentication_methods_policy.go strips federatedIdentityCredentialAuthenticationMethodConfiguration",
+     "url": "https://github.com/terraprovider/terraform-provider-microsoft365wp/blob/main/workplace/services/authentication_methods_policy.go",
+     "by": "terraprovider (Glueckkanja)",
+     "date": "2026-10-12",
+     "rel": "names-it",
+     "key": "terraprovider",
+     "says": "The provider code removes entries of type federatedIdentityCredentialAuthenticationMethodConfiguration from the authentication methods policy it reads, with a comment that the type has 'not yet been documented anywhere'.",
+     "kind": "code-tool"
+    }
+   ],
+   "by": "morning routine",
+   "searched": [
+    "Microsoft Learn MCP: \"federatedIdentityCredentialAuthenticationMethodConfiguration authentication methods policy\" (23 Nov 2026) - the Graph authentication methods policies overview still lists ten method configurations and no federated identity credential method"
+   ]
+  },
+  "federatedIdentityCredentialAuthenticationMethodConfiguration|profiles": {
+   "title": "New authentication method: federated identity credential - profiles",
+   "what": "Profiles of the new, unpublished 'federatedIdentityCredential' authentication method; the name suggests several configurations of the method (for example per external identity provider). Nothing published yet.",
+   "uses": [
+    "Read it to see whether your tenant has a profile already",
+    "Keep it on the watch list with includeTargets of the same method"
+   ],
+   "basis": "name",
+   "checked": "2026-11-23",
+   "articles": [
+    {
+     "title": "ScubaGear sample report (ScubaResults JSON) showing FederatedIdentityCredential profiles",
+     "url": "https://github.com/itc-lu/m365_security_posture/blob/main/sample-reports/M365BaselineConformance_2026_03_16_13_56_14/ScubaResults_a845fee3-d0d5-48b1.json",
+     "by": "itc-lu (m365_security_posture repo)",
+     "date": "2026-03-16",
+     "rel": "names-it",
+     "key": "itclu",
+     "says": "Shows Profiles as an empty array on the FederatedIdentityCredential method, with its own @odata.context pointing to .../authenticationMethodConfigurations('FederatedIdentityCredential')/.../profiles.",
+     "tested": "GET only; profiles = []",
+     "kind": "code-tool"
+    },
+    {
+     "title": "terraform-provider-microsoft365wp: authentication_methods_policy.go strips federatedIdentityCredentialAuthenticationMethodConfiguration",
+     "url": "https://github.com/terraprovider/terraform-provider-microsoft365wp/blob/main/workplace/services/authentication_methods_policy.go",
+     "by": "terraprovider (Glueckkanja)",
+     "date": "2026-10-12",
+     "rel": "names-it",
+     "key": "terraprovider",
+     "says": "The whole federatedIdentityCredential method configuration, profiles included, is dropped by the provider because the type is not documented.",
+     "kind": "code-tool"
+    }
+   ],
+   "by": "morning routine",
+   "searched": [
+    "Microsoft Learn MCP: \"federatedIdentityCredentialAuthenticationMethodConfiguration authentication methods policy\" (23 Nov 2026) - the Graph authentication methods policies overview still lists ten method configurations and no federated identity credential method"
+   ]
   }
  }
 }
