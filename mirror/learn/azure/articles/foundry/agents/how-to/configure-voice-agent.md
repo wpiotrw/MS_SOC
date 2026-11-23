@@ -1054,7 +1054,7 @@ Console.WriteLine(
     $"Created voice agent '{agentName}', version {created.Version}");
 ```
 
-Reference: [AgentAdministrationClient](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects.Agents_3.0.0/sdk/ai/Azure.AI.Projects.Agents/src/Generated/AgentAdministrationClient.cs), [Voice agent .NET sample](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects_3.0.0-beta.6/sdk/ai/Azure.AI.Projects/samples/Sample_VoiceAgent.md).
+Reference: [AgentAdministrationClient](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects.Agents_3.0.0/sdk/ai/Azure.AI.Projects.Agents/src/Generated/AgentAdministrationClient.cs), [Voice agent .NET sample](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects_3.0.0/sdk/ai/Azure.AI.Projects/samples/Sample_VoiceAgent.md).
 
 This example uses the `BinaryContent` overload to preserve function-tool parameter schemas in SDK version 3.0.0. `ModelReaderWriter.Write` uses JSON format by default, which retains those schema properties.
 
@@ -1072,7 +1072,7 @@ wss://{project-endpoint}/agents/{agent-name}/endpoint/protocols/voice?api-versio
 
 Authenticate the upgrade with a Microsoft Entra bearer token. To test a version that isn't the active one, pass the version override on the connect request instead of changing the active version.
 
-For a C# client walkthrough, see the [Voice agent .NET sample](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects_3.0.0-beta.6/sdk/ai/Azure.AI.Projects/samples/Sample_VoiceAgent.md). To test a spoken conversation in the playground, see [Quickstart: Create a voice-based prompt agent](../quickstarts/prompt-voice-agent?pivots=portal).
+For a C# client walkthrough, see the [Voice agent .NET sample](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects_3.0.0/sdk/ai/Azure.AI.Projects/samples/Sample_VoiceAgent.md). To test a spoken conversation in the playground, see [Quickstart: Create a voice-based prompt agent](../quickstarts/prompt-voice-agent?pivots=portal).
 
 ::: zone-end
 

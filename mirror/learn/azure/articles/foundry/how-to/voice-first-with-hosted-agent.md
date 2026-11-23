@@ -89,9 +89,9 @@ Use the [.NET 8 SDK or later](https://dotnet.microsoft.com/download). Create a c
 ```dotnetcli
 dotnet new console --name HostedVoiceClient --framework net8.0
 cd HostedVoiceClient
-dotnet add package Azure.AI.Extensions.OpenAI --version 3.0.0-beta.6
-dotnet add package Azure.AI.Projects.Agents --version 3.0.0-beta.6
-dotnet add package Azure.AI.Projects --version 3.0.0-beta.6
+dotnet add package Azure.AI.Extensions.OpenAI --version 3.0.0
+dotnet add package Azure.AI.Projects.Agents --version 3.0.0
+dotnet add package Azure.AI.Projects --version 3.0.0
 dotnet add package Azure.Identity --version 1.21.0
 ```
 
@@ -388,24 +388,24 @@ if (!string.IsNullOrEmpty(hostedAgentVersion))
 VoiceAgentDefinition definition = new()
 {
     ConversationEngine = conversationEngine,
-    Greeting = new VoiceAgentTemplateGreetingConfig(
+    Greeting = new VoiceAgentTemplateGreetingConfiguration(
         "Hello! How can I help you today?"),
     Store = true,
-    Audio = new VoiceAgentAudioConfig
+    Audio = new VoiceAgentAudioConfiguration
     {
-        Input = new VoiceAgentAudioInputConfig
+        Input = new VoiceAgentAudioInputConfiguration
         {
             Format = new RealtimePcmAudioFormat { Rate = 24000 },
             TurnDetection = new VoiceAgentServerVadTurnDetection
             {
                 Threshold = 0.5,
-                PrefixPaddingMs = 300,
-                SilenceDurationMs = 1000,
+                PrefixPadding = TimeSpan.FromMilliseconds(300),
+                SilenceDuration = TimeSpan.FromMilliseconds(1000),
             },
             Transcription = new VoiceAgentInputTranscription(
                 VoiceAgentInputTranscriptionModel.AzureSpeech),
         },
-        Output = new VoiceAgentAudioOutputConfig
+        Output = new VoiceAgentAudioOutputConfiguration
         {
             Format = new RealtimePcmAudioFormat { Rate = 24000 },
             Voice = "en-US-JennyNeural",
@@ -429,7 +429,7 @@ Console.WriteLine(
     $"version {result.Value.Version}");
 ```
 
-Reference: [AgentAdministrationClient](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects.Agents_3.0.0-beta.6/sdk/ai/Azure.AI.Projects.Agents/src/Generated/AgentAdministrationClient.cs) | [VoiceHostedAgentConversationEngine](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects.Agents_3.0.0-beta.6/sdk/ai/Azure.AI.Projects.Agents/src/Generated/Models/VoiceHostedAgentConversationEngine.cs).
+Reference: [AgentAdministrationClient](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects.Agents_3.0.0/sdk/ai/Azure.AI.Projects.Agents/src/Generated/AgentAdministrationClient.cs) | [VoiceHostedAgentConversationEngine](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects.Agents_3.0.0/sdk/ai/Azure.AI.Projects.Agents/src/Generated/Models/VoiceHostedAgentConversationEngine.cs).
 
 ---
 
@@ -556,9 +556,9 @@ throw new InvalidOperationException(
     "Connection closed before the session was ready.");
 ```
 
-Reference: [ProjectsRealtimeClient](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects_3.0.0-beta.6/sdk/ai/Azure.AI.Projects/src/Custom/VoiceAgent/ProjectsRealtimeClient.cs).
+Reference: [ProjectsRealtimeClient](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects_3.0.0/sdk/ai/Azure.AI.Projects/src/Custom/VoiceAgent/ProjectsRealtimeClient.cs).
 
-The [.NET WebSocket audio operations sample](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects_3.0.0-beta.6/sdk/ai/Azure.AI.Projects/samples/Sample_VoiceAgent_WebSocketAudio.md) demonstrates sending PCM chunks and receiving audio events. It uses a generated tone, not microphone capture or speaker playback. Reuse its audio operations with the existing voice agent; don't run its model-backed agent creation or cleanup steps against this agent.
+The [.NET WebSocket audio operations sample](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects_3.0.0/sdk/ai/Azure.AI.Projects/samples/Sample_VoiceAgent_WebSocketAudio.md) demonstrates sending PCM chunks and receiving audio events. It uses a generated tone, not microphone capture or speaker playback. Reuse its audio operations with the existing voice agent; don't run its model-backed agent creation or cleanup steps against this agent.
 
 ---
 
@@ -644,7 +644,7 @@ AgentAdministrationClient agentsClient = new(
 await agentsClient.DeleteAgentAsync(voiceAgentName);
 ```
 
-Reference: [AgentAdministrationClient.DeleteAgentAsync](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects.Agents_3.0.0-beta.6/sdk/ai/Azure.AI.Projects.Agents/src/Custom/AgentAdministrationClient.cs).
+Reference: [AgentAdministrationClient.DeleteAgentAsync](https://github.com/Azure/azure-sdk-for-net/blob/Azure.AI.Projects.Agents_3.0.0/sdk/ai/Azure.AI.Projects.Agents/src/Custom/AgentAdministrationClient.cs).
 
 ---
 

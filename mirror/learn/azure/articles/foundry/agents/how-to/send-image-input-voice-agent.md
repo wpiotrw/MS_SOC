@@ -89,7 +89,7 @@ Model-specific image support and SDK experimental diagnostics are separate from 
 ::: zone pivot="csharp"
 
 - .NET 8 or later.
-- Version 3.0.0-beta.6 of `Azure.AI.Projects`, `Azure.AI.Projects.Agents`, and `Azure.AI.Extensions.OpenAI`, version 2.14.0 of `OpenAI`, and `Azure.Identity`. Suppress the `AAIP001`, `AAIP002`, and `OPENAI002` experimental diagnostics as shown in the public C# voice-agent samples.
+- Version 3.0.0 of `Azure.AI.Projects`, `Azure.AI.Projects.Agents`, and `Azure.AI.Extensions.OpenAI`, version 2.15.0 of `OpenAI`, and `Azure.Identity`. Suppress the `AAIP001`, `AAIP002`, and `OPENAI002` experimental diagnostics as shown in the public C# voice-agent samples.
 - The `FOUNDRY_PROJECT_ENDPOINT` environment variable set to your project endpoint and `FOUNDRY_VOICE_AGENT_NAME` set to your existing voice-agent name.
 
 ::: zone-end
