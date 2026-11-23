@@ -26574,8 +26574,9 @@ AADServicePrincipalRiskEvents, AADRiskyAgents, AADAgentRiskEvents, MicrosoftGrap
 NetworkAccessTraffic, EnrichedMicrosoft365AuditLogs, RemoteNetworkHealthLogs) + AzureActivity; sprawdzone w Learn 22 XI
 (concept-diagnostic-settings-logs-options, tables-category); MicrosoftServicePrincipalSignInLogs pominiete (Microsoft: niepotrzebne do
 dochodzen, nazwa tabeli niepotwierdzona). Regula RULES 5hd i `poranny-B-publish.md`: tabele z tej mapy, logowania zawsze interaktywne
-+ nieinteraktywne (union), druga linia komentarza nazywa kategorie diagnostyczna. Pulapka: w AADNonInteractiveUserSignInLogs `Location`
-to region zasobu, nie kraj (kraj z `LocationDetails.countryOrRegion`). Zapytanie 3 notatki Connect Health przepisane na union obu tabel.
++ nieinteraktywne (union), druga linia komentarza nazywa kategorie diagnostyczna. Pulapka (wg DOKUMENTACJI, nie sprawdzone na danych
+tenanta): Learn opisuje `Location` w AADNonInteractiveUserSignInLogs jako "The region of the resource emitting the event", a w SigninLogs jako
+"The 2 letter country code from where the sign-in occurred"; kraj bierzemy z `LocationDetails.countryOrRegion`, co jest poprawne w obu przypadkach. Zapytanie 3 notatki Connect Health przepisane na union obu tabel.
 
 **§5he (22 XI 2026, 23:15)** — UTRATA DANYCH PRZY PUBLIKACJI. `.github/workflows/publish.yml` robil `rm -rf site` i bral CALY `site/`
 z galezi przebiegu (`claude/...`). Wszystko, co `main` dostal w czasie przebiegu (inne workflow, sesje), bylo cofane. 22 XI 21:50 UTC

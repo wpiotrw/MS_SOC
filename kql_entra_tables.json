@@ -19,7 +19,7 @@
       "table": "AADNonInteractiveUserSignInLogs",
       "holds": "sign-ins by a client on behalf of a user with a token or code",
       "useFor": "token theft and replay, refresh-token abuse, device-code follow-up: usually only visible here",
-      "note": "Location here is the region of the resource, not the country (SigninLogs.Location is the country): take the country from parse_json(tostring(LocationDetails)).countryOrRegion when you union the two tables."
+      "note": "Microsoft Learn (table reference, checked 22-23 Nov 2026) DESCRIBES Location here as 'The region of the resource emitting the event', while in SigninLogs Location is 'The 2 letter country code from where the sign-in occurred'. Not checked against tenant data. LocationDetails holds the sign-in location in both tables (a string here, dynamic in SigninLogs), so when you union the two take the country from parse_json(tostring(LocationDetails)).countryOrRegion - correct whichever way Location is filled."
     },
     {
       "category": "ServicePrincipalSignInLogs",
