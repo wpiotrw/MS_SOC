@@ -26566,6 +26566,23 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hh (23 XI 2026, 11:00)** — KQL POWIAZANE W OBIE STRONY. Piotr: "gdzie umieszczasz KQL dla incydentow? szukam w portalu, mam
+incydent, ale gdzie sa KQL? przelacznik jak dla MC - Show related KQL? ... a lista KQL nie ma powiazanych artykulow, incydentow".
+(1) `tools/kql_archive.py` `write_links()` -> `site/kql/links.json` (449 kB, 76 kB gzip): `q` = kazde zapytanie archiwum (plik, tytul,
+rodzaj, data, produkt, tabele, autor), `s` = zapytania kazdego incydentu wg TYCH SAMYCH regul co karta incydentu (notatka `kql` i
+`kqlPublished`, `kql-found.json` po story/article, `kqlCommunity`), dopasowane do plikow po tresci zapytania, `a` = link artykulu ->
+incydent. (2) archiwum zbiera tez `kqlPublished` z notatek (rodzaj `article`, autor i link; wczesniej ani biblioteka, ani Ctrl K ich
+nie widzialy). (3) Ctrl K: przelacznik "Show related KQL" (`soc.kql.showRelated`) - pod kazdym incydentem w trafieniach jego zapytania
+(do 6 + "open all"), wpisy "Incident · KQL" i "KQL library" dla kazdego zapytania; plik ladowany przy pierwszym uzyciu Ctrl K. (4) Biblioteka
+KQL: przy kazdym wierszu "Incident: <tytul>" (otwiera incydent na jego KQL) i "Article"; `window.__socKqlFor(sid)` /
+`window.__socOpenKql(file)` - filtr z banerem "Queries of the incident … · Show all queries · Open the incident". (5) Threat Research:
+przycisk "KQL · N" w tabeli Articles, "Open this incident's queries in the KQL library" w karcie KQL, `openStory(id, true)` /
+`window.__socOpenThreatKql` laduje na karcie KQL (znacznik "Opened by a link" na karcie, nie na wierszu - inaczej przewijal z powrotem);
+licznik KQL liczy tez `kqlPublished`. (6) Infrastructure watch: zawartosc foldu incydentu budowana przy pierwszym otwarciu - 13 zwinietych
+foldow mialo 26 000 elementow, `mobile_check` padal na zywo (tab-threats 26 440 > 25 000); wskazniki trafiaja do Ctrl K z danych
+("Infrastructure watch", otwiera fold i wiersz). Testy: Ctrl K "connect health" -> incydent + 6 zapytan; biblioteka 6 z banerem; karta
+KQL pod paskiem filtrow przy 1500 i 390 px; 21 zakladek bez bledow JS i przewijania w bok; bramka OK; `mobile_check` OK (98 309 elementow).
+
 **§5hg (23 XI 2026, 08:10)** — Mail "Run failed: Publish routine output - claude/vibrant-pascal-cllsy2". Logika §5he zadzialala (27 plikow
 od merge-base), ale `git push origin main` zostal odrzucony ("fetch first"), bo inny workflow zapisal `main` w czasie publikacji; poranna
 tresc nie weszla. Run ponowiony recznie (sukces, `fb5e4baf`). `publish.yml`: do 5 prob push, miedzy nimi `git pull --rebase -X theirs`
@@ -31929,7 +31946,7 @@ odtad CZTERNASCIE (4-17).**
      after the first search is found too */
   function withExtra() {
     var out = IDX.slice();
-    (window.__socSearchAdd || []).forEach(function (f) { try { (f() || []).forEach(function (x) { out.push({ t: x.t, l: x.l || String(x.t).toLowerCase(), tn: x.tn, fn: x.fn }); });   /* §5hb: x.l precomputed by large providers */ } catch (e) {} });
+    (window.__socSearchAdd || []).forEach(function (f) { try { (f() || []).forEach(function (x) { out.push({ t: x.t, l: x.l || String(x.t).toLowerCase(), tn: x.tn, fn: x.fn, sid: x.sid }); });   /* §5hh: sid = the incident the entry belongs to */   /* §5hb: x.l precomputed by large providers */ } catch (e) {} });
     return out;
   }
   function search() {
@@ -31975,7 +31992,20 @@ odtad CZTERNASCIE (4-17).**
       });
       return out;
     }
-    inner.appendChild(q); inner.appendChild(rtog); inner.appendChild(res); inner.appendChild(foot); dlg.appendChild(inner); document.body.appendChild(dlg);
+    /* §5hh (23 XI 2026, owner: "I search the portal, I get the incident, but where are its KQL? a switch like Show related
+       MC - Show related KQL"): with it on, each incident among the top hits (a Threat Research row, an Articles row of an
+       incident, an incident entry) is followed at once by its hunting queries - ours, Microsoft's, the community's (data
+       kql/links.json, tools/kql_archive.py) - each opening the query in the KQL library, and by a line that opens all of
+       them there. One setting, kept in this browser. */
+    var kOn = false; try { kOn = localStorage.getItem("soc.kql.showRelated") === "1"; } catch (x) {}
+    var ktog = el("button", "mcb-reltog s5bi-reltog s5hh-ktog"); ktog.type = "button"; ktog.appendChild(el("i")); ktog.appendChild(el("span", null, "Show related KQL"));
+    ktog.title = "Under each incident found, list its hunting queries (ours, Microsoft's and the community's)";
+    ktog.setAttribute("aria-pressed", kOn ? "true" : "false");
+    ktog.addEventListener("click", function () { kOn = !kOn; ktog.setAttribute("aria-pressed", kOn ? "true" : "false");
+      try { localStorage.setItem("soc.kql.showRelated", kOn ? "1" : "0"); } catch (x) {}
+      if (window.__socKqlLinks) window.__socKqlLinks.load(); q.dispatchEvent(new Event("input")); q.focus(); });
+    var tgrow = el("div", "s5hh-tgrow"); tgrow.appendChild(rtog); tgrow.appendChild(ktog);
+    inner.appendChild(q); inner.appendChild(tgrow); inner.appendChild(res); inner.appendChild(foot); dlg.appendChild(inner); document.body.appendChild(dlg);
     if (relOn) relLoad();
     var hits = [], cur = 0, last = null, partial = false;
     function close() { dlg.hidden = true; dlg.classList.remove("s5fv-anch"); inner.style.cssText = ""; if (last && last.focus) last.focus(); }
@@ -32045,6 +32075,11 @@ odtad CZTERNASCIE (4-17).**
       hits = !words.length ? [] : pick(starts);
       if (words.length && !hits.length) { hits = pick(function (x, w) { return x.l.indexOf(w) >= 0; }); partial = hits.length > 0; }
       if (words.length && hits.length) { var rh = relHits(hits); if (rh.length) hits = hits.concat(rh); }   /* §5gs */
+      if (words.length && hits.length && kOn && window.__socKqlLinks) {   /* §5hh: the incident's KQL right under it */
+        var kx = [], kseen = {};
+        hits.forEach(function (h, i) { kx.push(h); if (i < 8 && !h.rel) window.__socKqlLinks.hitsFor(h, kseen).forEach(function (y) { kx.push(y); }); });
+        hits = kx;
+      }
       hits.q = words; cur = 0; paint();
       foot.textContent = !words.length ? "↑ ↓ to move · Enter to open · Esc to close" : !hits.length ? "Nothing in the portal starts with “" + q.value.trim() + "”." :
         (partial ? "No word starts with “" + q.value.trim() + "” — showing text that contains it · " : hits.length + (hits.length === 30 ? "+" : "") + " found · ") + "↑ ↓ · Enter · Esc";
@@ -40323,7 +40358,7 @@ odtad CZTERNASCIE (4-17).**
   if (window.__s5eu) return; window.__s5eu = 1;
   function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
   function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || ""); }
-  var IX = null, built = false;
+  var IX = null, built = false, pend = null, redraw = null;   /* §5hh */
   var VIEWS = [["brief", "From the briefs", function (e) { return e.kind === "brief"; }],
     ["incident", "From incidents", function (e) { return e.kind === "incident-note" || (e.kind === "article" && e.incident); }],
     ["community", "From the community", function (e) { return e.kind === "repo" || (e.kind === "article" && !e.incident); }],
@@ -40362,8 +40397,12 @@ odtad CZTERNASCIE (4-17).**
     function ghUrl() { gh.href = "https://github.com/search?type=code&q=" + encodeURIComponent("repo:wpiotrw/MS_SOC path:site/kql " + q.value.trim()); }
     ghUrl();
     [q, sP, sT, sA, cnt, gh].forEach(function (x) { bar.appendChild(x); }); box.appendChild(bar);
+    /* §5hh: a filter set from outside - the queries of ONE incident (Threat Research, Ctrl K) or ONE query - with a banner
+       that names it and gives the whole library back */
+    var inc = null, only = null, ban = el("div", "s5hh-ban"); ban.hidden = true; box.appendChild(ban);
     var list = el("div", "s5eu-list"); box.appendChild(list);
     var LIM = 40, shown = LIM, TT = [];
+    function filesOf(sid) { var K = window.__socKqlLinks && window.__socKqlLinks.get(); var v = K && K.s && K.s[sid]; return v ? v[1].map(function (i) { return K.q[i][0]; }) : []; }
     function hay(e) { return [e.title, e.purpose, e.product, (e.tables || []).join(" "), e.author, e.repo, (e.cves || []).join(" "), (e.mitre || []).join(" "), e.incident].join(" ").toLowerCase(); }
     /* §5gx (17 XI 2026, owner: "how can we search these KQL by phrases, topics, words that occur in the KQL code?"):
        kql/search.json (tools/kql_archive.py) holds the text of every query by file; it is read on the first search only,
@@ -40397,6 +40436,17 @@ odtad CZTERNASCIE (4-17).**
       var sn = TT.length ? snip(e, TT) : null; if (sn) mid.appendChild(sn);
       hd.appendChild(mid);
       hd.appendChild(el("span", "s5el-st s5eu-k s5eu-" + e.kind, KL[e.kind] || e.kind)); r.appendChild(hd);
+      /* §5hh (owner: "when I have a list of KQL there are no related articles, incidents"): the incidents this query belongs
+         to, on the row itself, each opening the incident at its queries; the article it came from is one click away too */
+      var KI = window.__socKqlLinks ? window.__socKqlLinks.incOf(e.file) : [];
+      if (KI.length || (e.kind === "article" && e.link)) {
+        var il = el("div", "s5hh-inc");
+        KI.slice(0, 3).forEach(function (x) { var ib2 = el("button", "s5hh-incb", "Incident: " + x[1]); ib2.type = "button"; ib2.title = "Open the incident in Threat Research, at its hunting queries";
+          ib2.addEventListener("click", function () { if (window.__socOpenThreatKql) window.__socOpenThreatKql(x[0]); }); il.appendChild(ib2); });
+        if (KI.length > 3) il.appendChild(el("span", "s5el-mut", "+" + (KI.length - 3) + " more incidents"));
+        if (e.kind === "article" && e.link) { var al = el("a", "s5hh-art", "Article \u2197"); al.href = e.link; al.target = "_blank"; al.rel = "noopener"; il.appendChild(al); }
+        r.appendChild(il);
+      }
       var det = el("div", "s5eu-det"); det.hidden = true; r.appendChild(det);
       hd.addEventListener("click", function () {
         var on = det.hidden; det.hidden = !on; tg.textContent = on ? "\u2212" : "+"; hd.setAttribute("aria-expanded", on ? "true" : "false"); r.classList.toggle("open", on);
@@ -40434,8 +40484,19 @@ odtad CZTERNASCIE (4-17).**
       [].forEach.call(seg.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-v") === cur)); });
       var vf = VIEWS.filter(function (v) { return v[0] === cur; })[0][2], qq = q.value.trim().toLowerCase();
       TT = terms(qq); ghUrl(); if (TT.length) needCode();
+      var IF = inc ? filesOf(inc) : null;   /* §5hh */
+      ban.hidden = !(inc || only); ban.textContent = "";
+      if (inc || only) {
+        var K0 = window.__socKqlLinks && window.__socKqlLinks.get(), tt0 = inc && K0 && K0.s[inc] ? K0.s[inc][0] : "";
+        ban.appendChild(el("span", "s5hh-bt", inc ? "Queries of the incident: " + tt0 + " \u00b7 " + IF.length : "One query, opened by a link"));
+        var cb0 = el("button", "s5hh-clr", "Show all queries"); cb0.type = "button";
+        cb0.addEventListener("click", function () { inc = null; only = null; shown = LIM; draw(); }); ban.appendChild(cb0);
+        if (inc) { var ob = el("button", "s5el-lnk", "Open the incident \u203a"); ob.type = "button"; var sid0 = inc;
+          ob.addEventListener("click", function () { if (window.__socOpenThreatKql) window.__socOpenThreatKql(sid0); }); ban.appendChild(ob); }
+      }
       var L = IX.filter(function (e) { var hy = TT.length ? hay(e) + " " + codeOf(e).toLowerCase() : "";
-        return vf(e) && TT.every(function (t) { return hy.indexOf(t) >= 0; }) && (!sP.value || e.product === sP.value) &&
+        if (IF && IF.indexOf(e.file) < 0) return false; if (only && e.file !== only) return false;
+        return (IF || only ? true : vf(e)) && TT.every(function (t) { return hy.indexOf(t) >= 0; }) && (!sP.value || e.product === sP.value) &&
         (!sT.value || (e.tables || []).indexOf(sT.value) >= 0) && (!sA.value || (e.author || (e.kind === "brief" ? "Microsoft SOC Brief" : "")) === sA.value); });
       /* the community's first read is the repositories' back catalogue: newest first means the newest WE saw, initial last */
       L.sort(function (a, b) { return (a.initial ? 1 : 0) - (b.initial ? 1 : 0) || String(b.date || "").localeCompare(String(a.date || "")); });
@@ -40450,8 +40511,28 @@ odtad CZTERNASCIE (4-17).**
     [sP, sT, sA].forEach(function (x) { x.addEventListener("change", function () { shown = LIM; draw(); }); });
     draw();
     h.insertBefore(box, h.firstChild);
+    /* §5hh: outside callers set the filter here; the incident lines need kql/links.json */
+    redraw = function (a) {
+      if (a) { inc = a.inc || null; only = a.file || null; q.value = ""; sP.value = sT.value = sA.value = ""; shown = LIM; }
+      draw();
+      if (a && a.file) { var r1 = list.querySelector(".s5eu-rh"); if (r1 && r1.getAttribute("aria-expanded") !== "true") r1.click(); }
+      if (a) { box.open = true; var tgt = ban.hidden ? box : ban;   /* the mark keeps it in view while the tab settles (a phone builds it later) */
+        setTimeout(function () { tgt.scrollIntoView({ block: "center" }); if (window.__socMark) try { window.__socMark(tgt); } catch (x) {} }, 60); }
+    };
+    if (pend) { var p0 = pend; pend = null; redraw(p0); }
+    document.addEventListener("soc:kqllinks", function () { draw(); });
   }
+  /* §5hh: open the library with ONE incident's queries, or ONE query */
+  function goLib(a) {
+    var tb = document.querySelector('nav.anchors .tab[aria-controls="tab-hunting"]'); if (tb) tb.click();
+    if (window.__socKqlLinks) window.__socKqlLinks.load();
+    var go = function () { if (redraw) redraw(a); else { pend = a; wake(); } };
+    if (a.inc && window.__socKqlLinks && !window.__socKqlLinks.get()) window.__socKqlLinks.load().then(function () { setTimeout(go, 80); }); else setTimeout(go, 80);
+  }
+  window.__socKqlFor = function (sid) { goLib({ inc: sid }); };
+  window.__socOpenKql = function (file) { goLib({ file: file }); };
   function wake() {
+    if (window.__socKqlLinks) window.__socKqlLinks.load();
     if (built) return;
     if (IX) { build(); return; }
     fetch("kql/index.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { if (j && j.length) { IX = j; build(); } }).catch(function () {});
@@ -40459,6 +40540,73 @@ odtad CZTERNASCIE (4-17).**
   document.addEventListener("click", function (ev) { var t = ev.target.closest && ev.target.closest('nav.anchors .tab[aria-controls="tab-hunting"], #tabbtn-tab-hunting, .s5ca-it[data-pid="tab-hunting"]'); if (t) setTimeout(wake, 60); }, true);
   document.addEventListener("soc:woke", function (e) { if (e && e.detail && e.detail.id === "tab-hunting") wake(); });
   if (/tab=hunting/.test(location.hash)) setTimeout(wake, 1500);
+})();
+
+/* §5hh (23 XI 2026) — KQL LINKED BOTH WAYS. Owner: "where do you put the KQL we write or find for incidents? I search the
+   portal and get the incident, but where are its KQL? Can't they be linked - a Show related KQL switch like the MC one?
+   It is very hard to find my way in this portal ... and when I have a list of KQL there are no related articles, incidents".
+   kql/links.json (tools/kql_archive.py write_links) holds every archived query (file, title, kind, date, product, tables,
+   author), the queries of each incident - matched by query text with the same rules as the incident card - and the
+   incident of each article link. This block loads it once (76 kB compressed, only when Ctrl K, the KQL library or a KQL
+   button is used) and serves: Ctrl K entries for every query ("KQL library") and every incident that has queries
+   ("Incident · KQL"), the "Show related KQL" hits under an incident, and the incident line of each library row. */
+(function () {
+  "use strict";
+  if (window.__s5hh) return; window.__s5hh = 1;
+  var L = null, P = null, REL = null, CK = null;
+  var KN = { brief: "brief", "incident-note": "our analysis", article: "article / published", repo: "community repository" };
+  function load() {
+    if (P) return P;
+    if (!window.fetch || !/^https?:/.test(location.protocol)) { P = Promise.resolve(null); return P; }
+    P = fetch("/kql/links.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      if (!j || !j.q) return null;
+      L = j; REL = {}; CK = null;
+      Object.keys(j.s || {}).forEach(function (sid) { j.s[sid][1].forEach(function (i) { var f = j.q[i][0]; (REL[f] = REL[f] || []).push(sid); }); });
+      try { document.dispatchEvent(new CustomEvent("soc:kqllinks")); } catch (e) {}
+      var sk = document.querySelector(".s5bi-skq"); if (sk && sk.value.trim() && sk.offsetParent) sk.dispatchEvent(new Event("input"));
+      return j;
+    }, function () { return null; });
+    return P;
+  }
+  function openInc(sid) { if (window.__socOpenThreatKql) window.__socOpenThreatKql(sid); else if (window.__socOpenThreat) window.__socOpenThreat(sid); }
+  function line(e) { return [e[4], e[5], KN[e[2]] || e[2], e[6]].filter(Boolean).join(" \u00b7 "); }
+  /* the incident of a Ctrl K hit: its own sid, the incident row it sits in, or the article link of its row */
+  function sidOf(h) {
+    if (h.sid) return h.sid;
+    var r = h.row; if (!r || !L) return null;
+    var rr = r.closest && r.closest('[id^="s5el-"]'); if (rr) { var id = rr.id.slice(5); if (L.s[id]) return id; }
+    var a = r.querySelector && r.querySelector("a[href]"); if (a && L.a[a.href]) return L.a[a.href];
+    return null;
+  }
+  function hitsFor(h, seen) {
+    if (!L) { load(); return []; }
+    var sid = sidOf(h); if (!sid || seen[sid] || !L.s[sid]) return [];
+    seen[sid] = 1;
+    var v = L.s[sid], n = v[1].length, out = [];
+    out.push({ tn: "KQL of this incident", t: n + " quer" + (n === 1 ? "y" : "ies") + " for: " + v[0] + " — open them all in the KQL library", l: "", rel: 2,
+      fn: function () { if (window.__socKqlFor) window.__socKqlFor(sid); } });
+    v[1].slice(0, 6).forEach(function (i) { var e = L.q[i];
+      out.push({ tn: "\u21b3 " + (KN[e[2]] || "KQL"), t: e[1] + " \u00b7 " + line(e), l: "", rel: 1, fn: function () { if (window.__socOpenKql) window.__socOpenKql(e[0]); } }); });
+    if (n > 6) out.push({ tn: "\u21b3 +" + (n - 6) + " more", t: "Open all " + n + " queries of this incident in the KQL library", l: "", rel: 1, fn: function () { if (window.__socKqlFor) window.__socKqlFor(sid); } });
+    return out;
+  }
+  window.__socKqlLinks = {
+    load: load, get: function () { return L; }, hitsFor: hitsFor,
+    incOf: function (file) { return (REL && REL[file] || []).map(function (sid) { return [sid, L.s[sid][0]]; }); }
+  };
+  (window.__socSearchAdd = window.__socSearchAdd || []).push(function () {
+    if (!L) { load(); return []; }
+    if (!CK) {
+      CK = [];
+      Object.keys(L.s).forEach(function (sid) { var v = L.s[sid], t = v[0] + " \u00b7 " + v[1].length + " KQL";
+        CK.push({ t: t, l: t.toLowerCase(), tn: "Incident \u00b7 KQL", sid: sid, fn: function () { openInc(sid); } }); });
+      L.q.forEach(function (e) { var t = e[1] + " \u00b7 " + line(e) + (e[3] ? " \u00b7 " + e[3] : "");
+        CK.push({ t: t, l: t.toLowerCase(), tn: "KQL library", fn: function () { if (window.__socOpenKql) window.__socOpenKql(e[0]); } }); });
+    }
+    return CK;
+  });
+  /* the first Ctrl K keystroke loads the file; the open dialog then searches again */
+  document.addEventListener("focusin", function (ev) { if (ev.target && ev.target.classList && ev.target.classList.contains("s5bi-skq")) load(); }, true);
 })();
 
 /* §5ev (22 X 2026, owner on the phone: "you write 26 new · 2 changed · 7 removed but I cannot click a status to see only
@@ -43808,12 +43956,36 @@ odtad CZTERNASCIE (4-17).**
         var cc = {}; X.forEach(function (x) { cc[x.verdict] = (cc[x.verdict] || 0) + 1; });
         var cs = el("span", "s5fe-cs"); ["malicious", "suspicious", "not checked yet", "no detections"].forEach(function (k) { if (cc[k]) cs.appendChild(zchip(cc[k] + " " + k, "s5fb-vd " + (VCLS[k] || ""))); });
         cs.appendChild(el("span", "s5fe-n", X.length + " total")); sm.appendChild(cs); d.appendChild(sm);
-        if (sid !== "_watch") { var ob = el("button", "s5el-btn", "Open the incident"); ob.type = "button"; ob.addEventListener("click", function () { openStory(sid); }); d.appendChild(ob); }
-        var cl = copyLists(sid, X); if (cl) { cl.open = true; d.appendChild(cl); }
-        var own = X.filter(function (x) { return x.origins.indexOf("analysis") >= 0 || x.origins.indexOf("article") >= 0; }), rel = X.filter(function (x) { return own.indexOf(x) < 0; });
-        if (own.length) { d.appendChild(el("h4", "s5fe-h4", "Named by the incident's sources · " + own.length)); d.appendChild(iocTable(own, false)); }
-        if (rel.length) { d.appendChild(el("h4", "s5fe-h4", "Found around it — researchers' lists and posts, ThreatFox, same server, look-alike certificates · " + rel.length)); d.appendChild(iocTable(rel, false)); }
+        /* §5hh (23 XI 2026): the body of a fold is built when it is first opened - the 13 closed folds held 26 000 of the
+           tab's elements and the phone check (limit 25 000) failed; the summary line with the counts is built at once */
+        var fill = function () {
+          if (d.__f) return; d.__f = true;
+          if (sid !== "_watch") { var ob = el("button", "s5el-btn", "Open the incident"); ob.type = "button"; ob.addEventListener("click", function () { openStory(sid); }); d.appendChild(ob); }
+          var cl = copyLists(sid, X); if (cl) { cl.open = true; d.appendChild(cl); }
+          var own = X.filter(function (x) { return x.origins.indexOf("analysis") >= 0 || x.origins.indexOf("article") >= 0; }), rel = X.filter(function (x) { return own.indexOf(x) < 0; });
+          if (own.length) { d.appendChild(el("h4", "s5fe-h4", "Named by the incident's sources · " + own.length)); d.appendChild(iocTable(own, false)); }
+          if (rel.length) { d.appendChild(el("h4", "s5fe-h4", "Found around it — researchers' lists and posts, ThreatFox, same server, look-alike certificates · " + rel.length)); d.appendChild(iocTable(rel, false)); }
+        };
+        if (d.open) fill(); else d.addEventListener("toggle", function () { if (d.open) fill(); });
+        d.__fill = fill; d.setAttribute("data-sid", sid);
         s2.appendChild(d);
+      });
+      /* §5hh: the closed folds hold no rows yet, so Ctrl K (which reads table rows) gets the indicators from the data:
+         a hit opens the incident's fold, shows the row (also past the first 12) and flashes it */
+      var IOCK = null;
+      (window.__socSearchAdd = window.__socSearchAdd || []).push(function () {
+        if (IOCK) return IOCK; IOCK = [];
+        L.forEach(function (x) { var sid0 = (x.stories && x.stories[0]) || "_watch";
+          var t = x.v + " \u00b7 " + x.verdict + " \u00b7 " + (x.stories || []).map(function (k) { return (IOW.titles || {})[k] || k; }).join("; ");
+          IOCK.push({ t: t, l: t.toLowerCase(), tn: "Infrastructure watch", fn: function () {
+            var tb0 = document.querySelector('nav.anchors .tab[aria-controls="tab-threats"]'); if (tb0) tb0.click();
+            setTimeout(function () {
+              var f = [].filter.call(document.querySelectorAll(".s5fe-incf"), function (z) { return z.getAttribute("data-sid") === sid0; })[0]; if (!f) return;
+              var p0 = f.closest("details.s5el-box"); if (p0) p0.open = true; f.open = true; if (f.__fill) f.__fill();
+              var row = [].filter.call(f.querySelectorAll("tbody tr"), function (r) { var c = r.querySelector("code"); return c && c.textContent === x.v; })[0];
+              if (row) { row.hidden = false; row.scrollIntoView({ block: "center" }); row.classList.add("s5bi-flash"); setTimeout(function () { row.classList.remove("s5bi-flash"); }, 2200); }
+            }, 400); } }); });
+        return IOCK;
       });
       /* 3. Campaigns */
       var s3 = secHead(b, "s5fe-camp", 3, "Campaigns and watched words", "");
@@ -43976,6 +44148,9 @@ odtad CZTERNASCIE (4-17).**
     var sum = el("div", "s5ez-ksum");
     [[own.length, "ours"], [vend.length, "Microsoft"], [comm.length, "community"]].forEach(function (x) { if (x[0]) sum.appendChild(zchip(x[0] + " " + x[1], "s5ez-k-" + x[1])); });
     if (relN.length) sum.appendChild(el("span", "s5el-mut s5ez-ks", "including the related incident: " + relN.join("; ")));
+    /* §5hh: the same queries as files of the KQL library - search them, filter them, open the file */
+    var kb = el("button", "s5el-lnk s5hh-tolib", "Open this incident's queries in the KQL library \u203a"); kb.type = "button";
+    kb.addEventListener("click", function () { if (window.__socKqlFor) window.__socKqlFor(s.id); }); sum.appendChild(kb);
     ck.appendChild(sum);
     function kq(q, host, by) {
       var k = el("div", "s5el-kql"); k.appendChild(el("p", "s5el-kqt", q.title || q.articleTitle || "Hunting query"));
@@ -44009,7 +44184,7 @@ odtad CZTERNASCIE (4-17).**
      written in our analysis and the ones the sources published. Older threats.json without the fields: worked out here. */
   function kqlOf(s) {
     var a = s.kqlAnalysis != null ? s.kqlAnalysis : ((s.notes && s.notes.kql) || []).length;
-    var src = s.kqlSources != null ? s.kqlSources : (s.kql || 0);
+    var src = (s.kqlSources != null ? s.kqlSources : (s.kql || 0)) + ((s.notes && s.notes.kqlPublished) || []).length;   /* §5hh: + published for the incident */
     var cm = s.kqlCommunityN || 0;     /* §5ez: community repositories */
     var rl = 0; (s.related || []).forEach(function (r) { var o = ((D && D.stories) || []).filter(function (x) { return x.id === r.id; })[0]; if (o) rl += (o.kqlAnalysis || 0) + (o.kqlSources || 0); });
     return { a: a, s: src, c: cm, r: rl, t: a + src + cm };
@@ -44057,7 +44232,7 @@ odtad CZTERNASCIE (4-17).**
     });
     return r;
   }
-  function openStory(id) {
+  function openStory(id, toKql) {
     goTab();
     var go = function () {
       var c = document.getElementById("s5el-" + id); if (!c) { var mb = panel.querySelector(".s5el-more"); if (mb) mb.click(); c = document.getElementById("s5el-" + id); }
@@ -44065,11 +44240,22 @@ odtad CZTERNASCIE (4-17).**
       var box0 = document.getElementById("s5el-inc"); if (box0) box0.open = true;
       var t = c.querySelector(".s5el-rh"); if (t && t.getAttribute("aria-expanded") !== "true") t.click();
       window.scrollTo({ top: Math.max(0, c.getBoundingClientRect().top + scrollY - 120) });
-      if (window.__socMark) try { window.__socMark(c); } catch (e) {}
+      /* §5hh: "KQL" buttons land on the incident's hunting queries, not on its first line - the mark (which keeps its
+         target in view while the tab settles) goes on the KQL card, else it would pull the page back to the row */
+      var kq0 = toKql ? c.querySelector(".s5ez-kq") : null;
+      if (kq0) window.scrollTo({ top: Math.max(0, kq0.getBoundingClientRect().top + scrollY - 160), behavior: "instant" });
+      if (window.__socMark) try { window.__socMark(kq0 || c); } catch (e) {}
+      /* the row can be rebuilt meanwhile (the filter line redraws the list) - look it up again each time */
+      if (toKql) { var tries = 0, okN = 0; (function poll() { var c2 = document.getElementById("s5el-" + id), k = c2 && c2.querySelector(".s5ez-kq");
+        if (c2 && !k) { var t2 = c2.querySelector(".s5el-rh"); if (t2 && t2.getAttribute("aria-expanded") !== "true") t2.click(); k = c2.querySelector(".s5ez-kq"); }
+        var off = 140; [].forEach.call(document.querySelectorAll(".gfbar, header.top"), function (x) { var r = x.getBoundingClientRect(); if (!x.hidden && r.height && r.top < 400 && r.bottom > 0 && getComputedStyle(x).position !== "static") off = Math.max(off, r.bottom + 12); });
+        if (k && Math.abs(k.getBoundingClientRect().top - off) > 40) { window.scrollTo({ top: Math.max(0, k.getBoundingClientRect().top + scrollY - off), behavior: "instant" }); okN = 0; } else if (k) okN++;
+        if (okN < 2 && ++tries < 20) setTimeout(poll, 300); })(); }   /* polls up to 6 s: on a phone the tab is built later */
     };
     if (built) setTimeout(go, 60); else load(function () { build(); setTimeout(go, 60); });
   }
   window.__socOpenThreat = openStory;
+  window.__socOpenThreatKql = function (id) { openStory(id, true); };   /* §5hh */
 
   /* ---- 4. report tables ---- */
   function table(heads, rows, opts) {
@@ -44102,6 +44288,10 @@ odtad CZTERNASCIE (4-17).**
         var r = el("tr"); r.appendChild(td(dmy(day(a.published || a.firstSeen)), "s5el-nw")); r.appendChild(td(a.source)); r.appendChild(tdA(a.title, a.link));
         r.appendChild(td(a.areas.join(" · "))); var s = SID[a.id], c = el("td");
         if (s && s.articles.length > 1 || s && s.curated) { var b = el("button", "s5el-lnk", s.curated ? "Incident · analysed" : "Incident · " + s.articles.length + " articles"); b.type = "button"; b.addEventListener("click", function () { openStory(s.id); }); c.appendChild(b); }
+        /* §5hh (owner: "in the tables, once I go to the phrase I found, there are no KQL"): the incident's query count, opening its KQL */
+        var kk = s ? kqlOf(s).t : 0;
+        if (kk) { var kb2 = el("button", "s5el-lnk s5hh-kbtn", "KQL \u00b7 " + kk); kb2.type = "button"; kb2.title = "Open the incident at its hunting queries";
+          kb2.addEventListener("click", function () { openStory(s.id, true); }); c.appendChild(kb2); }
         r.appendChild(c); return r;
       })));
       if (rows.length > shown) { var mb = el("button", "s5el-btn", "Show " + Math.min(LIM, rows.length - shown) + " more"); mb.type = "button"; mb.addEventListener("click", function () { shown += LIM; draw(); }); host.appendChild(mb); }
@@ -48856,6 +49046,19 @@ details.s5ei-day[data-kf="new"] .s5ei-tile:not(.s5ei-new),details.s5ei-day[data-
 .mcb-g:first-child{border-top:0}
 .mcb-row{border-top:1px solid var(--border)}
 .s5bi-reltog{margin:8px 12px 4px}
+/* §5hh — Show related KQL, incident lines in the KQL library, KQL buttons in Threat Research */
+.s5hh-tgrow{display:flex;flex-wrap:wrap;gap:0 8px;align-items:center}
+.s5hh-tgrow .s5bi-reltog{margin:8px 0 4px 12px}
+.s5hh-inc{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:-2px 0 8px 34px}
+.s5hh-incb{font:600 12.5px/1.3 var(--sans);color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;padding:2px 10px;cursor:pointer;max-width:100%;text-align:left;overflow-wrap:anywhere}
+.s5hh-incb:hover{background:var(--accent);color:var(--on-accent)}
+.s5hh-art{font:600 12.5px/1.3 var(--sans)}
+.s5hh-ban{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0;padding:8px 12px;background:var(--ok-soft);border:1px solid var(--ok);border-radius:8px}
+.s5hh-ban[hidden]{display:none}
+.s5hh-bt{font:700 13.5px/1.35 var(--sans);color:var(--text);overflow-wrap:anywhere}
+.s5hh-clr{font:700 12.5px/1 var(--sans);color:#fff;background:var(--ok);border:0;border-radius:999px;padding:6px 12px;cursor:pointer}
+.s5hh-kbtn{margin-left:8px;font-weight:700}
+.s5hh-tolib{margin-left:8px;font-weight:700}
 .s5bi-skr li.s5bi-relhit{margin-left:18px;border-left:3px solid #1d4ed8;padding-left:8px}
 .s5bi-skr li.s5bi-relhead{margin-left:8px;font-weight:700}
 /* §5gs: related Message Center posts, Removed view, Show related */

@@ -213,6 +213,21 @@
   "incident": "entra-connect-health-api-metadata-2026-11"
  },
  {
+  "file": "articles/2026-11-22-write-change-operations-only-potential-ioas.kql",
+  "title": "Write / change operations only (potential IOAs)",
+  "date": "2026-11-22",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Published for the incident: Microsoft Entra Connect Health API flaw: attackers read administrator emails and tenant metadata (23 Jul - 19 Nov 2026)",
+  "source": "https://x.com/ellishlomo",
+  "kind": "article",
+  "author": "ES (@ellishlomo)",
+  "link": "https://x.com/ellishlomo",
+  "incident": "entra-connect-health-api-metadata-2026-11"
+ },
+ {
   "file": "articles/2026-11-22-detection-5-webworm-persistence-via-registry-combined-with.kql",
   "title": "Detection 5: Webworm - Persistence via Registry Combined with Recurring Outbound Encrypted Tunnel Connections",
   "date": "2026-11-22",
@@ -286,6 +301,36 @@
   "kind": "article",
   "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
   "link": "https://devsecopsdadattack.com/2026-11-22-detection-engineering-brief-sunday-november-22-2026/"
+ },
+ {
+  "file": "articles/2026-11-22-broad-hunt-for-connect-health-activity-in-entra.kql",
+  "title": "Broad hunt for Connect Health activity in Entra audit logs (23 Jul - 19 Nov 2026)",
+  "date": "2026-11-22",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Published for the incident: Microsoft Entra Connect Health API flaw: attackers read administrator emails and tenant metadata (23 Jul - 19 Nov 2026)",
+  "source": "https://x.com/ellishlomo",
+  "kind": "article",
+  "author": "ES (@ellishlomo)",
+  "link": "https://x.com/ellishlomo",
+  "incident": "entra-connect-health-api-metadata-2026-11"
+ },
+ {
+  "file": "articles/2026-11-22-all-microsoft-adhybridhealthservice-activity-in-the-azure-ac.kql",
+  "title": "All Microsoft.ADHybridHealthService activity in the Azure Activity log",
+  "date": "2026-11-22",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "Published for the incident: Microsoft Entra Connect Health API flaw: attackers read administrator emails and tenant metadata (23 Jul - 19 Nov 2026)",
+  "source": "https://x.com/ellishlomo",
+  "kind": "article",
+  "author": "ES (@ellishlomo)",
+  "link": "https://x.com/ellishlomo",
+  "incident": "entra-connect-health-api-metadata-2026-11"
  },
  {
   "file": "2026-11-22-files-with-a-sensitivity-label-that-copilot-read.kql",
@@ -2182,6 +2227,21 @@
   "author": "Microsoft Threat Intelligence and Microsoft Defender Security Research Team · Microsoft Security Blog",
   "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/",
   "incident": "auto-email-threat-landscape-q3-2026-trends-an-2026-11-05"
+ },
+ {
+  "file": "articles/2026-11-05-salary-review-campaign-sender-19-20-august.kql",
+  "title": "Salary review campaign sender (19-20 August)",
+  "date": "2026-11-05",
+  "product": "Defender for Office 365",
+  "tables": [
+   "EmailEvents"
+  ],
+  "purpose": "Published for the incident: Microsoft's Q3 2026 email threat report: 7.3 billion phishing threats, device-code QR lure against law firms and an Agent Tesla campaign with passing SPF/DKIM/DMARC",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/",
+  "incident": "email-threat-landscape-q3-2026"
  },
  {
   "file": "articles/2026-11-05-microsoft-defender-xdr.kql",
@@ -33954,6 +34014,19 @@
   ],
   "repo": "Microsoft Sentinel (Azure-Sentinel) - recent hunting queries and detections",
   "initial": true
+ },
+ {
+  "file": "articles/2026-10-21-microsoft-advanced-hunting-set-for-the-connectwise-compromis.kql",
+  "title": "Microsoft advanced hunting set for the ConnectWise compromise (OAuthAppInfo; EntraIdSpnSignInEvents + GraphAPIAuditEvents; Key Vault / Storage / ARM from IOC IPs; Sentinel SigninLogs and MicrosoftGraphActivityLogs)",
+  "date": "2026-10-21",
+  "product": "Microsoft 365",
+  "tables": [],
+  "purpose": "Published for the incident: Storm-0940 and the ARTEX AI framework: Microsoft ties the ConnectWise Cloud Backup compromise to a China-aligned actor",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
  },
  {
   "file": "articles/2026-10-21-6-finding-new-child-processes-php-execution-baseline.kql",

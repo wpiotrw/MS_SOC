@@ -146,6 +146,17 @@ def extra_queries():
                             "product": next((p for rx, p in PRODUCT for t in tb if re.search(rx, t)), "Microsoft 365"), "tables": tb,
                             "purpose": "Threat Research: " + (n.get("title") or n.get("id") or ""), "source": (n.get("links") or [{}])[0].get("url"),
                             "author": "Threat Research analysis (" + label + ")", "incident": n.get("id"), "link": None, "query": code, "key": body_key(code)})
+            # 5hh: the queries the vendor or the community published for THIS incident (kqlPublished) are archived too,
+            # under their own author and link - before, the library and Ctrl K never saw them
+            for q in n.get("kqlPublished") or []:
+                code = (q.get("query") or "").strip()
+                if not code:
+                    continue
+                tb = sorted(set(TABLE.findall(code)))
+                out.append({"kind": "article", "title": q.get("title") or "Hunting query", "date": (q.get("date") or n.get("updated") or "")[:10],
+                            "product": next((p for rx, p in PRODUCT for t in tb if re.search(rx, t)), "Microsoft 365"), "tables": tb,
+                            "purpose": "Published for the incident: " + (n.get("title") or n.get("id") or ""), "source": q.get("link"), "link": q.get("link"),
+                            "author": q.get("by") or "", "incident": n.get("id"), "query": code, "key": body_key(code)})
     try:
         found = json.load(open(os.path.join(SITE, "data", "kql-found.json"), encoding="utf-8")).get("queries") or []
     except (OSError, ValueError):
@@ -192,6 +203,80 @@ def write_search(index):
     if old != data:
         open(SEARCH, "w", encoding="utf-8").write(data)
     print("OK kql search: %d query texts, %d kB%s" % (len(out), len(data.encode()) // 1024, "" if old != data else " (unchanged)"))
+
+
+LINKS = os.path.join(KQL, "links.json")
+
+
+def _norm(q):
+    return re.sub(r"\s+", "", "\n".join(l for l in (q or "").splitlines() if not l.strip().startswith("//")))[:600]
+
+
+def write_links(index):
+    """CLAUDE.md 5hh (23 XI 2026, owner: "where do you put the KQL we write or find for incidents? I search the portal, I
+    get the incident, but where are the KQL? Can't they be linked - a 'Show related KQL' switch like the MC one? And the KQL
+    list has no related articles or incidents"). site/kql/links.json joins the archive to Threat Research with the SAME
+    rules the incident card uses (our analysis = threat-notes kql, queries found in the incident's articles =
+    kql-found.json story/article, community repositories = story.kqlCommunity), each matched to its archive file by the
+    query text (comments and spaces ignored):
+        q  [file, title, kind, date, product, tables, author]   every archived query, for Ctrl K (small: no purpose, no text)
+        s  {storyId: [title, [q positions]]}                     the queries of each incident
+        a  {articleLink: storyId}                                 so a row of the Articles table finds its incident
+    Written only when it changed."""
+    try:
+        S = json.load(open(SEARCH, encoding="utf-8"))
+    except (OSError, ValueError):
+        S = {}
+    pos = {e["file"]: i for i, e in enumerate(index)}
+    by_text = {}
+    for f, t in S.items():
+        by_text.setdefault(_norm(t), f)
+    def files_of(queries):
+        out = []
+        for q in queries:
+            f = by_text.get(_norm(q))
+            if f in pos and pos[f] not in out:
+                out.append(pos[f])
+        return out
+    try:
+        T = json.load(open(os.path.join(SITE, "data", "threats.json"), encoding="utf-8"))
+    except (OSError, ValueError):
+        T = {}
+    try:
+        N = {n["id"]: n for n in json.load(open(os.path.join(SITE, "data", "threat-notes.json"), encoding="utf-8")).get("stories", [])}
+    except (OSError, ValueError):
+        N = {}
+    try:
+        F = json.load(open(os.path.join(SITE, "data", "kql-found.json"), encoding="utf-8")).get("queries", [])
+    except (OSError, ValueError):
+        F = []
+    arts = {a["id"]: a for a in T.get("articles", [])}
+    s_out, a_out = {}, {}
+    for st in T.get("stories", []):
+        ids = set(st.get("articles") or [])
+        for i in ids:
+            if i in arts and arts[i].get("link"):
+                a_out[arts[i]["link"]] = st["id"]
+        texts = [q.get("query") for q in (N.get(st["id"], {}).get("kql") or [])]
+        texts += [q.get("query") for q in (N.get(st["id"], {}).get("kqlPublished") or [])]
+        texts += [q.get("query") for q in F if q.get("story") == st["id"] or q.get("article") in ids]
+        texts += [q.get("query") for q in (st.get("kqlCommunity") or [])]
+        L = files_of(texts)
+        # an archived query that names the incident itself (incident-note files) belongs to it even when its text moved
+        L += [pos[e["file"]] for e in index if e.get("incident") == st["id"] and pos[e["file"]] not in L]
+        if L:
+            s_out[st["id"]] = [st.get("title", ""), L]
+    q_out = [[e["file"], e.get("title", ""), e.get("kind", ""), e.get("date", ""), e.get("product", ""),
+              ", ".join((e.get("tables") or [])[:4]), e.get("author", "")] for e in index]
+    data = json.dumps({"v": 1, "q": q_out, "s": s_out, "a": a_out}, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+    try:
+        old = open(LINKS, encoding="utf-8").read()
+    except Exception:
+        old = ""
+    if old != data:
+        open(LINKS, "w", encoding="utf-8").write(data)
+    print("OK kql links: %d queries, %d incidents with queries (%d links), %d kB%s" % (len(q_out), len(s_out),
+          sum(len(v[1]) for v in s_out.values()), len(data.encode()) // 1024, "" if old != data else " (unchanged)"))
 
 
 def main(argv):
@@ -266,6 +351,7 @@ def main(argv):
         json.dump(index, f, ensure_ascii=False, indent=1)
         f.write("\n")
     write_search(index)
+    write_links(index)
     kinds = {}
     for e in index:
         kinds[e["kind"]] = kinds.get(e["kind"], 0) + 1

@@ -1,0 +1,17 @@
+// title: Broad hunt for Connect Health activity in Entra audit logs (23 Jul - 19 Nov 2026)
+// date: 2026-11-22
+// product: Entra
+// tables: AuditLogs
+// purpose: Published for the incident: Microsoft Entra Connect Health API flaw: attackers read administrator emails and tenant metadata (23 Jul - 19 Nov 2026)
+// source: https://x.com/ellishlomo
+// kind: article
+// author: ES (@ellishlomo)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where TimeGenerated between (datetime(2026-07-23) .. datetime(2026-11-19))
+| where OperationName has_any ("Connect", "Health", "Hybrid", "ADHybrid", "servicemember", "AadSync")
+   or TargetResources has "ADHybridHealthService"
+   or AdditionalDetails has "Health"
+| extend Actor = coalesce(tostring(InitiatedBy.user.userPrincipalName), tostring(InitiatedBy.app.displayName))
+| project TimeGenerated, OperationName, Actor, Result, Category, TargetResources
+| order by TimeGenerated desc

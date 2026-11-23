@@ -1,0 +1,15 @@
+// title: All Microsoft.ADHybridHealthService activity in the Azure Activity log
+// date: 2026-11-22
+// product: Sentinel
+// tables: AzureActivity
+// purpose: Published for the incident: Microsoft Entra Connect Health API flaw: attackers read administrator emails and tenant metadata (23 Jul - 19 Nov 2026)
+// source: https://x.com/ellishlomo
+// kind: article
+// author: ES (@ellishlomo)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AzureActivity
+| where TimeGenerated between (datetime(2026-07-23) .. datetime(2026-11-19))
+| where ResourceProviderValue =~ "Microsoft.ADHybridHealthService"
+| extend Caller = tostring(Caller)
+| project TimeGenerated, Caller, CallerIpAddress, OperationNameValue, ActivityStatusValue, ResourceId, ResourceGroup, SubscriptionId
+| order by TimeGenerated desc

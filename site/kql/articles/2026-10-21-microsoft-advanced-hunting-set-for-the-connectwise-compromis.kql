@@ -1,0 +1,10 @@
+// title: Microsoft advanced hunting set for the ConnectWise compromise (OAuthAppInfo; EntraIdSpnSignInEvents + GraphAPIAuditEvents; Key Vault / Storage / ARM from IOC IPs; Sentinel SigninLogs and MicrosoftGraphActivityLogs)
+// date: 2026-10-21
+// product: Microsoft 365
+// tables: 
+// purpose: Published for the incident: Storm-0940 and the ARTEX AI framework: Microsoft ties the ConnectWise Cloud Backup compromise to a China-aligned actor
+// source: https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/
+// kind: article
+// author: Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+Six queries are printed in full under 'Advanced hunting' on the linked page; the text was not retrievable verbatim by this routine - open the link for the exact queries.

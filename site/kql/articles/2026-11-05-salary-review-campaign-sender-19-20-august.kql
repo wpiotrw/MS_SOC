@@ -1,0 +1,11 @@
+// title: Salary review campaign sender (19-20 August)
+// date: 2026-11-05
+// product: Defender for Office 365
+// tables: EmailEvents
+// purpose: Published for the incident: Microsoft's Q3 2026 email threat report: 7.3 billion phishing threats, device-code QR lure against law firms and an Agent Tesla campaign with passing SPF/DKIM/DMARC
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/
+// kind: article
+// author: Microsoft Threat Intelligence
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+EmailEvents
+| where SenderMailFromAddress == "smtp@wekash.net"
