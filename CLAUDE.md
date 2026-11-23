@@ -26584,6 +26584,22 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hk (23 XI 2026, 21:25)** — CYBERNEWS W THREAT RESEARCH + PRZEBIEG, KTORY SIE NIE ZAWIESZA. Piotr: "Czy sledzimy
+https://cybernews.com dla naszych technologii? Jesli nie, to mozemy dodac?". Nie bylo go w zadnej liscie. (1) threat_sources.json:
+"Cybernews", Tier secondary, TitleOnly. cybernews.com/feed/ odpowiada HTTP 403 (Cloudflare "Just a moment...") i nam, i runnerom
+GitHub (sprawdzone przebiegiem fpa-tenant 19:40 UTC) - wiec SourceURL = RSS wyszukiwania Google News
+"site:cybernews.com (Microsoft OR Windows OR Azure OR Entra OR Intune OR Defender OR Exchange OR SharePoint OR Teams OR Copilot OR
+Outlook)"; linki otwieraja sie przez news.google.com. (2) threats.py relevance(): zrodlo TitleOnly (tylko tytul, bez streszczenia)
+zostawia artykul przy wyniku 3 zamiast 4; kontekst Microsoft i slowo ataku nadal wymagane - test: 2 ze 100 (phishing przy awarii
+M365, zero-day Windows Defender), recenzje antywirusow i newsy produktowe odpadaja. (3) ZNALEZIONE PRZY TESCIE: przebieg Threat
+Research czasem nic nie zapisywal - fpa-tenant zabijal threats.py po 420 s (23 XI 10:27 i 19:47 UTC, krok 7:00). Przyczyna:
+kql_extract.app_ids, regex nazwy przed GUID mial opcjonalny separator ((?:\s*[-]?\s*[A-Z0-9][\w.&/]*){0,7}), a ciag Base64
+przed GUID w artykule Datadog (kod malware) dawal katastrofalne nawracanie. Teraz separator obowiazkowy (spacja albo myslnik) i tylko
+ostatnie 200 znakow; 93 strony daja ten sam wynik co przed zmiana. threats.py: strony artykulow tylko do 240 s od startu, kazde
+zapytanie najpozniej do 360 s (SOC_THREATS_PAGE_SECONDS / SOC_THREATS_TOTAL_SECONDS). Krok po zmianie: 1:29 i 1:53 zamiast 7:00.
+Test: na GitHub Cybernews ok, 100 przeczytanych, 1 zatrzymany; na zywo w Threat Research przy 1500 i 390 px, bez bledow JS.
+Commity 2cd64e7a, 49501c14, 2f0b9483. Kopia: C:\Users\piowis\Documents\ClaudeBackups\Backups\ms-soc-5hk-cybernews_20261123_204500\.
+
 **§5hj (23 XI 2026, 12:50)** — AUTOR Z LINKIEM DO LINKEDIN. Piotr: "czy mozesz dopisac w danych autora tam gdzie jest moje imie
 i nazwisko rowniez dane mojego linkedin? Czy robimy tez ikone? https://www.linkedin.com/in/wpiotrw". ZMIANA DECYZJI §5dz (podpis
 "bez linku"): od teraz podpis ma link do profilu. Gdzie: (1) sign_page() - podpis pod <h1> = BYLINE (stale AUTHOR_URL, AUTHOR_ICON,
