@@ -131,23 +131,23 @@
    "major": false,
    "actionBy": null,
    "start": "2025-06-13",
-   "end": "2026-12-21",
-   "modified": "2026-09-14",
+   "end": "2027-05-03",
+   "modified": "2026-11-23",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 14, 2026: We have updated the timeline. Thank you for your patience. We’re enhancing the contact experience in Microsoft Outlook Mobile (iOS and Android) by introducing profile-enriched contacts and automatic duplicate contact management. These improvements aim to streamline contact views and provide richer organizational context. This message is associated with Microsoft 365 Roa…",
-   "when": "General Availability (Worldwide): We will begin rolling out mid-July 2025 (previously late June) and expect to complete by mid-November 2026 (previously end of September).",
+   "summary": "Updated November 23, 2026: We have updated the timeline. Thank you for your patience. We’re enhancing the contact experience in Microsoft Outlook Mobile (iOS and Android) by introducing profile-enriched contacts and automatic duplicate contact management. These improvements aim to streamline contact views and provide richer organizational context. This message is associated with Microsoft 365 Road…",
+   "when": "General Availability (Worldwide): We will begin rolling out mid-July 2025 (previously late June) and expect to complete by end of March 2027 (previously mid-November 2026).",
    "prepare": "This rollout will happen automatically by the specified dates with no admin action required before the rollout. You may want to notify your users about this change and update internal documentation. After the feature is rolled out, please ensure that users have updated to the latest version of Outlook for iOS or Outlook for Android.",
    "dates": [
-    "Updated September 14, 2026: We have updated the timeline.",
+    "Updated November 23, 2026: We have updated the timeline.",
     "More details in MC927963 (Updated) New Microsoft Outlook for Windows: People Hub improvements (published November 2024, updated April 2025).",
-    "General Availability (Worldwide): We will begin rolling out mid-July 2025 (previously late June) and expect to complete by mid-November 2026 (previously end of September)."
+    "General Availability (Worldwide): We will begin rolling out mid-July 2025 (previously late June) and expect to complete by end of March 2027 (previously mid-November 2026)."
    ],
-   "bodyHash": "82781181f2fb9dc6"
+   "bodyHash": "acd84d4844083b4f"
   },
   {
    "id": "MC1127222",
@@ -6943,26 +6943,26 @@
    "major": true,
    "actionBy": "2026-10-01",
    "start": "2026-08-03",
-   "end": "2026-12-28",
-   "modified": "2026-11-09",
+   "end": "2027-01-11",
+   "modified": "2026-11-23",
    "tags": [
     "Admin impact",
     "Retirement",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated November 9, 2026: We have updated the timeline. Gov rollout of this feature is still paused at this time. We will communicate via Message center when we are ready to proceed. We apologize for any inconvenience. [What and Why:] Exchange Web Services (EWS) deprecation begins October 1, 2026 . Cross-tenant collaboration features — Free/Busy, MailTips, and Calendar Sharing — currently rely on …",
+   "summary": "Updated November 23, 2026: We have updated the timeline. Gov rollout of this feature is still paused at this time. We will communicate via Message center when we are ready to proceed. We apologize for any inconvenience. [What and Why:] Exchange Web Services (EWS) deprecation begins October 1, 2026 . Cross-tenant collaboration features — Free/Busy, MailTips, and Calendar Sharing — currently rely on…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated November 9, 2026: We have updated the timeline.",
+    "Updated November 23, 2026: We have updated the timeline.",
     "Exchange Web Services (EWS) deprecation begins October 1, 2026 .",
-    "Cross-tenant Free/Busy, MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Tenant Access Policy, which replaces EWS-based cross-tenant collaboration.",
-    "Worldwide: We will begin rolling out in August 2026 and expect to complete by September 15, 2026 for Free/Busy, Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing.",
+    "Cross-tenant Free/Busy, MailTips will be available by September 2026 and Calendar Sharing will be available by early December 2026 (previously late November) via Microsoft 365 Cross-Tenant Access Policy, which replaces EWS-based cross-tenant collaboration.",
+    "Worldwide: We will begin rolling out in August 2026 and expect to complete by September 15, 2026 for Free/Busy, Mailtips and December 4, 2026 (previously November 23) for Calendar Sharing.",
     "What happens if I do nothing: Starting October 1, 2026, Exchange Web Services (EWS) will be gradually disabled in line with previous communications linked to this message.",
     "EWS access through this extension will remain available until the final EWS shutdown on April 1, 2027."
    ],
-   "bodyHash": "88eea29a45ce0d28"
+   "bodyHash": "ecc8367bf164563c"
   },
   {
    "id": "MC1446797",
@@ -18530,7 +18530,7 @@
   },
   {
    "id": "MC1557760",
-   "title": "Microsoft Teams: Registration capacity for town halls and webinars increases to 20,000",
+   "title": "(Updated) Microsoft Teams: Registration capacity for town halls and webinars increases to 20,000",
    "services": [
     "Microsoft Teams"
    ],
@@ -18539,20 +18539,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-11-17",
-   "end": "2027-01-31",
-   "modified": "2026-11-17",
+   "end": "2027-03-01",
+   "modified": "2026-11-23",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Starting in December, registration capacity for Microsoft Teams town halls and webinars scales with the event's attendee capacity, up to 20,000 registrations per event. Organizers with Teams Enterprise can allow up to 3,000 registrations. Organizers with Attendee Capacity Packs can allow up to 20,000. Organizers can use this to plan large-scale events with registration. [Rollout sch…",
+   "summary": "Updated November 23, 2026: We have updated the timeline. Thank you for your patience. [What and why] Starting in December, registration capacity for Microsoft Teams town halls and webinars scales with the event's attendee capacity, up to 20,000 registrations per event. Organizers with Teams Enterprise can allow up to 3,000 registrations. Organizers with Attendee Capacity Packs can allow up to 20,0…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): We will begin rolling out in early December 2026 and expect to complete by late December 2026 ."
+    "Updated November 23, 2026: We have updated the timeline.",
+    "Public Preview : We will begin rolling out on mid-December 2026 and expect to complete by late December 2026 .",
+    "General Availability (Worldwide): We will begin rolling out in early January 2027 and expect to complete by late January 2027 ."
    ],
-   "bodyHash": "f5cf42e066979bec"
+   "bodyHash": "63b8e84d4316d2af"
   },
   {
    "id": "MC1557764",
@@ -25042,6 +25045,71 @@
    "type": "removed",
    "title": "Dynamics 365 Contact Center - Improved feature discoverability within Contact Center Admin Center",
    "fields": {}
+  },
+  {
+   "date": "2026-11-23",
+   "id": "MC1093912",
+   "type": "changed",
+   "title": "(Updated) Microsoft Outlook for iOS/Android: Improved Contacts with profile enrichment and duplicate management",
+   "fields": {
+    "end": [
+     "2026-12-21",
+     "2027-05-03"
+    ],
+    "bodyHash": [
+     "82781181f2fb9dc6",
+     "acd84d4844083b4f"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-23",
+   "id": "MC1446796",
+   "type": "changed",
+   "title": "(Updated) Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+   "fields": {
+    "end": [
+     "2026-12-28",
+     "2027-01-11"
+    ],
+    "bodyHash": [
+     "88eea29a45ce0d28",
+     "ecc8367bf164563c"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-23",
+   "id": "MC1557760",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Registration capacity for town halls and webinars increases to 20,000",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Registration capacity for town halls and webinars increases to 20,000",
+     "(Updated) Microsoft Teams: Registration capacity for town halls and webinars increases to 20,000"
+    ],
+    "end": [
+     "2027-01-31",
+     "2027-03-01"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "f5cf42e066979bec",
+     "63b8e84d4316d2af"
+    ]
+   }
   }
  ]
 }
