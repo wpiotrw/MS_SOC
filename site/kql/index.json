@@ -1,5 +1,43 @@
 [
  {
+  "file": "2026-11-23-deepfake-detections-in-teams-calls-judged-malicious-joined-t.kql",
+  "title": "Deepfake detections in Teams calls judged malicious, joined to the call's activity, last 14 days",
+  "date": "2026-11-23",
+  "product": "Defender XDR",
+  "tables": [
+   "SyntheticMediaDetectionEvents",
+   "CallActivityEvents"
+  ],
+  "purpose": "Lists synthetic media detections flagged malicious with the call activity recorded for the same Teams call. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-synthetic-media-detection-events",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-23-synthetic-media-detections-by-modality-severity-and-source-t.kql",
+  "title": "Synthetic media detections by modality, severity and source type, by day, last 30 days",
+  "date": "2026-11-23",
+  "product": "Defender XDR",
+  "tables": [
+   "SyntheticMediaDetectionEvents"
+  ],
+  "purpose": "Daily counts of SyntheticMediaDetectionEvents split by Modality, Severity and SourceType, with how many were judged malicious. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-synthetic-media-detection-events",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-23-custom-detection-rules-that-open-many-single-alert-incidents.kql",
+  "title": "Custom detection rules that open many single-alert incidents, last 7 days, to choose where alert grouping helps",
+  "date": "2026-11-23",
+  "product": "Defender XDR",
+  "tables": [
+   "AlertInfo",
+   "AlertEvidence"
+  ],
+  "purpose": "Counts alerts from custom detections (AlertInfo DetectionSource) per rule title with the number of distinct devices and accounts in AlertEvidence. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertinfo-table",
+  "kind": "brief"
+ },
+ {
   "file": "incidents/2026-11-22-risky-or-new-country-sign-ins-interactive-and.kql",
   "title": "Risky or new-country sign-ins (interactive and non-interactive) of the exposed admin addresses since 9 Nov 2026 (Microsoft Sentinel)",
   "date": "2026-11-22",

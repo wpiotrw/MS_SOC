@@ -1,9 +1,9 @@
 {
- "sha256": "38398840591e56b5d2724a110e0f85155f9bfc0423e46d3897cbd736889713d6",
+ "sha256": "1f699e5c2405a2818da66fac756411498f11e206ee488edd197e420ac239a662",
  "bytes": 678270,
- "capturedOn": "2026-11-22",
- "capturedAt": "2026-11-22T06:48",
- "source": "soc-brief-2026-11-22.html",
+ "capturedOn": "2026-11-23",
+ "capturedAt": "2026-11-23T06:48",
+ "source": "artifact-d5da0424-1795416494-f2a0.html",
  "styles": 1,
  "behaviourScripts": 16,
  "shellScripts": 3,
