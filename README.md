@@ -18,6 +18,7 @@ Codzienny portal zmian Microsoftu dla SOC: brief poranny (strona główna), stro
 - [1. Jak to działa (przepływ dnia)](#1-jak-to-działa-przepływ-dnia)
 - [2. Repozytorium](#2-repozytorium)
 - [3. Azure Static Web App (hosting)](#3-azure-static-web-app-hosting)
+  - [3.1 Bezpieczeństwo strony i domeny](#31-bezpieczeństwo-strony-i-domeny-od-23-xi-2026-5hl)
 - [4. Zadania Claude (scheduled tasks i routines)](#4-zadania-claude-scheduled-tasks-i-routines)
 - [4a. CLAUDE.md i skrypty](#4a-claudemd-i-skrypty)
 - [4b. Integracje GitHub](#4b-integracje-github)
@@ -265,6 +266,31 @@ Zasady, które trzymają całość w ryzach (szczegóły w `CLAUDE.md`):
 3. GitHub → repozytorium → Settings → Secrets and variables → Actions → sekret o nazwie z workflow (albo zmień nazwę sekretu w `.github/workflows/azure-static-web-apps-orange-ground-019f30603.yml`).
 4. Nowa strona ma inny adres `*.azurestaticapps.net`. Zmień go w: `CLAUDE.md` (wyszukaj `orange-ground-019f30603`), `mirror_artifact.py` w `CLAUDE.md` (`site_url` w `write_feed`, `write_week`), w tym pliku i ewentualnie w nazwie pliku workflow.
 5. Uruchom workflow wdrożenia ręcznie (Actions → Azure Static Web Apps CI/CD → Run workflow) i sprawdź `/`, `/diff/`, `/week/`, `/feed.xml`.
+
+### 3.1 Bezpieczeństwo strony i domeny (od 23 XI 2026, §5hl)
+
+Mechanizmy ochrony strony i jej domeny: nagłówki bezpieczeństwa wysyłane z każdą odpowiedzią oraz ustawienia DNS.
+
+| Mechanizm | Gdzie | Co daje |
+|---|---|---|
+| Content-Security-Policy (CSP) | `site/staticwebapp.config.json` → `globalHeaders` | Skrypty tylko z tej strony; style i czcionki także z Google Fonts; zapytania (`connect-src`) i obrazy tylko z tej domeny. Strony nie da się osadzić w cudzej ramce. Zablokowane są wtyczki (`object-src`), obcy adres bazowy (`base-uri`) i wysyłanie formularzy poza stronę. To druga linia obrony, gdyby w tytułach z kanałów RSS, Threat Research czy Message Center trafił się złośliwy kod. |
+| Permissions-Policy | jw. | Wyłączone: kamera, mikrofon, lokalizacja, płatności, USB i tematy reklamowe (`browsing-topics`). Portal nie używa żadnej z tych funkcji. |
+| HSTS, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` | Static Web Apps i jw. | Tylko HTTPS (HSTS z `preload`), bez zgadywania typu pliku, bez osadzania w ramkach, bez przekazywania adresu strony serwisom, do których prowadzą linki. |
+| CAA (Certification Authority Authorization) | strefa DNS domeny u OVH | Certyfikat dla domeny może wystawić tylko DigiCert (Static Web Apps) i Let's Encrypt. Zasady obejmują też pozostałe subdomeny tej domeny. |
+| DNSSEC | strefa DNS domeny u OVH | Odpowiedzi DNS są podpisane, więc resolver weryfikujący wykryje ich podrobienie. Był włączony wcześniej. |
+
+> ⚠️ **Nowy zewnętrzny zasób = zmiana CSP.** Dziś strona ładuje z zewnątrz wyłącznie Google Fonts (inwentarz z 23 XI 2026). Skrypt, obraz albo `fetch` z innej domeny trzeba dopisać do `Content-Security-Policy` w `site/staticwebapp.config.json`, inaczej przeglądarka go zablokuje. W konsoli pojawi się wtedy „Refused to … because it violates the following Content Security Policy directive”.
+
+> ℹ️ `'unsafe-inline'` w `script-src` i `style-src` jest konieczne: skrypty i style strony są wpisane w HTML (SKRYPT 4–17), a w kodzie są wbudowane obsługi zdarzeń (`onclick`, `onload`). CSP nadal blokuje kod z obcych domen i wysyłanie danych na zewnątrz.
+
+> ℹ️ **Co tu jest publiczne:** wszystko w tej tabeli i tak widać w nagłówkach odpowiedzi strony oraz w publicznym DNS. Ten rozdział opisuje tylko to, co działa (decyzja właściciela, 23 XI 2026).
+
+**Test 23 XI 2026:** 21 zakładek przy 1500 i 390 px, `/diff/`, `/week/`, Ctrl K i odznaki statusu Microsoft. 0 naruszeń CSP, 0 błędów JavaScript, `mobile_check` OK. Rekordy CAA widoczne publicznie, DNSSEC poprawny.
+
+Źródła:
+- [Configure Azure Static Web Apps: nagłówki](https://learn.microsoft.com/azure/static-web-apps/configuration)
+- [Content-Security-Policy (MDN)](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy)
+- [RFC 8659: CAA](https://www.rfc-editor.org/rfc/rfc8659)
 
 ## 4. Zadania Claude (scheduled tasks i routines)
 

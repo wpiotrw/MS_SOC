@@ -26584,8 +26584,8 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
-**§5hl (23 XI 2026, 22:10)** — NAGLOWKI BEZPIECZENSTWA + CAA. Piotr wybral z listy "co naprawde pomoze" (Cloudflare/Front Door
-odrzucone: strony statyczne, WAF nie ma czego chronic; Front Door Premium $330/mies., Standard bez zarzadzanych regul).
+**§5hl (23 XI 2026, 22:10)** — NAGLOWKI BEZPIECZENSTWA + CAA. Piotr wybral z listy "co naprawde pomoze". Dokumentacja publiczna
+(About, README 3.1) opisuje TYLKO to, co dziala - bez rozwazan o tym, czego nie wdrozono, i bez kosztow (pytanie wlasciciela 22:08).
 (1) site/staticwebapp.config.json globalHeaders (decyzja wlasciciela - zakaz zmian tego pliku dotyczy routines):
 Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'
 https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self';
@@ -26594,8 +26594,8 @@ form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests" oraz Perm
 payment, usb, browsing-topics wylaczone). 'unsafe-inline' konieczne: skrypty SKRYPT 4-17 i style w HTML oraz handlery onclick/onload.
 Zewnetrznie strona laduje TYLKO Google Fonts (inwentarz src/href/fetch/url() 23 XI) - NOWE zewnetrzne zasoby (skrypt, obraz,
 fetch do innej domeny) wymagaja dopisania hosta do CSP, inaczej przegladarka je zablokuje. (2) DNS OVH, strefa azureme.pl
-(poza repo): CAA "0 issue digicert.com" (Static Web Apps) i "0 issue letsencrypt.org" (OVH apex/www); subdomeny dziedzicza
-po azureme.pl, a pulse/domgarwolin (CNAME na github.io) dostaja CAA GitHuba. DNSSEC byl juz wlaczony (DS w OVH, AD=true).
+(poza repo): CAA "0 issue digicert.com" (Static Web Apps) i "0 issue letsencrypt.org"; zasady obejmuja tez pozostale subdomeny
+domeny (wlasciciel: w dokumentacji tego projektu nie wymieniac ich nazw). DNSSEC byl juz wlaczony (DS w OVH, AD=true).
 Kopia strefy: C:\Users\piowis\Documents\ClaudeBackups\Backups\ovh-azureme-caa_20261123_215500\. Test na zywo: 21 zakladek
 1500/390, diff, week, Ctrl K, odznaki ms-status - 0 naruszen CSP, 0 bledow JS; mobile_check OK. Commit 8dc585c9.
 
@@ -41767,6 +41767,17 @@ odtad CZTERNASCIE (4-17).**
       /* §5gy: no repository link (owner's decision §5dk, 11 X 2026); "private" was not true - say only where it is kept */
       (function () { var x = el("span"); x.appendChild(document.createTextNode("Source code and documentation: kept in the owner's repository; no tenant identifiers, accounts or secrets in it")); return x; })()]));
     g.appendChild(c2);
+    /* §5hl (23 XI 2026, owner: "describe what you did in the md and html documentation, without naming the other
+       subdomains - this project is GuardZilla; you may say the changes cover subdomains too"). Kept in step with README 3.1. */
+    var cs = card("Site security");
+    cs.appendChild(ul([
+      "Content-Security-Policy: scripts only from this site; styles and fonts also from Google Fonts; data requests and images only from this site. The page cannot be framed by another site; plug-ins, a foreign base address and form posts elsewhere are blocked — a second line of defence should a feed title ever carry code.",
+      "Permissions-Policy: camera, microphone, location, payments, USB and interest-based topics are switched off — the portal uses none of them.",
+      "HTTPS only (HSTS with preload), no MIME sniffing, no framing, and no referrer sent to the sites the portal links to.",
+      "The domain is signed with DNSSEC, and CAA records allow only the certificate authorities its hosting uses; the same rules cover the domain's other subdomains."]));
+    /* §5hl-b (owner, 22:08: "does mentioning this on public pages lower security?"): only what is in place - every item
+       above is visible anyway in the response headers or in public DNS; no reasoning about what is NOT deployed, no costs. */
+    g.appendChild(cs);
     var c3 = card("Data freshness");
     var tb = el("table", "s5cz-ft"), th = el("thead"), tr0 = el("tr"); ["What", "Last update", "Refreshed by"].forEach(function (x) { tr0.appendChild(el("th", null, x)); }); th.appendChild(tr0); tb.appendChild(th);
     var tbody = el("tbody");
