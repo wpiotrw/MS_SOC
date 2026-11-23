@@ -1,0 +1,70 @@
+// title: Detection 3: Webworm - SoftEther VPN Process Execution from Non-Standard Path or with Suspicious Network Connections
+// date: 2026-11-23
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, DeviceProcessEvents
+// purpose: From the article: Detection Engineering Brief - Monday, November 23, 2026
+// source: https://devsecopsdadattack.com/2026-11-23-detection-engineering-brief-monday-november-23-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let softEtherProcessNames = dynamic(["vpnbridge.exe", "vpnclient.exe", "vpnserver.exe", "vpncmd.exe"]);
+let softEtherPortsNoHTTPS = dynamic([992, 1194, 5555]);
+let standardPaths = dynamic(["c:\\program files\\softether", "c:\\softethervpn"]);
+let lookback = 24h;
+let softEtherProcs =
+    DeviceProcessEvents
+    | where TimeGenerated >= ago(lookback)
+    | where FileName in~ (softEtherProcessNames)
+    | extend IsNonStandardPath = not(FolderPath has_any (standardPaths))
+    | project
+        ProcTime = TimeGenerated,
+        DeviceId,
+        DeviceName,
+        FileName,
+        FolderPath,
+        ProcessCommandLine,
+        InitiatingProcessFileName,
+        IsNonStandardPath;
+let softEtherNet =
+    DeviceNetworkEvents
+    | where TimeGenerated >= ago(lookback)
+    | where RemotePort in (softEtherPortsNoHTTPS)
+    | where ActionType == "ConnectionSuccess"
+    | where not(ipv4_is_private(RemoteIP))
+    | project
+        NetTime = TimeGenerated,
+        DeviceId,
+        RemoteIP,
+        RemotePort;
+let correlated =
+    softEtherProcs
+    | join kind=inner softEtherNet on DeviceId
+    | where NetTime >= ProcTime and NetTime <= ProcTime + 10m
+    | project
+        ProcTime,
+        NetTime,
+        DeviceName,
+        FileName,
+        FolderPath,
+        ProcessCommandLine,
+        InitiatingProcessFileName,
+        IsNonStandardPath,
+        RemoteIP,
+        RemotePort;
+let nonStandardOnly =
+    softEtherProcs
+    | where IsNonStandardPath == true
+    | project
+        ProcTime,
+        NetTime = datetime(null),
+        DeviceName,
+        FileName,
+        FolderPath,
+        ProcessCommandLine,
+        InitiatingProcessFileName,
+        IsNonStandardPath,
+        RemoteIP = "",
+        RemotePort = int(null);
+correlated
+| union nonStandardOnly
+| summarize arg_min(ProcTime, *) by DeviceName, FileName, FolderPath, ProcessCommandLine

@@ -130,6 +130,81 @@
   "incident": "appx-webhost-oauth-token-theft-2026-09"
  },
  {
+  "file": "articles/2026-11-23-detection-5-cve-2026-73571-http-post-to.kql",
+  "title": "Detection 5: CVE-2026-73571 - HTTP POST to Zimbra SaveDraftRequest Endpoint with Cross-Account Activity",
+  "date": "2026-11-23",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 23, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-23-detection-engineering-brief-monday-november-23-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-23-detection-engineering-brief-monday-november-23-2026/",
+  "incident": "zimbra-snmp-cve-2026-73570-2026-09"
+ },
+ {
+  "file": "articles/2026-11-23-detection-4-cve-2026-73571-zimbra-authenticated-user.kql",
+  "title": "Detection 4: CVE-2026-73571 - Zimbra Authenticated User Sending Mail as a Different Account",
+  "date": "2026-11-23",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 23, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-23-detection-engineering-brief-monday-november-23-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-23-detection-engineering-brief-monday-november-23-2026/",
+  "incident": "zimbra-snmp-cve-2026-73570-2026-09"
+ },
+ {
+  "file": "articles/2026-11-23-detection-3-webworm-softether-vpn-process-execution-from.kql",
+  "title": "Detection 3: Webworm - SoftEther VPN Process Execution from Non-Standard Path or with Suspicious Network Connections",
+  "date": "2026-11-23",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 23, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-23-detection-engineering-brief-monday-november-23-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-23-detection-engineering-brief-monday-november-23-2026/"
+ },
+ {
+  "file": "articles/2026-11-23-detection-2-cve-2026-123890-unexpected-administrator-logon.kql",
+  "title": "Detection 2: CVE-2026-123890 - Unexpected Administrator Logon to VMware vCenter Host",
+  "date": "2026-11-23",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 23, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-23-detection-engineering-brief-monday-november-23-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-23-detection-engineering-brief-monday-november-23-2026/"
+ },
+ {
+  "file": "articles/2026-11-23-detection-1-cve-2026-123890-unauthenticated-access-to.kql",
+  "title": "Detection 1: CVE-2026-123890 - Unauthenticated Access to VMware vCenter Management Endpoint",
+  "date": "2026-11-23",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog",
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Monday, November 23, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-23-detection-engineering-brief-monday-november-23-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-23-detection-engineering-brief-monday-november-23-2026/"
+ },
+ {
   "file": "2026-11-23-synthetic-media-detections-by-modality-severity-and-source-t.kql",
   "title": "Synthetic media detections by modality, severity and source type, by day, last 30 days",
   "date": "2026-11-23",
