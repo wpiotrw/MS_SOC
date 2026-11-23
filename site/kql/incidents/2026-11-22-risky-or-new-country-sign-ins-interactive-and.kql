@@ -1,0 +1,28 @@
+// title: Risky or new-country sign-ins (interactive and non-interactive) of the exposed admin addresses since 9 Nov 2026 (Microsoft Sentinel)
+// date: 2026-11-22
+// product: Entra
+// tables: AADNonInteractiveUserSignInLogs, SigninLogs
+// purpose: Threat Research: Microsoft Entra Connect Health API flaw: attackers read administrator emails and tenant metadata (23 Jul - 19 Nov 2026)
+// source: https://cybersecuritynews.com/microsoft-entra-connect-health-flaw/
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Entra Connect Health metadata leak (Nov 2026): sign-ins of the exposed admin / technical-contact accounts since detection (9 Nov 2026)
+// Microsoft Sentinel / Log Analytics - diagnostic categories SignInLogs AND NonInteractiveUserSignInLogs (token replay shows only in the latter)
+// Country comes from LocationDetails: in AADNonInteractiveUserSignInLogs the Location column is the region of the resource, not the country
+let admins = dynamic(["<admin1@contoso.com>", "<admin2@contoso.com>"]);   // the addresses Microsoft's GetTenant script lists for your tenant
+let since = datetime(2026-11-09);
+let signins = union isfuzzy=true
+    (SigninLogs | extend Kind = "interactive"),
+    (AADNonInteractiveUserSignInLogs | extend Kind = "non-interactive")
+| where UserPrincipalName in~ (admins)
+| extend Country = tostring(parse_json(tostring(LocationDetails)).countryOrRegion);
+let known = signins
+| where TimeGenerated between (ago(90d) .. since) and ResultType == "0"
+| summarize KnownCountries = make_set(Country) by UserPrincipalName;
+signins
+| where TimeGenerated > since
+| join kind=leftouter known on UserPrincipalName
+| where RiskLevelDuringSignIn in ("medium", "high") or not(set_has_element(KnownCountries, Country))
+| project TimeGenerated, Kind, UserPrincipalName, AppDisplayName, IPAddress, Country, RiskLevelDuringSignIn, RiskEventTypes_V2, ResultType, ResultDescription
+| order by TimeGenerated desc

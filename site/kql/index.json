@@ -1,5 +1,50 @@
 [
  {
+  "file": "incidents/2026-11-22-risky-or-new-country-sign-ins-interactive-and.kql",
+  "title": "Risky or new-country sign-ins (interactive and non-interactive) of the exposed admin addresses since 9 Nov 2026 (Microsoft Sentinel)",
+  "date": "2026-11-22",
+  "product": "Entra",
+  "tables": [
+   "AADNonInteractiveUserSignInLogs",
+   "SigninLogs"
+  ],
+  "purpose": "Threat Research: Microsoft Entra Connect Health API flaw: attackers read administrator emails and tenant metadata (23 Jul - 19 Nov 2026)",
+  "source": "https://cybersecuritynews.com/microsoft-entra-connect-health-flaw/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "entra-connect-health-api-metadata-2026-11"
+ },
+ {
+  "file": "incidents/2026-11-22-inbound-mail-to-privileged-accounts-first-contact-senders.kql",
+  "title": "Inbound mail to privileged accounts: first-contact senders and phishing verdicts (Defender XDR, 30 days)",
+  "date": "2026-11-22",
+  "product": "Defender for Identity",
+  "tables": [
+   "EmailEvents",
+   "IdentityInfo"
+  ],
+  "purpose": "Threat Research: Microsoft Entra Connect Health API flaw: attackers read administrator emails and tenant metadata (23 Jul - 19 Nov 2026)",
+  "source": "https://cybersecuritynews.com/microsoft-entra-connect-health-flaw/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "entra-connect-health-api-metadata-2026-11"
+ },
+ {
+  "file": "incidents/2026-11-22-flagged-or-clicked-through-links-clicked-by-privileged.kql",
+  "title": "Flagged or clicked-through links clicked by privileged accounts (Defender XDR, 30 days)",
+  "date": "2026-11-22",
+  "product": "Defender for Identity",
+  "tables": [
+   "IdentityInfo",
+   "UrlClickEvents"
+  ],
+  "purpose": "Threat Research: Microsoft Entra Connect Health API flaw: attackers read administrator emails and tenant metadata (23 Jul - 19 Nov 2026)",
+  "source": "https://cybersecuritynews.com/microsoft-entra-connect-health-flaw/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "entra-connect-health-api-metadata-2026-11"
+ },
+ {
   "file": "articles/2026-11-22-detection-5-webworm-persistence-via-registry-combined-with.kql",
   "title": "Detection 5: Webworm - Persistence via Registry Combined with Recurring Outbound Encrypted Tunnel Connections",
   "date": "2026-11-22",

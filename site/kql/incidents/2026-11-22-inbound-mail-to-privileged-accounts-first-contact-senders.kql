@@ -1,0 +1,26 @@
+// title: Inbound mail to privileged accounts: first-contact senders and phishing verdicts (Defender XDR, 30 days)
+// date: 2026-11-22
+// product: Defender for Identity
+// tables: EmailEvents, IdentityInfo
+// purpose: Threat Research: Microsoft Entra Connect Health API flaw: attackers read administrator emails and tenant metadata (23 Jul - 19 Nov 2026)
+// source: https://cybersecuritynews.com/microsoft-entra-connect-health-flaw/
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Entra Connect Health metadata leak (Nov 2026): inbound mail to privileged accounts - first-contact senders and phishing verdicts
+// Defender XDR advanced hunting (IdentityInfo.AssignedRoles needs Defender for Identity, Defender for Cloud Apps or MDE P2). Advanced hunting keeps 30 days.
+let admins = IdentityInfo
+| where Timestamp > ago(14d)
+| where array_length(AssignedRoles) > 0
+| summarize arg_max(Timestamp, AssignedRoles, EmailAddress) by AccountUpn
+| extend Addr = tolower(coalesce(EmailAddress, AccountUpn))
+| project Addr, AccountUpn, Roles = tostring(AssignedRoles);
+EmailEvents
+| where Timestamp > ago(30d) and EmailDirection == "Inbound"
+| extend Addr = tolower(RecipientEmailAddress)
+| join kind=inner admins on Addr
+| where IsFirstContact == 1 or ThreatTypes has_any ("Phish", "Malware") or DeliveryAction in ("Blocked", "Junked")
+| summarize Mails = count(), Phish = countif(ThreatTypes has "Phish"), DeliveredPhish = countif(ThreatTypes has "Phish" and DeliveryAction == "Delivered"),
+            FirstContactSenders = dcountif(SenderFromAddress, IsFirstContact == 1), SenderDomains = make_set(SenderFromDomain, 20), Subjects = make_set(Subject, 10)
+            by RecipientEmailAddress, Roles
+| order by DeliveredPhish desc, Phish desc, FirstContactSenders desc
