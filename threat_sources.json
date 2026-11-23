@@ -131,6 +131,14 @@
     "Kind": "rss"
   },
   {
+    "SourceName": "Cybernews",
+    "SourceURL": "https://cybernews.com/feed/",
+    "Site": "https://cybernews.com/",
+    "Tier": "secondary",
+    "Kind": "rss",
+    "Note": "CLAUDE.md §5hk (23 XI 2026, owner): security news site; general feed, only articles about our technologies are kept (hit()). Behind Cloudflare - state on the Sources card shows whether GitHub runners can read it."
+  },
+  {
     "SourceName": "Elastic Security Labs",
     "SourceURL": "https://www.elastic.co/security-labs/rss/feed.xml",
     "Site": "https://www.elastic.co/security-labs",
