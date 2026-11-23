@@ -23,7 +23,7 @@ state, it is its own file):
   6. writes trend counts per day (articles per area, stories started) for the last 30 days.
 Exit 0 always: a feed that fails is named in `sources[].error`, never a failed workflow.
 """
-import datetime as dt, email.utils, hashlib, html, json, os, re, sys, urllib.request
+import datetime as dt, email.utils, hashlib, html, json, os, re, sys, time, urllib.request
 import xml.etree.ElementTree as ET
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import kql_extract   # CLAUDE.md 5eu: Kusto queries in the articles
@@ -187,7 +187,23 @@ def now_utc():
     return dt.datetime.now(dt.timezone.utc)
 
 
+# CLAUDE.md 5hk (23 XI 2026): fpa-tenant.yml kills this script at 420 s and a killed run writes nothing (10:27 and
+# 19:47 on 23 XI). Feeds keep their 60 s; article pages (KQL, app ids, digests) are read only while the run is under
+# PAGE_SECONDS, so the result is always written. SOC_THREATS_PAGE_SECONDS overrides.
+T0 = time.monotonic()
+PAGE_SECONDS = float(os.environ.get("SOC_THREATS_PAGE_SECONDS", "240"))
+TOTAL_SECONDS = float(os.environ.get("SOC_THREATS_TOTAL_SECONDS", "360"))
+
+
+def pages_left():
+    return time.monotonic() - T0 < PAGE_SECONDS
+
+
 def get(url, timeout=60):
+    left = TOTAL_SECONDS - (time.monotonic() - T0)
+    if left < 5:
+        raise TimeoutError("run time budget used (%d s)" % TOTAL_SECONDS)
+    timeout = min(timeout, left)
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/rss+xml, application/xml, application/json, text/xml, */*"})
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.read()
@@ -395,7 +411,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                         except Exception:
                             page[0] = ""
                     return page[0]
-                if not found and not checked and not s.get("Digest") and not s.get("Gov") and (keep or s.get("Kind") == "kql") and budget[0] > 0:
+                if not found and not checked and not s.get("Digest") and not s.get("Gov") and (keep or s.get("Kind") == "kql") and budget[0] > 0 and pages_left():
                     budget[0] -= 1
                     found = kql_extract.blocks(read_page())
                     checked = stamp
@@ -408,7 +424,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                 if apps is None or not appsChecked:
                     apps = kql_extract.app_ids(i.get("html") or "")
                     t0 = (" " + i["title"] + " " + i["summary"][:900] + " ").lower()
-                    if not apps and keep and has(t0, M365SCOPE) and incident_like(i["title"], i["summary"]) and (page[0] is not None or app_budget[0] > 0):
+                    if not apps and keep and has(t0, M365SCOPE) and incident_like(i["title"], i["summary"]) and (page[0] is not None or (app_budget[0] > 0 and pages_left())):
                         if page[0] is None:
                             app_budget[0] -= 1
                         apps = kql_extract.app_ids(read_page())
@@ -419,7 +435,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                     # 5ez (owner 22 X: "devsecopsdadattack.com - a site we should track for incidents, following our
                     # agreements"): a DIGEST post covers several incidents in one page; it is never an incident itself -
                     # each of its queries is attached to the incident its section names (below, after the stories)
-                    if not found and not checked and digest_budget[0] > 0:
+                    if not found and not checked and digest_budget[0] > 0 and pages_left():
                         digest_budget[0] -= 1
                         found = kql_extract.blocks(read_page()); checked = stamp
                     for qi, q in enumerate(found):
@@ -468,7 +484,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
             # 5fe (23 X 2026): an article that left its feed before 5eu existed was never read for Kusto queries (the
             # Microsoft passkey article of 9 IX has an "Advanced hunting queries" section, the incident showed 0) - read it
             # once, from what is left of this run's page budget
-            if not a.get("kqlChecked") and budget[0] > 0:
+            if not a.get("kqlChecked") and budget[0] > 0 and pages_left():
                 budget[0] -= 1
                 try:
                     found = kql_extract.blocks(get(a["link"], 25).decode("utf-8", "replace"))

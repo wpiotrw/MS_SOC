@@ -137,8 +137,11 @@ def app_ids(page_html):
             if cells:
                 nm = [c for c in cells if not GUID.search(c) and 3 <= len(c) <= 90]
             else:   # a sentence: the capitalised name right before the GUID ("... ConnectWise Cloud Backup (506e08f9-...)")
-                pre = line[:line.lower().find(gl)].replace("\u200b", "")
-                mm = re.search(r"([A-Z][\w.&/]*(?:\s*[-\u2013]?\s*[A-Z0-9][\w.&/]*){0,7})[\s:(\[\u2013\u2014-]*$", pre)
+                pre = line[:line.lower().find(gl)].replace("\u200b", "")[-200:]
+                # CLAUDE.md 5hk: the words of the name need a real separator (space or dash) - with an optional one a long
+                # run without spaces (a Base64 string before a GUID in a malware write-up) was split every possible way
+                # and froze the Threat Research run until the workflow killed it (23 XI, Datadog Security Labs)
+                mm = re.search(r"([A-Z][\w.&/]*(?:(?:\s+|\s*[-\u2013]\s*)[A-Z0-9][\w.&/]*){0,7})[\s:(\[\u2013\u2014-]*$", pre)
                 nm = [mm.group(1)] if mm and len(mm.group(1)) >= 4 else []
             kind = "tenant" if re.search(r"(?i)tenant\s*id|owner tenant|tenant", line) and not re.search(r"(?i)app(?:lication)?\b", line) else "app"
             out.append({"appId": gl, "name": (nm[0].strip() if nm else ""), "kind": kind, "context": line[:240]})
