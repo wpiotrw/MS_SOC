@@ -12,7 +12,7 @@
     "M365 workloads"
    ],
    "status": "active",
-   "updated": "2026-11-19",
+   "updated": "2026-11-23",
    "by": "morning routine",
    "summary": "EvilTokens is a phishing-as-a-service platform that appeared in February 2026 and abuses the OAuth device code flow. Microsoft says its campaigns compromised more than 12,000 inboxes in over 10,000 organizations. The victim is shown a real device code and sent to the genuine microsoft.com/devicelogin page, so the sign-in and MFA are done by the victim and the attacker receives the tokens without ever seeing a password. Stolen tokens were used to read and exfiltrate mail, create inbox rules and in some cases register a device to obtain a Primary Refresh Token. Microsoft's Digital Crimes Unit coordinated a disruption of the infrastructure. On 17 November 2026 Huntress reported that a joint Microsoft Digital Crimes Unit and FBI effort led to the arrest of one alleged EvilTokens operator.",
    "timeline": [
@@ -114,7 +114,21 @@
      "date": "2026-11-17"
     }
    ],
-   "kqlSearched": "2026-10-25"
+   "kqlSearched": "2026-10-25",
+   "kql": [
+    {
+     "title": "Device code sign-ins by user, app and IP, interactive and non-interactive (Microsoft Sentinel)",
+     "query": "// EvilTokens device code phishing - who completed a device code sign-in and from where\n// Microsoft Sentinel; diagnostic categories SignInLogs and NonInteractiveUserSignInLogs routed to the workspace\nunion isfuzzy=true\n  (SigninLogs | extend Kind = \"interactive\"),\n  (AADNonInteractiveUserSignInLogs | extend Kind = \"non-interactive\")\n| where TimeGenerated > ago(30d)\n| where AuthenticationProtocol =~ \"deviceCode\"\n| summarize SignIns = count(), Succeeded = countif(ResultType == \"0\"), IPs = make_set(IPAddress, 20), Apps = make_set(AppDisplayName, 10),\n    Countries = make_set(tostring(LocationDetails.countryOrRegion), 10), First = min(TimeGenerated), Last = max(TimeGenerated) by UserPrincipalName, Kind\n| order by Succeeded desc"
+    },
+    {
+     "title": "Devices registered within an hour of a device code sign-in by the same user (Microsoft Sentinel)",
+     "query": "// EvilTokens device code phishing - device registration after a device code sign-in (path to a Primary Refresh Token)\n// Microsoft Sentinel; diagnostic categories SignInLogs and AuditLogs routed to the workspace\nlet dc = SigninLogs\n| where TimeGenerated > ago(30d)\n| where AuthenticationProtocol =~ \"deviceCode\" and ResultType == \"0\"\n| project SignInTime = TimeGenerated, UserPrincipalName, SignInIP = IPAddress, AppDisplayName;\nAuditLogs\n| where TimeGenerated > ago(30d)\n| where OperationName in (\"Register device\", \"Add registered owner to device\")\n| extend UserPrincipalName = tostring(InitiatedBy.user.userPrincipalName), Device = tostring(TargetResources[0].displayName)\n| join kind=inner dc on UserPrincipalName\n| where TimeGenerated between (SignInTime .. SignInTime + 1h)\n| project TimeGenerated, UserPrincipalName, OperationName, Device, SignInTime, SignInIP, AppDisplayName"
+    },
+    {
+     "title": "Inbox rules created or changed by users who completed a device code sign-in (Defender XDR advanced hunting)",
+     "query": "// EvilTokens device code phishing - inbox rules after a device code sign-in\n// Defender XDR advanced hunting (CloudAppEvents needs Defender for Cloud Apps with the Microsoft 365 connector); <users> from the first query\nlet users = dynamic([\"<user1@contoso.com>\", \"<user2@contoso.com>\"]);\nCloudAppEvents\n| where Timestamp > ago(30d)\n| where ActionType in (\"New-InboxRule\", \"Set-InboxRule\", \"UpdateInboxRules\")\n| extend Upn = tolower(tostring(RawEventData.UserId))\n| where Upn in (users)\n| project Timestamp, Upn, ActionType, IPAddress, CountryCode, Parameters = tostring(RawEventData.Parameters)\n| order by Timestamp desc"
+    }
+   ]
   },
   {
    "id": "storm-3168-agentic-azure-2026-09",
@@ -307,7 +321,7 @@
     "Identity attacks"
    ],
    "status": "active",
-   "updated": "2026-10-25",
+   "updated": "2026-11-23",
    "by": "morning routine",
    "summary": "Huntress researcher Andrew Schwartz showed that a sideloaded AppX package can use Microsoft-signed AppX web hosts such as WWAHost.exe to show a genuine Microsoft sign-in, complete MFA and hand the authorization code to attacker JavaScript, which exchanges it for access and refresh tokens. It is post-compromise: it needs code execution in the user's session and Developer Mode or an enterprise sideloading policy. It was proven end to end on Windows 11 24H2 against a test tenant with MFA. Huntress names no threat actor and discloses no attacker infrastructure, so this is a technique, not an observed campaign. The Entra sign-in looks like a normal Office sign-in with no risk flags.",
    "timeline": [
@@ -362,7 +376,21 @@
      "date": "2026-09-23"
     }
    ],
-   "kqlSearched": "2026-10-25"
+   "kqlSearched": "2026-10-25",
+   "kql": [
+    {
+     "title": "AppX packages registered from outside WindowsApps (Defender XDR advanced hunting)",
+     "query": "// Sideloaded AppX web-host OAuth token theft (Huntress) - developer-mode AppX registration from a user path\n// Defender XDR advanced hunting (Defender for Endpoint P2)\nDeviceProcessEvents\n| where Timestamp > ago(30d)\n| where ProcessCommandLine has \"Add-AppxPackage\" and ProcessCommandLine has \"-Register\"\n| where ProcessCommandLine !has @\"\\Program Files\\WindowsApps\"\n| project Timestamp, DeviceName, AccountName, FileName, ProcessCommandLine, InitiatingProcessFileName\n| order by Timestamp desc"
+    },
+    {
+     "title": "WWAHost.exe reaching non-Microsoft destinations (Defender XDR advanced hunting)",
+     "query": "// Sideloaded AppX web-host OAuth token theft (Huntress) - the web host sends the code to attacker JavaScript\n// Defender XDR advanced hunting (Defender for Endpoint P2)\nDeviceNetworkEvents\n| where Timestamp > ago(30d)\n| where InitiatingProcessFileName in~ (\"WWAHost.exe\", \"MSAuthHost.exe\")\n| where isnotempty(RemoteUrl)\n| where not(RemoteUrl has_any (\"microsoft.com\", \"microsoftonline.com\", \"live.com\", \"msftauth.net\", \"msauth.net\", \"office.com\", \"windows.net\", \"msedge.net\", \"azureedge.net\"))\n| summarize Connections = count(), Devices = dcount(DeviceId), First = min(Timestamp), Last = max(Timestamp) by RemoteUrl, InitiatingProcessFileName\n| order by Devices desc"
+    },
+    {
+     "title": "Entra sign-ins with the MSAppHost user agent, interactive and non-interactive (Microsoft Sentinel)",
+     "query": "// Sideloaded AppX web-host OAuth token theft (Huntress) - sign-ins made through an AppX web host\n// Microsoft Sentinel; diagnostic categories SignInLogs and NonInteractiveUserSignInLogs routed to the workspace\nunion isfuzzy=true SigninLogs, AADNonInteractiveUserSignInLogs\n| where TimeGenerated > ago(30d)\n| where UserAgent has \"MSAppHost\"\n| summarize SignIns = count(), Apps = make_set(AppDisplayName, 10), IPs = make_set(IPAddress, 10), First = min(TimeGenerated) by UserPrincipalName, UserAgent\n| order by SignIns desc"
+    }
+   ]
   },
   {
    "id": "storm-0940-artex-connectwise-2026-10",
@@ -1025,7 +1053,7 @@
     "Identity attacks"
    ],
    "status": "active",
-   "updated": "2026-10-27",
+   "updated": "2026-11-23",
    "by": "morning routine",
    "summary": "Huntress (22 October 2026) describes a campaign observed from 14 July to 22 September 2026 in which tokens captured through adversary-in-the-middle phishing were replayed at scale from attacker-controlled hosts, an approach it calls token spraying. It counts more than 200,000 failed sign-ins from 193.26.115.0/24 (AS210558, 1337 Services GmbH), 497 successful Microsoft 365 sign-ins, 97 compromised accounts in 79 organizations and 48 rogue Entra devices. In at least 19 organizations the attacker removed existing MFA methods and registered its own authenticator within three hours of the first sign-in, then hid mail about payroll, deposits and bonuses with short-named inbox rules. The replayed sessions used Microsoft first-party clients (Microsoft Office, Microsoft Authentication Broker, OfficeHome) with node or bare Mozilla/5.0 user agents.",
    "timeline": [
@@ -1174,6 +1202,20 @@
      "text": "The Hacker News: Microsoft 365 token-replay attacks compromise 97 accounts at 79 organizations",
      "url": "https://thehackernews.com/2026/10/microsoft-365-token-replay-attacks.html",
      "date": "2026-10-26"
+    }
+   ],
+   "kql": [
+    {
+     "title": "Sign-ins from the 1337 Services ranges Huntress published, interactive and non-interactive (Microsoft Sentinel)",
+     "query": "// Token-replay spray (Huntress, 1337 Services hosting) - sign-ins from the published ranges and hosts\n// Microsoft Sentinel; diagnostic categories SignInLogs and NonInteractiveUserSignInLogs routed to the workspace\nlet hosts = dynamic([\"124.198.132.33\", \"45.83.31.44\", \"192.159.99.172\", \"185.238.2.195\", \"167.148.41.96\"]);\nunion isfuzzy=true\n  (SigninLogs | extend Kind = \"interactive\"),\n  (AADNonInteractiveUserSignInLogs | extend Kind = \"non-interactive\")\n| where TimeGenerated > ago(90d)\n| where ipv4_is_in_range(IPAddress, \"193.26.115.0/24\") or IPAddress in (hosts)\n| summarize Attempts = count(), Succeeded = countif(ResultType == \"0\"), Agents = make_set(UserAgent, 10), Apps = make_set(AppDisplayName, 10),\n    First = min(TimeGenerated), Last = max(TimeGenerated) by UserPrincipalName, IPAddress, Kind\n| order by Succeeded desc, Attempts desc"
+    },
+    {
+     "title": "MFA methods removed and new ones registered within three hours (Microsoft Sentinel)",
+     "query": "// Token-replay spray (Huntress) - attacker swaps the victim's MFA methods after the first replayed sign-in\n// Microsoft Sentinel; diagnostic category AuditLogs routed to the workspace\nAuditLogs\n| where TimeGenerated > ago(90d)\n| where OperationName in (\"User deleted security info\", \"User registered security info\", \"Admin deleted security info\", \"User registered all required security info\")\n| extend Upn = tostring(TargetResources[0].userPrincipalName), Ip = tostring(InitiatedBy.user.ipAddress)\n| summarize Deleted = countif(OperationName has \"deleted\"), Registered = countif(OperationName has \"registered\"),\n    First = min(TimeGenerated), Last = max(TimeGenerated), IPs = make_set(Ip, 10) by Upn\n| where Deleted > 0 and Registered > 0 and Last - First < 3h"
+    },
+    {
+     "title": "Short-named inbox rules created from hosting IPs (Defender XDR advanced hunting)",
+     "query": "// Token-replay spray (Huntress) - inbox rules hiding payroll mail, created from the replay hosts\n// Defender XDR advanced hunting (CloudAppEvents needs Defender for Cloud Apps with the Microsoft 365 connector)\nCloudAppEvents\n| where Timestamp > ago(90d)\n| where ActionType in (\"New-InboxRule\", \"Set-InboxRule\")\n| where ipv4_is_in_range(IPAddress, \"193.26.115.0/24\") or IPAddress in (\"167.148.41.96\", \"124.198.132.33\", \"45.83.31.44\", \"192.159.99.172\")\n   or tostring(RawEventData.Parameters) has_any (\"payroll\", \"deposit\", \"bonus\")\n| project Timestamp, Upn = tostring(RawEventData.UserId), ActionType, IPAddress, Parameters = tostring(RawEventData.Parameters)\n| order by Timestamp desc"
     }
    ]
   },
