@@ -1,0 +1,18 @@
+// title: WWAHost.exe reaching non-Microsoft destinations (Defender XDR advanced hunting)
+// date: 2026-11-23
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: Threat Research: Sideloaded AppX package abuses Microsoft-signed web hosts to capture OAuth tokens (Huntress research)
+// source: https://www.huntress.com/blog/stealing-oauth-tokens-through-microsofts-front-door
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Sideloaded AppX web-host OAuth token theft (Huntress) - the web host sends the code to attacker JavaScript
+// Defender XDR advanced hunting (Defender for Endpoint P2)
+DeviceNetworkEvents
+| where Timestamp > ago(30d)
+| where InitiatingProcessFileName in~ ("WWAHost.exe", "MSAuthHost.exe")
+| where isnotempty(RemoteUrl)
+| where not(RemoteUrl has_any ("microsoft.com", "microsoftonline.com", "live.com", "msftauth.net", "msauth.net", "office.com", "windows.net", "msedge.net", "azureedge.net"))
+| summarize Connections = count(), Devices = dcount(DeviceId), First = min(Timestamp), Last = max(Timestamp) by RemoteUrl, InitiatingProcessFileName
+| order by Devices desc

@@ -1,0 +1,17 @@
+// title: AppX packages registered from outside WindowsApps (Defender XDR advanced hunting)
+// date: 2026-11-23
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: Threat Research: Sideloaded AppX package abuses Microsoft-signed web hosts to capture OAuth tokens (Huntress research)
+// source: https://www.huntress.com/blog/stealing-oauth-tokens-through-microsofts-front-door
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Sideloaded AppX web-host OAuth token theft (Huntress) - developer-mode AppX registration from a user path
+// Defender XDR advanced hunting (Defender for Endpoint P2)
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where ProcessCommandLine has "Add-AppxPackage" and ProcessCommandLine has "-Register"
+| where ProcessCommandLine !has @"\Program Files\WindowsApps"
+| project Timestamp, DeviceName, AccountName, FileName, ProcessCommandLine, InitiatingProcessFileName
+| order by Timestamp desc

@@ -1,0 +1,22 @@
+// title: Devices registered within an hour of a device code sign-in by the same user (Microsoft Sentinel)
+// date: 2026-11-23
+// product: Entra
+// tables: AuditLogs, SigninLogs
+// purpose: Threat Research: EvilTokens: a phishing-as-a-service kit that steals Microsoft 365 tokens through device code phishing
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// EvilTokens device code phishing - device registration after a device code sign-in (path to a Primary Refresh Token)
+// Microsoft Sentinel; diagnostic categories SignInLogs and AuditLogs routed to the workspace
+let dc = SigninLogs
+| where TimeGenerated > ago(30d)
+| where AuthenticationProtocol =~ "deviceCode" and ResultType == "0"
+| project SignInTime = TimeGenerated, UserPrincipalName, SignInIP = IPAddress, AppDisplayName;
+AuditLogs
+| where TimeGenerated > ago(30d)
+| where OperationName in ("Register device", "Add registered owner to device")
+| extend UserPrincipalName = tostring(InitiatedBy.user.userPrincipalName), Device = tostring(TargetResources[0].displayName)
+| join kind=inner dc on UserPrincipalName
+| where TimeGenerated between (SignInTime .. SignInTime + 1h)
+| project TimeGenerated, UserPrincipalName, OperationName, Device, SignInTime, SignInIP, AppDisplayName

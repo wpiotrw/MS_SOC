@@ -176,6 +176,14 @@
 "date":"2026-10-29",
 "group":"community",
 "found":"2026-10-30"
+},
+"https://learn.microsoft.com/en-us/defender-xdr/whats-new":{
+"title":"Alert grouping for custom detection rules",
+"link":"https://learn.microsoft.com/en-us/defender-xdr/whats-new",
+"source":"Microsoft Learn · What's new · Defender XDR",
+"date":"2026-11-16",
+"group":"microsoft",
+"found":"2026-11-23"
 }
 },
 "final":"2026-10-25",
@@ -2987,8 +2995,7 @@
 "name":"Review property changes for Exchange Online scenarios",
 "status":"Active",
 "members":[
-"MC1511071",
-"item:MC1511071"
+"MC1511071"
 ],
 "log":[
 {
@@ -5255,14 +5262,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-20",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-21",
 "text":"August 1, 2026."
 },
@@ -5360,6 +5359,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-22",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-23",
 "text":"August 1, 2026."
 },
 {
@@ -5845,22 +5852,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-21",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-21",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-22",
 "text":"early February 2026."
 },
@@ -5966,6 +5957,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-22",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-23",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-23",
 "text":"February 2027."
 },
 {
@@ -9565,22 +9572,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-21",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-21",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-22",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -9686,6 +9677,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-22",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-23",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-23",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -20688,6 +20695,16 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-23",
+"cid":"c-mc1448373",
+"type":"material",
+"name":"Teams device management transition from Teams admin center to Teams Rooms Pro management portal",
+"group":"microsoft",
+"title":"Alert grouping for custom detection rules",
+"source":"Microsoft Learn · What's new · Defender XDR",
+"link":"https://learn.microsoft.com/en-us/defender-xdr/whats-new"
 }
 ],
 "archive":{

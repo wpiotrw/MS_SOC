@@ -1,0 +1,19 @@
+// title: Device code sign-ins by user, app and IP, interactive and non-interactive (Microsoft Sentinel)
+// date: 2026-11-23
+// product: Entra
+// tables: AADNonInteractiveUserSignInLogs, SigninLogs
+// purpose: Threat Research: EvilTokens: a phishing-as-a-service kit that steals Microsoft 365 tokens through device code phishing
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// EvilTokens device code phishing - who completed a device code sign-in and from where
+// Microsoft Sentinel; diagnostic categories SignInLogs and NonInteractiveUserSignInLogs routed to the workspace
+union isfuzzy=true
+  (SigninLogs | extend Kind = "interactive"),
+  (AADNonInteractiveUserSignInLogs | extend Kind = "non-interactive")
+| where TimeGenerated > ago(30d)
+| where AuthenticationProtocol =~ "deviceCode"
+| summarize SignIns = count(), Succeeded = countif(ResultType == "0"), IPs = make_set(IPAddress, 20), Apps = make_set(AppDisplayName, 10),
+    Countries = make_set(tostring(LocationDetails.countryOrRegion), 10), First = min(TimeGenerated), Last = max(TimeGenerated) by UserPrincipalName, Kind
+| order by Succeeded desc

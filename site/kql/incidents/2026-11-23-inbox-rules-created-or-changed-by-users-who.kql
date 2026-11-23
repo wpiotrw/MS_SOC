@@ -1,0 +1,19 @@
+// title: Inbox rules created or changed by users who completed a device code sign-in (Defender XDR advanced hunting)
+// date: 2026-11-23
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: Threat Research: EvilTokens: a phishing-as-a-service kit that steals Microsoft 365 tokens through device code phishing
+// source: https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// EvilTokens device code phishing - inbox rules after a device code sign-in
+// Defender XDR advanced hunting (CloudAppEvents needs Defender for Cloud Apps with the Microsoft 365 connector); <users> from the first query
+let users = dynamic(["<user1@contoso.com>", "<user2@contoso.com>"]);
+CloudAppEvents
+| where Timestamp > ago(30d)
+| where ActionType in ("New-InboxRule", "Set-InboxRule", "UpdateInboxRules")
+| extend Upn = tolower(tostring(RawEventData.UserId))
+| where Upn in (users)
+| project Timestamp, Upn, ActionType, IPAddress, CountryCode, Parameters = tostring(RawEventData.Parameters)
+| order by Timestamp desc

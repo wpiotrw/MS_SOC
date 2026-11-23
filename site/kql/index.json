@@ -1,16 +1,133 @@
 [
  {
-  "file": "2026-11-23-deepfake-detections-in-teams-calls-judged-malicious-joined-t.kql",
-  "title": "Deepfake detections in Teams calls judged malicious, joined to the call's activity, last 14 days",
+  "file": "incidents/2026-11-23-wwahost-exe-reaching-non-microsoft-destinations-defender-xdr.kql",
+  "title": "WWAHost.exe reaching non-Microsoft destinations (Defender XDR advanced hunting)",
   "date": "2026-11-23",
-  "product": "Defender XDR",
+  "product": "Defender for Endpoint",
   "tables": [
-   "SyntheticMediaDetectionEvents",
-   "CallActivityEvents"
+   "DeviceNetworkEvents"
   ],
-  "purpose": "Lists synthetic media detections flagged malicious with the call activity recorded for the same Teams call. Not run against a tenant in this pass.",
-  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-synthetic-media-detection-events",
-  "kind": "brief"
+  "purpose": "Threat Research: Sideloaded AppX package abuses Microsoft-signed web hosts to capture OAuth tokens (Huntress research)",
+  "source": "https://www.huntress.com/blog/stealing-oauth-tokens-through-microsofts-front-door",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "appx-webhost-oauth-token-theft-2026-09"
+ },
+ {
+  "file": "incidents/2026-11-23-sign-ins-from-the-1337-services-ranges-huntress.kql",
+  "title": "Sign-ins from the 1337 Services ranges Huntress published, interactive and non-interactive (Microsoft Sentinel)",
+  "date": "2026-11-23",
+  "product": "Entra",
+  "tables": [
+   "AADNonInteractiveUserSignInLogs",
+   "SigninLogs"
+  ],
+  "purpose": "Threat Research: Token-replay spray against Microsoft 365: AiTM-stolen tokens replayed from 1337 Services hosting, 97 accounts at 79 organizations, attacker MFA and rogue Entra devices for persistence",
+  "source": "https://www.huntress.com/blog/token-replay-spray",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "huntress-m365-token-replay-spray-2026-10"
+ },
+ {
+  "file": "incidents/2026-11-23-short-named-inbox-rules-created-from-hosting-ips.kql",
+  "title": "Short-named inbox rules created from hosting IPs (Defender XDR advanced hunting)",
+  "date": "2026-11-23",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "Threat Research: Token-replay spray against Microsoft 365: AiTM-stolen tokens replayed from 1337 Services hosting, 97 accounts at 79 organizations, attacker MFA and rogue Entra devices for persistence",
+  "source": "https://www.huntress.com/blog/token-replay-spray",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "huntress-m365-token-replay-spray-2026-10"
+ },
+ {
+  "file": "incidents/2026-11-23-mfa-methods-removed-and-new-ones-registered-within.kql",
+  "title": "MFA methods removed and new ones registered within three hours (Microsoft Sentinel)",
+  "date": "2026-11-23",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Threat Research: Token-replay spray against Microsoft 365: AiTM-stolen tokens replayed from 1337 Services hosting, 97 accounts at 79 organizations, attacker MFA and rogue Entra devices for persistence",
+  "source": "https://www.huntress.com/blog/token-replay-spray",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "huntress-m365-token-replay-spray-2026-10"
+ },
+ {
+  "file": "incidents/2026-11-23-inbox-rules-created-or-changed-by-users-who.kql",
+  "title": "Inbox rules created or changed by users who completed a device code sign-in (Defender XDR advanced hunting)",
+  "date": "2026-11-23",
+  "product": "Defender for Cloud Apps",
+  "tables": [
+   "CloudAppEvents"
+  ],
+  "purpose": "Threat Research: EvilTokens: a phishing-as-a-service kit that steals Microsoft 365 tokens through device code phishing",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "eviltokens-device-code-2026-09"
+ },
+ {
+  "file": "incidents/2026-11-23-entra-sign-ins-with-the-msapphost-user-agent.kql",
+  "title": "Entra sign-ins with the MSAppHost user agent, interactive and non-interactive (Microsoft Sentinel)",
+  "date": "2026-11-23",
+  "product": "Entra",
+  "tables": [
+   "AADNonInteractiveUserSignInLogs",
+   "SigninLogs"
+  ],
+  "purpose": "Threat Research: Sideloaded AppX package abuses Microsoft-signed web hosts to capture OAuth tokens (Huntress research)",
+  "source": "https://www.huntress.com/blog/stealing-oauth-tokens-through-microsofts-front-door",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "appx-webhost-oauth-token-theft-2026-09"
+ },
+ {
+  "file": "incidents/2026-11-23-devices-registered-within-an-hour-of-a-device.kql",
+  "title": "Devices registered within an hour of a device code sign-in by the same user (Microsoft Sentinel)",
+  "date": "2026-11-23",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs",
+   "SigninLogs"
+  ],
+  "purpose": "Threat Research: EvilTokens: a phishing-as-a-service kit that steals Microsoft 365 tokens through device code phishing",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "eviltokens-device-code-2026-09"
+ },
+ {
+  "file": "incidents/2026-11-23-device-code-sign-ins-by-user-app-and.kql",
+  "title": "Device code sign-ins by user, app and IP, interactive and non-interactive (Microsoft Sentinel)",
+  "date": "2026-11-23",
+  "product": "Entra",
+  "tables": [
+   "AADNonInteractiveUserSignInLogs",
+   "SigninLogs"
+  ],
+  "purpose": "Threat Research: EvilTokens: a phishing-as-a-service kit that steals Microsoft 365 tokens through device code phishing",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "eviltokens-device-code-2026-09"
+ },
+ {
+  "file": "incidents/2026-11-23-appx-packages-registered-from-outside-windowsapps-defender-x.kql",
+  "title": "AppX packages registered from outside WindowsApps (Defender XDR advanced hunting)",
+  "date": "2026-11-23",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "Threat Research: Sideloaded AppX package abuses Microsoft-signed web hosts to capture OAuth tokens (Huntress research)",
+  "source": "https://www.huntress.com/blog/stealing-oauth-tokens-through-microsofts-front-door",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "appx-webhost-oauth-token-theft-2026-09"
  },
  {
   "file": "2026-11-23-synthetic-media-detections-by-modality-severity-and-source-t.kql",
@@ -21,6 +138,19 @@
    "SyntheticMediaDetectionEvents"
   ],
   "purpose": "Daily counts of SyntheticMediaDetectionEvents split by Modality, Severity and SourceType, with how many were judged malicious. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-synthetic-media-detection-events",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-23-deepfake-detections-in-teams-calls-judged-malicious-joined-t.kql",
+  "title": "Deepfake detections in Teams calls judged malicious, joined to the call's activity, last 14 days",
+  "date": "2026-11-23",
+  "product": "Defender XDR",
+  "tables": [
+   "SyntheticMediaDetectionEvents",
+   "CallActivityEvents"
+  ],
+  "purpose": "Lists synthetic media detections flagged malicious with the call activity recorded for the same Teams call. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-synthetic-media-detection-events",
   "kind": "brief"
  },
@@ -167,7 +297,10 @@
   ],
   "purpose": "Expands AccessedResources of CopilotInteraction records and keeps resources that carry a sensitivity label ID, counting them per user and host. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-23"
+  ]
  },
  {
   "file": "2026-11-22-copilot-interactions-whose-context-is-a-teams-channel.kql",
@@ -179,7 +312,10 @@
   ],
   "purpose": "Expands the Contexts of CopilotInteraction records and keeps those of type TeamsChannel, counting interactions per user and channel. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-23"
+  ]
  },
  {
   "file": "2026-11-22-copilot-interactions-by-model-provider-and-host-app.kql",
@@ -191,7 +327,10 @@
   ],
   "purpose": "Counts CopilotInteraction audit records from CloudAppEvents by host application and model provider read from RawEventData. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-23"
+  ]
  },
  {
   "file": "incidents/2026-11-21-devices-that-contacted-the-optimizely-payload-hosts-since.kql",
@@ -294,7 +433,8 @@
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceprocessevents-table",
   "kind": "brief",
   "reused": [
-   "2026-11-22"
+   "2026-11-22",
+   "2026-11-23"
   ]
  },
  {
@@ -309,7 +449,8 @@
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-identitylogonevents-table",
   "kind": "brief",
   "reused": [
-   "2026-11-22"
+   "2026-11-22",
+   "2026-11-23"
   ]
  },
  {
@@ -324,7 +465,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azfwnetworkrule",
   "kind": "brief",
   "reused": [
-   "2026-11-22"
+   "2026-11-22",
+   "2026-11-23"
   ]
  },
  {
@@ -414,7 +556,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-21",
-   "2026-11-22"
+   "2026-11-22",
+   "2026-11-23"
   ]
  },
  {
@@ -430,7 +573,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-21",
-   "2026-11-22"
+   "2026-11-22",
+   "2026-11-23"
   ]
  },
  {
@@ -446,7 +590,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-21",
-   "2026-11-22"
+   "2026-11-22",
+   "2026-11-23"
   ]
  },
  {
@@ -536,7 +681,8 @@
   "reused": [
    "2026-11-20",
    "2026-11-21",
-   "2026-11-22"
+   "2026-11-22",
+   "2026-11-23"
   ]
  },
  {
@@ -553,7 +699,8 @@
   "reused": [
    "2026-11-20",
    "2026-11-21",
-   "2026-11-22"
+   "2026-11-22",
+   "2026-11-23"
   ]
  },
  {
@@ -570,7 +717,8 @@
   "reused": [
    "2026-11-20",
    "2026-11-21",
-   "2026-11-22"
+   "2026-11-22",
+   "2026-11-23"
   ]
  },
  {

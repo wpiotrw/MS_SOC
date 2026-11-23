@@ -1,0 +1,20 @@
+// title: Sign-ins from the 1337 Services ranges Huntress published, interactive and non-interactive (Microsoft Sentinel)
+// date: 2026-11-23
+// product: Entra
+// tables: AADNonInteractiveUserSignInLogs, SigninLogs
+// purpose: Threat Research: Token-replay spray against Microsoft 365: AiTM-stolen tokens replayed from 1337 Services hosting, 97 accounts at 79 organizations, attacker MFA and rogue Entra devices for persistence
+// source: https://www.huntress.com/blog/token-replay-spray
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Token-replay spray (Huntress, 1337 Services hosting) - sign-ins from the published ranges and hosts
+// Microsoft Sentinel; diagnostic categories SignInLogs and NonInteractiveUserSignInLogs routed to the workspace
+let hosts = dynamic(["124.198.132.33", "45.83.31.44", "192.159.99.172", "185.238.2.195", "167.148.41.96"]);
+union isfuzzy=true
+  (SigninLogs | extend Kind = "interactive"),
+  (AADNonInteractiveUserSignInLogs | extend Kind = "non-interactive")
+| where TimeGenerated > ago(90d)
+| where ipv4_is_in_range(IPAddress, "193.26.115.0/24") or IPAddress in (hosts)
+| summarize Attempts = count(), Succeeded = countif(ResultType == "0"), Agents = make_set(UserAgent, 10), Apps = make_set(AppDisplayName, 10),
+    First = min(TimeGenerated), Last = max(TimeGenerated) by UserPrincipalName, IPAddress, Kind
+| order by Succeeded desc, Attempts desc

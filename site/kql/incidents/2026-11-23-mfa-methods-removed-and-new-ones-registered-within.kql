@@ -1,0 +1,18 @@
+// title: MFA methods removed and new ones registered within three hours (Microsoft Sentinel)
+// date: 2026-11-23
+// product: Entra
+// tables: AuditLogs
+// purpose: Threat Research: Token-replay spray against Microsoft 365: AiTM-stolen tokens replayed from 1337 Services hosting, 97 accounts at 79 organizations, attacker MFA and rogue Entra devices for persistence
+// source: https://www.huntress.com/blog/token-replay-spray
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Token-replay spray (Huntress) - attacker swaps the victim's MFA methods after the first replayed sign-in
+// Microsoft Sentinel; diagnostic category AuditLogs routed to the workspace
+AuditLogs
+| where TimeGenerated > ago(90d)
+| where OperationName in ("User deleted security info", "User registered security info", "Admin deleted security info", "User registered all required security info")
+| extend Upn = tostring(TargetResources[0].userPrincipalName), Ip = tostring(InitiatedBy.user.ipAddress)
+| summarize Deleted = countif(OperationName has "deleted"), Registered = countif(OperationName has "registered"),
+    First = min(TimeGenerated), Last = max(TimeGenerated), IPs = make_set(Ip, 10) by Upn
+| where Deleted > 0 and Registered > 0 and Last - First < 3h

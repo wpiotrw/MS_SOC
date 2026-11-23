@@ -1,0 +1,18 @@
+// title: Short-named inbox rules created from hosting IPs (Defender XDR advanced hunting)
+// date: 2026-11-23
+// product: Defender for Cloud Apps
+// tables: CloudAppEvents
+// purpose: Threat Research: Token-replay spray against Microsoft 365: AiTM-stolen tokens replayed from 1337 Services hosting, 97 accounts at 79 organizations, attacker MFA and rogue Entra devices for persistence
+// source: https://www.huntress.com/blog/token-replay-spray
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Token-replay spray (Huntress) - inbox rules hiding payroll mail, created from the replay hosts
+// Defender XDR advanced hunting (CloudAppEvents needs Defender for Cloud Apps with the Microsoft 365 connector)
+CloudAppEvents
+| where Timestamp > ago(90d)
+| where ActionType in ("New-InboxRule", "Set-InboxRule")
+| where ipv4_is_in_range(IPAddress, "193.26.115.0/24") or IPAddress in ("167.148.41.96", "124.198.132.33", "45.83.31.44", "192.159.99.172")
+   or tostring(RawEventData.Parameters) has_any ("payroll", "deposit", "bonus")
+| project Timestamp, Upn = tostring(RawEventData.UserId), ActionType, IPAddress, Parameters = tostring(RawEventData.Parameters)
+| order by Timestamp desc
