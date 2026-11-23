@@ -1,0 +1,13 @@
+// Microsoft SOC Brief 23 Nov 2026 - custom detection volume per rule (defender-xdr-custom-detection-alert-grouping)
+// Columns as on the AlertInfo and AlertEvidence table references. Not run against a tenant in this pass.
+AlertInfo
+| where Timestamp > ago(7d)
+| where DetectionSource == "Custom detection"
+| join kind=leftouter (
+    AlertEvidence
+    | where Timestamp > ago(7d)
+    | summarize Devices = dcountif(DeviceId, isnotempty(DeviceId)), Accounts = dcountif(AccountObjectId, isnotempty(AccountObjectId)) by AlertId
+) on AlertId
+| summarize Alerts = dcount(AlertId), Devices = sum(Devices), Accounts = sum(Accounts), Severity = make_set(Severity) by Title
+| extend AlertsPerEntity = round(todouble(Alerts) / max_of(Devices + Accounts, 1), 1)
+| order by Alerts desc

@@ -1,0 +1,7 @@
+// Microsoft SOC Brief 23 Nov 2026 - synthetic media detection baseline (mdo-synthetic-media-detection-events-table)
+// Columns as on the SyntheticMediaDetectionEvents table reference. Not run against a tenant in this pass.
+SyntheticMediaDetectionEvents
+| where Timestamp > ago(30d)
+| summarize Detections = count(), Malicious = countif(IsMalicious == true), Users = dcount(DetectedUserDisplayName)
+    by Day = bin(Timestamp, 1d), Modality, Severity, SourceType
+| order by Day desc, Detections desc

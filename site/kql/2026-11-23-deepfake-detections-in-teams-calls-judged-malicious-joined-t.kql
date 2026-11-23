@@ -1,0 +1,14 @@
+// Microsoft SOC Brief 23 Nov 2026 - malicious synthetic media in Teams calls (mdo-synthetic-media-detection-events-table)
+// Columns as on the SyntheticMediaDetectionEvents and CallActivityEvents table references. Not run against a tenant in this pass.
+SyntheticMediaDetectionEvents
+| where Timestamp > ago(14d)
+| where IsMalicious == true
+| where isnotempty(SourceId)
+| join kind=leftouter (
+    CallActivityEvents
+    | where Timestamp > ago(14d)
+    | project CallId, ActivityTimestamp = Timestamp, ActivityType, ActivityInitiatorDisplayName
+) on $left.SourceId == $right.CallId
+| project Timestamp, DetectionId, Severity, Modality, IsRealTime, DetectedUserDisplayName, DetectedUserIdType,
+    SourceContextName, SourceContextType, CallId, ActivityTimestamp, ActivityType, ActivityInitiatorDisplayName
+| order by Timestamp desc
