@@ -26584,6 +26584,21 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hl (23 XI 2026, 22:10)** — NAGLOWKI BEZPIECZENSTWA + CAA. Piotr wybral z listy "co naprawde pomoze" (Cloudflare/Front Door
+odrzucone: strony statyczne, WAF nie ma czego chronic; Front Door Premium $330/mies., Standard bez zarzadzanych regul).
+(1) site/staticwebapp.config.json globalHeaders (decyzja wlasciciela - zakaz zmian tego pliku dotyczy routines):
+Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'
+https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self';
+media-src 'self'; worker-src 'self' blob:; manifest-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self';
+form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests" oraz Permissions-Policy (camera, microphone, geolocation,
+payment, usb, browsing-topics wylaczone). 'unsafe-inline' konieczne: skrypty SKRYPT 4-17 i style w HTML oraz handlery onclick/onload.
+Zewnetrznie strona laduje TYLKO Google Fonts (inwentarz src/href/fetch/url() 23 XI) - NOWE zewnetrzne zasoby (skrypt, obraz,
+fetch do innej domeny) wymagaja dopisania hosta do CSP, inaczej przegladarka je zablokuje. (2) DNS OVH, strefa azureme.pl
+(poza repo): CAA "0 issue digicert.com" (Static Web Apps) i "0 issue letsencrypt.org" (OVH apex/www); subdomeny dziedzicza
+po azureme.pl, a pulse/domgarwolin (CNAME na github.io) dostaja CAA GitHuba. DNSSEC byl juz wlaczony (DS w OVH, AD=true).
+Kopia strefy: C:\Users\piowis\Documents\ClaudeBackups\Backups\ovh-azureme-caa_20261123_215500\. Test na zywo: 21 zakladek
+1500/390, diff, week, Ctrl K, odznaki ms-status - 0 naruszen CSP, 0 bledow JS; mobile_check OK. Commit 8dc585c9.
+
 **§5hk (23 XI 2026, 21:25)** — CYBERNEWS W THREAT RESEARCH + PRZEBIEG, KTORY SIE NIE ZAWIESZA. Piotr: "Czy sledzimy
 https://cybernews.com dla naszych technologii? Jesli nie, to mozemy dodac?". Nie bylo go w zadnej liscie. (1) threat_sources.json:
 "Cybernews", Tier secondary, TitleOnly. cybernews.com/feed/ odpowiada HTTP 403 (Cloudflare "Just a moment...") i nam, i runnerom
