@@ -1,7 +1,7 @@
 {
- "read": "2026-11-22",
+ "read": "2026-11-23",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 739,
+ "count": 738,
  "note": null,
  "messages": [
   {
@@ -15163,30 +15163,6 @@
    "bodyHash": "58133343e6de35f9"
   },
   {
-   "id": "MC1521616",
-   "title": "Microsoft Graph APIs for Copilot cost management",
-   "services": [
-    "Microsoft 365 suite"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-22",
-   "end": "2026-11-22",
-   "modified": "2026-10-22",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "[What and Why:] Microsoft is introducing Microsoft Graph APIs for Copilot cost management, giving organizations a programmatic way to manage Copilot credit spending policies, monitor credit balances, and handle end-user requests for additional credits. Administrators and developers can use the APIs to retrieve tenant, user, and per-service credit balances; create, update, and delete spending polic…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Public Preview (Worldwide): We will begin rolling out to the beta endpoint in mid-October 2026."
-   ],
-   "bodyHash": "f83b5c2b15c3ee90"
-  },
-  {
    "id": "MC1521617",
    "title": "Microsoft OneDrive: Updated placement of the Create or upload button in OneDrive for the web",
    "services": [
@@ -19890,149 +19866,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-23",
-   "id": "MC1521604",
-   "type": "new",
-   "title": "Microsoft Authenticator: Usability improvements for iOS and Android",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-23",
-   "id": "MC1521606",
-   "type": "new",
-   "title": "Create project kickoff presentations with Copilot in PowerPoint",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-23",
-   "id": "MC1521609",
-   "type": "new",
-   "title": "Create sales pitches with Copilot in PowerPoint",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-23",
-   "id": "MC1521613",
-   "type": "new",
-   "title": "Microsoft Teams: Streaming switchboard for NDI sources in meetings and events",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-23",
-   "id": "MC1521614",
-   "type": "new",
-   "title": "Microsoft Teams: Retirement of the Turn off IntelliFrame option for online participants",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-23",
-   "id": "MC1521615",
-   "type": "new",
-   "title": "Microsoft Purview: Data Lifecycle Management increases the auto-expanding archive limit from 1.5 TB to 3 TB",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-23",
-   "id": "MC1521616",
-   "type": "new",
-   "title": "Microsoft Graph APIs for Copilot cost management",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-23",
-   "id": "MC1521617",
-   "type": "new",
-   "title": "Microsoft OneDrive: Updated placement of the Create or upload button in OneDrive for the web",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-23",
-   "id": "MC1289724",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: Sharing recap access",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-23",
-   "id": "MC1437678",
-   "type": "removed",
-   "title": "Microsoft Teams: Join by code requires owner approval for private teams",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-23",
-   "id": "MC1461160",
-   "type": "removed",
-   "title": "Microsoft Teams: Copilot in call recap in the Queues app",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-23",
-   "id": "MC1470417",
-   "type": "removed",
-   "title": "(Updated) Microsoft 365 Copilot: Review PDFs using the Copilot context menu on OneDrive iOS",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-23",
-   "id": "MC1478958",
-   "type": "removed",
-   "title": "Microsoft SharePoint Online: Select page canvas elements for Copilot-assisted editing",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-23",
-   "id": "MC1456780",
-   "type": "changed",
-   "title": "(Updated) Plan for Change: New device page experience will become the default view",
-   "fields": {
-    "title": [
-     "Plan for Change: New device page experience will become the default view",
-     "(Updated) Plan for Change: New device page experience will become the default view"
-    ],
-    "end": [
-     "2026-10-30",
-     "2026-12-11"
-    ],
-    "tags": [
-     [
-      "Admin impact"
-     ],
-     [
-      "Admin impact",
-      "Updated message"
-     ]
-    ],
-    "bodyHash": [
-     "b9be61f5a287d1c2",
-     "cc592700dd1679b3"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-23",
-   "id": "MC1518030",
-   "type": "changed",
-   "title": "Updated Photos experience on Windows 11",
-   "fields": {
-    "tags": [
-     [
-      "Feature update",
-      "User impact"
-     ],
-     [
-      "Feature update",
-      "Updated message",
-      "User impact"
-     ]
-    ],
-    "bodyHash": [
-     "faa3b712e0a8e56a",
-     "971c58b39a470053"
-    ]
-   }
-  },
   {
    "date": "2026-10-24",
    "id": "MC1482800",
@@ -25394,6 +25227,13 @@
    "id": "MC1472592",
    "type": "removed",
    "title": "(Updated) Microsoft Purview: Auto-expanding archive capacity increases to 3 TB for eligible mailboxes",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-23",
+   "id": "MC1521616",
+   "type": "removed",
+   "title": "Microsoft Graph APIs for Copilot cost management",
    "fields": {}
   }
  ]
