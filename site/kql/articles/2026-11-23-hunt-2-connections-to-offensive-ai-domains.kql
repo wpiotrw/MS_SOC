@@ -1,0 +1,14 @@
+// title: Hunt 2 — Connections to offensive AI domains
+// date: 2026-11-23
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: KQL of the Week: Hunting Exposed Offensive AI Infrastructure with KQL Queries
+// source: https://detect.fyi/kql-of-the-week-hunting-exposed-offensive-ai-infrastructure-with-kql-queries-efb9369631fd?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Sergio Albea · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let OffensiveDomains = externaldata(Domain:string) [@"https://offensive.agency/api/domains.txt"] with (format="txt") | where isnotempty(Domain) and not(Domain startswith "#")
+| project Domain=tolower(trim(@"\s+",Domain));
+DeviceNetworkEvents | where Timestamp > ago(7d) | where isnotempty(RemoteUrl) | extend Host=tolower(tostring(split(tostring(split(RemoteUrl,"://")[-1]),"/")[0]))
+| extend Host=tostring(split(Host,":")[0])
+| join kind=inner (OffensiveDomains) on $left.Host == $right.Domain

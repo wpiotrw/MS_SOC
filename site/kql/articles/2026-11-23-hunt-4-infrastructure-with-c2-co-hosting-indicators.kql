@@ -1,0 +1,14 @@
+// title: Hunt 4 — Infrastructure with C2 co-hosting indicators
+// date: 2026-11-23
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents
+// purpose: From the article: KQL of the Week: Hunting Exposed Offensive AI Infrastructure with KQL Queries
+// source: https://detect.fyi/kql-of-the-week-hunting-exposed-offensive-ai-infrastructure-with-kql-queries-efb9369631fd?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Sergio Albea · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let C2AssociatedIPs = externaldata(IP:string) [@"https://offensive.agency/api/ips.txt?c2=1"] with (format="txt")
+| where isnotempty(IP) and not(IP startswith "#") | project IP=trim(@"\s+",IP);
+DeviceNetworkEvents | where Timestamp > ago(7d) | join kind=inner (C2AssociatedIPs) on $left.RemoteIP == $right.IP
+| summarize FirstSeen=min(Timestamp), LastSeen=max(Timestamp), Connections=count(), Processes=make_set(InitiatingProcessFileName,20), Ports=make_set(RemotePort,20), RemoteURLs=make_set(RemoteUrl,20), Actions=make_set(ActionType,10)
+ by DeviceName, RemoteIP

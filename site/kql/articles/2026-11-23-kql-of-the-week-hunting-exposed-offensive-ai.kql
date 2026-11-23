@@ -1,0 +1,11 @@
+// title: KQL of the Week: Hunting Exposed Offensive AI Infrastructure with KQL Queries
+// date: 2026-11-23
+// product: Defender for Office 365
+// tables: UrlClickEvents
+// purpose: From the article: KQL of the Week: Hunting Exposed Offensive AI Infrastructure with KQL Queries
+// source: https://detect.fyi/kql-of-the-week-hunting-exposed-offensive-ai-infrastructure-with-kql-queries-efb9369631fd?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Sergio Albea · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let OffensiveIPs = externaldata(IP:string) [@"https://offensive.agency/api/ips.txt"] with (format="txt") | where isnotempty(IP) and not(IP startswith "#") | project IP=trim(@"\s+",IP);
+UrlClickEvents | join kind=inner (OffensiveIPs) on $left.IPAddress == $right.IP

@@ -130,6 +130,128 @@
   "incident": "appx-webhost-oauth-token-theft-2026-09"
  },
  {
+  "file": "articles/2026-11-23-using-the-function-in-log-analytic-rule-queries.kql",
+  "title": "Using the Function in Log Analytic Rule Queries",
+  "date": "2026-11-23",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Implementing an Alert Suppression Function in Microsoft Sentinel",
+  "source": "https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Stamatis Chatzimangou · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4"
+ },
+ {
+  "file": "articles/2026-11-23-sentinel-s-alert-anatomy.kql",
+  "title": "Sentinel’s Alert Anatomy",
+  "date": "2026-11-23",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Implementing an Alert Suppression Function in Microsoft Sentinel",
+  "source": "https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Stamatis Chatzimangou · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4"
+ },
+ {
+  "file": "articles/2026-11-23-kql-of-the-week-hunting-exposed-offensive-ai.kql",
+  "title": "KQL of the Week: Hunting Exposed Offensive AI Infrastructure with KQL Queries",
+  "date": "2026-11-23",
+  "product": "Defender for Office 365",
+  "tables": [
+   "UrlClickEvents"
+  ],
+  "purpose": "From the article: KQL of the Week: Hunting Exposed Offensive AI Infrastructure with KQL Queries",
+  "source": "https://detect.fyi/kql-of-the-week-hunting-exposed-offensive-ai-infrastructure-with-kql-queries-efb9369631fd?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/kql-of-the-week-hunting-exposed-offensive-ai-infrastructure-with-kql-queries-efb9369631fd?source=rss----d5fd8f494f6a---4"
+ },
+ {
+  "file": "articles/2026-11-23-kql-of-the-week-hunting-exposed-offensive-ai-2.kql",
+  "title": "KQL of the Week: Hunting Exposed Offensive AI Infrastructure with KQL Queries",
+  "date": "2026-11-23",
+  "product": "Defender for Office 365",
+  "tables": [
+   "UrlClickEvents"
+  ],
+  "purpose": "From the article: KQL of the Week: Hunting Exposed Offensive AI Infrastructure with KQL Queries",
+  "source": "https://detect.fyi/kql-of-the-week-hunting-exposed-offensive-ai-infrastructure-with-kql-queries-efb9369631fd?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/kql-of-the-week-hunting-exposed-offensive-ai-infrastructure-with-kql-queries-efb9369631fd?source=rss----d5fd8f494f6a---4"
+ },
+ {
+  "file": "articles/2026-11-23-implementing-an-alert-suppression-function-in-microsoft-sent.kql",
+  "title": "Implementing an Alert Suppression Function in Microsoft Sentinel",
+  "date": "2026-11-23",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityAlert"
+  ],
+  "purpose": "From the article: Implementing an Alert Suppression Function in Microsoft Sentinel",
+  "source": "https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Stamatis Chatzimangou · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4"
+ },
+ {
+  "file": "articles/2026-11-23-implementing-an-alert-suppression-function-in-microsoft-sent-2.kql",
+  "title": "Implementing an Alert Suppression Function in Microsoft Sentinel",
+  "date": "2026-11-23",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityAlert"
+  ],
+  "purpose": "From the article: Implementing an Alert Suppression Function in Microsoft Sentinel",
+  "source": "https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Stamatis Chatzimangou · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4"
+ },
+ {
+  "file": "articles/2026-11-23-hunt-4-infrastructure-with-c2-co-hosting-indicators.kql",
+  "title": "Hunt 4 — Infrastructure with C2 co-hosting indicators",
+  "date": "2026-11-23",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: KQL of the Week: Hunting Exposed Offensive AI Infrastructure with KQL Queries",
+  "source": "https://detect.fyi/kql-of-the-week-hunting-exposed-offensive-ai-infrastructure-with-kql-queries-efb9369631fd?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/kql-of-the-week-hunting-exposed-offensive-ai-infrastructure-with-kql-queries-efb9369631fd?source=rss----d5fd8f494f6a---4"
+ },
+ {
+  "file": "articles/2026-11-23-hunt-2-connections-to-offensive-ai-domains.kql",
+  "title": "Hunt 2 — Connections to offensive AI domains",
+  "date": "2026-11-23",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: KQL of the Week: Hunting Exposed Offensive AI Infrastructure with KQL Queries",
+  "source": "https://detect.fyi/kql-of-the-week-hunting-exposed-offensive-ai-infrastructure-with-kql-queries-efb9369631fd?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/kql-of-the-week-hunting-exposed-offensive-ai-infrastructure-with-kql-queries-efb9369631fd?source=rss----d5fd8f494f6a---4"
+ },
+ {
+  "file": "articles/2026-11-23-hunt-1-outbound-interactions-to-exposed-offensive-ai.kql",
+  "title": "Hunt 1 — Outbound interactions to exposed offensive AI infrastructure",
+  "date": "2026-11-23",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: KQL of the Week: Hunting Exposed Offensive AI Infrastructure with KQL Queries",
+  "source": "https://detect.fyi/kql-of-the-week-hunting-exposed-offensive-ai-infrastructure-with-kql-queries-efb9369631fd?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Sergio Albea · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/kql-of-the-week-hunting-exposed-offensive-ai-infrastructure-with-kql-queries-efb9369631fd?source=rss----d5fd8f494f6a---4"
+ },
+ {
   "file": "articles/2026-11-23-detection-5-cve-2026-73571-http-post-to.kql",
   "title": "Detection 5: CVE-2026-73571 - HTTP POST to Zimbra SaveDraftRequest Endpoint with Cross-Account Activity",
   "date": "2026-11-23",
@@ -203,6 +325,20 @@
   "kind": "article",
   "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
   "link": "https://devsecopsdadattack.com/2026-11-23-detection-engineering-brief-monday-november-23-2026/"
+ },
+ {
+  "file": "articles/2026-11-23-alert-suppression-function.kql",
+  "title": "Alert Suppression Function",
+  "date": "2026-11-23",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityAlert"
+  ],
+  "purpose": "From the article: Implementing an Alert Suppression Function in Microsoft Sentinel",
+  "source": "https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Stamatis Chatzimangou · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4"
  },
  {
   "file": "2026-11-23-synthetic-media-detections-by-modality-severity-and-source-t.kql",

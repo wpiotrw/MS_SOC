@@ -1,0 +1,43 @@
+// title: Alert Suppression Function
+// date: 2026-11-23
+// product: Sentinel
+// tables: SecurityAlert
+// purpose: From the article: Implementing an Alert Suppression Function in Microsoft Sentinel
+// source: https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Stamatis Chatzimangou · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let SuppressAlerts = (
+  T: (*),
+  SuppressionAlertName: string,
+  SuppressionWindow: timespan,
+  SuppressionField: string
+  ) {
+  let ExistingAlerts = SecurityAlert
+    | where TimeGenerated > ago(SuppressionWindow)
+    | where Status == "New"
+    | where AlertName == SuppressionAlertName
+    | extend Query = parse_json(ExtendedProperties).Query
+    | extend b64 = extract(@".*?\[\'([A-Za-z0-9+/=]+)\'\].*", 1, tostring(Query))
+    | extend raw = todynamic(zlib_decompress_from_base64_string(b64))
+    | project-keep AlertName, raw
+    | evaluate bag_unpack(raw, columnsConflict="replace_source")
+    | extend SecurityAlertSuppressionFieldValue = column_ifexists(SuppressionField, "SecurityAlertSuppressionFieldValue")
+    | extend SecurityAlertSuppressionSuppressionFieldValueDynamic = parse_json(SecurityAlertSuppressionFieldValue)
+    | extend SecurityAlertSuppressionFieldColumn = iff(
+        gettype(SecurityAlertSuppressionSuppressionFieldValueDynamic) == "array",
+        tostring(array_sort_asc(SecurityAlertSuppressionSuppressionFieldValueDynamic)),
+        tostring(SecurityAlertSuppressionFieldValue)
+    );
+  T
+  | extend TableSuppressionFieldValue = column_ifexists(SuppressionField, "SecurityAlertSuppressionFieldValue")
+  | extend TableSuppressionFieldValueDynamic = parse_json(TableSuppressionFieldValue)
+  | extend TableSuppressionFieldColumn = iff(
+      gettype(TableSuppressionFieldValueDynamic) == "array",
+      tostring(array_sort_asc(TableSuppressionFieldValueDynamic)),
+      tostring(TableSuppressionFieldValue)
+  )
+  | join kind=leftanti ExistingAlerts on $left.TableSuppressionFieldColumn == $right.SecurityAlertSuppressionFieldColumn
+  | project-away TableSuppressionFieldValue, TableSuppressionFieldValueDynamic, TableSuppressionFieldColumn
+};
+SuppressAlerts(T=T, SuppressionAlertName=SuppressionAlertName, SuppressionWindow=SuppressionWindow, SuppressionField=SuppressionField)

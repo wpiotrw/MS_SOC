@@ -1,0 +1,14 @@
+// title: Sentinel’s Alert Anatomy
+// date: 2026-11-23
+// product: 
+// tables: 
+// purpose: From the article: Implementing an Alert Suppression Function in Microsoft Sentinel
+// source: https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Stamatis Chatzimangou · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// might contain sensitive data
+let alertedEvent = datatable(compressedRec: string)
+['eAENiz0LwkAMhv9L5nJ4BUW7KohDQeht4hDOVxutVwgpgqX/vVmfj5m6cdKMy5Uaioc6xN0+xE2ot1RR6hVs1Nyo5eHHCmdHxQPFhIfU42l0r6iTV2GbXHuZdHxzCWcUqGQfWvnKh+0fTjBkH5YVFdUlfQ==']
+| extend raw = todynamic(zlib_decompress_from_base64_string(compressedRec)) | evaluate bag_unpack(raw) | project-away compressedRec;
+alertedEvent

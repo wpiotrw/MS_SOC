@@ -1,0 +1,31 @@
+// title: Using the Function in Log Analytic Rule Queries
+// date: 2026-11-23
+// product: 
+// tables: 
+// purpose: From the article: Implementing an Alert Suppression Function in Microsoft Sentinel
+// source: https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Stamatis Chatzimangou · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let SecurityEvents = datatable(
+    SourceIP:string,
+    Threat:string,
+    Signature: string,
+)
+[
+    "192.168.10.25", "Malware", "Trojan.Generic",
+    "192.168.10.25", "Malware", "Trojan.Generic",
+    "192.168.10.25", "CredentialTheft", "Mimikatz.Detect"
+];
+let frequency = 1h;
+let suppression_window = 1h;
+SecurityEvents
+| extend TimeGenerated = now() + (rand(300) * 1s)
+| where TimeGenerated > ago(frequency)
+| summarize
+    minTimeGenerated = min(TimeGenerated),
+    maxTimeGenerated = max(TimeGenerated),
+    Threat = make_set(Threat),
+    Signature = make_set(Signature)
+by SourceIP
+| invoke SuppressAlertsRawOneField(SuppressionAlertName="Suppression Test Rule", SuppressionWindow=suppression_window, SuppressionField="SourceIP")

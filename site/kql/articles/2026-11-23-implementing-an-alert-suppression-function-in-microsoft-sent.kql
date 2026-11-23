@@ -1,0 +1,13 @@
+// title: Implementing an Alert Suppression Function in Microsoft Sentinel
+// date: 2026-11-23
+// product: Sentinel
+// tables: SecurityAlert
+// purpose: From the article: Implementing an Alert Suppression Function in Microsoft Sentinel
+// source: https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4
+// kind: article
+// author: Stamatis Chatzimangou · Detect FYI (detection engineering, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let ExistingAlerts = SecurityAlert
+    | where TimeGenerated > ago(SuppressionWindow)
+    | where Status == "New"
+    | where AlertName == SuppressionAlertName
