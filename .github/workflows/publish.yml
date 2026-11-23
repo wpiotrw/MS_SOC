@@ -58,7 +58,17 @@ jobs:
             echo "Brak zmian w site/ - nie commituje."
           else
             git commit -m "content: publikacja z ${GITHUB_REF_NAME}"
-            git push origin main
+            # CLAUDE.md 5hg (23 XI 2026): another workflow can push to main while this one runs - the morning publish
+            # of 23 XI was rejected ("fetch first") and nothing went live. Rebase onto the new main and try again;
+            # on a conflict the routine's version of the files it changed wins (-X theirs = the commit being replayed).
+            ok=0
+            for i in 1 2 3 4 5; do
+              if git push origin main; then ok=1; break; fi
+              echo "push rejected (attempt $i) - rebasing onto the new main"
+              sleep $((i * 5))
+              git pull --rebase -X theirs origin main || { git rebase --abort || true; }
+            done
+            [ "$ok" = 1 ] || { echo "::error title=Publish not pushed::main moved five times while publishing"; exit 1; }
             echo "Zmiany scalone do main."
           fi
 

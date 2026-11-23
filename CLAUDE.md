@@ -26566,6 +26566,12 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hg (23 XI 2026, 08:10)** — Mail "Run failed: Publish routine output - claude/vibrant-pascal-cllsy2". Logika §5he zadzialala (27 plikow
+od merge-base), ale `git push origin main` zostal odrzucony ("fetch first"), bo inny workflow zapisal `main` w czasie publikacji; poranna
+tresc nie weszla. Run ponowiony recznie (sukces, `fb5e4baf`). `publish.yml`: do 5 prob push, miedzy nimi `git pull --rebase -X theirs`
+(przy konflikcie wygrywa wersja przebiegu dla plikow, ktore zmienil), na koncu blad z opisem. Test lokalny (bare repo, dwa klony): wyscig na
+roznych plikach - obie zmiany zostaja; konflikt na tym samym pliku - zostaje wersja przebiegu.
+
 **§5hf (22 XI 2026, 23:30)** — Piotr: przy KQL do incydentow brac WSZYSTKIE tabele, ktore Entra wysyla przez ustawienia diagnostyczne
 do Log Analytics (nie tylko SigninLogs/AuditLogs). Nowy plik `kql_entra_tables.json`: 18 kategorii diagnostycznych Entra -> tabela Log
 Analytics -> co trzyma -> do czego w incydencie (AuditLogs, SigninLogs, AADNonInteractiveUserSignInLogs, AADServicePrincipalSignInLogs,
