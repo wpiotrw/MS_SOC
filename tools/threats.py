@@ -285,7 +285,9 @@ def relevance(title, summary, src):
     ms_t, ms_any = set(has(tt, MSCTX)), set(has(t, MSCTX))
     ms_ok = bool(ms_t) or len(ms_any) >= 2
     keep = bool(src.get("AllRelevant") and ms_any) or \
-           (ms_ok and att and score >= 4 and not MARKETING.search(title))
+           (ms_ok and att and score >= (3 if src.get("TitleOnly") else 4) and not MARKETING.search(title))
+    # CLAUDE.md 5hk: a feed that carries the title only (Cybernews through Google News) can reach 3 at most - one point
+    # less, the Microsoft context and an attack word are still required
     if src.get("Name") == "Microsoft Threat Intelligence":
         keep = True
     areas = [a for a, ws in AREAS if has(t, ws)]

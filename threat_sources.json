@@ -132,11 +132,12 @@
   },
   {
     "SourceName": "Cybernews",
-    "SourceURL": "https://cybernews.com/feed/",
+    "SourceURL": "https://news.google.com/rss/search?q=site:cybernews.com+(Microsoft+OR+Windows+OR+Azure+OR+Entra+OR+Intune+OR+Defender+OR+Exchange+OR+SharePoint+OR+Teams+OR+Copilot+OR+Outlook)&hl=en-US&gl=US&ceid=US:en",
     "Site": "https://cybernews.com/",
     "Tier": "secondary",
     "Kind": "rss",
-    "Note": "CLAUDE.md §5hk (23 XI 2026, owner): security news site; general feed, only articles about our technologies are kept (hit()). Behind Cloudflare - state on the Sources card shows whether GitHub runners can read it."
+    "Note": "CLAUDE.md §5hk (23 XI 2026, owner): cybernews.com answers HTTP 403 (Cloudflare) to GitHub runners and to us, so the articles come through the Google News RSS search limited to site:cybernews.com and our technologies; links open via news.google.com. threats.py hit() keeps only articles about our technologies.",
+    "TitleOnly": true
   },
   {
     "SourceName": "Elastic Security Labs",
