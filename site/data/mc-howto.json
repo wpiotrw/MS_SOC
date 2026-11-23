@@ -802,6 +802,40 @@
      "says": "Microsoft retires Dataverse for Teams and asks customers to migrate before 15 September 2027."
     }
    ]
+  },
+  {
+   "key": "mdo-promotions-tag-and-folder",
+   "ids": [
+    "MC1279093"
+   ],
+   "title": "Defender for Office 365 tags promotional mail as 'promotions' and can move it to a Promotions folder",
+   "scriptable": false,
+   "checked": "2026-11-23",
+   "why": "The admin controls the post names are an anti-spam policy setting ('Bulk moves enabled') and, during preview, an Exchange transport rule shown only as portal screenshots; this routine found no documented Exchange Online PowerShell parameter for the new setting yet, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC1279093",
+     "u": "https://deltapulse.app/item/MC1279093",
+     "says": "Updated 17 November 2026: worldwide GA runs from late July 2026 to mid-February 2027; tagging becomes on by default at GA, and 'Bulk moves enabled' in the anti-spam policy moves tagged mail to a Promotions folder."
+    }
+   ]
+  },
+  {
+   "key": "teams-m365-unified-app-agent-availability",
+   "ids": [
+    "MC796790"
+   ],
+   "title": "App and agent availability and installation unified across the Microsoft 365 and Teams admin centers",
+   "scriptable": false,
+   "checked": "2026-11-23",
+   "why": "Unification is done by Microsoft or through a wizard in the Teams admin center, and installation is no longer managed through Teams app setup policies; the post documents no PowerShell surface for the unified settings, so no script is offered.",
+   "sources": [
+    {
+     "t": "Message Center MC796790",
+     "u": "https://deltapulse.app/item/MC796790",
+     "says": "Updated 18 November 2026: unified installation management is generally available and follows within 24-48 hours of availability unification; installations made through Teams app setup policies are not unified."
+    }
+   ]
   }
  ]
 }
