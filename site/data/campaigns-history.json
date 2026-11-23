@@ -1020,11 +1020,29 @@
 ],
 "log":[
 {
-"date":"2026-11-09",
+"date":"2026-11-23",
 "id":"MC1446796",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the timeline.",
+"what":"Message Center end date",
+"before":"2026-12-28",
+"after":"2027-01-11",
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
+},
+{
+"date":"2026-11-23",
+"id":"MC1446796",
+"what":"Date moved",
+"before":"23 Nov 2026",
+"after":"4 Dec 2026",
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
+},
+{
+"date":"2026-11-23",
+"id":"MC1446796",
+"what":"Date moved",
+"before":"late Nov 2026",
+"after":"early Dec 2026",
 "title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
 "link":"https://mc.merill.net/message/MC1446796"
 },
@@ -1043,6 +1061,15 @@
 "what":"Date moved",
 "before":"early Nov 2026",
 "after":"late Nov 2026",
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
+},
+{
+"date":"2026-11-09",
+"id":"MC1446796",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
 "title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
 "link":"https://mc.merill.net/message/MC1446796"
 },
@@ -1449,14 +1476,14 @@
 "text":"Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026."
 },
 "MC1446796|we will begin rolling out in and expect to complete by for f#1":{
-"date":"2026-11-23",
-"label":"23 Nov 2026",
-"text":"Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing."
+"date":"2026-12-04",
+"label":"4 Dec 2026",
+"text":"Mailtips and December 4, 2026 (previously November 23) for Calendar Sharing."
 },
 "MC1446796|cross tenant free busy mailtips will be available by and cal#0":{
-"date":"2026-11-25",
-"label":"late Nov 2026",
-"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Te"
+"date":"2026-12-05",
+"label":"early Dec 2026",
+"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by early December 2026 (previously late November) via Microsoft 365 Cross-Te"
 },
 "MC1227454|after ews access will be permanently removed with no re enab#0":{
 "date":"2027-04-01",
@@ -1498,6 +1525,22 @@
 "now":"late Nov 2026",
 "seen":"2026-11-09",
 "text":"MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Te"
+},
+{
+"src":"MC1446796",
+"key":"we will begin rolling out in and expect to complete by for f#1",
+"was":"23 Nov 2026",
+"now":"4 Dec 2026",
+"seen":"2026-11-23",
+"text":"Mailtips and December 4, 2026 (previously November 23) for Calendar Sharing."
+},
+{
+"src":"MC1446796",
+"key":"cross tenant free busy mailtips will be available by and cal#0",
+"was":"late Nov 2026",
+"now":"early Dec 2026",
+"seen":"2026-11-23",
+"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by early December 2026 (previously late November) via Microsoft 365 Cross-Te"
 }
 ],
 "materials":{
@@ -5254,14 +5297,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-21",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-22",
 "text":"August 1, 2026."
 },
@@ -5311,6 +5346,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-22",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-23",
 "text":"August 1, 2026."
 },
 {
@@ -5852,7 +5895,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-22",
+"seen":"2026-11-23",
 "text":"early February 2026."
 },
 {
@@ -5860,7 +5903,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-22",
+"seen":"2026-11-23",
 "text":"February 2027."
 },
 {
@@ -9572,7 +9615,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-22",
+"seen":"2026-11-23",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9580,7 +9623,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-22",
+"seen":"2026-11-23",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -20705,6 +20748,26 @@
 "title":"Alert grouping for custom detection rules",
 "source":"Microsoft Learn · What's new · Defender XDR",
 "link":"https://learn.microsoft.com/en-us/defender-xdr/whats-new"
+},
+{
+"day":"2026-11-23",
+"cid":"c-mc676299",
+"type":"moved",
+"name":"Exchange Web Services (EWS) retirement update",
+"src":"MC1446796",
+"was":"23 Nov 2026",
+"now":"4 Dec 2026",
+"text":"Mailtips and December 4, 2026 (previously November 23) for Calendar Sharing."
+},
+{
+"day":"2026-11-23",
+"cid":"c-mc676299",
+"type":"moved",
+"name":"Exchange Web Services (EWS) retirement update",
+"src":"MC1446796",
+"was":"late Nov 2026",
+"now":"early Dec 2026",
+"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by early December 2026 (previously late November) via Microsoft 365 Cross-Tenant Access Policy"
 }
 ],
 "archive":{
