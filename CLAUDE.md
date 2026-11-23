@@ -26570,7 +26570,9 @@ zmiany (`--diff-filter=MD`, §5cf).
 od merge-base), ale `git push origin main` zostal odrzucony ("fetch first"), bo inny workflow zapisal `main` w czasie publikacji; poranna
 tresc nie weszla. Run ponowiony recznie (sukces, `fb5e4baf`). `publish.yml`: do 5 prob push, miedzy nimi `git pull --rebase -X theirs`
 (przy konflikcie wygrywa wersja przebiegu dla plikow, ktore zmienil), na koncu blad z opisem. Test lokalny (bare repo, dwa klony): wyscig na
-roznych plikach - obie zmiany zostaja; konflikt na tym samym pliku - zostaje wersja przebiegu.
+roznych plikach - obie zmiany zostaja; konflikt na tym samym pliku - zostaje wersja przebiegu. DOPISEK 08:15 — drugi mail: "Run failed: Campaign tracking - main"
+("cannot lock ref", moj commit wszedl miedzy pull a push). Trzy workflow pushowaly bez ponawiania: `campaigns.yml`, `fpa-tenant.yml`,
+`baselines.yml` — teraz petla 5 prob `git pull --rebase` + push (jak w pozostalych siedmiu). Test pod `set -euo pipefail`: OK.
 
 **§5hf (22 XI 2026, 23:30)** — Piotr: przy KQL do incydentow brac WSZYSTKIE tabele, ktore Entra wysyla przez ustawienia diagnostyczne
 do Log Analytics (nie tylko SigninLogs/AuditLogs). Nowy plik `kql_entra_tables.json`: 18 kategorii diagnostycznych Entra -> tabela Log

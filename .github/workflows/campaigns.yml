@@ -79,6 +79,6 @@ jobs:
           if git diff --cached --quiet; then echo "No change."; else
             python3 tools/stamp.py campaigns || true; git add site/data/fresh   # CLAUDE.md 5cz
             git commit -m "data: campaigns and KQL archive $(date -u +%F' '%H:%M) UTC"
-            git pull --rebase -q origin main
-            git push origin main
+            # CLAUDE.md 5hg (23 XI 2026): another workflow may push between pull and push ("cannot lock ref") - retry
+            for i in 1 2 3 4 5; do git pull --rebase -q origin main && git push origin main && break; [ "$i" = 5 ] && exit 1; sleep $((i * 5)); done
           fi

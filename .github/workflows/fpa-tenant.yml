@@ -113,8 +113,8 @@ jobs:
             # the history file changes only with new events, once a day (lastRead) or when the roles read changes
             if git diff --cached --name-only | grep -q 'graph-sp-history.json\|api-surfaces.json\|roles-elsewhere.json\|roles-dev.json\|roles-rolelens.json\|roles-merill.json\|threats.json\|doc-ga.json'; then echo "deploy=yes" >> "$GITHUB_OUTPUT"; fi
             git commit -m "data: tenant snapshot (first-party apps, Message Center, Graph permissions) $(date -u +%F)"
-            git pull --rebase -q origin main
-            git push origin main
+            # CLAUDE.md 5hg (23 XI 2026): another workflow may push between pull and push ("cannot lock ref") - retry
+            for i in 1 2 3 4 5; do git pull --rebase -q origin main && git push origin main && break; [ "$i" = 5 ] && exit 1; sleep $((i * 5)); done
           fi
       - name: Prepare the deploy copy - data blocks as files (CLAUDE.md 5dl)
         if: steps.commit.outputs.deploy == 'yes'
