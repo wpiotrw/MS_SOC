@@ -1,7 +1,7 @@
 {
  "read": "2026-11-23",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 738,
+ "count": 728,
  "note": null,
  "messages": [
   {
@@ -5587,33 +5587,6 @@
    "bodyHash": "5c84c441b73bf8fd"
   },
   {
-   "id": "MC1411432",
-   "title": "(Updated) Viva Engage: New post creation experience",
-   "services": [
-    "Microsoft Viva"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-07-01",
-   "end": "2026-11-23",
-   "modified": "2026-09-11",
-   "tags": [
-    "Feature update",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 11, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] We are updating the post creation experience in Viva Engage with a simpler, more intuitive layout. This change helps users create and publish posts with fewer distractions, clearer organization of tools, and improved accessibility. The update supports personal and team productivity by making it e…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 11, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Rollout will begin in mid-July 2026 and is expected to complete by mid-October 2026 (previously mid-August)."
-   ],
-   "bodyHash": "e57b86dc18dc0515"
-  },
-  {
    "id": "MC1411499",
    "title": "ESR management completed the transition to Windows Backup for Organizations",
    "services": [
@@ -7870,31 +7843,6 @@
    "bodyHash": "f55396559a64b48c"
   },
   {
-   "id": "MC1457839",
-   "title": "Viva Connections multi-home site management moving to SharePoint admin center",
-   "services": [
-    "SharePoint Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-19",
-   "end": "2026-11-23",
-   "modified": "2026-08-19",
-   "tags": [
-    "Admin impact",
-    "Feature update"
-   ],
-   "summary": "[What and Why:] We are updating Viva Connections multi-home site management by moving administration from the Microsoft 365 admin center (MAC) to the SharePoint admin center (SPAC). This change consolidates Viva Connections administration into SharePoint Home site management and establishes the SharePoint admin center as the primary location for managing Viva Connections experiences. As part of th…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Expected completion: Mid September 2026."
-   ],
-   "bodyHash": "110c02b9b301e249"
-  },
-  {
    "id": "MC1458268",
    "title": "New PowerShell scripts to manage Windows settings backup data",
    "services": [
@@ -8471,37 +8419,6 @@
    "bodyHash": "99b38897deafa603"
   },
   {
-   "id": "MC1461528",
-   "title": "Microsoft 365 Roadmap is becoming the AI at Work Roadmap",
-   "services": [
-    "Microsoft 365 suite"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-25",
-   "end": "2026-11-23",
-   "modified": "2026-08-25",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and why:] On August 25, 2026 , the Microsoft 365 Roadmap will be renamed the AI at Work Roadmap . The AI at Work Roadmap provides a single destination to discover upcoming innovations across Microsoft 365, Copilot, agents, and related AI-powered experiences. Beginning in September 2026 , roadmap information for Dynamics 365, Power Platform, and Dataverse will also begin publishing to the AI …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "On August 25, 2026 , the Microsoft 365 Roadmap will be renamed the AI at Work Roadmap .",
-    "Beginning in September 2026 , roadmap information for Dynamics 365, Power Platform, and Dataverse will also begin publishing to the AI at Work Roadmap, making it easier to track innovation across Microsoft's business applications, productivity, and AI portfoli",
-    "August 25, 2026: Microsoft 365 Roadmap is renamed to AI at Work Roadmap.",
-    "September 2026: New Dynamics 365, Power Platform, and Dataverse capabilities begin publishing to the AI at Work Roadmap.",
-    "The Microsoft 365 Roadmap will be renamed to AI at Work Roadmap on August 25, 2026.",
-    "Beginning in September 2026, new roadmap content for Dynamics 365, Power Platform, and Dataverse will begin publishing to the AI at Work Roadmap."
-   ],
-   "bodyHash": "dde8b2b200dc045c"
-  },
-  {
    "id": "MC1461529",
    "title": "Release Planner Retirement: D365, Power Platform, and Dataverse Move to AI at Work",
    "services": [
@@ -8661,33 +8578,6 @@
     "General Availability (GCC): Rollout will begin in late September 2026 and is expected to complete by mid October 2026."
    ],
    "bodyHash": "d5fa46f009305a53"
-  },
-  {
-   "id": "MC1462467",
-   "title": "Badges on profile cards in Teams",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-26",
-   "end": "2026-11-23",
-   "modified": "2026-08-28",
-   "tags": [
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why:] We are updating profile cards in Microsoft Teams to display existing Awards and Certifications profile properties from the Microsoft 365 profile schema. This feature previously rolled out to Outlook and the Microsoft 365 Copilot app in April 2026 and will now be available in Teams profile cards. [Rollout schedule:] Targeted Release (Worldwide): Rollout begins in early October 2026 …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature previously rolled out to Outlook and the Microsoft 365 Copilot app in April 2026 and will now be available in Teams profile cards.",
-    "Targeted Release (Worldwide): Rollout begins in early October 2026 and is expected to complete by early October 2026.",
-    "General Availability (Worldwide): Rollout begins in early-October 2026 and is expected to complete by mid-October 2026."
-   ],
-   "bodyHash": "580dd58c0beb96e7"
   },
   {
    "id": "MC1462470",
@@ -8909,31 +8799,6 @@
    "bodyHash": "16005e17e2e487a4"
   },
   {
-   "id": "MC1462923",
-   "title": "Outlook for iOS: Minimum system requirements updated to iOS 26 and above",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-27",
-   "end": "2026-11-23",
-   "modified": "2026-08-27",
-   "tags": [
-    "Admin impact",
-    "User impact"
-   ],
-   "summary": "[What and Why:] To help ensure optimal performance, reliability, and security, Outlook for iOS is updating its minimum supported operating system requirements. Following the release of iOS 27, Outlook for iOS will support only the two most recent versions of iOS, iPadOS, and watchOS. This change aligns with Microsoft’s commitment to supporting the latest Apple platforms. [Rollout schedule:] Worldw…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Worldwide, GCC, GCC High, DoD: We will begin rolling out in mid-September 2026 and expect to complete by late September 2026."
-   ],
-   "bodyHash": "18c6e59c9a8c3a30"
-  },
-  {
    "id": "MC1463509",
    "title": "Organization skills support in Copilot for PowerPoint (Frontier release)",
    "services": [
@@ -8957,31 +8822,6 @@
     "Frontier: We will begin rolling out in end of August 2026 and expect to complete by early September 2026."
    ],
    "bodyHash": "9dec7e93cd5fcccd"
-  },
-  {
-   "id": "MC1463510",
-   "title": "External messaging limits for onmicrosoft.com-only organizations in Microsoft Teams",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-08-28",
-   "end": "2026-11-23",
-   "modified": "2026-08-28",
-   "tags": [
-    "Admin impact",
-    "User impact"
-   ],
-   "summary": "[What and Why:] To help protect Microsoft Teams users from spam, phishing, and other abusive activity, Microsoft is introducing outbound external messaging limits for organizations that use only the default Microsoft Online Email Routing Address (MOERA) domain, such as contoso.onmicrosoft.com. These limits are designed to reduce large-scale abuse while preserving normal collaboration scenarios. Mo…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Rollout begins in mid-September 2026 and is expected to complete by mid-September 2026."
-   ],
-   "bodyHash": "23f4424ee5e40417"
   },
   {
    "id": "MC1464926",
@@ -10516,32 +10356,6 @@
    "bodyHash": "52ab01d9a79cdf0f"
   },
   {
-   "id": "MC1472591",
-   "title": "(Updated) Enhanced security and access controls for Outlook attachments",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-15",
-   "end": "2026-11-23",
-   "modified": "2026-09-29",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "Updated message"
-   ],
-   "summary": "Updated September 29, 2026: We have updated the content. Thank you for your patience. [What and why:] As part of our overall security initiatives, we’ve created a separate internal application configuration for Outlook attachments, therefore, all standard security and authentication flows will be handled separately. Moreover, Conditional Access policies are now enforced for Outlook attachment oper…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 29, 2026: We have updated the content."
-   ],
-   "bodyHash": "3f7e89375a85e820"
-  },
-  {
    "id": "MC1472598",
    "title": "Microsoft 365: Find more actions in the suite header menu",
    "services": [
@@ -11206,33 +11020,6 @@
     "General Availability (Worldwide): Beginning in mid-October 2026 and expected to complete by late October 2026."
    ],
    "bodyHash": "733307a90343b75f"
-  },
-  {
-   "id": "MC1477184",
-   "title": "(Updated) Microsoft 365 admin center: Agent Registry consolidates duplicate agent entries and adds version history",
-   "services": [
-    "Microsoft 365 suite"
-   ],
-   "category": "preventOrFixIssue",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-22",
-   "end": "2026-11-23",
-   "modified": "2026-09-29",
-   "tags": [
-    "Admin impact",
-    "Updated message",
-    "User impact"
-   ],
-   "summary": "Updated September 29, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're improving the Agent Registry experience in the Microsoft 365 admin center by consolidating duplicate entries for the same agent into a single record. Previously, the same agent could appear multiple times when published across different scopes or when multiple published versions existed. Thi…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Updated September 29, 2026: We have updated the timeline.",
-    "Worldwide: Beginning in mid-September 2026 and expected to complete in mid-October 2026 (previously late September)."
-   ],
-   "bodyHash": "bb31039782b53823"
   },
   {
    "id": "MC1477185",
@@ -12282,32 +12069,6 @@
    "bodyHash": "96a62c5bfc416bea"
   },
   {
-   "id": "MC1484010",
-   "title": "Microsoft Teams: Hide organizer names in calendar view on Teams Panels",
-   "services": [
-    "Microsoft Teams"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-30",
-   "end": "2026-11-23",
-   "modified": "2026-10-13",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why] Microsoft Teams Panels will introduce a new administrator setting that allows administrators to choose whether organizer names are shown in Calendar View on Teams Panels. Admins can toggle the Show organizer name setting ON or OFF in the Teams Rooms Pro Management portal or on the panel device. When organizer names are hidden, the organizer name is not shown in Calendar View on the …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Beginning in early October 2026 and expected to complete by early October 2026."
-   ],
-   "bodyHash": "faa2e1b10503351e"
-  },
-  {
    "id": "MC1484013",
    "title": "(Updated) Microsoft Teams: Multi-line call history tabs in the Calls app",
    "services": [
@@ -13120,30 +12881,6 @@
     "General Availability (Worldwide, GCC, GCC High): Rollout began in late September 2026 and is expected to complete by early December 2026 (previously late October)."
    ],
    "bodyHash": "e43d139f348175da"
-  },
-  {
-   "id": "MC1492276",
-   "title": "Dynamics 365 Contact Center - Improved feature discoverability within Contact Center Admin Center",
-   "services": [
-    "Dynamics 365 Apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-10-09",
-   "end": "2026-11-23",
-   "modified": "2026-10-09",
-   "tags": [
-    "New feature"
-   ],
-   "summary": "We are announcing improvements for discovering the latest features and news about capabilities in Dynamics 365 Contact Center. This feature will reach public preview on October 23, 2026. How does this affect me? With these discoverability improvements, administrators can more easily discover what's new, understand the value of key capabilities, and take the next step toward adoption. This feature …",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "This feature will reach public preview on October 23, 2026."
-   ],
-   "bodyHash": "bb5c691a3994a0f0"
   },
   {
    "id": "MC1492825",
@@ -25234,6 +24971,76 @@
    "id": "MC1521616",
    "type": "removed",
    "title": "Microsoft Graph APIs for Copilot cost management",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-23",
+   "id": "MC1411432",
+   "type": "removed",
+   "title": "(Updated) Viva Engage: New post creation experience",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-23",
+   "id": "MC1457839",
+   "type": "removed",
+   "title": "Viva Connections multi-home site management moving to SharePoint admin center",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-23",
+   "id": "MC1461528",
+   "type": "removed",
+   "title": "Microsoft 365 Roadmap is becoming the AI at Work Roadmap",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-23",
+   "id": "MC1462467",
+   "type": "removed",
+   "title": "Badges on profile cards in Teams",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-23",
+   "id": "MC1462923",
+   "type": "removed",
+   "title": "Outlook for iOS: Minimum system requirements updated to iOS 26 and above",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-23",
+   "id": "MC1463510",
+   "type": "removed",
+   "title": "External messaging limits for onmicrosoft.com-only organizations in Microsoft Teams",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-23",
+   "id": "MC1472591",
+   "type": "removed",
+   "title": "(Updated) Enhanced security and access controls for Outlook attachments",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-23",
+   "id": "MC1477184",
+   "type": "removed",
+   "title": "(Updated) Microsoft 365 admin center: Agent Registry consolidates duplicate agent entries and adds version history",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-23",
+   "id": "MC1484010",
+   "type": "removed",
+   "title": "Microsoft Teams: Hide organizer names in calendar view on Teams Panels",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-23",
+   "id": "MC1492276",
+   "type": "removed",
+   "title": "Dynamics 365 Contact Center - Improved feature discoverability within Contact Center Admin Center",
    "fields": {}
   }
  ]
