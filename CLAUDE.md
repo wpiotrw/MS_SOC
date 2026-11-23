@@ -1256,6 +1256,17 @@ def write_feed(state, outdir, date, site_url="https://guardzilla.azureme.pl/"):
 
 
 AUTHOR = "Piotr Wiśniewski"
+# §5hj (23 XI 2026, owner: "add my LinkedIn wherever my name is as the author; do we make an icon too?"). The icon is a
+# neutral profile glyph drawn here, not LinkedIn's logo (a brand mark is not redrawn); the link says "LinkedIn" in words.
+AUTHOR_URL = "https://www.linkedin.com/in/wpiotrw"
+AUTHOR_ICON = ('<svg class="byline-ico" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false">'
+               '<rect x="1" y="1" width="14" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>'
+               '<circle cx="8" cy="6.2" r="2.2" fill="currentColor"/><path d="M4 12.6c.6-2.1 2.1-3.2 4-3.2s3.4 1.1 4 3.2" fill="currentColor"/></svg>')
+BYLINE = ('<p class="byline">By %s <a class="byline-li" href="%s" target="_blank" rel="author me noopener" '
+          'title="Piotr Wiśniewski on LinkedIn">%sLinkedIn</a></p>' % (AUTHOR, AUTHOR_URL, AUTHOR_ICON))
+BYLINE_CSS = (".byline-li{display:inline-flex;align-items:center;gap:4px;margin-left:8px;padding:1px 8px;border:1px solid currentColor;"
+              "border-radius:999px;font-size:12.5px;font-weight:600;text-decoration:none;vertical-align:1px}"
+              ".byline-li:hover{text-decoration:underline}.byline-ico{flex:none}")
 
 
 def head_extras(headline, date, root="/"):
@@ -1268,7 +1279,7 @@ def head_extras(headline, date, root="/"):
     links += ['<link rel="alternate" type="application/rss+xml" title="Microsoft SOC Brief - %s" href="%sfeed-%s.xml">'
               % (_h.escape(name), root, key) for key, name, _ in FEED_CHANNELS + FEED_SECTIONS]
     ld = {"@context": "https://schema.org", "@type": "Article", "headline": str(headline)[:110],
-          "author": [{"@type": "Person", "name": AUTHOR}]}
+          "author": [{"@type": "Person", "name": AUTHOR, "url": AUTHOR_URL, "sameAs": [AUTHOR_URL]}]}   # §5hj
     if date:
         ld["datePublished"] = str(date)[:10]
     return "\n".join(links) + '\n<script type="application/ld+json">%s</script>' % json.dumps(
@@ -1276,7 +1287,7 @@ def head_extras(headline, date, root="/"):
 
 
 def sign_page(page, date, root="/"):
-    """§5dz: "By Piotr Wiśniewski" on its own line under the page title (no link, no company), the name
+    """§5dz, §5hj: "By Piotr Wiśniewski" + LinkedIn link (§5hj; no company) under the page title, the name
     taken out of the dateline so it is not shown twice, and head_extras() in <head>. Idempotent: a page
     that already carries the byline / the JSON-LD is left as it is, so it can run on any published page."""
     m = re.search(r"<title>(.*?)</title>", page, re.S)
@@ -1307,7 +1318,14 @@ def sign_page(page, date, root="/"):
         if 'class="byline"' not in page[top:top + 20000]:
             h1 = page.find("</h1>", top)
             if 0 <= h1 - top < 20000:
-                page = page[:h1 + 5] + '<p class="byline">By %s</p>' % AUTHOR + page[h1 + 5:]
+                page = page[:h1 + 5] + BYLINE + page[h1 + 5:]
+    # §5hj: a page signed before carries the plain byline and JSON-LD without the profile - upgraded in place
+    page = page.replace('<p class="byline">By %s</p>' % AUTHOR, BYLINE)
+    page = page.replace('"author": [{"@type": "Person", "name": "%s"}]' % AUTHOR,
+                        '"author": [{"@type": "Person", "name": "%s", "url": "%s", "sameAs": ["%s"]}]' % (AUTHOR, AUTHOR_URL, AUTHOR_URL))
+    head_end = page.find("</head>")
+    if "byline-li" in page and ".byline-li{" not in page[:max(head_end, 0)] and head_end > 0:
+        page = page[:head_end] + "<style>" + BYLINE_CSS + "</style>\n" + page[head_end:]
     return page
 
 
@@ -8197,7 +8215,7 @@ def build(prev_st, prev_cat, curr_st, curr_cat, home, label, when):
                '<img class="s5dy-pic" src="../assets/logo-poster.webp" alt="GuardZilla" width="640" height="360" onerror="this.style.display=\'none\'">'
                '</a>Microsoft SOC &mdash; what changed</h1>' % esc(home))
     # §5dz (16 X 2026): the author on its own line under the title; the dateline no longer repeats the name
-    out.append('<p class="byline">By Piotr Wiśniewski</p>')
+    out.append('<p class="byline">By Piotr Wiśniewski <a class="byline-li" href="https://www.linkedin.com/in/wpiotrw" target="_blank" rel="author me noopener" title="Piotr Wiśniewski on LinkedIn">LinkedIn</a></p>')   # §5hj
     out.append('<script>/* §5dy (16 X 2026, owner 01:19: "on diff and week, where you put the static logo, put our film too"): the logo picture is the film\'s last frame; a muted film replaces it, plays once and stops on that frame, plays again on hover. No film with prefers-reduced-motion or when the browser refuses to play; the phone loads it after the page. */(function(){var a=document.querySelector(".s5cx-mark"),i=a&&a.querySelector("img.s5dy-pic");if(!i||!window.matchMedia||matchMedia("(prefers-reduced-motion: reduce)").matches)return;function go(){var v=document.createElement("video");v.className="s5dy-pic";v.muted=true;v.defaultMuted=true;v.setAttribute("muted","");v.playsInline=true;v.setAttribute("playsinline","");v.poster=i.src;v.width=640;v.height=360;v.setAttribute("aria-hidden","true");[["logo-anim.webm","video/webm"],["logo-anim.mp4","video/mp4"]].forEach(function(x){var s=document.createElement("source");s.src="../assets/"+x[0];s.type=x[1];v.appendChild(s)});function drop(){if(v.parentNode)v.parentNode.removeChild(v);i.style.display=""}function play(){try{v.currentTime=0}catch(e){}var p=v.play();if(p&&p.catch)p.catch(drop)}v.addEventListener("error",drop,true);a.addEventListener("mouseenter",function(){if(v.ended)play()});i.style.display="none";a.insertBefore(v,i);play()}if(matchMedia("(max-width:720px)").matches){if(document.readyState==="complete")setTimeout(go,1500);else addEventListener("load",function(){setTimeout(go,1500)})}else if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go()})();</script>')   # §5dy: the film in the logo (one play, last frame, hover replays)
     out.append('<p class="dateline">%s &rarr; %s &middot; %s &middot; compared %s Warsaw &middot; '
                '<a href="%s">Back to the full brief</a></p></div>'
@@ -26566,6 +26584,18 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hj (23 XI 2026, 12:50)** — AUTOR Z LINKIEM DO LINKEDIN. Piotr: "czy mozesz dopisac w danych autora tam gdzie jest moje imie
+i nazwisko rowniez dane mojego linkedin? Czy robimy tez ikone? https://www.linkedin.com/in/wpiotrw". ZMIANA DECYZJI §5dz (podpis
+"bez linku"): od teraz podpis ma link do profilu. Gdzie: (1) sign_page() - podpis pod <h1> = BYLINE (stale AUTHOR_URL, AUTHOR_ICON,
+BYLINE, BYLINE_CSS obok AUTHOR); strona podpisana wczesniej (stary podpis bez linku, JSON-LD bez url) jest podnoszona w miejscu
+przy kazdym przebiegu feed_refresh (index.html, diff/full.html, week/print.html); CSS .byline-li wstrzykiwany do <head>, gdy go brak;
+(2) JSON-LD author: "url" i "sameAs" = profil; (3) make_diff - podpis z tym samym linkiem (bez ikony); (4) zakladka About -
+"Author: Piotr Wiśniewski · LinkedIn ↗"; (5) appended.css - .byline-li / .byline-ico (kolor var(--accent), obwodka, oba motywy);
+(6) README - wiersz Autor. diff/index.html i week/index.html nie pokazuja autora - bez zmian. IKONA: neutralny glif profilu (kwadrat
+z sylwetka) rysowany tu + slowo "LinkedIn"; logo LinkedIn ("in") jest znakiem towarowym i nie jest odtwarzane. rel="author me noopener",
+target _blank. Test 23 XI: bramka OK, Playwright 1500 jasny/ciemny i 390 - link widoczny, bez bledow JS i przewijania w poziomie;
+About i diff/full.html maja link; mobile_check OK. Kopia: C:\Users\piowis\Documents\ClaudeBackups\Backups\ms-soc-5hj-author-linkedin_20261123_125000\.
+
 **§5hi (23 XI 2026, 12:05)** — KQL OF THE DAY -> POZYCJA BRIEFU. Piotr: "tak, poprosze" (na propozycje: zapytanie z briefu ma wskazywac
 pozycje, z ktorej wynika). Kazde zapytanie briefu ma w stanie `kql[].itemId`. `write_links()` czyta stany z `site/history/*-poranny.html.gz`
 i `site/data/RRRR-MM-DD.json`, dopasowuje plik archiwum po tresci i zapisuje `b` = {pozycja q: [itemId, tytul pozycji, data briefu]}
@@ -41699,7 +41729,10 @@ odtad CZTERNASCIE (4-17).**
     verLi.appendChild(vb);
     var bA = briefAt(), brLi = el("span"); brLi.appendChild(document.createTextNode("Brief of ")); brLi.appendChild(stamp(bA.morning || bA.day, !!bA.morning));
     var cdLi = el("span"); cdLi.appendChild(document.createTextNode("Page code refreshed ")); if (code.at) cdLi.appendChild(stamp(code.at)); else cdLi.appendChild(el("i", null, "not recorded yet"));
-    c2.appendChild(ul(["Author: Piotr Wiśniewski", "Built and run with Claude (Anthropic): scheduled tasks, routines and code sessions.", verLi, brLi, cdLi,
+    /* §5hj: the author's LinkedIn profile next to the name */
+    var auLi = el("span"); auLi.appendChild(document.createTextNode("Author: Piotr Wiśniewski · "));
+    var auA = el("a", "byline-li", "LinkedIn \u2197"); auA.href = "https://www.linkedin.com/in/wpiotrw"; auA.target = "_blank"; auA.rel = "author me noopener"; auLi.appendChild(auA);
+    c2.appendChild(ul([auLi, "Built and run with Claude (Anthropic): scheduled tasks, routines and code sessions.", verLi, brLi, cdLi,
       /* §5gy: no repository link (owner's decision §5dk, 11 X 2026); "private" was not true - say only where it is kept */
       (function () { var x = el("span"); x.appendChild(document.createTextNode("Source code and documentation: kept in the owner's repository; no tenant identifiers, accounts or secrets in it")); return x; })()]));
     g.appendChild(c2);
@@ -49083,6 +49116,10 @@ details.s5ei-day[data-kf="new"] .s5ei-tile:not(.s5ei-new),details.s5ei-day[data-
 .s5hh-incb{font:600 12.5px/1.3 var(--sans);color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;padding:2px 10px;cursor:pointer;max-width:100%;text-align:left;overflow-wrap:anywhere}
 .s5hh-incb:hover{background:var(--accent);color:var(--on-accent)}
 .s5hh-art{font:600 12.5px/1.3 var(--sans)}
+/* §5hj — the author's LinkedIn next to the byline and in About (neutral profile glyph, not the LinkedIn logo) */
+.byline-li{display:inline-flex;align-items:center;gap:4px;margin-left:8px;padding:1px 8px;border:1px solid currentColor;border-radius:999px;font-size:12.5px;font-weight:600;text-decoration:none;vertical-align:1px;color:var(--accent)}
+.byline-li:hover{text-decoration:underline}
+.byline-ico{flex:none}
 .s5hi-item{color:var(--text);background:var(--surface-2);border-color:var(--border-strong,var(--border))}
 .s5hi-item:hover{background:var(--accent-soft);color:var(--text)}
 .s5hi-gone{font-size:12.5px}
