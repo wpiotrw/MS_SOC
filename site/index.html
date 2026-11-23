@@ -27740,6 +27740,17 @@ DeviceLogonEvents
       /* §5gy: no repository link (owner's decision §5dk, 11 X 2026); "private" was not true - say only where it is kept */
       (function () { var x = el("span"); x.appendChild(document.createTextNode("Source code and documentation: kept in the owner's repository; no tenant identifiers, accounts or secrets in it")); return x; })()]));
     g.appendChild(c2);
+    /* §5hl (23 XI 2026, owner: "describe what you did in the md and html documentation, without naming the other
+       subdomains - this project is GuardZilla; you may say the changes cover subdomains too"). Kept in step with README 3.1. */
+    var cs = card("Site security");
+    cs.appendChild(ul([
+      "Content-Security-Policy: scripts only from this site; styles and fonts also from Google Fonts; data requests and images only from this site. The page cannot be framed by another site; plug-ins, a foreign base address and form posts elsewhere are blocked — a second line of defence should a feed title ever carry code.",
+      "Permissions-Policy: camera, microphone, location, payments, USB and interest-based topics are switched off — the portal uses none of them.",
+      "HTTPS only (HSTS with preload), no MIME sniffing, no framing, and no referrer sent to the sites the portal links to.",
+      "The domain is signed with DNSSEC, and CAA records allow only the certificate authorities its hosting uses; the same rules cover the domain's other subdomains."]));
+    /* §5hl-b (owner, 22:08: "does mentioning this on public pages lower security?"): only what is in place - every item
+       above is visible anyway in the response headers or in public DNS; no reasoning about what is NOT deployed, no costs. */
+    g.appendChild(cs);
     var c3 = card("Data freshness");
     var tb = el("table", "s5cz-ft"), th = el("thead"), tr0 = el("tr"); ["What", "Last update", "Refreshed by"].forEach(function (x) { tr0.appendChild(el("th", null, x)); }); th.appendChild(tr0); tb.appendChild(th);
     var tbody = el("tbody");
