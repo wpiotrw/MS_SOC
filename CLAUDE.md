@@ -26584,6 +26584,13 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hm (24 XI 2026, 01:05)** — HSTS NA ROK. Audyt domeny skryptem Audyt-Domeny.ps1 1.1.0 (projekt poza repo) pokazal, ze
+strona wysyla HSTS platformy Static Web Apps "max-age=10886400; includeSubDomains; preload" (126 dni) - ostrzezenie, bo ponizej
+180 dni, a dla "preload" hstspreload.org wymaga co najmniej 31536000. Piotr: "zrob na raz to, co nie wymaga logowania do OVH".
+site/staticwebapp.config.json globalHeaders: "Strict-Transport-Security": "max-age=31536000; includeSubDomains" (bez "preload" -
+dotyczy tylko domeny glownej, a ta nie jest na tym hostingu). README 3.1 i karta "Site security" w About zaktualizowane (dalej tylko
+to, co dziala). Weryfikacja: naglowek odpowiedzi po wdrozeniu (workflow SWA po pushu site/**).
+
 **§5hl (23 XI 2026, 22:10)** — NAGLOWKI BEZPIECZENSTWA + CAA. Piotr wybral z listy "co naprawde pomoze". Dokumentacja publiczna
 (About, README 3.1) opisuje TYLKO to, co dziala - bez rozwazan o tym, czego nie wdrozono, i bez kosztow (pytanie wlasciciela 22:08).
 (1) site/staticwebapp.config.json globalHeaders (decyzja wlasciciela - zakaz zmian tego pliku dotyczy routines):
@@ -41773,7 +41780,7 @@ odtad CZTERNASCIE (4-17).**
     cs.appendChild(ul([
       "Content-Security-Policy: scripts only from this site; styles and fonts also from Google Fonts; data requests and images only from this site. The page cannot be framed by another site; plug-ins, a foreign base address and form posts elsewhere are blocked — a second line of defence should a feed title ever carry code.",
       "Permissions-Policy: camera, microphone, location, payments, USB and interest-based topics are switched off — the portal uses none of them.",
-      "HTTPS only (HSTS with preload), no MIME sniffing, no framing, and no referrer sent to the sites the portal links to.",
+      "HTTPS only (HSTS for one year, set by the site itself), no MIME sniffing, no framing, and no referrer sent to the sites the portal links to.",
       "The domain is signed with DNSSEC, and CAA records allow only the certificate authorities its hosting uses; the same rules cover the domain's other subdomains."]));
     /* §5hl-b (owner, 22:08: "does mentioning this on public pages lower security?"): only what is in place - every item
        above is visible anyway in the response headers or in public DNS; no reasoning about what is NOT deployed, no costs. */
