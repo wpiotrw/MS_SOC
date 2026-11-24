@@ -7,10 +7,10 @@ feedback_system: Standard
 uhfHeaderId: MSDocsHeader-Purview
 f1.keywords:
 - CSH
-ms.author: kreagle
+ms.author: brenle
 author: k-reagle
 manager: laurawi
-ms.date: 2025-12-08T00:00:00.0000000Z
+ms.date: 2026-11-23T00:00:00.0000000Z
 audience: ITPro
 ms.topic: article
 ms.service: purview
@@ -40,16 +40,19 @@ item_type: Content
 source_path: Purview/dlp-network-data-security-learn.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/85ee13c4-5d0b-41b0-895d-b7e834668123
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://authoring-docs-microsoft.poolparty.biz/devrel/7e79a0d4-3b49-4899-aac2-fbdd26ca15a8
 platformId: bb8d54ed-b474-0972-f7b3-fe5644375bf9
 ---
 
 # Learn about Microsoft Purview Network Data Security | Microsoft Learn
 
-Microsoft Purview network data security helps organizations monitor, classify, and apply protections to unmanaged and untrusted cloud app traffic, including generative AI apps. Purview provides these capabilities through integrations with one or more secure access service edge (SASE) or secure browser solutions:
+Microsoft Purview network data security helps organizations monitor, classify, and apply protections to unmanaged and untrusted cloud app traffic, including generative AI apps. Purview provides these capabilities through integrations with one or more secure access service edge (SASE), firewall, or secure browser solutions:
 
 - **Microsoft Entra Global Secure Access**: To learn how to configure content policies that integrate with Purview, see [Create a content policy to filter network content](/en-us/entra/global-secure-access/how-to-network-content-filtering).
+- **Azure Firewall** (preview): To learn more about the Azure Firewall integration, see [Configure network DLP with Azure Firewall and Microsoft Purview (preview)](/en-us/azure/firewall/configure-network-dlp).
 - **Non-Microsoft SASE and secure browser solutions** (general availability or preview, depending on the integration): Find these solutions in the [Security Store in Microsoft Purview Data Loss Prevention](https://purview.microsoft.com/datalossprevention/securitystore).
 
 Network data security utilizes the same classifiers already configured in other Microsoft Purview policies, extending discovery and protection to the network layer through [collection policies](collection-policies-solution-overview) for data discovery, [data loss prevention policies](dlp-learn-about-dlp) for protection, or both, depending on your organization's needs.
@@ -82,6 +85,10 @@ For information on licensing, see
 
     - Microsoft 365 E7 per-seat licenses
     - Purview E5 (or equivalent) per-seat licenses *and* Entra Internet Access (or equivalent) licenses
+- **Network data security with Azure Firewall** (preview) requires:
+
+    - Purview E5 (or equivalent) per-seat licenses applied to mapped accounts used with Azure Firewall
+    - Azure Firewall Premium with an AI Security add-on license and the add-on enabled on all firewalls associated with the policy, in a region where the preview is available
 - **Network data security with non-Microsoft SASE and secure browser solutions** requires:
 
     - Purview E5 (or equivalent) per-seat licenses *and* the Microsoft Purview pay-as-you-go billing model. [Learn about Microsoft Purview billing models](purview-billing-models)
@@ -90,7 +97,7 @@ Note
 
 You must configure pay-as-you-go for your Microsoft 365 tenant to use Purview network data security with non-Microsoft SASE and secure browser solutions. For information on setting up the pay-as-you-go billing model, see [Enable Microsoft Purview pay-as-you-go features for new customers](purview-payg-subscription-based-enablement#enable-microsoft-purview-pay-as-you-go-features-for-new-customers).
 
-Pay-as-you-go is not required to be set up for integration with Microsoft Entra Global Secure Access.
+Pay-as-you-go is not required to be set up for integration with Microsoft Entra Global Secure Access or Azure Firewall.
 
 ## How network data security works
 
@@ -98,7 +105,7 @@ From a broad perspective, the Microsoft Purview network data security solution c
 
 ### Network security solution
 
-The network data security solution integrates secure access service edge (SASE) and non-Microsoft secure browser solutions directly into Microsoft Purview. The integrated solutions monitor network traffic and send the data to Microsoft Purview for classification and policy evaluation. When you apply protections via the use of DLP policies, the communication between the integrated solution and Microsoft Purview is in real time. If you are using network data security for monitoring only via collection policies, the communication is asynchronous.
+The network data security solution integrates secure access service edge (SASE), firewall, and non-Microsoft secure browser solutions directly into Microsoft Purview. The integrated solutions monitor network traffic and send the data to Microsoft Purview for classification and policy evaluation. When you apply protections via the use of DLP policies, the communication between the integrated solution and Microsoft Purview is in real time. If you are using network data security for monitoring only via collection policies, the communication is asynchronous.
 
 For more information on which integrations are supported, see the [Security Store in Microsoft Purview Data Loss Prevention](https://purview.microsoft.com/datalossprevention/securitystore).
 
@@ -164,7 +171,7 @@ The Microsoft Purview side of the configuration is done via a data loss preventi
 
 Note
 
-The activities and actions supported may differ depending on integrated solution. Check with your solution provider for details on supported activities. Microsoft Entra Global Secure Access supports all supported activities and actions.
+The activities and actions supported may differ depending on integrated solution. Check with your solution provider for details on supported activities. Microsoft Entra Global Secure Access and Azure Firewall support all activities and actions.
 
 #### Default policy from Microsoft Purview Data Security Posture Management
 

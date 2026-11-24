@@ -11,9 +11,9 @@ ms.author: justinha
 ms.service: entra-id
 ms.subservice: authentication
 manager: dougeby
-description: Configure provider fraud protections, destination and spending controls, secure your CYOT integration, monitor unusual activity, and respond to suspected fraud.
+description: Configure provider fraud protections, destination and spending controls, secure your CYOT or BYOT integration, monitor unusual activity, and respond to suspected fraud.
 ms.topic: how-to
-ms.date: 2026-10-30T00:00:00.0000000Z
+ms.date: 2026-11-23T00:00:00.0000000Z
 ai-usage: ai-assisted
 locale: en-us
 document_id: 72350b1a-8c4d-15d7-1e2b-943f50732ebf
@@ -38,16 +38,16 @@ spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
-platformId: f41d740d-d859-235a-10aa-c91ff5de2b3b
+platformId: 0e0e312f-34ec-5ec6-8352-086bba9d4cd9
 ---
 
 # Protect against telephony fraud with your own telephony provider - Microsoft Entra ID | Microsoft Learn
 
-With Choose Your Own Telephony Provider (CYOT), SMS and voice traffic runs through your own telephony provider account. You control the fraud protections, allowed destinations, and spending limits that match your organization's traffic and risk profile.
+With Choose Your Own Telephony Provider (CYOT) or Bring Your Own Telephony (BYOT), SMS and voice traffic runs through your own telephony provider account. You control the fraud protections, allowed destinations, and spending limits that match your organization's traffic and risk profile. The guidance in this article applies to both options; available controls depend on your provider.
 
 Important
 
-Set up your provider's fraud and spending controls before you move production traffic to CYOT.
+Set up your provider's fraud and spending controls before you move production traffic to CYOT or BYOT.
 
 ## Shared responsibility
 
@@ -92,5 +92,5 @@ Review SMS and voice volume in your provider's usage reports. A sudden increase 
 
 | Issue | Contact |
 | --- | --- |
-| Fraud, provider account restrictions, delivery, or charges | Your telephony provider. Find contact details in the provider's [Microsoft Security Store](https://securitystore.microsoft.com/) listing. |
+| Fraud, provider account restrictions, delivery, or charges | Your telephony provider. For CYOT, find contact details in the provider's [Microsoft Security Store](https://securitystore.microsoft.com/) listing. For BYOT, use the support details supplied directly by your provider. |
 | Microsoft Entra authentication, code validation, or the handoff to your endpoint | Microsoft Support. See [Find help and get support for Microsoft Entra](/en-us/entra/fundamentals/how-to-get-support). |

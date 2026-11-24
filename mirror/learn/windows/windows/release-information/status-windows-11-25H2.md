@@ -74,7 +74,7 @@ See open issues, content updated in the last 30 days, and information on [safegu
 
 | Summary | Originating update | Status | Last updated |
 | --- | --- | --- | --- |
-| **SQL Server linked server connections might remain open**Connections to external databases such as Oracle and PostgreSQL can accumulate over time | OS Build 26200.9711[KB5127648](https://support.microsoft.com/help/5127648)2026-10-13 | Confirmed | 2026-11-23 18:11 PT |
+| **SQL Server linked server connections might remain open**Connections to external databases such as Oracle and PostgreSQL can accumulate over time | OS Build 26200.9711[KB5127648](https://support.microsoft.com/help/5127648)2026-10-13 | Confirmed | 2026-11-23 18:35 PT |
 | **USB audio devices might fail to start or produce no sound**Some USB Audio Class 1.0 devices display Code 10 or fail in multichannel audio modes after installing the Sept. 8 update | OS Build 26200.9445[KB5124008](https://support.microsoft.com/help/5124008)2026-09-08 | Resolved[KB5132061](https://support.microsoft.com/help/5132061) | 2026-11-10 10:27 PT |
 | **Remote Desktop connections might fail for non-admin users with error 0xC000000D**This issue affects non-admin users connecting through Remote Desktop with Administrator protection enabled. | OS Build 26200.9550[KB5124010](https://support.microsoft.com/help/5124010)2026-09-22 | Resolved[KB5127936](https://support.microsoft.com/help/5127936) | 2026-10-28 22:02 PT |
 
@@ -86,7 +86,7 @@ See open issues, content updated in the last 30 days, and information on [safegu
 
 | **Status** | **Originating update** | **History** |
 | --- | --- | --- |
- Confirmed | OS Build 26200.9711[KB5127648](https://support.microsoft.com/help/5127648)2026-10-13 | Last updated: 2026-11-23, 18:11 PTOpened: 2026-11-11, 15:11 PT |
+ Confirmed | OS Build 26200.9711[KB5127648](https://support.microsoft.com/help/5127648)2026-10-13 | Last updated: 2026-11-23, 18:35 PTOpened: 2026-11-11, 15:11 PT |
 
 After Windows updates released October 13, 2026 ([KB5127648](https://support.microsoft.com/help/5127648)), and later are installed on server devices, connections created by SQL Server linked server queries might remain open after the queries complete. As additional queries are performed, connections to external databases can accumulate instead of closing as expected. This can slow or degrade server performance after prolonged run time.
 

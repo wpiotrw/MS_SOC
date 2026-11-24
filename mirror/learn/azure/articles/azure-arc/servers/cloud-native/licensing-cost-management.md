@@ -14,11 +14,11 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: davidsmatlak
+author: schaffererin
 learn_banner_products:
 - azure
 ms.reviewer: davidsmatlak
-ms.author: davidsmatlak
+ms.author: schaffererin
 ms.service: azure-arc
 ms.subservice: servers-azure-arc
 description: Cloud-native licensing options for Azure Arc help reduce overhead of license management and ensure your servers have appropriate, up-to-date coverage.

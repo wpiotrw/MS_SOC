@@ -81,9 +81,9 @@ Overview
 
 ### Message center
 
+- [Windows Server 2028 is now available in public preview](https://techcommunity.microsoft.com/blog/windowsservernewsandbestpractices/windows-server-2028-a-trusted-foundation-for-an-evolving-enterprise/4574112)
+- [(Updated) NTLM signing security improvements in Windows](https://support.microsoft.com/help/5135557)
 - [The November 2026 Windows non-security preview update is now available](https://support.microsoft.com/help/5132057)
-- [What's new and what's next: Windows highlights from Microsoft Ignite 2026](https://blogs.windows.com/windowsexperience/2026/11/17/microsoft-ignite-2026-building-windows-for-the-next-era-of-work/)
-- [Out-of-band update released to address Windows licensing and activation errors](/en-us/windows/release-information/windows-message-center#5089)
 - [See more](/en-us/windows/release-information/windows-message-center)
 
 ### Windows 11, version 26H2

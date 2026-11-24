@@ -12,8 +12,9 @@ ms.service: entra-verified-id
 manager: dougeby
 description: In this tutorial, you learn how to manually configure your tenant to support the Verified ID service.
 ms.topic: tutorial
-ms.date: 2025-04-30T00:00:00.0000000Z
-ms.custom: sfi-ga-nochange, sfi-image-nochange
+ms.date: 2026-11-23T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: sfi-ga-nochange, sfi-image-nochange, msecd-doc-authoring-1026
 locale: en-us
 document_id: f84b158e-eebc-7d96-0992-8864316ddf5c
 document_version_independent_id: 8909ba9b-bf26-fb5c-29f0-76244984e75a
@@ -30,9 +31,13 @@ monikers: []
 item_type: Content
 source_path: docs/verified-id/verifiable-credentials-configure-tenant.md
 cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/19011fa1-e010-495a-a1ea-74b88af5b9b1
 - https://authoring-docs-microsoft.poolparty.biz/devrel/f488294d-f483-456e-94e3-755f933b811b
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3dc5b4eb-8015-403d-9d1b-ae51b20067fe
 - https://authoring-docs-microsoft.poolparty.biz/devrel/02662057-0b9b-40f4-a3c7-537125b6d283
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 972d7054-857c-d384-e971-0532fc3fc005
 ---
 
@@ -66,17 +71,13 @@ The following diagram illustrates the Verified ID architecture and the component
 
 ## Create a key vault
 
-Note
-
-The Azure Key Vault that you use to set up the Verified ID service must have [Key Vault Access Policy](/en-us/azure/key-vault/general/assign-access-policy) for its Permission model. There's currently a limitation if the Key Vault has Azure role-based access control.
-
 [Azure Key Vault](/en-us/azure/key-vault/general/basic-concepts) is a cloud service that enables the secure storage and access management of secrets and keys. The Verified ID service stores public and private keys in Azure Key Vault. These keys are used to sign and verify credentials.
 
-If you don't have an Azure Key Vault instance available, follow [these steps](/en-us/azure/key-vault/general/quick-create-portal) to create a key vault using the Azure portal. The Azure Key Vault that you use to set up the Verified ID service must have [Key Vault Access Policy](/en-us/azure/key-vault/general/assign-access-policy) for its Permission model instead of Azure role-based access control.
+If you don't have an Azure Key Vault instance available, follow [these steps](/en-us/azure/key-vault/general/quick-create-portal) to create a key vault using the Azure portal.
 
 Note
 
-By default, the vault's creator account is the only one with access. The Verified ID service needs access to the key vault. You must [authenticate your key vault](/en-us/azure/key-vault/general/basic-concepts), allowing the account used during configuration to create and delete keys. The account used during configuration also requires permissions to sign so that it can create the domain binding for Verified ID. If you use the same account while testing, modify the default policy to grant the account sign permission, in addition to the default permissions granted to vault creators.
+The Verified ID service needs [access to the key vault](/en-us/azure/key-vault/general/basic-concepts). The vault's creator account requires permissions to create and delete keys. It also requires permission to sign so that it can create the domain binding for Verified ID.
 
 ### Manage access to the key vault
 
@@ -101,7 +102,7 @@ To set up Verified ID, follow these steps:
 
         Important
 
-        The domain can't be a redirect. Otherwise, the DID and domain can't be linked. Make sure to use HTTPS for the domain. For example: `https://did.woodgrove.com`. Also ensure that the Key Vault's Permission Model is set to Vault Access Policy.
+        The domain can't be a redirect. Otherwise, the DID and domain can't be linked. Make sure to use HTTPS for the domain. For example: `https://did.woodgrove.com`.
     3. **Key vault**: Select the key vault that you created earlier.
 6. Select **Save**.
 

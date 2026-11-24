@@ -14,11 +14,11 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure-ai-foundry
 ms.suite: office
-author: skpmcdowell
+author: sdgilley
 learn_banner_products:
 - azure
 manager: mcleans
-ms.author: smcdowell
+ms.author: sgilley
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry

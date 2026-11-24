@@ -15,11 +15,11 @@ recommendation_types:
 uhfHeaderId: azure
 ms.suite: office
 zone_pivot_group_filename: zone-pivots/azure-management/zone-pivot-groups.json
-author: davidsmatlak
+author: schaffererin
 learn_banner_products:
 - azure
 ms.reviewer: davidsmatlak
-ms.author: davidsmatlak
+ms.author: schaffererin
 ms.service: azure-arc
 ms.subservice: servers-azure-arc
 description: Learn how to troubleshoot delivery of Extended Security Updates (ESU) for Windows Server 2012 and Windows Server 2016 through Azure Arc.

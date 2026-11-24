@@ -14,11 +14,11 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure-ai-foundry
 ms.suite: office
-author: ssalgadodev
+author: PoulChapman
 learn_banner_products:
 - azure
 manager: nitinme
-ms.author: ssalgado
+ms.author: pchapman
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 1825-days
 ms.service: azure-ai-content-safety

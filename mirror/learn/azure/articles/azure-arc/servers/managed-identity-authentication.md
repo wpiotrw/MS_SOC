@@ -14,11 +14,11 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: davidsmatlak
+author: schaffererin
 learn_banner_products:
 - azure
 ms.reviewer: davidsmatlak
-ms.author: davidsmatlak
+ms.author: schaffererin
 ms.service: azure-arc
 ms.subservice: servers-azure-arc
 description: This article describes Azure Instance Metadata Service support for Azure Arc-enabled servers and how you can authenticate against Azure resources by using a managed identity.

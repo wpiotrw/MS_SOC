@@ -14,11 +14,11 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: davidsmatlak
+author: schaffererin
 learn_banner_products:
 - azure
 ms.reviewer: davidsmatlak
-ms.author: davidsmatlak
+ms.author: schaffererin
 ms.service: azure-arc
 ms.subservice: servers-azure-arc
 description: Learn about a proposed workflow to control public access to the Azure Arc-enabled servers data plane by using Network Security Perimeter.

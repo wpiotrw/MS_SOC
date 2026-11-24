@@ -13,7 +13,7 @@ ms.subservice: devices
 manager: dougeby
 description: Learn how to assign Azure roles to the local administrators group of a Windows device.
 ms.topic: how-to
-ms.date: 2026-06-17T00:00:00.0000000Z
+ms.date: 2026-11-23T00:00:00.0000000Z
 ms.reviewer: 
 ms.custom: sfi-ga-nochange
 locale: en-us
@@ -33,9 +33,11 @@ item_type: Content
 source_path: docs/identity/devices/assign-local-admin.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
 platformId: 32d8211e-c9ff-5203-aed8-8963a11c38ad
 ---
@@ -101,7 +103,7 @@ Organizations can use Intune to manage these policies using [Custom OMA-URI Sett
 - Adding Microsoft Entra groups through the policy requires the group's security identifier (SID) that can be obtained by executing the [Microsoft Graph API for Groups](/en-us/graph/api/resources/group). The SID equates to the property `securityIdentifier` in the API response.
 - Administrator privileges using this policy are evaluated only for the following well-known groups on a Windows 10 or newer device - Administrators, Users, Guests, Power Users, Remote Desktop Users, and Remote Management Users.
 - Managing local administrators using Microsoft Entra groups isn't applicable to Microsoft Entra hybrid joined or Microsoft Entra registered devices.
-- Microsoft Entra groups deployed to a device with this policy don't apply to remote desktop connections. To control remote desktop permissions for Microsoft Entra joined devices, you need to add the individual user's SID to the appropriate group.
+- Microsoft Entra groups deployed to a device with this policy don't apply to remote desktop connections or Server Message Block (SMB) access to administrative shares, such as `\\<device>\C$` or `\\<device>\Admin$`. To grant these permissions on Microsoft Entra joined devices, add the individual user's SID to the appropriate local group. For administrative shares, add the user to the local Administrators group.
 
 Important
 

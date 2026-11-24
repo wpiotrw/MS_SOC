@@ -147,13 +147,13 @@ The following Resource Provider modes are fully supported:
 - `Microsoft.Kubernetes.Data` for managing Kubernetes clusters and components such as pods, containers, and ingresses. Supported for Azure Kubernetes Service clusters and [Azure Arc-enabled Kubernetes clusters](/en-us/azure/aks/what-is-aks). Definitions using this Resource Provider mode use the effects *audit*, *deny*, and *disabled*.
 - `Microsoft.KeyVault.Data` for managing vaults and certificates in [Azure Key Vault](/en-us/azure/key-vault/general/overview). For more information on these policy definitions, see [Integrate Azure Key Vault with Azure Policy](/en-us/azure/key-vault/general/azure-policy).
 - `Microsoft.Network.Data` for managing [Azure Virtual Network Manager](../../../virtual-network-manager/overview) custom membership policies using Azure Policy.
+- `Microsoft.LoadTestService.Data` for restricting [Azure Load Testing](../../../app-testing/load-testing/how-to-use-azure-policy) instances to private endpoints.
 
 The following Resource Provider modes are currently supported as a [preview](https://azure.microsoft.com/support/legal/preview-supplemental-terms/):
 
 - `Microsoft.ManagedHSM.Data` for managing [Managed Hardware Security Module (HSM)](/en-us/azure/key-vault/managed-hsm/azure-policy) keys using Azure Policy.
 - `Microsoft.DataFactory.Data` for using Azure Policy to deny [Azure Data Factory](../../../data-factory/introduction) outbound traffic domain names not specified in an allowlist. This Resource Provider mode is enforcement only and doesn't report compliance in public preview.
 - `Microsoft.MachineLearningServices.v2.Data` for managing [Azure Machine Learning](/en-us/azure/machine-learning/overview-what-is-azure-machine-learning) model deployments. This Resource Provider mode reports compliance for newly created and updated components. During public preview, compliance records remain for 24 hours. Model deployments that exist before these policy definitions are assigned don't report compliance.
-- `Microsoft.LoadTestService.Data` for restricting [Azure Load Testing](../../../app-testing/load-testing/how-to-use-azure-policy) instances to private endpoints.
 
 Note
 

@@ -105,11 +105,11 @@ For tool names, parameters, and limits, see the [browser tool reference](/en-us/
 
 ## Capabilities
 
-BAT combines browser actions with capabilities for human oversight, secure access, networking, and observability.
+Browser automation tool combines browser actions with capabilities for human oversight, secure access, networking, and observability.
 
 ### Browser actions and batching
 
-BAT provides an expanded set of browser tools for navigating pages, reading content, completing forms, managing tabs, and capturing screenshots. For repetitive multistep workflows, agents can batch actions by running a Playwright script instead of making separate tool calls for each action. Code execution tools are opt-in and should be enabled only for reviewed scenarios.
+Browser automation tool provides an expanded set of browser tools for navigating pages, reading content, completing forms, managing tabs, and capturing screenshots. For repetitive multistep workflows, agents can batch actions by running a Playwright script instead of making separate tool calls for each action. Code execution tools are opt-in and should be enabled only for reviewed scenarios.
 
 ### Live View and Take control
 

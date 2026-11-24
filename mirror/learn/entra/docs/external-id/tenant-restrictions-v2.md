@@ -13,7 +13,7 @@ ms.subservice: external
 manager: dougeby
 description: Use tenant restrictions to control the types of external accounts that users can use on your networks and the devices that you manage.
 ms.topic: how-to
-ms.date: 2026-11-04T00:00:00.0000000Z
+ms.date: 2026-11-23T00:00:00.0000000Z
 ms.collection: M365-identity-device-management
 ms.custom: it-pro, sfi-image-nochange
 ai-usage: ai-assisted
@@ -397,16 +397,29 @@ If you previously set up tenant restrictions, you need to stop sending `restrict
     - `policyGUID` is the object ID for your cross-tenant access policy. Find this value by calling `/crosstenantaccesspolicy/default` and using the returned `id` field.
 2. On your corporate proxy, send the tenant restrictions v2 header to the following Microsoft sign-in domains:
 
+    - accounts.accesscontrol.windows.net
+    - autologon.microsoftazuread-sso.com
+    - clientconfig.microsoftonline-p.net
+    - login-us.microsoftonline.com
     - login.live.com
     - login.microsoft.com
+    - login.microsoftonline-p.com
     - login.microsoftonline.com
     - login.windows.net
+    - logincert.microsoftonline.com
+    - loginex.microsoftonline.com
+    - nexus.microsoftonline-p.com
+    - sts.windows.net
 
-    This header enforces your tenant restrictions v2 policy on all sign-ins on your network. This header doesn't block anonymous access to Teams meetings, SharePoint files, or other resources that don't require authentication.
+    If your environment uses other Microsoft sign-in host names, configure your proxy to send the tenant restrictions v2 header to those host names as well.
+
+    For proxy-based enforcement, tenant restrictions v2 policies aren't enforced on sign-in requests that don't include the header. This header doesn't block anonymous access to Teams meetings, SharePoint files, or other resources that don't require authentication.
 
 Important
 
 Tenant restrictions v1 and v2 on the proxy require decryption of requests to sign-in URLs such as login.microsoftonline.com. Microsoft supports the decryption of traffic for those sign-in domains for the purpose of header insertion for tenant restrictions. This decryption is a valid exception to the policies at [Use third-party network devices or solutions with Microsoft 365](/en-us/microsoft-365/troubleshoot/miscellaneous/office-365-third-party-network-devices).
+
+TLS inspection and header injection can interfere with authentication flows that use client certificates. Test your proxy configuration to verify that tenant restrictions v2 is enforced and that authentication flows like device authentication and certificate-based authentication still work.
 
 #### Tenant restrictions v2 with no support for break and inspect
 

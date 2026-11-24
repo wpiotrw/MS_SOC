@@ -1,7 +1,7 @@
 ---
 layout: Conceptual
 title: Choose your own telephony provider for SMS and voice authentication - Microsoft Entra ID | Microsoft Learn
-canonicalUrl: https://learn.microsoft.com/en-us/entra/identity/authentication/concept-phone-providers
+canonicalUrl: https://learn.microsoft.com/en-us/entra/identity/authentication/concept-telephony-providers
 uhfHeaderId: MSDocsHeader-Entra
 breadcrumb_path: /entra/breadcrumb/toc.json
 feedback_system: Standard
@@ -11,54 +11,60 @@ ms.author: justinha
 ms.service: entra-id
 ms.subservice: authentication
 manager: dougeby
-description: Learn how CYOT works, available telephony providers, and how to plan setup, fraud protection, resiliency, and costs.
+description: Learn how CYOT and BYOT work, how to select a telephony provider, and how to plan setup, fraud protection, resiliency, and costs.
 ms.topic: concept-article
 ms.date: 2026-10-30T00:00:00.0000000Z
 ai-usage: ai-assisted
 locale: en-us
 document_id: 096319fc-09be-11d8-706d-0490641448f7
 document_version_independent_id: 096319fc-09be-11d8-706d-0490641448f7
-original_content_git_url: https://github.com/MicrosoftDocs/entra-docs-pr/blob/live/docs/identity/authentication/concept-phone-providers.md
+original_content_git_url: https://github.com/MicrosoftDocs/entra-docs-pr/blob/live/docs/identity/authentication/concept-telephony-providers.md
 site_name: Docs
 depot_name: MSDN.entra-docs
 page_type: conceptual
 toc_rel: toc.json
 feedback_help_link_type: ''
 feedback_help_link_url: ''
-asset_id: identity/authentication/concept-phone-providers
+asset_id: identity/authentication/concept-telephony-providers
 moniker_range_name: 
 monikers: []
 item_type: Content
-source_path: docs/identity/authentication/concept-phone-providers.md
+source_path: docs/identity/authentication/concept-telephony-providers.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/68e4b2d8-b70c-4019-b49a-d1f8881e2aea
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
-- https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
-platformId: c61bf76c-2a59-e1f2-d915-1a9535dcfaeb
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/67b2ba1a-6f74-4044-a48a-f0f8ad076b8f
+platformId: fa9ea4b6-7afa-83ed-ec3a-1f9e5bf0d92b
 ---
 
 # Choose your own telephony provider for SMS and voice authentication - Microsoft Entra ID | Microsoft Learn
 
-Choose Your Own Telephony Provider (CYOT) lets your organization use a supported telephony provider to deliver SMS and voice authentication for Microsoft Entra ID.
+Choose Your Own Telephony Provider (CYOT) lets your organization use a supported telephony provider to deliver SMS and voice authentication for Microsoft Entra ID. CYOT is the recommended option when a supported offering meets your coverage, contractual, and compliance requirements.
 
-With CYOT, Microsoft Entra continues to manage the authentication experience, including one-time passcode (OTP) generation and validation, while SMS messages and voice calls are delivered through the telephony provider that your organization selects and configures.
+This overview covers CYOT and Bring Your Own Telephony Provider (BYOT). Both options connect Microsoft Entra to a telephony provider through an integration in your Azure subscription; purchasing and deployment differ.
 
-CYOT gives your organization more control over telephony provider selection, geographic coverage, pricing, and telephony delivery.
+CYOT combines providers evaluated by Microsoft for geographic coverage and fraud protection capabilities with Microsoft Security Store purchasing, Azure subscription billing, centralized subscription management, and guided deployment in the Microsoft Entra admin center.
+
+Microsoft Entra continues to manage the authentication experience, including one-time passcode (OTP) generation and validation. Your organization selects and configures a provider based on its coverage, pricing, and other requirements, while the provider delivers SMS messages and voice calls.
+
+To get started, [set up the integration in the admin center (CYOT)](choose-your-own-telephony-set-up).
+
+**When to use BYOT:** Consider Bring Your Own Telephony Provider (BYOT) when an existing provider agreement or a specific requirement cannot be accommodated through the supported CYOT offerings. See [Set up SMS and voice with your own telephony provider by using APIs (BYOT)](bring-your-own-telephony-set-up).
 
 Important
 
 Microsoft recommends phishing-resistant authentication methods, such as [passkeys](concept-authentication-passkeys-fido2), instead of SMS or voice. Use a telephony provider only for user populations that have a business, regulatory, or technical requirement for telephony-based authentication.
 
-## How CYOT works
+## How CYOT and BYOT work
 
 When SMS or voice authentication is required:
 
 1. Microsoft Entra initiates the authentication request.
-2. Microsoft Entra sends the request to the CYOT integration deployed in your Azure subscription.
+2. Microsoft Entra sends the request to the CYOT or BYOT integration deployed in your Azure subscription.
 3. The integration sends the request to your configured telephony provider.
 4. Your telephony provider delivers the SMS message or voice call to the user.
 5. Microsoft Entra completes the authentication flow.
@@ -69,7 +75,7 @@ The Azure Function deployed in your subscription connects Microsoft Entra with y
 
 ## Available telephony providers
 
-Select a supported telephony provider based on your organization's coverage, pricing, and other requirements.
+For CYOT, select a supported telephony provider based on your organization's coverage, pricing, and other requirements.
 
 Review pricing and other commercial details for the available provider offers:
 
@@ -79,11 +85,13 @@ Review pricing and other commercial details for the available provider offers:
 
 Note
 
-Provider availability, coverage, pricing, and commercial terms can vary. Review the provider's [Microsoft Security Store](https://securitystore.microsoft.com/) listing for the latest information before purchasing.
+CYOT provider availability, coverage, pricing, and commercial terms can vary. Review the provider's [Microsoft Security Store](https://securitystore.microsoft.com/) listing for the latest information before purchasing. Marketplace purchase availability is separate from telephony coverage.
+
+For BYOT, obtain your provider's ready-to-deploy integration package and setup instructions, and confirm channel support, coverage, and commercial terms directly with the provider. See [Set up SMS and voice with your own telephony provider by using APIs (BYOT)](bring-your-own-telephony-set-up).
 
 ## Understand your responsibilities
 
-With CYOT, your organization owns the Azure resources deployed in your subscription and your telephony provider account, so you keep full control over how they run. The guided deployment sets up the integration for you, and your team manages the Azure Function and provider account from there.
+With CYOT or BYOT, your organization owns the Azure resources deployed in your subscription and your telephony provider account, so you keep full control over how they run. CYOT uses guided deployment in the admin center; BYOT uses your provider's published integration package and API setup instructions. Your team manages the Azure Function and provider account from there.
 
 | Owner | Responsibilities |
 | --- | --- |
@@ -103,9 +111,15 @@ At a high level, setting up CYOT involves:
 
 For detailed instructions, see [Set up SMS and voice with your own telephony provider in the Microsoft Entra admin center](choose-your-own-telephony-set-up).
 
+## Get started with BYOT
+
+Obtain your provider's ready-to-deploy integration package and set up your account directly with the provider. Deploy the integration in your Azure subscription, complete provider authorization, and configure the authentication method policy through APIs. Evaluate the integration before gradually moving traffic to your provider. Preserve existing production SMS and voice targets throughout evaluation and rollout.
+
+For detailed instructions, see [Set up SMS and voice with your own telephony provider by using APIs (BYOT)](bring-your-own-telephony-set-up).
+
 ## Plan your deployment
 
-Before moving production authentication traffic to CYOT, consider fraud protection, resiliency, and costs based on your organization's requirements.
+Before moving production authentication traffic to CYOT or BYOT, consider fraud protection, resiliency, and costs based on your organization's requirements.
 
 ### Prevent telephony fraud
 
@@ -115,7 +129,7 @@ See [Prevent telephony fraud when using your own telephony provider](choose-your
 
 ### Plan for resiliency
 
-Plan the availability and recovery of the Azure resources and telephony provider used by your CYOT integration.
+Plan the availability and recovery of the Azure resources and telephony provider used by your CYOT or BYOT integration.
 
 Organizations with additional availability requirements can implement cross-region resiliency and, where appropriate, configure provider redundancy.
 
@@ -123,17 +137,19 @@ See [Plan for resiliency when using your own telephony provider](choose-your-own
 
 ### Understand costs
 
-CYOT can involve two separate categories of costs:
+CYOT and BYOT can involve two separate categories of costs:
 
 - Telephony provider costs for SMS and voice delivery through your selected provider.
 - Azure costs for the Azure Function and supporting resources deployed in your subscription.
 
-Review both before moving production authentication traffic to CYOT.
+Review both before moving production authentication traffic to CYOT or BYOT.
 
-See [Estimate telephony-provider and Azure hosting costs](phone-providers-faq#how-much-does-choose-your-own-telephony-provider-cost).
+For CYOT, provider charges follow the offer you purchase through Microsoft Security Store. For BYOT, charges follow the terms you agree directly with your provider.
+
+See [Estimate telephony-provider and Azure hosting costs](telephony-providers-faq#how-much-does-choose-your-own-telephony-provider-cost).
 
 ## Troubleshoot CYOT
 
-To diagnose SMS or voice issues, identify whether the issue is in Microsoft Entra authentication and configuration, your CYOT integration, or telephony provider delivery.
+To diagnose SMS or voice issues, identify whether the issue is in Microsoft Entra authentication and configuration, your CYOT or BYOT integration, or telephony provider delivery.
 
 See [Troubleshoot SMS and voice with your own telephony provider](choose-your-own-telephony-troubleshoot#monitor-and-troubleshoot-your-own-telephony-provider) for diagnostic guidance and information about where to get support.

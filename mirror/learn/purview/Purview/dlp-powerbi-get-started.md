@@ -44,11 +44,11 @@ monikers: []
 item_type: Content
 source_path: Purview/dlp-powerbi-get-started.md
 cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/e7cd09c2-9e9a-4f0d-b160-c15783f45b1f
 - https://authoring-docs-microsoft.poolparty.biz/devrel/d3197845-b4ce-44c6-a237-cd4be160e76c
-- https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
 spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1d337399-0ca4-4b4c-acef-8df37820e018
 - https://authoring-docs-microsoft.poolparty.biz/devrel/aea905fb-0a9d-4d46-b30f-e9cbaf772d1b
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
 2PlusCloud:
 - Power
 - Azure
@@ -156,7 +156,7 @@ When Fabric items or semantic models meet the conditions in a DLP policy, the ac
 
 - Notify the user through a policy tip.
 - Generate an alert. Administrators and users can receive alert emails. Additionally, administrators can monitor and manage alerts on the **Alerts** tab in the Purview portal.
-- Restrict access (preview). When you configure a policy with the restrict access action and a policy match occurs, the policy restricts access to the data owners or to members of the organization, depending on the policy configuration. All other users lose access to the item.
+- Restrict access. When you configure a policy with the restrict access action and a policy match occurs, the policy restricts access to the data owners or to members of the organization, depending on the policy configuration. All other users lose access to the item.
 
 For information about what triggers DLP evaluation, see How DLP policies for Fabric and Power BI work.
 

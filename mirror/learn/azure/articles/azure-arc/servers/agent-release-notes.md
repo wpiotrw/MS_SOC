@@ -14,11 +14,11 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: davidsmatlak
+author: schaffererin
 learn_banner_products:
 - azure
 ms.reviewer: davidsmatlak
-ms.author: davidsmatlak
+ms.author: schaffererin
 ms.service: azure-arc
 ms.subservice: servers-azure-arc
 description: This article has release notes for Azure Connected Machine agent. For many of the summarized issues, there are links to more details.

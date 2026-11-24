@@ -13,7 +13,9 @@ manager: dougeby
 description: A how-to guide on dynamically determining the approval requirements for an access package externally using a custom extension.
 ms.subservice: entitlement-management
 ms.topic: how-to
-ms.date: 2025-11-04T00:00:00.0000000Z
+ms.date: 2026-11-24T00:00:00.0000000Z
+ai-usage: ai-assisted
+ms.custom: msecd-doc-authoring-1032
 locale: en-us
 document_id: ace06300-ba01-5b4d-6ed6-619e86062c58
 document_version_independent_id: ace06300-ba01-5b4d-6ed6-619e86062c58
@@ -31,8 +33,10 @@ item_type: Content
 source_path: docs/id-governance/entitlement-management-dynamic-approval.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/e60d1924-c4ad-4104-bd1b-973758bbac7a
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/91d5f984-ee3d-43c4-9daf-bb09a6bc4e1a
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: ad39037f-c30d-b0c6-9cef-9660d47c234a
 ---
 
@@ -125,7 +129,9 @@ With the logic app configured for communication with Microsoft Entra, you can no
 
     Note
 
-    For an example of the body action see: [HTTP action example](entitlement-management-dynamic-approval#http-action-example).
+    The callback can return the person for whom access is requested, also known as the assignee or target, as an approver, allowing them to approve their own request. Entitlement management prevents self-approval with its built-in approval options. However, this extensibility pattern gives you full flexibility to determine approvers and doesn't enforce this protection. You are responsible for ensuring that your business logic excludes the person receiving access from the approvers returned in the callback if you want to prevent self-approval.
+
+    For an example of the HTTP request body, see [HTTP action example](entitlement-management-dynamic-approval#http-action-example).
 4. When finished adding your business logic, select **save**.
 
 ## Verify the extension worked

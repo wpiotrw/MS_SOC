@@ -15,11 +15,11 @@ recommendation_types:
 uhfHeaderId: azure-ai-foundry
 ms.suite: office
 zone_pivot_group_filename: zone-pivots/azure-ai/zone-pivot-groups.json
-author: PatrickFarley
+author: sdgilley
 learn_banner_products:
 - azure
 manager: mcleans
-ms.author: pafarley
+ms.author: sgilley
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry

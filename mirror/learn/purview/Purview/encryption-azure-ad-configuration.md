@@ -152,8 +152,9 @@ Cross-tenant access settings enable cross-cloud access to encrypted documents. A
 
 The following scenarios are supported for cross-cloud access to encrypted content:
 
-- Organizations in the Microsoft Azure Commercial cloud can allow access to organizations in the Microsoft Azure Government cloud or Microsoft Azure China (operated by 21Vianet) cloud without contacting Microsoft.
-- Organizations in the Microsoft Azure China (operated by 21Vianet) cloud can allow access to organizations in the Microsoft Azure Commercial cloud without contacting Microsoft.
+- Organizations in the Microsoft Azure Commercial cloud can allow access to organizations in the Microsoft Azure Government cloud or Microsoft Azure China (operated by 21Vianet) cloud.
+- Organizations in the Microsoft Azure Government cloud can allow access to organizations in the Microsoft Azure Commercial cloud.
+- Organizations in the Microsoft Azure China (operated by 21Vianet) cloud can allow access to organizations in the Microsoft Azure Commercial cloud.
 - Encrypted Word, Excel, and PowerPoint files can be shared with users in another cloud environment and viewed on Windows, MacOS, and mobile devices. This scenario doesn't apply to files shared via SharePoint or OneDrive sharing links, but rather to methods like direct email attachments, USB drive, file share, or shared and downloaded from SharePoint.
 - Encrypted PDFs and generically encrypted files (.pfile extension) can be shared with users in another cloud environment and viewed using the Microsoft Purview Information Protection Viewer on Windows.
 - The user can be, but isn't required to be, a guest in your organization.

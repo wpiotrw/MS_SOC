@@ -15,7 +15,7 @@ description: Provides an overview of Microsoft Entra Privileged Identity Managem
 ms.topic: overview
 ms.date: 2026-11-17T00:00:00.0000000Z
 ms.reviewer: ilyal
-ms.custom: pim, azuread-video-2020, content-engagement, sfi-ga-nochange, sfi-image-nochange, msecd-doc-authoring-1032
+ms.custom: pim, azuread-video-2020, content-engagement, sfi-ga-nochange, sfi-image-nochange, msecd-doc-authoring-1031
 ai-usage: ai-assisted
 locale: en-us
 document_id: d7338196-8434-f76e-ec0d-15bc85d51434
@@ -64,10 +64,6 @@ However, users still need to carry out privileged operations in Microsoft Entra 
 
 Using Privileged Identity Management requires licenses. For more information on licensing, see [Microsoft Entra ID Governance licensing fundamentals](../licensing-fundamentals) .
 
-PIM for app roles (preview) requires Microsoft Entra ID Governance licenses. Microsoft Entra ID P2 alone isn't sufficient.
-
-License coverage is required for users with eligible or time-bound app role assignments and for request approvers.
-
 ## What does it do?
 
 Privileged Identity Management provides time-based and approval-based role activation to mitigate the risks of excessive, unnecessary, or misused access permissions on resources that you care about. Here are some of the key features of Privileged Identity Management:
@@ -82,14 +78,14 @@ Privileged Identity Management provides time-based and approval-based role activ
 - Download **audit history** for internal or external audit
 - Prevent removal of the **last active Global Administrator** and **Privileged Role Administrator** role assignments
 
-The available capabilities depend on the PIM provider. For the app roles preview's workflows, see [PIM for app roles (preview)](concept-pim-for-app-roles).
+The available capabilities depend on the PIM provider.
 
 ## Privileged access capabilities in preview
 
 PIM also includes preview capabilities for role activation, agent access, and privileged sessions. Licensing and setup requirements vary by feature; see the linked guides for prerequisites.
 
 - **Activate roles in My Access.** Activate eligible Microsoft Entra roles, Azure resource roles, and group membership or ownership from one portal. See [Role activation in My Access (preview)](../my-access-portal-overview#activate-eligible-role-assignments).
-- **Govern Azure resource access for agents.** Assign eligible Azure resource roles to agents and agent identities so they can activate access when needed. See [Eligible assignments for agents (preview)](pim-resource-roles-assign-roles#eligible-assignments-for-agents-preview) and [Agent identity activation (preview)](pim-resource-roles-activate-your-roles?pivots=api#activate-an-agent-identity-with-azure-resource-manager-api-preview).
+- **Govern Azure resource access for agents and agent identities.** Assign eligible Azure resource roles to agents and agent identities so they can activate access only when needed. See PIM assignment support.
 - **Connect to virtual machines.** Use My Access to activate existing eligible access for Azure virtual machines or supported Azure Arc-enabled Linux servers. Then connect through an available path, including Azure Bastion. See [Virtual machine connections in My Access (preview)](pim-connect-virtual-machine-my-access).
 - **Review session activity and recordings.** Session analytics show PIM role lifecycle and Azure Bastion connection activity, not commands run inside a virtual machine. With Azure Bastion Premium and recording configured, you can review recordings of supported connections. See [Session analytics (preview)](azure-pim-resource-rbac#review-session-activity-preview) and [Azure Bastion session recordings (preview)](azure-pim-resource-rbac#review-azure-bastion-session-recordings).
 - **Manage active sessions.** Find and disconnect selected active Azure Bastion sessions without deactivating the user's role assignments. See [Session management in PIM (preview)](pim-manage-bastion-sessions).
@@ -98,9 +94,7 @@ PIM also includes preview capabilities for role activation, agent access, and pr
 
 ## What can I do with it?
 
-Once you set up Privileged Identity Management, you'll see **Tasks**, **Manage**, and **Activity** options in the left navigation menu. As an administrator, you can choose between options such as managing **Microsoft Entra roles**, managing **Azure resource** roles, or PIM for Groups. When you choose what you want to manage, you see the appropriate set of options for that option.
-
-For app role assignments, select **App Roles (Preview)**, and then select an application. From the application, you can manage assignments and role settings, activate your eligible roles, and review requests.
+After you set up Privileged Identity Management, use the **Tasks**, **Manage**, and **Activity** options in the left navigation menu. Choose the provider you want to manage: **Microsoft Entra roles**, **Azure resource roles**, **App roles (preview)**, or PIM for Groups. Each provider has its own management options.
 
 ![Screenshot of Privileged Identity Management in the Azure portal.](media/pim-configure/pim-quickstart.png)
 
@@ -154,6 +148,15 @@ The assignment process starts by assigning roles to members. To grant access to 
 The following screenshot shows how administrator assigns a role to members.
 
 ![Screenshot of Privileged Identity Management role assignment.](media/pim-configure/role-assignment.png)
+
+This table describes which types of identities are supported by PIM provider and license:
+
+| PIM provider | Users | Groups | Agents (preview, E7 license) | Agent identities (preview, E7 license) |
+| --- | --- | --- | --- | --- |
+| Microsoft Entra roles | Supported | Supported | Not supported | Not supported |
+| Azure roles | Supported | Supported | Supported | Supported |
+| Groups | Supported | Supported | Supported | Supported |
+| App roles (preview, E7 license) | Supported | Supported | Supported | Supported |
 
 For more information, check out the following articles: [Assign Microsoft Entra roles](pim-how-to-add-role-to-user), [Assign Azure resource roles](pim-resource-roles-assign-roles), [Assign eligibility for a PIM for Groups](groups-assign-member-owner), and [Assign app roles (preview)](app-roles-assign).
 

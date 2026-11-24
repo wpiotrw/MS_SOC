@@ -14,11 +14,11 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: davidsmatlak
+author: schaffererin
 learn_banner_products:
 - azure
 ms.reviewer: davidsmatlak
-ms.author: davidsmatlak
+ms.author: schaffererin
 ms.service: azure-arc
 description: Learn how to use the SQL Server licensing and ESU solution of the multicloud connector enabled by Azure Arc to manage licensing and subscribe eligible SQL Server instances in AWS and GCP to Extended Security Updates.
 ms.topic: how-to

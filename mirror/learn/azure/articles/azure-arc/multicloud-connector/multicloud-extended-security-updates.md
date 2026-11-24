@@ -14,11 +14,11 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure
 ms.suite: office
-author: davidsmatlak
+author: schaffererin
 learn_banner_products:
 - azure
 ms.reviewer: davidsmatlak
-ms.author: davidsmatlak
+ms.author: schaffererin
 ms.service: azure-arc
 description: Learn how to use the Windows Server ESU solution of the multicloud connector enabled by Azure Arc to attach an ESU license to eligible Arc-enabled Windows Server machines in AWS and GCP.
 ms.topic: how-to

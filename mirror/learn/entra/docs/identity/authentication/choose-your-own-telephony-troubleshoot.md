@@ -11,9 +11,9 @@ ms.author: justinha
 ms.service: entra-id
 ms.subservice: authentication
 manager: dougeby
-description: Trace CYOT SMS and voice requests with audit logs, sign-in logs, and Function App logs to identify issues and contact the right support team.
+description: Trace CYOT and BYOT SMS and voice requests with audit logs, sign-in logs, and Function App logs to identify issues and contact the right support team.
 ms.topic: how-to
-ms.date: 2026-10-30T00:00:00.0000000Z
+ms.date: 2026-11-23T00:00:00.0000000Z
 ai-usage: ai-assisted
 ms.custom: msecd-doc-authoring-1012
 ms.reviewer: xueca
@@ -45,9 +45,9 @@ platformId: 1a61b24c-d1b3-96ac-ce83-038be39e309a
 
 # Troubleshoot SMS and voice with your own telephony provider - Microsoft Entra ID | Microsoft Learn
 
-Use this article to trace SMS and voice requests end to end with Choose Your Own Telephony Provider (CYOT), find where a request stopped, and contact the right team to resolve it: Microsoft support, your Azure team, or your telephony provider.
+Use this article to trace SMS and voice requests end to end with Choose Your Own Telephony Provider (CYOT) or Bring Your Own Telephony (BYOT), find where a request stopped, and contact the right team to resolve it: Microsoft support, your Azure team, or your telephony provider.
 
-## How a CYOT request flows
+## How a telephony provider request flows
 
 Each request passes through four stages, and each stage is recorded in its own logs:
 
@@ -72,7 +72,7 @@ Select the request to open **Audit Log Details**, and note these values:
 | Field | What it tells you |
 | --- | --- |
 | Activity Type | `CyotDeliverySucceeded` means your endpoint accepted the request. `CyotDeliveryFailed` means it didn't complete. |
-| DeliveryMethod | `Cyot` for a live request through your provider. `CyotEvaluation` for an evaluation request. |
+| DeliveryMethod | `Cyot` for a live request through your provider. `CyotEvaluation` for an evaluation request. These values apply to both CYOT and BYOT. |
 | Channel | `Sms` or `Voice`. |
 | AuthenticationMethod | The method used, such as `OneWaySms` or `OneWayVoiceMobileOtp`. |
 | Correlation ID | The identifier to share with support. |
@@ -114,11 +114,11 @@ Use what you see in audit logs to find the right contact.
 
 | What you see | What to check | Contact |
 | --- | --- | --- |
-| No CYOT activity in audit logs | Confirm the date range and filters, that the user is included in SMS or voice targeting, and that a new phone challenge was required. | Microsoft support |
-| Only `CyotEvaluation` activity | The profile is in **Evaluation**. Switch to **Production** to route traffic through your provider. | No support needed |
+| No telephony provider activity in audit logs | Confirm the date range and filters, that the user is included in SMS or voice targeting, and that a new phone challenge was required. | Microsoft support |
+| Only `CyotEvaluation` in DeliveryMethod | The integration is in evaluation mode. For CYOT, switch the profile to **Production**. For BYOT, set `isEvaluationModeEnabled` to `false` and use a low `migrationPercentage` to test provider delivery. | No support needed |
 | `CyotDeliveryFailed` with `EndpointClientError` | Your endpoint rejected the request. Check your Function App logs and authentication settings. | Your Azure team |
 | `CyotDeliveryFailed` with `EndpointServerError` | Your endpoint returned an error or didn't respond in time. Check your Function App logs and your provider's status. | Your Azure team |
-| `CyotDeliveryFailed` with `NonceMismatch` | Your endpoint's response didn't match what Microsoft Entra expects. Compare any customizations with the CYOT sample. | Your Azure team |
+| `CyotDeliveryFailed` with `NonceMismatch` | Your endpoint's response didn't match what Microsoft Entra expects. For CYOT, compare any customizations with the CYOT sample. For BYOT, check your provider's published integration instructions. | Your Azure team |
 | `CyotDeliverySucceeded`, but the user didn't receive the code | Your endpoint accepted the request. Check your provider's delivery records. | Your telephony provider |
 | The user received the code, but sign-in failed | Check the sign-in logs for an expired, reused, or incorrect code. | Microsoft support |
 | Delivery blocked to certain countries/regions, fraud blocks, or unexpected charges | Review your provider's fraud, destination, and spending controls. | Your telephony provider |
@@ -133,7 +133,7 @@ When a request times out, check your provider's records before you try again. Yo
 | --- | --- | --- |
 | Microsoft support | Authentication method policy, Microsoft Entra authentication, and the request to your endpoint | [Get support for Microsoft Entra](/en-us/entra/fundamentals/how-to-get-support) |
 | Your Azure team | Your Function App, its configuration, and Azure resources | Internal. For Azure platform issues, contact Azure support. |
-| Your telephony provider | Provider account, delivery, fraud controls, and usage charges | Support details in the provider's [Microsoft Security Store](https://securitystore.microsoft.com/) listing |
+| Your telephony provider | Provider account, delivery, fraud controls, and usage charges | For CYOT, use the provider's [Microsoft Security Store](https://securitystore.microsoft.com/) listing. For BYOT, use support details supplied directly by your provider. |
 
 ### Information to include
 

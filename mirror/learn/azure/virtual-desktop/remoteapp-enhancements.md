@@ -97,17 +97,12 @@ Enhancements will now be enabled by default for host pools deployed in the produ
 To check that the RemoteApp enhancements are enabled, open the Connection Information dialog in Windows App. You can verify that the remote session type is correct using the *Connection Information* dialog from the Windows App.
 
 1. Using a supported client (see Prerequisites), connect to a published RemoteApp or Cloud App.
-2. In the system tray (red), find your RemoteApp session (yellow) and right click. Hover over the *Contoso - RemoteApp* fly out (blue):
+2. In the system tray (red), find your RemoteApp session (yellow) and right click. Hover over the *Contoso - RemoteApp* fly out:
 3. Select the *Connection Information* option (green). From the dialogue box that pops up, select **See details**.
-
-![Screenshot that shows RemoteApp system tray flyout showing the Connection Information option.](media/remoteapp-enhancements/systemtray-flyout.png)
-
-1. Check the "Remote session type" value:
+4. Check the "Remote session type" value:
 
     - If "Remote session type" has a value of **RemoteAppV2**, then the RemoteApp enhancements are working.
     - If "Remote session type" has any other value, then the RemoteApp enhancements aren't working (and the RemoteAppV2 has not been flighted to you, yet). Check that your client and host meet all the prerequisites, and check that you've correctly set the enablement registry value on the host.
-
-![Screenshot that shows Remote Desktop connection details showing the Remote session type as RemoteAppV2.](media/remoteapp-enhancements/remoteapp-version2-connection-details.png)
 
 ## Known issues and limitations
 
