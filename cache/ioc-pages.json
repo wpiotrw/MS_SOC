@@ -1,4 +1,8 @@
 {
+"https://anderskristiansen.com/post/2026/apim-legacy-access/": {
+"iocs": [],
+"read": "2026-11-24"
+},
 "https://cloud.google.com/blog/topics/threat-intelligence/recovering-active-adfs-signing-keys-machine-dpapi/": {
 "iocs": [],
 "read": "2026-10-31"
@@ -19,7 +23,7 @@
 },
 "https://specterops.io/blog/2026/11/06/app-registrations-vs-service-principals/": {
 "iocs": [],
-"read": "2026-11-14"
+"read": "2026-11-24"
 },
 "https://thehackernews.com/2026/10/attackers-use-microsoft-teams-it.html": {
 "iocs": [
@@ -111,6 +115,10 @@
 ],
 "read": "2026-11-19"
 },
+"https://thehackernews.com/2026/11/microsoft-fixes-azure-api-management.html": {
+"iocs": [],
+"read": "2026-11-24"
+},
 "https://www.bleepingcomputer.com/news/security/hackers-breach-microsoft-365-tenants-via-connectwise-supply-chain-attack/": {
 "iocs": [
 [
@@ -125,9 +133,41 @@
 "iocs": [],
 "read": "2026-11-17"
 },
+"https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/": {
+"iocs": [],
+"read": "2026-11-24"
+},
+"https://www.bleepingcomputer.com/news/security/microsoft-entra-connect-health-flaw-exploited-to-steal-tenant-data/": {
+"iocs": [],
+"read": "2026-11-24"
+},
 "https://www.huntress.com/blog/conditional-access-misconfigurations": {
 "iocs": [],
 "read": "2026-10-31"
+},
+"https://www.huntress.com/blog/crafty-microsoft-teams-booking-flow-disguises-device-code-phishing": {
+"iocs": [
+[
+"domain",
+"gpimmlgration.com",
+"IOC table: Attacker-controlled backend / phishing infrastructure."
+],
+[
+"domain",
+"share.google",
+"IOC table: Initial Access \u00b7 Phishing: Spearphishing Link ( T1566.002 )"
+],
+[
+"domain",
+"calendly.com",
+"In the text: Finally, when the backend reports success, the page closes the Microsoft popup, showing the victim a &quot;Verification complete&quot; note and redirecting the top window to hxxps["
+]
+],
+"read": "2026-11-24"
+},
+"https://www.huntress.com/blog/huntress-response-for-microsoft-defender-incidents-across-endpoints-and-microsoft-365": {
+"iocs": [],
+"read": "2026-11-24"
 },
 "https://www.huntress.com/blog/inside-knight-office-m365-aitm-attack": {
 "iocs": [
@@ -282,6 +322,71 @@
 "https://www.huntress.com/blog/stealing-oauth-tokens-through-microsofts-front-door": {
 "iocs": [],
 "read": "2026-11-17"
+},
+"https://www.huntress.com/blog/token-replay-spray": {
+"iocs": [
+[
+"ip",
+"185.238.2.195",
+"IOC table: AiTM relay that captured the July 21 session. VirusTotal | Censys"
+],
+[
+"ip",
+"193.26.115.199",
+"IOC table: Hosts \u00b7 193.26.115[.]221 , 193.26.115[.]16 , 193.26.115[.]21 , 193.26.115[.]72"
+],
+[
+"ip",
+"124.198.132.33",
+"IOC table: 1337 Services address that continued a hijacked session (Phase 1). VirusTotal | Censys"
+],
+[
+"ip",
+"193.26.115.221",
+"IOC table: Build A token replay and rogue device join host (Phase 1, July 14 to August 3). VirusTotal | Censys"
+],
+[
+"ip",
+"193.26.115.16",
+"IOC table: Build A token replay host; device-code phishing (Phase 2). VirusTotal | Censys"
+],
+[
+"ip",
+"193.26.115.21",
+"IOC table: Build A token replay host, bare Mozilla/5.0 user agent (Phase 2). VirusTotal | Censys"
+],
+[
+"ip",
+"193.26.115.72",
+"IOC table: Build A token replay host (Phase 3 burst, September 11 to 15). VirusTotal | Censys"
+],
+[
+"ip",
+"193.26.115.210",
+"IOC table: Hosts \u00b7 193.26.115[.]221 , 193.26.115[.]16 , 193.26.115[.]21 , 193.26.115[.]72"
+],
+[
+"ip",
+"45.83.31.44",
+"IOC table: Failed replay of a stolen session (August). VirusTotal | Censys"
+],
+[
+"ip",
+"192.159.99.172",
+"IOC table: Failed replay of a stolen session (August). VirusTotal | Censys"
+],
+[
+"ip",
+"167.148.41.96",
+"IOC table: Interserver address that created the payroll-hiding inbox rules (Phase 3). VirusTotal | Censys"
+],
+[
+"ip",
+"193.26.115.0",
+"In the text: Rather than guessing passwords, the attacker replayed sign-in tokens stolen from victims, and we&#x27;ve traced more than 200,000 failed login attempts from the campaign window bac"
+]
+],
+"read": "2026-11-24"
 },
 "https://www.huntress.com/blog/vendor-credential-enables-unauthorized-access": {
 "iocs": [
@@ -2255,7 +2360,7 @@
 "IOC table: Email address \u00b7 Sender address used for both observed lure variations \u00b7 2026-09-21 \u00b7 2026-09-21"
 ]
 ],
-"read": "2026-11-14"
+"read": "2026-11-24"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/": {
 "iocs": [
@@ -2280,7 +2385,7 @@
 "In the text: The sign-ins primarily came from two IP addresses: 199.19.77[.]84 and 199.19.77[.]18."
 ]
 ],
-"read": "2026-11-14"
+"read": "2026-11-24"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/": {
 "iocs": [
