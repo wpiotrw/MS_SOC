@@ -1,7 +1,7 @@
 {
  "read": "2026-11-24",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 730,
+ "count": 729,
  "note": null,
  "messages": [
   {
@@ -9734,33 +9734,6 @@
    "bodyHash": "da62541cce8c523a"
   },
   {
-   "id": "MC1469962",
-   "title": "Change in sender email address for Copilot emails",
-   "services": [
-    "Microsoft 365 Copilot Chat",
-    "Microsoft 365 suite"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-09",
-   "end": "2026-11-24",
-   "modified": "2026-09-09",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "[What and Why:] To align with the Microsoft 365 Copilot transition to Microsoft Copilot, we are updating the sender identity for Microsoft Copilot educational and product enablement emails. These emails help users learn about Microsoft Copilot capabilities included in their subscriptions, discover new features, and improve productivity with the tools available to them. This change provides consist…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Rollout Schedule: General Availability (Worldwide): Mid-September 2026."
-   ],
-   "bodyHash": "ad35a1bd1959c374"
-  },
-  {
    "id": "MC1470296",
    "title": "Windows Office Hours: September 17, 2026",
    "services": [
@@ -10570,33 +10543,6 @@
    "prepare": null,
    "dates": [],
    "bodyHash": "e539cc62bf654d67"
-  },
-  {
-   "id": "MC1473163",
-   "title": "Brand Skill support now available in PPT Copilot [Mac]",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-09-16",
-   "end": "2026-11-24",
-   "modified": "2026-09-16",
-   "tags": [
-    "Admin impact",
-    "New feature",
-    "User impact"
-   ],
-   "summary": "[What and why:] Brand managers will be able to upload custom presentation skills as Markdown (.md) files to Brand Kit and share them across their organization for use with Copilot in PowerPoint. This capability helps organizations provide reusable, organization-approved instructions that guide presentation creation, supporting more consistent and efficient content development. This change advances…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "Frontier: We will begin rolling out mid-September 2026 and expect to complete by late September 2026.",
-    "General Availability, Worldwide: We will begin rolling out in late September 2026 and expect to complete the rollout by the end of September 2026."
-   ],
-   "bodyHash": "51a257c2d5597889"
   },
   {
    "id": "MC1473165",
@@ -19378,6 +19324,33 @@
    "bodyHash": "f6933dad7bd4ed0c"
   },
   {
+   "id": "MC1566260",
+   "title": "Video creation from a prompt in Microsoft Clipchamp: now in Video Hub, with an upgraded experience coming",
+   "services": [
+    "Microsoft Clipchamp "
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-24",
+   "end": "2027-04-26",
+   "modified": "2026-11-24",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Creating a video from a text prompt in Clipchamp is now available in Video Hub. By the end of February 2027, we'll replace this experience with an upgraded version that does the same things, produces higher-quality videos and fixes known issues. The upgraded experience will be available to the same users as part of their existing subscription. [Rollout Schedule:] General Availabili…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "By the end of February 2027, we'll replace this experience with an upgraded version that does the same things, produces higher-quality videos and fixes known issues.",
+    "By the end of February 2027: the upgraded experience replaces the current one."
+   ],
+   "bodyHash": "459dc11aa5992b04"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -25229,6 +25202,27 @@
    "id": "MC1565964",
    "type": "new",
    "title": "Microsoft SharePoint Online: Classic publishing restrictions begin March 1, 2027",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1566260",
+   "type": "new",
+   "title": "Video creation from a prompt in Microsoft Clipchamp: now in Video Hub, with an upgraded experience coming",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1469962",
+   "type": "removed",
+   "title": "Change in sender email address for Copilot emails",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1473163",
+   "type": "removed",
+   "title": "Brand Skill support now available in PPT Copilot [Mac]",
    "fields": {}
   }
  ]
