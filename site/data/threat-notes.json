@@ -2719,6 +2719,193 @@
     }
    ],
    "kqlPublishedNote": "The post repeats its first query at the end; it is listed once. Columns checked on Microsoft Learn (AuditLogs, AzureActivity) on 22 Nov 2026. These hunt the tenant's own control plane: the attacker's reads went through Microsoft's API and leave nothing in tenant logs, but a change made through Connect Health or its Azure resource provider would. AuditLogs and AzureActivity from 23 Jul need workspace retention of about 4 months."
+  },
+  {
+   "id": "m365-token-spray-replay-1337-services-2026",
+   "title": "M365 token spray and replay campaign: AiTM and device-code tokens replayed from 193.26.115.0/24 against 79 organisations",
+   "match": [
+    "Token Spray",
+    "1337 Services"
+   ],
+   "areas": [
+    "Identity attacks",
+    "M365 workloads"
+   ],
+   "status": "contained",
+   "updated": "2026-11-24",
+   "by": "morning routine",
+   "summary": "Between 14 July and 22 September 2026 Huntress tracked a Microsoft 365 campaign that captured post-MFA session tokens through adversary-in-the-middle relays and device-code phishing and replayed them from the 193.26.115.0/24 block of 1337 Services GmbH (AS210558). Huntress responded at 79 organisations, with at least 497 successful sign-ins against more than 200,000 failed attempts. After access the attacker registered fake Entra-joined devices named DESKTOP- plus eight hex characters, wiped and replaced MFA methods, and created hidden inbox rules with one-to-three-character names that moved mail to RSS or Conversation History folders. In one case the rules were used for payroll fraud against an external accountant. Huntress published the report on 22 October 2026; no activity after 22 September is reported.",
+   "timeline": [
+    {
+     "date": "2026-07-14",
+     "text": "First detection: sign-in from 193.26.115[.]221 from an Entra-joined device named DESKTOP- plus eight hex characters.",
+     "src": "Huntress"
+    },
+    {
+     "date": "2026-07-21",
+     "text": "AiTM relay 185.238.2[.]195 captures a victim at the MFA prompt at 17:18 UTC; the session is replayed from 193.26.115[.]199 at 17:30 and a new authenticator labelled iPhone 13 is activated at 18:08.",
+     "src": "Huntress"
+    },
+    {
+     "date": "2026-08-17",
+     "text": "Phase 2 resumes from 193.26.115[.]16 and 193.26.115[.]21, including device-code phishing.",
+     "src": "Huntress"
+    },
+    {
+     "date": "2026-09-11",
+     "text": "Phase 3 burst from 193.26.115[.]72; Huntress notifies 22 customers within two hours.",
+     "src": "Huntress"
+    },
+    {
+     "date": "2026-09-22",
+     "text": "Final takeover: relay capture at 20:46, replay from 193.26.115[.]210 at 20:50.",
+     "src": "Huntress"
+    },
+    {
+     "date": "2026-10-22",
+     "text": "Huntress publishes the campaign report.",
+     "src": "Huntress"
+    }
+   ],
+   "rootCause": "Users completed MFA through attacker relays or entered device codes for the attacker, so the attacker held valid post-MFA tokens; a password reset alone did not end access because devices, MFA methods and live tokens stayed in place (Huntress).",
+   "attacker": [
+    "Captured sessions with AiTM relays and device-code phishing",
+    "Replayed tokens with scripts (Build A, user agent node, OAuth2:Token) and browser sessions (Build B, Login:reprocess)",
+    "Registered at least 48 fake Entra-joined devices named DESKTOP- plus eight uppercase hex characters",
+    "Wiped existing MFA methods and registered their own authenticator",
+    "Created hidden inbox rules with short or punctuation-only names moving mail to RSS Feeds, RSS Subscriptions or Conversation History",
+    "Sent outbound spam and payroll-fraud email from compromised mailboxes"
+   ],
+   "iocs": [
+    "193.26.115[.]0/24 (AS210558, 1337 Services GmbH)",
+    "193.26.115[.]221",
+    "193.26.115[.]199",
+    "193.26.115[.]16",
+    "193.26.115[.]21",
+    "193.26.115[.]72",
+    "193.26.115[.]210",
+    "124.198.132[.]33",
+    "45.83.31[.]44",
+    "192.159.99[.]172",
+    "185.238.2[.]195 (AiTM relay)",
+    "2400:8d60:2::1:841d:5dd (AiTM relay)",
+    "167.148.41[.]96 (created payroll-hiding rules)",
+    "Authenticator label: iPhone 13",
+    "Device names: DESKTOP-54521F46, DESKTOP-BAF88EF4, DESKTOP-CA85907C",
+    "Inbox rule names: . sss ss iT ,. ........ s d"
+   ],
+   "apps": [
+    {
+     "name": "Microsoft Office",
+     "appId": "d3590ed6-52b3-4102-aeff-aad2292ab01c",
+     "kind": "First-party Microsoft app",
+     "did": "Client used by the scripted replay (Build A).",
+     "roles": [],
+     "permissions": [],
+     "action": "Hunt sign-ins with this client from hosting IPs with the node or bare Mozilla/5.0 user agent; do not disable a first-party app.",
+     "src": [
+      "Huntress"
+     ],
+     "link": "https://www.huntress.com/blog/token-replay-spray"
+    },
+    {
+     "name": "Microsoft Authentication Broker",
+     "appId": "29d9ed98-a469-4536-ade2-f981bc1d605e",
+     "kind": "First-party Microsoft app",
+     "did": "Client used by Build A to register devices and obtain broker tokens.",
+     "roles": [],
+     "permissions": [],
+     "action": "Hunt Cmsi:Cmsi and Device Registration Service sign-ins with this client from hosting IPs.",
+     "src": [
+      "Huntress"
+     ],
+     "link": "https://www.huntress.com/blog/token-replay-spray"
+    },
+    {
+     "name": "OfficeHome",
+     "appId": "4765445b-32c6-49b0-83e6-1d93765276ca",
+     "kind": "First-party Microsoft app",
+     "did": "Client used by the browser-session replay (Build B).",
+     "roles": [],
+     "permissions": [],
+     "action": "Hunt Login:reprocess sign-ins with this client from the listed ranges.",
+     "src": [
+      "Huntress"
+     ],
+     "link": "https://www.huntress.com/blog/token-replay-spray"
+    }
+   ],
+   "appsNote": "Target resources named by Huntress: Microsoft Graph, Office 365 Exchange Online, SharePoint Online and the Device Registration Service (01cb2876-7ebd-4aa4-9cc9-d28bd4d359a9).",
+   "remediation": [
+    {
+     "text": "Revoke sessions and reset passwords together; a reset alone leaves attacker devices, MFA methods and live tokens in place.",
+     "from": "source",
+     "src": "Huntress",
+     "phase": "contain"
+    },
+    {
+     "text": "Audit Entra devices named DESKTOP- plus eight hex characters, especially those registered from hosting IPs; confirm before deleting, the pattern is not unique to this campaign.",
+     "from": "source",
+     "src": "Huntress",
+     "phase": "investigate"
+    },
+    {
+     "text": "Audit MFA methods cleared and re-registered within minutes and remove unrecognised authenticators.",
+     "from": "source",
+     "src": "Huntress",
+     "phase": "eradicate"
+    },
+    {
+     "text": "Review inbox rules with short or punctuation-only names, rules moving mail to RSS or Conversation History folders, and rules keyed on payroll or banking terms.",
+     "from": "source",
+     "src": "Huntress",
+     "phase": "investigate"
+    },
+    {
+     "text": "Treat AADSTS53003 blocks as proof of a valid credential and reset it.",
+     "from": "source",
+     "src": "Huntress",
+     "phase": "detect"
+    },
+    {
+     "text": "Restrict device-code flow with a Conditional Access authentication-flows policy and restrict user consent to applications.",
+     "from": "source",
+     "src": "Huntress",
+     "phase": "harden"
+    },
+    {
+     "text": "Add 193.26.115.0/24 and the relay addresses to a Conditional Access named location blocked for sign-in, and require a compliant or hybrid-joined device for Exchange Online and the Device Registration Service.",
+     "from": "ours",
+     "phase": "harden"
+    },
+    {
+     "text": "Create a Sentinel analytics rule on new device registrations followed within three hours by an authentication-method change for the same user.",
+     "from": "ours",
+     "phase": "detect"
+    }
+   ],
+   "kql": [
+    {
+     "title": "Sign-ins from the campaign's replay and relay addresses, interactive and non-interactive, last 180 days",
+     "query": "// M365 token spray and replay campaign (Huntress, 22 Oct 2026) - sign-ins from 193.26.115.0/24 and the named relays\n// Microsoft Sentinel; diagnostic settings categories SignInLogs and NonInteractiveUserSignInLogs\nlet ranges = dynamic([\"193.26.115.0/24\"]);\nlet ips = dynamic([\"124.198.132.33\", \"45.83.31.44\", \"192.159.99.172\", \"185.238.2.195\", \"167.148.41.96\"]);\nunion SigninLogs, AADNonInteractiveUserSignInLogs\n| where TimeGenerated > ago(180d)\n| where ipv4_is_in_any_range(IPAddress, ranges) or IPAddress in (ips) or AutonomousSystemNumber == 210558\n| project TimeGenerated, UserPrincipalName, IPAddress, AutonomousSystemNumber, AppDisplayName, AppId, ResourceDisplayName, UserAgent, ResultType, ResultDescription, Category\n| order by TimeGenerated desc"
+    },
+    {
+     "title": "Inbox rules with one-to-three-character names or moving mail to RSS or Conversation History, last 90 days",
+     "query": "// M365 token spray and replay campaign (Huntress) - hidden inbox rules\n// Microsoft Sentinel, OfficeActivity (Office 365 connector, Exchange)\nOfficeActivity\n| where TimeGenerated > ago(90d)\n| where Operation in (\"New-InboxRule\", \"Set-InboxRule\", \"UpdateInboxRules\")\n| extend P = tostring(Parameters)\n| extend RuleName = extract(@'\"Name\",\"Value\":\"([^\"]*)\"', 1, P)\n| where strlen(RuleName) between (1 .. 3) or RuleName matches regex @'^[\\.,]+$' or P has_any (\"RSS Feeds\", \"RSS Subscriptions\", \"Conversation History\")\n| project TimeGenerated, UserId, ClientIP, Operation, RuleName, P\n| order by TimeGenerated desc"
+    },
+    {
+     "title": "Device registrations named DESKTOP- plus eight hex characters followed by an authentication-method change for the same user",
+     "query": "// M365 token spray and replay campaign (Huntress) - rogue Entra-joined devices and MFA method swap\n// Microsoft Sentinel; diagnostic settings category AuditLogs\nlet reg = AuditLogs\n| where TimeGenerated > ago(90d)\n| where OperationName == \"Add device\"\n| extend Device = tostring(TargetResources[0].displayName), User = tostring(InitiatedBy.user.userPrincipalName)\n| where Device matches regex @'^DESKTOP-[0-9A-F]{8}$'\n| project RegTime = TimeGenerated, User, Device;\nlet mfa = AuditLogs\n| where TimeGenerated > ago(90d)\n| where OperationName has \"security info\" or OperationName has \"authentication method\"\n| extend User = tostring(TargetResources[0].userPrincipalName)\n| project MfaTime = TimeGenerated, User, OperationName;\nreg | join kind=inner mfa on User\n| where MfaTime between (RegTime - 3h .. RegTime + 3h)\n| project RegTime, MfaTime, User, Device, OperationName\n| order by RegTime desc"
+    }
+   ],
+   "kqlSearched": "2026-11-24",
+   "links": [
+    {
+     "text": "Huntress: M365 Token Spray and Replay Campaign Compromises Business Email Accounts",
+     "url": "https://www.huntress.com/blog/token-replay-spray",
+     "date": "2026-10-22"
+    }
+   ]
   }
  ]
 }
