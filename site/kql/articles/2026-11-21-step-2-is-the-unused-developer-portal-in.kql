@@ -1,0 +1,25 @@
+// title: Step 2: is the 'unused' developer portal in use (APIMDevPortalAuditDiagnosticLog)
+// date: 2026-11-21
+// product: Microsoft 365
+// tables: 
+// purpose: Published for the incident: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)
+// source: https://anderskristiansen.com/post/2026/apim-legacy-access/
+// kind: article
+// author: Anders Kristiansen
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let timeframe = 30d;
+APIMDevPortalAuditDiagnosticLog
+| where TimeGenerated > ago(timeframe)
+| extend Path = tolower(tostring(split(RequestPath, "?")[0]))
+| extend IsAccountChange = (Path contains "signup"
+                            or Path contains "/users/"
+                            or Path contains "identities"
+                            or Path contains "confirm")
+                           and RequestMethod in~ ("POST", "PUT", "PATCH")
+| summarize Requests = count(),
+            AccountChanges = countif(IsAccountChange),
+            Paths = make_set(Path, 25),
+            ResponseCodes = make_set(ResponseCode, 10),
+            UserAgents = make_set(UserAgent, 5)
+    by ServiceName, HashedUserId, Day = bin(TimeGenerated, 1d)
+| order by Day asc, AccountChanges desc

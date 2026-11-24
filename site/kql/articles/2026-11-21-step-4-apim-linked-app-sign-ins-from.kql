@@ -1,0 +1,28 @@
+// title: Step 4: APIM-linked app sign-ins from new IP addresses (AADServicePrincipalSignInLogs)
+// date: 2026-11-21
+// product: Entra
+// tables: AADServicePrincipalSignInLogs
+// purpose: Published for the incident: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)
+// source: https://anderskristiansen.com/post/2026/apim-legacy-access/
+// kind: article
+// author: Anders Kristiansen
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let baseline = 30d;
+let recent = 7d;
+let ApimAppIds = dynamic([]); // application (client) IDs collected before Step 1
+let Known = AADServicePrincipalSignInLogs
+    | where TimeGenerated between (ago(baseline) .. ago(recent))
+    | where AppId in (ApimAppIds)
+    | distinct AppId, IPAddress;
+AADServicePrincipalSignInLogs
+| where TimeGenerated > ago(recent)
+| where AppId in (ApimAppIds)
+| join kind=leftanti Known on AppId, IPAddress
+| summarize Attempts = count(),
+            Successes = countif(ResultType in~ ("0", "Success")),
+            Resources = make_set(ResourceDisplayName, 20),
+            ResultTypes = make_set(ResultType, 10),
+            CredentialKeys = make_set(ServicePrincipalCredentialKeyId, 5),
+            FirstSeen = min(TimeGenerated)
+    by AppId, ServicePrincipalName, IPAddress, Location
+| order by Successes desc, FirstSeen asc

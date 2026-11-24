@@ -1,0 +1,36 @@
+// title: Step 5: who is going after the Key Vault secrets APIM references (AZKVAuditLogs)
+// date: 2026-11-21
+// product: Microsoft 365
+// tables: 
+// purpose: Published for the incident: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)
+// source: https://anderskristiansen.com/post/2026/apim-legacy-access/
+// kind: article
+// author: Anders Kristiansen
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let timeframe = 30d;
+let ApimIdentities = dynamic([]); // principal IDs of APIM managed identities
+let ApimVaults = dynamic([]);     // lower-case Key Vault resource IDs used by APIM; empty = all vaults
+AZKVAuditLogs
+| where TimeGenerated > ago(timeframe)
+| where OperationName in ("SecretGet", "SecretList", "SecretListVersions")
+| where array_length(ApimVaults) == 0 or tolower(_ResourceId) in (ApimVaults)
+| extend CallerOid = tolower(case(
+             isnotempty(tostring(Identity.claim.oid)), tostring(Identity.claim.oid),
+             tostring(Identity.claim["http://schemas.microsoft.com/identity/claims/objectidentifier"]))),
+         CallerAppId = tostring(Identity.claim.appid)
+| extend Result = case(
+    HttpStatusCode between (200 .. 299), "Allowed",
+    HttpStatusCode == 401, "Unauthenticated",
+    HttpStatusCode == 403, "Forbidden",
+    "Other")
+| summarize Requests = count(),
+            SecretGetAllowed = countif(OperationName == "SecretGet" and HttpStatusCode between (200 .. 299)),
+            ListAllowed = countif(OperationName in ("SecretList", "SecretListVersions") and HttpStatusCode between (200 .. 299)),
+            FailedRequests = countif(HttpStatusCode !between (200 .. 299)),
+            Clients = make_set(ClientInfo, 5),
+            FirstSeen = min(TimeGenerated),
+            LastSeen = max(TimeGenerated)
+    by Window = bin(TimeGenerated, 15m), _ResourceId, OperationName, RequestUri,
+       HttpStatusCode, Result, CallerIpAddress, CallerOid, CallerAppId
+| extend IsApimManagedIdentity = CallerOid in~ (ApimIdentities)
+| order by Requests desc, FirstSeen asc

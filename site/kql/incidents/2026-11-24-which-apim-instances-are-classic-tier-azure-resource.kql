@@ -1,0 +1,19 @@
+// title: Which APIM instances are Classic tier (Azure Resource Graph)
+// date: 2026-11-24
+// product: Microsoft 365
+// tables: 
+// purpose: Threat Research: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)
+// source: https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// APIM Classic secrets (Nov 2026): exposure inventory - Classic tiers only (v2 and Consumption not affected)
+// Azure Resource Graph Explorer. Direct management API status is not in Resource Graph: GET <id>/tenant/access?api-version=2022-08-01 -> properties.enabled
+resources
+| where type =~ "microsoft.apimanagement/service"
+| extend tier = tostring(sku.name)
+| where tier in~ ("Developer", "Basic", "Standard", "Premium")
+| project subscriptionId, resourceGroup, name, tier, location,
+          publicNetworkAccess = tostring(properties.publicNetworkAccess),
+          vnetType = tostring(properties.virtualNetworkType),
+          managementApiUrl = tostring(properties.managementApiUrl)

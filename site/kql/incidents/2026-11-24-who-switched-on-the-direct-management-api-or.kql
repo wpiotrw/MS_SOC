@@ -1,0 +1,20 @@
+// title: Who switched on the direct management API or touched its access keys (AzureActivity, 90 days)
+// date: 2026-11-24
+// product: Sentinel
+// tables: AzureActivity
+// purpose: Threat Research: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)
+// source: https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// APIM Classic secrets (Nov 2026): tenant access = the direct management API switch and its keys
+// Microsoft.ApiManagement/service/tenant: write (enable), listSecrets (read keys), regenerate*Key
+AzureActivity
+| where TimeGenerated > ago(90d)
+| where ResourceProviderValue =~ "MICROSOFT.APIMANAGEMENT"
+| extend Op = tolower(OperationNameValue)
+| where Op endswith "/tenant/write" or Op contains "/tenant/listsecrets" or Op contains "/tenant/regenerate"
+| summarize Count = count(), First = min(TimeGenerated), Last = max(TimeGenerated),
+            Ops = make_set(Op, 10), IPs = make_set(CallerIpAddress, 20), Status = make_set(ActivityStatusValue, 5)
+    by Caller, _ResourceId
+| order by First asc

@@ -1,0 +1,14 @@
+// title: Step 5, fallback: Key Vault audit events in AzureDiagnostics
+// date: 2026-11-21
+// product: Microsoft 365
+// tables: 
+// purpose: Published for the incident: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)
+// source: https://anderskristiansen.com/post/2026/apim-legacy-access/
+// kind: article
+// author: Anders Kristiansen
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let timeframe = 30d;
+AzureDiagnostics
+| where TimeGenerated > ago(timeframe)
+| where ResourceProvider =~ "MICROSOFT.KEYVAULT" and Category == "AuditEvent"
+| top 50 by TimeGenerated desc

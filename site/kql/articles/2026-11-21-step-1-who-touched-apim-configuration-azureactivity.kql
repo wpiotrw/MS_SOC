@@ -1,0 +1,32 @@
+// title: Step 1: who touched APIM configuration (AzureActivity)
+// date: 2026-11-21
+// product: Sentinel
+// tables: AzureActivity
+// purpose: Published for the incident: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)
+// source: https://anderskristiansen.com/post/2026/apim-legacy-access/
+// kind: article
+// author: Anders Kristiansen
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let timeframe = 30d;
+AzureActivity
+| where TimeGenerated > ago(timeframe)
+| where ResourceProviderValue =~ "MICROSOFT.APIMANAGEMENT"
+| extend Op = tolower(OperationNameValue)
+| where Op contains "/namedvalues/listvalue/action"
+    or Op contains "/subscriptions/listsecrets/action"
+    or Op contains "/tenant/listsecrets/action"
+    or Op contains "/identityproviders/listsecrets/action"
+    or Op contains "/policies/write"
+    or Op contains "/namedvalues/write"
+    or Op contains "/identityproviders/write"
+    or Op contains "/users/write"
+    or Op contains "/portalsettings/write"
+    or Op contains "/portalrevisions/write"
+| summarize Count = count(),
+            FirstSeen = min(TimeGenerated),
+            LastSeen = max(TimeGenerated),
+            Operations = make_set(Op, 20),
+            Statuses = make_set(ActivityStatusValue, 5),
+            SourceIPs = make_set(CallerIpAddress, 20)
+    by Caller, _ResourceId
+| order by FirstSeen asc

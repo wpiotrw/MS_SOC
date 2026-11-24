@@ -1,0 +1,32 @@
+// title: Step 3: new subscription identifiers and tracing on the gateway (ApiManagementGatewayLogs)
+// date: 2026-11-21
+// product: Microsoft 365
+// tables: 
+// purpose: Published for the incident: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)
+// source: https://anderskristiansen.com/post/2026/apim-legacy-access/
+// kind: article
+// author: Anders Kristiansen
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let baseline = 30d;
+let recent = 7d;
+let KnownSubscriptions = ApiManagementGatewayLogs
+    | where TimeGenerated between (ago(baseline) .. ago(recent))
+    | where isnotempty(ApimSubscriptionId)
+    | distinct _ResourceId, ApimSubscriptionId
+    | extend SeenBefore = true;
+ApiManagementGatewayLogs
+| where TimeGenerated > ago(recent)
+| join kind=leftouter KnownSubscriptions on _ResourceId, ApimSubscriptionId
+| extend NewSubscriptionId = isnotempty(ApimSubscriptionId) and coalesce(SeenBefore, false) == false
+| where NewSubscriptionId or IsTraceRequested == true
+| summarize Requests = count(),
+            FirstSeen = min(TimeGenerated),
+            LastSeen = max(TimeGenerated),
+            Apis = make_set(ApiId, 20),
+            Products = make_set(ProductId, 10),
+            CallerIPs = make_set(CallerIpAddress, 20),
+            TraceRequests = countif(IsTraceRequested == true),
+            AllowedTraceRequests = countif(IsTraceAllowed == true),
+            ResponseCodes = make_set(ResponseCode, 10)
+    by _ResourceId, ApimSubscriptionId, UserId, NewSubscriptionId
+| order by FirstSeen asc

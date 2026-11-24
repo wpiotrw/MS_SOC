@@ -1,5 +1,31 @@
 [
  {
+  "file": "incidents/2026-11-24-who-switched-on-the-direct-management-api-or.kql",
+  "title": "Who switched on the direct management API or touched its access keys (AzureActivity, 90 days)",
+  "date": "2026-11-24",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "Threat Research: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)",
+  "source": "https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "azure-apim-classic-secrets-2026-11"
+ },
+ {
+  "file": "incidents/2026-11-24-which-apim-instances-are-classic-tier-azure-resource.kql",
+  "title": "Which APIM instances are Classic tier (Azure Resource Graph)",
+  "date": "2026-11-24",
+  "product": "Microsoft 365",
+  "tables": [],
+  "purpose": "Threat Research: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)",
+  "source": "https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "azure-apim-classic-secrets-2026-11"
+ },
+ {
   "file": "incidents/2026-11-24-sign-ins-from-the-campaign-s-replay-and.kql",
   "title": "Sign-ins from the campaign's replay and relay addresses, interactive and non-interactive, last 180 days",
   "date": "2026-11-24",
@@ -41,6 +67,20 @@
   "kind": "incident-note",
   "author": "Threat Research analysis (the morning analysis)",
   "incident": "m365-token-spray-replay-1337-services-2026"
+ },
+ {
+  "file": "incidents/2026-11-24-after-rotation-an-old-client-secret-of-an.kql",
+  "title": "After rotation: an old client secret of an APIM-linked app still signing in (AADServicePrincipalSignInLogs)",
+  "date": "2026-11-24",
+  "product": "Entra",
+  "tables": [
+   "AADServicePrincipalSignInLogs"
+  ],
+  "purpose": "Threat Research: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)",
+  "source": "https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "azure-apim-classic-secrets-2026-11"
  },
  {
   "file": "community/2026-11-24-netapi-ip-addresses-that-have-attacked-netapi-honeypot.kql",
@@ -778,6 +818,103 @@
   "kind": "incident-note",
   "author": "Threat Research analysis (the morning analysis)",
   "incident": "optimizely-web-experimentation-supply-chain-2026-11"
+ },
+ {
+  "file": "articles/2026-11-21-step-6-what-the-apim-linked-apps-did.kql",
+  "title": "Step 6: what the APIM-linked apps did in Microsoft Graph (MicrosoftGraphActivityLogs)",
+  "date": "2026-11-21",
+  "product": "Entra",
+  "tables": [
+   "MicrosoftGraphActivityLogs"
+  ],
+  "purpose": "Published for the incident: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)",
+  "source": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+  "kind": "article",
+  "author": "Anders Kristiansen",
+  "link": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+  "incident": "azure-apim-classic-secrets-2026-11"
+ },
+ {
+  "file": "articles/2026-11-21-step-5-who-is-going-after-the-key.kql",
+  "title": "Step 5: who is going after the Key Vault secrets APIM references (AZKVAuditLogs)",
+  "date": "2026-11-21",
+  "product": "Microsoft 365",
+  "tables": [],
+  "purpose": "Published for the incident: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)",
+  "source": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+  "kind": "article",
+  "author": "Anders Kristiansen",
+  "link": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+  "incident": "azure-apim-classic-secrets-2026-11"
+ },
+ {
+  "file": "articles/2026-11-21-step-5-fallback-key-vault-audit-events-in.kql",
+  "title": "Step 5, fallback: Key Vault audit events in AzureDiagnostics",
+  "date": "2026-11-21",
+  "product": "Microsoft 365",
+  "tables": [],
+  "purpose": "Published for the incident: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)",
+  "source": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+  "kind": "article",
+  "author": "Anders Kristiansen",
+  "link": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+  "incident": "azure-apim-classic-secrets-2026-11"
+ },
+ {
+  "file": "articles/2026-11-21-step-4-apim-linked-app-sign-ins-from.kql",
+  "title": "Step 4: APIM-linked app sign-ins from new IP addresses (AADServicePrincipalSignInLogs)",
+  "date": "2026-11-21",
+  "product": "Entra",
+  "tables": [
+   "AADServicePrincipalSignInLogs"
+  ],
+  "purpose": "Published for the incident: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)",
+  "source": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+  "kind": "article",
+  "author": "Anders Kristiansen",
+  "link": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+  "incident": "azure-apim-classic-secrets-2026-11"
+ },
+ {
+  "file": "articles/2026-11-21-step-3-new-subscription-identifiers-and-tracing-on.kql",
+  "title": "Step 3: new subscription identifiers and tracing on the gateway (ApiManagementGatewayLogs)",
+  "date": "2026-11-21",
+  "product": "Microsoft 365",
+  "tables": [],
+  "purpose": "Published for the incident: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)",
+  "source": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+  "kind": "article",
+  "author": "Anders Kristiansen",
+  "link": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+  "incident": "azure-apim-classic-secrets-2026-11"
+ },
+ {
+  "file": "articles/2026-11-21-step-2-is-the-unused-developer-portal-in.kql",
+  "title": "Step 2: is the 'unused' developer portal in use (APIMDevPortalAuditDiagnosticLog)",
+  "date": "2026-11-21",
+  "product": "Microsoft 365",
+  "tables": [],
+  "purpose": "Published for the incident: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)",
+  "source": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+  "kind": "article",
+  "author": "Anders Kristiansen",
+  "link": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+  "incident": "azure-apim-classic-secrets-2026-11"
+ },
+ {
+  "file": "articles/2026-11-21-step-1-who-touched-apim-configuration-azureactivity.kql",
+  "title": "Step 1: who touched APIM configuration (AzureActivity)",
+  "date": "2026-11-21",
+  "product": "Sentinel",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "Published for the incident: Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)",
+  "source": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+  "kind": "article",
+  "author": "Anders Kristiansen",
+  "link": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+  "incident": "azure-apim-classic-secrets-2026-11"
  },
  {
   "file": "articles/2026-11-21-detection-5-cve-2026-73571-metasploit-exploitation-pattern.kql",
