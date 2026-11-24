@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-24T04:57:35Z",
+ "generated": "2026-11-24T06:52:48Z",
  "day": "2026-11-24",
  "spec": "5gf",
  "source": "site/data/campaigns.json (2026-11-24)",
@@ -773,11 +773,11 @@
    "others": [
     {
      "date": "2027-02-01",
-     "src": "MC1519855",
-     "text": "Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by February 1, 2027.",
-     "post": "2026-10-21",
+     "src": "MC1426371",
+     "text": "As part of this transition, SMS and voice will no longer be available as multifactor authentication methods starting February 1, 2027 .",
+     "post": "2026-07-13",
      "later": true,
-     "link": "https://mc.merill.net/message/MC1519855"
+     "link": "https://mc.merill.net/message/MC1426371"
     },
     {
      "date": "2027-02-15",

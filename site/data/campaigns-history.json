@@ -1,6 +1,857 @@
 {
 "updated":"2026-11-24",
 "campaigns":{
+"c-mc676299":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-24",
+"name":"Exchange Web Services (EWS) retirement update",
+"status":"Active",
+"members":[
+"MC1227454",
+"MC1446796",
+"MC1447678",
+"MC1469960",
+"MC1477180",
+"MC1485116",
+"MC1486282",
+"MC1486288",
+"item:exchange-online-ews-disablement-starts-2026-10-21"
+],
+"log":[
+{
+"date":"2026-11-23",
+"id":"MC1446796",
+"what":"Microsoft revised the post",
+"before":"2026-11-09",
+"after":"2026-11-23",
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
+},
+{
+"date":"2026-11-23",
+"id":"MC1446796",
+"what":"Message Center end date",
+"before":"2026-12-28",
+"after":"2027-01-11",
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
+},
+{
+"date":"2026-11-23",
+"id":"MC1446796",
+"what":"Date moved",
+"before":"23 Nov 2026",
+"after":"4 Dec 2026",
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
+},
+{
+"date":"2026-11-23",
+"id":"MC1446796",
+"what":"Date moved",
+"before":"late Nov 2026",
+"after":"early Dec 2026",
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
+},
+{
+"date":"2026-11-09",
+"id":"MC1446796",
+"what":"Date moved",
+"before":"6 Nov 2026",
+"after":"23 Nov 2026",
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
+},
+{
+"date":"2026-11-09",
+"id":"MC1446796",
+"what":"Date moved",
+"before":"early Nov 2026",
+"after":"late Nov 2026",
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
+},
+{
+"date":"2026-11-09",
+"id":"MC1446796",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
+},
+{
+"date":"2026-11-09",
+"id":"MC1446796",
+"what":"Microsoft revised the post",
+"before":"2026-10-30",
+"after":"2026-11-09",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-10-30",
+"id":"MC1446796",
+"what":"Date moved",
+"before":"20 Oct 2026",
+"after":"30 Oct 2026",
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
+},
+{
+"date":"2026-10-30",
+"id":"MC1446796",
+"what":"Deadline",
+"before":"2026-10-30",
+"after":"2026-11-06",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-10-30",
+"id":"MC1446796",
+"what":"Microsoft revised the post",
+"before":"2026-10-20",
+"after":"2026-10-30",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-10-24",
+"id":"MC1477180",
+"what":"Microsoft revised the post",
+"before":"2026-09-23",
+"after":"2026-09-22",
+"title":"Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance",
+"link":"https://mc.merill.net/message/MC1477180"
+},
+{
+"date":"2026-10-22",
+"id":"exchange-online-ews-disablement-starts-2026-10-21",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027",
+"title":"Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027",
+"link":"https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online"
+},
+{
+"date":"2026-10-20",
+"id":"MC1469960",
+"what":"Microsoft revised the post",
+"before":"2026-09-18",
+"after":"2026-09-09",
+"title":"Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes",
+"link":"https://mc.merill.net/message/MC1469960"
+},
+{
+"date":"2026-10-20",
+"id":"MC1446796",
+"what":"Microsoft moved the date",
+"before":"15 Oct 2026",
+"after":"30 Oct 2026",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-10-20",
+"id":"MC1446796",
+"what":"Microsoft moved the date",
+"before":"Oct 2026",
+"after":"early Nov 2026",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-10-20",
+"id":"MC1446796",
+"what":"Microsoft moved the date",
+"before":"30 Oct 2026",
+"after":"6 Nov 2026",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-10-20",
+"id":"MC1446796",
+"what":"Microsoft revised the post",
+"before":"2026-10-05",
+"after":"2026-10-20",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-10-16",
+"id":"MC1191578",
+"what":"Message Center end date",
+"before":"2026-11-02",
+"after":"2026-10-21",
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://mc.merill.net/message/MC1191578"
+},
+{
+"date":"2026-10-16",
+"id":"MC1191578",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://mc.merill.net/message/MC1191578"
+},
+{
+"date":"2026-10-16",
+"id":"MC1191578",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have decided not to move forward with this change.",
+"title":"Microsoft cancels the EWS block for Kiosk, F1 and F3 mailboxes that was due on 1 October 2026",
+"link":"https://deltapulse.app/item/MC1191578"
+},
+{
+"date":"2026-10-12",
+"id":"MC1477180",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance",
+"title":"Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance",
+"link":"https://mc.merill.net/message/MC1477180"
+},
+{
+"date":"2026-10-07",
+"id":"573701",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Archive mailboxes, main and auxiliary, become readable through Microsoft Graph as EWS is retired (roadmap, government clouds, November 2026)",
+"title":"Archive mailboxes, main and auxiliary, become readable through Microsoft Graph as EWS is retired (roadmap, government clouds, November 2026)",
+"link":"https://deltapulse.app/item/573701"
+},
+{
+"date":"2026-10-06",
+"id":"MC1446796",
+"what":"Microsoft revised the post",
+"before":"2026-09-29",
+"after":"2026-10-05",
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
+},
+{
+"date":"2026-10-05",
+"id":"MC1446796",
+"what":"Microsoft's update note",
+"before":"",
+"after":"Gov rollout of this feature is paused at this time.",
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796"
+},
+{
+"date":"2026-10-03",
+"id":"MC1486288",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Teams Rooms on Android, Teams phones and panels below the February 2026 app version lose their calendar as EWS is switched off from October",
+"title":"Teams Rooms on Android, Teams phones and panels below the February 2026 app version lose their calendar as EWS is switched off from October",
+"link":"https://deltapulse.app/item/MC1486288"
+},
+{
+"date":"2026-10-03",
+"id":"MC1486282",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)",
+"title":"Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)",
+"link":"https://mc.merill.net/message/MC1486282"
+},
+{
+"date":"2026-10-02",
+"id":"MC1485116",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"EWS needs an EWSAllowedAppIDs allow list from 10 October; EWSEnabled=True alone stops being enough",
+"title":"EWS needs an EWSAllowedAppIDs allow list from 10 October; EWSEnabled=True alone stops being enough",
+"link":"https://deltapulse.app/item/MC1485116"
+},
+{
+"date":"2026-10-02",
+"id":"MC1469960",
+"what":"Deadline",
+"before":"2026-10-01",
+"after":"2026-10-10",
+"title":"EWS starts requiring a configured EWSAllowedAppIDs list, and Microsoft will generate one from 60 days of observed usage where none exists",
+"link":"https://learn.microsoft.com/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online"
+},
+{
+"date":"2026-10-01",
+"id":"exchange-ews-hybrid-coexistence-2026-09-30",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Hybrid tenants with on-premises mailboxes and online archives, and tenants sharing free/busy with on-premises orgs, must keep EWS on",
+"title":"Hybrid tenants with on-premises mailboxes and online archives, and tenants sharing free/busy with on-premises orgs, must keep EWS on",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/impact-of-exchange-online-ews-deprecation-on-hybrid-rich/ba-p/4561161"
+},
+{
+"date":"2026-09-29",
+"id":"MC1447678",
+"what":"Act-by date",
+"before":"",
+"after":"2026-09-30",
+"title":"EWS retirement and EWSAllowedAppIDs enforcement",
+"link":"https://mc.merill.net/message/MC1447678"
+},
+{
+"date":"2026-09-29",
+"id":"MC1446796",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-09-29",
+"id":"MC1446796",
+"what":"Act-by date",
+"before":"",
+"after":"2026-10-01",
+"title":"Cross-tenant Calendar Sharing on Cross-Tenant Access slips to 15 October, two weeks after EWS starts switching off on 1 October",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-09-28",
+"id":"MC676299",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"(Updated) Retirement of Exchange Web Services in Exchange Online",
+"title":"Retirement of Exchange Web Services in Exchange Online",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC676299"
+},
+{
+"date":"2026-09-28",
+"id":"MC1446796",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"(Updated) Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"title":"Cross-tenant Calendar Sharing on Cross-Tenant Access slips to 15 October, two weeks after EWS starts switching off on 1 October",
+"link":"https://deltapulse.app/item/MC1446796"
+},
+{
+"date":"2026-09-28",
+"id":"MC1227454",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Exchange Web Services (EWS) retirement update",
+"title":"Exchange Web Services (EWS) retirement update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
+},
+{
+"date":"2026-09-28",
+"id":"MC1191578",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"(Updated) Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578"
+},
+{
+"date":"2026-09-18",
+"id":"MC1469960",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the content.",
+"title":"Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes",
+"link":"https://mc.merill.net/message/MC1469960"
+},
+{
+"date":"2026-08-24",
+"id":"MC1447678",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the content.",
+"title":"EWS retirement and EWSAllowedAppIDs enforcement",
+"link":"https://mc.merill.net/message/MC1447678"
+},
+{
+"date":"2026-06-10",
+"id":"MC1191578",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the timeline.",
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578"
+},
+{
+"date":"2026-06-10",
+"id":"MC1191578",
+"what":"Microsoft moved the date",
+"before":"30 Jun 2026",
+"after":"1 Oct 2026",
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578"
+},
+{
+"date":"2025-04-18",
+"id":"MC676299",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the content.",
+"title":"Retirement of Exchange Web Services in Exchange Online",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC676299"
+}
+],
+"milestones":{
+"MC1227454|posted":{
+"date":"2026-02-05",
+"label":"5 Feb 2026",
+"text":"Posted: Exchange Web Services (EWS) retirement update"
+},
+"MC1447678|available as of late#0":{
+"date":"2026-07-25",
+"label":"late Jul 2026",
+"text":"Available as of late July 2026."
+},
+"MC1446796|posted":{
+"date":"2026-08-03",
+"label":"3 Aug 2026",
+"text":"Posted: Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation"
+},
+"MC1447678|posted":{
+"date":"2026-08-05",
+"label":"5 Aug 2026",
+"text":"Posted: EWS retirement and EWSAllowedAppIDs enforcement"
+},
+"MC1469960|posted":{
+"date":"2026-09-09",
+"label":"9 Sep 2026",
+"text":"Posted: Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes"
+},
+"MC1446796|we will begin rolling out in and expect to complete by for f#0":{
+"date":"2026-09-15",
+"label":"15 Sep 2026",
+"text":"We will begin rolling out in August 2026 and expect to complete by September 15, 2026 for Free/Busy"
+},
+"MC1477180|posted":{
+"date":"2026-09-22",
+"label":"22 Sep 2026",
+"text":"Posted: Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance"
+},
+"MC1447678|actionBy":{
+"date":"2026-09-30",
+"label":"30 Sep 2026",
+"text":"Act by this date (Message Center)"
+},
+"MC1485116|posted":{
+"date":"2026-10-01",
+"label":"1 Oct 2026",
+"text":"Posted: Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
+},
+"MC1227454|beginning ews will be blocked unless the tenant configures a#0":{
+"date":"2026-10-01",
+"label":"1 Oct 2026",
+"text":"Beginning October 1, 2026 , EWS will be blocked unless the tenant configures an AppID AllowList and sets EWSEnabled=True."
+},
+"MC1486282|posted":{
+"date":"2026-10-02",
+"label":"2 Oct 2026",
+"text":"Posted: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+},
+"MC1486288|posted":{
+"date":"2026-10-02",
+"label":"2 Oct 2026",
+"text":"Posted: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
+},
+"MC1485116|#0":{
+"date":"2026-10-02",
+"label":"2 Oct 2026",
+"text":"October 2, 2026."
+},
+"MC1485116|for identified worldwide tenants with ewsenabled true and no#0":{
+"date":"2026-10-03",
+"label":"3 Oct 2026",
+"text":"For identified Worldwide tenants with EWSEnabled=True and no configured EWSAllowedAppIDs list on October 3 2026, Microsoft creates and populates an allow list u"
+},
+"MC1469960|beginning in early and expected to complete by late#0":{
+"date":"2026-10-05",
+"label":"early Oct 2026",
+"text":"Beginning in early October 2026 and expected to complete by late April 2027."
+},
+"MC1485116|starting exchange online tenants must configure ewsallowedap#0":{
+"date":"2026-10-10",
+"label":"10 Oct 2026",
+"text":"Starting October 10, 2026, Exchange Online tenants must configure EWSAllowedAppIDs to allow Exchange Web Services (EWS) access; EWSEnabled=True alone will no lo"
+},
+"MC1446796|microsoft cross tenant access policy will replace ews by#0":{
+"date":"2026-11-15",
+"label":"Nov 2026",
+"text":"Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026."
+},
+"MC1446796|we will begin rolling out in and expect to complete by for f#1":{
+"date":"2026-12-04",
+"label":"4 Dec 2026",
+"text":"Mailtips and December 4, 2026 (previously November 23) for Calendar Sharing."
+},
+"MC1446796|cross tenant free busy mailtips will be available by and cal#0":{
+"date":"2026-12-05",
+"label":"early Dec 2026",
+"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by early December 2026 (previously late November) via Microsoft 365 Cross-Te"
+},
+"MC1227454|after ews access will be permanently removed with no re enab#0":{
+"date":"2027-04-01",
+"label":"1 Apr 2027",
+"text":"After April 1, 2027 , EWS access will be permanently removed with no re-enablement."
+},
+"MC1469960|beginning in early and expected to complete by late#1":{
+"date":"2027-04-25",
+"label":"late Apr 2027",
+"text":"Beginning in early October 2026 and expected to complete by late April 2027."
+},
+"MC1485116|beginning in early and expected to complete by early#1":{
+"date":"2027-07-05",
+"label":"early Jul 2027",
+"text":"Beginning in early October 2026 and expected to complete by early July 2027."
+}
+},
+"moves":[
+{
+"src":"MC1446796",
+"key":"updated calendar sharing via microsoft cross tenant access p#0",
+"was":"20 Oct 2026",
+"now":"30 Oct 2026",
+"seen":"2026-10-30",
+"text":"Updated 30 October 2026: Calendar Sharing via Microsoft 365 Cross-Tenant Access Policy completes rolling out by 6 November 2026 (previously 30 October)."
+},
+{
+"src":"MC1446796",
+"key":"we will begin rolling out in and expect to complete by for f#1",
+"was":"6 Nov 2026",
+"now":"23 Nov 2026",
+"seen":"2026-11-09",
+"text":"Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing."
+},
+{
+"src":"MC1446796",
+"key":"cross tenant free busy mailtips will be available by and cal#0",
+"was":"early Nov 2026",
+"now":"late Nov 2026",
+"seen":"2026-11-09",
+"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Te"
+},
+{
+"src":"MC1446796",
+"key":"we will begin rolling out in and expect to complete by for f#1",
+"was":"23 Nov 2026",
+"now":"4 Dec 2026",
+"seen":"2026-11-23",
+"text":"Mailtips and December 4, 2026 (previously November 23) for Calendar Sharing."
+},
+{
+"src":"MC1446796",
+"key":"cross tenant free busy mailtips will be available by and cal#0",
+"was":"late Nov 2026",
+"now":"early Dec 2026",
+"seen":"2026-11-23",
+"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by early December 2026 (previously late November) via Microsoft 365 Cross-Te"
+}
+],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC676299":{
+"title":"Retirement of Exchange Web Services in Exchange Online",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC676299",
+"source":"Message Center",
+"id":"MC676299",
+"date":"2023-09-21",
+"updated":"2025-04-18",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454":{
+"title":"Exchange Web Services (EWS) retirement update",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454",
+"source":"Message Center",
+"id":"MC1227454",
+"date":"2026-02-05",
+"updated":"2026-02-05",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1446796":{
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://mc.merill.net/message/MC1446796",
+"source":"Message Center",
+"id":"MC1446796",
+"date":"2026-08-03",
+"updated":"2026-10-05",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1447678":{
+"title":"EWS retirement and EWSAllowedAppIDs enforcement",
+"link":"https://mc.merill.net/message/MC1447678",
+"source":"Message Center",
+"id":"MC1447678",
+"date":"2026-08-05",
+"updated":"2026-08-05",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1485116":{
+"title":"Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs",
+"link":"https://mc.merill.net/message/MC1485116",
+"source":"Message Center",
+"id":"MC1485116",
+"date":"2026-10-01",
+"updated":"2026-10-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1486282":{
+"title":"Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)",
+"link":"https://mc.merill.net/message/MC1486282",
+"source":"Message Center",
+"id":"MC1486282",
+"date":"2026-10-02",
+"updated":"2026-10-02",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1486288":{
+"title":"Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)",
+"link":"https://deltapulse.app/item/MC1486288",
+"source":"Message Center",
+"id":"MC1486288",
+"date":"2026-10-02",
+"updated":"2026-10-02",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1446796":{
+"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
+"link":"https://deltapulse.app/item/MC1446796",
+"source":"Main list source",
+"id":"MC1446796",
+"date":"2026-08-03",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online":{
+"title":"Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes",
+"link":"https://learn.microsoft.com/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online",
+"source":"Main list source",
+"id":"MC1469960",
+"date":"2026-09-09",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/blog/exchange/cross-tenant-freebusy-mailtips-and-calendar-sharing-are-moving-to-cross-tenant-a/4545169":{
+"title":"Cross-tenant Free/Busy, MailTips, and Calendar Sharing are moving to Cross-Tenant Access",
+"link":"https://techcommunity.microsoft.com/blog/exchange/cross-tenant-freebusy-mailtips-and-calendar-sharing-are-moving-to-cross-tenant-a/4545169",
+"source":"Main list source",
+"id":"exchange-crosstenant-freebusy-to-cta",
+"date":"2026-09-16",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/impact-of-exchange-online-ews-deprecation-on-hybrid-rich/ba-p/4561161":{
+"title":"Impact of Exchange Online EWS Deprecation on Hybrid Rich Coexistence and Cross-org Sharing",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/impact-of-exchange-online-ews-deprecation-on-hybrid-rich/ba-p/4561161",
+"source":"Main list source",
+"id":"exchange-ews-hybrid-coexistence-2026-09-30",
+"date":"2026-09-30",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/MC1485116":{
+"title":"Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs",
+"link":"https://deltapulse.app/item/MC1485116",
+"source":"Main list source",
+"id":"MC1485116",
+"date":"2026-10-01",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/cross-tenant-free-busy-mailtips-and-calendar-sharing-are-moving/ba-p/4545169":{
+"title":"Cross-tenant Free/Busy, MailTips, and Calendar Sharing are moving to Cross-Tenant Access Policy",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/cross-tenant-free-busy-mailtips-and-calendar-sharing-are-moving/ba-p/4545169",
+"source":"Exchange Team Blog",
+"date":"2026-09-29",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/take-control-of-your-ewsallowedappids-list-before-ews-access/ba-p/4553534":{
+"title":"Take control of your EWSAllowedAppIDs list before EWS access changes",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/take-control-of-your-ewsallowedappids-list-before-ews-access/ba-p/4553534",
+"source":"Exchange Team Blog",
+"date":"2026-09-04",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/help-us-shape-exchange-server-on-premises-to-different-online/ba-p/4549691":{
+"title":"Help us shape Exchange Server on-premises to different online org Free/Busy after EWS retirement",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/help-us-shape-exchange-server-on-premises-to-different-online/ba-p/4549691",
+"source":"Exchange Team Blog",
+"date":"2026-08-24",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578":{
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578",
+"source":"Message Center",
+"id":"MC1191578",
+"date":"2025-12-02",
+"updated":"2026-06-10",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1469960":{
+"title":"Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes",
+"link":"https://mc.merill.net/message/MC1469960",
+"source":"Message Center",
+"id":"MC1469960",
+"date":"2026-09-09",
+"updated":"2026-09-18",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://deltapulse.app/item/573701":{
+"title":"Microsoft Purview: Data Lifecycle Management-Graph API Support for Archive Mailboxes",
+"link":"https://deltapulse.app/item/573701",
+"source":"Main list source",
+"id":"573701",
+"date":"2026-10-06",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://techcommunity.microsoft.com/discussions/windows11/windows-11-file-explorer-opens-to-quick-access-instead-of-this-pc-every-time/4557000":{
+"title":"Cross-tenant Free/Busy, MailTips, and Calendar Sharing are moving to Cross-Tenant Access",
+"link":"https://techcommunity.microsoft.com/discussions/windows11/windows-11-file-explorer-opens-to-quick-access-instead-of-this-pc-every-time/4557000",
+"source":"Main list source",
+"id":"exchange-crosstenant-freebusy-to-cta",
+"date":"2026-09-16",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://cloudsecop.com/cross-tenant-free-busy-after-ews-migrating-to-microsoft-365-cross-tenant-access-policy/":{
+"title":"Cross-Tenant Free/Busy After EWS : Migrating to Microsoft 365 Cross-Tenant Access Policy",
+"link":"https://cloudsecop.com/cross-tenant-free-busy-after-ews-migrating-to-microsoft-365-cross-tenant-access-policy/",
+"source":"Cloud Secop - M365",
+"date":"2026-10-09",
+"group":"community",
+"found":"2026-10-09"
+},
+"https://mc.merill.net/message/MC1477180":{
+"title":"Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance",
+"link":"https://mc.merill.net/message/MC1477180",
+"source":"Message Center",
+"id":"MC1477180",
+"date":"2026-10-12",
+"updated":"2026-09-23",
+"group":"microsoft",
+"found":"2026-10-12"
+},
+"https://mc.merill.net/message/MC1191578":{
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://mc.merill.net/message/MC1191578",
+"source":"Message Center",
+"id":"MC1191578",
+"date":"2025-12-02",
+"updated":"2026-10-16",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://deltapulse.app/item/MC1191578":{
+"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
+"link":"https://deltapulse.app/item/MC1191578",
+"source":"Main list source",
+"id":"MC1191578",
+"date":"2025-12-02",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
+"title":"Enable opaque origins for data URLs in Web Workers",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"date":"2026-10-12T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-10-17"
+},
+"https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online":{
+"title":"EWS Deprecation Is Here – What This Means To You",
+"link":"https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online",
+"source":"Main list source",
+"id":"exchange-online-ews-disablement-starts-2026-10-21",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/exchange-online-ews-application-stopped-working-do-this/ba-p/4566215":{
+"title":"Exchange Online EWS application stopped working? Do this.",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/exchange-online-ews-application-stopped-working-do-this/ba-p/4566215",
+"source":"Exchange Team Blog",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://techcommunity.microsoft.com/t5/exchange-team-blog/ews-deprecation-is-here-what-this-means-to-you/ba-p/4561431":{
+"title":"EWS Deprecation Is Here – What This Means To You",
+"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/ews-deprecation-is-here-what-this-means-to-you/ba-p/4561431",
+"source":"Exchange Team Blog",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
+"title":"What this means for you",
+"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Entra",
+"date":"2026-06-26",
+"group":"microsoft",
+"found":"2026-10-22"
+},
+"https://office365itpros.com/2026/10/23/exchange-web-services-final/?utm_source=rss&utm_medium=rss&utm_campaign=exchange-web-services-final":{
+"title":"Exchange Web Services Enters the Final Mile",
+"link":"https://office365itpros.com/2026/10/23/exchange-web-services-final/?utm_source=rss&utm_medium=rss&utm_campaign=exchange-web-services-final",
+"source":"Office 365 IT Pros",
+"date":"2026-10-23",
+"group":"community",
+"found":"2026-10-27"
+},
+"https://dev.to/amrithesh_dev/mistrals-1-trillion-parameter-model-is-open-source-what-this-means-for-your-business-pd5":{
+"title":"Mistral’s 1‑Trillion‑Parameter Model Is Open‑Source—What This Means for Your Business",
+"link":"https://dev.to/amrithesh_dev/mistrals-1-trillion-parameter-model-is-open-source-what-this-means-for-your-business-pd5",
+"source":"NeonTiger12",
+"date":"2026-10-30",
+"group":"community",
+"found":"2026-10-30"
+},
+"https://daily.entra.news/day/2026-11-14/":{
+"title":"Tenant Governance preview guidance ties reusable baselines to cross-tenant deployments — 14 November 2026",
+"link":"https://daily.entra.news/day/2026-11-14/",
+"source":"Daily Entra News",
+"date":"2026-11-14",
+"group":"community",
+"found":"2026-11-18"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7532":{
+"title":"Chromium: CVE-2024-7533 Use after free in Sharing",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7532",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-20",
+"group":"microsoft",
+"found":"2026-11-20"
+}
+},
+"final":"2027-07-05",
+"type":"Retirement",
+"tech":"Exchange",
+"posts":[
+"MC1227454",
+"MC1446796",
+"MC1447678",
+"MC1469960",
+"MC1477180",
+"MC1485116"
+]
+},
 "c-mc1448373":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-24",
@@ -1000,848 +1851,6 @@
 "571157",
 "MC1481315",
 "MC1545691"
-]
-},
-"c-mc676299":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-24",
-"name":"Exchange Web Services (EWS) retirement update",
-"status":"Active",
-"members":[
-"MC1227454",
-"MC1446796",
-"MC1447678",
-"MC1469960",
-"MC1477180",
-"MC1485116",
-"MC1486282",
-"MC1486288",
-"item:exchange-online-ews-disablement-starts-2026-10-21"
-],
-"log":[
-{
-"date":"2026-11-23",
-"id":"MC1446796",
-"what":"Message Center end date",
-"before":"2026-12-28",
-"after":"2027-01-11",
-"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
-"link":"https://mc.merill.net/message/MC1446796"
-},
-{
-"date":"2026-11-23",
-"id":"MC1446796",
-"what":"Date moved",
-"before":"23 Nov 2026",
-"after":"4 Dec 2026",
-"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
-"link":"https://mc.merill.net/message/MC1446796"
-},
-{
-"date":"2026-11-23",
-"id":"MC1446796",
-"what":"Date moved",
-"before":"late Nov 2026",
-"after":"early Dec 2026",
-"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
-"link":"https://mc.merill.net/message/MC1446796"
-},
-{
-"date":"2026-11-09",
-"id":"MC1446796",
-"what":"Date moved",
-"before":"6 Nov 2026",
-"after":"23 Nov 2026",
-"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
-"link":"https://mc.merill.net/message/MC1446796"
-},
-{
-"date":"2026-11-09",
-"id":"MC1446796",
-"what":"Date moved",
-"before":"early Nov 2026",
-"after":"late Nov 2026",
-"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
-"link":"https://mc.merill.net/message/MC1446796"
-},
-{
-"date":"2026-11-09",
-"id":"MC1446796",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the timeline.",
-"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
-"link":"https://mc.merill.net/message/MC1446796"
-},
-{
-"date":"2026-11-09",
-"id":"MC1446796",
-"what":"Microsoft revised the post",
-"before":"2026-10-30",
-"after":"2026-11-09",
-"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
-"link":"https://deltapulse.app/item/MC1446796"
-},
-{
-"date":"2026-10-30",
-"id":"MC1446796",
-"what":"Date moved",
-"before":"20 Oct 2026",
-"after":"30 Oct 2026",
-"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
-"link":"https://mc.merill.net/message/MC1446796"
-},
-{
-"date":"2026-10-30",
-"id":"MC1446796",
-"what":"Deadline",
-"before":"2026-10-30",
-"after":"2026-11-06",
-"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
-"link":"https://deltapulse.app/item/MC1446796"
-},
-{
-"date":"2026-10-30",
-"id":"MC1446796",
-"what":"Microsoft revised the post",
-"before":"2026-10-20",
-"after":"2026-10-30",
-"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips again, to 6 November; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
-"link":"https://deltapulse.app/item/MC1446796"
-},
-{
-"date":"2026-10-24",
-"id":"MC1477180",
-"what":"Microsoft revised the post",
-"before":"2026-09-23",
-"after":"2026-09-22",
-"title":"Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance",
-"link":"https://mc.merill.net/message/MC1477180"
-},
-{
-"date":"2026-10-22",
-"id":"exchange-online-ews-disablement-starts-2026-10-21",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027",
-"title":"Exchange Online starts turning EWS off: the Exchange team says deprecation begins now, blocked EWS apps can be unblocked only until April 2027",
-"link":"https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online"
-},
-{
-"date":"2026-10-20",
-"id":"MC1469960",
-"what":"Microsoft revised the post",
-"before":"2026-09-18",
-"after":"2026-09-09",
-"title":"Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes",
-"link":"https://mc.merill.net/message/MC1469960"
-},
-{
-"date":"2026-10-20",
-"id":"MC1446796",
-"what":"Microsoft moved the date",
-"before":"15 Oct 2026",
-"after":"30 Oct 2026",
-"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
-"link":"https://deltapulse.app/item/MC1446796"
-},
-{
-"date":"2026-10-20",
-"id":"MC1446796",
-"what":"Microsoft moved the date",
-"before":"Oct 2026",
-"after":"early Nov 2026",
-"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
-"link":"https://deltapulse.app/item/MC1446796"
-},
-{
-"date":"2026-10-20",
-"id":"MC1446796",
-"what":"Microsoft moved the date",
-"before":"30 Oct 2026",
-"after":"6 Nov 2026",
-"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
-"link":"https://deltapulse.app/item/MC1446796"
-},
-{
-"date":"2026-10-20",
-"id":"MC1446796",
-"what":"Microsoft revised the post",
-"before":"2026-10-05",
-"after":"2026-10-20",
-"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
-"link":"https://deltapulse.app/item/MC1446796"
-},
-{
-"date":"2026-10-16",
-"id":"MC1191578",
-"what":"Message Center end date",
-"before":"2026-11-02",
-"after":"2026-10-21",
-"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
-"link":"https://mc.merill.net/message/MC1191578"
-},
-{
-"date":"2026-10-16",
-"id":"MC1191578",
-"what":"Microsoft edited the post text",
-"before":"",
-"after":"see the post",
-"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
-"link":"https://mc.merill.net/message/MC1191578"
-},
-{
-"date":"2026-10-16",
-"id":"MC1191578",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have decided not to move forward with this change.",
-"title":"Microsoft cancels the EWS block for Kiosk, F1 and F3 mailboxes that was due on 1 October 2026",
-"link":"https://deltapulse.app/item/MC1191578"
-},
-{
-"date":"2026-10-12",
-"id":"MC1477180",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance",
-"title":"Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance",
-"link":"https://mc.merill.net/message/MC1477180"
-},
-{
-"date":"2026-10-07",
-"id":"573701",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Archive mailboxes, main and auxiliary, become readable through Microsoft Graph as EWS is retired (roadmap, government clouds, November 2026)",
-"title":"Archive mailboxes, main and auxiliary, become readable through Microsoft Graph as EWS is retired (roadmap, government clouds, November 2026)",
-"link":"https://deltapulse.app/item/573701"
-},
-{
-"date":"2026-10-06",
-"id":"MC1446796",
-"what":"Microsoft revised the post",
-"before":"2026-09-29",
-"after":"2026-10-05",
-"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
-"link":"https://mc.merill.net/message/MC1446796"
-},
-{
-"date":"2026-10-05",
-"id":"MC1446796",
-"what":"Microsoft's update note",
-"before":"",
-"after":"Gov rollout of this feature is paused at this time.",
-"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
-"link":"https://mc.merill.net/message/MC1446796"
-},
-{
-"date":"2026-10-03",
-"id":"MC1486288",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Teams Rooms on Android, Teams phones and panels below the February 2026 app version lose their calendar as EWS is switched off from October",
-"title":"Teams Rooms on Android, Teams phones and panels below the February 2026 app version lose their calendar as EWS is switched off from October",
-"link":"https://deltapulse.app/item/MC1486288"
-},
-{
-"date":"2026-10-03",
-"id":"MC1486282",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"Action required: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)",
-"title":"Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)",
-"link":"https://mc.merill.net/message/MC1486282"
-},
-{
-"date":"2026-10-02",
-"id":"MC1485116",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"EWS needs an EWSAllowedAppIDs allow list from 10 October; EWSEnabled=True alone stops being enough",
-"title":"EWS needs an EWSAllowedAppIDs allow list from 10 October; EWSEnabled=True alone stops being enough",
-"link":"https://deltapulse.app/item/MC1485116"
-},
-{
-"date":"2026-10-02",
-"id":"MC1469960",
-"what":"Deadline",
-"before":"2026-10-01",
-"after":"2026-10-10",
-"title":"EWS starts requiring a configured EWSAllowedAppIDs list, and Microsoft will generate one from 60 days of observed usage where none exists",
-"link":"https://learn.microsoft.com/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online"
-},
-{
-"date":"2026-10-01",
-"id":"exchange-ews-hybrid-coexistence-2026-09-30",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Hybrid tenants with on-premises mailboxes and online archives, and tenants sharing free/busy with on-premises orgs, must keep EWS on",
-"title":"Hybrid tenants with on-premises mailboxes and online archives, and tenants sharing free/busy with on-premises orgs, must keep EWS on",
-"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/impact-of-exchange-online-ews-deprecation-on-hybrid-rich/ba-p/4561161"
-},
-{
-"date":"2026-09-29",
-"id":"MC1447678",
-"what":"Act-by date",
-"before":"",
-"after":"2026-09-30",
-"title":"EWS retirement and EWSAllowedAppIDs enforcement",
-"link":"https://mc.merill.net/message/MC1447678"
-},
-{
-"date":"2026-09-29",
-"id":"MC1446796",
-"what":"Microsoft edited the post text",
-"before":"",
-"after":"see the post",
-"title":"Cross-tenant calendar sharing on Cross-Tenant Access Policy slips to 30 October; EWS-based Free/Busy, MailTips and calendar sharing keep breaking as EWS is disabled",
-"link":"https://deltapulse.app/item/MC1446796"
-},
-{
-"date":"2026-09-29",
-"id":"MC1446796",
-"what":"Act-by date",
-"before":"",
-"after":"2026-10-01",
-"title":"Cross-tenant Calendar Sharing on Cross-Tenant Access slips to 15 October, two weeks after EWS starts switching off on 1 October",
-"link":"https://deltapulse.app/item/MC1446796"
-},
-{
-"date":"2026-09-28",
-"id":"MC676299",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"(Updated) Retirement of Exchange Web Services in Exchange Online",
-"title":"Retirement of Exchange Web Services in Exchange Online",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC676299"
-},
-{
-"date":"2026-09-28",
-"id":"MC1446796",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"(Updated) Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
-"title":"Cross-tenant Calendar Sharing on Cross-Tenant Access slips to 15 October, two weeks after EWS starts switching off on 1 October",
-"link":"https://deltapulse.app/item/MC1446796"
-},
-{
-"date":"2026-09-28",
-"id":"MC1227454",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"Exchange Web Services (EWS) retirement update",
-"title":"Exchange Web Services (EWS) retirement update",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454"
-},
-{
-"date":"2026-09-28",
-"id":"MC1191578",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"(Updated) Update to EWS Access for Kiosk / Frontline Worker Licenses",
-"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578"
-},
-{
-"date":"2026-09-18",
-"id":"MC1469960",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the content.",
-"title":"Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes",
-"link":"https://mc.merill.net/message/MC1469960"
-},
-{
-"date":"2026-08-24",
-"id":"MC1447678",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the content.",
-"title":"EWS retirement and EWSAllowedAppIDs enforcement",
-"link":"https://mc.merill.net/message/MC1447678"
-},
-{
-"date":"2026-06-10",
-"id":"MC1191578",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the timeline.",
-"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578"
-},
-{
-"date":"2026-06-10",
-"id":"MC1191578",
-"what":"Microsoft moved the date",
-"before":"30 Jun 2026",
-"after":"1 Oct 2026",
-"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578"
-},
-{
-"date":"2025-04-18",
-"id":"MC676299",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the content.",
-"title":"Retirement of Exchange Web Services in Exchange Online",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC676299"
-}
-],
-"milestones":{
-"MC1227454|posted":{
-"date":"2026-02-05",
-"label":"5 Feb 2026",
-"text":"Posted: Exchange Web Services (EWS) retirement update"
-},
-"MC1447678|available as of late#0":{
-"date":"2026-07-25",
-"label":"late Jul 2026",
-"text":"Available as of late July 2026."
-},
-"MC1446796|posted":{
-"date":"2026-08-03",
-"label":"3 Aug 2026",
-"text":"Posted: Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation"
-},
-"MC1447678|posted":{
-"date":"2026-08-05",
-"label":"5 Aug 2026",
-"text":"Posted: EWS retirement and EWSAllowedAppIDs enforcement"
-},
-"MC1469960|posted":{
-"date":"2026-09-09",
-"label":"9 Sep 2026",
-"text":"Posted: Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes"
-},
-"MC1446796|we will begin rolling out in and expect to complete by for f#0":{
-"date":"2026-09-15",
-"label":"15 Sep 2026",
-"text":"We will begin rolling out in August 2026 and expect to complete by September 15, 2026 for Free/Busy"
-},
-"MC1477180|posted":{
-"date":"2026-09-22",
-"label":"22 Sep 2026",
-"text":"Posted: Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance"
-},
-"MC1447678|actionBy":{
-"date":"2026-09-30",
-"label":"30 Sep 2026",
-"text":"Act by this date (Message Center)"
-},
-"MC1485116|posted":{
-"date":"2026-10-01",
-"label":"1 Oct 2026",
-"text":"Posted: Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs"
-},
-"MC1227454|beginning ews will be blocked unless the tenant configures a#0":{
-"date":"2026-10-01",
-"label":"1 Oct 2026",
-"text":"Beginning October 1, 2026 , EWS will be blocked unless the tenant configures an AppID AllowList and sets EWSEnabled=True."
-},
-"MC1486282|posted":{
-"date":"2026-10-02",
-"label":"2 Oct 2026",
-"text":"Posted: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-},
-"MC1486288|posted":{
-"date":"2026-10-02",
-"label":"2 Oct 2026",
-"text":"Posted: Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)"
-},
-"MC1485116|#0":{
-"date":"2026-10-02",
-"label":"2 Oct 2026",
-"text":"October 2, 2026."
-},
-"MC1485116|for identified worldwide tenants with ewsenabled true and no#0":{
-"date":"2026-10-03",
-"label":"3 Oct 2026",
-"text":"For identified Worldwide tenants with EWSEnabled=True and no configured EWSAllowedAppIDs list on October 3 2026, Microsoft creates and populates an allow list u"
-},
-"MC1469960|beginning in early and expected to complete by late#0":{
-"date":"2026-10-05",
-"label":"early Oct 2026",
-"text":"Beginning in early October 2026 and expected to complete by late April 2027."
-},
-"MC1485116|starting exchange online tenants must configure ewsallowedap#0":{
-"date":"2026-10-10",
-"label":"10 Oct 2026",
-"text":"Starting October 10, 2026, Exchange Online tenants must configure EWSAllowedAppIDs to allow Exchange Web Services (EWS) access; EWSEnabled=True alone will no lo"
-},
-"MC1446796|microsoft cross tenant access policy will replace ews by#0":{
-"date":"2026-11-15",
-"label":"Nov 2026",
-"text":"Microsoft 365 Cross-Tenant Access Policy will replace EWS by November 2026."
-},
-"MC1446796|we will begin rolling out in and expect to complete by for f#1":{
-"date":"2026-12-04",
-"label":"4 Dec 2026",
-"text":"Mailtips and December 4, 2026 (previously November 23) for Calendar Sharing."
-},
-"MC1446796|cross tenant free busy mailtips will be available by and cal#0":{
-"date":"2026-12-05",
-"label":"early Dec 2026",
-"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by early December 2026 (previously late November) via Microsoft 365 Cross-Te"
-},
-"MC1227454|after ews access will be permanently removed with no re enab#0":{
-"date":"2027-04-01",
-"label":"1 Apr 2027",
-"text":"After April 1, 2027 , EWS access will be permanently removed with no re-enablement."
-},
-"MC1469960|beginning in early and expected to complete by late#1":{
-"date":"2027-04-25",
-"label":"late Apr 2027",
-"text":"Beginning in early October 2026 and expected to complete by late April 2027."
-},
-"MC1485116|beginning in early and expected to complete by early#1":{
-"date":"2027-07-05",
-"label":"early Jul 2027",
-"text":"Beginning in early October 2026 and expected to complete by early July 2027."
-}
-},
-"moves":[
-{
-"src":"MC1446796",
-"key":"updated calendar sharing via microsoft cross tenant access p#0",
-"was":"20 Oct 2026",
-"now":"30 Oct 2026",
-"seen":"2026-10-30",
-"text":"Updated 30 October 2026: Calendar Sharing via Microsoft 365 Cross-Tenant Access Policy completes rolling out by 6 November 2026 (previously 30 October)."
-},
-{
-"src":"MC1446796",
-"key":"we will begin rolling out in and expect to complete by for f#1",
-"was":"6 Nov 2026",
-"now":"23 Nov 2026",
-"seen":"2026-11-09",
-"text":"Mailtips and November 23, 2026 (previously November 3) for Calendar Sharing."
-},
-{
-"src":"MC1446796",
-"key":"cross tenant free busy mailtips will be available by and cal#0",
-"was":"early Nov 2026",
-"now":"late Nov 2026",
-"seen":"2026-11-09",
-"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by late November 2026 (previously early November) via Microsoft 365 Cross-Te"
-},
-{
-"src":"MC1446796",
-"key":"we will begin rolling out in and expect to complete by for f#1",
-"was":"23 Nov 2026",
-"now":"4 Dec 2026",
-"seen":"2026-11-23",
-"text":"Mailtips and December 4, 2026 (previously November 23) for Calendar Sharing."
-},
-{
-"src":"MC1446796",
-"key":"cross tenant free busy mailtips will be available by and cal#0",
-"was":"late Nov 2026",
-"now":"early Dec 2026",
-"seen":"2026-11-23",
-"text":"MailTips will be available by September 2026 and Calendar Sharing will be available by early December 2026 (previously late November) via Microsoft 365 Cross-Te"
-}
-],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC676299":{
-"title":"Retirement of Exchange Web Services in Exchange Online",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC676299",
-"source":"Message Center",
-"id":"MC676299",
-"date":"2023-09-21",
-"updated":"2025-04-18",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454":{
-"title":"Exchange Web Services (EWS) retirement update",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1227454",
-"source":"Message Center",
-"id":"MC1227454",
-"date":"2026-02-05",
-"updated":"2026-02-05",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1446796":{
-"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
-"link":"https://mc.merill.net/message/MC1446796",
-"source":"Message Center",
-"id":"MC1446796",
-"date":"2026-08-03",
-"updated":"2026-10-05",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1447678":{
-"title":"EWS retirement and EWSAllowedAppIDs enforcement",
-"link":"https://mc.merill.net/message/MC1447678",
-"source":"Message Center",
-"id":"MC1447678",
-"date":"2026-08-05",
-"updated":"2026-08-05",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1485116":{
-"title":"Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs",
-"link":"https://mc.merill.net/message/MC1485116",
-"source":"Message Center",
-"id":"MC1485116",
-"date":"2026-10-01",
-"updated":"2026-10-01",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1486282":{
-"title":"Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)",
-"link":"https://mc.merill.net/message/MC1486282",
-"source":"Message Center",
-"id":"MC1486282",
-"date":"2026-10-02",
-"updated":"2026-10-02",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/MC1486288":{
-"title":"Update Teams devices to a minimum app version ahead of the retirement of Exchange Web Services (EWS)",
-"link":"https://deltapulse.app/item/MC1486288",
-"source":"Message Center",
-"id":"MC1486288",
-"date":"2026-10-02",
-"updated":"2026-10-02",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/MC1446796":{
-"title":"Migrate Free/Busy, MailTips, and Calendar Sharing before EWS deprecation",
-"link":"https://deltapulse.app/item/MC1446796",
-"source":"Main list source",
-"id":"MC1446796",
-"date":"2026-08-03",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online":{
-"title":"Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes",
-"link":"https://learn.microsoft.com/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online",
-"source":"Main list source",
-"id":"MC1469960",
-"date":"2026-09-09",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://techcommunity.microsoft.com/blog/exchange/cross-tenant-freebusy-mailtips-and-calendar-sharing-are-moving-to-cross-tenant-a/4545169":{
-"title":"Cross-tenant Free/Busy, MailTips, and Calendar Sharing are moving to Cross-Tenant Access",
-"link":"https://techcommunity.microsoft.com/blog/exchange/cross-tenant-freebusy-mailtips-and-calendar-sharing-are-moving-to-cross-tenant-a/4545169",
-"source":"Main list source",
-"id":"exchange-crosstenant-freebusy-to-cta",
-"date":"2026-09-16",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://techcommunity.microsoft.com/t5/exchange-team-blog/impact-of-exchange-online-ews-deprecation-on-hybrid-rich/ba-p/4561161":{
-"title":"Impact of Exchange Online EWS Deprecation on Hybrid Rich Coexistence and Cross-org Sharing",
-"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/impact-of-exchange-online-ews-deprecation-on-hybrid-rich/ba-p/4561161",
-"source":"Main list source",
-"id":"exchange-ews-hybrid-coexistence-2026-09-30",
-"date":"2026-09-30",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/MC1485116":{
-"title":"Microsoft Exchange Online: Exchange Web Services (EWS) enforcement update for EWSAllowedAppIDs",
-"link":"https://deltapulse.app/item/MC1485116",
-"source":"Main list source",
-"id":"MC1485116",
-"date":"2026-10-01",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://techcommunity.microsoft.com/t5/exchange-team-blog/cross-tenant-free-busy-mailtips-and-calendar-sharing-are-moving/ba-p/4545169":{
-"title":"Cross-tenant Free/Busy, MailTips, and Calendar Sharing are moving to Cross-Tenant Access Policy",
-"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/cross-tenant-free-busy-mailtips-and-calendar-sharing-are-moving/ba-p/4545169",
-"source":"Exchange Team Blog",
-"date":"2026-09-29",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://techcommunity.microsoft.com/t5/exchange-team-blog/take-control-of-your-ewsallowedappids-list-before-ews-access/ba-p/4553534":{
-"title":"Take control of your EWSAllowedAppIDs list before EWS access changes",
-"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/take-control-of-your-ewsallowedappids-list-before-ews-access/ba-p/4553534",
-"source":"Exchange Team Blog",
-"date":"2026-09-04",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://techcommunity.microsoft.com/t5/exchange-team-blog/help-us-shape-exchange-server-on-premises-to-different-online/ba-p/4549691":{
-"title":"Help us shape Exchange Server on-premises to different online org Free/Busy after EWS retirement",
-"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/help-us-shape-exchange-server-on-premises-to-different-online/ba-p/4549691",
-"source":"Exchange Team Blog",
-"date":"2026-08-24",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578":{
-"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1191578",
-"source":"Message Center",
-"id":"MC1191578",
-"date":"2025-12-02",
-"updated":"2026-06-10",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1469960":{
-"title":"Microsoft Exchange Online: Review and configure EWSAllowedAppIDs before Exchange Web Services access changes",
-"link":"https://mc.merill.net/message/MC1469960",
-"source":"Message Center",
-"id":"MC1469960",
-"date":"2026-09-09",
-"updated":"2026-09-18",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://deltapulse.app/item/573701":{
-"title":"Microsoft Purview: Data Lifecycle Management-Graph API Support for Archive Mailboxes",
-"link":"https://deltapulse.app/item/573701",
-"source":"Main list source",
-"id":"573701",
-"date":"2026-10-06",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://techcommunity.microsoft.com/discussions/windows11/windows-11-file-explorer-opens-to-quick-access-instead-of-this-pc-every-time/4557000":{
-"title":"Cross-tenant Free/Busy, MailTips, and Calendar Sharing are moving to Cross-Tenant Access",
-"link":"https://techcommunity.microsoft.com/discussions/windows11/windows-11-file-explorer-opens-to-quick-access-instead-of-this-pc-every-time/4557000",
-"source":"Main list source",
-"id":"exchange-crosstenant-freebusy-to-cta",
-"date":"2026-09-16",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://cloudsecop.com/cross-tenant-free-busy-after-ews-migrating-to-microsoft-365-cross-tenant-access-policy/":{
-"title":"Cross-Tenant Free/Busy After EWS : Migrating to Microsoft 365 Cross-Tenant Access Policy",
-"link":"https://cloudsecop.com/cross-tenant-free-busy-after-ews-migrating-to-microsoft-365-cross-tenant-access-policy/",
-"source":"Cloud Secop - M365",
-"date":"2026-10-09",
-"group":"community",
-"found":"2026-10-09"
-},
-"https://mc.merill.net/message/MC1477180":{
-"title":"Microsoft Defender for Cloud Apps: Retirement of EWS detections in App Governance",
-"link":"https://mc.merill.net/message/MC1477180",
-"source":"Message Center",
-"id":"MC1477180",
-"date":"2026-10-12",
-"updated":"2026-09-23",
-"group":"microsoft",
-"found":"2026-10-12"
-},
-"https://mc.merill.net/message/MC1191578":{
-"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
-"link":"https://mc.merill.net/message/MC1191578",
-"source":"Message Center",
-"id":"MC1191578",
-"date":"2025-12-02",
-"updated":"2026-10-16",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://deltapulse.app/item/MC1191578":{
-"title":"Update to EWS Access for Kiosk / Frontline Worker Licenses",
-"link":"https://deltapulse.app/item/MC1191578",
-"source":"Main list source",
-"id":"MC1191578",
-"date":"2025-12-02",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
-"title":"Enable opaque origins for data URLs in Web Workers",
-"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
-"source":"Microsoft Learn · What's new · Microsoft Intune",
-"date":"2026-10-12T00:00:00.0000000Z",
-"group":"microsoft",
-"found":"2026-10-17"
-},
-"https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online":{
-"title":"EWS Deprecation Is Here – What This Means To You",
-"link":"https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/deprecation-of-ews-exchange-online",
-"source":"Main list source",
-"id":"exchange-online-ews-disablement-starts-2026-10-21",
-"date":"2026-10-21",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://techcommunity.microsoft.com/t5/exchange-team-blog/exchange-online-ews-application-stopped-working-do-this/ba-p/4566215":{
-"title":"Exchange Online EWS application stopped working? Do this.",
-"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/exchange-online-ews-application-stopped-working-do-this/ba-p/4566215",
-"source":"Exchange Team Blog",
-"date":"2026-10-21",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://techcommunity.microsoft.com/t5/exchange-team-blog/ews-deprecation-is-here-what-this-means-to-you/ba-p/4561431":{
-"title":"EWS Deprecation Is Here – What This Means To You",
-"link":"https://techcommunity.microsoft.com/t5/exchange-team-blog/ews-deprecation-is-here-what-this-means-to-you/ba-p/4561431",
-"source":"Exchange Team Blog",
-"date":"2026-10-21",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new":{
-"title":"What this means for you",
-"link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
-"source":"Microsoft Learn · What's new · Entra",
-"date":"2026-06-26",
-"group":"microsoft",
-"found":"2026-10-22"
-},
-"https://office365itpros.com/2026/10/23/exchange-web-services-final/?utm_source=rss&utm_medium=rss&utm_campaign=exchange-web-services-final":{
-"title":"Exchange Web Services Enters the Final Mile",
-"link":"https://office365itpros.com/2026/10/23/exchange-web-services-final/?utm_source=rss&utm_medium=rss&utm_campaign=exchange-web-services-final",
-"source":"Office 365 IT Pros",
-"date":"2026-10-23",
-"group":"community",
-"found":"2026-10-27"
-},
-"https://dev.to/amrithesh_dev/mistrals-1-trillion-parameter-model-is-open-source-what-this-means-for-your-business-pd5":{
-"title":"Mistral’s 1‑Trillion‑Parameter Model Is Open‑Source—What This Means for Your Business",
-"link":"https://dev.to/amrithesh_dev/mistrals-1-trillion-parameter-model-is-open-source-what-this-means-for-your-business-pd5",
-"source":"NeonTiger12",
-"date":"2026-10-30",
-"group":"community",
-"found":"2026-10-30"
-},
-"https://daily.entra.news/day/2026-11-14/":{
-"title":"Tenant Governance preview guidance ties reusable baselines to cross-tenant deployments — 14 November 2026",
-"link":"https://daily.entra.news/day/2026-11-14/",
-"source":"Daily Entra News",
-"date":"2026-11-14",
-"group":"community",
-"found":"2026-11-18"
-},
-"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7532":{
-"title":"Chromium: CVE-2024-7533 Use after free in Sharing",
-"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-7532",
-"source":"MSRC Security Update Guide",
-"date":"2026-11-20",
-"group":"microsoft",
-"found":"2026-11-20"
-}
-},
-"final":"2027-07-05",
-"type":"Retirement",
-"tech":"Exchange",
-"posts":[
-"MC1227454",
-"MC1446796",
-"MC1447678",
-"MC1469960",
-"MC1477180",
-"MC1485116"
 ]
 },
 "c-mc1230889":{
@@ -2957,8 +2966,7 @@
 "name":"GitHub app consolidation and legacy GitHub app deprecation",
 "status":"Recently closed",
 "members":[
-"MC1515929",
-"item:MC1515929"
+"MC1515929"
 ],
 "log":[
 {
@@ -4613,6 +4621,14 @@
 "date":"2026-10-22",
 "group":"community",
 "found":"2026-10-23"
+},
+"https://mc.merill.net/message/MC1325441":{
+"title":"MC1325441: Microsoft Purview | Data Lifecycle Management - Archive SharePoint files under retention",
+"link":"https://mc.merill.net/message/MC1325441",
+"source":"MC - Merill",
+"date":"2026-11-23",
+"group":"community",
+"found":"2026-11-24"
 }
 },
 "final":"2027-04-15",
@@ -5305,14 +5321,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-22",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-23",
 "text":"August 1, 2026."
 },
@@ -5410,6 +5418,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-23",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-24",
 "text":"August 1, 2026."
 },
 {
@@ -6007,7 +6023,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-23",
+"seen":"2026-11-24",
 "text":"early February 2026."
 },
 {
@@ -6015,7 +6031,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-23",
+"seen":"2026-11-24",
 "text":"February 2027."
 },
 {
@@ -6542,53 +6558,18 @@
 "date":"2026-11-23",
 "group":"community",
 "found":"2026-11-23"
+},
+"https://daily.entra.news/day/2026-11-24/":{
+"title":"Verified ID advanced setup now supports both Key Vault permission models — 24 November 2026",
+"link":"https://daily.entra.news/day/2026-11-24/",
+"source":"Daily Entra News",
+"date":"2026-11-24",
+"group":"community",
+"found":"2026-11-24"
 }
 },
 "final":"2027-10-09",
 "type":"Retirement",
-"tech":"Azure",
-"posts":[]
-},
-"c-item-azure-ea-billing-roles-work-school-accounts-2026-11-16":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-24",
-"name":"Enterprise Agreement billing roles: new assignments must use work or school accounts from 16 November, a…",
-"status":"Recently closed",
-"members":[
-"item:azure-ea-billing-roles-work-school-accounts-2026-11-16"
-],
-"log":[
-{
-"date":"2026-10-08",
-"id":"azure-ea-billing-roles-work-school-accounts-2026-11-16",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"Enterprise Agreement billing roles: new assignments must use work or school accounts from 16 November, a month later than Microsoft first wrote",
-"title":"Enterprise Agreement billing roles: new assignments must use work or school accounts from 16 November, a month later than Microsoft first wrote",
-"link":"https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles"
-}
-],
-"milestones":{
-"azure-ea-billing-roles-work-school-accounts-2026-11-16|deadline":{
-"date":"2026-11-16",
-"label":"16 Nov 2026",
-"text":"Microsoft's own date for new role assignments; no date is stated for existing assignments held by personal Microsoft accounts."
-}
-},
-"moves":[],
-"materials":{
-"https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles":{
-"title":"Manage Azure Enterprise Agreement roles",
-"link":"https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles",
-"source":"Main list source",
-"id":"azure-ea-billing-roles-work-school-accounts-2026-11-16",
-"date":"2026-10-08",
-"group":"microsoft",
-"found":"2026-10-09"
-}
-},
-"final":"2026-11-16",
-"type":"Enforcement",
 "tech":"Azure",
 "posts":[]
 },
@@ -7607,6 +7588,7 @@
 "MC1474104",
 "item:MC1474104",
 "MC1519855",
+"item:MC1519855",
 "MC1528000",
 "item:MC1528000",
 "MC1536049",
@@ -7618,13 +7600,22 @@
 ],
 "log":[
 {
+"date":"2026-11-24",
+"id":"MC1519855",
+"what":"Microsoft revised the post",
+"before":"2026-10-30",
+"after":"2026-11-23",
+"title":"Bring Your Own Telephony (BYOT) is now generally available beside CYOT; Microsoft-provided SMS and voice still start retiring on 1 February 2027",
+"link":"https://deltapulse.app/item/MC1519855"
+},
+{
 "date":"2026-11-23",
 "id":"MC1519855",
 "what":"Microsoft's update note",
 "before":"",
 "after":"Bring Your Own Telephony (BYOT) is now generally available.",
-"title":"Microsoft Entra: Choose your own telephony provider now generally available",
-"link":"https://mc.merill.net/message/MC1519855"
+"title":"Bring Your Own Telephony (BYOT) is now generally available beside CYOT; Microsoft-provided SMS and voice still start retiring on 1 February 2027",
+"link":"https://deltapulse.app/item/MC1519855"
 },
 {
 "date":"2026-11-20",
@@ -7659,8 +7650,8 @@
 "what":"Title",
 "before":"Microsoft Entra: Choose your own telephony provider for SMS and voice authentication",
 "after":"(Updated) Microsoft Entra: Choose your own telephony provider now generally available",
-"title":"Microsoft Entra: Choose your own telephony provider now generally available",
-"link":"https://mc.merill.net/message/MC1519855"
+"title":"Bring Your Own Telephony (BYOT) is now generally available beside CYOT; Microsoft-provided SMS and voice still start retiring on 1 February 2027",
+"link":"https://deltapulse.app/item/MC1519855"
 },
 {
 "date":"2026-10-30",
@@ -7668,8 +7659,8 @@
 "what":"Microsoft edited the post text",
 "before":"",
 "after":"see the post",
-"title":"Microsoft Entra: Choose your own telephony provider now generally available",
-"link":"https://mc.merill.net/message/MC1519855"
+"title":"Bring Your Own Telephony (BYOT) is now generally available beside CYOT; Microsoft-provided SMS and voice still start retiring on 1 February 2027",
+"link":"https://deltapulse.app/item/MC1519855"
 },
 {
 "date":"2026-10-30",
@@ -7677,8 +7668,8 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated this post with additional information as the feature is now generally available.",
-"title":"Microsoft Entra: Choose your own telephony provider now generally available",
-"link":"https://mc.merill.net/message/MC1519855"
+"title":"Bring Your Own Telephony (BYOT) is now generally available beside CYOT; Microsoft-provided SMS and voice still start retiring on 1 February 2027",
+"link":"https://deltapulse.app/item/MC1519855"
 },
 {
 "date":"2026-10-30",
@@ -7818,10 +7809,10 @@
 "label":"end of Nov 2026",
 "text":"Microsoft states the worldwide rollout began mid-September 2026 and is expected to complete by end of November 2026 (previously late September)"
 },
-"MC1519855|microsoft entra id now generally supports choose your own te#0":{
+"MC1426371|as part of this transition sms and voice will no longer be a#0":{
 "date":"2027-02-01",
 "label":"1 Feb 2027",
-"text":"Microsoft Entra ID now generally supports Choose Your Own Telephony Provider (CYOT) for SMS and voice authentication, retiring Microsoft-provided services by Fe"
+"text":"As part of this transition, SMS and voice will no longer be available as multifactor authentication methods starting February 1, 2027 ."
 },
 "MC1536049|we expect rollout to begin and complete in#0":{
 "date":"2027-02-15",
@@ -8881,6 +8872,31 @@
 "date":"2026-11-23",
 "group":"community",
 "found":"2026-11-23"
+},
+"https://deltapulse.app/item/MC1519855":{
+"title":"Microsoft Entra: Choose your own telephony provider now generally available",
+"link":"https://deltapulse.app/item/MC1519855",
+"source":"Main list source",
+"id":"MC1519855",
+"date":"2026-10-21",
+"group":"microsoft",
+"found":"2026-11-24"
+},
+"https://azure.microsoft.com/updates?id=581353":{
+"title":"[Launched] Public Preview: Style and instruction control for HD V3 voices in Azure Speech in Foundry Tools",
+"link":"https://azure.microsoft.com/updates?id=581353",
+"source":"Azure Updates",
+"date":"2026-11-23",
+"group":"microsoft",
+"found":"2026-11-24"
+},
+"https://dev.to/shubhampalriwala/best-tools-to-monitor-voice-ai-agents-on-vapi-retell-livekit-and-pipecat-2026-562n":{
+"title":"Best tools to monitor voice AI agents on Vapi, Retell, LiveKit and Pipecat (2026)",
+"link":"https://dev.to/shubhampalriwala/best-tools-to-monitor-voice-ai-agents-on-vapi-retell-livekit-and-pipecat-2026-562n",
+"source":"NeonTiger12",
+"date":"2026-11-24",
+"group":"community",
+"found":"2026-11-24"
 }
 },
 "final":"2027-07-01",
@@ -9752,7 +9768,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-23",
+"seen":"2026-11-24",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9760,7 +9776,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-23",
+"seen":"2026-11-24",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -20881,6 +20897,135 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-24",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-69291 Windows Volume Manager Extension Driver Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69291"
+},
+{
+"day":"2026-11-24",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-78462 Visual Studio Code Security Feature Bypass Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78462"
+},
+{
+"day":"2026-11-24",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-72965 Windows WebClient Service Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72965"
+},
+{
+"day":"2026-11-24",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-87697 .NET Remote Code Execution Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-87697"
+},
+{
+"day":"2026-11-24",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-70175 ASP.NET Core Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70175"
+},
+{
+"day":"2026-11-24",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-96233 ASP.NET Core Denial of Service Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96233"
+},
+{
+"day":"2026-11-24",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-119848 Windows Message Queuing Denial of Service Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119848"
+},
+{
+"day":"2026-11-24",
+"cid":"c-mc1442510",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"community",
+"title":"Who can exploit CVE-2026-99312, and which KVM hosts are exposed",
+"source":"NeonTiger12",
+"link":"https://dev.to/stark_zhuang_df5076f35c68/who-can-exploit-cve-2026-99312-and-which-kvm-hosts-are-exposed-k5a"
+},
+{
+"day":"2026-11-24",
+"cid":"c-mc1469565",
+"type":"material",
+"name":"Microsoft Purview | Data Lifecycle Management - Graph API Support for archive mailboxes",
+"group":"community",
+"title":"MC1325441: Microsoft Purview | Data Lifecycle Management - Archive SharePoint files under retention",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1325441"
+},
+{
+"day":"2026-11-24",
+"cid":"c-item-azure-arc-akv-secrets-provider-extension-retirement-202",
+"type":"material",
+"name":"Azure Key Vault Secrets Provider extension for Arc-enabled Kubernetes retires on 9 October 2027; the Secret…",
+"group":"community",
+"title":"Verified ID advanced setup now supports both Key Vault permission models — 24 November 2026",
+"source":"Daily Entra News",
+"link":"https://daily.entra.news/day/2026-11-24/"
+},
+{
+"day":"2026-11-24",
+"cid":"c-sms-voice-retirement",
+"type":"milestone",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"src":"MC1426371",
+"now":"1 Feb 2027",
+"text":"As part of this transition, SMS and voice will no longer be available as multifactor authentication methods starting February 1, 2027 ."
+},
+{
+"day":"2026-11-24",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"microsoft",
+"title":"[Launched] Public Preview: Style and instruction control for HD V3 voices in Azure Speech in Foundry Tools",
+"source":"Azure Updates",
+"link":"https://azure.microsoft.com/updates?id=581353"
+},
+{
+"day":"2026-11-24",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Best tools to monitor voice AI agents on Vapi, Retell, LiveKit and Pipecat (2026)",
+"source":"NeonTiger12",
+"link":"https://dev.to/shubhampalriwala/best-tools-to-monitor-voice-ai-agents-on-vapi-retell-livekit-and-pipecat-2026-562n"
 }
 ],
 "archive":{
@@ -25634,6 +25779,70 @@
 "date":"2026-11-20",
 "group":"community",
 "found":"2026-11-20"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69291":{
+"title":"CVE-2026-69291 Windows Volume Manager Extension Driver Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69291",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-23",
+"group":"microsoft",
+"found":"2026-11-24"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78462":{
+"title":"CVE-2026-78462 Visual Studio Code Security Feature Bypass Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78462",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-23",
+"group":"microsoft",
+"found":"2026-11-24"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72965":{
+"title":"CVE-2026-72965 Windows WebClient Service Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-72965",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-23",
+"group":"microsoft",
+"found":"2026-11-24"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-87697":{
+"title":"CVE-2026-87697 .NET Remote Code Execution Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-87697",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-23",
+"group":"microsoft",
+"found":"2026-11-24"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70175":{
+"title":"CVE-2026-70175 ASP.NET Core Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70175",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-23",
+"group":"microsoft",
+"found":"2026-11-24"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96233":{
+"title":"CVE-2026-96233 ASP.NET Core Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-96233",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-23",
+"group":"microsoft",
+"found":"2026-11-24"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119848":{
+"title":"CVE-2026-119848 Windows Message Queuing Denial of Service Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-119848",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-23",
+"group":"microsoft",
+"found":"2026-11-24"
+},
+"https://dev.to/stark_zhuang_df5076f35c68/who-can-exploit-cve-2026-99312-and-which-kvm-hosts-are-exposed-k5a":{
+"title":"Who can exploit CVE-2026-99312, and which KVM hosts are exposed",
+"link":"https://dev.to/stark_zhuang_df5076f35c68/who-can-exploit-cve-2026-99312-and-which-kvm-hosts-are-exposed-k5a",
+"source":"NeonTiger12",
+"date":"2026-11-24",
+"group":"community",
+"found":"2026-11-24"
 }
 },
 "final":"2026-10-13",
@@ -26753,6 +26962,49 @@
 "MC1519122",
 "MC1536101"
 ]
+},
+"c-item-azure-ea-billing-roles-work-school-accounts-2026-11-16":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-24",
+"name":"Enterprise Agreement billing roles: new assignments must use work or school accounts from 16 November, a…",
+"status":"Archive",
+"members":[
+"item:azure-ea-billing-roles-work-school-accounts-2026-11-16"
+],
+"log":[
+{
+"date":"2026-10-08",
+"id":"azure-ea-billing-roles-work-school-accounts-2026-11-16",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Enterprise Agreement billing roles: new assignments must use work or school accounts from 16 November, a month later than Microsoft first wrote",
+"title":"Enterprise Agreement billing roles: new assignments must use work or school accounts from 16 November, a month later than Microsoft first wrote",
+"link":"https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles"
+}
+],
+"milestones":{
+"azure-ea-billing-roles-work-school-accounts-2026-11-16|deadline":{
+"date":"2026-11-16",
+"label":"16 Nov 2026",
+"text":"Microsoft's own date for new role assignments; no date is stated for existing assignments held by personal Microsoft accounts."
+}
+},
+"moves":[],
+"materials":{
+"https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles":{
+"title":"Manage Azure Enterprise Agreement roles",
+"link":"https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles",
+"source":"Main list source",
+"id":"azure-ea-billing-roles-work-school-accounts-2026-11-16",
+"date":"2026-10-08",
+"group":"microsoft",
+"found":"2026-10-09"
+}
+},
+"final":"2026-11-16",
+"type":"Enforcement",
+"tech":"Azure",
+"posts":[]
 }
 }
 }
