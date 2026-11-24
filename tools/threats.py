@@ -483,7 +483,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                             kq.append(dict({k: v for k, v in q.items() if k not in ("viaLink", "viaText")}, pos=qi, article=aid(i["link"]),
                                            link=q["viaLink"], articleTitle=i["title"],
                                            source=re.sub(r"(?i)^https?://(?:www\.)?([^/]+).*$", r"\1", q["viaLink"]) + " (linked from " + s["Name"] + ": " + q["viaText"] + ")",
-                                           author="", published=(i["published"] or "")[:10], vendor=False, via=i["link"]))
+                                           author="", published=(i["published"] or "")[:10], vendor=False, linkedFrom=i["link"]))
                             continue
                         kq.append(dict(q, pos=qi, article=aid(i["link"]), link=i["link"], articleTitle=i["title"], source=s["Name"],
                                        author=i.get("author") or "", published=(i["published"] or "")[:10], vendor=bool(s.get("Microsoft"))))

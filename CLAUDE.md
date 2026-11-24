@@ -26584,6 +26584,15 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5ht (24 XI 2026)** — ZAKLADKA KQL KARTY INCYDENTU W PODZAKLADKACH. Piotr: "zakladke KQL tez podzielic na oficjalny, community i
+napisany przez nas". kqlCard(): trzy grupy jako wewnetrzne zakladki w kolejnosci wlasciciela - Official (Microsoft) · N, Community · N,
+Written by us · N - otwarta pierwsza niepusta; grupa bez zapytan nie ma zakladki, jedna grupa = bez paska. Wybrana zakladka w kolorze
+grupy (Microsoft niebieski, spolecznosc brazowy, nasze szare). Chipy "3 ours / 7 community" znikaja, gdy sa zakladki (liczby sa na
+zakladkach); zostaje link do biblioteki KQL i dopisek o powiazanym incydencie. Licznik zakladki KQL karty i chip w naglowku licza to,
+co zakladka pokazuje (z powiazanym incydentem - ConnectWise 48). Poprawka §5hq: pole `via` (URL artykulu, ktory linkowal kwerendy)
+mylilo sie z `via` = powiazany incydent ("via the related incident: https://...") - threats.py zapisuje odtad `linkedFrom`, a strona
+pomija `via` bedace adresem URL.
+
 **§5hs (24 XI 2026)** — THREAT RESEARCH: INCYDENT JAKO KARTA Z ZAKLADKAMI. Piotr: "pamietasz okno z zakladkami (Graph API Radar)?
 zrobmy takie dla Threat Research, bo teraz + rozwija sekcje" i po makiecie: "jakis inny kolor zakladek? szary? zlewa sie z tlem. ok,
 dzialamy". SKRYPT 17: klik w wiersz incydentu (i window.__socOpenThreat / __socOpenThreatKql) otwiera storySheet(s) - nakladka
@@ -44412,21 +44421,33 @@ odtad CZTERNASCIE (4-17).**
       var by = el("p", "s5el-mut s5eu-by"); by.appendChild(document.createTextNode([q.author, q.source, q.published ? dmy(q.published) : ""].filter(Boolean).join(" · ") + (q.link ? " — " : "")));
       if (q.link) by.appendChild(aLink(q.articleTitle || "the source", q.link));
       if (q.why && q.why.length) by.appendChild(document.createTextNode(" · matched on " + q.why.join(", ")));
-      if (q.via) by.appendChild(el("span", "s5ez-via", "via the related incident: " + q.via));
+      if (q.via && !/^https?:/.test(q.via)) by.appendChild(el("span", "s5ez-via", "via the related incident: " + q.via));   /* §5ht: a URL in via is the article that linked the query (§5hq), already in the line */
       return by;
     }
     function ownline(q) { return q.via ? el("p", "s5el-mut s5eu-by s5ez-via", "our analysis of the related incident: " + q.via) : null; }
-    function group(title, sub, L, cls, mk) {
+    var KG = [];
+    function group(title, sub, L, cls, mk, tab) {
       if (!L.length) return;
-      var g = el("div", "s5ez-kg " + cls); var h = el("p", "s5ez-bh", title + " · " + L.length); g.appendChild(h);
+      var g = el("div", "s5ez-kg " + cls); var h = el("p", "s5ez-bh", title + " · " + L.length); g.appendChild(h); KG.push({ g: g, tab: tab + " · " + L.length, cls: cls });
       if (sub) g.appendChild(el("p", "s5el-mut s5ez-ks", sub));
       var LIM = 3; L.slice(0, LIM).forEach(function (q) { kq(q, g, mk(q)); });
       if (L.length > LIM) { var mb = el("button", "s5el-btn s5ez-more", "Show " + (L.length - LIM) + " more"); mb.type = "button"; mb.addEventListener("click", function () { L.slice(LIM).forEach(function (q) { kq(q, g, mk(q)); }); mb.remove(); }); g.appendChild(mb); }
-      ck.appendChild(g);
     }
-    group("Our analysis", "written by this portal, tables checked on Microsoft Learn", own, "s5ez-kg-ours", ownline);
-    group("Published by Microsoft", "Microsoft Threat Intelligence, Security blog, Sentinel and Defender XDR blogs", vend, "s5ez-kg-ms", byline);
-    group("Published by the community", "articles, detection-engineering digests and public query repositories — starting points, check them against your tables", comm, "s5ez-kg-comm", byline);
+    /* §5ht (24 XI 2026, owner: "split the KQL tab into official, community and written by us"): the three groups are
+       inner tabs - Official (Microsoft), Community, Ours - in the owner's order; a group with no query has no tab, and
+       the first one with queries is open. One group alone is shown without a tab bar. */
+    group("Published by Microsoft", "Microsoft Threat Intelligence, Security blog, Sentinel and Defender XDR blogs", vend, "s5ez-kg-ms", byline, "Official (Microsoft)");
+    group("Published by the community", "articles, detection-engineering digests and public query repositories — starting points, check them against your tables", comm, "s5ez-kg-comm", byline, "Community");
+    group("Our analysis", "written by this portal, tables checked on Microsoft Learn", own, "s5ez-kg-ours", ownline, "Written by us");
+    if (KG.length < 2) { KG.forEach(function (x) { ck.appendChild(x.g); }); return; }
+    [].slice.call(sum.children).forEach(function (ch) { if (ch !== kb && !ch.classList.contains("s5ez-ks")) ch.remove(); });   /* the tabs carry the counts now */
+    var kbar = el("div", "s5ht-tabs"); kbar.setAttribute("role", "tablist"); ck.appendChild(kbar);
+    KG.forEach(function (x, i) {
+      var b = el("button", "s5ht-tab " + x.cls + "-t", x.tab); b.type = "button"; b.setAttribute("role", "tab"); b.setAttribute("aria-selected", String(i === 0));
+      x.g.hidden = i !== 0; x.g.setAttribute("role", "tabpanel"); ck.appendChild(x.g);
+      b.addEventListener("click", function () { KG.forEach(function (y, j) { y.g.hidden = y !== x; kbar.children[j].setAttribute("aria-selected", String(y === x)); }); });
+      kbar.appendChild(b);
+    });
   }
   /* §5ey (22 X 2026, owner: "ConnectWise has KQL when you unfold it - why do you not show it? Does KQL mean the
      incident is on the list because it has KQL and is not M365? If so, distinguish it and store both"). Two separate
@@ -44526,8 +44547,9 @@ odtad CZTERNASCIE (4-17).**
     function wrap(L) { var w = el("div", "s5el-det s5hs-det"); L.forEach(function (n) { w.appendChild(n); }); return [w]; }
     var nRem = N && N.remediation ? N.remediation.length : 0, nApps = N && N.apps ? N.apps.length : 0;
     var panes = [{ key: "ov", label: "Overview", els: wrap(P.ov) }, { key: "att", label: "Attacker & IOCs", els: P.att.length ? wrap(P.att) : [] },
-      { key: "todo", label: "What to do", n: nRem, els: P.todo.length ? wrap(P.todo) : [] }, { key: "kql", label: "KQL", n: K.t, els: P.kql.length ? wrap(P.kql) : [] },
+      { key: "todo", label: "What to do", n: nRem, els: P.todo.length ? wrap(P.todo) : [] }, { key: "kql", label: "KQL", n: P.kql.length ? parseInt(((P.kql[0].querySelector(".s5et-cs") || {}).textContent || "0"), 10) || K.t : K.t, els: P.kql.length ? wrap(P.kql) : [] },
       { key: "apps", label: "Apps involved", n: nApps, els: P.apps.length ? wrap(P.apps) : [] }, { key: "src", label: "Sources", n: P.src.length ? parseInt(((P.src[0].querySelector(".s5et-cs") || {}).textContent || "0"), 10) || 0 : 0, els: P.src.length ? wrap(P.src) : [] }];
+    var kqc = c.querySelector(".s5hs-kq"); if (kqc && panes[3].n) kqc.textContent = panes[3].n + " KQL";   /* §5ht: the head chip counts what the KQL tab shows (related incident included) */
     if (window.__socCardTabs) window.__socCardTabs.build(c, panes);
     else panes.forEach(function (p) { p.els.forEach(function (e) { c.appendChild(e); }); });
     if (tab) { var tb = [].filter.call(c.querySelectorAll(".s5ft-tab"), function (b) { return b.textContent.indexOf(tab) === 0; })[0]; if (tb) tb.click(); }
@@ -53214,6 +53236,16 @@ html.s5hs-lock{overflow:hidden}
 .s5hs-meta{margin:6px 0 0;color:var(--muted,var(--text));font-size:14px;opacity:.85}
 .s5hs-kq{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
 @media (max-width:760px){.s5hs-card .s5ft-tabs{flex-wrap:nowrap;overflow-x:auto}.s5hs-card .s5ft-tab{white-space:nowrap}}
+/* §5ht: the KQL groups as inner tabs - smaller than the card's tabs, the same grey family, each with its group colour */
+.s5ht-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.s5ht-tab{font:600 14px/1.2 var(--sans);color:var(--text);background:var(--surface-3);border:1px solid var(--border);border-radius:999px;padding:6px 14px;cursor:pointer}
+.s5ht-tab:hover{border-color:#64748b}
+.s5ht-tab[aria-selected="true"]{color:#fff;border-color:transparent}
+.s5ht-tab.s5ez-kg-ms-t[aria-selected="true"]{background:#1d4ed8}
+.s5ht-tab.s5ez-kg-comm-t[aria-selected="true"]{background:#92400e}
+.s5ht-tab.s5ez-kg-ours-t[aria-selected="true"]{background:#475569}
+.s5ez-kg[hidden]{display:none}
+@media (max-width:760px){.s5ht-tabs{flex-wrap:nowrap;overflow-x:auto}.s5ht-tab{white-space:nowrap}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
