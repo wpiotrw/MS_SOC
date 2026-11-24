@@ -26584,6 +26584,11 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hr (24 XI 2026)** — LICZNIK KQL INCYDENTU BEZ PODWOJNEGO LICZENIA. kqlOf() w SKRYPCIE (Threat Research) dodawal
+kqlPublished.length do kqlSources, a tools/threats.py juz je tam wlicza (5ez: len(src_keys) + len(kqlPublished)) - kafelek APIM
+Classic pokazywal 14 "from the sources" zamiast 7, kazdy incydent z kqlPublished byl zawyzony. Teraz kqlPublished dolicza sie tylko
+dla starego threats.json bez kqlSources. Piotr: "tak popraw".
+
 **§5hq (24 XI 2026)** — APIM CLASSIC: CZEMU NIE WYKRYLISMY I KQL Z LINKU W ARTYKULE. Piotr: "czy to wykrylismy?" (BleepingComputer
 23 XI, "Microsoft Azure flaw exploited to steal customers' API credentials") i "podpowiedz jest w tresci - link do kwerend autora;
 nie wychwytujesz tego w zadnych artykulach?". Diagnoza: kanal BleepingComputer przeczytany (02:14 UTC, 15 pozycji, 1 zostawiona),
@@ -44417,7 +44422,9 @@ odtad CZTERNASCIE (4-17).**
      written in our analysis and the ones the sources published. Older threats.json without the fields: worked out here. */
   function kqlOf(s) {
     var a = s.kqlAnalysis != null ? s.kqlAnalysis : ((s.notes && s.notes.kql) || []).length;
-    var src = (s.kqlSources != null ? s.kqlSources : (s.kql || 0)) + ((s.notes && s.notes.kqlPublished) || []).length;   /* §5hh: + published for the incident */
+    /* §5hr (24 XI 2026): tools/threats.py already counts kqlPublished in kqlSources (5ez) - adding it here again showed
+       14 instead of 7 for APIM Classic; the published list is added only when threats.json has no kqlSources */
+    var src = s.kqlSources != null ? s.kqlSources : (s.kql || 0) + ((s.notes && s.notes.kqlPublished) || []).length;
     var cm = s.kqlCommunityN || 0;     /* §5ez: community repositories */
     var rl = 0; (s.related || []).forEach(function (r) { var o = ((D && D.stories) || []).filter(function (x) { return x.id === r.id; })[0]; if (o) rl += (o.kqlAnalysis || 0) + (o.kqlSources || 0); });
     return { a: a, s: src, c: cm, r: rl, t: a + src + cm };
