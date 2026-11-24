@@ -6746,7 +6746,7 @@ ins{color:var(--text)!important;background:transparent!important;text-decoration
 #s5czb-tip::after{content:"";position:absolute;left:var(--ax,50%);bottom:-6px;width:10px;height:10px;margin-left:-5px;background:inherit;border-right:1px solid var(--accent);border-bottom:1px solid var(--accent);transform:rotate(45deg)}
 #s5czb-tip.below::after{bottom:auto;top:-6px;transform:rotate(225deg)}
 .s5czb-q{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;margin-left:5px;border-radius:50%;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:800;line-height:1;cursor:help;vertical-align:1px;user-select:none;flex:0 0 auto;font-style:normal}
-.s5czb-q:hover,.s5czb-q:focus-visible{background:var(--accent);color:#fff;outline:none}
+.s5czb-q:hover,.s5czb-q:focus-visible{background:var(--accent);color:var(--on-accent);outline:none}
 span[title],abbr[title]{cursor:help}
 /* §5cz-b (10 X 2026): the afternoon items as cards - technology, area, status, title, why, then dates and MC */
 .daft{margin:10px 0 0;padding:12px 14px;border:1px solid var(--border);border-left:4px solid var(--warn,#9a6700);border-radius:10px;background:var(--surface)}
@@ -11292,7 +11292,7 @@ i czytelnoscia (5k). Z nimi razem to sa JEDYNE dozwolone dopisane reguly CSS.
 
 ```css
 .sec-body a[href^="http"]{display:inline-block;padding:1px 8px;border-radius:999px;background:var(--info-soft);color:var(--info);border:1px solid var(--info);font-weight:600;line-height:1.6;white-space:nowrap}
-.sec-body a[href^="http"]:hover{background:var(--info);color:var(--on-accent);text-decoration:none}
+.sec-body a[href^="http"]:not([class]):hover{background:var(--info);color:var(--on-accent);text-decoration:none}
 .sec-body a.lnk-moved{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
 .sec-body .lnk-dead{display:inline-block;padding:1px 8px;border-radius:999px;background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad);font-weight:600;white-space:nowrap}
 #tab-products .sec-body h3{display:block;background:var(--accent-soft);color:var(--text);border:1px solid var(--accent);border-left:4px solid var(--accent);border-radius:10px;padding:8px 12px;margin:24px 0 12px}
@@ -17712,7 +17712,7 @@ Community Articles albo SKRYPT 10. Zmienne sa te, ktore arkusz juz deklaruje (§
 .actpre button:hover{border-color:var(--accent);background:var(--accent-soft)}
 .actpre button .actnum{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;
  line-height:1;color:var(--text)}
-.actpre button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.actpre button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .actpre button[aria-pressed="true"] .actnum{color:#fff}
 .catbtn{font:inherit;font-size:12px;font-weight:600;padding:3px 11px 3px 8px;border-radius:999px;cursor:pointer;
  display:inline-flex;align-items:center;gap:6px;background:var(--surface);color:var(--text);border:1px solid var(--border)}
@@ -26584,6 +26584,18 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hv (24 XI 2026)** — NIEBIESKI PASEK ZASLANIAJACY TEKST + CZYTELNE "SHOW RELATED" W WYSZUKIWARCE. Piotr (zrzuty): "gdzieniegdzie
+niebieski pasek zaslania tekst, jak sie najedzie na wpis - sprawdzic caly portal" oraz "zaznaczam related MC albo KQL, ale na liscie
+trudno sie polapac, ktore to wpisy". (1) Przyczyna paska: `.sec-body a[href^="http"]:hover` (jasnoniebieskie tlo, ciemny tekst) dzialal
+tez na linki z WLASNA klasa (tytul karty zrodla .s5fz-sct, "Open", nazwa pliku), ktore trzymaly swoj niebieski kolor - niebieskie na
+niebieskim. Odtad odwrocony hover tylko dla linkow bez klasy; linki z klasa sa podkreslane. Audyt calego portalu skryptem (CDP
+CSS.forcePseudoState :hover na kazdym a/button kazdej zakladki, kontrast tekstu do tla >= 3, jasny i ciemny): znalezione i poprawione
+tez wybrany przycisk widoku (.mcb-view.on, .s5cd-bar [aria-selected]) na hoverze 1,1:1, .s5cz-back / .s5czb-q / a.s5czb-dlink oraz 17
+regul z tlem var(--accent) i bialym tekstem (w trybie ciemnym akcent jest jasny - 2,3:1, np. A-Z w Roles) - tekst var(--on-accent).
+Po poprawkach audyt: 0 przypadkow w obu motywach. (2) Ctrl K: grupa powiazanych wpisow to JEDNA zabarwiona ramka - bursztynowa dla
+Message Center, niebieska dla KQL - otwierana plakietka RELATED MC / RELATED KQL, z zaokraglonym koncem; wpis, do ktorego grupa
+nalezy, ma krawedz w tym samym kolorze (wpisy niosa `relk`: "mc" | "kql").
+
 **§5hu (24 XI 2026)** — WYSZUKIWANIE KQL PO TRESCI ZAPYTANIA. Piotr: "czy wszystkie nowe KQL sa w repo i czy wyszukiwarka znajduje
 je tez po frazach w KQL?". Repo: TAK - kql_archive.py zapisal 7 zapytan Kristiansena (site/kql/articles/2026-11-21-step-*) i 3 nasze
 (site/kql/incidents/2026-11-24-*) oraz ich tekst w site/kql/search.json (na stronie od 12:10 UTC). Wyszukiwarka: biblioteka KQL (§5gx)
@@ -30727,7 +30739,7 @@ tr[data-review=done] .s5bi-rv{color:var(--ok,#067647)}
 .s5bi-rqnote{color:var(--muted);font-size:12px}
 .s5bi-hide,.s5bi-csv,.s5bi-hist,.s5bi-skbtn,.s5bi-week{font:inherit;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;cursor:pointer;
   border:1px solid var(--border);background:var(--surface);color:var(--ink);text-decoration:none}
-.s5bi-hide[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.s5bi-hide[aria-pressed=true]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 .s5bi-csv{display:inline-block;margin:0 0 6px;font-size:12px}
 .s5bi-hist{margin:4px 0 0;display:inline-block}
 .s5bi-hbox{margin:6px 0 2px;padding:6px 8px;border:1px solid var(--border);border-radius:8px;background:var(--surface-2,var(--surface));font-size:12.5px}
@@ -30787,7 +30799,7 @@ tr.s5bi-flash>td{animation:s5biflash 2.2s ease-out}
 .s5bk-none{margin:0;color:var(--muted);font-size:13px}
 .s5bk-more{align-self:flex-start;font:inherit;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:999px;cursor:pointer;
   border:1px solid var(--border);background:var(--surface);color:var(--accent)}
-.s5bk-more:hover{border-color:var(--accent)}.s5bk-more[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.s5bk-more:hover{border-color:var(--accent)}.s5bk-more[aria-pressed=true]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 .s5bk-strip{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:4px;align-items:end}
 .s5bk-day{display:flex;flex-direction:column;align-items:center;gap:2px;font:inherit;background:none;border:1px solid transparent;border-radius:6px;padding:4px 0;cursor:pointer;color:var(--ink);min-width:0}
 .s5bk-day:hover:not(:disabled){border-color:var(--border)}
@@ -32200,14 +32212,14 @@ odtad CZTERNASCIE (4-17).**
       found.slice(0, 6).forEach(function (h) { (String(h.t).match(/\bMC\d{5,8}\b/g) || []).forEach(function (id) { if (ids.indexOf(id) < 0 && ids.length < 3 && RELG.rel[id]) ids.push(id); }); });
       ids.forEach(function (id) {
         var L = RELG.rel[id] || [];
-        out.push({ tn: "Related to " + id, t: id + " and its " + L.length + " related post" + (L.length === 1 ? "" : "s") + " — open them as one list in Message Center", l: "", rel: 2,
+        out.push({ tn: "Related to " + id, t: id + " and its " + L.length + " related post" + (L.length === 1 ? "" : "s") + " — open them as one list in Message Center", l: "", rel: 2, relk: "mc",
           fn: function () { openMc(function (M) { M.group(id); }); } });
         L.slice(0, 8).forEach(function (x) {
           var p = (RELG.posts || {})[x[0]] || [];
-          out.push({ tn: "\u21b3 " + (RWHYG[x[1]] || x[1]), t: x[0] + " · " + (p[0] || "") + (p[3] === "removed" ? " · removed from Message Center" : ""), l: "", rel: 1,
+          out.push({ tn: "\u21b3 " + (RWHYG[x[1]] || x[1]), t: x[0] + " · " + (p[0] || "") + (p[3] === "removed" ? " · removed from Message Center" : ""), l: "", rel: 1, relk: "mc",
             fn: function () { openMc(function (M) { M.show(x[0]); }); } });
         });
-        if (L.length > 8) out.push({ tn: "\u21b3 +" + (L.length - 8) + " more", t: "Open all related posts of " + id + " in Message Center", l: "", rel: 1, fn: function () { openMc(function (M) { M.group(id); }); } });
+        if (L.length > 8) out.push({ tn: "\u21b3 +" + (L.length - 8) + " more", t: "Open all related posts of " + id + " in Message Center", l: "", rel: 1, relk: "mc", fn: function () { openMc(function (M) { M.group(id); }); } });
       });
       return out;
     }
@@ -32252,8 +32264,15 @@ odtad CZTERNASCIE (4-17).**
     function paint() {
       res.textContent = "";
       hits.forEach(function (h, i) {
-        var li = el("li", (i === cur ? "on" : "") + (h.rel ? " s5bi-relhit" + (h.rel === 2 ? " s5bi-relhead" : "") : "")); li.setAttribute("role", "option"); li.setAttribute("aria-selected", i === cur ? "true" : "false");
-        li.appendChild(el("span", "s5bi-skt", h.tn));
+        /* §5hv (24 XI 2026, owner: "I switch on related MC or KQL, but in the list it is hard to tell which entries those
+           are - mark or highlight them differently"): a related group is ONE tinted frame - amber for Message Center, blue
+           for KQL - opened by a "RELATED MC / RELATED KQL" badge; the hit it belongs to gets the same colour on its edge */
+        var nx = hits[i + 1], pv = hits[i - 1], rk = h.rel ? (h.relk || "mc") : "";
+        var cls = (i === cur ? "on" : "") + (h.rel ? " s5bi-relhit s5bi-rel-" + rk + (h.rel === 2 ? " s5bi-relhead" : "") + (!nx || !nx.rel || nx.rel === 2 ? " s5bi-relend" : "") : "") +
+          (!h.rel && nx && nx.rel === 2 ? " s5bi-relpar s5bi-relpar-" + (nx.relk || "mc") : "");
+        var li = el("li", cls); li.setAttribute("role", "option"); li.setAttribute("aria-selected", i === cur ? "true" : "false");
+        var tnS = el("span", "s5bi-skt"); if (h.rel === 2) tnS.appendChild(el("span", "s5bi-relb", rk === "kql" ? "RELATED KQL" : "RELATED MC")); else tnS.textContent = h.tn;
+        if (h.rel === 2) tnS.title = h.tn; li.appendChild(tnS);
         /* §5fv (30 X 2026, owner: "I type aaa and see eMudhra rows - the filter does not work"): the row matched far into
            its text (an ID or a hash), beyond the 160 characters shown. The line now shows the text AROUND the first hit,
            with the hit marked */
@@ -40827,17 +40846,17 @@ odtad CZTERNASCIE (4-17).**
     if (sid.indexOf("item:") === 0) {   /* §5hi: the KQL of the day written for this item */
       seen[sid] = 1; var QI = ITEMQ[sid.slice(5)] || [], o2 = [];
       QI.slice(0, 6).forEach(function (i) { var e = L.q[i];
-        o2.push({ tn: "\u21b3 KQL of the day", t: e[1] + " \u00b7 " + line(e) + " \u00b7 " + (e[3] || ""), l: "", rel: 1, fn: function () { if (window.__socOpenKql) window.__socOpenKql(e[0]); } }); });
+        o2.push({ tn: "\u21b3 KQL of the day", t: e[1] + " \u00b7 " + line(e) + " \u00b7 " + (e[3] || ""), l: "", rel: 1, relk: "kql", fn: function () { if (window.__socOpenKql) window.__socOpenKql(e[0]); } }); });
       return o2;
     }
     if (!L.s[sid]) return [];
     seen[sid] = 1;
     var v = L.s[sid], n = v[1].length, out = [];
-    out.push({ tn: "KQL of this incident", t: n + " quer" + (n === 1 ? "y" : "ies") + " for: " + v[0] + " — open them all in the KQL library", l: "", rel: 2,
+    out.push({ tn: "KQL of this incident", t: n + " quer" + (n === 1 ? "y" : "ies") + " for: " + v[0] + " — open them all in the KQL library", l: "", rel: 2, relk: "kql",
       fn: function () { if (window.__socKqlFor) window.__socKqlFor(sid); } });
     v[1].slice(0, 6).forEach(function (i) { var e = L.q[i];
-      out.push({ tn: "\u21b3 " + (KN[e[2]] || "KQL"), t: e[1] + " \u00b7 " + line(e), l: "", rel: 1, fn: function () { if (window.__socOpenKql) window.__socOpenKql(e[0]); } }); });
-    if (n > 6) out.push({ tn: "\u21b3 +" + (n - 6) + " more", t: "Open all " + n + " queries of this incident in the KQL library", l: "", rel: 1, fn: function () { if (window.__socKqlFor) window.__socKqlFor(sid); } });
+      out.push({ tn: "\u21b3 " + (KN[e[2]] || "KQL"), t: e[1] + " \u00b7 " + line(e), l: "", rel: 1, relk: "kql", fn: function () { if (window.__socOpenKql) window.__socOpenKql(e[0]); } }); });
+    if (n > 6) out.push({ tn: "\u21b3 +" + (n - 6) + " more", t: "Open all " + n + " queries of this incident in the KQL library", l: "", rel: 1, relk: "kql", fn: function () { if (window.__socKqlFor) window.__socKqlFor(sid); } });
     return out;
   }
   window.__socKqlLinks = {
@@ -49419,8 +49438,17 @@ details.s5ei-day[data-kf="new"] .s5ei-tile:not(.s5ei-new),details.s5ei-day[data-
 .s5hh-clr{font:700 12.5px/1 var(--sans);color:#fff;background:var(--ok);border:0;border-radius:999px;padding:6px 12px;cursor:pointer}
 .s5hh-kbtn{margin-left:8px;font-weight:700}
 .s5hh-tolib{margin-left:8px;font-weight:700}
-.s5bi-skr li.s5bi-relhit{margin-left:18px;border-left:3px solid #1d4ed8;padding-left:8px}
-.s5bi-skr li.s5bi-relhead{margin-left:8px;font-weight:700}
+.s5bi-skr li.s5bi-relhit{margin:0 12px 0 22px;border-left:4px solid #b45309;padding-left:10px;background:rgba(180,83,9,.10)}
+.s5bi-skr li.s5bi-relhit.s5bi-rel-kql{border-left-color:#1d4ed8;background:rgba(29,78,216,.12)}
+.s5bi-skr li.s5bi-relhead{margin-top:2px;border-radius:0 10px 0 0;font-weight:700}
+.s5bi-skr li.s5bi-relend{margin-bottom:8px;border-radius:0 0 10px 0}
+.s5bi-skr li.s5bi-relhead.s5bi-relend{border-radius:0 10px 10px 0}
+.s5bi-skr li.s5bi-relhit.on,.s5bi-skr li.s5bi-relhit:hover{background:rgba(180,83,9,.22)}
+.s5bi-skr li.s5bi-relhit.s5bi-rel-kql.on,.s5bi-skr li.s5bi-relhit.s5bi-rel-kql:hover{background:rgba(29,78,216,.24)}
+.s5bi-skr li.s5bi-relpar{box-shadow:inset 4px 0 0 #b45309}
+.s5bi-skr li.s5bi-relpar-kql{box-shadow:inset 4px 0 0 #1d4ed8}
+.s5bi-relb{display:inline-block;font:800 11px/1.5 var(--sans);letter-spacing:.04em;color:#fff;background:#b45309;border-radius:999px;padding:1px 8px;white-space:nowrap}
+.s5bi-rel-kql .s5bi-relb{background:#1d4ed8}
 /* §5gs: related Message Center posts, Removed view, Show related */
 .mcb-reltog{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:999px;padding:5px 12px;white-space:nowrap}
 .mcb-reltog>i{width:30px;height:16px;border-radius:999px;background:#64748b;position:relative;flex:none}
@@ -50569,22 +50597,22 @@ h1.s5cx-h1{display:inline-flex;align-items:center;gap:16px}
 #s5czb-tip::after{content:"";position:absolute;left:var(--ax,50%);bottom:-6px;width:10px;height:10px;margin-left:-5px;background:inherit;border-right:1px solid var(--accent);border-bottom:1px solid var(--accent);transform:rotate(45deg)}
 #s5czb-tip.below::after{bottom:auto;top:-6px;transform:rotate(225deg)}
 .s5czb-q{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;margin-left:5px;border-radius:50%;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:800;line-height:1;cursor:help;vertical-align:1px;user-select:none;flex:0 0 auto;font-style:normal}
-.s5czb-q:hover,.s5czb-q:focus-visible{background:var(--accent);color:#fff;outline:none}
+.s5czb-q:hover,.s5czb-q:focus-visible{background:var(--accent);color:var(--on-accent);outline:none}
 span[title],abbr[title]{cursor:help}
-.s5cz-diffbtn{display:flex;align-items:center;gap:8px;margin-top:7px;padding:5px 10px;border-radius:8px;background:var(--accent);color:#fff!important;font-weight:700;font-size:12.5px;text-decoration:none!important;white-space:nowrap}
+.s5cz-diffbtn{display:flex;align-items:center;gap:8px;margin-top:7px;padding:5px 10px;border-radius:8px;background:var(--accent);color:var(--on-accent)!important;font-weight:700;font-size:12.5px;text-decoration:none!important;white-space:nowrap}
 .s5cz-diffbtn:hover{filter:brightness(1.12)}
 .s5cz-diffic{font-size:14px;line-height:1}.s5cz-diffar{margin-left:auto;font-size:17px;line-height:1}
 a.s5czb-dlink{display:inline-flex;align-items:center;gap:5px;padding:0 10px;border:1px solid var(--accent);border-radius:999px;background:var(--accent-soft);color:var(--accent);font-weight:700;text-decoration:none!important;white-space:nowrap}
 a.s5czb-dlink::before{content:"\21c4"}
-a.s5czb-dlink:hover{background:var(--accent);color:#fff}
+a.s5czb-dlink:hover{background:var(--accent);color:var(--on-accent)}
 .s5cz-back{font:inherit;font-size:13px;font-weight:700;padding:5px 14px;border:1px solid var(--accent);border-radius:999px;background:var(--accent-soft);color:var(--accent);cursor:pointer;margin:0 0 8px;display:inline-block}
-.s5cz-back:hover{background:var(--accent);color:#fff}
+.s5cz-back:hover{background:var(--accent);color:var(--on-accent)}
 .s5cz-back-end{margin-top:16px}
 .s5czb-hint{display:flex;flex-wrap:wrap;align-items:center;gap:2px 4px;margin:-4px 0 10px;font-size:12.5px;color:var(--muted)}
 .s5czb-hint .s5czb-q{margin:0 2px 0 0}
 #s5cz-fresh .s5cz-fk{min-width:96px;display:inline-flex;align-items:center}
 .s5ca-gn .s5czb-q{text-transform:none;letter-spacing:0}
-#tab-about .s5cz-back-float{position:fixed;right:18px;bottom:18px;z-index:900;margin:0;box-shadow:0 6px 18px rgba(0,0,0,.25);background:var(--accent);color:#fff}
+#tab-about .s5cz-back-float{position:fixed;right:18px;bottom:18px;z-index:900;margin:0;box-shadow:0 6px 18px rgba(0,0,0,.25);background:var(--accent);color:var(--on-accent)}
 #tab-about[hidden] .s5cz-back-float{display:none}
 @media (max-width:720px){#tab-about .s5cz-back-float{right:12px;bottom:76px}}
 .s5ca-head>.s5cz-back{align-self:flex-start;width:auto;justify-self:start}
@@ -50698,7 +50726,7 @@ tr.s5da-cap{display:none!important}
 .s5dc-box>.s5bn-l,.s5dc-box>.s5bn-more{display:none!important}
 .s5dc-sw{margin-left:auto;display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden}
 .s5dc-sw button{font:inherit;font-size:12px;padding:3px 12px;border:0;background:transparent;color:var(--muted);cursor:pointer}
-.s5dc-sw button[aria-pressed="true"]{background:var(--accent);color:#fff;font-weight:700}
+.s5dc-sw button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);font-weight:700}
 .s5bn-h{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .s5dc-view{margin-top:10px}
 .s5dc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
@@ -50785,7 +50813,7 @@ body .tabpanel .badge.b-undoc,body .tabpanel .badge.b-elsewhere{background:var(-
 .s5df-t{font-size:13.5px}
 .s5df-sw{margin-left:auto;display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden}
 .s5df-sw button{font:inherit;font-size:11.5px;padding:2px 11px;border:0;background:transparent;color:var(--muted);cursor:pointer}
-.s5df-sw button[aria-pressed="true"]{background:var(--accent);color:#fff;font-weight:700}
+.s5df-sw button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);font-weight:700}
 .s5df-body{position:relative;flex:1;min-height:0}
 .s5df-sub{color:var(--muted);margin:0 0 4px}
 .s5df-lg{display:flex;flex-wrap:wrap;gap:4px 14px;color:var(--muted);margin:0 0 4px}
@@ -50860,7 +50888,7 @@ header.top select.globalfilter{-webkit-appearance:none;appearance:none;color:var
 .s5bk-idl3{font-size:12.5px;color:var(--text);margin-top:3px}
 .s5do-sw{display:inline-flex;margin-left:auto;border:1px solid var(--border);border-radius:8px;overflow:hidden}
 .s5do-sw button{background:none;border:0;padding:3px 10px;font:inherit;font-size:12.5px;color:var(--muted);cursor:pointer}
-.s5do-sw button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.s5do-sw button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
 .s5do-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin:10px 0}
 .s5do-grid[hidden],.s5bn-l[hidden]{display:none!important}
 .s5do-tile{display:flex;flex-direction:column;gap:5px;padding:11px 13px;border:1px solid var(--border);border-left:4px solid var(--border);border-radius:10px;background:var(--bg);cursor:pointer;min-width:0}
@@ -50891,7 +50919,7 @@ header.top select.globalfilter{-webkit-appearance:none;appearance:none;color:var
 .s5dq-bar .s5dq-jump{margin:0}
 .s5dq-sw{display:inline-flex;align-items:center;gap:6px}
 .s5dq-sw button{background:none;border:1px solid var(--border);border-radius:8px;padding:3px 10px;font:inherit;font-size:12.5px;color:var(--muted);cursor:pointer}
-.s5dq-sw button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.s5dq-sw button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 li.s5dq-h{list-style:none}
 .s5cu-list > .s5dq-h{border-top:2px solid var(--accent)}
 
@@ -50923,7 +50951,7 @@ ins .s5es-ul,del .s5es-ul{padding-left:16px}
 @media (max-width:760px){.s5dr{padding:10px}.s5dr-id{display:none}.s5dr-t th:last-child{display:none}}
 .s5drb-sw{display:flex;align-items:center;gap:6px;margin:6px 0}
 .s5drb-sw button{background:none;border:1px solid var(--border);border-radius:8px;padding:3px 10px;font:inherit;font-size:12.5px;color:var(--muted);cursor:pointer}
-.s5drb-sw button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.s5drb-sw button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 /* §5dt: Message Center number chips in every tab (same look as the Today/New chips) */
 .s5dt-mc{display:inline-block;margin:0 0 0 6px;vertical-align:baseline;font-size:11px;padding:0 7px;line-height:1.55;text-decoration:none}
 .s5dt-mc.s5dt-ext{border-style:dashed}
@@ -51408,7 +51436,7 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .s5ez-phn{font-weight:800;color:var(--text)}
 .s5ez-ph-contain .s5ez-phn{color:var(--bad)}.s5ez-ph-investigate .s5ez-phn{color:var(--warn)}.s5ez-ph-harden .s5ez-phn,.s5ez-ph-detect .s5ez-phn{color:var(--ok)}
 .s5ez-steps{margin:0;padding-left:24px}.s5ez-steps li{margin:4px 0;line-height:1.5}.s5ez-st{margin-right:6px}
-.s5ez-ours{color:#fff;background:var(--accent);border-color:var(--accent)}
+.s5ez-ours{color:var(--on-accent);background:var(--accent);border-color:var(--accent)}
 .s5ez-ksum{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 8px}
 .s5ez-k-ours{color:var(--accent);border-color:var(--accent)}.s5ez-k-Microsoft{color:var(--ok);border-color:var(--ok)}.s5ez-k-community{color:var(--warn);border-color:var(--warn)}
 .s5ez-kg{margin-top:10px}.s5ez-ks{margin:-4px 0 6px;font-size:12px}
@@ -51486,7 +51514,7 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .s5fe-navb:hover{border-color:var(--accent)}
 .s5fe-sec{margin:26px 0 8px;padding-top:14px;border-top:1px solid var(--border);scroll-margin-top:70px}
 .s5fe-h3{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;margin:0 0 4px}
-.s5fe-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-size:14px;flex:none}
+.s5fe-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:14px;flex:none}
 .s5fe-lead{font-size:15px;color:var(--muted);margin:2px 0 10px;max-width:70em}
 .s5fe-h4{font-size:16px;font-weight:700;margin:16px 0 6px}
 .s5fe-fold{border:1px solid var(--border);border-radius:10px;margin:10px 0;padding:8px 14px;background:var(--surface)}
@@ -52241,7 +52269,7 @@ button.s5ez-chip{cursor:pointer}button.s5ez-chip:hover{background:var(--accent-s
 .s5fz-stn{margin:8px 0 0;font-size:13px;line-height:1.45;color:var(--text)}
 .s5fz-gtabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
 .s5fz-gtab{font:700 14px/1.2 var(--sans);padding:7px 13px;border-radius:999px;border:1.5px solid color-mix(in srgb,var(--text) 30%,transparent);background:transparent;color:var(--text);cursor:pointer}
-.s5fz-gtab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.s5fz-gtab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .s5fz-sc{position:relative;padding:11px 13px;margin:0 0 10px;border-radius:12px;border:1.5px solid color-mix(in srgb,var(--text) 22%,transparent);background:var(--surface)}
 .s5fz-sc-names-it{border-left:4px solid #1f7a44}.s5fz-sc-feature{border-left:4px solid #2f5fd0}.s5fz-sc-doc{border-left:4px solid #7a5bc7}.s5fz-sc-words{border-left:4px solid #94600f}
 .s5fz-sct{font-size:16px;font-weight:700;line-height:1.35;color:var(--text);text-decoration:none;background:none;border:0;padding:0;text-align:left;cursor:pointer;font-family:inherit}
@@ -52303,7 +52331,7 @@ button.s5fz-urn:hover{color:var(--accent);text-decoration:underline}
 .s5gb-bn:hover{color:var(--accent);text-decoration:underline}
 .s5gb-bc{font:500 12.5px/1.4 var(--mono,ui-monospace,monospace);color:var(--text);overflow-wrap:anywhere}
 .s5gb-bd{font-size:13px;color:var(--text);padding:1px 7px;border-radius:999px;border:1px solid color-mix(in srgb,var(--text) 30%,transparent)}
-.s5gb-go{margin:2px 8px 0 0;padding:7px 13px;border-radius:999px;font:700 14px/1.2 var(--sans);color:#fff;background:var(--accent);border:0;cursor:pointer}
+.s5gb-go{margin:2px 8px 0 0;padding:7px 13px;border-radius:999px;font:700 14px/1.2 var(--sans);color:var(--on-accent);background:var(--accent);border:0;cursor:pointer}
 .s5gb-go2{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
 .s5fz-strip{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0 6px;padding:8px 10px;border-radius:14px;border:2px solid color-mix(in srgb,var(--accent) 50%,transparent);background:color-mix(in srgb,var(--accent) 6%,var(--surface))}
 .s5fz-dots{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 10px}
@@ -52523,7 +52551,7 @@ button.s5ft-at{background:none;border:0;padding:0;cursor:pointer;font:inherit;fo
 .s5fo-chip.s5fw-src{background:#e86fa8;color:#fff;border-color:transparent;font-weight:700}
 .s5dv-chip.s5fw-imp-h{background:var(--bad)}
 .s5dv-chip.s5fw-imp-m{background:#94600f}
-.s5dv-chip.s5fw-imp-l{background:var(--accent);color:#fff}
+.s5dv-chip.s5fw-imp-l{background:var(--accent);color:var(--on-accent)}
 .s5dv-chip.s5fw-new{background:#1f7a44;color:#fff;border:0;font-weight:700}
 .s5dv-chip.s5fw-fw{color:var(--text);border-color:#e3a33b;background:color-mix(in srgb,#e3a33b 14%,transparent);font-weight:600}
 .s5dv-chip.s5fw-dt{color:var(--text);border-color:color-mix(in srgb,var(--text) 40%,transparent)}
@@ -52955,7 +52983,7 @@ td>.offt+.ref{display:block}
 .s5fx-m{font-variant-numeric:tabular-nums}
 .s5fx-el{font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text);margin-top:2px}
 .s5fx-ep{display:flex;align-items:flex-start;gap:6px;min-width:0}
-.s5fx-mt{flex:0 0 auto;padding:1px 7px;border-radius:6px;font:700 12px/1.6 var(--mono,ui-monospace,monospace);color:#fff;background:var(--accent)}
+.s5fx-mt{flex:0 0 auto;padding:1px 7px;border-radius:6px;font:700 12px/1.6 var(--mono,ui-monospace,monospace);color:var(--on-accent);background:var(--accent)}
 .s5fx-mt-GET{background:#2f7d4f}.s5fx-mt-POST{background:#94600f}.s5fx-mt-PATCH,.s5fx-mt-PUT{background:#7a5bc7}.s5fx-mt-DELETE{background:var(--bad)}
 .s5fx-pa{flex:1 1 auto;min-width:0;padding:2px 7px;border-radius:6px;background:color-mix(in srgb,var(--text) 9%,transparent);border:1px solid color-mix(in srgb,var(--text) 20%,transparent);color:var(--text);font:500 13px/1.5 var(--mono,ui-monospace,monospace);overflow-wrap:anywhere}
 .s5fx-eprem .s5fx-pa{text-decoration:line-through;text-decoration-color:var(--bad)}
@@ -53028,7 +53056,7 @@ td>.offt+.ref{display:block}
 #tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-h{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;border:0;background:transparent;padding:14px 2px 2px;margin-top:4px;border-top:2px solid var(--border);border-radius:0}
 #tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-h:first-child,#tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-h-start{border-top:0;padding-top:2px}
 .s5gl-hn{font-size:19px;font-weight:800;color:var(--text)}
-.s5gl-hc{display:inline-block;min-width:26px;text-align:center;padding:1px 9px;border-radius:999px;background:var(--accent);color:#fff;font-weight:800;font-size:15px}
+.s5gl-hc{display:inline-block;min-width:26px;text-align:center;padding:1px 9px;border-radius:999px;background:var(--accent);color:var(--on-accent);font-weight:800;font-size:15px}
 .s5gl-hs{flex:1 1 100%;font-size:15px;color:var(--text)}
 #tab-overview .s5bk-sum.s5gl-on .s5bk-3>li.s5gl-q{display:none}
 #tab-overview .s5bk-sum.s5gl-on .s5bk-3.s5gl-open>li.s5gl-q{display:list-item}
@@ -53277,6 +53305,13 @@ html.s5hs-lock{overflow:hidden}
 .s5ht-tab.s5ez-kg-comm-t[aria-selected="true"]{background:#92400e}
 .s5ht-tab.s5ez-kg-ours-t[aria-selected="true"]{background:#475569}
 .s5ez-kg[hidden]{display:none}
+/* §5hv (24 XI 2026, owner: "a blue bar here and there covers the text when you hover an entry - check the whole portal"):
+   the inverse hover of external links (light-blue fill, dark text) now applies to plain links only - a link with its own
+   class (a source card's title, "Open ↗", a file name) kept its own blue text on the blue fill and became a bar with
+   invisible text; such links underline instead. A selected view button keeps its fill on hover (pale fill under white
+   text was 1.1:1). Measured: every a/button of every tab with :hover forced, text contrast against its fill >= 3. */
+.sec-body a[href^="http"][class]:hover{text-decoration:underline}
+.mcb-view.on:hover,.s5cd-bar button[aria-selected="true"]:hover{background:var(--accent);color:var(--on-accent)}
 @media (max-width:760px){.s5ht-tabs{flex-wrap:nowrap;overflow-x:auto}.s5ht-tab{white-space:nowrap}}
 ```
 
