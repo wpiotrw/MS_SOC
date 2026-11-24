@@ -1,0 +1,18 @@
+// title: Sign-ins from the campaign's replay and relay addresses, interactive and non-interactive, last 180 days
+// date: 2026-11-24
+// product: Entra
+// tables: AADNonInteractiveUserSignInLogs, SigninLogs
+// purpose: Threat Research: M365 token spray and replay campaign: AiTM and device-code tokens replayed from 193.26.115.0/24 against 79 organisations
+// source: https://www.huntress.com/blog/token-replay-spray
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// M365 token spray and replay campaign (Huntress, 22 Oct 2026) - sign-ins from 193.26.115.0/24 and the named relays
+// Microsoft Sentinel; diagnostic settings categories SignInLogs and NonInteractiveUserSignInLogs
+let ranges = dynamic(["193.26.115.0/24"]);
+let ips = dynamic(["124.198.132.33", "45.83.31.44", "192.159.99.172", "185.238.2.195", "167.148.41.96"]);
+union SigninLogs, AADNonInteractiveUserSignInLogs
+| where TimeGenerated > ago(180d)
+| where ipv4_is_in_any_range(IPAddress, ranges) or IPAddress in (ips) or AutonomousSystemNumber == 210558
+| project TimeGenerated, UserPrincipalName, IPAddress, AutonomousSystemNumber, AppDisplayName, AppId, ResourceDisplayName, UserAgent, ResultType, ResultDescription, Category
+| order by TimeGenerated desc

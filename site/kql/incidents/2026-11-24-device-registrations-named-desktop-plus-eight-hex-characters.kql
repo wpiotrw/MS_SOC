@@ -1,0 +1,26 @@
+// title: Device registrations named DESKTOP- plus eight hex characters followed by an authentication-method change for the same user
+// date: 2026-11-24
+// product: Entra
+// tables: AuditLogs
+// purpose: Threat Research: M365 token spray and replay campaign: AiTM and device-code tokens replayed from 193.26.115.0/24 against 79 organisations
+// source: https://www.huntress.com/blog/token-replay-spray
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// M365 token spray and replay campaign (Huntress) - rogue Entra-joined devices and MFA method swap
+// Microsoft Sentinel; diagnostic settings category AuditLogs
+let reg = AuditLogs
+| where TimeGenerated > ago(90d)
+| where OperationName == "Add device"
+| extend Device = tostring(TargetResources[0].displayName), User = tostring(InitiatedBy.user.userPrincipalName)
+| where Device matches regex @'^DESKTOP-[0-9A-F]{8}$'
+| project RegTime = TimeGenerated, User, Device;
+let mfa = AuditLogs
+| where TimeGenerated > ago(90d)
+| where OperationName has "security info" or OperationName has "authentication method"
+| extend User = tostring(TargetResources[0].userPrincipalName)
+| project MfaTime = TimeGenerated, User, OperationName;
+reg | join kind=inner mfa on User
+| where MfaTime between (RegTime - 3h .. RegTime + 3h)
+| project RegTime, MfaTime, User, Device, OperationName
+| order by RegTime desc

@@ -1,0 +1,19 @@
+// title: Inbox rules with one-to-three-character names or moving mail to RSS or Conversation History, last 90 days
+// date: 2026-11-24
+// product: Microsoft 365
+// tables: OfficeActivity
+// purpose: Threat Research: M365 token spray and replay campaign: AiTM and device-code tokens replayed from 193.26.115.0/24 against 79 organisations
+// source: https://www.huntress.com/blog/token-replay-spray
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// M365 token spray and replay campaign (Huntress) - hidden inbox rules
+// Microsoft Sentinel, OfficeActivity (Office 365 connector, Exchange)
+OfficeActivity
+| where TimeGenerated > ago(90d)
+| where Operation in ("New-InboxRule", "Set-InboxRule", "UpdateInboxRules")
+| extend P = tostring(Parameters)
+| extend RuleName = extract(@'"Name","Value":"([^"]*)"', 1, P)
+| where strlen(RuleName) between (1 .. 3) or RuleName matches regex @'^[\.,]+$' or P has_any ("RSS Feeds", "RSS Subscriptions", "Conversation History")
+| project TimeGenerated, UserId, ClientIP, Operation, RuleName, P
+| order by TimeGenerated desc

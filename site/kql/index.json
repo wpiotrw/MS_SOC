@@ -1,5 +1,48 @@
 [
  {
+  "file": "incidents/2026-11-24-sign-ins-from-the-campaign-s-replay-and.kql",
+  "title": "Sign-ins from the campaign's replay and relay addresses, interactive and non-interactive, last 180 days",
+  "date": "2026-11-24",
+  "product": "Entra",
+  "tables": [
+   "AADNonInteractiveUserSignInLogs",
+   "SigninLogs"
+  ],
+  "purpose": "Threat Research: M365 token spray and replay campaign: AiTM and device-code tokens replayed from 193.26.115.0/24 against 79 organisations",
+  "source": "https://www.huntress.com/blog/token-replay-spray",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "m365-token-spray-replay-1337-services-2026"
+ },
+ {
+  "file": "incidents/2026-11-24-inbox-rules-with-one-to-three-character-names.kql",
+  "title": "Inbox rules with one-to-three-character names or moving mail to RSS or Conversation History, last 90 days",
+  "date": "2026-11-24",
+  "product": "Microsoft 365",
+  "tables": [
+   "OfficeActivity"
+  ],
+  "purpose": "Threat Research: M365 token spray and replay campaign: AiTM and device-code tokens replayed from 193.26.115.0/24 against 79 organisations",
+  "source": "https://www.huntress.com/blog/token-replay-spray",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "m365-token-spray-replay-1337-services-2026"
+ },
+ {
+  "file": "incidents/2026-11-24-device-registrations-named-desktop-plus-eight-hex-characters.kql",
+  "title": "Device registrations named DESKTOP- plus eight hex characters followed by an authentication-method change for the same user",
+  "date": "2026-11-24",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Threat Research: M365 token spray and replay campaign: AiTM and device-code tokens replayed from 193.26.115.0/24 against 79 organisations",
+  "source": "https://www.huntress.com/blog/token-replay-spray",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "m365-token-spray-replay-1337-services-2026"
+ },
+ {
   "file": "community/2026-11-24-netapi-ip-addresses-that-have-attacked-netapi-honeypot.kql",
   "title": "NetAPI IP addresses that have attacked NetAPI honeypot sensors in the last 48 hours · Defender XDR",
   "date": "2026-11-24",
@@ -84,6 +127,42 @@
    "T1219"
   ],
   "repo": "Bert-JanP Hunting Queries & Detection Rules"
+ },
+ {
+  "file": "2026-11-24-users-completing-mfa-with-text-message-or-voice-last-30-days.kql",
+  "title": "Users who completed sign-in MFA with a text message or voice call, last 30 days - the population that needs CYOT, BYOT or another method before 1 February 2027",
+  "date": "2026-11-24",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "Successful sign-ins whose AuthenticationDetails carry a succeeded Text message or Voice step, per user with the count, the last time and the apps. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-troubleshoot#check-sign-in-logs",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-24-telephony-function-app-sendotp-errors-and-latency-by-hour.kql",
+  "title": "SendOtp calls your own telephony Function App answered with an error or slowly, by hour, last 24 hours",
+  "date": "2026-11-24",
+  "product": "Entra",
+  "tables": [
+   "AppRequests"
+  ],
+  "purpose": "Hourly count of SendOtp requests with failures and p95 duration from the integration's Application Insights. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-troubleshoot#check-function-app-logs",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-24-changes-to-the-subscription-hosting-the-telephony-integration.kql",
+  "title": "Who changed web apps, app settings or role assignments in the subscription that hosts the telephony integration, last 30 days",
+  "date": "2026-11-24",
+  "product": "Entra",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "Successful AzureActivity writes and deletes on Microsoft.Web sites and their config, and role-assignment writes and deletes, by caller and resource. Scope it to the subscription that hosts the integration. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azureactivity",
+  "kind": "brief"
  },
  {
   "file": "incidents/2026-11-23-wwahost-exe-reaching-non-microsoft-destinations-defender-xdr.kql",
@@ -436,7 +515,10 @@
   ],
   "purpose": "Daily counts of SyntheticMediaDetectionEvents split by Modality, Severity and SourceType, with how many were judged malicious. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-synthetic-media-detection-events",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-24"
+  ]
  },
  {
   "file": "2026-11-23-deepfake-detections-in-teams-calls-judged-malicious-joined-t.kql",
@@ -449,7 +531,10 @@
   ],
   "purpose": "Lists synthetic media detections flagged malicious with the call activity recorded for the same Teams call. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-synthetic-media-detection-events",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-24"
+  ]
  },
  {
   "file": "2026-11-23-custom-detection-rules-that-open-many-single-alert-incidents.kql",
@@ -462,7 +547,10 @@
   ],
   "purpose": "Counts alerts from custom detections (AlertInfo DetectionSource) per rule title with the number of distinct devices and accounts in AlertEvidence. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertinfo-table",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-24"
+  ]
  },
  {
   "file": "incidents/2026-11-22-risky-or-new-country-sign-ins-interactive-and.kql",
@@ -641,7 +729,8 @@
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
   "kind": "brief",
   "reused": [
-   "2026-11-23"
+   "2026-11-23",
+   "2026-11-24"
   ]
  },
  {
@@ -656,7 +745,8 @@
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
   "kind": "brief",
   "reused": [
-   "2026-11-23"
+   "2026-11-23",
+   "2026-11-24"
   ]
  },
  {
@@ -671,7 +761,8 @@
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-cloudappevents-table",
   "kind": "brief",
   "reused": [
-   "2026-11-23"
+   "2026-11-23",
+   "2026-11-24"
   ]
  },
  {
@@ -776,7 +867,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-22",
-   "2026-11-23"
+   "2026-11-23",
+   "2026-11-24"
   ]
  },
  {
@@ -792,7 +884,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-22",
-   "2026-11-23"
+   "2026-11-23",
+   "2026-11-24"
   ]
  },
  {
@@ -808,7 +901,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-22",
-   "2026-11-23"
+   "2026-11-23",
+   "2026-11-24"
   ]
  },
  {
@@ -899,7 +993,8 @@
   "reused": [
    "2026-11-21",
    "2026-11-22",
-   "2026-11-23"
+   "2026-11-23",
+   "2026-11-24"
   ]
  },
  {
@@ -916,7 +1011,8 @@
   "reused": [
    "2026-11-21",
    "2026-11-22",
-   "2026-11-23"
+   "2026-11-23",
+   "2026-11-24"
   ]
  },
  {
@@ -933,7 +1029,8 @@
   "reused": [
    "2026-11-21",
    "2026-11-22",
-   "2026-11-23"
+   "2026-11-23",
+   "2026-11-24"
   ]
  },
  {
@@ -37680,41 +37777,5 @@
   "author": "KQL Query (Bert-Jan Pals)",
   "link": "https://kqlquery.com/posts/clickfix-gift-that-keeps-on-giving/",
   "incident": "auto-clickfix-the-gift-that-keeps-on-giving-2026-06-30"
- },
- {
-  "file": "2026-11-24-users-completing-mfa-with-text-message-or-voice-last-30-days.kql",
-  "title": "Users who completed sign-in MFA with a text message or voice call, last 30 days - the population that needs CYOT, BYOT or another method before 1 February 2027",
-  "date": "2026-11-24",
-  "product": "Entra",
-  "tables": [
-   "SigninLogs"
-  ],
-  "purpose": "Successful sign-ins whose AuthenticationDetails carry a succeeded Text message or Voice step, per user with the count, the last time and the apps. Not run against a tenant in this pass.",
-  "source": "https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-troubleshoot#check-sign-in-logs",
-  "kind": "brief"
- },
- {
-  "file": "2026-11-24-telephony-function-app-sendotp-errors-and-latency-by-hour.kql",
-  "title": "SendOtp calls your own telephony Function App answered with an error or slowly, by hour, last 24 hours",
-  "date": "2026-11-24",
-  "product": "Entra",
-  "tables": [
-   "AppRequests"
-  ],
-  "purpose": "Hourly count of SendOtp requests with failures and p95 duration from the integration's Application Insights. Not run against a tenant in this pass.",
-  "source": "https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-troubleshoot#check-function-app-logs",
-  "kind": "brief"
- },
- {
-  "file": "2026-11-24-changes-to-the-subscription-hosting-the-telephony-integration.kql",
-  "title": "Who changed web apps, app settings or role assignments in the subscription that hosts the telephony integration, last 30 days",
-  "date": "2026-11-24",
-  "product": "Entra",
-  "tables": [
-   "AzureActivity"
-  ],
-  "purpose": "Successful AzureActivity writes and deletes on Microsoft.Web sites and their config, and role-assignment writes and deletes, by caller and resource. Scope it to the subscription that hosts the integration. Not run against a tenant in this pass.",
-  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azureactivity",
-  "kind": "brief"
  }
 ]
