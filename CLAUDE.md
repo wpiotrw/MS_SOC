@@ -26584,6 +26584,19 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hs (24 XI 2026)** — THREAT RESEARCH: INCYDENT JAKO KARTA Z ZAKLADKAMI. Piotr: "pamietasz okno z zakladkami (Graph API Radar)?
+zrobmy takie dla Threat Research, bo teraz + rozwija sekcje" i po makiecie: "jakis inny kolor zakladek? szary? zlewa sie z tlem. ok,
+dzialamy". SKRYPT 17: klik w wiersz incydentu (i window.__socOpenThreat / __socOpenThreatKql) otwiera storySheet(s) - nakladka
+.s5fo-ov.s5hs-ov wewnatrz #tab-threats (rozmiary pisma zakladki §5er dzialaja), karta .s5fo-card.s5ft-wide.s5hs-card: naglowek
+(status, obszary, licznik KQL, tytul, Reported / updated / zrodla / Microsoft) i zakladki z window.__socCardTabs.build(): Overview
+(fakty, odpowiedz Microsoftu, komunikat rzadowy, What happened, Timeline, Root cause) / Attacker & IOCs (What the attacker did,
+Indicators, Infrastructure) / What to do · N / KQL · N / Apps involved · N (aplikacje oraz Permissions and roles) / Sources · N;
+pusta zakladka sie nie rysuje. Tresc nadal pisze details() - karta tylko rozklada jej sekcje po tytulach .s5et-ch. Przyciski KQL
+otwieraja karte na zakladce KQL. Esc, x i klik w tlo zamykaja; wiersz ma "open" na czas karty. CSS: pasek zakladek szary
+(var(--surface-3), ramka), wybrana zakladka wypelniona #475569 z bialym tekstem; na telefonie pelny ekran, zakladki przewijane w
+poziomie. Test: 15 incydentow otwartych po kolei bez bledu JS, komputer jasny/ciemny 1500 px, telefon 390 px bez przewijania w
+poziomie; gate na kopii jak wczesniej (81a/b = brak plikow zrodel w kopii).
+
 **§5hr (24 XI 2026)** — LICZNIK KQL INCYDENTU BEZ PODWOJNEGO LICZENIA. kqlOf() w SKRYPCIE (Threat Research) dodawal
 kqlPublished.length do kqlSources, a tools/threats.py juz je tam wlicza (5ez: len(src_keys) + len(kqlPublished)) - kafelek APIM
 Classic pokazywal 14 "from the sources" zamiast 7, kazdy incydent z kqlPublished byl zawyzony. Teraz kqlPublished dolicza sie tylko
@@ -44465,32 +44478,78 @@ odtad CZTERNASCIE (4-17).**
     var mb5 = msBest(s); c5.textContent = s.microsoft.status === "described" ? (mb5 ? msShort(mb5.what) + " " + dmy(mb5.date).slice(0, 5) : "Described") : "Not yet"; h.appendChild(c5);   /* §5gd */
     var c6 = el("span", "s5el-c6" + (s.curated ? " s5el-yes" : " s5el-mut")); c6.setAttribute("data-l", "Analysis"); c6.textContent = s.curated ? "Written" : "Not yet"; h.appendChild(c6);
     r.appendChild(h);
-    var d = el("div", "s5el-det"); d.hidden = true; r.appendChild(d);
-    h.addEventListener("click", function () {
-      var on = d.hidden; d.hidden = !on; h.setAttribute("aria-expanded", on ? "true" : "false"); r.classList.toggle("open", on); tg.textContent = on ? "\u2212" : "+";
-      if (on && !d.__f) { d.__f = true; details(s, d); }
-    });
+    /* §5hs (24 XI 2026, owner: "the Graph API Radar card with tabs - do the same for Threat Research instead of the +
+       that unfolds the section"; "make the tabs grey, they merge with the background"): the row opens the incident as
+       ONE card over the tab - head (status, areas, KQL count, title, dates) and tabs Overview / Attacker & IOCs /
+       What to do / KQL / Apps involved / Sources; an empty tab is not drawn. details() still writes the content, the
+       card only sorts its sections into tabs. */
+    h.setAttribute("aria-haspopup", "dialog");
+    h.addEventListener("click", function () { storySheet(s); });
     return r;
+  }
+  var SSHEET = null;
+  function storySheet(s, tab) {
+    if (!SSHEET) {
+      SSHEET = el("div", "s5fo-ov s5hs-ov"); SSHEET.hidden = true; SSHEET.setAttribute("role", "dialog"); SSHEET.setAttribute("aria-modal", "true");
+      SSHEET.addEventListener("click", function (ev) { if (ev.target === SSHEET) closeSheet(); });
+      document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && SSHEET && !SSHEET.hidden) closeSheet(); });
+      panel.appendChild(SSHEET);   /* inside #tab-threats, so the tab's type sizes (§5er) apply to the card */
+    }
+    SSHEET.textContent = "";
+    var c = el("div", "s5fo-card s5ft-wide s5hs-card"); SSHEET.appendChild(c);
+    var x = el("button", "s5fo-x", "\u00d7"); x.type = "button"; x.setAttribute("aria-label", "Close"); x.addEventListener("click", closeSheet); c.appendChild(x);
+    var N = s.notes, k = storyKind(s, PREV, null), stt = N && N.status ? N.status : "", K = kqlOf(s);
+    var chips = el("div", "s5fo-chips");
+    chips.appendChild(el("span", "s5el-st " + (k === "new" ? "new" : k === "upd" ? "upd" : stt ? "s5et-" + stt : "none"), k === "new" ? "NEW" : k === "upd" ? "UPDATED" : stt ? stt.toUpperCase() : "NOT ANALYSED"));
+    s.areas.forEach(function (a) { chips.appendChild(el("span", "s5fo-chip", a)); });
+    if (K.t) chips.appendChild(el("span", "s5fo-chip s5hs-kq", K.t + " KQL"));
+    c.appendChild(chips);
+    c.appendChild(el("h2", "s5fo-t", s.title));
+    c.appendChild(el("p", "s5hs-meta", "Reported " + dmy(s.firstReported) + " · updated " + dmy(day(s.lastUpdate)) + " · " + s.sources.length + " source" + (s.sources.length === 1 ? "" : "s") +
+      " · Microsoft: " + (s.microsoft.status === "described" ? "described" : "not yet") + (s.curated ? " · analysed" : "")));
+    var d = el("div", "s5el-det s5hs-det"); details(s, d);
+    var P = { ov: [], att: [], todo: [], kql: [], apps: [], src: [] };
+    function put(sec) {
+      var t = ((sec.querySelector(":scope > .s5et-ch") || {}).firstChild || {}).textContent || "";
+      if (/^Hunting queries/i.test(t)) P.kql.push(sec);
+      else if (/^What to do/i.test(t)) P.todo.push(sec);
+      else if (/^Applications and identities|^Permissions and roles/i.test(t)) P.apps.push(sec);
+      else if (/^What the attacker|^Indicators of compromise|^Infrastructure/i.test(t)) P.att.push(sec);
+      else if (/^Sources|^Articles/i.test(t)) P.src.push(sec);
+      else P.ov.push(sec);
+    }
+    [].slice.call(d.children).forEach(function (ch) {
+      if (ch.classList.contains("s5et-cols")) [].slice.call(ch.querySelectorAll(":scope > .s5et-col > section")).forEach(put);
+      else if (ch.tagName === "SECTION") put(ch);
+      else P.ov.push(ch);   /* facts, Microsoft's response, government advisory */
+    });
+    function wrap(L) { var w = el("div", "s5el-det s5hs-det"); L.forEach(function (n) { w.appendChild(n); }); return [w]; }
+    var nRem = N && N.remediation ? N.remediation.length : 0, nApps = N && N.apps ? N.apps.length : 0;
+    var panes = [{ key: "ov", label: "Overview", els: wrap(P.ov) }, { key: "att", label: "Attacker & IOCs", els: P.att.length ? wrap(P.att) : [] },
+      { key: "todo", label: "What to do", n: nRem, els: P.todo.length ? wrap(P.todo) : [] }, { key: "kql", label: "KQL", n: K.t, els: P.kql.length ? wrap(P.kql) : [] },
+      { key: "apps", label: "Apps involved", n: nApps, els: P.apps.length ? wrap(P.apps) : [] }, { key: "src", label: "Sources", n: P.src.length ? parseInt(((P.src[0].querySelector(".s5et-cs") || {}).textContent || "0"), 10) || 0 : 0, els: P.src.length ? wrap(P.src) : [] }];
+    if (window.__socCardTabs) window.__socCardTabs.build(c, panes);
+    else panes.forEach(function (p) { p.els.forEach(function (e) { c.appendChild(e); }); });
+    if (tab) { var tb = [].filter.call(c.querySelectorAll(".s5ft-tab"), function (b) { return b.textContent.indexOf(tab) === 0; })[0]; if (tb) tb.click(); }
+    var rw = document.getElementById("s5el-" + s.id); if (rw) { rw.classList.add("open"); var hh = rw.querySelector(".s5el-rh"); if (hh) hh.setAttribute("aria-expanded", "true"); }
+    SSHEET.__sid = s.id; SSHEET.hidden = false; document.documentElement.classList.add("s5hs-lock"); x.focus();
+    if (window.__socDate && window.__socDate.rewrite) try { window.__socDate.rewrite(c); } catch (e) {}
+    return c;
+  }
+  function closeSheet() {
+    if (!SSHEET) return; SSHEET.hidden = true; document.documentElement.classList.remove("s5hs-lock");
+    var rw = SSHEET.__sid && document.getElementById("s5el-" + SSHEET.__sid);
+    if (rw) { rw.classList.remove("open"); var hh = rw.querySelector(".s5el-rh"); if (hh) { hh.setAttribute("aria-expanded", "false"); hh.focus(); } }
   }
   function openStory(id, toKql) {
     goTab();
+    /* §5hs: an incident opens as its card; the KQL buttons (§5hh) open it on the KQL tab */
     var go = function () {
-      var c = document.getElementById("s5el-" + id); if (!c) { var mb = panel.querySelector(".s5el-more"); if (mb) mb.click(); c = document.getElementById("s5el-" + id); }
-      if (!c) return;
+      var st = ((D && D.stories) || []).filter(function (x) { return x.id === id; })[0]; if (!st) return;
       var box0 = document.getElementById("s5el-inc"); if (box0) box0.open = true;
-      var t = c.querySelector(".s5el-rh"); if (t && t.getAttribute("aria-expanded") !== "true") t.click();
-      window.scrollTo({ top: Math.max(0, c.getBoundingClientRect().top + scrollY - 120) });
-      /* §5hh: "KQL" buttons land on the incident's hunting queries, not on its first line - the mark (which keeps its
-         target in view while the tab settles) goes on the KQL card, else it would pull the page back to the row */
-      var kq0 = toKql ? c.querySelector(".s5ez-kq") : null;
-      if (kq0) window.scrollTo({ top: Math.max(0, kq0.getBoundingClientRect().top + scrollY - 160), behavior: "instant" });
-      if (window.__socMark) try { window.__socMark(kq0 || c); } catch (e) {}
-      /* the row can be rebuilt meanwhile (the filter line redraws the list) - look it up again each time */
-      if (toKql) { var tries = 0, okN = 0; (function poll() { var c2 = document.getElementById("s5el-" + id), k = c2 && c2.querySelector(".s5ez-kq");
-        if (c2 && !k) { var t2 = c2.querySelector(".s5el-rh"); if (t2 && t2.getAttribute("aria-expanded") !== "true") t2.click(); k = c2.querySelector(".s5ez-kq"); }
-        var off = 140; [].forEach.call(document.querySelectorAll(".gfbar, header.top"), function (x) { var r = x.getBoundingClientRect(); if (!x.hidden && r.height && r.top < 400 && r.bottom > 0 && getComputedStyle(x).position !== "static") off = Math.max(off, r.bottom + 12); });
-        if (k && Math.abs(k.getBoundingClientRect().top - off) > 40) { window.scrollTo({ top: Math.max(0, k.getBoundingClientRect().top + scrollY - off), behavior: "instant" }); okN = 0; } else if (k) okN++;
-        if (okN < 2 && ++tries < 20) setTimeout(poll, 300); })(); }   /* polls up to 6 s: on a phone the tab is built later */
+      var c = document.getElementById("s5el-" + id);
+      if (c) { window.scrollTo({ top: Math.max(0, c.getBoundingClientRect().top + scrollY - 120) }); if (window.__socMark) try { window.__socMark(c); } catch (e) {} }
+      storySheet(st, toKql ? "KQL" : null);
     };
     if (built) setTimeout(go, 60); else load(function () { build(); setTimeout(go, 60); });
   }
@@ -53140,6 +53199,21 @@ header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
 .s5gp-hot{color:#d97706}.s5gp-z{color:var(--text)}
 .s5gp-dd{font:700 12px "IBM Plex Mono",monospace;padding:1px 7px;border-radius:6px;background:#b45309;color:#fff;margin-right:4px}
 .s5gp-quiet{border-style:dashed}
+/* §5hs (24 XI 2026): the incident card of Threat Research - grey tabs that stand out from the card (owner: "they merge
+   with the background - grey?"), the selected one filled slate; the sections inside keep the tab's own look */
+.s5hs-ov{z-index:1500}
+html.s5hs-lock{overflow:hidden}
+.s5hs-card .s5ft-tabs{background:var(--surface-3);border:1px solid var(--border);border-radius:12px;padding:5px;gap:4px;margin:14px 0 4px}
+.s5hs-card .s5ft-tab{background:transparent;border:0;border-radius:8px;margin:0;padding:8px 14px;color:var(--text);font-weight:600}
+.s5hs-card .s5ft-tab:hover{background:rgba(100,116,139,.18);color:var(--text)}
+.s5hs-card .s5ft-tab[aria-selected="true"]{background:#475569;color:#fff;border:0}
+.s5hs-card .s5ft-panes{padding-top:10px}
+.s5hs-card .s5hs-det{display:block;border:0;padding:0;background:transparent}
+.s5hs-card .s5hs-det>*{max-width:none}
+.s5hs-card .s5hs-det>.s5et-card{margin:0 0 12px}
+.s5hs-meta{margin:6px 0 0;color:var(--muted,var(--text));font-size:14px;opacity:.85}
+.s5hs-kq{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+@media (max-width:760px){.s5hs-card .s5ft-tabs{flex-wrap:nowrap;overflow-x:auto}.s5hs-card .s5ft-tab{white-space:nowrap}}
 ```
 
 ### Pulapka zmierzona przy tej zmianie: „na koncu `<style>`" znaczy W TYM `<style>`
