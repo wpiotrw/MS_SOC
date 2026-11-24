@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-24T15:49:11Z",
- "day": "2026-11-24",
+ "generated": "2026-11-24T23:53:16Z",
+ "day": "2026-11-25",
  "spec": "5ge",
  "source": {
   "ok": true,
@@ -58,7 +58,7 @@
   ],
   "page": "https://www.cyber.mil/stigs/downloads",
   "learn": "https://learn.microsoft.com/en-us/intune/device-security/security-baselines/stig-audit-baseline",
-  "catalog": 416,
+  "catalog": 418,
   "note": "No DISA STIG exists for Microsoft 365 as a service or for Exchange Online (checked 2 XI 2026); Exchange 2016/2019 are on-premises and sunset."
  },
  "stigs": [
