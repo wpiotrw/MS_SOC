@@ -106,6 +106,10 @@ jobs:
         id: gate
         if: steps.swap.outputs.changed == '1'
         run: |
+          # 5hp (24 XI 2026): GitHub runs `run:` with `bash -e`, and `set -uo pipefail` does not switch -e off, so the
+          # gate's exit code 1 ended the step before rc was read - the 104-only postponement never ran (7 failed runs
+          # and e-mails 00:01-04:58 UTC on 24 XI, after the first night-time code change since 5gr-p). +e keeps it alive.
+          set +e
           set -uo pipefail
           python3 .refresh/gate.py site/index.html site --mirror --doc CLAUDE.md | tee gate.log; rc=${PIPESTATUS[0]}
           if [ "$rc" -ne 0 ] && grep -qE '^PRZEBIEG NIEUDANY — 1 pozycji: 104$' gate.log; then

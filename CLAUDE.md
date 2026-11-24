@@ -26584,6 +26584,13 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hp (24 XI 2026, 07:20)** — NOCNE MAILE "Run failed: Code refresh". Po commitach §5hm/§5hn/§5ho (kod strony zmieniony po
+polnocy UTC) Code refresh padl 7 razy (00:01-04:58 UTC, kazdy przebieg = e-mail). Przyczyna NIE w kodzie §5hn: krok Gate ma
+od 5gr-p obsluge "jedyny blad = 104 -> odloz podmiane kodu", ale GitHub uruchamia `run:` jako `bash -e`, a `set -uo pipefail`
+nie wylacza -e - kod wyjscia 1 z gate.py konczyl krok, zanim rc zostalo odczytane. Wczesniej nikt nie zmienial kodu w nocy,
+wiec blad byl uspiony. Poprawka: `set +e` na poczatku kroku Gate. Test: ten sam skrypt pod `bash -e` na kopii origin/main ->
+"POSTPONED", exit 0; stara wersja -> exit 1.
+
 **§5ho (24 XI 2026)** — ODPOWIEDZ PRZEBIEGU = E-MAIL DLA WLASCICIELA. Piotr: "w mailowych podsumowaniach routine nie podajemy
 zrodel... czy mamy wplyw, zeby byl lepiej sformatowany i bardziej profesjonalny?" oraz "e-mail po angielsku, chyba ze da sie i
 tak i tak; zeby linki sie klikaly" (wariant A - bez zmiany kanalu wysylki). E-mail o zakonczeniu przebiegu to koncowa odpowiedz
