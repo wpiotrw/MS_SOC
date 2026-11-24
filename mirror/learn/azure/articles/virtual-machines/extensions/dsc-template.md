@@ -1,0 +1,280 @@
+---
+layout: Conceptual
+title: Desired State Configuration extension with Azure Resource Manager templates - Azure Virtual Machines | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/dsc-template
+breadcrumb_path: ../../breadcrumb/azure-compute/toc.json
+feedback_help_link_url: https://learn.microsoft.com/answers/tags/94/azure-virtual-machines/
+feedback_help_link_type: get-help-at-qna
+feedback_product_url: https://feedback.azure.com/d365community/forum/ec2f1827-be25-ec11-b6e6-000d3a4f0f1c
+feedback_system: Standard
+permissioned-type: public
+recommendations: true
+recommendation_types:
+- Training
+- Certification
+uhfHeaderId: azure
+ms.suite: office
+learn_banner_products:
+- azure-virtual-machines
+manager: rayoflores
+ms.reviewer: wwilliams
+description: Learn about the Resource Manager template definition for the Desired State Configuration (DSC) extension in Azure.
+services: virtual-machines
+author: mgreenegit
+ms.custom: devx-track-arm-template
+keywords: dsc
+ms.assetid: b5402e5a-1768-4075-8c19-b7f7402687af
+ms.service: azure-virtual-machines
+ms.subservice: extensions
+ms.collection: windows
+ms.topic: concept-article
+ms.tgt_pltfrm: vm-windows
+ms.date: 2025-08-20T00:00:00.0000000Z
+ms.author: migreene
+locale: en-us
+document_id: a4ebf9bf-fb61-e694-1711-4fa00fc8a875
+document_version_independent_id: c0b1ab45-6775-b84b-09fa-c77709bbb5d0
+original_content_git_url: https://github.com/MicrosoftDocs/azure-compute-docs-pr/blob/live/articles/virtual-machines/extensions/dsc-template.md
+site_name: Docs
+depot_name: Learn.azure-compute
+page_type: conceptual
+toc_rel: ../toc.json
+asset_id: virtual-machines/extensions/dsc-template
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: articles/virtual-machines/extensions/dsc-template.md
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/4e834929-0ce1-4c1d-9c81-fcb14721edfb
+- https://authoring-docs-microsoft.poolparty.biz/devrel/2ed91286-6cf7-4b83-810d-75d0ee3b09dd
+spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/75670257-a3f0-4627-9981-8046f99219e6
+- https://authoring-docs-microsoft.poolparty.biz/devrel/6735bd7e-4f7b-457d-b58c-29e6f0198677
+platformId: 39cd0ee2-f9e0-5555-1880-f2172c39120a
+---
+
+# Desired State Configuration extension with Azure Resource Manager templates - Azure Virtual Machines | Microsoft Learn
+
+This article describes the Azure Resource Manager template for the [Desired State Configuration (DSC) extension handler](dsc-overview).
+
+Note
+
+DSC extension will be retired on March 31, 2028. Please move to [Azure Machine Configuration](/en-us/azure/governance/machine-configuration/overview) by that date. For more information, see the [blog post](https://azure.microsoft.com/updates/?id=485828) announcement. The Azure Machine Configuration service combines certain features of DSC Extension, Azure Automation State Configuration, and commonly requested features from customer feedback. Azure Machine Configuration also includes hybrid machine support through [Arc-enabled servers](/en-us/azure/azure-arc/servers/overview).
+
+Note
+
+You might encounter slightly different schema examples. The change in schema occurred in the October 2016 release. For details, see Update from a previous format.
+
+Note
+
+Try VM assist for faster diagnostics. We recommend that you run [VM assist for Windows](https://aka.ms/vmassistwindows) or [VM assist for Linux](https://aka.ms/vmassistlinux). These script-based diagnostic tools help you to identify common issues that affect the Azure VM Guest Agent and overall VM health.
+
+If you're experiencing performance problems with virtual machines, before contacting support, run these tools.
+
+## Bicep example for a virtual machine
+
+The DSC extension inherits default extension properties. For more information, see [VirtualMachineExtension class](/en-us/dotnet/api/microsoft.azure.management.compute.models.virtualmachineextension).
+
+```bicep
+@description('URI of the configuration package')
+param configUri string
+
+@description('first configuration parameter')
+param arg1 string
+
+@description('second configuration parameter')
+@secure()
+param arg2 string
+
+var configName = split(split(configUri, '/')[4], '.')[0]
+
+resource vm 'Microsoft.Compute/virtualMachines@2023-09-01' existing = {
+  name: srvName
+}
+
+resource configuration_dscext 'Microsoft.Compute/virtualMachines/extensions@2024-07-01' = {
+  name: 'configurationname_dscext'
+  parent: vm
+  location: location
+  properties: {
+    publisher: 'Microsoft.Powershell'
+    type: 'DSC'
+    typeHandlerVersion: '2.77'
+    autoUpgradeMinorVersion: true
+    settings: {
+      wmfVersion: 'latest'
+      configuration: {
+        url: configUri
+        script: 'configurationname_dscext.ps1'
+        function: 'configurationname_dscext'
+      }
+      configurationArguments: {
+        arg1: arg1
+      }
+      advancedOptions: {
+        rebootNodeIfNeeded: true
+      }
+    }
+    protectedSettings: {
+      configurationArguments: {
+        arg2: arg2
+      }
+    }
+  }
+}
+```
+
+## Bicep example for Windows virtual machine scale sets
+
+A virtual machine scale set node has a section that includes an **extensionProfile** attribute. Under **extensions**, add the details for DSC Extension.
+
+For the latest details about authoring templates that deploy extensions for Virtual Machine Scale Sets, see the document [Microsoft.Compute virtualMachineScaleSets](/en-us/azure/templates/microsoft.compute/virtualmachinescalesets?pivots=deployment-language-bicep)
+
+The DSC extension inherits default extension properties. For more information, see [VirtualMachineScaleSetExtension class](/en-us/dotnet/api/microsoft.azure.management.compute.models.virtualmachinescalesetextension).
+
+## Settings vs. protectedSettings
+
+All settings are saved in a settings text file on the VM. Properties listed under **settings** are public properties. Public properties aren't encrypted in the settings text file. Properties listed under **protectedSettings** are encrypted with a certificate and aren't shown in plain text in the settings file on the VM.
+
+If the configuration needs credentials, you can include the credentials in **protectedSettings**:
+
+```json
+"protectedSettings": {
+    "configurationArguments": {
+        "parameterOfTypePSCredential1": {
+               "userName": "UsernameValue1",
+               "password": "PasswordValue1"
+        }
+    }
+}
+```
+
+## Example using the configuration script in Azure Storage
+
+The following example is from the [DSC extension handler overview](dsc-overview). This example uses Resource Manager templates instead of cmdlets to deploy the extension. Save the IisInstall.ps1 configuration, place it in a .zip file (example: `iisinstall.zip`), and then upload the file in an accessible URL. This example uses Azure Blob storage, but you can download .zip files from any arbitrary location.
+
+In the Resource Manager template, the following code instructs the VM to download the correct file, and then run the appropriate PowerShell function:
+
+```json
+"settings": {
+    "configuration": {
+        "url": "https://demo.blob.core.windows.net/iisinstall.zip",
+        "script": "IisInstall.ps1",
+        "function": "IISInstall"
+    }
+},
+"protectedSettings": {
+    "configurationUrlSasToken": "odLPL/U1p9lvcnp..."
+}
+```
+
+## Update from a previous format
+
+Any settings in a previous format of the extension (and which have the public properties **ModulesUrl**, **ModuleSource**, **ModuleVersion**, **ConfigurationFunction**, **SasToken**, or **Properties**) automatically adapt to the current format of the extension. They run just as they did before.
+
+The following schema shows what the previous settings schema looked like:
+
+```json
+"settings": {
+    "WMFVersion": "latest",
+    "ModulesUrl": "https://UrlToZipContainingConfigurationScript.ps1.zip",
+    "SasToken": "SAS Token if ModulesUrl points to private Azure Blob Storage",
+    "ConfigurationFunction": "ConfigurationScript.ps1\\ConfigurationFunction",
+    "Properties": {
+        "ParameterToConfigurationFunction1": "Value1",
+        "ParameterToConfigurationFunction2": "Value2",
+        "ParameterOfTypePSCredential1": {
+            "UserName": "UsernameValue1",
+            "Password": "PrivateSettingsRef:Key1"
+        },
+        "ParameterOfTypePSCredential2": {
+            "UserName": "UsernameValue2",
+            "Password": "PrivateSettingsRef:Key2"
+        }
+    }
+},
+"protectedSettings": {
+    "Items": {
+        "Key1": "PasswordValue1",
+        "Key2": "PasswordValue2"
+    },
+    "DataBlobUri": "https://UrlToConfigurationDataWithOptionalSasToken.psd1"
+}
+```
+
+Here's how the previous format adapts to the current format:
+
+| Current Property name | Previous schema equivalent |
+| --- | --- |
+| settings.wmfVersion | settings.WMFVersion |
+| settings.configuration.url | settings.ModulesUrl |
+| settings.configuration.script | First part of settings.ConfigurationFunction (before \\) |
+| settings.configuration.function | Second part of settings.ConfigurationFunction (after \\) |
+| settings.configuration.module.name | settings.ModuleSource |
+| settings.configuration.module.version | settings.ModuleVersion |
+| settings.configurationArguments | settings.Properties |
+| settings.configurationData.url | protectedSettings.DataBlobUri (without SAS token) |
+| settings.privacy.dataCollection | settings.Privacy.dataCollection |
+| settings.advancedOptions.downloadMappings | settings.AdvancedOptions.DownloadMappings |
+| protectedSettings.configurationArguments | protectedSettings.Properties |
+| protectedSettings.configurationUrlSasToken | settings.SasToken |
+| protectedSettings.configurationDataUrlSasToken | SAS token from protectedSettings.DataBlobUri |
+
+## Troubleshooting
+
+Here are some of the errors you might run into and how you can fix them.
+
+### Invalid values
+
+"Privacy.dataCollection is '{0}'. The only possible values are '', 'Enable', and 'Disable'". "WmfVersion is '{0}'. Only possible values are … and 'latest'".
+
+**Problem**: A provided value isn't allowed.
+
+**Solution**: Change the invalid value to a valid value.
+
+### Invalid URL
+
+"ConfigurationData.url is '{0}'. This is not a valid URL" "DataBlobUri is '{0}'. This is not a valid URL" "Configuration.url is '{0}'. This is not a valid URL"
+
+**Problem**: A provided URL isn't valid.
+
+**Solution**: Check all your provided URLs. Ensure that all URLs resolve to valid locations that the extension can access on the remote machine.
+
+### Invalid ConfigurationArgument type
+
+"Invalid configurationArguments type {0}"
+
+**Problem**: The *ConfigurationArguments* property can't resolve to a **Hash table** object.
+
+**Solution**: Make your *ConfigurationArguments* property a **Hash table**. Follow the format provided in the preceding examples. Watch for quotes, commas, and braces.
+
+### Duplicate ConfigurationArguments
+
+"Found duplicate arguments '{0}' in both public and protected configurationArguments"
+
+**Problem**: The *ConfigurationArguments* in public settings and the *ConfigurationArguments* in protected settings have properties with the same name.
+
+**Solution**: Remove one of the duplicate properties.
+
+### Missing properties
+
+"settings.Configuration.function requires that settings.configuration.url or settings.configuration.module is specified"
+
+"settings.Configuration.url requires that settings.configuration.script is specified"
+
+"settings.Configuration.script requires that settings.configuration.url is specified"
+
+"settings.Configuration.url requires that settings.configuration.function is specified"
+
+"protectedSettings.ConfigurationUrlSasToken requires that settings.configuration.url is specified"
+
+"protectedSettings.ConfigurationDataUrlSasToken requires that settings.configurationData.url is specified"
+
+**Problem**: A defined property needs another property, which is missing.
+
+**Solutions**:
+
+- Provide the missing property.
+- Remove the property that needs the missing property.

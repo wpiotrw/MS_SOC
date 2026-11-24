@@ -25,7 +25,8 @@ description: Information on and specifications of the Ensv6-series sizes
 ms.service: azure-virtual-machines
 ms.subservice: sizes
 ms.topic: concept-article
-ms.date: 2026-03-10T00:00:00.0000000Z
+ms.date: 2026-11-11T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: 2f42bdaa-1169-2078-06a8-898fab4db246
 document_version_independent_id: 30a009ad-77b0-33dd-1f1c-7f70692cfbdb
@@ -41,8 +42,10 @@ item_type: Content
 source_path: articles/virtual-machines/sizes/memory-optimized/ensv6-series.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/2ed91286-6cf7-4b83-810d-75d0ee3b09dd
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c389ea6b-b6a0-46df-93a1-1e21f25e19e7
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/6735bd7e-4f7b-457d-b58c-29e6f0198677
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/19ada1b6-705b-4ed7-aad0-bffd1bd03dfa
 platformId: 85096c90-d7ee-bea9-2dde-be8aefc147a4
 ---
 
@@ -55,6 +58,10 @@ Network Optimized VMs enhance accelerated networking by providing hardware accel
 The Ensv6 VMs offer up to 200 Gbps network bandwidth, 15 vNICs and up to 400k Connection per Second (CPS). The series also includes up to 128 vCPU and 1024 GiB of RAM.
 
 Both series provide up to 3x improvement in NW BW/vCPU than the current generation Intel Ev6 VMs. This series will be relevant for workloads such as network virtual appliances, large-scale e-commerce applications, express route, application gateway, and more that require the ability to handle a high number of user connections and data transfers. They're also suited for media processing tasks that involve transferring large amounts of data quickly, and other applications that benefit from high NW BW/vCPU and CPS & flow limit configurations.
+
+Important
+
+Increased connection setup performance (connections per second, or CPS) is available only for supported traffic scenarios. It doesn't apply to traffic destined for private endpoints, traffic that uses virtual network encryption, or certain container networking scenarios. See [Connection acceleration limitations](/en-us/azure/virtual-network/network-optimized-vm-network-connection-acceleration#limitations) before sizing your workload.
 
 ## Host specifications
 
@@ -167,7 +174,7 @@ No accelerators are present in this series.
 | --- | --- |
 | [Premium Storage](../../premium-storage-performance) | Supported |
 | [Premium Storage caching](../../premium-storage-performance) | Supported |
-| [Live Migration](../../maintenance-and-updates#live-migration) | Not Supported |
+| [Live Migration](../../maintenance-and-updates#live-migration) | Supported |
 | [Memory Preserving Updates](../../maintenance-and-updates) | Supported |
 | [Generation 2 VMs](../../generation-2) | Supported |
 | [Generation 1 VMs](../../generation-2) | Not Supported |

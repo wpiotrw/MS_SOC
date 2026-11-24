@@ -230,6 +230,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/ai-model-security
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/ai-threat-protection
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/alerts-ai-workloads
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/alerts-resource-manager
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/anti-malware
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/api-security-posture-overview
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/azure-portal-vs-defender-portal-comparison
@@ -262,6 +263,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containe
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containers-troubleshoot
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-databases-introduction
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-key-vault-introduction
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-resource-manager-introduction
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-servers-overview
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-sql-usage
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-storage-configure-malware-scan
@@ -660,8 +662,13 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-shared-enable
 https://learn.microsoft.com/en-us/azure/virtual-machines/disks-understand-billing
 https://learn.microsoft.com/en-us/azure/virtual-machines/estimated-vm-create-cost-card
+https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/agent-linux-fips
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/chef
+https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/dsc-overview
+https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/dsc-template
+https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/dsc-windows
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/hpccompute-gpu-linux
+https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/issues-using-vm-extensions-python-3
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/key-vault-linux
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/salt-minion
 https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/vmaccess-linux

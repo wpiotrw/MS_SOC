@@ -24,7 +24,7 @@ ms.service: azure-backup
 ms.reviewer: v-mallicka
 description: Learn about the new features in the Azure Backup service.
 ms.topic: release-notes
-ms.date: 2026-11-19T00:00:00.0000000Z
+ms.date: 2026-11-24T00:00:00.0000000Z
 ms.custom:
 - ignite-2023
 - build-2026
@@ -64,6 +64,7 @@ You can learn more about the new releases by bookmarking this page or by [subscr
     - Cross-subscription backup for Azure VMs is now generally available
     - Snapshot backup for SQL instances in Azure VMs is now generally available
     - Vaulted backup support for Azure Cosmos DB is now generally available
+    - Secure by default with vault soft delete for Backup vaults is now generally available
 - October 2026
 
     - Selective disk restore for Azure VMs (preview)
@@ -127,7 +128,7 @@ You can learn more about the new releases by bookmarking this page or by [subscr
     - Azure Backup for Azure Database for PostgreSQL – Flexible Server is now generally available
 - November 2024
 
-    - Secure by Default with Vault soft delete (preview)
+    - Secure by default with vault soft delete (preview)
     - WORM enabled Immutable Storage for Recovery Services vaults is now generally available
     - Cross Subscription Backup support for Azure File Share (preview)
     - Back up SAP ASE (Sybase) database (preview)
@@ -183,6 +184,14 @@ Key features include:
 - Recovery: Use incremental backups with a 1-day recovery point objective (RPO), Cross Region Restore (CRR), and item-level restore (ILR).
 
 For more information, see [About Azure Cosmos DB vaulted backup](backup-azure-cosmos-db-overview).
+
+## Secure by default with vault soft delete for Backup vaults is now generally available
+
+Secure by default with vault soft delete is now generally available for Backup vaults in all Azure public regions.
+
+Soft delete is enforced by default for vaults, recovery points, and backup items. You can recover deleted Backup vaults and backup data after accidental or malicious deletion, without having to opt in. By default, vaulted backup data stays recoverable for 14 days at no additional retention cost.
+
+For more information, see [Secure by default with soft delete for Azure Backup](secure-by-default).
 
 ## Selective disk restore for Azure VMs (preview)
 
@@ -464,9 +473,9 @@ This release includes the following key features:
 
 For more information, see [Azure Backup for PostgreSQL Flexible Server overview](backup-azure-database-postgresql-flex-overview).
 
-## Secure by Default with Vault soft delete (preview)
+## Secure by default with vault soft delete (preview)
 
-Azure Backup now provides the **Secure By default with Vault soft delete (preview)** feature that applies soft delete by default at all granularities - vaults, recovery points, containers and backup items. Azure Backup now ensures that all the backup data is recoverable against ransomware attacks by default and has no cost for *14 days*. You don't need to opt in to get *fair* security level for your backup data. You can update the soft delete retention period as per your preference up to *180 days*.
+Azure Backup now provides the **Secure by default with vault soft delete (preview)** feature that applies soft delete by default at all granularities - vaults, recovery points, containers, and backup items. Azure Backup now ensures that all the backup data is recoverable against ransomware attacks by default and has no cost for *14 days*. You don't need to opt in to get *fair* security level for your backup data. You can update the soft delete retention period as per your preference up to *180 days*.
 
 Soft delete provides data recoverability from malicious or accidental deletions and is enabled by default for all vaults. To make soft delete irreversible, you can use **always-on** soft delete.
 

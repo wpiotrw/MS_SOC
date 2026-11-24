@@ -25,7 +25,8 @@ description: Information on and specifications of the Dndsv6-series sizes
 ms.service: azure-virtual-machines
 ms.subservice: sizes
 ms.topic: concept-article
-ms.date: 2026-03-10T00:00:00.0000000Z
+ms.date: 2026-11-11T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: 9e6c315f-1c23-3246-698f-e2bf15e364ec
 document_version_independent_id: cfd18146-20e3-f613-2c3d-839230a011e3
@@ -57,6 +58,10 @@ The new Network Optimized sizes make use of enhancements provided by Azure Boost
 These VM sizes are relevant for workloads such as network virtual appliances, large-scale e-commerce applications that require the ability to handle a high number of user connections, and data transfers and media processing tasks that involve transferring large amounts of data quickly. Other applications will also benefit from increased network connection setup performance.
 
 Dndsv6-series virtual machines offer local storage disks. You can attach Standard SSDs, Standard HDDs, Premium SSDs, and Premium SSD v2 storage to these virtual machines. You can also attach Ultra Disk storage based on its regional availability. Disk storage is billed separately from virtual machines.
+
+Important
+
+Increased connection setup performance (connections per second, or CPS) is available only for supported traffic scenarios. It doesn't apply to traffic destined for private endpoints, traffic that uses virtual network encryption, or certain container networking scenarios. See [Connection acceleration limitations](/en-us/azure/virtual-network/network-optimized-vm-network-connection-acceleration#limitations) before sizing your workload.
 
 ## Host specifications
 
@@ -184,7 +189,7 @@ No accelerators are present in this series.
 | --- | --- |
 | [Premium Storage](../../premium-storage-performance) | Supported |
 | [Premium Storage caching](../../premium-storage-performance) | Supported |
-| [Live Migration](../../maintenance-and-updates) | Not Supported |
+| [Live Migration](../../maintenance-and-updates) | Supported |
 | [Memory Preserving Updates](../../maintenance-and-updates) | Supported |
 | [Generation 2 VMs](../../generation-2) | Supported |
 | [Generation 1 VMs](../../generation-2) | Not Supported |

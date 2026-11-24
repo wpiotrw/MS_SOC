@@ -25,7 +25,8 @@ description: Information on and specifications of the Dnldsv6-series sizes
 ms.service: azure-virtual-machines
 ms.subservice: sizes
 ms.topic: concept-article
-ms.date: 2026-03-10T00:00:00.0000000Z
+ms.date: 2026-11-11T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: b5ec40dd-8692-9d10-ad37-f051311642dd
 document_version_independent_id: 47df1ee8-09a0-84aa-0550-be73c354bb9a
@@ -57,6 +58,10 @@ The new Network Optimized sizes make use of enhancements provided by Azure Boost
 These VM sizes are relevant for workloads such as network virtual appliances, large-scale e-commerce applications that require the ability to handle a high number of user connections, and data transfers and media processing tasks that involve transferring large amounts of data quickly. Other applications will also benefit from increased network connection setup performance.
 
 Dnldsv6-series virtual machines support Standard SSD, Standard HDD, and Premium SSD types. You can also attach Ultra Disk storage based on its regional availability. Disk storage is billed separately from virtual machines.
+
+Important
+
+Increased connection setup performance (connections per second, or CPS) is available only for supported traffic scenarios. It doesn't apply to traffic destined for private endpoints, traffic that uses virtual network encryption, or certain container networking scenarios. See [Connection acceleration limitations](/en-us/azure/virtual-network/network-optimized-vm-network-connection-acceleration#limitations) before sizing your workload.
 
 ## Host specifications
 
@@ -182,7 +187,7 @@ No accelerators are present in this series.
 | --- | --- |
 | [Premium Storage](../../premium-storage-performance) | Supported |
 | [Premium Storage caching](../../premium-storage-performance) | Supported |
-| [Live Migration](../../maintenance-and-updates#live-migration) | Not Supported |
+| [Live Migration](../../maintenance-and-updates#live-migration) | Supported |
 | [Memory Preserving Updates](../../maintenance-and-updates) | Supported |
 | [Generation 2 VMs](../../generation-2) | Supported |
 | [Generation 1 VMs](../../generation-2) | Not Supported |

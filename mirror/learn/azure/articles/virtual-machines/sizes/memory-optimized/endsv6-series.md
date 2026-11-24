@@ -25,7 +25,8 @@ description: Information on and specifications of the Endsv6-series sizes
 ms.service: azure-virtual-machines
 ms.subservice: sizes
 ms.topic: concept-article
-ms.date: 2026-03-10T00:00:00.0000000Z
+ms.date: 2026-11-11T00:00:00.0000000Z
+ai-usage: ai-assisted
 locale: en-us
 document_id: ab88eca6-ebfe-a1fd-fc27-48b24d5cc3ae
 document_version_independent_id: 66be8ae1-46cb-db1b-45f2-bd77b336bd8c
@@ -41,8 +42,10 @@ item_type: Content
 source_path: articles/virtual-machines/sizes/memory-optimized/endsv6-series.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/2ed91286-6cf7-4b83-810d-75d0ee3b09dd
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/c389ea6b-b6a0-46df-93a1-1e21f25e19e7
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/6735bd7e-4f7b-457d-b58c-29e6f0198677
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/19ada1b6-705b-4ed7-aad0-bffd1bd03dfa
 platformId: 7f23a7a7-4c2a-a213-91ce-a3b45fe07bac
 ---
 
@@ -57,6 +60,10 @@ Endsv6 VMs offer up to 200 Gbps network bandwidth, 15 vNICs and up to 400k Conne
 Both series provide up to 3x improvement in NW BW/vCPU than the current generation Intel Ev6 VMs. This series will be relevant for workloads such as network virtual appliances, large-scale e-commerce applications, express route, application gateway, and more that requires the ability to handle a high number of user connections and data transfers. They're also suited for media processing tasks that involve transferring large amounts of data quickly, and other applications that benefit from high NW BW/vCPU and CPS & flow limit configurations.
 
 The Endsv6 series comes with a local disk. We recommend choosing Premium SSD, Premium SSD v2, or Ultra Disks to attain the published disk performance.
+
+Important
+
+Increased connection setup performance (connections per second, or CPS) is available only for supported traffic scenarios. It doesn't apply to traffic destined for private endpoints, traffic that uses virtual network encryption, or certain container networking scenarios. See [Connection acceleration limitations](/en-us/azure/virtual-network/network-optimized-vm-network-connection-acceleration#limitations) before sizing your workload.
 
 ## Host specifications
 
@@ -175,7 +182,7 @@ No accelerators are present in this series.
 | --- | --- |
 | [Premium Storage](../../premium-storage-performance) | Supported |
 | [Premium Storage caching](../../premium-storage-performance) | Supported |
-| [Live Migration](../../maintenance-and-updates#live-migration) | Not Supported |
+| [Live Migration](../../maintenance-and-updates#live-migration) | Supported |
 | [Memory Preserving Updates](../../maintenance-and-updates) | Supported |
 | [Generation 2 VMs](../../generation-2) | Supported |
 | [Generation 1 VMs](../../generation-2) | Not Supported |

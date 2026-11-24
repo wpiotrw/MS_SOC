@@ -7,10 +7,10 @@ feedback_system: Standard
 uhfHeaderId: MSDocsHeader-Purview
 f1.keywords:
 - CSH
-ms.author: kreagle
+ms.author: brenle
 author: k-reagle
 manager: laurawi
-ms.date: 2026-06-26T00:00:00.0000000Z
+ms.date: 2026-11-23T00:00:00.0000000Z
 audience: ITPro
 ms.topic: how-to
 ms.service: purview
@@ -44,12 +44,12 @@ item_type: Content
 source_path: Purview/dlp-create-policy-ai-network-data-security.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
-- https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/85ee13c4-5d0b-41b0-895d-b7e834668123
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
-- https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
+- https://authoring-docs-microsoft.poolparty.biz/devrel/7e79a0d4-3b49-4899-aac2-fbdd26ca15a8
 platformId: 4d2ce845-0f9d-baa7-bead-04908fdaf6a9
 ---
 
@@ -59,7 +59,7 @@ Note
 
 Some features used in this scenario are in preview.
 
-This article uses the process you learned in [Design a data loss prevention policy](dlp-policy-design) to show you how to create a Microsoft Purview data loss prevention (DLP) policy that helps prevent sharing sensitive information with unmanaged AI apps through network data security using an integrated SASE solution, such as Microsoft Entra Global Secure Access, or non-Microsoft secure browser solution. Work through this scenario in your test environment to familiarize yourself with the policy creation UI.
+This article uses the process you learned in [Design a data loss prevention policy](dlp-policy-design) to show you how to create a Microsoft Purview data loss prevention (DLP) policy that helps prevent sharing sensitive information with unmanaged AI apps through network data security using an integrated SASE solution, such as Microsoft Entra Global Secure Access, firewall, such as Azure Firewall (preview), or non-Microsoft secure browser solution. Work through this scenario in your test environment to familiarize yourself with the policy creation UI.
 
 Important
 
@@ -76,10 +76,8 @@ Before you start this procedure, read [Learn about Microsoft Purview Network Dat
 Before you begin, make sure the following prerequisites and assumptions are met:
 
 - You have an supported SASE or secure enterprise browser integration. For more information on which integrations are supported, see the [Security Store in Microsoft Purview Data Loss Prevention](https://purview.microsoft.com/datalossprevention/securitystore).
-- If you're using Microsoft Entra Global Secure Access
-    - The device must be Entra ID joined.
-    - You must configure a [Transport Layer Security inspection policy](/en-us/entra/global-secure-access/how-to-transport-layer-security)
-    - You must configure a [content policy in Microsoft Entra GSA Internet Access](/en-us/entra/global-secure-access/how-to-network-content-filtering).
+- If you're using Microsoft Entra Global Secure Access, see [Create a content policy to filter network content](/en-us/entra/global-secure-access/how-to-network-content-filtering#prerequisites).
+- If you're using Azure Firewall (preview), see [Configure network DLP with Azure Firewall and Microsoft Purview (preview)](/en-us/azure/firewall/configure-network-dlp#prerequisites).
 - If you are using a non-Microsoft SASE or secure enterprise browser provider
     - Ensure you've configured Purview pay-as-you-go billing. For more information, see [Enable Microsoft Purview pay-as-you-go features for new customers](purview-payg-subscription-based-enablement#enable-microsoft-purview-pay-as-you-go-features-for-new-customers).
     - Ensure you've completed the integration steps outlined in your provider's documentation.

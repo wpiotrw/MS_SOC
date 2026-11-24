@@ -218,6 +218,7 @@ https://learn.microsoft.com/en-us/entra/id-governance/using-multi-stage-reviews
 https://learn.microsoft.com/en-us/entra/id-governance/workflow-custom-triggers
 https://learn.microsoft.com/en-us/entra/id-protection/concept-identity-protection-policies
 https://learn.microsoft.com/en-us/entra/id-protection/concept-identity-protection-risks
+https://learn.microsoft.com/en-us/entra/id-protection/concept-identity-protection-unified-risk
 https://learn.microsoft.com/en-us/entra/id-protection/howto-export-risk-data
 https://learn.microsoft.com/en-us/entra/id-protection/howto-identity-protection-configure-risk-policies
 https://learn.microsoft.com/en-us/entra/identity
@@ -254,6 +255,7 @@ https://learn.microsoft.com/en-us/entra/identity/app-provisioning/object-connect
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/plan-sap-user-source-and-target
 https://learn.microsoft.com/en-us/entra/identity/app-proxy/application-proxy-faq
 https://learn.microsoft.com/en-us/entra/identity/authentication
+https://learn.microsoft.com/en-us/entra/identity/authentication/bring-your-own-telephony-set-up
 https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-fraud-costs
 https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-fraud-protection
 https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-reliability

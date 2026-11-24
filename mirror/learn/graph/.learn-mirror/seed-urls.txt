@@ -1,6 +1,7 @@
 https://learn.microsoft.com/en-us/graph
 https://learn.microsoft.com/en-us/graph/alertsv1-alertsv2-migration
 https://learn.microsoft.com/en-us/graph/api/accessdriftsummary-list
+https://learn.microsoft.com/en-us/graph/api/accesspackageassignmentrequest-filterbycurrentuser
 https://learn.microsoft.com/en-us/graph/api/accesspackageresourceenvironment-get
 https://learn.microsoft.com/en-us/graph/api/accessreviewstage-acceptrecommendations
 https://learn.microsoft.com/en-us/graph/api/agentidentity-update-communicationconfiguration
@@ -26,6 +27,7 @@ https://learn.microsoft.com/en-us/graph/api/remotetena
 https://learn.microsoft.com/en-us/graph/api/remotetenant
 https://learn.microsoft.com/en-us/graph/api/res
 https://learn.microsoft.com/en-us/graph/api/resources/accessdriftsummary
+https://learn.microsoft.com/en-us/graph/api/resources/accesspackageassignmentrequest
 https://learn.microsoft.com/en-us/graph/api/resources/accessreviewcatalogscope
 https://learn.microsoft.com/en-us/graph/api/resources/accessreviewinstancedecisionitem
 https://learn.microsoft.com/en-us/graph/api/resources/accessreviewinstancedecisionitemcustomdataprovidedresource
@@ -125,9 +127,11 @@ https://learn.microsoft.com/en-us/graph/api/resources/security-auditlogrecordtyp
 https://learn.microsoft.com/en-us/graph/api/resources/security-casemanagement-case
 https://learn.microsoft.com/en-us/graph/api/resources/security-casemanagement-caseslapolicyentry
 https://learn.microsoft.com/en-us/graph/api/resources/security-casemanagement-comment
+https://learn.microsoft.com/en-us/graph/api/resources/security-casemanagement-incidentcase
 https://learn.microsoft.com/en-us/graph/api/resources/security-casemanagement-slapolicydefinition
 https://learn.microsoft.com/en-us/graph/api/resources/security-casemanagementroot
 https://learn.microsoft.com/en-us/graph/api/resources/security-contentmanagement-contentmanagementrepository
+https://learn.microsoft.com/en-us/graph/api/resources/security-contentmanagement-contentpackage
 https://learn.microsoft.com/en-us/graph/api/resources/security-detectionaction
 https://learn.microsoft.com/en-us/graph/api/resources/security-detectionrule
 https://learn.microsoft.com/en-us/graph/api/resources/security-ediscoveryHoldPolicy
@@ -173,10 +177,12 @@ https://learn.microsoft.com/en-us/graph/api/userdatasecurityandgovernance-proces
 https://learn.microsoft.com/en-us/graph/api/userprotectionscopecontainer-compute
 https://learn.microsoft.com/en-us/graph/api…
 https://learn.microsoft.com/en-us/graph/applications-authenticationbehaviors
+https://learn.microsoft.com/en-us/graph/archive-mailbox-mail-api
 https://learn.microsoft.com/en-us/graph/best-practices-concept
 https://learn.microsoft.com/en-us/graph/changenotifications-for-presence
 https://learn.microsoft.com/en-us/graph/connecting-external-content-manage-connections
 https://learn.microsoft.com/en-us/graph/control-enhanced-personalization-privacy
+https://learn.microsoft.com/en-us/graph/identitygovernance-lifecycleworkflows-task-arguments
 https://learn.microsoft.com/en-us/graph/known-issues
 https://learn.microsoft.com/en-us/graph/outlook-change-notifications-overview
 https://learn.microsoft.com/en-us/graph/outlook-share-or-delegate-calendar
@@ -190,6 +196,10 @@ https://learn.microsoft.com/en-us/graph/teams-licenses
 https://learn.microsoft.com/en-us/graph/throttling-limits
 https://learn.microsoft.com/en-us/graph/toolkit/components/chat
 https://learn.microsoft.com/en-us/graph/unified-tenant-configuration-management-concept-overview
+https://learn.microsoft.com/en-us/graph/utcm-agent-resources
+https://learn.microsoft.com/en-us/graph/utcm-authentication-setup
+https://learn.microsoft.com/en-us/graph/utcm-copilot-resources
+https://learn.microsoft.com/en-us/graph/utcm-remediation-applyonce-resources
 https://learn.microsoft.com/en-us/graph/whats-new-earlier
 https://learn.microsoft.com/en-us/graph/whats-new-overview
 https://learn.microsoft.com/en-us/graph/windowsupdates-concept-overview

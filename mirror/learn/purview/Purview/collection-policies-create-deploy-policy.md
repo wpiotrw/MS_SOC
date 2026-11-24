@@ -7,10 +7,10 @@ feedback_system: Standard
 uhfHeaderId: MSDocsHeader-Purview
 f1.keywords:
 - CSH
-ms.author: kreagle
+ms.author: brenle
 author: k-reagle
 manager: laurawi
-ms.date: 2026-06-22T00:00:00.0000000Z
+ms.date: 2026-11-23T00:00:00.0000000Z
 audience: ITPro
 ms.topic: how-to
 ms.service: purview
@@ -108,7 +108,7 @@ This is a hypothetical scenario with hypothetical values. It's only for illustra
 #### Scenario 1 prerequisites and assumptions
 
 - You either have an existing relationship with one or more supported SASE or non-Microsoft secure browser providers or are interested in procuring one as part of your deployment. See the [Security Store in Microsoft Purview Data Loss Prevention](https://purview.microsoft.com/datalossprevention/securitystore) to understand which providers are supported.
-- If you choose a non-Microsoft SASE or secure browser integration, you have [configured Microsoft Purview pay-as-you-go billing](purview-payg-subscription-based-enablement) for your Microsoft 365 tenant. Pay-as-you-go is not required for integration with Entra Global Secure Access. For more information, see [Learn about Microsoft Purview Network Data Security](dlp-network-data-security-learn#licensing).
+- If you choose a non-Microsoft SASE or secure browser integration, you have [configured Microsoft Purview pay-as-you-go billing](purview-payg-subscription-based-enablement) for your Microsoft 365 tenant. Pay-as-you-go is not required for integration with Entra Global Secure Access or Azure Firewall (preview). For more information, see [Learn about Microsoft Purview Network Data Security](dlp-network-data-security-learn#licensing).
 
 Configuring network data security is a multi-phase process.
 
@@ -134,7 +134,11 @@ Perform the following steps to integrate a supported SASE or secure browser prov
 
 1. In the [Microsoft Purview portal](https://purview.microsoft.com), open the **Data Loss Prevention** solution and choose **Security Store** in the left navigation bar.
 2. Select **Get solution** for the SASE or non-Microsoft secure browser solution provider you want to integrate with.
-3. Complete the steps required by the integration. The steps vary depending on the SASE provider you choose. For Entra Global Secure Access integration, see [Create content policies for network content filtering](/en-us/entra/global-secure-access/how-to-network-content-filtering).
+3. Complete the steps required by the integration. The steps vary depending on the SASE provider you choose.
+
+- For Entra Global Secure Access integration, see [Create content policies for network content filtering](/en-us/entra/global-secure-access/how-to-network-content-filtering).
+- For Azure Firewall integration, see [Configure network DLP with Azure Firewall and Microsoft Purview (preview)](/en-us/azure/firewall/configure-network-dlp).
+- For non-Microsoft SASE or secure browser solutions, refer to that provider's documentation.
 
 ##### Configure collection policy for network data security
 
