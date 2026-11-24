@@ -1,0 +1,47 @@
+// title: Detection 4: Vishing Account Compromise - MFA Change Followed by Cloud Data Bulk Export
+// date: 2026-11-24
+// product: Entra
+// tables: AuditLogs, AzureActivity, OfficeActivity
+// purpose: From the article: Detection Engineering Brief - Tuesday, November 24, 2026
+// source: https://devsecopsdadattack.com/2026-11-24-detection-engineering-brief-tuesday-november-24-2026/
+// kind: article
+// author: DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+let correlationWindow = 4h;
+let mfaChanges =
+    AuditLogs
+    | where TimeGenerated >= ago(24h)
+    | where OperationName has_any ("Update user", "User registered security info", "User deleted security info", "Admin registered security info")
+    | where TargetResources has_any ("StrongAuthenticationMethod", "MFA", "AuthenticationMethod")
+    | mv-expand TargetResource = TargetResources
+    | extend UPN = tostring(TargetResource.userPrincipalName)
+    | where isnotempty(UPN)
+    | summarize MFAChangeTime = min(TimeGenerated), OperationName = take_any(OperationName) by UPN;
+let bulkDataOps =
+    OfficeActivity
+    | where TimeGenerated >= ago(24h)
+    | where Operation in ("FileDownloaded", "FileSyncDownloadedFull", "AnonymousLinkCreated", "SharingSet", "FileAccessed")
+    | summarize OpCount = count(), FirstOp = min(TimeGenerated), ClientIP = take_any(ClientIP) by UserId
+    | where OpCount >= 50
+    | project FirstOp, UserId, ClientIP, OpCount;
+let azureBulk =
+    AzureActivity
+    | where TimeGenerated >= ago(24h)
+    | where OperationName has_any ("List Keys", "Get Blob", "List Blobs", "Get Storage Account")
+    | where ActivityStatus == "Succeeded"
+    | summarize AzureOpCount = count(), AzureFirstOp = min(TimeGenerated), CallerIpAddress = take_any(CallerIpAddress) by Caller
+    | where AzureOpCount >= 30
+    | project AzureFirstOp, Caller, CallerIpAddress, AzureOpCount;
+let officeCorrelated =
+    mfaChanges
+    | join kind=inner bulkDataOps on $left.UPN == $right.UserId
+    | where FirstOp between (MFAChangeTime .. (MFAChangeTime + correlationWindow))
+    | project MFAChangeTime, DataOpTime = FirstOp, UPN, SourceIP = ClientIP, OpCount, AzureOpCount = int(null), OperationName, DataSource = "OfficeActivity";
+let azureCorrelated =
+    mfaChanges
+    | join kind=inner azureBulk on $left.UPN == $right.Caller
+    | where AzureFirstOp between (MFAChangeTime .. (MFAChangeTime + correlationWindow))
+    | project MFAChangeTime, DataOpTime = AzureFirstOp, UPN, SourceIP = CallerIpAddress, OpCount = int(null), AzureOpCount, OperationName, DataSource = "AzureActivity";
+officeCorrelated
+| union azureCorrelated
+| extend AlertDetail = "MFA method change followed by bulk cloud data access within 4 hours - consistent with vishing-enabled account compromise and exfiltration (Com affiliate campaign)"

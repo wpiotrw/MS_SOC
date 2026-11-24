@@ -169,6 +169,96 @@
   "repo": "Bert-JanP Hunting Queries & Detection Rules"
  },
  {
+  "file": "articles/2026-11-24-detection-5-cve-2026-73571-zimbra-savedraftrequest-authoriza.kql",
+  "title": "Detection 5: CVE-2026-73571 - Zimbra SaveDraftRequest Authorization Bypass Attempt",
+  "date": "2026-11-24",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, November 24, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-24-detection-engineering-brief-tuesday-november-24-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-24-detection-engineering-brief-tuesday-november-24-2026/",
+  "incident": "zimbra-snmp-cve-2026-73570-2026-09",
+  "cves": [
+   "CVE-2026-73571"
+  ]
+ },
+ {
+  "file": "articles/2026-11-24-detection-4-vishing-account-compromise-mfa-change-followed.kql",
+  "title": "Detection 4: Vishing Account Compromise - MFA Change Followed by Cloud Data Bulk Export",
+  "date": "2026-11-24",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs",
+   "AzureActivity",
+   "OfficeActivity"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, November 24, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-24-detection-engineering-brief-tuesday-november-24-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-24-detection-engineering-brief-tuesday-november-24-2026/"
+ },
+ {
+  "file": "articles/2026-11-24-detection-3-cve-2026-73571-zimbra-authenticated-user.kql",
+  "title": "Detection 3: CVE-2026-73571 - Zimbra Authenticated User Sending Mail as a Different Identity",
+  "date": "2026-11-24",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, November 24, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-24-detection-engineering-brief-tuesday-november-24-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-24-detection-engineering-brief-tuesday-november-24-2026/",
+  "incident": "zimbra-snmp-cve-2026-73570-2026-09",
+  "cves": [
+   "CVE-2026-73571"
+  ]
+ },
+ {
+  "file": "articles/2026-11-24-detection-2-cve-2026-123890-unauthenticated-network-connecti.kql",
+  "title": "Detection 2: CVE-2026-123890 - Unauthenticated Network Connection to vCenter Management Port Followed by Admin Session",
+  "date": "2026-11-24",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "SecurityEvent"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, November 24, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-24-detection-engineering-brief-tuesday-november-24-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-24-detection-engineering-brief-tuesday-november-24-2026/",
+  "cves": [
+   "CVE-2026-123890"
+  ]
+ },
+ {
+  "file": "articles/2026-11-24-detection-1-cve-2026-123890-vmware-vcenter-administrator.kql",
+  "title": "Detection 1: CVE-2026-123890 - VMware vCenter Administrator Logon from Previously Unseen Source IP",
+  "date": "2026-11-24",
+  "product": "Sentinel",
+  "tables": [
+   "SecurityEvent",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Tuesday, November 24, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-24-detection-engineering-brief-tuesday-november-24-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-24-detection-engineering-brief-tuesday-november-24-2026/",
+  "cves": [
+   "CVE-2026-123890"
+  ]
+ },
+ {
   "file": "2026-11-24-users-completing-mfa-with-text-message-or-voice-last-30-days.kql",
   "title": "Users who completed sign-in MFA with a text message or voice call, last 30 days - the population that needs CYOT, BYOT or another method before 1 February 2027",
   "date": "2026-11-24",
