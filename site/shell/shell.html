@@ -2684,6 +2684,26 @@ details.s5ei-day[data-kf="new"] .s5ei-tile:not(.s5ei-new),details.s5ei-day[data-
 .mcb-g:first-child{border-top:0}
 .mcb-row{border-top:1px solid var(--border)}
 .s5bi-reltog{margin:8px 12px 4px}
+/* §5hh — Show related KQL, incident lines in the KQL library, KQL buttons in Threat Research */
+.s5hh-tgrow{display:flex;flex-wrap:wrap;gap:0 8px;align-items:center}
+.s5hh-tgrow .s5bi-reltog{margin:8px 0 4px 12px}
+.s5hh-inc{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:-2px 0 8px 34px}
+.s5hh-incb{font:600 12.5px/1.3 var(--sans);color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;padding:2px 10px;cursor:pointer;max-width:100%;text-align:left;overflow-wrap:anywhere}
+.s5hh-incb:hover{background:var(--accent);color:var(--on-accent)}
+.s5hh-art{font:600 12.5px/1.3 var(--sans)}
+/* §5hj — the author's LinkedIn next to the byline and in About (neutral profile glyph, not the LinkedIn logo) */
+.byline-li{display:inline-flex;align-items:center;gap:4px;margin-left:8px;padding:1px 8px;border:1px solid currentColor;border-radius:999px;font-size:12.5px;font-weight:600;text-decoration:none;vertical-align:1px;color:var(--accent)}
+.byline-li:hover{text-decoration:underline}
+.byline-ico{flex:none}
+.s5hi-item{color:var(--text);background:var(--surface-2);border-color:var(--border-strong,var(--border))}
+.s5hi-item:hover{background:var(--accent-soft);color:var(--text)}
+.s5hi-gone{font-size:12.5px}
+.s5hh-ban{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0;padding:8px 12px;background:var(--ok-soft);border:1px solid var(--ok);border-radius:8px}
+.s5hh-ban[hidden]{display:none}
+.s5hh-bt{font:700 13.5px/1.35 var(--sans);color:var(--text);overflow-wrap:anywhere}
+.s5hh-clr{font:700 12.5px/1 var(--sans);color:#fff;background:var(--ok);border:0;border-radius:999px;padding:6px 12px;cursor:pointer}
+.s5hh-kbtn{margin-left:8px;font-weight:700}
+.s5hh-tolib{margin-left:8px;font-weight:700}
 .s5bi-skr li.s5bi-relhit{margin-left:18px;border-left:3px solid #1d4ed8;padding-left:8px}
 .s5bi-skr li.s5bi-relhead{margin-left:8px;font-weight:700}
 /* §5gs: related Message Center posts, Removed view, Show related */
@@ -6517,7 +6537,9 @@ header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
 .s5gp-kv{display:block;width:100%;text-align:left;font:inherit;font-size:14.5px;line-height:1.45;padding:3px 0;background:none;border:0;color:var(--text)}button.s5gp-kv{cursor:pointer}button.s5gp-kv:hover{text-decoration:underline}.s5gp-kv>b{font-size:17px;margin-right:2px}
 .s5gp-hot{color:#d97706}.s5gp-z{color:var(--text)}
 .s5gp-dd{font:700 12px "IBM Plex Mono",monospace;padding:1px 7px;border-radius:6px;background:#b45309;color:#fff;margin-right:4px}
-.s5gp-quiet{border-style:dashed}</style>
+.s5gp-quiet{border-style:dashed}
+
+</style>
 <!--SOC-SHELL part=script1-->
 <script>
 (function () {
@@ -9361,7 +9383,7 @@ header.top .s5cx-logo.s5ms-up{align-items:flex-start!important}
 
 </script>
 <!--SOC-SHELL part=masthead-->
-<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Monday 23 November 2026</b> &middot; published 07:34 Warsaw &middot; 9 &ndash; 23 November 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>37</b> deadlines in 60 days<span>&middot; 22 inside 30, 0 due today or tomorrow</span></a><a class="count" href="#graph"><b>977</b> undocumented at Microsoft<span>&middot; 977 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>4</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>118</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>8</b> changes since 22 Nov<span>&middot; 4 at Microsoft, 4 in this report</span></a><a class="count" href="#chg14"><b>2807</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
+<header class="top"><div class="top-inner"><div class="title-row"><h1>Microsoft SOC Brief</h1><p class="dateline"><b>Tuesday 24 November 2026</b> &middot; published 07:52 Warsaw &middot; 10 &ndash; 24 November 2026 &middot; Piotr Wi&#347;niewski &middot; <a href="/diff/">changes since the last brief</a></p><div class="hdr-tools"><button class="themebtn" type="button" onclick="__socToggleTheme()">Theme</button></div></div><div class="counts"><a class="count crit" href="#deadlines"><b>38</b> deadlines in 60 days<span>&middot; 22 inside 30, 0 due today or tomorrow</span></a><a class="count" href="#graph"><b>979</b> undocumented at Microsoft<span>&middot; 979 permissions, 0 roles</span></a><a class="count" href="#graph"><b>341</b> deployed, not in this tenant<span>&middot; read from the deployment map, not from documentation</span></a><a class="count" href="#elapsed"><b>2</b> passed in the last 7 days<span>&middot; every one keeps its row</span></a><a class="count" href="#horizon"><b>118</b> beyond 60 days<span>&middot; every one of them has a row</span></a><a class="count chg" href="#delta"><b>14</b> changes since 23 Nov<span>&middot; 8 at Microsoft, 6 in this report</span></a><a class="count" href="#chg14"><b>2678</b> changes in 7 days<span>&middot; 7 days with a run, 0 with none</span></a></div><div class="navstack"><div class="navrow daily"><span class="rowlab">Daily</span><nav class="anchors"></nav></div><div class="navrow ref"><span class="rowlab">Reference</span><nav class="anchors"></nav></div></div></div></header>
 <!--SOC-SHELL part=contract-->
 <!-- SHELL CONTRACT v1 — the UI rules for this page live here, with the shell they describe.
      The scheduled runs read this block out of yesterday's artifact and obey it verbatim.
@@ -9562,7 +9584,7 @@ does not duplicate the figures, and silent when the state block is absent.
 Its CSS (`.aggwrap`, `.aggbtn`, `.donut-legend`) is appended at the END of `<style>`, before the
 mobile block, which stays last so it wins on order.
 
-CORRECTED 23 November 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
+CORRECTED 24 November 2026, morning pass: this page carries FIFTEEN `.tabpanel` divs (tab-fpa included), THREE shell
 behaviour scripts taken from the shell snapshot, and FOURTEEN added scripts (SCRIPT 4 through SCRIPT 17) plus the appended CSS blocks, all cut out of CLAUDE.md
 by extract_code.py in this run and never copied from yesterday's page (CLAUDE.md 0c). A morning page carries SEVEN counter pills and no `pmdelta` section;
 an afternoon pass adds that section first in tab-today and an EIGHTH pill, and a later pass the same day extends that section and never replaces it.
