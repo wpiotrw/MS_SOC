@@ -836,6 +836,78 @@
      "says": "Updated 18 November 2026: unified installation management is generally available and follows within 24-48 hours of availability unification; installations made through Teams app setup policies are not unified."
     }
    ]
+  },
+  {
+   "key": "spo-classic-publishing-restrictions-2027",
+   "ids": [
+    "MC1565964",
+    "MC1464926"
+   ],
+   "title": "SharePoint Online blocks classic publishing from 1 March 2027: find what still allows it and where custom script is on",
+   "scriptable": true,
+   "checked": "2026-11-24",
+   "sdk": "SharePoint Online Management Shell (Microsoft.Online.SharePoint.PowerShell)",
+   "blocks": [
+    {
+     "t": "Read the tenant setting Microsoft will force to False",
+     "kind": "read",
+     "scopes": "SharePoint Administrator role",
+     "code": "# Read only. MC1565964: from 1 March 2027 AllowClassicPublishingSiteCreation is enforced as False.\nConnect-SPOService -Url 'https://<tenant>-admin.sharepoint.com'\nGet-SPOTenant | Select-Object AllowClassicPublishingSiteCreation, DelayDenyAddAndCustomizePagesEnforcement, DelayDenyAddAndCustomizePagesEnforcementOnClassicPublishingSites",
+     "src": [
+      "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/set-spotenant?view=sharepoint-ps",
+      "https://deltapulse.app/item/MC1565964"
+     ]
+    },
+    {
+     "t": "List site collections where custom script is still allowed",
+     "kind": "read",
+     "scopes": "SharePoint Administrator role",
+     "code": "# Read only. Sites whose DenyAddAndCustomizePages is not enabled still accept custom script and classic page edits.\nGet-SPOSite -Limit All |\n    Where-Object { $_.DenyAddAndCustomizePages -ne 'Enabled' } |\n    Select-Object Url, Template, DenyAddAndCustomizePages |\n    Export-Csv -Path .\\spo-custom-script-sites.csv -NoTypeInformation -Encoding UTF8",
+     "src": [
+      "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/set-sposite?view=sharepoint-ps",
+      "https://deltapulse.app/item/MC1565964"
+     ]
+    },
+    {
+     "t": "Turn custom script off on one site ahead of the change",
+     "kind": "write",
+     "scopes": "SharePoint Administrator role",
+     "warn": "Blocks custom script and classic page customisation on that site; check its owners first. Remove -WhatIf only after review.",
+     "code": "# Write. Run with -WhatIf first.\nSet-SPOSite -Identity 'https://<tenant>.sharepoint.com/sites/<site>' -DenyAddAndCustomizePages $true -WhatIf",
+     "src": [
+      "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/set-sposite?view=sharepoint-ps",
+      "https://deltapulse.app/item/MC1565964"
+     ]
+    },
+    {
+     "t": "Stop new classic publishing sites now instead of on 1 March 2027",
+     "kind": "write",
+     "scopes": "SharePoint Administrator role",
+     "warn": "Provisioning scripts that create classic publishing sites fail from this point; find them first. Remove -WhatIf only after review.",
+     "code": "# Write. Brings forward what MC1565964 enforces on 1 March 2027.\nSet-SPOTenant -AllowClassicPublishingSiteCreation $false -WhatIf",
+     "src": [
+      "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/set-spotenant?view=sharepoint-ps",
+      "https://deltapulse.app/item/MC1565964"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "t": "Message Center MC1565964",
+     "u": "https://deltapulse.app/item/MC1565964",
+     "says": "From 1 March 2027 SharePoint Online blocks creating classic publishing sites and activating publishing features and enforces AllowClassicPublishingSiteCreation as False; tenants created on or after that date also have DenyAddAndCustomizePages forced True. Act by 28 February 2027."
+    },
+    {
+     "t": "Set-SPOTenant",
+     "u": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/set-spotenant?view=sharepoint-ps",
+     "says": "Documents the AllowClassicPublishingSiteCreation, DelayDenyAddAndCustomizePagesEnforcement and DelayDenyAddAndCustomizePagesEnforcementOnClassicPublishingSites parameters."
+    },
+    {
+     "t": "Set-SPOSite",
+     "u": "https://learn.microsoft.com/powershell/module/microsoft.online.sharepoint.powershell/set-sposite?view=sharepoint-ps",
+     "says": "Documents the DenyAddAndCustomizePages parameter on a site collection."
+    }
+   ]
   }
  ]
 }
