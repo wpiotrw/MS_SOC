@@ -2906,6 +2906,195 @@
      "date": "2026-10-22"
     }
    ]
+  },
+  {
+   "id": "azure-apim-classic-secrets-2026-11",
+   "title": "Azure API Management Classic: secrets stored in APIM read through a management-plane flaw (fixed 19 Nov 2026)",
+   "match": [
+    "API Management",
+    "APIM Classic",
+    "steal customers' API credentials"
+   ],
+   "areas": [
+    "Vulnerabilities",
+    "Apps & OAuth",
+    "Identity attacks"
+   ],
+   "status": "contained",
+   "updated": "2026-11-24",
+   "by": "analysis 24 Nov 2026 (session)",
+   "summary": "A flaw in the Classic tiers of Azure API Management (Developer, Basic, Standard, Premium) let an unauthorized party reach management functions of instances that were not configured to Microsoft's recommended practices, and with them the secrets stored in APIM: named values, client secrets of identity providers and OpenID Connect providers, subscription keys and tokens for the direct management API. Microsoft identified the issue on 18 November and closed the access path on 19 November; the fix needs no customer action but does not invalidate credentials taken before it. Norway's NSM links the exploitation to attacks on Norwegian energy companies (Equinor, Skagerak Energi). Microsoft's advisory went to affected customers through Azure Service Health and is not public; the access path left no logs in the customer's tenant, so hunting looks at what the stolen secrets could open.",
+   "timeline": [
+    {
+     "date": "2026-11-18",
+     "text": "Microsoft identifies the security issue.",
+     "src": "https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/"
+    },
+    {
+     "date": "2026-11-19",
+     "text": "Microsoft closes the unauthorized access path and rotates Microsoft-controlled keys where appropriate.",
+     "src": "https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/"
+    },
+    {
+     "date": "2026-11-21",
+     "text": "Anders Kristiansen publishes what to check and six hunting steps with KQL.",
+     "src": "https://anderskristiansen.com/post/2026/apim-legacy-access/"
+    },
+    {
+     "date": "2026-11-23",
+     "text": "BleepingComputer reports Microsoft's advisory and NSM's link to attacks on energy companies.",
+     "src": "https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/"
+    },
+    {
+     "date": "2026-11-24",
+     "text": "NSM: an unknown actor actively looked for access tokens, secrets and named values in APIM.",
+     "src": "https://thehackernews.com/2026/11/microsoft-fixes-azure-api-management.html"
+    }
+   ],
+   "rootCause": "A management-plane access path in APIM Classic (a deprecated legacy endpoint, per the researchers' reading) that did not enforce authentication for instances outside Microsoft's recommended configuration - for example with the direct management API enabled or secrets stored in APIM instead of referenced from Key Vault.",
+   "attacker": [
+    "Looked for access tokens, secrets and named values in APIM instances (NSM).",
+    "Could use the secrets to reach the applications, services and back-end systems they unlock, depending on each credential's permissions."
+   ],
+   "iocs": [],
+   "remediation": [
+    {
+     "text": "Rotate every secret stored in or used by APIM Classic: named values, identity-provider and OpenID Connect client secrets (in the app registrations), subscription keys, tenant access keys and the back-end credentials APIM sends.",
+     "from": "source",
+     "src": "https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/",
+     "phase": "eradicate"
+    },
+    {
+     "text": "Set 'Enable Management REST API' to No on every instance (the direct management API bypasses Entra ID and Azure RBAC and is retired).",
+     "from": "source",
+     "src": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+     "phase": "harden"
+    },
+    {
+     "text": "Move secrets from APIM named values into Key Vault references, so APIM keeps a reference and the vault keeps the audit trail.",
+     "from": "ours",
+     "phase": "harden"
+    },
+    {
+     "text": "Inventory the app registrations whose client secrets were stored in APIM; after rotation, alert on any sign-in that still uses an old credential key (our query 3).",
+     "from": "ours",
+     "phase": "detect"
+    },
+    {
+     "text": "Check the Azure Service Health security advisory in the Azure portal for whether your subscriptions were notified.",
+     "from": "ours",
+     "phase": "investigate"
+    }
+   ],
+   "kql": [
+    {
+     "title": "Which APIM instances are Classic tier (Azure Resource Graph)",
+     "query": "// APIM Classic secrets (Nov 2026): exposure inventory - Classic tiers only (v2 and Consumption not affected)\n// Azure Resource Graph Explorer. Direct management API status is not in Resource Graph: GET <id>/tenant/access?api-version=2022-08-01 -> properties.enabled\nresources\n| where type =~ \"microsoft.apimanagement/service\"\n| extend tier = tostring(sku.name)\n| where tier in~ (\"Developer\", \"Basic\", \"Standard\", \"Premium\")\n| project subscriptionId, resourceGroup, name, tier, location,\n          publicNetworkAccess = tostring(properties.publicNetworkAccess),\n          vnetType = tostring(properties.virtualNetworkType),\n          managementApiUrl = tostring(properties.managementApiUrl)"
+    },
+    {
+     "title": "Who switched on the direct management API or touched its access keys (AzureActivity, 90 days)",
+     "query": "// APIM Classic secrets (Nov 2026): tenant access = the direct management API switch and its keys\n// Microsoft.ApiManagement/service/tenant: write (enable), listSecrets (read keys), regenerate*Key\nAzureActivity\n| where TimeGenerated > ago(90d)\n| where ResourceProviderValue =~ \"MICROSOFT.APIMANAGEMENT\"\n| extend Op = tolower(OperationNameValue)\n| where Op endswith \"/tenant/write\" or Op contains \"/tenant/listsecrets\" or Op contains \"/tenant/regenerate\"\n| summarize Count = count(), First = min(TimeGenerated), Last = max(TimeGenerated),\n            Ops = make_set(Op, 10), IPs = make_set(CallerIpAddress, 20), Status = make_set(ActivityStatusValue, 5)\n    by Caller, _ResourceId\n| order by First asc"
+    },
+    {
+     "title": "After rotation: an old client secret of an APIM-linked app still signing in (AADServicePrincipalSignInLogs)",
+     "query": "// APIM Classic secrets (Nov 2026): the secret you rotated must stop being used - any later attempt with its key ID is the attacker or a forgotten system\nlet ApimAppIds = dynamic([]);            // apps whose client secrets were stored in APIM (identity providers, OpenID Connect, named values)\nlet RotatedAt = datetime(2026-11-24);    // when you rotated them\nlet OldKeys = AADServicePrincipalSignInLogs\n    | where TimeGenerated between (ago(30d) .. RotatedAt)\n    | where AppId in (ApimAppIds) and isnotempty(ServicePrincipalCredentialKeyId)\n    | distinct AppId, ServicePrincipalCredentialKeyId;\nAADServicePrincipalSignInLogs\n| where TimeGenerated > RotatedAt\n| where AppId in (ApimAppIds)\n| join kind=inner OldKeys on AppId, ServicePrincipalCredentialKeyId\n| summarize Attempts = count(), Successes = countif(ResultType == \"0\"), IPs = make_set(IPAddress, 20),\n            Resources = make_set(ResourceDisplayName, 10), Last = max(TimeGenerated)\n    by AppId, ServicePrincipalName, ServicePrincipalCredentialKeyId\n| order by Successes desc"
+    }
+   ],
+   "kqlSearched": "2026-11-24",
+   "kqlPublished": [
+    {
+     "by": "Anders Kristiansen",
+     "src": "Cloud Securityblog (linked from BleepingComputer: 'shared threat-hunting queries')",
+     "link": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+     "date": "2026-11-21",
+     "title": "Step 1: who touched APIM configuration (AzureActivity)",
+     "query": "let timeframe = 30d;\nAzureActivity\n| where TimeGenerated > ago(timeframe)\n| where ResourceProviderValue =~ \"MICROSOFT.APIMANAGEMENT\"\n| extend Op = tolower(OperationNameValue)\n| where Op contains \"/namedvalues/listvalue/action\"\n    or Op contains \"/subscriptions/listsecrets/action\"\n    or Op contains \"/tenant/listsecrets/action\"\n    or Op contains \"/identityproviders/listsecrets/action\"\n    or Op contains \"/policies/write\"\n    or Op contains \"/namedvalues/write\"\n    or Op contains \"/identityproviders/write\"\n    or Op contains \"/users/write\"\n    or Op contains \"/portalsettings/write\"\n    or Op contains \"/portalrevisions/write\"\n| summarize Count = count(),\n            FirstSeen = min(TimeGenerated),\n            LastSeen = max(TimeGenerated),\n            Operations = make_set(Op, 20),\n            Statuses = make_set(ActivityStatusValue, 5),\n            SourceIPs = make_set(CallerIpAddress, 20)\n    by Caller, _ResourceId\n| order by FirstSeen asc"
+    },
+    {
+     "by": "Anders Kristiansen",
+     "src": "Cloud Securityblog (linked from BleepingComputer: 'shared threat-hunting queries')",
+     "link": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+     "date": "2026-11-21",
+     "title": "Step 2: is the 'unused' developer portal in use (APIMDevPortalAuditDiagnosticLog)",
+     "query": "let timeframe = 30d;\nAPIMDevPortalAuditDiagnosticLog\n| where TimeGenerated > ago(timeframe)\n| extend Path = tolower(tostring(split(RequestPath, \"?\")[0]))\n| extend IsAccountChange = (Path contains \"signup\"\n                            or Path contains \"/users/\"\n                            or Path contains \"identities\"\n                            or Path contains \"confirm\")\n                           and RequestMethod in~ (\"POST\", \"PUT\", \"PATCH\")\n| summarize Requests = count(),\n            AccountChanges = countif(IsAccountChange),\n            Paths = make_set(Path, 25),\n            ResponseCodes = make_set(ResponseCode, 10),\n            UserAgents = make_set(UserAgent, 5)\n    by ServiceName, HashedUserId, Day = bin(TimeGenerated, 1d)\n| order by Day asc, AccountChanges desc"
+    },
+    {
+     "by": "Anders Kristiansen",
+     "src": "Cloud Securityblog (linked from BleepingComputer: 'shared threat-hunting queries')",
+     "link": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+     "date": "2026-11-21",
+     "title": "Step 3: new subscription identifiers and tracing on the gateway (ApiManagementGatewayLogs)",
+     "query": "let baseline = 30d;\nlet recent = 7d;\nlet KnownSubscriptions = ApiManagementGatewayLogs\n    | where TimeGenerated between (ago(baseline) .. ago(recent))\n    | where isnotempty(ApimSubscriptionId)\n    | distinct _ResourceId, ApimSubscriptionId\n    | extend SeenBefore = true;\nApiManagementGatewayLogs\n| where TimeGenerated > ago(recent)\n| join kind=leftouter KnownSubscriptions on _ResourceId, ApimSubscriptionId\n| extend NewSubscriptionId = isnotempty(ApimSubscriptionId) and coalesce(SeenBefore, false) == false\n| where NewSubscriptionId or IsTraceRequested == true\n| summarize Requests = count(),\n            FirstSeen = min(TimeGenerated),\n            LastSeen = max(TimeGenerated),\n            Apis = make_set(ApiId, 20),\n            Products = make_set(ProductId, 10),\n            CallerIPs = make_set(CallerIpAddress, 20),\n            TraceRequests = countif(IsTraceRequested == true),\n            AllowedTraceRequests = countif(IsTraceAllowed == true),\n            ResponseCodes = make_set(ResponseCode, 10)\n    by _ResourceId, ApimSubscriptionId, UserId, NewSubscriptionId\n| order by FirstSeen asc"
+    },
+    {
+     "by": "Anders Kristiansen",
+     "src": "Cloud Securityblog (linked from BleepingComputer: 'shared threat-hunting queries')",
+     "link": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+     "date": "2026-11-21",
+     "title": "Step 4: APIM-linked app sign-ins from new IP addresses (AADServicePrincipalSignInLogs)",
+     "query": "let baseline = 30d;\nlet recent = 7d;\nlet ApimAppIds = dynamic([]); // application (client) IDs collected before Step 1\nlet Known = AADServicePrincipalSignInLogs\n    | where TimeGenerated between (ago(baseline) .. ago(recent))\n    | where AppId in (ApimAppIds)\n    | distinct AppId, IPAddress;\nAADServicePrincipalSignInLogs\n| where TimeGenerated > ago(recent)\n| where AppId in (ApimAppIds)\n| join kind=leftanti Known on AppId, IPAddress\n| summarize Attempts = count(),\n            Successes = countif(ResultType in~ (\"0\", \"Success\")),\n            Resources = make_set(ResourceDisplayName, 20),\n            ResultTypes = make_set(ResultType, 10),\n            CredentialKeys = make_set(ServicePrincipalCredentialKeyId, 5),\n            FirstSeen = min(TimeGenerated)\n    by AppId, ServicePrincipalName, IPAddress, Location\n| order by Successes desc, FirstSeen asc"
+    },
+    {
+     "by": "Anders Kristiansen",
+     "src": "Cloud Securityblog (linked from BleepingComputer: 'shared threat-hunting queries')",
+     "link": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+     "date": "2026-11-21",
+     "title": "Step 5: who is going after the Key Vault secrets APIM references (AZKVAuditLogs)",
+     "query": "let timeframe = 30d;\nlet ApimIdentities = dynamic([]); // principal IDs of APIM managed identities\nlet ApimVaults = dynamic([]);     // lower-case Key Vault resource IDs used by APIM; empty = all vaults\nAZKVAuditLogs\n| where TimeGenerated > ago(timeframe)\n| where OperationName in (\"SecretGet\", \"SecretList\", \"SecretListVersions\")\n| where array_length(ApimVaults) == 0 or tolower(_ResourceId) in (ApimVaults)\n| extend CallerOid = tolower(case(\n             isnotempty(tostring(Identity.claim.oid)), tostring(Identity.claim.oid),\n             tostring(Identity.claim[\"http://schemas.microsoft.com/identity/claims/objectidentifier\"]))),\n         CallerAppId = tostring(Identity.claim.appid)\n| extend Result = case(\n    HttpStatusCode between (200 .. 299), \"Allowed\",\n    HttpStatusCode == 401, \"Unauthenticated\",\n    HttpStatusCode == 403, \"Forbidden\",\n    \"Other\")\n| summarize Requests = count(),\n            SecretGetAllowed = countif(OperationName == \"SecretGet\" and HttpStatusCode between (200 .. 299)),\n            ListAllowed = countif(OperationName in (\"SecretList\", \"SecretListVersions\") and HttpStatusCode between (200 .. 299)),\n            FailedRequests = countif(HttpStatusCode !between (200 .. 299)),\n            Clients = make_set(ClientInfo, 5),\n            FirstSeen = min(TimeGenerated),\n            LastSeen = max(TimeGenerated)\n    by Window = bin(TimeGenerated, 15m), _ResourceId, OperationName, RequestUri,\n       HttpStatusCode, Result, CallerIpAddress, CallerOid, CallerAppId\n| extend IsApimManagedIdentity = CallerOid in~ (ApimIdentities)\n| order by Requests desc, FirstSeen asc"
+    },
+    {
+     "by": "Anders Kristiansen",
+     "src": "Cloud Securityblog (linked from BleepingComputer: 'shared threat-hunting queries')",
+     "link": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+     "date": "2026-11-21",
+     "title": "Step 5, fallback: Key Vault audit events in AzureDiagnostics",
+     "query": "let timeframe = 30d;\nAzureDiagnostics\n| where TimeGenerated > ago(timeframe)\n| where ResourceProvider =~ \"MICROSOFT.KEYVAULT\" and Category == \"AuditEvent\"\n| top 50 by TimeGenerated desc"
+    },
+    {
+     "by": "Anders Kristiansen",
+     "src": "Cloud Securityblog (linked from BleepingComputer: 'shared threat-hunting queries')",
+     "link": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+     "date": "2026-11-21",
+     "title": "Step 6: what the APIM-linked apps did in Microsoft Graph (MicrosoftGraphActivityLogs)",
+     "query": "let recent = 7d;\nlet ApimAppIds = dynamic([]); // same list as Step 4\nMicrosoftGraphActivityLogs\n| where TimeGenerated > ago(recent)\n| where AppId in (ApimAppIds)\n| extend Endpoint = tostring(parse_url(RequestUri).Path)\n| summarize Requests = count(),\n            Methods = make_set(RequestMethod, 5),\n            StatusCodes = make_set(ResponseStatusCode, 10),\n            IPs = make_set(IPAddress, 20),\n            FirstSeen = min(TimeGenerated)\n    by AppId, ServicePrincipalId, Endpoint\n| order by Requests desc"
+    }
+   ],
+   "kqlPublishedNote": "Copied from the researcher's post on 24 Nov 2026 (code blocks verbatim). Steps 4 and 6 need the application IDs of apps whose secrets were stored in APIM; step 5 needs the APIM managed identity principal IDs and the Key Vault resource IDs. Tables and columns checked on Microsoft Learn on 24 Nov 2026 (ApiManagementGatewayLogs, AzureActivity, AADServicePrincipalSignInLogs). The access path itself wrote no customer-visible logs - these find what the stolen secrets were used for.",
+   "links": [
+    {
+     "text": "BleepingComputer: Microsoft Azure flaw exploited to steal customers' API credentials",
+     "url": "https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/",
+     "date": "2026-11-23"
+    },
+    {
+     "text": "The Hacker News: Microsoft fixes Azure API Management Classic flaw as actor targets customer secrets",
+     "url": "https://thehackernews.com/2026/11/microsoft-fixes-azure-api-management.html",
+     "date": "2026-11-24"
+    },
+    {
+     "text": "Anders Kristiansen: Azure API Management advisory - what to check and how to hunt",
+     "url": "https://anderskristiansen.com/post/2026/apim-legacy-access/",
+     "date": "2026-11-21"
+    },
+    {
+     "text": "Microsoft Learn: Direct management API retirement (March 2025)",
+     "url": "https://learn.microsoft.com/azure/api-management/breaking-changes/direct-management-api-retirement-march-2025",
+     "date": "2026-11-24"
+    }
+   ],
+   "apps": [
+    {
+     "name": "Your app registrations whose client secrets were stored in APIM (identity providers, OpenID Connect providers, named values)",
+     "kind": "App registration",
+     "did": "Their client secrets could be read from APIM Classic and used to sign in as the app.",
+     "roles": [],
+     "permissions": [],
+     "action": "Rotate the client secrets, then hunt sign-ins with the old credential key (our query 3) and new IPs (Kristiansen step 4)",
+     "src": "BleepingComputer",
+     "link": "https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/"
+    }
+   ],
+   "appsNote": "No source names a specific application or prints a client ID - the exposed apps are each customer's own. Collect their application (client) IDs from the APIM identity providers, OpenID Connect providers and named values before running the hunts."
   }
  ]
 }

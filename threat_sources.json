@@ -230,5 +230,15 @@
     "Site": "https://blog.report-uri.com/",
     "Tier": "secondary",
     "Kind": "rss"
+  },
+  {
+    "SourceName": "Cloud Securityblog (Anders Kristiansen, Azure and Entra hunting, KQL)",
+    "SourceURL": "https://anderskristiansen.com/index.xml",
+    "Site": "https://anderskristiansen.com",
+    "Tier": "secondary",
+    "Kind": "kql",
+    "Microsoft": false,
+    "AllRelevant": null,
+    "Note": "CLAUDE.md 5hq (24 XI 2026): published the APIM Classic hunting queries on 21 XI, two days before BleepingComputer linked them"
   }
 ]

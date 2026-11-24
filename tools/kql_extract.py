@@ -19,7 +19,8 @@ TABLE = re.compile(r"\b(?:AuditLogs|SigninLogs|AADNonInteractiveUserSignInLogs|A
                    r"OfficeActivity|SecurityEvent|SecurityAlert|SecurityIncident|Usage|Heartbeat|Syslog|CommonSecurityLog|Event|"
                    r"MicrosoftGraphActivityLogs|IntuneAuditLogs|IntuneDevices|IntuneOperationalLogs|AzureActivity|AzureDiagnostics|"
                    r"W3CIISLog|AppServiceHTTPLogs|ThreatIntelligenceIndicator|ThreatIntelIndicators|BehaviorAnalytics|IdentityInfo|"
-                   r"StorageBlobLogs|KeyVaultEvents|CloudKeyVaultEvents|ContainerLog|KubeEvents|LAQueryLogs|Watchlist|"
+                   r"StorageBlobLogs|KeyVaultEvents|CloudKeyVaultEvents|ApiManagement[A-Za-z]*|APIMDevPortal[A-Za-z]*|AZKV[A-Za-z]*|AzureMetrics|"
+                   r"StorageFileLogs|StorageQueueLogs|StorageTableLogs|AppServiceAuditLogs|AppServiceConsoleLogs|ContainerLog|KubeEvents|LAQueryLogs|Watchlist|"
                    r"(?:Device|Identity|Email|Url|Cloud|Alert|EntraId|Behavior|Exposure|Campaign|AIAgents?|Agents?|Message|"
                    r"GraphApiAudit|DisruptionAndResponse|FileMaliciousContent|OAuthApp)[A-Za-z]*"
                    r"(?:Events|Info|Logs|Vulnerabilities|Evidence|Activity|PostDeliveryEvents|Entities|Inventory|Assessments?|"
@@ -30,6 +31,7 @@ START = re.compile(r"^\s*(?:let\s+\w+\s*=|union\b|search\b|[A-Z][A-Za-z_]+\s*(?:
 PRODUCT = [(r"^(?:Device|DeviceTvm)", "Defender for Endpoint"), (r"^Identity", "Defender for Identity"), (r"^(?:Email|Url)", "Defender for Office 365"),
            (r"^(?:CloudAppEvents|OAuthApp)", "Defender for Cloud Apps"), (r"^(?:AuditLogs|SigninLogs|AAD|EntraId|MicrosoftGraph|GraphApiAudit)", "Entra"),
            (r"^(?:OfficeActivity)", "Microsoft 365"), (r"^Intune", "Intune"),
+           (r"^(?:ApiManagement|APIMDevPortal|AZKV|Storage(?:Blob|File|Queue|Table)|AppService|AzureMetrics)", "Azure"),   # 5hq
            (r"^(?:Usage|Heartbeat|Security|Syslog|CommonSecurityLog|AzureActivity|AzureDiagnostics|W3CIISLog|Event$|ThreatIntel|BehaviorAnalytics|Watchlist)", "Sentinel"),
            (r"^(?:Alert|Behavior|Exposure|Campaign|AIAgents|Agents|Message|DisruptionAndResponse|FileMaliciousContent)", "Defender XDR")]
 
@@ -113,6 +115,36 @@ def blocks(page_html):
 GUID = re.compile(r"\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b")
 APPWORD = re.compile(r"(?i)app(?:lication)?\s*(?:\(client\)\s*)?id|client\s*id|\bappid\b|service principal|enterprise app|"
                      r"app registration|multi-?tenant|oauth app|application")
+
+
+# CLAUDE.md 5hq (24 XI 2026, owner: "the hint is in the article - BleepingComputer links the researcher's GitHub/blog
+# with the KQL; don't you catch that in any article?"): an article often has no query itself but LINKS to the page that
+# has them ("Anders Kristiansen shared threat-hunting queries" -> anderskristiansen.com). Links whose text or the
+# sentence before them speaks of hunting / queries / KQL / detection rules are followed once (threats.py, one hop).
+QLINK = re.compile(r"(?i)\b(?:threat[- ]hunting|hunting|quer(?:y|ies)|kql|kusto|detection rules?|detections|sentinel|advanced hunting)\b")
+SOCIAL = re.compile(r"(?i)^https?://(?:[\w-]+\.)?(?:x\.com|twitter\.com|linkedin\.com|facebook\.com|youtube\.com|youtu\.be|instagram\.com|reddit\.com|t\.me)/")
+
+
+def query_links(page_html, base_url, limit=3):
+    """Outbound links that promise hunting queries: [(url, anchor text)], same host and social media excluded."""
+    host = re.sub(r"(?i)^https?://(?:www\.)?([^/]+).*$", r"\1", base_url or "").lower()
+    out, seen = [], set()
+    for m in re.finditer(r'(?is)<a\b[^>]*href="(https?://[^"]+)"[^>]*>(.*?)</a>', page_html or ""):
+        url = html.unescape(m.group(1))
+        url = re.sub(r"[?&]utm_[^&#]*", "", url).rstrip("?&")
+        h = re.sub(r"(?i)^https?://(?:www\.)?([^/]+).*$", r"\1", url).lower()
+        if not h or h == host or h.endswith("." + host) or SOCIAL.match(url):
+            continue
+        anchor = text(m.group(2)).strip()
+        before = text(page_html[max(0, m.start() - 300):m.start()])[-220:]
+        if not (QLINK.search(anchor) or QLINK.search(before.split(".")[-1] + " " + anchor)):
+            continue
+        if url in seen:
+            continue
+        seen.add(url); out.append((url, anchor[:120]))
+        if len(out) >= limit:
+            break
+    return out
 
 
 def app_ids(page_html):

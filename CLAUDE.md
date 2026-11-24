@@ -26584,6 +26584,25 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hq (24 XI 2026)** — APIM CLASSIC: CZEMU NIE WYKRYLISMY I KQL Z LINKU W ARTYKULE. Piotr: "czy to wykrylismy?" (BleepingComputer
+23 XI, "Microsoft Azure flaw exploited to steal customers' API credentials") i "podpowiedz jest w tresci - link do kwerend autora;
+nie wychwytujesz tego w zadnych artykulach?". Diagnoza: kanal BleepingComputer przeczytany (02:14 UTC, 15 pozycji, 1 zostawiona),
+relevance() dalo 1 pkt z 4 - zadne slowo M365/Entra; strona artykulu nigdy nie byla czytana, a nawet przeczytana nie ma KQL - KQL
+sa pod linkiem "shared threat-hunting queries" (anderskristiansen.com, post z 21 XI, 7 blokow). Poprawki: (1) threats.py lista
+AZURE (API Management, APIM, Key Vault, managed identity, secrets, credentials, named value, subscription key, management plane ...)
+po 2 pkt, liczona tylko gdy tekst mowi "azure" - ten artykul ma teraz 7 pkt; probny przebieg: +2 artykuly (BleepingComputer, The
+Hacker News), bez zalewu; (2) jeden skok po linkach: gdy strona zachowanego artykulu nie ma KQL, kql_extract.query_links() bierze
+do 2 linkow zewnetrznych (nie ta sama domena, nie media spolecznosciowe), ktorych tekst albo zdanie przed nimi mowi o hunting /
+queries / KQL / detection rules, i czyta z nich KQL (z tego samego budzetu stron); zapytanie dostaje link strony, na ktorej jest,
+zrodlo "<host> (linked from <kanal>: <tekst linku>)" i `via` = artykul; test: 7 zapytan z posta Kristiansena; (3) kql_extract zna
+tabele ApiManagement*, APIMDevPortal*, AZKV*, AzureMetrics, Storage*Logs, AppService*Logs (produkt "Azure"); (4) zrodlo
+"Cloud Securityblog (Anders Kristiansen)" w threat_sources.json, Kind kql (post byl 2 dni przed BleepingComputer); (5) notatka
+azure-apim-classic-secrets-2026-11 w site/data/threat-notes.json: nasze 3 KQL (Resource Graph - instancje Classic; AzureActivity -
+tenant/write, listSecrets, regenerate = wlaczenie direct management API i jego klucze; AADServicePrincipalSignInLogs - stary
+ServicePrincipalCredentialKeyId po rotacji), kqlPublished = 7 blokow Kristiansena, kroki naprawy z fazami, apps + appsNote;
+threat_todo.py check: 0 bledow. kqlSources nie liczy dwa razy zapytania, ktore jest i w kqlPublished, i pod linkiem. Komunikat
+Microsoftu idzie przez Azure Service Health do dotknietych subskrypcji - publicznie go nie ma (portal go nie czyta).
+
 **§5hp (24 XI 2026, 07:20)** — NOCNE MAILE "Run failed: Code refresh". Po commitach §5hm/§5hn/§5ho (kod strony zmieniony po
 polnocy UTC) Code refresh padl 7 razy (00:01-04:58 UTC, kazdy przebieg = e-mail). Przyczyna NIE w kodzie §5hn: krok Gate ma
 od 5gr-p obsluge "jedyny blad = 104 -> odloz podmiane kodu", ale GitHub uruchamia `run:` jako `bash -e`, a `set -uo pipefail`

@@ -43,6 +43,13 @@ STRONG = ["entra", "azure ad", "azure active directory", "aad ", "oauth", "conse
 M365 = ["microsoft 365", "m365", "office 365", "o365", "exchange online", "exchange server", "outlook", "sharepoint",
         "onedrive", "microsoft teams", "copilot", "intune", "defender", "purview", "entra id"]
 GENERAL = ["microsoft", "azure", "windows"]
+# CLAUDE.md 5hq (24 XI 2026, owner: "tak, rozszerzamy"): Azure services that hold or hand out credentials. The APIM
+# Classic breach (BleepingComputer 23 XI: "Microsoft Azure flaw exploited to steal customers' API credentials") scored
+# 1 of 4 - none of its words were M365 or Entra. Counted only when the text also says "azure" (2 points each).
+AZURE = ["api management", "apim", "key vault", "storage account", "sas token", "access key", "app service",
+         "function app", "logic app", "azure devops", "resource manager", "management plane", "control plane",
+         "named value", "subscription key", "managed identit", "automation account", "secrets", "credentials",
+         "client secret", "connection string"]
 # the article must be about MICROSOFT's identity or cloud - "token" or "phishing" alone matched a Google AitM campaign
 MSCTX = ["entra", "azure ad", "azure active directory", "aad", "microsoft graph", "graph api", "conditional access",
          "entra connect", "adfs", "ad fs", "service principal", "app registration", "microsoft 365", "m365", "office 365",
@@ -281,7 +288,8 @@ def relevance(title, summary, src):
     t = (" " + title + " " + summary[:900] + " ").lower()
     tt = (" " + title + " ").lower()
     strong, m365, gen, att = has(t, STRONG), has(t, M365), has(t, GENERAL), has(t, ATTACK)
-    score = 3 * len(set(strong)) + 2 * len(set(m365)) + (1 if gen else 0)
+    azure = has(t, AZURE) if " azure" in t else []   # 5hq
+    score = 3 * len(set(strong)) + 2 * len(set(m365)) + 2 * len(set(azure)) + (1 if gen else 0)
     ms_t, ms_any = set(has(tt, MSCTX)), set(has(t, MSCTX))
     ms_ok = bool(ms_t) or len(ms_any) >= 2
     keep = bool(src.get("AllRelevant") and ms_any) or \
@@ -413,10 +421,25 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                         except Exception:
                             page[0] = ""
                     return page[0]
+                via = []
                 if not found and not checked and not s.get("Digest") and not s.get("Gov") and (keep or s.get("Kind") == "kql") and budget[0] > 0 and pages_left():
                     budget[0] -= 1
                     found = kql_extract.blocks(read_page())
                     checked = stamp
+                    # 5hq: no query on the page itself - follow the links that promise hunting queries (one hop, at
+                    # most 2 pages from the same budget); each query keeps the page it was found on
+                    if not found and keep:
+                        for lu, lt in kql_extract.query_links(page[0] or "", i["link"])[:2]:
+                            if budget[0] <= 0 or not pages_left():
+                                break
+                            budget[0] -= 1
+                            try:
+                                lq = kql_extract.blocks(get(lu, 25).decode("utf-8", "replace"))
+                            except Exception:
+                                lq = []
+                            for q in lq:
+                                via.append(dict(q, viaLink=lu, viaText=lt))
+                        found = via
                 elif not checked:
                     checked = stamp if found else ""
                 # 5ez: the application IDs an article names (ConnectWise: seven app IDs in BleepingComputer and Huntress),
@@ -456,6 +479,12 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
                         areas = areas + ["Hunting (KQL)"]
                 if found:   # every query goes to the KQL library; the article is an incident only when kept
                     for qi, q in enumerate(found):
+                        if q.get("viaLink"):   # 5hq: found on the page the article links to - that page is the source
+                            kq.append(dict({k: v for k, v in q.items() if k not in ("viaLink", "viaText")}, pos=qi, article=aid(i["link"]),
+                                           link=q["viaLink"], articleTitle=i["title"],
+                                           source=re.sub(r"(?i)^https?://(?:www\.)?([^/]+).*$", r"\1", q["viaLink"]) + " (linked from " + s["Name"] + ": " + q["viaText"] + ")",
+                                           author="", published=(i["published"] or "")[:10], vendor=False, via=i["link"]))
+                            continue
                         kq.append(dict(q, pos=qi, article=aid(i["link"]), link=i["link"], articleTitle=i["title"], source=s["Name"],
                                        author=i.get("author") or "", published=(i["published"] or "")[:10], vendor=bool(s.get("Microsoft"))))
                 if not keep:
@@ -768,6 +797,7 @@ def main(src_path="threat_sources.json", out_path="site/data/threats.json", note
         n = notes.get(st["id"]) or {}
         arts_ = set(st["articles"])
         src_keys = {q["key"] for q in kall if q.get("story") == st["id"] or q.get("article") in arts_}
+        src_keys -= {kql_extract.key(x.get("query") or "") for x in n.get("kqlPublished") or []}   # 5hq: one query, counted once
         st["kqlAnalysis"] = len(n.get("kql") or [])
         st["kqlSources"] = len(src_keys) + len(n.get("kqlPublished") or [])
         st["kqlVendor"] = len({q["key"] for q in kall if q["key"] in src_keys and q.get("vendor")}) + \
