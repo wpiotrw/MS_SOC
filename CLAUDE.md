@@ -26584,6 +26584,21 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hn (24 XI 2026)** — ZMIANY MICROSOFTU W ROLACH I GRAPH WIDOCZNE NA STRONIE. Piotr: "na msgraphpermissions.com wiele
+aktualizacji, a u nas od paru dni 0 zmian w rolach i API". Diagnoza: dane sa kompletne (DevX permissions.json - ostatnia
+zmiana master c7b1404 z 20 XI; odczyt dzierzawy co 3 h zapisal 21 XI nowa role Organizational Data Source Reader i 23 XI
+20:22 UTC 11 zmian opisow AutomationRules, CopilotCostManagement, ThreatHunting), bledne bylo POKAZYWANIE. Poprawki w SKRYPCIE 17:
+(a) panel "What Microsoft changed in ..." (mschg) liczyl tylko katalog briefu - teraz najpierw wczytuje
+data/graph-sp-history.json (window.__socTenHist, najdluzej 4 s), dodaje liste "Seen in our tenant · N" (data, zrodlo =
+odczyt dzierzawy) i licznik w podsumowaniu "N seen in our tenant"; wiersze tej listy maja data-s5bz, zeby link commitu
+(§5bz) nie podpisywal odczytu dzierzawy jako commitu permissions.json; (b) "Last 3 days · Graph permissions": zmiana
+"text" z graph-sp-history jest zmiana Microsoftu (VERB "got a new description from Microsoft"), przy kolejnym przepisaniu
+opisu liczy sie NAJNOWSZA data (add() dla "text" bierze pozniejszy dzien - AutomationRules 17 XI i 23 XI), a changeSummary
+bierze date Microsoftu x.date zamiast dnia briefu (BackupRestore: 18 XI, nie 23 XI); (c) panel per-API: "Read 17/11" byl
+data ostatniej ZMIANY - teraz "Last change in these lists ..." oraz "Last checked <at> (every 3 hours)" z
+data/fresh/tenant.json. Test: kopia strony + code_refresh.py, Playwright komputer i telefon, 0 bledow JS; gate na kopii
+bez nowych bledow (81a-e = brak plikow zrodel w kopii, 104 = brief z 23 XI, jak na stronie produkcyjnej).
+
 **§5hm (24 XI 2026, 01:05)** — HSTS NA ROK. Audyt domeny skryptem Audyt-Domeny.ps1 1.1.0 (projekt poza repo) pokazal, ze
 strona wysyla HSTS platformy Static Web Apps "max-age=10886400; includeSubDomains; preload" (126 dni) - ostrzezenie, bo ponizej
 180 dni, a dla "preload" hstspreload.org wymaga co najmniej 31536000. Piotr: "zrob na raz to, co nie wymaga logowania do OVH".
@@ -31385,6 +31400,22 @@ odtad CZTERNASCIE (4-17).**
     var today = String(st.briefDate || cat.briefDate || new Date().toISOString().slice(0, 10));
     var since = String(meta.comparedDate || "");
     var all = (cat[which] || []).filter(function (e) { return e && e.origin === "microsoft" && when(e); });
+    /* §5hn (24 XI 2026, owner: "for days roles and API show 0 changes"): this panel read only the brief's catalog, whose
+       newest role entry was 13 X, while our tenant's read every 3 h (graph-sp-history.json) saw new roles on 12, 14,
+       17 and 21 XI and new descriptions on 23 XI. Those changes now count in every window and are listed under their
+       own heading, with the day and the source; a name+day the catalog already has is not listed twice. */
+    var TLAB = which === "roles"
+      ? { added: "New built-in role", removed: "Removed", "actions-added": "Actions added", "actions-removed": "Actions removed", privileged: "Now marked privileged" }
+      : { added: "Became grantable", removed: "No longer grantable", "type-added": "Gained a type", "type-removed": "Lost a type", consent: "Consent changed", text: "New description from Microsoft", enabled: "Changed" };
+    var seenCat = {}; all.forEach(function (e) { seenCat[String(e.name || e.id) + "|" + when(e)] = 1; });
+    var TEV = [], tk = {};
+    ((window.__socTenHist || {}).events || []).forEach(function (x) {
+      if (!x || !x.name || !x.day || !TLAB[x.change]) return;
+      if (x.surface !== (which === "roles" ? "role" : "permission")) return;
+      if (seenCat[x.name + "|" + x.day]) return;
+      var k = x.name + "|" + x.change + "|" + x.day; if (tk[k]) return; tk[k] = 1;
+      TEV.push({ name: x.name, label: TLAB[x.change], date: x.day, seen: x.seen || "", text: String(x.after || x.text || "") });
+    });
 
     function inWin(d, w) {
       if (w === "all") return true;
@@ -31393,13 +31424,16 @@ odtad CZTERNASCIE (4-17).**
     }
     function model(w) {
       var list = all.filter(function (e) { return inWin(when(e), w); });
-      return which === "graph" ? graphRows(list) : { perms: roleRows(list), eps: [] };
+      var m = which === "graph" ? graphRows(list) : { perms: roleRows(list), eps: [] };
+      m.ten = TEV.filter(function (x) { return inWin(x.date, w); }).sort(function (a, b) { return b.date.localeCompare(a.date) || a.name.localeCompare(b.name); });
+      return m;
     }
-    function size(m) { return m.perms.length + m.eps.length; }
+    function size(m) { return m.perms.length + m.eps.length + (m.ten || []).length; }
     function words(m) {
-      return which === "graph"
+      var nt = (m.ten || []).length;
+      return (which === "graph"
         ? m.perms.length + " permission" + (m.perms.length === 1 ? "" : "s") + " · " + m.eps.length + " endpoint" + (m.eps.length === 1 ? "" : "s")
-        : m.perms.length + " role" + (m.perms.length === 1 ? "" : "s");
+        : m.perms.length + " role" + (m.perms.length === 1 ? "" : "s")) + (nt ? " · " + nt + " seen in our tenant" : "");
     }
     var WINS = [["since", since ? "Since the last brief" : null], ["3", "3 days"], ["7", "7 days"], ["14", "14 days"], ["30", "30 days"], ["90", "90 days"], ["all", "All"]];
     var cur = null;
@@ -31467,6 +31501,29 @@ odtad CZTERNASCIE (4-17).**
       }
       if (which === "graph") { table("Permissions", m.perms); table("Endpoints", m.eps); }
       else table("Roles", m.perms);
+      tenTable(m.ten || []);
+    }
+    function tenTable(rows) {   /* §5hn: what our tenant's own read saw - name, what, day, source */
+      if (!rows.length) return;
+      var gh = el("h3", "mc-gh", "Seen in our tenant · " + rows.length); gh.setAttribute("aria-level", "2"); body.appendChild(gh);
+      var list = el("div", "mc-list"); body.appendChild(list);
+      rows.forEach(function (r) {
+        var item = el("div", "mc-item mc-" + tone(r.label));
+        item.setAttribute("data-s5bz", "1");   /* the commit link (§5bz) is for Microsoft's permissions.json, not for a tenant read */
+        var row = el("div", "mc-row");
+        row.appendChild(el("span", "mc-name" + (which === "graph" ? " mono" : ""), r.name));
+        var chips = el("span", "mc-chips");
+        if (since && r.date > since) chips.appendChild(el("span", "s5fj-bd s5fj-warn", "New since the last brief"));
+        row.appendChild(chips); item.appendChild(row);
+        item.appendChild(el("p", "s5fj-what mc-what", r.label));
+        if (r.text && r.text.length < 400) item.appendChild(el("p", "mc-text", r.text));
+        var fx = el("dl", "s5fj-facts");
+        [["Date", r.date], ["Source", "Our tenant's Microsoft Graph service principal, read every 3 hours" + (r.seen ? " (seen " + r.seen.replace("T", " ").replace("Z", " UTC") + ")" : "")]].forEach(function (f) {
+          var w = el("div", "s5fj-f"); w.appendChild(el("dt", null, f[0])); w.appendChild(el("dd", null, f[1])); fx.appendChild(w);
+        });
+        item.appendChild(fx);
+        list.appendChild(item);
+      });
     }
     WINS.forEach(function (w) {
       if (!w[1]) return;
@@ -31480,8 +31537,18 @@ odtad CZTERNASCIE (4-17).**
     panel.insertBefore(box, panel.firstChild);
   }
   function boot() {
-    try { build("graph"); } catch (e) { if (window.console) console.error("[s17 mschg graph]", e); }
-    try { build("roles"); } catch (e) { if (window.console) console.error("[s17 mschg roles]", e); }
+    var done = false;
+    function go() {
+      if (done) return; done = true;
+      try { build("graph"); } catch (e) { if (window.console) console.error("[s17 mschg graph]", e); }
+      try { build("roles"); } catch (e) { if (window.console) console.error("[s17 mschg roles]", e); }
+    }
+    /* §5hn: the tenant's own change log first (graph-sp-history.json), so the counters include it; never wait on it more than 4 s */
+    try {
+      fetch("data/graph-sp-history.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) { if (j) window.__socTenHist = j; go(); }).catch(go);
+      setTimeout(go, 4000);
+    } catch (e) { go(); }
   }
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", function () { setTimeout(boot, 1200); });
@@ -40976,6 +41043,8 @@ odtad CZTERNASCIE (4-17).**
       var k = e.surface + "|" + e.name + "|" + e.change;
       var o = out[k];
       if (!o) { out[k] = e; list.push(e); return; }
+      /* §5hn: a description can be rewritten again (AutomationRules: 17 XI and 23 XI) - the newest rewrite is the news */
+      if (e.change === "text") { if (e.day && (!o.day || e.day > o.day)) { o.day = e.day; o.text = e.text || o.text; o.tenant = e.seen || o.tenant; } return; }
       if (e.day && (!o.day || e.day < o.day)) o.day = e.day;
       if (e.src === "tenant") { o.tenant = e.seen || o.tenant; }
       if (!o.text && e.text) o.text = e.text;
@@ -40996,18 +41065,22 @@ odtad CZTERNASCIE (4-17).**
       }
     });
     var CS = (d.CAT.changeSummary || {}), cg = CS.graph || {};
-    (cg.added || []).forEach(function (x) { add({ surface: "permission", name: x.name, change: KIND[x.kind] || "new", day: d.day, src: "brief" }); });
-    (cg.removed || []).forEach(function (x) { add({ surface: "permission", name: x.name, change: "removed", day: d.day, src: "brief" }); });
-    (cg.modified || []).forEach(function (x) { add({ surface: "permission", name: x.name, change: "changed", day: d.day, src: "brief" }); });
+    /* §5hn: the summary carries Microsoft's own date (commit day in permissions.json); the brief day only when it has none -
+       BackupRestore (commit of 18 XI) was shown as "23 Nov, the 23 Nov brief" */
+    (cg.added || []).forEach(function (x) { add({ surface: "permission", name: x.name, change: KIND[x.kind] || "new", day: x.date || d.day, src: "brief" }); });
+    (cg.removed || []).forEach(function (x) { add({ surface: "permission", name: x.name, change: "removed", day: x.date || d.day, src: "brief" }); });
+    (cg.modified || []).forEach(function (x) { add({ surface: "permission", name: x.name, change: "changed", day: x.date || d.day, src: "brief" }); });
     var cr = CS.roles || {};
-    (Array.isArray(cr.added) ? cr.added : []).forEach(function (x) { add({ surface: "role", name: x.name || x, change: "added", day: d.day, src: "brief" }); });
-    (Array.isArray(cr.modified) ? cr.modified : []).forEach(function (x) { add({ surface: "role", name: x.name || x, change: "actions-added", day: d.day, src: "brief" }); });
+    (Array.isArray(cr.added) ? cr.added : []).forEach(function (x) { add({ surface: "role", name: x.name || x, change: "added", day: (x && x.date) || d.day, src: "brief" }); });
+    (Array.isArray(cr.modified) ? cr.modified : []).forEach(function (x) { add({ surface: "role", name: x.name || x, change: "actions-added", day: (x && x.date) || d.day, src: "brief" }); });
     ((d.ST.fpa || {}).chg || []).forEach(function (x) { if (x && x.t === "added" && x.d) add({ surface: "app", name: x.n || x.id, id: x.id, change: "new", day: x.d, src: "brief" }); });
-    var TM = { added: "grantable", removed: "removed", "type-added": "changed", "type-removed": "changed", consent: "consent", enabled: "changed" };
+    /* §5hn (24 XI 2026, owner: "msgraphpermissions.com shows many updates, we show 0"): a description Microsoft rewrote in
+       our tenant (graph-sp-history change "text") is a Microsoft change too - it was read every 3 h and never shown */
+    var TM = { added: "grantable", removed: "removed", "type-added": "changed", "type-removed": "changed", consent: "consent", enabled: "changed", text: "text" };
     var RM = { added: "added", removed: "removed", "actions-added": "actions-added", "actions-removed": "actions-removed", privileged: "privileged" };
     ((TEN || {}).events || []).forEach(function (x) {
       if (!x || !x.name) return;
-      if (x.surface === "permission" && TM[x.change]) add({ surface: "permission", name: x.name, change: TM[x.change], day: x.day, seen: x.seen, tenant: x.seen, src: "tenant", text: x.text, detail: x.change === "type-added" ? "gained its " + x.type + " type" : x.change === "type-removed" ? "lost its " + x.type + " type" : "" });
+      if (x.surface === "permission" && TM[x.change]) add({ surface: "permission", name: x.name, change: TM[x.change], day: x.day, seen: x.seen, tenant: x.seen, src: "tenant", text: x.change === "text" ? (x.after || x.text) : x.text, detail: x.change === "type-added" ? "gained its " + x.type + " type" : x.change === "type-removed" ? "lost its " + x.type + " type" : "" });
       if (x.surface === "role" && RM[x.change]) add({ surface: "role", name: x.name, change: RM[x.change], day: x.day, seen: x.seen, tenant: x.seen, src: "tenant", text: x.after || x.text });
     });
     ELSS.forEach(function (X) {
@@ -41054,9 +41127,11 @@ odtad CZTERNASCIE (4-17).**
 
   /* ---------- P1: one ranking ---------- */
   var VERB = { grantable: "became grantable", removed: "was removed from the service", "new": "is a new permission", consent: "changed its consent or privilege level",
-    changed: "changed in the service", documented: "is now documented by Microsoft", elsewhere: "is grantable in our developer tenant, not yet in ours" };
+    changed: "changed in the service", documented: "is now documented by Microsoft", elsewhere: "is grantable in our developer tenant, not yet in ours",
+    text: "got a new description from Microsoft" };
   var VERBS = { grantable: "became grantable", removed: "were removed from the service", "new": "are new permissions", consent: "changed their consent or privilege level",
-    changed: "changed in the service", documented: "are now documented by Microsoft", elsewhere: "are grantable in our developer tenant, not yet in ours" };
+    changed: "changed in the service", documented: "are now documented by Microsoft", elsewhere: "are grantable in our developer tenant, not yet in ours",
+    text: "got a new description from Microsoft" };
   var RVERB = { added: "is a new built-in role", privileged: "is now marked privileged", "actions-added": "gained actions", "actions-removed": "lost actions",
     condition: "changed a condition", removed: "was removed", elsewhere: "gained actions in another tenant, not yet in ours" };
   function typesShort(t) { return (t || []).map(function (x) { return x === "Application" ? "app-only" : x === "Delegated" ? "delegated" : x; }).join(" + "); }
@@ -42972,7 +43047,15 @@ odtad CZTERNASCIE (4-17).**
     hd.appendChild(el("span", "cat-n", String(D.apis.length)));
     var t = D.totals || {};
     sec.appendChild(el("p", "s5dr-lead", D.apis.length + " Microsoft APIs in this tenant offer permissions an app registration can request: " +
-      n(t.application) + " application, " + n(t.delegated) + " delegated, " + n(t.rsc) + " resource-specific. Counted from the service principal of each API — the same list Azure portal shows under Request API permissions → APIs my organization uses. Read " + when(D.read) + "; a click on a row lists the permissions. An API is listed once its service principal exists in this tenant — Microsoft creates it the first time an app asks for it — so an API nobody here has used yet (e.g. Dynamics CRM, Power Platform API) is in the brief's list below but not in this table."));
+      n(t.application) + " application, " + n(t.delegated) + " delegated, " + n(t.rsc) + " resource-specific. Counted from the service principal of each API — the same list Azure portal shows under Request API permissions → APIs my organization uses. Last change in these lists " + when(D.read) + "; a click on a row lists the permissions. An API is listed once its service principal exists in this tenant — Microsoft creates it the first time an app asks for it — so an API nobody here has used yet (e.g. Dynamics CRM, Power Platform API) is in the brief's list below but not in this table."));
+    /* §5hn: "Read 17/11" was the last CHANGE; the tables are checked every 3 h - say both (data/fresh/tenant.json) */
+    (function (lead) {
+      try {
+        fetch("data/fresh/tenant.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (j) { if (lead && j && j.at) lead.appendChild(document.createTextNode(" Last checked " + when(j.at) + " (every 3 hours).")); })
+          .catch(function () {});
+      } catch (e) {}
+    })(sec.lastChild);
     var ch = (D.changes || []).filter(function (x) { return x.day && x.day >= new Date(Date.now() - 14 * 864e5).toISOString().slice(0, 10); });
     if (ch.length) {
       /* §5es: one change per line, + green and − red (it was one line of eight joined by " · ") */
