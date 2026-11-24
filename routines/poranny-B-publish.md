@@ -733,6 +733,10 @@ Write onto each role entry:
 
 **`CLAUDE.md` §5i is binding and carries the whole procedure — read it before touching role actions.** Its non-negotiables: clone `MicrosoftDocs/entra-docs` sparsely, never `microsoft_docs_fetch` the ~400 KB page; take `actionsSource.github` from Microsoft's own `[!INCLUDE]` mapping, never a guessed slug; diff one include file against your parse each run; count in code. Microsoft publishes no role-to-permission mapping, no attack-path narrative and no per-role assignment mode — carry those in `notPublished.roles` and render them.
 
+# REPLY FORM
+
+**FORM (24 Nov 2026, §5ho): the reply is the owner's completion e-mail — write it as `routines/reply-email.md` says (one e-mail for the whole run, English with a 2–3 sentence Polish summary, a bare `https://` source link on every change). What this step lists is the CONTENT of that e-mail; the full checklist goes to `runlog/<date>-<morning|evening>.md` and the e-mail carries the counts and every BRAK line.**
+
 # STEP 4 — VALIDATE AND PUBLISH
 
 1. Run a python3 check asserting all of the following. Fix and re-run until clean.

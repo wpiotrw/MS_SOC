@@ -460,6 +460,8 @@ that is not a reason to stop the run.
 
 # STEP 5 — REPLY
 
+**FORM (24 Nov 2026, §5ho): the reply is the owner's completion e-mail — write it as `routines/reply-email.md` says (one e-mail for the whole run, English with a 2–3 sentence Polish summary, a bare `https://` source link on every change). What this step lists is the CONTENT of that e-mail; the full checklist goes to `runlog/<date>-<morning|evening>.md` and the e-mail carries the counts and every BRAK line.**
+
 Under ten lines:
 
 - the `/diff/` URL and **what was compared with what** (the label and both dates);

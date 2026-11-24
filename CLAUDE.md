@@ -26584,6 +26584,18 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5ho (24 XI 2026)** — ODPOWIEDZ PRZEBIEGU = E-MAIL DLA WLASCICIELA. Piotr: "w mailowych podsumowaniach routine nie podajemy
+zrodel... czy mamy wplyw, zeby byl lepiej sformatowany i bardziej profesjonalny?" oraz "e-mail po angielsku, chyba ze da sie i
+tak i tak; zeby linki sie klikaly" (wariant A - bez zmiany kanalu wysylki). E-mail o zakonczeniu przebiegu to koncowa odpowiedz
+sesji, wiec forme ustala nowy plik routines/reply-email.md (czytany z origin/main): JEDNA odpowiedz po czesci B; naglowek ze
+statusem OK/PARTIAL/FAILED; "W skrocie" 2-3 zdania po polsku; dalej po angielsku sekcje TOP CHANGES, GRAPH PERMISSIONS AND
+ENTRA ROLES, MESSAGE CENTER, DEADLINES IN THE NEXT 14 DAYS, LINKS, RUN NOTES, CHECKLIST; kazda zmiana z linkiem do zrodla
+Microsoftu jako goly pelny adres https:// (klienty poczty go podlinkowuja; nigdy [tekst](url)); zwykly tekst bez tabel.
+Pelna lista kontrolna §0 (nadal kazda pozycja, bez skracania) idzie do runlog/<data>-<morning|evening>.md w katalogu glownym
+repozytorium (poza site/), e-mail ma liczby i kazda pozycje BRAK oraz link do pliku. Cztery pliki czesci (krok odpowiedzi)
+i oba prompty *.prompt.md wskazuja na reply-email.md; routines/README.md opisuje zmiane. Ocena po kolejnych przebiegach
+(Piotr: "dam znac, jak przerobisz, i ocenimy"). Wariant B (osobny e-mail HTML przez Resend) - czeka na decyzje.
+
 **§5hn (24 XI 2026)** — ZMIANY MICROSOFTU W ROLACH I GRAPH WIDOCZNE NA STRONIE. Piotr: "na msgraphpermissions.com wiele
 aktualizacji, a u nas od paru dni 0 zmian w rolach i API". Diagnoza: dane sa kompletne (DevX permissions.json - ostatnia
 zmiana master c7b1404 z 20 XI; odczyt dzierzawy co 3 h zapisal 21 XI nowa role Organizational Data Source Reader i 23 XI

@@ -24,6 +24,7 @@ How to run:
 5. After a context compaction, check what is already done: does today's brief carry `#pmdelta` /
    `Microsoft SOC Delta <today>` exist (PART A done)? Is today's `/diff/` page on `origin/main`
    (`site/diff/full.html` dated today — PART B done)? Continue from the first part that is not done.
-6. Reply: PART A's reply, then PART B's reply, each as its own instructions ask.
+6. Reply ONCE, after PART B, in the form of `routines/reply-email.md` (read it from `origin/main` too): the reply is
+   the owner's completion e-mail. Everything PART A's and PART B's reply steps ask for goes into its sections.
 
 Where the two files and this prompt disagree, the files win — except points 3–5 here (the order of the parts).

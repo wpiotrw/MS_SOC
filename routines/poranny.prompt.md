@@ -26,6 +26,7 @@ How to run:
    `Microsoft SOC Brief <today>` exist in `Artifact action:"list"` (PART A done)? Is `site/data/<today>.json`
    on `origin/main` (PART B done)? Continue from the first part that is not done; never redo PART A when
    today's artifact exists.
-6. Reply: PART A's reply, then PART B's reply, each as its own instructions ask.
+6. Reply ONCE, after PART B, in the form of `routines/reply-email.md` (read it from `origin/main` too): the reply is
+   the owner's completion e-mail. Everything PART A's and PART B's reply steps ask for goes into its sections.
 
 Where the two files and this prompt disagree, the files win — except points 3–5 here (the order of the parts).

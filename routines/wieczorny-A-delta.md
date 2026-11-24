@@ -557,6 +557,8 @@ nie wiadomo o co chodzi i jakie mamy zmiany. Diff ma pokazać co się dokładnie
 
 # STEP 5 — REPLY
 
+**FORM (24 Nov 2026, §5ho): the reply is the owner's completion e-mail — write it as `routines/reply-email.md` says (one e-mail for the whole run, English with a 2–3 sentence Polish summary, a bare `https://` source link on every change). What this step lists is the CONTENT of that e-mail; the full checklist goes to `runlog/<date>-<morning|evening>.md` and the e-mail carries the counts and every BRAK line.**
+
 Under 10 lines:
 - the URL of today's brief — **the SAME one as this morning; say so explicitly**, and say it now holds today's changes;
 - the delta page URL, if one was published, labelled as the short view;

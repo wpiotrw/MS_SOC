@@ -19,3 +19,10 @@ Routines run with the repository as their own source and were not affected (the 
 The four old jobs are DISABLED, not deleted: scheduled tasks "Microsoft SOC Brief — Morning" and
 "— Afternoon delta", routines "MS SOC BRIEF - raport poranny v2" and "MS SOC BRIEF - zmiany v2". Their prompts
 as stored on 26 Oct 2026 are the part files (owner's address removed — this repository is public).
+
+## The reply is an e-mail (24 Nov 2026, §5ho)
+
+The final reply of a run is the owner's completion e-mail. Its form is set in `reply-email.md`: one e-mail per
+run, English with a short Polish summary, a bare `https://` source link on every change, sections TOP CHANGES,
+GRAPH PERMISSIONS AND ENTRA ROLES, MESSAGE CENTER, DEADLINES, LINKS, RUN NOTES, CHECKLIST. The full §0
+checklist is written to `runlog/<date>-<morning|evening>.md` and linked from the e-mail.
