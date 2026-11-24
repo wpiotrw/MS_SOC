@@ -18069,7 +18069,7 @@ AuditLogs
      after the first search is found too */
   function withExtra() {
     var out = IDX.slice();
-    (window.__socSearchAdd || []).forEach(function (f) { try { (f() || []).forEach(function (x) { out.push({ t: x.t, l: x.l || String(x.t).toLowerCase(), tn: x.tn, fn: x.fn, sid: x.sid }); });   /* §5hh: sid = the incident the entry belongs to */   /* §5hb: x.l precomputed by large providers */ } catch (e) {} });
+    (window.__socSearchAdd || []).forEach(function (f) { try { (f() || []).forEach(function (x) { out.push({ t: x.t, l: x.l || String(x.t).toLowerCase(), tn: x.tn, fn: x.fn, sid: x.sid, c: x.c }); });   /* §5hh: sid = the incident the entry belongs to */   /* §5hb: x.l precomputed by large providers */ } catch (e) {} });
     return out;
   }
   function search() {
@@ -18163,6 +18163,14 @@ AuditLogs
            with the hit marked */
         var sx = el("span", "s5bi-sks"), lw = h.l, w0 = (hits.q || [])[0] || "", at = w0 ? lw.indexOf(w0) : -1;
         if (at < 0) sx.textContent = h.t.slice(0, 160);
+        else if (at >= h.t.length && h.c) {   /* §5hu: the hit is in the query's code - the title, then the code line with the hit */
+          sx.appendChild(document.createTextNode(h.t.slice(0, 48) + (h.t.length > 48 ? "…" : "") + " · in the query: "));
+          var lc = h.c.toLowerCase(), ca = lc.indexOf(w0), a0 = lc.lastIndexOf("\n", ca) + 1, b0 = lc.indexOf("\n", ca); if (b0 < 0) b0 = h.c.length;
+          if (ca - a0 > 16) a0 = ca - 16; if (b0 - ca > 70) b0 = ca + w0.length + 60;
+          sx.appendChild(document.createTextNode((a0 > 0 && h.c[a0 - 1] !== "\n" ? "…" : "") + h.c.slice(a0, ca).replace(/^\s+/, "")));
+          sx.appendChild(el("mark", "s5fv-m", h.c.slice(ca, ca + w0.length)));
+          sx.appendChild(document.createTextNode(h.c.slice(ca + w0.length, b0)));
+        }
         else {
           var from = Math.max(0, at - 60), to = Math.min(h.t.length, at + w0.length + 90);
           sx.appendChild(document.createTextNode((from ? "… " : "") + h.t.slice(from, at)));
@@ -26625,13 +26633,16 @@ AuditLogs
         if (inc) { var ob = el("button", "s5el-lnk", "Open the incident \u203a"); ob.type = "button"; var sid0 = inc;
           ob.addEventListener("click", function () { if (window.__socOpenThreatKql) window.__socOpenThreatKql(sid0); }); ban.appendChild(ob); }
       }
+      /* §5hu (24 XI 2026, owner: "does the portal search find the KQL by phrases used in the query?"): it did, but only
+         inside the open view - "From the briefs" by default, 67 of 2 077 queries - so ServicePrincipalCredentialKeyId
+         found nothing. A search now looks in EVERY view; the count says so; clearing the box gives the view back. */
       var L = IX.filter(function (e) { var hy = TT.length ? hay(e) + " " + codeOf(e).toLowerCase() : "";
         if (IF && IF.indexOf(e.file) < 0) return false; if (only && e.file !== only) return false;
-        return (IF || only ? true : vf(e)) && TT.every(function (t) { return hy.indexOf(t) >= 0; }) && (!sP.value || e.product === sP.value) &&
+        return (IF || only || TT.length ? true : vf(e)) && TT.every(function (t) { return hy.indexOf(t) >= 0; }) && (!sP.value || e.product === sP.value) &&
         (!sT.value || (e.tables || []).indexOf(sT.value) >= 0) && (!sA.value || (e.author || (e.kind === "brief" ? "Microsoft SOC Brief" : "")) === sA.value); });
       /* the community's first read is the repositories' back catalogue: newest first means the newest WE saw, initial last */
       L.sort(function (a, b) { return (a.initial ? 1 : 0) - (b.initial ? 1 : 0) || String(b.date || "").localeCompare(String(a.date || "")); });
-      cnt.textContent = L.length + " of " + IX.length + (TT.length && !CODE ? " · reading the query texts\u2026" : "");
+      cnt.textContent = L.length + " of " + IX.length + (TT.length ? " · searched in every view" : "") + (TT.length && !CODE ? " · reading the query texts\u2026" : "");
       list.textContent = "";
       if (!L.length) { list.appendChild(el("p", "s5ei-none", "No query matches.")); return; }
       L.slice(0, shown).forEach(function (e) { list.appendChild(row(e)); });
@@ -26738,19 +26749,30 @@ AuditLogs
     incOf: function (file) { return (REL && REL[file] || []).map(function (sid) { return [sid, L.s[sid][0]]; }); },
     itemOf: function (file) { var i = POS[file]; return L && i != null && L.b ? (L.b[String(i)] || null) : null; }   /* §5hi: [itemId, title, brief date] */
   };
+  /* §5hu: Ctrl K finds a query by a word or phrase of its CODE too (a column, an operation, a table) - kql/search.json is
+     read on the first Ctrl K, then the list is rebuilt with the code in each entry's search text */
+  var CODEK = null, codeKL = false;
+  function loadCode() {
+    if (CODEK || codeKL || !window.fetch) return; codeKL = true;
+    fetch("kql/search.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (j) { CODEK = j || {}; CK = null;
+        var qi = document.querySelector(".s5bi-skq"); if (qi && qi.value) qi.dispatchEvent(new Event("input", { bubbles: true })); })   /* search again with the code */
+      .catch(function () { CODEK = {}; });
+  }
   (window.__socSearchAdd = window.__socSearchAdd || []).push(function () {
+    loadCode();
     if (!L) { load(); return []; }
     if (!CK) {
       CK = [];
       Object.keys(L.s).forEach(function (sid) { var v = L.s[sid], t = v[0] + " \u00b7 " + v[1].length + " KQL";
         CK.push({ t: t, l: t.toLowerCase(), tn: "Incident \u00b7 KQL", sid: sid, fn: function () { openInc(sid); } }); });
       L.q.forEach(function (e) { var t = e[1] + " \u00b7 " + line(e) + (e[3] ? " \u00b7 " + e[3] : "");
-        CK.push({ t: t, l: t.toLowerCase(), tn: "KQL library", fn: function () { if (window.__socOpenKql) window.__socOpenKql(e[0]); } }); });
+        CK.push({ t: t, l: (t + (CODEK && CODEK[e[0]] ? " " + CODEK[e[0]] : "")).toLowerCase(), c: CODEK && CODEK[e[0]] ? CODEK[e[0]] : "", tn: "KQL library", fn: function () { if (window.__socOpenKql) window.__socOpenKql(e[0]); } }); });
     }
     return CK;
   });
   /* the first Ctrl K keystroke loads the file; the open dialog then searches again */
-  document.addEventListener("focusin", function (ev) { if (ev.target && ev.target.classList && ev.target.classList.contains("s5bi-skq")) load(); }, true);
+  document.addEventListener("focusin", function (ev) { if (ev.target && ev.target.classList && ev.target.classList.contains("s5bi-skq")) { load(); loadCode(); } }, true);
 })();
 
 /* §5ev (22 X 2026, owner on the phone: "you write 26 new · 2 changed · 7 removed but I cannot click a status to see only
