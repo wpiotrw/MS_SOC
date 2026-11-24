@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: katherinegan
 author: Y-Kelly
 manager: archandr
-ms.date: 2026-09-08T00:00:00.0000000Z
+ms.date: 2026-11-20T00:00:00.0000000Z
 audience: ITPro
 ms.topic: how-to
 ms.service: microsoft-edge
@@ -149,7 +149,7 @@ For more information on Microsoft Edge policies, see [Microsoft Edge Browser Pol
 
 ### Can users collapse and hide the Copilot side rail?
 
-Yes. Users can collapse or expand the Copilot side rail through the top-left navigation icon based on their preferred workflow. The selected preference is remembered when users open future new tabs.
+- Yes. Users can collapse or expand the Copilot side rail through the top-left navigation icon based on their preferred workflow. The selected preference is remembered when users open future new tabs.
 
 ![image7.](media/microsoft-edge-configure-the-copilot-new-tab-page/img77.png)
 
@@ -184,3 +184,38 @@ If Copilot prompts are showing an error, please try refreshing your account sess
 ### How do I turn off this experience?
 
 - Depending on your organization’s settings, you may be able to turn off this experience. Open the new tab page Settings (gear icon), select **More settings** (edge://settings/ai), and then turn off the “Copilot new tab page” setting.
+
+### How can I configure my organization's logo on the Copilot new tab page
+
+- Your organization's logo appears in the upper-left corner of the Copilot new tab page, next to the app launcher.
+
+    Administrators can configure and review organization branding through the Microsoft 365 admin center (Navigate to Settings &gt; Org settings &gt; Organization profile &gt; Custom themes &gt; Logos &gt; Default Logo to configure your organization's logo).
+
+### Why is my organization's logo missing, outdated, or different from the expected logo?
+
+If the Copilot new tab page doesn't display the expected organization logo, try the following steps:
+
+1. Refresh the page and restart Microsoft Edge. Close all Edge browser windows and reopen the browser to ensure the latest branding configuration is loaded.
+2. Allow time for changes to take effect. Organization branding updates may take up to 24 hours to propagate. Cached content may temporarily display a previous logo.
+3. Verify your organization's branding settings. If the issue persists, review the logo configurations in the Microsoft 365 admin center, Microsoft Edge management service, and Microsoft Entra admin center to ensure the expected logo is configured.
+
+    a. **Microsoft 365 admin center**
+
+    - [Open the Microsoft 365 admin center](https://admin.cloud.microsoft/#/Settings/OrganizationProfile/:/Settings/L1/CustomThemes)
+    - Navigate to Settings &gt; Org settings &gt; Organization profile &gt; Custom themes &gt; Default theme &gt; Logos
+
+    ![Example Microsoft 365 admin center](media/microsoft-edge-configure-the-copilot-new-tab-page/example-mac.png)
+
+    b. **Microsoft Edge management service**
+
+    - [Open the Microsoft Edge management service](https://admin.cloud.microsoft/?#/Edge)
+    - Navigate to Configuration policies &gt; Select relevant policy &gt; Customization settings &gt; Organization branding
+
+    ![Example Microsoft Edge management service](media/microsoft-edge-configure-the-copilot-new-tab-page/example-ems.png)
+
+    c. **Microsoft Entra admin center**
+
+    - [Open the Microsoft Entra admin center](https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/CompanyBrandingOverview.ReactView)
+    - Navigate to Entra ID &gt; Company Branding &gt; Default sign-in
+
+    ![Example Microsoft Entra admin center](media/microsoft-edge-configure-the-copilot-new-tab-page/example-entra.png)

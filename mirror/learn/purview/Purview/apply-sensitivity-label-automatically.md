@@ -167,14 +167,21 @@ Auto-labeling is gated by license, and the two surfaces (client-side and service
 | Surface | Configured in | Included with |
 | --- | --- | --- |
 | Client-side auto-labeling (Office apps) | Sensitivity label configuration → **Auto-labeling for files and emails** page | Microsoft 365 E5, Microsoft 365 E5 Compliance, Microsoft 365 E5 Information Protection & Governance, Azure Information Protection Premium P2 (standalone) |
-| Service-side auto-labeling (SharePoint, OneDrive, Exchange) | Microsoft Purview portal → **Information Protection** → **Policies** → **Auto-labeling policies** | Same E5 / P2-tier SKUs as above |
+| Service-side auto-labeling (SharePoint, OneDrive, Exchange) | Microsoft Purview portal → **Information Protection** → **Policies** → **Auto-labeling policies** | Check the **Client and service-side automatic sensitivity labeling** entry in the feature matrix linked below. Client-only entitlements don't establish service-side entitlement. |
 | Container-level default labels (Teams, groups, sites) | Documented in [Use sensitivity labels with Microsoft Teams, Microsoft 365 groups, and SharePoint sites](sensitivity-labels-teams-groups-sites) | Not covered on this page |
 
-For the authoritative, per-SKU feature matrix (including current entitlements for Microsoft 365 Business Premium, Frontline, Education, and Government clouds), see [Microsoft 365 licensing guidance for security and compliance](/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-365-security-compliance-licensing-guidance#information-protection-microsoft-purview-information-protection).
+For the authoritative, per-SKU feature matrix and applicable prerequisite licenses, see [Microsoft Purview sensitivity labeling licensing requirements](/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-purview-service-description#microsoft-purview-information-protection-sensitivity-labeling). Library default labeling has a separate entry: **Apply default sensitivity labeling for SharePoint Document library**.
+
+Administrators configuring these features need the applicable licenses. For shared locations such as SharePoint sites:
+
+- Users with owner or member roles need the required licenses when the feature is used there.
+- Users with visitor or view-only roles don't need a license for that benefit.
+
+These are roles in the shared location, not the Microsoft Entra user type. Tenant-level processing doesn't establish that each beneficiary is licensed. See [Which users need a license?](/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-purview-service-description#which-users-need-a-license).
 
 Common licensing symptoms:
 
-- **You have E3 or Business Premium.** Auto-labeling of files and emails isn't included at this SKU. Sensitivity labels and manual labeling are — auto-labeling requires an E5 / P2-tier add-on.
+- **You have E3 or Business Premium.** Manual labeling entitlement doesn't include automatic labeling. Check the feature matrix for an eligible subscription or add-on for the labeling method you intend to use.
 - **You have E5 but don't see auto-labeling policies in the portal.** Confirm you're in the [Microsoft Purview portal](https://purview.microsoft.com/) (not the legacy Compliance Center), that your role includes **Compliance Administrator** or **Compliance Data Administrator**, and that your region supports auto-labeling ([Azure dependency availability by country](/en-us/troubleshoot/azure/general/dependency-availability-by-country)).
 - **You have E5 and see the page, but saving a new policy fails with "No matching database is available."** This is a known transient backend condition. Retry the save; if it fails repeatedly over 24 hours, open a support case with the policy configuration.
 
@@ -234,6 +241,12 @@ For auto-labeling policies that apply a sensitivity label, you can select a sett
 \* There's an exception for sublabels that share the same parent label
 
 The configurable setting for auto-labeling policies is on the **Additional label settings** page.
+
+The same precedence rules apply when a content-based auto-labeling policy evaluates files in a SharePoint library with a default label. A policy can replace a lower-priority library default label. The library default doesn't replace a higher-priority label or any manually applied label.
+
+If both specify the same label, the expected label remains unchanged. Labeling operations or transient failures can still occur. See [Library default labeling and existing labels](sensitivity-labels-sharepoint-default-label#will-an-existing-label-be-overridden).
+
+For policy failures, use the code reported in the portal rather than assuming a precedence problem. The documented **Conflict** code indicates a concurrent version or save conflict and is retried automatically; **CannotOverrideCurrentLabel** indicates that the existing label has equal or higher priority. See [Resolve auto-labeling failures in SharePoint and OneDrive files](/en-us/troubleshoot/microsoft-365/purview/sensitivity-labels/auto-labeling-failures-sharepoint-onedrive#resolve-auto-labeling-failures).
 
 ## How to configure auto-labeling for Office apps
 

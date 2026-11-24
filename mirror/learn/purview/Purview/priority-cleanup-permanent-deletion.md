@@ -11,7 +11,7 @@ author: prateekbhamri
 ms.author: pbhamri
 manager: laurawi
 ms.reviewer: vanilc
-ms.date: 2026-08-24T00:00:00.0000000Z
+ms.date: 2026-11-23T00:00:00.0000000Z
 ai-usage: ai-generated
 audience: Admin
 ms.topic: how-to
@@ -23,7 +23,7 @@ search.appverid:
 - MET150
 description: Permanently delete targeted SharePoint and OneDrive files with Microsoft Purview Priority Cleanup after required review and approval.
 ms.subservice: purview-data-lifecycle-management
-ms.custom: msecd-doc-authoring-1023
+ms.custom: msecd-doc-authoring-1032
 locale: en-us
 document_id: 855e9999-aef8-3de2-a9a7-10f9abba1cc1
 document_version_independent_id: 855e9999-aef8-3de2-a9a7-10f9abba1cc1
@@ -40,6 +40,14 @@ moniker_range_name:
 monikers: []
 item_type: Content
 source_path: Purview/priority-cleanup-permanent-deletion.md
+cmProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/9d7be3ef-f27c-4c7f-9eba-67c3cd429995
+- https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
+- https://authoring-docs-microsoft.poolparty.biz/devrel/7428317a-e6c2-4461-ad3e-8a8ad3608734
+spProducts:
+- https://authoring-docs-microsoft.poolparty.biz/devrel/feeb50f3-b677-44f9-b3a6-5f2f58182b0d
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
+- https://authoring-docs-microsoft.poolparty.biz/devrel/e4f59707-f107-48f2-8d75-0afd91868cd7
 platformId: d64c5ea3-b33f-ced5-68f3-1fffbaf6a34a
 ---
 
@@ -66,7 +74,19 @@ Before you configure permanent deletion:
 
 Important
 
-Permanent deletion can override retention settings or eDiscovery holds. Items already copied to an eDiscovery review set aren't deleted by Priority Cleanup.
+Permanent deletion can override retention settings or eDiscovery holds. Deleting items subject to legal holds requires explicit administrator approval for disposition. Items already copied to an eDiscovery review set aren't deleted by Priority Cleanup.
+
+## Understand permanent deletion and recovery limitations
+
+When an administrator selects **Delete data permanently**, they request permanent deletion of the targeted SharePoint and OneDrive content. Deleted content bypasses the recycle bins and isn't recoverable under ordinary circumstances. Review the consequences before you configure and approve permanent deletion.
+
+After permanent deletion, Microsoft can retain a protected copy of the deleted content for up to 90 days. This copy is kept solely to handle exceptional privacy or security incidents involving permanent deletion. Customers, including users and administrators, can't access the copy. The copy isn't available through SharePoint search or eDiscovery.
+
+In an exceptional scenario, customers can submit a support ticket to request recovery. Recovery is subject to Microsoft review and approval and is attempted only on a best-effort basis. Recovery isn't guaranteed. The temporary retention of deleted content doesn't provide a customer-accessible recovery option.
+
+For general Microsoft 365 data-handling policies, see [Data retention, deletion, and destruction in Microsoft 365](/en-us/compliance/assurance/assurance-data-retention-deletion-and-destruction-overview).
+
+This recovery information applies to SharePoint and OneDrive. For mailbox cleanup, see [Use priority cleanup to expedite the permanent deletion of sensitive information from mailboxes](priority-cleanup-exchange).
 
 ## Configure permanent deletion
 
@@ -89,7 +109,7 @@ The last person to edit the policy can't also turn it on.
 
 ## Review and approve permanent deletion
 
-Required approvers review identified items before permanent deletion occurs.
+Required approvers review identified items before permanent deletion occurs. Items subject to legal holds require explicit administrator approval for disposition.
 
 1. In the Microsoft Purview portal, go to **Data Lifecycle Management** &gt; **Priority cleanup** &gt; **Pending cleanups**.
 2. Select the cleanup and review the identified items, their locations, and their history.

@@ -44,12 +44,12 @@ item_type: Content
 source_path: articles/foundry/agents/how-to/deploy-hosted-agent-terraform.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/64b65f6c-101f-411a-9b83-9f577fab52d0
-- https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 - https://authoring-docs-microsoft.poolparty.biz/devrel/4e834929-0ce1-4c1d-9c81-fcb14721edfb
+- https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1a667fd1-8145-4b11-af0f-9f5de205a6e5
-- https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 - https://authoring-docs-microsoft.poolparty.biz/devrel/75670257-a3f0-4627-9981-8046f99219e6
+- https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 platformId: 3100caba-5b57-feb5-9e21-8b3bf97b77e5
 ---
 
@@ -89,6 +89,8 @@ These resources use different API surfaces:
 The project's data-plane endpoint is the logical agent's parent. Foundry manages the supporting compute; the agent isn't deployed as an App Service or Azure Container Apps resource in Azure Resource Manager. For how AzAPI targets this endpoint, see [Understand the AzAPI data plane framework](/en-us/azure/developer/terraform/concept-azapi-data-plane-framework).
 
 Use `azapi_data_plane_resource` with type `Microsoft.Foundry/agents@v1` to manage the **named agent**. This approach doesn't create an independently managed Terraform resource for each version.
+
+The AzureRM provider doesn't include a resource for hosted agents or agent versions, so use AzAPI for the agent. The base infrastructure can still use AzureRM resources such as `azurerm_cognitive_account`, `azurerm_cognitive_account_project`, `azurerm_cognitive_deployment`, and `azurerm_cognitive_account_rai_policy`.
 
 A changed definition can create a new version, and Foundry manages the version history under the logical agent. An unchanged apply doesn't provide a new release identifier.
 

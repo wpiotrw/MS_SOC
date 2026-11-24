@@ -103,9 +103,9 @@ From this example accumulation of Minutes Not Available, here's the calculation 
     | --- | --- |
     | General Purpose (Burstable) | B (Intel)  Bsv2 (Intel), Basv2 (AMD), Bpsv2 (ARM) |
     | General Purpose (General use A, D) | Av2 (Intel)  D and Ds series, v2 and newer (Intel)  Dsv7 (Intel) (Preview)  Dd and Dds, v4 and newer (Intel, local disk)  Ddsv7 (Intel) (Preview)  Dls and Dlds, v5 and newer (Intel, low memory)  Dls and Dlds, v7 (Intel) (Preview)  Da and Das, v4 series and newer (AMD)  Dads, v5 and newer (AMD, local disk)  Dals and Dalds, v6 and newer (AMD)  Dps and Dpds series, v5 and newer (ARM)  Dpls and Dplds series, v5 and newer (ARM, low memory) |
-    | General Purpose (General use, high memory E, M ) | E and Es, all versions (Intel)  Esv7 (Intel) (Preview)  Ed and Eds series, v4 and newer (Intel, local disk)  Edsv7 (Intel) (Preview)  Ebdsv5 and Ebsv5 series (Intel, block storage)  Ea and Eas, v4 and newer (AMD)  Eads, v5 and newer series (AMD, local disk) |
+    | General Purpose (General use, high memory E, M ) | E and Es, all versions (Intel)  Esv7 (Intel) (Preview)  Ed and Eds series, v4 and newer (Intel, local disk)  Edsv7 (Intel) (Preview)  Ea and Eas, v4 and newer (AMD)  Eads, v5 and newer series (AMD, local disk) |
     | General Purpose (General use, compute optimized, F) | Fsv2 series (Intel)  Fas and Fals, v6 and newer series (AMD)  Famsv6 and newer (AMD)  FX series (Intel)  FXmsv2 (Intel)  FXmdsv2 (Intel)  Fadsv7 (AMD)  Famdsv7 (AMD)  Faldsv7 (AMD) |
-    | Storage optimized | Lsv3 (Intel)  Lasv3 (AMD)  Lasv4 (AMD)  Laosv4 (AMD) |
+    | Storage optimized | Ebsv5 and Ebdsv5 series (Intel, block storage)  Ebsv6 and Ebdsv6 series (Intel) (Preview)  Lsv3 (Intel)  Lasv3 (AMD)  Lasv4 (AMD)  Laosv4 (AMD) |
     | Memory optimized | Eps and Epds series, v5 and newer (ARM)  Mpsv4 and Mpdsv4 (ARM) (Preview) |
     | Confidential compute | DCsv2 series (Intel)  DCasv5 and DCadsv5 series (AMD)  DCasv6 and DCadsv6 series (AMD) (Preview)  DCesv5 and DCedsv5 series (Intel)  ECasv5 and ECadsv5 series (AMD)  ECasv6 and ECadsv6 series (AMD) (Preview)  ECesv5 and ECedsv5 series (Intel) |
 

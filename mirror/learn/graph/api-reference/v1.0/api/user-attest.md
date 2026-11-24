@@ -55,6 +55,14 @@ Namespace: microsoft.graph.identityGovernance
 
 Attest to the continued need for a guest [user](resources/user) in the organization.
 
+## API availability
+
+This API is available in the following [national cloud deployments](/en-us/graph/deployments).
+
+| Global service | US Government L4 | US Government L5 (DOD) | China operated by 21Vianet |
+| --- | --- | --- | --- |
+| ✅ | ❌ | ❌ | ❌ |
+
 ## Permissions
 
 This API supports delegated access only. Application (app-only) access isn't supported.

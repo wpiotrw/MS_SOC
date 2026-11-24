@@ -766,7 +766,7 @@ The following table shows which security features are available on each platform
 
 1. Requires [Microsoft Intune Mobile Application Management](/en-us/windows-app/require-device-security-compliance-intune). Not available for Chrome OS.
 2. Requires Windows App on Windows version 2.0.379.0 or later. For more information, see [Microsoft Entra Conditional Access token protection](/en-us/entra/identity/conditional-access/concept-token-protection).
-3. In preview. Available only when you connect to Windows 365 or Azure Virtual Desktop, and requires Windows App on Windows version 2.0.1236.0 or later together with Cloud PC or session host configuration. Input Protection also requires the Windows Cloud Input Protect MSI on the device. Not applicable to Microsoft Dev Box.
+3. Input Protection is in preview. Available only when you connect to Windows 365 or Azure Virtual Desktop, and requires Windows App on Windows version 2.0.1236.0 or later together with Cloud PC or session host configuration. Input Protection also requires the Windows Cloud Input Protect MSI on the device. Not applicable to Microsoft Dev Box.
 4. Requires Microsoft Edge for Business on Windows, version 134.0.3124.51 or later, with an Intune MAM app protection policy that targets Microsoft Edge and a Conditional Access policy that requires app protection. For more information, see [Pattern 3: Web endpoints (browser access)](/en-us/azure/virtual-desktop/screen-capture-protection#pattern-3-web-endpoints-browser-access).
 
 ::: zone-end
@@ -785,7 +785,7 @@ The following table shows which security features are available on each platform
 
 1. Requires [Microsoft Intune Mobile Application Management](/en-us/windows-app/require-device-security-compliance-intune). Not available for Chrome OS.
 2. Requires Windows App on Windows version 2.0.379.0 or later. For more information, see [Microsoft Entra Conditional Access token protection](/en-us/entra/identity/conditional-access/concept-token-protection).
-3. In preview. Available only when you connect to Windows 365 or Azure Virtual Desktop, and requires Windows App on Windows version 2.0.1236.0 or later together with Cloud PC or session host configuration. Input Protection also requires the Windows Cloud Input Protect MSI on the device. Not applicable to Microsoft Dev Box.
+3. Input Protection is in preview. Available only when you connect to Windows 365 or Azure Virtual Desktop, and requires Windows App on Windows version 2.0.1236.0 or later together with Cloud PC or session host configuration. Input Protection also requires the Windows Cloud Input Protect MSI on the device. Not applicable to Microsoft Dev Box.
 
 ::: zone-end
 
@@ -798,7 +798,7 @@ The following table provides a description for each security feature:
 | [Screen capture protection](/en-us/azure/virtual-desktop/screen-capture-protection) | Helps prevent sensitive information in the remote session from being screen captured from the physical device. Requires session host configuration. |
 | [Watermarking](/en-us/azure/virtual-desktop/watermarking) | Helps protect sensitive information from being stolen or altered. |
 | [Input Protection](/en-us/windows-365/enterprise/windows-cloud-input-protection) | Helps protect keyboard input in the remote session from keyloggers on the physical device by routing keystrokes through a protected channel. In preview. Requires session host configuration and the Windows Cloud Input Protect MSI on the device. |
-| [Display Protection](/en-us/windows-365/enterprise/windows-cloud-display-protection) | Helps prevent the remote session's display output from being captured or recorded on the physical device. In preview. Requires session host configuration. |
+| [Display Protection](/en-us/windows-365/enterprise/display-protection) | Helps prevent the remote session's display output from being captured or recorded on the physical device. Requires session host configuration. |
 
 ::: zone-end
 
@@ -809,7 +809,7 @@ The following table provides a description for each security feature:
 | [Screen capture protection](/en-us/azure/virtual-desktop/screen-capture-protection?context=%2Fwindows-365%2Fcontext%2Fpr-context) | Helps prevent sensitive information in the remote session from being screen captured from the physical device. Requires Cloud PC configuration. |
 | [Watermarking](/en-us/azure/virtual-desktop/watermarking?context=%2Fwindows-365%2Fcontext%2Fpr-context) | Helps protect sensitive information from being stolen or altered. |
 | [Input Protection](/en-us/windows-365/enterprise/windows-cloud-input-protection) | Helps protect keyboard input in the remote session from keyloggers on the physical device by routing keystrokes through a protected channel. In preview. Requires Cloud PC configuration and the Windows Cloud Input Protect MSI on the device. |
-| [Display Protection](/en-us/windows-365/enterprise/windows-cloud-display-protection) | Helps prevent the remote session's display output from being captured or recorded on the physical device. In preview. Requires Cloud PC configuration. |
+| [Display Protection](/en-us/windows-365/enterprise/display-protection) | Helps prevent the remote session's display output from being captured or recorded on the physical device. Requires Cloud PC configuration. |
 
 ::: zone-end
 
@@ -829,7 +829,7 @@ The following table provides a description for each security feature:
 | [Screen capture protection](/en-us/azure/virtual-desktop/screen-capture-protection) | Helps prevent sensitive information in the remote session from being screen captured from the physical device. Requires remote session configuration. |
 | [Watermarking](/en-us/azure/virtual-desktop/watermarking) | Helps protect sensitive information from being stolen or altered. |
 | [Input Protection](/en-us/windows-365/enterprise/windows-cloud-input-protection) | Helps protect keyboard input in the remote session from keyloggers on the physical device by routing keystrokes through a protected channel. In preview. Requires session host configuration and the Windows Cloud Input Protect MSI on the device. |
-| [Display Protection](/en-us/windows-365/enterprise/windows-cloud-display-protection) | Helps prevent the remote session's display output from being captured or recorded on the physical device. In preview. Requires session host configuration. |
+| [Display Protection](/en-us/windows-365/enterprise/display-protection) | Helps prevent the remote session's display output from being captured or recorded on the physical device. Requires session host configuration. |
 
 ::: zone-end
 

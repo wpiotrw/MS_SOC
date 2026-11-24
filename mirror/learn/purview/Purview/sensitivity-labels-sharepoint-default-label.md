@@ -10,11 +10,13 @@ f1.keywords:
 ms.author: TracyP
 author: MSFTTracyP
 manager: laurawi
-ms.date: 2025-06-10T00:00:00.0000000Z
+ms.date: 2026-11-13T00:00:00.0000000Z
 audience: Admin
 ms.topic: how-to
 ms.service: purview
 ms.subservice: purview-information-protection
+ms.custom: msecd-doc-authoring-1030
+ai-usage: ai-assisted
 ms.collection:
 - purview-compliance
 - SPO_Content
@@ -59,6 +61,10 @@ A default label offers a baseline level of protection and a form of automatic la
 - **Default sensitivity label for a document library**: Location-based labeling, applicable only for SharePoint. Overrides a lower-priority label unless manually applied.
 - **Default sensitivity label from a policy**: Always applicable for all locations. Never overrides an existing label.
 
+Neither default is inherited from the sensitivity label applied to the SharePoint site. A site or container label configures protection settings for the workspace; files don't inherit that label or its item-level encryption and content markings. For more information, see [Use sensitivity labels with Microsoft Teams, Microsoft 365 groups, and SharePoint sites](sensitivity-labels-teams-groups-sites).
+
+You can supplement the library default with a [content-based auto-labeling policy](apply-sensitivity-label-automatically). The library default provides a location-based baseline without inspecting content; the policy evaluates the conditions you configure to select a label. For how these methods interact, see Will an existing label be overridden?.
+
 When you use Office for the web to create or edit a file, the default sensitivity label for a document library can be applied without delays. However, labeling is not immediate if you upload a file or create it using Microsoft 365 Apps on Windows, macOS, iOS or Android, and then save to SharePoint:
 
 - File upload: it can take a few minutes for the label to be applied.
@@ -78,8 +84,17 @@ Summary of outcomes:
 | Default label from policy, lower priority | Yes |
 | Default label from policy, higher priority | No |
 
+When a content-based auto-labeling policy also applies to files in the library:
+
+- If the policy and library default specify the same sensitivity label, the expected label remains that label. This doesn't guarantee that no labeling operations or transient failures occur.
+- If they specify different labels, the policy can replace a lower-priority automatically applied or default label, including a library default. The library default doesn't replace a higher-priority label or any manually applied label.
+- By default, the policy also preserves manually applied labels. Replacing a lower-priority manual label requires the policy's explicit override setting; this option doesn't change the library default's behavior. See [Will an existing label be overridden?](apply-sensitivity-label-automatically#will-an-existing-label-be-overridden).
+
+For failures reported by an auto-labeling policy, see [Resolve auto-labeling failures in SharePoint and OneDrive files](/en-us/troubleshoot/microsoft-365/purview/sensitivity-labels/auto-labeling-failures-sharepoint-onedrive#resolve-auto-labeling-failures). The portal's **Conflict** code indicates a concurrent version or save conflict and is retried automatically. **CannotOverrideCurrentLabel** indicates that an existing label has equal or higher priority; the existing label takes precedence.
+
 ## Requirements
 
+- An eligible premium subscription for library default labeling. Check the **Apply default sensitivity labeling for SharePoint Document library** entry in the [Microsoft Purview sensitivity labeling licensing requirements](/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-purview-service-description#microsoft-purview-information-protection-sensitivity-labeling), including the applicable prerequisite licenses. Manual labeling entitlement alone doesn't establish entitlement to this feature.
 - You've [created and published](create-sensitivity-labels) sensitivity labels that include the [label scope](sensitivity-labels#label-scopes) of **Files & other data assets** and these labels are published to the users who will select a default sensitivity label for a SharePoint document library.
 - You've [enabled sensitivity labels for Office files in SharePoint and OneDrive](sensitivity-labels-sharepoint-onedrive-files). To check this status, you can run `(Get-SPOTenant).EnableAIPIntegration` from the [SharePoint Online Management Shell](/en-us/powershell/sharepoint/sharepoint-online/connect-sharepoint-online) to confirm the value is set to **True**.
 - To support sensitivity labels for PDFs, you've [added support for PDFs in SharePoint](sensitivity-labels-sharepoint-onedrive-files#adding-support-for-pdf). To check this status, you can run `(Get-SPOTenant).EnableSensitivityLabelforPDF` from the [SharePoint Online Management Shell](/en-us/powershell/sharepoint/sharepoint-online/connect-sharepoint-online) to confirm the value is set to **True**.

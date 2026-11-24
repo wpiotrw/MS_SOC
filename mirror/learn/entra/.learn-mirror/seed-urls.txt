@@ -279,6 +279,7 @@ https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-how
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-writeback
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-system-preferred-authentication
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-system-preferred-multifactor-authentication
+https://learn.microsoft.com/en-us/entra/identity/authentication/concept-telephony-providers
 https://learn.microsoft.com/en-us/entra/identity/authentication/concept-telephony-risk-based-captcha
 https://learn.microsoft.com/en-us/entra/identity/authentication/configure-cloud-only-identities-on-premises-access-kerberos
 https://learn.microsoft.com/en-us/entra/identity/authentication/configure-microsoft-entra-kerberos-trust
@@ -302,6 +303,7 @@ https://learn.microsoft.com/en-us/entra/identity/authentication/multi-factor-aut
 https://learn.microsoft.com/en-us/entra/identity/authentication/overview-authentication
 https://learn.microsoft.com/en-us/entra/identity/authentication/phone-providers-faq
 https://learn.microsoft.com/en-us/entra/identity/authentication/self-service-account-recovery
+https://learn.microsoft.com/en-us/entra/identity/authentication/telephony-providers-faq
 https://learn.microsoft.com/en-us/entra/identity/authentication/troubleshoot-microsoft-entra-kerberos
 https://learn.microsoft.com/en-us/entra/identity/authentication/troubleshoot-voice-call-sms
 https://learn.microsoft.com/en-us/entra/identity/authentication/tutorial-enable-sspr-writeback

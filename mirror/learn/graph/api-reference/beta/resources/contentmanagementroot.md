@@ -19,8 +19,8 @@ recommendations: false
 breadcrumb_path: /graph/ref-breadcrumb/toc.json
 ms.service: microsoft-graph
 ms.topic: reference
-description: Provides the entry point under `/security` for connected source-control repositories.
-ms.date: 2026-10-29T00:00:00.0000000Z
+description: Provides the entry point under `/security` for content repositories, the published security content catalog, and the tenant's installed content.
+ms.date: 2026-11-02T00:00:00.0000000Z
 ms.localizationpriority: medium
 doc_type: resourcePageType
 locale: en-us
@@ -55,7 +55,7 @@ Important
 
 APIs under the `/beta` version in Microsoft Graph are subject to change. Use of these APIs in production applications is not supported. To determine whether an API is available in v1.0, use the **Version** selector.
 
-Provides the entry point under `/security` for connected source-control repositories.
+Provides the entry point under `/security` for content repositories, the published security content catalog, and the tenant's installed content.
 
 Inherits from [entity](entity).
 
@@ -63,6 +63,10 @@ Inherits from [entity](entity).
 
 | Method | Return type | Description |
 | --- | --- | --- |
+| [List installedPackageContents](../contentmanagementroot-list-installedpackagecontents) | [microsoft.graph.security.contentManagement.installedContentItem](security-contentmanagement-installedcontentitem) collection | List installed content items across all installed packages. |
+| [List installedPackages](../contentmanagementroot-list-installedpackages) | [microsoft.graph.security.contentManagement.installedPackage](security-contentmanagement-installedpackage) collection | List the content packages installed in the tenant. |
+| [List packageContents](../contentmanagementroot-list-packagecontents) | [microsoft.graph.security.contentManagement.contentItem](security-contentmanagement-contentitem) collection | List published content items across all catalog packages. |
+| [List packages](../contentmanagementroot-list-packages) | [microsoft.graph.security.contentManagement.contentPackage](security-contentmanagement-contentpackage) collection | List content packages published in the catalog. |
 | [List repositories](../contentmanagementroot-list-repositories) | [microsoft.graph.security.contentManagement.contentManagementRepository](security-contentmanagement-contentmanagementrepository) collection | Get the source-control repositories connected to the tenant. |
 
 ## Properties
@@ -75,6 +79,10 @@ Inherits from [entity](entity).
 
 | Relationship | Type | Description |
 | --- | --- | --- |
+| installedPackageContents | [microsoft.graph.security.contentManagement.installedContentItem](security-contentmanagement-installedcontentitem) collection | Installed content items listed across every installed package. |
+| installedPackages | [microsoft.graph.security.contentManagement.installedPackage](security-contentmanagement-installedpackage) collection | Content packages the tenant has installed, keyed the same way as **packages** so the same identity addresses the catalog entry and the tenant's installation of it. |
+| packageContents | [microsoft.graph.security.contentManagement.contentItem](security-contentmanagement-contentitem) collection | Read-only content items published across packages for cross-package discovery. |
+| packages | [microsoft.graph.security.contentManagement.contentPackage](security-contentmanagement-contentpackage) collection | Content packages published in the catalog and available to install. Read-only. |
 | repositories | [microsoft.graph.security.contentManagement.contentManagementRepository](security-contentmanagement-contentmanagementrepository) collection | Connected source-control repositories that deliver security content as code. |
 
 ## JSON representation
