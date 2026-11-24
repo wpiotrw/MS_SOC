@@ -1,5 +1,91 @@
 [
  {
+  "file": "community/2026-11-24-netapi-ip-addresses-that-have-attacked-netapi-honeypot.kql",
+  "title": "NetAPI IP addresses that have attacked NetAPI honeypot sensors in the last 48 hours · Defender XDR",
+  "date": "2026-11-24",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "NetAPI IP addresses that have attacked NetAPI honeypot sensors in the last 48 hours · Defender XDR",
+  "source": "https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/f84a2a179eb1de504c81820e8c8594e7db22f13b/Threat%20Hunting/TI%20Feed%20-%20NetAPIHoneypotAttackerIPs.md",
+  "kind": "repo",
+  "author": "Bert-Jan Pals",
+  "link": "https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/f84a2a179eb1de504c81820e8c8594e7db22f13b/Threat%20Hunting/TI%20Feed%20-%20NetAPIHoneypotAttackerIPs.md",
+  "license": "BSD-3-Clause",
+  "repo": "Bert-JanP Hunting Queries & Detection Rules"
+ },
+ {
+  "file": "community/2026-11-24-netapi-compromised-domains-malware-and-phishing-listed-in.kql",
+  "title": "NetAPI Compromised Domains (malware and phishing, listed in the last 24 hours) · Sentinel",
+  "date": "2026-11-24",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "NetAPI Compromised Domains (malware and phishing, listed in the last 24 hours) · Sentinel",
+  "source": "https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/f84a2a179eb1de504c81820e8c8594e7db22f13b/Threat%20Hunting/TI%20Feed%20-%20NetAPICompromisedDomains.md",
+  "kind": "repo",
+  "author": "Bert-Jan Pals",
+  "link": "https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/f84a2a179eb1de504c81820e8c8594e7db22f13b/Threat%20Hunting/TI%20Feed%20-%20NetAPICompromisedDomains.md",
+  "license": "BSD-3-Clause",
+  "repo": "Bert-JanP Hunting Queries & Detection Rules"
+ },
+ {
+  "file": "community/2026-11-24-netapi-compromised-domains-malware-and-phishing-listed-in-2.kql",
+  "title": "NetAPI Compromised Domains (malware and phishing, listed in the last 24 hours) · Defender XDR",
+  "date": "2026-11-24",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "NetAPI Compromised Domains (malware and phishing, listed in the last 24 hours) · Defender XDR",
+  "source": "https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/f84a2a179eb1de504c81820e8c8594e7db22f13b/Threat%20Hunting/TI%20Feed%20-%20NetAPICompromisedDomains.md",
+  "kind": "repo",
+  "author": "Bert-Jan Pals",
+  "link": "https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/f84a2a179eb1de504c81820e8c8594e7db22f13b/Threat%20Hunting/TI%20Feed%20-%20NetAPICompromisedDomains.md",
+  "license": "BSD-3-Clause",
+  "repo": "Bert-JanP Hunting Queries & Detection Rules"
+ },
+ {
+  "file": "community/2026-11-24-known-rat-rmm-process-patterns-sentinel.kql",
+  "title": "*Known RAT/RMM process patterns* · Sentinel",
+  "date": "2026-11-24",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "Hypothesis: Attackers will eventually leverage legitimate desktop support and remote access tools (RATs) to establish an interactive command and control channel to target systems within networks. The patterns were based on this excelent resource and might need an update upon usage given that more pa",
+  "source": "https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/f84a2a179eb1de504c81820e8c8594e7db22f13b/Defender%20For%20Endpoint/Detect_Known_RAT_RMM_Process_Patterns.md",
+  "kind": "repo",
+  "author": "Bert-Jan Pals",
+  "link": "https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/f84a2a179eb1de504c81820e8c8594e7db22f13b/Defender%20For%20Endpoint/Detect_Known_RAT_RMM_Process_Patterns.md",
+  "license": "BSD-3-Clause",
+  "mitre": [
+   "T1219"
+  ],
+  "repo": "Bert-JanP Hunting Queries & Detection Rules"
+ },
+ {
+  "file": "community/2026-11-24-known-rat-rmm-process-patterns-defender-xdr.kql",
+  "title": "*Known RAT/RMM process patterns* · Defender XDR",
+  "date": "2026-11-24",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "Hypothesis: Attackers will eventually leverage legitimate desktop support and remote access tools (RATs) to establish an interactive command and control channel to target systems within networks. The patterns were based on this excelent resource and might need an update upon usage given that more pa",
+  "source": "https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/f84a2a179eb1de504c81820e8c8594e7db22f13b/Defender%20For%20Endpoint/Detect_Known_RAT_RMM_Process_Patterns.md",
+  "kind": "repo",
+  "author": "Bert-Jan Pals",
+  "link": "https://github.com/Bert-JanP/Hunting-Queries-Detection-Rules/blob/f84a2a179eb1de504c81820e8c8594e7db22f13b/Defender%20For%20Endpoint/Detect_Known_RAT_RMM_Process_Patterns.md",
+  "license": "BSD-3-Clause",
+  "mitre": [
+   "T1219"
+  ],
+  "repo": "Bert-JanP Hunting Queries & Detection Rules"
+ },
+ {
   "file": "incidents/2026-11-23-wwahost-exe-reaching-non-microsoft-destinations-defender-xdr.kql",
   "title": "WWAHost.exe reaching non-Microsoft destinations (Defender XDR advanced hunting)",
   "date": "2026-11-23",
