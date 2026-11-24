@@ -347,6 +347,18 @@
   "link": "https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4"
  },
  {
+  "file": "articles/2026-11-23-using-the-function-in-log-analytic-rule-queries-2.kql",
+  "title": "Using the Function in Log Analytic Rule Queries",
+  "date": "2026-11-23",
+  "product": "",
+  "tables": [],
+  "purpose": "From the article: Implementing an Alert Suppression Function in Microsoft Sentinel",
+  "source": "https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4",
+  "kind": "article",
+  "author": "Stamatis Chatzimangou · Detect FYI (detection engineering, KQL)",
+  "link": "https://detect.fyi/implementing-an-alert-suppression-function-in-microsoft-sentinel-3fc7c9a2a401?source=rss----d5fd8f494f6a---4"
+ },
+ {
   "file": "articles/2026-11-23-sentinel-s-alert-anatomy.kql",
   "title": "Sentinel’s Alert Anatomy",
   "date": "2026-11-23",
