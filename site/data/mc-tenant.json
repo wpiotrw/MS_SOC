@@ -1,7 +1,7 @@
 {
  "read": "2026-11-24",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 729,
+ "count": 736,
  "note": null,
  "messages": [
   {
@@ -9821,22 +9821,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-09-10",
-   "end": "2026-11-30",
-   "modified": "2026-09-23",
+   "end": "2027-02-15",
+   "modified": "2026-11-24",
    "tags": [
     "Admin impact",
     "Feature update",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated September 23, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're introducing enhancements to the Viva Engage left navigation experience that give users more control over how they organize and use the navigation pane. Based on customer feedback, these improvements help users work more efficiently by allowing them to customize navigation, manage larger numb…",
+   "summary": "Updated November 24, 2026: We have updated the timeline. Thank you for your patience. [What and why] We're introducing enhancements to the Viva Engage left navigation experience that give users more control over how they organize and use the navigation pane. Based on customer feedback, these improvements help users work more efficiently by allowing them to customize navigation, manage larger numbe…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated September 23, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): We have started rolling out and expect to complete by end of October 2026."
+    "Updated November 24, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We have started rolling out and expect to complete by early January 2027 (previously end of October 2026)."
    ],
-   "bodyHash": "82456ad2d1fa0318"
+   "bodyHash": "e04b0696c43a2b8f"
   },
   {
    "id": "MC1470425",
@@ -11210,7 +11210,7 @@
   },
   {
    "id": "MC1478957",
-   "title": "Microsoft 365 profile card: View dotted-line managers in the organization panel",
+   "title": "(Updated) Microsoft 365 profile card: View dotted-line managers in the organization panel",
    "services": [
     "Microsoft 365 suite"
    ],
@@ -11220,19 +11220,21 @@
    "actionBy": null,
    "start": "2026-09-24",
    "end": "2026-12-04",
-   "modified": "2026-09-24",
+   "modified": "2026-11-24",
    "tags": [
     "Feature update",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We're introducing an additive user interface update to the organization panel in the Microsoft 365 profile card that can display a person's dotted-line manager relationship, in addition to their direct manager, when that data is available. This update helps employees better understand organizational structures in companies where reporting relationships span projects, business units,…",
-   "when": null,
-   "prepare": null,
+   "summary": "Updated November 24, 2026: We have decided not to move forward with this change at this time. We apologize for any inconvenience. [What and why] The dotted-line manager feature announced in MC1478957 has been postponed indefinitely. We are prioritizing improvements to the profile experience in Microsoft 365 Copilot and do not have a revised rollout date to share. [When this will happen] The previo…",
+   "when": "The previously communicated October 2026 rollout timeline no longer applies. We will update this Message Center post when we have further information about future availability.",
+   "prepare": "No action is required to prepare for this postponed rollout. Please update any internal rollout plans or communications that reference the previous timeline.",
    "dates": [
-    "General Availability (Worldwide): Rollout begins in early October 2026 and is expected to complete by late October 2026."
+    "Updated November 24, 2026: We have decided not to move forward with this change at this time.",
+    "The previously communicated October 2026 rollout timeline no longer applies."
    ],
-   "bodyHash": "ce09a372fe9f2bbc"
+   "bodyHash": "6461fa40c47a48b5"
   },
   {
    "id": "MC1478966",
@@ -14776,22 +14778,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-22",
-   "end": "2026-12-25",
-   "modified": "2026-11-03",
+   "end": "2027-01-25",
+   "modified": "2026-11-24",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated November 3, 2026: We have updated the timeline. Thank you for your patience. [What and why] A new streaming switchboard in Microsoft Teams will allow event producers to more easily manage and send NDI® sources to production software during Teams meetings and events. Event producers can individually select and stream up to eight NDI sources directly from a Teams meeting or event. [Rollout s…",
+   "summary": "Updated November 24, 2026: We have updated the timeline. Thank you for your patience. [What and why] A new streaming switchboard in Microsoft Teams will allow event producers to more easily manage and send NDI® sources to production software during Teams meetings and events. Event producers can individually select and stream up to eight NDI sources directly from a Teams meeting or event. [Rollout …",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated November 3, 2026: We have updated the timeline.",
-    "General Availability (Worldwide): Beginning in mid-November 2026 (previously early November) and expected to complete by mid-November 2026."
+    "Updated November 24, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in mid-November 2026 (previously early November) and expected to complete by mid-December 2026 (previously mid-November)."
    ],
-   "bodyHash": "c3e45fabc8e1deb8"
+   "bodyHash": "9b91494354d6326f"
   },
   {
    "id": "MC1521614",
@@ -14962,20 +14964,22 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-23",
-   "end": "2027-01-14",
-   "modified": "2026-10-23",
+   "end": "2027-02-22",
+   "modified": "2026-11-24",
    "tags": [
     "Admin impact",
     "Retirement",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] We’re retiring the public preview opt-in setting for GitHub Copilot on the Viva Insights app settings page. After this change, GitHub Copilot metrics will be available by default in the Viva Insights Consumption dashboard for eligible tenants. This change provides a unified view of GitHub Copilot and Microsoft 365 Copilot adoption and usage across developers and knowledge workers. […",
+   "summary": "Updated November 24, 2026: We have updated the timeline. Thank you for your patience. [What and why] We’re retiring the public preview opt-in setting for GitHub Copilot on the Viva Insights app settings page. After this change, GitHub Copilot metrics will be available by default in the Viva Insights Consumption dashboard for eligible tenants. This change provides a unified view of GitHub Copilot a…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): Beginning in mid-November 2026 and expected to complete by mid-December 2026."
+    "Updated November 24, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): Beginning in mid-December 2026 (previously mid-November) and expected to complete by mid-January 2027 (previously mid-December 2026)."
    ],
-   "bodyHash": "8515aa211371444b"
+   "bodyHash": "a543c5f106bdc95c"
   },
   {
    "id": "MC1523086",
@@ -16019,7 +16023,7 @@
   },
   {
    "id": "MC1530948",
-   "title": "Microsoft Purview | Information Protection: Auto-labeling support for legacy Microsoft Office file formats",
+   "title": "(Updated) Microsoft Purview | Information Protection: Auto-labeling support for legacy Microsoft Office file formats",
    "services": [
     "Microsoft 365 suite",
     "Microsoft Purview"
@@ -16029,21 +16033,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-29",
-   "end": "2026-12-27",
-   "modified": "2026-10-29",
+   "end": "2027-02-01",
+   "modified": "2026-11-24",
    "tags": [
     "Admin impact",
     "New feature",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Purview service-side auto-labeling is adding support for legacy Microsoft Office file formats, including Word (.doc), Excel (.xls), and PowerPoint (.ppt). Organizations can automatically evaluate and apply sensitivity labels to these files in SharePoint and OneDrive. These legacy file formats will be supported in both simulation and enforcement. [Rollout schedule] Public P…",
+   "summary": "Updated November 24, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Purview service-side auto-labeling is adding support for legacy Microsoft Office file formats, including Word (.doc), Excel (.xls), and PowerPoint (.ppt). Organizations can automatically evaluate and apply sensitivity labels to these files in SharePoint and OneDrive. These legacy file for…",
    "when": null,
    "prepare": null,
    "dates": [
-    "Public Preview: Beginning in early November 2026 and expected to complete by mid-November 2026.",
-    "General Availability: Beginning in late November 2026 and expected to complete by late November 2026."
+    "Updated November 24, 2026: We have updated the timeline.",
+    "Public Preview: Beginning in late November 2026 (previously early November) and expected to complete by early December 2026 (previously mid-November).",
+    "General Availability: Beginning in mid-December 2026 (previously late November) and expected to complete by late December 2026 (previously late November)."
    ],
-   "bodyHash": "88b01b8139e734d5"
+   "bodyHash": "bbb3c4ce9a77acbd"
   },
   {
    "id": "MC1530950",
@@ -16258,7 +16264,7 @@
   },
   {
    "id": "MC1532242",
-   "title": "Microsoft Teams: Pinch to zoom in on shared screens",
+   "title": "(Updated) Microsoft Teams: Pinch to zoom in on shared screens",
    "services": [
     "Microsoft Teams"
    ],
@@ -16267,20 +16273,21 @@
    "major": false,
    "actionBy": null,
    "start": "2026-10-30",
-   "end": "2026-12-23",
-   "modified": "2026-10-30",
+   "end": "2027-02-01",
+   "modified": "2026-11-24",
    "tags": [
     "New feature",
     "User impact"
    ],
-   "summary": "[What and Why:] Get a closer look at shared content in Teams calls and meetings with pinch-to-zoom using your touchpad. Quickly zoom in to make small text and detailed visuals easier to see, then zoom back out for the full view. Existing zoom controls remain available. [Rollout Schedule:] General Availability (Worldwide): We will begin rolling out on late November 2026 and expect to complete by la…",
+   "summary": "Updated November 24, 2026: We have updated the timeline. Thank you for your patience. [What and Why:] Get a closer look at shared content in Teams calls and meetings with pinch-to-zoom using your touchpad. Quickly zoom in to make small text and detailed visuals easier to see, then zoom back out for the full view. Existing zoom controls remain available. [Rollout Schedule:] General Availability (Wo…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide): We will begin rolling out on late November 2026 and expect to complete by late November 2026.",
-    "Targeted Release (Worldwide): We will begin rolling out on mid November 2026 and expect to complete by mid November 2026."
+    "Updated November 24, 2026: We have updated the timeline.",
+    "General Availability (Worldwide): We will begin rolling out on late November 2026 and expect to complete by late December 2026 (previously late November).",
+    "Targeted Release (Worldwide): We will begin rolling out on mid-November 2026 and expect to complete by mid-November 2026."
    ],
-   "bodyHash": "db8a2cbf3cef4eeb"
+   "bodyHash": "c8990f08c7c1b065"
   },
   {
    "id": "MC1532248",
@@ -17682,7 +17689,7 @@
   },
   {
    "id": "MC1549242",
-   "title": "NTLM signing security improvements in Windows",
+   "title": "(Updated) NTLM signing security improvements in Windows",
    "services": [
     "Windows"
    ],
@@ -17690,13 +17697,13 @@
    "severity": "normal",
    "major": false,
    "actionBy": null,
-   "start": "2026-11-11",
-   "end": "2027-11-11",
-   "modified": "2026-11-11",
+   "start": "2026-11-24",
+   "end": "2027-11-24",
+   "modified": "2026-11-24",
    "tags": [
     "Admin impact"
    ],
-   "summary": "What and why: New NTLM signing security improvements address CVE-2026-118737 . Starting November 2026, Windows updates enable clients to offer NTLM message signing by default for non-anonymous connections. This change helps reduce exposure to NTLM relay attacks and provides auditing to identify connections that aren’t using signing. To learn more and prepare for the next phase coming in May of 202…",
+   "summary": "(Updated 11-24-2026: KB5135557 has been updated with a Known issue section about compatibility issues affecting some third-party apps and devices using NTLM authentication, including authentication proxy servers and single sign-on (SSO) solutions.) What and why: New NTLM signing security improvements address CVE-2026-118737 . Starting November 2026, Windows updates enable clients to offer NTLM mes…",
    "when": null,
    "prepare": null,
    "dates": [
@@ -17707,7 +17714,7 @@
     "Action required/recommendations: Install the November 2026 Windows updates or later to reduce exposure to NTLM relay attacks.",
     "Require NTLM signing before it’s enabled by default in May 2027."
    ],
-   "bodyHash": "9d4ecefe303d9f37"
+   "bodyHash": "9265ff56a4ce629c"
   },
   {
    "id": "MC1550540",
@@ -17721,7 +17728,7 @@
    "actionBy": null,
    "start": "2026-11-12",
    "end": "2027-03-02",
-   "modified": "2026-11-12",
+   "modified": "2026-11-24",
    "tags": [
     "Admin impact",
     "Feature update",
@@ -17879,7 +17886,7 @@
    "actionBy": null,
    "start": "2026-11-13",
    "end": "2026-12-13",
-   "modified": "2026-11-13",
+   "modified": "2026-11-24",
    "tags": [
     "Feature update"
    ],
@@ -18286,7 +18293,7 @@
    "actionBy": null,
    "start": "2026-11-16",
    "end": "2027-01-31",
-   "modified": "2026-11-16",
+   "modified": "2026-11-24",
    "tags": [
     "New feature",
     "User impact"
@@ -18596,7 +18603,7 @@
    "actionBy": null,
    "start": "2026-11-17",
    "end": "2027-01-01",
-   "modified": "2026-11-17",
+   "modified": "2026-11-24",
    "tags": [
     "Admin impact",
     "Feature update",
@@ -19071,7 +19078,7 @@
    "actionBy": null,
    "start": "2026-11-20",
    "end": "2027-03-31",
-   "modified": "2026-11-20",
+   "modified": "2026-11-24",
    "tags": [
     "New feature",
     "User impact"
@@ -19349,6 +19356,185 @@
     "By the end of February 2027: the upgraded experience replaces the current one."
    ],
    "bodyHash": "459dc11aa5992b04"
+  },
+  {
+   "id": "MC1567225",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "services": [
+    "Microsoft 365 apps"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-24",
+   "end": "2026-12-08",
+   "modified": "2026-11-24",
+   "tags": [
+    "Feature update"
+   ],
+   "summary": "We've released updates to the following update channel for Microsoft 365 Apps: Current Channel [When this will happen:] We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting November 24th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are configured to automatically update from the Office Content Deliver…",
+   "when": "We'll be gradually rolling out this update of Microsoft 365 Apps to users on that update channel starting November 24th, 2026 (PST).",
+   "prepare": "To get more details about this update view the following release notes: Current Channel.",
+   "dates": [],
+   "bodyHash": "65eaf2e96a144c45"
+  },
+  {
+   "id": "MC1567251",
+   "title": "Windows Server 2028 is now available in public preview",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-24",
+   "end": "2027-11-24",
+   "modified": "2026-11-24",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why Windows Server 2028 is now available in public preview. This release introduces security, storage, and management improvements and begins investments in hybrid intelligence to support AI inference on local infrastructure. The release includes a hardened Server Core configuration by default, a new security baseline, and Trusted Launch for virtual machines. Storage improvements include …",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "November 17, 2026: Windows Server 2028 became available in public preview through the Windows Server Insider Program , including security, performance, and management features."
+   ],
+   "bodyHash": "36b9668df814fd3f"
+  },
+  {
+   "id": "MC1567253",
+   "title": "Microsoft Viva Engage: Minimum operating system requirements changing for iOS and iPadOS",
+   "services": [
+    "Microsoft Viva"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2027-01-03",
+   "start": "2026-11-24",
+   "end": "2027-02-05",
+   "modified": "2026-11-24",
+   "tags": [
+    "Admin impact",
+    "Feature update",
+    "User impact"
+   ],
+   "summary": "[What and why] As announced in MC1556088 , we are ending support for new releases of the Teams mobile app on iOS and iPadOS 17. Following this change, we are also updating the minimum operating system requirements for new releases of the Microsoft Viva Engage app for iOS and iPadOS. Beginning in early January 2027, new app releases will require iOS or iPadOS 18 or later. Devices running iOS or iPa…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Beginning in early January 2027, new app releases will require iOS or iPadOS 18 or later.",
+    "General Availability (Worldwide): Rollout will begin in early January 2027 and is expected to complete by early January 2027.",
+    "Beginning in January 2027, new releases of the Viva Engage app will require iOS or iPadOS 18 or later."
+   ],
+   "bodyHash": "f705551445f1ad93"
+  },
+  {
+   "id": "MC1567258",
+   "title": "Microsoft Teams for Android and iOS: Update to the latest app version to maintain file access",
+   "services": [
+    "Microsoft Teams"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": true,
+   "actionBy": "2027-03-31",
+   "start": "2026-11-24",
+   "end": "2027-05-07",
+   "modified": "2026-11-24",
+   "tags": [
+    "Admin impact",
+    "Retirement",
+    "User impact"
+   ],
+   "summary": "[What and why] We are updating how Microsoft Teams mobile authenticates access to files stored in SharePoint Online and OneDrive. To improve security, we are retiring pre-authenticated URLs and transitioning file access to Microsoft Entra ID-based authentication. To support this change, users must run a compatible version of Teams for Android ( 1416/1.0.0.2026151302 or later) or iOS ( 8.19.0 or la…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Users running older, incompatible versions may experience failures in affected file scenarios after enforcement begins on April 1, 2027.",
+    "General Availability (Worldwide, GCC, GCC High, DoD): Rollout will begin in mid-March 2027 and is expected to complete by early April 2027.",
+    "Beginning April 1, 2027 , users running older, incompatible versions may experience failures when: Opening files shared in Teams.",
+    "To prepare for enforcement on April 1, 2027, we recommend that you begin updating users now and complete the following actions before that date: Encourage users to update Microsoft Teams mobile to the latest available version.",
+    "Important: Disabling pre-authenticated URLs (tempauth) through PowerShell before April 1, 2027, may disrupt file scenarios across Teams mobile, regardless of app version.",
+    "Pre-authenticated (tempauth) URLs are retiring: move to Microsoft Entra ID tokens before April 1, 2027 - Microsoft 365 Developer Blog."
+   ],
+   "bodyHash": "1c8d0100b38d39c7"
+  },
+  {
+   "id": "MC1567261",
+   "title": "OneDrive for Business:  Bug fixes to ensure proper storage quota aligns with license limits",
+   "services": [
+    "Microsoft OneDrive"
+   ],
+   "category": "preventOrFixIssue",
+   "severity": "normal",
+   "major": false,
+   "actionBy": "2027-01-29",
+   "start": "2026-11-24",
+   "end": "2027-02-28",
+   "modified": "2026-11-24",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "[What and Why:] We're fixing an issue in OneDrive for Business license evaluation so that a user's OneDrive storage quota is determined by their applicable storage plan. Today, users assigned certain storage-providing plans in combination with certain non-storage plans can incorrectly receive a 1 TB OneDrive quota. After this change, these combinations will no longer result in a 1 TB quota. OneDri…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Global: We will begin rolling out in early January 2027 and expect to complete by late January 2027."
+   ],
+   "bodyHash": "c34204cb1311a2fd"
+  },
+  {
+   "id": "MC1567262",
+   "title": "Microsoft 365 Backup: Up to 10-year recovery windows for SharePoint and OneDrive",
+   "services": [
+    "Microsoft 365 suite",
+    "Microsoft OneDrive",
+    "SharePoint Online"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-24",
+   "end": "2026-12-10",
+   "modified": "2026-11-24",
+   "tags": [
+    "Feature update"
+   ],
+   "summary": "[What and why] Microsoft 365 Backup now supports configurable recovery windows of up to 10 years for SharePoint sites and OneDrive accounts, extending the previous maximum of two years. This update gives organizations greater flexibility to configure how long backup recovery points are retained. [Rollout schedule] General Availability (Worldwide): Available now [Impact on your organization] Who is…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "09f57cc6944905c3"
+  },
+  {
+   "id": "MC1567263",
+   "title": "Microsoft 365 Copilot: New notification option when pinning Copilot to the Windows taskbar",
+   "services": [
+    "Microsoft 365 suite"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-24",
+   "end": "2027-01-28",
+   "modified": "2026-11-24",
+   "tags": [
+    "Admin impact",
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and why] We’re introducing a new notification option in the Pin Microsoft Copilot to the Windows taskbar setting in the Microsoft 365 admin center . When admins pin Microsoft Copilot for selected groups, they can choose to notify eligible users that Copilot has been pinned by their organization. The notification includes an Open Copilot action that launches the Microsoft Copilot desktop app.…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "General Availability (Worldwide): We will begin rolling out in late November 2026 and expect to complete by late December 2026."
+   ],
+   "bodyHash": "27d213a55f044b53"
   },
   {
    "id": "MC676299",
@@ -25223,6 +25409,222 @@
    "id": "MC1473163",
    "type": "removed",
    "title": "Brand Skill support now available in PPT Copilot [Mac]",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1470424",
+   "type": "changed",
+   "title": "(Updated) Microsoft Viva Engage: New left navigation controls for collapsing, resizing, and managing favorites",
+   "fields": {
+    "end": [
+     "2026-11-30",
+     "2027-02-15"
+    ],
+    "bodyHash": [
+     "82456ad2d1fa0318",
+     "e04b0696c43a2b8f"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1478957",
+   "type": "changed",
+   "title": "(Updated) Microsoft 365 profile card: View dotted-line managers in the organization panel",
+   "fields": {
+    "title": [
+     "Microsoft 365 profile card: View dotted-line managers in the organization panel",
+     "(Updated) Microsoft 365 profile card: View dotted-line managers in the organization panel"
+    ],
+    "tags": [
+     [
+      "Feature update",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Feature update",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "ce09a372fe9f2bbc",
+     "6461fa40c47a48b5"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1521613",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Streaming switchboard for NDI sources in meetings and events",
+   "fields": {
+    "end": [
+     "2026-12-25",
+     "2027-01-25"
+    ],
+    "bodyHash": [
+     "c3e45fabc8e1deb8",
+     "9b91494354d6326f"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1523085",
+   "type": "changed",
+   "title": "Viva Insights: GitHub Copilot metrics will be on by default, and the public preview opt-in setting is being retired",
+   "fields": {
+    "end": [
+     "2027-01-14",
+     "2027-02-22"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Retirement",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Retirement",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "8515aa211371444b",
+     "a543c5f106bdc95c"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1530948",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | Information Protection: Auto-labeling support for legacy Microsoft Office file formats",
+   "fields": {
+    "title": [
+     "Microsoft Purview | Information Protection: Auto-labeling support for legacy Microsoft Office file formats",
+     "(Updated) Microsoft Purview | Information Protection: Auto-labeling support for legacy Microsoft Office file formats"
+    ],
+    "end": [
+     "2026-12-27",
+     "2027-02-01"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "New feature",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "New feature",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "88b01b8139e734d5",
+     "bbb3c4ce9a77acbd"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1532242",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Pinch to zoom in on shared screens",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Pinch to zoom in on shared screens",
+     "(Updated) Microsoft Teams: Pinch to zoom in on shared screens"
+    ],
+    "end": [
+     "2026-12-23",
+     "2027-02-01"
+    ],
+    "bodyHash": [
+     "db8a2cbf3cef4eeb",
+     "c8990f08c7c1b065"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1549242",
+   "type": "changed",
+   "title": "(Updated) NTLM signing security improvements in Windows",
+   "fields": {
+    "title": [
+     "NTLM signing security improvements in Windows",
+     "(Updated) NTLM signing security improvements in Windows"
+    ],
+    "start": [
+     "2026-11-11",
+     "2026-11-24"
+    ],
+    "end": [
+     "2027-11-11",
+     "2027-11-24"
+    ],
+    "bodyHash": [
+     "9d4ecefe303d9f37",
+     "9265ff56a4ce629c"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1567225",
+   "type": "new",
+   "title": "Updates available for Microsoft 365 Apps for Current Channel",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1567251",
+   "type": "new",
+   "title": "Windows Server 2028 is now available in public preview",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1567253",
+   "type": "new",
+   "title": "Microsoft Viva Engage: Minimum operating system requirements changing for iOS and iPadOS",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1567258",
+   "type": "new",
+   "title": "Microsoft Teams for Android and iOS: Update to the latest app version to maintain file access",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1567261",
+   "type": "new",
+   "title": "OneDrive for Business:  Bug fixes to ensure proper storage quota aligns with license limits",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1567262",
+   "type": "new",
+   "title": "Microsoft 365 Backup: Up to 10-year recovery windows for SharePoint and OneDrive",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-24",
+   "id": "MC1567263",
+   "type": "new",
+   "title": "Microsoft 365 Copilot: New notification option when pinning Copilot to the Windows taskbar",
    "fields": {}
   }
  ]
