@@ -1,0 +1,9 @@
+// Microsoft SOC Brief 24 Nov 2026 - own telephony provider SendOtp health (MC1519855)
+// Columns as in Microsoft's AppRequests query on the CYOT troubleshooting page; run in the Function App's Application Insights. Not run against a tenant in this pass.
+AppRequests
+| where TimeGenerated > ago(24h)
+| where Url has "/api/SendOtp"
+| summarize Requests = count(), Failed = countif(Success == false), P95Ms = percentile(DurationMs, 95),
+    ResultCodes = make_set(ResultCode) by bin(TimeGenerated, 1h)
+| extend FailedPct = round(100.0 * Failed / Requests, 1)
+| order by TimeGenerated desc

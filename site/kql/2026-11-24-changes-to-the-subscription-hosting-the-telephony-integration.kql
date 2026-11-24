@@ -1,0 +1,10 @@
+// Microsoft SOC Brief 24 Nov 2026 - changes to the subscription hosting the telephony integration (MC1519855)
+// Columns as on the AzureActivity table reference. Not run against a tenant in this pass.
+AzureActivity
+| where TimeGenerated > ago(30d)
+| where ActivityStatusValue in ("Success", "Succeeded")
+| where OperationNameValue has_any ("MICROSOFT.WEB/SITES/WRITE", "MICROSOFT.WEB/SITES/DELETE", "MICROSOFT.WEB/SITES/CONFIG/WRITE",
+    "MICROSOFT.AUTHORIZATION/ROLEASSIGNMENTS/WRITE", "MICROSOFT.AUTHORIZATION/ROLEASSIGNMENTS/DELETE")
+// | where SubscriptionId == "<subscription that hosts the integration>"
+| project TimeGenerated, Caller, CallerIpAddress, OperationNameValue, ResourceGroup, _ResourceId, SubscriptionId
+| order by TimeGenerated desc

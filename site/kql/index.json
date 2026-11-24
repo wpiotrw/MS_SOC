@@ -37680,5 +37680,41 @@
   "author": "KQL Query (Bert-Jan Pals)",
   "link": "https://kqlquery.com/posts/clickfix-gift-that-keeps-on-giving/",
   "incident": "auto-clickfix-the-gift-that-keeps-on-giving-2026-06-30"
+ },
+ {
+  "file": "2026-11-24-users-completing-mfa-with-text-message-or-voice-last-30-days.kql",
+  "title": "Users who completed sign-in MFA with a text message or voice call, last 30 days - the population that needs CYOT, BYOT or another method before 1 February 2027",
+  "date": "2026-11-24",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "Successful sign-ins whose AuthenticationDetails carry a succeeded Text message or Voice step, per user with the count, the last time and the apps. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-troubleshoot#check-sign-in-logs",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-24-telephony-function-app-sendotp-errors-and-latency-by-hour.kql",
+  "title": "SendOtp calls your own telephony Function App answered with an error or slowly, by hour, last 24 hours",
+  "date": "2026-11-24",
+  "product": "Entra",
+  "tables": [
+   "AppRequests"
+  ],
+  "purpose": "Hourly count of SendOtp requests with failures and p95 duration from the integration's Application Insights. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-troubleshoot#check-function-app-logs",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-24-changes-to-the-subscription-hosting-the-telephony-integration.kql",
+  "title": "Who changed web apps, app settings or role assignments in the subscription that hosts the telephony integration, last 30 days",
+  "date": "2026-11-24",
+  "product": "Entra",
+  "tables": [
+   "AzureActivity"
+  ],
+  "purpose": "Successful AzureActivity writes and deletes on Microsoft.Web sites and their config, and role-assignment writes and deletes, by caller and resource. Scope it to the subscription that hosts the integration. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azureactivity",
+  "kind": "brief"
  }
 ]

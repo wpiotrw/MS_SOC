@@ -1,0 +1,11 @@
+// Microsoft SOC Brief 24 Nov 2026 - SMS and voice MFA users before the 1 February 2027 retirement (MC1519855)
+// AuthenticationDetails as on the SigninLogs reference; method names as on the CYOT troubleshooting page. Not run against a tenant in this pass.
+SigninLogs
+| where TimeGenerated > ago(30d)
+| where ResultType == 0
+| mv-expand Step = todynamic(AuthenticationDetails)
+| extend Method = tostring(Step.authenticationMethod), StepOk = tobool(Step.succeeded)
+| where Method in ("Text message", "Voice", "Phone call") and StepOk
+| summarize SignIns = count(), LastSeen = max(TimeGenerated), Methods = make_set(Method), Apps = make_set(AppDisplayName, 10)
+    by UserPrincipalName
+| order by SignIns desc
