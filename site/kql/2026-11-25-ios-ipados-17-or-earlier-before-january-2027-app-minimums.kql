@@ -1,0 +1,10 @@
+// Microsoft SOC Brief 25 Nov 2026 - iOS/iPadOS 17 or earlier ahead of the January 2027 app minimums (MC1567253, MC1556088)
+// Columns as on the IntuneDevices reference. Not run against a tenant in this pass.
+IntuneDevices
+| where TimeGenerated > ago(7d)
+| summarize arg_max(TimeGenerated, *) by DeviceId
+| where OS has_any ("iOS", "iPadOS")
+| extend Major = toint(split(OSVersion, ".")[0])
+| where isnotnull(Major) and Major < 18
+| project DeviceName, UPN, OS, OSVersion, Model, Ownership, CompliantState, LastContact
+| order by OSVersion asc

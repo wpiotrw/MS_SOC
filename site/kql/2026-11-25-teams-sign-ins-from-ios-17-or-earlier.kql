@@ -1,0 +1,14 @@
+// Microsoft SOC Brief 25 Nov 2026 - Teams on iOS 17 or earlier (MC1567258, MC1567253)
+// ReferenceId is the Entra device id on the IntuneDevices reference. Not run against a tenant in this pass.
+let Old = IntuneDevices
+| where TimeGenerated > ago(7d)
+| summarize arg_max(TimeGenerated, *) by DeviceId
+| where OS has_any ("iOS", "iPadOS") and toint(split(OSVersion, ".")[0]) < 18
+| project EntraDeviceId = ReferenceId, DeviceName, OSVersion;
+SigninLogs
+| where TimeGenerated > ago(30d) and AppDisplayName == "Microsoft Teams"
+| extend EntraDeviceId = tostring(DeviceDetail.deviceId)
+| where isnotempty(EntraDeviceId)
+| join kind=inner Old on EntraDeviceId
+| summarize LastSeen = max(TimeGenerated) by UserPrincipalName, DeviceName, OSVersion
+| order by LastSeen desc
