@@ -1,17 +1,39 @@
 {
- "updated": "2026-11-24T23:56Z",
+ "updated": "2026-11-25T08:25Z",
  "baseline": "2026-10-10T08:35Z",
- "lastRead": "2026-11-24T23:56Z",
+ "lastRead": "2026-11-25T08:25Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
-  "names": 1097,
-  "application": 788,
-  "delegated": 876,
+  "names": 1099,
+  "application": 790,
+  "delegated": 878,
   "rsc": 60,
   "roles": 150
  },
  "events": [
+  {
+   "seen": "2026-11-25T08:25Z",
+   "day": "2026-11-25",
+   "surface": "permission",
+   "name": "Policy.Read.AuthFeatureToggle",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to read your organization's feature toggle policy without a signed-in user."
+  },
+  {
+   "seen": "2026-11-25T08:25Z",
+   "day": "2026-11-25",
+   "surface": "permission",
+   "name": "Policy.ReadWrite.AuthFeatureToggle",
+   "change": "added",
+   "type": "Application+Delegated",
+   "before": null,
+   "after": "Application, Delegated (consent: Admin)",
+   "text": "Allows the app to read and update your organization's feature toggle policy without a signed-in user."
+  },
   {
    "seen": "2026-11-24T23:56Z",
    "day": "2026-11-24",

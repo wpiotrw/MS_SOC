@@ -1,7 +1,7 @@
 {
- "read": "2026-11-24",
+ "read": "2026-11-25",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 736,
+ "count": 735,
  "note": null,
  "messages": [
   {
@@ -700,33 +700,6 @@
     "What you need to do to prepare: Read the November 2025 edition of Windows news you can use so you can plan for these new capabilities and utilize them in your organization as they are released."
    ],
    "bodyHash": "d338de6e291fb0d0"
-  },
-  {
-   "id": "MC1191924",
-   "title": "Microsoft Entra ID: Enhance protection of the authentication experience by blocking external script injection",
-   "services": [
-    "Microsoft Entra"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2025-12-03",
-   "end": "2026-11-25",
-   "modified": "2025-12-03",
-   "tags": [
-    "Admin impact",
-    "Feature update",
-    "User impact"
-   ],
-   "summary": "Introduction As part of Microsoft’s Secure Future Initiative , we’re updating our Content Security Policy for the Microsoft Entra ID sign-in experience . This change adds an extra layer of protection by allowing only scripts from trusted Microsoft domains to run during authentication, blocking unauthorized or injected external code. This proactive measure helps safeguard users against threats like…",
-   "when": "General Availability (Production/Worldwide only): Rollout begins mid-October 2026. Expected completion by late October 2026. Periodic communications will be sent closer to release.",
-   "prepare": "If you do not use tools or extensions that inject code into the sign-in experience, no action is required. If you do use such tools, switch to alternatives that don’t inject code. Test your sign-in flows thoroughly before rollout to identify and resolve any issues early. Testing instructions can be found on our CSP Guide for Microsoft Entra ID .",
-   "dates": [
-    "General Availability (Production/Worldwide only): Rollout begins mid-October 2026.",
-    "Expected completion by late October 2026."
-   ],
-   "bodyHash": "9df9842e764615ab"
   },
   {
    "id": "MC1192178",
@@ -17666,28 +17639,6 @@
    "bodyHash": "eefb92d5988e2e36"
   },
   {
-   "id": "MC1548054",
-   "title": "Updates available for Microsoft 365 Apps for all channels",
-   "services": [
-    "Microsoft 365 apps"
-   ],
-   "category": "stayInformed",
-   "severity": "normal",
-   "major": false,
-   "actionBy": null,
-   "start": "2026-11-11",
-   "end": "2026-11-25",
-   "modified": "2026-11-11",
-   "tags": [
-    "Feature update"
-   ],
-   "summary": "We've released updates to the following update channels for Microsoft 365 Apps: Current Channel Monthly Enterprise Channel Semi-Annual Enterprise Channel [When this will happen:] We'll be gradually rolling out these updates of Microsoft 365 Apps to users on those update channels starting November 10th, 2026 (PST). [How this will affect your organization:] If your Microsoft 365 Apps clients are con…",
-   "when": "We'll be gradually rolling out these updates of Microsoft 365 Apps to users on those update channels starting November 10th, 2026 (PST).",
-   "prepare": "To get more details about these updates view the following release notes: Current Channel. Monthly Enterprise Channel. Semi-Annual Enterprise Channel.",
-   "dates": [],
-   "bodyHash": "72cc4437700f6fbe"
-  },
-  {
    "id": "MC1549242",
    "title": "(Updated) NTLM signing security improvements in Windows",
    "services": [
@@ -19537,6 +19488,29 @@
    "bodyHash": "27d213a55f044b53"
   },
   {
+   "id": "MC1567320",
+   "title": "Power Apps - Information about SharePoint thumbnails not rendering",
+   "services": [
+    "Power Apps"
+   ],
+   "category": "preventOrFixIssue",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-25",
+   "end": "2026-12-25",
+   "modified": "2026-11-25",
+   "tags": [
+    "Admin impact",
+    "User impact"
+   ],
+   "summary": "We identified that changes made in relation to the retirement of SharePoint temporary authentication URLs communicated under [MC1551122] may prevent thumbnails for SharePoint items from rendering in Power Apps. How does this affect me? SharePoint thumbnails displayed in your apps may not render. Other app functionality is not as affected. What action do I need to take? To restore missing SharePoin…",
+   "when": null,
+   "prepare": null,
+   "dates": [],
+   "bodyHash": "b290036e1595218b"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -19826,34 +19800,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-25",
-   "id": "MC1179337",
-   "type": "removed",
-   "title": "An updated version of the October 2025 Scan Cab is available",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-25",
-   "id": "MC1458476",
-   "type": "removed",
-   "title": "Microsoft Outlook: Classic Outlook theme experience for Outlook on the web and Outlook for Windows",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-25",
-   "id": "MC1469961",
-   "type": "removed",
-   "title": "Microsoft Viva Glint: Copilot features are no longer available for cross-tenant guest users",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-25",
-   "id": "MC1479296",
-   "type": "removed",
-   "title": "Dynamics 365 Sales -Streamline Quick Campaigns for confident, one-time bulk email outreach",
-   "fields": {}
-  },
   {
    "date": "2026-10-26",
    "id": "MC1525374",
@@ -25625,6 +25571,27 @@
    "id": "MC1567263",
    "type": "new",
    "title": "Microsoft 365 Copilot: New notification option when pinning Copilot to the Windows taskbar",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-25",
+   "id": "MC1567320",
+   "type": "new",
+   "title": "Power Apps - Information about SharePoint thumbnails not rendering",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-25",
+   "id": "MC1191924",
+   "type": "removed",
+   "title": "Microsoft Entra ID: Enhance protection of the authentication experience by blocking external script injection",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-25",
+   "id": "MC1548054",
+   "type": "removed",
+   "title": "Updates available for Microsoft 365 Apps for all channels",
    "fields": {}
   }
  ]
