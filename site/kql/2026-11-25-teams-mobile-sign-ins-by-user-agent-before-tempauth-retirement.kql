@@ -1,0 +1,9 @@
+// Microsoft SOC Brief 25 Nov 2026 - Teams mobile clients before the 1 April 2027 tempauth retirement (MC1567258)
+// Columns as on the SigninLogs and AADNonInteractiveUserSignInLogs references. Not run against a tenant in this pass.
+union SigninLogs, AADNonInteractiveUserSignInLogs
+| where TimeGenerated > ago(30d)
+| where AppDisplayName == "Microsoft Teams"
+| extend OSName = tostring(todynamic(DeviceDetail).operatingSystem)
+| where OSName has_any ("Android", "iOS")
+| summarize SignIns = count(), LastSeen = max(TimeGenerated), Agents = make_set(UserAgent, 5) by UserPrincipalName, OSName
+| order by LastSeen desc
