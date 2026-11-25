@@ -19,7 +19,7 @@
 "In the text: As of October 19, Huntress has identified nearly 1,000 Entra tenants with sign-in activity from the IP address associated with the unauthorized activity ( 144.172.64[.]128 ), with "
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://specterops.io/blog/2026/11/06/app-registrations-vs-service-principals/": {
 "iocs": [],
@@ -78,7 +78,7 @@
 "In the text: None of these replace reviewing credentials, but they make a planted secret harder to use or easier to spot.\" Update ConnectWise has shared two new IP addresses linked to the activ"
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://thehackernews.com/2026/10/hackers-use-compromised-connectwise.html": {
 "iocs": [
@@ -88,7 +88,7 @@
 "In the text: The incident impacts every organization that has the app installed, and the credential works against every tenant the app is consented in. \"The app's credential is in hostile hands"
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://thehackernews.com/2026/10/microsoft-365-token-replay-attacks.html": {
 "iocs": [
@@ -127,11 +127,11 @@
 "In the text: Based on reports from Microsoft, Huntress, and administrators, the malicious activity started at least on October 15 from a single IP address: 144.172.64[.]128 ."
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.bleepingcomputer.com/news/security/inside-modern-phishing-kits-built-to-steal-microsoft-365-sessions/": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.bleepingcomputer.com/news/security/microsoft-azure-flaw-exploited-to-steal-customers-api-credentials/": {
 "iocs": [],
@@ -411,7 +411,7 @@
 "IOC table: Broad failed login spray, ongoing, many organizations"
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.ic3.gov/CSA/2026/260723.pdf": {
 "iocs": [],
@@ -1699,11 +1699,11 @@
 },
 "https://www.ic3.gov/CSA/2026/261008.pdf": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.ic3.gov/CSA/2026/261020.pdf": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.ic3.gov/CSA/2026/261113.csv": {
 "iocs": [
@@ -1858,11 +1858,11 @@
 },
 "https://www.ic3.gov/CSA/2026/261113.pdf": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.ic3.gov/CSA/2026/261116.pdf": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.ic3.gov/PSA/2026/PSA260901": {
 "iocs": [],
@@ -1870,11 +1870,11 @@
 },
 "https://www.ic3.gov/PSA/2026/PSA261013": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.ic3.gov/PSA/2026/PSA261023": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/09/passkey-themed-social-engineering-leads-identity-cloud-compromise/": {
 "iocs": [
@@ -1958,7 +1958,7 @@
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/24/beyond-ransomware-tracking-storm-2570-consistent-tradecraft-across-deployments/": {
 "iocs": [],
@@ -2246,7 +2246,7 @@
 "In the text: In one case, the actor created an environment, likely using AI, named \u201cJewish Choice\u201d under the guise of a nonprofit organization and associated it with jewishchoice[.]org , a doma"
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/": {
 "iocs": [
@@ -2281,7 +2281,7 @@
 "IOC table: These IPs were seen accessing the Graph API via the compromised apps. However, since they are VPN IPs, it is transient and relevant for investigation on October"
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/10/23/inside-the-litellm-1-107-0-supply-chain-compromise-credential-theft-through-python-startup-hooks/": {
 "iocs": [
@@ -2296,11 +2296,11 @@
 "IOC table: C2 dead-drop URL"
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/10/30/help-desk-impersonation-ad-cs-abuse-investigating-esc1-esc8-intrusion-paths/": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/": {
 "iocs": [
@@ -2310,7 +2310,7 @@
 "IOC table: Reconnaissance endpoint; correlate with the configured address"
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/": {
 "iocs": [
@@ -2430,7 +2430,7 @@
 "IOC table: ARTEX server \u00b7 2026-10-28 \u00b7 Active as of 2026-11-06"
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-25"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/": {
 "iocs": [
@@ -2575,6 +2575,6 @@
 "IOC table: 162[.]120[.]17[.]69:8080 \u00b7 IP and port"
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-25"
 }
 }
