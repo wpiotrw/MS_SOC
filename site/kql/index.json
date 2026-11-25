@@ -16,6 +16,44 @@
   "repo": "jkerai1 KQL Queries"
  },
  {
+  "file": "2026-11-25-teams-sign-ins-from-ios-17-or-earlier.kql",
+  "title": "Users who opened Teams on a phone still on iOS 17 or earlier, last 30 days - the overlap of the two January-April 2027 mobile changes",
+  "date": "2026-11-25",
+  "product": "Teams",
+  "tables": [
+   "SigninLogs",
+   "IntuneDevices"
+  ],
+  "purpose": "Teams sign-ins from iOS joined to the latest Intune snapshot on the Entra device id (IntuneDevices.ReferenceId), keeping devices whose major OSVersion is below 18. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/intunedevices",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-25-teams-mobile-sign-ins-by-user-agent-before-tempauth-retirement.kql",
+  "title": "Teams mobile sign-ins on Android and iOS by user and user agent, last 30 days - find clients that may be older than the 1 April 2027 minimum",
+  "date": "2026-11-25",
+  "product": "Teams",
+  "tables": [
+   "SigninLogs",
+   "AADNonInteractiveUserSignInLogs"
+  ],
+  "purpose": "Interactive and non-interactive sign-ins to Microsoft Teams from Android and iOS, per user with the distinct user agents and the last time seen. Compare the agents against the minimum versions in the post. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-25-ios-ipados-17-or-earlier-before-january-2027-app-minimums.kql",
+  "title": "iOS and iPadOS devices still on version 17 or earlier - they stop receiving Viva Engage and Teams mobile app updates in January 2027",
+  "date": "2026-11-25",
+  "product": "M365 admin",
+  "tables": [
+   "IntuneDevices"
+  ],
+  "purpose": "Latest Intune device snapshot per device, iOS and iPadOS with a major OSVersion below 18, with user, model and last contact. Needs the Intune diagnostic export to Log Analytics. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/intunedevices",
+  "kind": "brief"
+ },
+ {
   "file": "incidents/2026-11-24-who-switched-on-the-direct-management-api-or.kql",
   "title": "Who switched on the direct management API or touched its access keys (AzureActivity, 90 days)",
   "date": "2026-11-24",
@@ -38032,43 +38070,5 @@
   "author": "KQL Query (Bert-Jan Pals)",
   "link": "https://kqlquery.com/posts/clickfix-gift-that-keeps-on-giving/",
   "incident": "auto-clickfix-the-gift-that-keeps-on-giving-2026-06-30"
- },
- {
-  "file": "2026-11-25-ios-ipados-17-or-earlier-before-january-2027-app-minimums.kql",
-  "title": "iOS and iPadOS devices still on version 17 or earlier - they stop receiving Viva Engage and Teams mobile app updates in January 2027",
-  "date": "2026-11-25",
-  "product": "M365 admin",
-  "tables": [
-   "IntuneDevices"
-  ],
-  "purpose": "Latest Intune device snapshot per device, iOS and iPadOS with a major OSVersion below 18, with user, model and last contact. Needs the Intune diagnostic export to Log Analytics. Not run against a tenant in this pass.",
-  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/intunedevices",
-  "kind": "brief"
- },
- {
-  "file": "2026-11-25-teams-mobile-sign-ins-by-user-agent-before-tempauth-retirement.kql",
-  "title": "Teams mobile sign-ins on Android and iOS by user and user agent, last 30 days - find clients that may be older than the 1 April 2027 minimum",
-  "date": "2026-11-25",
-  "product": "Teams",
-  "tables": [
-   "SigninLogs",
-   "AADNonInteractiveUserSignInLogs"
-  ],
-  "purpose": "Interactive and non-interactive sign-ins to Microsoft Teams from Android and iOS, per user with the distinct user agents and the last time seen. Compare the agents against the minimum versions in the post. Not run against a tenant in this pass.",
-  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
-  "kind": "brief"
- },
- {
-  "file": "2026-11-25-teams-sign-ins-from-ios-17-or-earlier.kql",
-  "title": "Users who opened Teams on a phone still on iOS 17 or earlier, last 30 days - the overlap of the two January-April 2027 mobile changes",
-  "date": "2026-11-25",
-  "product": "Teams",
-  "tables": [
-   "SigninLogs",
-   "IntuneDevices"
-  ],
-  "purpose": "Teams sign-ins from iOS joined to the latest Intune snapshot on the Entra device id (IntuneDevices.ReferenceId), keeping devices whose major OSVersion is below 18. Not run against a tenant in this pass.",
-  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/intunedevices",
-  "kind": "brief"
  }
 ]
