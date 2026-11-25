@@ -1,7 +1,7 @@
 {
  "read": "2026-11-25",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 735,
+ "count": 736,
  "note": null,
  "messages": [
   {
@@ -11626,20 +11626,20 @@
    "actionBy": null,
    "start": "2026-09-28",
    "end": "2027-03-08",
-   "modified": "2026-10-28",
+   "modified": "2026-11-25",
    "tags": [
     "Admin impact",
     "Updated message",
     "User impact"
    ],
-   "summary": "Updated October 27, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Purview is updating how legacy Microsoft Teams retention policies are applied. Some existing retention policies that are scoped to Teams currently also apply to Microsoft 365 Copilot interactions. Beginning with this rollout, these legacy policies will be treated as Teams-only policies and…",
+   "summary": "Updated November 25, 2026: We are updating this post as a reminder. Thank you for your patience. [What and why] Microsoft Purview is updating how legacy Microsoft Teams retention policies are applied. Some existing retention policies that are scoped to Teams currently also apply to Microsoft 365 Copilot interactions. Beginning with this rollout, these legacy policies will be treated as Teams-only …",
    "when": null,
    "prepare": null,
    "dates": [
-    "Updated October 27, 2026: We have updated the timeline.",
+    "Updated November 25, 2026: We are updating this post as a reminder.",
     "Worldwide: Beginning in mid-January 2027 (previously late October 2026) and expected to complete by end of January 2027 (previously mid-November)."
    ],
-   "bodyHash": "c756cc8cda2a3565"
+   "bodyHash": "4c59617ee89949a5"
   },
   {
    "id": "MC1481315",
@@ -19176,7 +19176,7 @@
   },
   {
    "id": "MC1562278",
-   "title": "Microsoft Teams: Expanded Markdown support in the compose box",
+   "title": "(Updated) Microsoft Teams: Expanded Markdown support in the compose box",
    "services": [
     "Microsoft Teams"
    ],
@@ -19185,20 +19185,23 @@
    "major": false,
    "actionBy": null,
    "start": "2026-11-20",
-   "end": "2027-01-15",
-   "modified": "2026-11-20",
+   "end": "2027-03-29",
+   "modified": "2026-11-25",
    "tags": [
     "Admin impact",
     "Feature update",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and why] Microsoft Teams is introducing an updated Markdown compose experience with expanded formatting support. Users can write and edit with Markdown syntax intact, without formatting automatically rendering as they type. A dedicated Markdown toolbar helps users insert formatting syntax, preview the rendered message before sending, and switch between Markdown and rich text. [Rollout schedu…",
+   "summary": "Updated November 25, 2026: We have updated the timeline. Thank you for your patience. [What and why] Microsoft Teams is introducing an updated Markdown compose experience with expanded formatting support. Users can write and edit with Markdown syntax intact, without formatting automatically rendering as they type. A dedicated Markdown toolbar helps users insert formatting syntax, preview the rende…",
    "when": null,
    "prepare": null,
    "dates": [
-    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning in early December 2026 and expected to complete by mid-December 2026."
+    "Updated November 25, 2026: We have updated the timeline.",
+    "Public preview: Beginning in mid-December 2026 and expected to complete by late December 2026.",
+    "General Availability (Worldwide, GCC, GCC High, DoD): Beginning in mid-January 2027 (previously early December 2026) and expected to complete by late February 2027 (previously mid-December 2026)."
    ],
-   "bodyHash": "5a9195db7b4360c6"
+   "bodyHash": "131b776a498ced34"
   },
   {
    "id": "MC1562279",
@@ -19283,7 +19286,7 @@
   },
   {
    "id": "MC1566260",
-   "title": "Video creation from a prompt in Microsoft Clipchamp: now in Video Hub, with an upgraded experience coming",
+   "title": "(Updated) Video creation from a prompt in Microsoft Clipchamp: now in Video Hub, with an upgraded experience coming",
    "services": [
     "Microsoft Clipchamp "
    ],
@@ -19293,20 +19296,21 @@
    "actionBy": null,
    "start": "2026-11-24",
    "end": "2027-04-26",
-   "modified": "2026-11-24",
+   "modified": "2026-11-25",
    "tags": [
     "Admin impact",
     "Retirement",
+    "Updated message",
     "User impact"
    ],
-   "summary": "[What and Why:] Creating a video from a text prompt in Clipchamp is now available in Video Hub. By the end of February 2027, we'll replace this experience with an upgraded version that does the same things, produces higher-quality videos and fixes known issues. The upgraded experience will be available to the same users as part of their existing subscription. [Rollout Schedule:] General Availabili…",
+   "summary": "Updated November 25, 2026: We have updated the content. Thank you for your patience. [What and Why:] Creating a video from a text prompt in Microsoft Clipchamp has moved. It's now in Clipchamp Home, the start page of the Clipchamp app, instead of Copilot Create and the 'Generate a video' option in the Clipchamp editor. The upgraded experience will be available to the same users as part of their ex…",
    "when": null,
    "prepare": null,
    "dates": [
-    "By the end of February 2027, we'll replace this experience with an upgraded version that does the same things, produces higher-quality videos and fixes known issues.",
+    "Updated November 25, 2026: We have updated the content.",
     "By the end of February 2027: the upgraded experience replaces the current one."
    ],
-   "bodyHash": "459dc11aa5992b04"
+   "bodyHash": "0c9db3a3d539beb7"
   },
   {
    "id": "MC1567225",
@@ -19509,6 +19513,31 @@
    "prepare": null,
    "dates": [],
    "bodyHash": "b290036e1595218b"
+  },
+  {
+   "id": "MC1568439",
+   "title": "Out-of-band hotpatch update addresses stop error 0x139 on Windows Server 2025",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-25",
+   "end": "2027-11-25",
+   "modified": "2026-11-25",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "Microsoft has released a new Windows out-of-band (OOB) update today, November 25, 2026, to address an issue affecting a limited number of Windows Servers with Router Advertisement (RA) enabled that receive time-bound IPv6 routes. Affected devices might stop unexpectedly with stop error 0x139 (KERNEL_SECURITY_CHECK_FAILURE) when a route timer expires. This issue affects some Windows Server 2025 dev…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Microsoft has released a new Windows out-of-band (OOB) update today, November 25, 2026, to address an issue affecting a limited number of Windows Servers with Router Advertisement (RA) enabled that receive time-bound IPv6 routes.",
+    "This issue affects some Windows Server 2025 devices after installing the November 2026 Windows security hotpatch update."
+   ],
+   "bodyHash": "71d1ae5d9bd56c21"
   },
   {
    "id": "MC676299",
@@ -25592,6 +25621,87 @@
    "id": "MC1548054",
    "type": "removed",
    "title": "Updates available for Microsoft 365 Apps for all channels",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-25",
+   "id": "MC1481313",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | DLM: Legacy Teams retention policies that cover Copilot will be treated as Teams-only",
+   "fields": {
+    "bodyHash": [
+     "c756cc8cda2a3565",
+     "4c59617ee89949a5"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-25",
+   "id": "MC1562278",
+   "type": "changed",
+   "title": "(Updated) Microsoft Teams: Expanded Markdown support in the compose box",
+   "fields": {
+    "title": [
+     "Microsoft Teams: Expanded Markdown support in the compose box",
+     "(Updated) Microsoft Teams: Expanded Markdown support in the compose box"
+    ],
+    "end": [
+     "2027-01-15",
+     "2027-03-29"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Feature update",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Feature update",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "5a9195db7b4360c6",
+     "131b776a498ced34"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-25",
+   "id": "MC1566260",
+   "type": "changed",
+   "title": "(Updated) Video creation from a prompt in Microsoft Clipchamp: now in Video Hub, with an upgraded experience coming",
+   "fields": {
+    "title": [
+     "Video creation from a prompt in Microsoft Clipchamp: now in Video Hub, with an upgraded experience coming",
+     "(Updated) Video creation from a prompt in Microsoft Clipchamp: now in Video Hub, with an upgraded experience coming"
+    ],
+    "tags": [
+     [
+      "Admin impact",
+      "Retirement",
+      "User impact"
+     ],
+     [
+      "Admin impact",
+      "Retirement",
+      "Updated message",
+      "User impact"
+     ]
+    ],
+    "bodyHash": [
+     "459dc11aa5992b04",
+     "0c9db3a3d539beb7"
+    ]
+   }
+  },
+  {
+   "date": "2026-11-25",
+   "id": "MC1568439",
+   "type": "new",
+   "title": "Out-of-band hotpatch update addresses stop error 0x139 on Windows Server 2025",
    "fields": {}
   }
  ]
