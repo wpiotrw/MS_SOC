@@ -18,18 +18,18 @@
    "articles": []
   },
   "conditionalAccessConditionSet|actionsAndDestinations": {
-   "title": "Conditional Access condition: actions and destinations",
-   "what": "A new actionsAndDestinations property on the Conditional Access condition set, first seen by the radar on 1 November 2026. No Microsoft page and no community source found on 2 November 2026 names it, so its shape and accepted values are unknown.",
+   "title": "Conditional Access conditions: actionsAndDestinations",
+   "what": "A conditions.actionsAndDestinations property on Conditional Access policies; all 21 policies in our tenant return it as null. Neither Microsoft Learn nor any community source found on 25 November 2026 names or explains it, so its shape and effect are not known.",
    "uses": [
-    "Export your Conditional Access policies now so a policy that later carries this condition can be compared with today's",
-    "Watch the beta conditionalAccessConditionSet reference for the property",
-    "Do not build policies on it until Microsoft documents it"
+    "Record that the property is null on every policy today, so the first policy that sets it is visible in the radar",
+    "Do not set the property through the API until Microsoft or a tested community source documents it",
+    "Watch Message Center and the Conditional Access what's new page for a feature naming actions or destinations"
    ],
    "basis": "name",
-   "checked": "2026-11-02",
+   "checked": "2026-11-25",
    "by": "morning routine",
    "searched": [
-    "\"actionsAndDestinations\" conditional access Graph"
+    "\"actionsAndDestinations\" conditional access"
    ],
    "articles": []
   },
@@ -302,6 +302,59 @@
    "by": "morning routine",
    "searched": [
     "Microsoft Learn MCP: \"federatedIdentityCredentialAuthenticationMethodConfiguration authentication methods policy\" (23 Nov 2026) - the Graph authentication methods policies overview still lists ten method configurations and no federated identity credential method"
+   ]
+  },
+  "conditionalAccessApplications|includeAgentActions": {
+   "title": "Conditional Access target resources: includeAgentActions",
+   "what": "A conditions.applications.includeAgentActions array on Conditional Access policies; our tenant returns it as an array on all 21 policies. No source found on 25 November 2026 names the property. Microsoft Learn documents Conditional Access for agents (agent identities, agent users, 'All agent resources' as a target), which is the likely feature area (inferred), but does not describe agent actions as a target.",
+   "uses": [
+    "Read conditions.applications on your policies and record which carry a non-empty includeAgentActions",
+    "Review agent-targeted policies with Microsoft's Conditional Access for agents guidance, starting in report-only mode",
+    "Do not write values into the array until Microsoft documents them"
+   ],
+   "basis": "name",
+   "checked": "2026-11-25",
+   "by": "morning routine",
+   "searched": [
+    "\"includeAgentActions\" conditional access",
+    "Conditional Access agent actions target resources includeAgentActions (Microsoft Learn MCP)"
+   ],
+   "articles": [
+    {
+     "title": "Target agent identities in Microsoft Entra Conditional Access policies",
+     "url": "https://learn.microsoft.com/entra/identity/conditional-access/howto-target-agent-identities",
+     "by": "Microsoft",
+     "rel": "feature",
+     "key": "learn-agents",
+     "kind": "microsoft-article",
+     "says": "Describes targeting agent identities and agent users in Conditional Access and the 'All agent resources' target; it does not name includeAgentActions."
+    }
+   ]
+  },
+  "conditionalAccessSessionControls|blockSensitiveActions": {
+   "title": "Conditional Access session controls: blockSensitiveActions",
+   "what": "A sessionControls.blockSensitiveActions property on Conditional Access policies; all 21 policies in our tenant return it as null. No Microsoft or community source found on 25 November 2026 names it. Defender for Cloud Apps session policies can block activities and require step-up on sensitive actions, a related but separately documented feature (inferred link only).",
+   "uses": [
+    "Record that the session control is null on every policy today",
+    "Use the documented authentication context and Defender for Cloud Apps session policies for sensitive-action control until this one is documented",
+    "Do not set the property through the API until Microsoft documents it"
+   ],
+   "basis": "name",
+   "checked": "2026-11-25",
+   "by": "morning routine",
+   "searched": [
+    "\"blockSensitiveActions\" conditional access session control"
+   ],
+   "articles": [
+    {
+     "title": "Tutorial: Require step-up authentication (authentication context) upon risky action",
+     "url": "https://learn.microsoft.com/en-us/defender-cloud-apps/tutorial-step-up-authentication",
+     "by": "Microsoft",
+     "rel": "feature",
+     "key": "mdca-stepup",
+     "kind": "microsoft-article",
+     "says": "Shows Defender for Cloud Apps re-evaluating Conditional Access when a user performs a sensitive action in a session; it does not name blockSensitiveActions."
+    }
    ]
   }
  }
