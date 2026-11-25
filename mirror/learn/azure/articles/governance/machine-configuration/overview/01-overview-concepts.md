@@ -15,10 +15,10 @@ recommendation_types:
 uhfHeaderId: azure
 ms.suite: office
 adobe-target: true
-author: michaeltlombardi
+author: mgreenegit
 learn_banner_products:
 - azure
-ms.author: mlombardi
+ms.author: migreene
 ms.service: azure-machine-configuration
 description: Learn the core concepts of Azure Policy's machine configuration feature and understand key scenarios for configuration management and compliance.
 ms.date: 2025-11-07T00:00:00.0000000Z

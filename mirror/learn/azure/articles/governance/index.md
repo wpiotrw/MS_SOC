@@ -20,7 +20,7 @@ description: Get the most advanced set of governance capabilities of any major c
 ms.service: azure-policy
 ms.topic: hub-page
 author: lauradolan
-ms.author: ladolan
+ms.author: migreene
 ms.date: 2025-03-24T00:00:00.0000000Z
 ms.custom: build-2025
 locale: en-us

@@ -42,13 +42,13 @@ monikers: []
 item_type: Content
 source_path: Exchange/ExchangeOnline/reference/admin-api-authentication.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1ae5c491-970a-4062-8301-6336e69f9026
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/cf9b82c5-b6dc-45f3-b005-b1bc5fc03bea
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1ae5c491-970a-4062-8301-6336e69f9026
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/f2c3e52e-3667-4e8a-bf11-20b9eaccdc8c
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0c85d34e-bfd2-4466-957c-f0b61e9692df
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
+- https://authoring-docs-microsoft.poolparty.biz/devrel/f2c3e52e-3667-4e8a-bf11-20b9eaccdc8c
 platformId: 413abaa8-3950-4789-dc24-0428993e5ae7
 ---
 
@@ -56,7 +56,7 @@ platformId: 413abaa8-3950-4789-dc24-0428993e5ae7
 
 Note
 
-The features described in this article are currently in Preview, aren't available in all organizations, and are subject to change.
+The features described in this article are now generally available.
 
 This article covers the authentication and authorization requirements for using endpoints for the Exchange Online Admin API.
 
@@ -73,6 +73,10 @@ To access the Admin API, your app must establish its identity, obtain the right 
 
     - Delegated flow: `Exchange.ManageV2`.
     - App-only flow: `Exchange.ManageAsAppV2`.
+
+    Note
+
+    `Exchange.ManageV2` and `Exchange.ManageAsAppV2` permissions are being retired. Use `Exchange.AdminAPI.Manage` for delegated access and `Exchange.AdminAPI.ManageAsApp` for app-only access. These are dedicated permissions for the Exchange Online Admin API v2.0 to provide a clearer authorization model for applications accessing these endpoints. The Exchange Online Admin API v2.0 endpoints aren't being retired; this change affects only the permissions used to access them.
 3. Step 3: Assign RBAC permissions
 
     Exchange Online uses role-based access control (RBAC) to determine which endpoints, cmdlets, and objects the caller can manage. Assign the appropriate RBAC roles to the user (for delegated access) or to the app's service principal (for app-only access).
@@ -128,18 +132,18 @@ You can't create credentials for native applications because they can't be used 
     [![Screenshot of the APIs my organization uses tab on the Request API permission flyout with Office 365 Exchange Online entered in the search box.](../exchangeonline/media/admin-api-06-api-permissions-addition-page.png)](../exchangeonline/media/admin-api-06-api-permissions-addition-page.png#lightbox)
 4. On the **What type of permissions does your application require?** flyout, make one of the following selections:
 
-    - App-only flow: Select **Application permissions**, expand **Exchange**, select **Exchange.ManageAsAppV2**, and then select **Add permissions**.
+    - App-only flow: Select **Application permissions**, expand **Exchange**, select **Exchange.AdminAPI.ManageAsApp**, and then select **Add permissions**.
 
         [![Screenshot of the What type of permissions does your application require? flyout with the values for app-only flow selected.](../exchangeonline/media/admin-api-07-api-permissions-addition-page-app-only.png)](../exchangeonline/media/admin-api-07-api-permissions-addition-page-app-only.png#lightbox)
-    - Delegated flow: Select **Delegated permissions**, expand **Exchange**, select **Exchange.ManageV2**, and then select **Add permissions**.
+    - Delegated flow: Select **Delegated permissions**, expand **Exchange**, select **Exchange.AdminAPI.Manage**, and then select **Add permissions**.
 
         [![Screenshot of the What type of permissions does your application require? flyout with the values for delegated flow selected.](../exchangeonline/media/admin-api-08-api-permissions-addition-page-delegated.png)](../exchangeonline/media/admin-api-08-api-permissions-addition-page-delegated.png#lightbox)
 5. Back on the **API permissions** page, verify the selections from the previous step are listed:
 
-    - **Office 365 Exchange Online** &gt; **Exchange.ManageAsApp**:
+    - **Office 365 Exchange Online** &gt; **Exchange.AdminAPI.ManageAsApp**:
         - Type: Application
         - Admin consent required: Yes
-    - **Office 365 Exchange Online** &gt; **Exchange.ManageV2**:
+    - **Office 365 Exchange Online** &gt; **Exchange.AdminAPI.Manage**:
         - Type: Delegated
         - Admin consent required: Yes
 6. Select **Grant admin consent for**, review the confirmation dialog, and select **Yes**.
@@ -300,7 +304,7 @@ A successful response includes the following results:
 
 ### Client credentials flow (app-only)
 
-Use this flow for service-to-service calls without a user. After admin consent to application permissions (for example, `Exchange.ManageAsAppV2`) and assigning the required RBAC roles, request a token using the app's own credentials. No refresh token is issued. Request new access tokens as needed.
+Use this flow for service-to-service calls without a user. After admin consent to application permissions (for example, `Exchange.AdminAPI.ManageAsApp`) and assigning the required RBAC roles, request a token using the app's own credentials. No refresh token is issued. Request new access tokens as needed.
 
 To acquire an access token, send a POST request to the `/token` identity platform endpoint. In this request, the client uses the client secret.
 

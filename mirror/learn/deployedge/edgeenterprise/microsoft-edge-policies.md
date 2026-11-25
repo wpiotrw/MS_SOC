@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-11-19T00:00:00.0000000Z
+ms.date: 2026-11-24T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -58,7 +58,11 @@ This article applies to Microsoft Edge version 77 or later.
 
 ## New policies
 
-There are no new policies in Microsoft Edge version 160.
+The following table lists the new policies for Microsoft Edge version 160.
+
+| Policy Name | Caption |
+| --- | --- |
+| [BlueprintGWAAvailability](microsoft-edge-policies/blueprintgwaavailability) | Control Blueprint GWA availability |
 
 The following table lists the new policies for Microsoft Edge version 159.
 
@@ -110,6 +114,7 @@ The following table lists the obsoleted policies for Microsoft Edge version 159.
 
 | Policy Name | Caption |
 | --- | --- |
+| [AdHocCodeSigningForPWAsEnabled](microsoft-edge-policies/adhoccodesigningforpwasenabled) | Native application signing during Progressive Web Application installation (obsolete) |
 | [AllowBrowsingWithCopilot](microsoft-edge-policies/allowbrowsingwithcopilot) | Controls the availability of browsing with Copilot in Microsoft Edge. (obsolete) |
 | [LiveVideoTranslationEnabled](microsoft-edge-policies/livevideotranslationenabled) | Allows users to translate videos to different languages. (obsolete) |
 
@@ -854,7 +859,7 @@ These tables list all of the browser-related group policies available in this re
 | Policy Name | Caption |
 | --- | --- |
 | [AADWebSiteSSOUsingThisProfileEnabled](microsoft-edge-policies/aadwebsitessousingthisprofileenabled) | Single sign-on for work or school sites using this profile enabled |
-| [AdHocCodeSigningForPWAsEnabled](microsoft-edge-policies/adhoccodesigningforpwasenabled) | Native application signing during Progressive Web Application installation |
+| [AdHocCodeSigningForPWAsEnabled](microsoft-edge-policies/adhoccodesigningforpwasenabled) | Native application signing during Progressive Web Application installation (obsolete) |
 | [AdditionalSearchBoxEnabled](microsoft-edge-policies/additionalsearchboxenabled) | Enable additional search box in browser |
 | [AddressBarClipboardSuggestEnabled](microsoft-edge-policies/addressbarclipboardsuggestenabled) | Enable clipboard suggestions in the address bar |
 | [AdsSettingForIntrusiveAdsSites](microsoft-edge-policies/adssettingforintrusiveadssites) | Ads setting for sites with intrusive ads |
@@ -897,6 +902,7 @@ These tables list all of the browser-related group policies available in this re
 | [BeforeunloadEventCancelByPreventDefaultEnabled](microsoft-edge-policies/beforeunloadeventcancelbypreventdefaultenabled) | Control the behavior for the cancel dialog produced by the beforeunload event (obsolete) |
 | [BingAdsSuppression](microsoft-edge-policies/bingadssuppression) | Block all ads on Bing search results |
 | [BlockThirdPartyCookies](microsoft-edge-policies/blockthirdpartycookies) | Block third party cookies |
+| [BlueprintGWAAvailability](microsoft-edge-policies/blueprintgwaavailability) | Control Blueprint GWA availability |
 | [BrowserAddProfileEnabled](microsoft-edge-policies/browseraddprofileenabled) | Enable profile creation from the Identity flyout menu or the Settings page |
 | [BrowserCodeIntegritySetting](microsoft-edge-policies/browsercodeintegritysetting) | Configure browser process code integrity guard setting |
 | [BrowserGuestModeEnabled](microsoft-edge-policies/browserguestmodeenabled) | Enable guest mode |

@@ -21,7 +21,7 @@ learn_banner_products:
 manager: kumud
 ms.reviewer: halkazwini
 description: Learn about IPv6 geo-based custom rules in Application Gateway WAF, including preview feature registration, dual-stack requirements, and validation behavior.
-ms.author: halkazwini
+ms.author: gunjanj
 ms.service: azure-web-application-firewall
 ms.topic: concept-article
 ms.date: 2026-09-17T00:00:00.0000000Z

@@ -25,7 +25,7 @@ description: Learn how to configure Foundry IQ (Azure AI Search) indexers for in
 ms.reviewer: gimondra
 ms.service: azure-ai-search
 ms.topic: how-to
-ms.date: 2026-11-09T00:00:00.0000000Z
+ms.date: 2026-11-24T00:00:00.0000000Z
 ai-usage: ai-assisted
 ms.custom: doc-kit-assisted
 locale: en-us
@@ -400,7 +400,7 @@ Merge the following configuration into your complete index definition, retaining
     { "name": "metadata_spo_item_path", "type": "Edm.String", "retrievable": false },
     { "name": "UserIds",           "type": "Collection(Edm.String)", "permissionFilter": "userIds",  "filterable": true, "retrievable": false },
     { "name": "GroupIds",          "type": "Collection(Edm.String)", "permissionFilter": "groupIds", "filterable": true, "retrievable": false },
-    { "name": "SharePointSiteUrl", "type": "Edm.String", "sharepointSiteUrl": true, "filterable": false, "retrievable": false }
+    { "name": "SharePointSiteUrl", "type": "Edm.String", "sharepointSiteUrl": true, "filterable": true, "retrievable": false }
   ],
   "permissionFilterOption": "enabled"
 }

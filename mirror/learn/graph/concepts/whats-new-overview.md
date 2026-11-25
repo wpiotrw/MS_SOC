@@ -16,7 +16,7 @@ ms.service: microsoft-graph
 ms.topic: whats-new
 description: Find out what's new in Microsoft Graph APIs, SDKs, documentation, and other resources.
 ms.localizationpriority: high
-ms.date: 2026-11-05T00:00:00.0000000Z
+ms.date: 2026-11-17T00:00:00.0000000Z
 locale: en-us
 document_id: 62dfb7e7-bb91-b6de-735b-97e63c2620df
 document_version_independent_id: 7ac1c0c8-1433-e6c6-84a8-cbe00071fdd7
@@ -106,6 +106,10 @@ Features in *preview* status are subject to change without notice, and might not
 - Added the **isHidden** property to the [mailboxFolder](/en-us/graph/api/resources/mailboxfolder) resource to identify hidden mailbox folders.
 - Use the existing **includeHiddenFolders** query parameter for [listing folders](/en-us/graph/api/mailbox-list-folders) and [listing child folders](/en-us/graph/api/mailboxfolder-list-childfolders). Set it to `true` to include both hidden and nonhidden folders.
 
+### Microsoft MCP Server for IT Admins
+
+- Updated the [Microsoft MCP Server for IT Admins](/en-us/graph/mcp-server/overview) documentation. Microsoft MCP Server for Enterprise is now Microsoft MCP Server for IT Admins at `https://mcp.svc.cloud.microsoft/admin`, and the `/enterprise` endpoint is deprecated. AI agents can now create, update, and delete Microsoft Entra data after the user confirms each change, and read Microsoft Intune data. Setup takes an app registration with Microsoft Graph delegated permissions, and no longer requires provisioning the MCP server or granting its `MCP.*` scopes.
+
 ### Security | Data security and compliance
 
 - Applications can now supply one or more sensitivity labels with file content submitted to the [processContent](/en-us/graph/api/userdatasecurityandgovernance-processcontent) API by using the **sensitivityLabels** property of [processContentMetadataBase](/en-us/graph/api/resources/processcontentmetadatabase).
@@ -161,7 +165,8 @@ Added the **sharingLevel** property to the [calendar](/en-us/graph/api/resources
 
 ### Mail
 
-- [Use Mail APIs with Exchange archive mailboxes](/en-us/graph/archive-mailbox-mail-api). Learn how to access Exchange archive folders and messages, follow redirects, create folders, and synchronize changes with Microsoft Graph beta Mail APIs.
+- [Use the mailbox import and export APIs with archive mailboxes](/en-us/graph/work-with-archive-mailboxes). Learn how to discover an archive mailbox, manage its folders, and export and import archive mailbox items by using Microsoft Graph.
+- [Use mail APIs with Exchange archive mailboxes](/en-us/graph/archive-mailbox-mail-api). Learn how to access Exchange archive folders and messages, follow redirects, create folders, and synchronize changes with Microsoft Graph beta mail APIs.
 
 ### Security
 

@@ -10,7 +10,7 @@ uhfHeaderId: MSDocsHeader-MSEdge
 ms.author: gabrielbanda
 author: vmliramichael
 manager: nuyunzhang
-ms.date: 2026-08-18T00:00:00.0000000Z
+ms.date: 2026-11-24T00:00:00.0000000Z
 audience: ITPro
 ms.topic: reference
 ms.service: microsoft-edge
@@ -36,13 +36,13 @@ monikers: []
 item_type: Content
 source_path: edgeenterprise/microsoft-edge-policies/EdgeEntraCopilotPageContext.md
 cmProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/5287f575-02f0-405f-92b7-800456526b0c
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
-- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/5287f575-02f0-405f-92b7-800456526b0c
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
-- https://authoring-docs-microsoft.poolparty.biz/devrel/06e86142-34c2-4b94-ab9c-9477c21f7152
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
-- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://authoring-docs-microsoft.poolparty.biz/devrel/06e86142-34c2-4b94-ab9c-9477c21f7152
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 041b7f1c-8737-0ff8-d615-70e9a1037139
 ---
 
@@ -59,7 +59,7 @@ platformId: 041b7f1c-8737-0ff8-d615-70e9a1037139
 
 ## Description
 
-This policy controls whether Copilot in the Microsoft Edge side pane can access page content, browsing history, and video transcript. This includes page summarization, video summarization, and other contextual queries.
+This policy controls whether Copilot in the Microsoft Edge side pane can access page content, browsing history, and video transcript. This includes page summarization, video summarization, sharing an image with Copilot from the context menu ("Ask Copilot about this image"), and other contextual queries.
 
 This policy applies only to users who are signed in to Microsoft Edge with a Microsoft Entra account and are using Copilot in the side pane. It applies to Copilot experiences in the side pane, including Microsoft 365 Copilot Business Chat and Microsoft Copilot with enterprise data protection (EDP).
 

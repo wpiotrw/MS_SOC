@@ -57,7 +57,7 @@ Reference
 ![](/en-us/media/hubs/shared/icon-whats-new.svg?branch=main)
 
 What's new
-[Microsoft MCP Server for Enterprise](/en-us/graph/mcp-server/overview)
+[Microsoft MCP Server for IT Admins](/en-us/graph/mcp-server/overview)
 
 ![](/en-us/media/hubs/shared/icon-whats-new.svg?branch=main)
 
@@ -126,7 +126,7 @@ What's new
 
 ![](images/index/i_backlog.svg)
 
-[Microsoft MCP Server for Enterprise](/en-us/graph/mcp-server/overview)
+[Microsoft MCP Server for IT Admins](/en-us/graph/mcp-server/overview)
 
 ## Resources
 

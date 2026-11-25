@@ -11,7 +11,7 @@ ms.author: TracyP
 author: MSFTTracyP
 ms.reviewer: samsonchan
 manager: laurawi
-ms.date: 2026-09-11T00:00:00.0000000Z
+ms.date: 2026-11-23T00:00:00.0000000Z
 audience: Admin
 ms.topic: how-to
 ms.service: purview
@@ -46,12 +46,12 @@ item_type: Content
 source_path: Purview/purview-adaptive-scopes.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/9d7be3ef-f27c-4c7f-9eba-67c3cd429995
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1dd701e0-441f-4b0a-9806-aa47decc4e35
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/feeb50f3-b677-44f9-b3a6-5f2f58182b0d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/0a2fc935-5977-4aa6-9f55-0be03bd2acb8
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
 platformId: d715d615-5ce3-ee8d-7a18-29c1259ceba5
 ---
 
@@ -132,6 +132,21 @@ The attribute names for users and groups are based on [filterable recipient prop
 - **Email addresses** maps to the LDAP name **proxyAddresses** that displays as **Proxy address** in the Microsoft Entra admin center.
 
 You can easily specify the attributes and properties listed in the table when you configure an adaptive scope by using the simple query builder. The advanced query builder supports additional attributes and properties, as described in the following section.
+
+### Use relative date filters
+
+Use relative date filters in the advanced query builder to define scope membership by a rolling date range instead of a fixed date. For example, `WhenMailboxCreated -ge 'P30D'` selects mailboxes created on or after the date 30 days before evaluation. The date is recalculated each time the scope is evaluated.
+
+Relative date filters support these properties:
+
+| Adaptive scope type | Supported date properties |
+| --- | --- |
+| **Users** and **Microsoft 365 Groups** | `WhenCreated`, `WhenCreatedUTC`, `WhenMailboxCreated`, `WhenChanged`, `WhenChangedUTC`, `WhenSoftDeleted` |
+| **SharePoint sites** | `Created`, `RefinableDate00` through `RefinableDate19` |
+
+Specify a date-only ISO 8601 duration, such as `P30D` for 30 days, `P2W` for two weeks, `P6M` for six months, or `P1Y` for one year. You can combine years, months, and days, such as `P1Y6M`, but weeks must be used on their own.
+
+For syntax, property descriptions, use cases, and validation guidance, see [Use relative date filters in adaptive scopes](purview-adaptive-scopes-relative-date-filters).
 
 ### How to configure an adaptive scope
 
@@ -230,6 +245,10 @@ You can manually validate advanced queries by using PowerShell and SharePoint se
 
 - Use PowerShell for the scope types **Users** and **Microsoft 365 Groups**
 - Use SharePoint search for the scope type **SharePoint sites**
+
+Note
+
+Adaptive scopes resolve relative date values such as `P30D` before evaluating a query. To test the query with Exchange PowerShell or SharePoint search, first replace each duration with an absolute UTC date. For an example, see [Validate relative date filters](purview-adaptive-scopes-relative-date-filters#validate-relative-date-filters).
 
 #### To run a query by using PowerShell
 

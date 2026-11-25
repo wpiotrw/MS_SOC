@@ -15,10 +15,10 @@ recommendation_types:
 uhfHeaderId: azure
 ms.suite: office
 adobe-target: true
-author: michaeltlombardi
+author: mgreenegit
 learn_banner_products:
 - azure
-ms.author: mlombardi
+ms.author: migreene
 ms.service: azure-machine-configuration
 description: Details guest configuration agent for Windows release notes, issues, and frequently asked questions.
 ms.date: 2026-06-22T00:00:00.0000000Z

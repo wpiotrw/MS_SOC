@@ -15,10 +15,10 @@ recommendation_types:
 uhfHeaderId: azure
 ms.suite: office
 adobe-target: true
-author: michaeltlombardi
+author: mgreenegit
 learn_banner_products:
 - azure
-ms.author: mlombardi
+ms.author: migreene
 ms.service: azure-machine-configuration
 description: Learn how to enable Connected Inventory for Microsoft Configuration Manager device collections and review their inventory in Azure.
 ms.date: 2026-11-07T00:00:00.0000000Z

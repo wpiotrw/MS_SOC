@@ -14,11 +14,11 @@ recommendation_types:
 - Certification
 uhfHeaderId: azure-ai-foundry
 ms.suite: office
-author: mattwojo
+author: sdgilley
 learn_banner_products:
 - azure
 manager: mcleans
-ms.author: mattwoj
+ms.author: sgilley
 ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
@@ -172,37 +172,11 @@ Follow the [quickstart](browser-automation-prompt-agent-quickstart) for setup an
 
 ## Supported scenarios and limitations
 
-Browser automation tool supports browser-based workflows where an agent needs to navigate websites, interact with web applications, complete forms, and perform multistep tasks.
-
-### Supported scenarios
-
-- **Navigate public websites and retrieve information:** Navigate public websites, move across multiple pages, retrieve information, and return results with source links. Website access policies and CAPTCHA challenges can still prevent access.
-- **Reduce CAPTCHA challenges with Web Bot Auth (preview):** Identify browser requests using cryptographic signatures that participating bot management providers can verify. You can register your own bot identity or request Microsoft platform registration through supported providers. Web Bot Auth can reduce challenges, but it doesn't solve CAPTCHAs or bypass website access policies. See Reduce CAPTCHA challenges with Web Bot Auth.
-- **Work with authenticated websites:** Access websites that require authentication using credentials stored in Azure Key Vault or by allowing the user to take control of the browser session.
-- **Manage sign-in secrets (preview):** Store website credentials in Azure Key Vault and pass them directly to the browser. The Playwright Workspaces remote MCP server retrieves secrets server-side, so their values aren't exposed to the model or application code. You can restrict each secret to an allowed list of domains and rotate it in Key Vault.
-- **Reuse browser profiles (preview, coming soon):** Save and reuse browser profiles containing authentication, cookies, and browser state across sessions, reducing repeated sign-ins and setup. The service stores profiles in encrypted storage and governs them by using workspace-level role-based access control.
-- **Complete forms with user involvement:** Complete multistep forms while maintaining browser session and form state. The agent can ask for clarification, continue filling the form, and request user approval before final submission. Users can also take control for manual interaction, such as signing in, completing MFA, or entering an OTP.
-- **Upload files:** Upload files or forms as part of browser workflows and transactions.
-- **Automate private web applications (preview):** Automate browser-based applications that aren't exposed through APIs, such as ERP applications hosted behind a private virtual network, when the required network access and authentication are configured. Learn more about [accessing privately hosted websites](/en-us/azure/app-testing/playwright-workspaces/how-to-access-private-websites).
-- **Route browser traffic through a proxy (preview):** Use your own proxy infrastructure to control how cloud-browser traffic reaches websites. Configure proxy pools and domain-based routing rules to route requests through different proxies. Store proxy credentials in Azure Key Vault and use a managed identity to access them.
-- **Record sessions for observability:** Agent builders can choose to record sessions. Foundry replay provides session and tool-call trace views. Actual session recordings are available in Playwright Workspaces and stored in customer-owned storage. Learn more about [Playwright Workspaces](/en-us/azure/app-testing/playwright-workspaces/overview-what-is-microsoft-playwright-workspaces).
-
-### Limitations and considerations
-
-Consider these limitations when designing workflows with Browser automation tool:
-
-- **Bot detection and CAPTCHA:** Some websites restrict or block automated browser access. Web Bot Auth (preview) can reduce CAPTCHA challenges and other anti-bot friction with supported providers when configured for the Playwright workspace. It doesn't solve CAPTCHAs or bypass site policies. Stealth browsers aren't supported. To report CAPTCHA issues or request platform registration, fill out the [CAPTCHA feedback form](https://forms.cloud.microsoft/r/feSSnFeQMq).
-- **Credential handling:** When Azure Key Vault credentials are provided to a prompt agent for browser authentication, the model currently has access to the secret value. In coded or hosted agents, the secret can be kept hidden from the model. Consider this when choosing credentials. We plan to improve Azure Key Vault usability for prompt agents.
-- **Reusing authenticated sessions:** Browser automation tool doesn't currently support starting a workflow from a saved browser profile or cookies copied from your browser. Workflows can't reuse an existing authenticated session to bypass sign-in.
-- **Geo-restricted websites and proxy access:** Browser automation tool doesn't support proxy or static IP configuration to access websites that restrict access based on geographic location or source IP.
-- **Complex or long-running workflows:** Tasks involving many browser interactions or slow-loading pages can take longer and might time out.
-- **Dynamic webpages:** Page content and controls can change while the agent is working. If an interaction fails, inspect the current page state before retrying the action.
-
-| Supported scenarios | Not supported scenarios |
+| Supported scenarios | Limitations |
 | --- | --- |
-| Expanded tools for efficient browser actions | CAPTCHA solving or bypassing bot verification |
-| Private VNet injection (preview) | Browser extensions |
-| Browser proxies (preview) | Enterprise scenarios that require an Intune-enabled device or passkey |
+| Expanded tools for efficient browser actions | Browser extensions |
+| Private VNet injection (preview) | Enterprise scenarios that require an Intune-enabled device or passkey |
+| Browser proxies (preview) |  |
 | Live View and Take control for sign-in and MFA |  |
 | Secret management with Azure Key Vault (preview) |  |
 | Web Bot Auth to reduce CAPTCHA challenges (preview) |  |

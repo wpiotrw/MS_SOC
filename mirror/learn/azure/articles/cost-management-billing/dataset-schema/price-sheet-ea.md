@@ -23,7 +23,7 @@ ms.reviewer: vikdesai
 ms.service: cost-management-billing
 ms.subservice: common
 ms.topic: reference
-ms.date: 2026-11-10T00:00:00.0000000Z
+ms.date: 2026-11-16T00:00:00.0000000Z
 ms.author: vikdesai
 locale: en-us
 document_id: ea53e48b-7b0a-39c8-18fa-5edb4b023529
@@ -56,6 +56,10 @@ The latest EA price sheet includes prices for Azure Reserved Instances (RI) only
 
 This article lists the data fields in each version of the Enterprise Agreement price sheet. The latest version is 2026-10-01.
 
+Note
+
+Exports let you select a dataset version, and version 2026-10-01 is available only in exports. Price sheets that you download from the Azure portal, or by using the download APIs, don't use version 2026-10-01. Instead, they include the `priceFactors` column at the end of the file. For more information, see [Understand price factors and supplemental charge details](../automate/understand-price-factors-supplemental-charge-details).
+
 ## Version 2026-10-01
 
 Here's the list of all of the data fields found in your price sheet.
@@ -80,10 +84,10 @@ Here's the list of all of the data fields found in your price sheet.
 | 16 | ProductID | Unique identifier for the product. |
 | 17 | ServiceFamily | Service family that the service belongs to. |
 | 18 | SkuID | Unique identifier of the SKU. |
-| 19 | Term | Duration associated with priceType. For example, *SavingsPlan* priceType has two commitment options: one year and three years. The term is *P1Y* for a one-year commitment and *P3Y* for a three-year commitment. |
+| 19 | Term | Duration of the term for reservation and savings plan prices, in ISO 8601 format. Terms can be any length that the offer defines, such as *P1M* (one month), *P1Y* (one year), or *P3Y* (three years). |
 | 20 | UnitOfMeasure | The unit of measure for billing for the service. For example, compute services are billed per hour. |
 | 21 | UnitPrice | The per-unit price at the time of billing for a given product or service. It includes any negotiated discounts on top of the market price. For PriceType *ReservedInstance*, unitPrice reflects the total cost of the one or three-year commitment including discounts. **Note**: The unit price isn't the same as the effective price in usage details downloads when services have differential prices across tiers. If services have multi-tiered pricing, the effective price is a blended rate across the tiers and doesn't show a tier-specific unit price. The blended price or effective price is the net price for the consumed quantity spanning across the multiple tiers, where each tier has a specific unit price. |
-| 22 | PriceFactors | JSON array listing the factors affecting the price, such as benefits applied. When multiple factors apply, factors in the same group are combined while factors in separate groups are applied in sequence. Each factor includes a product code, which can be joined to product data to identify the benefit. Empty when standard market price applies. |
+| 22 | PriceFactors | JSON array listing the factors affecting the price, such as benefits applied. When multiple factors apply, factors in the same group are combined while factors in separate groups are applied in sequence. Each factor includes a product code, which can be joined to product data to identify the benefit. Empty when standard market price applies. For more information, see [Understand price factors and supplemental charge details](../automate/understand-price-factors-supplemental-charge-details). |
 
 ## Version 2023-05-01
 
@@ -109,6 +113,6 @@ Heres the list of all of the data fields found in your price sheet.
 | 16 | ProductID | Unique identifier for the product. |
 | 17 | ServiceFamily | Service family that the service belongs to. |
 | 18 | SkuID | Unique identifier of the SKU. |
-| 19 | Term | Duration associated with priceType. For example, *SavingsPlan* priceType has two commitment options: one year and three years. The term is *P1Y* for a one-year commitment and *P3Y* for a three-year commitment. |
+| 19 | Term | Duration of the term for reservation and savings plan prices, in ISO 8601 format. Terms can be any length that the offer defines, such as *P1M* (one month), *P1Y* (one year), or *P3Y* (three years). |
 | 20 | UnitOfMeasure | The unit of measure for billing for the service. For example, compute services are billed per hour. |
 | 21 | UnitPrice | The per-unit price at the time of billing for a given product or service. It includes any negotiated discounts on top of the market price. For PriceType *ReservedInstance*, unitPrice reflects the total cost of the one or three-year commitment including discounts. **Note**: The unit price isn't the same as the effective price in usage details downloads when services have differential prices across tiers. If services have multi-tiered pricing, the effective price is a blended rate across the tiers and doesn't show a tier-specific unit price. The blended price or effective price is the net price for the consumed quantity spanning across the multiple tiers, where each tier has a specific unit price. |

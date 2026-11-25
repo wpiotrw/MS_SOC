@@ -15,10 +15,10 @@ recommendation_types:
 uhfHeaderId: azure
 ms.suite: office
 adobe-target: true
-author: michaeltlombardi
+author: mgreenegit
 learn_banner_products:
 - azure
-ms.author: mlombardi
+ms.author: migreene
 ms.service: azure-machine-configuration
 description: Learn how to assign built-in Azure policies to enable machine inventory on Windows and Linux Azure VMs and Arc-enabled servers.
 ms.date: 2026-11-07T00:00:00.0000000Z

@@ -1,2 +1,3 @@
+https://learn.microsoft.com/en-us/copilot/cowork/cowork-local-browser
 https://learn.microsoft.com/en-us/copilot/security
 https://learn.microsoft.com/en-us/copilot/security/get-started-security-copilot

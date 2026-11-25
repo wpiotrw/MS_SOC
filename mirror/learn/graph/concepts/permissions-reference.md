@@ -5,8 +5,8 @@ canonicalUrl: https://learn.microsoft.com/en-us/graph/permissions-reference
 feedback_system: Standard
 feedback_product_url: https://developer.microsoft.com/graph/support
 breadcrumb_path: /graph/concepts/breadcrumb/toc.json
-author: FaithOmbongi
-ms.author: ombongifaith
+author: Licantrop0
+ms.author: lucaspol
 uhfHeaderId: MSDocsHeader-MSGraph
 ms.suite: microsoft-graph
 ms.subservice: entra-applications
@@ -4414,6 +4414,15 @@ Administrators can configure [application access policy](/en-us/graph/auth-limit
 | Identifier | - | b31fa710-c9b3-4d9e-8f5e-8036eecddab9 |
 | DisplayText | - | Read and write all managed tenant information |
 | Description | - | Allows the app to read and write all managed tenant information on behalf of the signed-in user. |
+| AdminConsentRequired | - | Yes |
+
+### MCP.Server.Access
+
+| Category | Application | Delegated |
+| --- | --- | --- |
+| Identifier | - | e0cdafaf-ffab-413a-9fe4-c85afbe0fa56 |
+| DisplayText | - | Access the Microsoft Graph MCP server |
+| Description | - | Allows the app to connect to and call the Microsoft Graph Model Context Protocol (MCP) server on behalf of the signed-in user. |
 | AdminConsentRequired | - | Yes |
 
 ### Member.Read.Hidden

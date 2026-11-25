@@ -2,6 +2,7 @@
   "version": 1,
   "cursor": "https://learn.microsoft.com/en-us/copilot/security/get-started-security-copilot",
   "pages": {
+    "https://learn.microsoft.com/en-us/copilot/cowork/cowork-local-browser": {"etag":"\"RJbbBEB6rHeAn/KEAaqJF6t8LLA=\"","gitCommitId":"fffc3f4502b119ff5cbf2030bded7e5830eead3b","path":"articles/cowork/cowork-local-browser.md","sourcePath":"articles/cowork/cowork-local-browser.md","updatedAt":"2026-11-24T21:29:00.0000000Z"},
     "https://learn.microsoft.com/en-us/copilot/security": {"etag":"\"mUhJEAJa9IlWrHcHkOzq2dcsvP8=\"","gitCommitId":"88c42b436ad71b851b058470a7fcba32f15f7659","path":"security-copilot/index.md","redirectedTo":"https://learn.microsoft.com/en-us/copilot/security/","sourcePath":"security-copilot/index.yml","updatedAt":"2026-06-01T22:32:00.0000000Z"},
     "https://learn.microsoft.com/en-us/copilot/security/": {"aliasOf":"https://learn.microsoft.com/en-us/copilot/security","etag":"\"mUhJEAJa9IlWrHcHkOzq2dcsvP8=\"","gitCommitId":"88c42b436ad71b851b058470a7fcba32f15f7659","sourcePath":"security-copilot/index.yml","updatedAt":"2026-06-01T22:32:00.0000000Z"},
     "https://learn.microsoft.com/en-us/copilot/security/activity-export-api": {"etag":"\"OMmWYaeRwFq3Z6MtpJGXeiG1RV0=\"","gitCommitId":"301a6a79157edde7328e50c4282a6fb1016167c8","path":"security-copilot/activity-export-api.md","sourcePath":"security-copilot/activity-export-api.md","updatedAt":"2026-06-04T22:33:00.0000000Z"},
