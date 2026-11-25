@@ -15,7 +15,7 @@ ms.service: windows
 ms.topic: hub-page
 author: WindowsCommunications
 ms.author: direek
-ms.date: 2026-11-24T00:00:00.0000000Z
+ms.date: 2026-11-25T00:00:00.0000000Z
 ms.localizationpriority: medium
 locale: en-us
 document_id: 3105e4c0-7e83-7f42-7f1a-e0504b23afc9
@@ -81,9 +81,9 @@ Overview
 
 ### Message center
 
+- [Configure security key sign-in experience for display-based NFC readers](/en-us/windows/configuration/custom-logon/?tabs=GPO#configure-the-nfc-tap-location-indicator-on-the-lock-screen)
+- [Out-of-band hotpatch update addresses stop error 0x139 on Windows Server 2025](https://support.microsoft.com/help/5138318)
 - [Windows Server 2028 is now available in public preview](https://techcommunity.microsoft.com/blog/windowsservernewsandbestpractices/windows-server-2028-a-trusted-foundation-for-an-evolving-enterprise/4574112)
-- [(Updated) NTLM signing security improvements in Windows](https://support.microsoft.com/help/5135557)
-- [The November 2026 Windows non-security preview update is now available](https://support.microsoft.com/help/5132057)
 - [See more](/en-us/windows/release-information/windows-message-center)
 
 ### Windows 11, version 26H2

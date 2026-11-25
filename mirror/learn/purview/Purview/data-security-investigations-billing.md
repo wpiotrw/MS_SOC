@@ -271,14 +271,3 @@ Data storage charges start when you add items to the scope of an investigation. 
 3. Verify that no active or pending investigations remain in your organization.
 
 When you delete all investigations, you remove the associated data and stop storage billing for Data Security Investigations.
-
-### Stop AI capacity billing
-
-AI analysis is billed through compute units in Microsoft Azure. To stop compute unit billing, complete the following steps:
-
-1. Go to [Data Security Investigations](https://purview.microsoft.com/dsi) in the Microsoft Purview portal and sign in with a user account that has either the **Owner** or **Contributor** role for the Azure subscription associated with the Data Security Investigations compute unit resource.
-2. Go to the **Subscription** where you deployed your Data Security Investigations resource.
-3. Select the associated **Resource group** for Data Security Investigations.
-4. Select and delete the **DSI compute unit capacity resource** (for example, `DataSecurityInvestigation-GUID`).
-
-When you delete the compute unit resource, all AI capacity and compute billing stops for Data Security Investigations.

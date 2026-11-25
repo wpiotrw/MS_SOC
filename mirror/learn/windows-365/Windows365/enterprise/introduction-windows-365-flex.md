@@ -81,19 +81,23 @@ Prestarted Cloud PCs don’t consume the license for session connection until th
 
 ### Session State Retention for Windows 365 Flex dedicated Cloud PCs
 
-Today, when a user disconnects from a Windows 365 Flex dedicated Cloud PC, it powers off, closing open apps and risking unsaved work.
+Session State Retention enhances Intelligent prestart by preserving the session state of Flex dedicated Cloud PCs, allowing users to reconnect and resume their applications and work from where they left off.
 
-With Session State Retention, eligible Flex dedicated Cloud PCs preserve the user's active session while idle. Users reconnect and return to their open apps and work exactly where they left off.
+#### How it works
 
-### How it works
+When a user disconnects, an eligible Cloud PC hibernates after a set idle period instead of powering off. On the next connection, it resumes from the saved state with apps and windows intact. Cloud PCs that aren't hibernation-eligible continue to power off.
 
-When a user disconnects, an eligible Cloud PC hibernates after a set idle period (default: two hours) instead of powering off. On the next connection, it resumes from the saved state with apps and windows intact. Cloud PCs that aren't hibernation-eligible continue to power off.
+#### Considerations and limitations
 
-### Considerations and limitations
+- Cloud PCs with 2vCPU / 4GB Memory configurations are not eligible.
+- Customer Images must be configured with Windows 11 25H2 or newer version. If using older versions of Windows [reupload your Custom Image to Windows 365](create-custom-image-languages).
+- [Power Policies](/en-us/windows/client-management/mdm/policy-csp-power) must be removed from the Cloud PC. Use command `Powercfg /query SCHEME_CURRENT SUB_SLEEP HIBERNATEIDLE` and confirm Current AC Power Setting Index: is set to **0x0000000**.
+- Hiberfil.sys must not be removed from Cloud PC. Hiberfile.sys is located in the root of Windows system drive, typically at `C:\hiberfil.sys`, but hidden as protected system file.
+- Events, such as Windows Updates that require a reboot will cause the state to be not preserved.
 
-- Available only on hibernation-eligible Flex dedicated Cloud PCs; others power off instead.
-- Resizing to a size that doesn't support hibernation makes a Cloud PC ineligible.
-- Some events, such as Windows Updates that require a reboot, start a Cloud PC fresh, so the previous session isn't preserved.
+Note
+
+Session state retention is under active phased rollout and may not be available for all tenants. 
 
 ## Windows 365 Flex in Shared mode
 

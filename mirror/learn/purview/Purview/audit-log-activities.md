@@ -8,8 +8,8 @@ uhfHeaderId: MSDocsHeader-Purview
 description: Discover how to monitor and investigate activities in Microsoft 365 with the unified audit log. Search for specific events and export results.
 f1.keywords:
 - NOCSH
-ms.author: v-lilkafka
-author: kafkadesign
+ms.author: chvukosw
+author: chvukosw
 manager: laurawi
 ms.date: 2026-11-03T00:00:00.0000000Z
 audience: Admin
@@ -697,6 +697,8 @@ The following table lists the Microsoft Fabric activities in Power BI that the M
 | Power BI MCP tool called to read semantic model metadata. | ReadByPowerBIMCP | Power BI MCP tool called to read semantic model metadata. |
 | Recover an artifact | ArtifactRecovered | A user recovered a previously soft-deleted artifact, such as a gateway or gateway cluster member, restoring it to active state. |
 | Refreshed AWS Databricks Catalog Shortcuts | RefreshedAWSDatabricksCatalogShortcuts | Refreshed AWS Databricks Catalog shortcuts is an AWSDatabricksCatalog activity which is generated when the refresh-catalog-metadata operation re-syncs the already-mirrored shortcuts against the underlying AWS Databricks Unity Catalog. |
+| Run Graph Query | RunGraphQuery | Generated when a user runs a query against a Microsoft Fabric Graph instance. |
+| Run Load Graph Data | RunLoadGraphData | Generated when a request to load or refresh data in a Microsoft Fabric Graph instance is processed. The activity status indicates whether the request succeeded or failed. |
 | Retrieved artifact's Logical Id | ArtifactLogicalIdRetrieved | Retrieved artifact's Logical Id. |
 | Retrieved PostgreSQL SQL audit policy | GetSqlAuditPolicyOnDatabase | Generated when a user retrieves the SQL audit policy settings for a PostgreSQL database artifact. The audit log records caller identity, operation result, and the affected PostgreSQL database artifact. |
 | Revoked consent to tenant relocation | TenantRelocationConsentRevoked | Tenant relocation consent revoked. |

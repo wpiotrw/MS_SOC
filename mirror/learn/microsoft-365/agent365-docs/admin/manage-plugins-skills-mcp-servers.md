@@ -19,7 +19,7 @@ f1.keywords:
 ms.author: mkaur
 author: mduelae
 manager: tapanm
-ms.date: 2026-11-06T00:00:00.0000000Z
+ms.date: 2026-11-24T00:00:00.0000000Z
 ms.update-cycle: 180-days
 audience: Admin
 ms.topic: how-to
@@ -70,6 +70,15 @@ platformId: 3ace7e56-441d-f3f6-6cf1-e3df613dd436
 
 This article explains how to upload, install, uninstall, and delete plugins and skills; manage plugin availability; review access requests; and govern MCP servers in the [Microsoft 365 admin center](https://admin.microsoft.com/).
 
+Important
+
+As you begin managing plugins, skills, and MCP servers, be aware of the following points:
+
+- Plugin governance and MCP governance are **separate**. Plugin availability controls govern who can discover and use plugin packages in Microsoft Copilot experiences, while MCP controls govern the server component that can be used by multiple plugins and agents.
+- Tenant-level plugin availability settings apply to plugin discovery and use. They don’t by themselves change MCP server status in the **Tools** registry. In Cowork experiences, admins can use tenant plugin settings to prevent plugins from appearing to end users. Learn more about managing plugin settings.
+- A single MCP server can support multiple plugins and agents. Admins can review every MCP server and view dependent plugins before blocking a shared MCP server to understand the potential impact and avoid unintended disruption.
+- Blocking an MCP server (including WorkIQ MCP) blocks usage through governed Agent 365 and Microsoft 365 admin center (MAC) pathways. It doesn’t automatically disable the underlying API or service endpoint outside that governed path unless separately controlled by service and API policy.
+
 Plugins are primarily available to end users in the Copilot channel, where they extend the experience with specialized capabilities, data, and actions. Organizations can make plugins available to users based on their business needs and governance requirements. The plugin catalog can include third-party plugins published by independent providers and plugins published by Microsoft, giving organizations access to a broad range of ready-to-use capabilities while allowing administrators to determine which plugins are appropriate for their users.
 
 Administrators can view the complete list of plugins available to their organization in the Microsoft 365 admin center. They can review publisher information and manage plugin availability based on the publisher, helping ensure that only approved Microsoft or third-party plugins are available to users.
@@ -87,6 +96,10 @@ To manage plugin availability at the organization level, follow these steps:
 
 If you don't select a category, affected plugins remain discoverable but display the message: "This plugin is blocked by your organization's policy."
 
+Important
+
+Plugin governance and MCP governance are separate. Plugin availability controls govern who can discover and use plugin packages in Copilot experiences. They don't by themselves change MCP server status in the Tools registry.
+
 ## Manage plugin availability for users
 
 Administrators can control who can use an individual plugin in the Microsoft 365 admin center. These availability settings apply to the selected plugin package, not to separate assignments for each included skill, agent, MCP server, or connection.
@@ -101,6 +114,10 @@ To manage plugin availability for users, follow these steps:
     - **No users**: Make the plugin unavailable to all users.
     - **Specific users and groups**: Make the plugin available only to selected users or groups.
 5. Review your selection, and then save the changes.
+
+Important
+
+Plugin governance and MCP governance are separate. Plugin availability controls govern who can discover and use plugin packages in Copilot experiences. They don't by themselves change MCP server status in the Tools registry.
 
 ## Review plugin access requests
 
@@ -213,7 +230,9 @@ To block a plugin or skill, follow these steps:
 
 Note
 
-Blocking a plugin prevents users from accessing the plugin and any agents that depend on it. Associated MCP servers and connectors remain available to other plugins. Blocking a plugin package blocks its included agents because they share the same governance controls. Unblocking the plugin package restores access to the associated agents. Blocking an MCP server is a separate component-level action; effects on dependent plugins and linked connectors depend on the applicable management route. Don't assume the policy applies across all products or connected components.
+Blocking a plugin prevents users from accessing the plugin and any agents that depend on it. Associated MCP servers and connectors remain available to other plugins. Blocking a plugin package blocks its included agents because they share the same governance controls. Unblocking the plugin package restores access to the associated agents.
+
+Blocking an MCP server is a separate component-level action. The effects on dependent plugins and linked connectors depend on the applicable management route. Blocking an MCP server stops governed consumption of that server and can impact all dependent plugins. It doesn’t automatically revoke direct access to the underlying API or backend service outside Agent 365 governance boundaries. Don't assume the policy applies across all products or connected components.
 
 ## Review and approve MCP requests
 
@@ -275,13 +294,17 @@ To block or allow an entire MCP server, follow these steps:
 
 Blocking an MCP server disables all the tools it exposes. This action targets the server component, rather than a whole plugin package. If one or more plugins use the MCP server, you can also block those plugins. Effects on dependent plugins and linked connectors depend on the applicable management route. Don't assume the policy applies across all products or connected components. To control individual tools instead of the entire server, use tool-level granular control.
 
+Important
+
+Plugin governance and MCP governance are separate. Plugin availability controls govern who can discover and use plugin packages in Copilot experiences, while MCP controls govern the server component itself.
+
 ## Manage individual tools within an MCP server
 
 Note
 
 Tool-level granular control is rolling out to tenants and supports only specific types of MCP servers registered on Agent 365.
 
-By default, blocking an MCP server disables all the tools it exposes. Tool-level granular control lets you allow or block individual tools within a supported MCP server registered on Agent 365 instead of blocking the entire server. Use this capability to keep high-risk tools, such as tools that write, delete, or process payments, turned off by default while allowing lower-risk tools on the same server.
+Blocking an MCP server disables all the tools it exposes. Tool-level granular control lets you allow or block individual tools within a supported MCP server registered on Agent 365 instead of blocking the entire server. Use this capability to keep high-risk tools, such as tools that write, delete, or process payments, turned off by default while allowing lower-risk tools on the same server.
 
 If an MCP server doesn't support tool discovery, the **Tools** tab shows a message that the server doesn't support tool discovery, and individual tools aren't available to manage. In this case, use Block or allow an MCP server to control the entire server instead.
 
@@ -306,11 +329,27 @@ For information about registering, evaluating, and monitoring your own remote MC
 
 **How can I block all third-party plugins?**
 
-Use organization-level availability settings to control this. Go to **Agents** &gt; **Settings** &gt; **Agent and plugin access**, and clear the publisher category for **certified external publishers**. This action prevents users from discovering or installing plugins published by third parties, while you can still govern plugins from Microsoft or your organization separately. For more information, see Manage plugin availability at the organization level.
+Use organization-level availability settings to control this. Go to **Agents** &gt; **Settings** &gt; **Agent and plugin access**, and clear the publisher category for **certified external publishers**. This action prevents users from discovering or installing plugins published by third parties, while you can still govern plugins from Microsoft or your organization separately. For more information, see Manage plugin availability at the organization level. Tenant-level plugin availability settings only apply to plugin discovery and use. They don't by themselves change MCP server status in the Tools registry.
+
+**Does blocking a plugin also block its MCP servers?**
+
+No. Plugin governance and MCP governance are separate. Plugin availability controls govern who can discover and use plugin packages in Copilot experiences, while MCP controls govern the server component itself.
 
 **Can I block an individual MCP server that's included in a plugin?**
 
 Yes. Select the MCP server to view the plugins that use it. When you block the server, you can also block all linked plugins.
+
+**Why do MCP servers appear under both Plugins and MCP Servers?**
+
+Plugins governance: Manage availability, user and group access, installation, and blocking. MCP Servers: Govern underlying servers and review dependencies across plugins and agents. The same MCP server appears in both views because they serve different governance purposes.
+
+**How does blocking work?**
+
+Block Plugin: Restricts only that plugin without affecting the underlying MCP server or other plugins. Block MCP Server: Blocks the server and all dependent plugins. Unblock Plugin: Requires the underlying MCP server to be unblocked before the plugin becomes usable.
+
+**Why is dependency visibility important?**
+
+A single MCP server can support multiple plugins and agents. Admins can review connected plugins before blocking a shared MCP server to understand the potential impact and avoid unintended disruption.
 
 ## Related information
 

@@ -21,6 +21,7 @@ https://learn.microsoft.com/en-us/defender-endpoint/android-support-signin
 https://learn.microsoft.com/en-us/defender-endpoint/api/get-all-vulnerabilities
 https://learn.microsoft.com/en-us/defender-endpoint/api/offboard-machine-api
 https://learn.microsoft.com/en-us/defender-endpoint/azure-server-integration
+https://learn.microsoft.com/en-us/defender-endpoint/behavioral-blocking-containment
 https://learn.microsoft.com/en-us/defender-endpoint/cloud-protection-configure
 https://learn.microsoft.com/en-us/defender-endpoint/collect-diagnostic-data
 https://learn.microsoft.com/en-us/defender-endpoint/configure-advanced-scan-types-microsoft-defender-antivirus
@@ -63,6 +64,7 @@ https://learn.microsoft.com/en-us/defender-endpoint/network-isolation-exclusions
 https://learn.microsoft.com/en-us/defender-endpoint/offboard-machines
 https://learn.microsoft.com/en-us/defender-endpoint/onboard-downlevel
 https://learn.microsoft.com/en-us/defender-endpoint/onboard-server
+https://learn.microsoft.com/en-us/defender-endpoint/onboard-windows-multi-session-device
 https://learn.microsoft.com/en-us/defender-endpoint/respond-file-alerts
 https://learn.microsoft.com/en-us/defender-endpoint/respond-machine-alerts
 https://learn.microsoft.com/en-us/defender-endpoint/restrict-response-actions-high-value-assets
