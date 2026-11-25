@@ -104,6 +104,49 @@
   "repo": "jkerai1 KQL Queries"
  },
  {
+  "file": "articles/2026-11-25-detection-3-cve-2026-123633-repeated-nginx-worker.kql",
+  "title": "Detection 3: CVE-2026-123633 - Repeated NGINX Worker Process Crashes Indicating HTTP/2 Use-After-Free Exploitation",
+  "date": "2026-11-25",
+  "product": "Sentinel",
+  "tables": [
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, November 25, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-25-detection-engineering-brief-wednesday-november-25-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-25-detection-engineering-brief-wednesday-november-25-2026/"
+ },
+ {
+  "file": "articles/2026-11-25-detection-2-cve-2026-123890-vcenter-dce-rpc.kql",
+  "title": "Detection 2: CVE-2026-123890 - vCenter DCE/RPC Session Key Theft Followed by Successful Admin Logon (Compound)",
+  "date": "2026-11-25",
+  "product": "Sentinel",
+  "tables": [
+   "CommonSecurityLog",
+   "Syslog"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, November 25, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-25-detection-engineering-brief-wednesday-november-25-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-25-detection-engineering-brief-wednesday-november-25-2026/"
+ },
+ {
+  "file": "articles/2026-11-25-detection-1-cve-2026-123890-inbound-connection-to.kql",
+  "title": "Detection 1: CVE-2026-123890 - Inbound Connection to vCenter DCE/RPC Port 2012 from Non-Management Host",
+  "date": "2026-11-25",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Wednesday, November 25, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-25-detection-engineering-brief-wednesday-november-25-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-25-detection-engineering-brief-wednesday-november-25-2026/"
+ },
+ {
   "file": "2026-11-25-teams-sign-ins-from-ios-17-or-earlier.kql",
   "title": "Users who opened Teams on a phone still on iOS 17 or earlier, last 30 days - the overlap of the two January-April 2027 mobile changes",
   "date": "2026-11-25",
