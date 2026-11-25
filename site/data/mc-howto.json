@@ -908,6 +908,85 @@
      "says": "Documents the DenyAddAndCustomizePages parameter on a site collection."
     }
    ]
+  },
+  {
+   "key": "teams-mobile-file-access-entra-auth",
+   "ids": [
+    "MC1567258"
+   ],
+   "title": "Teams for Android and iOS: minimum app versions for Entra ID-based file access from 1 April 2027",
+   "scriptable": true,
+   "checked": "2026-11-25",
+   "sdk": "Microsoft Graph PowerShell SDK (Microsoft.Graph.Authentication, Microsoft.Graph.Devices.CorporateManagement)",
+   "dates": "MC1567258 (24/11/2026): rollout mid-March to early April 2027; from 01/04/2027 Teams for Android older than 1416/1.0.0.2026151302 and Teams for iOS older than 8.19.0 may fail to open files; act by 31/03/2027.",
+   "blocks": [
+    {
+     "t": "Read the minimum app versions your Intune app protection policies enforce (iOS)",
+     "kind": "read",
+     "scopes": "DeviceManagementApps.Read.All",
+     "code": "# Read only. Lists iOS app protection policies and the minimum app versions they require or warn on.\n# Teams for iOS needs 8.19.0 or later from 1 April 2027 (MC1567258).\nConnect-MgGraph -Scopes 'DeviceManagementApps.Read.All' -NoWelcome\nGet-MgDeviceAppManagementIosManagedAppProtection -All |\n    Select-Object DisplayName, Id, MinimumRequiredAppVersion, MinimumWarningAppVersion, MinimumRequiredOsVersion",
+     "src": [
+      "https://learn.microsoft.com/graph/api/resources/intune-mam-iosmanagedappprotection?view=graph-rest-1.0",
+      "https://deltapulse.app/item/MC1567258"
+     ]
+    },
+    {
+     "t": "Read the same settings on Android app protection policies",
+     "kind": "read",
+     "scopes": "DeviceManagementApps.Read.All",
+     "code": "# Read only. Teams for Android needs 1416/1.0.0.2026151302 or later from 1 April 2027 (MC1567258).\nConnect-MgGraph -Scopes 'DeviceManagementApps.Read.All' -NoWelcome\nGet-MgDeviceAppManagementAndroidManagedAppProtection -All |\n    Select-Object DisplayName, Id, MinimumRequiredAppVersion, MinimumWarningAppVersion, MinimumRequiredOsVersion",
+     "src": [
+      "https://learn.microsoft.com/graph/api/resources/intune-mam-androidmanagedappprotection?view=graph-rest-1.0",
+      "https://deltapulse.app/item/MC1567258"
+     ]
+    },
+    {
+     "t": "Warn users of an iOS policy that runs Teams older than 8.19.0",
+     "kind": "write",
+     "scopes": "DeviceManagementApps.ReadWrite.All",
+     "warn": "The minimum app version in an app protection policy applies to EVERY app the policy targets, not only Teams; use a policy scoped to Teams, or check the other apps' version numbers first. Remove -WhatIf only after that check.",
+     "code": "# Write. Sets a warning (not a block) for app versions below 8.19.0 on ONE iOS policy that targets Teams.\nConnect-MgGraph -Scopes 'DeviceManagementApps.ReadWrite.All' -NoWelcome\n$policyId = '<ios-app-protection-policy-id>'\nUpdate-MgDeviceAppManagementIosManagedAppProtection -IosManagedAppProtectionId $policyId `\n    -MinimumWarningAppVersion '8.19.0' -WhatIf",
+     "src": [
+      "https://learn.microsoft.com/graph/api/resources/intune-mam-iosmanagedappprotection?view=graph-rest-1.0",
+      "https://deltapulse.app/item/MC1567258"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "t": "Message Center MC1567258",
+     "u": "https://deltapulse.app/item/MC1567258",
+     "says": "Teams mobile moves file access from pre-authenticated URLs to Microsoft Entra ID authentication; from 1 April 2027 Android older than 1416/1.0.0.2026151302 and iOS older than 8.19.0 may fail to open files."
+    },
+    {
+     "t": "iosManagedAppProtection resource type (Microsoft Graph)",
+     "u": "https://learn.microsoft.com/graph/api/resources/intune-mam-iosmanagedappprotection?view=graph-rest-1.0",
+     "says": "Documents minimumRequiredAppVersion and minimumWarningAppVersion on iOS app protection policies."
+    },
+    {
+     "t": "androidManagedAppProtection resource type (Microsoft Graph)",
+     "u": "https://learn.microsoft.com/graph/api/resources/intune-mam-androidmanagedappprotection?view=graph-rest-1.0",
+     "says": "Documents the same minimum app version properties on Android app protection policies."
+    }
+   ]
+  },
+  {
+   "key": "viva-insights-github-copilot-metrics-default",
+   "ids": [
+    "MC1523085"
+   ],
+   "title": "Viva Insights: GitHub Copilot metrics on by default, public preview opt-in retired",
+   "scriptable": false,
+   "checked": "2026-11-25",
+   "why": "The change removes an opt-in on the Viva Insights app settings page and turns the metrics on in the Consumption dashboard; this routine found no documented Graph, Exchange Online or Teams PowerShell surface for that setting, so no script is offered.",
+   "dates": "MC1523085 updated 24/11/2026: rollout from mid-December 2026 (previously mid-November) to mid-January 2027 (previously mid-December 2026).",
+   "sources": [
+    {
+     "t": "Message Center MC1523085",
+     "u": "https://deltapulse.app/item/MC1523085",
+     "says": "The GitHub Copilot public preview opt-in in Viva Insights app settings is retired and the metrics become available by default in the Consumption dashboard for eligible tenants."
+    }
+   ]
   }
  ]
 }
