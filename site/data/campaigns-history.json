@@ -1,6 +1,83 @@
 {
 "updated":"2026-11-25",
 "campaigns":{
+"c-mc1567258":{
+"firstSeen":"2026-11-25",
+"lastSeen":"2026-11-25",
+"name":"Update to the latest app version to maintain file access",
+"status":"Active",
+"members":[
+"MC1567258",
+"item:MC1567258"
+],
+"log":[
+{
+"date":"2026-11-25",
+"id":"MC1567258",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Teams mobile drops pre-authenticated (tempauth) file URLs for Entra ID tokens on 1 Apr 2027: Android 1416/1.0.0.2026151302 and iOS 8.19.0 or later required",
+"title":"Teams mobile drops pre-authenticated (tempauth) file URLs for Entra ID tokens on 1 Apr 2027: Android 1416/1.0.0.2026151302 and iOS 8.19.0 or later required",
+"link":"https://mc.merill.net/message/MC1567258"
+}
+],
+"milestones":{
+"MC1567258|posted":{
+"date":"2026-11-24",
+"label":"24 Nov 2026",
+"text":"Posted: Microsoft Teams for Android and iOS: Update to the latest app version to maintain file access"
+},
+"MC1567258|general availability worldwide gcc gcc high dod rollout will#0":{
+"date":"2027-03-15",
+"label":"mid Mar 2027",
+"text":"Rollout will begin in mid-March 2027 and is expected to complete by early April 2027."
+},
+"MC1567258|deadline":{
+"date":"2027-03-31",
+"label":"31 Mar 2027",
+"text":"Teams mobile drops pre-authenticated (tempauth) file URLs for Entra ID tokens on 1 Apr 2027: Android 1416/1.0.0.2026151302 and iOS 8.19.0 or later required"
+},
+"MC1567258|users running older incompatible versions experience failure#0":{
+"date":"2027-04-01",
+"label":"1 Apr 2027",
+"text":"Users running older, incompatible versions may experience failures in affected file scenarios after enforcement begins on April 1, 2027."
+},
+"MC1567258|general availability worldwide gcc gcc high dod rollout will#1":{
+"date":"2027-04-05",
+"label":"early Apr 2027",
+"text":"Rollout will begin in mid-March 2027 and is expected to complete by early April 2027."
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1567258":{
+"title":"Microsoft Teams for Android and iOS: Update to the latest app version to maintain file access",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1567258",
+"source":"Message Center",
+"id":"MC1567258",
+"date":"2026-11-24",
+"updated":"2026-11-24",
+"group":"microsoft",
+"found":"2026-11-25"
+},
+"https://mc.merill.net/message/MC1567258":{
+"title":"Microsoft Teams for Android and iOS: Update to the latest app version to maintain file access",
+"link":"https://mc.merill.net/message/MC1567258",
+"source":"Message Center",
+"id":"MC1567258",
+"date":"2026-11-24",
+"updated":"2026-11-24",
+"group":"microsoft",
+"found":"2026-11-25"
+}
+},
+"final":"2027-04-05",
+"type":"Retirement",
+"tech":"Teams",
+"posts":[
+"MC1567258"
+]
+},
 "c-mc676299":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-25",
@@ -1014,6 +1091,14 @@
 "date":"2026-02-02",
 "group":"microsoft",
 "found":"2026-11-14"
+},
+"https://mc.merill.net/message/MC1567253":{
+"title":"MC1567253: Microsoft Viva Engage: Minimum operating system requirements changing for iOS and iPadOS",
+"link":"https://mc.merill.net/message/MC1567253",
+"source":"MC - Merill",
+"date":"2026-11-24",
+"group":"community",
+"found":"2026-11-25"
 }
 },
 "final":"2027-02-05",
@@ -4962,14 +5047,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-23",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-24",
 "text":"August 1, 2026."
 },
@@ -5027,6 +5104,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-24",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-25",
 "text":"August 1, 2026."
 },
 {
@@ -5608,7 +5693,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-24",
+"seen":"2026-11-25",
 "text":"early February 2026."
 },
 {
@@ -5616,7 +5701,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-24",
+"seen":"2026-11-25",
 "text":"February 2027."
 },
 {
@@ -6036,62 +6121,6 @@
 "tech":"Windows",
 "posts":[
 "MC1172447"
-]
-},
-"c-mc1567258":{
-"firstSeen":"2026-11-25",
-"lastSeen":"2026-11-25",
-"name":"Update to the latest app version to maintain file access",
-"status":"Active",
-"members":[
-"MC1567258"
-],
-"log":[],
-"milestones":{
-"MC1567258|posted":{
-"date":"2026-11-24",
-"label":"24 Nov 2026",
-"text":"Posted: Microsoft Teams for Android and iOS: Update to the latest app version to maintain file access"
-},
-"MC1567258|general availability worldwide gcc gcc high dod rollout will#0":{
-"date":"2027-03-15",
-"label":"mid Mar 2027",
-"text":"Rollout will begin in mid-March 2027 and is expected to complete by early April 2027."
-},
-"MC1567258|actionBy":{
-"date":"2027-03-31",
-"label":"31 Mar 2027",
-"text":"Act by this date (Message Center)"
-},
-"MC1567258|users running older incompatible versions experience failure#0":{
-"date":"2027-04-01",
-"label":"1 Apr 2027",
-"text":"Users running older, incompatible versions may experience failures in affected file scenarios after enforcement begins on April 1, 2027."
-},
-"MC1567258|general availability worldwide gcc gcc high dod rollout will#1":{
-"date":"2027-04-05",
-"label":"early Apr 2027",
-"text":"Rollout will begin in mid-March 2027 and is expected to complete by early April 2027."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1567258":{
-"title":"Microsoft Teams for Android and iOS: Update to the latest app version to maintain file access",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1567258",
-"source":"Message Center",
-"id":"MC1567258",
-"date":"2026-11-24",
-"updated":"2026-11-24",
-"group":"microsoft",
-"found":"2026-11-25"
-}
-},
-"final":"2027-04-05",
-"type":"Retirement",
-"tech":"Teams",
-"posts":[
-"MC1567258"
 ]
 },
 "c-item-defender-cross-tenant-delegated-admin-ga-2026-10-20":{
@@ -7236,6 +7265,14 @@
 "date":"2026-11-19",
 "group":"community",
 "found":"2026-11-22"
+},
+"https://dev.to/yehechuhai/gpt-6-designed-proteins-with-just-reasoning-and-code-35-of-322-actually-bound-their-targets-in-2jjh":{
+"title":"GPT-6 Designed Proteins With Just Reasoning and Code — 35 of 322 Actually Bound Their Targets in the Lab",
+"link":"https://dev.to/yehechuhai/gpt-6-designed-proteins-with-just-reasoning-and-code-35-of-322-actually-bound-their-targets-in-2jjh",
+"source":"NeonTiger12",
+"date":"2026-11-25",
+"group":"community",
+"found":"2026-11-25"
 }
 },
 "final":"2027-04-20",
@@ -8570,6 +8607,14 @@
 "date":"2026-11-24",
 "group":"community",
 "found":"2026-11-24"
+},
+"https://www.microsoft.com/microsoft-365/roadmap?id=578902":{
+"title":"Dynamics 365 Project Operations: Mark all eligible actuals ready to invoice in bulk",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578902",
+"source":"Microsoft 365 Roadmap",
+"date":"2026-11-25",
+"group":"community",
+"found":"2026-11-25"
 }
 },
 "final":"2027-07-01",
@@ -9409,7 +9454,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-24",
+"seen":"2026-11-25",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9417,7 +9462,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-24",
+"seen":"2026-11-25",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10132,6 +10177,14 @@
 "date":"2026-11-23",
 "group":"community",
 "found":"2026-11-23"
+},
+"https://www.youtube.com/watch?v=xo1Cqyi5tDs":{
+"title":"Microsoft Entra ID Passkeys – The Good, the Bad & the Ugly!",
+"link":"https://www.youtube.com/watch?v=xo1Cqyi5tDs",
+"source":"Andy Malone MVP",
+"date":"2026-11-25",
+"group":"video",
+"found":"2026-11-25"
 }
 },
 "final":"2027-11-15",
@@ -20759,6 +20812,55 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-25",
+"cid":"c-mc1567258",
+"type":"milestone",
+"name":"Update to the latest app version to maintain file access",
+"src":"MC1567258",
+"now":"31 Mar 2027",
+"text":"Teams mobile drops pre-authenticated (tempauth) file URLs for Entra ID tokens on 1 Apr 2027: Android 1416/1.0.0.2026151302 and iOS 8.19.0 or later required"
+},
+{
+"day":"2026-11-25",
+"cid":"c-mc1547994",
+"type":"material",
+"name":"Update your iOS/iPadOS and macOS Company Portal minimum version to v5.2608.0",
+"group":"community",
+"title":"MC1567253: Microsoft Viva Engage: Minimum operating system requirements changing for iOS and iPadOS",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1567253"
+},
+{
+"day":"2026-11-25",
+"cid":"c-item-azure-functions-openai-extension-retirement-2027-04-20",
+"type":"material",
+"name":"OpenAI models will soon be available as a subprocessor in Microsoft 365 Copilot",
+"group":"community",
+"title":"GPT-6 Designed Proteins With Just Reasoning and Code — 35 of 322 Actually Bound Their Targets in the Lab",
+"source":"NeonTiger12",
+"link":"https://dev.to/yehechuhai/gpt-6-designed-proteins-with-just-reasoning-and-code-35-of-322-actually-bound-their-targets-in-2jjh"
+},
+{
+"day":"2026-11-25",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Dynamics 365 Project Operations: Mark all eligible actuals ready to invoice in bulk",
+"source":"Microsoft 365 Roadmap",
+"link":"https://www.microsoft.com/microsoft-365/roadmap?id=578902"
+},
+{
+"day":"2026-11-25",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"video",
+"title":"Microsoft Entra ID Passkeys – The Good, the Bad & the Ugly!",
+"source":"Andy Malone MVP",
+"link":"https://www.youtube.com/watch?v=xo1Cqyi5tDs"
 }
 ],
 "archive":{

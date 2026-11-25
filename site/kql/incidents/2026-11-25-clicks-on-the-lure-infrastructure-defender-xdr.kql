@@ -1,0 +1,16 @@
+// title: Clicks on the lure infrastructure (Defender XDR)
+// date: 2026-11-25
+// product: Defender for Endpoint
+// tables: DeviceNetworkEvents, UrlClickEvents
+// purpose: Threat Research: Fake Microsoft Teams meeting scheduler hides device code phishing behind a "Booking Reference"
+// source: https://www.huntress.com/blog/crafty-microsoft-teams-booking-flow-disguises-device-code-phishing
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Teams booking flow device code phishing - who clicked the lure links
+// Defender XDR advanced hunting; Defender for Office 365 Plan 2 (UrlClickEvents) and Defender for Endpoint (DeviceNetworkEvents)
+let iocs = dynamic(["gpimmlgration.com", "share.google"]);
+union isfuzzy=true
+  (UrlClickEvents | where Timestamp > ago(60d) | where Url has_any (iocs) | project Timestamp, Who = AccountUpn, Url, ActionType, Source = "UrlClick"),
+  (DeviceNetworkEvents | where Timestamp > ago(60d) | where RemoteUrl has_any (iocs) | project Timestamp, Who = InitiatingProcessAccountUpn, Url = RemoteUrl, ActionType, Source = "Endpoint")
+| order by Timestamp desc

@@ -1,5 +1,93 @@
 [
  {
+  "file": "incidents/2026-11-25-self-service-password-reset-followed-by-new-authentication.kql",
+  "title": "Self-service password reset followed by new authentication methods (Microsoft Sentinel)",
+  "date": "2026-11-25",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Threat Research: Beyond source code: a self-service password reset on one account led to Azure DevOps pipelines and Kubernetes credentials",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/29/beyond-source-code-a-path-to-the-keys-to-the-kingdom/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "devops-sspr-kubernetes-pipeline-2026-09"
+ },
+ {
+  "file": "incidents/2026-11-25-quick-assist-started-after-a-teams-contact-from.kql",
+  "title": "Quick Assist started after a Teams contact from an external tenant (Defender XDR)",
+  "date": "2026-11-25",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "Threat Research: Teams help-desk impersonation leading to AD CS abuse (ESC1 and ESC8), DCSync and Rclone exfiltration",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/30/help-desk-impersonation-ad-cs-abuse-investigating-esc1-esc8-intrusion-paths/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "teams-helpdesk-adcs-esc1-esc8-2026-10"
+ },
+ {
+  "file": "incidents/2026-11-25-kubernetes-credential-reads-and-tunnelling-tools-after-the.kql",
+  "title": "Kubernetes credential reads and tunnelling tools after the takeover (AzureActivity and Defender XDR)",
+  "date": "2026-11-25",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "AzureActivity",
+   "DeviceProcessEvents"
+  ],
+  "purpose": "Threat Research: Beyond source code: a self-service password reset on one account led to Azure DevOps pipelines and Kubernetes credentials",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/09/29/beyond-source-code-a-path-to-the-keys-to-the-kingdom/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "devops-sspr-kubernetes-pipeline-2026-09"
+ },
+ {
+  "file": "incidents/2026-11-25-device-code-sign-ins-with-programmatic-user-agents.kql",
+  "title": "Device code sign-ins with programmatic user agents (Microsoft Sentinel)",
+  "date": "2026-11-25",
+  "product": "Entra",
+  "tables": [
+   "AADNonInteractiveUserSignInLogs",
+   "SigninLogs"
+  ],
+  "purpose": "Threat Research: Fake Microsoft Teams meeting scheduler hides device code phishing behind a \"Booking Reference\"",
+  "source": "https://www.huntress.com/blog/crafty-microsoft-teams-booking-flow-disguises-device-code-phishing",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "teams-booking-device-code-phishing-2026-11"
+ },
+ {
+  "file": "incidents/2026-11-25-dcsync-from-a-non-dc-and-renamed-rclone.kql",
+  "title": "DCSync from a non-DC and renamed Rclone (Defender XDR)",
+  "date": "2026-11-25",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents",
+   "IdentityDirectoryEvents"
+  ],
+  "purpose": "Threat Research: Teams help-desk impersonation leading to AD CS abuse (ESC1 and ESC8), DCSync and Rclone exfiltration",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/10/30/help-desk-impersonation-ad-cs-abuse-investigating-esc1-esc8-intrusion-paths/",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "teams-helpdesk-adcs-esc1-esc8-2026-10"
+ },
+ {
+  "file": "incidents/2026-11-25-clicks-on-the-lure-infrastructure-defender-xdr.kql",
+  "title": "Clicks on the lure infrastructure (Defender XDR)",
+  "date": "2026-11-25",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceNetworkEvents",
+   "UrlClickEvents"
+  ],
+  "purpose": "Threat Research: Fake Microsoft Teams meeting scheduler hides device code phishing behind a \"Booking Reference\"",
+  "source": "https://www.huntress.com/blog/crafty-microsoft-teams-booking-flow-disguises-device-code-phishing",
+  "kind": "incident-note",
+  "author": "Threat Research analysis (the morning analysis)",
+  "incident": "teams-booking-device-code-phishing-2026-11"
+ },
+ {
   "file": "community/2026-11-25-azure-resource-graph-apim-with-basic-auth-enabled.kql",
   "title": "Azure Resource Graph   APIM with basic auth enabled",
   "date": "2026-11-25",
@@ -322,7 +410,10 @@
   ],
   "purpose": "Successful sign-ins whose AuthenticationDetails carry a succeeded Text message or Voice step, per user with the count, the last time and the apps. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-troubleshoot#check-sign-in-logs",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-25"
+  ]
  },
  {
   "file": "2026-11-24-telephony-function-app-sendotp-errors-and-latency-by-hour.kql",
@@ -334,7 +425,10 @@
   ],
   "purpose": "Hourly count of SendOtp requests with failures and p95 duration from the integration's Application Insights. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-troubleshoot#check-function-app-logs",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-25"
+  ]
  },
  {
   "file": "2026-11-24-changes-to-the-subscription-hosting-the-telephony-integration.kql",
@@ -346,7 +440,10 @@
   ],
   "purpose": "Successful AzureActivity writes and deletes on Microsoft.Web sites and their config, and role-assignment writes and deletes, by caller and resource. Scope it to the subscription that hosts the integration. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azureactivity",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-25"
+  ]
  },
  {
   "file": "incidents/2026-11-23-wwahost-exe-reaching-non-microsoft-destinations-defender-xdr.kql",
@@ -713,7 +810,8 @@
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-synthetic-media-detection-events",
   "kind": "brief",
   "reused": [
-   "2026-11-24"
+   "2026-11-24",
+   "2026-11-25"
   ]
  },
  {
@@ -729,7 +827,8 @@
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-synthetic-media-detection-events",
   "kind": "brief",
   "reused": [
-   "2026-11-24"
+   "2026-11-24",
+   "2026-11-25"
   ]
  },
  {
@@ -745,7 +844,8 @@
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertinfo-table",
   "kind": "brief",
   "reused": [
-   "2026-11-24"
+   "2026-11-24",
+   "2026-11-25"
   ]
  },
  {
@@ -926,7 +1026,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-23",
-   "2026-11-24"
+   "2026-11-24",
+   "2026-11-25"
   ]
  },
  {
@@ -942,7 +1043,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-23",
-   "2026-11-24"
+   "2026-11-24",
+   "2026-11-25"
   ]
  },
  {
@@ -958,7 +1060,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-23",
-   "2026-11-24"
+   "2026-11-24",
+   "2026-11-25"
   ]
  },
  {
@@ -1161,7 +1264,8 @@
   "reused": [
    "2026-11-22",
    "2026-11-23",
-   "2026-11-24"
+   "2026-11-24",
+   "2026-11-25"
   ]
  },
  {
@@ -1178,7 +1282,8 @@
   "reused": [
    "2026-11-22",
    "2026-11-23",
-   "2026-11-24"
+   "2026-11-24",
+   "2026-11-25"
   ]
  },
  {
@@ -1195,7 +1300,8 @@
   "reused": [
    "2026-11-22",
    "2026-11-23",
-   "2026-11-24"
+   "2026-11-24",
+   "2026-11-25"
   ]
  },
  {

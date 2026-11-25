@@ -1,0 +1,19 @@
+// title: DCSync from a non-DC and renamed Rclone (Defender XDR)
+// date: 2026-11-25
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents, IdentityDirectoryEvents
+// purpose: Threat Research: Teams help-desk impersonation leading to AD CS abuse (ESC1 and ESC8), DCSync and Rclone exfiltration
+// source: https://www.microsoft.com/en-us/security/blog/2026/10/30/help-desk-impersonation-ad-cs-abuse-investigating-esc1-esc8-intrusion-paths/
+// kind: incident-note
+// author: Threat Research analysis (the morning analysis)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Teams help-desk impersonation to AD CS abuse - DCSync and Rclone renamed SearchApp.exe
+// Defender XDR advanced hunting; Defender for Identity (IdentityDirectoryEvents) and Defender for Endpoint (DeviceProcessEvents)
+IdentityDirectoryEvents
+| where Timestamp > ago(30d)
+| where ActionType == "Directory Services replication"
+| project Timestamp, ActionType, AccountName, DeviceName, IPAddress, DestinationDeviceName, AdditionalFields;
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where ProcessVersionInfoOriginalFileName =~ "rclone.exe" and FileName !~ "rclone.exe"
+| project Timestamp, DeviceName, AccountName, FileName, FolderPath, ProcessCommandLine
