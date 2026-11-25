@@ -1,0 +1,16 @@
+// title: Azure Resource Graph   APIM with basic auth enabled
+// date: 2026-11-25
+// product: Azure
+// tables: ApiManagement
+// purpose: Azure Resource Graph APIM with basic auth enabled
+// source: https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Azure/Azure%20Resource%20Graph%20-%20APIM%20with%20basic%20auth%20enabled.kql
+// kind: repo
+// author: Jay Kerai
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+//https://github.com/bountyyfi/Azure-APIM-Cross-Tenant-Signup-Bypass
+//Remove Basic authentication from APIM developer portals ASAP, insecure default!
+resources
+| where type == "microsoft.apimanagement/service/identityproviders"
+| where name endswith "/basic"
+| project apimInstance=tostring(split(id, "/providers/Microsoft.ApiManagement/service/")[1]), resourceGroup, subscriptionId

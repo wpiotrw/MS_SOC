@@ -1,5 +1,21 @@
 [
  {
+  "file": "community/2026-11-25-azure-resource-graph-apim-with-basic-auth-enabled.kql",
+  "title": "Azure Resource Graph   APIM with basic auth enabled",
+  "date": "2026-11-25",
+  "product": "Azure",
+  "tables": [
+   "ApiManagement"
+  ],
+  "purpose": "Azure Resource Graph APIM with basic auth enabled",
+  "source": "https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Azure/Azure%20Resource%20Graph%20-%20APIM%20with%20basic%20auth%20enabled.kql",
+  "kind": "repo",
+  "author": "Jay Kerai",
+  "link": "https://github.com/jkerai1/KQL-Queries/blob/829b34aea9fce1b50995ff348ee7be6b8eca34f3/Azure/Azure%20Resource%20Graph%20-%20APIM%20with%20basic%20auth%20enabled.kql",
+  "license": "MIT",
+  "repo": "jkerai1 KQL Queries"
+ },
+ {
   "file": "incidents/2026-11-24-who-switched-on-the-direct-management-api-or.kql",
   "title": "Who switched on the direct management API or touched its access keys (AzureActivity, 90 days)",
   "date": "2026-11-24",

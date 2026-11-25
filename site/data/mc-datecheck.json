@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-24T16:25:49Z",
- "day": "2026-11-24",
+ "generated": "2026-11-25T03:43:32Z",
+ "day": "2026-11-25",
  "spec": "5gf",
- "source": "site/data/campaigns.json (2026-11-24)",
- "count": 43,
+ "source": "site/data/campaigns.json (2026-11-25)",
+ "count": 42,
  "byMc": {
   "MC1221452": {
    "says": [
@@ -2166,26 +2166,6 @@
     {
      "id": "c-item-mc1519855",
      "name": "SSPR requires registered authentication methods"
-    }
-   ],
-   "verdict": "newer"
-  },
-  "MC1448373": {
-   "says": [],
-   "others": [],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1469551",
-     "date": "2026-09-09",
-     "title": "Teams admin center device state rules and health alerts retire; use Teams Rooms Pro Management portal"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-mc1448373",
-     "name": "Teams device management transition from Teams admin center to Teams Rooms Pro management portal"
     }
    ],
    "verdict": "newer"
