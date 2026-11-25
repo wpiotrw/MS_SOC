@@ -242,7 +242,7 @@
     "Roles & privilege"
    ],
    "status": "resolved",
-   "updated": "2026-10-25",
+   "updated": "2026-11-25",
    "by": "morning routine",
    "summary": "Microsoft's Detection and Response Team described an intrusion that began with a single user account taken over through self-service password reset (SSPR). The attacker registered their own authentication methods, then used legitimate admin tools and scripts to enumerate Azure DevOps repositories, projects and pipelines. A malicious pipeline harvested Kubernetes credentials (kubeconfig files); pipeline scripts were then changed to install the Atera remote management agent and the Chisel tunnelling tool. The page attributes the activity to Storm-3068 and gives no attack dates and no IOC values. The case shows how an identity weakness spreads when development platforms, pipelines and cloud infrastructure are tightly connected.",
    "timeline": [
@@ -307,7 +307,17 @@
      "date": "2026-09-29"
     }
    ],
-   "kqlSearched": "2026-10-25"
+   "kqlSearched": "2026-10-25",
+   "kql": [
+    {
+     "title": "Self-service password reset followed by new authentication methods (Microsoft Sentinel)",
+     "query": "// Storm-3068 SSPR to Azure DevOps - account takeover through self-service password reset\n// Microsoft Sentinel; diagnostic category AuditLogs\nlet resets = AuditLogs\n| where TimeGenerated > ago(30d)\n| where LoggedByService == \"Self-service Password Management\" and OperationName has \"reset\" and Result == \"success\"\n| extend User = tostring(TargetResources[0].userPrincipalName)\n| project ResetTime = TimeGenerated, User, ResetOp = OperationName;\nAuditLogs\n| where TimeGenerated > ago(30d)\n| where OperationName has_any (\"registered security info\", \"User registered all required security info\")\n| extend User = tostring(TargetResources[0].userPrincipalName)\n| project RegTime = TimeGenerated, User, RegOp = OperationName\n| join kind=inner resets on User\n| where RegTime between (ResetTime .. ResetTime + 24h)\n| project User, ResetTime, ResetOp, RegTime, RegOp"
+    },
+    {
+     "title": "Kubernetes credential reads and tunnelling tools after the takeover (AzureActivity and Defender XDR)",
+     "query": "// Storm-3068 SSPR to Azure DevOps - AKS credential listing by users and Atera or Chisel on build agents\n// Microsoft Sentinel AzureActivity (Azure Activity connector) and Defender for Endpoint DeviceProcessEvents\nAzureActivity\n| where TimeGenerated > ago(30d)\n| where OperationNameValue has \"MICROSOFT.CONTAINERSERVICE/MANAGEDCLUSTERS/LISTCLUSTER\"\n| summarize Calls = count(), Clusters = make_set(_ResourceId, 20), IPs = make_set(CallerIpAddress, 10) by Caller\n| order by Calls desc;\nDeviceProcessEvents\n| where Timestamp > ago(30d)\n| where FileName has_any (\"chisel\", \"AteraAgent\") or ProcessCommandLine has_any (\"chisel\", \"atera\")\n| project Timestamp, DeviceName, AccountName, FileName, ProcessCommandLine, InitiatingProcessFileName"
+    }
+   ]
   },
   {
    "id": "appx-webhost-oauth-token-theft-2026-09",
@@ -1550,7 +1560,7 @@
     "M365 workloads"
    ],
    "status": "active",
-   "updated": "2026-10-31",
+   "updated": "2026-11-25",
    "by": "morning routine",
    "summary": "Microsoft Security Research describes two intrusions, not attributed to a named actor, that began with Microsoft Teams messages and calls from organization-themed onmicrosoft.com tenants posing as IT support. Victims opened Quick Assist and shared the code, giving the attacker hands-on-keyboard access; staged Python, Bun or Java runtimes ran payloads from KB-prefixed folders under the user profile. In the first case an ESC1-vulnerable certificate template let the attacker obtain certificates for eleven privileged accounts, run DCSync within seconds and later exfiltrate file-server data with Rclone renamed SearchApp.exe through an account excluded from automated response. In the second case PetitPotam coercion was relayed to AD CS Web Enrollment (ESC8) to obtain a domain controller certificate used for PKINIT; Defender alerted and the workstation was isolated before further progress.",
    "timeline": [
@@ -1650,7 +1660,17 @@
      "date": "2026-10-30"
     }
    ],
-   "kqlSearched": "2026-10-31"
+   "kqlSearched": "2026-10-31",
+   "kql": [
+    {
+     "title": "Quick Assist started after a Teams contact from an external tenant (Defender XDR)",
+     "query": "// Teams help-desk impersonation to AD CS abuse - Quick Assist sessions and runtimes staged in KB folders\n// Defender XDR advanced hunting; Defender for Endpoint DeviceProcessEvents\nDeviceProcessEvents\n| where Timestamp > ago(30d)\n| where FileName =~ \"QuickAssist.exe\"\n   or (FolderPath has @\"\\AppData\\\" and FolderPath matches regex @\"\\\\KB[0-9]+\" and FileName in~ (\"python.exe\", \"pythonw.exe\", \"java.exe\", \"javaw.exe\", \"bun.exe\"))\n| project Timestamp, DeviceName, AccountName, FileName, FolderPath, ProcessCommandLine, InitiatingProcessFileName\n| order by Timestamp desc"
+    },
+    {
+     "title": "DCSync from a non-DC and renamed Rclone (Defender XDR)",
+     "query": "// Teams help-desk impersonation to AD CS abuse - DCSync and Rclone renamed SearchApp.exe\n// Defender XDR advanced hunting; Defender for Identity (IdentityDirectoryEvents) and Defender for Endpoint (DeviceProcessEvents)\nIdentityDirectoryEvents\n| where Timestamp > ago(30d)\n| where ActionType == \"Directory Services replication\"\n| project Timestamp, ActionType, AccountName, DeviceName, IPAddress, DestinationDeviceName, AdditionalFields;\nDeviceProcessEvents\n| where Timestamp > ago(30d)\n| where ProcessVersionInfoOriginalFileName =~ \"rclone.exe\" and FileName !~ \"rclone.exe\"\n| project Timestamp, DeviceName, AccountName, FileName, FolderPath, ProcessCommandLine"
+    }
+   ]
   },
   {
    "id": "cursor-claude-code-extension-ssh-backdoor-2026-10",
@@ -3095,6 +3115,108 @@
     }
    ],
    "appsNote": "No source names a specific application or prints a client ID - the exposed apps are each customer's own. Collect their application (client) IDs from the APIM identity providers, OpenID Connect providers and named values before running the hunts."
+  },
+  {
+   "id": "teams-booking-device-code-phishing-2026-11",
+   "title": "Fake Microsoft Teams meeting scheduler hides device code phishing behind a \"Booking Reference\"",
+   "match": [
+    "Teams Booking Flow",
+    "gpimmlgration"
+   ],
+   "areas": [
+    "Identity attacks",
+    "M365 workloads"
+   ],
+   "status": "contained",
+   "updated": "2026-11-25",
+   "by": "morning routine",
+   "summary": "Huntress describes a device code phishing attack it contained in mid-October 2026 against a construction company. A spear-phishing email from a typosquatted domain, registered eight days earlier, impersonated a senior vice president at another construction firm; the link passed through Microsoft Safe Links and a Google short link to a fake \"Microsoft Teams Meeting Scheduler\". After the victim picked a meeting slot, the backend started a real Microsoft device code sign-in and showed the user_code as a \"Booking Reference\", copied it to the clipboard and opened Microsoft's genuine device login page. The victim's paste completed authentication and the attacker obtained tokens through Microsoft Authentication Broker, routed through a residential proxy. The kit was AES-256-GCM encrypted in the browser and restarted the device code session when Microsoft asked for MFA.",
+   "timeline": [
+    {
+     "date": "2026-10-15",
+     "text": "Huntress SOC observes and contains the attack (the article says mid-October only; the 15th is a placeholder).",
+     "src": "Huntress"
+    },
+    {
+     "date": "2026-11-12",
+     "text": "Huntress publishes the analysis with IOCs; no KQL is published.",
+     "src": "Huntress"
+    }
+   ],
+   "rootCause": "The device code flow let a sign-in started by the attacker be completed by the victim on a legitimate Microsoft page. Huntress notes the compromised account had no MFA enrolled and was used from a non-compliant, unmanaged device; nothing blocked the device code flow.",
+   "attacker": [
+    "Spear-phishing email impersonating a senior vice president from a typosquatted domain registered eight days before the attack.",
+    "Link wrapped in Safe Links, then redirected through a Google short link to evade URL reputation checks.",
+    "Fake Teams meeting scheduler that starts a Microsoft device code sign-in and displays the user_code as a Booking Reference.",
+    "Kit stored as AES-256-GCM ciphertext and decrypted in the browser; a fake \"WinHello\" verification pop-up; device code session restarted on AADSTS50076 or interaction_required.",
+    "Tokens received by Microsoft Authentication Broker (Cmsi:Cmsi login) through a residential callback proxy in New Orleans; python-requests and node user agents in sign-in logs."
+   ],
+   "iocs": [
+    "gpimmlgration[.]com",
+    "share[.]google/?q=UltJkMsVWI5V9GJM1",
+    "hxxps[:]//gpimmlgration[.]com/static-export/api/device/start",
+    "Lure paths: /%20Book%20a%20Microsoft%20Teams%20Meeting/ and /Teams%20Microsoft%20Meeting/",
+    "User agents in sign-in logs: python-requests, node"
+   ],
+   "remediation": [
+    {
+     "text": "Restrict device code authentication with a Conditional Access authentication-flows policy wherever it is not required, and monitor where it is.",
+     "from": "source",
+     "src": "Huntress",
+     "phase": "harden"
+    },
+    {
+     "text": "Enforce phishing-resistant MFA and add Conditional Access policies for unmanaged and non-compliant devices.",
+     "from": "source",
+     "src": "Huntress",
+     "phase": "harden"
+    },
+    {
+     "text": "After a confirmed compromise check for rogue MFA methods, unrecognised registered devices, unauthorised app consents, suspicious inbox rules and outbound mail.",
+     "from": "source",
+     "src": "Huntress",
+     "phase": "investigate"
+    },
+    {
+     "text": "Train users to verify booking or meeting requests through a known contact before entering any code on a Microsoft sign-in page.",
+     "from": "source",
+     "src": "Huntress",
+     "phase": "harden"
+    },
+    {
+     "text": "For any user with a device code sign-in from python-requests or node, revoke sessions (Revoke-MgUserSignInSession) and reset credentials before investigating.",
+     "from": "ours",
+     "phase": "contain"
+    },
+    {
+     "text": "Block gpimmlgration[.]com and the share.google redirect in Defender for Endpoint indicators and Defender for Office 365 Tenant Allow/Block List.",
+     "from": "ours",
+     "phase": "contain"
+    },
+    {
+     "text": "Create a Sentinel analytics rule from the device code query below, alerting on device code sign-ins outside an approved device list.",
+     "from": "ours",
+     "phase": "detect"
+    }
+   ],
+   "kql": [
+    {
+     "title": "Device code sign-ins with programmatic user agents (Microsoft Sentinel)",
+     "query": "// Teams booking flow device code phishing - device code sign-ins completed from scripts\n// Microsoft Sentinel; diagnostic categories SignInLogs and NonInteractiveUserSignInLogs\nunion isfuzzy=true\n  (SigninLogs | extend Kind = \"interactive\"),\n  (AADNonInteractiveUserSignInLogs | extend Kind = \"non-interactive\")\n| where TimeGenerated > ago(30d)\n| where AuthenticationProtocol =~ \"deviceCode\" or OriginalTransferMethod =~ \"deviceCodeFlow\"\n| extend UA = tolower(UserAgent)\n| extend Scripted = UA has_any (\"python-requests\", \"node\")\n| summarize SignIns = count(), Scripted = countif(Scripted), IPs = make_set(IPAddress, 20), Apps = make_set(AppDisplayName, 10), UAs = make_set(UserAgent, 10), First = min(TimeGenerated), Last = max(TimeGenerated) by UserPrincipalName, Kind\n| order by Scripted desc, SignIns desc"
+    },
+    {
+     "title": "Clicks on the lure infrastructure (Defender XDR)",
+     "query": "// Teams booking flow device code phishing - who clicked the lure links\n// Defender XDR advanced hunting; Defender for Office 365 Plan 2 (UrlClickEvents) and Defender for Endpoint (DeviceNetworkEvents)\nlet iocs = dynamic([\"gpimmlgration.com\", \"share.google\"]);\nunion isfuzzy=true\n  (UrlClickEvents | where Timestamp > ago(60d) | where Url has_any (iocs) | project Timestamp, Who = AccountUpn, Url, ActionType, Source = \"UrlClick\"),\n  (DeviceNetworkEvents | where Timestamp > ago(60d) | where RemoteUrl has_any (iocs) | project Timestamp, Who = InitiatingProcessAccountUpn, Url = RemoteUrl, ActionType, Source = \"Endpoint\")\n| order by Timestamp desc"
+    }
+   ],
+   "kqlSearched": "2026-11-25",
+   "links": [
+    {
+     "text": "Crafty Microsoft Teams Booking Flow Disguises Device Code Phishing (Huntress)",
+     "url": "https://www.huntress.com/blog/crafty-microsoft-teams-booking-flow-disguises-device-code-phishing",
+     "date": "2026-11-12"
+    }
+   ]
   }
  ]
 }
