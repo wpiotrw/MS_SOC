@@ -5031,14 +5031,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-23",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-24",
 "text":"August 1, 2026."
 },
@@ -5096,6 +5088,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-24",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-25",
 "text":"August 1, 2026."
 },
 {
@@ -5661,7 +5661,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-24",
+"seen":"2026-11-25",
 "text":"early February 2026."
 },
 {
@@ -5669,7 +5669,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-24",
+"seen":"2026-11-25",
 "text":"February 2027."
 },
 {
@@ -9422,7 +9422,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-24",
+"seen":"2026-11-25",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9430,7 +9430,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-24",
+"seen":"2026-11-25",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10184,6 +10184,14 @@
 "source":"Andy Malone MVP",
 "date":"2026-11-25",
 "group":"video",
+"found":"2026-11-25"
+},
+"https://dev.to/ioneyrezende/mediawiki-oathauth-accepted-security-keys-as-passwordless-credentials-4dg4":{
+"title":"MediaWiki OATHAuth accepted security keys as passwordless credentials",
+"link":"https://dev.to/ioneyrezende/mediawiki-oathauth-accepted-security-keys-as-passwordless-credentials-4dg4",
+"source":"NeonTiger12",
+"date":"2026-11-25",
+"group":"community",
 "found":"2026-11-25"
 }
 },
@@ -20861,6 +20869,16 @@
 "title":"Microsoft Entra ID Passkeys – The Good, the Bad & the Ugly!",
 "source":"Andy Malone MVP",
 "link":"https://www.youtube.com/watch?v=xo1Cqyi5tDs"
+},
+{
+"day":"2026-11-25",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"MediaWiki OATHAuth accepted security keys as passwordless credentials",
+"source":"NeonTiger12",
+"link":"https://dev.to/ioneyrezende/mediawiki-oathauth-accepted-security-keys-as-passwordless-credentials-4dg4"
 }
 ],
 "archive":{
