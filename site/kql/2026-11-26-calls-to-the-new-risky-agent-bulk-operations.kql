@@ -1,0 +1,15 @@
+// title: Calls to the new risky-agent bulk operations in Microsoft Graph (identityprotection/riskyagents/bulkdismiss, bulkoperations) - who dismisses agent risk in bulk
+// date: 2026-11-26
+// product: Entra
+// tables: MicrosoftGraphActivityLogs
+// purpose: Microsoft Graph activity log requests whose RequestUri reaches the risky-agent bulk operations, with the calling app, service principal or user, the method and the response code. Needs Microsoft Graph activity logs sent to Log Analytics. Not run against a tenant in this pass.
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Microsoft SOC Brief 26 Nov 2026 - risky-agent bulk operations in Microsoft Graph (devx sync 19022c0)
+// Columns as on the MicrosoftGraphActivityLogs reference. Not run against a tenant in this pass.
+MicrosoftGraphActivityLogs
+| where TimeGenerated > ago(30d)
+| where RequestUri has_any ("riskyagents/bulkdismiss", "identityprotection/bulkoperations")
+| project TimeGenerated, RequestMethod, RequestUri, ResponseStatusCode, AppId, ServicePrincipalId, UserId, IPAddress
+| summarize Calls = count(), Methods = make_set(RequestMethod), Codes = make_set(ResponseStatusCode), First = min(TimeGenerated), Last = max(TimeGenerated) by AppId, ServicePrincipalId, UserId
+| order by Calls desc

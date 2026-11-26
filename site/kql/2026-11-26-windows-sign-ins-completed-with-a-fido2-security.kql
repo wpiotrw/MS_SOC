@@ -1,0 +1,18 @@
+// title: Windows sign-ins completed with a FIDO2 security key, per user and device, last 30 days - the baseline before enabling the NFC tap-location indicator
+// date: 2026-11-26
+// product: Entra
+// tables: SigninLogs
+// purpose: Successful Entra sign-ins from Windows devices whose authentication details record the FIDO2 security key method, summarised per user and device. AuthenticationDetails is stored as a JSON string in SigninLogs and is parsed first. Not run against a tenant in this pass.
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Microsoft SOC Brief 26 Nov 2026 - FIDO2 security key sign-ins on Windows (MC1568568)
+// Columns as on the SigninLogs reference. Not run against a tenant in this pass.
+SigninLogs
+| where TimeGenerated > ago(30d)
+| where ResultType == "0"
+| extend OS = tostring(DeviceDetail.operatingSystem), Device = tostring(DeviceDetail.displayName)
+| where OS startswith "Windows"
+| mv-expand Auth = todynamic(AuthenticationDetails)
+| where tostring(Auth.authenticationMethod) == "FIDO2 security key"
+| summarize SignIns = count(), LastSeen = max(TimeGenerated), Apps = make_set(AppDisplayName, 10) by UserPrincipalName, Device, OS
+| order by SignIns desc

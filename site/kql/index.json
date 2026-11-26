@@ -1,5 +1,41 @@
 [
  {
+  "file": "2026-11-26-windows-sign-ins-completed-with-a-fido2-security.kql",
+  "title": "Windows sign-ins completed with a FIDO2 security key, per user and device, last 30 days - the baseline before enabling the NFC tap-location indicator",
+  "date": "2026-11-26",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "Successful Entra sign-ins from Windows devices whose authentication details record the FIDO2 security key method, summarised per user and device. AuthenticationDetails is stored as a JSON string in SigninLogs and is parsed first. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-26-calls-to-the-new-risky-agent-bulk-operations.kql",
+  "title": "Calls to the new risky-agent bulk operations in Microsoft Graph (identityprotection/riskyagents/bulkdismiss, bulkoperations) - who dismisses agent risk in bulk",
+  "date": "2026-11-26",
+  "product": "Entra",
+  "tables": [
+   "MicrosoftGraphActivityLogs"
+  ],
+  "purpose": "Microsoft Graph activity log requests whose RequestUri reaches the risky-agent bulk operations, with the calling app, service principal or user, the method and the response code. Needs Microsoft Graph activity logs sent to Log Analytics. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-26-billable-ingestion-per-data-type-and-solution-last.kql",
+  "title": "Billable ingestion per data type and solution, last 30 days - the cost baseline before moving a source to one of the Sentinel connectors announced at Ignite 202",
+  "date": "2026-11-26",
+  "product": "Sentinel",
+  "tables": [
+   "Usage"
+  ],
+  "purpose": "Usage records of the workspace summarised per DataType and Solution: billable volume in GB over 30 days and the daily average, largest first. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/usage",
+  "kind": "brief"
+ },
+ {
   "file": "incidents/2026-11-25-self-service-password-reset-followed-by-new-authentication.kql",
   "title": "Self-service password reset followed by new authentication methods (Microsoft Sentinel)",
   "date": "2026-11-25",
@@ -248,7 +284,10 @@
   ],
   "purpose": "Teams sign-ins from iOS joined to the latest Intune snapshot on the Entra device id (IntuneDevices.ReferenceId), keeping devices whose major OSVersion is below 18. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/intunedevices",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-26"
+  ]
  },
  {
   "file": "2026-11-25-teams-mobile-sign-ins-by-user-agent-before-tempauth-retirement.kql",
@@ -261,7 +300,10 @@
   ],
   "purpose": "Interactive and non-interactive sign-ins to Microsoft Teams from Android and iOS, per user with the distinct user agents and the last time seen. Compare the agents against the minimum versions in the post. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-26"
+  ]
  },
  {
   "file": "2026-11-25-ios-ipados-17-or-earlier-before-january-2027-app-minimums.kql",
@@ -273,7 +315,10 @@
   ],
   "purpose": "Latest Intune device snapshot per device, iOS and iPadOS with a major OSVersion below 18, with user, model and last contact. Needs the Intune diagnostic export to Log Analytics. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/intunedevices",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-26"
+  ]
  },
  {
   "file": "incidents/2026-11-24-who-switched-on-the-direct-management-api-or.kql",
@@ -546,7 +591,8 @@
   "source": "https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-troubleshoot#check-sign-in-logs",
   "kind": "brief",
   "reused": [
-   "2026-11-25"
+   "2026-11-25",
+   "2026-11-26"
   ]
  },
  {
@@ -561,7 +607,8 @@
   "source": "https://learn.microsoft.com/en-us/entra/identity/authentication/choose-your-own-telephony-troubleshoot#check-function-app-logs",
   "kind": "brief",
   "reused": [
-   "2026-11-25"
+   "2026-11-25",
+   "2026-11-26"
   ]
  },
  {
@@ -576,7 +623,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/azureactivity",
   "kind": "brief",
   "reused": [
-   "2026-11-25"
+   "2026-11-25",
+   "2026-11-26"
   ]
  },
  {
@@ -945,7 +993,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-24",
-   "2026-11-25"
+   "2026-11-25",
+   "2026-11-26"
   ]
  },
  {
@@ -962,7 +1011,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-24",
-   "2026-11-25"
+   "2026-11-25",
+   "2026-11-26"
   ]
  },
  {
@@ -979,7 +1029,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-24",
-   "2026-11-25"
+   "2026-11-25",
+   "2026-11-26"
   ]
  },
  {
@@ -1161,7 +1212,8 @@
   "reused": [
    "2026-11-23",
    "2026-11-24",
-   "2026-11-25"
+   "2026-11-25",
+   "2026-11-26"
   ]
  },
  {
@@ -1178,7 +1230,8 @@
   "reused": [
    "2026-11-23",
    "2026-11-24",
-   "2026-11-25"
+   "2026-11-25",
+   "2026-11-26"
   ]
  },
  {
@@ -1195,7 +1248,8 @@
   "reused": [
    "2026-11-23",
    "2026-11-24",
-   "2026-11-25"
+   "2026-11-25",
+   "2026-11-26"
   ]
  },
  {

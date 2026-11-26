@@ -1,0 +1,15 @@
+// title: Billable ingestion per data type and solution, last 30 days - the cost baseline before moving a source to one of the Sentinel connectors announced at Ignite 202
+// date: 2026-11-26
+// product: Sentinel
+// tables: Usage
+// purpose: Usage records of the workspace summarised per DataType and Solution: billable volume in GB over 30 days and the daily average, largest first. Not run against a tenant in this pass.
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/usage
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Microsoft SOC Brief 26 Nov 2026 - ingestion baseline per table before a connector change (Sentinel, Ignite 2026 connectors)
+// Columns as on the Usage reference (Quantity is in MB). Not run against a tenant in this pass.
+Usage
+| where TimeGenerated > ago(30d)
+| where IsBillable == true
+| summarize GB = round(sum(Quantity) / 1024, 2) by DataType, Solution
+| extend GBPerDay = round(GB / 30, 2)
+| order by GB desc
