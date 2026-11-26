@@ -1,5 +1,22 @@
 [
  {
+  "file": "articles/2026-11-26-detection-1-artex-credential-attack-burst-failed-logons.kql",
+  "title": "Detection 1: ARTEX Credential Attack - Burst Failed Logons Across Multiple Accounts",
+  "date": "2026-11-26",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceLogonEvents",
+   "SecurityEvent",
+   "SigninLogs"
+  ],
+  "purpose": "From the article: Detection Engineering Brief - Thursday, November 26, 2026",
+  "source": "https://devsecopsdadattack.com/2026-11-26-detection-engineering-brief-thursday-november-26-2026/",
+  "kind": "article",
+  "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
+  "link": "https://devsecopsdadattack.com/2026-11-26-detection-engineering-brief-thursday-november-26-2026/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
   "file": "2026-11-26-windows-sign-ins-completed-with-a-fido2-security.kql",
   "title": "Windows sign-ins completed with a FIDO2 security key, per user and device, last 30 days - the baseline before enabling the NFC tap-location indicator",
   "date": "2026-11-26",
