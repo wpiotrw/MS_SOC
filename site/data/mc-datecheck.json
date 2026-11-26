@@ -1,275 +1,16 @@
 {
- "generated": "2026-11-25T21:47:02Z",
- "day": "2026-11-25",
+ "generated": "2026-11-26T03:03:59Z",
+ "day": "2026-11-26",
  "spec": "5gf",
- "source": "site/data/campaigns.json (2026-11-25)",
- "count": 42,
+ "source": "site/data/campaigns.json (2026-11-26)",
+ "count": 41,
  "byMc": {
-  "MC1221452": {
-   "says": [
-    "2026-06-25"
-   ],
-   "others": [
-    {
-     "date": "2026-11-25",
-     "src": "MC1459133",
-     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
-     "post": "2026-08-21",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1459133"
-    },
-    {
-     "date": "2026-12-05",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2026-12-31",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2027-01-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1450133",
-     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1459133",
-     "date": "2026-08-21",
-     "title": "Microsoft Entra ID: Passkey support for B2B users"
-    },
-    {
-     "id": "MC1469555",
-     "date": "2026-09-09",
-     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
-    },
-    {
-     "id": "MC1545694",
-     "date": "2026-11-09",
-     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-passkeys-by-default",
-     "name": "Passkeys by default in Microsoft Entra ID"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1282568": {
-   "says": [
-    "2027-05-05",
-    "2027-05-25"
-   ],
-   "others": [
-    {
-     "date": "2026-11-25",
-     "src": "MC1459133",
-     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
-     "post": "2026-08-21",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1459133"
-    },
-    {
-     "date": "2026-12-05",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2026-12-31",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2027-01-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1450133",
-     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1459133",
-     "date": "2026-08-21",
-     "title": "Microsoft Entra ID: Passkey support for B2B users"
-    },
-    {
-     "id": "MC1469555",
-     "date": "2026-09-09",
-     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
-    },
-    {
-     "id": "MC1545694",
-     "date": "2026-11-09",
-     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-passkeys-by-default",
-     "name": "Passkeys by default in Microsoft Entra ID"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1423108": {
-   "says": [],
-   "others": [
-    {
-     "date": "2026-11-25",
-     "src": "MC1459133",
-     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
-     "post": "2026-08-21",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1459133"
-    },
-    {
-     "date": "2026-12-05",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2026-12-31",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2027-01-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1450133",
-     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1459133",
-     "date": "2026-08-21",
-     "title": "Microsoft Entra ID: Passkey support for B2B users"
-    },
-    {
-     "id": "MC1469555",
-     "date": "2026-09-09",
-     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
-    },
-    {
-     "id": "MC1545694",
-     "date": "2026-11-09",
-     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-passkeys-by-default",
-     "name": "Passkeys by default in Microsoft Entra ID"
-    }
-   ],
-   "verdict": "differs"
-  },
   "MC1426371": {
    "says": [
-    "2026-09-01",
     "2027-02-01",
     "2027-07-01"
    ],
    "others": [
-    {
-     "date": "2026-11-25",
-     "src": "MC1459133",
-     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
-     "post": "2026-08-21",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1459133"
-    },
-    {
-     "date": "2026-12-05",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2026-12-31",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2027-01-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1450133",
-     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
     {
      "date": "2026-11-30",
      "src": "MC1465763",
@@ -293,25 +34,50 @@
      "post": "2026-11-03",
      "later": false,
      "link": "https://deltapulse.app/item/MC1536049"
+    },
+    {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
     }
    ],
    "moved": [],
    "newer": [
-    {
-     "id": "MC1459133",
-     "date": "2026-08-21",
-     "title": "Microsoft Entra ID: Passkey support for B2B users"
-    },
-    {
-     "id": "MC1469555",
-     "date": "2026-09-09",
-     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
-    },
-    {
-     "id": "MC1545694",
-     "date": "2026-11-09",
-     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
-    },
     {
      "id": "MC1536049",
      "date": "2026-11-03",
@@ -326,439 +92,29 @@
      "id": "MC1550537",
      "date": "2026-11-12",
      "title": "Prepare custom authentication strengths for SMS and voice retirement"
+    },
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
     }
    ],
    "why": [],
    "campaigns": [
-    {
-     "id": "c-passkeys-by-default",
-     "name": "Passkeys by default in Microsoft Entra ID"
-    },
     {
      "id": "c-sms-voice-retirement",
      "name": "Microsoft-provided SMS and voice MFA retirement"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1437671": {
-   "says": [
-    "2026-10-31"
-   ],
-   "others": [
-    {
-     "date": "2026-11-25",
-     "src": "MC1459133",
-     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
-     "post": "2026-08-21",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1459133"
     },
-    {
-     "date": "2026-12-05",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2026-12-31",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2027-01-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1450133",
-     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1459133",
-     "date": "2026-08-21",
-     "title": "Microsoft Entra ID: Passkey support for B2B users"
-    },
-    {
-     "id": "MC1469555",
-     "date": "2026-09-09",
-     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
-    },
-    {
-     "id": "MC1545694",
-     "date": "2026-11-09",
-     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-passkeys-by-default",
-     "name": "Passkeys by default in Microsoft Entra ID"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1440968": {
-   "says": [],
-   "others": [
-    {
-     "date": "2026-11-25",
-     "src": "MC1459133",
-     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
-     "post": "2026-08-21",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1459133"
-    },
-    {
-     "date": "2026-12-05",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2026-12-31",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2027-01-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1450133",
-     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1459133",
-     "date": "2026-08-21",
-     "title": "Microsoft Entra ID: Passkey support for B2B users"
-    },
-    {
-     "id": "MC1469555",
-     "date": "2026-09-09",
-     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
-    },
-    {
-     "id": "MC1545694",
-     "date": "2026-11-09",
-     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-passkeys-by-default",
-     "name": "Passkeys by default in Microsoft Entra ID"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1450133": {
-   "says": [
-    "2026-11-25",
-    "2027-01-05",
-    "2027-02-15",
-    "2027-02-25"
-   ],
-   "others": [
-    {
-     "date": "2026-12-05",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2026-12-31",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1282568"
-    },
-    {
-     "date": "2027-05-25",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1282568"
-    },
-    {
-     "date": "2027-11-15",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1545694"
-    }
-   ],
-   "moved": [
-    {
-     "was": "late Nov 2026",
-     "now": "2027-01-05",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026)."
-    }
-   ],
-   "newer": [
-    {
-     "id": "MC1459133",
-     "date": "2026-08-21",
-     "title": "Microsoft Entra ID: Passkey support for B2B users"
-    },
-    {
-     "id": "MC1469555",
-     "date": "2026-09-09",
-     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
-    },
-    {
-     "id": "MC1545694",
-     "date": "2026-11-09",
-     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-passkeys-by-default",
-     "name": "Passkeys by default in Microsoft Entra ID"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1459133": {
-   "says": [
-    "2026-11-25"
-   ],
-   "others": [
-    {
-     "date": "2026-12-05",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2026-12-31",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2027-01-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1450133",
-     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-25",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
-     "post": "2026-08-07",
-     "later": true,
-     "link": "https://mc.merill.net/message/MC1450133"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1469555",
-     "date": "2026-09-09",
-     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
-    },
-    {
-     "id": "MC1545694",
-     "date": "2026-11-09",
-     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-passkeys-by-default",
-     "name": "Passkeys by default in Microsoft Entra ID"
-    }
-   ],
-   "verdict": "moved"
-  },
-  "MC1469555": {
-   "says": [],
-   "others": [
-    {
-     "date": "2026-11-25",
-     "src": "MC1459133",
-     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
-     "post": "2026-08-21",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1459133"
-    },
-    {
-     "date": "2026-12-05",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2026-12-31",
-     "src": "MC1545694",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
-     "post": "2026-11-09",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1545694"
-    },
-    {
-     "date": "2027-01-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1450133",
-     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    }
-   ],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1545694",
-     "date": "2026-11-09",
-     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-passkeys-by-default",
-     "name": "Passkeys by default in Microsoft Entra ID"
-    }
-   ],
-   "verdict": "differs"
-  },
-  "MC1545694": {
-   "says": [
-    "2026-12-05",
-    "2026-12-31",
-    "2027-11-15"
-   ],
-   "others": [
-    {
-     "date": "2026-11-25",
-     "src": "MC1459133",
-     "text": "Beginning in late October 2026 (previously early October) and is expected to complete by late November 2026 (previously late O",
-     "post": "2026-08-21",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1459133"
-    },
-    {
-     "date": "2027-01-05",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-15",
-     "src": "MC1450133",
-     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-02-25",
-     "src": "MC1450133",
-     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
-     "post": "2026-08-07",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1450133"
-    },
-    {
-     "date": "2027-05-05",
-     "src": "MC1282568",
-     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
-     "post": "2026-04-16",
-     "later": false,
-     "link": "https://mc.merill.net/message/MC1282568"
-    }
-   ],
-   "moved": [
-    {
-     "was": "mid Nov 2026",
-     "now": "2026-12-05",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027)."
-    },
-    {
-     "was": "Nov 2027",
-     "now": "2026-12-31",
-     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027)."
-    }
-   ],
-   "newer": [],
-   "why": [],
-   "campaigns": [
     {
      "id": "c-passkeys-by-default",
      "name": "Passkeys by default in Microsoft Entra ID"
@@ -1675,6 +1031,648 @@
    ],
    "verdict": "differs"
   },
+  "MC1221452": {
+   "says": [
+    "2026-06-25"
+   ],
+   "others": [
+    {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1282568": {
+   "says": [
+    "2027-05-05",
+    "2027-05-25"
+   ],
+   "others": [
+    {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1423108": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1437671": {
+   "says": [
+    "2026-10-31"
+   ],
+   "others": [
+    {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1440968": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1450133": {
+   "says": [
+    "2027-01-05",
+    "2027-02-15",
+    "2027-02-25"
+   ],
+   "others": [
+    {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1282568"
+    },
+    {
+     "date": "2027-05-25",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1282568"
+    },
+    {
+     "date": "2027-11-15",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    }
+   ],
+   "moved": [
+    {
+     "was": "late Nov 2026",
+     "now": "2027-01-05",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026)."
+    }
+   ],
+   "newer": [
+    {
+     "id": "MC1459133",
+     "date": "2026-08-21",
+     "title": "Microsoft Entra ID: Passkey support for B2B users"
+    },
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1459133": {
+   "says": [
+    "2026-11-25"
+   ],
+   "others": [
+    {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": true,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1469555",
+     "date": "2026-09-09",
+     "title": "Microsoft Entra: Optimized passkey registration campaign experience"
+    },
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "moved"
+  },
+  "MC1469555": {
+   "says": [],
+   "others": [
+    {
+     "date": "2026-12-05",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2026-12-31",
+     "src": "MC1545694",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027).",
+     "post": "2026-11-09",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1545694"
+    },
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    }
+   ],
+   "moved": [],
+   "newer": [
+    {
+     "id": "MC1545694",
+     "date": "2026-11-09",
+     "title": "Microsoft Entra: Updated passkey registration experience in My Sign-ins"
+    }
+   ],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "differs"
+  },
+  "MC1545694": {
+   "says": [
+    "2026-12-05",
+    "2026-12-31",
+    "2027-11-15"
+   ],
+   "others": [
+    {
+     "date": "2027-01-05",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early November 2026 (previously late October) and expect to complete by early January 2027 (previously late November 2026).",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-15",
+     "src": "MC1450133",
+     "text": "Security Defaults MFA registration prompts will adopt this experience in January–February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-02-25",
+     "src": "MC1450133",
+     "text": "We will begin rolling out in early January 2026 and expect to complete by late February 2027.",
+     "post": "2026-08-07",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1450133"
+    },
+    {
+     "date": "2027-05-05",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1282568"
+    },
+    {
+     "date": "2027-05-25",
+     "src": "MC1282568",
+     "text": "We will begin rolling out in early May 2027 and expect to complete by late May 2027 .",
+     "post": "2026-04-16",
+     "later": false,
+     "link": "https://mc.merill.net/message/MC1282568"
+    }
+   ],
+   "moved": [
+    {
+     "was": "mid Nov 2026",
+     "now": "2026-12-05",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027)."
+    },
+    {
+     "was": "Nov 2027",
+     "now": "2026-12-31",
+     "text": "Beginning in early December 2026 (previously mid-November) and expected to complete by end of December 2026 (previously end-November 2027)."
+    }
+   ],
+   "newer": [],
+   "why": [],
+   "campaigns": [
+    {
+     "id": "c-passkeys-by-default",
+     "name": "Passkeys by default in Microsoft Entra ID"
+    }
+   ],
+   "verdict": "moved"
+  },
   "MC1481315": {
    "says": [
     "2027-01-25",
@@ -2122,28 +2120,6 @@
     {
      "id": "c-mc1278920-2",
      "name": "Support for Office LTSC 2021, and additional apps will end on October 13, 2026"
-    }
-   ],
-   "verdict": "newer"
-  },
-  "MC1435782": {
-   "says": [
-    "2026-10-26"
-   ],
-   "others": [],
-   "moved": [],
-   "newer": [
-    {
-     "id": "MC1458474",
-     "date": "2026-08-21",
-     "title": "Custom CSS layout properties in company branding retiring"
-    }
-   ],
-   "why": [],
-   "campaigns": [
-    {
-     "id": "c-mc1435782",
-     "name": "Retirement of custom CSS positioning properties in custom branding"
     }
    ],
    "verdict": "newer"
