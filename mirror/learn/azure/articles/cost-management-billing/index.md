@@ -95,7 +95,7 @@ Concept
 
 - [Estimate prices with the Azure pricing calculator](costs/pricing-calculator)
 - [TCO calculator](https://aka.ms/tco-blog)
-- [Azure Migrate](../migrate/)
+- [Azure Catalyst](../migrate/)
 
 ![](media/cost-analysis.svg)
 ### Reporting + analytics

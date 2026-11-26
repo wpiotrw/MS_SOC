@@ -20,7 +20,7 @@ learn_banner_products:
 description: Enterprise Agreement customers who need assistance can use the Azure portal to find self-service solutions and to create and manage support requests.
 ms.topic: troubleshooting
 ms.date: 2026-06-15T00:00:00.0000000Z
-author: mjeffer
+author: diberry
 ms.author: diberry
 ms.reviewer: mjeffer
 ms.service: cost-management-billing

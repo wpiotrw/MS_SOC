@@ -19,7 +19,7 @@ learn_banner_products:
 - azure
 description: Resolving an issue when trying to sign up for a new account in the Azure portal.
 services: cost-management-billing
-author: KennyDay
+author: diberry
 ms.reviewer: anmckeon
 ms.service: cost-management-billing
 ms.subservice: billing

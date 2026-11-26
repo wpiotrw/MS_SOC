@@ -1,6 +1,6 @@
 ---
 layout: Conceptual
-title: Use Mail APIs with Exchange archive mailboxes (preview) - Microsoft Graph | Microsoft Learn
+title: Use mail APIs with Exchange archive mailboxes (preview) - Microsoft Graph | Microsoft Learn
 canonicalUrl: https://learn.microsoft.com/en-us/graph/archive-mailbox-mail-api
 feedback_system: Standard
 feedback_product_url: https://developer.microsoft.com/graph/support
@@ -14,7 +14,7 @@ toc_preview: true
 recommendations: false
 ms.service: microsoft-graph
 ms.topic: how-to
-description: Learn how to access Exchange archive folders and messages, follow redirects, create folders, and synchronize changes with Microsoft Graph beta Mail APIs.
+description: Learn how to access Exchange archive folders and messages, follow redirects, create folders, and synchronize changes with Microsoft Graph beta mail APIs.
 ms.localizationpriority: medium
 ms.date: 2026-11-18T00:00:00.0000000Z
 ms.custom: msecd-doc-authoring-1032
@@ -45,7 +45,7 @@ spProducts:
 platformId: 7e7157da-ad04-eda3-5430-adff6ba8e197
 ---
 
-# Use Mail APIs with Exchange archive mailboxes (preview) - Microsoft Graph | Microsoft Learn
+# Use mail APIs with Exchange archive mailboxes (preview) - Microsoft Graph | Microsoft Learn
 
 Namespace: microsoft.graph
 
@@ -53,11 +53,11 @@ Important
 
 APIs under the `/beta` version in Microsoft Graph are subject to change. Use of these APIs in production applications is not supported. To determine whether an API is available in v1.0, use the **Version** selector.
 
-Use Microsoft Graph beta Mail APIs to list messages, create folders, and synchronize message changes in an Exchange archive mailbox.
+Use Microsoft Graph beta mail APIs to list messages, create folders, and synchronize message changes in an Exchange archive mailbox.
 
 This guide explains how to follow redirects when reading archive folders and messages, where to create archive folders, and how to keep track of message changes.
 
-The folder and message examples in this guide use `/users/.../mailFolders` endpoints. Use the folder IDs returned by the Mail API operation you're calling.
+The folder and message examples in this guide use `/users/.../mailFolders` endpoints. Use the folder IDs returned by the mail API operation you're calling.
 
 ## Prerequisites
 
@@ -73,7 +73,7 @@ For the Exchange settings request used to discover the archive mailbox, use the 
 | --- | --- | --- |
 | Discover the archive mailbox | User.Read.All | User.Read.All |
 
-For the Mail API operations, use the permissions documented for [List messages](/en-us/graph/api/user-list-messages?view=graph-rest-beta&amp;preserve-view=true), [Create mailFolder](/en-us/graph/api/user-post-mailfolders?view=graph-rest-beta&amp;preserve-view=true), and [Create childFolder](/en-us/graph/api/mailfolder-post-childfolders?view=graph-rest-beta&amp;preserve-view=true).
+For the mail API operations, use the permissions documented for [List messages](/en-us/graph/api/user-list-messages?view=graph-rest-beta&amp;preserve-view=true), [Create mailFolder](/en-us/graph/api/user-post-mailfolders?view=graph-rest-beta&amp;preserve-view=true), and [Create childFolder](/en-us/graph/api/mailfolder-post-childfolders?view=graph-rest-beta&amp;preserve-view=true).
 
 ## How archive mailboxes work
 
@@ -140,7 +140,7 @@ App                 Microsoft Graph
 
 If no redirect is needed, the original request returns the data directly.
 
-## List messages in an archive folder using the Mail API
+## List messages in an archive folder using the mail API
 
 Start the read request with the main archive mailbox ID and the target folder ID.
 
@@ -174,9 +174,9 @@ GET https://graph.microsoft.com/beta/users/MBX:767fh867@a7809c93/mailFolders/AAM
 
 A successful request returns `200 OK` with the messages. The same redirect-handling approach applies to supported folder reads, message reads, and message delta requests.
 
-Use the required Mail API authentication and permissions. Before you send credentials to a redirect URL, verify HTTPS and a trusted Microsoft Graph endpoint. Check whether your SDK handles `308 Permanent Redirect` automatically; otherwise, handle it in your application and limit redirects.
+Use the required mail API authentication and permissions. Before you send credentials to a redirect URL, verify HTTPS and a trusted Microsoft Graph endpoint. Check whether your SDK handles `308 Permanent Redirect` automatically; otherwise, handle it in your application and limit redirects.
 
-## Create folders in the main archive using the Mail API
+## Create folders in the main archive using the mail API
 
 Create archive folders through the main archive, including folders whose content resides in an auxiliary archive.
 
@@ -214,7 +214,7 @@ Content-Type: application/json
 
 If a response contains **@odata.nextLink**, request that complete URL to get the next page.
 
-To track message changes in a folder, use a message delta request. The following example uses the same main archive mailbox and Mail API folder IDs from the previous list messages example.
+To track message changes in a folder, use a message delta request. The following example uses the same main archive mailbox and mail API folder IDs from the previous list messages example.
 
 ```http
 GET https://graph.microsoft.com/beta/users/MBX:f10964a6@a7809c93/mailFolders/AAMkAGVmMDEzMDAAAIBDAAAAA==/messages/delta

@@ -157,6 +157,7 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/benefits/macc/ma
 https://learn.microsoft.com/en-us/azure/cost-management-billing/benefits/promos/browse-redeem-consumption-promos
 https://learn.microsoft.com/en-us/azure/cost-management-billing/browse-redeem-consumption-promos
 https://learn.microsoft.com/en-us/azure/cost-management-billing/change-credit-card
+https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/cost-mgt-best-practices
 https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/overview-cost-management
 https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets
 https://learn.microsoft.com/en-us/azure/cost-management-billing/create-enterprise-subscription
@@ -330,6 +331,7 @@ https://learn.microsoft.com/en-us/azure/defender-for-cloud/kubernetes-nodes-malw
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/kubernetes-nodes-overview
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/kubernetes-nodes-va
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/migrate-classic-defender-for-sql-apis
+https://learn.microsoft.com/en-us/azure/defender-for-cloud/multicloud-support-matrix
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/on-demand-malware-scanning
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/onboard-machines-with-defender-for-endpoint
 https://learn.microsoft.com/en-us/azure/defender-for-cloud/onboard-management-group
@@ -459,6 +461,7 @@ https://learn.microsoft.com/en-us/azure/governance/blueprints/blueprint-retireme
 https://learn.microsoft.com/en-us/azure/governance/blueprints/concepts/lifecycle
 https://learn.microsoft.com/en-us/azure/governance/blueprints/migrate-to-template-specs
 https://learn.microsoft.com/en-us/azure/governance/blueprints/overview
+https://learn.microsoft.com/en-us/azure/governance/blueprints/samples/caf-migrate-landing-zone
 https://learn.microsoft.com/en-us/azure/governance/debian-ado
 https://learn.microsoft.com/en-us/azure/governance/definition-structure-basics
 https://learn.microsoft.com/en-us/azure/governance/guest-configuration-baseline-cis-linux

@@ -7,10 +7,10 @@ feedback_system: Standard
 uhfHeaderId: MSDocsHeader-Purview
 f1.keywords:
 - NOCSH
-ms.author: kreagle
-author: k-reagle
-manager: laurawi
-ms.date: 2026-06-22T00:00:00.0000000Z
+ms.author: tommos
+author: tommoser
+manager: kkunes
+ms.date: 2026-11-25T00:00:00.0000000Z
 audience: Admin
 ms.topic: how-to
 ms.service: purview
@@ -41,12 +41,12 @@ item_type: Content
 source_path: Purview/add-your-organization-brand-to-encrypted-messages.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/cf9b82c5-b6dc-45f3-b005-b1bc5fc03bea
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/5cf46315-b33f-4e99-8224-a1592697eff9
 - https://authoring-docs-microsoft.poolparty.biz/devrel/57eae111-0f3b-497e-be07-450fd1409dea
-- https://authoring-docs-microsoft.poolparty.biz/devrel/1ae5c491-970a-4062-8301-6336e69f9026
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/0c85d34e-bfd2-4466-957c-f0b61e9692df
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/715d24c3-3683-4219-82c5-1e3c813fb7fc
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ac8bf8ab-8134-4c9a-9f2e-58b31575b492
-- https://authoring-docs-microsoft.poolparty.biz/devrel/f2c3e52e-3667-4e8a-bf11-20b9eaccdc8c
 platformId: 797f2db8-e340-f817-40f9-7d7278ba7bf9
 ---
 
@@ -55,15 +55,12 @@ platformId: 797f2db8-e340-f817-40f9-7d7278ba7bf9
 > 
 > *[Microsoft Purview service description](/en-us/office365/servicedescriptions/microsoft-365-service-descriptions/microsoft-365-tenantlevel-services-licensing-guidance/microsoft-purview-service-description)*
 
-Apply your company branding to customize the look of your organization's email messages and the encryption portal. You need to apply sufficient permissions to your work or school account before you can get started, for example Compliance Administrator. You customize branding in one of two ways, using Exchange Online PowerShell or Microsoft Purview Data Loss Prevention (DLP) policies.
+Apply your company branding to customize the look of your organization's encrypted email messages and the encryption portal. You need to apply sufficient permissions to your work or school account before you can get started, for example Compliance Administrator.
 
-For more information about using Microsoft Purview Data Loss Prevention (DLP) policies to add customized branding to encrypted messages, see these resources.
+First, use Exchange Online PowerShell to create and customize branding templates. Then, apply a branding template to encrypted messages by using either:
 
-- [Supported action: Exchange](dlp-policy-reference#supported-actions-exchange) for details on this action.
-- [Design a data loss prevention policy](dlp-policy-design) if you're new to DLP and want to learn more about what goes into preparing to create a DLP policy.
-- [Create and Deploy data loss prevention policies](dlp-create-deploy-policy) for examples on how to create and deploy a DLP policy.
-
-The following sections describe how to use Exchange Online PowerShell to customize branding.
+- An Exchange mail flow rule.
+- A Microsoft Purview Data Loss Prevention (DLP) policy rule.
 
 Use the Get-OMEConfiguration and Set-OMEConfiguration cmdlets in Exchange Online PowerShell to customize these parts of encrypted email messages:
 
@@ -76,7 +73,7 @@ Use the Get-OMEConfiguration and Set-OMEConfiguration cmdlets in Exchange Online
 
 You can also revert back to the default look and feel at any time.
 
-If you'd like more control, use Microsoft Purview Advanced Message Encryption to create multiple templates for encrypted emails originating from your organization. Use these templates to control parts of the end-user experience. For example, specify whether recipients can use Google, Yahoo, and Microsoft Accounts to sign in to the encryption portal. Use templates to fulfill several use cases, such as:
+If you'd like more control, use Microsoft Purview Advanced Message Encryption to create multiple templates for encrypted emails originating from your organization. Use these templates to control parts of the end-user experience. For example, specify the authentication options available in the encryption portal. Use templates to fulfill several use cases, such as:
 
 - Individual departments, such as Finance, Sales, and so on.
 - Different products
@@ -84,7 +81,7 @@ If you'd like more control, use Microsoft Purview Advanced Message Encryption to
 - Whether you want to allow emails to be revoked
 - Whether you want emails sent to external recipients to expire after a specified number of days.
 
-Once you've created the templates, apply them to encrypted emails sent from your online mailbox by using Exchange mail flow rules. If you have Microsoft Purview Advanced Message Encryption, you can revoke any email that you have branded.
+Once you've created the templates, apply them to encrypted emails sent from your online mailbox by using Exchange mail flow rules or DLP policy rules. If you have Microsoft Purview Advanced Message Encryption, you can revoke any email that you have branded.
 
 Important
 
@@ -118,7 +115,7 @@ Use Exchange Online PowerShell to modify one branding template at a time. If you
 | Disclaimer statement in the email that contains the encrypted message | `Set-OMEConfiguration -Identity "<OMEConfigurationName>" -DisclaimerText "<Disclaimer statement. String of up to 1024 characters.>"`<br>**Example:**<br><br>`Set-OMEConfiguration -Identity "Branding Template 1" -DisclaimerText "This message is confidential for the use of the addressee only."` |
 | Text that appears at the top of the encrypted mail viewing portal | `Set-OMEConfiguration -Identity "<OMEConfigurationName>" -PortalText "<Text for your portal. String of up to 128 characters.>"`<br>**Example:**<br><br>`Set-OMEConfiguration -Identity "Message encryption cfonfiguration" -PortalText "ContosoPharma secure email portal."` |
 | To enable or disable authentication with a one-time pass code for this custom template | `Set-OMEConfiguration -Identity "<OMEConfigurationName>" -OTPEnabled <$true|$false>`<br>**Examples:**To enable one-time passcodes for this custom template <br><br>`Set-OMEConfiguration -Identity "Branding Template 1" -OTPEnabled $true`<br><br> To disable one-time passcodes for this custom template <br><br>`Set-OMEConfiguration -Identity "Branding Template 1" -OTPEnabled $false` |
-| To enable or disable authentication with Microsoft, Google, or Yahoo identities for this custom template | `Set-OMEConfiguration -Identity "<OMEConfigurationName>" -SocialIdSignIn <$true|$false>`<br>**Examples:**To enable social IDs for this custom template <br><br>`Set-OMEConfiguration -Identity "Branding Template 1" -SocialIdSignIn $true`<br><br> To disable social IDs for this custom template <br><br>`Set-OMEConfiguration -Identity "Branding Template 1" -SocialIdSignIn $false` |
+| To enable or disable authentication with supported social identities for this custom template | `Set-OMEConfiguration -Identity "<OMEConfigurationName>" -SocialIdSignIn <$true|$false>`<br>**Examples:**To enable social IDs for this custom template <br><br>`Set-OMEConfiguration -Identity "Branding Template 1" -SocialIdSignIn $true`<br><br> To disable social IDs for this custom template <br><br>`Set-OMEConfiguration -Identity "Branding Template 1" -SocialIdSignIn $false` |
 
 ## Create an encrypted message branding template (Advanced Message Encryption)
 
@@ -181,7 +178,21 @@ To remove a custom branding template:
 
     For more information, see [Remove-OMEConfiguration](/en-us/powershell/module/exchange/remove-omeconfiguration).
 
-## Create an Exchange mail flow rule that applies your custom branding to encrypted emails sent from your online organization to external recipients
+## Apply a branding template to encrypted messages
+
+A branding rule doesn't encrypt a message by itself. Before the branding action runs, the message must be encrypted manually in Outlook or Outlook on the web, or automatically by a DLP policy or Exchange mail flow rule.
+
+Choose the rule type that best matches how your organization identifies messages and how you want external recipients to open them.
+
+| Consideration | Exchange mail flow rule | DLP policy rule |
+| --- | --- | --- |
+| Admin portal | Exchange admin center | Microsoft Purview portal |
+| Rule scope | Uses Exchange mail flow rule conditions | Uses DLP conditions and must be scoped only to Exchange |
+| Sender requirement | Configure **The sender is located** as **Inside the organization** | Configure **Content is received from** as **People inside my organization** |
+| Encryption | Can encrypt and apply branding in the same mail flow rule, or apply branding to a message encrypted earlier | Can encrypt and apply branding in the same DLP rule, or apply branding to a message encrypted by another supported method |
+| Portal access | The branding action doesn't provide a choice between enforced portal access and the native encrypted-message experience | The rule can enforce portal access or allow the native experience in supported clients |
+
+### Use an Exchange mail flow rule
 
 Important
 
@@ -210,6 +221,32 @@ To ensure Microsoft Purview Message Encryption applies your custom branding, set
 8. From **Do the following**, select **Modify the message security** &gt; **Apply custom branding to OME messages**. Next, from the drop-down, select a branding template.
 
     Select **add action** if you want to specify another action, or select **Save**, and then select **OK**.
+
+### Use a DLP policy rule
+
+Before you begin, create and configure the branding template as described in Work with branding templates. The DLP policy must be scoped only to Exchange, and the rule must apply to messages from people inside your organization.
+
+1. Sign in to the [Microsoft Purview portal](https://purview.microsoft.com).
+2. Go to **Solutions** &gt; **Data Loss Prevention** &gt; **Policies**.
+3. Select **Enterprise applications & devices**
+4. Create a custom DLP policy, or select an existing policy and edit it.
+5. On the page where you choose locations, select **Exchange email** and clear all other locations.
+6. Create or edit an advanced DLP rule.
+7. Under **Conditions**, add **Content is received from**, and select **People inside my organization**. Add any other conditions that identify the encrypted messages to brand.
+8. Make sure messages that match the rule are encrypted by adding a new condition, **Message type is** and selecting **Encrypted**.
+
+    1. To encrypt them in the same DLP rule, under **Actions**, add **Restrict access or encrypt the content in Microsoft 365 locations**, and then select **Encrypt email messages**. This is unnecessary if another supported method encrypts the messages before the branding action runs.
+9. Under **Actions**, add **Apply branding to encrypted messages**.
+10. Under **Select brand template**, select the OME branding template to apply.
+11. Choose whether to select **Make external recipients open message in the encrypted message portal**:
+
+    - Selected (the default for new rules): External recipients open the message in the encrypted message portal. External Outlook recipients don't use the native inline viewing experience.
+    - Cleared: External Outlook recipients can use the native inline viewing experience. Recipients whose email service or client doesn't support inline viewing continue to use the encrypted message portal.
+
+    Important
+
+    When this setting is selected, Outlook.com and Hotmail recipients are directed to the encrypted message portal and can't use Microsoft consumer-account single sign-on. Clearing the setting preserves the native experience for supported Outlook.com and Hotmail recipients.
+12. Save the rule, finish creating or editing the policy, and choose the appropriate policy mode. For deployment guidance, see [Create and deploy data loss prevention policies](dlp-create-deploy-policy).
 
 ## Background color reference
 

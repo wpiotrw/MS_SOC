@@ -143,7 +143,7 @@ DLP policies for cloud apps in the browser work directly in Edge for Business.
 
 ### Edge for Business
 
-These features are available in the two latest stable versions of Edge for Business, starting with version 144. For more information on Edge for Business versions, see [Microsoft Edge Releases](/en-us/deployedge/microsoft-edge-release-schedule#microsoft-edge-releases).
+These features are available in the two latest stable versions of Edge for Business, starting with version 158. For more information on Edge for Business versions, see [Microsoft Edge Releases](/en-us/deployedge/microsoft-edge-release-schedule#microsoft-edge-releases).
 
 Important
 

@@ -35,11 +35,11 @@ source_path: docs/identity/hybrid/connect/tshoot-connect-sso.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/57eae307-c3a1-4cac-b645-1a899934bac8
 - https://authoring-docs-microsoft.poolparty.biz/devrel/b1cfdec6-b0c3-4209-818c-736879856e0e
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/1433a524-c01f-4b87-beab-670c040dea4f
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/37da4cc9-0cfc-42a9-ba5e-805706b01ef8
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/ee561821-1ac7-45a8-9409-6ba5eb7a5b97
 - https://authoring-docs-microsoft.poolparty.biz/devrel/2d0723c1-cf38-4c30-ab3d-5df787b33270
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/312f1f05-a431-4193-8a4d-e6245d5966de
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3661fb96-d414-4a4e-b7ad-9370637790dd
 platformId: 822667b8-d57a-64fb-83ab-6501c888866e
 ---
 
@@ -99,6 +99,7 @@ Browse to **Entra ID** &gt; **Monitoring & health** &gt; **Sign-ins** in the [[M
 
 Use the following checklist to troubleshoot Seamless SSO problems:
 
+- If failures start after you enable Kerberos channel binding, check for TLS inspection and client CBT compatibility. See [Enable channel binding for Kerberos sign-in](../../authentication/kerberos-channel-binding#troubleshoot-failures-after-enforcement).
 - Ensure that the Seamless SSO feature is enabled in Microsoft Entra Connect. If you can't enable the feature (for example, due to a blocked port), ensure that you have all the [prerequisites](how-to-connect-sso-quick-start#step-1-check-the-prerequisites) in place.
 - If you have enabled both [Microsoft Entra join](../../devices/overview) and Seamless SSO on your tenant, ensure that the issue is not with Microsoft Entra join. SSO from Microsoft Entra join takes precedence over Seamless SSO if the device is both registered with Microsoft Entra ID and domain-joined. With SSO from Microsoft Entra join the user sees a sign-in tile that says "Connected to Windows".
 - Ensure that the Microsoft Entra URL (`https://autologon.microsoftazuread-sso.com`) is part of the user's Intranet zone settings.

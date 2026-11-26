@@ -174,6 +174,7 @@ https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-manage
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/concept-pim-for-app-roles
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/concept-pim-for-groups
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/groups-activate-roles
+https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/groups-audit
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/groups-role-settings
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-configure
 https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-connect-virtual-machine-my-access
@@ -299,6 +300,7 @@ https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-set-up-sm
 https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-sms-signin
 https://learn.microsoft.com/en-us/entra/identity/authentication/howto-sspr-authenticationdata
 https://learn.microsoft.com/en-us/entra/identity/authentication/kerberos
+https://learn.microsoft.com/en-us/entra/identity/authentication/kerberos-channel-binding
 https://learn.microsoft.com/en-us/entra/identity/authentication/kerberos-faq
 https://learn.microsoft.com/en-us/entra/identity/authentication/kerberos-server-key-rotation
 https://learn.microsoft.com/en-us/entra/identity/authentication/multi-factor-authentication-faq
@@ -368,10 +370,12 @@ https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-a
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-health-adfs-risky-ip
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-health-operations
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-passwordless-authentication
+https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sso
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sync-staging-server
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-syncservice-features
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/plan-connect-design-concepts
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/reference-connect-version-history
+https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/tshoot-connect-sso
 https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/whatis-azure-ad-connect-v2
 https://learn.microsoft.com/en-us/entra/identity/hybrid/how-to-group-source-of-authority-configure
 https://learn.microsoft.com/en-us/entra/identity/hybrid/how-to-user-source-of-authority-configure

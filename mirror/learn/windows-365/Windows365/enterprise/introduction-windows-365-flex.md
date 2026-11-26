@@ -90,9 +90,9 @@ When a user disconnects, an eligible Cloud PC hibernates after a set idle period
 #### Considerations and limitations
 
 - Cloud PCs with 2vCPU / 4GB Memory configurations are not eligible.
-- Customer Images must be configured with Windows 11 25H2 or newer version. If using older versions of Windows [reupload your Custom Image to Windows 365](create-custom-image-languages).
+- Custom Images must be configured with Windows 11 25H2 or newer version. If using older versions of Windows [reupload your Custom Image to Windows 365](create-custom-image-languages).
 - [Power Policies](/en-us/windows/client-management/mdm/policy-csp-power) must be removed from the Cloud PC. Use command `Powercfg /query SCHEME_CURRENT SUB_SLEEP HIBERNATEIDLE` and confirm Current AC Power Setting Index: is set to **0x0000000**.
-- Hiberfil.sys must not be removed from Cloud PC. Hiberfile.sys is located in the root of Windows system drive, typically at `C:\hiberfil.sys`, but hidden as protected system file.
+- [Hiberfil.sys](/en-us/troubleshoot/windows-client/setup-upgrade-and-drivers/disable-and-re-enable-hibernation) must not be removed from Cloud PC. Hiberfil.sys is located in the root of Windows system drive, typically at `C:\hiberfil.sys`, but hidden as protected system file.
 - Events, such as Windows Updates that require a reboot will cause the state to be not preserved.
 
 Note

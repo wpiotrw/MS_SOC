@@ -158,9 +158,11 @@ Added the **sharingLevel** property to the [calendar](/en-us/graph/api/resources
 
 - Added the `aiElevatedAccountRisk` member to the [riskDetail](/en-us/graph/api/resources/riskdetail?view=graph-rest-beta&amp;preserve-view=true) enumeration to indicate that the user completed Microsoft-managed remediation to address their risk.
 - Added the `userPassedVerifiedIdDrivenByRiskBasedPolicy` member to the [riskDetail](/en-us/graph/api/resources/riskdetail?view=graph-rest-beta&amp;preserve-view=true) enumeration to indicate that the user remediated their risk by completing Verified ID verification under a risk-based Conditional Access policy.
+- Added the `verifiedID` member to the **conditionalAccessGrantControl** enumeration type to require identity verification through Microsoft Entra Verified ID. Use this control in the **builtInControls** property of [conditionalAccessGrantControls](/en-us/graph/api/resources/conditionalaccessgrantcontrols?view=graph-rest-beta&amp;preserve-view=true).
 
 ### Identity and access | Network access
 
+- Added the `entra` member to the **trafficForwardingType** enumeration used by [forwardingProfile](/en-us/graph/api/resources/networkaccess-forwardingprofile?view=graph-rest-beta&amp;preserve-view=true) and [forwardingPolicy](/en-us/graph/api/resources/networkaccess-forwardingpolicy?view=graph-rest-beta&amp;preserve-view=true).
 - Added the [webFilteringPolicy](/en-us/graph/api/resources/networkaccess-webfilteringpolicy?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods for configuring how Global Secure Access allows or blocks web traffic based on source sessions, URLs, web categories, and HTTP request methods.
 
 ### Mail
@@ -197,6 +199,8 @@ Added the [classificationGradingJobResponse](/en-us/graph/api/resources/classifi
 - Removed the `If-Match` header from [create section](/en-us/graph/api/userteamwork-post-sections?view=graph-rest-beta&amp;preserve-view=true), [update section](/en-us/graph/api/teamworksection-update?view=graph-rest-beta&amp;preserve-view=true), [delete section](/en-us/graph/api/teamworksection-delete?view=graph-rest-beta&amp;preserve-view=true), [reorder sections](/en-us/graph/api/teamworksection-reorder?view=graph-rest-beta&amp;preserve-view=true), [create section item](/en-us/graph/api/teamworksection-post-items?view=graph-rest-beta&amp;preserve-view=true), [move section item](/en-us/graph/api/teamworksectionitem-move?view=graph-rest-beta&amp;preserve-view=true), [reorder section items](/en-us/graph/api/teamworksectionitem-reorder?view=graph-rest-beta&amp;preserve-view=true), and [delete section item](/en-us/graph/api/teamworksectionitem-delete?view=graph-rest-beta&amp;preserve-view=true) methods of the [teamworkSection](/en-us/graph/api/resources/teamworksection?view=graph-rest-beta&amp;preserve-view=true) and [teamworkSectionItem](/en-us/graph/api/resources/teamworksectionitem?view=graph-rest-beta&amp;preserve-view=true) resources. These operations now return a `409 Conflict` response code for concurrent changes, and no longer return `412 Precondition Failed` or `428 Precondition Required`.
 - Updated the [add teamworkSectionItem](/en-us/graph/api/teamworksection-post-items?view=graph-rest-beta&amp;preserve-view=true) method to move an item from another user-defined section.
 - Added the [teamworkChannelTag](/en-us/graph/api/resources/teamworkchanneltag?view=graph-rest-beta&amp;preserve-view=true) resource type and associated methods for managing tags owned by a Microsoft Teams channel. Use channel tags to group users within a channel and manage their tag assignments.
+- Added the [channelJoinRequest](/en-us/graph/api/resources/channeljoinrequest?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods for channel owners to manage pending requests to join a private or shared channel.
+- Added the [teamJoinRequest](/en-us/graph/api/resources/teamjoinrequest?view=graph-rest-beta&amp;preserve-view=true) resource type and related methods for team owners to manage pending requests to join a team.
 
 ### Tenants | Configuration management
 
@@ -303,6 +307,10 @@ The [Place update](/en-us/graph/api/place-update?view=graph-rest-beta&amp;preser
 - Use the [retrieveManagedLicenseOperation](/en-us/graph/api/cloudpcmanagedlicense-retrievemanagedlicenseoperation?view=graph-rest-beta&amp;preserve-view=true) operation to retrieve the status and per-user results of a submitted operation.
 - Added the [setDeviceName](/en-us/graph/api/cloudpc-setdevicename?view=graph-rest-beta&amp;preserve-view=true) action to set a Cloud PC's operating system device name without changing its display name.
 - Added the [cloudPcBulkSetDeviceName](/en-us/graph/api/resources/cloudpcbulksetdevicename?view=graph-rest-beta&amp;preserve-view=true) resource type to set device names for multiple Cloud PCs by using a naming template.
+
+### Device and app management | Device configuration
+
+- Added the `windowsServer` member to the [deviceManagementConfigurationWindowsSkus](/en-us/graph/api/resources/intune-deviceconfigv2-devicemanagementconfigurationwindowsskus?view=graph-rest-beta&amp;preserve-view=true) enumeration type to identify settings that apply to the Windows Server SKU family. Use the `Prefer: include-unknown-enum-members` request header to retrieve this value.
 
 ### Device and app management | Device updates
 

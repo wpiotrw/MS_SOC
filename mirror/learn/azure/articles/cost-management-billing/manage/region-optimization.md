@@ -18,7 +18,7 @@ adobe-target: true
 learn_banner_products:
 - azure
 description: Learn about the region optimization policy and how it might affect you.
-author: mjeffer
+author: diberry
 ms.author: diberry
 ms.reviewer: mjeffer
 ms.service: cost-management-billing

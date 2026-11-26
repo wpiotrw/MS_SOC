@@ -18,7 +18,7 @@ adobe-target: true
 learn_banner_products:
 - azure
 description: Provides the solution for a problem in which No subscriptions found error occurs during Azure portal sign in.
-author: mjeffer
+author: diberry
 ms.author: diberry
 ms.reviewer: mjeffer
 ms.service: cost-management-billing

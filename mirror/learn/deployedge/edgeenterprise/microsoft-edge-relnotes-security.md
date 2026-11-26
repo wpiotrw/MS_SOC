@@ -49,6 +49,12 @@ platformId: 542ff93e-6d46-54de-7a89-9dca7b8f83ef
 
 These release notes provide information about security fixes that are included in updates to Microsoft Edge Stable channel.
 
+## November 25, 2026
+
+Microsoft released the latest **Microsoft Edge for Stable (Version 158.0.4370.45)** and **Microsoft Edge for Extended Stable (Version 156.0.4314.110)** which incorporates the latest Security Updates of the Chromium project. For more information, see the [Security Update Guide](https://msrc.microsoft.com/update-guide).
+
+**Note:** CVE's will be added as soon as available.
+
 ## November 23, 2026
 
 Microsoft released the latest **Microsoft Edge for Android and iOS (Version 158.0.4370.33)** which incorporates the latest Security Updates of the Chromium project. For more information, see the [Security Update Guide](https://msrc.microsoft.com/update-guide).

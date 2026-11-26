@@ -17,7 +17,7 @@ uhfHeaderId: azure
 ms.suite: office
 adobe-target: true
 description: This article provides answers to frequently asked questions about the Microsoft Customer Agreement.
-author: KennyDay
+author: diberry
 ms.service: cost-management-billing
 ms.subservice: microsoft-customer-agreement
 ms.topic: faq

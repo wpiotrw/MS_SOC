@@ -18,7 +18,7 @@ adobe-target: true
 learn_banner_products:
 - azure
 description: Describes how to elevate access for a Global Administrator to manage billing accounts using the Azure portal or REST API.
-author: jkinma39
+author: diberry
 ms.reviewer: jkinma
 ms.service: cost-management-billing
 ms.subservice: billing

@@ -18,7 +18,7 @@ adobe-target: true
 learn_banner_products:
 - azure
 description: Learn how to organize costs on your invoice. You can customize your billing account by creating billing profiles and invoice sections.
-author: jkinma39
+author: diberry
 ms.reviewer: jkinma
 ms.service: cost-management-billing
 ms.subservice: billing

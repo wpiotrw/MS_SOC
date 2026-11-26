@@ -20,7 +20,7 @@ description: Learn how to get started with your Microsoft Customer Agreement (MC
 ms.service: cost-management-billing
 ms.subservice: microsoft-customer-agreement
 ms.topic: landing-page
-author: KennyDay
+author: diberry
 ms.author: diberry
 ms.date: 2025-01-07T00:00:00.0000000Z
 locale: en-us

@@ -18,7 +18,7 @@ adobe-target: true
 learn_banner_products:
 - azure
 description: Provides help for the message you might see when you try to create multiple subscriptions.
-author: mjeffer
+author: diberry
 ms.author: diberry
 ms.reviewer: mjeffer
 ms.service: cost-management-billing

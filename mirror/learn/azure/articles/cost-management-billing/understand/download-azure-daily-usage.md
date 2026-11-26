@@ -19,7 +19,7 @@ learn_banner_products:
 - azure
 description: Learn how to download or view your Azure daily usage and charges, and see other available resources.
 keywords: billing usage, usage charges, usage download, view usage, azure invoice, azure usage
-author: jkinma39
+author: diberry
 ms.author: jkinma
 ms.reviewer: jkinma
 ms.service: cost-management-billing

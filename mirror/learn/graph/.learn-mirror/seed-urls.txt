@@ -102,6 +102,8 @@ https://learn.microsoft.com/en-us/graph/api/resources/m365capabilitybase
 https://learn.microsoft.com/en-us/graph/api/resources/mailboxFolder
 https://learn.microsoft.com/en-us/graph/api/resources/mailboxfolder
 https://learn.microsoft.com/en-us/graph/api/resources/microsoftappsfilestoragecontainerusage
+https://learn.microsoft.com/en-us/graph/api/resources/networkaccess-forwardingpolicy
+https://learn.microsoft.com/en-us/graph/api/resources/networkaccess-forwardingprofile
 https://learn.microsoft.com/en-us/graph/api/resources/networkaccess-webfilteringpolicy
 https://learn.microsoft.com/en-us/graph/api/resources/onlineMeetingBase
 https://learn.microsoft.com/en-us/graph/api/resources/onpasswordupdatecustomextension
@@ -197,14 +199,18 @@ https://learn.microsoft.com/en-us/graph/mcp-server/use-it-admins-mcp-server-micr
 https://learn.microsoft.com/en-us/graph/microsoft-graph-activity-logs-overview
 https://learn.microsoft.com/en-us/graph/outlook-change-notifications-overview
 https://learn.microsoft.com/en-us/graph/outlook-share-or-delegate-calendar
+https://learn.microsoft.com/en-us/graph/people-data-sources
 https://learn.microsoft.com/en-us/graph/permissions-overview
 https://learn.microsoft.com/en-us/graph/permissions-reference
+https://learn.microsoft.com/en-us/graph/profilepriority-configure-profilepropertysetting
 https://learn.microsoft.com/en-us/graph/query-parameters
 https://learn.microsoft.com/en-us/graph/sdks/create-client
 https://learn.microsoft.com/en-us/graph/security-concept-overview
+https://learn.microsoft.com/en-us/graph/social-intel-concept-overview
 https://learn.microsoft.com/en-us/graph/teams-change-notification-in-microsoft-teams-overview
 https://learn.microsoft.com/en-us/graph/teams-embed-within-own-app
 https://learn.microsoft.com/en-us/graph/teams-licenses
+https://learn.microsoft.com/en-us/graph/teams-send-activityfeednotifications
 https://learn.microsoft.com/en-us/graph/throttling-limits
 https://learn.microsoft.com/en-us/graph/toolkit/components/chat
 https://learn.microsoft.com/en-us/graph/unified-tenant-configuration-management-concept-overview

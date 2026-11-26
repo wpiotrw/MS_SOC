@@ -18,7 +18,7 @@ adobe-target: true
 learn_banner_products:
 - azure
 description: Learn how to set up your billing account for a Microsoft Customer Agreement. See prerequisites for the setup and view other available resources.
-author: jkinma39
+author: diberry
 ms.reviewer: jkinma
 ms.service: cost-management-billing
 ms.subservice: billing

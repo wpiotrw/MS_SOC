@@ -19,7 +19,7 @@ learn_banner_products:
 - azure
 description: Provides several solutions to an issue in which you can't create a VM as an Enterprise Agreement (EA) user in portal.
 ms.topic: troubleshooting
-author: mjeffer
+author: diberry
 ms.author: diberry
 ms.reviewer: mjeffer
 ms.service: cost-management-billing

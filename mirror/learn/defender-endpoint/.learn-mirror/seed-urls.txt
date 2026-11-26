@@ -18,6 +18,7 @@ https://learn.microsoft.com/en-us/defender-endpoint/android-mobile-threat-defens
 https://learn.microsoft.com/en-us/defender-endpoint/android-new-ux
 https://learn.microsoft.com/en-us/defender-endpoint/android-privacy
 https://learn.microsoft.com/en-us/defender-endpoint/android-support-signin
+https://learn.microsoft.com/en-us/defender-endpoint/api/export-assessment-server-side-filtering
 https://learn.microsoft.com/en-us/defender-endpoint/api/get-all-vulnerabilities
 https://learn.microsoft.com/en-us/defender-endpoint/api/offboard-machine-api
 https://learn.microsoft.com/en-us/defender-endpoint/azure-server-integration
@@ -37,6 +38,7 @@ https://learn.microsoft.com/en-us/defender-endpoint/custom-data-collection
 https://learn.microsoft.com/en-us/defender-endpoint/defender-deployment-tool-windows
 https://learn.microsoft.com/en-us/defender-endpoint/defender-endpoint-demonstration-ai-agent-runtime-protection
 https://learn.microsoft.com/en-us/defender-endpoint/deploy-manage-report-microsoft-defender-antivirus
+https://learn.microsoft.com/en-us/defender-endpoint/device-inventory-field-reference
 https://learn.microsoft.com/en-us/defender-endpoint/discover-local-ai-agents
 https://learn.microsoft.com/en-us/defender-endpoint/gov
 https://learn.microsoft.com/en-us/defender-endpoint/investigate-machines
@@ -69,8 +71,10 @@ https://learn.microsoft.com/en-us/defender-endpoint/respond-file-alerts
 https://learn.microsoft.com/en-us/defender-endpoint/respond-machine-alerts
 https://learn.microsoft.com/en-us/defender-endpoint/restrict-response-actions-high-value-assets
 https://learn.microsoft.com/en-us/defender-endpoint/run-analyzer-linux
+https://learn.microsoft.com/en-us/defender-endpoint/run-analyzer-macos
 https://learn.microsoft.com/en-us/defender-endpoint/schedule-antivirus-scans-linux
 https://learn.microsoft.com/en-us/defender-endpoint/secure-controlled-configuration
+https://learn.microsoft.com/en-us/defender-endpoint/streamlined-device-connectivity-urls-commercial
 https://learn.microsoft.com/en-us/defender-endpoint/tamper-protection-linux-audit-mode
 https://learn.microsoft.com/en-us/defender-endpoint/tamper-protection-overview
 https://learn.microsoft.com/en-us/defender-endpoint/troubleshoot-collect-support-log

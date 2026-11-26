@@ -18,7 +18,7 @@ adobe-target: true
 learn_banner_products:
 - azure
 description: This article describes how to add, update, or delete a payment method for an Azure subscription.
-author: KennyDay
+author: diberry
 ms.reviewer: souchak
 ms.service: cost-management-billing
 ms.subservice: billing
@@ -46,9 +46,11 @@ source_path: articles/cost-management-billing/manage/change-credit-card.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/1d9b4802-f23d-41f1-9e27-65deeceacb8d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/970f20f1-2f12-4aa9-9c95-c00fe1f5e722
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
 - https://authoring-docs-microsoft.poolparty.biz/devrel/820483fb-3aa1-4b86-bc99-9a906a24f579
+- https://authoring-docs-microsoft.poolparty.biz/devrel/432c4950-b799-4ed5-93d5-b9b2934edf7d
 platformId: b06daf59-ffd4-8d1a-e035-be75d7253e21
 ---
 

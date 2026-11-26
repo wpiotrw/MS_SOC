@@ -18,7 +18,7 @@ adobe-target: true
 learn_banner_products:
 - azure
 description: Learn about the payment methods that are supported for Azure subscriptions, based on your country or region.
-author: KennyDay
+author: diberry
 ms.reviewer: souchak
 ms.service: cost-management-billing
 ms.subservice: billing

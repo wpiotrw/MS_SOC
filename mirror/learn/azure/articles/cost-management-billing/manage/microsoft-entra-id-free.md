@@ -18,7 +18,7 @@ adobe-target: true
 learn_banner_products:
 - azure
 description: Learn about Microsoft Entra ID Free, a cloud-based identity management product included with your billing account, and how it helps manage your subscriptions.
-author: KennyDay
+author: diberry
 ms.reviewer: zainzaigham
 ms.service: cost-management-billing
 ms.subservice: billing

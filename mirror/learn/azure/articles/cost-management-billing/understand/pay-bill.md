@@ -19,7 +19,7 @@ learn_banner_products:
 - azure
 description: Learn how to pay your bill in the Azure portal. You must be a billing profile owner, contributor, or invoice manager to pay in the portal.
 keywords: billing, past due, balance, pay now,
-author: KennyDay
+author: diberry
 ms.author: souchak
 ms.reviewer: souchak
 ms.service: cost-management-billing
@@ -43,8 +43,12 @@ item_type: Content
 source_path: articles/cost-management-billing/understand/pay-bill.md
 cmProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/68ec7f3a-2bc6-459f-b959-19beb729907d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/970f20f1-2f12-4aa9-9c95-c00fe1f5e722
+- https://authoring-docs-microsoft.poolparty.biz/devrel/1d9b4802-f23d-41f1-9e27-65deeceacb8d
 spProducts:
 - https://authoring-docs-microsoft.poolparty.biz/devrel/90370425-aca4-4a39-9533-d52e5e002a5d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/432c4950-b799-4ed5-93d5-b9b2934edf7d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/820483fb-3aa1-4b86-bc99-9a906a24f579
 platformId: d2ed3467-fe1c-2aad-9014-e47d83624187
 ---
 

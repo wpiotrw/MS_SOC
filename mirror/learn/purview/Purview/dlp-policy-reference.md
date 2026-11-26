@@ -6,9 +6,9 @@ breadcrumb_path: /purview/breadcrumb/toc.json
 feedback_system: Standard
 uhfHeaderId: MSDocsHeader-Purview
 f1.keywords: CSH
-ms.author: kreagle
-author: k-reagle
-manager: laurawi
+ms.author: shpalta
+author: tommoser
+manager: adamf
 ms.date: 2026-11-03T00:00:00.0000000Z
 audience: Admin
 ms.topic: reference
@@ -956,7 +956,9 @@ The following table lists the actions that Exchange supports, and indicates whet
 
 Tip
 
-For the **Apply branding to encrypted messages** action, if you already have Microsoft Purview Message Encryption implemented, the templates automatically show up in the drop-down list. If you want to implement Microsoft Purview Message Encryption, see [Add your organization's brand to your Microsoft Purview Message Encryption encrypted messages](add-your-organization-brand-to-encrypted-messages) for background on message encryption and how to create and configure your branding templates.
+The **Apply branding to encrypted messages** action requires an existing Microsoft Purview Message Encryption branding template. Available templates automatically appear in the action's dropdown list. This action doesn't encrypt the message by itself.
+
+Use this action in a policy that's scoped only to Exchange and in a rule that applies to messages from people inside your organization. You can also choose whether external recipients must use the encrypted message portal. For prerequisites, portal-access behavior, and configuration steps, see [Use a DLP policy rule to apply branding](add-your-organization-brand-to-encrypted-messages#use-a-dlp-policy-rule).
 
 For more information on the actions that Exchange supports, including PowerShell values, see: [Data loss prevention Exchange conditions and actions reference](dlp-exchange-conditions-and-actions).
 

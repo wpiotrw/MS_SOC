@@ -18,7 +18,7 @@ adobe-target: true
 learn_banner_products:
 - azure
 description: Learn how to read and understand your detailed usage and charges file. View a list of terms and descriptions used in the file.
-author: jkinma39
+author: diberry
 ms.reviewer: jkinma
 ms.service: cost-management-billing
 ms.subservice: billing

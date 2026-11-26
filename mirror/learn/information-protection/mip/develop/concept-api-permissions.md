@@ -11,7 +11,7 @@ feedback_product_url: https://feedbackportal.microsoft.com/feedback/forum/5ad50c
 feedback_help_link_url: https://learn.microsoft.com/en-us/answers/tags/24/azure-information-protection
 feedback_help_link_type: get-help-at-qna
 description: Technical details about API permissions needed for Microsoft Purview Information Protection Software Development kit operations.
-ms.date: 2026-09-18T00:00:00.0000000Z
+ms.date: 2026-10-22T00:00:00.0000000Z
 ms.topic: concept-article
 ms.service: azure-information-protection
 locale: en-us
@@ -78,6 +78,10 @@ Use this permission when an application needs to decrypt all content protected f
 ### Content.Writer
 
 Use this permission when an application needs to list templates and encrypt content. A service that attempts to list templates without this permission receives a token rejected message from the service. Examples of services that require `Content.Writer` are line-of-business applications that apply classification labels to files on export. Content.Writer encrypts the content as the service principal identity, so the owner of the protected files is the service principal identity.
+
+Important
+
+A known issue causes service-principal publishing with `Content.Writer` to fail when a sensitivity label applies protection and offline publishing is enabled. Template retrieval for offline publishing currently requires `Content.SuperUser`. To preserve least privilege, disable offline publishing instead of granting `Content.SuperUser` solely as a workaround. A fix is in progress to remove this requirement for the affected scenario. See [Service-principal publishing with Content.Writer](concept-offline-publishing#known-issue-service-principal-publishing-with-contentwriter) for configuration examples.
 
 ### UnifiedPolicy.Tenant.Read
 

@@ -125,7 +125,7 @@ Connect a Playwright workspace to your virtual network and a dedicated delegated
 
 ### Browser proxy (preview)
 
-Bring your own proxy to route cloud-browser traffic through your existing infrastructure. Configure proxy pools and domain-based routing rules to select a proxy for each destination, with priorities determining which rule applies when multiple rules match. Proxy credentials are stored in Azure Key Vault and accessed by using a managed identity.
+Bring your own proxy to route cloud-browser traffic through your existing infrastructure. Configure proxy pools and domain-based routing rules to select a proxy for each destination, with priorities determining which rule applies when multiple rules match. Proxy credentials are stored in Azure Key Vault and accessed by using a managed identity. Learn more about [browser proxies](/en-us/azure/app-testing/playwright-cloud-browsers/capabilities/browser-proxies?tabs=github-copilot-app).
 
 ### Profile reuse (preview, coming soon)
 
@@ -133,7 +133,7 @@ Save and reuse browser profiles containing authentication, cookies, and other br
 
 ### Secret management (preview)
 
-Store website credentials in Azure Key Vault and pass them directly to the browser. The Playwright Workspaces remote MCP server retrieves secret values server-side, without exposing them to the model or application code. You can restrict each secret to an allowed list of domains, and rotated Key Vault secrets are picked up automatically.
+Store website credentials in Azure Key Vault and pass them directly to the browser. The Playwright Workspaces remote MCP server retrieves secret values server-side, without exposing them to the model or application code. You can restrict each secret to an allowed list of domains, and rotated Key Vault secrets are picked up automatically. Learn more about [managing credentials with secret stores](/en-us/azure/app-testing/playwright-cloud-browsers/capabilities/secret-store?tabs=vscode).
 
 ### CAPTCHA handling with Web Bot Auth (preview)
 
@@ -176,11 +176,10 @@ Follow the [quickstart](browser-automation-prompt-agent-quickstart) for setup an
 | --- | --- |
 | Expanded tools for efficient browser actions | Browser extensions |
 | Private VNet injection (preview) | Enterprise scenarios that require an Intune-enabled device or passkey |
-| Browser proxies (preview) |  |
+| Browser proxies (preview) | Browser profile reuse |
 | Live View and Take control for sign-in and MFA |  |
 | Secret management with Azure Key Vault (preview) |  |
 | Web Bot Auth to reduce CAPTCHA challenges (preview) |  |
-| Browser profile reuse (preview, coming soon) |  |
 
 ### Reduce CAPTCHA challenges with Web Bot Auth (preview)
 
