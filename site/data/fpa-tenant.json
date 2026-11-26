@@ -1,7 +1,7 @@
 {
  "read": "2026-11-26",
  "tenant": "833fd6f2-…",
- "spTotal": 492,
+ "spTotal": 493,
  "spMicrosoft": 424,
  "grantsNote": null,
  "otherClients": 12,
@@ -32,7 +32,7 @@
    "owner": "cdc5aeea-15c5-4db6-b079-fcadd2505dc2",
    "microsoft": true,
    "grants": {
-    "Microsoft Graph": "Agreement.ReadWrite.All AppRoleAssignment.ReadWrite.All Application-RemoteDesktopConfig.ReadWrite.All Application.Read.All Application.ReadWrite.All AuditLog.Read.All CloudPC.ReadWrite.All CrossTenantInformation.ReadBasic.All DelegatedPermissionGrant.Read.All DelegatedPermissionGrant.ReadWrite.All Device.Read.All Device.ReadWrite.All DeviceManagementApps.Read.All DeviceManagementApps.ReadWrite.All DeviceManagementConfiguration.Read.All DeviceManagementConfiguration.ReadWrite.All DeviceManagementManagedDevices.Read.All DeviceManagementManagedDevices.ReadWrite.All DeviceManagementRBAC.Read.All DeviceManagementRBAC.ReadWrite.All DeviceManagementScripts.Read.All DeviceManagementScripts.ReadWrite.All DeviceManagementServiceConfig.Read.All DeviceManagementServiceConfig.ReadWrite.All Directory.Read.All Directory.ReadWrite.All Group.Read.All Group.ReadWrite.All GroupMember.Read.All GroupMember.ReadWrite.All Mail.Send OnPremDirectorySynchronization.Read.All OnPremDirectorySynchronization.ReadWrite.All Organization.Read.All Organization.ReadWrite.All Policy.Read.All Policy.Read.ConditionalAccess Policy.ReadWrite.AuthenticationMethod Policy.ReadWrite.ConditionalAccess RoleManagement.Read.All RoleManagement.Read.Directory ServiceMessage.Read.All User-Phone.ReadWrite.All User.Read User.Read.All User.ReadWrite.All UserAuthenticationMethod.ReadWrite.All email offline_access openid profile"
+    "Microsoft Graph": "Agreement.ReadWrite.All AppRoleAssignment.ReadWrite.All Application-RemoteDesktopConfig.ReadWrite.All Application.Read.All Application.ReadWrite.All AuditLog.Read.All CloudPC.ReadWrite.All CrossTenantInformation.ReadBasic.All DelegatedPermissionGrant.Read.All DelegatedPermissionGrant.ReadWrite.All Device.Read.All Device.ReadWrite.All DeviceManagementApps.Read.All DeviceManagementApps.ReadWrite.All DeviceManagementConfiguration.Read.All DeviceManagementConfiguration.ReadWrite.All DeviceManagementManagedDevices.Read.All DeviceManagementManagedDevices.ReadWrite.All DeviceManagementRBAC.Read.All DeviceManagementRBAC.ReadWrite.All DeviceManagementScripts.Read.All DeviceManagementScripts.ReadWrite.All DeviceManagementServiceConfig.Read.All DeviceManagementServiceConfig.ReadWrite.All Directory.Read.All Directory.ReadWrite.All Group.Read.All Group.ReadWrite.All GroupMember.Read.All GroupMember.ReadWrite.All Mail.Send OnPremDirectorySynchronization.Read.All OnPremDirectorySynchronization.ReadWrite.All Organization.Read.All Organization.ReadWrite.All Policy.Read.All Policy.Read.ConditionalAccess Policy.ReadWrite.AuthenticationMethod Policy.ReadWrite.ConditionalAccess RoleAssignmentSchedule.ReadWrite.Directory RoleManagement.Read.All RoleManagement.Read.Directory RoleManagement.ReadWrite.Directory ServiceMessage.Read.All User-Phone.ReadWrite.All User.Read User.Read.All User.ReadWrite.All UserAuthenticationMethod.ReadWrite.All email offline_access openid profile"
    },
    "roles": []
   },
