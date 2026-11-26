@@ -2247,6 +2247,14 @@
 "updated":"2026-09-18",
 "group":"microsoft",
 "found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/azure/foundry/whats-new-foundry":{
+"title":"Deploy and use Grok models in Microsoft Foundry",
+"link":"https://learn.microsoft.com/en-us/azure/foundry/whats-new-foundry",
+"source":"Microsoft Learn · What's new · Azure AI Foundry",
+"date":"2026-10-30",
+"group":"microsoft",
+"found":"2026-11-26"
 }
 },
 "final":null,
@@ -2611,120 +2619,6 @@
 "tech":"Microsoft 365",
 "posts":[
 "MC1526468"
-]
-},
-"c-mc1220762":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-26",
-"name":"MDE and XDR Advanced Hunting APIs retiring; migrate to Microsoft Graph Security API",
-"status":"Active",
-"members":[
-"MC1220762",
-"item:MC1220762"
-],
-"log":[
-{
-"date":"2026-10-26",
-"id":"MC1220762",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated this post as a reminder.",
-"title":"MDE and XDR APIs retire; migrate to Graph security API",
-"link":"https://mc.merill.net/message/MC1220762"
-},
-{
-"date":"2026-10-26",
-"id":"MC1220762",
-"what":"Microsoft edited the post text",
-"before":"",
-"after":"see the post",
-"title":"MDE and XDR APIs retire; migrate to Graph security API",
-"link":"https://mc.merill.net/message/MC1220762"
-},
-{
-"date":"2026-10-26",
-"id":"MC1220762",
-"what":"Microsoft revised the post",
-"before":"2026-01-22",
-"after":"2026-10-26",
-"title":"MDE and XDR APIs retire; migrate to Graph security API",
-"link":"https://mc.merill.net/message/MC1220762"
-},
-{
-"date":"2026-09-29",
-"id":"MC1220762",
-"what":"Act-by date",
-"before":"",
-"after":"2027-01-31",
-"title":"MDE and XDR APIs retire; migrate to Graph security API",
-"link":"https://mc.merill.net/message/MC1220762"
-},
-{
-"date":"2026-01-26",
-"id":"MC1220762",
-"what":"Microsoft's update note",
-"before":"",
-"after":"We have updated the content.",
-"title":"MDE and XDR APIs retire; migrate to Graph security API",
-"link":"https://mc.merill.net/message/MC1220762"
-}
-],
-"milestones":{
-"MC1220762|posted":{
-"date":"2026-01-22",
-"label":"22 Jan 2026",
-"text":"Posted: Retirement notice: MDE and XDR Advanced Hunting APIs retiring; migrate to Microsoft Graph Security API"
-},
-"MC1220762|#0":{
-"date":"2026-02-06",
-"label":"6 Feb 2026",
-"text":"February 6, 2026."
-},
-"MC1220762|migrate all existing api workflows to the microsoft graph se#0":{
-"date":"2027-01-31",
-"label":"31 Jan 2027",
-"text":"Migrate all existing API workflows to the Microsoft Graph Security API by January 31, 2027 ."
-},
-"MC1220762|after the mde and xdr apis will no longer function#0":{
-"date":"2027-02-01",
-"label":"1 Feb 2027",
-"text":"After February 1, 2027, the MDE and XDR APIs will no longer function."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1220762":{
-"title":"MDE and XDR APIs retire; migrate to Graph security API",
-"link":"https://mc.merill.net/message/MC1220762",
-"source":"Message Center",
-"id":"MC1220762",
-"date":"2026-01-22",
-"updated":"2026-01-22",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/defender-xdr/whats-new":{
-"title":"Expanded identity activity visibility in advanced hunting",
-"link":"https://learn.microsoft.com/en-us/defender-xdr/whats-new",
-"source":"Microsoft Learn · What's new · Defender XDR",
-"date":"2026-11-16T00:00:00.0000000Z",
-"group":"microsoft",
-"found":"2026-11-22"
-},
-"https://learn.microsoft.com/en-us/azure/sentinel/whats-new":{
-"title":"Run interactive KQL queries in advanced hunting",
-"link":"https://learn.microsoft.com/en-us/azure/sentinel/whats-new",
-"source":"Microsoft Learn · What's new · Microsoft Sentinel",
-"date":"2026-11-16T00:00:00.0000000Z",
-"group":"microsoft",
-"found":"2026-11-22"
-}
-},
-"final":"2027-02-01",
-"type":"Retirement",
-"tech":"Defender",
-"posts":[
-"MC1220762"
 ]
 },
 "c-mc1519861":{
@@ -3787,6 +3681,14 @@
 "date":"2026-11-17",
 "group":"microsoft",
 "found":"2026-11-19"
+},
+"https://mc.merill.net/message/MC1568697":{
+"title":"MC1568697: Microsoft Purview: Insider Risk Management-Introducing IRM Alert classification",
+"link":"https://mc.merill.net/message/MC1568697",
+"source":"MC - Merill",
+"date":"2026-11-25",
+"group":"community",
+"found":"2026-11-26"
 }
 },
 "final":"2026-12-08",
@@ -4853,14 +4755,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-23",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-24",
 "text":"August 1, 2026."
 },
@@ -4974,6 +4868,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-25",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-26",
 "text":"August 1, 2026."
 },
 {
@@ -5284,6 +5186,129 @@
 "MC1243549"
 ]
 },
+"c-mc1220762":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-26",
+"name":"MDE and XDR Advanced Hunting APIs retiring; migrate to Microsoft Graph Security API",
+"status":"Active",
+"members":[
+"MC1220762",
+"item:MC1220762"
+],
+"log":[
+{
+"date":"2026-11-26",
+"id":"MC1220762",
+"what":"Microsoft revised the post",
+"before":"2026-10-26",
+"after":"2026-01-22",
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762"
+},
+{
+"date":"2026-10-26",
+"id":"MC1220762",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated this post as a reminder.",
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762"
+},
+{
+"date":"2026-10-26",
+"id":"MC1220762",
+"what":"Microsoft edited the post text",
+"before":"",
+"after":"see the post",
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762"
+},
+{
+"date":"2026-10-26",
+"id":"MC1220762",
+"what":"Microsoft revised the post",
+"before":"2026-01-22",
+"after":"2026-10-26",
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762"
+},
+{
+"date":"2026-09-29",
+"id":"MC1220762",
+"what":"Act-by date",
+"before":"",
+"after":"2027-01-31",
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762"
+},
+{
+"date":"2026-01-26",
+"id":"MC1220762",
+"what":"Microsoft's update note",
+"before":"",
+"after":"We have updated the content.",
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762"
+}
+],
+"milestones":{
+"MC1220762|posted":{
+"date":"2026-01-22",
+"label":"22 Jan 2026",
+"text":"Posted: Retirement notice: MDE and XDR Advanced Hunting APIs retiring; migrate to Microsoft Graph Security API"
+},
+"MC1220762|#0":{
+"date":"2026-02-06",
+"label":"6 Feb 2026",
+"text":"February 6, 2026."
+},
+"MC1220762|migrate all existing api workflows to the microsoft graph se#0":{
+"date":"2027-01-31",
+"label":"31 Jan 2027",
+"text":"Migrate all existing API workflows to the Microsoft Graph Security API by January 31, 2027 ."
+},
+"MC1220762|after the mde and xdr apis will no longer function#0":{
+"date":"2027-02-01",
+"label":"1 Feb 2027",
+"text":"After February 1, 2027, the MDE and XDR APIs will no longer function."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1220762":{
+"title":"MDE and XDR APIs retire; migrate to Graph security API",
+"link":"https://mc.merill.net/message/MC1220762",
+"source":"Message Center",
+"id":"MC1220762",
+"date":"2026-01-22",
+"updated":"2026-01-22",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/defender-xdr/whats-new":{
+"title":"Expanded identity activity visibility in advanced hunting",
+"link":"https://learn.microsoft.com/en-us/defender-xdr/whats-new",
+"source":"Microsoft Learn · What's new · Defender XDR",
+"date":"2026-11-16T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-11-22"
+},
+"https://learn.microsoft.com/en-us/azure/sentinel/whats-new":{
+"title":"Run interactive KQL queries in advanced hunting",
+"link":"https://learn.microsoft.com/en-us/azure/sentinel/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Sentinel",
+"date":"2026-11-16T00:00:00.0000000Z",
+"group":"microsoft",
+"found":"2026-11-22"
+}
+},
+"final":"2027-02-01",
+"type":"Retirement",
+"tech":"Defender",
+"posts":[
+"MC1220762"
+]
+},
 "c-mc1188230":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-26",
@@ -5459,22 +5484,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-24",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-24",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-25",
 "text":"early February 2026."
 },
@@ -5580,6 +5589,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-25",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-26",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-26",
 "text":"February 2027."
 },
 {
@@ -6570,75 +6595,6 @@
 "tech":"Exchange",
 "posts":[
 "MC1483974"
-]
-},
-"c-item-mc1542066":{
-"firstSeen":"2026-11-07",
-"lastSeen":"2026-11-26",
-"name":"Changes to custom organizational data in MODS for Workforce Insights",
-"status":"Recently closed",
-"members":[
-"MC1542066",
-"item:MC1542066"
-],
-"log":[
-{
-"date":"2026-11-07",
-"id":"MC1542066",
-"what":"Entered the brief (Deadlines)",
-"before":"",
-"after":"Workforce Insights endpoint in MODS retires 18 November; custom non-public attributes such as job level move to the Microsoft 365 profile endpoint and become visible to Copilot experiences",
-"title":"Workforce Insights endpoint in MODS retires 18 November; custom non-public attributes such as job level move to the Microsoft 365 profile endpoint and become visible to Copilot experiences",
-"link":"https://deltapulse.app/item/MC1542066"
-}
-],
-"milestones":{
-"MC1542066|posted":{
-"date":"2026-11-06",
-"label":"6 Nov 2026",
-"text":"Posted: Microsoft 365 Copilot: Changes to custom organizational data in MODS for Workforce Insights"
-},
-"MC1542066|after the workforce insights endpoint will no longer be avai#0":{
-"date":"2026-11-18",
-"label":"18 Nov 2026",
-"text":"After November 18, 2026 , the Workforce Insights endpoint will no longer be available as a destination in MODS."
-}
-},
-"moves":[],
-"materials":{
-"https://mc.merill.net/message/MC1542066":{
-"title":"Microsoft 365 Copilot: Changes to custom organizational data in MODS for Workforce Insights",
-"link":"https://mc.merill.net/message/MC1542066",
-"source":"Message Center",
-"id":"MC1542066",
-"date":"2026-11-06",
-"updated":"2026-11-06",
-"group":"microsoft",
-"found":"2026-11-07"
-},
-"https://deltapulse.app/item/MC1542066":{
-"title":"Microsoft 365 Copilot: Changes to custom organizational data in MODS for Workforce Insights",
-"link":"https://deltapulse.app/item/MC1542066",
-"source":"Main list source",
-"id":"MC1542066",
-"date":"2026-11-06",
-"group":"microsoft",
-"found":"2026-11-07"
-},
-"https://mc.merill.net/message/MC1560929":{
-"title":"MC1560929: Updates to Workforce Insights Agent (Frontier) for Admins in Microsoft 365 Copilot",
-"link":"https://mc.merill.net/message/MC1560929",
-"source":"MC - Merill",
-"date":"2026-11-20",
-"group":"community",
-"found":"2026-11-22"
-}
-},
-"final":"2026-11-18",
-"type":"Retirement",
-"tech":"Copilot",
-"posts":[
-"MC1542066"
 ]
 },
 "c-item-mc1546409":{
@@ -8461,6 +8417,22 @@
 "date":"2026-11-25",
 "group":"community",
 "found":"2026-11-25"
+},
+"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new":{
+"title":"Enable saving passkeys to the password manager",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"date":"2026-11-16",
+"group":"microsoft",
+"found":"2026-11-26"
+},
+"https://dev.to/waseem_raza_9c605370f55bb/family-voice-shielddailerai-54cd":{
+"title":"Family voice shield(dailerAI)",
+"link":"https://dev.to/waseem_raza_9c605370f55bb/family-voice-shielddailerai-54cd",
+"source":"NeonTiger12",
+"date":"2026-11-26",
+"group":"community",
+"found":"2026-11-26"
 }
 },
 "final":"2027-07-01",
@@ -8499,6 +8471,15 @@
 "item:MC1545694"
 ],
 "log":[
+{
+"date":"2026-11-26",
+"id":"MC1450133",
+"what":"Microsoft revised the post",
+"before":"2026-10-26",
+"after":"2026-08-07",
+"title":"Users can register a passkey or passwordless sign-in as their first MFA method; phase 1 now starts early November and ends early January",
+"link":"https://mc.merill.net/message/MC1450133"
+},
 {
 "date":"2026-11-20",
 "id":"MC1545694",
@@ -8817,24 +8798,6 @@
 {
 "date":"2026-10-08",
 "id":"MC1450133",
-"what":"Microsoft moved the date",
-"before":"late Oct 2026",
-"after":"early Nov 2026",
-"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
-"link":"https://mc.merill.net/message/MC1450133"
-},
-{
-"date":"2026-10-08",
-"id":"MC1450133",
-"what":"Microsoft moved the date",
-"before":"late Nov 2026",
-"after":"early Jan 2027",
-"title":"Passkey or passwordless sign-in as the first MFA method: phase 1 slips to late October and its completion to late November",
-"link":"https://mc.merill.net/message/MC1450133"
-},
-{
-"date":"2026-10-08",
-"id":"MC1450133",
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the timeline.",
@@ -9040,6 +9003,24 @@
 "link":"https://mc.merill.net/message/MC1423108"
 },
 {
+"date":"2026-08-07",
+"id":"MC1450133",
+"what":"Microsoft moved the date",
+"before":"late Oct 2026",
+"after":"early Nov 2026",
+"title":"Users can register a passkey or passwordless sign-in as their first MFA method; phase 1 now starts early November and ends early January",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
+"date":"2026-08-07",
+"id":"MC1450133",
+"what":"Microsoft moved the date",
+"before":"late Nov 2026",
+"after":"early Jan 2027",
+"title":"Users can register a passkey or passwordless sign-in as their first MFA method; phase 1 now starts early November and ends early January",
+"link":"https://mc.merill.net/message/MC1450133"
+},
+{
 "date":"2026-07-20",
 "id":"MC1282568",
 "what":"Microsoft's update note",
@@ -9220,22 +9201,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-24",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-24",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-25",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -9341,6 +9306,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-25",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-26",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-26",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -20789,6 +20770,36 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-26",
+"cid":"c-mc1481317",
+"type":"material",
+"name":"Microsoft Purview | Insider Risk Management: Retirement of Data Risk Graph",
+"group":"community",
+"title":"MC1568697: Microsoft Purview: Insider Risk Management-Introducing IRM Alert classification",
+"source":"MC - Merill",
+"link":"https://mc.merill.net/message/MC1568697"
+},
+{
+"day":"2026-11-26",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"microsoft",
+"title":"Enable saving passkeys to the password manager",
+"source":"Microsoft Learn · What's new · Microsoft Intune",
+"link":"https://learn.microsoft.com/en-us/intune/intune-service/fundamentals/whats-new"
+},
+{
+"day":"2026-11-26",
+"cid":"c-sms-voice-retirement",
+"type":"material",
+"name":"Microsoft-provided SMS and voice MFA retirement",
+"group":"community",
+"title":"Family voice shield(dailerAI)",
+"source":"NeonTiger12",
+"link":"https://dev.to/waseem_raza_9c605370f55bb/family-voice-shielddailerai-54cd"
 }
 ],
 "archive":{
@@ -27311,6 +27322,75 @@
 "MC1458474"
 ],
 "archivedOn":"2026-11-26"
+},
+"c-item-mc1542066":{
+"firstSeen":"2026-11-07",
+"lastSeen":"2026-11-26",
+"name":"Changes to custom organizational data in MODS for Workforce Insights",
+"status":"Archive",
+"members":[
+"MC1542066",
+"item:MC1542066"
+],
+"log":[
+{
+"date":"2026-11-07",
+"id":"MC1542066",
+"what":"Entered the brief (Deadlines)",
+"before":"",
+"after":"Workforce Insights endpoint in MODS retires 18 November; custom non-public attributes such as job level move to the Microsoft 365 profile endpoint and become visible to Copilot experiences",
+"title":"Workforce Insights endpoint in MODS retires 18 November; custom non-public attributes such as job level move to the Microsoft 365 profile endpoint and become visible to Copilot experiences",
+"link":"https://deltapulse.app/item/MC1542066"
+}
+],
+"milestones":{
+"MC1542066|posted":{
+"date":"2026-11-06",
+"label":"6 Nov 2026",
+"text":"Posted: Microsoft 365 Copilot: Changes to custom organizational data in MODS for Workforce Insights"
+},
+"MC1542066|after the workforce insights endpoint will no longer be avai#0":{
+"date":"2026-11-18",
+"label":"18 Nov 2026",
+"text":"After November 18, 2026 , the Workforce Insights endpoint will no longer be available as a destination in MODS."
+}
+},
+"moves":[],
+"materials":{
+"https://mc.merill.net/message/MC1542066":{
+"title":"Microsoft 365 Copilot: Changes to custom organizational data in MODS for Workforce Insights",
+"link":"https://mc.merill.net/message/MC1542066",
+"source":"Message Center",
+"id":"MC1542066",
+"date":"2026-11-06",
+"updated":"2026-11-06",
+"group":"microsoft",
+"found":"2026-11-07"
+},
+"https://deltapulse.app/item/MC1542066":{
+"title":"Microsoft 365 Copilot: Changes to custom organizational data in MODS for Workforce Insights",
+"link":"https://deltapulse.app/item/MC1542066",
+"source":"Main list source",
+"id":"MC1542066",
+"date":"2026-11-06",
+"group":"microsoft",
+"found":"2026-11-07"
+},
+"https://mc.merill.net/message/MC1560929":{
+"title":"MC1560929: Updates to Workforce Insights Agent (Frontier) for Admins in Microsoft 365 Copilot",
+"link":"https://mc.merill.net/message/MC1560929",
+"source":"MC - Merill",
+"date":"2026-11-20",
+"group":"community",
+"found":"2026-11-22"
+}
+},
+"final":"2026-11-18",
+"type":"Retirement",
+"tech":"Copilot",
+"posts":[
+"MC1542066"
+]
 }
 }
 }
