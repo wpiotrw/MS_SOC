@@ -1,10 +1,10 @@
 {
- "read": "2026-11-21T02:15Z",
+ "read": "2026-11-26T03:33Z",
  "source": "our second tenant (tools/graph_sp.py)",
  "sourceLabel": "our developer tenant",
  "sourceNote": "built-in role definitions of our second (developer) tenant, read every 3 hours with the same app permissions",
- "thereRead": "2026-11-21T02:15Z",
- "ourRead": "2026-11-21T02:14Z",
+ "thereRead": "2026-11-25T19:16Z",
+ "ourRead": "2026-11-26T03:32Z",
  "keepDays": 90,
  "counts": {
   "rolesThere": 150,
@@ -14,6 +14,14 @@
  },
  "roles": {},
  "events": [
+  {
+   "day": "2026-11-26",
+   "name": "Graph permissions",
+   "change": "perms-there-only",
+   "actions": [
+    "DynamicPermissions.Read.DetectionAndRemediation"
+   ]
+  },
   {
    "day": "2026-11-16",
    "name": "Graph permissions",
@@ -43,10 +51,16 @@
    ]
   }
  ],
- "permsThereOnly": [],
- "permsFirst": {},
+ "permsThereOnly": [
+  "DynamicPermissions.Read.DetectionAndRemediation"
+ ],
+ "permsFirst": {
+  "DynamicPermissions.Read.DetectionAndRemediation": "2026-11-26"
+ },
  "actionsThereOnly": [],
  "actionsFirst": {},
- "permsText": {},
+ "permsText": {
+  "DynamicPermissions.Read.DetectionAndRemediation": "Allows the app to read dynamic permission detections and their remediation history across all catalogs in the organization, without a signed-in user. Does not allow configuration changes, remediation execution, or access to orchestration sessions, requests, or assignments."
+ },
  "actionsText": {}
 }

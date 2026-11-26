@@ -1,17 +1,28 @@
 {
- "updated": "2026-11-25T08:25Z",
+ "updated": "2026-11-26T03:32Z",
  "baseline": "2026-10-10T08:35Z",
- "lastRead": "2026-11-25T08:25Z",
+ "lastRead": "2026-11-26T03:32Z",
  "rolesNote": null,
  "keepDays": 90,
  "counts": {
-  "names": 1099,
+  "names": 1098,
   "application": 790,
   "delegated": 878,
   "rsc": 60,
   "roles": 150
  },
  "events": [
+  {
+   "seen": "2026-11-26T03:32Z",
+   "day": "2026-11-26",
+   "surface": "permission",
+   "name": "DynamicPermissions.Read.DetectionAndRemediation",
+   "change": "removed",
+   "type": "Application+Delegated",
+   "before": "Application, Delegated",
+   "after": null,
+   "text": ""
+  },
   {
    "seen": "2026-11-25T08:25Z",
    "day": "2026-11-25",

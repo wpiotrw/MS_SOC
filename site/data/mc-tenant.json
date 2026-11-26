@@ -1,7 +1,7 @@
 {
- "read": "2026-11-25",
+ "read": "2026-11-26",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 736,
+ "count": 739,
  "note": null,
  "messages": [
   {
@@ -19540,6 +19540,82 @@
    "bodyHash": "71d1ae5d9bd56c21"
   },
   {
+   "id": "MC1568568",
+   "title": "Configure security key sign-in experience for display-based NFC readers",
+   "services": [
+    "Windows"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-25",
+   "end": "2027-11-25",
+   "modified": "2026-11-25",
+   "tags": [
+    "Admin impact"
+   ],
+   "summary": "What and why: An improved security key sign-in experience is available on Windows 11 devices with display-based Near Field Communication (NFC) readers. A new on-screen indicator now shows where to tap your security key during sign-in. The indicator adjusts to the device's screen orientation, making it easier to locate the NFC reader. Rollout schedule: This improved sign-in experience and simpler a…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Rollout schedule: This improved sign-in experience and simpler appearance are available starting with the November 2026 Windows non-security update ."
+   ],
+   "bodyHash": "e38919395a860d43"
+  },
+  {
+   "id": "MC1568697",
+   "title": "Microsoft Purview: Insider Risk Management-Introducing IRM Alert classification",
+   "services": [
+    "Microsoft Purview"
+   ],
+   "category": "planForChange",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-25",
+   "end": "2027-03-29",
+   "modified": "2026-11-25",
+   "tags": [
+    "Admin impact",
+    "New feature"
+   ],
+   "summary": "[What and Why:] Insider risk management will be introducing the ability to classify alerts as True positive, Benign (operational), and False positive. This will be available on all alerts where analysts can choose from a list of predefined classification reasons. Alert classification will help tenants to better classify risk within alerts to support reporting and tuning needs. This will replace ex…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Public Preview: We will begin rolling out early December 2026 and expect to complete by mid-December 2026.",
+    "Global: We will begin rolling out on mid-January 2027 and expect to complete by late January 2027."
+   ],
+   "bodyHash": "3a3109ecb7f4e020"
+  },
+  {
+   "id": "MC1568699",
+   "title": "Campaigns in SharePoint",
+   "services": [
+    "Microsoft Viva"
+   ],
+   "category": "stayInformed",
+   "severity": "normal",
+   "major": false,
+   "actionBy": null,
+   "start": "2026-11-25",
+   "end": "2027-01-18",
+   "modified": "2026-11-25",
+   "tags": [
+    "New feature",
+    "User impact"
+   ],
+   "summary": "[What and Why:] Today we're sharing an update to the new/upcoming SharePoint Publish experience: campaigns in SharePoint (site campaigns). This new capability brings Viva Amplify's campaign management natively into SharePoint, giving corporate communications teams a unified place to create, distribute, and measure their news without leaving the platform where their news content already lives. This…",
+   "when": null,
+   "prepare": null,
+   "dates": [
+    "Targeted Release (if applicable): Late July to August 2026.",
+    "General Availability (Worldwide): We will begin rolling out on mid August 2026 and expect to complete by end of November 2026."
+   ],
+   "bodyHash": "cc3c0c0da0dd0f55"
+  },
+  {
    "id": "MC676299",
    "title": "(Updated) Retirement of Exchange Web Services in Exchange Online",
    "services": [
@@ -19671,21 +19747,22 @@
    "major": false,
    "actionBy": null,
    "start": "2024-10-28",
-   "end": "2027-02-26",
-   "modified": "2026-10-22",
+   "end": "2027-09-20",
+   "modified": "2026-11-25",
    "tags": [
     "Admin impact",
     "New feature",
     "Updated message"
    ],
-   "summary": "Updated March 9, 2026: We have updated the timeline. Thank you for your patience. Microsoft Purview Communication Compliance is improving the capabilities and customization of policy alerts. This message is associated with Microsoft 365 Roadmap ID 181825 . [When this will happen:] Public Preview: We will begin rolling out October 2026 (previously late July 2025) and expect to complete by end of Oc…",
-   "when": "Public Preview: We will begin rolling out October 2026 (previously late July 2025) and expect to complete by end of October 2026 (previously mid-Aug 2025). General Availability (Worldwide): We will announce this timeline in a future update.",
+   "summary": "Updated November 25, 2026: We have updated the timeline. Thank you for your patience. Microsoft Purview Communication Compliance is improving the capabilities and customization of policy alerts. This message is associated with Microsoft 365 Roadmap ID 181825 . [When this will happen:] Public Preview: We will begin rolling out October 2026 (previously late July 2025) and expect to complete by end o…",
+   "when": "Public Preview: We will begin rolling out October 2026 (previously late July 2025) and expect to complete by end of October 2026 (previously mid-Aug 2025). General Availability (Worldwide): We will begin rolling out late May 2027 and expect to complete by mid-August 2027.",
    "prepare": "Microsoft Purview Communication Compliance provides the tools to help organizations detect business conduct and regulatory compliance violations (e.g. SEC or FINRA), such as sensitive or confidential information, harassing or threatening language, and sharing of adult content. Usernames are pseudonymized by default, role-based access controls are built in, investigators are opted in by an admin, and audit logs are in place to help ensure user-lev…",
    "dates": [
-    "Updated March 9, 2026: We have updated the timeline.",
-    "Public Preview: We will begin rolling out October 2026 (previously late July 2025) and expect to complete by end of October 2026 (previously mid-Aug 2025)."
+    "Updated November 25, 2026: We have updated the timeline.",
+    "Public Preview: We will begin rolling out October 2026 (previously late July 2025) and expect to complete by end of October 2026 (previously mid-Aug 2025).",
+    "General Availability (Worldwide): We will begin rolling out late May 2027 and expect to complete by mid-August 2027."
    ],
-   "bodyHash": "c54d7c507b52463f"
+   "bodyHash": "914f372a71b66cad"
   },
   {
    "id": "MC937920",
@@ -19829,187 +19906,6 @@
   }
  ],
  "changes": [
-  {
-   "date": "2026-10-26",
-   "id": "MC1525374",
-   "type": "new",
-   "title": "An updated version of the October 2026 Scan Cab is available",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1238432",
-   "type": "removed",
-   "title": "(Updated) Microsoft 365 Copilot app: Branded footer customization",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1289725",
-   "type": "removed",
-   "title": "(Updated) Microsoft Teams: Delete meeting generated content in recap",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1413302",
-   "type": "removed",
-   "title": "(Updated) Discussion post previews coming to Viva Engage",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1423108",
-   "type": "removed",
-   "title": "(Updated) Microsoft Entra: Improved restore experience for Authenticator passkeys on iOS",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1437670",
-   "type": "removed",
-   "title": "Microsoft 365 Apps will be included in the Windows 365 Developer Configuration image",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1442612",
-   "type": "removed",
-   "title": "(Updated) Microsoft PowerPoint: Access your organization's brand templates in PowerPoint",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1444375",
-   "type": "removed",
-   "title": "Exclude Windows 365 Cloud PCs from Administrator Protection Policy",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1454382",
-   "type": "removed",
-   "title": "Action required: Update Microsoft Defender for Endpoint Android App",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1454388",
-   "type": "removed",
-   "title": "Copilot Analytics Labs under Resources section",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1454390",
-   "type": "removed",
-   "title": "Retiring Teams Shifts Connection cmdlets from Teams PowerShell Module",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1462914",
-   "type": "removed",
-   "title": "Microsoft Agent 365: Active Users export for agent usage reporting",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1470415",
-   "type": "removed",
-   "title": "Microsoft 365 Copilot in PowerPoint: Guide Presentation Creation with Notes Steering and Strict Brand Adherence",
-   "fields": {}
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1220762",
-   "type": "changed",
-   "title": "(Updated) Retirement notice: MDE and XDR Advanced Hunting APIs retiring; migrate to Microsoft Graph Security API",
-   "fields": {
-    "bodyHash": [
-     "91f5eed0c27d2846",
-     "4b6e8026410b90cc"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1261587",
-   "type": "changed",
-   "title": "Microsoft Purview | Data Lifecycle Management - Hard delete OneDrive and SharePoint files with priority cleanup workflow",
-   "fields": {
-    "end": [
-     "2026-12-31",
-     "2027-02-08"
-    ],
-    "bodyHash": [
-     "ae1f1bf65f486588",
-     "08d6c0021bdc4813"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1473155",
-   "type": "changed",
-   "title": "(Updated) Microsoft Purview: permissions audit log improvements",
-   "fields": {
-    "bodyHash": [
-     "51d35ff96ab33385",
-     "596aebe3eada3555"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1483528",
-   "type": "changed",
-   "title": "Dynamics 365 and Power Platform– Information about storage validation for Dataverse-only tenants",
-   "fields": {
-    "major": [
-     false,
-     true
-    ],
-    "bodyHash": [
-     "c9f6439016e6fd72",
-     "175382a4f63d90cb"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1505607",
-   "type": "changed",
-   "title": "(Updated) Outlook: Reply With a Template in Rules",
-   "fields": {
-    "title": [
-     "Outlook: Reply With a Template in Rules",
-     "(Updated) Outlook: Reply With a Template in Rules"
-    ],
-    "tags": [
-     [
-      "New feature",
-      "User impact"
-     ],
-     [
-      "New feature",
-      "Updated message",
-      "User impact"
-     ]
-    ],
-    "bodyHash": [
-     "e966bb634308c9f2",
-     "4c458a02f430c41d"
-    ]
-   }
-  },
-  {
-   "date": "2026-10-26",
-   "id": "MC1526468",
-   "type": "new",
-   "title": "Update to MC1510951: Canada 2026 time zone changes — Microsoft 365 impact and required admin actions",
-   "fields": {}
-  },
   {
    "date": "2026-10-27",
    "id": "MC1441784",
@@ -25703,6 +25599,43 @@
    "type": "new",
    "title": "Out-of-band hotpatch update addresses stop error 0x139 on Windows Server 2025",
    "fields": {}
+  },
+  {
+   "date": "2026-11-26",
+   "id": "MC1568568",
+   "type": "new",
+   "title": "Configure security key sign-in experience for display-based NFC readers",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-26",
+   "id": "MC1568697",
+   "type": "new",
+   "title": "Microsoft Purview: Insider Risk Management-Introducing IRM Alert classification",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-26",
+   "id": "MC1568699",
+   "type": "new",
+   "title": "Campaigns in SharePoint",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-26",
+   "id": "MC920304",
+   "type": "changed",
+   "title": "(Updated) Microsoft Purview | Communication Compliance: Policy alerts improvements",
+   "fields": {
+    "end": [
+     "2027-02-26",
+     "2027-09-20"
+    ],
+    "bodyHash": [
+     "c54d7c507b52463f",
+     "914f372a71b66cad"
+    ]
+   }
   }
  ]
 }
