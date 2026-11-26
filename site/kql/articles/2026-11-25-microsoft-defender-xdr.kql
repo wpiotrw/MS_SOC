@@ -1,0 +1,24 @@
+// title: Microsoft Defender XDR
+// date: 2026-11-25
+// product: Defender for Endpoint
+// tables: DeviceProcessEvents
+// purpose: From the article: What defenders need to know about ARTEX, the agentic AI framework threat actors abuse
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/
+// kind: article
+// author: Microsoft Threat Intelligence · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Shells and download tools started by web or application server processes
+let WebServerProcesses = dynamic(["w3wp.exe", "httpd", "apache2", "nginx", "lighttpd",
+    "java", "node"]);
+let ShellsAndTools = dynamic(["sh", "bash", "dash", "zsh", "cmd.exe", "powershell.exe",
+    "pwsh", "pwsh.exe", "curl", "wget", "nc", "ncat", "certutil.exe", "python3", "perl"]);
+DeviceProcessEvents
+| where InitiatingProcessFileName in~ (WebServerProcesses)
+    or InitiatingProcessFileName startswith "php"
+| where FileName in~ (ShellsAndTools)
+| summarize DistinctCommands = dcount(ProcessCommandLine), Tools = make_set(FileName, 20),
+    SampleCommands = make_set(ProcessCommandLine, 25), FirstSeen = min(Timestamp),
+    LastSeen = max(Timestamp)
+    by DeviceId, DeviceName, InitiatingProcessFileName, bin(Timestamp, 5m)
+| where DistinctCommands >= 10
+| order by DistinctCommands desc

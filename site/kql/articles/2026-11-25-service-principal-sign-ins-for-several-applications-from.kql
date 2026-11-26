@@ -1,0 +1,24 @@
+// title: Service principal sign-ins for several applications from one IP address
+// date: 2026-11-25
+// product: Entra
+// tables: EntraIdSpnSignInEvents
+// purpose: From the article: What defenders need to know about ARTEX, the agentic AI framework threat actors abuse
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/
+// kind: article
+// author: Microsoft Threat Intelligence · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Service principal sign-ins for several applications from one IP address
+EntraIdSpnSignInEvents
+| where IsManagedIdentity == false
+| summarize ServicePrincipals = dcount(ServicePrincipalId),
+    SucceededFor = dcountif(ServicePrincipalId, ErrorCode == 0),
+    FailedSignIns = countif(ErrorCode != 0),
+    InvalidOrExpiredSecret = countif(ErrorCode in (7000215, 7000222)),
+    ArtexUserAgent = countif(UserAgent has_any ("artex", "norma")),
+    Applications = make_set(ServicePrincipalName, 20),
+    Resources = make_set(ResourceDisplayName, 20), UserAgents = make_set(UserAgent, 10),
+    FirstSeen = min(Timestamp), LastSeen = max(Timestamp)
+    by IPAddress, bin(Timestamp, 1h)
+| where (ServicePrincipals >= 3 and SucceededFor >= 1 and FailedSignIns >= 1)
+    or ArtexUserAgent > 0
+| order by ServicePrincipals desc

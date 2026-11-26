@@ -2626,18 +2626,18 @@
 {
 "date":"2026-10-26",
 "id":"MC1220762",
-"what":"Microsoft edited the post text",
+"what":"Microsoft's update note",
 "before":"",
-"after":"see the post",
+"after":"We have updated this post as a reminder.",
 "title":"MDE and XDR APIs retire; migrate to Graph security API",
 "link":"https://mc.merill.net/message/MC1220762"
 },
 {
 "date":"2026-10-26",
 "id":"MC1220762",
-"what":"Microsoft's update note",
+"what":"Microsoft edited the post text",
 "before":"",
-"after":"We have updated this post as a reminder.",
+"after":"see the post",
 "title":"MDE and XDR APIs retire; migrate to Graph security API",
 "link":"https://mc.merill.net/message/MC1220762"
 },
@@ -4861,14 +4861,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-23",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-24",
 "text":"August 1, 2026."
 },
@@ -4982,6 +4974,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-25",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-26",
 "text":"August 1, 2026."
 },
 {
@@ -5475,22 +5475,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-24",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-24",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-25",
 "text":"early February 2026."
 },
@@ -5596,6 +5580,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-25",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-26",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-26",
 "text":"February 2027."
 },
 {
@@ -9236,22 +9236,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-24",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-24",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-25",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -9357,6 +9341,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-25",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-26",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-26",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {

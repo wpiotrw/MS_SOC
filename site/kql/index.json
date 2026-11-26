@@ -104,6 +104,67 @@
   "repo": "jkerai1 KQL Queries"
  },
  {
+  "file": "articles/2026-11-25-service-principal-sign-ins-for-several-applications-from.kql",
+  "title": "Service principal sign-ins for several applications from one IP address",
+  "date": "2026-11-25",
+  "product": "Entra",
+  "tables": [
+   "EntraIdSpnSignInEvents"
+  ],
+  "purpose": "From the article: What defenders need to know about ARTEX, the agentic AI framework threat actors abuse",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
+  "file": "articles/2026-11-25-script-files-written-to-web-folders-by-web.kql",
+  "title": "Script files written to web folders by web or database server processes",
+  "date": "2026-11-25",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceFileEvents"
+  ],
+  "purpose": "From the article: What defenders need to know about ARTEX, the agentic AI framework threat actors abuse",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
+  "file": "articles/2026-11-25-microsoft-defender-xdr.kql",
+  "title": "Microsoft Defender XDR",
+  "date": "2026-11-25",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: What defenders need to know about ARTEX, the agentic AI framework threat actors abuse",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
+  "file": "articles/2026-11-25-hunting.kql",
+  "title": "Hunting",
+  "date": "2026-11-25",
+  "product": "Azure",
+  "tables": [
+   "AppServiceHTTPLogs",
+   "W3CIISLog"
+  ],
+  "purpose": "From the article: What defenders need to know about ARTEX, the agentic AI framework threat actors abuse",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
   "file": "articles/2026-11-25-detection-3-cve-2026-123633-repeated-nginx-worker.kql",
   "title": "Detection 3: CVE-2026-123633 - Repeated NGINX Worker Process Crashes Indicating HTTP/2 Use-After-Free Exploitation",
   "date": "2026-11-25",
@@ -145,6 +206,36 @@
   "kind": "article",
   "author": "DevSecOpsDad · DevSecOpsDad (detection engineering briefs, KQL)",
   "link": "https://devsecopsdadattack.com/2026-11-25-detection-engineering-brief-wednesday-november-25-2026/"
+ },
+ {
+  "file": "articles/2026-11-25-commands-that-read-several-kinds-of-credential-and.kql",
+  "title": "Commands that read several kinds of credential and secret files",
+  "date": "2026-11-25",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceProcessEvents"
+  ],
+  "purpose": "From the article: What defenders need to know about ARTEX, the agentic AI framework threat actors abuse",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
+ },
+ {
+  "file": "articles/2026-11-25-application-credential-changes-and-role-assignments-by-the.kql",
+  "title": "Application credential changes and role assignments by the same identity",
+  "date": "2026-11-25",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "From the article: What defenders need to know about ARTEX, the agentic AI framework threat actors abuse",
+  "source": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+  "kind": "article",
+  "author": "Microsoft Threat Intelligence · Microsoft Security Blog",
+  "link": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+  "incident": "storm-0940-artex-connectwise-2026-10"
  },
  {
   "file": "2026-11-25-teams-sign-ins-from-ios-17-or-earlier.kql",

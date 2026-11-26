@@ -1,0 +1,29 @@
+// title: Script files written to web folders by web or database server processes
+// date: 2026-11-25
+// product: Defender for Endpoint
+// tables: DeviceFileEvents
+// purpose: From the article: What defenders need to know about ARTEX, the agentic AI framework threat actors abuse
+// source: https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/
+// kind: article
+// author: Microsoft Threat Intelligence · Microsoft Security Blog
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Script files created or changed by web server or database server processes
+let ScriptExtensions = dynamic(["php", "phtml", "jsp", "jspx", "asp", "aspx", "ashx",
+    "asmx"]);
+let WebServerProcesses = dynamic(["w3wp.exe", "httpd", "apache2", "nginx", "lighttpd",
+    "java", "node"]);
+let DatabaseProcesses = dynamic(["mysqld", "mariadbd", "postgres", "sqlservr",
+    "sqlservr.exe"]);
+DeviceFileEvents
+| where ActionType in ("FileCreated", "FileModified", "FileRenamed")
+| extend Extension = tolower(extract(@"\.([^.]+)$", 1, FileName))
+| where Extension in (ScriptExtensions)
+| where InitiatingProcessFileName in~ (WebServerProcesses)
+    or InitiatingProcessFileName in~ (DatabaseProcesses)
+    or InitiatingProcessFileName startswith "php"
+| summarize Files = dcount(FileName), FileNames = make_set(FileName, 25),
+    Folders = make_set(FolderPath, 10),
+    DatabaseWrites = countif(InitiatingProcessFileName in~ (DatabaseProcesses))
+    by DeviceId, DeviceName, InitiatingProcessFileName, bin(Timestamp, 10m)
+| where DatabaseWrites > 0 or Files >= 3
+| order by DatabaseWrites desc, Files desc
