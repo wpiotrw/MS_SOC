@@ -18,7 +18,7 @@ f1.keywords:
 ms.author: heidip
 author: MicrosoftHeidi
 manager: dansimp
-ms.date: 2023-12-15T00:00:00.0000000Z
+ms.date: 2026-11-23T00:00:00.0000000Z
 audience: Admin
 ms.topic: upgrade-and-migration-article
 ms.service: microsoft-365-business
@@ -82,16 +82,17 @@ In this video, we'll show you how to move your OneDrive files from Microsoft 365
 ## Steps
 
 1. Select the white or blue OneDrive cloud icon in the Windows taskbar notification area.
-2. Select the **Help and settings** icon, then **Settings** &gt; **Account** &gt; **Add an account**.
-3. Enter your email address, select **Sign in**, and enter your password. Select **Next**.
-4. Go through the short tutorial, and then select **Open my OneDrive folder**. If you also use the personal version of OneDrive, you'll see it here.
-5. In **File Explorer**, go to the files you want to copy.
-6. Select the files, and then drag and drop them into your OneDrive folder. Blue circular arrows beside your files mean that they're syncing to the cloud. When they're done syncing, green check marks are displayed.
+2. Select the **Settings** icon, then **Settings** &gt; **Account** &gt; **Add an account**.
+3. Enter your email address, select **Sign in**.
+4. Enter your password, and then select **Sign in** to complete the sign-in process.
+5. Go through the short tutorial, and then select **Open my OneDrive folder**. If you also use the personal version of OneDrive, you'll see it here.
+6. In **File Explorer**, go to the files you want to copy.
+7. Select the files, and then drag and drop them into your OneDrive folder. Blue circular arrows beside your files mean that they're syncing to the cloud. When they're done syncing, green check marks are displayed.
 
 In addition to working on your OneDrive files locally, you can access them from your web browser:
 
 1. In your web browser, sign in to office.com with your work email.
-2. Choose **OneDrive**. All of your files are listed, and you can work on them in the browser from any computer.
+2. Select **OneDrive**. All of your files are listed, and you can work on them in the browser from any computer.
 
 Note
 

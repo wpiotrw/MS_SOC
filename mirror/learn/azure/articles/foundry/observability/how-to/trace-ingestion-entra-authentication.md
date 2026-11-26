@@ -121,6 +121,8 @@ Note
 
 When you create the connection from the Foundry portal with **Auth type** set to **Project managed identity**, the Foundry portal assigns the **Monitoring Metrics Publisher** role to the Foundry project managed identity.
 
+If you create the connection with Bicep, an ARM template, or the REST API, set `category` to `AppInsights` and `authType` to `ProjectManagedIdentity`, and put the full Application Insights connection string in `metadata.ApplicationInsightsConnectionString`. An Application Insights connection accepts only `ProjectManagedIdentity`, or `ApiKey` with the full connection string as the key. Other auth types, such as `ManagedIdentity`, are rejected. Make sure the project managed identity has the **Monitoring Metrics Publisher** role on the Application Insights resource.
+
 ## Set up Entra authentication for hosted agent traces
 
 For hosted agents, in addition to setting up the connection by using **Project Managed Identity**, you also need to grant the **Agent Identity** permission on the connected Application Insights resource.

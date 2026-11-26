@@ -61,6 +61,8 @@ Browser automation tool is a generally available (GA) service that lets Microsof
 
 Use the Browser automation tool typically when the application you need has no API or connector, or when its API doesn't cover your task.
 
+[![Screenshot that shows the browser automation tool in the toolbox.](../../media/tools/browser-automation/browser-automation-toolbox.png)](../../media/tools/browser-automation/browser-automation-toolbox.png#lightbox)
+
 Important
 
 The Browser automation tool controls web browsers on your behalf and can take unintended actions. Testing and monitoring are recommended. To learn more, see [Transparency Note for Foundry Agent Service - Microsoft Foundry](/en-us/azure/foundry/responsible-ai/agents/transparency-note).
@@ -208,7 +210,7 @@ Before production:
 
 - Restrict tools, identities, and destinations to the task's needs.
 - Verify application state before retrying: an action might complete despite a timeout.
-- Protect Live View URLs, screenshots, traces, and tool-call data.
+- Protect Live View URLs, screenshots, traces, and tool-call data. Foundry traces can contain sensitive information, including tool inputs and outputs. To restrict access to sensitive trace content, follow the additional configuration steps in [Restrict access to sensitive content in Microsoft Foundry traces](/en-us/azure/foundry/observability/how-to/traces-sensitive-content).
 - Review [regional and model support](../../concepts/limits-quotas-regions#tool-support-by-region-and-model), [browser session and tool limits](/en-us/azure/app-testing/playwright-cloud-browsers/how-to-playwright-workspaces-remote-mcp#limits-and-current-behavior), and [Playwright Workspaces pricing](https://azure.microsoft.com/pricing/details/app-testing/). Review feature-specific status under supported scenarios and limitations.
 
 ## Transparency note

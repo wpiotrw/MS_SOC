@@ -123,6 +123,10 @@ Built-in remediation workflows help you quickly identify and take action on mess
 - **Attachment detection**: You can check, detect, and investigate linked content (Modern attachments) from OneDrive and Microsoft Teams that match policy classifiers and conditions for Microsoft Teams messages. Attachment content is automatically extracted to a text file for detailed review and action.
 - **Summarize message content for policy matches**: Save time for investigators by [using Microsoft Copilot in Microsoft Purview](communication-compliance-investigate-remediate#summarize-a-message-by-using-copilot-in-microsoft-purview) to summarize lengthy Teams, email, or Viva Engage messages. Copilot in Microsoft Purview creates a summary of the conversation, including recordings, meeting transcripts, and attachments.
 
+    Important
+
+    The **Copilot summarization** capability in Microsoft Purview Communication Compliance is temporarily unavailable. During this time, reviewers can't generate contextual summaries of communications flagged for potential policy violations. Other Communication Compliance review and investigation capabilities remain available. For updates on availability, check Message Center in the Microsoft 365 admin center.
+
 ### Actionable insights
 
 New interactive dashboards for alerts, policy matches, actions, and trends help you quickly view the status of pending and resolved alerts in your organization.

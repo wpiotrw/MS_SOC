@@ -266,6 +266,10 @@ Select a message to view the complete message header and body information. Sever
 
 ### Summarize a message by using Copilot in Microsoft Purview
 
+Important
+
+The **Copilot summarization** capability in Microsoft Purview Communication Compliance is temporarily unavailable. During this time, reviewers can't generate contextual summaries of communications flagged for potential policy violations. Other Communication Compliance review and investigation capabilities remain available. For updates on availability, check Message Center in the Microsoft 365 admin center.
+
 You can use Copilot in Microsoft Purview to get a contextual summary of a Teams, email, or Viva Engage message included in a policy match. The summary is in the context of one or more [Microsoft provided trainable classifiers](classifier-tc-definitions) that flag the message (for example, stock manipulation). This feature saves time for investigators if the message content is lengthy.
 
 Copilot in Microsoft Purview summarizes the entire message, including any video recordings, meetings transcripts, or attachments (docx, pdf, or txt files).

@@ -41,13 +41,13 @@ monikers: []
 item_type: Content
 source_path: Purview/edisc-review-set-view.md
 cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/03921bea-3752-4ddc-98c2-5aa70db91565
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/46e3c7c4-fe77-4a6e-b40a-44c569819fa5
 - https://authoring-docs-microsoft.poolparty.biz/devrel/63959238-cb90-4871-a33d-4a5519097e47
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/03921bea-3752-4ddc-98c2-5aa70db91565
 spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/09911d3e-3eb9-4c8d-ab86-ce80d8d36bbd
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/d0c6fab8-2d7d-4bb0-bf40-589e08d7c132
 - https://authoring-docs-microsoft.poolparty.biz/devrel/78d87f42-5582-4a6b-90be-7db2f12b34e6
-- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/09911d3e-3eb9-4c8d-ab86-ce80d8d36bbd
 platformId: 4d4b60bc-4fd2-66ae-201d-a533ef23e91c
 ---
 
@@ -138,6 +138,10 @@ The **Copilot activity** view displays the Microsoft 365 Copilot and Microsoft 3
 ![Screenshot of the review set Copilot activity view showing user prompts and Copilot responses for the selected item.](media/ediscovery-copilot-view.png)
 
 ## Summarize an item by using Microsoft Security Copilot
+
+Important
+
+The **Summarize** capability for review set items is temporarily unavailable for all tenants. During this time, the **Summarize** option doesn't appear for review set items, and you can't generate a summary of an item or ask Security Copilot questions about an item. Other Security Copilot capabilities in eDiscovery, such as drafting KeyQL queries from natural language and summarizing cases, searches, and holds, aren't affected. For updates on availability, check Message center in the Microsoft 365 admin center.
 
 You can use [Security Copilot in Microsoft Purview](copilot-in-purview-overview) to provide a contextual summary of most items in a review set. The summary is based on the text included in a selected item. The contextual summary saves time for reviewers by quickly identifying information helpful when tagging or exporting items.
 

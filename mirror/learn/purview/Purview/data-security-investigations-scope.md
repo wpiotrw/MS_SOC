@@ -41,8 +41,10 @@ item_type: Content
 source_path: Purview/data-security-investigations-scope.md
 cmProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/12ed19f9-ebdf-4c8a-8bcd-7a681836774d
+- https://authoring-docs-microsoft.poolparty.biz/devrel/fcc3cd4a-59ea-47a2-9cc1-784142a5a25d
 spProducts:
 - https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/3a764584-4f97-452b-8f1d-36f19b12f6ae
+- https://authoring-docs-microsoft.poolparty.biz/devrel/d7a55faf-a992-4e27-aa3a-eadc9830e778
 platformId: 1ac67201-e9e3-af89-029b-e08a9777a469
 ---
 
@@ -92,6 +94,10 @@ Expand a filter area and select one or more filters to refine the data items inc
 For example, to view only email and email attachments, expand the **File class** filter and select the **Email** and **Attachment** filters. The displayed data items are automatically filtered by the selected attributes.
 
 ### View item details
+
+Important
+
+The **Summarize** capability for investigation items is temporarily unavailable for all tenants. During this time, the **Summarize** option doesn't appear when you review an item, and you can't generate a summary of an item. Other AI capabilities in Data Security Investigations, such as categorization, vector search, and examination, aren't affected. For updates on availability, check Message center in the Microsoft 365 admin center.
 
 Select a data item to display more information about the item. Use the [investigation scope viewers](data-security-investigations-scope-views) to examine source, plain text, metadata, and audit details for the selected item.
 

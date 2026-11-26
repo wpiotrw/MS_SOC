@@ -15,10 +15,10 @@ recommendations: false
 uhfHeaderId: MSDocsHeader-M365-IT
 f1.keywords:
 - NOCSH
-ms.author: kwekua
-author: kwekuako
+ms.author: dansimp
+author: Dansimp
 manager: scotv
-ms.date: 2025-08-26T00:00:00.0000000Z
+ms.date: 2026-11-23T00:00:00.0000000Z
 audience: Admin
 ms.topic: article
 ms.service: microsoft-365-business
@@ -62,11 +62,11 @@ The Microsoft 365 admin center gives you the flexibility to deploy single store 
 
 We help our admins discover these linked apps with the SaaS offer and manage them all at once from the integrated apps portal. The UX on the integrated apps portal allows the admin to apply the same gesture across all the apps at once.
 
-An admin can choose not to deploy an app that is linked to an SaaS offer. In the integrated apps portal, admins then find the status of **More apps available** in the Deployed Apps list view. This status is to inform the admins that there are more integrations from the ISVs that aren't deployed.
+An admin can choose not to deploy an app that's linked to an SaaS offer. In the integrated apps portal, admins then find the status of **More apps available** in the Deployed Apps list view. This status is to inform the admins that there are more integrations from the ISVs that aren't deployed.
 
 ## Unsupported scenarios
 
-There are some scenarios when SaaS linked apps can't be managed from the integrated apps portal. You aren't able to deploy a single store add-in from the integrated apps portal for the following scenarios:
+There are some scenarios when SaaS-linked apps can't be managed from the integrated apps portal. You aren't able to deploy a single store add-in from the integrated apps portal for the following scenarios:
 
 - The same add-in is linked to more than one SaaS offer.
 - The SaaS offer is linked to add-ins, but it doesn't integrate with Microsoft Graph and no Microsoft Entra App ID is provided.
