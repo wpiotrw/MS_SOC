@@ -4810,14 +4810,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-24",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-25",
 "text":"August 1, 2026."
 },
@@ -4907,6 +4899,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-26",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-27",
 "text":"August 1, 2026."
 },
 {
@@ -5232,6 +5232,14 @@
 "date":"2026-11-20",
 "group":"community",
 "found":"2026-11-21"
+},
+"https://dev.to/rabah_karaouat_e35d5e348e/how-to-build-a-b2b-lead-list-from-google-maps-with-emails-no-code-6-per-1000-leads-54h3":{
+"title":"How to Build a B2B Lead List from Google Maps with Emails (No Code, ~$6 per 1,000 Leads)",
+"link":"https://dev.to/rabah_karaouat_e35d5e348e/how-to-build-a-b2b-lead-list-from-google-maps-with-emails-no-code-6-per-1000-leads-54h3",
+"source":"NeonTiger12",
+"date":"2026-11-27",
+"group":"community",
+"found":"2026-11-27"
 }
 },
 "final":"2026-11-30",
@@ -5603,7 +5611,7 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-26",
+"seen":"2026-11-27",
 "text":"early February 2026."
 },
 {
@@ -5611,7 +5619,7 @@
 "key":"#0",
 "was":"Jul 2027",
 "now":"Feb 2027",
-"seen":"2026-11-26",
+"seen":"2026-11-27",
 "text":"February 2027."
 },
 {
@@ -9328,7 +9336,7 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-26",
+"seen":"2026-11-27",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -9336,7 +9344,7 @@
 "key":"rollout begins in early and is expected to complete by late#1",
 "was":"late Jun 2026",
 "now":"late Mar 2026",
-"seen":"2026-11-26",
+"seen":"2026-11-27",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -10083,6 +10091,14 @@
 "date":"2026-11-25",
 "group":"community",
 "found":"2026-11-25"
+},
+"https://dev.to/rabah_karaouat_e35d5e348e/how-to-build-a-b2b-lead-list-from-google-maps-with-emails-no-code-6-per-1000-leads-54h3":{
+"title":"How to Build a B2B Lead List from Google Maps with Emails (No Code, ~$6 per 1,000 Leads)",
+"link":"https://dev.to/rabah_karaouat_e35d5e348e/how-to-build-a-b2b-lead-list-from-google-maps-with-emails-no-code-6-per-1000-leads-54h3",
+"source":"NeonTiger12",
+"date":"2026-11-27",
+"group":"community",
+"found":"2026-11-27"
 }
 },
 "final":"2027-11-15",
@@ -20923,6 +20939,36 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-27",
+"cid":"c-mc1456735",
+"type":"material",
+"name":"AD FS DKM container ACL hardening begins in October 2026",
+"group":"microsoft",
+"title":"CVE-2026-62840 Linux Kernel Elevation of Privilege Vulnerability",
+"source":"MSRC Security Update Guide",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62840"
+},
+{
+"day":"2026-11-27",
+"cid":"c-mc1243549",
+"type":"material",
+"name":"Retirement of SharePoint One-Time Passcode (SPO OTP) and transition to Microsoft Entra B2B",
+"group":"community",
+"title":"How to Build a B2B Lead List from Google Maps with Emails (No Code, ~$6 per 1,000 Leads)",
+"source":"NeonTiger12",
+"link":"https://dev.to/rabah_karaouat_e35d5e348e/how-to-build-a-b2b-lead-list-from-google-maps-with-emails-no-code-6-per-1000-leads-54h3"
+},
+{
+"day":"2026-11-27",
+"cid":"c-passkeys-by-default",
+"type":"material",
+"name":"Passkeys by default in Microsoft Entra ID",
+"group":"community",
+"title":"How to Build a B2B Lead List from Google Maps with Emails (No Code, ~$6 per 1,000 Leads)",
+"source":"NeonTiger12",
+"link":"https://dev.to/rabah_karaouat_e35d5e348e/how-to-build-a-b2b-lead-list-from-google-maps-with-emails-no-code-6-per-1000-leads-54h3"
 }
 ],
 "archive":{
@@ -27644,6 +27690,14 @@
 "link":"https://learn.microsoft.com/en-us/entra/fundamentals/whats-new",
 "source":"Microsoft Learn · What's new · Entra",
 "date":"2026-06-26",
+"group":"microsoft",
+"found":"2026-11-27"
+},
+"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62840":{
+"title":"CVE-2026-62840 Linux Kernel Elevation of Privilege Vulnerability",
+"link":"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-62840",
+"source":"MSRC Security Update Guide",
+"date":"2026-11-27",
 "group":"microsoft",
 "found":"2026-11-27"
 }
