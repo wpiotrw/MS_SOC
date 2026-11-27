@@ -1,7 +1,7 @@
 {
  "read": "2026-11-27",
  "source": "Microsoft Graph /admin/serviceAnnouncement/messages (tenant of the owner)",
- "count": 734,
+ "count": 733,
  "note": null,
  "messages": [
   {
@@ -12807,32 +12807,6 @@
    "bodyHash": "7a9ff07d867ebfd5"
   },
   {
-   "id": "MC1492954",
-   "title": "Microsoft Outlook: Themes by Copilot retirement",
-   "services": [
-    "Exchange Online"
-   ],
-   "category": "planForChange",
-   "severity": "normal",
-   "major": true,
-   "actionBy": null,
-   "start": "2026-10-09",
-   "end": "2026-11-27",
-   "modified": "2026-10-09",
-   "tags": [
-    "Admin impact",
-    "Retirement",
-    "User impact"
-   ],
-   "summary": "[What and why] We are retiring Themes by Copilot in Microsoft Outlook. Themes by Copilot currently allows users with a Copilot license to create and apply a Copilot-generated theme in Settings. As part of this change, Themes by Copilot will be removed from Settings, and users will no longer be able to select or return to a Theme by Copilot after changing to a different theme. [Rollout schedule] Ge…",
-   "when": null,
-   "prepare": null,
-   "dates": [
-    "General Availability (Worldwide): Retirement begins in mid-October 2026 and is expected to complete by late October 2026."
-   ],
-   "bodyHash": "6ec6a49f89e6174f"
-  },
-  {
    "id": "MC1492955",
    "title": "Microsoft Planner: Introducing Local Custom Fields",
    "services": [
@@ -25355,6 +25329,13 @@
    "id": "MC1526697",
    "type": "removed",
    "title": "Dynamics 365 apps and Dataverse – Information about the 2026 time zone changes in Canada",
+   "fields": {}
+  },
+  {
+   "date": "2026-11-27",
+   "id": "MC1492954",
+   "type": "removed",
+   "title": "Microsoft Outlook: Themes by Copilot retirement",
    "fields": {}
   }
  ]

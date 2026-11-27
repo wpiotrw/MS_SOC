@@ -1,8 +1,8 @@
 {
  "key": "tenant",
- "at": "2026-11-27T01:48Z",
+ "at": "2026-11-27T12:11Z",
  "workflow": "First-party apps tenant snapshot",
- "run": "45924008428",
- "sha": "7834aca",
+ "run": "45995902364",
+ "sha": "ce18a74",
  "note": ""
 }
