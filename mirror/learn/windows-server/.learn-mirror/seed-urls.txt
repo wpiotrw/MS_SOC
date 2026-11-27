@@ -1,1 +1,2 @@
+https://learn.microsoft.com/en-us/windows-server/get-started/removed-deprecated-features-windows-server
 https://learn.microsoft.com/en-us/windows-server/storage/refs/refs-overview

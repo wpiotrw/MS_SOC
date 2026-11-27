@@ -1,0 +1,198 @@
+---
+layout: Conceptual
+title: Features Removed or No Longer Developed in Windows Server | Microsoft Learn
+canonicalUrl: https://learn.microsoft.com/en-us/windows-server/get-started/removed-deprecated-features-windows-server
+breadcrumb_path: /windows-server/breadcrumbs/toc.json
+uhfHeaderId: MSDocsHeader-WindowsServer
+feedback_system: Standard
+recommendations: true
+ms.service: windows-server
+ms.subservice: getting-started
+ms.update-cycle: 365-days
+description: Learn about the features and functionalities removed or no longer developed in Windows Server.
+ms.topic: concept-article
+author: robinharwood
+ms.author: roharwoo
+ms.date: 2026-11-16T00:00:00.0000000Z
+ai-usage: ai-assisted
+locale: en-us
+document_id: 836b9206-114f-bf1e-fce4-0387fc0f6733
+document_version_independent_id: 836b9206-114f-bf1e-fce4-0387fc0f6733
+original_content_git_url: https://github.com/MicrosoftDocs/windowsserverdocs-pr/blob/live/WindowsServerDocs/get-started/removed-deprecated-features-windows-server.md
+site_name: Docs
+depot_name: MSDN.WindowsServerDocs-pr
+page_type: conceptual
+toc_rel: toc.json
+pdf_url_template: https://learn.microsoft.com/pdfstore/en-us/MSDN.WindowsServerDocs-pr/{branchName}{pdfName}
+feedback_product_url: ''
+feedback_help_link_type: ''
+feedback_help_link_url: ''
+asset_id: get-started/removed-deprecated-features-windows-server
+moniker_range_name: 
+monikers: []
+item_type: Content
+source_path: WindowsServerDocs/get-started/removed-deprecated-features-windows-server.md
+cmProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/fc3f72c2-fb6f-4cea-95ee-b444e52254ee
+- https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/5cf46315-b33f-4e99-8224-a1592697eff9
+spProducts:
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/f12cf087-582d-48ac-a085-0c19adf1e391
+- https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8
+- https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/715d24c3-3683-4219-82c5-1e3c813fb7fc
+platformId: 0672ed6e-c481-d5a8-cf31-a759ca6f7fbb
+---
+
+# Features Removed or No Longer Developed in Windows Server | Microsoft Learn
+
+Each release of Windows Server brings new features and improvements. Sometimes older features are removed to make room for better alternatives. This article details the features and functionalities removed or deprecated in Windows Server.
+
+Tip
+
+You can get early access to Windows Server builds by joining the [Windows Insider Program for Windows Server](https://www.microsoft.com/windowsinsider/for-business-getting-started-server), which is a great way to test feature changes.
+
+Windows Server long-term servicing channel (LTSC) releases have a Fixed Lifecycle Policy that includes 5 years of mainstream support and 5 years of extended support for a total lifecycle of 10 years. To learn more, see:
+
+- [Fixed Lifecycle Policy](/en-us/lifecycle/policies/fixed)
+- [Lifecycle Terms and Definitions](/en-us/lifecycle/definitions)
+
+**This list is subject to change and might not include every affected feature or functionality.**
+
+## Features no longer in development
+
+We're no longer actively developing these features and might remove them from a future update. Some features were replaced with other features or functionality. Others are now available from different sources. *Deprecation* means that a feature, functionality, or service is no longer in active development. A deprecated feature might be removed in future releases. A deprecated component still ships in Windows Server, is supported for production deployments, and continues to receive security and quality updates per the product lifecycle.
+
+# [Windows Server 2028 (Preview)](#tab/ws28-preview)
+Important
+
+Windows Server 2028 is in preview. The feature deprecations in this tab don't mean that the features are absent from current preview builds. The features might still be available in current preview builds, and the deprecation plans can change before release.
+
+| Feature | Explanation |
+| --- | --- |
+| BranchCache | BranchCache is deprecated beginning with Windows Server 2028. Identify deployments that use BranchCache to cache content from file servers, web servers, or Background Intelligent Transfer Service (BITS), and plan a transition. For more information, see [BranchCache](../networking/branchcache/branchcache). |
+| Windows Deployment Services (WDS) server role | The WDS server role is deprecated beginning with Windows Server 2028, including its role services, management tools, interfaces, and WDS-provided Preboot Execution Environment (PXE) functionality. You should inventory your WDS dependencies and plan a migration. If you use WDS-backed PXE with [Microsoft Configuration Manager](/en-us/mem/configmgr/osd/understand/introduction-to-operating-system-deployment), migrate to the Configuration Manager PXE responder without WDS. For more information, see [Windows Deployment Services deprecation in the next Windows Server release](https://support.microsoft.com/servicing/os/windows/docs/2026/09/windows-deployment-services-deprecation-in-the-next-windows-server-release). |
+| Windows PowerShell 5.1 | Windows Server 2028 deprecates Windows PowerShell 5.1. Test existing scripts, modules, and management workflows with PowerShell 7, and use the results to plan your migration. Because PowerShell 7 and Windows PowerShell 5.1 have compatibility differences, assess dependencies before migrating. For guidance, see [Migrating from Windows PowerShell 5.1 to PowerShell 7](/en-us/powershell/scripting/whats-new/migrating-from-windows-powershell-51-to-powershell-7). |
+| Windows Sockets Direct | Windows Sockets Direct is deprecated. Beginning with Windows Server 2028, system area network (SAN) endpoint creation is disabled by default, and the feature will be removed in a later release. This change doesn't affect NetworkDirect, SMB Direct, or other Remote Direct Memory Access (RDMA) functionality. For more information, see [Windows Sockets Direct Architecture](/en-us/windows-hardware/drivers/network/windows-sockets-direct-architecture). |
+
+# [Windows Server 2025](#tab/ws25)
+| Feature | Explanation |
+| --- | --- |
+| Computer Browser | The Computer Browser driver and service are deprecated. The browser (browser protocol and service) is a dated and insecure device location protocol. This protocol, service, and driver were first disabled by default in Windows 10, with the removal of the SMB1 service. For more information on the CIFS Browser Protocol used by the Computer Browser drive and service, see [MS-BRWS Common Internet File System](/en-us/openspecs/windows_protocols/ms-brws/3cfbad92-09b3-4abc-808f-c6f6347d5677). |
+| Failover Clustering Cluster Sets | The Failover Clustering Cluster Sets feature is no longer in active feature development and is deprecated. |
+| Network Load Balancing (NLB) | NLB is no longer in active feature development and is deprecated. Consider using a Software Load Balancer (SLB) as an alternative. To learn more about SLB, see [What is Software Load Balancer (SLB) for SDN?](/en-us/azure/azure-local/concepts/software-load-balancer?context=/windows-server/context/windows-server-edge-networking) |
+| NTLM | [NTLMv1](/en-us/windows/win32/secauthn/microsoft-ntlm) is removed. LANMAN and NTLMv2 are no longer under active feature development and are deprecated. NTLMv2 will continue to work but will be removed from Windows Server in a future release. Replace calls to NTLM with calls to [Negotiate](/en-us/windows/win32/secauthn/microsoft-negotiate), which tries to authenticate with Kerberos and only fall back to NTLM when necessary. For more information, see [The evolution of Windows authentication](https://techcommunity.microsoft.com/t5/windows-it-pro-blog/the-evolution-of-windows-authentication/ba-p/3926848). |
+| Remote Mailslots | Remote Mailslots are deprecated. The Remote Mailslot protocol, which was initially introduced in MS DOS, is a dated and simple IPC method that is both unreliable and insecure. This protocol was first disabled by default in [Windows 11 Insider Preview Build 25314](https://blogs.windows.com/windows-insider/2023/03/08/announcing-windows-11-insider-preview-build-25314/). For more information on Remote Mailslots, see [About Mailslots](/en-us/windows/win32/ipc/about-mailslots) and [\[MS-MAIL\]: Remote Mailslot Protocol](/en-us/openspecs/windows_protocols/ms-mail/8ea19aa4-6e5a-4aed-b628-0b5cd75a1ab9). |
+| TLS 1.0 TLS 1.1 | TLS versions 1.0 and 1.1 are deprecated per internet standards and regulatory bodies due to security concerns mentioned in [RFC 8996](https://www.rfc-editor.org/rfc/rfc8996). These versions are disabled by default in Windows Server 2025. For more information on TLS deprecation, see [TLS 1.0 and TLS 1.1 deprecation in Windows](/en-us/windows/win32/secauthn/tls-10-11-deprecation-in-windows). |
+| WebDAV Redirector service | The WebDAV Redirector service is deprecated. The service isn't installed by default in Windows Server. For more information on the WebDAV Redirector service, see [WebDAV - Win32 apps](/en-us/windows/win32/webdav/webdav-portal). |
+| Windows Internal Database (WID) | WID is used by several roles, including AD FS, AD RMS, IPAM, RD Connection Broker, and WSUS. Consider using a free or full version of SQL Server for these roles. WID will be removed from Windows in a future release. To learn more, see [SQL Server editions](/en-us/sql/sql-server/editions-and-components-of-sql-server-2022). |
+| Windows Management Instrumentation Command-line (WMIC) | Beginning with Windows Server 2025, WMIC is available as a Feature on Demand (FOD). It can be added with the `DISM /Add-Capability` command. It will be removed from Windows in a future release.[PowerShell for WMI](/en-us/powershell/scripting/learn/ps101/07-working-with-wmi) replaces the WMIC tool. Use PowerShell or programmatically query WMI as a replacement for WMIC. To learn more about WMIC deprecation, see [WMI command line (WMIC) utility deprecation: Next steps](https://techcommunity.microsoft.com/t5/windows-it-pro-blog/wmi-command-line-wmic-utility-deprecation-next-steps/ba-p/4039242). |
+| VBScript | VBScript is available as an FOD and preinstalled in Windows Server 2025, before its removal from the operating system in a later release. As a replacement for VBScript, use PowerShell for automating tasks, custom actions, or scripts. To learn more about migrating to PowerShell, see [The VBScript-to-Windows PowerShell Conversion Guide](/en-us/previous-versions/windows/it-pro/windows-powershell-1.0/ee221101%28v=msdn.10%29). If you're using VBScript within your webpage, functionality is currently limited to browsers predating Internet Explorer 11. We recommend migrating your webpages to JavaScript, which provides cross-browser compatibility and modern browser support. |
+| Windows Server Update Services (WSUS) | WSUS is no longer actively developed. All the existing capabilities and content continue to be available for your deployments. |
+| Rivest Cipher 4 (RC4) usage in Kerberos | RC4 usage in the Kerberos authentication protocol is deprecated. RC4 is a weak algorithm that can be abused for stealing credentials. Stronger algorithms, like AES-SHA1, should be used instead. For more information, see [Detect and Remediate RC4 Usage in Kerberos](../security/kerberos/detect-remediate-rc4-kerberos). |
+
+# [Windows Server 2022](#tab/ws22)
+| Feature | Explanation |
+| --- | --- |
+| Guarded Fabric and Shielded VMs | Windows Server and Azure Local are aligning with Azure to take advantage of continuing enhancements to [Azure confidential computing](/en-us/azure/confidential-computing/) and [Azure Security Center](/en-us/azure/security-center/). This alignment translates to more cloud security offerings being extended to customer datacenters on-premises.Microsoft continues to provide support for these features, but there's no further development on client versions of Windows as the Shielded VM RSAT feature is removed. |
+| Hyper-V Virtual Switch on LBFO | The Hyper-V Virtual Switch no longer has the capability to be bound to an LBFO team. Instead, it must be bound via [Switch Embedded Teaming (SET)](/en-us/azure/azure-local/concepts/host-network-requirements#switch-embedded-teaming-set). This change only applies to Hyper-V. LBFO is still fully supported for other non-Hyper-V scenarios. |
+| Launching SConfig from a command prompt | Starting with Windows Server 2022, `SConfig` is launched by default when you sign into a server running the Server Core installation option. Moreover, PowerShell is now the default shell on Server Core. If you exit `SConfig`, you get to a regular interactive PowerShell window. Similarly, you can opt out from SConfig autolaunch. In this case, a PowerShell window pops up at sign-in. In either scenario, you can launch SConfig from PowerShell by running `SConfig`. |
+| New EKUs for VBS enclaves | VBS enclaves are supported on Windows Server 2025 and later. *Existing* enclaves with the EKU 1.3.6.1.4.1.311.76.57.1.15 signature are still supported on Windows Server 2022 as long as they remain unchanged and don't require re-signing. |
+| Windows Deployment Services (WDS) boot.wim image deployment | The operating system deployment functionality of WDS is being partially deprecated. Workflows that rely on `boot.wim` from Windows Server 2022 installation media show a nonblocking deprecation notice, but the workflows aren't impacted.Windows 11 workflows and workflows for future versions of Windows Server that rely on `boot.wim` from installation media are blocked.Alternatives to WDS, such as [Microsoft Configuration Manager](/en-us/mem/configmgr/) or the [Microsoft Deployment Toolkit](/en-us/windows/deployment/deploy-windows-mdt/get-started-with-the-microsoft-deployment-toolkit) (MDT), provide a better, more flexible, and feature-rich experience for deploying Windows images. We recommend that you use one of these solutions instead.WDS PXE boot isn't affected. You can still use WDS to PXE-boot devices to custom boot images. You can also still [run setup from a network share](/en-us/windows-hardware/manufacture/desktop/deploy-a-custom-image). Workflows that use custom `boot.wim` images, such as with Configuration Manager or MDT, aren't impacted. |
+| Windows Internet Name Service (WINS) | WINS is a legacy computer name registration and resolution service. You should replace WINS with Domain Name System (DNS). For more information, see [Windows Internet Name Service (WINS)](../networking/technologies/wins/wins-top). |
+| XDDM-based remote display driver | Starting with this release, Remote Desktop Services uses a Windows Display Driver Model (WDDM) based indirect display driver (IDD) for a single-session remote desktop. Support for Windows 2000 Display Driver Model (XDDM) based remote display drivers will be removed in a future release. Independent software vendors that use XDDM-based remote display drivers should plan a migration to the WDDM driver model. For more information on implementing remote indirect display drivers, see [Updates for IddCx versions 1.4 and later](/en-us/windows-hardware/drivers/display/iddcx1.4-updates). |
+
+# [Windows Server 2019](#tab/ws19)
+| Feature | Explanation |
+| --- | --- |
+| Host Guardian Service Active Directory attestation mode | We're no longer developing Host Guardian Service Active Directory attestation mode. Instead, a new attestation mode is added, [host key attestation](../security/guarded-fabric-shielded-vm/guarded-fabric-create-host-key). Host key attestation is simpler and as compatible as Active Directory-based attestation. This new mode provides equivalent functionality with a setup experience, simpler management, and fewer infrastructure dependencies than the Active Directory attestation. Host key attestation has no extra hardware requirements beyond what Active Directory attestation required, so all existing systems remain compatible with the new mode. To learn more about your attestation options, see [Deploy guarded hosts](../security/guarded-fabric-shielded-vm/guarded-fabric-configure-hgs-with-authorized-hyper-v-hosts). |
+| IIS Digest Authentication | This authentication method will be replaced. You should start using other authentication methods, like Client Certificate Mapping. To learn more, see [Configuring One-to-One Client Certificate Mappings](/en-us/iis/manage/configuring-security/configuring-one-to-one-client-certificate-mappings) and [Application Settings](/en-us/iis-administration/configuration/appsettings.json). |
+| IIS 6 Management compatibility | Specific features being considered for replacement are:- IIS 6 Metabase Compatibility (Web-Metabase)<br>- IIS 6 Management Console (Web-Lgcy-Mgmt-Console)<br>- IIS 6 Scripting Tools (Web-Lgcy-Scripting)<br>- IIS 6 WMI Compatibility (Web-WMI)<br>IIS 6 Metabase Compatibility acts as an emulation layer between IIS 6-based metabase scripts and the file-based configuration used by IIS 7 or newer versions. You should start migrating management scripts to target IIS file-based configuration directly by using tools such as the `Microsoft.Web.Administration` namespace.You should also start migrating from IIS 6.0 or earlier versions to the latest version of IIS, which is always available in the most recent release of Windows Server. |
+| Internet Storage Name Service (iSNS) | The Server Message Block (SMB) feature offers essentially the same functionality with more features. See [Server Message Block Overview](/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh831795%28v=ws.11%29) for background information on this feature. |
+| IPv4/6 transition technologies | 6to4 is disabled by default since Windows 10 version 1607 (the Anniversary Update). ISATAP is disabled by default since Windows 10 version 1703 (the Creators Update). Direct Tunnels is disabled by default. Use native IPv6 support instead. |
+| Key Storage Drive in Hyper-V | We're no longer working on the Key Storage Drive feature in Hyper-V. If you use generation 1 VMs, check out [Generation 1 VM Virtualization Security](../virtualization/hyper-v/learn-more/generation-1-virtual-machine-security-settings-for-hyper-v) for information about options. If you're creating new VMs, use generation 2 VMs with TPM devices for a more secure solution. |
+| New EKUs for VBS enclaves | VBS enclaves are supported on Windows Server 2025 and later. Existing enclaves with the EKU 1.3.6.1.4.1.311.76.57.1.15 signature are still supported on Windows Server 2019 as long as they remain unchanged and don't require re-signing. |
+| OneSync service | The OneSync service synchronizes data for the Mail, Calendar, and People apps. A sync engine to the Outlook app that provides the same synchronization was added. |
+| Remote Differential Compression API support | Remote Differential Compression API support enabled synchronizing data with a remote source by using compression technologies, which minimized the amount of data sent across the network. |
+| RSA/AES Encryption for IIS | We're considering replacing this encryption method because the superior Cryptography API: Next Generation (CNG) method is already available. To learn more, see [About CNG](/en-us/windows/win32/seccng/about-cng). |
+| Storage Spaces in a Shared configuration using a SAS fabric | Deploy [Storage Spaces Direct](/en-us/azure/azure-local/concepts/storage-spaces-direct-overview?context=/windows-server/context/windows-server-storage) instead. Storage Spaces Direct supports the use of HLK-certified SAS enclosures, but in a nonshared configuration, as described in the [Storage Spaces Direct hardware requirements](../storage/storage-spaces/storage-spaces-direct-hardware-requirements). |
+| Trusted Platform Module (TPM) management console | The information previously available in the TPM management console is now available on the [Device security](/en-us/windows/security/threat-protection/windows-defender-security-center/wdsc-device-security) page in [Windows Security settings](/en-us/windows/security/threat-protection/windows-defender-security-center/windows-defender-security-center). |
+| WFP lightweight filter switch extension | The WFP lightweight filter switch extension enables developers to build [simple network packet filtering extensions for the Hyper-V Virtual Switch](/en-us/windows-hardware/drivers/network/using-virtual-switch-filtering). You can achieve the same functionality by creating a full filtering extension. Therefore, we're removing this extension in the future. |
+| Windows PowerShell 2.0 | Migrate to Windows PowerShell 5.0 or later for the best features and performance. For more information, see [PowerShell Documentation](/en-us/powershell/index?view=powershell-5.1&amp;preserve-view=true). |
+| Windows Server Essentials Experience | We're no longer developing the Essentials Experience role for the Windows Server Standard or Windows Server Datacenter SKUs. If you need an easy-to-use server solution for small-to-medium businesses, check out [Microsoft 365 for business](https://www.microsoft.com/microsoft-365/business), or use [Windows Server 2016 Essentials](/en-us/windows-server-essentials/get-started/get-started). |
+| [MultiPoint Services](../remote/multipoint-services/multipoint-services) | We're no longer developing the MultiPoint Services role as part of Windows Server. MultiPoint Connector services are available through [Features on Demand](/en-us/windows-hardware/manufacture/desktop/features-on-demand-v2--capabilities) for both Windows Server and Windows 10. You can use [Remote Desktop Services](../remote/remote-desktop-services/remote-desktop-services-overview), in particular the Remote Desktop Services Session Host, to provide RDP connectivity. |
+| [Offline symbol packages](/en-us/windows-hardware/drivers/debugger/debugger-download-symbols) (Debug symbol MSIs) | We're no longer making the symbol packages available as a downloadable MSI. Instead, [Microsoft symbol server is becoming an Azure-based symbol store](/en-us/archive/blogs/windbg/update-on-microsofts-symbol-server). If you need the Windows symbols, connect to the Microsoft symbol server to cache your symbols locally, or use a manifest file with SymChk.exe on a computer with internet access. |
+| [Software Restriction Policies](../identity/software-restriction-policies/software-restriction-policies) in Group Policy | Instead of using Software Restriction Policies through Group Policy, you can use [AppLocker](/en-us/windows/security/threat-protection/applocker/applocker-overview) or [Application Control for Windows](/en-us/windows/security/threat-protection/windows-defender-application-control). You can use AppLocker and Windows Defender Application Control to manage which apps users can access and what code can run in the kernel. |
+
+# [Windows Server 2016](#tab/ws16)
+| Feature | Explanation |
+| --- | --- |
+| Configuration tools | `scregedit.exe` is deprecated. If you have scripts that depend on `scregedit.exe`, adjust them to use `reg.exe` or PowerShell methods. |
+| NetCfg custom APIs | Installation of PrintProvider, NetClient, and ISDN using NetCfg custom APIs is deprecated. |
+| Remote management | `WinRM.vbs` is deprecated. Instead, use functionality in the WinRM provider of PowerShell. |
+| Sconfig.exe | Use [Sconfig.cmd](sconfig-on-ws2016) instead. |
+| SMB 2 and later over NetBT | SMB 2 and later over NetBT is deprecated. Instead, implement SMB over TCP or RDMA. |
+
+---
+
+## Features removed
+
+We're removing the following features and functionalities from the installed product image in Windows Server. Applications or code that depend on these features won't function in future releases unless you use an alternative method. Removal occurs when a feature or functionality is no longer available for use and is eliminated from a product or service. The removal of features and functionalities can take place in any release of Windows Server. Some features are deprecated but still ship in current versions of Windows Server. Components aren't removed from generally available supported versions that are within their product lifecycle.
+
+# [Windows Server 2028 (Preview)](#tab/ws28-preview)
+Important
+
+Windows Server 2028 is in preview. The feature removals in this tab aren't confirmation that the features are absent from current preview builds. The features might still be available in current preview builds, and the removal plans can change before release.
+
+| Feature | Explanation |
+| --- | --- |
+| Windows Internet Name Service (WINS) server role | WINS is removed in Windows Server 2028 after being no longer developed since Windows Server 2022. Migrate WINS-dependent clients and services to DNS-based name resolution. For more information, see [WINS removal: Moving forward with modern name resolution](https://support.microsoft.com/servicing/os/windows/docs/2025/11/wins-removal-moving-forward-with-modern-name-resolution). |
+| DirectAccess | DirectAccess is removed from Windows Server 2028. Migrate existing DirectAccess deployments to Always On VPN by using a side-by-side migration. For more information, see [Overview of the DirectAccess to Always On VPN migration](../remote/remote-access/da-always-on-vpn-migration/da-always-on-migration-overview) and [DirectAccess deprecation on future Windows Server releases](https://support.microsoft.com/servicing/os/windows/docs/2026/06/directaccess-deprecation-on-future-windows-server-releases-a-new-era-of-always-on-connectivity). |
+| Point-to-Point Tunneling Protocol (PPTP) and Layer 2 Tunneling Protocol (L2TP) remote access | Remote access through PPTP and L2TP is removed from Windows Server 2028. Migrate remote access connections to Internet Key Exchange version 2 (IKEv2) or Secure Socket Tunneling Protocol (SSTP). For more information, see [Configure VPN protocols](../remote/remote-access/configure-vpn-protocols) and [L2TP and PPTP removal](https://support.microsoft.com/servicing/os/windows/docs/2026/10/l2tp-pptp-removal-article). |
+| Server Message Block version 1 (SMBv1) | Windows Server 2028 no longer includes SMBv1. Update dependent clients, servers, and devices to use SMBv2 or SMBv3. For more information, see [Stop using SMB1](https://techcommunity.microsoft.com/blog/filecab/stop-using-smb1/425858). |
+| VBScript | Windows Server 2028 removes VBScript, so scripts and apps that depend on it stop working. Migrate administrative scripts to PowerShell and web scripts to JavaScript. For more information, see [VBScript deprecation: Timelines and next steps](https://techcommunity.microsoft.com/blog/windows-itpro-blog/vbscript-deprecation-timelines-and-next-steps/4148301). |
+| Windows Management Instrumentation command-line utility (WMIC) | Windows Server 2028 removes the Windows Management Instrumentation Command-line (WMIC) utility, not Windows Management Instrumentation (WMI). Replace WMIC commands with PowerShell or programmatic WMI queries. For more information, see [WMI command line (WMIC) utility deprecation: Next steps](https://techcommunity.microsoft.com/blog/windows-itpro-blog/wmi-command-line-wmic-utility-deprecation-next-steps/4039242). |
+| Windows Server Update Services (WSUS) | Windows Server 2028 removes the WSUS server role. This change applies only to Windows Server 2028 and doesn't change WSUS availability or support in earlier Windows Server releases.WSUS remains available and supported in earlier Windows Server releases, including Windows Server 2025, for the duration of each release's [support lifecycle](/en-us/lifecycle/). You can continue to use WSUS on those releases to manage updates for supported Windows client and Windows Server releases, which includes updates to Windows Server 2028.Microsoft recognizes the need to manage updates in disconnected and highly controlled environments. We're invested in supporting these scenarios and we'll share more as the work progresses. For more information about previews of disconnected server patching technologies, contact the [Windows Server TAP team](https://aka.ms/WSTAP). |
+| Legacy basic input/output system (BIOS) support | PC/AT (PCAT) and legacy BIOS boot are removed from Windows Server 2028. Unified Extensible Firmware Interface (UEFI) is required. Windows Server 2028 guest VMs require generation 2 Hyper-V VMs. This requirement doesn't change support for generation 1 VMs that run earlier guest operating systems. For planning guidance, see [Should I create a generation 1 or 2 virtual machine in Hyper-V?](../virtualization/hyper-v/plan/should-i-create-a-generation-1-or-2-virtual-machine-in-hyper-v). |
+| MultiPoint Services | MultiPoint Services is removed from Windows Server 2028 after being no longer developed since Windows Server 2019. The MultiPoint Connector is available as a Feature on Demand in Windows 11, version 26H2, but won't be included in later Windows releases. Use Remote Desktop Services, in particular Remote Desktop Session Host, for shared desktop and application sessions. For more information, see [Remote Desktop Services overview](../remote/remote-desktop-services/overview). |
+| Shielded VMs | Shielded VMs are removed from Windows Server 2028. Use Trusted VMs as an alternative where their capabilities meet your requirements. The preview doesn't support failover clusters or Hyper-V Replica, and VM key portability is limited. For more information, see [Trusted Launch for generation 2 virtual machines](whats-new-windows-server-2028#trusted-launch-for-generation-2-virtual-machines). |
+| AT Time Service (ATSVC) and AT command (`at.exe`) | The legacy AT Time Service (ATSVC) and its `at.exe` command-line client are removed from Windows Server 2028. ATSVC was already disabled by default and was superseded by Task Scheduler. Use [schtasks](../administration/windows-commands/schtasks) instead to schedule commands and programs. |
+| .NET Framework 3.5 optional Windows component | Windows Server 2028 no longer includes .NET Framework 3.5 as an inbox optional component or Feature on Demand. The framework remains available through a standalone installer. For installation guidance, see [Install .NET Framework 3.5 on Windows 11](/en-us/dotnet/framework/install/dotnet-35-windows-11). For more information about the deployment change, see [.NET Framework 3.5 moves to standalone deployment in new versions of Windows](https://devblogs.microsoft.com/dotnet/dotnet-framework-3-5-moves-to-standalone-deployment-in-new-versions-of-windows/). |
+
+# [Windows Server 2025](#tab/ws25)
+| Feature | Explanation |
+| --- | --- |
+| Data Encryption Standard (DES) | DES, the symmetric-key block encryption cipher, isn't considered secure against modern cryptographic attacks. It's replaced by more robust encryption algorithms. DES was disabled starting with Windows Server 2008 R2 and is removed from Windows Server 2025 and later releases. |
+| IIS 6 Management Console (Web-Lgcy-Mgmt-Console) | The console is removed after being no longer developed in Windows Server 2019. You should also start migrating from IIS 6.0 or earlier versions to the latest version of IIS, which is always available in the most recent release of Windows Server. |
+| Internet Explorer | The Internet Explorer 11 desktop application is [retired and out of support](https://aka.ms/IEJune15Blog) as of June 15, 2022. Microsoft removed the standalone Internet Explorer application from Windows Server 2025. To access older, legacy sites, use [IE mode in Microsoft Edge](https://aka.ms/IEmodewebsite). To disable IE mode for compliance, see [Configure IE mode Policies](/en-us/deployedge/edge-ie-mode-policies). |
+| NTLMv1 | Replace calls to NTLM with calls to [Negotiate](/en-us/windows/win32/secauthn/microsoft-negotiate), which tries to authenticate with Kerberos and only falls back to NTLM when necessary. For more information, see [The evolution of Windows authentication](https://techcommunity.microsoft.com/t5/windows-it-pro-blog/the-evolution-of-windows-authentication/ba-p/3926848). |
+| Windows PowerShell 2.0 | Starting with the [September 2025 update](https://support.microsoft.com/en-us/topic/september-9-2025-kb5065426-update-for-windows-server-2025-os-build-26100-6584-6a59dc6a-1ff2-48f4-b375-81e93deee5dd), Windows Server 2025 no longer includes Windows PowerShell 2.0. If Windows PowerShell 2.0 was installed before the September update, you can no longer use it. Windows PowerShell 2.0 applications and components should be migrated to PowerShell 5.0 or later. To learn more about the deprecation, see [Windows PowerShell 2.0 Deprecation](https://devblogs.microsoft.com/powershell/windows-powershell-2-0-deprecation/). |
+| SMTP Server | Because SMTP Server features were removed from Windows Server 2025, there's no replacement within the operating system. Consider using Exchange Server or a non-Microsoft SMTP server as an alternative. To learn more about enabling SMTP connection in Exchange Server, see [Receive connectors in Exchange Server](/en-us/exchange/mail-flow/connectors/receive-connectors). |
+| Wordpad | We recommend Microsoft Word for rich text documents like `.doc` and `.rtf`, and Windows Notepad for plain text documents like `.txt`. |
+
+# [Windows Server 2022](#tab/ws22)
+| Feature | Explanation |
+| --- | --- |
+| iSNS | The iSNS is now removed after being considered for removal in Windows Server version 1709. You can still connect to iSNS servers or add iSCSI targets individually. |
+
+# [Windows Server 2019](#tab/ws19)
+| Feature | Explanation |
+| --- | --- |
+| Business Scanning/ Distributed Scan Management (DSM) | We're removing this secure scanning and scanner management capability. There are no devices that support this feature. |
+| [File Replication Service](https://support.microsoft.com/help/4025991/windows-server-version-1709-no-longer-supports-frs) (FRS) | Distributed File System (DFS) replication replaces FRS. If you need to migrate any domain controllers that use FRS for the SYSVOL folder to DFS replication, see [Streamlined Migration of FRS to DFSR SYSVOL](https://techcommunity.microsoft.com/t5/storage-at-microsoft/streamlined-migration-of-frs-to-dfsr-sysvol/ba-p/425405). |
+| Hyper-V Network Virtualization (HNV) | [Network virtualization](../networking/sdn/technologies/hyper-v-network-virtualization/whats-new-hyperv-network-virtualization-windows-server) is now included in Windows Server as part of [software defined networking](/en-us/azure/azure-local/concepts/software-defined-networking?context=/windows-server/context/windows-server-edge-networking) (SDN). SDN also includes the Network Controller, Software Load Balancer, User Defined Routing, and access control lists. |
+| Nano Server installation option | Nano Server isn't available as an installable host operating system. Instead, Nano Server is available as a container operating system. To learn more about Nano Server as a container, see [Windows Container Base Images](/en-us/virtualization/windowscontainers/manage-containers/container-base-images). |
+| Print components  (Now optional components for Server Core installations) | In previous releases of Windows Server, the print components were disabled by default in the Server Core installation option. We changed that in Windows Server 2016, enabling them by default. In Windows Server 2019, those print components are once again disabled by default for Server Core. If you need to enable the print components, you can do so by running the following cmdlet:`Install-WindowsFeature Print-Server` |
+| [Remote Desktop Connection Broker and Remote Desktop Virtualization Host](../remote/remote-desktop-services/desktop-hosting-service) in a Server Core installation | Most Remote Desktop Services deployments colocate these roles with the Remote Desktop Session Host (RDSH), which requires Server with Desktop Experience. To be consistent with RDSH, Microsoft changed these roles to also require Server with Desktop Experience. These RDS roles aren't available for use in a [Server Core installation](../administration/server-core/what-is-server-core). If you need to [deploy these roles as part of your Remote Desktop infrastructure](../remote/remote-desktop-services/rds-deploy-infrastructure), you can [install them on Windows Server with Desktop Experience](getting-started-with-server-with-desktop-experience). These roles are also included in the Desktop Experience installation option of Windows Server 2019. |
+| [RemoteFX 3D video adapter (vGPU)](../virtualization/hyper-v/deploy/deploy-graphics-devices-using-remotefx-vgpu) | We're developing new graphics acceleration options for virtualized environments. You can also use [Discrete Device Assignment](../virtualization/hyper-v/plan/plan-for-deploying-devices-using-discrete-device-assignment) as an alternative. |
+| SMB version 1 | Starting with this release, SMB version 1 is no longer installed by default. For details, see [SMBv1 isn't installed by default in Windows 10 version 1709, Windows Server version 1709 and later versions](../storage/file-server/troubleshoot/smbv1-not-installed-by-default-in-windows). |
+
+# [Windows Server 2016](#tab/ws16)
+| Feature | Explanation |
+| --- | --- |
+| Journal.dll | The file `Journal.dll` is removed from Windows Server 2016. There's no replacement. |
+| Security Configuration Wizard | The Security Configuration Wizard is removed. Instead, features are secured by default. If you need to control specific security settings, you can use either Group Policy or Microsoft Security Compliance Manager. |
+| Share and Storage Management snap-in for Microsoft Management Console | If the computer you want to manage is running an operating system that's older than Windows Server 2016, connect to it with Remote Desktop and use the local version of the Share and Storage Management snap-in. On a computer running Windows 8.1 or earlier, use the Share and Storage Management snap-in from the Remote Server Administration Tools (RSAT) to view the computer you want to manage. Use Hyper-V on a client computer to run a VM running Windows 7, Windows 8, or Windows 8.1 that has the Share and Storage Management snap-in in RSAT. |
+| SQM | The opt-in components that manage participation in the Customer Experience Improvement Program are removed. |
+| Windows Update | The `wuauclt.exe /detectnow` command is removed and no longer supported. To trigger a scan for updates, run the following PowerShell command:`$AutoUpdates = New-Object -ComObject "Microsoft.Update.AutoUpdate"; $AutoUpdates.DetectNow()` |
+
+---
