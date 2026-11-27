@@ -9,7 +9,7 @@
 },
 "https://pushsecurity.com/blog/authorization-phishing": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-27"
 },
 "https://specterops.io/blog/2026/10/17/connectwise-skykick-breach-microsoft-365/": {
 "iocs": [
@@ -58,7 +58,7 @@
 "In the text: These domains masquerade as IT infrastructure, opting for a help desk- or support-themed word as the tenant name to increase their credibility -  helpdeskteam365.onmicrosoft[.]com "
 ]
 ],
-"read": "2026-11-19"
+"read": "2026-11-27"
 },
 "https://thehackernews.com/2026/10/connectwise-suspends-cloud-backup-after.html": {
 "iocs": [
@@ -113,7 +113,7 @@
 "In the text: As of writing, the two platforms are operational, with the former now rebranded as exy[.]sh . \"StarkRDP has always been operating by the law and is not involved in any of these all"
 ]
 ],
-"read": "2026-11-19"
+"read": "2026-11-27"
 },
 "https://thehackernews.com/2026/11/microsoft-fixes-azure-api-management.html": {
 "iocs": [],
@@ -317,11 +317,11 @@
 "IOC table: Resource Development \u00b7 Stage Capabilities: Link Target ( T1608.005 )"
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-27"
 },
 "https://www.huntress.com/blog/stealing-oauth-tokens-through-microsofts-front-door": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-27"
 },
 "https://www.huntress.com/blog/token-replay-spray": {
 "iocs": [
@@ -427,19 +427,19 @@
 },
 "https://www.ic3.gov/CSA/2026/260826.pdf": {
 "iocs": [],
-"read": "2026-11-18"
+"read": "2026-11-27"
 },
 "https://www.ic3.gov/CSA/2026/260915-2.pdf": {
 "iocs": [],
-"read": "2026-11-18"
+"read": "2026-11-27"
 },
 "https://www.ic3.gov/CSA/2026/260915.pdf": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-27"
 },
 "https://www.ic3.gov/CSA/2026/261006.pdf": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-27"
 },
 "https://www.ic3.gov/CSA/2026/261008.json": {
 "iocs": [
@@ -1866,7 +1866,7 @@
 },
 "https://www.ic3.gov/PSA/2026/PSA260901": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-27"
 },
 "https://www.ic3.gov/PSA/2026/PSA261013": {
 "iocs": [],
@@ -1954,7 +1954,7 @@
 "IOC table: Setup and verification"
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-27"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/": {
 "iocs": [],
@@ -1962,7 +1962,7 @@
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/24/beyond-ransomware-tracking-storm-2570-consistent-tradecraft-across-deployments/": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-27"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/25/storm-3168-agentic-driven-cloud-attacks-using-compromised-service-principals/": {
 "iocs": [
@@ -1982,7 +1982,7 @@
 "IOC table: App Service probing"
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-27"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/": {
 "iocs": [
@@ -1992,11 +1992,11 @@
 "IOC table: Host name \u00b7 C2 host name"
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-27"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/29/beyond-source-code-a-path-to-the-keys-to-the-kingdom/": {
 "iocs": [],
-"read": "2026-11-17"
+"read": "2026-11-27"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/": {
 "iocs": [
@@ -2036,7 +2036,7 @@
 "IOC table: Domains contacted by ScreenConnect clients in observed malicious sessions."
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-27"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/": {
 "iocs": [
@@ -2156,7 +2156,7 @@
 "In the text: Star Blizzard also continues using email from free providers such as Proton @proton[.]me , particularly in Evilginx spear-phishing operations observed throughout 2026."
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-27"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/": {
 "iocs": [
@@ -2236,7 +2236,7 @@
 "In the text: The actor then downloaded AzCopy from hxxps://aka[.]ms/downloadazcopy-v10-linux and invoked it with an operator-supplied Azure Blob SAS URL targeting wsweb03[.]blob[.]core[.]window"
 ]
 ],
-"read": "2026-11-17"
+"read": "2026-11-27"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/": {
 "iocs": [
@@ -2340,7 +2340,7 @@
 "IOC table: Offer-execution callback infrastructure."
 ]
 ],
-"read": "2026-11-19"
+"read": "2026-11-27"
 },
 "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/": {
 "iocs": [
@@ -2576,5 +2576,9 @@
 ]
 ],
 "read": "2026-11-25"
+},
+"https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/": {
+"iocs": [],
+"read": "2026-11-27"
 }
 }
