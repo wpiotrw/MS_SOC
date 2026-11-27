@@ -1355,8 +1355,7 @@
 "status":"Active",
 "members":[
 "MC1506290",
-"MC1550797",
-"item:MC1550797"
+"MC1550797"
 ],
 "log":[
 {
@@ -3466,6 +3465,62 @@
 "MC1492958"
 ]
 },
+"c-mc1492954":{
+"firstSeen":"2026-10-10",
+"lastSeen":"2026-11-27",
+"name":"Themes by Copilot retirement",
+"status":"No date",
+"members":[
+"MC1492954"
+],
+"log":[
+{
+"date":"2026-10-10",
+"id":"MC1492954",
+"what":"Entered the brief (Message Center)",
+"before":"",
+"after":"Microsoft Outlook: Themes by Copilot retirement",
+"title":"Microsoft Outlook: Themes by Copilot retirement",
+"link":"https://mc.merill.net/message/MC1492954"
+}
+],
+"milestones":{
+"MC1492954|posted":{
+"date":"2026-10-09",
+"label":"9 Oct 2026",
+"text":"Posted: Microsoft Outlook: Themes by Copilot retirement"
+}
+},
+"moves":[],
+"materials":{
+"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492954":{
+"title":"Microsoft Outlook: Themes by Copilot retirement",
+"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492954",
+"source":"Message Center",
+"id":"MC1492954",
+"date":"2026-10-09",
+"updated":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-10"
+},
+"https://mc.merill.net/message/MC1492954":{
+"title":"Microsoft Outlook: Themes by Copilot retirement",
+"link":"https://mc.merill.net/message/MC1492954",
+"source":"Message Center",
+"id":"MC1492954",
+"date":"2026-10-09",
+"updated":"2026-10-09",
+"group":"microsoft",
+"found":"2026-10-10"
+}
+},
+"final":null,
+"type":"Retirement",
+"tech":"Exchange",
+"posts":[
+"MC1492954"
+]
+},
 "c-mc1490911":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-27",
@@ -4779,14 +4834,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-24",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-25",
 "text":"August 1, 2026."
 },
@@ -4876,6 +4923,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-26",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-27",
 "text":"August 1, 2026."
 },
 {
@@ -5516,22 +5571,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-25",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-25",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-26",
 "text":"early February 2026."
 },
@@ -5605,6 +5644,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-26",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-27",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-27",
 "text":"February 2027."
 },
 {
@@ -8491,15 +8546,6 @@
 {
 "date":"2026-11-20",
 "id":"MC1545694",
-"what":"Microsoft revised the post",
-"before":"2026-11-09",
-"after":"2026-11-20",
-"title":"My Sign-ins changes how users register a passkey in Microsoft Authenticator, with a WebAuthn fallback link",
-"link":"https://deltapulse.app/item/MC1545694"
-},
-{
-"date":"2026-11-20",
-"id":"MC1545694",
 "what":"Title",
 "before":"Microsoft Entra: Updated passkey registration experience in My Sign-ins",
 "after":"(Updated) Microsoft Entra: Updated passkey registration experience in My Sign-ins",
@@ -8530,6 +8576,15 @@
 "what":"Microsoft's update note",
 "before":"",
 "after":"We have updated the timeline.",
+"title":"My Sign-ins changes how users register a passkey in Microsoft Authenticator, with a WebAuthn fallback link",
+"link":"https://deltapulse.app/item/MC1545694"
+},
+{
+"date":"2026-11-20",
+"id":"MC1545694",
+"what":"Microsoft revised the post",
+"before":"2026-11-09",
+"after":"2026-11-20",
 "title":"My Sign-ins changes how users register a passkey in Microsoft Authenticator, with a WebAuthn fallback link",
 "link":"https://deltapulse.app/item/MC1545694"
 },
@@ -9241,22 +9296,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-25",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-25",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-26",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -9330,6 +9369,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-26",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-27",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-27",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -27039,73 +27094,6 @@
 "posts":[
 "MC1448373",
 "MC1469551"
-],
-"archivedOn":"2026-11-25"
-},
-"c-mc1492954":{
-"firstSeen":"2026-10-10",
-"lastSeen":"2026-11-27",
-"name":"Themes by Copilot retirement",
-"status":"Archive",
-"members":[
-"MC1492954"
-],
-"log":[
-{
-"date":"2026-10-10",
-"id":"MC1492954",
-"what":"Entered the brief (Message Center)",
-"before":"",
-"after":"Microsoft Outlook: Themes by Copilot retirement",
-"title":"Microsoft Outlook: Themes by Copilot retirement",
-"link":"https://mc.merill.net/message/MC1492954"
-}
-],
-"milestones":{
-"MC1492954|posted":{
-"date":"2026-10-09",
-"label":"9 Oct 2026",
-"text":"Posted: Microsoft Outlook: Themes by Copilot retirement"
-},
-"MC1492954|retirement begins in mid and is expected to complete by late#0":{
-"date":"2026-10-15",
-"label":"mid Oct 2026",
-"text":"Retirement begins in mid-October 2026 and is expected to complete by late October 2026."
-},
-"MC1492954|retirement begins in mid and is expected to complete by late#1":{
-"date":"2026-10-25",
-"label":"late Oct 2026",
-"text":"Retirement begins in mid-October 2026 and is expected to complete by late October 2026."
-}
-},
-"moves":[],
-"materials":{
-"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492954":{
-"title":"Microsoft Outlook: Themes by Copilot retirement",
-"link":"https://admin.microsoft.com/#/MessageCenter/:/messages/MC1492954",
-"source":"Message Center",
-"id":"MC1492954",
-"date":"2026-10-09",
-"updated":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-10"
-},
-"https://mc.merill.net/message/MC1492954":{
-"title":"Microsoft Outlook: Themes by Copilot retirement",
-"link":"https://mc.merill.net/message/MC1492954",
-"source":"Message Center",
-"id":"MC1492954",
-"date":"2026-10-09",
-"updated":"2026-10-09",
-"group":"microsoft",
-"found":"2026-10-10"
-}
-},
-"final":"2026-10-25",
-"type":"Retirement",
-"tech":"Exchange",
-"posts":[
-"MC1492954"
 ],
 "archivedOn":"2026-11-25"
 },
