@@ -1,5 +1,42 @@
 [
  {
+  "file": "2026-11-27-vulnerability-records-per-device-group-critical-and-high.kql",
+  "title": "Vulnerability records per device group, critical and high only - the slices a server-side $filter on the export assessment API would return",
+  "date": "2026-11-27",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo",
+   "DeviceTvmSoftwareVulnerabilities"
+  ],
+  "purpose": "DeviceTvmSoftwareVulnerabilities joined to the latest DeviceInfo MachineGroup per device, counting devices, CVEs and records per group for Critical and High severity. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicetvmsoftwarevulnerabilities-table",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-27-successful-single-factor-sign-ins-that-used-a.kql",
+  "title": "Successful single-factor sign-ins that used a text message, per user, last 30 days - who loses sign-in when Entra clears SMS 'Use for sign-in' by 30 November",
+  "date": "2026-11-27",
+  "product": "Entra",
+  "tables": [
+   "SigninLogs"
+  ],
+  "purpose": "Successful SigninLogs records whose authentication requirement is single-factor and whose authentication details record the Text message method, summarised per user and app. AuthenticationDetails is a JSON string and is parsed first. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-27-onboarded-devices-per-active-directory-domain-and-the.kql",
+  "title": "Onboarded devices per Active Directory domain, and the devices that report none - what the new Defender for Endpoint domain filter will and will not catch",
+  "date": "2026-11-27",
+  "product": "Defender for Endpoint",
+  "tables": [
+   "DeviceInfo"
+  ],
+  "purpose": "Latest DeviceInfo record per onboarded device; the domain is taken as everything after the first dot of DeviceName (the FQDN), which approximates the portal's Domain field. JoinType and MachineGroup show how the domain-less devices are managed. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table",
+  "kind": "brief"
+ },
+ {
   "file": "articles/2026-11-26-detection-1-artex-credential-attack-burst-failed-logons.kql",
   "title": "Detection 1: ARTEX Credential Attack - Burst Failed Logons Across Multiple Accounts",
   "date": "2026-11-26",
@@ -26,7 +63,10 @@
   ],
   "purpose": "Successful Entra sign-ins from Windows devices whose authentication details record the FIDO2 security key method, summarised per user and device. AuthenticationDetails is stored as a JSON string in SigninLogs and is parsed first. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-27"
+  ]
  },
  {
   "file": "2026-11-26-calls-to-the-new-risky-agent-bulk-operations.kql",
@@ -38,7 +78,10 @@
   ],
   "purpose": "Microsoft Graph activity log requests whose RequestUri reaches the risky-agent bulk operations, with the calling app, service principal or user, the method and the response code. Needs Microsoft Graph activity logs sent to Log Analytics. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-27"
+  ]
  },
  {
   "file": "2026-11-26-billable-ingestion-per-data-type-and-solution-last.kql",
@@ -50,7 +93,10 @@
   ],
   "purpose": "Usage records of the workspace summarised per DataType and Solution: billable volume in GB over 30 days and the daily average, largest first. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/usage",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-27"
+  ]
  },
  {
   "file": "incidents/2026-11-25-self-service-password-reset-followed-by-new-authentication.kql",
@@ -303,7 +349,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/intunedevices",
   "kind": "brief",
   "reused": [
-   "2026-11-26"
+   "2026-11-26",
+   "2026-11-27"
   ]
  },
  {
@@ -319,7 +366,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
   "kind": "brief",
   "reused": [
-   "2026-11-26"
+   "2026-11-26",
+   "2026-11-27"
   ]
  },
  {
@@ -334,7 +382,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/intunedevices",
   "kind": "brief",
   "reused": [
-   "2026-11-26"
+   "2026-11-26",
+   "2026-11-27"
   ]
  },
  {
@@ -609,7 +658,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-25",
-   "2026-11-26"
+   "2026-11-26",
+   "2026-11-27"
   ]
  },
  {
@@ -625,7 +675,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-25",
-   "2026-11-26"
+   "2026-11-26",
+   "2026-11-27"
   ]
  },
  {
@@ -641,7 +692,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-25",
-   "2026-11-26"
+   "2026-11-26",
+   "2026-11-27"
   ]
  },
  {
@@ -1011,7 +1063,8 @@
   "reused": [
    "2026-11-24",
    "2026-11-25",
-   "2026-11-26"
+   "2026-11-26",
+   "2026-11-27"
   ]
  },
  {
@@ -1029,7 +1082,8 @@
   "reused": [
    "2026-11-24",
    "2026-11-25",
-   "2026-11-26"
+   "2026-11-26",
+   "2026-11-27"
   ]
  },
  {
@@ -1047,7 +1101,8 @@
   "reused": [
    "2026-11-24",
    "2026-11-25",
-   "2026-11-26"
+   "2026-11-26",
+   "2026-11-27"
   ]
  },
  {

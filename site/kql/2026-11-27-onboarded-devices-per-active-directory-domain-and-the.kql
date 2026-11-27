@@ -1,0 +1,16 @@
+// title: Onboarded devices per Active Directory domain, and the devices that report none - what the new Defender for Endpoint domain filter will and will not catch
+// date: 2026-11-27
+// product: Defender for Endpoint
+// tables: DeviceInfo
+// purpose: Latest DeviceInfo record per onboarded device; the domain is taken as everything after the first dot of DeviceName (the FQDN), which approximates the portal's Domain field. JoinType and MachineGroup show how the domain-less devices are managed. Not run against a tenant in this pass.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Microsoft SOC Brief 27 Nov 2026 - devices per AD domain suffix (mde-device-inventory-domain-filter-2026-11-26)
+// Columns as on the DeviceInfo reference. Domain derived from the FQDN in DeviceName (approximation). Not run against a tenant in this pass.
+DeviceInfo
+| where Timestamp > ago(7d)
+| where OnboardingStatus == "Onboarded"
+| summarize arg_max(Timestamp, DeviceName, OSPlatform, JoinType, MachineGroup) by DeviceId
+| extend Domain = iff(DeviceName contains ".", substring(DeviceName, indexof(DeviceName, ".") + 1), "(none reported)")
+| summarize Devices = dcount(DeviceId), Platforms = make_set(OSPlatform, 8), JoinTypes = make_set(JoinType, 5), Groups = make_set(MachineGroup, 10) by Domain
+| order by Devices desc

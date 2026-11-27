@@ -1,0 +1,17 @@
+// title: Successful single-factor sign-ins that used a text message, per user, last 30 days - who loses sign-in when Entra clears SMS 'Use for sign-in' by 30 November
+// date: 2026-11-27
+// product: Entra
+// tables: SigninLogs
+// purpose: Successful SigninLogs records whose authentication requirement is single-factor and whose authentication details record the Text message method, summarised per user and app. AuthenticationDetails is a JSON string and is parsed first. Not run against a tenant in this pass.
+// source: https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Microsoft SOC Brief 27 Nov 2026 - SMS used as the only sign-in factor (MC1465763)
+// Columns as on the SigninLogs reference. Not run against a tenant in this pass.
+SigninLogs
+| where TimeGenerated > ago(30d)
+| where ResultType == "0"
+| where AuthenticationRequirement == "singleFactorAuthentication"
+| mv-expand Auth = todynamic(AuthenticationDetails)
+| where tostring(Auth.authenticationMethod) == "Text message"
+| summarize SignIns = count(), LastSeen = max(TimeGenerated), Apps = make_set(AppDisplayName, 10) by UserPrincipalName
+| order by LastSeen desc
