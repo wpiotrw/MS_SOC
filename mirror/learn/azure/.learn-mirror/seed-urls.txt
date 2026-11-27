@@ -396,6 +396,7 @@ https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/migrate-from-voice
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/private-registry-connections
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/private-skill-catalog
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/recover-long-running-work
+https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/register-external-agent
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/send-image-input-voice-agent
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/steer-hosted-agent
 https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/stream-with-reconnect
@@ -593,6 +594,7 @@ https://learn.microsoft.com/en-us/azure/sentinel/normalization
 https://learn.microsoft.com/en-us/azure/sentinel/normalization-about-parsers
 https://learn.microsoft.com/en-us/azure/sentinel/normalization-about-schemas
 https://learn.microsoft.com/en-us/azure/sentinel/normalization-about-workspace-parsers
+https://learn.microsoft.com/en-us/azure/sentinel/normalization-create-parsers-ai-agent
 https://learn.microsoft.com/en-us/azure/sentinel/normalization-manage-parsers
 https://learn.microsoft.com/en-us/azure/sentinel/normalization-parsers-list
 https://learn.microsoft.com/en-us/azure/sentinel/normalization-schema-email

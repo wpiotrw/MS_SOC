@@ -127,7 +127,9 @@ Sign in with `az login`. Set `FOUNDRY_PROJECT_ENDPOINT` and `FOUNDRY_VOICE_AGENT
 
 ::: zone pivot="azure-cli"
 
-To configure the agent with `azure.yaml`, you also need an authenticated Azure Developer CLI (`azd`) session.
+To configure the agent with `azure.yaml`, use azd 1.37.0 or later and `azure.ai.agents` 1.0.0 or later. For extension 1.0.0 or 1.1.0, first set the [voice feature switch](install-cli-foundry-extensions#enable-voice-agent-commands) in your shell. Sign in with `azd auth login`.
+
+The BYOM deployment and PowerShell cleanup examples also require the [Azure CLI](/en-us/cli/azure/install-azure-cli), signed in with `az login`. Use PowerShell 7.3 or later for those examples.
 
 ::: zone-end
 
@@ -1501,11 +1503,95 @@ New prompt voice initialization rejects `--model-deployment`. Configure BYOM thr
 
 Changing `modelType` and `model.id` doesn't create the BYOM deployment. Create or confirm it in the Foundry resource before running `azd deploy`. For model deployment steps, see [Deploy models](../../how-to/deploy-models-managed).
 
-Keep the existing audio and advanced settings compatible with the selected model. For a voice wrapper that delegates conversation logic to a hosted agent, use `conversationEngine` instead of these model fields. See [Use a hosted agent as the conversation engine in a voice-based agent](../../how-to/voice-first-with-hosted-agent#deploy-both-agents-with-the-azure-developer-cli).
+Keep the existing audio and advanced settings compatible with the selected model. For a voice wrapper that delegates conversation logic to a hosted agent, use `conversationEngine` instead of these model fields. See [Deploy a hosted voice agent](deploy-hosted-voice-agent-cli).
+
+### Create a BYOM deployment
+
+If you already have a compatible model deployment, use its name in `model.id` and continue to Add the advanced settings. The following path creates a dedicated new project and model deployment. Don't run it against a shared project.
+
+Choose one model path before initializing the agent.
+
+#### Realtime model
+
+Use a realtime deployment for native speech-to-speech:
+
+```powershell
+$agentName = "voice-byom-realtime"
+$modelName = "gpt-realtime"
+$deploymentName = "byom-realtime"
+```
+
+Reference: Choose the self-deployed model category.
+
+#### Cascaded text model
+
+Alternatively, use a text-model deployment for speech recognition, text generation, and speech synthesis:
+
+```powershell
+$agentName = "voice-byom-cascaded"
+$modelName = "gpt-4o-mini"
+$deploymentName = "byom-cascaded"
+```
+
+Reference: Choose the self-deployed model category.
+
+#### Initialize and deploy the selected model
+
+From an empty directory, initialize the agent with the values for your selected path:
+
+```powershell
+azd ai agent init --kind prompt-voice `
+    --agent-name $agentName --model $deploymentName
+Set-Location $agentName
+```
+
+Reference: [Initialize prompt and voice agents](init-agent-project#initialize-prompt-and-voice-agents).
+
+Choose **Create a new Foundry project** when prompted. In the generated `azure.yaml`, set the agent service's `modelType` to `self_deployed`. Keep `model.id` set to the selected `$deploymentName`. Preserve the generated `ai-project` service and `uses: [ai-project]`.
+
+Provision the project and read its resource values:
+
+```powershell
+azd provision
+if ($LASTEXITCODE -ne 0) { throw "Project provisioning failed." }
+$resourceGroup = azd env get-value AZURE_RESOURCE_GROUP
+$accountName = azd env get-value AZURE_AI_ACCOUNT_NAME
+$subscriptionId = azd env get-value AZURE_SUBSCRIPTION_ID
+$location = azd env get-value AZURE_LOCATION
+az account set --subscription $subscriptionId
+az cognitiveservices model list --location $location `
+    --subscription $subscriptionId `
+    --query "[?model.name=='$modelName'].model" --output json
+```
+
+Reference: [azd provision](/en-us/azure/developer/azure-developer-cli/reference#azd-provision) | [az cognitiveservices model list](/en-us/cli/azure/cognitiveservices/model#az-cognitiveservices-model-list).
+
+Choose a returned model version that supports `GlobalStandard`, and confirm available quota in this region. Replace `<available-model-version>` in the following code with that version, not a version from another subscription.
+
+If the model or deployment type isn't available, select a supported region or [deploy a compatible model](../../how-to/deploy-models-managed) before continuing.
+
+```powershell
+$modelVersion = "<available-model-version>"
+az cognitiveservices account deployment create `
+    --resource-group $resourceGroup --name $accountName `
+    --deployment-name $deploymentName --model-format OpenAI `
+    --model-name $modelName --model-version $modelVersion `
+    --sku-name GlobalStandard --sku-capacity 1
+if ($LASTEXITCODE -ne 0) { throw "Model deployment failed." }
+azd deploy $agentName
+azd ai agent show $agentName --output json
+azd ai agent endpoint show $agentName --output json
+```
+
+Reference: [az cognitiveservices account deployment create](/en-us/cli/azure/cognitiveservices/account/deployment#az-cognitiveservices-account-deployment-create) | [Manage agents](manage-hosted-agent).
+
+Stop if provisioning or model deployment fails. Complete the [spoken-turn check](../quickstarts/prompt-voice-agent?pivots=azd#test-the-voice-agent) before adding optional settings.
+
+When you're finished with this dedicated project, delete the agent with `azd ai agent delete $agentName`, then run `azd down`. This command removes the new project's resources, including the BYOM deployment. Don't run `azd down` against shared resources.
 
 ### Add the advanced settings
 
-Add the following properties to the prompt voice agent service in `azure.yaml`. Place them at the same indentation level as `kind`, `model`, `modelType`, and `name`.
+Add the following properties to the prompt voice agent service in `azure.yaml`. Place them at the same indentation level as `kind`, `model`, `modelType`, and `name`. These settings apply to a managed real-time model or a compatible BYOM real-time deployment. Preserve the selected model fields, project service, and `uses` dependencies.
 
 ```yaml
 instructions: You are {{persona}}, a concise voice assistant.
@@ -1581,6 +1667,40 @@ The audio format must match the format that your client sends and receives. Supp
 
 For more information about audio formats and turn detection, see [How to use the Voice Live API](/en-us/azure/ai-services/speech-service/voice-live-how-to).
 
+### Add definition fields with an overlay
+
+Use `definitionOverlay` to add service definition fields that aren't exposed as typed CLI properties. Add the reference to the voice agent service at the same indentation level as `modelType`:
+
+```yaml
+definitionOverlay:
+  $ref: ./voice-overlay.yaml
+```
+
+Reference: [Voice service definition overlays](../concepts/azure-yaml-reference#definition-overlays).
+
+Create `voice-overlay.yaml` beside `azure.yaml`. This example supplies a static interim response when latency reaches the configured threshold:
+
+```yaml
+interim_response:
+  type: static_interim_response
+  triggers: [latency]
+  latency_threshold_ms: 2000
+  texts:
+    - One moment while I check that.
+```
+
+Reference: [Voice service definition overlays](../concepts/azure-yaml-reference#definition-overlays).
+
+Overlay fields use service wire names, such as `interim_response`, not CLI camel-case names. The merge only adds missing keys and recursively merges objects. Existing scalar or array values conflict, even if the supplied values match.
+
+New arrays are allowed; null values aren't.
+
+Don't use an overlay to set `kind`, `model_type`, `model`, `conversation_engine`, or `sub_protocol`, including its `subProtocol` alias. These reserved names are case-insensitive; use typed configuration for those fields. Only reference local files you trust; references resolve relative to the file that contains them.
+
+Deploy the agent and run `azd ai agent show <service-name> --output json`. Confirm that `definition.interim_response` contains the configured type, trigger, threshold, and text.
+
+Overlay fields aren't validated against the service's OpenAPI schema, so check the saved definition and test a conversation. A short response might not trigger the latency threshold.
+
 ### Attach tools
 
 Use the `tools` list to configure the tools available to your voice agent.
@@ -1613,15 +1733,40 @@ Configure tool search on the toolbox version, not on the voice-agent toolbox ref
 
 A voice service can declare inbound phone bindings in `azure.yaml`. Follow [Connect a number with Azure Developer CLI](voice-agent-telephony-channels?pivots=azd#connect-a-number-with-azure-developer-cli) for Teams Phone extensibility and Twilio examples, required extension versions, provider setup, deployment, and testing.
 
-The CLI uses the `v1` binding API and service-generated binding IDs. For the authoring fields, see the [telephony configuration reference](../concepts/azure-yaml-reference#telephony-bindings).
+To declare an optional transfer destination when you create a binding, add `transferTargets` to the binding entry. This example uses a Twilio binding with an approved support number:
+
+```yaml
+telephony:
+  bindings:
+    - provider: twilio
+      identifier: "+14255550123"
+      connection: telephony-twilio
+      transferTargets:
+        - name: support
+          description: Transfer to the approved support number.
+          destination:
+            kind: pstn
+            value: "+14255550124"
+```
+
+Reference: [Telephony configuration](../concepts/azure-yaml-reference#telephony-bindings).
+
+Replace both example numbers with your inbound number and an approved destination in E.164 format. Replace `telephony-twilio` with your existing Foundry project connection name.
+
+The targets apply to the whole agent. Deployment can populate an empty remote list only when it creates a binding, and it doesn't overwrite a different, nonempty list. For more information, see the [telephony configuration reference](../concepts/azure-yaml-reference#telephony-bindings).
 
 ### Deploy the updated agent
 
-Deploy the agent service after you save `azure.yaml`:
+Deploy the agent service after you save `azure.yaml`. Replace the placeholder with the local service key, such as `voice-guide-managed` from the quickstart or the `$agentName` used in the BYOM example:
 
-```azurecli
-azd deploy voice-guide-managed
+```powershell
+$serviceName = "<service-name-from-azure.yaml>"
+azd deploy $serviceName
+azd ai agent show $serviceName --output json
+azd ai agent endpoint show $serviceName --output json
 ```
+
+Reference: [Manage agents](manage-hosted-agent) | [Manage agent endpoints](update-agent-endpoint-cli).
 
 Before deployment, `azd` validates the agent definition locally. The service then performs final validation of the advanced setting values and combinations. If either validation fails, the command returns a validation error. Update the affected setting, and deploy again.
 
@@ -1632,14 +1777,113 @@ Use the Foundry playground to test the voice, greeting, interruption, and transc
 1. Open the [Foundry portal](https://ai.azure.com) and sign in.
 2. Select the Foundry project that contains your agent.
 3. In the left navigation, select **Build** &gt; **Agents**.
-4. Select **voice-guide-managed**, and then select **Open in playground**.
-5. Start a voice session, and confirm that the agent uses the configured greeting and voice.
-6. Speak while the agent responds, and confirm that the agent stops speaking and listens to the new input.
-7. Review the transcript, and confirm that the session includes both text and audio responses.
+4. Select the voice agent that you configured, and then select **Open in playground**.
+5. Start a voice session, and confirm that the default structured input produces the greeting "Hello Ada" in the configured voice.
+6. Speak, then pause. Confirm that turn detection starts a response automatically.
+7. Speak while the agent responds, and confirm that the agent stops speaking and listens to the new input.
+8. Review the transcript, and confirm that the session includes both text and audio responses.
 
 ### Remove a telephony binding
 
-Removing a declaration from `azure.yaml` doesn't delete its remote binding. To disconnect the number, follow [Disconnect a number](voice-agent-telephony-channels?pivots=azd#disconnect-a-number) and use Python or REST with the binding's current ETag. Delete test bindings before deleting their agents.
+To disconnect a number by using Python or REST, see [Disconnect a number](voice-agent-telephony-channels?pivots=azd#disconnect-a-number). The following PowerShell alternative uses the same `/agents/{agentName}/telephony/bindings` route with `api-version=v1` and a service-generated binding ID.
+
+Sign in to the project's tenant with `az login`. Replace the endpoint, remote agent name, phone number, and connection in the following example. The helper reads every page before selecting the intended binding:
+
+```powershell
+$projectEndpoint = "<project-endpoint>"
+$agentName = "<agent-name>"
+$phoneNumber = "+14255550123"
+$connectionName = "telephony-twilio"
+$bindingsUri = $projectEndpoint.TrimEnd("/") + "/agents/" +
+    [uri]::EscapeDataString($agentName) + "/telephony/bindings"
+$listUri = $bindingsUri + "?api-version=v1&provider=twilio&limit=100"
+
+$token = az account get-access-token `
+    --scope https://ai.azure.com/.default --query accessToken -o tsv
+if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($token)) {
+    throw "No access token returned. Sign in to Azure CLI and try again."
+}
+$headers = @{ Authorization = "Bearer $token" }
+
+function Get-VoiceBindings {
+    param([string]$Uri, [hashtable]$Headers)
+
+    $nextUri = $Uri
+    $seen = [System.Collections.Generic.HashSet[string]]::new()
+    do {
+        $page = Invoke-RestMethod -Uri $nextUri -Headers $Headers `
+            -ErrorAction Stop
+        if ($null -eq $page.data -or $page.has_more -isnot [bool]) {
+            throw "Invalid binding list. Stop without deleting anything."
+        }
+        $page.data
+        if (-not $page.has_more) { break }
+        $cursor = [string]$page.last_id
+        if ([string]::IsNullOrWhiteSpace($cursor) -or
+            -not $seen.Add($cursor)) {
+            throw "Invalid pagination cursor. Stop without deleting anything."
+        }
+        $nextUri = $Uri + "&after=" + [uri]::EscapeDataString($cursor)
+    } while ($true)
+}
+
+$bindings = @(Get-VoiceBindings -Uri $listUri -Headers $headers)
+$ownedBindings = @($bindings | Where-Object {
+    $_.provider -eq "twilio" -and $_.phone_number -eq $phoneNumber
+})
+if ($ownedBindings.Count -ne 1 -or
+    $ownedBindings[0].connection_name -ne $connectionName) {
+    throw "Expected one binding with the intended number and connection."
+}
+$opaqueId = [string]$ownedBindings[0].id
+if ([string]::IsNullOrWhiteSpace($opaqueId)) {
+    throw "The binding has no service-generated ID. Stop without deleting it."
+}
+$bindingId = [uri]::EscapeDataString($opaqueId)
+$itemUri = $bindingsUri + "/" + $bindingId + "?api-version=v1"
+$response = Invoke-WebRequest -Method Get -Uri $itemUri -Headers $headers `
+    -ErrorAction Stop
+$binding = $response.Content | ConvertFrom-Json -ErrorAction Stop
+if ($binding.provider -ne "twilio" -or
+    $binding.phone_number -ne $phoneNumber -or
+    $binding.connection_name -ne $connectionName) {
+    throw "The binding changed. Stop and review it before deletion."
+}
+$binding
+```
+
+Reference: [Understand telephony bindings](voice-agent-telephony-channels#understand-telephony-bindings).
+
+Review the returned binding. After confirming that it belongs to your test, continue in the same PowerShell session. Preserve the current ETag, including its quotes, and require a successful deletion:
+
+```powershell
+$etag = [string]($response.Headers["ETag"] | Select-Object -First 1)
+if ([string]::IsNullOrWhiteSpace($etag)) {
+    $etag = [string]$binding.etag
+}
+if ($etag -notmatch '^"[^"]+"$') {
+    throw "No quoted ETag returned. Stop without deleting the binding."
+}
+$deleteHeaders = $headers.Clone()
+$deleteHeaders["If-Match"] = $etag
+$deleted = Invoke-WebRequest -Method Delete -Uri $itemUri `
+    -Headers $deleteHeaders -ErrorAction Stop
+if ([int]$deleted.StatusCode -ne 204) {
+    throw "Binding deletion didn't return 204. Check its current state."
+}
+$remaining = @(Get-VoiceBindings -Uri $listUri -Headers $headers)
+if ($remaining | Where-Object { $_.phone_number -eq $phoneNumber }) {
+    throw "A binding for this number still exists. Review it before cleanup."
+}
+```
+
+Reference: [Disconnect a number](voice-agent-telephony-channels#disconnect-a-number).
+
+If deletion returns `412 Precondition Failed`, read and review the binding again before retrying with its current ETag. Don't use `If-Match: *` to bypass the check.
+
+Remove the declaration from `azure.yaml` before your next deployment so that it doesn't recreate the binding. Removing the declaration alone doesn't delete the remote binding. Restore the original Twilio Voice URL and status callback, then delete the test agent if you no longer need it.
+
+Preserve the purchased number, provider connection, shared models, and project. Don't run `azd down` for a shared telephony project.
 
 ::: zone-end
 

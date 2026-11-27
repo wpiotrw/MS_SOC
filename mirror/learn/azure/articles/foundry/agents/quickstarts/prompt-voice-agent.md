@@ -24,7 +24,7 @@ ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Create a managed voice-based prompt agent in Foundry Agent Service by using the Microsoft Foundry portal, a voice agent template, the Microsoft Foundry SDK, or the Azure Developer CLI.
-ms.date: 2026-11-11T00:00:00.0000000Z
+ms.date: 2026-11-12T00:00:00.0000000Z
 ms.subservice: foundry-agent-service
 ms.topic: quickstart
 ms.custom: doc-kit-assisted
@@ -70,7 +70,7 @@ If you don't have an Azure subscription, create a [free account](https://azure.m
 
 ## Prerequisites
 
-- A [Foundry project](../../how-to/create-projects).
+- A [Foundry project](../../how-to/create-projects). The Azure Developer CLI path can create one for you.
 - [Foundry User role](../../concepts/rbac-foundry) on the project, to create and invoke agents.
 
     Important
@@ -108,18 +108,20 @@ If you don't have an Azure subscription, create a [free account](https://azure.m
 
 ::: zone pivot="azd"
 
-- Azure Developer CLI version 1.32.0 or later and the Microsoft Foundry extensions. For the individual installation steps, see [Install the Azure Developer CLI Foundry extensions](../how-to/install-cli-foundry-extensions). To install the complete developer toolset, see [Prepare your development environment](../../how-to/develop/install-cli-sdk).
+- Azure Developer CLI version 1.37.0 or later and the `azure.ai.agents` extension version 1.0.0 or later. For installation and update steps, see [Enable voice agent commands](../how-to/install-cli-foundry-extensions#enable-voice-agent-commands). To install the complete developer toolset, see [Prepare your development environment](../../how-to/develop/install-cli-sdk).
 - An authenticated `azd` session. Run `azd auth login` after you install the extensions.
 - The Azure permissions listed in [Install the Azure Developer CLI Foundry extensions](../how-to/install-cli-foundry-extensions#azure-permissions).
 
-Check the installed agent extension version and its initialization options:
+With extension 1.0.0 or 1.1.0, first set the [voice feature switch](../how-to/install-cli-foundry-extensions#enable-voice-agent-commands) in your shell. Then check the installed version and initialization options:
 
-```azurecli
+```powershell
 azd ai agent version
 azd ai agent init --help
 ```
 
-The initialization help must list `prompt-voice` under `--kind` and expose the `--voice` option. If `--voice` isn't listed, use an extension release that includes voice support before continuing. These CLI voice options don't require a private-preview environment variable.
+Reference: [Enable voice agent commands](../how-to/install-cli-foundry-extensions#enable-voice-agent-commands).
+
+The version must be 1.0.0 or later. Initialization help must list `prompt-voice` under `--kind` and expose `--voice`.
 
 ::: zone-end
 
@@ -1402,7 +1404,7 @@ name: voice-guide-managed
 
 The `managed` model type tells Foundry to provide the realtime model for the agent. You don't need to create a model deployment separately.
 
-The CLI generates `kind: prompt-voice` for compatibility. `kind: voice` is also accepted; you don't need to rename the generated kind. To use your own model deployment, see [Choose a managed or self-deployed model](../how-to/configure-voice-agent#choose-a-managed-or-self-deployed-model).
+The CLI generates `kind: prompt-voice` for compatibility. `kind: voice` is also accepted; you don't need to rename the generated kind. To use your own real-time or cascaded text-model deployment, see [Create a BYOM deployment](../how-to/configure-voice-agent?pivots=azure-cli#create-a-byom-deployment).
 
 ## Provision the Foundry project
 
@@ -1422,6 +1424,17 @@ azd deploy voice-guide-managed
 
 When deployment finishes, `azd` confirms the agent name, version, and endpoint for the active environment.
 
+Read back the deployed agent and its endpoint:
+
+```powershell
+azd ai agent show voice-guide-managed --output json
+azd ai agent endpoint show voice-guide-managed --output json
+```
+
+Reference: [Manage agents](../how-to/manage-hosted-agent) | [Manage agent endpoints](../how-to/update-agent-endpoint-cli).
+
+Confirm that the endpoint output identifies a voice agent and includes `endpoints.voice` with `/endpoint/protocols/voice?api-version=v1`.
+
 ## Test the voice agent
 
 `azd ai agent invoke` doesn't start voice conversations. When it recognizes a voice service in `azure.yaml`, it returns an error with guidance to use the Foundry portal, even if you specify `--protocol responses`. Use the playground to test the agent:
@@ -1430,19 +1443,44 @@ When deployment finishes, `azd` confirms the agent name, version, and endpoint f
 2. Select the Foundry project that you provisioned.
 3. In the left navigation, select **Build** &gt; **Agents**.
 4. Select **voice-guide-managed**, and then select **Open in playground**.
-5. Start a voice session, and speak to the agent.
-6. Confirm that the agent responds with synthesized speech and that the playground doesn't report a runtime error.
+5. Start a voice session, and say, "Hello. Please reply with one short sentence."
+6. Confirm that the playground shows your input transcript, a completed response, and audible agent output.
+7. End the session.
+
+## Reuse the existing azd environment
+
+To reuse this project, run the following command from the same directory that contains its `azure.yaml`:
+
+```powershell
+azd init
+```
+
+Reference: [azd init](/en-us/azure/developer/azure-developer-cli/reference#azd-init).
+
+Choose to reuse the existing environment. Don't initialize from another empty directory or create another agent or Foundry project. The existing `azure.yaml` and environment remain the source of your deployment settings.
+
+Run `azd provision` and `azd deploy voice-guide-managed` again, then repeat the endpoint and spoken-turn checks.
 
 ## Clean up resources
 
-Run the cleanup command from the project directory:
+From the project directory, delete the agent when you're finished. If you added any phone bindings, [disconnect them](../how-to/voice-agent-telephony-channels#disconnect-a-number) before deleting the agent.
+
+```powershell
+azd ai agent delete voice-guide-managed
+```
+
+Reference: [Manage agents](../how-to/manage-hosted-agent).
+
+If this walkthrough created a dedicated Foundry project, remove its resources:
+
+```powershell
+azd down
+```
+
+Reference: [azd down](/en-us/azure/developer/azure-developer-cli/reference#azd-down).
 
 Warning
 
-If this `azd` environment created the Foundry project, `azd down` permanently deletes the project's resource group and everything in it. If you initialized the agent with an existing project, the command leaves that project and its resources in place.
-
-```azurecli
-azd down
-```
+For an environment that created the Foundry project, `azd down` permanently deletes the project's resource group and everything in it. Skip this command if you reused a shared project or added resources that you need to keep.
 
 ::: zone-end

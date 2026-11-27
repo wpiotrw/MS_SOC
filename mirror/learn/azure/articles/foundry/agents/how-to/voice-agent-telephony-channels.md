@@ -315,7 +315,7 @@ A binding routes inbound calls to one agent. You don't need a binding for outbou
 | `label` | Optional display label. |
 | `incoming_call_url` | Service-generated incoming-call delivery URL. |
 
-Creating a Twilio binding updates the number's voice URL and status callback, replacing its existing inbound voice routing. Use a number you want to route to this agent.
+Creating a Twilio binding updates the number's voice URL and status callback, replacing its existing inbound voice routing. Use a number you want to route to this agent. Before a test, confirm that no other agent uses the number and record both callback settings so that you can restore them.
 
 ---
 
@@ -781,7 +781,7 @@ Select **Python SDK** or **REST API** at the top of this article for the transfe
 
 ::: zone pivot="azd"
 
-Use **Python SDK** or **REST API** for the target-management examples in this section. Optional YAML `transferTargets` declarations can populate an empty agent-level target list only when the same deployment creates a binding. The CLI doesn't overwrite a nonempty target list or apply a changed list when no binding is created.
+Use **Python SDK** or **REST API** for the target-management examples in this section. Optional YAML [`transferTargets` declarations](configure-voice-agent?pivots=azure-cli#add-a-telephony-binding) can populate an empty agent-level target list only when the same deployment creates a binding. The CLI doesn't overwrite a nonempty target list or apply a changed list when no binding is created.
 
 ::: zone-end
 
@@ -1596,9 +1596,15 @@ Disconnecting removes the Foundry binding. It doesn't:
 Coordinate upstream cleanup separately.
 
 # [Twilio](#tab/twilio)
-Disconnecting removes the Foundry binding. Your Twilio number, account, and Foundry project connection remain available. Review the number's voice routing before using it with another application.
+Disconnecting removes the Foundry binding. Your Twilio number, account, and Foundry project connection remain available. For Twilio tests, restore the original Voice URL and status callback before returning the number to another application.
 
 ---
+
+::: zone pivot="azd"
+
+For an opaque-ID, ETag-protected PowerShell example, see [Remove a telephony binding](configure-voice-agent?pivots=azure-cli#remove-a-telephony-binding).
+
+::: zone-end
 
 ## Security checklist
 

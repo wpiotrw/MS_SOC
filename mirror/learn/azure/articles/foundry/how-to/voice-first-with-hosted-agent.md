@@ -23,7 +23,7 @@ ms.collection: ce-skilling-ai-copilot
 ms.update-cycle: 90-days
 ms.service: microsoft-foundry
 description: Learn how to create a voice agent in Microsoft Foundry that uses a hosted agent as its conversation engine, including deployment and SDK setup.
-ms.date: 2026-11-12T00:00:00.0000000Z
+ms.date: 2026-11-13T00:00:00.0000000Z
 ms.topic: how-to
 ms.subservice: foundry-agent-service
 ms.custom: doc-kit-assisted
@@ -54,19 +54,21 @@ platformId: eddbf1ea-d82c-85f0-88e6-671df88141cd
 
 In this article, you create a voice agent in Microsoft Foundry that uses a hosted agent as its conversation engine. You keep conversation logic in your application code while Voice Live provides the managed speech experience.
 
+For the separate azd sample that deploys a Bridge Protocol 1.0 target over `invocations_ws` and its voice wrapper, see [Deploy a hosted voice agent](../agents/how-to/deploy-hosted-voice-agent-cli). This article uses the dedicated `voice_conversation_engine` route; don't substitute one sample's protocol declarations for the other.
+
 Voice agents are generally available, with some features still in preview. See [General availability and preview features](../agents/overview#general-availability-and-preview-features).
 
 ## Prerequisites
 
 - Access to voice agents and hosted agents in the selected Azure subscription and region, with the standalone `voice_conversation_engine` route enabled.
 - For an interactive audio test, a microphone and speakers or a headset.
-- For the CLI deployment path, Azure Developer CLI version 1.37.0 or later and the [Foundry extensions](../agents/how-to/install-cli-foundry-extensions). This walkthrough was validated with `azd` 1.37.2 and `azure.ai.agents` 1.0.0-beta.23. That extension requires the voice preview switch, including when initializing a template that declares a voice agent.
+- For the CLI deployment path, Azure Developer CLI version 1.37.0 or later and `azure.ai.agents` version 1.1.0 or later. [Install the Foundry extensions](../agents/how-to/install-cli-foundry-extensions). With extension 1.1.0, set the [voice feature switch](../agents/how-to/install-cli-foundry-extensions#enable-voice-agent-commands) in your shell.
 - For the CLI deployment path, an authenticated `azd` session. Run `azd auth login` before initialization.
-- For local sample validation, Python 3.13 and [uv](https://github.com/astral-sh/uv).
+- For optional local sample validation, Python 3.13 and [uv](https://github.com/astral-sh/uv).
 - For the CLI deployment path, the [Azure permissions needed to provision Foundry resources](../agents/how-to/install-cli-foundry-extensions#azure-permissions). The basic CE sample doesn't require an LLM deployment or model quota.
-- For the SDK creation path, an existing Foundry project and a deployed hosted conversation engine. The engine must declare `voice_conversation_engine` version `1.0.0` and implement Voice Live Bridge Protocol 1.0 at `/voice_conversation_engine`. Have its agent name and, optionally, the version to use.
+- For the alternative SDK creation path, an existing Foundry project and a deployed hosted conversation engine. The engine must declare `voice_conversation_engine` version `1.0.0` and implement Voice Live Bridge Protocol 1.0 at `/voice_conversation_engine`. Have its agent name and, optionally, the version to use.
 - For the SDK creation path, the [Foundry User role](../concepts/rbac-foundry) on the project, or equivalent permissions to create and invoke agents.
-- For the SDK examples, the Azure CLI, signed in with `az login`, and the language-specific dependencies below. The client can use Python or C# regardless of the hosted conversation engine's implementation language.
+- For the SDK examples, the Azure CLI, signed in with `az login`, and the following language-specific dependencies. The client can use Python or C# regardless of the hosted conversation engine's implementation language.
 
 Important
 
@@ -145,8 +147,8 @@ For the hosted conversation engine approach, choose a path based on whether the 
 
 | Starting point | Path |
 | --- | --- |
-| You need to deploy the voice agent and its hosted conversation engine. | Deploy the conversation engine with the Azure Developer CLI, then create the voice agent with the Python or .NET SDK. |
-| You already have a compatible hosted conversation engine in a Foundry project. | Create the voice agent with the Python or .NET SDK. |
+| You need to deploy the voice agent and its hosted conversation engine. | Deploy both agents with the Azure Developer CLI. The sample creates the hosted target and voice wrapper together. |
+| You already have a compatible hosted conversation engine in a Foundry project. | Use the alternative SDK creation path to create only the voice agent. |
 
 Both paths use the same SDK connection.
 
@@ -154,25 +156,33 @@ Both paths use the same SDK connection.
 
 A hosted conversation engine keeps a bidirectional WebSocket connection open with Voice Live across conversation turns. Compared with the previous HTTP Invocations integration, this approach reduces latency by about 150 ms on average.
 
-## Deploy the conversation engine with the Azure Developer CLI
+## Deploy both agents with the Azure Developer CLI
 
-Use the [Voice Live conversation engine basic Python sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/python/hosted-agents/bring-your-own/conversation_engine/basic) to deploy the hosted conversation engine. Then create the voice agent with the SDK.
+Use the [Voice Live conversation engine basic Python sample](https://github.com/microsoft-foundry/foundry-samples/tree/main/samples/python/hosted-agents/bring-your-own/conversation_engine/basic) to deploy the hosted conversation engine and its voice wrapper together. With `azure.ai.agents` 1.1.0 or later, this path doesn't require a separate SDK creation step.
 
 Its `azure.yaml` already declares `voice_conversation_engine:1.0.0` and both agents, with a Python 3.13 runtime for the hosted conversation engine. Each valid user message produces the same thirty-word story, streamed word by word. No LLM client, model deployment, or model-specific environment settings are needed.
 
-Important
+This path requires extension 1.1.0 or later even if the sample manifest lists an older minimum. Upgrade an older extension instead of adding legacy protocol declarations or Bridge metadata to bypass its target validator.
 
-In `azure.ai.agents` 1.0.0-beta.23, the voice agent deployment validator still requires the legacy `invocations_ws:1.0.0` protocol and rejects this CE-only target. Don't run an unqualified `azd deploy` for this sample with that release. Deploy only the hosted conversation engine as described in Provision and deploy the conversation engine. Then create the voice agent with the SDK. Don't add legacy protocol declarations or Bridge metadata to bypass the validator.
+This path creates a new Foundry project. To reuse an existing project, add `--project-id "<project-resource-id>"` to the initialization command and skip `azd provision`. Run `azd deploy` to deploy both services into that project.
 
-This path creates a new Foundry project. To reuse an existing project, add `--project-id "<project-resource-id>"` to the initialization command and skip `azd provision`. Use the service-scoped deployment command in Provision and deploy the conversation engine. Reusing an existing agent name creates a new version of that agent; use a separate test project to avoid updating agents in a shared project.
+Reusing an existing agent name creates a new version of that agent. Use a separate test project, or confirm that both sample agent names are available before deploying to a shared project.
 
 ### Initialize the sample
 
-In PowerShell, enable the voice preview switch in the shell where you run `azd`, create an empty directory, and initialize from the public sample manifest:
+Check the installed agent extension version:
 
 ```powershell
-$env:AZD_ALPHA_ENABLE_AGENTS_VOICE = "true"
+azd ai agent version
+```
 
+Reference: [Install the Foundry extensions](../agents/how-to/install-cli-foundry-extensions).
+
+Confirm that the version is 1.1.0 or later. To update an older installation, run `azd extension update azure.ai.agents` and check the version again.
+
+In PowerShell, create an empty directory and initialize from the public sample manifest:
+
+```powershell
 New-Item -ItemType Directory -Path hosted-voice-quickstart
 Set-Location hosted-voice-quickstart
 
@@ -185,20 +195,18 @@ azd ai agent init -t $sample
 
 Reference: [Initialize a hosted agent](../agents/how-to/deploy-hosted-agent).
 
-The switch enables CLI functionality only. It doesn't grant service access or enable the regional CE route. Set it again if you open another shell before running `azd`.
-
 When prompted, select your tenant and subscription and a region with CE support. Unless you supply an existing project resource ID, create a new Foundry project.
 
 Change to the generated directory that contains `azure.yaml` by running `Set-Location voice-live-bridge-basic-python`.
 
 ### Review the conversation engine
 
-The sample declares two `azure.ai.agent` services, but this walkthrough deploys only the hosted service:
+The sample declares two `azure.ai.agent` services. The CLI deploys both:
 
 | Service | Responsibility |
 | --- | --- |
 | `voice-live-bridge-basic-python` | The Python AgentServer runtime that implements the conversation engine. It receives text and control events through Voice Live Bridge Protocol 1.0 over `voice_conversation_engine`, then streams the fixed story as text. |
-| `voice-live-bridge-basic-python-voice` | A declarative voice agent (`kind: voice`). Leave this service undeployed with extension 1.0.0-beta.23; the SDK example creates a voice agent named `hosted-conversation-voice-agent` instead. |
+| `voice-live-bridge-basic-python-voice` | The declarative voice wrapper (`kind: voice`). It provides audio and greeting behavior and references the hosted conversation engine. |
 
 The hosted conversation engine already includes this declaration in `azure.yaml`:
 
@@ -212,7 +220,22 @@ Reference: [Hosted service protocols](../agents/concepts/azure-yaml-reference#pr
 
 The sample omits `metadata.voiceLiveCompatible` and `metadata.bridgeProtocolVersion`. The hosted conversation engine doesn't require either flag or an `invocations_ws` declaration.
 
-The voice agent and the hosted agent that implements the conversation engine must have different Foundry agent names. Configure the voice agent's audio and greeting in the following SDK example. The undeployed YAML voice agent's settings don't configure the SDK-created voice agent.
+The voice wrapper includes the hosted target in its `uses` list and references that service through `conversationEngine`:
+
+```yaml
+uses:
+  - ai-project
+  - voice-live-bridge-basic-python
+conversationEngine:
+  type: hosted_agent
+  name: voice-live-bridge-basic-python
+```
+
+Reference: [Hosted conversation engine configuration](../agents/concepts/azure-yaml-reference#hosted-conversation-engine).
+
+This dependency deploys the hosted target first. The default `version: deployed` behavior pins the wrapper to the target version recorded by the current azd environment.
+
+The voice agent and hosted target must have different Foundry agent names. Configure the wrapper's audio and greeting in `azure.yaml`. The alternative SDK path defines these settings in code instead.
 
 Keep model calls, instructions, and tools in the conversation engine. Configure audio, voice output, and the greeting on the voice agent. Don't use the older `modelType: hosted_agent` or `targetAgent` settings.
 
@@ -240,7 +263,7 @@ This optional local server doesn't require Azure credentials or model settings. 
 
 To integrate your own streaming logic, replace the sample's `stream_story` asynchronous generator in `on_user_message`. Keep response scheduling asynchronous so control events can interrupt an active response.
 
-### Provision and deploy the conversation engine
+### Provision and deploy both agents
 
 From the generated project directory, provision the new Foundry project declared in `azure.yaml`. Skip this command if you initialized against an existing project:
 
@@ -250,28 +273,34 @@ azd provision
 
 Reference: [azd provision](/en-us/azure/developer/azure-developer-cli/reference#azd-provision).
 
-Deploy only the hosted conversation engine, not the voice agent service:
+Deploy both declared agent services:
 
 ```powershell
-azd deploy voice-live-bridge-basic-python
+azd deploy
 ```
 
 Reference: [azd deploy](/en-us/azure/developer/azure-developer-cli/reference#azd-deploy).
 
-Read the project endpoint and inspect the conversation engine. Wait for its version to become active before creating the voice agent or starting a voice session:
+Read the project endpoint, both agent definitions, and both endpoints:
 
 ```powershell
 azd env get-value FOUNDRY_PROJECT_ENDPOINT
 azd ai agent show voice-live-bridge-basic-python --output json
+azd ai agent endpoint show voice-live-bridge-basic-python --output json
+azd ai agent show voice-live-bridge-basic-python-voice --output json
+azd ai agent endpoint show voice-live-bridge-basic-python-voice `
+    --output json
 ```
 
-Reference: [Deploy a hosted agent](../agents/how-to/deploy-hosted-agent) | [Manage hosted agents](../agents/how-to/manage-hosted-agent).
+Reference: [Deploy a hosted agent](../agents/how-to/deploy-hosted-agent) | [Manage hosted agents](../agents/how-to/manage-hosted-agent) | [Manage agent endpoints](../agents/how-to/update-agent-endpoint-cli).
 
-Continue to Create the voice agent. In your chosen language's example, use the endpoint printed earlier, `voice-live-bridge-basic-python` as the hosted conversation engine's name, and the actual version returned by `show`. No voice agent is deployed yet.
+Confirm that the hosted target is active and that the wrapper's saved conversation engine references the deployed target name and version. The target's `endpoints.voice_conversation_engine` must use `/endpoint/protocols/voice_conversation_engine?api-version=v1`. The wrapper's `endpoints.voice` must use `/endpoint/protocols/voice?api-version=v1`.
+
+Continue to Use the voice agent with the project endpoint printed earlier and `voice-live-bridge-basic-python-voice` as the voice agent name. Skip the SDK creation section; the CLI deploys the wrapper in the preceding step.
 
 ## Create the voice agent
 
-Create the voice agent after deploying the conversation engine with the CLI, or start here if you already have a compatible hosted conversation engine in your project.
+Use the Python or .NET SDK when a compatible hosted conversation engine already exists in your project. Create only the voice agent. If you deployed both agents with the CLI, skip this section and connect to the deployed wrapper.
 
 Set the voice agent's conversation engine to a `VoiceHostedAgentConversationEngine` that references the hosted conversation engine in your project. Both SDKs serialize its `type` as `hosted_agent`. Don't use `voice_conversation_engine` as the engine's `type`; that name identifies the hosted protocol.
 
@@ -453,7 +482,12 @@ The `create_version` operation validates the conversation engine configuration b
 
 ## Use the voice agent
 
-Connect to the SDK-created voice agent, not directly to the hosted conversation engine. Use the same project endpoint and voice agent name as in the creation step.
+Connect to the saved voice agent, not directly to the hosted conversation engine. Set the project endpoint and replace `<voice-agent-name>` in each connection example with the name for your path:
+
+| Creation path | Voice agent name |
+| --- | --- |
+| CLI sample | `voice-live-bridge-basic-python-voice`. |
+| Alternative SDK creation | `hosted-conversation-voice-agent`, or the name you selected in the creation example. |
 
 The following examples wait up to ten seconds for a session readiness event, print a confirmation, and close the connection. They check SDK connectivity only; they don't capture microphone input, play audio, or verify the conversation engine's response.
 
@@ -475,7 +509,7 @@ from azure.ai.projects.models import (
 from azure.identity.aio import DefaultAzureCredential
 
 PROJECT_ENDPOINT = "https://<resource>.services.ai.azure.com/api/projects/<project>"
-VOICE_AGENT_NAME = "hosted-conversation-voice-agent"
+VOICE_AGENT_NAME = "<voice-agent-name>"
 
 async def check_connection():
     async with (
@@ -523,7 +557,7 @@ using OpenAI.Realtime;
 
 string projectEndpoint =
     "https://<resource>.services.ai.azure.com/api/projects/<project>";
-string voiceAgentName = "hosted-conversation-voice-agent";
+string voiceAgentName = "<voice-agent-name>";
 
 using CancellationTokenSource timeout = new(TimeSpan.FromSeconds(10));
 AIProjectClient client = new(
@@ -583,17 +617,28 @@ For a model-independent check of the sample's hosted conversation engine, use it
 | Symptom | Action |
 | --- | --- |
 | Initialization reports `not logged in`. | Sign in with `azd auth login`, and run initialization again. |
-| Initialization reports `preview feature "agents.voice" is disabled`, or voice options are missing from help. | For extension 1.0.0-beta.23, set `AZD_ALPHA_ENABLE_AGENTS_VOICE=true` in the current shell before running `azd`. Check the voice preview setup and tool versions. |
-| Voice agent deployment reports that the target doesn't declare `invocations_ws/1.0.0`. | This condition indicates the CE-only target validation limitation in extension 1.0.0-beta.23. Deploy only `voice-live-bridge-basic-python` and create the voice agent with the SDK. Don't add legacy declarations or metadata to bypass it. |
-| The voice session can't resolve its conversation engine. | Check that the SDK definition's `conversation_engine.name` and optional `version` identify an active hosted conversation engine in the same project. |
+| Initialization reports `preview feature "agents.voice" is disabled`, or voice options are missing from help. | Update `azure.ai.agents` to 1.2.0 or later, or set the [voice feature switch](../agents/how-to/install-cli-foundry-extensions#enable-voice-agent-commands) in the current shell if you use 1.1.0. |
+| Voice agent deployment reports that the target doesn't declare `invocations_ws/1.0.0`. | Upgrade `azure.ai.agents` to 1.1.0 or later, and run `azd deploy` again. Older validators reject the CE-only target; don't add legacy declarations or Bridge metadata to bypass them. |
+| The voice session can't resolve its conversation engine. | Check the saved voice agent's `conversation_engine.name` and `version`. They must identify an active hosted conversation engine in the same project. |
 | Every input produces the same story. | This condition indicates the basic CE sample's expected behavior. Replace `stream_story` with your own asynchronous streaming logic to customize the reply. |
 | The conversation engine reports `protocol_mismatch`. | Check that the Bridge handshake uses `protocol_version="1.0"`. The Hosted protocol declaration separately uses `voice_conversation_engine` version `1.0.0`. |
 | The CE connection fails after the voice agent is created. | Verify that the selected conversation engine version declares `voice_conversation_engine:1.0.0`, its deployed runtime serves `/voice_conversation_engine`, and the deployment region supports the public route. Adding Bridge metadata isn't a substitute. |
-| The SDK can't find the voice agent. | Complete the SDK creation step and connect to `hosted-conversation-voice-agent` (or your chosen name), not the undeployed YAML voice agent. Use the endpoint of the project that contains both agents. |
+| The SDK can't find the voice agent. | For the CLI path, confirm that both services deployed and connect to `voice-live-bridge-basic-python-voice`. For the SDK path, complete SDK creation and use its voice agent name. Use the endpoint of the project that contains both agents. |
 
 ## Clean up resources
 
-If you created a new project for this walkthrough, run the following command from the generated project directory to remove the project and both agents, including the SDK-created voice agent:
+End any active voice session before cleanup. If you added phone bindings, [disconnect them](../agents/how-to/voice-agent-telephony-channels#disconnect-a-number) before deleting the voice agent.
+
+For the CLI sample, delete the voice wrapper before the hosted target. Run these commands only for agents created by this walkthrough, and confirm that no other voice agent uses the target:
+
+```powershell
+azd ai agent delete voice-live-bridge-basic-python-voice
+azd ai agent delete voice-live-bridge-basic-python
+```
+
+Reference: [Manage hosted agents](../agents/how-to/manage-hosted-agent).
+
+If you created a dedicated new project for this walkthrough, remove its remaining resources from the generated project directory:
 
 Warning
 
@@ -605,7 +650,7 @@ azd down
 
 Reference: [azd down](/en-us/azure/developer/azure-developer-cli/reference#azd-down).
 
-If you reused an existing project, don't run `azd down`. Delete only the voice agent you created, using the endpoint and agent name from the creation step:
+If you reused an existing project, don't run `azd down`. For the alternative SDK path, delete only the voice agent you created. Replace `<voice-agent-name>` with that agent's name and keep the pre-existing hosted target:
 
 # [Python](#tab/python)
 ```python
@@ -613,7 +658,7 @@ from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
 
 PROJECT_ENDPOINT = "https://<resource>.services.ai.azure.com/api/projects/<project>"
-VOICE_AGENT_NAME = "hosted-conversation-voice-agent"
+VOICE_AGENT_NAME = "<voice-agent-name>"
 
 with (
     DefaultAzureCredential() as credential,
@@ -637,7 +682,7 @@ using Azure.Identity;
 
 string projectEndpoint =
     "https://<resource>.services.ai.azure.com/api/projects/<project>";
-string voiceAgentName = "hosted-conversation-voice-agent";
+string voiceAgentName = "<voice-agent-name>";
 
 AgentAdministrationClient agentsClient = new(
     new Uri(projectEndpoint), new DefaultAzureCredential());

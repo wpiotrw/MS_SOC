@@ -18,8 +18,14 @@ https://learn.microsoft.com/en-us/defender-endpoint/android-mobile-threat-defens
 https://learn.microsoft.com/en-us/defender-endpoint/android-new-ux
 https://learn.microsoft.com/en-us/defender-endpoint/android-privacy
 https://learn.microsoft.com/en-us/defender-endpoint/android-support-signin
+https://learn.microsoft.com/en-us/defender-endpoint/api/download-assessment-export-files
 https://learn.microsoft.com/en-us/defender-endpoint/api/export-assessment-server-side-filtering
 https://learn.microsoft.com/en-us/defender-endpoint/api/get-all-vulnerabilities
+https://learn.microsoft.com/en-us/defender-endpoint/api/get-assessment-methods-properties
+https://learn.microsoft.com/en-us/defender-endpoint/api/get-assessment-non-cpe-software-inventory
+https://learn.microsoft.com/en-us/defender-endpoint/api/get-assessment-secure-config
+https://learn.microsoft.com/en-us/defender-endpoint/api/get-assessment-software-inventory
+https://learn.microsoft.com/en-us/defender-endpoint/api/get-assessment-software-vulnerabilities
 https://learn.microsoft.com/en-us/defender-endpoint/api/offboard-machine-api
 https://learn.microsoft.com/en-us/defender-endpoint/azure-server-integration
 https://learn.microsoft.com/en-us/defender-endpoint/behavioral-blocking-containment

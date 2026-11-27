@@ -57,6 +57,7 @@ https://learn.microsoft.com/en-us/defender-xdr/automatic-attack-disruption-exclu
 https://learn.microsoft.com/en-us/defender-xdr/case-sla-policies
 https://learn.microsoft.com/en-us/defender-xdr/compare-rbac-roles
 https://learn.microsoft.com/en-us/defender-xdr/content-hub-defender
+https://learn.microsoft.com/en-us/defender-xdr/create-custom-rbac-roles
 https://learn.microsoft.com/en-us/defender-xdr/custom-detection-manage
 https://learn.microsoft.com/en-us/defender-xdr/custom-detection-rules
 https://learn.microsoft.com/en-us/defender-xdr/custom-detections-overview
