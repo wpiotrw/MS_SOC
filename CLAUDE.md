@@ -26608,6 +26608,15 @@ MC; window.__socOpenRoadmap(id), adres #rm=575283. About i swiezosc (TABS) znaja
 Deadlines "expected", przelacznik "Show related Roadmap" w Ctrl K i RM na karcie MC. Test: kopia strony, komputer jasny/ciemny,
 telefon, 0 bledow JS, szyna boczna 1 / 2 przy danych testowych; gate bez nowych BRAK.
 
+**§5hx (28 XI 2026)** — LICZNIK ZAKLADKI ROADMAP I BLAD DNIA BAZOWEGO. Piotr: "dlaczego zakladka roadmap nie ma z prawej strony
+liczby w zaokraglonej ramce ... na mobile tez nie ma tego indykatora". Przyczyny: (1) Roadmap (dane ladowane z JSON) nie stemplowala
+`.navcount` na `#tabbtn-tab-roadmap`; pasek telefonu `s5br` czyta ten sam `.navcount` — teraz `stampCount()` po wczytaniu (liczba
+pozycji listy, 596; `data-count-of` z liczba sledzonych). Ta sama klasa usterki: Graph API Radar (ustawienia spoza $metadata) i
+M365 endpoints (zestawy) — stempel w ich render(). Zostaje bez licznika: Baselines i About (huby, nie listy). (2) Szyna pokazywala
+"+944 new": pierwszy odczyt 28 XI (baza) zapisal PUSTY `snapshot.prev.json`, drugi odczyt tego dnia porownal z pustym → 944 "new".
+`collect_roadmap.py`: przy bazie prev = biezacy snapshot; pusty prev → porownanie z `snapshot.json`. Po poprawce: 6 zdarzen
+"removed" — pozycje Launched, ktore Microsoft zdjal dzis ze swojego API (sprawdzone: brak w API).
+
 **§5hw-b (28 XI 2026)** — ROADMAP ETAP 2 I ZRODLA KONTROLNE. Piotr: "Tak potwierdzam etap 2. Czy tylko merill zbiera rm? Mamy jakies
 dodatkowe zrodla dla cross check, awarii merilla?" Merill NIE jest zrodlem Roadmapy w portalu (tylko link w karcie). Zrodla w
 `tools/collect_roadmap.py` (wynik w `roadmap.json` → `sources`): (1) API Microsoftu `releasecommunications/api/v1/m365` — glowne;
@@ -47675,6 +47684,8 @@ odtad CZTERNASCIE (4-17).**
     box.setAttribute("data-s5do", "1");
     panel.insertBefore(box, panel.firstChild);
     panel.setAttribute("data-units", n(und.length) + " settings not in $metadata · " + n((D.events || []).length) + " changes in 60 days");
+    (function () { var tb = document.getElementById("tabbtn-tab-radar"), k = und.length; if (!tb || !k) return; var nc = tb.querySelector(".navcount");   /* §5hx: the tab number, like every tab */
+      if (!nc) { nc = document.createElement("span"); nc.className = "navcount"; tb.appendChild(nc); } nc.textContent = String(k); tb.setAttribute("data-count-of", "settings not in $metadata"); })();
   }
   function render() {
     if (!body || !D) return;
@@ -48143,6 +48154,8 @@ odtad CZTERNASCIE (4-17).**
     }
     panel.insertBefore(box, panel.firstChild);
     panel.setAttribute("data-units", "version " + D.version + " · " + n((D.totals || {}).sets) + " endpoint sets");
+    (function () { var tb = document.getElementById("tabbtn-tab-m365ep"), k = (D.totals || {}).sets; if (!tb || !k) return; var nc = tb.querySelector(".navcount");   /* §5hx: the tab number, like every tab */
+      if (!nc) { nc = document.createElement("span"); nc.className = "navcount"; tb.appendChild(nc); } nc.textContent = String(k); tb.setAttribute("data-count-of", "endpoint sets in the list"); })();
   }
   function render() {
     if (!body || !D) return; built = true; body.textContent = "";
@@ -48481,6 +48494,15 @@ odtad CZTERNASCIE (4-17).**
     keys.forEach(function (k) { var M = L.filter(function (i) { return i.when === k; }); if (!M.length) return; det.appendChild(el("h4", "s5hw-day", k + " · " + M.length)); M.forEach(function (i) { det.appendChild(row(i, null)); }); });
     var anchor = p.querySelector(":scope > .s5bn"); if (anchor && anchor.nextSibling) p.insertBefore(det, anchor.nextSibling); else p.appendChild(det);
   }
+  /* §5hx (28 XI 2026, owner: "why has the Roadmap tab no number in a rounded frame on the right, like the others - on the phone
+     neither?"): the tab's number is the number of items its list shows (like Message Center: the posts in its list); the
+     phone's tab bar (s5br) reads the same .navcount */
+  function stampCount() {
+    var tb = document.getElementById("tabbtn-tab-roadmap"), k = (D.items || []).length; if (!tb || !k) return;
+    var nc = tb.querySelector(".navcount"); if (!nc) { nc = el("span", "navcount"); tb.appendChild(nc); }
+    nc.textContent = String(k); tb.setAttribute("data-count-of", "Roadmap items in the list (" + n(D.inScope) + " tracked)");
+    document.dispatchEvent(new CustomEvent("soc:woke", { detail: { from: "s5hx" } }));
+  }
   function stage2() {
     setTimeout(function () { try { sentence(0); } catch (e) { if (window.console) console.error("[5hw sentence]", e); } }, 300);
     var k = 0; (function w() { if ((!document.getElementById("tab-today") || !document.getElementById("s5ft-today")) && ++k < 30) setTimeout(w, 500); else try { today(); } catch (e) { if (window.console) console.error("[5hw today]", e); } })();
@@ -48491,7 +48513,7 @@ odtad CZTERNASCIE (4-17).**
     if (D) { if (cb) cb(); return; }
     if (!onSite() || !window.fetch) return;
     (loading = loading || fetch("data/roadmap.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; })).then(function (j) {
-      if (!j || !j.items) return; if (!D) { D = j; D.items.forEach(function (i) { BY[i.id] = i; }); (D.events || []).forEach(function (e) { (EV[e.id] = EV[e.id] || []).push(e); }); stage2(); }
+      if (!j || !j.items) return; if (!D) { D = j; D.items.forEach(function (i) { BY[i.id] = i; }); (D.events || []).forEach(function (e) { (EV[e.id] = EV[e.id] || []).push(e); }); stage2(); stampCount(); }
       if (panel && !panel.hidden && !built) render(); else if (panel) { var s0 = panel.querySelector(":scope > .s5bn"); if (!s0) panel.insertBefore(strip(), panel.firstChild); panel.setAttribute("data-units", n(D.inScope) + " items tracked"); }
       try { document.dispatchEvent(new CustomEvent("soc:woke", { detail: { id: "tab-roadmap", from: "s5hw" } })); } catch (e) {}   /* the rail reads the strip again */
       if (cb) cb();

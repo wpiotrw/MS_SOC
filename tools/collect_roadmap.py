@@ -273,6 +273,8 @@ def main():
     if not base:
         events = [e for e in events if e.get("day") != day]   # a second read the same day replaces that day's events
         old_snap = load(os.path.join(MEM, "snapshot.prev.json"), {}) if prev_out.get("read", "")[:10] == day else snap
+        if not old_snap:   # 28 XI: the baseline day saved an EMPTY prev, so the second read that day called all 944 items "new"
+            old_snap = snap
         byid = {it["id"]: it for it in items}
         for rid, c in cur.items():
             p = old_snap.get(rid)
@@ -293,7 +295,7 @@ def main():
                 events.append({"day": day, "id": rid, "kind": "removed", "before": p.get("status"), "title": p.get("title"),
                                "tech": (prev_out.get("_tech", {}) or {}).get(rid, [])})
     if prev_out.get("read", "")[:10] != day:
-        save(os.path.join(MEM, "snapshot.prev.json"), snap)
+        save(os.path.join(MEM, "snapshot.prev.json"), snap or cur)   # the state before today's first read (the baseline: itself)
 
     last = {}
     for e in events:
