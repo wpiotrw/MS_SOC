@@ -83,6 +83,15 @@ def blocks(body):
     return re.sub(r"\s*QQBLOCKQQ\s*", " ", t).strip()
 
 
+def rm_ids(plain, details):
+    ids = set(re.findall(r"(?i)roadmap\s*(?:id|item|feature)?s?\s*[:#]?\s*(\d{5,7})", plain or ""))
+    ids |= set(re.findall(r"(?i)roadmap[^\s\"<>]*?(?:searchterms|featureid|id)=(\d{5,7})", plain or ""))
+    for d in details or []:
+        if "roadmap" in str(d.get("name", "")).lower():
+            ids |= set(re.findall(r"\d{5,7}", str(d.get("value") or "")))
+    return sorted(ids, key=int)
+
+
 def shape(m):
     body = ((m.get("body") or {}).get("content")) or ""
     plain = text(body)
@@ -99,7 +108,10 @@ def shape(m):
             "when": section(seg, "When this will happen"),
             "prepare": section(seg, "What you need to do to prepare") or section(seg, "What you can do to prepare"),
             "dates": dated(seg),
-            "bodyHash": hashlib.sha256(plain.encode("utf-8")).hexdigest()[:16]}
+            "bodyHash": hashlib.sha256(plain.encode("utf-8")).hexdigest()[:16],
+            # CLAUDE.md 5hw (28 XI 2026): the Microsoft 365 Roadmap items the post names ("Roadmap ID 575283", or a
+            # details entry about the roadmap) - tools/collect_roadmap.py links RM <-> MC with them
+            "rm": rm_ids(plain, m.get("details"))}
 
 
 def diff(prev, cur, day):

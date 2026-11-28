@@ -1,0 +1,45 @@
+name: M365 Roadmap
+
+# CLAUDE.md 5hw (28 XI 2026, owner: "we follow MC from many sources, but not the Roadmap - only the products and functions
+# we really track"): Microsoft's Roadmap API read twice a day (tools/collect_roadmap.py) - the items of the tracked
+# technologies, what changed since the last read (new, status, planned month, preview, phase) and the MC posts that name
+# them. Writes site/data/roadmap.json and its memory data/roadmap/. Commits only when something changed; "Code refresh"
+# deploys after it (workflow_run).
+on:
+  schedule:
+    - cron: "40 3,15 * * *"
+  push:
+    branches: [main]
+    paths:
+      - 'tools/collect_roadmap.py'
+      - '.github/workflows/roadmap.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: roadmap
+  cancel-in-progress: false
+
+jobs:
+  roadmap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Read the Roadmap and compare
+        run: python3 tools/collect_roadmap.py
+      - name: Commit when it changed
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/roadmap.json data/roadmap
+          if git diff --cached --quiet; then echo "No change."; else
+            git commit -m "data: M365 Roadmap $(date -u +%F' '%H:%M) UTC"
+            for i in 1 2 3; do git pull --rebase -q origin main && git push origin main && break; sleep 10; done
+          fi

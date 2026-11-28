@@ -20,7 +20,7 @@ on:
       - 'api/**'
       - 'site/staticwebapp.config.json'
   workflow_run:
-    workflows: ["First-party apps tenant snapshot", "Campaign tracking", "Baselines tracking", "IOC watch", "Graph radar", "M365 endpoints"]
+    workflows: ["First-party apps tenant snapshot", "Campaign tracking", "Baselines tracking", "IOC watch", "Graph radar", "M365 endpoints", "M365 Roadmap"]
     types: [completed]
   workflow_dispatch:
 

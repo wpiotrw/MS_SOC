@@ -26584,6 +26584,30 @@ Microsoftu, §5ce) brala tylko 16 spisow tresci Entra. Dodane (wybor wlasciciela
 `external-id` w `microsoftlearn_sources.json` -> `learn-mirror.config.json`. Pierwsze skopiowanie stron nie liczy sie jako
 zmiany (`--diff-filter=MD`, §5cf).
 
+**§5hw (28 XI 2026)** — M365 ROADMAP: ZAKLADKA POD MESSAGE CENTER, TYLKO SLEDZONE TECHNOLOGIE. Piotr: "sledzimy MC z wielu zrodel,
+ale nie Roadmape (RM575283, RM573698, RM576199) - dlaczego? osobna zakladka zaraz pod Message Center z takim samym ukladem" oraz "tylko
+produkty i funkcjonalnosci, ktore naprawde sledzimy" i "Edge (tylko security, M365, Entra, Intune) i Windows (11, Server, 365) zostaja
+- dla RM i MC". Dlaczego dotad nie: collect_mc.py swiadomie pomijal wiersze Roadmapy z indeksu mc.merill.net; RM przemykaly tylko jako
+"Community Articles" z kanalu Merilla (RM575283: 13 X dodany, 14 X "left the list"). Teraz: (1) tools/collect_roadmap.py czyta API
+Microsoftu https://www.microsoft.com/releasecommunications/api/v1/m365 (2 420 pozycji 28 XI: status, planowany miesiac, preview,
+faza, produkty, platformy, chmury, created, modified), zostawia technologie portalu - produkty: Entra, Intune, Purview, Defender,
+Sentinel, Exchange, SharePoint, OneDrive, M365 admin center, Graph, Agent 365, Windows / Windows 365; produkty szerokie (Copilot,
+Copilot Studio, Teams, Outlook, Microsoft 365) tylko gdy tytul/opis nazywa funkcje, ktora sledzimy (admin, polityki, security,
+compliance, tozsamosc, udostepnianie, ochrona danych, wycofania); Edge tylko security / M365 / Entra / Intune (tytul albo mocne slowo
+w opisie). Poza zakresem: Dynamics 365, Power Platform, Viva, Word, Excel, PowerPoint, Planner. Wynik 28 XI: 944 w zakresie, 596 na
+stronie (otwarte zawsze, Launched / Cancelled 60 dni po ostatniej edycji Microsoftu). Microsoft nie podaje historii - migawka
+data/roadmap/snapshot.json, zdarzenia: new, status, date (z "later" / "earlier"), preview, phase, title, removed (120 dni). Pierwszy
+przebieg = punkt odniesienia, bez "new". Powiazanie z MC: tools/mc_tenant.py zapisuje odtad `rm` (Roadmap ID z tresci i details
+posta), kolektor dokleja `mc` do pozycji. (2) workflow .github/workflows/roadmap.yml (03:40 i 15:40 UTC, push na kolektor), Code refresh
+po nim (workflow_run "M365 Roadmap"). (3) SKRYPT 17: zakladka tab-roadmap "M365 Roadmap" w grupie Today po Message Center; pasek .s5bn
+"Since the <brief> brief" (+ ~ − w szynie bocznej jak inne zakladki) z kafelkami zmian; widoki Changes / Open items / Launched recently
+/ All; filtr technologii z licznikami (.mcb-view); wyszukiwarka; wiersz otwiera karte (__socCardTabs: Overview · What changed ·
+Related MC · Sources - roadmap Microsoftu, mc.merill.net, More information); Ctrl K znajduje RM po numerze, tytule, tresci i numerze
+MC; window.__socOpenRoadmap(id), adres #rm=575283. About i swiezosc (TABS) znaja zakladke. MC bez zmian - zbiera wszystkie posty
+(Windows 63, Windows 365 5, Edge w tytule 26). Etap 2 (osobno): zdania Overview / Today, /diff, /week, sekcja ROADMAP w mailu,
+Deadlines "expected", przelacznik "Show related Roadmap" w Ctrl K i RM na karcie MC. Test: kopia strony, komputer jasny/ciemny,
+telefon, 0 bledow JS, szyna boczna 1 / 2 przy danych testowych; gate bez nowych BRAK.
+
 **§5hv (24 XI 2026)** — NIEBIESKI PASEK ZASLANIAJACY TEKST + CZYTELNE "SHOW RELATED" W WYSZUKIWARCE. Piotr (zrzuty): "gdzieniegdzie
 niebieski pasek zaslania tekst, jak sie najedzie na wpis - sprawdzic caly portal" oraz "zaznaczam related MC albo KQL, ale na liscie
 trudno sie polapac, ktore to wpisy". (1) Przyczyna paska: `.sec-body a[href^="http"]:hover` (jasnoniebieskie tlo, ciemny tekst) dzialal
@@ -32020,7 +32044,7 @@ odtad CZTERNASCIE (4-17).**
 
   /* ---- U5: four groups ---- */
   var GROUPS = [
-    ["Today", ["overview", "today", "deadlines", "mc"]],
+    ["Today", ["overview", "today", "deadlines", "mc", "roadmap"]],
     ["Changes", ["new", "graph", "radar", "m365ep", "roles", "fpa", "components", "campaigns"]],
     ["Sources", ["learn", "blogs", "community", "sources"]],
     ["Act", ["hunting", "threats", "products", "baselines"]]
@@ -35075,7 +35099,7 @@ odtad CZTERNASCIE (4-17).**
    =========================================================================== */
 (function () {
   "use strict";
-  var GROUPS = [["Today", ["overview", "today", "deadlines", "mc"]],
+  var GROUPS = [["Today", ["overview", "today", "deadlines", "mc", "roadmap"]],
                 ["Changes", ["new", "graph", "radar", "m365ep", "roles", "fpa", "components", "campaigns"]],
                 ["Sources", ["learn", "blogs", "community", "sources"]],
                 ["Act", ["hunting", "threats", "products", "baselines"]]];
@@ -37179,7 +37203,7 @@ odtad CZTERNASCIE (4-17).**
   /* the SAME groups and order as §5bi (U5). §5bi applies them at +1.7 s; the rail is built at
      DOMContentLoaded, so it takes the order from this list, not from the DOM of that moment */
   var GROUPS = [
-    ["Today", ["overview", "today", "deadlines", "mc"]],
+    ["Today", ["overview", "today", "deadlines", "mc", "roadmap"]],
     ["Changes", ["new", "graph", "radar", "m365ep", "roles", "fpa", "components", "campaigns"]],
     ["Sources", ["learn", "blogs", "community", "sources"]],
     ["Act", ["hunting", "threats", "products", "baselines"]]
@@ -37256,6 +37280,7 @@ odtad CZTERNASCIE (4-17).**
       /* §5ft: Graph API Radar writes its own unit line once /data/graph-radar.json is read */
       case "tab-radar": var rdp = document.getElementById("tab-radar"); return rdp ? rdp.getAttribute("data-units") || "" : "";
       case "tab-m365ep": var mep = document.getElementById("tab-m365ep"); return mep ? mep.getAttribute("data-units") || "" : "";   /* §5fu */
+      case "tab-roadmap": var rmp = document.getElementById("tab-roadmap"); return rmp ? rmp.getAttribute("data-units") || "" : "";   /* §5hw */
       case "tab-learn": n = navNum(pid); return n ? fmt(n) + " entries in the list" : "";
       case "tab-blogs": n = navNum(pid); return n ? fmt(n) + " posts in the list" : "";
       case "tab-community": n = navNum(pid); return n ? fmt(n) + " articles in the list" : "";
@@ -41829,7 +41854,8 @@ odtad CZTERNASCIE (4-17).**
     /* §5gy: the tabs About had not listed */
     threats: { by: "an automated job every 3 h (Threat Research sources); infrastructure watch twice a day", keys: ["tenant", "iocwatch"], every: 3 },
     radar: { by: "an automated job twice a day (Microsoft Graph metadata)", keys: [], every: 12 },
-    m365ep: { by: "an automated job twice a day (Microsoft's endpoints web service, 05:25 and 15:25 UTC)", keys: [], every: 12 }
+    m365ep: { by: "an automated job twice a day (Microsoft's endpoints web service, 05:25 and 15:25 UTC)", keys: [], every: 12 },
+    roadmap: { by: "an automated job twice a day (Microsoft's Roadmap API, 03:40 and 15:40 UTC)", keys: [], every: 12 }
   };
   function newest(keys) { var best = null; (keys || []).forEach(function (k) { if (tsAt(k) && (!best || tsAt(k) > tsAt(best))) best = k; }); return best; }
 
@@ -41918,6 +41944,7 @@ odtad CZTERNASCIE (4-17).**
     ["Today", "today", "The day's top picks and the items per product that moved since the previous brief."],
     ["Deadlines", "deadlines", "Every dated item: due within 7 and 30 days, passed in the last 7 days, with Microsoft's own dates."],
     ["Message Center", "mc", "Every Microsoft 365 Message Center post (none filtered out), new, revised and removed, from our tenant through Graph and public mirrors, each date checked against the other sources. Every post — removed ones too — lists its related posts (same campaign, cites or is cited, same story, close wording), with a “Show related” switch and a group view."],
+    ["M365 Roadmap", "roadmap", "Microsoft 365 Roadmap items of the technologies this portal tracks (Entra, Intune, Purview, Defender, Exchange, SharePoint, OneDrive, Teams and Copilot for their admin, security and compliance functions, Windows, Edge for security): new items, status moves, planned months that slip or come earlier, and the Message Center posts that name them. Read twice a day."],
     ["New", "new", "Items that entered the brief since the previous one."],
     ["Graph API", "graph", "Every Microsoft Graph permission: what it can call, who holds it, what Microsoft changed (endpoints, consent, new and removed), read from Microsoft's files and our tenant every 3 hours."],
     ["Roles", "roles", "Entra built-in roles: actions, privileged flag and what Microsoft changed; definitions read from our tenant every 3 hours."],
@@ -48157,6 +48184,208 @@ odtad CZTERNASCIE (4-17).**
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 1000); }); else setTimeout(start, 1000);
 })();
 
+/* §5hw (28 XI 2026, owner: "we follow MC from many sources, but not the Roadmap (RM575283, RM573698, RM576199) - why? a
+   tab right under Message Center with the same layout; only the products and functions we really track"): the tab
+   "M365 Roadmap" reads data/roadmap.json (tools/collect_roadmap.py, Microsoft's Roadmap API twice a day) - the items of
+   the tracked technologies, what changed between two reads (new, status, planned month - later or earlier -, preview,
+   release phase) and the MC posts that name them. The strip on top (.s5bn) feeds the rail's + ~ − like every tab; a row
+   opens the item's card (__socCardTabs: Overview · What changed · Related MC · Sources); Ctrl K finds items by number,
+   title or text; window.__socOpenRoadmap(id) opens one from anywhere. */
+(function () {
+  "use strict";
+  if (window.__s5hw) return; window.__s5hw = 1;
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+  function dmy(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? m[3] + "/" + m[2] + "/" + m[1] : (d || ""); }
+  function n(x) { return String(x == null ? 0 : x).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function onSite() { var top = true; try { top = window.top === window.self; } catch (e) { top = false; } return top && /^https?:$/.test(location.protocol) && !/claude\.ai$|claudeusercontent|claude\.site/.test(location.hostname); }
+  function btn(t, c, fn) { var b = el("button", c, t); b.type = "button"; b.addEventListener("click", function (e) { e.preventDefault(); fn(e); }); return b; }
+  function state() { var s = document.getElementById("soc-brief-state"); try { return s ? JSON.parse(s.textContent) : {}; } catch (e) { return {}; } }
+  var D = null, S = { view: "chg", tech: "", st: "", q: "" }, built = false, BY = {}, EV = {};
+  var KIND = { "new": ["NEW", "added"], status: ["STATUS", "changed"], date: ["DATE", "changed"], preview: ["PREVIEW", "changed"], phase: ["PHASE", "changed"], title: ["TITLE", "changed"], removed: ["REMOVED", "removed"] };
+  var STC = { "In development": "s5hw-dev", "Rolling out": "s5hw-roll", "Launched": "s5hw-done", "Cancelled": "s5hw-canc" };
+
+  var wrap = document.querySelector(".wrap"), panel = null, body = null;
+  if (wrap && !document.getElementById("tab-roadmap")) {
+    panel = el("div", "tabpanel"); panel.id = "tab-roadmap"; panel.setAttribute("data-tab", "M365 Roadmap"); panel.hidden = true;
+    var sec0 = el("section"); sec0.id = "roadmap"; sec0.setAttribute("data-nav", "M365 Roadmap");
+    var sh0 = el("div", "sec-head"); sh0.appendChild(el("h2", null, "Microsoft 365 Roadmap"));
+    sh0.appendChild(el("p", "sec-title", "What Microsoft plans for the technologies this portal tracks - new items, status moves (In development → Rolling out → Launched), planned months that slip or come earlier, and the Message Center posts that name them"));
+    sec0.appendChild(sh0);
+    body = el("div", "sec-body s5hw"); body.appendChild(el("p", "s5dv-note", "Loading the Microsoft 365 Roadmap…")); sec0.appendChild(body);
+    panel.appendChild(sec0);
+    var after = document.getElementById("tab-mc");
+    if (after && after.parentNode === wrap) wrap.insertBefore(panel, after.nextSibling); else wrap.appendChild(panel);
+  }
+  function goTab() { var b = document.getElementById("tabbtn-tab-roadmap") || document.querySelector('nav.anchors .tab[aria-controls="tab-roadmap"]'); if (b && b.getAttribute("aria-selected") !== "true") b.click(); }
+  function prevBrief() { var st = state(), cw = st.comparedWith || ""; return { day: st.briefDate || "", prev: typeof cw === "string" ? cw : (cw.date || "") }; }
+  function since() { var p = prevBrief(); return (D.events || []).filter(function (e) { return p.prev ? e.day > p.prev : e.day >= (p.day || ""); }); }
+  function kindTxt(e) {
+    if (e.kind === "new") return "new · " + (e.after || "");
+    if (e.kind === "removed") return "removed from Microsoft's Roadmap (was " + (e.before || "?") + ")";
+    var lab = { status: "status", date: "planned", preview: "preview", phase: "phase", title: "title" }[e.kind] || e.kind;
+    var v = function (x) { return Array.isArray(x) ? x.join(", ") : (x || "—"); };
+    return lab + ": " + v(e.before) + " → " + v(e.after) + (e.move === "later" ? " (later)" : e.move === "earlier" ? " (earlier)" : "");
+  }
+  function hay(it) { return ["RM" + it.id, it.id, it.title, it.text, it.status, it.when, it.preview, (it.tech || []).join(" "), (it.products || []).join(" "), (it.mc || []).join(" "), (it.platforms || []).join(" ")].join(" ").toLowerCase(); }
+  function qOk(it) { return !S.q || S.q.toLowerCase().split(/\s+/).every(function (w) { return !w || hay(it).indexOf(w) >= 0; }); }
+
+  /* ---- the card ---- */
+  var OV = null;
+  function close() { if (OV) { OV.hidden = true; document.documentElement.classList.remove("s5hs-lock"); } }
+  function card(it) {
+    if (!OV) { OV = el("div", "s5fo-ov s5hs-ov s5hw-ov"); OV.hidden = true; OV.setAttribute("role", "dialog"); OV.setAttribute("aria-modal", "true");
+      OV.addEventListener("click", function (e) { if (e.target === OV) close(); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape" && OV && !OV.hidden) close(); });
+      (panel || document.body).appendChild(OV); }
+    OV.textContent = "";
+    var c = el("div", "s5fo-card s5ft-wide s5hs-card"); OV.appendChild(c);
+    var x = btn("×", "s5fo-x", close); x.setAttribute("aria-label", "Close"); c.appendChild(x);
+    var ch = el("div", "s5fo-chips");
+    ch.appendChild(el("span", "s5hw-st " + (STC[it.status] || ""), it.status || "—"));
+    (it.tech || []).forEach(function (t) { ch.appendChild(el("span", "s5fo-chip", t)); });
+    (it.phase || []).forEach(function (t) { ch.appendChild(el("span", "s5fo-chip", t)); });
+    if (it.last) ch.appendChild(el("span", "s5hw-kn s5hw-" + (KIND[it.last.kind] || ["", "changed"])[1], (KIND[it.last.kind] || [it.last.kind])[0]));
+    c.appendChild(ch);
+    c.appendChild(el("h2", "s5fo-t", it.title));
+    c.appendChild(el("p", "s5hs-meta", "RM" + it.id + " · planned " + (it.when || "—") + (it.preview ? " · preview " + it.preview : "") + " · added to the Roadmap " + dmy(it.created) + " · Microsoft's last edit " + dmy(it.modified)));
+    var ov = el("div", "s5hw-pane");
+    if (it.text) ov.appendChild(el("p", "s5hw-txt", it.text));
+    var dl = el("dl", "s5hw-facts");
+    [["Status", it.status], ["Planned", it.when || "—"], ["Preview", it.preview || "—"], ["Release phase", (it.phase || []).join(", ") || "—"],
+     ["Products", (it.products || []).join(", ")], ["Platforms", (it.platforms || []).join(", ") || "—"], ["Cloud instances", (it.clouds || []).join(", ") || "Worldwide (Standard Multi-Tenant)"],
+     ["Why it is here", it.why === "product" ? "a tracked technology" : "a tracked function of " + (it.tech || []).join(", ")]].forEach(function (f) { dl.appendChild(el("dt", null, f[0])); dl.appendChild(el("dd", null, f[1])); });
+    ov.appendChild(dl);
+    var ev = (EV[it.id] || []), chw = el("div", "s5hw-pane");
+    if (ev.length) ev.forEach(function (e) { var r = el("div", "s5hw-ev"); r.appendChild(el("span", "s5hw-evd", dmy(e.day))); r.appendChild(el("span", "s5hw-kn s5hw-" + (KIND[e.kind] || ["", "changed"])[1], (KIND[e.kind] || [e.kind])[0])); r.appendChild(el("span", null, kindTxt(e))); chw.appendChild(r); });
+    else chw.appendChild(el("p", "s5hw-txt", "No change seen since this portal started reading the Roadmap on " + dmy(D.baseline) + "."));
+    var mcp = el("div", "s5hw-pane");
+    (it.mc || []).forEach(function (id) {
+      var t0 = window.__socMcRel && window.__socMcRel.title ? window.__socMcRel.title(id) : "";
+      var b = btn(id + (t0 ? " · " + t0 : ""), "s5hw-mc", function () { close(); var tb = document.getElementById("tabbtn-tab-mc"); if (tb) tb.click(); var k = 0; (function t() { if (window.__socMcRel && window.__socMcRel.ready()) { window.__socMcRel.show(id); return; } if (++k < 40) setTimeout(t, 150); })(); });
+      mcp.appendChild(b);
+    });
+    var src = el("div", "s5hw-pane");
+    [["Microsoft 365 Roadmap", it.url], ["mc.merill.net", it.merill], ["More information (Microsoft)", it.more]].forEach(function (s) {
+      if (!s[1]) return; var a = el("a", "s5hw-src", s[0] + " ↗"); a.href = s[1]; a.target = "_blank"; a.rel = "noopener"; src.appendChild(a); });
+    var panes = [{ key: "ov", label: "Overview", els: [ov] }, { key: "chg", label: "What changed", n: ev.length, els: [chw] },
+      { key: "mc", label: "Related MC", n: (it.mc || []).length, els: (it.mc || []).length ? [mcp] : [] }, { key: "src", label: "Sources", els: [src] }];
+    if (window.__socCardTabs) window.__socCardTabs.build(c, panes); else panes.forEach(function (p) { p.els.forEach(function (e2) { c.appendChild(e2); }); });
+    OV.hidden = false; document.documentElement.classList.add("s5hs-lock"); x.focus();
+  }
+
+  /* ---- the strip: what moved since the previous brief (the rail reads it) ---- */
+  function strip() {
+    var box = el("div", "s5bn"), h = el("div", "s5bn-h"), E = since(), p = prevBrief();
+    var cnt = { added: 0, changed: 0, removed: 0 }; E.forEach(function (e) { cnt[(KIND[e.kind] || ["", "changed"])[1]]++; });
+    h.appendChild(el("span", "s5bn-t", "Since the " + (p.prev ? dmy(p.prev) + " " : "previous ") + "brief"));
+    [["added", "+", "new"], ["changed", "~", "changed"], ["removed", "−", "removed"]].forEach(function (k) { var b = el("span", "s5bn-n s5bn-" + k[0], k[1] + cnt[k[0]] + " " + k[2]); if (!cnt[k[0]]) b.classList.add("zero"); h.appendChild(b); });
+    box.appendChild(h);
+    if (!E.length) box.appendChild(el("p", "s5bn-empty", "Nothing moved on the Roadmap of the tracked technologies since the previous brief. Read " + dmy(String(D.read).slice(0, 10)) + " " + String(D.read).slice(11, 16) + " UTC."));
+    else {
+      var grid = el("div", "s5do-grid");
+      E.slice(0, 12).forEach(function (e) {
+        var it = BY[e.id] || { id: e.id, title: e.title, tech: e.tech || [] };
+        var t = el("article", "s5do-tile s5do-" + (KIND[e.kind] || ["", "changed"])[1]); t.tabIndex = 0; t.setAttribute("role", "button");
+        t.appendChild(el("div", "s5do-name", it.title)); t.appendChild(el("div", "s5do-id", "RM" + e.id + " · " + (it.tech || []).join(", ")));
+        var pl = el("div", "s5do-pills"); pl.appendChild(el("span", "s5hw-kn s5hw-" + (KIND[e.kind] || ["", "changed"])[1], (KIND[e.kind] || [e.kind])[0])); pl.appendChild(el("span", "s5do-chs", kindTxt(e))); t.appendChild(pl);
+        var ft = el("div", "s5do-foot"); ft.appendChild(el("span", "s5do-open", "Open ›")); t.appendChild(ft);
+        if (BY[e.id]) { t.addEventListener("click", function () { card(BY[e.id]); }); t.addEventListener("keydown", function (x) { if (x.key === "Enter" || x.key === " ") { x.preventDefault(); card(BY[e.id]); } }); }
+        grid.appendChild(t);
+      });
+      box.appendChild(grid);
+      if (E.length > 12) box.appendChild(el("p", "s5bn-empty", "+" + (E.length - 12) + " more in the Changes view below."));
+    }
+    return box;
+  }
+
+  function row(it, e) {
+    var r = el("div", "s5hw-row"); r.tabIndex = 0; r.setAttribute("role", "button"); r.id = "s5hw-" + it.id;
+    var top = el("div", "s5hw-rt");
+    top.appendChild(el("span", "s5hw-st " + (STC[it.status] || ""), it.status || "—"));
+    if (e) top.appendChild(el("span", "s5hw-kn s5hw-" + (KIND[e.kind] || ["", "changed"])[1], (KIND[e.kind] || [e.kind])[0]));
+    top.appendChild(el("span", "s5hw-ti", it.title)); r.appendChild(top);
+    var m = el("div", "s5hw-rm");
+    m.appendChild(el("span", "s5hw-id", "RM" + it.id));
+    m.appendChild(el("span", null, (it.tech || []).join(", ")));
+    m.appendChild(el("span", null, "planned " + (it.when || "—")));
+    if ((it.phase || []).length) m.appendChild(el("span", null, it.phase.join(", ")));
+    if ((it.mc || []).length) m.appendChild(el("span", "s5hw-mcn", it.mc.length + " MC"));
+    if (e) m.appendChild(el("span", "s5hw-chg", dmy(e.day) + " · " + kindTxt(e)));
+    r.appendChild(m);
+    r.addEventListener("click", function () { card(it); }); r.addEventListener("keydown", function (x) { if (x.key === "Enter" || x.key === " ") { x.preventDefault(); card(it); } });
+    return r;
+  }
+
+  function render() {
+    if (!body || !D) return; built = true; body.textContent = "";
+    var old = panel.querySelector(":scope > .s5bn"); if (old) old.remove();
+    panel.insertBefore(strip(), panel.firstChild);
+    var I = D.items || [], open = I.filter(function (i) { return i.status === "In development" || i.status === "Rolling out"; });
+    body.appendChild(el("p", "s5hw-lead", n(D.inScope) + " of Microsoft's " + n(D.total) + " Roadmap items belong to the technologies this portal tracks; " + n(open.length) +
+      " are open (In development or Rolling out). Launched and Cancelled items stay here " + (D.doneDays || 60) + " days after Microsoft's last edit. Out of scope: Dynamics 365, Power Platform, Viva, Word, Excel, PowerPoint, Planner …"));
+    var bar = el("div", "s5cd-bar");
+    [["chg", "Changes"], ["open", "Open items"], ["done", "Launched recently"], ["all", "All"]].forEach(function (v) {
+      var b = btn(v[1], "", function () { S.view = v[0]; render(); }); b.setAttribute("data-v", v[0]); b.setAttribute("aria-selected", String(S.view === v[0])); bar.appendChild(b); });
+    body.appendChild(bar);
+    var base = S.view === "open" ? open : S.view === "done" ? I.filter(function (i) { return i.status === "Launched" || i.status === "Cancelled"; }) : I;
+    var tc = {}; base.forEach(function (i) { (i.tech || []).forEach(function (t) { tc[t] = (tc[t] || 0) + 1; }); });
+    var fl = el("div", "mcb-views s5hw-f");
+    [""].concat(Object.keys(tc).sort(function (a, b) { return tc[b] - tc[a]; })).forEach(function (t) {
+      var b = btn("", "mcb-view" + (S.tech === t ? " on" : ""), function () { S.tech = S.tech === t ? "" : t; render(); });
+      b.appendChild(document.createTextNode(t || "All technologies")); b.appendChild(el("span", "mcb-cn", n(t ? tc[t] : base.length))); fl.appendChild(b); });
+    body.appendChild(fl);
+    var qw = el("div", "s5hw-qw"), q = el("input", "mcb-q"); q.type = "search"; q.placeholder = "Find RM number, title, product, MC number…"; q.value = S.q;
+    q.addEventListener("input", function () { S.q = q.value; draw(); }); qw.appendChild(q); body.appendChild(qw);
+    var host = el("div", "s5hw-list"); body.appendChild(host);
+    function draw() {
+      host.textContent = "";
+      var ok = function (i) { return (!S.tech || (i.tech || []).indexOf(S.tech) >= 0) && qOk(i); };
+      if (S.view === "chg") {
+        var E = (D.events || []).filter(function (e) { var i = BY[e.id]; return i ? ok(i) : (!S.tech || (e.tech || []).indexOf(S.tech) >= 0) && (!S.q || (e.title || "").toLowerCase().indexOf(S.q.toLowerCase()) >= 0); });
+        if (!E.length) host.appendChild(el("p", "s5hw-txt", D.baseline && (D.events || []).length === 0 ? "The first read on " + dmy(D.baseline) + " recorded " + n(D.inScope) + " items as the starting point; changes appear from the next read (Microsoft's Roadmap is read twice a day)." : "No change matches."));
+        var lastDay = "";
+        E.slice(0, 300).forEach(function (e) {
+          if (e.day !== lastDay) { lastDay = e.day; host.appendChild(el("h3", "s5hw-day", dmy(e.day))); }
+          host.appendChild(row(BY[e.id] || { id: e.id, title: e.title, tech: e.tech || [], status: e.before || "" }, e));
+        });
+      } else {
+        var L = base.filter(ok);
+        host.appendChild(el("p", "s5hw-cnt", n(L.length) + " item" + (L.length === 1 ? "" : "s")));
+        L.slice(0, 400).forEach(function (i) { host.appendChild(row(i, null)); });
+        if (L.length > 400) host.appendChild(el("p", "s5hw-txt", "Showing 400 of " + n(L.length) + " - narrow with a technology or the search."));
+      }
+    }
+    draw();
+    body.appendChild(el("p", "s5dv-fn", "Read " + dmy(String(D.read).slice(0, 10)) + " " + String(D.read).slice(11, 16) + " UTC from Microsoft's Roadmap API (tools/collect_roadmap.py), twice a day; compared since " + dmy(D.baseline) + "."));
+    panel.setAttribute("data-units", n(D.inScope) + " items tracked · " + n(open.length) + " open");
+  }
+  function openRm(id) { id = String(id).replace(/^RM/i, ""); goTab(); var go = function () { if (!built) render(); if (BY[id]) card(BY[id]); }; if (D) setTimeout(go, 150); else load(go); }
+  window.__socOpenRoadmap = openRm;
+  (window.__socSearchAdd = window.__socSearchAdd || []).push(function () {   /* §5fv: found by the portal-wide search */
+    if (!D) return [];
+    return (D.items || []).map(function (i) { var t = "RM" + i.id + " · " + i.title + " · " + i.status + " · planned " + (i.when || "—") + " · " + (i.tech || []).join(", ") + ((i.mc || []).length ? " · " + i.mc.join(" ") : "");
+      return { t: t, l: (t + " " + (i.text || "")).toLowerCase(), tn: "M365 Roadmap", fn: function () { openRm(i.id); } }; });
+  });
+  var loading = null;
+  function load(cb) {
+    if (D) { if (cb) cb(); return; }
+    if (!onSite() || !window.fetch) return;
+    (loading = loading || fetch("data/roadmap.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; })).then(function (j) {
+      if (!j || !j.items) return; if (!D) { D = j; D.items.forEach(function (i) { BY[i.id] = i; }); (D.events || []).forEach(function (e) { (EV[e.id] = EV[e.id] || []).push(e); }); }
+      if (panel && !panel.hidden && !built) render(); else if (panel) { var s0 = panel.querySelector(":scope > .s5bn"); if (!s0) panel.insertBefore(strip(), panel.firstChild); panel.setAttribute("data-units", n(D.inScope) + " items tracked"); }
+      try { document.dispatchEvent(new CustomEvent("soc:woke", { detail: { id: "tab-roadmap", from: "s5hw" } })); } catch (e) {}   /* the rail reads the strip again */
+      if (cb) cb();
+    }).catch(function () {});
+  }
+  function start() {
+    load();
+    document.addEventListener("click", function (ev) { var t = ev.target.closest && ev.target.closest('#tabbtn-tab-roadmap, nav.anchors .tab[aria-controls="tab-roadmap"], .s5ca-it[data-pid="tab-roadmap"]'); if (t) setTimeout(function () { if (D && !built) render(); else load(); }, 60); });
+    document.addEventListener("soc:woke", function (e) { if (e && e.detail && e.detail.id === "tab-roadmap" && e.detail.from !== "s5hw" && D && !built && panel && !panel.hidden) render(); });
+    var h = /[#&]rm=(?:RM)?(\d{5,7})/i.exec(location.hash || ""); if (h) openRm(h[1]);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(start, 900); }); else setTimeout(start, 900);
+})();
+
 /* §5ft-f (31 X 2026, owner: "the other tabs that open such separate windows on a click - give them the same view; it is
    ok"): one helper turns any §5fo card into the wide card with tabs of Graph API Radar (§5ft-e). The head (chips, title,
    name, where it came from) stays on top; the blocks go to tabs by what they are - Overview (what and why, the facts
@@ -49449,6 +49678,36 @@ details.s5ei-day[data-kf="new"] .s5ei-tile:not(.s5ei-new),details.s5ei-day[data-
 .s5bi-skr li.s5bi-relpar-kql{box-shadow:inset 4px 0 0 #1d4ed8}
 .s5bi-relb{display:inline-block;font:800 11px/1.5 var(--sans);letter-spacing:.04em;color:#fff;background:#b45309;border-radius:999px;padding:1px 8px;white-space:nowrap}
 .s5bi-rel-kql .s5bi-relb{background:#1d4ed8}
+/* §5hw: M365 Roadmap tab - status pills, change badges, rows like the Message Center list */
+.s5hw-lead{margin:0 0 10px;color:var(--text)}
+.s5hw-st{display:inline-block;font:700 12px/1.6 var(--sans);border-radius:999px;padding:1px 9px;border:1px solid var(--border);color:var(--text);white-space:nowrap}
+.s5hw-st.s5hw-dev{background:color-mix(in srgb,#1d4ed8 14%,transparent);border-color:#1d4ed8}
+.s5hw-st.s5hw-roll{background:color-mix(in srgb,#b45309 16%,transparent);border-color:#b45309}
+.s5hw-st.s5hw-done{background:color-mix(in srgb,#15803d 16%,transparent);border-color:#15803d}
+.s5hw-st.s5hw-canc{background:color-mix(in srgb,#b91c1c 14%,transparent);border-color:#b91c1c}
+.s5hw-kn{display:inline-block;font:800 11px/1.6 var(--sans);letter-spacing:.04em;border-radius:6px;padding:0 7px;color:#fff;background:#475569;white-space:nowrap}
+.s5hw-kn.s5hw-added{background:#15803d}.s5hw-kn.s5hw-changed{background:#b45309}.s5hw-kn.s5hw-removed{background:#b91c1c}
+.s5hw-f{margin:10px 0}
+.s5hw-qw{display:flex;margin:0 0 12px}
+.s5hw-qw .mcb-q{max-width:520px}
+.s5hw-day{font:700 15px/1.3 var(--sans);margin:16px 0 6px;color:var(--text)}
+.s5hw-row{border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin:0 0 8px;background:var(--surface);cursor:pointer}
+.s5hw-row:hover,.s5hw-row:focus-visible{border-color:var(--accent);outline:none}
+.s5hw-rt{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.s5hw-ti{font:700 15px/1.35 var(--sans);color:var(--text)}
+.s5hw-rm{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:5px;font-size:13.5px;color:var(--muted)}
+.s5hw-id{font-family:var(--mono);color:var(--text)}
+.s5hw-chg{color:var(--text);font-weight:600}
+.s5hw-mcn{color:var(--accent);font-weight:700}
+.s5hw-cnt{margin:4px 0 8px;color:var(--muted)}
+.s5hw-txt{margin:0 0 10px;line-height:1.55}
+.s5hw-facts{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:6px 0 0}
+.s5hw-facts dt{font-weight:700;color:var(--muted)}.s5hw-facts dd{margin:0}
+.s5hw-ev{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:6px 0;border-bottom:1px solid var(--border)}
+.s5hw-evd{font-family:var(--mono);color:var(--muted)}
+.s5hw-mc{display:block;text-align:left;margin:0 0 6px;font:600 14px/1.4 var(--sans);color:var(--accent);background:none;border:1px solid var(--border);border-radius:8px;padding:7px 10px;cursor:pointer;width:100%}
+.s5hw-mc:hover{border-color:var(--accent)}
+.s5hw-src{display:inline-block;margin:0 12px 8px 0;font-weight:700}
 /* §5gs: related Message Center posts, Removed view, Show related */
 .mcb-reltog{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:999px;padding:5px 12px;white-space:nowrap}
 .mcb-reltog>i{width:30px;height:16px;border-radius:999px;background:#64748b;position:relative;flex:none}
