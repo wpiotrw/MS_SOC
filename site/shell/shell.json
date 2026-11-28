@@ -1,9 +1,9 @@
 {
- "sha256": "76c42f9f418564b38f2624e25b818ce6a75e0ad322b7f6b815f5879c9443877b",
+ "sha256": "52c16d04f712abdeea1dc732adff1a299792438a30853cf692389d89c6124df5",
  "bytes": 683964,
- "capturedOn": "2026-11-27",
- "capturedAt": "2026-11-27T06:46",
- "source": "artifact-4b8ed4d2-1795761963-b972.html",
+ "capturedOn": "2026-11-28",
+ "capturedAt": "2026-11-28T06:47",
+ "source": "today_artifact.html",
  "styles": 1,
  "behaviourScripts": 16,
  "shellScripts": 3,
