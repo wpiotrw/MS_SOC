@@ -14,7 +14,7 @@ What it does (code only, run by the "Code refresh" workflow after every publishe
      record (a Graph permission's endpoints, privilege level and consent in one row), plus the dated events of the
      portal's own data files that the register does not carry: first-party apps (state `fpa.chg`), campaigns
      (campaigns.json), baselines (baselines.json), Threat Research (threats.json), preview-to-GA (doc-ga.json),
-     Graph API Radar (graph-radar.json, 5ft), M365 endpoints (m365-endpoints.json, 5fu).
+     Graph API Radar (graph-radar.json, 5ft), M365 endpoints (m365-endpoints.json, 5fu), M365 Roadmap (roadmap.json, 5hw).
   2. site/diff/index.html and site/week/index.html - the page itself, from tools/changes_app.html (same file; /week/
      opens on "Last 7 days" and offers printing). A page a routine wrote there before (make_diff.py's full comparison,
      write_week()'s summary) is moved aside first: site/diff/full.html, site/week/print.html - both stay linked.
@@ -167,6 +167,28 @@ def extras(site, state, lo, hi):
         X.append({"d": d, "tab": "M365 endpoints", "k": k, "id": "set %s · version %s" % (c.get("set"), c.get("version")),
                   "t": clip("%s · endpoint set %s · %s" % (c.get("areaName") or c.get("area") or "Microsoft 365", c.get("set"), labs), 220),
                   "u": mep.get("list") or "", "p": "Microsoft 365 network", "w": None, "t0": False, "f": f or [[labs, "", "", ""]]})
+    # 5hw (28 XI 2026): Microsoft 365 Roadmap - one record per change the Roadmap reader saw in the window (new item,
+    # status, planned month later / earlier, preview, phase, title, removed), only the tracked technologies
+    rmd = load(os.path.join(site, "data", "roadmap.json"), {}) or {}
+    rby = {i.get("id"): i for i in rmd.get("items") or []}
+    RK = {"new": "added", "removed": "removed"}
+    RL = {"status": "status", "date": "planned month", "preview": "preview month", "phase": "release phase", "title": "title"}
+    for e in rmd.get("events") or []:
+        d = str(e.get("day") or "")[:10]
+        if not (lo <= d <= hi):
+            continue
+        it = rby.get(e.get("id")) or {}
+        val = lambda v: ", ".join(v) if isinstance(v, list) else (v or "")
+        if e.get("kind") == "new":
+            f = [["new item", "", val(e.get("after")), "planned %s" % (it.get("when") or "—")]]
+        elif e.get("kind") == "removed":
+            f = [["removed from Microsoft's Roadmap", val(e.get("before")), "", ""]]
+        else:
+            f = [[RL.get(e.get("kind"), e.get("kind")), val(e.get("before")), val(e.get("after")), {"later": "later than planned", "earlier": "earlier than planned"}.get(e.get("move") or "", "")]]
+        X.append({"d": d, "tab": "M365 Roadmap", "k": RK.get(e.get("kind"), "changed"), "id": "RM%s" % e.get("id"),
+                  "t": clip("RM%s · %s" % (e.get("id"), e.get("title") or it.get("title") or ""), 220),
+                  "u": it.get("url") or "https://www.microsoft.com/microsoft-365/roadmap?id=%s" % e.get("id"),
+                  "p": ", ".join(e.get("tech") or it.get("tech") or []) or "Microsoft 365", "w": None, "t0": False, "f": f})
     thr = load(os.path.join(site, "data", "threats.json"), {}) or {}
     arts = {a["id"]: a for a in thr.get("articles") or []}
     for s in thr.get("stories") or []:

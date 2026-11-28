@@ -56,6 +56,14 @@ MESSAGE CENTER
 - MC<number> — <title> — <action needed / by date, or "informational">
   Source: https://<the post's url from the state block>
 
+M365 ROADMAP (tracked technologies only; from site/data/roadmap.json, its "events" since the last brief)
+- RM<id> — <title> — <new | status before → after | planned month before → after (later/earlier)>
+  Source: https://www.microsoft.com/microsoft-365/roadmap?id=<id>
+  Portal: https://guardzilla.azureme.pl/#rm=<id>
+- (none: "No Roadmap change for the tracked technologies since the last brief")
+- Source check: <"sources" in roadmap.json — api ok / rss check: N differences / deltapulse check: N missing in ours, N status differs>;
+  an api error or "rss used: true" is a RUN NOTES line too
+
 DEADLINES IN THE NEXT 14 DAYS
 - <DD Mon> — <what> — Source: https://…
 

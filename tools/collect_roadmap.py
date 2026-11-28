@@ -33,6 +33,18 @@ MEM = os.path.join(ROOT, "data", "roadmap")
 SNAP = os.path.join(MEM, "snapshot.json")
 MCT = os.path.join(ROOT, "site", "data", "mc-tenant.json")
 API = "https://www.microsoft.com/releasecommunications/api/v1/m365"
+# CLAUDE.md 5hw-b (28 XI 2026, owner: "is Merill the only one collecting RM? any extra sources for a cross check, for a
+# Merill outage?"): Merill is not used at all - the primary is Microsoft's API above. Two more readers:
+#   RSS  - Microsoft's Roadmap RSS (same data, another endpoint): the FALLBACK when the API fails, and a cross check
+#          (ids missing on one side, status that differs);
+#   DPMCP - DeltaPulse's public MCP server (independent tracker, items changed in the last 30 days): a cross check of
+#          status and of items Microsoft's API does not return.
+RSS = "https://www.microsoft.com/releasecommunications/api/v2/m365/rss"
+DPMCP = "https://deltapulse.app/mcp"
+STATUSES = {"In development", "Rolling out", "Launched", "Cancelled"}
+PHASES = {"General Availability", "Preview", "Targeted Release", "Targeted Release (Entire Organization)", "Targeted Release (Select People)", "Current Channel", "Monthly Enterprise Channel", "Semi-Annual Enterprise Channel", "Semi-Annual Enterprise Channel (Preview)", "Beta Channel", "Current Channel (Preview)"}
+CLOUDS = {"GCC", "GCC High", "DoD", "Worldwide (Standard Multi-Tenant)", "China", "Education", "Government Community Cloud (GCC)"}
+PLATFORMS = {"Web", "Desktop", "Mac", "iOS", "Android", "Teams and Surface Devices", "Windows", "Linux", "Developer", "Mobile"}
 UA = "MS_SOC-portal (github.com/wpiotrw/MS_SOC; Roadmap reader)"
 KEEP_DAYS = 120          # events kept on the page
 DONE_DAYS = 60           # a Launched or Cancelled item stays on the page this long after Microsoft last touched it
@@ -147,14 +159,76 @@ def month_key(s):
     return None
 
 
-def main():
-    force_baseline = "--baseline" in sys.argv
-    day = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
+def read_api():
     req = urllib.request.Request(API, headers={"User-Agent": UA, "Accept": "application/json"})
     raw = json.loads(urllib.request.urlopen(req, timeout=90).read().decode("utf-8"))
     if not isinstance(raw, list) or len(raw) < 500:
-        log("unexpected answer (%s items) - nothing written" % (len(raw) if isinstance(raw, list) else type(raw).__name__))
-        return 1
+        raise RuntimeError("unexpected answer (%s items)" % (len(raw) if isinstance(raw, list) else type(raw).__name__))
+    return raw
+
+
+def read_rss():
+    """Microsoft's RSS turned into the API's shape: the categories carry status, phase, clouds, platforms and products;
+    the description ends with "GA date: <month>" and "Preview date: <month>"."""
+    import xml.etree.ElementTree as ET
+    req = urllib.request.Request(RSS, headers={"User-Agent": UA})
+    root = ET.fromstring(urllib.request.urlopen(req, timeout=90).read())
+    out = []
+    for it in root.iter("item"):
+        g = (it.findtext("guid") or "").strip()
+        if not g.isdigit():
+            continue
+        cats = [c.text.strip() for c in it.findall("category") if c.text]
+        desc = it.findtext("description") or ""
+        ga = re.search(r"GA date:\s*([^<\n]+)", desc); pv = re.search(r"Preview date:\s*([^<\n]+)", desc)
+        body = re.split(r"<br>\s*GA date:|<br>\s*Preview date:", desc)[0]
+        upd = (it.findtext("{http://www.w3.org/2005/Atom}updated") or "")
+        tc = lambda S: [{"tagName": c} for c in cats if c in S]
+        out.append({"id": int(g), "title": (it.findtext("title") or "").strip(), "description": body,
+                    "status": next((c for c in cats if c in STATUSES), ""), "publicDisclosureAvailabilityDate": ga.group(1).strip() if ga else "",
+                    "publicPreviewDate": pv.group(1).strip() if pv else "", "created": "", "modified": upd[:19], "moreInfoLink": None,
+                    "tagsContainer": {"releasePhase": tc(PHASES), "cloudInstances": tc(CLOUDS), "platforms": tc(PLATFORMS),
+                                      "products": [{"tagName": c} for c in cats if c not in STATUSES | PHASES | CLOUDS | PLATFORMS]}})
+    if len(out) < 500:
+        raise RuntimeError("RSS: %d items" % len(out))
+    return out
+
+
+def read_dp():
+    body = json.dumps({"jsonrpc": "2.0", "id": 1, "method": "tools/call",
+                       "params": {"name": "search", "arguments": {"source": "roadmap", "dateRange": "last_30_days", "limit": 2000}}}).encode()
+    req = urllib.request.Request(DPMCP, body, {"User-Agent": UA, "Content-Type": "application/json", "Accept": "application/json, text/event-stream"})
+    j = json.load(urllib.request.urlopen(req, timeout=90))
+    if j.get("error"):
+        raise RuntimeError("deltapulse: %s" % str(j["error"])[:150])
+    o = json.loads(j["result"]["content"][0]["text"])
+    while isinstance(o, dict) and isinstance(o.get("content"), list) and o["content"] and o["content"][0].get("type") == "text":
+        o = json.loads(o["content"][0]["text"])
+    return {str(r.get("id")): r for r in (o.get("results") or []) if str(r.get("id", "")).isdigit()}
+
+
+def main():
+    force_baseline = "--baseline" in sys.argv
+    day = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
+    SRC = {}
+    raw = rss = dp = None
+    try:
+        raw = read_api(); SRC["api"] = {"state": "ok", "items": len(raw), "url": API, "role": "primary"}
+    except Exception as e:
+        SRC["api"] = {"state": "unread", "items": 0, "url": API, "role": "primary", "error": str(e)[:160]}
+    try:
+        rss = read_rss(); SRC["rss"] = {"state": "ok", "items": len(rss), "url": RSS, "role": "fallback and cross check"}
+    except Exception as e:
+        SRC["rss"] = {"state": "unread", "items": 0, "url": RSS, "role": "fallback and cross check", "error": str(e)[:160]}
+    try:
+        dp = read_dp(); SRC["deltapulse"] = {"state": "ok", "items": len(dp), "url": DPMCP, "role": "cross check (changed in 30 days)"}
+    except Exception as e:
+        SRC["deltapulse"] = {"state": "unread", "items": 0, "url": DPMCP, "role": "cross check (changed in 30 days)", "error": str(e)[:160]}
+    if raw is None:
+        if rss is None:
+            log("neither Microsoft's API nor its RSS answered - nothing written"); return 1
+        raw = rss; SRC["rss"]["used"] = True
+        log("API unread - the RSS is used (%d items)" % len(raw))
     log("Microsoft's Roadmap: %d items" % len(raw))
 
     mc = {}
@@ -174,6 +248,26 @@ def main():
         cur[it["id"]] = {k: it[k] for k in ("title", "status", "when", "preview", "phase", "modified")}
         byid0[it["id"]] = it
         items.append(it)
+
+    # ---- cross checks (5hw-b): what the other readers say about the items in scope ----
+    xc = {}
+    if rss is not None and SRC["api"]["state"] == "ok":
+        rs = {str(i["id"]): i for i in rss}
+        only_api = [r for r in cur if r not in rs]; diff = [r for r in cur if r in rs and rs[r]["status"] and rs[r]["status"] != cur[r]["status"]]
+        rss_in = [r for r, i in rs.items() if r not in {str(x["id"]) for x in raw} and scope(i)[0]]
+        xc["rss"] = {"missingInRss": len(only_api), "missingInApi": len(rss_in), "statusDiffers": len(diff),
+                     "examples": (only_api[:5] + rss_in[:5] + diff[:5])}
+    if dp is not None:
+        dpin = {r: v for r, v in dp.items() if r in cur or scope({"title": v.get("title", ""), "description": "", "tagsContainer": {"products": [{"tagName": p.strip()} for p in str(v.get("product") or "").split(",")]}})[0]}
+        miss = [r for r in dpin if r not in cur]
+        sd = [r for r, v in dpin.items() if r in cur and v.get("status") and v.get("status") != cur[r]["status"]]
+        api_ids = {str(x["id"]) for x in raw}
+        gone = [r for r in miss if r not in api_ids]     # DeltaPulse still lists it, Microsoft's own list no longer does
+        xc["deltapulse"] = {"inScope": len(dpin), "missingInOurs": len(miss), "goneFromMicrosoft": len(gone), "statusDiffers": len(sd),
+                            "examples": [{"id": r, "theirs": dpin[r].get("status"), "ours": cur[r]["status"]} for r in sd[:5]] + [{"id": r, "missing": True, "goneFromMicrosoft": r in gone, "title": dpin[r].get("title")} for r in miss[:5]]}
+    for k, v in xc.items():
+        SRC[k]["check"] = v
+    log("cross check: %s" % json.dumps(xc)[:300])
 
     events = [e for e in prev_out.get("events", []) if e.get("day", "") >= (datetime.date.fromisoformat(day) - datetime.timedelta(days=KEEP_DAYS)).isoformat()]
     if not base:
@@ -215,7 +309,7 @@ def main():
     items.sort(key=lambda x: (x.get("changed", ""), x["modified"]), reverse=True)
     out = {
         "read": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "source": API,
-        "total": len(raw), "inScope": len(cur), "shown": len(items), "doneDays": DONE_DAYS, "baseline": prev_out.get("baseline") if not base else day,
+        "sources": SRC, "total": len(raw), "inScope": len(cur), "shown": len(items), "doneDays": DONE_DAYS, "baseline": prev_out.get("baseline") if not base else day,
         "scope": {"products": sorted(CORE), "broad": sorted(BROAD), "functions": FUNC.pattern},
         "items": items, "events": sorted(events, key=lambda e: (e["day"], e["id"]), reverse=True),
         "_tech": {rid: (byid0.get(rid) or {}).get("tech", []) for rid in cur},

@@ -26608,6 +26608,19 @@ MC; window.__socOpenRoadmap(id), adres #rm=575283. About i swiezosc (TABS) znaja
 Deadlines "expected", przelacznik "Show related Roadmap" w Ctrl K i RM na karcie MC. Test: kopia strony, komputer jasny/ciemny,
 telefon, 0 bledow JS, szyna boczna 1 / 2 przy danych testowych; gate bez nowych BRAK.
 
+**§5hw-b (28 XI 2026)** — ROADMAP ETAP 2 I ZRODLA KONTROLNE. Piotr: "Tak potwierdzam etap 2. Czy tylko merill zbiera rm? Mamy jakies
+dodatkowe zrodla dla cross check, awarii merilla?" Merill NIE jest zrodlem Roadmapy w portalu (tylko link w karcie). Zrodla w
+`tools/collect_roadmap.py` (wynik w `roadmap.json` → `sources`): (1) API Microsoftu `releasecommunications/api/v1/m365` — glowne;
+(2) RSS Microsoftu `releasecommunications/api/v2/m365/rss` — zapas, gdy API nie odpowie (`sources.rss.used: true`), i kontrola
+(`check`: missingInRss / missingInApi / statusDiffers); (3) DeltaPulse MCP `search {source:"roadmap", dateRange:"last_30_days"}` —
+niezalezna kontrola (`check`: inScope / missingInOurs / goneFromMicrosoft / statusDiffers). Pierwszy odczyt 28 XI: RSS 0 roznic,
+DeltaPulse 162 w zakresie, 0 roznic statusu, 1 brak u nas — RM526796, ktorego API Microsoftu juz nie zwraca (goneFromMicrosoft).
+Interfejs (SCRIPT 17, IIFE Roadmap): zdanie Overview `li.s5hw-sen` z kaflami (New / Going live / Planned later); blok Today
+`#s5hw-today`; Deadlines `details#s5hw-dl` "Expected from the Microsoft 365 Roadmap" (biezacy i nastepny miesiac, plan Microsoftu,
+nie termin); wiersz MC (`detail()` przegladarki MC) — `__socRmLinks.relBox(id)` "On the Microsoft 365 Roadmap"; chipy RM →
+`__socRoadmapHas` / `__socOpenRoadmap`; Ctrl K przelacznik "Show related Roadmap" (`soc.rm.showRelated`, relk "rm", kolor #0f766e);
+stopka zakladki "Cross-check · …". /diff i /week: rekordy tab "M365 Roadmap" (`changes_page.py` extras, `changes_app.html` TABS).
+E-mail: sekcja M365 ROADMAP w `routines/reply-email.md`.
 **§5hv (24 XI 2026)** — NIEBIESKI PASEK ZASLANIAJACY TEKST + CZYTELNE "SHOW RELATED" W WYSZUKIWARCE. Piotr (zrzuty): "gdzieniegdzie
 niebieski pasek zaslania tekst, jak sie najedzie na wpis - sprawdzic caly portal" oraz "zaznaczam related MC albo KQL, ale na liscie
 trudno sie polapac, ktore to wpisy". (1) Przyczyna paska: `.sec-body a[href^="http"]:hover` (jasnoniebieskie tlo, ciemny tekst) dzialal
@@ -32259,7 +32272,16 @@ odtad CZTERNASCIE (4-17).**
     ktog.addEventListener("click", function () { kOn = !kOn; ktog.setAttribute("aria-pressed", kOn ? "true" : "false");
       try { localStorage.setItem("soc.kql.showRelated", kOn ? "1" : "0"); } catch (x) {}
       if (window.__socKqlLinks) window.__socKqlLinks.load(); q.dispatchEvent(new Event("input")); q.focus(); });
-    var tgrow = el("div", "s5hh-tgrow"); tgrow.appendChild(rtog); tgrow.appendChild(ktog);
+    /* §5hw (28 XI 2026, owner: "stage 2 - Show related Roadmap"): under an MC post found, the Roadmap items it names; under a
+       Roadmap item found, the MC posts that name it - one setting, kept in this browser, its own colour (teal) */
+    var rmOn = false; try { rmOn = localStorage.getItem("soc.rm.showRelated") === "1"; } catch (x) {}
+    var rmtog = el("button", "mcb-reltog s5bi-reltog s5hw-rtog"); rmtog.type = "button"; rmtog.appendChild(el("i")); rmtog.appendChild(el("span", null, "Show related Roadmap"));
+    rmtog.title = "Under each Message Center post found, list the Microsoft 365 Roadmap items it names - and under a Roadmap item, its MC posts";
+    rmtog.setAttribute("aria-pressed", rmOn ? "true" : "false");
+    rmtog.addEventListener("click", function () { rmOn = !rmOn; rmtog.setAttribute("aria-pressed", rmOn ? "true" : "false");
+      try { localStorage.setItem("soc.rm.showRelated", rmOn ? "1" : "0"); } catch (x) {}
+      q.dispatchEvent(new Event("input")); q.focus(); });
+    var tgrow = el("div", "s5hh-tgrow"); tgrow.appendChild(rtog); tgrow.appendChild(ktog); tgrow.appendChild(rmtog);
     inner.appendChild(q); inner.appendChild(tgrow); inner.appendChild(res); inner.appendChild(foot); dlg.appendChild(inner); document.body.appendChild(dlg);
     if (relOn) relLoad();
     var hits = [], cur = 0, last = null, partial = false;
@@ -32295,7 +32317,7 @@ odtad CZTERNASCIE (4-17).**
         var cls = (i === cur ? "on" : "") + (h.rel ? " s5bi-relhit s5bi-rel-" + rk + (h.rel === 2 ? " s5bi-relhead" : "") + (!nx || !nx.rel || nx.rel === 2 ? " s5bi-relend" : "") : "") +
           (!h.rel && nx && nx.rel === 2 ? " s5bi-relpar s5bi-relpar-" + (nx.relk || "mc") : "");
         var li = el("li", cls); li.setAttribute("role", "option"); li.setAttribute("aria-selected", i === cur ? "true" : "false");
-        var tnS = el("span", "s5bi-skt"); if (h.rel === 2) tnS.appendChild(el("span", "s5bi-relb", rk === "kql" ? "RELATED KQL" : "RELATED MC")); else tnS.textContent = h.tn;
+        var tnS = el("span", "s5bi-skt"); if (h.rel === 2) tnS.appendChild(el("span", "s5bi-relb", rk === "kql" ? "RELATED KQL" : rk === "rm" ? "RELATED ROADMAP" : "RELATED MC")); else tnS.textContent = h.tn;
         if (h.rel === 2) tnS.title = h.tn; li.appendChild(tnS);
         /* §5fv (30 X 2026, owner: "I type aaa and see eMudhra rows - the filter does not work"): the row matched far into
            its text (an ID or a hash), beyond the 160 characters shown. The line now shows the text AROUND the first hit,
@@ -32349,6 +32371,20 @@ odtad CZTERNASCIE (4-17).**
         var kx = [], kseen = {};
         hits.forEach(function (h, i) { kx.push(h); if (i < 8 && !h.rel) window.__socKqlLinks.hitsFor(h, kseen).forEach(function (y) { kx.push(y); }); });
         hits = kx;
+      }
+      if (words.length && hits.length && rmOn && window.__socRmLinks && window.__socRmLinks.get()) {   /* §5hw: the Roadmap items of an MC post, the MC posts of a Roadmap item */
+        var rx = [], rseen = {}, RD = window.__socRmLinks.get(), RBY = {}; (RD.items || []).forEach(function (it) { RBY[it.id] = it; });
+        hits.forEach(function (h, i) {
+          rx.push(h); if (i >= 8 || h.rel) return;
+          var mcid = (/\bMC\d{6,8}\b/.exec(String(h.t)) || [])[0], rmid = h.tn === "M365 Roadmap" ? ((/^RM(\d+)/.exec(String(h.t)) || [])[1]) : null, out = [];
+          if (rmid && RBY[rmid] && !rseen["r" + rmid]) { rseen["r" + rmid] = 1; (RBY[rmid].mc || []).slice(0, 6).forEach(function (m) {
+            out.push({ tn: "\u21b3 MC post", t: m + (window.__socMcRel && window.__socMcRel.title(m) ? " · " + window.__socMcRel.title(m) : ""), l: "", rel: 1, relk: "rm", fn: function () { var tb = document.getElementById("tabbtn-tab-mc"); if (tb) tb.click(); var k = 0; (function t() { if (window.__socMcRel && window.__socMcRel.ready()) { window.__socMcRel.show(m); return; } if (++k < 40) setTimeout(t, 150); })(); } }); }); }
+          else if (mcid && !rseen["m" + mcid]) { rseen["m" + mcid] = 1; window.__socRmLinks.byMc(mcid).slice(0, 6).forEach(function (it) {
+            out.push({ tn: "\u21b3 " + it.status, t: "RM" + it.id + " · " + it.title + " · planned " + (it.when || "—"), l: "", rel: 1, relk: "rm", fn: function () { window.__socRmLinks.open(it.id); } }); }); }
+          if (out.length) { rx.push({ tn: "Roadmap of this", t: (rmid ? "MC posts that name RM" + rmid : "Roadmap items named in " + mcid) + " · " + out.length, l: "", rel: 2, relk: "rm",
+            fn: out[0].fn }); out.forEach(function (y) { rx.push(y); }); }
+        });
+        hits = rx;
       }
       hits.q = words; cur = 0; paint();
       foot.textContent = !words.length ? "↑ ↓ to move · Enter to open · Esc to close" : !hits.length ? "Nothing in the portal starts with “" + q.value.trim() + "”." :
@@ -34478,6 +34514,7 @@ odtad CZTERNASCIE (4-17).**
       sb.addEventListener("click", function () { window.__socOpenMC(r.key, null, true); });
       tools.appendChild(sb);
     }
+    if (/^MC/.test(r.id) && window.__socRmLinks && window.__socRmLinks.relBox) try { box.appendChild(window.__socRmLinks.relBox(r.id)); } catch (x) {}   /* §5hw */
     box.appendChild(tools);
     return box;
   }
@@ -43314,10 +43351,11 @@ odtad CZTERNASCIE (4-17).**
   var SIG = 'a[href*="/message/MC"],a[href*="deltapulse.app/item/MC"],a[href*="msmessagecenter.com/MC"],a[href*="/messages/MC"],[data-id^="MC"],[data-key^="MC"],[data-story^="MC"]';
   var ROW = 'tr,li,article,p,.s5ci-c2,.s5ci-l1,.jtile,.s5do-tile,.s5bk-it';
   var SKIP = 'a,button,[role="button"],.mcchip,script,style,textarea,select,option,pre,code,input,svg,#mc-browse,[contenteditable],.s5czb-tip,.s5cu-tip';
-  function has(id) { var b = window.__socMCB; return !(b && b.has && !b.has(id)); }
+  function has(id) { if (/^RM/.test(id)) return !!(window.__socRoadmapHas && window.__socRoadmapHas(id)); var b = window.__socMCB; return !(b && b.has && !b.has(id)); }   /* §5hw: RM numbers open our M365 Roadmap tab */
   function ext(id) { return /^RM/.test(id) ? "https://www.microsoft.com/microsoft-365/roadmap?id=" + id.slice(2) : "https://mc.merill.net/message/" + id; }
   function open(id) {
     if (!has(id)) { window.open(ext(id), "_blank", "noopener"); return; }
+    if (/^RM/.test(id) && window.__socOpenRoadmap) { window.__socOpenRoadmap(id); return; }
     if (window.__socOpenMC) window.__socOpenMC(id); else location.hash = "#" + id;
   }
   function chip(id) {
@@ -43325,7 +43363,7 @@ odtad CZTERNASCIE (4-17).**
     c.className = "mcchip s5dt-mc"; c.textContent = id; c.setAttribute("data-s5dt", id);
     c.setAttribute("role", "button"); c.tabIndex = 0;
     var ours = has(id);
-    c.title = ours ? "Open " + id + " in this portal's Message Center tab" : id + " is not in this portal's Message Center copy - opens it at " + (/^RM/.test(id) ? "the Microsoft 365 roadmap" : "mc.merill.net");
+    c.title = ours ? "Open " + id + " in this portal's " + (/^RM/.test(id) ? "M365 Roadmap" : "Message Center") + " tab" : id + " is not in this portal's Message Center copy - opens it at " + (/^RM/.test(id) ? "the Microsoft 365 roadmap" : "mc.merill.net");
     if (!ours) c.classList.add("s5dt-ext");
     function go(ev) { ev.preventDefault(); ev.stopPropagation(); open(id); }
     c.addEventListener("click", go);
@@ -48356,7 +48394,15 @@ odtad CZTERNASCIE (4-17).**
       }
     }
     draw();
-    body.appendChild(el("p", "s5dv-fn", "Read " + dmy(String(D.read).slice(0, 10)) + " " + String(D.read).slice(11, 16) + " UTC from Microsoft's Roadmap API (tools/collect_roadmap.py), twice a day; compared since " + dmy(D.baseline) + "."));
+    var SR = D.sources || {}, used = SR.rss && SR.rss.used;
+    body.appendChild(el("p", "s5dv-fn", "Read " + dmy(String(D.read).slice(0, 10)) + " " + String(D.read).slice(11, 16) + " UTC from " + (used ? "Microsoft's Roadmap RSS feed (the API did not answer this time)" : "Microsoft's Roadmap API") + " (tools/collect_roadmap.py), twice a day; compared since " + dmy(D.baseline) + "."));
+    /* §5hw-b: two more readers of the same Roadmap check ours on every read */
+    var ck = [];
+    if (SR.rss && SR.rss.check) { var r0 = SR.rss.check; ck.push("Microsoft's RSS feed: " + (r0.missingInRss + r0.missingInApi + r0.statusDiffers ? n(r0.missingInRss) + " not in the feed, " + n(r0.missingInApi) + " only in the feed, " + n(r0.statusDiffers) + " with another status" : "the same items and statuses")); }
+    else if (SR.rss && SR.rss.error) ck.push("Microsoft's RSS feed: not read (" + SR.rss.error + ")");
+    if (SR.deltapulse && SR.deltapulse.check) { var d0 = SR.deltapulse.check; ck.push("DeltaPulse (last 30 days, " + n(d0.inScope) + " in scope): " + (d0.missingInOurs + d0.statusDiffers ? n(d0.missingInOurs) + " missing here" + (d0.goneFromMicrosoft ? " (" + n(d0.goneFromMicrosoft) + " of them no longer in Microsoft's own list)" : "") + ", " + n(d0.statusDiffers) + " with another status" : "nothing missing, the same statuses")); }
+    else if (SR.deltapulse && SR.deltapulse.error) ck.push("DeltaPulse: not read (" + SR.deltapulse.error + ")");
+    if (ck.length) body.appendChild(el("p", "s5dv-fn", "Cross-check · " + ck.join(" · ") + "."));
     panel.setAttribute("data-units", n(D.inScope) + " items tracked · " + n(open.length) + " open");
   }
   function openRm(id) { id = String(id).replace(/^RM/i, ""); goTab(); var go = function () { if (!built) render(); if (BY[id]) card(BY[id]); }; if (D) setTimeout(go, 150); else load(go); }
@@ -48366,12 +48412,86 @@ odtad CZTERNASCIE (4-17).**
     return (D.items || []).map(function (i) { var t = "RM" + i.id + " · " + i.title + " · " + i.status + " · planned " + (i.when || "—") + " · " + (i.tech || []).join(", ") + ((i.mc || []).length ? " · " + i.mc.join(" ") : "");
       return { t: t, l: (t + " " + (i.text || "")).toLowerCase(), tn: "M365 Roadmap", fn: function () { openRm(i.id); } }; });
   });
+
+  /* ---- §5hw etap 2 (owner, 28 XI: "tak, potwierdzam etap 2") ---- */
+  window.__socRoadmapHas = function (id) { return !!(D && BY[String(id).replace(/^RM/i, "")]); };
+  function byMc(id) { return D ? (D.items || []).filter(function (i) { return (i.mc || []).indexOf(id) >= 0; }) : []; }
+  window.__socRmLinks = { byMc: byMc, get: function () { return D; }, open: openRm };
+  /* an MC post's open row (Message Center browser) names the Roadmap items that the post names; filled once roadmap.json is in */
+  function relBox(id) {
+    var box = el("div", "s5hw-rel"); box.hidden = true;
+    load(function () { var L = byMc(id); if (!L.length) return; box.hidden = false;
+      box.appendChild(el("h4", null, "On the Microsoft 365 Roadmap · " + L.length));
+      L.forEach(function (it) { box.appendChild(btn("RM" + it.id + " · " + it.title + " · " + it.status + " · planned " + (it.when || "—"), "s5hw-mc", function () { openRm(it.id); })); }); });
+    return box;
+  }
+  window.__socRmLinks.relBox = relBox;
+  function sums() {
+    var E = since(), t = { n: 0, nw: [], st: [], later: [], earlier: [], live: [] };
+    E.forEach(function (e) { t.n++; if (e.kind === "new") t.nw.push(e); else if (e.kind === "status") { t.st.push(e); if (e.after === "Rolling out" || e.after === "Launched") t.live.push(e); }
+      else if (e.kind === "date") { if (e.move === "later") t.later.push(e); else if (e.move === "earlier") t.earlier.push(e); } });
+    return t;
+  }
+  /* Overview: one sentence (it becomes a watched area of the Overview, like M365 endpoints) */
+  function sentence(k) {
+    var ol = document.querySelector("#tab-overview .s5bk-3");
+    if (!ol) { if (k < 25) setTimeout(function () { sentence(k + 1); }, 400); return; }
+    if (ol.querySelector(".s5hw-sen")) return;
+    var t = sums(), open = (D.items || []).filter(function (i) { return i.status === "In development" || i.status === "Rolling out"; }).length;
+    var li = el("li", "s5hw-sen"); li.appendChild(el("b", "s5bk-k k-tech", "M365 Roadmap"));
+    var b = el("span", "s5bk-it s5bk-idl");
+    b.appendChild(el("span", "s5bk-itt", t.n ? "Roadmap of the tracked technologies since the last brief: " + [t.nw.length ? t.nw.length + " new" : "", t.live.length ? t.live.length + " moved to Rolling out / Launched" : "",
+      t.later.length ? t.later.length + " planned later" : "", t.earlier.length ? t.earlier.length + " planned earlier" : "", (t.st.length - t.live.length) > 0 ? (t.st.length - t.live.length) + " other status moves" : ""].filter(Boolean).join(" · ")
+      : "No change on the Roadmap of the tracked technologies since the last brief · " + n(open) + " items open"));
+    var g = el("span", "s5bk-idg");
+    function tile(lab, num, sub, fn) { var x = el("button", "s5bk-idtile" + (num ? " s5bk-idhot" : "")); x.type = "button"; x.title = "Open " + lab;
+      x.appendChild(el("span", "s5bk-idl1", lab)); x.appendChild(el("span", "s5bk-idn", String(num))); x.appendChild(el("span", "s5bk-idl2", "since the last brief")); x.appendChild(el("span", "s5bk-idl3", sub));
+      x.addEventListener("click", function (e2) { e2.stopPropagation(); fn(); }); g.appendChild(x); }
+    function go() { S.view = "chg"; goTab(); setTimeout(function () { render(); }, 120); }
+    tile("New", t.nw.length, "items on the Roadmap", go);
+    tile("Going live", t.live.length, "Rolling out or Launched", go);
+    tile("Planned later", t.later.length, "the planned month slipped", go);
+    b.appendChild(g); li.appendChild(b);
+    var at = ol.querySelector(".s5fu-sen") || ol.querySelector(".s5fs-sen") || ol.querySelector(".s5dv-sen"); if (at) ol.insertBefore(li, at.nextSibling); else ol.appendChild(li);
+    var sh = ol.parentNode && ol.parentNode.querySelector(".s5bk-h");
+    if (sh && window.__socRenum) { sh.textContent = "Today in " + window.__socWords(window.__socRenum(ol)) + " sentences"; if (ol.parentNode.setAttribute) ol.parentNode.setAttribute("aria-label", sh.textContent); }
+  }
+  /* Today: a block when something moved since the previous brief */
+  function today() {
+    var p = document.getElementById("tab-today"); if (!p || document.getElementById("s5hw-today")) return;
+    var E = since(); if (!E.length) return;
+    var box = el("section", "gd-today s5ft-tday"); box.id = "s5hw-today";
+    box.appendChild(el("h3", "gd-th", "M365 Roadmap: " + E.length + " change" + (E.length === 1 ? "" : "s") + " for the tracked technologies since the last brief"));
+    var ul = el("ul", "gd-trows");
+    E.slice(0, 8).forEach(function (e) { var li = el("li"); li.appendChild(el("span", "s5hw-kn s5hw-" + (KIND[e.kind] || ["", "changed"])[1], (KIND[e.kind] || [e.kind])[0]));
+      var bb = btn("RM" + e.id + " · " + (e.title || "") + " — " + kindTxt(e), "gd-name", function () { openRm(e.id); }); li.appendChild(bb); ul.appendChild(li); });
+    box.appendChild(ul); box.appendChild(btn("Open M365 Roadmap →", "gd-all", function () { S.view = "chg"; goTab(); setTimeout(render, 120); }));
+    var after = document.getElementById("s5fu-today") || document.getElementById("s5ft-today") || document.getElementById("gd-today") || p.querySelector(":scope > .s5bn");
+    if (after && after.parentNode === p) p.insertBefore(box, after.nextSibling); else p.insertBefore(box, p.firstChild);
+  }
+  /* Deadlines: what the Roadmap plans for this month and the next - "expected", weaker than an MC date */
+  var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  function deadlines() {
+    var p = document.getElementById("tab-deadlines"); if (!p || document.getElementById("s5hw-dl")) return;
+    var now = new Date(), m0 = now.getUTCMonth(), y0 = now.getUTCFullYear(), keys = [MONTHS[m0] + " CY" + y0, MONTHS[(m0 + 1) % 12] + " CY" + (m0 === 11 ? y0 + 1 : y0)];
+    var L = (D.items || []).filter(function (i) { return (i.status === "In development" || i.status === "Rolling out") && keys.indexOf(i.when) >= 0; });
+    if (!L.length) return;
+    var det = el("details", "s5hw-dl"); det.id = "s5hw-dl";
+    var sm = el("summary"); sm.appendChild(el("b", null, "Expected from the Microsoft 365 Roadmap · " + L.length)); sm.appendChild(el("span", "s5hw-dls", " planned for " + keys.join(" or ") + " - Microsoft's plan, not a deadline; an MC post gives the date")); det.appendChild(sm);
+    keys.forEach(function (k) { var M = L.filter(function (i) { return i.when === k; }); if (!M.length) return; det.appendChild(el("h4", "s5hw-day", k + " · " + M.length)); M.forEach(function (i) { det.appendChild(row(i, null)); }); });
+    var anchor = p.querySelector(":scope > .s5bn"); if (anchor && anchor.nextSibling) p.insertBefore(det, anchor.nextSibling); else p.appendChild(det);
+  }
+  function stage2() {
+    setTimeout(function () { try { sentence(0); } catch (e) { if (window.console) console.error("[5hw sentence]", e); } }, 300);
+    var k = 0; (function w() { if ((!document.getElementById("tab-today") || !document.getElementById("s5ft-today")) && ++k < 30) setTimeout(w, 500); else try { today(); } catch (e) { if (window.console) console.error("[5hw today]", e); } })();
+    var k2 = 0; (function w2() { if (!document.getElementById("tab-deadlines") && ++k2 < 30) setTimeout(w2, 500); else try { deadlines(); } catch (e) { if (window.console) console.error("[5hw deadlines]", e); } })();
+  }
   var loading = null;
   function load(cb) {
     if (D) { if (cb) cb(); return; }
     if (!onSite() || !window.fetch) return;
     (loading = loading || fetch("data/roadmap.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; })).then(function (j) {
-      if (!j || !j.items) return; if (!D) { D = j; D.items.forEach(function (i) { BY[i.id] = i; }); (D.events || []).forEach(function (e) { (EV[e.id] = EV[e.id] || []).push(e); }); }
+      if (!j || !j.items) return; if (!D) { D = j; D.items.forEach(function (i) { BY[i.id] = i; }); (D.events || []).forEach(function (e) { (EV[e.id] = EV[e.id] || []).push(e); }); stage2(); }
       if (panel && !panel.hidden && !built) render(); else if (panel) { var s0 = panel.querySelector(":scope > .s5bn"); if (!s0) panel.insertBefore(strip(), panel.firstChild); panel.setAttribute("data-units", n(D.inScope) + " items tracked"); }
       try { document.dispatchEvent(new CustomEvent("soc:woke", { detail: { id: "tab-roadmap", from: "s5hw" } })); } catch (e) {}   /* the rail reads the strip again */
       if (cb) cb();
@@ -49678,6 +49798,10 @@ details.s5ei-day[data-kf="new"] .s5ei-tile:not(.s5ei-new),details.s5ei-day[data-
 .s5bi-skr li.s5bi-relpar-kql{box-shadow:inset 4px 0 0 #1d4ed8}
 .s5bi-relb{display:inline-block;font:800 11px/1.5 var(--sans);letter-spacing:.04em;color:#fff;background:#b45309;border-radius:999px;padding:1px 8px;white-space:nowrap}
 .s5bi-rel-kql .s5bi-relb{background:#1d4ed8}
+.s5bi-skr li.s5bi-relhit.s5bi-rel-rm{border-left-color:#0f766e;background:rgba(15,118,110,.12)}
+.s5bi-skr li.s5bi-relhit.s5bi-rel-rm.on,.s5bi-skr li.s5bi-relhit.s5bi-rel-rm:hover{background:rgba(15,118,110,.24)}
+.s5bi-skr li.s5bi-relpar-rm{box-shadow:inset 4px 0 0 #0f766e}
+.s5bi-rel-rm .s5bi-relb{background:#0f766e}
 /* §5hw: M365 Roadmap tab - status pills, change badges, rows like the Message Center list */
 .s5hw-lead{margin:0 0 10px;color:var(--text)}
 .s5hw-st{display:inline-block;font:700 12px/1.6 var(--sans);border-radius:999px;padding:1px 9px;border:1px solid var(--border);color:var(--text);white-space:nowrap}
@@ -49708,6 +49832,11 @@ details.s5ei-day[data-kf="new"] .s5ei-tile:not(.s5ei-new),details.s5ei-day[data-
 .s5hw-mc{display:block;text-align:left;margin:0 0 6px;font:600 14px/1.4 var(--sans);color:var(--accent);background:none;border:1px solid var(--border);border-radius:8px;padding:7px 10px;cursor:pointer;width:100%}
 .s5hw-mc:hover{border-color:var(--accent)}
 .s5hw-src{display:inline-block;margin:0 12px 8px 0;font-weight:700}
+.s5hw-rel{margin:12px 0 0;padding:10px 12px;border:1px solid var(--border);border-left:4px solid #0f766e;border-radius:0 10px 10px 0}
+.s5hw-rel h4{margin:0 0 8px;font:700 14px/1.3 var(--sans)}
+.s5hw-dl{margin:12px 0;border:1px solid var(--border);border-left:4px solid #0f766e;border-radius:0 10px 10px 0;padding:8px 14px;background:var(--surface)}
+.s5hw-dl>summary{cursor:pointer;padding:4px 0}
+.s5hw-dls{color:var(--muted);font-size:13.5px}
 /* §5gs: related Message Center posts, Removed view, Show related */
 .mcb-reltog{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:999px;padding:5px 12px;white-space:nowrap}
 .mcb-reltog>i{width:30px;height:16px;border-radius:999px;background:#64748b;position:relative;flex:none}
