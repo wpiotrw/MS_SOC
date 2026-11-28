@@ -3,6 +3,7 @@ https://learn.microsoft.com/en-us/defender-xdr/activate-defender-rbac
 https://learn.microsoft.com/en-us/defender-xdr/advanc
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-agentsinfo-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-aiagentsinfo-table
+https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertevidence-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertinfo-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-behaviorentities-table
 https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-behaviorinfo-table

@@ -113,6 +113,7 @@ https://learn.microsoft.com/en-us/entra/fundamentals/security-copilot/conditiona
 https://learn.microsoft.com/en-us/entra/fundamentals/security-defaults
 https://learn.microsoft.com/en-us/entra/fundamentals/whatis
 https://learn.microsoft.com/en-us/entra/fundamentals/whats-new
+https://learn.microsoft.com/en-us/entra/fu…
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-bring-your-own-device
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-connector-groups
 https://learn.microsoft.com/en-us/entra/global-secure-access/concept-private-access-sign-in-every-time

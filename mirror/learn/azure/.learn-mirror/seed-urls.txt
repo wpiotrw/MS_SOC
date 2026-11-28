@@ -251,6 +251,7 @@ https://learn.microsoft.com/en-us/azure/cost-management-billing/understand/mca-u
 https://learn.microsoft.com/en-us/azure/cost-management-billing/understand/pay-bill
 https://learn.microsoft.com/en-us/azure/cost-management-billing/understand/understand-usage
 https://learn.microsoft.com/en-us/azure/cost-management-…
+https://learn.microsoft.com/en-us/azure/cost-management…
 https://learn.microsoft.com/en-us/azure/data-explorer/provision-entra-id-app
 https://learn.microsoft.com/en-us/azure/data-explorer/release-notes-cloud
 https://learn.microsoft.com/en-us/azure/defender-for-cloud
@@ -829,6 +830,7 @@ https://learn.microsoft.com/en-us/azure/virtual-machines/spot-eviction-risk-noti
 https://learn.microsoft.com/en-us/azure/virtual-machines/spot-portal
 https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms
 https://learn.microsoft.com/en-us/azure/virtual-machines/trusted-launch-existing-vm
+https://learn.microsoft.com/en-us/azure/virtual-machines/trusted-launch-existing-vm-gen-1
 https://learn.microsoft.com/en-us/azure/virtual-machines/use-premium-ssd-v2-with-availability-set
 https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-create-restore-points
 https://learn.microsoft.com/en-us/azure/virtual-machines/virtual-machines-create-restore-points-cli
