@@ -33577,6 +33577,8 @@ AzureActivity
     box.setAttribute("data-s5do", "1");
     panel.insertBefore(box, panel.firstChild);
     panel.setAttribute("data-units", n(und.length) + " settings not in $metadata · " + n((D.events || []).length) + " changes in 60 days");
+    (function () { var tb = document.getElementById("tabbtn-tab-radar"), k = und.length; if (!tb || !k) return; var nc = tb.querySelector(".navcount");   /* §5hx: the tab number, like every tab */
+      if (!nc) { nc = document.createElement("span"); nc.className = "navcount"; tb.appendChild(nc); } nc.textContent = String(k); tb.setAttribute("data-count-of", "settings not in $metadata"); })();
   }
   function render() {
     if (!body || !D) return;
@@ -34045,6 +34047,8 @@ AzureActivity
     }
     panel.insertBefore(box, panel.firstChild);
     panel.setAttribute("data-units", "version " + D.version + " · " + n((D.totals || {}).sets) + " endpoint sets");
+    (function () { var tb = document.getElementById("tabbtn-tab-m365ep"), k = (D.totals || {}).sets; if (!tb || !k) return; var nc = tb.querySelector(".navcount");   /* §5hx: the tab number, like every tab */
+      if (!nc) { nc = document.createElement("span"); nc.className = "navcount"; tb.appendChild(nc); } nc.textContent = String(k); tb.setAttribute("data-count-of", "endpoint sets in the list"); })();
   }
   function render() {
     if (!body || !D) return; built = true; body.textContent = "";
@@ -34383,6 +34387,15 @@ AzureActivity
     keys.forEach(function (k) { var M = L.filter(function (i) { return i.when === k; }); if (!M.length) return; det.appendChild(el("h4", "s5hw-day", k + " · " + M.length)); M.forEach(function (i) { det.appendChild(row(i, null)); }); });
     var anchor = p.querySelector(":scope > .s5bn"); if (anchor && anchor.nextSibling) p.insertBefore(det, anchor.nextSibling); else p.appendChild(det);
   }
+  /* §5hx (28 XI 2026, owner: "why has the Roadmap tab no number in a rounded frame on the right, like the others - on the phone
+     neither?"): the tab's number is the number of items its list shows (like Message Center: the posts in its list); the
+     phone's tab bar (s5br) reads the same .navcount */
+  function stampCount() {
+    var tb = document.getElementById("tabbtn-tab-roadmap"), k = (D.items || []).length; if (!tb || !k) return;
+    var nc = tb.querySelector(".navcount"); if (!nc) { nc = el("span", "navcount"); tb.appendChild(nc); }
+    nc.textContent = String(k); tb.setAttribute("data-count-of", "Roadmap items in the list (" + n(D.inScope) + " tracked)");
+    document.dispatchEvent(new CustomEvent("soc:woke", { detail: { from: "s5hx" } }));
+  }
   function stage2() {
     setTimeout(function () { try { sentence(0); } catch (e) { if (window.console) console.error("[5hw sentence]", e); } }, 300);
     var k = 0; (function w() { if ((!document.getElementById("tab-today") || !document.getElementById("s5ft-today")) && ++k < 30) setTimeout(w, 500); else try { today(); } catch (e) { if (window.console) console.error("[5hw today]", e); } })();
@@ -34393,7 +34406,7 @@ AzureActivity
     if (D) { if (cb) cb(); return; }
     if (!onSite() || !window.fetch) return;
     (loading = loading || fetch("data/roadmap.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; })).then(function (j) {
-      if (!j || !j.items) return; if (!D) { D = j; D.items.forEach(function (i) { BY[i.id] = i; }); (D.events || []).forEach(function (e) { (EV[e.id] = EV[e.id] || []).push(e); }); stage2(); }
+      if (!j || !j.items) return; if (!D) { D = j; D.items.forEach(function (i) { BY[i.id] = i; }); (D.events || []).forEach(function (e) { (EV[e.id] = EV[e.id] || []).push(e); }); stage2(); stampCount(); }
       if (panel && !panel.hidden && !built) render(); else if (panel) { var s0 = panel.querySelector(":scope > .s5bn"); if (!s0) panel.insertBefore(strip(), panel.firstChild); panel.setAttribute("data-units", n(D.inScope) + " items tracked"); }
       try { document.dispatchEvent(new CustomEvent("soc:woke", { detail: { id: "tab-roadmap", from: "s5hw" } })); } catch (e) {}   /* the rail reads the strip again */
       if (cb) cb();
