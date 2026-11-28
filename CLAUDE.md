@@ -26614,8 +26614,8 @@ liczby w zaokraglonej ramce ... na mobile tez nie ma tego indykatora". Przyczyny
 pozycji listy, 596; `data-count-of` z liczba sledzonych). Ta sama klasa usterki: Graph API Radar (ustawienia spoza $metadata) i
 M365 endpoints (zestawy) — stempel w ich render(). Zostaje bez licznika: Baselines i About (huby, nie listy). (2) Szyna pokazywala
 "+944 new": pierwszy odczyt 28 XI (baza) zapisal PUSTY `snapshot.prev.json`, drugi odczyt tego dnia porownal z pustym → 944 "new".
-`collect_roadmap.py`: przy bazie prev = biezacy snapshot; pusty prev → porownanie z `snapshot.json`. Po poprawce: 6 zdarzen
-"removed" — pozycje Launched, ktore Microsoft zdjal dzis ze swojego API (sprawdzone: brak w API).
+`collect_roadmap.py`: przy bazie prev = biezacy snapshot; pusty prev → porownanie z `snapshot.json`. Na zywo po poprawce (10:08 UTC): 0 zdarzen;
+6 pozycji Launched, ktore Microsoft zdjal z API miedzy odczytami 08:25 i 08:42 (dzien bazy), nie ma w zdarzeniach — baza je pominela.
 
 **§5hw-b (28 XI 2026)** — ROADMAP ETAP 2 I ZRODLA KONTROLNE. Piotr: "Tak potwierdzam etap 2. Czy tylko merill zbiera rm? Mamy jakies
 dodatkowe zrodla dla cross check, awarii merilla?" Merill NIE jest zrodlem Roadmapy w portalu (tylko link w karcie). Zrodla w
