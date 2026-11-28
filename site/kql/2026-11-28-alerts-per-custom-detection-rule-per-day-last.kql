@@ -1,0 +1,15 @@
+// title: Alerts per custom detection rule per day, last 30 days - which rules would collapse into one incident once alert grouping is switched on
+// date: 2026-11-28
+// product: Defender XDR
+// tables: AlertInfo
+// purpose: AlertInfo rows from custom detections, counted per rule title and day, with the busiest day per rule. DetectionSource value for custom rules taken as the phrase 'Custom detection' (inferred). Not run against a tenant in this pass.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertinfo-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Microsoft SOC Brief 28 Nov 2026 - alert volume per custom detection rule (defender-xdr-custom-detection-alert-grouping)
+// Columns as on the AlertInfo reference. DetectionSource phrase inferred. Not run against a tenant in this pass.
+AlertInfo
+| where Timestamp > ago(30d)
+| where DetectionSource has "Custom detection"
+| summarize Alerts = count() by Title, Day = bin(Timestamp, 1d)
+| summarize TotalAlerts = sum(Alerts), BusiestDay = max(Alerts), DaysFiring = dcount(Day) by Title
+| order by BusiestDay desc

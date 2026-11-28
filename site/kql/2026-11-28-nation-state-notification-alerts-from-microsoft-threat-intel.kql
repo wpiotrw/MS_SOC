@@ -1,0 +1,19 @@
+// title: Nation-State Notification alerts from Microsoft Threat Intelligence in the last 180 days, with their entities - what an analyst without the new RBAC data source
+// date: 2026-11-28
+// product: Defender XDR
+// tables: AlertEvidence, AlertInfo
+// purpose: AlertInfo rows whose ServiceSource or DetectionSource names Microsoft Threat Intelligence, joined to AlertEvidence on AlertId for the accounts and devices involved. The exact source string for NSN alerts is not stated by Microsoft on the table reference, so the filter matches the phrase (inferred). 
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertinfo-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Microsoft SOC Brief 28 Nov 2026 - alerts raised by Microsoft Threat Intelligence (defender-xdr-rbac-mti-data-source-2026-11-26)
+// Columns as on the AlertInfo and AlertEvidence references. Source string matched by phrase (inferred). Not run against a tenant in this pass.
+AlertInfo
+| where Timestamp > ago(180d)
+| where ServiceSource has "Threat Intelligence" or DetectionSource has "Threat Intelligence"
+| join kind=leftouter (
+    AlertEvidence
+    | where Timestamp > ago(180d)
+    | summarize Accounts = make_set(AccountUpn, 20), Devices = make_set(DeviceName, 20) by AlertId
+  ) on AlertId
+| project Timestamp, AlertId, Title, Severity, Category, ServiceSource, DetectionSource, Accounts, Devices
+| order by Timestamp desc

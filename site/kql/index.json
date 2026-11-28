@@ -60,6 +60,43 @@
   "repo": "Microsoft Sentinel (Azure-Sentinel) - recent hunting queries and detections"
  },
  {
+  "file": "2026-11-28-nation-state-notification-alerts-from-microsoft-threat-intel.kql",
+  "title": "Nation-State Notification alerts from Microsoft Threat Intelligence in the last 180 days, with their entities - what an analyst without the new RBAC data source",
+  "date": "2026-11-28",
+  "product": "Defender XDR",
+  "tables": [
+   "AlertEvidence",
+   "AlertInfo"
+  ],
+  "purpose": "AlertInfo rows whose ServiceSource or DetectionSource names Microsoft Threat Intelligence, joined to AlertEvidence on AlertId for the accounts and devices involved. The exact source string for NSN alerts is not stated by Microsoft on the table reference, so the filter matches the phrase (inferred). ",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertinfo-table",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-28-custom-detection-alerts-and-the-entity-types-they.kql",
+  "title": "Custom detection alerts and the entity types they carry, last 30 days - which rules need the expanded entity mapping before grouping by entity works",
+  "date": "2026-11-28",
+  "product": "Defender XDR",
+  "tables": [
+   "AlertEvidence"
+  ],
+  "purpose": "AlertEvidence rows of custom detection alerts, summarised per rule title with the entity types and evidence roles present. DetectionSource phrase inferred as above. Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertevidence-table",
+  "kind": "brief"
+ },
+ {
+  "file": "2026-11-28-alerts-per-custom-detection-rule-per-day-last.kql",
+  "title": "Alerts per custom detection rule per day, last 30 days - which rules would collapse into one incident once alert grouping is switched on",
+  "date": "2026-11-28",
+  "product": "Defender XDR",
+  "tables": [
+   "AlertInfo"
+  ],
+  "purpose": "AlertInfo rows from custom detections, counted per rule title and day, with the busiest day per rule. DetectionSource value for custom rules taken as the phrase 'Custom detection' (inferred). Not run against a tenant in this pass.",
+  "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertinfo-table",
+  "kind": "brief"
+ },
+ {
   "file": "2026-11-27-vulnerability-records-per-device-group-critical-and-high.kql",
   "title": "Vulnerability records per device group, critical and high only - the slices a server-side $filter on the export assessment API would return",
   "date": "2026-11-27",
@@ -70,7 +107,10 @@
   ],
   "purpose": "DeviceTvmSoftwareVulnerabilities joined to the latest DeviceInfo MachineGroup per device, counting devices, CVEs and records per group for Critical and High severity. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-devicetvmsoftwarevulnerabilities-table",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-28"
+  ]
  },
  {
   "file": "2026-11-27-successful-single-factor-sign-ins-that-used-a.kql",
@@ -82,7 +122,10 @@
   ],
   "purpose": "Successful SigninLogs records whose authentication requirement is single-factor and whose authentication details record the Text message method, summarised per user and app. AuthenticationDetails is a JSON string and is parsed first. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-28"
+  ]
  },
  {
   "file": "2026-11-27-onboarded-devices-per-active-directory-domain-and-the.kql",
@@ -94,7 +137,10 @@
   ],
   "purpose": "Latest DeviceInfo record per onboarded device; the domain is taken as everything after the first dot of DeviceName (the FQDN), which approximates the portal's Domain field. JoinType and MachineGroup show how the domain-less devices are managed. Not run against a tenant in this pass.",
   "source": "https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-deviceinfo-table",
-  "kind": "brief"
+  "kind": "brief",
+  "reused": [
+   "2026-11-28"
+  ]
  },
  {
   "file": "articles/2026-11-26-detection-1-artex-credential-attack-burst-failed-logons.kql",
@@ -125,7 +171,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/signinlogs",
   "kind": "brief",
   "reused": [
-   "2026-11-27"
+   "2026-11-27",
+   "2026-11-28"
   ]
  },
  {
@@ -140,7 +187,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/microsoftgraphactivitylogs",
   "kind": "brief",
   "reused": [
-   "2026-11-27"
+   "2026-11-27",
+   "2026-11-28"
   ]
  },
  {
@@ -155,7 +203,8 @@
   "source": "https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/usage",
   "kind": "brief",
   "reused": [
-   "2026-11-27"
+   "2026-11-27",
+   "2026-11-28"
   ]
  },
  {
@@ -410,7 +459,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-26",
-   "2026-11-27"
+   "2026-11-27",
+   "2026-11-28"
   ]
  },
  {
@@ -427,7 +477,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-26",
-   "2026-11-27"
+   "2026-11-27",
+   "2026-11-28"
   ]
  },
  {
@@ -443,7 +494,8 @@
   "kind": "brief",
   "reused": [
    "2026-11-26",
-   "2026-11-27"
+   "2026-11-27",
+   "2026-11-28"
   ]
  },
  {
@@ -719,7 +771,8 @@
   "reused": [
    "2026-11-25",
    "2026-11-26",
-   "2026-11-27"
+   "2026-11-27",
+   "2026-11-28"
   ]
  },
  {
@@ -736,7 +789,8 @@
   "reused": [
    "2026-11-25",
    "2026-11-26",
-   "2026-11-27"
+   "2026-11-27",
+   "2026-11-28"
   ]
  },
  {
@@ -753,7 +807,8 @@
   "reused": [
    "2026-11-25",
    "2026-11-26",
-   "2026-11-27"
+   "2026-11-27",
+   "2026-11-28"
   ]
  },
  {

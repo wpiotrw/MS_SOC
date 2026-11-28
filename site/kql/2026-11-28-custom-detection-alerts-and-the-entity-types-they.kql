@@ -1,0 +1,15 @@
+// title: Custom detection alerts and the entity types they carry, last 30 days - which rules need the expanded entity mapping before grouping by entity works
+// date: 2026-11-28
+// product: Defender XDR
+// tables: AlertEvidence
+// purpose: AlertEvidence rows of custom detection alerts, summarised per rule title with the entity types and evidence roles present. DetectionSource phrase inferred as above. Not run against a tenant in this pass.
+// source: https://learn.microsoft.com/en-us/defender-xdr/advanced-hunting-alertevidence-table
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+// Microsoft SOC Brief 28 Nov 2026 - entity types per custom detection rule (defender-xdr-custom-detection-entity-mapping)
+// Columns as on the AlertEvidence reference. DetectionSource phrase inferred. Not run against a tenant in this pass.
+AlertEvidence
+| where Timestamp > ago(30d)
+| where DetectionSource has "Custom detection"
+| summarize Alerts = dcount(AlertId), EntityTypes = make_set(EntityType), Roles = make_set(EvidenceRole) by Title
+| extend EntityTypeCount = array_length(EntityTypes)
+| order by EntityTypeCount asc, Alerts desc

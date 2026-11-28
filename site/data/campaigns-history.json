@@ -2200,69 +2200,6 @@
 "MC1529463"
 ]
 },
-"c-mc1474124":{
-"firstSeen":"2026-10-09",
-"lastSeen":"2026-11-28",
-"name":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
-"status":"No date",
-"members":[
-"MC1474124"
-],
-"log":[
-{
-"date":"2026-10-29",
-"id":"MC1474124",
-"what":"Entered the brief (New)",
-"before":"",
-"after":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
-"title":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
-"link":"https://deltapulse.app/item/MC1474124"
-},
-{
-"date":"2026-10-29",
-"id":"MC1474124",
-"what":"Microsoft revised the post",
-"before":"2026-09-18",
-"after":"2026-10-28",
-"title":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
-"link":"https://deltapulse.app/item/MC1474124"
-}
-],
-"milestones":{
-"MC1474124|posted":{
-"date":"2026-09-18",
-"label":"18 Sep 2026",
-"text":"Posted: A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps"
-}
-},
-"moves":[],
-"materials":{
-"https://deltapulse.app/item/MC1474124":{
-"title":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
-"link":"https://deltapulse.app/item/MC1474124",
-"source":"Message Center",
-"id":"MC1474124",
-"date":"2026-09-18",
-"updated":"2026-09-18",
-"group":"microsoft",
-"found":"2026-10-09"
-},
-"https://learn.microsoft.com/en-us/azure/foundry/whats-new-foundry":{
-"title":"Deploy and use Grok models in Microsoft Foundry",
-"link":"https://learn.microsoft.com/en-us/azure/foundry/whats-new-foundry",
-"source":"Microsoft Learn · What's new · Azure AI Foundry",
-"date":"2026-10-30",
-"group":"microsoft",
-"found":"2026-11-26"
-}
-},
-"final":null,
-"type":"Rollout",
-"tech":"Copilot",
-"posts":[
-"MC1474124"
-]
-},
 "c-mc1528013":{
 "firstSeen":"2026-10-28",
 "lastSeen":"2026-11-28",
@@ -3853,6 +3790,78 @@
 "MC1479516"
 ]
 },
+"c-mc1474124":{
+"firstSeen":"2026-10-09",
+"lastSeen":"2026-11-28",
+"name":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
+"status":"No date",
+"members":[
+"MC1474124"
+],
+"log":[
+{
+"date":"2026-11-28",
+"id":"MC1474124",
+"what":"Microsoft revised the post",
+"before":"2026-10-28",
+"after":"2026-09-18",
+"title":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
+"link":"https://deltapulse.app/item/MC1474124"
+},
+{
+"date":"2026-10-29",
+"id":"MC1474124",
+"what":"Entered the brief (New)",
+"before":"",
+"after":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
+"title":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
+"link":"https://deltapulse.app/item/MC1474124"
+},
+{
+"date":"2026-10-29",
+"id":"MC1474124",
+"what":"Microsoft revised the post",
+"before":"2026-09-18",
+"after":"2026-10-28",
+"title":"Grok 4.6 reaches Copilot Chat in early November for Frontier tenants that enabled the SpaceXAI subprocessor setting and usage-based billing",
+"link":"https://deltapulse.app/item/MC1474124"
+}
+],
+"milestones":{
+"MC1474124|posted":{
+"date":"2026-09-18",
+"label":"18 Sep 2026",
+"text":"Posted: A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps"
+}
+},
+"moves":[],
+"materials":{
+"https://deltapulse.app/item/MC1474124":{
+"title":"A SpaceXAI subprocessor setting appears in the admin center, off by default, unlocking Grok models in Office apps",
+"link":"https://deltapulse.app/item/MC1474124",
+"source":"Message Center",
+"id":"MC1474124",
+"date":"2026-09-18",
+"updated":"2026-09-18",
+"group":"microsoft",
+"found":"2026-10-09"
+},
+"https://learn.microsoft.com/en-us/azure/foundry/whats-new-foundry":{
+"title":"Deploy and use Grok models in Microsoft Foundry",
+"link":"https://learn.microsoft.com/en-us/azure/foundry/whats-new-foundry",
+"source":"Microsoft Learn · What's new · Azure AI Foundry",
+"date":"2026-10-30",
+"group":"microsoft",
+"found":"2026-11-26"
+}
+},
+"final":null,
+"type":"Rollout",
+"tech":"Copilot",
+"posts":[
+"MC1474124"
+]
+},
 "c-mc1278920":{
 "firstSeen":"2026-10-09",
 "lastSeen":"2026-11-28",
@@ -4842,14 +4851,6 @@
 "key":"#0",
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
-"seen":"2026-11-25",
-"text":"August 1, 2026."
-},
-{
-"src":"MC1293480",
-"key":"#0",
-"was":"31 Dec 2026",
-"now":"1 Aug 2026",
 "seen":"2026-11-26",
 "text":"August 1, 2026."
 },
@@ -4931,6 +4932,14 @@
 "was":"31 Dec 2026",
 "now":"1 Aug 2026",
 "seen":"2026-11-27",
+"text":"August 1, 2026."
+},
+{
+"src":"MC1293480",
+"key":"#0",
+"was":"31 Dec 2026",
+"now":"1 Aug 2026",
+"seen":"2026-11-28",
 "text":"August 1, 2026."
 },
 {
@@ -5563,22 +5572,6 @@
 "key":"early#0",
 "was":"early Dec 2026",
 "now":"early Feb 2026",
-"seen":"2026-11-26",
-"text":"early February 2026."
-},
-{
-"src":"MC1182696",
-"key":"#0",
-"was":"Jul 2027",
-"now":"Feb 2027",
-"seen":"2026-11-26",
-"text":"February 2027."
-},
-{
-"src":"MC1182696",
-"key":"early#0",
-"was":"early Dec 2026",
-"now":"early Feb 2026",
 "seen":"2026-11-27",
 "text":"early February 2026."
 },
@@ -5668,6 +5661,22 @@
 "was":"Jul 2027",
 "now":"Feb 2027",
 "seen":"2026-11-27",
+"text":"February 2027."
+},
+{
+"src":"MC1182696",
+"key":"early#0",
+"was":"early Dec 2026",
+"now":"early Feb 2026",
+"seen":"2026-11-28",
+"text":"early February 2026."
+},
+{
+"src":"MC1182696",
+"key":"#0",
+"was":"Jul 2027",
+"now":"Feb 2027",
+"seen":"2026-11-28",
 "text":"February 2027."
 },
 {
@@ -7183,6 +7192,15 @@
 ],
 "log":[
 {
+"date":"2026-11-28",
+"id":"MC1465763",
+"what":"Microsoft revised the post",
+"before":"2026-10-28",
+"after":"2026-09-01",
+"title":"Entra switches off unused or failing SMS first-factor sign-in tenant by tenant; the rollout now runs to the end of November 2026",
+"link":"https://deltapulse.app/item/MC1465763"
+},
+{
 "date":"2026-11-24",
 "id":"MC1519855",
 "what":"Microsoft revised the post",
@@ -7266,15 +7284,6 @@
 {
 "date":"2026-10-28",
 "id":"MC1465763",
-"what":"Microsoft moved the date",
-"before":"late Sep 2026",
-"after":"end of Nov 2026",
-"title":"Entra switches off unused or failing SMS first-factor sign-in tenant by tenant; the rollout now runs to the end of November 2026",
-"link":"https://deltapulse.app/item/MC1465763"
-},
-{
-"date":"2026-10-28",
-"id":"MC1465763",
 "what":"Microsoft revised the post",
 "before":"2026-09-01",
 "after":"2026-10-28",
@@ -7334,6 +7343,15 @@
 "after":"We have updated the content and timeline.",
 "title":"Microsoft-provided SMS and voice retirement splits into two waves: Global Administrators and external users move to 1 July 2027",
 "link":"https://deltapulse.app/item/MC1426371"
+},
+{
+"date":"2026-09-01",
+"id":"MC1465763",
+"what":"Microsoft moved the date",
+"before":"late Sep 2026",
+"after":"end of Nov 2026",
+"title":"Entra switches off unused or failing SMS first-factor sign-in tenant by tenant; the rollout now runs to the end of November 2026",
+"link":"https://deltapulse.app/item/MC1465763"
 }
 ],
 "milestones":{
@@ -9288,22 +9306,6 @@
 "key":"rollout begins in early and is expected to complete by late#0",
 "was":"early May 2026",
 "now":"early Mar 2026",
-"seen":"2026-11-26",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#1",
-"was":"late Jun 2026",
-"now":"late Mar 2026",
-"seen":"2026-11-26",
-"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
-},
-{
-"src":"MC1221452",
-"key":"rollout begins in early and is expected to complete by late#0",
-"was":"early May 2026",
-"now":"early Mar 2026",
 "seen":"2026-11-27",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
@@ -9393,6 +9395,22 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "seen":"2026-11-27",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#0",
+"was":"early May 2026",
+"now":"early Mar 2026",
+"seen":"2026-11-28",
+"text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"src":"MC1221452",
+"key":"rollout begins in early and is expected to complete by late#1",
+"was":"late Jun 2026",
+"now":"late Mar 2026",
+"seen":"2026-11-28",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
 },
 {
@@ -21026,6 +21044,16 @@
 "was":"late Jun 2026",
 "now":"late Mar 2026",
 "text":"Rollout begins in early March 2026 and is expected to complete by late March 2026."
+},
+{
+"day":"2026-11-28",
+"cid":"c-mc1435782",
+"type":"material",
+"name":"Retirement of custom CSS positioning properties in custom branding",
+"group":"community",
+"title":"What Is Tailwind CSS? Explained Simply for Beginners",
+"source":"NeonTiger12",
+"link":"https://dev.to/kushkrg/what-is-tailwind-css-explained-simply-for-beginners-bge"
 }
 ],
 "archive":{
@@ -27471,6 +27499,14 @@
 "date":"2026-11-15",
 "group":"community",
 "found":"2026-11-15"
+},
+"https://dev.to/kushkrg/what-is-tailwind-css-explained-simply-for-beginners-bge":{
+"title":"What Is Tailwind CSS? Explained Simply for Beginners",
+"link":"https://dev.to/kushkrg/what-is-tailwind-css-explained-simply-for-beginners-bge",
+"source":"NeonTiger12",
+"date":"2026-11-28",
+"group":"community",
+"found":"2026-11-28"
 }
 },
 "final":"2026-10-26",
