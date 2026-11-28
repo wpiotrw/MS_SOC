@@ -1,5 +1,65 @@
 [
  {
+  "file": "community/2026-11-28-entra-id-security-defaults-disabled.kql",
+  "title": "Entra ID security defaults disabled",
+  "date": "2026-11-28",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Identifies when security defaults are turned off in Microsoft Entra ID. Security defaults require all users to register for MFA, require MFA for administrators and when necessary for users, protect access to the Azure portal and other management tools, and block legacy authentication and device code",
+  "source": "https://github.com/Azure/Azure-Sentinel/blob/6b8de9db21bbfa9d43094403b2b603b2d21b6b96/Detections/AuditLogs/SecurityDefaultsDisabled.yaml",
+  "kind": "repo",
+  "author": "Microsoft and contributors",
+  "link": "https://github.com/Azure/Azure-Sentinel/blob/6b8de9db21bbfa9d43094403b2b603b2d21b6b96/Detections/AuditLogs/SecurityDefaultsDisabled.yaml",
+  "license": "MIT",
+  "mitre": [
+   "T1556.006"
+  ],
+  "repo": "Microsoft Sentinel (Azure-Sentinel) - recent hunting queries and detections"
+ },
+ {
+  "file": "community/2026-11-28-entra-id-cross-tenant-identity-sync-allowed.kql",
+  "title": "Entra ID cross-tenant identity sync allowed",
+  "date": "2026-11-28",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Identifies when cross-tenant identity synchronization from a partner tenant is allowed in Microsoft Entra ID, either by creating the setting with inbound sync allowed or by changing an existing one to allowed. When inbound sync is allowed, administrators of the partner tenant can create, update and ",
+  "source": "https://github.com/Azure/Azure-Sentinel/blob/6b8de9db21bbfa9d43094403b2b603b2d21b6b96/Detections/AuditLogs/CrossTenantIdentitySyncAllowed.yaml",
+  "kind": "repo",
+  "author": "Microsoft and contributors",
+  "link": "https://github.com/Azure/Azure-Sentinel/blob/6b8de9db21bbfa9d43094403b2b603b2d21b6b96/Detections/AuditLogs/CrossTenantIdentitySyncAllowed.yaml",
+  "license": "MIT",
+  "mitre": [
+   "T1136.003",
+   "T1199",
+   "T1484.002"
+  ],
+  "repo": "Microsoft Sentinel (Azure-Sentinel) - recent hunting queries and detections"
+ },
+ {
+  "file": "community/2026-11-28-entra-id-authentication-strength-change.kql",
+  "title": "Entra ID authentication strength change",
+  "date": "2026-11-28",
+  "product": "Entra",
+  "tables": [
+   "AuditLogs"
+  ],
+  "purpose": "Identifies when the allowed sign-in method combinations of a custom authentication strength are changed in Microsoft Entra ID. An authentication strength lists the method combinations that satisfy a Conditional Access policy, for example phishing-resistant methods only. An attacker with the Conditio",
+  "source": "https://github.com/Azure/Azure-Sentinel/blob/6b8de9db21bbfa9d43094403b2b603b2d21b6b96/Detections/AuditLogs/AuthenticationStrengthChange.yaml",
+  "kind": "repo",
+  "author": "Microsoft and contributors",
+  "link": "https://github.com/Azure/Azure-Sentinel/blob/6b8de9db21bbfa9d43094403b2b603b2d21b6b96/Detections/AuditLogs/AuthenticationStrengthChange.yaml",
+  "license": "MIT",
+  "mitre": [
+   "T1556.006",
+   "T1556.009"
+  ],
+  "repo": "Microsoft Sentinel (Azure-Sentinel) - recent hunting queries and detections"
+ },
+ {
   "file": "2026-11-27-vulnerability-records-per-device-group-critical-and-high.kql",
   "title": "Vulnerability records per device group, critical and high only - the slices a server-side $filter on the export assessment API would return",
   "date": "2026-11-27",

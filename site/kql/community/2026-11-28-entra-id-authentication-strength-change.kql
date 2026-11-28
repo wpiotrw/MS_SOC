@@ -1,0 +1,41 @@
+// title: Entra ID authentication strength change
+// date: 2026-11-28
+// product: Entra
+// tables: AuditLogs
+// purpose: Identifies when the allowed sign-in method combinations of a custom authentication strength are changed in Microsoft Entra ID. An authentication strength lists the method combinations that satisfy a Conditional Access policy, for example phishing-resistant methods only. An attacker with the Conditio
+// source: https://github.com/Azure/Azure-Sentinel/blob/6b8de9db21bbfa9d43094403b2b603b2d21b6b96/Detections/AuditLogs/AuthenticationStrengthChange.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where TimeGenerated > ago(2h)
+| where ingestion_time() > ago(1h)
+| where OperationName =~ "Authentication Strength Policy Update"
+| where Result !~ "failure"
+| extend InitiatingAppName = tostring(InitiatedBy.app.displayName)
+| extend InitiatingUserPrincipalName = tostring(InitiatedBy.user.userPrincipalName)
+| extend InitiatingAadUserId = tostring(InitiatedBy.user.id)
+| extend InitiatingIPAddress = tostring(iff(isnotempty(InitiatedBy.user.ipAddress), InitiatedBy.user.ipAddress, InitiatedBy.app.ipAddress))
+| extend InitiatingAccountName = tostring(split(InitiatingUserPrincipalName, "@")[0]), InitiatingAccountUPNSuffix = tostring(split(InitiatingUserPrincipalName, "@")[1])
+| mv-apply Target = TargetResources on (
+    mv-expand Property = Target.modifiedProperties
+    | summarize PropertyBag = make_bag(bag_pack(tostring(Property.displayName), bag_pack("old", tostring(Property.oldValue), "new", tostring(Property.newValue))))
+  )
+| extend CombinationsBefore = trim('"', tostring(PropertyBag.AllowedCombinations.old))
+| extend CombinationsAfter = trim('"', tostring(PropertyBag.AllowedCombinations.new))
+| extend StrengthId = trim('"', tostring(PropertyBag.Id.new))
+| where isnotempty(CombinationsAfter)
+| mv-apply Combination = split(CombinationsBefore, "|") to typeof(string) on (
+    extend Methods = strcat_array(array_sort_asc(split(replace_string(Combination, " ", ""), ",")), ",")
+    | where isnotempty(Methods)
+    | summarize NormalizedBefore = tostring(array_sort_asc(make_set(Methods)))
+  )
+| mv-apply Combination = split(CombinationsAfter, "|") to typeof(string) on (
+    extend Methods = strcat_array(array_sort_asc(split(replace_string(Combination, " ", ""), ",")), ",")
+    | where isnotempty(Methods)
+    | summarize NormalizedAfter = tostring(array_sort_asc(make_set(Methods)))
+  )
+| where NormalizedBefore != NormalizedAfter
+| project-away NormalizedBefore, NormalizedAfter
+| project-reorder TimeGenerated, OperationName, StrengthId, CombinationsBefore, CombinationsAfter, InitiatingUserPrincipalName, InitiatingAppName, InitiatingIPAddress

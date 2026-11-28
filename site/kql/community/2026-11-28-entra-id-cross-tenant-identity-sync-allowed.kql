@@ -1,0 +1,31 @@
+// title: Entra ID cross-tenant identity sync allowed
+// date: 2026-11-28
+// product: Entra
+// tables: AuditLogs
+// purpose: Identifies when cross-tenant identity synchronization from a partner tenant is allowed in Microsoft Entra ID, either by creating the setting with inbound sync allowed or by changing an existing one to allowed. When inbound sync is allowed, administrators of the partner tenant can create, update and 
+// source: https://github.com/Azure/Azure-Sentinel/blob/6b8de9db21bbfa9d43094403b2b603b2d21b6b96/Detections/AuditLogs/CrossTenantIdentitySyncAllowed.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where TimeGenerated > ago(2h)
+| where ingestion_time() > ago(1h)
+| where OperationName in~ ("Create a partner cross-tenant identity sync setting", "Update a partner cross-tenant identity sync setting")
+| where Result !~ "failure"
+| extend InitiatingAppName = tostring(InitiatedBy.app.displayName)
+| extend InitiatingUserPrincipalName = tostring(InitiatedBy.user.userPrincipalName)
+| extend InitiatingAadUserId = tostring(InitiatedBy.user.id)
+| extend InitiatingIPAddress = tostring(iff(isnotempty(InitiatedBy.user.ipAddress), InitiatedBy.user.ipAddress, InitiatedBy.app.ipAddress))
+| extend InitiatingAccountName = tostring(split(InitiatingUserPrincipalName, "@")[0]), InitiatingAccountUPNSuffix = tostring(split(InitiatingUserPrincipalName, "@")[1])
+| mv-apply Target = TargetResources on (
+    mv-expand Property = Target.modifiedProperties
+    | summarize PropertyBag = make_bag(bag_pack(tostring(Property.displayName), bag_pack("old", tostring(Property.oldValue), "new", tostring(Property.newValue))))
+  )
+| extend PartnerTenantId = tostring(parse_json(tostring(PropertyBag.PartnerIdentifier.new))[0])
+| extend DetailBefore = parse_json(tostring(parse_json(tostring(PropertyBag.PartnerPolicyDetail.old))[0].Detail))
+| extend DetailAfter = parse_json(tostring(parse_json(tostring(PropertyBag.PartnerPolicyDetail.new))[0].Detail))
+| extend SyncAllowedBefore = tostring(DetailBefore.UserSyncInbound.IsSyncAllowed)
+| extend SyncAllowedAfter = tostring(DetailAfter.UserSyncInbound.IsSyncAllowed)
+| where (SyncAllowedAfter =~ "true" and SyncAllowedBefore !~ "true") or (isempty(SyncAllowedAfter) and isnotempty(tostring(PropertyBag.PartnerPolicyDetail.new)))
+| project-reorder TimeGenerated, OperationName, PartnerTenantId, SyncAllowedBefore, SyncAllowedAfter, InitiatingUserPrincipalName, InitiatingAppName, InitiatingIPAddress

@@ -1,0 +1,35 @@
+// title: Entra ID security defaults disabled
+// date: 2026-11-28
+// product: Entra
+// tables: AuditLogs
+// purpose: Identifies when security defaults are turned off in Microsoft Entra ID. Security defaults require all users to register for MFA, require MFA for administrators and when necessary for users, protect access to the Azure portal and other management tools, and block legacy authentication and device code
+// source: https://github.com/Azure/Azure-Sentinel/blob/6b8de9db21bbfa9d43094403b2b603b2d21b6b96/Detections/AuditLogs/SecurityDefaultsDisabled.yaml
+// kind: repo
+// author: Microsoft and contributors
+// license: MIT (as stated by the repository)
+// archived by tools/kql_archive.py (CLAUDE.md 5l, 5eu)
+AuditLogs
+| where TimeGenerated > ago(2h)
+| where ingestion_time() > ago(1h)
+| where OperationName =~ "Update security defaults"
+| where Result !~ "failure"
+| extend InitiatingAppName = tostring(InitiatedBy.app.displayName)
+| extend InitiatingAppServicePrincipalId = tostring(InitiatedBy.app.servicePrincipalId)
+| extend InitiatingUserPrincipalName = tostring(InitiatedBy.user.userPrincipalName)
+| extend InitiatingAadUserId = tostring(InitiatedBy.user.id)
+| extend InitiatingIPAddress = tostring(iff(isnotempty(InitiatedBy.user.ipAddress), InitiatedBy.user.ipAddress, InitiatedBy.app.ipAddress))
+| extend InitiatingAccountName = tostring(split(InitiatingUserPrincipalName, "@")[0]), InitiatingAccountUPNSuffix = tostring(split(InitiatingUserPrincipalName, "@")[1])
+| extend TargetResourceName = tostring(TargetResources[0].displayName)
+| extend TargetResourceType = tostring(TargetResources[0].type)
+| extend ModifiedProperties = TargetResources[0].modifiedProperties
+| mv-apply Property = ModifiedProperties on (
+    extend PropertyOld = parse_json(tostring(Property.oldValue)), PropertyNew = parse_json(tostring(Property.newValue))
+    | where isnotempty(tostring(PropertyNew.isEnabled)) or isnotempty(tostring(PropertyOld.isEnabled))
+    | project SecurityDefaultsEnabledBefore = tostring(PropertyOld.isEnabled), SecurityDefaultsEnabledAfter = tostring(PropertyNew.isEnabled)
+    | extend IsDisableChange = iff(SecurityDefaultsEnabledAfter =~ "false" and not(SecurityDefaultsEnabledBefore =~ "false"), 1, 0)
+    | top 1 by IsDisableChange desc
+    | project-away IsDisableChange
+  )
+| where SecurityDefaultsEnabledAfter =~ "false"
+| where not(SecurityDefaultsEnabledBefore =~ "false")
+| project-reorder TimeGenerated, OperationName, TargetResourceName, TargetResourceType, SecurityDefaultsEnabledBefore, SecurityDefaultsEnabledAfter, InitiatingUserPrincipalName, InitiatingAppName, InitiatingIPAddress, ModifiedProperties
